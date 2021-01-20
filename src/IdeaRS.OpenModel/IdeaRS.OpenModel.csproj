@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>21.0.1</Version>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Copyright>IDEA StatiCa 2020</Copyright>
+    <RepositoryUrl>https://github.com/idea-statica/ideastatica-public</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
+    <Authors>IDEA StatiCa</Authors>
+    <Company>IDEA StatiCa</Company>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageIcon></PackageIcon>
+    <PackageIconUrl />
+    <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <PackageId>IdeaStatiCa.OpenModel</PackageId>
+    <Product>IdeaStatiCa.OpenModel</Product>
+    <AssemblyVersion>21.0.0.1</AssemblyVersion>
+    <FileVersion>21.0.0.1</FileVersion>
+    <Description>IOM interface can be used for the implementation of the link of any application with IDEA StatiCa products.</Description>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+    <DefineConstants></DefineConstants>
+    <OutputPath>..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="WinInsider.System.Windows.Primitives" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="WindowsBase" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Link="README.md" />
+	<EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
