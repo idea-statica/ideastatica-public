@@ -64,9 +64,9 @@
     </When>
   </Chose>
   <Choose>
-    <When Condition=" '$(Configuration)' != 'Debug_IdeaStatiCa_Internal' And '$(Configuration)' != 'Release_IdeaStatiCa_Internal' ">
-      <ItemGroup Condition=" '$(Configuration)' != 'Debug_IdeaStatiCa_Internal' And '$(Configuration)' != 'Release_IdeaStatiCa_Internal' ">
-        <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" Condition=" '$(Configuration)' != 'Debug_IdeaStatiCa_Internal' And '$(Configuration)' != 'Release_IdeaStatiCa_Internal' "/>
+    <When Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' ">
+      <ItemGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' ">
+        <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' "/>
       </ItemGroup>
     </When>
   </Choose>
