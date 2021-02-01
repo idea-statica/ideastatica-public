@@ -62,7 +62,7 @@
         <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
       </ItemGroup>
     </When>
-  </Chose>
+  </Choose>
   <Choose>
     <When Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' ">
       <ItemGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' ">
