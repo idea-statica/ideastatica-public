@@ -63,9 +63,5 @@
       </ItemGroup>
     </When>
   </Choose>
-  <Choose>
-    <When Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' ">
-      <Import Project="packagerefs.targets" Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' "/>
-    </When>
-  </Choose>
+  <Import Project="packagerefs.targets" Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' "/>
 </Project>
