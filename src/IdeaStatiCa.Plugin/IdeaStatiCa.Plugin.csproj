@@ -62,10 +62,10 @@
         <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
       </ItemGroup>
     </When>
-    <When Condition="'$(Configuration)'!='Debug_IdeaStatiCa_Internal' And '$(Configuration)'!='Release_IdeaStatiCa_Internal'">
+    <Otherwise>
       <ItemGroup>
         <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
       </ItemGroup>
-    </When>
+    </Otherwise>
   </Choose>
 </Project>
