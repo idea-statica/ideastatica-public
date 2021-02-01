@@ -5,20 +5,33 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Product>IdeaStatiCa.Plugin</Product>
     <Copyright></Copyright>
-    <OutputPath>..\bin\Release\</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Authors>IdeaStatiCa</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
     <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
     <Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
+    <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
+    <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
+    <OutputPath>..\bin\Release\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
+    <DebugType>full</DebugType>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
     <DocumentationFile></DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
@@ -27,9 +40,6 @@
     <DocumentationFile></DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,4 +56,16 @@
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>
+  <Choose>
+    <When Condition="'$(Configuration)'=='Debug_IdeaStatiCa_Internal' Or '$(Configuration)'=='Release_IdeaStatiCa_Internal'">
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)'!='Debug_IdeaStatiCa_Internal' And '$(Configuration)'!='Release_IdeaStatiCa_Internal'">
+      <ItemGroup>
+        <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
+      </ItemGroup>
+    </When>
+  </Choose>
 </Project>
