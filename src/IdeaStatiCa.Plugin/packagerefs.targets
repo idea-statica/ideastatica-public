@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">    
+  <ItemGroup>
+      <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2"/>
+  </ItemGroup>
+</Project>
