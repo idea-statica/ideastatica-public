@@ -57,13 +57,13 @@
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>
   <Choose>
-    <When Condition="'$(Configuration)'=='Debug_IdeaStatiCa_Internal' Or '$(Configuration)'=='Release_IdeaStatiCa_Internal'">
-      <ItemGroup>
+    <When Condition=" '$(Configuration)'=='Debug_IdeaStatiCa_Internal' Or '$(Configuration)'=='Release_IdeaStatiCa_Internal' ">
+      <ItemGroup Condition=" '$(Configuration)'=='Debug_IdeaStatiCa_Internal' Or '$(Configuration)'=='Release_IdeaStatiCa_Internal' ">
         <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
       </ItemGroup>
     </When>
     <Otherwise>
-      <ItemGroup>
+      <ItemGroup Condition=" '$(Configuration)'!='Debug_IdeaStatiCa_Internal' And '$(Configuration)'!='Release_IdeaStatiCa_Internal' ">
         <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
       </ItemGroup>
     </Otherwise>
