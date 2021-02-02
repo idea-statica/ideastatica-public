@@ -23,13 +23,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "Ex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameWeb", "Examples\IOM\IOM.SteelFrameWeb\IOM.SteelFrameWeb.csproj", "{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.ConnectionClient", "Examples\ConnHiddenCalc\IdeaStatiCa.ConnectionClient\IdeaStatiCa.ConnectionClient.csproj", "{3C0AE938-D5E2-4434-8262-802CABD1AF8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ConnectionClient", "Examples\ConnHiddenCalc\IdeaStatiCa.ConnectionClient\IdeaStatiCa.ConnectionClient.csproj", "{3C0AE938-D5E2-4434-8262-802CABD1AF8B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConHiddenCheckConsole", "Examples\ConnHiddenCalc\ConHiddenCheckConsole\ConHiddenCheckConsole.csproj", "{30A463B1-30CD-4ABD-9CEA-8EE1A93DCC7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionAutomationApp", "Examples\ConnHiddenCalc\ConnectionAutomationApp\ConnectionAutomationApp.csproj", "{7B0920A1-93D0-4206-A8D7-4303DC0DE66E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectionAutomationApp", "Examples\ConnHiddenCalc\ConnectionAutomationApp\ConnectionAutomationApp.csproj", "{7B0920A1-93D0-4206-A8D7-4303DC0DE66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionHiddenCalculation", "Examples\ConnHiddenCalc\ConnectionHiddenCalculation\ConnectionHiddenCalculation.csproj", "{2B3AF9A8-D4C1-4B4E-BBC6-AAA4260E42F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectionHiddenCalculation", "Examples\ConnHiddenCalc\ConnectionHiddenCalculation\ConnectionHiddenCalculation.csproj", "{2B3AF9A8-D4C1-4B4E-BBC6-AAA4260E42F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakeCCM", "FakeCCM", "{270F2140-0363-4B34-A947-83761EEF2D66}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FEAppTest", "Examples\CCM\FakeCCM\FEAppTest\FEAppTest.csproj", "{1F1DB95D-E340-4533-96CD-46645E10E5D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCaFake", "Examples\CCM\FakeCCM\IdeaStatiCaFake\IdeaStatiCaFake.csproj", "{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +125,22 @@ Global
 		{2B3AF9A8-D4C1-4B4E-BBC6-AAA4260E42F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B3AF9A8-D4C1-4B4E-BBC6-AAA4260E42F3}.Release|x64.ActiveCfg = Release|x64
 		{2B3AF9A8-D4C1-4B4E-BBC6-AAA4260E42F3}.Release|x64.Build.0 = Release|x64
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Debug|x64.Build.0 = Debug|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Release|x64.ActiveCfg = Release|Any CPU
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5}.Release|x64.Build.0 = Release|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Debug|x64.Build.0 = Debug|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Release|x64.ActiveCfg = Release|Any CPU
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +157,9 @@ Global
 		{30A463B1-30CD-4ABD-9CEA-8EE1A93DCC7C} = {5512FC71-409A-40BF-8634-268720C7B75C}
 		{7B0920A1-93D0-4206-A8D7-4303DC0DE66E} = {5512FC71-409A-40BF-8634-268720C7B75C}
 		{2B3AF9A8-D4C1-4B4E-BBC6-AAA4260E42F3} = {5512FC71-409A-40BF-8634-268720C7B75C}
+		{270F2140-0363-4B34-A947-83761EEF2D66} = {E6888704-6043-4027-8A71-0BC948E91EAF}
+		{1F1DB95D-E340-4533-96CD-46645E10E5D5} = {270F2140-0363-4B34-A947-83761EEF2D66}
+		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F} = {270F2140-0363-4B34-A947-83761EEF2D66}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
