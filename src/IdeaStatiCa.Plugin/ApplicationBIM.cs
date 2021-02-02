@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using IdeaStatiCa.Diagnostics;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
 	public abstract class ApplicationBIM : IApplicationBIM
 	{
+		private IIdeaLogger ideaLogger = IdeaDiagnostics.GetLogger("bim.plugin.application");
+
 		protected abstract string ApplicationName { get; }
 
 		public abstract void ActivateInBIM(List<BIMItemId> items);
@@ -15,33 +18,48 @@ namespace IdeaStatiCa.Plugin
 
 		public ModelBIM GetActiveSelectionModel(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{
+			ideaLogger.LogDebug($"Importing active selection model: county code: {countryCode}, type = {requestedType}.");
+
 			var model = ImportActive(countryCode, requestedType);
 			if (model != null)
 			{
+				ideaLogger.LogTrace("Obtained correct model.");
 				model.RequestedItems = requestedType;
 			}
+			else
+			{
+				ideaLogger.LogTrace("Obtained null model.");
+			}	
 
 			return model;
 		}
 
 		public string GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{
+			ideaLogger.LogDebug($"Getting active selection model as XML: county code: {countryCode}, type = {requestedType}.");
 			var model = GetActiveSelectionModel(countryCode, requestedType);
-			string xml = Tools.ModelToXml(model);
-			return xml;
+
+			ideaLogger.LogTrace("Converting to XML.");
+			return Tools.ModelToXml(model);
 		}
 
 		public string GetApplicationName() => ApplicationName;
 
 		public List<ModelBIM> GetModelForSelection(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
 		{
+			ideaLogger.LogDebug($"Importing selection: county code: {countryCode}, {items.Count} item(s).");
 			var res = ImportSelection(countryCode, items);
+
+			ideaLogger.LogTrace($"Obtained {res.Count} model(s).");
 			return res;
 		}
 
 		public string GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
 		{
+			ideaLogger.LogDebug($"Getting model for selection as XML: county code: {countryCode}, {items.Count} item(s).");
 			var model = GetModelForSelection(countryCode, items);
+
+			ideaLogger.LogTrace("Converting to XML.");
 			return Tools.ModelToXml(model);
 		}
 
