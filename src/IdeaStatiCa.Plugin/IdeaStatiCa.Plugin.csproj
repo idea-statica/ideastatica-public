@@ -16,20 +16,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>IDEASTATICA_PUBLIC</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>IDEASTATICA_PUBLIC</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>full</DebugType>
     <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DefineConstants>IDEASTATICA_INTERNAL</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>..\..\..\bin\Release\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DefineConstants>IDEASTATICA_INTERNAL</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
@@ -56,12 +60,8 @@
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>
-  <Choose>
-    <When Condition=" '$(Configuration)' == 'Debug_IdeaStatiCa_Internal' Or '$(Configuration)' == 'Release_IdeaStatiCa_Internal' ">
-      <ItemGroup Condition=" '$(Configuration)'=='Debug_IdeaStatiCa_Internal' Or '$(Configuration)'=='Release_IdeaStatiCa_Internal' ">
-        <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="packagerefs.targets" Condition="false"/>
+  <ItemGroup Condition="$(DefineConstants.Contains(IDEASTATICA_INTERNAL))">
+	<ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
+  </ItemGroup>
+  <Import Project="packagerefs.targets" Condition="$(DefineConstants.Contains(IDEASTATICA_PUBLIC))" />
 </Project>
