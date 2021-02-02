@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<ModelBIM xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Project>C:\Users\pospi\Documents\footing-tst.dwg</Project>
+  <RequestedItems>Connections</RequestedItems>
+  <Items>
+    <BIMItemId>
+      <Type>Node</Type>
+      <Id>1</Id>
+    </BIMItemId>
+  </Items>
+  <Model>
+    <Version>1</Version>
+    <OriginSettings>
+      <DateOfCreate>0001-01-01T00:00:00</DateOfCreate>
+      <CrossSectionConversionTable>Autodesk</CrossSectionConversionTable>
+      <CountryCode>ECEN</CountryCode>
+      <ImportRecommendedWelds>true</ImportRecommendedWelds>
+    </OriginSettings>
+    <Point3D>
+      <Point3D>
+        <Id>1</Id>
+        <Name>1</Name>
+        <X>0</X>
+        <Y>-0.0032500000000000003</Y>
+        <Z>0.01</Z>
+      </Point3D>
+      <Point3D>
+        <Id>2</Id>
+        <Name>2</Name>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>3</Z>
+      </Point3D>
+      <Point3D>
+        <Id>3</Id>
+        <Name>3</Name>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Point3D>
+    </Point3D>
+    <LineSegment3D>
+      <LineSegment3D>
+        <Id>719</Id>
+        <StartPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>2</Id>
+        </StartPoint>
+        <EndPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>3</Id>
+        </EndPoint>
+        <LocalCoordinateSystem xsi:type="CoordSystemByVector">
+          <VecX>
+            <X>0</X>
+            <Y>0</Y>
+            <Z>-1</Z>
+          </VecX>
+          <VecY>
+            <X>-0</X>
+            <Y>1</Y>
+            <Z>0</Z>
+          </VecY>
+          <VecZ>
+            <X>1</X>
+            <Y>0</Y>
+            <Z>0</Z>
+          </VecZ>
+        </LocalCoordinateSystem>
+      </LineSegment3D>
+    </LineSegment3D>
+    <ArcSegment3D />
+    <PolyLine3D>
+      <PolyLine3D>
+        <Id>719</Id>
+        <Segments>
+          <ReferenceElement>
+            <TypeName>LineSegment3D</TypeName>
+            <Id>719</Id>
+          </ReferenceElement>
+        </Segments>
+      </PolyLine3D>
+    </PolyLine3D>
+    <Region3D />
+    <MatConcrete>
+      <MatConcrete xsi:type="MatConcreteEc2">
+        <Id>2</Id>
+        <Name>C20/25</Name>
+        <LoadFromLibrary>false</LoadFromLibrary>
+        <E>29000000000</E>
+        <G>11153846153.846153</G>
+        <Poisson>0.3</Poisson>
+        <UnitMass>2500</UnitMass>
+        <SpecificHeat>0</SpecificHeat>
+        <ThermalExpansion>0</ThermalExpansion>
+        <ThermalConductivity>0</ThermalConductivity>
+        <IsDefaultMaterial>false</IsDefaultMaterial>
+        <OrderInCode>0</OrderInCode>
+        <StateOfThermalExpansion>None</StateOfThermalExpansion>
+        <StateOfThermalConductivity>None</StateOfThermalConductivity>
+        <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+        <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+        <StateOfThermalStrain>None</StateOfThermalStrain>
+        <UserThermalStressStrainCurvature />
+        <CalculateDependentValues>false</CalculateDependentValues>
+        <Fck>0</Fck>
+        <Ecm>0</Ecm>
+        <Epsc1>0</Epsc1>
+        <Epsc2>0</Epsc2>
+        <Epsc3>0</Epsc3>
+        <Epscu1>0</Epscu1>
+        <Epscu2>0</Epscu2>
+        <Epscu3>0</Epscu3>
+        <Fctm>0</Fctm>
+        <Fctk_0_05>0</Fctk_0_05>
+        <Fctk_0_95>0</Fctk_0_95>
+        <NFactor>0</NFactor>
+        <Fcm>0</Fcm>
+        <StoneDiameter>0</StoneDiameter>
+        <CementClass>S</CementClass>
+        <AggregateType>Quartzite</AggregateType>
+        <DiagramType>Bilinear</DiagramType>
+        <SilicaFume>false</SilicaFume>
+        <PlainConcreteDiagram>false</PlainConcreteDiagram>
+      </MatConcrete>
+    </MatConcrete>
+    <MatReinforcement />
+    <MatSteel>
+      <MatSteel xsi:type="MatSteelEc2">
+        <Id>1</Id>
+        <Name>S 355</Name>
+        <LoadFromLibrary>true</LoadFromLibrary>
+        <E>210000000000</E>
+        <G>80769230769.230774</G>
+        <Poisson>0.3</Poisson>
+        <UnitMass>7849.9999999999991</UnitMass>
+        <SpecificHeat>0</SpecificHeat>
+        <ThermalExpansion>0</ThermalExpansion>
+        <ThermalConductivity>0</ThermalConductivity>
+        <IsDefaultMaterial>false</IsDefaultMaterial>
+        <OrderInCode>0</OrderInCode>
+        <StateOfThermalExpansion>None</StateOfThermalExpansion>
+        <StateOfThermalConductivity>None</StateOfThermalConductivity>
+        <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+        <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+        <StateOfThermalStrain>None</StateOfThermalStrain>
+        <UserThermalStressStrainCurvature />
+        <fy>0</fy>
+        <fu>0</fu>
+        <fy40>0</fy40>
+        <fu40>0</fu40>
+        <DiagramType>Bilinear</DiagramType>
+      </MatSteel>
+    </MatSteel>
+    <MatPrestressSteel />
+    <CrossSection>
+      <CrossSection xsi:type="CrossSectionParameter">
+        <Id>1</Id>
+        <Name>HEA200</Name>
+        <CrossSectionRotation>0</CrossSectionRotation>
+        <CrossSectionType>RolledI</CrossSectionType>
+        <Parameters>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>B</Name>
+            <Value>0.2</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>H</Name>
+            <Value>0.19</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>s</Name>
+            <Value>0.0065000000000000006</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>t</Name>
+            <Value>0.01</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r2</Name>
+            <Value>0.018000000000000002</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>tapperF</Name>
+            <Value>0</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r1</Name>
+            <Value>0</Value>
+          </Parameter>
+        </Parameters>
+        <Material>
+          <TypeName>MatSteel</TypeName>
+          <Id>1</Id>
+        </Material>
+      </CrossSection>
+    </CrossSection>
+    <ReinforcedCrossSection />
+    <HingeElement1D />
+    <Opening />
+    <DappedEnd />
+    <PatchDevice />
+    <Element1D>
+      <Element1D>
+        <Id>719</Id>
+        <Name>EB719</Name>
+        <CrossSectionBegin>
+          <TypeName>CrossSection</TypeName>
+          <Id>1</Id>
+        </CrossSectionBegin>
+        <CrossSectionEnd>
+          <TypeName>CrossSection</TypeName>
+          <Id>1</Id>
+        </CrossSectionEnd>
+        <Segment>
+          <TypeName>LineSegment3D</TypeName>
+          <Id>719</Id>
+        </Segment>
+        <RotationRx>0</RotationRx>
+        <EccentricityBeginX>0</EccentricityBeginX>
+        <EccentricityBeginY>0</EccentricityBeginY>
+        <EccentricityBeginZ>0</EccentricityBeginZ>
+        <EccentricityEndX>0</EccentricityEndX>
+        <EccentricityEndY>0</EccentricityEndY>
+        <EccentricityEndZ>0</EccentricityEndZ>
+      </Element1D>
+    </Element1D>
+    <Beam />
+    <Member1D>
+      <Member1D>
+        <Id>719</Id>
+        <Elements1D>
+          <ReferenceElement>
+            <TypeName>Element1D</TypeName>
+            <Id>719</Id>
+          </ReferenceElement>
+        </Elements1D>
+        <Member1DType>Beam</Member1DType>
+      </Member1D>
+    </Member1D>
+    <Element2D />
+    <Wall />
+    <Member2D />
+    <RigidLink />
+    <PointOnLine3D />
+    <PointSupportNode />
+    <LineSupportSegment />
+    <LoadsInPoint />
+    <LoadsOnLine />
+    <StrainLoadsOnLine />
+    <PointLoadsOnLine />
+    <LoadsOnSurface />
+    <Settlements />
+    <TemperatureLoadsOnLine />
+    <LoadGroup />
+    <LoadCase />
+    <CombiInput />
+    <Attribute />
+    <ConnectionPoint>
+      <ConnectionPoint>
+        <Id>1</Id>
+        <Name>Conn-1</Name>
+        <Node>
+          <TypeName>Point3D</TypeName>
+          <Id>1</Id>
+        </Node>
+        <ConnectedMembers>
+          <ConnectedMember>
+            <Id>719</Id>
+            <MemberId>
+              <TypeName>Member1D</TypeName>
+              <Id>719</Id>
+            </MemberId>
+            <IsContinuous>false</IsContinuous>
+            <Length>0</Length>
+          </ConnectedMember>
+        </ConnectedMembers>
+        <NodeId>0</NodeId>
+        <ProjectFileName>.\Connections\Conn-1.ideaCon</ProjectFileName>
+      </ConnectionPoint>
+    </ConnectionPoint>
+    <Connections>
+      <ConnectionData>
+        <Beams>
+          <BeamData>
+            <Id>719</Id>
+            <Plates />
+            <OriginalModelId>719</OriginalModelId>
+            <Cuts>
+              <CutData>
+                <PlanePoint>
+                  <Id>0</Id>
+                  <X>0</X>
+                  <Y>0</Y>
+                  <Z>0.01</Z>
+                </PlanePoint>
+                <NormalVector>
+                  <X>-0</X>
+                  <Y>-0</Y>
+                  <Z>1</Z>
+                </NormalVector>
+              </CutData>
+            </Cuts>
+            <IsAdded>false</IsAdded>
+            <IsNegativeObject>false</IsNegativeObject>
+            <MirrorY>false</MirrorY>
+            <RefLineInCenterOfGravity>true</RefLineInCenterOfGravity>
+            <IsBearingMember>false</IsBearingMember>
+            <AutoAddCutByWorkplane>true</AutoAddCutByWorkplane>
+          </BeamData>
+        </Beams>
+        <Plates>
+          <PlateData>
+            <Id>1</Id>
+            <Thickness>0.01</Thickness>
+            <Material>S 355</Material>
+            <OutlinePoints />
+            <Origin>
+              <Id>0</Id>
+              <X>0.195</X>
+              <Y>0.2</Y>
+              <Z>0.005</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>-1</Y>
+              <Z>0</Z>
+            </AxisX>
+            <AxisY>
+              <X>-1</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-0</X>
+              <Y>-0</Y>
+              <Z>-1</Z>
+            </AxisZ>
+            <Region>M 0.4 0.39 L 0 0.39 L 0 0 L 0.4 0 L 0.4 0.39</Region>
+            <OriginalModelId>7784</OriginalModelId>
+            <IsNegativeObject>false</IsNegativeObject>
+          </PlateData>
+        </Plates>
+        <FoldedPlates />
+        <BoltGrids />
+        <AnchorGrids>
+          <AnchorGrid>
+            <Id>1</Id>
+            <IsAnchor>false</IsAnchor>
+            <AnchorLen>0.171</AnchorLen>
+            <HoleDiameter>0</HoleDiameter>
+            <Diameter>0.016</Diameter>
+            <HeadDiameter>0.02</HeadDiameter>
+            <DiagonalHeadDiameter>0.025</DiagonalHeadDiameter>
+            <HeadHeight>0.016</HeadHeight>
+            <BoreHole>0.018000000000000002</BoreHole>
+            <TensileStressArea>157</TensileStressArea>
+            <NutThickness>0.016</NutThickness>
+            <Standard>Fischer FAZ</Standard>
+            <Material>1.4529</Material>
+            <Origin>
+              <Id>0</Id>
+              <X>0</X>
+              <Y>0</Y>
+              <Z>0.01</Z>
+            </Origin>
+            <AxisX>
+              <X>0</X>
+              <Y>-1</Y>
+              <Z>0</Z>
+            </AxisX>
+            <AxisY>
+              <X>1</X>
+              <Y>0</Y>
+              <Z>0</Z>
+            </AxisY>
+            <AxisZ>
+              <X>-0</X>
+              <Y>0</Y>
+              <Z>1</Z>
+            </AxisZ>
+            <Positions>
+              <Point3D>
+                <Id>0</Id>
+                <X>0.125</X>
+                <Y>-0.125</Y>
+                <Z>0.01</Z>
+              </Point3D>
+              <Point3D>
+                <Id>0</Id>
+                <X>0.125</X>
+                <Y>0.125</Y>
+                <Z>0.01</Z>
+              </Point3D>
+              <Point3D>
+                <Id>0</Id>
+                <X>-0.125</X>
+                <Y>-0.125</Y>
+                <Z>0.01</Z>
+              </Point3D>
+              <Point3D>
+                <Id>0</Id>
+                <X>-0.125</X>
+                <Y>0.125</Y>
+                <Z>0.01</Z>
+              </Point3D>
+            </Positions>
+            <ConnectedPlates />
+            <ConnectedPartIds>
+              <string>804</string>
+              <string>7784</string>
+            </ConnectedPartIds>
+            <ConcreteBlock>
+              <Lenght>0.8</Lenght>
+              <Width>0.8</Width>
+              <Height>0.4</Height>
+              <Material>C20/25</Material>
+            </ConcreteBlock>
+          </AnchorGrid>
+        </AnchorGrids>
+        <Welds>
+          <WeldData>
+            <Id>1</Id>
+            <Thickness>0.004</Thickness>
+            <WeldType>Fillet</WeldType>
+            <ConnectedPartIds>
+              <string>7784</string>
+              <string>719</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>0</Id>
+              <X>-0.095</X>
+              <Y>0</Y>
+              <Z>0.01</Z>
+            </Start>
+            <End>
+              <Id>0</Id>
+              <X>-0.095</X>
+              <Y>0</Y>
+              <Z>0.01</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>2</Id>
+            <Thickness>0.004</Thickness>
+            <WeldType>Fillet</WeldType>
+            <ConnectedPartIds>
+              <string>7784</string>
+              <string>719</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>0</Id>
+              <X>0.095</X>
+              <Y>0</Y>
+              <Z>0.01</Z>
+            </Start>
+            <End>
+              <Id>0</Id>
+              <X>0.095</X>
+              <Y>0</Y>
+              <Z>0.01</Z>
+            </End>
+          </WeldData>
+          <WeldData>
+            <Id>3</Id>
+            <Thickness>0.004</Thickness>
+            <WeldType>Fillet</WeldType>
+            <ConnectedPartIds>
+              <string>7784</string>
+              <string>719</string>
+            </ConnectedPartIds>
+            <Start>
+              <Id>0</Id>
+              <X>0</X>
+              <Y>-0.0032500000000000003</Y>
+              <Z>0.01</Z>
+            </Start>
+            <End>
+              <Id>0</Id>
+              <X>0</X>
+              <Y>-0.0032500000000000003</Y>
+              <Z>0.01</Z>
+            </End>
+          </WeldData>
+        </Welds>
+        <ConcreteBlocks />
+        <CutBeamByBeams />
+      </ConnectionData>
+    </Connections>
+    <Reinforcement />
+    <ISDModel />
+    <InitialImperfectionOfPoint />
+    <Tendon />
+    <ResultClass />
+    <DesignMember />
+    <SubStructure />
+    <CheckMember />
+    <ConcreteCheckSection />
+    <RebarShape />
+    <RebarGeneral />
+    <RebarSingle />
+    <RebarStirrups />
+  </Model>
+  <Results>
+    <ResultOnMembers>
+      <ResultOnMembers>
+        <Members />
+      </ResultOnMembers>
+    </ResultOnMembers>
+  </Results>
+  <Messages>
+    <Messages />
+  </Messages>
+</ModelBIM>

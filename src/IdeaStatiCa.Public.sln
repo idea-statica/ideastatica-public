@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRS.OpenModel", "IdeaRS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Plugin", "IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj", "{0AE2951F-A585-4390-B35D-D4384628A453}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CCM", "CCM", "{E6888704-6043-4027-8A71-0BC948E91EAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEAppExample_1", "Examples\CCM\FEAppExample_1\FEAppExample_1.csproj", "{6C983760-8581-407F-80C9-3F3D6BD56F90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,17 @@ Global
 		{0AE2951F-A585-4390-B35D-D4384628A453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AE2951F-A585-4390-B35D-D4384628A453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE2951F-A585-4390-B35D-D4384628A453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C983760-8581-407F-80C9-3F3D6BD56F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C983760-8581-407F-80C9-3F3D6BD56F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C983760-8581-407F-80C9-3F3D6BD56F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C983760-8581-407F-80C9-3F3D6BD56F90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6888704-6043-4027-8A71-0BC948E91EAF} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
+		{6C983760-8581-407F-80C9-3F3D6BD56F90} = {E6888704-6043-4027-8A71-0BC948E91EAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
