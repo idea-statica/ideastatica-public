@@ -11,15 +11,17 @@
     <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
     <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
     <Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
-    <Configurations>Debug;Release</Configurations>
+    <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>full</DebugType>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
@@ -46,5 +48,5 @@
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>
-  <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2"/>
+  <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
 </Project>
