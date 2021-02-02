@@ -47,6 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
   </ItemGroup>
-  <ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
 </Project>
