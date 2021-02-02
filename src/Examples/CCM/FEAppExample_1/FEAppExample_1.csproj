@@ -70,6 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin-public.csproj" />
   </ItemGroup>
 </Project>

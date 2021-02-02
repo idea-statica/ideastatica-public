@@ -33,7 +33,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin-public.csproj" />
     <ProjectReference Include="..\IOM.GeneratorExample\IOM.GeneratorExample.csproj" />
   </ItemGroup>
   <ItemGroup>
