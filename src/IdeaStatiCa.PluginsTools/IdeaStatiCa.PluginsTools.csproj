@@ -30,7 +30,6 @@
   <ItemGroup>
     <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
     <PackageReference Include="IdeaStatiCa.OpenModel" Version="21.0.13" />
-    <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
