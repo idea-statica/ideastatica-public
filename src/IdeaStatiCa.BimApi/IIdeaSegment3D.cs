@@ -6,18 +6,14 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaSegment3D : IIdeaObject
+	public interface IIdeaSegment3D : IIdeaObject
 	{
 
-		public IIdeaSegment3D()
-		{
-		}
+		IIdeaNode StartNode { get; }
 
-		public IIdeaNode startNode;
+		IIdeaNode EndNode { get; }
 
-		public IIdeaNode endNode;
-
-		public IdeaRS.OpenModel.Geometry3D.CoordSystem localCoordinateSystem;
+		IdeaRS.OpenModel.Geometry3D.CoordSystem LocalCoordinateSystem { get; }
 
 	}
 }

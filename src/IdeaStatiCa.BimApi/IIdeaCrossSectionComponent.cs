@@ -6,18 +6,13 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaCrossSectionComponent
+	public interface IIdeaCrossSectionComponent
 	{
+		IIdeaMaterial Material { get; }
 
-		public IIdeaCrossSectionComponent()
-		{
-		}
+		IdeaRS.OpenModel.Geometry2D.Region2D Geometry { get; }
 
-		public IIdeaMaterial material;
-
-		public IdeaRS.OpenModel.Geometry2D.Region2D geometry;
-
-		public int phase;
+		int Phase { get; }
 
 
 

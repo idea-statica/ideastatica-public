@@ -6,14 +6,10 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaCrossSectionByComponents : IIdeaCrossSection
+	public interface IIdeaCrossSectionByComponents : IIdeaCrossSection
 	{
 
-		public IIdeaCrossSectionByComponents()
-		{
-		}
-
-		public HashSet<IIdeaCrossSectionComponent> Components;
+		HashSet<IIdeaCrossSectionComponent> Components { get; }
 
 
 	}

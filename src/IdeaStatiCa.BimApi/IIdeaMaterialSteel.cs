@@ -6,12 +6,8 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaMaterialSteel : IIdeaMaterial
+	public interface IIdeaMaterialSteel : IIdeaMaterial
 	{
-
-		public IIdeaMaterialSteel()
-		{
-		}
 
 		// TODO;
 

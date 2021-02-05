@@ -6,12 +6,8 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaMaterialTendon : IIdeaMaterial
+	public interface IIdeaMaterialTendon : IIdeaMaterial
 	{
-
-		public IIdeaMaterialTendon()
-		{
-		}
 
 		// TODO;
 

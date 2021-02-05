@@ -6,14 +6,10 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaCrossSection : IIdeaObject
+	public interface IIdeaCrossSection : IIdeaObject
 	{
 
-		public IIdeaCrossSection()
-		{
-		}
-
-		public double rotation;
+		double Rotation { get; }
 
 
 

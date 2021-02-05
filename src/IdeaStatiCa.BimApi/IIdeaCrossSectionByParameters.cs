@@ -6,18 +6,14 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaCrossSectionByParameters : IIdeaCrossSection
+	public interface IIdeaCrossSectionByParameters : IIdeaCrossSection
 	{
 
-		public IIdeaCrossSectionByParameters()
-		{
-		}
+		IIdeaMaterial Material { get; }
 
-		public IIdeaMaterial material;
+		IdeaRS.OpenModel.CrossSection.CrossSectionType Type { get; }
 
-		public IdeaRS.OpenModel.CrossSection.CrossSectionType type;
-
-		public HashSet<IdeaRS.OpenModel.CrossSection.Parameter> parameters;
+		HashSet<IdeaRS.OpenModel.CrossSection.Parameter> Parameters { get; }
 
 	}
 }

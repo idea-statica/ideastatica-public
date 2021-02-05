@@ -6,13 +6,8 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaMaterial : IIdeaObject
+	public interface IIdeaMaterial : IIdeaObject
 	{
-
-		public IIdeaMaterial()
-		{
-		}
-
 
 	}
 }

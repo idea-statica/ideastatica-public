@@ -6,31 +6,18 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaMaterialLibrary
+	public interface IIdeaMaterialLibrary
 	{
-
-		public IIdeaMaterialLibrary()
-		{
-		}
 
 		/// <summary>
 		/// @return
 		/// </summary>
-		public HashSet<string> GetMaterialNames()
-		{
-			// TODO implement here
-			throw new NotImplementedException();
-		}
+		HashSet<string> GetMaterialNames();
 
 		/// <summary>
 		/// @param materialName 
 		/// @return
 		/// </summary>
-		public bool IsValidIdeaMaterialName(string materialName)
-		{
-			// TODO implement here
-			throw new NotImplementedException();
-		}
-
+		bool IsValidIdeaMaterialName(string materialName);
 	}
 }

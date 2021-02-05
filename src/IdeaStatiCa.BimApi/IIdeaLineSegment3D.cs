@@ -6,12 +6,8 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaLineSegment3D : IIdeaSegment3D
+	public interface IIdeaLineSegment3D : IIdeaSegment3D
 	{
-
-		public IIdeaLineSegment3D()
-		{
-		}
 
 	}
 }

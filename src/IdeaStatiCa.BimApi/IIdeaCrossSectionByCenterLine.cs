@@ -6,22 +6,18 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaCrossSectionByCenterLine : IIdeaCrossSection
+	public interface IIdeaCrossSectionByCenterLine : IIdeaCrossSection
 	{
 
-		public IIdeaCrossSectionByCenterLine()
-		{
-		}
+		IIdeaMaterial Material { get; }
 
-		public IIdeaMaterial material;
+		IdeaRS.OpenModel.CrossSection.CrossSectionType Type { get; }
 
-		public IdeaRS.OpenModel.CrossSection.CrossSectionType type;
+		IdeaRS.OpenModel.Geometry2D.PolyLine2D CenterLine { get; }
 
-		public IdeaRS.OpenModel.Geometry2D.PolyLine2D centerLine;
+		double Radius { get; }
 
-		public double radius;
-
-		public double thickness;
+		double Thickness { get; }
 
 	}
 }

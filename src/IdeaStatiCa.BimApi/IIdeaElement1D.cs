@@ -6,28 +6,24 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaElement1D : IIdeaObject
+	public interface IIdeaElement1D : IIdeaObject
 	{
 
-		public IIdeaElement1D()
-		{
-		}
+		IIdeaNode StartNode { get; }
 
-		public IIdeaNode startNode;
+		IIdeaNode EndNode { get; }
 
-		public IIdeaNode endNode;
+		IIdeaCrossSection StartCrossSection { get; }
 
-		public IIdeaCrossSection startCrossSection;
+		IIdeaCrossSection EndCrossSection { get; }
 
-		public IIdeaCrossSection endCrossSection;
+		double ExcentricityBegin { get; }
 
-		public double excentricityBegin;
+		double ExcentricityEnd { get; }
 
-		public double excentricityEnd;
+		double RotationRx { get; }
 
-		public double rotationRx;
-
-		public IIdeaSegment3D segment;
+		IIdeaSegment3D Segment { get; }
 
 
 	}

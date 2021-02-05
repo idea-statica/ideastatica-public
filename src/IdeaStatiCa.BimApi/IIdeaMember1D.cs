@@ -6,26 +6,22 @@ using System.Text;
 
 namespace IdeaStatiCa.BimApi
 {
-	public class IIdeaMember1D : IIdeaObject
+	public interface IIdeaMember1D : IIdeaObject
 	{
 
-		public IIdeaMember1D()
-		{
-		}
+		IdeaRS.OpenModel.Model.Member1DType Type { get; }
 
-		public IdeaRS.OpenModel.Model.Member1DType type;
+		HashSet<IIdeaElement1D> Elements { get; }
 
-		public HashSet<IIdeaElement1D> elements;
+		IIdeaNode StartNode { get; }
 
-		public IIdeaNode startNode;
+		IIdeaNode EndNode { get; }
 
-		public IIdeaNode endNode;
+		// IdeaReleases startReleases;
 
-		// public IdeaReleases startReleases;
+		// IdeaReleases endReleases;
 
-		// public IdeaReleases endReleases;
-
-		// public void midPoint;
+		// void midPoint;
 
 	}
 }
