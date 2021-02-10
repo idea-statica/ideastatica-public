@@ -63,6 +63,8 @@ namespace IdeaStatiCa.Plugin
 			return Tools.ModelToXml(model);
 		}
 
+		public abstract bool HasImportOf(RequestedItemsType requestedType);
+
 		public virtual bool IsCAD() => false;
 
 		public Task SelectAsync(List<BIMItemId> items) => Task.Run(() => ActivateInBIM(items));

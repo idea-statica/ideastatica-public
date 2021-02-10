@@ -30,6 +30,9 @@ namespace IdeaStatiCa.Plugin
 		string GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items);
 
 		[OperationContract]
+		bool HasImportOf(RequestedItemsType requestedType);
+
+		[OperationContract]
 		bool IsCAD();
 
 		[OperationContract]
