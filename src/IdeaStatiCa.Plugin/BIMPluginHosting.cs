@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaStatiCa.Plugin.gRPC;
+using System;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Description;
@@ -35,8 +36,7 @@ namespace IdeaStatiCa.Plugin
 		private string clientId = string.Empty;
 		private string workingDirectory = string.Empty;
 		private readonly string EventName;
-		private readonly string PluginUrlFormat;
-		private readonly Diagnostics.IIdeaLogger ideaLogger = null;
+		private readonly string PluginUrlFormat; 
 
 #if DEBUG
 		private readonly int OpenServerTimeLimit = -1;
@@ -49,7 +49,6 @@ namespace IdeaStatiCa.Plugin
 		public BIMPluginHosting(IBIMPluginFactory factory, string eventName = Constants.DefaultPluginEventName, string pluginUrlFormat = Constants.DefaultPluginUrlFormat)
 		{
 			//Debug.Assert(false);
-			ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.bimpluginhosting");
 			mre = new ManualResetEvent(false);
 			this.bimPluginFactory = factory;
 			this.EventName = eventName;
@@ -91,8 +90,6 @@ namespace IdeaStatiCa.Plugin
 
 		private void RunServer(string id, string workingDirectory, System.Threading.CancellationToken cancellationToken)
 		{
-			ideaLogger.LogDebug($"method:RunServer(); id = '{id}', workingDirectory = '{workingDirectory}'");
-
 			clientId = id;
 			this.workingDirectory = workingDirectory;
 			// create the communication pipe for getting commands from IDEA StatiCa
@@ -147,7 +144,7 @@ namespace IdeaStatiCa.Plugin
 
 			if (IdeaStaticaApp != null)
 			{
-				IdeaStaticaApp.Exited += IS_Exited;
+				IdeaStaticaApp.Exited += new EventHandler(IS_Exited);
 				NotifyAppStatusChanged(AppStatus.Started);
 
 				if (bimAppService is ApplicationBIM appBim)
@@ -161,8 +158,8 @@ namespace IdeaStatiCa.Plugin
 		{
 			try
 			{
-				IdeaStaticaApp.Exited -= IS_Exited;
-				IdeaStaticaApp.Dispose();
+				IdeaStaticaApp.Exited -= new EventHandler(IS_Exited);
+				IdeaStaticaApp.Dispose(); 
 			}
 			catch { }
 			IdeaStaticaApp = null;
@@ -182,65 +179,32 @@ namespace IdeaStatiCa.Plugin
 		public Task HostingTask { get => hostingTask; set => hostingTask = value; }
 		public IApplicationBIM Service { get => bimAppService; }
 
-		private EventWaitHandle SyncEvent { get; set; }
-
 		private Process RunIdeaIdeaStatiCa(string exePath, string id)
 		{
 			if (exePath == null)
 			{
-				ideaLogger.LogWarning("method:RunIdeaIdeaStatiCa(); exePath is null");
 				return null;
 			}
 
-			string eventName = string.Format("{0}{1}", EventName, id);
-			ideaLogger.LogDebug($"method:RunIdeaIdeaStatiCa(); id = '{id}', exePath = '{exePath}, eventName ='{eventName}'");
-
-			Debug.Assert(SyncEvent == null, "Event should be null - it is a temporary item");
-			SyncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName);
-
 			Process connectionProc = new Process();
-			connectionProc.Exited += OnCCMStartFailed;
 
-			try
+			string eventName = string.Format("{0}{1}", EventName, id);
+			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
 				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\"");
-
 				connectionProc.EnableRaisingEvents = true;
+				connectionProc.Start();
 
-				if (connectionProc.Start() != true)
+				if (!syncEvent.WaitOne(OpenServerTimeLimit))
 				{
-					throw new Exception($"Can not start process '{exePath}'");
+					syncEvent.Close();
+					throw new CommunicationException(string.Format("Cannot start '{0}'", exePath));
 				}
-
-				if (!SyncEvent.WaitOne(OpenServerTimeLimit))
-				{
-					throw new CommunicationException(string.Format("Start of '{0}' failed with timeout.", exePath));
-				}
-
-				if(connectionProc.HasExited)
-				{
-					// IDEA StatiCa process is not running
-					throw new CommunicationException(string.Format("Application '{0}' has exited unexpectedly.", exePath));
-				}
-			}
-			finally
-			{
-				connectionProc.Exited -= OnCCMStartFailed;
-				SyncEvent.Close();
-				SyncEvent = null;
+				syncEvent.Close();
 			}
 
 			return connectionProc;
-		}
-
-		private void OnCCMStartFailed(object sender, EventArgs e)
-		{
-			// idea statica finished withou initialization of cross process communication
-			if(SyncEvent != null)
-			{
-				SyncEvent.Set();
-			}
 		}
 
 		protected virtual void Dispose(bool disposing)

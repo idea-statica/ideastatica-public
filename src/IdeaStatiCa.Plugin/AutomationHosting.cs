@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Description;
@@ -61,7 +62,7 @@ namespace IdeaStatiCa.Plugin
 		private readonly string EventName;
 		private readonly string ClientUrlFormat;
 		private readonly string AutomationUrlFormat;
-		private readonly Diagnostics.IIdeaLogger ideaLogger = null;
+		private readonly ILogger ideaLogger = null;
 
 #if DEBUG
 		private readonly TimeSpan OpenServerTimeLimit = TimeSpan.MaxValue;
@@ -69,12 +70,14 @@ namespace IdeaStatiCa.Plugin
 		private readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
 #endif
 
-		public AutomationHosting(MyInterface hostedService,
+		public AutomationHosting(MyInterface hostedService, ILogger logger,
 			string eventName = Constants.DefaultPluginEventName,
 			string clientUrlFormat = Constants.DefaultPluginUrlFormat,
 			string automationUrlFormat = Constants.DefaultIdeaStaticaAutoUrlFormat)
 		{
-			ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhosting");
+			ideaLogger = logger;
+
+			//ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhosting");
 			this.Status = AutomationStatus.Unknown;
 			this.automation = hostedService;
 			this.EventName = eventName;
@@ -109,9 +112,9 @@ namespace IdeaStatiCa.Plugin
 				{
 					RunServer(id, token);
 				}
-				catch (Exception ex)
+				catch(Exception e)
 				{
-					ideaLogger.LogError("method: RunAsync; RunServer failed", ex);
+					ideaLogger.LogError("RunAsync  RunServer failed", e);
 					throw;
 				}
 			}, token);
@@ -144,7 +147,7 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual void RunServer(string id, System.Threading.CancellationToken cancellationToken)
 		{
-			ideaLogger.LogDebug($"method: RunServer id = {id}");
+			ideaLogger.LogInformation("Calling RunServer");
 
 			mre.Reset();
 
@@ -155,7 +158,7 @@ namespace IdeaStatiCa.Plugin
 				try
 				{
 					myAutomatingProcessId = int.Parse(id);
-					ideaLogger.LogDebug($"RunServer - processId == '{myAutomatingProcessId}'");
+					ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}'");
 
 					bimProcess = Process.GetProcessById(myAutomatingProcessId);
 					bimProcess.EnableRaisingEvents = true;
@@ -175,7 +178,6 @@ namespace IdeaStatiCa.Plugin
 						Thread.Sleep(100);
 						if (counter > 200)
 						{
-							ideaLogger.LogDebug($"method: RunServer;  Can not open client '{feaPluginUrl}', attempts {counter}");
 							throw new CommunicationException("Can not open client");
 						}
 						counter++;
@@ -193,9 +195,9 @@ namespace IdeaStatiCa.Plugin
 					Status |= AutomationStatus.IsClient;
 					isBimRunning = true;
 				}
-				catch (Exception ex)
+				catch (Exception e)
 				{
-					ideaLogger.LogError("Can not attach to BIM application", ex);
+					ideaLogger.LogError("Can not attach to BIM application", e);
 					throw;
 				}
 			}
@@ -218,7 +220,7 @@ namespace IdeaStatiCa.Plugin
 			int myProcessId = myProcess.Id;
 
 			string baseAddress = string.Format(AutomationUrlFormat, myProcessId);
-			ideaLogger.LogDebug($"RunServer - Starting Automation service listening on '{baseAddress}'");
+			ideaLogger.LogInformation($"RunServer - Starting Automation service listening on '{baseAddress}'");
 
 			// expose my IAutomation interface
 			using (ServiceHost selfServiceHost = new ServiceHost(automation, new Uri(baseAddress)))
@@ -243,7 +245,6 @@ namespace IdeaStatiCa.Plugin
 				{
 					// notify plugin that service is running
 					string myEventName = string.Format("{0}{1}", EventName, id);
-					ideaLogger.LogTrace($"Trying to open the event  {myEventName}");
 					EventWaitHandle syncEvent;
 					if (EventWaitHandle.TryOpenExisting(myEventName, out syncEvent))
 					{
@@ -266,7 +267,7 @@ namespace IdeaStatiCa.Plugin
 					Thread.Sleep(100);
 				}
 
-				ideaLogger.LogDebug($"RunServer - Automation Service has been stopped");
+				ideaLogger.LogInformation($"RunServer - Automation Service has been stopped");
 
 				try
 				{

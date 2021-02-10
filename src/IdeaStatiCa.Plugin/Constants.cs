@@ -2,6 +2,11 @@
 {
 	public sealed class Constants
 	{
+		#region gRPC Constants 
+		public const string GrpcPortParam = "-grpcPort";
+		public const string GrpcReflectionErrorException = "GrpcReflectionError";
+		#endregion
+
 		public const string CodeCheckManagerAppName = "IdeaCodeCheck.exe";
 		public const string AutomationParam = "-automation";
 		public const string ProjectParam = "-project";
