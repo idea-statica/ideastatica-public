@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Diagnostics;
 using System.ServiceModel;
@@ -70,12 +71,13 @@ namespace IdeaStatiCa.Plugin
 		private readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
 #endif
 
-		public AutomationHosting(MyInterface hostedService, ILogger logger,
+		public AutomationHosting(MyInterface hostedService, 
+			ILogger logger = null,
 			string eventName = Constants.DefaultPluginEventName,
 			string clientUrlFormat = Constants.DefaultPluginUrlFormat,
 			string automationUrlFormat = Constants.DefaultIdeaStaticaAutoUrlFormat)
 		{
-			ideaLogger = logger;
+			ideaLogger = logger ?? NullLogger.Instance;
 
 			//ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhosting");
 			this.Status = AutomationStatus.Unknown;

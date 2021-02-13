@@ -1,5 +1,7 @@
 ﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,7 @@ namespace IdeaStatiCa.Plugin
         private readonly IBIMPluginFactory bimPluginFactory;
         private string clientId = string.Empty;
         private string workingDirectory = string.Empty;
+		private ILogger ideaLogger;
 
         /// <summary>
         /// Triggered when app status changes.
@@ -59,17 +62,21 @@ namespace IdeaStatiCa.Plugin
 		readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
 #endif
 
-        public BIMPluginHostingGrpc(IBIMPluginFactory factory, string eventName = Constants.DefaultPluginEventName)
+        public BIMPluginHostingGrpc(IBIMPluginFactory factory, ILogger logger = null, string eventName = Constants.DefaultPluginEventName)
         {
             mre = new ManualResetEvent(false);
-            bimPluginFactory = factory;            
-        }
+            bimPluginFactory = factory;
+			ideaLogger = logger ?? NullLogger.Instance;
+		}
 
         public Task RunAsync(string id, string workingDirectory)
         { 
             if (hostingTask != null)
             {
                 Debug.Fail("Task is running");
+
+				ideaLogger.LogInformation("Starting BIM Plugin Hosting");
+
                 return Task.CompletedTask;
             }
 
@@ -97,7 +104,9 @@ namespace IdeaStatiCa.Plugin
 
                 Debug.Assert(stopRes, "Can not stop");
 
-                hostingTask = null;
+				ideaLogger.LogInformation("Stopping BIM Plugin Hosting");
+
+				hostingTask = null;
 
                 RaiseAppStatusChanged(AppStatus.Finished);
             }
@@ -113,8 +122,10 @@ namespace IdeaStatiCa.Plugin
 
             GrpcPort = PortFinder.FindPort(50000, 50500);
 
-            // Create Grpc server
-            grpcServer = new GrpcReflectionServer(bimAppService, GrpcPort);
+			ideaLogger.LogInformation("Starting gRPC server");
+
+			// Create Grpc server
+			grpcServer = new GrpcReflectionServer(bimAppService, GrpcPort);
             grpcServer.Start();
 
             // Open IDEA StatiCa
@@ -177,7 +188,10 @@ namespace IdeaStatiCa.Plugin
                 if (!syncEvent.WaitOne(OpenServerTimeLimit))
                 {
                     syncEvent.Close();
-                    throw new CommunicationException(string.Format("Cannot start '{0}'", exePath));
+
+					ideaLogger.LogError("Cannot start '{0}'", exePath);
+
+					throw new CommunicationException(string.Format("Cannot start '{0}'", exePath));
                 }
                 syncEvent.Close();
             }

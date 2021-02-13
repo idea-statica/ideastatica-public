@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Nito.AsyncEx.Synchronous;
 using System;
 using System.Collections.Generic;
@@ -65,11 +66,11 @@ namespace IdeaStatiCa.Plugin
 
         public AutomationHostingGrpc(MyInterface hostedService,
             int grpcPort,
-            ILogger logger,
+            ILogger logger = null,
             string eventName = Constants.DefaultPluginEventName)
         {
             //ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhostinggrpc");
-            ideaLogger = logger;
+            ideaLogger = logger ?? NullLogger.Instance;
             Status = AutomationStatus.Unknown;
             automation = hostedService;
             EventName = eventName;
