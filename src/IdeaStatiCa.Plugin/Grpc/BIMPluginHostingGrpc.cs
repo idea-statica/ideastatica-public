@@ -1,7 +1,5 @@
 ﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,7 +27,7 @@ namespace IdeaStatiCa.Plugin
         private readonly IBIMPluginFactory bimPluginFactory;
         private string clientId = string.Empty;
         private string workingDirectory = string.Empty;
-		private ILogger ideaLogger;
+		private IPluginLogger ideaLogger;
 
         /// <summary>
         /// Triggered when app status changes.
@@ -62,11 +60,11 @@ namespace IdeaStatiCa.Plugin
 		readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
 #endif
 
-        public BIMPluginHostingGrpc(IBIMPluginFactory factory, ILogger logger = null, string eventName = Constants.DefaultPluginEventName)
+        public BIMPluginHostingGrpc(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)
         {
             mre = new ManualResetEvent(false);
             bimPluginFactory = factory;
-			ideaLogger = logger ?? NullLogger.Instance;
+			ideaLogger = logger ?? new NullLogger();
 		}
 
         public Task RunAsync(string id, string workingDirectory)

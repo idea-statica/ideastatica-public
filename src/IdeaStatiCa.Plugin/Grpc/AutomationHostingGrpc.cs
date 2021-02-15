@@ -1,6 +1,4 @@
 ﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Nito.AsyncEx.Synchronous;
 using System;
 using System.Collections.Generic;
@@ -26,7 +24,7 @@ namespace IdeaStatiCa.Plugin
         private int myAutomatingProcessId;
         private readonly string EventName;
         private GrpcServiceBasedReflectionClient<ClientInterface> grpcClient;
-        private readonly ILogger ideaLogger = null;
+        private readonly IPluginLogger ideaLogger = null;
 
         /// <summary>
         /// My BIM object.
@@ -66,11 +64,11 @@ namespace IdeaStatiCa.Plugin
 
         public AutomationHostingGrpc(MyInterface hostedService,
             int grpcPort,
-            ILogger logger = null,
+			IPluginLogger logger = null,
             string eventName = Constants.DefaultPluginEventName)
         {
             //ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhostinggrpc");
-            ideaLogger = logger ?? NullLogger.Instance;
+            ideaLogger = logger ?? new NullLogger();
             Status = AutomationStatus.Unknown;
             automation = hostedService;
             EventName = eventName;

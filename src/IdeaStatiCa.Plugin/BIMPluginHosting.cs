@@ -1,6 +1,4 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Diagnostics;
 using System.ServiceModel;
@@ -39,7 +37,7 @@ namespace IdeaStatiCa.Plugin
 		private string workingDirectory = string.Empty;
 		private readonly string EventName;
 		private readonly string PluginUrlFormat;
-		private ILogger ideaLogger;
+		private IPluginLogger ideaLogger;
 
 #if DEBUG
 		private readonly int OpenServerTimeLimit = -1;
@@ -49,14 +47,14 @@ namespace IdeaStatiCa.Plugin
 
 		internal Process IdeaStaticaApp { get; private set; }
 
-		public BIMPluginHosting(IBIMPluginFactory factory, ILogger logger = null, string eventName = Constants.DefaultPluginEventName, string pluginUrlFormat = Constants.DefaultPluginUrlFormat)
+		public BIMPluginHosting(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName, string pluginUrlFormat = Constants.DefaultPluginUrlFormat)
 		{
 			//Debug.Assert(false);
 			mre = new ManualResetEvent(false);
 			this.bimPluginFactory = factory;
 			this.EventName = eventName;
 			this.PluginUrlFormat = pluginUrlFormat;
-			ideaLogger = logger ?? NullLogger.Instance;
+			ideaLogger = logger ?? new NullLogger();
 		}
 
 		public event ISEventHandler AppStatusChanged;
