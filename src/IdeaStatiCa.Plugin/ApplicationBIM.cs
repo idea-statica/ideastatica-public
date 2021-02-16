@@ -1,12 +1,11 @@
-﻿using IdeaStatiCa.Diagnostics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
 	public abstract class ApplicationBIM : IApplicationBIM
 	{
-		private IIdeaLogger ideaLogger = IdeaDiagnostics.GetLogger("bim.plugin.application");
+		private IPluginLogger ideaLogger; //= IdeaDiagnostics.GetLogger("bim.plugin.application");
 
 		protected abstract string ApplicationName { get; }
 
@@ -15,6 +14,23 @@ namespace IdeaStatiCa.Plugin
 		public virtual List<BIMItemId> GetActiveSelection() => null;
 
 		public int Id { get; internal set; }
+
+		/// <summary>
+		/// Default contructor
+		/// </summary>
+		public ApplicationBIM()
+		{
+			ideaLogger = new NullLogger();
+		}
+
+		/// <summary>
+		/// Constructor for injecting the instance of a logger
+		/// </summary>
+		/// <param name="logger">The wrapper for logger</param>
+		public ApplicationBIM(IPluginLogger logger)
+		{
+			ideaLogger = logger ?? new NullLogger();
+		}
 
 		public ModelBIM GetActiveSelectionModel(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{

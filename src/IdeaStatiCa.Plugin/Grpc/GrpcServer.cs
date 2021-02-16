@@ -1,6 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using IdeaStatiCa.Diagnostics;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
