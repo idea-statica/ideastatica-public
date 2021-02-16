@@ -15,6 +15,18 @@ namespace IdeaStatiCa.Plugin
 
 		public int Id { get; internal set; }
 
+		/// <summary>
+		/// Default contructor
+		/// </summary>
+		public ApplicationBIM()
+		{
+			ideaLogger = new NullLogger();
+		}
+
+		/// <summary>
+		/// Constructor for injecting the instance of a logger
+		/// </summary>
+		/// <param name="logger">The wrapper for logger</param>
 		public ApplicationBIM(IPluginLogger logger)
 		{
 			ideaLogger = logger ?? new NullLogger();
