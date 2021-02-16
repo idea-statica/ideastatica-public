@@ -108,12 +108,14 @@ namespace IdeaStatiCa.Plugin
             return hostingTask;
         }
 
-        public void Stop()
+        public async void Stop()
         {
             if (hostingTask != null)
             {
                 tokenSource.Cancel();
                 var stopRes = mre.WaitOne();
+
+				await grpcClient.DisconnectAsync();
 
                 Debug.Assert(stopRes, "Cannot stop");
             }
@@ -182,11 +184,47 @@ namespace IdeaStatiCa.Plugin
             Stop();
         }
 
-        #region IDisposable
-        public void Dispose()
+		#region IDisposable
+
+		private bool disposedValue = false;
+
+		public void Dispose()
         {
-            throw new NotImplementedException();
-        }
-        #endregion
-    }
+			Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					if (hostingTask != null)
+					{
+						try
+						{
+							Stop();
+						}
+						catch { }
+
+						if (bimProcess != null)
+						{
+							bimProcess.Dispose();
+							bimProcess = null;
+						}
+
+						mre.Dispose();
+						tokenSource.Dispose();
+					}
+					// TODO: dispose managed state (managed objects).
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+				// TODO: set large fields to null.
+
+				disposedValue = true;
+			}
+		}
+		#endregion
+	}
 }
