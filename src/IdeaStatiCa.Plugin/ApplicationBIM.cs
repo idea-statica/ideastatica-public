@@ -45,7 +45,7 @@ namespace IdeaStatiCa.Plugin
 			else
 			{
 				ideaLogger.LogTrace("Obtained null model.");
-			}	
+			}
 
 			return model;
 		}
