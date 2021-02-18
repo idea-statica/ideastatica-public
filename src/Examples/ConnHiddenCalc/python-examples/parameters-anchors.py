@@ -13,8 +13,7 @@ ideaCon_filename = r"parameters-anchors.ideaCon"
 # the path to the idea connection installation directory
 idea_path = r"C:\Program Files\IDEA StatiCa\StatiCa 21.0"
 
-assembly_path = os.path.dirname(script_dir) 
-assembly_path = os.path.join(assembly_path, r'ConnCalcExamples\ConnectionHiddenCalculation\bin\Release') 
+assembly_path = idea_path
 
 connection_project_path = os.path.join(script_dir, 'projects', ideaCon_filename) 
 
