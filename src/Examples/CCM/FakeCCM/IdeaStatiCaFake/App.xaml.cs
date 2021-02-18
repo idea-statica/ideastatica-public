@@ -11,7 +11,6 @@ namespace IdeaStatiCaFake
 	{
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-			Debug.Assert(false, "XXXX");
 			AppDomain currentDomain = AppDomain.CurrentDomain;
 			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(ExceptionHandler);
 		}
