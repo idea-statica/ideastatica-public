@@ -3,9 +3,11 @@ using IdeaRS.OpenModel.Message;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin;
 using Microsoft.Win32;
+using NS = Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,21 +15,26 @@ using System.Text;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Serialization;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 
 namespace IdeaStatiCaFake
 {
 	public class IdeaStatiCaFakeVM : INotifyPropertyChanged, IDisposable
 	{
-		private AutomationHosting<IAutomation, IApplicationBIM> AutomationHosting { get; set; }
+		private GrpcReflectionClient grpcClient;
+
+		private AutomationHostingGrpc<IAutomation, IApplicationBIM> AutomationHosting { get; set; }
 		private IApplicationBIM FEA
-		{ get { return AutomationHosting?.MyBIM; } }
+		{
+			get { return AutomationHosting?.MyBIM; }
+		}
 
 		public AppStatus FEAStatus { get; set; }
 
 		private string modelFeaXml;
 
 		public IdeaStatiCaFakeVM()
-		{
+		{  
 			ModelFeaXml = string.Empty;
 			FEAStatus = AppStatus.Finished;
 			ImportConnectionCmd = new CustomCommand(this.CanImportConnection, this.ImportConnection);
@@ -38,7 +45,11 @@ namespace IdeaStatiCaFake
 
 			string clientId = string.Empty;
 			string project = string.Empty;
+			int grpcPort = 0;
+			bool grpcEnabled = false;
+
 			var startupArgs = Environment.GetCommandLineArgs();
+
 			if (startupArgs != null)
 			{
 				var autoArg = startupArgs.FirstOrDefault(a => a.StartsWith(Constants.AutomationParam));
@@ -57,14 +68,36 @@ namespace IdeaStatiCaFake
 					}
 				}
 
-				if (!string.IsNullOrEmpty(clientId))
+				var grpcArg = startupArgs.FirstOrDefault(a => a.StartsWith(Constants.GrpcPortParam));
+				{
+					if (!string.IsNullOrEmpty(grpcArg))
+					{
+						grpcEnabled = int.TryParse(grpcArg.Substring(Constants.GrpcPortParam.Length + 1), out grpcPort);
+					}
+				}
+
+				if (!string.IsNullOrEmpty(clientId) && grpcEnabled)
 				{
 					Actions.Add(string.Format("Starting Automation clientid = {0}", clientId));
-					AutomationHosting = new AutomationHosting<IAutomation, IApplicationBIM>(new AutomationService<IApplicationBIM>());
+					AutomationHosting = new AutomationHostingGrpc<IAutomation, IApplicationBIM>(new AutomationService<IApplicationBIM>(), grpcPort);
 					AutomationHosting.BIMStatusChanged += new ISEventHandler(AutomationHosting_FEAStatusChanged);
 					AutomationHosting.RunAsync(clientId);
 				}
+
+				if (grpcEnabled)
+				{
+					InitializeGrpc(clientId, grpcPort);
+				}
 			}
+		}
+
+		private async void InitializeGrpc(string clientId, int grpcPort)
+		{
+			grpcClient = new GrpcReflectionClient(clientId, grpcPort);
+
+			await grpcClient.ConnectAsync();
+
+			Actions.Add($"GRPC server connected");
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -91,7 +124,7 @@ namespace IdeaStatiCaFake
 
 		public bool CanImportConnection(object param)
 		{
-			return FEA != null;
+			return grpcClient.IsConnected;
 		}
 
 		public void ImportConnection(object param)
@@ -105,7 +138,7 @@ namespace IdeaStatiCaFake
 
 		public bool CanImportMember(object param)
 		{
-			return FEA != null;
+			return grpcClient.IsConnected;
 		}
 
 		public void ImportMember(object param)
@@ -196,13 +229,13 @@ namespace IdeaStatiCaFake
 		private void AutomationHosting_FEAStatusChanged(object sender, ISEventArgs e)
 		{
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
-				System.Windows.Threading.DispatcherPriority.Normal,
-				(Action)(() =>
-				{
-					FEAStatus = e.Status;
-					CommandManager.InvalidateRequerySuggested();
-					Actions.Add(string.Format("FEA Status Changed = {0}", e.Status));
-				}));
+					System.Windows.Threading.DispatcherPriority.Normal,
+					(Action)(() =>
+					{
+						FEAStatus = e.Status;
+						CommandManager.InvalidateRequerySuggested();
+						Actions.Add(string.Format("FEA Status Changed = {0}", e.Status));
+					}));
 		}
 
 		private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

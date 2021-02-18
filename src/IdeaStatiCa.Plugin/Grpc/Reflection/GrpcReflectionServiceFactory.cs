@@ -56,7 +56,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			try
 			{
-				var returnValue = await client.InvokeMethodAsync<object>(method.Name, arguments);
+				var returnValue = client.InvokeMethod<object>(method.Name, arguments);
+
+				await Task.CompletedTask;
 
 				return returnValue;
 			}
@@ -70,7 +72,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			try
 			{
-				return await client.InvokeMethodAsync<object>(method.Name, arguments);
+				await Task.CompletedTask;
+
+				return client.InvokeMethod<object>(method.Name, arguments);
 			}
 			catch (Exception e)
 			{

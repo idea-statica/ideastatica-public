@@ -38,7 +38,11 @@ namespace IdeaStatiCa.Plugin
 		/// <summary>
 		/// BIM Service.
 		/// </summary>
-		public IApplicationBIM Service { get; private set; }
+		public IApplicationBIM Service
+		{
+			get => bimAppService;
+			private set => bimAppService = value;
+		}
 
 		/// <summary>
 		/// Port for Grpc communication.
@@ -58,6 +62,7 @@ namespace IdeaStatiCa.Plugin
 
 		public BIMPluginHostingGrpc(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)
 		{
+			this.EventName = eventName;
 			mre = new ManualResetEvent(false);
 			bimPluginFactory = factory;
 			ideaLogger = logger ?? new NullLogger();

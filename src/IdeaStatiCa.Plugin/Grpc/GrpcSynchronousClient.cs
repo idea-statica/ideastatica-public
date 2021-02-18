@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nito.AsyncEx.Synchronous;
+using System;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
@@ -8,7 +9,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// </summary>
 	public class GrpcSynchronousClient : GrpcClient
 	{
-		TaskCompletionSource<GrpcMessage> gprcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
+		TaskCompletionSource<GrpcMessage> grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 
 		/// <summary>
 		/// Initializes a new <see cref="GrpcSynchronousClient"/>
@@ -25,37 +26,41 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="messageName">Message identificator.</param>
 		/// <param name="data">Body of the message.</param>
 		/// <returns></returns>
-		public async Task<GrpcMessage> SendMessageSync(string messageName, string data)
+		public GrpcMessage SendMessageSync(string messageName, string data)
 		{
-			var operationId = Guid.NewGuid().ToString();
-
-			await SendMessageAsync(messageName, data, operationId);
-
-			// wait for the callback handler
-			var messageReceived = false;
-			GrpcMessage incomingMessage = null;
-
-
-			while (!messageReceived)
+			return Task.Run(async () =>
 			{
-				incomingMessage = await gprcMessageCompletionSource.Task;
+				var operationId = Guid.NewGuid().ToString(); 
 
-				if (incomingMessage.OperationId == operationId)
+				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
+
+				await SendMessageAsync(messageName, data, operationId);
+
+				// wait for the callback handler
+				var messageReceived = false;
+				GrpcMessage incomingMessage = null;
+
+				while (!messageReceived)
 				{
-					if (incomingMessage.MessageName == "Error")
+					incomingMessage = await grpcMessageCompletionSource.Task;
+
+					if (incomingMessage.OperationId == operationId)
 					{
-						throw new ApplicationException(incomingMessage.Data);
+						if (incomingMessage.MessageName == "Error")
+						{
+							throw new ApplicationException(incomingMessage.Data);
+						}
+
+						messageReceived = true;
 					}
-
-					messageReceived = true;
+					else
+					{
+						grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
+					}
 				}
-				else
-				{
-					gprcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
-				}
-			}
 
-			return incomingMessage;
+				return incomingMessage;
+			}).WaitAndUnwrapException();
 		}
 
 		/// <summary>
@@ -64,7 +69,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		protected override Task HandleMessageAsync(GrpcMessage message)
 		{
-			gprcMessageCompletionSource?.TrySetResult(message);
+			grpcMessageCompletionSource?.TrySetResult(message);
 
 			return base.HandleMessageAsync(message);
 		}

@@ -140,7 +140,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="messageName">Message identificator.</param>
 		/// <param name="data">Body of the message.</param>
 		/// <returns></returns>
-		public async Task SendMessageAsync(string messageName, string data = "", string operationId = null)
+		public Task SendMessageAsync(string messageName, string data = "", string operationId = null)
 		{
 			if (IsConnected)
 			{
@@ -152,11 +152,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 					MessageName = messageName
 				};
 
-				await SendMessageAsync(message);
+				return SendMessageAsync(message);
 			}
 			else
 			{
-				throw new Exception("Client disconnected.");
+				throw new ApplicationException("Client disconnected.");
 			}
 		}
 
@@ -166,11 +166,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="message">Grpc message to send.</param>
 		/// <param name="data">Body of the message.</param>
 		/// <returns></returns>
-		public async Task SendMessageAsync(GrpcMessage message)
+		public Task SendMessageAsync(GrpcMessage message)
 		{
 			if (IsConnected)
 			{
-				await client.RequestStream.WriteAsync(message);
+				return client.RequestStream.WriteAsync(message);
 			}
 			else
 			{
