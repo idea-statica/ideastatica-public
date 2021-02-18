@@ -52,7 +52,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// <param name="methodName">Name of the method to invoke.</param>
 		/// <param name="arguments">Arguments with which the method will be called.</param>
 		/// <returns></returns>
-		public async Task<T> InvokeMethodAsync<T>(string methodName, params object[] arguments)
+		public T InvokeMethod<T>(string methodName, params object[] arguments)
 		{
 			var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
 			var request = new GrpcReflectionInvokeData()
@@ -61,7 +61,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = await client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject<T>(response.Data);
@@ -69,7 +69,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			return responseData;
 		}
 
-		public async Task<object> InvokeMethodAsync(Type returnType, string methodName, params object[] arguments)
+		public object InvokeMethod(Type returnType, string methodName, params object[] arguments)
 		{
 			var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
 			var request = new GrpcReflectionInvokeData()
@@ -78,7 +78,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = await client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject(response.Data, returnType);

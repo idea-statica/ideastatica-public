@@ -34,10 +34,7 @@ namespace IdeaStatiCaFake
 		private string modelFeaXml;
 
 		public IdeaStatiCaFakeVM()
-		{
-			// Pre attach debuggeru.
-			//Debug.Fail("Starting...");
-
+		{  
 			ModelFeaXml = string.Empty;
 			FEAStatus = AppStatus.Finished;
 			ImportConnectionCmd = new CustomCommand(this.CanImportConnection, this.ImportConnection);
@@ -100,7 +97,7 @@ namespace IdeaStatiCaFake
 
 			await grpcClient.ConnectAsync();
 
-			Actions.Add($"GRPC server disconnected");
+			Actions.Add($"GRPC server connected");
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

@@ -85,8 +85,6 @@ namespace FEAppTest
 
 			Add(string.Format("Starting FEAPluginHosting clientTd = {0}", id));
 			feaAppHosting.RunAsync(id, projectDir);
-			
-
 		}
 
 		private static string GetFilePath()

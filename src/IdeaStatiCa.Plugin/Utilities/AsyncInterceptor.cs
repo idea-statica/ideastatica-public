@@ -75,7 +75,8 @@ namespace IdeaStatiCa.Plugin.Utilities
         {
             if (!typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
             {
-                invocation.ReturnValue = Intercept(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Proceed).WaitAndUnwrapException();
+				var returnValue =  Intercept(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Proceed).WaitAndUnwrapException();
+				invocation.ReturnValue = returnValue;
                 return;
             }
             var returnType = invocation.Method.ReturnType.IsGenericType ? invocation.Method.ReturnType.GetGenericArguments()[0] : typeof(object);
