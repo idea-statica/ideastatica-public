@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Grpc;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace FEAppTest
 	public class FEAppTestVM : INotifyPropertyChanged, IHistoryLog
 	{
 		private IBIMPluginHosting feaAppHosting;
+		private GrpcClient client;
 		private string modelFeaXml;
 
 		public FEAppTestVM()
@@ -70,7 +72,8 @@ namespace FEAppTest
 		public void Run(object param)
 		{
 			var factory = new PluginFactory(this);
-			feaAppHosting = new BIMPluginHosting(factory);
+			// use gRPC instead of wcf
+			feaAppHosting = new BIMPluginHostingGrpc(factory);
 			feaAppHosting.AppStatusChanged += new ISEventHandler(IdeaStaticAppStatusChanged);
 			var id = Process.GetCurrentProcess().Id.ToString();
 
