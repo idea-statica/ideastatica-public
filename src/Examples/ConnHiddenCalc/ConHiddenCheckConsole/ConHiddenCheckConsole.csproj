@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ConnCalculatorConsole</RootNamespace>
     <AssemblyName>ConnCalculatorConsole</AssemblyName>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>ConnCalculatorConsole</AssemblyTitle>
     <Product>ConnCalculatorConsole</Product>
