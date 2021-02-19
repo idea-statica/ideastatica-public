@@ -28,8 +28,8 @@
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="21.0.13" />
+    <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
