@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCaFake", "Examples
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Plugin", "IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj", "{7C5FC60F-CC3E-45B3-A38A-AA167A9D1333}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginsTools", "IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj", "{5166DBC3-FF77-48B4-8980-C3ED05614957}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_IdeaStatiCa_Internal|Any CPU = Debug_IdeaStatiCa_Internal|Any CPU
@@ -241,6 +243,22 @@ Global
 		{7C5FC60F-CC3E-45B3-A38A-AA167A9D1333}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C5FC60F-CC3E-45B3-A38A-AA167A9D1333}.Release|x64.ActiveCfg = Release|Any CPU
 		{7C5FC60F-CC3E-45B3-A38A-AA167A9D1333}.Release|x64.Build.0 = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug_IdeaStatiCa_Internal|x64.ActiveCfg = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug_IdeaStatiCa_Internal|x64.Build.0 = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug|x64.Build.0 = Debug|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release_IdeaStatiCa_Internal|x64.ActiveCfg = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release_IdeaStatiCa_Internal|x64.Build.0 = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release|x64.ActiveCfg = Release|Any CPU
+		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
