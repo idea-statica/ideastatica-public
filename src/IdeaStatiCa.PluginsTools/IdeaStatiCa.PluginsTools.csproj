@@ -5,20 +5,34 @@
     <AssemblyTitle>IdeaStatiCa.PluginsTools</AssemblyTitle>
     <Product>IdeaStatiCa.PluginsTools</Product>
     <Copyright></Copyright>
-    <OutputPath>..\bin\Release\</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Authors>IdeaStatiCa</Authors>
-    <Version>20.1.1</Version>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <AssemblyVersion>20.1.1.0</AssemblyVersion>
-    <FileVersion>20.1.1.0</FileVersion>
-    <Platforms>x64</Platforms>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	<RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
+	<Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
+	<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+	<Platforms>x64</Platforms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|x64'">
+	<DebugType>full</DebugType>
+	<OutputPath>..\..\..\bin\Debug\</OutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DebugType>full</DebugType>
+	<DebugType>full</DebugType>
+	<OutputPath>..\..\..\bin\Debug\</OutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|x64'">
+	<DebugType>pdbonly</DebugType>
+	<OutputPath>..\..\..\bin\Release\</OutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>pdbonly</DebugType>
+	<DebugType>pdbonly</DebugType>
+	<OutputPath>..\..\..\bin\Release\</OutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
     <DocumentationFile></DocumentationFile>
