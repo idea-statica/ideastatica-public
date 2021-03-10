@@ -12,9 +12,22 @@ namespace IdeaStatiCa.BimImporter
 
 		private readonly IImporter<IIdeaMember1D> _memberConverter;
 
-		internal BimImporter(IIdeaModel ideaModel)
+		public static IBimImporter Create(IIdeaModel ideaModel)
+		{
+			NodeImporter nodeImporter = new NodeImporter();
+			MaterialImporter materialImporter = new MaterialImporter();
+			CrossSectionImporter crossSectionImporter = new CrossSectionImporter();
+			SegmentImporter segmentImporter = new SegmentImporter(nodeImporter);
+			ElementImporter elementImporter = new ElementImporter(crossSectionImporter, segmentImporter);
+			MemberImporter memberImporter = new MemberImporter(elementImporter);
+
+			return new BimImporter(ideaModel, memberImporter);
+		}
+
+		internal BimImporter(IIdeaModel ideaModel, IImporter<IIdeaMember1D> memberImporter)
 		{
 			_ideaModel = ideaModel;
+			_memberConverter = memberImporter;
 		}
 
 		public OpenModelContainer ImportSelectedConnectionsToIom()
@@ -28,7 +41,7 @@ namespace IdeaStatiCa.BimImporter
 
 			ImportContext importContext = new ImportContext();
 
-			foreach(IIdeaMember1D member in members)
+			foreach (IIdeaMember1D member in members)
 			{
 				_memberConverter.Import(importContext, member);
 			}
