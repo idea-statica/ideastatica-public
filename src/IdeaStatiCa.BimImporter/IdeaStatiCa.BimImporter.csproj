@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
   </ItemGroup>
 
   <ItemGroup>

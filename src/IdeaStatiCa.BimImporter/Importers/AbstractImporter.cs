@@ -12,15 +12,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 		public ReferenceElement Import(ImportContext ctx, T obj)
 		{
 			Logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<empty>"}', name '{obj.Name ?? "<empty>"}'");
-			
-			if(string.IsNullOrEmpty(obj.Id))
+
+			if (string.IsNullOrEmpty(obj.Id))
 			{
 				throw new Exception("Object must specify non-empty Id.");
 			}
 
 			if (ctx.ReferenceElements.TryGetValue(obj.Id, out ReferenceElement refElm))
 			{
-				Logger.LogDebug($"Reusing already imported object, iom id '{refElm.Id}'");
+				Logger.LogDebug($"Reusing already imported object, open model id '{refElm.Id}'");
 				return refElm;
 			}
 

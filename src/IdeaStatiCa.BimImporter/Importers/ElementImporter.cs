@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override ReferenceElement ImportInternal(ImportContext ctx, IIdeaElement1D element)
 		{
-			if (element.StartNode.IsSimilarTo(element.EndNode))
+			if (element.StartNode.IsAlmostEqual(element.EndNode))
 			{
 				throw new Exception(); // TODO: text
 			}

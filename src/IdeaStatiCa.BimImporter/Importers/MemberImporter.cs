@@ -19,7 +19,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			if(member.Elements.Count == 0)
 			{
-				throw new Exception("A member has to specify at least one element.");
+				throw new ConstraintException("A member has to specify at least one element.");
 			}
 
 			Member1D iomMember = new Member1D

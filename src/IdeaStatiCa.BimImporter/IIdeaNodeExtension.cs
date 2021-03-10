@@ -1,22 +1,23 @@
 ﻿using IdeaStatiCa.BimApi;
 using System;
+using MathNet.Numerics;
 
 namespace IdeaStatiCa.BimImporter
 {
 	internal static class IIdeaNodeExtension
 	{
-		private const double Precision = 0.0001;
+		private const double Precision = 1e-5;
 
-		public static bool IsSimilarTo(this IIdeaNode node1, IIdeaNode node2, double epsilon = Precision)
+		public static bool IsAlmostEqual(this IIdeaNode node1, IIdeaNode node2)
 		{
 			if (node1 == node2)
 			{
 				return true;
 			}
 
-			return Math.Abs(node1.X - node2.X) <= epsilon &&
-				Math.Abs(node1.Y - node2.Y) <= epsilon &&
-				Math.Abs(node1.Z - node2.Z) <= epsilon;
+			return node1.X.AlmostEqual(node2.X, Precision) &&
+				node1.Y.AlmostEqual(node2.Y, Precision) &&
+				node1.Z.AlmostEqual(node2.Z, Precision);
 		}
 	}
 }
