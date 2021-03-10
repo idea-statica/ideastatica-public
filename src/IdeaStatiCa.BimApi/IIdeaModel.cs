@@ -33,7 +33,7 @@ namespace IdeaStatiCa.BimApi
 		/// @param nodes 
 		/// @param members
 		/// </summary>
-		void GetSelection(HashSet<IIdeaNode> nodes, HashSet<IIdeaMember1D> members);
+		void GetSelection(out HashSet<IIdeaNode> nodes, out HashSet<IIdeaMember1D> members);
 
 	}
 }
