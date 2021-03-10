@@ -32,14 +32,14 @@ namespace IdeaStatiCa.BimApi
 		IIdeaCrossSection EndCrossSection { get; }
 
 		/// <summary>
-		/// Excentricity at the start of the element
+		/// Eccentricity at the start of the element
 		/// </summary>
-		double ExcentricityBegin { get; }
+		double EccentricityBegin { get; }
 
 		/// <summary>
-		/// Excentricity at the end of the element
+		/// Eccentricity at the end of the element
 		/// </summary>
-		double ExcentricityEnd { get; }
+		double EccentricityEnd { get; }
 
 		/// <summary>
 		/// Rotation of the element around the x-axis
