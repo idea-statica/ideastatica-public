@@ -16,7 +16,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			NodeImporter nodeImporter = new NodeImporter();
 			MaterialImporter materialImporter = new MaterialImporter();
-			CrossSectionImporter crossSectionImporter = new CrossSectionImporter();
+			CrossSectionImporter crossSectionImporter = new CrossSectionImporter(materialImporter);
 			SegmentImporter segmentImporter = new SegmentImporter(nodeImporter);
 			ElementImporter elementImporter = new ElementImporter(crossSectionImporter, segmentImporter);
 			MemberImporter memberImporter = new MemberImporter(elementImporter);
