@@ -16,7 +16,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_segmentImporter = segmentImporter;
 		}
 
-		protected override ReferenceElement ImportInternal(ImportContext ctx, IIdeaElement1D element)
+		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaElement1D element)
 		{
 			if (element.StartNode.IsAlmostEqual(element.EndNode))
 			{
@@ -31,9 +31,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Segment = _segmentImporter.Import(ctx, element.Segment)
 			};
 
-			ctx.Add(iomElement);
-
-			return new ReferenceElement(iomElement);
+			return iomElement;
 		}
 	}
 }

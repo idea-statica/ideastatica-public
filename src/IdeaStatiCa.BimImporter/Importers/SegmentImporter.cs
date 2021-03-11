@@ -19,7 +19,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_nodeImporter = nodeConverter;
 		}
 
-		protected override ReferenceElement ImportInternal(ImportContext ctx, IIdeaSegment3D segment)
+		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaSegment3D segment)
 		{
 			if (segment.StartNode.IsAlmostEqual(segment.EndNode))
 			{
@@ -58,9 +58,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			iomSegment.EndPoint = _nodeImporter.Import(ctx, segment.EndNode);
 			iomSegment.LocalCoordinateSystem = ProcessCoordSystem(coordSystem);
 
-			ctx.Add(iomSegment);
-
-			return new ReferenceElement(iomSegment);
+			return iomSegment;
 		}
 
 		private CoordSystemByVector ProcessCoordSystem(CoordSystemByVector coordSystem)

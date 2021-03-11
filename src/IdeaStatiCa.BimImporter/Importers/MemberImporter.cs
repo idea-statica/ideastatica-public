@@ -15,7 +15,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_elementImporter = elementImporter;
 		}
 
-		protected override ReferenceElement ImportInternal(ImportContext ctx, IIdeaMember1D member)
+		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaMember1D member)
 		{
 			if(member.Elements.Count == 0)
 			{
@@ -31,9 +31,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				.ToList()
 			};
 
-			ctx.Add(iomMember);
-
-			return new ReferenceElement(iomMember);
+			return iomMember;
 		}
 	}
 }

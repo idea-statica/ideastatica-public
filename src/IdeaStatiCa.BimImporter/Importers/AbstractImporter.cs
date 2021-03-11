@@ -24,9 +24,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 				return refElm;
 			}
 
-			return ImportInternal(ctx, obj);
+			OpenElementId iomElm = ImportInternal(ctx, obj);
+			refElm = new ReferenceElement(iomElm);
+
+			ctx.Add(iomElm);
+			ctx.ReferenceElements.Add(obj.Id, refElm);
+
+			return refElm;
 		}
 
-		protected abstract ReferenceElement ImportInternal(ImportContext ctx, T obj);
+		protected abstract OpenElementId ImportInternal(ImportContext ctx, T obj);
 	}
 }

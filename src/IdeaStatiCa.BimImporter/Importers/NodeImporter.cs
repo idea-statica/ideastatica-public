@@ -6,7 +6,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class NodeImporter : AbstractImporter<IIdeaNode>
 	{
-		protected override ReferenceElement ImportInternal(ImportContext ctx, IIdeaNode obj)
+		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaNode obj)
 		{
 			throw new NotImplementedException();
 		}
