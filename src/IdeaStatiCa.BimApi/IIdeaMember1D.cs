@@ -33,7 +33,7 @@ namespace IdeaStatiCa.BimApi
 		/// </list>
 		/// </para>
 		/// </summary>
-		HashSet<IIdeaElement1D> Elements { get; }
+		List<IIdeaElement1D> Elements { get; }
 
 		/// <summary>
 		/// Identifies the start node of the member or null, if the member's start is not connected to any node.
