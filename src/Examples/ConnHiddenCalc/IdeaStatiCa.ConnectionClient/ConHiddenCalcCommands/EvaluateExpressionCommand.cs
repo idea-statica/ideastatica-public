@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 {
-	/// <summary>
-	/// Get json which includes parameters which are defined on the connection
-	/// </summary>
-	public class GetParametersCommand : ConnHiddenCalcCommandBase
+	public class EvaluateExpressionCommand : ConnHiddenCalcCommandBase
 	{
-		public GetParametersCommand(IConHiddenCalcModel model) : base(model)
+		public EvaluateExpressionCommand(IConHiddenCalcModel model) : base(model)
 		{
 		}
 
@@ -31,9 +28,11 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 					var conVM = (IConnectionId)parameter;
 					var Service = Model.GetConnectionService();
 
-					string parametersJson = Service.GetParametersJSON(conVM.ConnectionId);
-					var conParameters = new ConnectionDataJson(Guid.Parse(conVM.ConnectionId) ,parametersJson);
-					Model.SetResults(conParameters);
+					string evalResJson = Service.EvaluateExpression(conVM.ConnectionId, "aaa", string.Empty);
+					//var conParameters = new ConnectionDataJson(Guid.Parse(conVM.ConnectionId), parametersJson);
+
+
+					Model.SetResults(evalResJson);
 				}
 				catch (Exception e)
 				{

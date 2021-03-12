@@ -153,7 +153,25 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                        </GridView>
+                            <GridViewColumn Header="" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetConnCheckResultsCmd}" CommandParameter="{Binding}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+							<GridViewColumn Header="" Width="150">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EvaluateExpessionCmd}" CommandParameter="{Binding}" ToolTip="Evaluate expression on the connection model">Evaluate</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
                     </ListView.View>
                 </ListView>
                 <GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
