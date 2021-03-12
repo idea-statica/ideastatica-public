@@ -6,181 +6,191 @@
         xmlns:local="clr-namespace:ConnectionHiddenCalculation"
         mc:Ignorable="d"
         Title="IdeaConnection - hidden calculation" Height="500" Width="1000" Closed="Window_Closed">
-    <Window.Resources>
-        <local:Converter x:Key="Converter" />
-    </Window.Resources>
-    <DockPanel LastChildFill="True">
-        <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar Band="1" DockPanel.Dock="Top">
-                <Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
-                <Button Command="{Binding ImportIOMCmd, Mode=TwoWay}">Import from IOM</Button>
-                <Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
-                <Button Command="{Binding SaveAsProjectCmd, Mode=TwoWay}">Save Project As...</Button>
-                <Button Command="{Binding GetMaterialsCmd, Mode=TwoWay}" ToolTip="Get all materials in the open Idea Connection project">Get materials</Button>
-                <Button Command="{Binding GetCrossSectionsCmd, Mode=TwoWay}" ToolTip="Get all cross-sections in the open Idea Connection project">Get CSS</Button>
-                <Button Command="{Binding GetBoltAssembliesCmd, Mode=TwoWay}" ToolTip="Get all bolt assemblies in the open Idea Connection project">Get Bolts</Button>
-                <Button Command="{Binding CreateBoltAssemblyCmd, Mode=TwoWay}" CommandParameter="{Binding NewBoltAssemblyName, Mode=OneWay}" ToolTip="Create a new bolt assembly in the open Idea Connection project">Create bolt</Button>
-                <TextBox Text="{Binding NewBoltAssemblyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80"></TextBox>
-            </ToolBar>
-            <ToolBar Band="2" DockPanel.Dock="Top">
-                <Label>Supporting member</Label>
-                <TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column"></TextBox>
-                <Label>Attached member</Label>
-                <TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam"></TextBox>
-                <Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
-                <Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Open idea connection project">Open project</Button>
-            </ToolBar>
-        </ToolBarTray>
-        <StackPanel DockPanel.Dock="Bottom">
-            <TextBlock Text="{Binding StatusMessage}"></TextBlock>
-        </StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="580"></ColumnDefinition>
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Name="templateSettingBox">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="5"></RowDefinition>
-                    <RowDefinition Height="150"></RowDefinition>
-                </Grid.RowDefinitions>
-                <ListView  Grid.Row="0" ItemsSource="{Binding Connections}" >
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Connection name">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding Name}" Margin="0"></TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="70">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.CalculateConnectionCmd}"  CommandParameter="{Binding}" Margin="0">Calculate</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="70">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ConnectionGeometryCmd}"  CommandParameter="{Binding}" Margin="0" ToolTip="Get the instance of IdeaRS.OpenModel.Connection.ConnectionData for this connection.">Geometry</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="90">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetAllConnectionDataCmd}"  CommandParameter="{Binding}" Margin="0" ToolTip="Get the instance of IdeaRS.OpenModel.OpenModelContainer for this connection.\nIt includes structural data and corresponding results of FE analysis">All Conn Data</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="90">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ConnectionToTemplateCmd}"  CommandParameter="{Binding}" Margin="0">To Template</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="100">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ApplyTemplateCmd}"  CommandParameter="{Binding}" Margin="0">Apply Template</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ApplySimpleTemplateCmd}" Margin="0">
-                                                <Button.CommandParameter>
-                                                    <MultiBinding Converter="{StaticResource Converter}">
-                                                        <Binding Path="."></Binding>
-                                                        <Binding ElementName="SupportingMember" Path="Text"/>
-                                                        <Binding ElementName="AttachedMember" Path="Text"/>
-                                                    </MultiBinding>
-                                                </Button.CommandParameter>
-                                                Apply Simple Template
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetParametersCmd}" CommandParameter="{Binding}" ToolTip="Get parameters which are defined for the connection">Parameters</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetLoadingCmd}" CommandParameter="{Binding}" ToolTip="Get loading in the connection">Loading</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetConnCheckResultsCmd}" CommandParameter="{Binding}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetConnCheckResultsCmd}" CommandParameter="{Binding}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+	<Window.Resources>
+		<local:Converter x:Key="Converter" />
+	</Window.Resources>
+	<DockPanel LastChildFill="True">
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar Band="1" DockPanel.Dock="Top">
+				<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
+				<Button Command="{Binding ImportIOMCmd, Mode=TwoWay}">Import from IOM</Button>
+				<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
+				<Button Command="{Binding SaveAsProjectCmd, Mode=TwoWay}">Save Project As...</Button>
+				<Button Command="{Binding GetMaterialsCmd, Mode=TwoWay}" ToolTip="Get all materials in the open Idea Connection project">Get materials</Button>
+				<Button Command="{Binding GetCrossSectionsCmd, Mode=TwoWay}" ToolTip="Get all cross-sections in the open Idea Connection project">Get CSS</Button>
+				<Button Command="{Binding GetBoltAssembliesCmd, Mode=TwoWay}" ToolTip="Get all bolt assemblies in the open Idea Connection project">Get Bolts</Button>
+				<Button Command="{Binding CreateBoltAssemblyCmd, Mode=TwoWay}" CommandParameter="{Binding NewBoltAssemblyName, Mode=OneWay}" ToolTip="Create a new bolt assembly in the open Idea Connection project">Create bolt</Button>
+				<TextBox Text="{Binding NewBoltAssemblyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80"></TextBox>
+			</ToolBar>
+			<ToolBar Band="2" DockPanel.Dock="Top">
+				<Label>Supporting member</Label>
+				<TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column"></TextBox>
+				<Label>Attached member</Label>
+				<TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam"></TextBox>
+				<Label>Expression</Label>
+				<TextBox x:Name="Expression" Text="{Binding Expression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ></TextBox>
+				<Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
+				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Open idea connection project">Open project</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<StackPanel DockPanel.Dock="Bottom">
+			<TextBlock Text="{Binding StatusMessage}"></TextBlock>
+		</StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="580"></ColumnDefinition>
+				<ColumnDefinition Width="5" />
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0" Name="templateSettingBox">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="5"></RowDefinition>
+					<RowDefinition Height="150"></RowDefinition>
+				</Grid.RowDefinitions>
+				<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" >
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						</Style>
+					</ListView.ItemContainerStyle>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="Connection name">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<TextBlock Text="{Binding Name}" Margin="0"></TextBlock>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="70">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.CalculateConnectionCmd}"  CommandParameter="{Binding}" Margin="0">Calculate</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="70">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ConnectionGeometryCmd}"  CommandParameter="{Binding}" Margin="0" ToolTip="Get the instance of IdeaRS.OpenModel.Connection.ConnectionData for this connection.">Geometry</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="90">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetAllConnectionDataCmd}"  CommandParameter="{Binding}" Margin="0" ToolTip="Get the instance of IdeaRS.OpenModel.OpenModelContainer for this connection.\nIt includes structural data and corresponding results of FE analysis">All Conn Data</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="90">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ConnectionToTemplateCmd}"  CommandParameter="{Binding}" Margin="0">To Template</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="100">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ApplyTemplateCmd}"  CommandParameter="{Binding}" Margin="0">Apply Template</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
 							<GridViewColumn Header="" Width="150">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate>
 										<StackPanel>
-											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EvaluateExpessionCmd}" CommandParameter="{Binding}" ToolTip="Evaluate expression on the connection model">Evaluate</Button>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.ApplySimpleTemplateCmd}" Margin="0">
+												<Button.CommandParameter>
+													<MultiBinding Converter="{StaticResource Converter}">
+														<Binding Path="."></Binding>
+														<Binding ElementName="SupportingMember" Path="Text"/>
+														<Binding ElementName="AttachedMember" Path="Text"/>
+													</MultiBinding>
+												</Button.CommandParameter>
+												Apply Simple Template
+											</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="150">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetParametersCmd}" CommandParameter="{Binding}" ToolTip="Get parameters which are defined for the connection">Parameters</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="150">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetLoadingCmd}" CommandParameter="{Binding}" ToolTip="Get loading in the connection">Loading</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="150">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetConnCheckResultsCmd}" CommandParameter="{Binding}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="150">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.GetConnCheckResultsCmd}" CommandParameter="{Binding}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="" Width="150">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.EvaluateExpessionCmd}" Margin="0">
+												<Button.CommandParameter>
+													<MultiBinding Converter="{StaticResource Converter}">
+														<Binding Path="."></Binding>
+														<Binding ElementName="Expression" Path="Text"/>
+													</MultiBinding>
+												</Button.CommandParameter>
+												Eval Expression
+											</Button>
 										</StackPanel>
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
 						</GridView>
-                    </ListView.View>
-                </ListView>
-                <GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
-                <TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
-            <GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
-            <ScrollViewer Grid.Column="2">
-                <TextBox Text="{Binding Results}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
-            </ScrollViewer>
-        </Grid>
-    </DockPanel>
+					</ListView.View>
+				</ListView>
+				<GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
+				<TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+			</Grid>
+			<GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
+			<ScrollViewer Grid.Column="2">
+				<TextBox Text="{Binding Results}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
+			</ScrollViewer>
+		</Grid>
+	</DockPanel>
 </Window>

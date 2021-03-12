@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.ConnectionClient.Commands;
 using IdeaStatiCa.ConnectionClient.Model;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
@@ -25,12 +26,13 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 			{
 				try
 				{
-					var conVM = (IConnectionId)parameter;
+					var values = (object[])parameter;
+					var conVM = (IConnectionId)values[0];
+					string expression = values[1].ToString();
 					var Service = Model.GetConnectionService();
 
-					string evalResJson = Service.EvaluateExpression(conVM.ConnectionId, "aaa", string.Empty);
-					//var conParameters = new ConnectionDataJson(Guid.Parse(conVM.ConnectionId), parametersJson);
-
+					//string evalResJson = Service.EvaluateExpression(conVM.ConnectionId, "BeamByOperationId([1])", string.Empty);
+					string evalResJson = Service.EvaluateExpression(conVM.ConnectionId, expression, string.Empty);
 
 					Model.SetResults(evalResJson);
 				}

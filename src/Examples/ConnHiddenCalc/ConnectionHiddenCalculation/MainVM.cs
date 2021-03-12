@@ -41,6 +41,7 @@ namespace ConnectionHiddenCalculation
 		IdeaConnectionController connectionController;
 		readonly string ideaConnExeFileName;
 		private string ideaConTempFileName;
+		private string expression;
 		#endregion
 
 		#region Constructor
@@ -422,6 +423,19 @@ namespace ConnectionHiddenCalculation
 			{
 				templateSetting = value;
 				NotifyPropertyChanged("TemplateSetting");
+			}
+		}
+
+		/// <summary>
+		/// Get or test the expression which is evaluated by EvaluateExpressionCommand
+		/// </summary>
+		public string Expression
+		{
+			get => expression;
+			set
+			{
+				expression = value;
+				NotifyPropertyChanged("Expression");
 			}
 		}
 
