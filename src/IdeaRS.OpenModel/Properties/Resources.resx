@@ -119,110 +119,146 @@
   </resheader>
   <data name="ErrDataObjectNotCreated" xml:space="preserve">
     <value>The Data object in Data Model was not created. Internal error.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrNoEquivalentObjectInDataModel" xml:space="preserve">
     <value>No equivalent Data object in the Data Model.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrNoObjectInOpenModel" xml:space="preserve">
     <value>No Open Model object in the Idea Open Model.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrNoOpenObject" xml:space="preserve">
     <value>No Open Model object.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrNoReferenceObjectInOpenModel" xml:space="preserve">
     <value>No referenced Open Model object in the Idea Open Model.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="GeneralError" xml:space="preserve">
     <value>General error</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
     <value>General information</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="GeneralWarning" xml:space="preserve">
     <value>General warning</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Information" xml:space="preserve">
     <value>Information</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Object" xml:space="preserve">
     <value>Object</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Property" xml:space="preserve">
     <value>Property</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Reserved" xml:space="preserve">
     <value>Reserved</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Unspecified" xml:space="preserve">
     <value>Unspecified</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="WarnNoPropertyInData" xml:space="preserve">
     <value>No equivalent property in the Data object</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrNoCrossSectionParameter" xml:space="preserve">
     <value>No cross-section parameter in the Open Model Cross-section </value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrBoltsTooClose" xml:space="preserve">
     <value>Bolts are too close to each other.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrBoltsTooCloseEdge" xml:space="preserve">
     <value>Bolts are too close to plate edge or outside of the connected plate.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrContactsAngle" xml:space="preserve">
     <value>Angle of plates in contact is out of limit (sin(alfa) &gt; 0.001).</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrIncorrectMaterialEGP" xml:space="preserve">
     <value>Material properties don't satisfy the condition: "(1.0 - E / (2.0 * (1.0 + Poisson) * G)) &lt; 0.01".</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrIncorrentMaterialE" xml:space="preserve">
     <value>Incorrect material E-modulus.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrPreloadedBoltGrade" xml:space="preserve">
     <value>Bolt grade is not allowed in slip-resistant joints.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrCurveDecreaseFunction" xml:space="preserve">
     <value>The curve mustn't be a decrease function.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrCurveDerivation" xml:space="preserve">
     <value>The curve derivation is out of range.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrCurveFunction" xml:space="preserve">
     <value>The curve isn't a function.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrCurveNotSet" xml:space="preserve">
     <value>The curve isn't set.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrCurveZeroPoint" xml:space="preserve">
     <value>The curve doesn't contain the point (0, 0).</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrValidPolyline" xml:space="preserve">
     <value>The geometry of the polyline is not valid. The segments are not continuous or they have a different orientation.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrValueOutOfRange" xml:space="preserve">
     <value>The value is out of the range.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="WarnCurveCount" xml:space="preserve">
     <value>The number of points of the curve is exceed 100.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="WarnReinforcementBarsCollision" xml:space="preserve">
     <value>Some of bars in the reinforced cross-section are in collision.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="WarnValueOutOfRange" xml:space="preserve">
     <value>The value is out of the range.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="ErrWarningLoad" xml:space="preserve">
     <value>Connected member is overloaded</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="TimeoutError" xml:space="preserve">
     <value>Calculation timeout</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
   <data name="NoInLibraryError" xml:space="preserve">
     <value>Material in not in library.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
   </data>
 </root>
