@@ -26,7 +26,7 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 			var res = string.Empty;
 			IsCommandRunning = true;
 			Model.SetResults("Updating parameters of the connection");
-			var calculationTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(() =>
 			{
 				try
 				{

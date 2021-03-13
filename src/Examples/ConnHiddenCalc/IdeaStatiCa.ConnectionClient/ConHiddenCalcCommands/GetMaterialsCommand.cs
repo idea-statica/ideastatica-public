@@ -23,7 +23,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 			var res = string.Empty;
 			IsCommandRunning = true;
 			Model.SetResults("Getting materials in the project");
-			var calculationTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(() =>
 			{
 				try
 				{

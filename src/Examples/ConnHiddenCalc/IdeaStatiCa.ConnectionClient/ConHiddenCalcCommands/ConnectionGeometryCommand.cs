@@ -12,7 +12,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 
 		public override bool CanExecute(object parameter)
 		{
-			return (Model.IsIdea && Model.IsService && !IsCommandRunning);
+			return (Model.IsIdea && Model.IsService && Model.SelectedConnection != null && !IsCommandRunning);
 		}
 
 		public override void Execute(object parameter)
@@ -20,7 +20,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 			var res = string.Empty;
 			IsCommandRunning = true;
 			Model.SetResults("Getting geometry of the connection");
-			var calculationTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(() =>
 			{
 				try
 				{

@@ -20,7 +20,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 			string newBoltAssemblyName = parameter.ToString();
 			IsCommandRunning = true;
 			Model.SetResults("Adding a new bolt assemblis to the project");
-			var calculationTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(() =>
 			{
 				try
 				{

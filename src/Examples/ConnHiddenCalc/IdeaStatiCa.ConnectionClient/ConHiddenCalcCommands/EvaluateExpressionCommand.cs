@@ -14,7 +14,7 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 
 		public override bool CanExecute(object parameter)
 		{
-			return (Model.IsIdea && Model.IsService && !IsCommandRunning);
+			return (Model.IsIdea && Model.IsService && Model.SelectedConnection != null && !IsCommandRunning);
 		}
 
 		public override void Execute(object parameter)
