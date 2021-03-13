@@ -9,22 +9,6 @@
 	
 	<Window.Resources>
 		<local:Converter x:Key="Converter" />
-
-		<Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button">
-			<Setter Property="Background" Value="LightGray"/>
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-			<Setter Property="VerticalAlignment" Value="Center"/>
-			<Setter Property="BorderThickness" Value="1"/>
-			<Setter Property="BorderBrush" Value="DarkGray"/>
-			<Setter Property="Margin" Value="2"/>
-		</Style>
-
-		<Style x:Key="{x:Static ToolBar.TextBoxStyleKey}" TargetType="TextBox">
-			<Setter Property="BorderThickness" Value="1"/>
-			<Setter Property="BorderBrush" Value="DarkGray"/>
-			<Setter Property="Margin" Value="2"/>
-		</Style>
-
 	</Window.Resources>
 	
 	<DockPanel LastChildFill="True">
