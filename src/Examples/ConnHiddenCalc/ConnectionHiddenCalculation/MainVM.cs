@@ -14,6 +14,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Linq;
 
 namespace ConnectionHiddenCalculation
 {
@@ -341,6 +342,7 @@ namespace ConnectionHiddenCalculation
 			}
 
 			this.Connections = new ObservableCollection<ConnectionVM>(connectionsVm);
+			SelectedConnection = Connections.FirstOrDefault();
 		}
 
 		#endregion

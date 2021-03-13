@@ -23,10 +23,12 @@
 				<TextBox Text="{Binding NewBoltAssemblyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80"></TextBox>
 				<Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
 			</ToolBar>
+			
 			<ToolBar Band="2" DockPanel.Dock="Top">
 				<Label Content="{Binding SelectedConnection.Name}" MinWidth="80"></Label>
 				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Open the selected connection in the application">Open connection</Button>
 			</ToolBar>
+			
 			<ToolBar Band="3" DockPanel.Dock="Top">
 				<Label>Supporting member</Label>
 				<TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column"></TextBox>
@@ -34,6 +36,36 @@
 				<TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam"></TextBox>
 				<Label>Expression</Label>
 				<TextBox x:Name="Expression" Text="{Binding Expression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ></TextBox>
+			</ToolBar>
+			
+			<ToolBar Band="4" DockPanel.Dock="Top">
+				<Button Command="{Binding CalculateConnectionCmd}"  CommandParameter="{Binding SelectedConnection}" Margin="0">Calculate</Button>
+				<Button Command="{Binding ConnectionGeometryCmd}"  CommandParameter="{Binding SelectedConnection}" Margin="0" ToolTip="Get the instance of IdeaRS.OpenModel.Connection.ConnectionData for this connection.">Geometry</Button>
+				<Button Command="{Binding GetAllConnectionDataCmd}"  CommandParameter="{Binding SelectedConnection}" Margin="0" ToolTip="Get the instance of IdeaRS.OpenModel.OpenModelContainer for this connection.\nIt includes structural data and corresponding results of FE analysis">All Conn Data</Button>
+				<Button Command="{Binding ConnectionToTemplateCmd}"  CommandParameter="{Binding SelectedConnection}" Margin="0">To Template</Button>
+				<Button Command="{Binding ApplyTemplateCmd}"  CommandParameter="{Binding SelectedConnection}" Margin="0">Apply Template</Button>
+				<Button Command="{Binding ApplySimpleTemplateCmd}" Margin="0">
+					<Button.CommandParameter>
+						<MultiBinding Converter="{StaticResource Converter}">
+							<Binding Path="SelectedConnection"></Binding>
+							<Binding ElementName="SupportingMember" Path="Text"/>
+							<Binding ElementName="AttachedMember" Path="Text"/>
+						</MultiBinding>
+					</Button.CommandParameter>
+					Apply Simple Template
+				</Button>
+				<Button Command="{Binding GetParametersCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get parameters which are defined for the connection">Parameters</Button>
+				<Button Command="{Binding GetLoadingCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get loading in the connection">Loading</Button>
+				<Button Command="{Binding GetConnCheckResultsCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
+				<Button Command="{Binding EvaluateExpessionCmd}" Margin="0">
+					<Button.CommandParameter>
+						<MultiBinding Converter="{StaticResource Converter}">
+							<Binding Path="SelectedConnection"></Binding>
+							<Binding ElementName="Expression" Path="Text"/>
+						</MultiBinding>
+					</Button.CommandParameter>
+					Eval Expression
+				</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<StackPanel DockPanel.Dock="Bottom">
