@@ -42,6 +42,7 @@ namespace ConnectionHiddenCalculation
 		readonly string ideaConnExeFileName;
 		private string ideaConTempFileName;
 		private string expression;
+		private IConnectionId selectedConnection;
 		#endregion
 
 		#region Constructor
@@ -436,6 +437,16 @@ namespace ConnectionHiddenCalculation
 			{
 				expression = value;
 				NotifyPropertyChanged("Expression");
+			}
+		}
+
+		public IConnectionId SelectedConnection
+		{
+			get => selectedConnection;
+			set
+			{
+				selectedConnection = value;
+				NotifyPropertyChanged("SelectedConnection");
 			}
 		}
 

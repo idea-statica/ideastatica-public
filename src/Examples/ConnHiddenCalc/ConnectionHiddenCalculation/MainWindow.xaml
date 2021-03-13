@@ -21,16 +21,19 @@
 				<Button Command="{Binding GetBoltAssembliesCmd, Mode=TwoWay}" ToolTip="Get all bolt assemblies in the open Idea Connection project">Get Bolts</Button>
 				<Button Command="{Binding CreateBoltAssemblyCmd, Mode=TwoWay}" CommandParameter="{Binding NewBoltAssemblyName, Mode=OneWay}" ToolTip="Create a new bolt assembly in the open Idea Connection project">Create bolt</Button>
 				<TextBox Text="{Binding NewBoltAssemblyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80"></TextBox>
+				<Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
 			</ToolBar>
 			<ToolBar Band="2" DockPanel.Dock="Top">
+				<Label Content="{Binding SelectedConnection.Name}" MinWidth="80"></Label>
+				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Open the selected connection in the application">Open connection</Button>
+			</ToolBar>
+			<ToolBar Band="3" DockPanel.Dock="Top">
 				<Label>Supporting member</Label>
 				<TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column"></TextBox>
 				<Label>Attached member</Label>
 				<TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam"></TextBox>
 				<Label>Expression</Label>
 				<TextBox x:Name="Expression" Text="{Binding Expression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ></TextBox>
-				<Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
-				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" Margin="5,0" ToolTip="Open idea connection project">Open project</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<StackPanel DockPanel.Dock="Bottom">
@@ -43,12 +46,16 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			<Grid Grid.Column="0" Name="templateSettingBox">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="19*"/>
+					<ColumnDefinition Width="97*"/>
+				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
 					<RowDefinition Height="5"></RowDefinition>
 					<RowDefinition Height="150"></RowDefinition>
 				</Grid.RowDefinitions>
-				<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" >
+				<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" SelectedItem="{Binding SelectedConnection, Mode=TwoWay}" Grid.ColumnSpan="2" >
 					<ListView.ItemContainerStyle>
 						<Style TargetType="ListViewItem">
 							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -184,8 +191,8 @@
 						</GridView>
 					</ListView.View>
 				</ListView>
-				<GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
-				<TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+				<GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" />
+				<TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
 			</Grid>
 			<GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
 			<ScrollViewer Grid.Column="2">
