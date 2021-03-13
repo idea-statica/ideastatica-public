@@ -97,9 +97,10 @@ namespace IdeaStatiCa.Plugin
 		/// <summary>
 		/// Evaluate expression on connection model <paramref name="connectionId"/>
 		/// </summary>
-		/// <param name="connectionId">Id of the connection</param>
-		/// <param name="expression">Expression</param>
-		/// <param name="arumentsJSON">Optional agruments in json format</param>
+		/// <param name="connectionId">Id of the connection in the open idea connection project</param>
+		/// <param name="expression">User expression to be bavaluated</param>
+		/// <param name="arumentsJSON">Optional agruments in json format (not used now)</param>
+		/// <returns>In case of success the JSON string represention the result of the query. String 'null' if nothing is found. String 'error' on case of any other not specified error.</returns>
 		[OperationContract]
 		string EvaluateExpression(string connectionId, string expression, string arumentsJSON);
 
