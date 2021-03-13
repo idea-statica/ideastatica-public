@@ -6,11 +6,19 @@
         xmlns:local="clr-namespace:ConnectionHiddenCalculation"
         mc:Ignorable="d"
         Title="IdeaConnection - hidden calculation" Height="500" Width="1000" Closed="Window_Closed">
-	
+
 	<Window.Resources>
 		<local:Converter x:Key="Converter" />
+
+		<Style TargetType="{x:Type TextBox}" x:Key="DisableNoIfConnection">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding SelectedConnection}" Value="{x:Null}">
+					<Setter Property="IsEnabled" Value="False"/>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 	</Window.Resources>
-	
+
 	<DockPanel LastChildFill="True">
 		<ToolBarTray DockPanel.Dock="Top">
 			<ToolBar Band="1" DockPanel.Dock="Top">
@@ -25,21 +33,31 @@
 				<TextBox Text="{Binding NewBoltAssemblyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80"></TextBox>
 				<Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
 			</ToolBar>
-			
+
 			<ToolBar Band="2" DockPanel.Dock="Top">
 				<Label Content="{Binding SelectedConnection.Name}" FontWeight="Bold" MinWidth="80"></Label>
 				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" ToolTip="Open the selected connection in the application">Open connection</Button>
 			</ToolBar>
-			
+
 			<ToolBar Band="3" DockPanel.Dock="Top">
 				<Label>Supporting member</Label>
-				<TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column"></TextBox>
+				<TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column" Style="{StaticResource DisableNoIfConnection}"></TextBox>
 				<Label>Attached member</Label>
-				<TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam"></TextBox>
+				<TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam" Style="{StaticResource DisableNoIfConnection}">
+					<!--<TextBox.Style>
+						<Style TargetType="{x:Type TextBox}">
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding SelectedConnection}" Value="{x:Null}">
+									<Setter Property="IsEnabled" Value="False"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</TextBox.Style>-->
+				</TextBox>
 				<Label>Expression</Label>
-				<TextBox x:Name="Expression" Text="{Binding Expression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ></TextBox>
+				<TextBox x:Name="Expression" Text="{Binding Expression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" Style="{StaticResource DisableNoIfConnection}"></TextBox>
 			</ToolBar>
-			
+
 			<ToolBar Band="4" DockPanel.Dock="Top">
 				<Button Command="{Binding CalculateConnectionCmd}"  CommandParameter="{Binding SelectedConnection}">Calculate</Button>
 				<Button Command="{Binding ConnectionGeometryCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Get the instance of IdeaRS.OpenModel.Connection.ConnectionData for this connection.">Geometry</Button>
@@ -81,15 +99,16 @@
 			</Grid.ColumnDefinitions>
 			<Grid Grid.Column="0" Name="templateSettingBox">
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="19*"/>
-					<ColumnDefinition Width="97*"/>
+					<ColumnDefinition Width="57*"/>
+					<ColumnDefinition Width="285*"/>
+					<ColumnDefinition Width="8*"/>
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*"></RowDefinition>
 					<RowDefinition Height="5"></RowDefinition>
 					<RowDefinition Height="150"></RowDefinition>
 				</Grid.RowDefinitions>
-				<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" SelectedItem="{Binding SelectedConnection, Mode=TwoWay}" Grid.ColumnSpan="2" >
+				<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" SelectedItem="{Binding SelectedConnection, Mode=TwoWay}" Grid.ColumnSpan="3" >
 					<ListView.ItemContainerStyle>
 						<Style TargetType="ListViewItem">
 							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -109,8 +128,8 @@
 						</GridView>
 					</ListView.View>
 				</ListView>
-				<GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" />
-				<TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+				<GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" />
+				<TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3"/>
 			</Grid>
 			<GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
 			<ScrollViewer Grid.Column="2">
