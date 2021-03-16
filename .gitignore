@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Resource files that are not localized into other than english
+
+src/IdeaRS.OpenModel/Properties/Resources.*.resx
