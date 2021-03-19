@@ -18,7 +18,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1
 
     - name: Setup nuget.exe
-      uses: NuGet/setup-nuget@v1.0.2
+      uses: NuGet/setup-nuget@v1.0.5
 
     - name: Restore dependencies
       run: nuget restore ./src/IdeaStatiCa.Public.sln
