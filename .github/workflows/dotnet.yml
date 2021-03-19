@@ -13,13 +13,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 4.8.x
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Setup nuget.exe
+    - uses: NuGet/setup-nuget@v1.0.2
+
     - name: Restore dependencies
-      run: dotnet restore ./src/IdeaStatiCa.Public.sln
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
+
     - name: Build
-      run: dotnet build ./src/IdeaStatiCa.Public.sln --no-restore
+      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+
     - name: Test
-      run: dotnet test ./src/IdeaStatiCa.Public.sln --no-build --verbosity normal
+      run: '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe" ./src/IdeaStatiCa.Public.sln'
