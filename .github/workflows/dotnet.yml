@@ -14,14 +14,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup VS2019
-      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Git Clean
+      run: git clean -xfd
 
     - name: Setup nuget.exe
       uses: NuGet/setup-nuget@v1.0.5
 
-    - name: Restore dependencies
+    - name: Nuget restore dependencies
       run: nuget restore ./src/IdeaStatiCa.Public.sln
+
+    - name: dotnet restore dependencies
+      run: dotnet restore ./src/IdeaStatiCa.Public.sln
 
     - name: Build
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
