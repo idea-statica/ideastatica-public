@@ -26,11 +26,11 @@ jobs:
     - name: Nuget restore dependencies
       run: nuget restore ./src/IdeaStatiCa.Public.sln
 
-    - name: dotnet restore dependencies
+    - name: Dotnet restore dependencies
       run: dotnet restore ./src/IdeaStatiCa.Public.sln
 
     - name: Build
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
 
     - name: Test
-      run: 'dotnet test ./src/IdeaStatiCa.Public.sln'
+      run: 'vtest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
