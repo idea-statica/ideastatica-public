@@ -36,4 +36,4 @@ jobs:
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
 
     - name: Test
-      run: 'vtest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
+      run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
