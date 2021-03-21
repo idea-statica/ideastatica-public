@@ -88,6 +88,6 @@ namespace IdeaStatiCa.Plugin.Tests.Grpc
 
             Assert.AreEqual(value, "SampleValue");
             Assert.AreEqual("Here", anotherValue);
-        }
+        } 
     }
 }
