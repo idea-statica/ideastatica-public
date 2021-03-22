@@ -1,4 +1,4 @@
-name: .NET
+name: .NET build verification
 
 on:
   push:
@@ -7,19 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  BuildAndTest:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Git Clean
+      run: git clean -xfd
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1
+
+    - name: Nuget restore dependencies
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
+
+    - name: Dotnet restore dependencies
+      run: dotnet restore ./src/IdeaStatiCa.Public.sln
+
     - name: Build
-      run: dotnet build --no-restore
+      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
