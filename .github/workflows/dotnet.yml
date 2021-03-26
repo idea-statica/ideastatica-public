@@ -2,7 +2,9 @@ name: .NET build verification
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
+      - 2487_idea_bim_api
   pull_request:
     branches: [ main ]
 
@@ -36,4 +38,4 @@ jobs:
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
 
     - name: Test
-      run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
+      run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll .\src\IdeaStatiCa.BimImporter.Tests\bin\Release\IdeaStatiCa.BimImporter.Tests.dll'
