@@ -3,6 +3,8 @@ using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Diagnostics;
 using MathNet.Numerics;
+using System;
+using Vector = MathNet.Spatial.Euclidean.Vector3D;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -28,7 +30,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			if (!(segment.LocalCoordinateSystem is CoordSystemByVector coordSystem))
 			{
-				throw new ConstraintException("LocalCoordinateSystem must be instance of CoordSystemByVector.");
+				throw new NotImplementedException("LocalCoordinateSystem must be instance of CoordSystemByVector.");
 			}
 
 			Segment3D iomSegment;
@@ -51,7 +53,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 			else
 			{
-				throw new ConstraintException("Segment must be instance either IIdeaLineSegment3D or IIdeaArcSegment3D.");
+				throw new NotImplementedException("Segment must be instance either IIdeaLineSegment3D or IIdeaArcSegment3D.");
 			}
 
 			iomSegment.StartPoint = _nodeImporter.Import(ctx, segment.StartNode);
@@ -63,10 +65,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private CoordSystemByVector ProcessCoordSystem(CoordSystemByVector coordSystem)
 		{
-			if (!IsUnitVector(coordSystem.VecX) || !IsUnitVector(coordSystem.VecY) || !IsUnitVector(coordSystem.VecZ))
-			{
-				throw new ConstraintException("LCS basis vectors must have unit length.");
-			}
+			CheckVectorSpaceConstraints(Convert(coordSystem.VecX), Convert(coordSystem.VecY), Convert(coordSystem.VecZ));
 
 			return new CoordSystemByVector()
 			{
@@ -74,6 +73,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 				VecY = NormalizeVector(coordSystem.VecY),
 				VecZ = NormalizeVector(coordSystem.VecZ),
 			};
+		}
+
+		private Vector Convert(Vector3D v)
+		{
+			return new Vector(v.X, v.Y, v.Z);
 		}
 
 		private Vector3D NormalizeVector(Vector3D vector)
@@ -84,12 +88,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Y = Normalize(vector.Y),
 				Z = Normalize(vector.Z),
 			};
-		}
-
-		private bool IsUnitVector(Vector3D vector)
-		{
-			double lengthSquared = vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z;
-			return lengthSquared.AlmostEqual(1.0, Precision);
 		}
 
 		private double Normalize(double value)
@@ -111,6 +109,34 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 
 			return value;
+		}
+
+		private void CheckVectorSpaceConstraints(Vector a, Vector b, Vector c)
+		{
+			if (!IsUnitVector(a) || !IsUnitVector(b) || !IsUnitVector(c))
+			{
+				throw new ConstraintException("LCS basis vectors must have unit length.");
+			}
+
+			if (!a.IsPerpendicularTo(b, Precision) || !b.IsPerpendicularTo(c, Precision) || !c.IsPerpendicularTo(a, Precision))
+			{
+				throw new ConstraintException("LCS basis vectors must be perpendicular to each other.");
+			}
+
+			if (GetVectorSpaceOrientation(a, b, c) < 0)
+			{
+				throw new ConstraintException("LCS must be right handed.");
+			}
+		}
+
+		private bool IsUnitVector(Vector vector)
+		{
+			return vector.Length.AlmostEqual(1.0, Precision);
+		}
+
+		private double GetVectorSpaceOrientation(Vector a, Vector b, Vector c)
+		{
+			return a.CrossProduct(b).DotProduct(c);
 		}
 	}
 }

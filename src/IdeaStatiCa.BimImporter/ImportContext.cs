@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,8 @@ namespace IdeaStatiCa.BimImporter
 		public Dictionary<string, IIdeaObject> IdeaObjects { get; } = new Dictionary<string, IIdeaObject>();
 
 		public OpenModel OpenModel { get; } = new OpenModel();
+
+		public List<BIMItemId> BIMItems { get; } = new List<BIMItemId>();
 
 		public void Add(OpenElementId openElementId)
 		{

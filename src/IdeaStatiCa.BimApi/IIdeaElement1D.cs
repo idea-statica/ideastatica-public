@@ -12,16 +12,6 @@ namespace IdeaStatiCa.BimApi
 	public interface IIdeaElement1D : IIdeaObject
 	{
 		/// <summary>
-		/// Start node of the element. Returns null if unconnected. Is not equal to <see cref="EndNode"/>.
-		/// </summary>
-		IIdeaNode StartNode { get; }
-
-		/// <summary>
-		/// End node of the element. Returns null if unconnected. Is not equal to <see cref="StartNode"/>.
-		/// </summary>
-		IIdeaNode EndNode { get; }
-
-		/// <summary>
 		/// Cross-section at the start of the element
 		/// </summary>
 		IIdeaCrossSection StartCrossSection { get; }
@@ -34,12 +24,12 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Eccentricity at the start of the element
 		/// </summary>
-		double EccentricityBegin { get; }
+		IdeaVector3D EccentricityBegin { get; }
 
 		/// <summary>
 		/// Eccentricity at the end of the element
 		/// </summary>
-		double EccentricityEnd { get; }
+		IdeaVector3D EccentricityEnd { get; }
 
 		/// <summary>
 		/// Rotation of the element around the x-axis

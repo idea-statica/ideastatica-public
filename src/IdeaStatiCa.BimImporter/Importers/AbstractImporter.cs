@@ -11,6 +11,16 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		public ReferenceElement Import(ImportContext ctx, T obj)
 		{
+			if (ctx == null)
+			{
+				throw new ArgumentNullException(nameof(ctx));
+			}
+
+			if (obj == null)
+			{
+				throw new ArgumentNullException(nameof(obj));
+			}
+
 			_logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<empty>"}', name '{obj.Name ?? "<empty>"}'");
 
 			if (string.IsNullOrEmpty(obj.Id))
@@ -20,7 +30,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			if (ctx.IdeaObjects.TryGetValue(obj.Id, out IIdeaObject ideaObject))
 			{
-				if (ReferenceEquals(ideaObject, obj))
+				if (!ReferenceEquals(ideaObject, obj))
 				{
 					throw new ConstraintException($"Objects '{ideaObject}' and '{obj}' have the same Id '{obj.Id}'.");
 				}

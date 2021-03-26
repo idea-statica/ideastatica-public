@@ -22,21 +22,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new ConstraintException("A member has to specify at least one element.");
 			}
 
-			if (member.StartNode.IsAlmostEqual(member.EndNode))
-			{
-				throw new ConstraintException();
-			}
-
-			if (member.StartNode != member.Elements[0].StartNode)
-			{
-				throw new ConstraintException();
-			}
-
-			if (member.EndNode != member.Elements[member.Elements.Count - 1].EndNode)
-			{
-				throw new ConstraintException();
-			}
-
 			CheckElementListConstraints(member.Elements);
 
 			Member1D iomMember = new Member1D
@@ -53,18 +38,18 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private void CheckElementListConstraints(List<IIdeaElement1D> elements)
 		{
-			IIdeaNode prevNode = elements[0].StartNode;
+			IIdeaNode prevNode = elements[0].Segment.StartNode;
 
 			for (int i = 0; i < elements.Count; i++)
 			{
 				IIdeaElement1D element = elements[i];
 
-				if (element.StartNode != prevNode)
+				if (element.Segment.StartNode != prevNode)
 				{
 					throw new ConstraintException();
 				}
 
-				prevNode = element.EndNode;
+				prevNode = element.Segment.EndNode;
 
 				for (int j = 0; j < i; j++)
 				{

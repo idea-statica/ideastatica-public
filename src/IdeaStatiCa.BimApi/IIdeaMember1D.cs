@@ -35,31 +35,6 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		List<IIdeaElement1D> Elements { get; }
 
-		/// <summary>
-		/// Identifies the start node of the member or null, if the member's start is not connected to any node.
-		/// <para>
-		/// Following guarantees are valid for the returned node:
-		/// <list type="bullet">
-		///		<item>It is not equal to the <see cref="EndNode"/>.</item>
-		///		<item>The node returned from this property is guaranteed to list this member in the set returned from <see cref="IIdeaNode.GetConnectedMembers"/> call</item>
-		///		<item>The first of the elements is connected to the same node via <see cref="IIdeaElement1D.StartNode"/>.</item>
-		/// </list>
-		/// </para>
-		/// </summary>
-		IIdeaNode StartNode { get; }
-
-		/// <summary>
-		/// Identifies the end node of the member or null, if the member's end is not connected to any node.
-		/// <para>
-		/// Following guarantees are valid for the returned node:
-		/// <list type="bullet">
-		///		<item>It is not equal to the <see cref="StartNode"/>.</item>
-		///		<item>The node returned from this property is guaranteed to list this member in the set returned from <see cref="IIdeaNode.GetConnectedMembers"/> call</item>
-		///		<item>The last of the elements is connected to the same node via <see cref="IIdeaElement1D.EndNode"/>.</item>
-		/// </list>
-		/// </summary>
-		IIdeaNode EndNode { get; }
-
 		// IdeaReleases startReleases;
 
 		// IdeaReleases endReleases;

@@ -1,7 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
-using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -18,17 +17,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaElement1D element)
 		{
-			if (element.StartNode.IsAlmostEqual(element.EndNode))
-			{
-				throw new Exception(); // TODO: text
-			}
-
 			Element1D iomElement = new Element1D
 			{
 				Name = element.Name,
 				CrossSectionBegin = _cssImporter.Import(ctx, element.StartCrossSection),
 				CrossSectionEnd = _cssImporter.Import(ctx, element.EndCrossSection),
-				Segment = _segmentImporter.Import(ctx, element.Segment)
+				Segment = _segmentImporter.Import(ctx, element.Segment),
+				EccentricityBeginX = element.EccentricityBegin.X,
+				EccentricityBeginY = element.EccentricityBegin.Y,
+				EccentricityBeginZ = element.EccentricityBegin.Z,
+				EccentricityEndX = element.EccentricityEnd.X,
+				EccentricityEndY = element.EccentricityEnd.Y,
+				EccentricityEndZ = element.EccentricityEnd.Z,
+				RotationRx = element.RotationRx
 			};
 
 			return iomElement;

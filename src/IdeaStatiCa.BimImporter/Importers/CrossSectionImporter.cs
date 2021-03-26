@@ -34,7 +34,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 			else
 			{
-				throw new NotImplementedException();
+				throw new NotImplementedException("Cross-section must be instance of IIdeaCrossSectionByParameters, " +
+					"IIdeaCrossSectionByCenterLine, or IIdeaCrossSectionByComponents");
 			}
 
 			iomCss.Name = css.Name;
