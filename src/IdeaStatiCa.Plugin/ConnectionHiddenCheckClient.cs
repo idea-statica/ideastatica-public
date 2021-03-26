@@ -138,6 +138,11 @@ namespace IdeaStatiCa.Plugin
 			return Service.GetCheckResultsJSON(connectionId);
 		}
 
+		public string EvaluateExpression(string connectionId, string expression, string arumentsJSON)
+		{
+			return Service.EvaluateExpression(connectionId, expression, arumentsJSON);
+		}
+
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }

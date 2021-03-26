@@ -1,0 +1,14 @@
+﻿syntax = "proto3"; 
+
+option csharp_namespace = "IdeaStatiCa.Plugin.Grpc";
+
+service GrpcService {
+	rpc ConnectAsync(stream GrpcMessage) returns (stream GrpcMessage);
+}
+
+message GrpcMessage {
+    string messageName = 1;
+    string data = 2;
+    string clientId = 3;
+    string operationId = 4;
+} 

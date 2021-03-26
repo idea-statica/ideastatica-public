@@ -16,7 +16,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin-public.csproj" />
+    <ProjectReference Include="..\..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

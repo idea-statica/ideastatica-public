@@ -1,35 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
     <AssemblyTitle>IdeaStatiCa.PluginsTools</AssemblyTitle>
     <Product>IdeaStatiCa.PluginsTools</Product>
     <Copyright></Copyright>
-    <OutputPath>..\bin\Release\</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Authors>IdeaStatiCa</Authors>
-    <Version>20.1.1</Version>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <AssemblyVersion>20.1.1.0</AssemblyVersion>
-    <FileVersion>20.1.1.0</FileVersion>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	<RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
+	<Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
+    <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Release\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net46|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="21.0.13" />
+    <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

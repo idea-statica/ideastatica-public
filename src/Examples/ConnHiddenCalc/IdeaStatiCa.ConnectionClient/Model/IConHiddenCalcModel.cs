@@ -1,10 +1,5 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionClient.Model
 {
@@ -13,6 +8,8 @@ namespace IdeaStatiCa.ConnectionClient.Model
 		bool IsService { get; }
 
 		bool IsIdea { get; }
+
+		IConnectionId SelectedConnection { get; }
 
 		ApplyConnTemplateSetting TemplateSetting { get; }
 

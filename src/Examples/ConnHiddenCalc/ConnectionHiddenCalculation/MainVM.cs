@@ -14,6 +14,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Linq;
 
 namespace ConnectionHiddenCalculation
 {
@@ -41,6 +42,8 @@ namespace ConnectionHiddenCalculation
 		IdeaConnectionController connectionController;
 		readonly string ideaConnExeFileName;
 		private string ideaConTempFileName;
+		private string expression;
+		private IConnectionId selectedConnection;
 		#endregion
 
 		#region Constructor
@@ -85,6 +88,7 @@ namespace ConnectionHiddenCalculation
 			GetBoltAssembliesCmd = new GetBoltAssembliesCommand(this);
 			CreateBoltAssemblyCmd = new CreateBoltAssemblyCommand(this);
 			GetParametersCmd = new GetParametersCommand(this);
+			EvaluateExpessionCmd = new EvaluateExpressionCommand(this);
 			GetLoadingCmd = new GetLoadingCommand(this);
 			GetConnCheckResultsCmd = new GetConnCheckResults(this);
 			GetAllConnectionDataCmd = new GetAllConnDataCommand(this);
@@ -119,10 +123,9 @@ namespace ConnectionHiddenCalculation
 		public ICommand CreateBoltAssemblyCmd { get; set; }
 		public ICommand ShowConHiddenCalcLogFileCmd { get; set; }
 		public ICommand GetParametersCmd { get; set; }
+		public ICommand EvaluateExpessionCmd { get; set; }
 		public ICommand GetLoadingCmd { get; set; }
-
 		public ICommand GetConnCheckResultsCmd { get; set; }
-
 		public ICommand OpenTempProjectCmd { get; set; }
 
 		#endregion
@@ -339,6 +342,7 @@ namespace ConnectionHiddenCalculation
 			}
 
 			this.Connections = new ObservableCollection<ConnectionVM>(connectionsVm);
+			SelectedConnection = Connections.FirstOrDefault();
 		}
 
 		#endregion
@@ -422,6 +426,29 @@ namespace ConnectionHiddenCalculation
 			{
 				templateSetting = value;
 				NotifyPropertyChanged("TemplateSetting");
+			}
+		}
+
+		/// <summary>
+		/// Get or test the expression which is evaluated by EvaluateExpressionCommand
+		/// </summary>
+		public string Expression
+		{
+			get => expression;
+			set
+			{
+				expression = value;
+				NotifyPropertyChanged("Expression");
+			}
+		}
+
+		public IConnectionId SelectedConnection
+		{
+			get => selectedConnection;
+			set
+			{
+				selectedConnection = value;
+				NotifyPropertyChanged("SelectedConnection");
 			}
 		}
 

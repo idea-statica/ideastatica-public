@@ -1,5 +1,14 @@
 <Project>    
   <ItemGroup>
       <PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2"/>
+      <PackageReference Include="Castle.Windsor" Version="5.1.1" />
+      <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+      <PackageReference Include="Grpc" Version="2.35.0" />
+      <PackageReference Include="Grpc.Core" Version="2.35.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.35.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.0" />
   </ItemGroup>
 </Project>

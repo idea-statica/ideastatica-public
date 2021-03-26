@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>IdeaStatiCa.ConnectionClient</AssemblyTitle>
     <Product>IdeaStatiCa.ConnectionClient</Product>
     <Copyright>Copyright ©  2020</Copyright>
@@ -14,7 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin-public.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

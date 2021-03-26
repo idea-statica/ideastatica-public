@@ -1,0 +1,39 @@
+name: .NET build verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  BuildAndTest:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Git Clean
+      run: git clean -xfd
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1
+
+    - name: Nuget restore dependencies
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
+
+    - name: Dotnet restore dependencies
+      run: dotnet restore ./src/IdeaStatiCa.Public.sln
+
+    - name: Build
+      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+
+    - name: Test
+      run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'

@@ -95,6 +95,16 @@ namespace IdeaStatiCa.Plugin
 		string GetAllConnectionData(string connectionId);
 
 		/// <summary>
+		/// Evaluate expression on connection model <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">Id of the connection in the open idea connection project</param>
+		/// <param name="expression">User expression to be evaluated</param>
+		/// <param name="arumentsJSON">Optional agruments in json format (not used now)</param>
+		/// <returns>In case of a success it is the JSON string representing the result of the query. String 'null' if nothing is found. String 'error' in case of any other unspecified error.</returns>
+		[OperationContract]
+		string EvaluateExpression(string connectionId, string expression, string arumentsJSON);
+
+		/// <summary>
 		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects saves into the <paramref name="newIdeaConFileName"/>
 		/// </summary>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
