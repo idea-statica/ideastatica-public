@@ -38,6 +38,7 @@ namespace IdeaStatiCa.Plugin
 		private readonly string EventName;
 		private readonly string PluginUrlFormat;
 		private IPluginLogger ideaLogger;
+		string baseAddress;
 
 #if DEBUG
 		private readonly int OpenServerTimeLimit = -1;
@@ -46,6 +47,8 @@ namespace IdeaStatiCa.Plugin
 #endif
 
 		internal Process IdeaStaticaApp { get; private set; }
+
+		internal string ServiceBaseAddress { get => baseAddress; set => baseAddress = value; }
 
 		public BIMPluginHosting(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName, string pluginUrlFormat = Constants.DefaultPluginUrlFormat)
 		{
@@ -98,8 +101,8 @@ namespace IdeaStatiCa.Plugin
 			mre.Reset();
 			bimAppService = bimPluginFactory?.Create();
 
-			string baseAddress = string.Format(PluginUrlFormat, id);
-			using (ServiceHost selfServiceHost = new ServiceHost(Service, new Uri(baseAddress)))
+			ServiceBaseAddress = string.Format(PluginUrlFormat, id);
+			using (ServiceHost selfServiceHost = new ServiceHost(Service, new Uri(ServiceBaseAddress)))
 			{
 				((ServiceBehaviorAttribute)selfServiceHost.Description.
 				Behaviors[typeof(ServiceBehaviorAttribute)]).InstanceContextMode
@@ -108,7 +111,7 @@ namespace IdeaStatiCa.Plugin
 				//Net named pipe
 				NetNamedPipeBinding binding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647 };
 				binding.ReceiveTimeout = TimeSpan.MaxValue;
-				selfServiceHost.AddServiceEndpoint(typeof(IApplicationBIM), binding, baseAddress);
+				selfServiceHost.AddServiceEndpoint(typeof(IApplicationBIM), binding, ServiceBaseAddress);
 
 				//BasicHttpBinding httpBinding = new BasicHttpBinding { MaxReceivedMessageSize = 2147483647 };
 				//httpBinding.ReceiveTimeout = TimeSpan.MaxValue;
@@ -117,9 +120,14 @@ namespace IdeaStatiCa.Plugin
 				//MEX - Meta data exchange
 				ServiceMetadataBehavior behavior = new ServiceMetadataBehavior();
 				selfServiceHost.Description.Behaviors.Add(behavior);
-				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), baseAddress + "/mex/");
+				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), ServiceBaseAddress + "/mex/");
 
 				selfServiceHost.Opened += new EventHandler(SelfServiceHost_Opened);
+				selfServiceHost.Faulted += SelfServiceHost_Faulted;
+				selfServiceHost.Opening += SelfServiceHost_Opening;
+				selfServiceHost.UnknownMessageReceived += SelfServiceHost_UnknownMessageReceived;
+				selfServiceHost.Closing += SelfServiceHost_Closing;
+				selfServiceHost.Closed += SelfServiceHost_Closed;
 
 				selfServiceHost.Open(new TimeSpan(0, 0, 10));
 
@@ -137,9 +145,29 @@ namespace IdeaStatiCa.Plugin
 			}
 		}
 
+		private void SelfServiceHost_Closed(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_Closed service '{ServiceBaseAddress}'");
+			ServiceHost selfServiceHost = (ServiceHost)sender;
+			if(selfServiceHost != null)
+			{
+				selfServiceHost.Opened -= new EventHandler(SelfServiceHost_Opened);
+				selfServiceHost.Faulted -= SelfServiceHost_Faulted;
+				selfServiceHost.Opening -= SelfServiceHost_Opening;
+				selfServiceHost.UnknownMessageReceived -= SelfServiceHost_UnknownMessageReceived;
+				selfServiceHost.Closing -= SelfServiceHost_Closing;
+				selfServiceHost.Closed -= SelfServiceHost_Closed;
+			}
+		}
+
+		private void SelfServiceHost_Closing(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_Closing service '{ServiceBaseAddress}'");
+		}
+
 		private void SelfServiceHost_Opened(object sender, EventArgs e)
 		{
-			((ServiceHost)sender).Opened -= new EventHandler(SelfServiceHost_Opened);
+			ideaLogger.LogDebug($"SelfServiceHost_Opened service '{ServiceBaseAddress}'");
 
 			// run IDEA StatiCa
 			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);
@@ -154,6 +182,21 @@ namespace IdeaStatiCa.Plugin
 					appBim.Id = IdeaStaticaApp.Id;
 				}
 			}
+		}
+
+		private void SelfServiceHost_UnknownMessageReceived(object sender, UnknownMessageReceivedEventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Opening(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_Opening service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Faulted(object sender, EventArgs e)
+		{
+			ideaLogger.LogError($"SelfServiceHost_Faulted service '{ServiceBaseAddress}'", new Exception());
 		}
 
 		private void IS_Exited(object sender, EventArgs e)

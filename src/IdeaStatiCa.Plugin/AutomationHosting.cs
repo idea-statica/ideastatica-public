@@ -62,6 +62,7 @@ namespace IdeaStatiCa.Plugin
 		private readonly string ClientUrlFormat;
 		private readonly string AutomationUrlFormat;
 		private readonly IPluginLogger ideaLogger = null;
+		string baseAddress;
 
 #if DEBUG
 		private readonly TimeSpan OpenServerTimeLimit = TimeSpan.MaxValue;
@@ -219,11 +220,11 @@ namespace IdeaStatiCa.Plugin
 			var myProcess = Process.GetCurrentProcess();
 			int myProcessId = myProcess.Id;
 
-			string baseAddress = string.Format(AutomationUrlFormat, myProcessId);
-			ideaLogger.LogInformation($"RunServer - Starting Automation service listening on '{baseAddress}'");
+			ServiceBaseAddress = string.Format(AutomationUrlFormat, myProcessId);
+			ideaLogger.LogInformation($"RunServer - Starting Automation service listening on '{ServiceBaseAddress}'");
 
 			// expose my IAutomation interface
-			using (ServiceHost selfServiceHost = new ServiceHost(automation, new Uri(baseAddress)))
+			using (ServiceHost selfServiceHost = new ServiceHost(automation, new Uri(ServiceBaseAddress)))
 			{
 				((ServiceBehaviorAttribute)selfServiceHost.Description.
 				Behaviors[typeof(ServiceBehaviorAttribute)]).InstanceContextMode
@@ -232,12 +233,17 @@ namespace IdeaStatiCa.Plugin
 				//Net named pipe
 				NetNamedPipeBinding binding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647 };
 				binding.ReceiveTimeout = TimeSpan.MaxValue;
-				selfServiceHost.AddServiceEndpoint(typeof(MyInterface), binding, baseAddress);
+				selfServiceHost.AddServiceEndpoint(typeof(MyInterface), binding, ServiceBaseAddress);
 
 				//MEX - Meta data exchange
 				ServiceMetadataBehavior behavior = new ServiceMetadataBehavior();
 				selfServiceHost.Description.Behaviors.Add(behavior);
-				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), baseAddress + "/mex");
+				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), ServiceBaseAddress + "/mex");
+
+				selfServiceHost.Faulted += SelfServiceHost_Faulted;
+				selfServiceHost.Opened += SelfServiceHost_Opened;
+				selfServiceHost.Opening += SelfServiceHost_Opening;
+				selfServiceHost.UnknownMessageReceived += SelfServiceHost_UnknownMessageReceived;
 
 				selfServiceHost.Open(OpenServerTimeLimit);
 
@@ -283,6 +289,11 @@ namespace IdeaStatiCa.Plugin
 				{
 					if (selfServiceHost != null)
 					{
+						selfServiceHost.Faulted -= SelfServiceHost_Faulted;
+						selfServiceHost.Opened -= SelfServiceHost_Opened;
+						selfServiceHost.Opening -= SelfServiceHost_Opening;
+						selfServiceHost.UnknownMessageReceived -= SelfServiceHost_UnknownMessageReceived;
+
 						selfServiceHost.Close();
 					}
 				}
@@ -292,6 +303,26 @@ namespace IdeaStatiCa.Plugin
 
 				mre.Set();
 			}
+		}
+
+		private void SelfServiceHost_UnknownMessageReceived(object sender, UnknownMessageReceivedEventArgs e)
+		{
+			ideaLogger.LogDebug($"UnknownMessageReceived service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Opening(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"Opening service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Opened(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"Opened service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Faulted(object sender, EventArgs e)
+		{
+			ideaLogger.LogError($"Faulted service '{ServiceBaseAddress}'", new Exception());
 		}
 
 		protected virtual void NotifyBIMStatusChanged(AppStatus newStatus)
@@ -316,6 +347,7 @@ namespace IdeaStatiCa.Plugin
 
 		public Task HostingTask { get => hostingTask; set => hostingTask = value; }
 		public MyInterface Service { get => automation; }
+		public string ServiceBaseAddress { get => baseAddress; set => baseAddress = value; }
 
 		protected virtual void Dispose(bool disposing)
 		{
