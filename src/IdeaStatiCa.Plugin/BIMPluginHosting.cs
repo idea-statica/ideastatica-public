@@ -67,6 +67,7 @@ namespace IdeaStatiCa.Plugin
 			if (hostingTask != null)
 			{
 				Debug.Fail("Task is running");
+				ideaLogger.LogInformation($"BIMPluginHosting RunAsync - task is running");
 				return Task.CompletedTask;
 			}
 
@@ -85,9 +86,14 @@ namespace IdeaStatiCa.Plugin
 		{
 			if (hostingTask != null)
 			{
+				ideaLogger.LogDebug($"BIMPluginHosting Stop '{ServiceBaseAddress}'");
 				tokenSource.Cancel();
 				var stopRes = mre.WaitOne();
-				Debug.Assert(stopRes, "Can not stop");
+				if(!stopRes)
+				{
+					ideaLogger.LogError($"BIMPluginHosting Stop - timeout - can not stop service '{ServiceBaseAddress}'", new Exception());
+				}
+
 				hostingTask = null;
 				NotifyAppStatusChanged(AppStatus.Finished);
 			}
@@ -97,11 +103,15 @@ namespace IdeaStatiCa.Plugin
 		{
 			clientId = id;
 			this.workingDirectory = workingDirectory;
+
 			// create the communication pipe for getting commands from IDEA StatiCa
 			mre.Reset();
 			bimAppService = bimPluginFactory?.Create();
 
 			ServiceBaseAddress = string.Format(PluginUrlFormat, id);
+
+			ideaLogger.LogDebug($"BIMPluginHosting RunServer clientId = '{clientId}' workingDirectory = '{workingDirectory}', ServiceBaseAddress = '{ServiceBaseAddress}'");
+
 			using (ServiceHost selfServiceHost = new ServiceHost(Service, new Uri(ServiceBaseAddress)))
 			{
 				((ServiceBehaviorAttribute)selfServiceHost.Description.
@@ -201,6 +211,7 @@ namespace IdeaStatiCa.Plugin
 
 		private void IS_Exited(object sender, EventArgs e)
 		{
+			ideaLogger.LogDebug($"IS_Exited IdeaStaticaApp has exited processId = '{IdeaStaticaApp.Id}'");
 			try
 			{
 				IdeaStaticaApp.Exited -= new EventHandler(IS_Exited);
@@ -214,6 +225,7 @@ namespace IdeaStatiCa.Plugin
 
 		protected void NotifyAppStatusChanged(AppStatus newStatus)
 		{
+			ideaLogger.LogDebug($"NotifyAppStatusChanged service '{ServiceBaseAddress}' newStatus = '{newStatus}'");
 			AppStatusChanged?.Invoke(this, new ISEventArgs() { Status = newStatus });
 		}
 
@@ -234,10 +246,13 @@ namespace IdeaStatiCa.Plugin
 			Process connectionProc = new Process();
 
 			string eventName = string.Format("{0}{1}", EventName, id);
+			string isProcessArguments = $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\"";
+
+			ideaLogger.LogDebug($"RunIdeaIdeaStatiCa process exe = '{exePath}' arguments = '{isProcessArguments}'");
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
-				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\"");
+				connectionProc.StartInfo = new ProcessStartInfo(exePath, isProcessArguments);
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 
@@ -254,6 +269,8 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual void Dispose(bool disposing)
 		{
+
+			ideaLogger.LogDebug($"BIMPluginHosting Dispose('{disposing}')");
 			if (!disposedValue)
 			{
 				if (disposing)
