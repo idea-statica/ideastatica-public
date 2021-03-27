@@ -180,7 +180,7 @@ namespace IdeaStatiCa.Plugin
 						Thread.Sleep(100);
 						if (counter > 200)
 						{
-							ideaLogger.LogError($"Can not open client '{feaPluginUrl}'", new Exception());
+							ideaLogger.LogInformation($"Could not open client '{feaPluginUrl}' within 20s timeout. Throwing an exception.");
 							throw new CommunicationException("Can not open client");
 						}
 						counter++;
