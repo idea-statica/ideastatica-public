@@ -181,7 +181,7 @@ namespace IdeaStatiCa.Plugin
 						if (counter > 200)
 						{
 							ideaLogger.LogInformation($"Could not open client '{feaPluginUrl}' within 20s timeout. Throwing an exception.");
-							throw new CommunicationException("Can not open client");
+							throw new CommunicationException("Could not open client '{feaPluginUrl}' within 20s timeout.");
 						}
 						counter++;
 					}
