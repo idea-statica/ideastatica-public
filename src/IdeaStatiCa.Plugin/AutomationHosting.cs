@@ -148,7 +148,7 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual void RunServer(string id, System.Threading.CancellationToken cancellationToken)
 		{
-			ideaLogger.LogInformation("Calling RunServer");
+			ideaLogger.LogDebug($"RunServer processId = {id}");
 
 			mre.Reset();
 
@@ -159,14 +159,15 @@ namespace IdeaStatiCa.Plugin
 				try
 				{
 					myAutomatingProcessId = int.Parse(id);
-					ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}'");
-
+					
 					bimProcess = Process.GetProcessById(myAutomatingProcessId);
 					bimProcess.EnableRaisingEvents = true;
 					bimProcess.Exited += new EventHandler(BimProcess_Exited);
 
 					// Connect to the pipe
 					var feaPluginUrl = string.Format(ClientUrlFormat, id);
+
+					ideaLogger.LogDebug($"RunServer - Connectind to windows pipe == '{feaPluginUrl}'");
 
 					NetNamedPipeBinding pluginBinding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647, OpenTimeout = TimeSpan.MaxValue, CloseTimeout = TimeSpan.MaxValue, ReceiveTimeout = TimeSpan.MaxValue, SendTimeout = TimeSpan.MaxValue };
 
@@ -179,6 +180,7 @@ namespace IdeaStatiCa.Plugin
 						Thread.Sleep(100);
 						if (counter > 200)
 						{
+							ideaLogger.LogError($"Can not open client '{feaPluginUrl}'", new Exception());
 							throw new CommunicationException("Can not open client");
 						}
 						counter++;
@@ -187,6 +189,7 @@ namespace IdeaStatiCa.Plugin
 					if (automation != null)
 					{
 						// service was injected
+						ideaLogger.LogDebug($"RunServer - injected service '{automation.GetType().ToString()}'");
 						if (automation is IClientBIM<ClientInterface> clientBIM)
 						{
 							clientBIM.BIM = bimClient.Service;
@@ -221,7 +224,7 @@ namespace IdeaStatiCa.Plugin
 			int myProcessId = myProcess.Id;
 
 			ServiceBaseAddress = string.Format(AutomationUrlFormat, myProcessId);
-			ideaLogger.LogInformation($"RunServer - Starting Automation service listening on '{ServiceBaseAddress}'");
+			ideaLogger.LogDebug($"RunServer - Starting Automation service listening on '{ServiceBaseAddress}'");
 
 			// expose my IAutomation interface
 			using (ServiceHost selfServiceHost = new ServiceHost(automation, new Uri(ServiceBaseAddress)))
@@ -273,7 +276,7 @@ namespace IdeaStatiCa.Plugin
 					Thread.Sleep(100);
 				}
 
-				ideaLogger.LogInformation($"RunServer - Automation Service has been stopped");
+				ideaLogger.LogDebug($"RunServer - Automation Service has been stopped");
 
 				try
 				{
