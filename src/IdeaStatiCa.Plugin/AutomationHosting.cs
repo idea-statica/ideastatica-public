@@ -167,7 +167,7 @@ namespace IdeaStatiCa.Plugin
 					// Connect to the pipe
 					var feaPluginUrl = string.Format(ClientUrlFormat, id);
 
-					ideaLogger.LogDebug($"RunServer - Connectind to windows pipe == '{feaPluginUrl}'");
+					ideaLogger.LogDebug($"RunServer - Connecting to windows pipe == '{feaPluginUrl}'");
 
 					NetNamedPipeBinding pluginBinding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647, OpenTimeout = TimeSpan.MaxValue, CloseTimeout = TimeSpan.MaxValue, ReceiveTimeout = TimeSpan.MaxValue, SendTimeout = TimeSpan.MaxValue };
 
