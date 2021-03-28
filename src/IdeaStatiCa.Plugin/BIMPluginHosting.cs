@@ -196,7 +196,7 @@ namespace IdeaStatiCa.Plugin
 
 		private void SelfServiceHost_UnknownMessageReceived(object sender, UnknownMessageReceivedEventArgs e)
 		{
-			ideaLogger.LogDebug($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
+			ideaLogger.LogWarning($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
 		}
 
 		private void SelfServiceHost_Opening(object sender, EventArgs e)
