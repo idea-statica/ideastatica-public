@@ -227,6 +227,7 @@ namespace IdeaStatiCa.Plugin
 		{
 			ideaLogger.LogDebug($"NotifyAppStatusChanged service '{ServiceBaseAddress}' newStatus = '{newStatus}'");
 			AppStatusChanged?.Invoke(this, new ISEventArgs() { Status = newStatus });
+			ideaLogger.LogTrace($"NotifyAppStatusChanged service '{ServiceBaseAddress}' newStatus = '{newStatus}' - handling of the event finished.");
 		}
 
 		#region IDisposable Support
