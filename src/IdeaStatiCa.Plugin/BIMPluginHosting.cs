@@ -196,7 +196,7 @@ namespace IdeaStatiCa.Plugin
 
 		private void SelfServiceHost_UnknownMessageReceived(object sender, UnknownMessageReceivedEventArgs e)
 		{
-			ideaLogger.LogWarning($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
+			ideaLogger.LogDebug($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
 		}
 
 		private void SelfServiceHost_Opening(object sender, EventArgs e)
@@ -249,7 +249,6 @@ namespace IdeaStatiCa.Plugin
 			string eventName = string.Format("{0}{1}", EventName, id);
 			string isProcessArguments = $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\"";
 
-			ideaLogger.LogDebug($"RunIdeaIdeaStatiCa process exe = '{exePath}' arguments = '{isProcessArguments}'");
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
@@ -257,10 +256,13 @@ namespace IdeaStatiCa.Plugin
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 
+				//Started '{0}' as a new process with id {1}.
+				ideaLogger.LogDebug($"RunIdeaIdeaStatiCa started process withid {connectionProc.Id} '{exePath}' arguments = '{isProcessArguments}'");
+
 				if (!syncEvent.WaitOne(OpenServerTimeLimit))
 				{
 					syncEvent.Close();
-					throw new CommunicationException(string.Format("Cannot start '{0}'", exePath));
+					throw new CommunicationException(string.Format("Cannot establish the connection to new application with '{0}' with process id {1} within {2}ms timeout.", exePath, connectionProc.Id, OpenServerTimeLimit));
 				}
 				syncEvent.Close();
 			}
@@ -270,10 +272,9 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual void Dispose(bool disposing)
 		{
-
-			ideaLogger.LogDebug($"BIMPluginHosting Dispose('{disposing}')");
 			if (!disposedValue)
 			{
+				ideaLogger.LogDebug($"BIMPluginHosting Dispose('{disposing}')");
 				if (disposing)
 				{
 					if (hostingTask != null)

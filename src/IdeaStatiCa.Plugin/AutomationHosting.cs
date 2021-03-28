@@ -260,14 +260,16 @@ namespace IdeaStatiCa.Plugin
 						syncEvent.Set();
 						syncEvent.Dispose();
 					}
+					else
+					{
+						ideaLogger.LogInformation($"Can not open open event '{myEventName}'");
+					}
 				}
 
-#if DEBUG
 				foreach (var endpoint in selfServiceHost.Description.Endpoints)
 				{
-					Debug.WriteLine("{0} ({1})", endpoint.Address.ToString(), endpoint.Binding.Name);
+					ideaLogger.LogTrace(string.Format("{0} ({1})", endpoint.Address.ToString(), endpoint.Binding.Name));
 				}
-#endif
 
 				NotifyBIMStatusChanged(AppStatus.Started);
 
@@ -292,6 +294,8 @@ namespace IdeaStatiCa.Plugin
 				{
 					if (selfServiceHost != null)
 					{
+						ideaLogger.LogDebug("Connection with BIM application has been closed");
+
 						selfServiceHost.Faulted -= SelfServiceHost_Faulted;
 						selfServiceHost.Opened -= SelfServiceHost_Opened;
 						selfServiceHost.Opening -= SelfServiceHost_Opening;
