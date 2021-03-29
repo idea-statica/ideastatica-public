@@ -132,7 +132,7 @@ namespace IdeaStatiCa.Plugin
 				selfServiceHost.Description.Behaviors.Add(behavior);
 				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), ServiceBaseAddress + "/mex/");
 
-				selfServiceHost.Opened += new EventHandler(SelfServiceHost_Opened);
+				selfServiceHost.Opened += SelfServiceHost_Opened;
 				selfServiceHost.Faulted += SelfServiceHost_Faulted;
 				selfServiceHost.Opening += SelfServiceHost_Opening;
 				selfServiceHost.UnknownMessageReceived += SelfServiceHost_UnknownMessageReceived;
@@ -161,7 +161,7 @@ namespace IdeaStatiCa.Plugin
 			ServiceHost selfServiceHost = (ServiceHost)sender;
 			if(selfServiceHost != null)
 			{
-				selfServiceHost.Opened -= new EventHandler(SelfServiceHost_Opened);
+				selfServiceHost.Opened -= SelfServiceHost_Opened;
 				selfServiceHost.Faulted -= SelfServiceHost_Faulted;
 				selfServiceHost.Opening -= SelfServiceHost_Opening;
 				selfServiceHost.UnknownMessageReceived -= SelfServiceHost_UnknownMessageReceived;
