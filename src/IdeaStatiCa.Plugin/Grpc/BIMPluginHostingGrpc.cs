@@ -188,9 +188,9 @@ namespace IdeaStatiCa.Plugin
 				{
 					syncEvent.Close();
 
-					ideaLogger.LogError("Cannot start '{0}'", exePath);
+					ideaLogger.LogDebug($"Cannot start '{exePath}', throwing exception.");
 
-					throw new CommunicationException(string.Format("Cannot start '{0}'", exePath));
+					throw new CommunicationException($"Cannot start '{exePath}'.");
 				}
 				syncEvent.Close();
 			}

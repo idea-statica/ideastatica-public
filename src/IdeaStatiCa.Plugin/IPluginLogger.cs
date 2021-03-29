@@ -15,25 +15,35 @@ namespace IdeaStatiCa.Plugin
 		/// Logs an error message.
 		/// </summary>
 		/// <param name="message">Message to log.</param>
-		/// <param name="e">Exception to log.</param>
-		void LogError(string message, object parameter);
+		/// <param name="ex">Optional exception to log.</param>
+		void LogError(string message, Exception ex = null);
+
+		/// <summary>
+		/// Logs a warning message.
+		/// </summary>
+		/// <param name="message">Message to log.</param>
+		/// <param name="ex">Optional exception to log.</param>
+		void LogWarning(string message, Exception ex = null);
 
 		/// <summary>
 		/// Logs info message.
 		/// </summary>
 		/// <param name="message">Mesage to log.</param>
-		void LogInformation(string message);
+		/// <param name="ex">Optional exception to log.</param>
+		void LogInformation(string message, Exception ex = null);
 
 		/// <summary>
 		/// Logs debug message.
 		/// </summary>
 		/// <param name="message">Mesage to log.</param>
-		void LogDebug(string message);
+		/// <param name="ex">Optional exception to log.</param>
+		void LogDebug(string message, Exception ex = null);
 
 		/// <summary>
 		/// Logs trace message.
 		/// </summary>
 		/// <param name="message">Mesage to log.</param>
-		void LogTrace(string message);
+		/// <param name="ex">Optional exception to log.</param>
+		void LogTrace(string message, Exception ex = null);
 	}
 }
