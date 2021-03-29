@@ -291,7 +291,16 @@ namespace IdeaStatiCa.Plugin
 					{
 						if (bimClient != null)
 						{
-							bimClient.Close();
+							// if the client is not already closed or in faulted state
+							if (bimClient.State != CommunicationState.Closed && bimClient.State != CommunicationState.Faulted)
+							{
+								ideaLogger.LogTrace($"Closing client...");
+								bimClient.Close();
+							}
+							else
+							{
+								ideaLogger.LogTrace($"Skipping client closing due to {bimClient.State} state.");
+							}
 							bimClient = null;
 						}
 					}
