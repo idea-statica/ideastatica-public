@@ -29,8 +29,8 @@ namespace IdeaStatiCa.Plugin
 	public class BIMPluginHosting : IBIMPluginHosting, IDisposable
 	{
 		private Task hostingTask;
-		private CancellationTokenSource tokenSource;
-		private ManualResetEvent mre;
+		private CancellationTokenSource serverStopRequestTokenSource;
+		private ManualResetEvent serverStoppedEvent;
 		private IApplicationBIM bimAppService;
 		private readonly IBIMPluginFactory bimPluginFactory;
 		private string clientId = string.Empty;
@@ -52,8 +52,7 @@ namespace IdeaStatiCa.Plugin
 
 		public BIMPluginHosting(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName, string pluginUrlFormat = Constants.DefaultPluginUrlFormat)
 		{
-			//Debug.Assert(false);
-			mre = new ManualResetEvent(false);
+			serverStoppedEvent = new ManualResetEvent(false);
 			this.bimPluginFactory = factory;
 			this.EventName = eventName;
 			this.PluginUrlFormat = pluginUrlFormat;
@@ -71,8 +70,11 @@ namespace IdeaStatiCa.Plugin
 				return Task.CompletedTask;
 			}
 
-			tokenSource = new CancellationTokenSource();
-			var token = tokenSource.Token;
+			serverStopRequestTokenSource = new CancellationTokenSource();
+			var token = serverStopRequestTokenSource.Token;
+
+			ideaLogger.LogDebug("Reseting the server stopped event.");
+			serverStoppedEvent.Reset();
 
 			HostingTask = Task.Run(() =>
 			{
@@ -86,13 +88,12 @@ namespace IdeaStatiCa.Plugin
 		{
 			if (hostingTask != null)
 			{
-				ideaLogger.LogDebug($"BIMPluginHosting Stop '{ServiceBaseAddress}'");
-				tokenSource.Cancel();
-				var stopRes = mre.WaitOne();
-				if(!stopRes)
-				{
-					ideaLogger.LogError($"BIMPluginHosting Stop - timeout - can not stop service '{ServiceBaseAddress}'", new Exception());
-				}
+				ideaLogger.LogDebug("Setting the server stop request.");
+				serverStopRequestTokenSource.Cancel();
+
+				ideaLogger.LogDebug("Waiting for the server stopped event...");
+				var stopRes = serverStoppedEvent.WaitOne();
+				ideaLogger.LogDebug("Server stopped event was set.");
 
 				hostingTask = null;
 				NotifyAppStatusChanged(AppStatus.Finished);
@@ -105,7 +106,6 @@ namespace IdeaStatiCa.Plugin
 			this.workingDirectory = workingDirectory;
 
 			// create the communication pipe for getting commands from IDEA StatiCa
-			mre.Reset();
 			bimAppService = bimPluginFactory?.Create();
 
 			ServiceBaseAddress = string.Format(PluginUrlFormat, id);
@@ -141,15 +141,18 @@ namespace IdeaStatiCa.Plugin
 
 				selfServiceHost.Open(new TimeSpan(0, 0, 10));
 
+				ideaLogger.LogDebug("Waiting for the server stop request...");
 				while (!cancellationToken.IsCancellationRequested)
 				{
 					Thread.Sleep(100);
 				}
 
+				ideaLogger.LogDebug($"Service stop is requested.");
+
 				try
 				{
 					selfServiceHost.Close();
-					mre.Set();
+					serverStoppedEvent.Set();
 				}
 				catch { }
 			}
@@ -196,7 +199,7 @@ namespace IdeaStatiCa.Plugin
 
 		private void SelfServiceHost_UnknownMessageReceived(object sender, UnknownMessageReceivedEventArgs e)
 		{
-			ideaLogger.LogDebug($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
+			ideaLogger.LogWarning($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
 		}
 
 		private void SelfServiceHost_Opening(object sender, EventArgs e)
@@ -206,7 +209,7 @@ namespace IdeaStatiCa.Plugin
 
 		private void SelfServiceHost_Faulted(object sender, EventArgs e)
 		{
-			ideaLogger.LogError($"SelfServiceHost_Faulted service '{ServiceBaseAddress}'", new Exception());
+			ideaLogger.LogError($"Faulted service '{ServiceBaseAddress}', fault details = '{e?.ToString()}'.");
 		}
 
 		private void IS_Exited(object sender, EventArgs e)
@@ -217,7 +220,11 @@ namespace IdeaStatiCa.Plugin
 				IdeaStaticaApp.Exited -= new EventHandler(IS_Exited);
 				IdeaStaticaApp.Dispose(); 
 			}
-			catch { }
+			catch (Exception ex)
+			{
+				ideaLogger.LogWarning("Disposing of the service failed", ex);
+			}
+
 			IdeaStaticaApp = null;
 
 			Stop();
@@ -281,27 +288,19 @@ namespace IdeaStatiCa.Plugin
 					{
 						try
 						{
-							tokenSource.Cancel();
-							//hostingTask.Dispose();
+							serverStopRequestTokenSource.Cancel();
 						}
-						catch { }
-
-						try
+						catch (Exception ex)
 						{
-							//feaAppService.Dispose();
-							//feaAppService = null;
+							ideaLogger.LogWarning("Disposing of the service failed", ex);
 						}
-						catch { }
-						mre.Dispose();
-						tokenSource.Dispose();
 					}
-					// TODO: dispose managed state (managed objects).
+
+					// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+					// TODO: set large fields to null.
+
+					disposedValue = true;
 				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
-
-				disposedValue = true;
 			}
 		}
 
