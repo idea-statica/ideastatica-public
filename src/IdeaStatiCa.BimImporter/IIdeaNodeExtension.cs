@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.BimApi;
-using System;
 using MathNet.Numerics;
 
 namespace IdeaStatiCa.BimImporter
@@ -15,9 +14,12 @@ namespace IdeaStatiCa.BimImporter
 				return true;
 			}
 
-			return node1.X.AlmostEqual(node2.X, Precision) &&
-				node1.Y.AlmostEqual(node2.Y, Precision) &&
-				node1.Z.AlmostEqual(node2.Z, Precision);
+			IdeaVector3D vec1 = node1.Vector;
+			IdeaVector3D vec2 = node2.Vector;
+
+			return vec1.X.AlmostEqual(vec2.X, Precision) &&
+				vec1.Y.AlmostEqual(vec2.Y, Precision) &&
+				vec1.Z.AlmostEqual(vec2.Z, Precision);
 		}
 	}
 }

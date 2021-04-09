@@ -9,13 +9,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class CrossSectionImporter : AbstractImporter<IIdeaCrossSection>
 	{
-		private readonly IImporter<IIdeaMaterial> _materialImporter;
-
-		public CrossSectionImporter(IImporter<IIdeaMaterial> materialImporter)
-		{
-			_materialImporter = materialImporter;
-		}
-
 		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaCrossSection css)
 		{
 			CrossSection iomCss;
@@ -49,7 +42,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return new CrossSectionParameter()
 			{
 				CrossSectionType = cssParametric.Type,
-				Material = _materialImporter.Import(ctx, cssParametric.Material),
+				Material = ctx.Import(cssParametric.Material),
 				Parameters = new List<Parameter>(cssParametric.Parameters)
 			};
 		}
@@ -59,7 +52,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return new CrossSectionGeneralColdFormed()
 			{
 				CrossSectionType = cssCentreLine.Type,
-				Material = _materialImporter.Import(ctx, cssCentreLine.Material),
+				Material = ctx.Import(cssCentreLine.Material),
 				Centerline = cssCentreLine.CenterLine,
 				Radius = cssCentreLine.Radius,
 				Thickness = cssCentreLine.Thickness
@@ -74,7 +67,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					.Select(component => new CssComponent()
 					{
 						Geometry = component.Geometry,
-						Material = _materialImporter.Import(ctx, component.Material),
+						Material = ctx.Import(component.Material),
 						Phase = component.Phase
 					})
 					.ToList()

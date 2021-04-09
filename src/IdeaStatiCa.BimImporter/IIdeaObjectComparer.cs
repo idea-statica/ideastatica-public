@@ -7,7 +7,7 @@ namespace IdeaStatiCa.BimImporter
 	{
 		public bool Equals(IIdeaObject x, IIdeaObject y)
 		{
-			return x.Id == y.Id;
+			return string.Equals(x.Id, y.Id);
 		}
 
 		public int GetHashCode(IIdeaObject obj)

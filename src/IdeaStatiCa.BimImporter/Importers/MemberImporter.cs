@@ -8,13 +8,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class MemberImporter : AbstractImporter<IIdeaMember1D>
 	{
-		private readonly IImporter<IIdeaElement1D> _elementImporter;
-
-		public MemberImporter(IImporter<IIdeaElement1D> elementImporter)
-		{
-			_elementImporter = elementImporter;
-		}
-
 		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaMember1D member)
 		{
 			if (member.Elements.Count == 0)
@@ -29,7 +22,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Name = member.Name,
 				Member1DType = member.Type,
 				Elements1D = member.Elements
-					.Select(x => _elementImporter.Import(ctx, x))
+					.Select(x => ctx.Import(x))
 					.ToList()
 			};
 

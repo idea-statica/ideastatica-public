@@ -9,12 +9,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 	{
 		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaNode node)
 		{
+			IdeaVector3D vec = node.Vector;
+
 			Point3D point = new Point3D()
 			{
 				Name = node.Name,
-				X = node.X,
-				Y = node.Y,
-				Z = node.Z
+				X = vec.X,
+				Y = vec.Y,
+				Z = vec.Z
 			};
 
 			return point;

@@ -9,7 +9,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 	{
 		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.abstractimporter");
 
-		public ReferenceElement Import(ImportContext ctx, T obj)
+		public OpenElementId Import(ImportContext ctx, T obj)
 		{
 			if (ctx == null)
 			{
@@ -28,28 +28,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new Exception("Object must specify non-empty Id.");
 			}
 
-			if (ctx.IdeaObjects.TryGetValue(obj.Id, out IIdeaObject ideaObject))
-			{
-				if (!ReferenceEquals(ideaObject, obj))
-				{
-					throw new ConstraintException($"Objects '{ideaObject}' and '{obj}' have the same Id '{obj.Id}'.");
-				}
-			}
-
-			if (ctx.ReferenceElements.TryGetValue(obj.Id, out ReferenceElement refElm))
-			{
-				_logger.LogDebug($"Reusing already imported object, open model id '{refElm.Id}'");
-				return refElm;
-			}
-
-			OpenElementId iomElm = ImportInternal(ctx, obj);
-			refElm = new ReferenceElement(iomElm);
-
-			ctx.Add(iomElm);
-			ctx.ReferenceElements.Add(obj.Id, refElm);
-			ctx.IdeaObjects.Add(obj.Id, obj);
-
-			return refElm;
+			return ImportInternal(ctx, obj);
 		}
 
 		protected abstract OpenElementId ImportInternal(ImportContext ctx, T obj);

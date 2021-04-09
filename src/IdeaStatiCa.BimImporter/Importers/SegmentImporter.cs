@@ -14,13 +14,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private const double Precision = 1e-6;
 
-		private readonly IImporter<IIdeaNode> _nodeImporter;
-
-		public SegmentImporter(IImporter<IIdeaNode> nodeConverter)
-		{
-			_nodeImporter = nodeConverter;
-		}
-
 		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaSegment3D segment)
 		{
 			if (segment.StartNode.IsAlmostEqual(segment.EndNode))
@@ -48,7 +41,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				iomSegment = new ArcSegment3D()
 				{
-					Point = _nodeImporter.Import(ctx, arcSegment.ArcPoint)
+					Point = ctx.Import(arcSegment.ArcPoint)
 				};
 			}
 			else
@@ -56,8 +49,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new NotImplementedException("Segment must be instance either IIdeaLineSegment3D or IIdeaArcSegment3D.");
 			}
 
-			iomSegment.StartPoint = _nodeImporter.Import(ctx, segment.StartNode);
-			iomSegment.EndPoint = _nodeImporter.Import(ctx, segment.EndNode);
+			iomSegment.StartPoint = ctx.Import(segment.StartNode);
+			iomSegment.EndPoint = ctx.Import(segment.EndNode);
 			iomSegment.LocalCoordinateSystem = ProcessCoordSystem(coordSystem);
 
 			return iomSegment;
