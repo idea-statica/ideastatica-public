@@ -33,7 +33,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_connectionImporter = connectionImporter;
 		}
 
-		public OpenElementId Import(ImportContext ctx, IIdeaObject obj)
+		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
 		{
 			switch (obj)
 			{

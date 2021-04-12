@@ -9,7 +9,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class CrossSectionImporter : AbstractImporter<IIdeaCrossSection>
 	{
-		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaCrossSection css)
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaCrossSection css)
 		{
 			CrossSection iomCss;
 
@@ -37,7 +37,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return iomCss;
 		}
 
-		private CrossSection CreateCssParametric(ImportContext ctx, IIdeaCrossSectionByParameters cssParametric)
+		private CrossSection CreateCssParametric(IImportContext ctx, IIdeaCrossSectionByParameters cssParametric)
 		{
 			return new CrossSectionParameter()
 			{
@@ -47,7 +47,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			};
 		}
 
-		private CrossSection CreateCssCentreLine(ImportContext ctx, IIdeaCrossSectionByCenterLine cssCentreLine)
+		private CrossSection CreateCssCentreLine(IImportContext ctx, IIdeaCrossSectionByCenterLine cssCentreLine)
 		{
 			return new CrossSectionGeneralColdFormed()
 			{
@@ -59,7 +59,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			};
 		}
 
-		private CrossSection CreateCssComponents(ImportContext ctx, IIdeaCrossSectionByComponents cssComponents)
+		private CrossSection CreateCssComponents(IImportContext ctx, IIdeaCrossSectionByComponents cssComponents)
 		{
 			return new CrossSectionComponent()
 			{

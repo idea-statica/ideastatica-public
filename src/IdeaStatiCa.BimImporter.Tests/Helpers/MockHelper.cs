@@ -3,7 +3,7 @@ using IdeaStatiCa.BimApi;
 using NSubstitute;
 using System;
 
-namespace IdeaStatiCa.BimImporter.Tests
+namespace IdeaStatiCa.BimImporter.Tests.Helpers
 {
 	internal static class MockHelper
 	{
@@ -27,27 +27,19 @@ namespace IdeaStatiCa.BimImporter.Tests
 			});
 		}
 
-		public static IdeaVector3D CreateVector3D(float x, float y, float z)
-		{
-			return new IdeaVector3D()
-			{
-				X = x,
-				Y = y,
-				Z = z
-			};
-		}
-
-		public static IIdeaElement1D CreateElement(string name, IIdeaNode startNode, IIdeaNode endNode, IIdeaCrossSection cssStart,
-			IIdeaCrossSection cssEnd, IdeaVector3D eccentricityBegin, IdeaVector3D eccentricityEnd, double rotation, IIdeaSegment3D segment,
-			string id = null)
+		public static IIdeaElement1D CreateElement(string name, IIdeaSegment3D segment, IIdeaCrossSection cssStart,
+			IIdeaCrossSection cssEnd = null, IdeaVector3D eccentricityBegin = null, IdeaVector3D eccentricityEnd = null,
+			double rotation = 0, string id = null)
 		{
 			id = MakeId(id);
+
+			cssEnd = cssEnd ?? cssStart;
+			eccentricityBegin = eccentricityBegin ?? new IdeaVector3D(0, 0, 0);
+			eccentricityEnd = eccentricityEnd ?? new IdeaVector3D(0, 0, 0);
 
 			IIdeaElement1D element = Substitute.For<IIdeaElement1D>();
 			element.Id.Returns(id);
 			element.Name.Returns(name);
-			element.StartNode.Returns(startNode);
-			element.EndNode.Returns(endNode);
 			element.StartCrossSection.Returns(cssStart);
 			element.EndCrossSection.Returns(cssEnd);
 			element.EccentricityBegin.Returns(eccentricityBegin);
@@ -64,9 +56,9 @@ namespace IdeaStatiCa.BimImporter.Tests
 
 			IIdeaNode node = Substitute.For<IIdeaNode>();
 			node.Id.Returns(id);
-			node.X.Returns(x);
-			node.Y.Returns(y);
-			node.Z.Returns(z);
+
+			IdeaVector3D vector = new IdeaVector3D(x, y, z);
+			node.Vector.Returns(vector);
 
 			return node;
 		}

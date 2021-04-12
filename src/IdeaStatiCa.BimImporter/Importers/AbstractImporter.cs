@@ -9,7 +9,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 	{
 		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.abstractimporter");
 
-		public OpenElementId Import(ImportContext ctx, T obj)
+		public OpenElementId Import(IImportContext ctx, T obj)
 		{
 			if (ctx == null)
 			{
@@ -31,6 +31,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return ImportInternal(ctx, obj);
 		}
 
-		protected abstract OpenElementId ImportInternal(ImportContext ctx, T obj);
+		protected abstract OpenElementId ImportInternal(IImportContext ctx, T obj);
 	}
 }

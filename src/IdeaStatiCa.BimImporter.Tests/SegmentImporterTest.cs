@@ -1,25 +1,16 @@
-﻿using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Geometry3D;
+﻿using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
+using IdeaStatiCa.BimImporter.Tests.Helpers;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 
 namespace IdeaStatiCa.BimImporter.Tests
 {
 	[TestFixture]
 	public class SegmentImporterTest
 	{
-		private static IIdeaNode CreateMockNode(string id, float x, float y, float z)
-		{
-			IIdeaNode node = Substitute.For<IIdeaNode>();
-			node.Id.Returns(id);
-			node.X.Returns(x);
-			node.Y.Returns(y);
-			node.Z.Returns(z);
-			return node;
-		}
-
 		private static Vector3D CreateVector(double x, double y, double z)
 		{
 			return new Vector3D()
@@ -30,12 +21,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 			};
 		}
 
-		//----------
-
 		private static IIdeaLineSegment3D CreateMockLineSegment()
 		{
-			IIdeaNode node1 = CreateMockNode("node1", 0, 0, 0);
-			IIdeaNode node2 = CreateMockNode("node2", 1, 1, 1);
+			IIdeaNode node1 = MockHelper.CreateNode(0, 0, 0);
+			IIdeaNode node2 = MockHelper.CreateNode(1, 1, 1);
 
 			CoordSystemByVector coordSystem = new CoordSystemByVector()
 			{
@@ -52,19 +41,22 @@ namespace IdeaStatiCa.BimImporter.Tests
 			return segment;
 		}
 
+		//----------
+
 		[Test]
 		public void SegmentImport_WhenStartAndEndNodesAreTheSame_ThrowsException()
 		{
 			// Setup - StartNode and EndNode are the same instance
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
-			IIdeaNode node = CreateMockNode("node1", 0, 0, 0);
+			IIdeaNode node = MockHelper.CreateNode(0, 0, 0);
 			segment.StartNode.Returns(node);
 			segment.EndNode.Returns(node);
 
-			SegmentImporter segmentImporter = new SegmentImporter(null);
+			IImportContext ctx = Substitute.For<IImportContext>();
+			SegmentImporter segmentImporter = new SegmentImporter();
 
 			// Tested method
-			Assert.That(() => segmentImporter.Import(new ImportContext(), segment), Throws.TypeOf<ConstraintException>());
+			Assert.That(() => segmentImporter.Import(ctx, segment), Throws.TypeOf<ConstraintException>());
 		}
 
 		[Test]
@@ -74,18 +66,19 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
 			segment.LocalCoordinateSystem.Returns(new CoordSystemByZup());
 
-			SegmentImporter segmentImporter = new SegmentImporter(null);
+			IImportContext ctx = Substitute.For<IImportContext>();
+			SegmentImporter segmentImporter = new SegmentImporter();
 
 			// Tested method
-			Assert.That(() => segmentImporter.Import(new ImportContext(), segment), Throws.TypeOf<ConstraintException>());
+			Assert.That(() => segmentImporter.Import(ctx, segment), Throws.TypeOf<NotImplementedException>());
 		}
 
 		[Test]
 		public void SegmentImport_WhenSegmentIsNotLineOrArcSegment_ThrowsException()
 		{
 			// Setup
-			IIdeaNode node1 = CreateMockNode("node1", 0, 0, 0);
-			IIdeaNode node2 = CreateMockNode("node2", 1, 1, 1);
+			IIdeaNode node1 = MockHelper.CreateNode(0, 0, 0);
+			IIdeaNode node2 = MockHelper.CreateNode(1, 1, 1);
 
 			IIdeaSegment3D segment = Substitute.For<IIdeaSegment3D>();
 			segment.Id.Returns("1");
@@ -93,10 +86,11 @@ namespace IdeaStatiCa.BimImporter.Tests
 			segment.EndNode.Returns(node2);
 			segment.LocalCoordinateSystem.Returns(new CoordSystemByVector());
 
-			SegmentImporter segmentImporter = new SegmentImporter(null);
+			IImportContext ctx = Substitute.For<IImportContext>();
+			SegmentImporter segmentImporter = new SegmentImporter();
 
 			// Tested method
-			Assert.That(() => segmentImporter.Import(new ImportContext(), segment), Throws.TypeOf<ConstraintException>());
+			Assert.That(() => segmentImporter.Import(ctx, segment), Throws.TypeOf<NotImplementedException>());
 		}
 
 		[TestCase(new double[] { 2, 0, 0 }, new double[] { 0, 1, 0 }, new double[] { 0, 0, 1 })]
@@ -115,10 +109,11 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
 			segment.LocalCoordinateSystem.Returns(coordSystem);
 
-			SegmentImporter segmentImporter = new SegmentImporter(Substitute.For<IImporter<IIdeaNode>>());
+			IImportContext ctx = Substitute.For<IImportContext>();
+			SegmentImporter segmentImporter = new SegmentImporter();
 
 			// Tested method
-			Assert.That(() => segmentImporter.Import(new ImportContext(), segment), Throws.TypeOf<ConstraintException>());
+			Assert.That(() => segmentImporter.Import(ctx, segment), Throws.TypeOf<ConstraintException>());
 		}
 
 		[Test]
@@ -135,11 +130,12 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
 			segment.LocalCoordinateSystem.Returns(coordSystem);
 
-			SegmentImporter segmentImporter = new SegmentImporter(Substitute.For<IImporter<IIdeaNode>>());
+			IImportContext ctx = Substitute.For<IImportContext>();
+			SegmentImporter segmentImporter = new SegmentImporter();
 
 			// Tested method
-			ReferenceElement refElm = segmentImporter.Import(new ImportContext(), segment);
-			CoordSystemByVector lcs = ((refElm.Element as Segment3D).LocalCoordinateSystem as CoordSystemByVector);
+			Segment3D iomSegment = (Segment3D)segmentImporter.Import(ctx, segment);
+			CoordSystemByVector lcs = iomSegment.LocalCoordinateSystem as CoordSystemByVector;
 
 			// Assert
 			Assert.That(lcs.VecX.X, Is.EqualTo(1));
@@ -153,20 +149,6 @@ namespace IdeaStatiCa.BimImporter.Tests
 			Assert.That(lcs.VecZ.X, Is.EqualTo(0));
 			Assert.That(lcs.VecZ.Y, Is.EqualTo(0));
 			Assert.That(lcs.VecZ.Z, Is.EqualTo(1));
-		}
-
-		public void SegmentImport_ShouldAddTheLineSegmentIntoOpenModel()
-		{
-			// Setup
-			IIdeaLineSegment3D segment = CreateMockLineSegment();
-			SegmentImporter segmentImporter = new SegmentImporter(null);
-			ImportContext ctx = new ImportContext();
-
-			// Tested method
-			ReferenceElement refElm = segmentImporter.Import(ctx, segment);
-
-			// Assert
-			ctx.OpenModel.LineSegment3D.Contains(refElm.Element as LineSegment3D);
 		}
 	}
 }

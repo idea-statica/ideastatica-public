@@ -2,56 +2,51 @@
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class MemberImporter : AbstractImporter<IIdeaMember1D>
 	{
-		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaMember1D member)
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaMember1D member)
 		{
 			if (member.Elements.Count == 0)
 			{
 				throw new ConstraintException("A member has to specify at least one element.");
 			}
 
-			CheckElementListConstraints(member.Elements);
+			List<ReferenceElement> refElements = new List<ReferenceElement>();
 
-			Member1D iomMember = new Member1D
+			IIdeaNode prevNode = null;
+			for (int i = 0; i < member.Elements.Count; i++)
 			{
-				Name = member.Name,
-				Member1DType = member.Type,
-				Elements1D = member.Elements
-					.Select(x => ctx.Import(x))
-					.ToList()
-			};
+				IIdeaElement1D element = member.Elements[i];
+				IIdeaSegment3D segment = element.Segment;
 
-			return iomMember;
-		}
-
-		private void CheckElementListConstraints(List<IIdeaElement1D> elements)
-		{
-			IIdeaNode prevNode = elements[0].Segment.StartNode;
-
-			for (int i = 0; i < elements.Count; i++)
-			{
-				IIdeaElement1D element = elements[i];
-
-				if (element.Segment.StartNode != prevNode)
+				if (prevNode != null && segment.StartNode != prevNode)
 				{
 					throw new ConstraintException();
 				}
 
-				prevNode = element.Segment.EndNode;
+				prevNode = segment.EndNode;
 
+				ReferenceElement refElement = ctx.Import(element);
 				for (int j = 0; j < i; j++)
 				{
-					if (element == elements[j])
+					if (refElement == refElements[j])
 					{
 						throw new ConstraintException();
 					}
 				}
+
+				refElements.Add(refElement);
 			}
+
+			return new Member1D
+			{
+				Name = member.Name,
+				Member1DType = member.Type,
+				Elements1D = refElements
+			};
 		}
 	}
 }

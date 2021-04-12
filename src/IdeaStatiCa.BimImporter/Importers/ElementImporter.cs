@@ -7,7 +7,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class ElementImporter : AbstractImporter<IIdeaElement1D>
 	{
-		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaElement1D element)
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaElement1D element)
 		{
 			Element1D iomElement = new Element1D
 			{

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter
 {
-	public class Project
+	public class Project: IProject
 	{
 		private readonly Dictionary<string, int> _bimToIomId = new Dictionary<string, int>();
 		private readonly Dictionary<int, IIdeaObject> _iomIdToBimObject = new Dictionary<int, IIdeaObject>();

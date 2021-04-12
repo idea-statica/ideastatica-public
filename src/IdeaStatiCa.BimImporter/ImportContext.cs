@@ -7,20 +7,20 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter
 {
-	internal class ImportContext
+	internal class ImportContext: IImportContext
 	{
 		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.importcontext");
-
-		public Dictionary<IIdeaObject, ReferenceElement> ReferenceElements { get; }
-			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
 
 		public OpenModel OpenModel { get; } = new OpenModel();
 
 		public IImporter<IIdeaObject> Importer { get; }
 
-		public Project Project { get; }
+		public IProject Project { get; }
 
-		public ImportContext(IImporter<IIdeaObject> importer, Project project)
+		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
+			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
+
+		public ImportContext(IImporter<IIdeaObject> importer, IProject project)
 		{
 			Importer = importer;
 			Project = project;
@@ -28,7 +28,7 @@ namespace IdeaStatiCa.BimImporter
 
 		public ReferenceElement Import(IIdeaObject obj)
 		{
-			if (ReferenceElements.TryGetValue(obj, out ReferenceElement refElm))
+			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))
 			{
 				_logger.LogDebug($"Reusing already imported object, open model id '{refElm.Id}'");
 				return refElm;
@@ -44,7 +44,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			refElm = new ReferenceElement(iomObject);
-			ReferenceElements.Add(obj, refElm);
+			_refElements.Add(obj, refElm);
 
 			return refElm;
 		}

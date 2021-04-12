@@ -7,7 +7,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class NodeImporter : AbstractImporter<IIdeaNode>
 	{
-		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaNode node)
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaNode node)
 		{
 			IdeaVector3D vec = node.Vector;
 

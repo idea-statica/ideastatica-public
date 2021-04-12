@@ -14,7 +14,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private const double Precision = 1e-6;
 
-		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaSegment3D segment)
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaSegment3D segment)
 		{
 			if (segment.StartNode.IsAlmostEqual(segment.EndNode))
 			{

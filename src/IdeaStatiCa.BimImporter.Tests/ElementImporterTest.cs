@@ -2,7 +2,7 @@
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
-using NSubstitute;
+using IdeaStatiCa.BimImporter.Tests.Helpers;
 using NUnit.Framework;
 
 namespace IdeaStatiCa.BimImporter.Tests
@@ -14,47 +14,33 @@ namespace IdeaStatiCa.BimImporter.Tests
 		public void ElementImport()
 		{
 			// Setup
-			ImportContext ctx = new ImportContext();
-
-			IIdeaCrossSection cssStart = Substitute.For<IIdeaCrossSection>();
-			ReferenceElement iomCssStart = MockHelper.CreateRefElement();
-			IIdeaCrossSection cssEnd = Substitute.For<IIdeaCrossSection>();
-			ReferenceElement iomCssEnd = MockHelper.CreateRefElement();
-
-			IImporter<IIdeaCrossSection> cssImporter = Substitute.For<IImporter<IIdeaCrossSection>>();
-			cssImporter.Import(Arg.Any<ImportContext>(), cssStart).Returns(iomCssStart);
-			cssImporter.Import(Arg.Any<ImportContext>(), cssEnd).Returns(iomCssEnd);
-
-			IIdeaSegment3D segment = Substitute.For<IIdeaSegment3D>();
-			ReferenceElement iomSegment = MockHelper.CreateRefElement();
-
-			IImporter<IIdeaSegment3D> segmentImporter = Substitute.For<IImporter<IIdeaSegment3D>>();
-			segmentImporter.Import(ctx, segment).Returns(iomSegment);
+			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
+			(var cssStart, var refCssStart) = ctxBuilder.Add<IIdeaCrossSection>();
+			(var cssEnd, var refCssEnd) = ctxBuilder.Add<IIdeaCrossSection>();
+			(var segment, var refSegment) = ctxBuilder.Add<IIdeaSegment3D>();
 
 			IIdeaElement1D element = MockHelper.CreateElement(
 				"elm",
-				MockHelper.CreateNode(0, 0, 0),
-				MockHelper.CreateNode(1, 1, 1),
+				segment,
 				cssStart,
 				cssEnd,
-				MockHelper.CreateVector3D(1, 2, 3),
-				MockHelper.CreateVector3D(4, 5, 6),
-				3,
-				segment);
+				new IdeaVector3D(1, 2, 3),
+				new IdeaVector3D(4, 5, 6),
+				3);
 
-			ElementImporter elementImport = new ElementImporter(cssImporter, segmentImporter);
+			ElementImporter elementImport = new ElementImporter();
 
 			// Tested method
-			ReferenceElement refElm = elementImport.Import(ctx, element);
+			OpenElementId iomObject = elementImport.Import(ctxBuilder.Context, element);
 
 			// Asserts
-			Assert.That(refElm.Element, Is.InstanceOf<Element1D>());
-			Element1D iomElement = (Element1D)refElm.Element;
+			Assert.That(iomObject, Is.InstanceOf<Element1D>());
+			Element1D iomElement = (Element1D)iomObject;
 
 			Assert.That(iomElement.Name, Is.EqualTo("elm"));
-			Assert.That(iomElement.CrossSectionBegin, Is.EqualTo(iomCssStart));
-			Assert.That(iomElement.CrossSectionEnd, Is.EqualTo(iomCssEnd));
-			Assert.That(iomElement.Segment, Is.EqualTo(iomSegment));
+			Assert.That(iomElement.CrossSectionBegin, Is.EqualTo(refCssStart));
+			Assert.That(iomElement.CrossSectionEnd, Is.EqualTo(refCssEnd));
+			Assert.That(iomElement.Segment, Is.EqualTo(refSegment));
 			Assert.That(iomElement.RotationRx, Is.EqualTo(3));
 
 			Assert.That(iomElement.EccentricityBeginX, Is.EqualTo(1));
@@ -64,83 +50,6 @@ namespace IdeaStatiCa.BimImporter.Tests
 			Assert.That(iomElement.EccentricityEndX, Is.EqualTo(4));
 			Assert.That(iomElement.EccentricityEndY, Is.EqualTo(5));
 			Assert.That(iomElement.EccentricityEndZ, Is.EqualTo(6));
-		}
-
-		[Test]
-		public void ElementImport_ImportTwice()
-		{
-			// Setup
-			ImportContext ctx = new ImportContext();
-
-			IIdeaCrossSection css = Substitute.For<IIdeaCrossSection>();
-			ReferenceElement iomCss = MockHelper.CreateRefElement();
-
-			IImporter<IIdeaCrossSection> cssImporter = Substitute.For<IImporter<IIdeaCrossSection>>();
-			cssImporter.Import(Arg.Any<ImportContext>(), css).Returns(iomCss);
-
-			IIdeaSegment3D segment = Substitute.For<IIdeaSegment3D>();
-			ReferenceElement iomSegment = MockHelper.CreateRefElement();
-
-			IImporter<IIdeaSegment3D> segmentImporter = Substitute.For<IImporter<IIdeaSegment3D>>();
-			segmentImporter.Import(ctx, segment).Returns(iomSegment);
-
-			IIdeaElement1D element = MockHelper.CreateElement(
-				"elm",
-				MockHelper.CreateNode(0, 0, 0),
-				MockHelper.CreateNode(1, 1, 1),
-				css,
-				css,
-				MockHelper.CreateVector3D(1, 2, 3),
-				MockHelper.CreateVector3D(4, 5, 6),
-				3,
-				segment);
-
-			ElementImporter elementImport = new ElementImporter(cssImporter, segmentImporter);
-
-			// Tested method
-			ReferenceElement refElm1 = elementImport.Import(ctx, element);
-			ReferenceElement refElm2 = elementImport.Import(ctx, element);
-
-			// Asserts
-			Assert.That(refElm1, Is.EqualTo(refElm2));
-			Assert.That(ctx.OpenModel.Element1D.Count, Is.EqualTo(1));
-		}
-
-		[Test]
-		public void ElementImport_StartEndNodeSame()
-		{
-			// Setup
-			ImportContext ctx = new ImportContext();
-
-			IIdeaCrossSection css = Substitute.For<IIdeaCrossSection>();
-			ReferenceElement iomCss = MockHelper.CreateRefElement();
-
-			IImporter<IIdeaCrossSection> cssImporter = Substitute.For<IImporter<IIdeaCrossSection>>();
-			cssImporter.Import(Arg.Any<ImportContext>(), css).Returns(iomCss);
-
-			IIdeaSegment3D segment = Substitute.For<IIdeaSegment3D>();
-			ReferenceElement iomSegment = MockHelper.CreateRefElement();
-
-			IImporter<IIdeaSegment3D> segmentImporter = Substitute.For<IImporter<IIdeaSegment3D>>();
-			segmentImporter.Import(ctx, segment).Returns(iomSegment);
-
-			IIdeaNode node = MockHelper.CreateNode(1, 1, 1);
-
-			IIdeaElement1D element = MockHelper.CreateElement(
-				"elm",
-				node,
-				node,
-				css,
-				css,
-				MockHelper.CreateVector3D(1, 2, 3),
-				MockHelper.CreateVector3D(4, 5, 6),
-				3,
-				segment);
-
-			ElementImporter elementImport = new ElementImporter(cssImporter, segmentImporter);
-
-			// Tested method
-			Assert.That(() => elementImport.Import(ctx, element), Throws.TypeOf<ConstraintException>());
 		}
 	}
 }

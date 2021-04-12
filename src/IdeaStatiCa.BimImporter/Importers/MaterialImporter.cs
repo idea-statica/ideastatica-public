@@ -6,7 +6,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class MaterialImporter : AbstractImporter<IIdeaMaterial>
 	{
-		protected override OpenElementId ImportInternal(ImportContext ctx, IIdeaMaterial material)
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaMaterial material)
 		{
 			MatSteelEc2 matS = new MatSteelEc2();
 			matS.Name = "S275";

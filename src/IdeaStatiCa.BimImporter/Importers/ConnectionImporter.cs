@@ -8,7 +8,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class ConnectionImporter : AbstractImporter<Connection>
 	{
-		protected override OpenElementId ImportInternal(ImportContext ctx, Connection connection)
+		protected override OpenElementId ImportInternal(IImportContext ctx, Connection connection)
 		{
 			List<ConnectedMember> connectedMembers = connection.Members
 				.Select(x => ctx.Import(x))

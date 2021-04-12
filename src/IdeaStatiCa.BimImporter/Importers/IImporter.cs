@@ -11,6 +11,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 		/// <param name="openModel"></param>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		OpenElementId Import(ImportContext ctx, T obj);
+		OpenElementId Import(IImportContext ctx, T obj);
 	}
 }
