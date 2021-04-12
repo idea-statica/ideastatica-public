@@ -36,4 +36,4 @@ jobs:
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
 
     - name: Test
-      run: 'vstest.console.exe **/*.Tests.dll'
+      run: 'dotnet test -p:Configuration="Release" -p:Platform="Any CPU" ./src/IdeaStatiCa.Public.sln'
