@@ -7,7 +7,7 @@
 		public const string GrpcReflectionErrorException = "GrpcReflectionError";
 		#endregion
 
-		public const string CodeCheckManagerAppName = "IdeaCodeCheck.exe";
+		public const string CheckbotAppName = "IdeaCheckbot.exe";
 		public const string AutomationParam = "-automation";
 		public const string ProjectParam = "-project";
 		public const string LibraryReposPath = "-libReposPath";
