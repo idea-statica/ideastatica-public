@@ -260,16 +260,19 @@ namespace IdeaStatiCa.Plugin
 					{
 						// notify plugin that service is running
 						string myEventName = string.Format("{0}{1}", EventName, id);
+						ideaLogger.LogDebug($"RunServer - Successful start confirmation event name is {myEventName}.");
+
+						// connect to the existing named event
 						EventWaitHandle syncEvent;
-						if (EventWaitHandle.TryOpenExisting(myEventName, out syncEvent))
+						if (!EventWaitHandle.TryOpenExisting(myEventName, out syncEvent))
 						{
-							syncEvent.Set();
-							syncEvent.Dispose();
+							// if failed, throw an exception
+							throw new Exception("Failed to connect to the successful start confirmation event.");
 						}
-						else
-						{
-							ideaLogger.LogInformation($"Can not open open event '{myEventName}'");
-						}
+
+						ideaLogger.LogDebug($"RunServer - Setting event {myEventName}.");
+						syncEvent.Set();
+						syncEvent.Dispose();
 					}
 
 					foreach (var endpoint in selfServiceHost.Description.Endpoints)

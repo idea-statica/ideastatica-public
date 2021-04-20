@@ -46,6 +46,45 @@ namespace IdeaRS.OpenModel.CrossSection
 		}
 
 		/// <summary>
+		/// Fill parameters for cold formed C section
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="Width">Css width</param>
+		/// <param name="Height">Height of cross-section</param>
+		/// <param name="Thickness">Thickness</param>
+		/// <param name="Radius">Inside radius</param>
+		/// <param name="lip">Lip length</param>
+		/// <remarks>Dimension of cold formed Z section<br/>
+		/// <img src="Images\CFZ.png" /> <br/>
+		/// </remarks>
+		/// <example> 
+		/// This sample shows how to call this method./>
+		/// <code lang = "C#">
+		/// CrossSectionParameter css = new CrossSectionParameter();
+		/// css.Id = 6;
+		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
+		/// double Width = 0.15;
+		/// double Height = 0.20;
+		/// double Thickness = 0.003;
+		/// double Radius = 0.005;
+		/// bool Mirror = false;
+		/// CrossSectionFactory.FillColdFormedC(css, Width, Height, Thickness, Radius, Mirror);
+		/// openStructModel.AddObject(css);
+		/// </code>
+		/// </example>
+		public static void FillColdFormedC(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double lip)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFC;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
+		}
+
+		
+
+		/// <summary>
 		/// Fill parameters for cold formed Z-ed section
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
