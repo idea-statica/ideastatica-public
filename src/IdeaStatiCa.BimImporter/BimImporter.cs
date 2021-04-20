@@ -59,7 +59,7 @@ namespace IdeaStatiCa.BimImporter
             ImportContext importContext = new ImportContext(_importer, _project);
             List<BIMItemId> bimItems = new List<BIMItemId>();
 
-            foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(_geometry, selectedMembers))
+            foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers))
             {
                 if (keyValue.Value.Count < 2)
                 {
@@ -159,15 +159,14 @@ namespace IdeaStatiCa.BimImporter
             _geometry.Build(_ideaModel);
         }
 
-        private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IGeometry geometry,
-            IEnumerable<IIdeaMember1D> members)
+        private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members)
         {
             Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
                 new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
 
             foreach (IIdeaMember1D member in members)
             {
-                foreach (IIdeaNode node in geometry.GetNodesOnMember(member))
+                foreach (IIdeaNode node in _geometry.GetNodesOnMember(member))
                 {
                     if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
                     {

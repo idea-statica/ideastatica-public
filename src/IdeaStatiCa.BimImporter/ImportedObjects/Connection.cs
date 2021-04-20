@@ -5,7 +5,7 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 {
 	internal class Connection : IIdeaObject
 	{
-		public string Id => "$connection-" + Node.Name;
+		public string Id => "$connection-" + Node.Id;
 
 		public string Name => Node.Name;
 
