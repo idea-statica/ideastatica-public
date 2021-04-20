@@ -1,17 +1,7 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaCrossSection : IIdeaObject
-	{
-
-		double Rotation { get; }
-
-
-
-	}
+    public interface IIdeaCrossSection : IIdeaObject
+    {
+        double Rotation { get; }
+    }
 }

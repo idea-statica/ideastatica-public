@@ -9,178 +9,190 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
-	public class BimImporter : IBimImporter
-	{
-		private readonly IIdeaModel _ideaModel;
-		private readonly IImporter<IIdeaObject> _importer;
-		private readonly Project _project;
+    public class BimImporter : IBimImporter
+    {
+        private readonly IIdeaModel _ideaModel;
+        private readonly IImporter<IIdeaObject> _importer;
+        private readonly IProject _project;
+        private readonly IGeometry _geometry;
 
-		public static IBimImporter Create(IIdeaModel ideaModel, Project project)
-		{
-			NodeImporter nodeImporter = new NodeImporter();
-			MaterialImporter materialImporter = new MaterialImporter();
-			CrossSectionImporter crossSectionImporter = new CrossSectionImporter();
-			SegmentImporter segmentImporter = new SegmentImporter();
-			ElementImporter elementImporter = new ElementImporter();
-			MemberImporter memberImporter = new MemberImporter();
-			ConnectionImporter connectionImporter = new ConnectionImporter();
+        public static IBimImporter Create(IIdeaModel ideaModel, IProject project)
+        {
+            return Create(ideaModel, project, new Geometry());
+        }
 
-			return new BimImporter(ideaModel, project, new ObjectImporter(
-				nodeImporter,
-				materialImporter,
-				crossSectionImporter,
-				segmentImporter,
-				elementImporter,
-				memberImporter,
-				connectionImporter));
-		}
+        public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IGeometry geometry)
+        {
+            NodeImporter nodeImporter = new NodeImporter();
+            MaterialImporter materialImporter = new MaterialImporter();
+            CrossSectionImporter crossSectionImporter = new CrossSectionImporter();
+            SegmentImporter segmentImporter = new SegmentImporter();
+            ElementImporter elementImporter = new ElementImporter();
+            MemberImporter memberImporter = new MemberImporter();
+            ConnectionImporter connectionImporter = new ConnectionImporter();
 
-		internal BimImporter(IIdeaModel ideaModel, Project project, IImporter<IIdeaObject> importer)
-		{
-			_ideaModel = ideaModel;
-			_project = project;
-			_importer = importer;
-		}
+            return new BimImporter(ideaModel, project, new ObjectImporter(
+                nodeImporter,
+                materialImporter,
+                crossSectionImporter,
+                segmentImporter,
+                elementImporter,
+                memberImporter,
+                connectionImporter),
+                geometry);
+        }
 
-		public ModelBIM ImportConnections()
-		{
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IGeometryGraph geometry);
+        internal BimImporter(IIdeaModel ideaModel, IProject project, IImporter<IIdeaObject> importer, IGeometry geometry)
+        {
+            _ideaModel = ideaModel;
+            _project = project;
+            _importer = importer;
+            _geometry = geometry;
+        }
 
-			selectedMembers.UnionWith(selectedNodes.SelectMany(x => geometry.GetConnectedMembers(x)));
+        public ModelBIM ImportConnections()
+        {
+            InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 
-			ImportContext importContext = new ImportContext(_importer, _project);
-			List<BIMItemId> bimItems = new List<BIMItemId>();
+            selectedMembers.UnionWith(selectedNodes.SelectMany(x => _geometry.GetConnectedMembers(x)));
 
-			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(geometry, selectedMembers))
-			{
-				if (keyValue.Value.Count < 2)
-				{
-					continue;
-				}
+            ImportContext importContext = new ImportContext(_importer, _project);
+            List<BIMItemId> bimItems = new List<BIMItemId>();
 
-				ImportConnection(importContext, bimItems, keyValue.Key, keyValue.Value);
-			}
+            foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(_geometry, selectedMembers))
+            {
+                if (keyValue.Value.Count < 2)
+                {
+                    continue;
+                }
 
-			return new ModelBIM()
-			{
-				Items = bimItems,
-				Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
-				Model = importContext.OpenModel,
-				Project = "",
-				Results = new IdeaRS.OpenModel.Result.OpenModelResult()
-			};
-		}
+                ImportConnection(importContext, bimItems, keyValue.Key, keyValue.Value);
+            }
 
-		public ModelBIM ImportMembers()
-		{
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IGeometryGraph geometry);
+            importContext.OpenModel.OriginSettings = _ideaModel.GetOriginSettings();
 
-			ImportContext importContext = new ImportContext(_importer, _project);
-			List<BIMItemId> bimItems = new List<BIMItemId>();
+            return new ModelBIM()
+            {
+                Items = bimItems,
+                Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
+                Model = importContext.OpenModel,
+                Project = "",
+                Results = new IdeaRS.OpenModel.Result.OpenModelResult()
+            };
+        }
 
-			foreach (IIdeaMember1D selectedMember in selectedMembers)
-			{
-				ReferenceElement refMember = importContext.Import(selectedMember);
+        public ModelBIM ImportMembers()
+        {
+            InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 
-				bimItems.Add(new BIMItemId()
-				{
-					Id = refMember.Id,
-					Type = BIMItemType.Member
-				});
+            ImportContext importContext = new ImportContext(_importer, _project);
+            List<BIMItemId> bimItems = new List<BIMItemId>();
 
-				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
-				{
-					ImportConnection(importContext, bimItems, node, geometry.GetConnectedMembers(node).ToHashSet());
-				}
-			}
+            foreach (IIdeaMember1D selectedMember in selectedMembers)
+            {
+                ReferenceElement refMember = importContext.Import(selectedMember);
 
-			return new ModelBIM()
-			{
-				Items = bimItems,
-				Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
-				Model = importContext.OpenModel,
-				Project = "",
-				Results = new IdeaRS.OpenModel.Result.OpenModelResult()
-			};
-		}
+                bimItems.Add(new BIMItemId()
+                {
+                    Id = refMember.Id,
+                    Type = BIMItemType.Member
+                });
 
-		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected)
-		{
-			return selected.Select(x => ImportGroup(x)).ToList();
-		}
+                foreach (IIdeaNode node in _geometry.GetNodesOnMember(selectedMember))
+                {
+                    ImportConnection(importContext, bimItems, node, _geometry.GetConnectedMembers(node).ToHashSet());
+                }
+            }
 
-		private ModelBIM ImportGroup(BIMItemsGroup group)
-		{
-			ImportContext importContext = new ImportContext(_importer, _project);
+            importContext.OpenModel.OriginSettings = _ideaModel.GetOriginSettings();
 
-			foreach (BIMItemId item in group.Items)
-			{
-				importContext.Import(_project.GetBimObject(item.Id));
-			}
+            return new ModelBIM()
+            {
+                Items = bimItems,
+                Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
+                Model = importContext.OpenModel,
+                Project = "",
+                Results = new IdeaRS.OpenModel.Result.OpenModelResult()
+            };
+        }
 
-			return new ModelBIM()
-			{
-				Items = new List<BIMItemId>(),
-				Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
-				Model = importContext.OpenModel,
-				Project = "",
-				Results = new IdeaRS.OpenModel.Result.OpenModelResult()
-			};
-		}
+        public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected)
+        {
+            return selected.Select(x => ImportGroup(x)).ToList();
+        }
 
-		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IGeometryGraph geometry)
-		{
-			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+        private ModelBIM ImportGroup(BIMItemsGroup group)
+        {
+            ImportContext importContext = new ImportContext(_importer, _project);
 
-			if (selectedNodes == null)
-			{
-				throw new Exception("Out argument 'nodes' in GetSelection cannot be null.");
-			}
+            foreach (BIMItemId item in group.Items)
+            {
+                importContext.Import(_project.GetBimObject(item.Id));
+            }
 
-			if (selectedMembers == null)
-			{
-				throw new Exception("Out argument 'members' in GetSelection cannot be null.");
-			}
+            return new ModelBIM()
+            {
+                Items = new List<BIMItemId>(),
+                Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
+                Model = importContext.OpenModel,
+                Project = "",
+                Results = new IdeaRS.OpenModel.Result.OpenModelResult()
+            };
+        }
 
-			nodes = selectedNodes;
-			members = selectedMembers;
-			geometry = new GeometryGraph(_ideaModel.GetMembers());
-		}
+        private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+        {
+            _ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 
-		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IGeometryGraph geometry,
-			IEnumerable<IIdeaMember1D> members)
-		{
-			Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
-				new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
+            if (selectedNodes == null)
+            {
+                throw new Exception("Out argument 'nodes' in GetSelection cannot be null.");
+            }
 
-			foreach (IIdeaMember1D member in members)
-			{
-				foreach (IIdeaNode node in geometry.GetNodesOnMember(member))
-				{
-					if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
-					{
-						memberSet = new HashSet<IIdeaMember1D>();
-						connections.Add(node, memberSet);
-					}
+            if (selectedMembers == null)
+            {
+                throw new Exception("Out argument 'members' in GetSelection cannot be null.");
+            }
 
-					memberSet.Add(member);
-				}
-			}
+            nodes = selectedNodes;
+            members = selectedMembers;
+            _geometry.Build(_ideaModel);
+        }
 
-			return connections;
-		}
+        private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IGeometry geometry,
+            IEnumerable<IIdeaMember1D> members)
+        {
+            Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
+                new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
 
-		private void ImportConnection(ImportContext importContext, List<BIMItemId> bimItems,
-			IIdeaNode node, ISet<IIdeaMember1D> members)
-		{
-			Connection connection = new Connection(node, members);
-			ReferenceElement refConnection = importContext.Import(connection);
+            foreach (IIdeaMember1D member in members)
+            {
+                foreach (IIdeaNode node in geometry.GetNodesOnMember(member))
+                {
+                    if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
+                    {
+                        memberSet = new HashSet<IIdeaMember1D>();
+                        connections.Add(node, memberSet);
+                    }
 
-			bimItems.Add(new BIMItemId()
-			{
-				Id = refConnection.Id,
-				Type = BIMItemType.Node
-			});
-		}
-	}
+                    memberSet.Add(member);
+                }
+            }
+
+            return connections;
+        }
+
+        private void ImportConnection(ImportContext importContext, List<BIMItemId> bimItems,
+            IIdeaNode node, ISet<IIdeaMember1D> members)
+        {
+            Connection connection = new Connection(node, members);
+            ReferenceElement refConnection = importContext.Import(connection);
+
+            bimItems.Add(new BIMItemId()
+            {
+                Id = refConnection.Id,
+                Type = BIMItemType.Node
+            });
+        }
+    }
 }
