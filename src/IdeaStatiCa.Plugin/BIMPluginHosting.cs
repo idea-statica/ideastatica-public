@@ -29,8 +29,8 @@ namespace IdeaStatiCa.Plugin
 	public class BIMPluginHosting : IBIMPluginHosting, IDisposable
 	{
 		private Task hostingTask;
-		private CancellationTokenSource tokenSource;
-		private ManualResetEvent mre;
+		private CancellationTokenSource serverStopRequestTokenSource;
+		private ManualResetEvent serverStoppedEvent;
 		private IApplicationBIM bimAppService;
 		private readonly IBIMPluginFactory bimPluginFactory;
 		private string clientId = string.Empty;
@@ -38,6 +38,7 @@ namespace IdeaStatiCa.Plugin
 		private readonly string EventName;
 		private readonly string PluginUrlFormat;
 		private IPluginLogger ideaLogger;
+		string baseAddress;
 
 #if DEBUG
 		private readonly int OpenServerTimeLimit = -1;
@@ -47,10 +48,11 @@ namespace IdeaStatiCa.Plugin
 
 		internal Process IdeaStaticaApp { get; private set; }
 
+		internal string ServiceBaseAddress { get => baseAddress; set => baseAddress = value; }
+
 		public BIMPluginHosting(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName, string pluginUrlFormat = Constants.DefaultPluginUrlFormat)
 		{
-			//Debug.Assert(false);
-			mre = new ManualResetEvent(false);
+			serverStoppedEvent = new ManualResetEvent(false);
 			this.bimPluginFactory = factory;
 			this.EventName = eventName;
 			this.PluginUrlFormat = pluginUrlFormat;
@@ -64,11 +66,15 @@ namespace IdeaStatiCa.Plugin
 			if (hostingTask != null)
 			{
 				Debug.Fail("Task is running");
+				ideaLogger.LogInformation($"BIMPluginHosting RunAsync - task is running");
 				return Task.CompletedTask;
 			}
 
-			tokenSource = new CancellationTokenSource();
-			var token = tokenSource.Token;
+			serverStopRequestTokenSource = new CancellationTokenSource();
+			var token = serverStopRequestTokenSource.Token;
+
+			ideaLogger.LogDebug("Reseting the server stopped event.");
+			serverStoppedEvent.Reset();
 
 			HostingTask = Task.Run(() =>
 			{
@@ -82,9 +88,13 @@ namespace IdeaStatiCa.Plugin
 		{
 			if (hostingTask != null)
 			{
-				tokenSource.Cancel();
-				var stopRes = mre.WaitOne();
-				Debug.Assert(stopRes, "Can not stop");
+				ideaLogger.LogDebug("Setting the server stop request.");
+				serverStopRequestTokenSource.Cancel();
+
+				ideaLogger.LogDebug("Waiting for the server stopped event...");
+				var stopRes = serverStoppedEvent.WaitOne();
+				ideaLogger.LogDebug("Server stopped event was set.");
+
 				hostingTask = null;
 				NotifyAppStatusChanged(AppStatus.Finished);
 			}
@@ -94,12 +104,15 @@ namespace IdeaStatiCa.Plugin
 		{
 			clientId = id;
 			this.workingDirectory = workingDirectory;
+
 			// create the communication pipe for getting commands from IDEA StatiCa
-			mre.Reset();
 			bimAppService = bimPluginFactory?.Create();
 
-			string baseAddress = string.Format(PluginUrlFormat, id);
-			using (ServiceHost selfServiceHost = new ServiceHost(Service, new Uri(baseAddress)))
+			ServiceBaseAddress = string.Format(PluginUrlFormat, id);
+
+			ideaLogger.LogDebug($"BIMPluginHosting RunServer clientId = '{clientId}' workingDirectory = '{workingDirectory}', ServiceBaseAddress = '{ServiceBaseAddress}'");
+
+			using (ServiceHost selfServiceHost = new ServiceHost(Service, new Uri(ServiceBaseAddress)))
 			{
 				((ServiceBehaviorAttribute)selfServiceHost.Description.
 				Behaviors[typeof(ServiceBehaviorAttribute)]).InstanceContextMode
@@ -108,7 +121,7 @@ namespace IdeaStatiCa.Plugin
 				//Net named pipe
 				NetNamedPipeBinding binding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647 };
 				binding.ReceiveTimeout = TimeSpan.MaxValue;
-				selfServiceHost.AddServiceEndpoint(typeof(IApplicationBIM), binding, baseAddress);
+				selfServiceHost.AddServiceEndpoint(typeof(IApplicationBIM), binding, ServiceBaseAddress);
 
 				//BasicHttpBinding httpBinding = new BasicHttpBinding { MaxReceivedMessageSize = 2147483647 };
 				//httpBinding.ReceiveTimeout = TimeSpan.MaxValue;
@@ -117,29 +130,57 @@ namespace IdeaStatiCa.Plugin
 				//MEX - Meta data exchange
 				ServiceMetadataBehavior behavior = new ServiceMetadataBehavior();
 				selfServiceHost.Description.Behaviors.Add(behavior);
-				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), baseAddress + "/mex/");
+				selfServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), MetadataExchangeBindings.CreateMexNamedPipeBinding(), ServiceBaseAddress + "/mex/");
 
-				selfServiceHost.Opened += new EventHandler(SelfServiceHost_Opened);
+				selfServiceHost.Opened += SelfServiceHost_Opened;
+				selfServiceHost.Faulted += SelfServiceHost_Faulted;
+				selfServiceHost.Opening += SelfServiceHost_Opening;
+				selfServiceHost.UnknownMessageReceived += SelfServiceHost_UnknownMessageReceived;
+				selfServiceHost.Closing += SelfServiceHost_Closing;
+				selfServiceHost.Closed += SelfServiceHost_Closed;
 
 				selfServiceHost.Open(new TimeSpan(0, 0, 10));
 
+				ideaLogger.LogDebug("Waiting for the server stop request...");
 				while (!cancellationToken.IsCancellationRequested)
 				{
 					Thread.Sleep(100);
 				}
 
+				ideaLogger.LogDebug($"Service stop is requested.");
+
 				try
 				{
 					selfServiceHost.Close();
-					mre.Set();
+					serverStoppedEvent.Set();
 				}
 				catch { }
 			}
 		}
 
+		private void SelfServiceHost_Closed(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_Closed service '{ServiceBaseAddress}'");
+			ServiceHost selfServiceHost = (ServiceHost)sender;
+			if(selfServiceHost != null)
+			{
+				selfServiceHost.Opened -= SelfServiceHost_Opened;
+				selfServiceHost.Faulted -= SelfServiceHost_Faulted;
+				selfServiceHost.Opening -= SelfServiceHost_Opening;
+				selfServiceHost.UnknownMessageReceived -= SelfServiceHost_UnknownMessageReceived;
+				selfServiceHost.Closing -= SelfServiceHost_Closing;
+				selfServiceHost.Closed -= SelfServiceHost_Closed;
+			}
+		}
+
+		private void SelfServiceHost_Closing(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_Closing service '{ServiceBaseAddress}'");
+		}
+
 		private void SelfServiceHost_Opened(object sender, EventArgs e)
 		{
-			((ServiceHost)sender).Opened -= new EventHandler(SelfServiceHost_Opened);
+			ideaLogger.LogDebug($"SelfServiceHost_Opened service '{ServiceBaseAddress}'");
 
 			// run IDEA StatiCa
 			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);
@@ -156,14 +197,34 @@ namespace IdeaStatiCa.Plugin
 			}
 		}
 
+		private void SelfServiceHost_UnknownMessageReceived(object sender, UnknownMessageReceivedEventArgs e)
+		{
+			ideaLogger.LogWarning($"SelfServiceHost_UnknownMessageReceived service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Opening(object sender, EventArgs e)
+		{
+			ideaLogger.LogDebug($"SelfServiceHost_Opening service '{ServiceBaseAddress}'");
+		}
+
+		private void SelfServiceHost_Faulted(object sender, EventArgs e)
+		{
+			ideaLogger.LogError($"Faulted service '{ServiceBaseAddress}', fault details = '{e?.ToString()}'.");
+		}
+
 		private void IS_Exited(object sender, EventArgs e)
 		{
+			ideaLogger.LogDebug($"IS_Exited IdeaStaticaApp has exited processId = '{IdeaStaticaApp.Id}'");
 			try
 			{
 				IdeaStaticaApp.Exited -= new EventHandler(IS_Exited);
 				IdeaStaticaApp.Dispose(); 
 			}
-			catch { }
+			catch (Exception ex)
+			{
+				ideaLogger.LogWarning("Disposing of the service failed", ex);
+			}
+
 			IdeaStaticaApp = null;
 
 			Stop();
@@ -171,7 +232,9 @@ namespace IdeaStatiCa.Plugin
 
 		protected void NotifyAppStatusChanged(AppStatus newStatus)
 		{
+			ideaLogger.LogDebug($"NotifyAppStatusChanged service '{ServiceBaseAddress}' newStatus = '{newStatus}'");
 			AppStatusChanged?.Invoke(this, new ISEventArgs() { Status = newStatus });
+			ideaLogger.LogTrace($"NotifyAppStatusChanged service '{ServiceBaseAddress}' newStatus = '{newStatus}' - handling of the event finished.");
 		}
 
 		#region IDisposable Support
@@ -191,17 +254,22 @@ namespace IdeaStatiCa.Plugin
 			Process connectionProc = new Process();
 
 			string eventName = string.Format("{0}{1}", EventName, id);
+			string isProcessArguments = $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\"";
+
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
-				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\"");
+				connectionProc.StartInfo = new ProcessStartInfo(exePath, isProcessArguments);
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
+
+				//Started '{0}' as a new process with id {1}.
+				ideaLogger.LogDebug($"RunIdeaIdeaStatiCa started process withid {connectionProc.Id} '{exePath}' arguments = '{isProcessArguments}'");
 
 				if (!syncEvent.WaitOne(OpenServerTimeLimit))
 				{
 					syncEvent.Close();
-					throw new CommunicationException(string.Format("Cannot start '{0}'", exePath));
+					throw new CommunicationException(string.Format("Cannot establish the connection to new application with '{0}' with process id {1} within {2}ms timeout.", exePath, connectionProc.Id, OpenServerTimeLimit));
 				}
 				syncEvent.Close();
 			}
@@ -213,33 +281,26 @@ namespace IdeaStatiCa.Plugin
 		{
 			if (!disposedValue)
 			{
+				ideaLogger.LogDebug($"BIMPluginHosting Dispose('{disposing}')");
 				if (disposing)
 				{
 					if (hostingTask != null)
 					{
 						try
 						{
-							tokenSource.Cancel();
-							//hostingTask.Dispose();
+							serverStopRequestTokenSource.Cancel();
 						}
-						catch { }
-
-						try
+						catch (Exception ex)
 						{
-							//feaAppService.Dispose();
-							//feaAppService = null;
+							ideaLogger.LogWarning("Disposing of the service failed", ex);
 						}
-						catch { }
-						mre.Dispose();
-						tokenSource.Dispose();
 					}
-					// TODO: dispose managed state (managed objects).
+
+					// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+					// TODO: set large fields to null.
+
+					disposedValue = true;
 				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
-
-				disposedValue = true;
 			}
 		}
 

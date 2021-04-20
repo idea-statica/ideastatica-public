@@ -11,22 +11,27 @@ namespace IdeaStatiCa.Plugin
 	/// </summary>
 	public class NullLogger : IPluginLogger
 	{
-		public void LogDebug(string message)
+		public void LogDebug(string message, Exception ex = null)
 		{
 
 		}
 
-		public void LogError(string message, object parameter)
-		{
-			
-		}
-
-		public void LogInformation(string message)
+		public void LogError(string message, Exception ex = null)
 		{
 			
 		}
 
-		public void LogTrace(string message)
+		public void LogInformation(string message, Exception ex = null)
+		{
+			
+		}
+
+		public void LogTrace(string message, Exception ex = null)
+		{
+
+		}
+
+		public void LogWarning(string message, Exception ex = null)
 		{
 
 		}
