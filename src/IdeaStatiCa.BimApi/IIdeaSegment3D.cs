@@ -26,6 +26,7 @@ namespace IdeaStatiCa.BimApi
 
 		/// <summary>
 		/// Local Coordinate System (LCS) of the segment. Only vector definition of the LCS is supported, so the instance of <see cref="IdeaRS.OpenModel.Geometry3D.CoordSystemByVector"/> must be returned.
+		/// LCS only effects rotation of the segment, it does not modify on nodes' position.
 		/// </summary>
 		IdeaRS.OpenModel.Geometry3D.CoordSystem LocalCoordinateSystem { get; }
 

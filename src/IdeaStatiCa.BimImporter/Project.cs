@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
+using System.IO;
 
 namespace IdeaStatiCa.BimImporter
 {
