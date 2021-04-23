@@ -9,5 +9,9 @@ namespace IdeaStatiCa.BimImporter
 		IIdeaObject GetBimObject(int id);
 
 		int GetIomId(IIdeaObject obj);
+
+		void Save(string path);
+
+		void Load(string path);
 	}
 }

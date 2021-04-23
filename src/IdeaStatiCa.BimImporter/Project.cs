@@ -34,5 +34,13 @@ namespace IdeaStatiCa.BimImporter
 		{
 			return _iomIdToBimObject[id];
 		}
+
+		public void Save(string path)
+		{
+		}
+
+		public void Load(string path)
+		{
+		}
 	}
 }
