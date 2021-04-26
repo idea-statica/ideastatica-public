@@ -10,10 +10,10 @@
 
 using System.Reflection;
 
-[assembly: AssemblyCompany("IDEA RS")]
-[assembly: AssemblyProduct("IDEA StatiCa")]
-[assembly: AssemblyCopyright("Copyright (c) IDEA StatiCa ltd., 2021")]
+[assembly: AssemblyCompany("IDEA StatiCa")]
+[assembly: AssemblyProduct("IdeaStatiCa.OpenModel")]
+[assembly: AssemblyCopyright("IDEA StatiCa2021")]
 [assembly: AssemblyTrademark("All Rights Reserved")]
 [assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyVersion("21.0.0.1")]
-[assembly: AssemblyFileVersion("21.0.0.1")]
+[assembly: AssemblyVersion("21.0.18.0")]
+[assembly: AssemblyFileVersion("21.0.18.0")]
