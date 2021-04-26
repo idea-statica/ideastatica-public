@@ -6,12 +6,13 @@
     <Product>IdeaStatiCa.Plugin</Product>
     <Copyright></Copyright>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Authors>IdeaStatiCa</Authors>
+    <Authors>IDEA StatiCa</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/idea-statica/ideastatica-public</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
     <Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+    <PackageId>IdeaStatiCa.Plugin</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>full</DebugType>

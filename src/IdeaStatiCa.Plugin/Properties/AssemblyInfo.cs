@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("IdeaStatiCa.Plugin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.")]
 [assembly: AssemblyConfiguration("")]
 //[assembly: AssemblyCompany("")]
 //[assembly: AssemblyProduct("IdeaStatiCa.Plugin")]
