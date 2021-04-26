@@ -1,16 +1,15 @@
-![build & test](https://github.com/idea-statica/ideastatica-public/actions/workflows/dotnet.yml/badge.svg)
-
 # IdeaStatiCA API
 Documentation of IDEA StatiCA API
-
 ## Idea Open Model
-This model contains information about geometry, materials and loading of a structure. It is used for exchanging data with IdeaStatica and any othe FE or CAD application. The source code of [IOM](./src/IdeaRS.OpenModel)
+This model contains information about geometry, materials and loading of a structure. It is used for exchanging data with IdeaStatica and any othe FE or CAD application  [Latest version (v21.0)](https://idea-statica.github.io/iom/iom-api/latest/index.html)
 
 ## IdeaStatiCa.Plugin
 is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications. [Latest version (v21.0)](https://github.com/idea-statica/ideastatica-plugin)
 
 ## IdeaRS.Connections
 The documentation of manufacturing operations. [IdeaRS.Connections.Data](https://idea-statica.github.io/iom/ideaconnections-api/latest/html/N_IdeaRS_Connections_Data.htm)
+
+
 
 
 # Examples
