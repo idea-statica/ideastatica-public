@@ -19,13 +19,13 @@ Examples how to use IDEA StatiCa API
 ## Idea Open Model
 These examples show how to create Idea Open Model for various types of structures.
 ### Steel Structures
-[Steel Frame 1 Example](https://idea-statica.github.io/iom-examples/iom-steel-connections/steel-frame1.html)
+[Steel Frame 1 Example](docs/steel-frame1.md)
 
 ## Calculations
 These examples show how to calculate structures which were defined in Idea Open Model
 
 ### Calculation of steel connection
-[ConHiddenCheckConsole](https://idea-statica.github.io/iom-examples/iom-steel-connections/cbfem-for-all.html)
+[ConHiddenCheckConsole](docs/cbfem-for-all.md)
 
 [ConnectionHiddenCalculation](https://idea-statica.github.io/iom-examples/iom-steel-connections/cbfem-for-all.html)
 
