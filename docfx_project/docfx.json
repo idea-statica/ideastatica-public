@@ -4,9 +4,9 @@
       "src": [
         {
           "files": [
-            "IdeaRS.OpenModel.csproj"
+            "**IdeaRS.OpenModel.csproj", "**IdeaStatiCa.Plugin.csproj"
           ],
-          "src": "..\\src\\IdeaRS.OpenModel"
+          "src": "..\\src"
         }
       ],
       "dest": "api",
