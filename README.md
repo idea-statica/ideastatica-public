@@ -42,4 +42,4 @@ These examples show how to calculate structures which were defined in Idea Open 
 ## CheckBot
 Examples of using - Idea StatiCa Code Check Manager API
 
-[FEAppExample_1](src\Examples\CCM\FEAppExample_1) 
+[FEAppExample_1](src/Examples/CCM/FEAppExample_1) 
