@@ -1,4 +1,4 @@
-#### The example of creating IDEA Connection project by webservice - see project [IOM.SteelFrameWeb](https://github.com/idea-statica/iom-examples/tree/master/IOM_SteelFrame1/IOM.SteelFrameWeb)
+#### The example of creating IDEA Connection project by webservice
 
 
 It allows to generate idea connection project without having Idea StatiCa on your PC. IOM and IOM results are sent to webservice which generates and returns Idea Connection project.

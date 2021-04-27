@@ -1,8 +1,8 @@
-#### The example of creating IDEA Connection project IOM locally is in the project [IOM.SteelFrameDesktop](https://github.com/idea-statica/iom-examples/tree/master/IOM_SteelFrame1/IOM.SteelFrameDesktop)
+#### The example of creating IDEA Connection project IOM locally is in the project
 
-The axample how to generate IOM for a steel frame and including geometry of connections is in IOM.GeneratorExample. Running this example requires IDEA StatiCa v 20.0 (or higher) on an user's PC. Free trial version version can be obtained [here](https://www.ideastatica.com/free-trial).
+The example how to generate IOM for a steel frame and including geometry of connections is in IOM.GeneratorExample. Running this example requires IDEA StatiCa v 20.0 (or higher) on an user's PC. Free trial version version can be obtained [here](https://www.ideastatica.com/free-trial).
 
-[IdeaStatiCa.Plugin](https://github.com/idea-statica/ideastatica-plugin) includes classes which allows communication and controlling IDEA StatiCa applications and its provides services to other applications. [IdeaStatiCa.Plugin](https://github.com/idea-statica/ideastatica-plugin) is also distributed as [nuget package](https://www.nuget.org/packages/IdeaStatiCa.Plugin/)
+[IdeaStatiCa.Plugin](../../../src/IdeaStatiCa.Plugin) includes classes which allows communication and controlling IDEA StatiCa applications and its provides services to other applications. [IdeaStatiCa.Plugin](../../../src/IdeaStatiCa.Plugin) is also distributed as [nuget package](https://www.nuget.org/packages/IdeaStatiCa.Plugin/)
 
 ```C#
 			// create IOM and results
@@ -26,7 +26,7 @@ The instance of the class *ConnHiddenClientFactory* is responsible for creating 
 			ConnectionHiddenCheckClient calcFactory = new ConnHiddenClientFactory(IdeaInstallDir);
 ```
 
-The installation directory of Idea StatiCa v 20.0 (or higher) is set in the project setting of *IOM.SteelFrameDesktop*. Idea Connection project is created by calling method *CreateConProjFromIOM*
+The installation directory of Idea StatiCa v 21.0 (or higher) is set in the project setting of *IOM.SteelFrameDesktop*. Idea Connection project is created by calling method *CreateConProjFromIOM*
 
 ```C#
 				client.CreateConProjFromIOM(iomFileName, iomResFileName, fileConnFileNameFromLocal);
