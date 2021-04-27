@@ -73,7 +73,7 @@ There are new diagnostics features in IdeaStatiCa which are available from versi
 More details about configuration of the [diagnostics](../../../../docs/ccm-diagnostics.md)
 ![CCM Diagnostics](../../../../Images/ccm-diagnostics.png)
 
-### FAQ related to [ModelBIM](../../IdeaStatiCa.Plugin/ModelBIM.cs)
+### FAQ related to [ModelBIM](../../../IdeaStatiCa.Plugin/ModelBIM.cs)
 * The list **Items** contains only nodes in which imported connections exist.
 * For each newly created **ConnectionPoint** the property **ProjectFileName** must be set - e.g. _<ProjectFileName>Connections\conn-1.ideaCon</ProjectFileName>_
 * Section **Messages** must be defined in ModelBIM (xml file) - there is a bug which causes crashes in CCM - it will be fixed in the next version
