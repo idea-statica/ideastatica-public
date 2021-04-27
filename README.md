@@ -25,11 +25,11 @@ These examples show how to create Idea Open Model for various types of structure
 These examples show how to calculate structures which were defined in Idea Open Model
 
 ### Calculation of steel connection
-[ConHiddenCheckConsole](docs/cbfem-for-all.md)
+[ConHiddenCheckConsole](src/Examples/ConnHiddenCalc/ConHiddenCheckConsole)
 
-[ConnectionHiddenCalculation](https://idea-statica.github.io/iom-examples/iom-steel-connections/cbfem-for-all.html)
+[ConnectionHiddenCalculation](src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation)
 
-[Python Examples](https://github.com/idea-statica/iom-examples/blob/release-21.0-beta/python-examples/docs/python-examples.md)
+[Python Examples](src/Examples/ConnHiddenCalc/python-examples)
 
 ### Concrete Structures
 
