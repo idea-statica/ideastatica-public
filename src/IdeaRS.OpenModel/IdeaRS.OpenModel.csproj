@@ -1,19 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
     <PackageId>IdeaStatiCa.OpenModel</PackageId>
     <Authors>IDEA StatiCa</Authors>
+    <Product>IdeaStatiCa.OpenModel</Product>
+    <Copyright>Copyright (c) 2021 IDEA StatiCa</Copyright>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/idea-statica/ideastatica-public.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
+    <RepositoryType>Git</RepositoryType>
+    <AssemblyVersion>21.0.18.0</AssemblyVersion>
+    <FileVersion>21.0.18.0</FileVersion>
+    <Version>21.0.18.0</Version>
+    <PackageTags>IdeaStatiCa;BIM;C#;FEA</PackageTags>
+    <Description>OpenModel used for IdeaStatiCa.Plugin, containing all base classes required for Plugin to fully work.</Description>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
     <OutputPath>..\..\..\bin\Debug\</OutputPath>
@@ -30,10 +42,6 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="WindowsBase" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>  
   
   <ItemGroup>
@@ -50,6 +58,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\IdeaStatiCa\ideastatica-public\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

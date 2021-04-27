@@ -11,8 +11,8 @@
 using System.Reflection;
 
 [assembly: AssemblyCompany("IDEA StatiCa")]
-[assembly: AssemblyProduct("IdeaStatiCa.OpenModel")]
-[assembly: AssemblyCopyright("IDEA StatiCa2021")]
+[assembly: AssemblyProduct("IdeaStatiCa.Plugin")]
+[assembly: AssemblyCopyright("Copyright (c) 2021 IDEA StatiCa")]
 [assembly: AssemblyTrademark("All Rights Reserved")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyVersion("21.0.18.0")]

@@ -12,13 +12,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        path: main
 
     - name: Setup .NET
       uses: microsoft/setup-msbuild@v1
-
-    - name: Git Clean
-      run: git clean -xfd
 
     - name: Setup nuget.exe
       uses: NuGet/setup-nuget@v1.0.5
@@ -28,12 +28,27 @@ jobs:
 
     - name: Nuget restore dependencies
       run: nuget restore ./src/IdeaStatiCa.Public.sln
+      working-directory: main
 
     - name: Dotnet restore dependencies
       run: dotnet restore ./src/IdeaStatiCa.Public.sln
+      working-directory: main
 
     - name: Build
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+      working-directory: main
 
     - name: Test
       run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
+      working-directory: main
+      
+    - name: Pack nugets
+      run: ./buildNugets.ps1
+      working-directory: main
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Idea nugets
+        path: |
+          ${{ github.workspace }}\**\*Idea*.nupkg
