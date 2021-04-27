@@ -9,13 +9,13 @@ Communication of a 3rd party application (the example ConnectionHiddenCalculatio
 
 In the project [IdeaStatiCa.ConnectionClient](https://github.com/idea-statica/iom-examples/tree/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient) there are commands which control [ConnHiddenCheck Service](https://github.com/idea-statica/ideastatica-plugin/blob/master/IdeaStatiCa.Plugin/IConnHiddenCheck.cs). These commands show how to  :
 
-* [Open IDEA Connection project](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/OpenProjectCommand.cs)
-* [Import IDEA Connection from IOM](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ImportIOMCommand.cs)
-* [Close IDEA Connection project](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CloseProjectCommand.cs)
-* [Calculate a connection](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CalculateConnectionCommand.cs)
-* [Get geometry of a connection](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionGeometryCommand.cs)
-* [Create template from a connection](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionToTemplateCommand.cs)
-* [Apply template](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplyTemplateCommand.cs)
+* [Open IDEA Connection project](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/OpenProjectCommand.cs)
+* [Import IDEA Connection from IOM](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ImportIOMCommand.cs)
+* [Close IDEA Connection project](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CloseProjectCommand.cs)
+* [Calculate a connection](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CalculateConnectionCommand.cs)
+* [Get geometry of a connection](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionGeometryCommand.cs)
+* [Create template from a connection](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionToTemplateCommand.cs)
+* [Apply template](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplyTemplateCommand.cs)
 
 There are new methods for getting information about materials, cross-sections and bolt assemblies in idea connection project in [IConnHiddenCheck](https://github.com/idea-statica/ideastatica-plugin/blob/master/IdeaStatiCa.Plugin/IConnHiddenCheck.cs) since version **IDEA StatiCa v20.0.81**. It is also possible to add new bolt assemblies into a connection project - see method :
 
@@ -35,10 +35,10 @@ The method *ApplyTemplate* has the new parameter *connTemplateSetting*. It defin
 
 The examples of using these new *IConnHiddenCheck* methods can be found in examples :
 
-* [GetMaterialsInProject](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetMaterialsCommand.cs)
-* [GetCrossSectionsInProject](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetCrossSectionsCommand.cs)
-* [GetBoltAssembliesInProject](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetBoltAssembliesCommand.cs)
-* [AddBoltAssembly](https://github.com/idea-statica/iom-examples/blob/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CreateBoltAssemblyCommand.cs)
+* [GetMaterialsInProject](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetMaterialsCommand.cs)
+* [GetCrossSectionsInProject](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetCrossSectionsCommand.cs)
+* [GetBoltAssembliesInProject](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetBoltAssembliesCommand.cs)
+* [AddBoltAssembly](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CreateBoltAssemblyCommand.cs)
 
 ### Improvements in version IDEA StatiCa v 20.1
 
@@ -46,7 +46,7 @@ API users can apply simple template to a connection.
 
 ![ConnectionHiddenCalculation](../../../../Images//apply-simple-template.PNG?raw=true)
 
-There is the example how to call the service in the command : [Apply Simple template](https://github.com/idea-statica/iom-examples/blob/release-20i/ConnCalcExamples/IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplySimpleTemplateCommands.cs)
+There is the example how to call the service in the command : [Apply Simple template](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplySimpleTemplateCommands.cs)
 
 ```C#
 		/// <summary>
@@ -64,7 +64,7 @@ There is the example how to call the service in the command : [Apply Simple temp
 
 ***How to test applying single template step by step***
 * Build project *ConnectionHiddenCalculation*
-* Open the empty connection project [2-beams-to-column-empty.ideaCon](https://github.com/idea-statica/iom-examples/blob/release-20i/ConnCalcExamples/ConnectionHiddenCalculation/SingleTemplateTstProjects/2-beams-to-column-empty.ideaCon) in app ConnectionHiddenCalculation 
+* Open the empty connection project [2-beams-to-column-empty.ideaCon](../ConnectionHiddenCalculation/SingleTemplateTstProjects/2-beams-to-column-empty.ideaCon) in app ConnectionHiddenCalculation 
 * Specify supporting member (in this cas *1*) and supported member (in this case *2*)
 * Click on the button *Apply simple template*
 * Save project as and open it in ideaconnection.exe to check the result
