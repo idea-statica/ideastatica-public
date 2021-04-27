@@ -1,6 +1,6 @@
 ![build & test](https://github.com/idea-statica/ideastatica-public/actions/workflows/dotnet.yml/badge.svg)
 
-# IdeaStatiCA API
+# IdeaStatiCa API
 Documentation of IDEA StatiCA API
 
 ## Idea Open Model

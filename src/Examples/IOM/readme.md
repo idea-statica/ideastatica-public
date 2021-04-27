@@ -232,7 +232,7 @@ model.AddObject(M2);
 
 ### The local coordinate system of members
 
-It its important to pay attantion to the correct setting of [coordinate systems](https://idea-statica.github.io/iom/coord-system.html) of members. It must correspond to coordinate systems which are used in your FEA model otherwise it can caused unbalanced internal forces in exported connections.
+It its important to pay attantion to the correct setting of [coordinate systems](../../../docs/coord-system.md) of members. It must correspond to coordinate systems which are used in your FEA model otherwise it can caused unbalanced internal forces in exported connections.
 
 ![alt text][members-lcs]
 
