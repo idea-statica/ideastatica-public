@@ -19,7 +19,7 @@ Examples how to use IDEA StatiCa API
 ## Idea Open Model
 These examples show how to create Idea Open Model for various types of structures.
 ### Steel Structures
-[Steel Frame 1 Example](docs/steel-frame1.md)
+[Steel Frame 1 Example](documentation/src/Examples/IOM)
 
 ## Calculations
 These examples show how to calculate structures which were defined in Idea Open Model
