@@ -2,7 +2,7 @@
 
 The example how to generate IOM for a steel frame and including geometry of connections is in IOM.GeneratorExample. Running this example requires IDEA StatiCa v 20.0 (or higher) on an user's PC. Free trial version version can be obtained [here](https://www.ideastatica.com/free-trial).
 
-[IdeaStatiCa.Plugin](../../../src/IdeaStatiCa.Plugin) includes classes which allows communication and controlling IDEA StatiCa applications and its provides services to other applications. [IdeaStatiCa.Plugin](../../../src/IdeaStatiCa.Plugin) is also distributed as [nuget package](https://www.nuget.org/packages/IdeaStatiCa.Plugin/)
+[IdeaStatiCa.Plugin](../../../IdeaStatiCa.Plugin) includes classes which allows communication and controlling IDEA StatiCa applications and its provides services to other applications. [IdeaStatiCa.Plugin](../../../IdeaStatiCa.Plugin) is also distributed as [nuget package](https://www.nuget.org/packages/IdeaStatiCa.Plugin/)
 
 ```C#
 			// create IOM and results
