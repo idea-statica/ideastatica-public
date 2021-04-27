@@ -33,11 +33,11 @@ These examples show how to calculate structures which were defined in Idea Open 
 
 ### Concrete Structures
 
-[Concrete Column](https://idea-statica.github.io/iom-examples/rcs/rcs-column.html)
+[Concrete Column](docs/rcs/rcs-column.md)
 
-[Reinforced Beam](https://idea-statica.github.io/iom-examples/rcs/rcs-reinforced-beam.html)
+[Reinforced Beam](docs/rcs/rcs-reinforced-beam.md)
 
-[Prestressed Beam](https://idea-statica.github.io/iom-examples/rcs/rcs-prestressed-beam.html)
+[Prestressed Beam](docs/rcs/rcs-prestressed-beam.md)
 
 ## CheckBot
 Examples of using - Idea StatiCa Code Check Manager API
