@@ -39,12 +39,12 @@ model.OriginSettings.Author = "IDEA StatiCa s.r.o.";
 model.OriginSettings.ProjectDescription = "Training example";
 ```
 
-More datails can be found [here](https://github.com/idea-statica/iom/blob/master/IdeaRS.OpenModel/OriginSettings.cs).
+More datails can be found [here](../../IdeaRS.OpenModel/OriginSettings.cs).
 
 
 ### Definition of materials in our model
 *The type of materials corresponds to the selected design code for our project ! We can't mixed 
-*Reference to the materials in open model is [here](https://github.com/idea-statica/iom/tree/master/IdeaRS.OpenModel/Libraries/Material).*
+*Reference to the materials in open model is [here](../../IdeaRS.OpenModel/Libraries/Material).*
 
 ```csharp
 MatSteelEc2 material = new MatSteelEc2();
@@ -78,7 +78,7 @@ model.AddObject(material);
 
 ### Definition of cross sections in our model
 
-*Reference to the cross sections in open model is [here](https://github.com/idea-statica/iom/tree/master/IdeaRS.OpenModel/Libraries/CrossSection).*
+*Reference to the cross sections in open model is [here](../../IdeaRS.OpenModel/Libraries/CrossSection).*
 
 Model has two types of cross sections: HE200B and HE240B. To create a single cross-section you need to know the material from previous section.
 
@@ -148,7 +148,7 @@ __1. The example of an instance of Member1D which has only one Element1D and it 
 
 The code below describes how to create a member which has only one Element1D
 
-*Please notice, for better readability there are also helper functions like __CreateLineSegment3D__, __CreateElement1D__ and __CreateMember1D__ that you can find [here](https://github.com/idea-statica/iom-examples/blob/master/IdeaStatiCa.Codes/Helpers.cs).*
+*Please notice, for better readability there are also helper functions like __CreateLineSegment3D__, __CreateElement1D__ and __CreateMember1D__ that you can find [here](IOM.GeneratorExample/Helpers.cs).*
 
 ```csharp
 // set the appropriate cross section
@@ -238,13 +238,13 @@ It its important to pay attantion to the correct setting of [coordinate systems]
 
 There are 3 options how to define the coordinate system for member 1d :
 
-[CoordSystemByPoint](https://github.com/idea-statica/iom/blob/master/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs)
+[CoordSystemByPoint](../../IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs)
 
-[CoordSystemByVector](https://github.com/idea-statica/iom/blob/master/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByVector.cs)
+[CoordSystemByVector](../../IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByVector.cs)
 
-[CoordSystemByZup](https://github.com/idea-statica/iom/blob/master/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByZup.cs)
+[CoordSystemByZup](../../IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByZup.cs)
 
-The coordinate system is a property of [Segment3D](https://github.com/idea-statica/iom/blob/master/IdeaRS.OpenModel/Geometry/Geometry3D/Segment3D.cs)
+The coordinate system is a property of [Segment3D](../../IdeaRS.OpenModel/Geometry/Geometry3D/Segment3D.cs)
 
 ```csharp
 	LineSegment3D segment3D = new LineSegment3D();
