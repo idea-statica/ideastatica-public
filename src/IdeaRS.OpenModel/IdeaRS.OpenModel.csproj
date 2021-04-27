@@ -2,9 +2,11 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
+    <PackageId>IdeaStatiCa.OpenModel</PackageId>
+    <Authors>IDEA StatiCa</Authors>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
