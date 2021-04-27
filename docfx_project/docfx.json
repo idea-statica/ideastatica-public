@@ -4,8 +4,9 @@
       "src": [
         {
           "files": [
-            "src/**.csproj"
-          ]
+            "IdeaRS.OpenModel.csproj"
+          ],
+          "src": "..\\src\\IdeaRS.OpenModel"
         }
       ],
       "dest": "api",
