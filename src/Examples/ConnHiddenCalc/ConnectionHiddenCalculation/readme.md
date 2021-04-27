@@ -2,7 +2,7 @@
 
 It is more complex example which presents more features which are provided by IDEA StaiCa API. To be able to run this example set the path to Idea StatiCa directory in the project settings.
 
-![ConnectionHiddenCalculation](../../../../Images//conn-hidden-calculation.PNG?raw=true)
+![ConnectionHiddenCalculation](../../../../Images/conn-hidden-calculation.PNG?raw=true)
 
 Communication of a 3rd party application (the example ConnectionHiddenCalculation in this case) with ConnectionCalcService which runs in a another process.
 ![ConnectionHiddenCalculation](https://github.com/idea-statica/ideastatica-plugin/blob/master/Images/ConnectionHiddenCalculation.svg?raw=true)
@@ -31,7 +31,7 @@ There are new methods for getting information about materials, cross-sections an
 
 The method *ApplyTemplate* has the new parameter *connTemplateSetting*. It defines materials which are used when template is applied. 
 
-![Get materials from project](../../../../Images//hidden-check-get_material.png?raw=true)
+![Get materials from project](../../../../Images/hidden-check-get_material.png?raw=true)
 
 The examples of using these new *IConnHiddenCheck* methods can be found in examples :
 
@@ -44,7 +44,7 @@ The examples of using these new *IConnHiddenCheck* methods can be found in examp
 
 API users can apply simple template to a connection.
 
-![ConnectionHiddenCalculation](../../../../Images//apply-simple-template.PNG?raw=true)
+![ConnectionHiddenCalculation](../../../../Images/apply-simple-template.PNG?raw=true)
 
 There is the example how to call the service in the command : [Apply Simple template](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplySimpleTemplateCommands.cs)
 
