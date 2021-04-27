@@ -1,6 +1,6 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Material;
 using IdeaStatiCa.BimApi;
+using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -8,27 +8,18 @@ namespace IdeaStatiCa.BimImporter.Importers
 	{
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaMaterial material)
 		{
-			MatSteelEc2 matS = new MatSteelEc2();
-			matS.Name = "S275";
-			matS.UnitMass = 7850.0;
-			matS.E = 200e9;
-			matS.Poisson = 0.2;
-			matS.G = 83.333e9;
-			matS.SpecificHeat = 0.6;
-			matS.ThermalExpansion = 0.00001;
-			matS.ThermalConductivity = 45;
-			matS.fy = 235e6;
-			matS.fu = 360e6;
-			matS.fy40 = 215e6;
-			matS.fu40 = 340e6;
+			if (material is IIdeaMaterialSteel matSteal)
+			{
+				string name = material.Name;
+				if (name != null)
+				{
+					matSteal.Material.Name = name;
+				}
 
-			//Setting thermal characteristcs of material (in this case by the code)
-			matS.StateOfThermalConductivity = ThermalConductivityState.Code;
-			matS.StateOfThermalExpansion = ThermalExpansionState.Code;
-			matS.StateOfThermalSpecificHeat = ThermalSpecificHeatState.Code;
-			matS.StateOfThermalStressStrain = ThermalStressStrainState.Code;
+				return matSteal.Material;
+			}
 
-			return matS;
+			throw new NotImplementedException();
 		}
 	}
 }
