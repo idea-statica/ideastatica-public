@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Material;
 using IdeaStatiCa.BimApi;
 using System;
 
@@ -10,13 +11,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			if (material is IIdeaMaterialSteel matSteal)
 			{
-				string name = material.Name;
-				if (name != null)
+				MatSteel mat = matSteal.Material;
+
+				if (mat.Name == null)
 				{
-					matSteal.Material.Name = name;
+					mat.Name = material.Name;
 				}
 
-				return matSteal.Material;
+				return mat;
 			}
 
 			throw new NotImplementedException();
