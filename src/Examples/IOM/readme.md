@@ -1,4 +1,4 @@
-#  [IOM Example - SteelFrame](https://github.com/idea-statica/iom-examples/tree/master/IOM_SteelFrame1) 
+#  IOM Example - SteelFrame
 
 This example describes how to define a steel frame in IOM (IDEA StatiCa Open Model).
 The source code of this example is in the project [IOM.GeneratorExample](IOM.GeneratorExample)
