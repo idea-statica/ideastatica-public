@@ -7,7 +7,7 @@ Documentation of IDEA StatiCA API
 This model contains information about geometry, materials and loading of a structure. It is used for exchanging data with IdeaStatica and any othe FE or CAD application. The source code of [IOM](./src/IdeaRS.OpenModel)
 
 ## IdeaStatiCa.Plugin
-is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications. [Latest version (v21.0)](https://github.com/idea-statica/ideastatica-plugin)
+is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications. [Latest version (v21.0)](./src/IdeaStatiCa.Plugin)
 
 ## IdeaRS.Connections
 The documentation of manufacturing operations. [IdeaRS.Connections.Data](https://idea-statica.github.io/iom/ideaconnections-api/latest/html/N_IdeaRS_Connections_Data.htm)
