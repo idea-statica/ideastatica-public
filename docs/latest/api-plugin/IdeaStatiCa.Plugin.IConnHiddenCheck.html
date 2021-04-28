@@ -1,0 +1,1190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IConnHiddenCheck
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IConnHiddenCheck
+   ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck">
+  
+  
+  <h1 id="IdeaStatiCa_Plugin_IConnHiddenCheck" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck" class="text-break">Interface IConnHiddenCheck
+  </h1>
+  <div class="markdown level0 summary"><p>Provides seamlessly data about connections or allows to run hidden calculation of a connection</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IdeaStatiCa.Plugin.html">IdeaStatiCa.Plugin</a></h6>
+  <h6><strong>Assembly</strong>: IdeaStatiCa.Plugin.dll</h6>
+  <h5 id="IdeaStatiCa_Plugin_IConnHiddenCheck_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ServiceContract]
+public interface IConnHiddenCheck</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_AddBoltAssembly_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L154">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_AddBoltAssembly_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_AddBoltAssembly_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(System.String)">AddBoltAssembly(String)</h4>
+  <div class="markdown level1 summary"><p>Add the new bolt assembly. Its type is defined by its name (e.g. 'M12 4.6')</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+int AddBoltAssembly(string boltAssemblyName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">boltAssemblyName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_ApplyParameters_System_String_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L173">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_ApplyParameters_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_ApplyParameters_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(System.String,System.String)">ApplyParameters(String, String)</h4>
+  <div class="markdown level1 summary"><p>Apply <code data-dev-comment-type="paramref" class="paramref">parametersJSON</code> on connection<code data-dev-comment-type="paramref" class="paramref">connectionId</code>
+<a href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string ApplyParameters(string connectionId, string parametersJSON)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Id of the parameter</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">parametersJSON</span></td>
+        <td><p>JSON string including parameters</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_ApplySimpleTemplate_System_String_System_String_IdeaRS_OpenModel_Connection_ApplyConnTemplateSetting_System_Int32_System_Collections_Generic_List_System_Int32__.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(System.String%2CSystem.String%2CIdeaRS.OpenModel.Connection.ApplyConnTemplateSetting%2CSystem.Int32%2CSystem.Collections.Generic.List%7BSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L46">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_ApplySimpleTemplate_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_ApplySimpleTemplate_System_String_System_String_IdeaRS_OpenModel_Connection_ApplyConnTemplateSetting_System_Int32_System_Collections_Generic_List_System_Int32__" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})">ApplySimpleTemplate(String, String, ApplyConnTemplateSetting, Int32, List&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"><p>Apply the simple connectionsimple template from file <code data-dev-comment-type="paramref" class="paramref">templateFilePath</code> on connection <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List&lt;int&gt; attachedMembers)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>The id of the connection on which templete will be applied</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">templateFilePath</span></td>
+        <td><p>The path to the connection teplate</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting.html">ApplyConnTemplateSetting</a></td>
+        <td><span class="parametername">connTemplateSetting</span></td>
+        <td><p>The additional settings - e.g. default bolts</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">mainMember</span></td>
+        <td><p>Main (supporting member)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td><span class="parametername">attachedMembers</span></td>
+        <td><p>The list of members which are supported by <code data-dev-comment-type="paramref" class="paramref">mainMember</code></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Returns 'Ok' in case of the success otherwise 'Fail'</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_ApplyTemplate_System_String_System_String_IdeaRS_OpenModel_Connection_ApplyConnTemplateSetting_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(System.String%2CSystem.String%2CIdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L34">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_ApplyTemplate_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_ApplyTemplate_System_String_System_String_IdeaRS_OpenModel_Connection_ApplyConnTemplateSetting_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)">ApplyTemplate(String, String, ApplyConnTemplateSetting)</h4>
+  <div class="markdown level1 summary"><p>Apply the selected template in file <code data-dev-comment-type="paramref" class="paramref">conTemplateFileName</code> on connection <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Identifier of the connection in the project, empty guid means the first connection in the project</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">conTemplateFileName</span></td>
+        <td><p>contemp filename including connection template</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting.html">ApplyConnTemplateSetting</a></td>
+        <td><span class="parametername">connTemplateSetting</span></td>
+        <td><p>Additional setting for application of the template.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>returns 'OK' if success otherwise an error message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_Calculate_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L78">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_Calculate_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_Calculate_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(System.String)">Calculate(String)</h4>
+  <div class="markdown level1 summary"><p>Cakculate connection given by <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+ConnectionResultsData Calculate(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>The identifier of the required connection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConnectionResultsData.html">ConnectionResultsData</a></td>
+        <td><p>Connection check results</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_Cancel.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L125">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_Cancel_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_Cancel" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel">Cancel()</h4>
+  <div class="markdown level1 summary"><p>Cancel current calcullation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+void Cancel()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_CloseProject.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L119">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_CloseProject_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_CloseProject" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject">CloseProject()</h4>
+  <div class="markdown level1 summary"><p>Close project which is open in the service</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+void CloseProject()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_CreateConProjFromIOM_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(System.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L113">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_CreateConProjFromIOM_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_CreateConProjFromIOM_System_String_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(System.String,System.String,System.String)">CreateConProjFromIOM(String, String, String)</h4>
+  <div class="markdown level1 summary"><p>Creates Idea connection project from given <code data-dev-comment-type="paramref" class="paramref">iomXmlFileName</code>, <code data-dev-comment-type="paramref" class="paramref">iomResXmlFileName</code> and projects saves into the <code data-dev-comment-type="paramref" class="paramref">newIdeaConFileName</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">iomXmlFileName</span></td>
+        <td><p>Filename of a given IOM xml file</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">iomResXmlFileName</span></td>
+        <td><p>Filename of a given IOM Result xml file</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">newIdeaConFileName</span></td>
+        <td><p>File name of idea connection project where generated project will be saved</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_EvaluateExpression_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L104">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_EvaluateExpression_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_EvaluateExpression_System_String_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String,System.String,System.String)">EvaluateExpression(String, String, String)</h4>
+  <div class="markdown level1 summary"><p>Evaluate expression on connection model <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string EvaluateExpression(string connectionId, string expression, string arumentsJSON)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Id of the connection in the open idea connection project</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>User expression to be evaluated</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">arumentsJSON</span></td>
+        <td><p>Optional agruments in json format (not used now)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>In case of a success it is the JSON string representing the result of the query. String 'null' if nothing is found. String 'error' in case of any other unspecified error.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_ExportToTemplate_System_String_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L63">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_ExportToTemplate_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_ExportToTemplate_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String,System.String)">ExportToTemplate(String, String)</h4>
+  <div class="markdown level1 summary"><p>Export the manufacture sequence of <code data-dev-comment-type="paramref" class="paramref">connectionId</code> as a template and save it in <code data-dev-comment-type="paramref" class="paramref">conTemplateFileName</code> (.contemp file)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string ExportToTemplate(string connectionId, string conTemplateFileName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><blockquote>
+<p>Identifier of the connection in the project, empty guid means the first connection in the project</p>
+</blockquote>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">conTemplateFileName</span></td>
+        <td><p>The file name of the output file</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>returns 'OK' if success otherwise an error message</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetAllConnectionData_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L94">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetAllConnectionData_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetAllConnectionData_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)">GetAllConnectionData(String)</h4>
+  <div class="markdown level1 summary"><p>Get structural data and corresponding results of FE analysi for <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string GetAllConnectionData(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Identifier of the required connection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetBoltAssembliesInProject.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L146">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetBoltAssembliesInProject_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetBoltAssembliesInProject" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject">GetBoltAssembliesInProject()</h4>
+  <div class="markdown level1 summary"><p>Get all bolt assemblies in the currently open project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+List&lt;ProjectItem&gt; GetBoltAssembliesInProject()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</td>
+        <td><p>Bolt assemblies in the project</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionLoadingJSON_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L181">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionLoadingJSON_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionLoadingJSON_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(System.String)">GetConnectionLoadingJSON(String)</h4>
+  <div class="markdown level1 summary"><p>Get loading for connection <code data-dev-comment-type="paramref" class="paramref">connectionId</code> (List of CalcCaseData)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string GetConnectionLoadingJSON(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Id of the parameter</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionModel_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L86">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionModel_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionModel_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(System.String)">GetConnectionModel(String)</h4>
+  <div class="markdown level1 summary"><p>Get the geometry of the <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+ConnectionData GetConnectionModel(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Identifier of the required connection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConnectionData.html">ConnectionData</a></td>
+        <td><p>Geometry of the connection in the IOM format</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionModelXML_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L54">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionModelXML_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetConnectionModelXML_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(System.String)">GetConnectionModelXML(String)</h4>
+  <div class="markdown level1 summary"><p>Get the geometry of the <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string GetConnectionModelXML(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Identifier of the required connection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Geometry of the connection in the Xml format</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetCrossSectionsInProject.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L139">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetCrossSectionsInProject_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetCrossSectionsInProject" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject">GetCrossSectionsInProject()</h4>
+  <div class="markdown level1 summary"><p>Get all cross-sections in the currently open project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+List&lt;ProjectItem&gt; GetCrossSectionsInProject()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</td>
+        <td><p>Cross-sections in the project</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetCheckResultsJSON_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L198">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetCheckResultsJSON_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetCheckResultsJSON_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)">GetCheckResultsJSON(String)</h4>
+  <div class="markdown level1 summary"><p>Get the details results of the connection <code data-dev-comment-type="paramref" class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string GetCheckResultsJSON(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Id of the connection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Json which represents</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetMaterialsInProject.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L132">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetMaterialsInProject_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetMaterialsInProject" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject">GetMaterialsInProject()</h4>
+  <div class="markdown level1 summary"><p>Get all materials in the currently open project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+List&lt;ProjectItem&gt; GetMaterialsInProject()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</td>
+        <td><p>Materials in the project</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetParametersJSON_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L163">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetParametersJSON_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetParametersJSON_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(System.String)">GetParametersJSON(String)</h4>
+  <div class="markdown level1 summary"><p>Get list of parameters in JSON format for <code data-dev-comment-type="paramref" class="paramref">connectionId</code>
+<a href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string GetParametersJSON(string connectionId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Id of the parameter</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_GetProjectInfo.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L70">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetProjectInfo_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_GetProjectInfo" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo">GetProjectInfo()</h4>
+  <div class="markdown level1 summary"><p>Gets details about the open project and its connections</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+ConProjectInfo GetProjectInfo()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConProjectInfo.html">ConProjectInfo</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_OpenProject_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L17">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_OpenProject_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_OpenProject_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)">OpenProject(String)</h4>
+  <div class="markdown level1 summary"><p>Open idea project in the service</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+void OpenProject(string ideaConProject)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ideaConProject</span></td>
+        <td><p>Idea Connection project.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_SaveAsProject_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L24">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_SaveAsProject_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_SaveAsProject_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(System.String)">SaveAsProject(String)</h4>
+  <div class="markdown level1 summary"><p>Save the current data in file <code data-dev-comment-type="paramref" class="paramref">newProjectFileName</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+void SaveAsProject(string newProjectFileName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">newProjectFileName</span></td>
+        <td><p>File name of the new idea connection project</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck_UpdateLoadingFromJson_System_String_System_String_.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L190">View Source</a>
+  </span>
+  <a id="IdeaStatiCa_Plugin_IConnHiddenCheck_UpdateLoadingFromJson_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson*"></a>
+  <h4 id="IdeaStatiCa_Plugin_IConnHiddenCheck_UpdateLoadingFromJson_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(System.String,System.String)">UpdateLoadingFromJson(String, String)</h4>
+  <div class="markdown level1 summary"><p>Set loading for the connection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract]
+string UpdateLoadingFromJson(string connectionId, string loadingJSON)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">connectionId</span></td>
+        <td><p>Id of the connection</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">loadingJSON</span></td>
+        <td><p>JSON including list of CalcCaseData</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnHiddenCheck.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnHiddenCheck%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs/#L10" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

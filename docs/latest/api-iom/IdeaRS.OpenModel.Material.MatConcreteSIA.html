@@ -1,0 +1,725 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MatConcreteSIA
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MatConcreteSIA
+   ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA">
+  
+  
+  <h1 id="IdeaRS_OpenModel_Material_MatConcreteSIA" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA" class="text-break">Class MatConcreteSIA
+  </h1>
+  <div class="markdown level0 summary"><p>Material concrete SIA</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="IdeaRS.OpenModel.OpenObject.html">OpenObject</a></div>
+    <div class="level2"><a class="xref" href="IdeaRS.OpenModel.OpenElementId.html">OpenElementId</a></div>
+    <div class="level3"><a class="xref" href="IdeaRS.OpenModel.Material.Material.html">Material</a></div>
+    <div class="level4"><a class="xref" href="IdeaRS.OpenModel.Material.MatConcrete.html">MatConcrete</a></div>
+    <div class="level5"><span class="xref">MatConcreteSIA</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_Name">Material.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_LoadFromLibrary">Material.LoadFromLibrary</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_E">Material.E</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_G">Material.G</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_Poisson">Material.Poisson</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_UnitMass">Material.UnitMass</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_SpecificHeat">Material.SpecificHeat</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_ThermalExpansion">Material.ThermalExpansion</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_ThermalConductivity">Material.ThermalConductivity</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_IsDefaultMaterial">Material.IsDefaultMaterial</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_OrderInCode">Material.OrderInCode</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_StateOfThermalExpansion">Material.StateOfThermalExpansion</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_StateOfThermalConductivity">Material.StateOfThermalConductivity</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_StateOfThermalSpecificHeat">Material.StateOfThermalSpecificHeat</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_StateOfThermalStressStrain">Material.StateOfThermalStressStrain</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_StateOfThermalStrain">Material.StateOfThermalStrain</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_UserThermalSpecificHeatCurvature">Material.UserThermalSpecificHeatCurvature</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_UserThermalConductivityCurvature">Material.UserThermalConductivityCurvature</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_UserThermalExpansionCurvature">Material.UserThermalExpansionCurvature</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_UserThermalStrainCurvature">Material.UserThermalStrainCurvature</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Material.Material.html#IdeaRS_OpenModel_Material_Material_UserThermalStressStrainCurvature">Material.UserThermalStressStrainCurvature</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.OpenElementId.html#IdeaRS_OpenModel_OpenElementId_Id">OpenElementId.Id</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IdeaRS.OpenModel.Material.html">IdeaRS.OpenModel.Material</a></h6>
+  <h6><strong>Assembly</strong>: IdeaRS.OpenModel.dll</h6>
+  <h5 id="IdeaRS_OpenModel_Material_MatConcreteSIA_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OpenModelClass(&quot;CI.StructModel.Libraries.Material.SIA.MatConcreteSIA,CI.Material&quot;, &quot;CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes&quot;, typeof(MatConcrete))]
+public class MatConcreteSIA : MatConcrete</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_AggregateType.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.AggregateType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L147">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_AggregateType_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.AggregateType*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_AggregateType" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.AggregateType">AggregateType</h4>
+  <div class="markdown level1 summary"><p>type of aggregate</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConcAggregateTypeSIA AggregateType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.html">ConcAggregateTypeSIA</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_CalculateDependentValues.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.CalculateDependentValues%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L87">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_CalculateDependentValues_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.CalculateDependentValues*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_CalculateDependentValues" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.CalculateDependentValues">CalculateDependentValues</h4>
+  <div class="markdown level1 summary"><p>setting calculation dependent values on fck</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CalculateDependentValues { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_CementClass.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.CementClass%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L152">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_CementClass_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.CementClass*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_CementClass" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.CementClass">CementClass</h4>
+  <div class="markdown level1 summary"><p>type of cement class</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConcCementClassSIA CementClass { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IdeaRS.OpenModel.Material.ConcCementClassSIA.html">ConcCementClassSIA</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_DiagramType.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.DiagramType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L157">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_DiagramType_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.DiagramType*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_DiagramType" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.DiagramType">DiagramType</h4>
+  <div class="markdown level1 summary"><p>type of stress-strain diagram bilinear/parabolic/general for ULS calculation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConcDiagramType DiagramType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IdeaRS.OpenModel.Material.ConcDiagramType.html">ConcDiagramType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Ecm.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Ecm%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L102">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Ecm_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Ecm*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Ecm" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Ecm">Ecm</h4>
+  <div class="markdown level1 summary"><p>secant modulus of elasticity of concrete</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Ecm { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Epsc1d.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Epsc1d%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L132">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Epsc1d_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Epsc1d*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Epsc1d" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Epsc1d">Epsc1d</h4>
+  <div class="markdown level1 summary"><p>compressive strain in the concrete</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Epsc1d { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Epsc2d.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Epsc2d%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L137">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Epsc2d_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Epsc2d*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Epsc2d" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Epsc2d">Epsc2d</h4>
+  <div class="markdown level1 summary"><p>compressive strain in the concrete</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Epsc2d { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Fck.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Fck%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L92">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fck_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fck*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fck" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fck">Fck</h4>
+  <div class="markdown level1 summary"><p>characteristic compressive cylinder strength of concrete at 28 days</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Fck { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Fcm.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Fcm%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L97">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fcm_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fcm*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fcm" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fcm">Fcm</h4>
+  <div class="markdown level1 summary"><p>mean value of concrete cylinder compressive strength</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Fcm { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Fctk_0_05.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Fctk_0_05%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L112">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fctk_0_05_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fctk_0_05*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fctk_0_05" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fctk_0_05">Fctk_0_05</h4>
+  <div class="markdown level1 summary"><p>characteristic axial tensile strength of concrete 5% quantile</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Fctk_0_05 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Fctk_0_95.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Fctk_0_95%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L117">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fctk_0_95_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fctk_0_95*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fctk_0_95" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fctk_0_95">Fctk_0_95</h4>
+  <div class="markdown level1 summary"><p>characteristic axial tensile strength of concrete 95% quantile</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Fctk_0_95 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Fctm.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Fctm%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L107">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fctm_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fctm*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Fctm" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Fctm">Fctm</h4>
+  <div class="markdown level1 summary"><p>mean value of axial tensile strength of concrete</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Fctm { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Nfc.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Nfc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L122">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Nfc_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Nfc*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Nfc" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Nfc">Nfc</h4>
+  <div class="markdown level1 summary"><p>conversion factor nfc</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Nfc { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_PlainConcreteDiagram.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.PlainConcreteDiagram%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L162">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_PlainConcreteDiagram_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.PlainConcreteDiagram*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_PlainConcreteDiagram" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.PlainConcreteDiagram">PlainConcreteDiagram</h4>
+  <div class="markdown level1 summary"><p>Stress strain diagram with tension part</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PlainConcreteDiagram { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_StoneDiameter.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.StoneDiameter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L142">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_StoneDiameter_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.StoneDiameter*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_StoneDiameter" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.StoneDiameter">StoneDiameter</h4>
+  <div class="markdown level1 summary"><p>diameter of stone</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double StoneDiameter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA_Tck.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA.Tck%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L127">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_Material_MatConcreteSIA_Tck_" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Tck*"></a>
+  <h4 id="IdeaRS_OpenModel_Material_MatConcreteSIA_Tck" data-uid="IdeaRS.OpenModel.Material.MatConcreteSIA.Tck">Tck</h4>
+  <div class="markdown level1 summary"><p>characteristic  value of the shear stress limit</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Tck { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Double</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_Material_MatConcreteSIA.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Material.MatConcreteSIA%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs/#L81" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

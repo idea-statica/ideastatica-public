@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ReinforcedCrossSection
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ReinforcedCrossSection
+   ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection">
+  
+  
+  <h1 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection" class="text-break">Class ReinforcedCrossSection
+  </h1>
+  <div class="markdown level0 summary"><p>Reinforced cross-section</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="IdeaRS.OpenModel.OpenObject.html">OpenObject</a></div>
+    <div class="level2"><a class="xref" href="IdeaRS.OpenModel.OpenElementId.html">OpenElementId</a></div>
+    <div class="level3"><span class="xref">ReinforcedCrossSection</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.OpenElementId.html#IdeaRS_OpenModel_OpenElementId_Id">OpenElementId.Id</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IdeaRS.OpenModel.CrossSection.html">IdeaRS.OpenModel.CrossSection</a></h6>
+  <h6><strong>Assembly</strong>: IdeaRS.OpenModel.dll</h6>
+  <h5 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OpenModelClass(&quot;CI.Services.Concrete.ReinforcedSection.ReinfSection,CI.ReinforcedSection&quot;, &quot;CI.Services.Concrete.ReinforcedSection.IReinforcedSection,CI.ServiceTypes&quot;)]
+public class ReinforcedCrossSection : OpenElementId</code></pre>
+  </div>
+  <h5 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_examples"><strong>Examples</strong></h5>
+  <p>This sample shows how to create reinforced cross-section.</p>
+<pre><code>//Creating the model
+OpenModel openModel = new OpenModel();
+
+//Cocrete material
+MatConcreteEc2 mat = new MatConcreteEc2();
+//...
+openModel.AddObject(mat);
+
+//Reinforcement material
+MatReinforcementEc2 matR = new MatReinforcementEc2();
+//...
+openModel.AddObject(matR);
+
+//Cross-section without the bars
+//One component square 0.8x0.8m
+IdeaRS.OpenModel.CrossSection.CrossSectionComponent css = new IdeaRS.OpenModel.CrossSection.CrossSectionComponent();
+css.Name = &quot;CSS1&quot;;
+
+//Component of cross-section
+CssComponent comp = new CssComponent();
+comp.Material = new ReferenceElement(mat);
+comp.Phase = 0;
+
+//Geometry of component 0.8x0.8
+Region2D region = new Region2D();
+PolyLine2D outline = new PolyLine2D();
+outline.StartPoint = new Point2D();
+outline.StartPoint.X = -0.04;
+outline.StartPoint.Y = -0.04;
+LineSegment2D seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = 0.04;
+seg.EndPoint.Y = -0.04;
+outline.Segments.Add(seg);
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = 0.04;
+seg.EndPoint.Y = 0.04;
+outline.Segments.Add(seg);
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = -0.04;
+seg.EndPoint.Y = 0.04;
+outline.Segments.Add(seg);
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = -0.04;
+seg.EndPoint.Y = -0.04;
+outline.Segments.Add(seg);
+region.Outline = outline;
+
+//Optional - setting openning in this component 0,2x0,2
+PolyLine2D openning = new PolyLine2D();
+openning.StartPoint = new Point2D();
+openning.StartPoint.X = -0.01;
+openning.StartPoint.Y = -0.01;
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = -0.01;
+seg.EndPoint.Y = 0.01;
+openning.Segments.Add(seg);
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = 0.01;
+seg.EndPoint.Y = 0.01;
+openning.Segments.Add(seg);
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = 0.01;
+seg.EndPoint.Y = -0.01;
+openning.Segments.Add(seg);
+seg = new LineSegment2D();
+seg.EndPoint = new Point2D();
+seg.EndPoint.X = -0.01;
+seg.EndPoint.Y = -0.01;
+openning.Segments.Add(seg);
+region.Openings.Add(openning);
+
+comp.Geometry = region;
+css.Components.Add(comp);
+openModel.AddObject(css);
+
+//Reinforced cross-section (references cross-section and adds the bars)
+//bar 8mm in each corner
+ReinforcedCrossSection rcs = new ReinforcedCrossSection();
+rcs.Name = &quot;RCSS1&quot;;
+rcs.CrossSection = new ReferenceElement(css);
+
+//One bar in the corner
+ReinforcedBar bar = new ReinforcedBar();
+bar.Diameter = 0.008;
+bar.Material = new ReferenceElement(matR);
+bar.Point = new Point2D();
+bar.Point.X = -0.025;
+bar.Point.Y = -0.025;
+rcs.Bars.Add(bar);
+
+bar = new ReinforcedBar();
+bar.Diameter = 0.008;
+bar.Material = new ReferenceElement(matR);
+bar.Point = new Point2D();
+bar.Point.X = 0.025;
+bar.Point.Y = -0.025;
+rcs.Bars.Add(bar);
+
+bar = new ReinforcedBar();
+bar.Diameter = 0.008;
+bar.Material = new ReferenceElement(matR);
+bar.Point = new Point2D();
+bar.Point.X = 0.025;
+bar.Point.Y = 0.025;
+rcs.Bars.Add(bar);
+
+bar = new ReinforcedBar();
+bar.Diameter = 0.008;
+bar.Material = new ReferenceElement(matR);
+bar.Point = new Point2D();
+bar.Point.X = -0.025;
+bar.Point.Y = 0.025;
+rcs.Bars.Add(bar);
+
+openModel.AddObject(rcs);</code></pre>
+
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection__ctor.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L141">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection__ctor_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection__ctor" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor">ReinforcedCrossSection()</h4>
+  <div class="markdown level1 summary"><p>Constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReinforcedCrossSection()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Bars.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L162">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Bars_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Bars" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars">Bars</h4>
+  <div class="markdown level1 summary"><p>Reinforced bars</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;ReinforcedBar&gt; Bars { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaRS.OpenModel.CrossSection.ReinforcedBar.html">ReinforcedBar</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_CrossSection.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L157">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_CrossSection_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_CrossSection" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection">CrossSection</h4>
+  <div class="markdown level1 summary"><p>Cross-section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReferenceElement CrossSection { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IdeaRS.OpenModel.ReferenceElement.html">ReferenceElement</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Name.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L152">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Name_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Name" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Name of cross-section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Stirrups.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L167">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Stirrups_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_Stirrups" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups">Stirrups</h4>
+  <div class="markdown level1 summary"><p>Stirrups</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;Stirrup&gt; Stirrups { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaRS.OpenModel.CrossSection.Stirrup.html">Stirrup</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_TendonBars.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L172">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_TendonBars_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_TendonBars" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars">TendonBars</h4>
+  <div class="markdown level1 summary"><p>Tendon bars</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;TendonBar&gt; TendonBars { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaRS.OpenModel.CrossSection.TendonBar.html">TendonBar</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_TendonDucts.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L177">View Source</a>
+  </span>
+  <a id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_TendonDucts_" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts*"></a>
+  <h4 id="IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection_TendonDucts" data-uid="IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts">TendonDucts</h4>
+  <div class="markdown level1 summary"><p>Tendon ducts</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;TendonDuct&gt; TendonDucts { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IdeaRS.OpenModel.CrossSection.TendonDuct.html">TendonDuct</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/idea-statica/ideastatica-public/new/iom-api/apiSpec/new?filename=IdeaRS_OpenModel_CrossSection_ReinforcedCrossSection.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/idea-statica/ideastatica-public/blob/iom-api/src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs/#L135" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
