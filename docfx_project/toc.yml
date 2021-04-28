@@ -1,6 +1,6 @@
-- name: Api Documentation - IOM
+- name: IdeaRS.OpenModel
   href: api-iom/
   homepage: api-iom/index.md
-- name: Api Documentation - PLUGIN
+- name: IdeaStatiCa.Plugin
   href: api-plugin/
   homepage: api-plugin/index.md  
