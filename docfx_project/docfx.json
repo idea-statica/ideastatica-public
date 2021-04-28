@@ -9,19 +9,38 @@
           "src": "..\\src"
         }
       ],
-      "dest": "iom-api",
+      "dest": "api-iom",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
-    }
+    },
+    {
+      "src": [
+        {
+          "files": [
+            "**IdeaStatiCa.Plugin.csproj"
+          ],
+          "src": "..\\src"
+        }
+      ],
+      "dest": "api-plugin",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }  
   ],
   "build": {
     "content": [
       {
         "files": [
-          "iom-api/**.yml",
-          "iom-api/index.md"
+          "api-iom/**.yml",
+          "api-iom/index.md"
         ]
       },
+      {
+        "files": [
+          "api-plugin/**.yml",
+          "api-plugin/index.md"
+        ]
+      },              
       {
         "files": [
           "articles/**.md",

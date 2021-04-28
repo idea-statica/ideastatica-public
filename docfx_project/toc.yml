@@ -1,3 +1,6 @@
-- name: Api Documentation
-  href: iom-api/
-  homepage: iom-api/index.md
+- name: Api Documentation - IOM
+  href: api-iom/
+  homepage: api-iom/index.md
+- name: Api Documentation - PLUGIN
+  href: api-plugin/
+  homepage: api-plugin/index.md  
