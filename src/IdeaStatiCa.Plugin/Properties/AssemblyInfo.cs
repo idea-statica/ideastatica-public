@@ -4,9 +4,6 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IdeaStatiCa.Plugin")]
-[assembly: AssemblyDescription("It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.")]
-[assembly: AssemblyConfiguration("")]
 //[assembly: AssemblyCompany("")]
 //[assembly: AssemblyProduct("IdeaStatiCa.Plugin")]
 //[assembly: AssemblyCopyright("Copyright ©  2019")]
@@ -20,7 +17,6 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("e04d1e91-d5a2-4cf8-9ac9-d2cd9239c692")]
-
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
