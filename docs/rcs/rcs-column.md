@@ -11,7 +11,7 @@ OpenModel is published as [the nuget package](https://www.nuget.org/packages/Ide
 
 For more information, see [Install and use a package in Visual Studio](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio)
 
-There is also documentation related to [IdeaRS.OpenModel](https://idea-statica.github.io/iom/iom-api/latest/index.html) on Github.
+There is also documentation related to [IdeaRS.OpenModel](https://idea-statica.github.io/ideastatica-public/docs/latest/api-iom/index.html) on Github.
 
 ## Create a new project
 IOM data has to contain basic information of a new project, such as a project name, description, code type etc.
