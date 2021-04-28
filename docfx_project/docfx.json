@@ -53,7 +53,8 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "images/**",
+          "api-iom/Images/**"
         ]
       }
     ],
