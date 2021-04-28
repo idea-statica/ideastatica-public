@@ -69,7 +69,7 @@
         ]
       }
     ],
-    "dest": "../docs/api",
+    "dest": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
