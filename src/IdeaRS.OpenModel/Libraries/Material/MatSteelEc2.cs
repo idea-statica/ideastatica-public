@@ -84,5 +84,10 @@ namespace IdeaRS.OpenModel.Material
 		/// Stress-strain diagram defined by user
 		/// </summary>
 		public Polygon2D UserDiagram { get; set; }
+
+		/// <summary>
+		/// Material strength for specific thickness of plate
+		/// </summary>
+		public MaterialStrengthProperty MaterialStrength { get; set; }
 	}
 }
