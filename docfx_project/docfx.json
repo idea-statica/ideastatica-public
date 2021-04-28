@@ -4,12 +4,12 @@
       "src": [
         {
           "files": [
-            "**IdeaRS.OpenModel.csproj", "**IdeaStatiCa.Plugin.csproj"
+            "**IdeaRS.OpenModel.csproj"
           ],
           "src": "..\\src"
         }
       ],
-      "dest": "api",
+      "dest": "iom-api",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     }
@@ -18,8 +18,8 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
+          "iom-api/**.yml",
+          "iom-api/index.md"
         ]
       },
       {
@@ -49,7 +49,7 @@
         ]
       }
     ],
-    "dest": "_site",
+    "dest": "../docs/api",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
