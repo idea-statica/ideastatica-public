@@ -20,5 +20,5 @@ Install [Python.NET](http://pythonnet.github.io/) as it is described on [here](h
 
 Install Idea StatiCa v21 or higher
 
-Build the release configuration of the solution ConnCalcExamples\ConnCalculationExamples.sln. The python script needs .net asseblis in  in the directory '..\ConnCalcExamples\ConnectionHiddenCalculation\bin\Release'
+Build the release configuration of the solution ConnCalcExamples\ConnCalculationExamples.sln. The python script needs .net assemblies in  in the directory '..\ConnCalcExamples\ConnectionHiddenCalculation\bin\Release'
 
