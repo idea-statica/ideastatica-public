@@ -37,7 +37,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>bin\Release\</OutputPath>
-    <NoWarn>1701;1702;NU5128</NoWarn>
+    <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
   </PropertyGroup>
 	<ItemGroup>
     <Reference Include="System.ServiceModel" />
@@ -50,8 +50,11 @@
     <PackageReference Include="Castle.Windsor" Version="5.1.1" />
     <PackageReference Include="Google.Protobuf" Version="3.14.0" />
     <PackageReference Include="Grpc" Version="2.35.0" />
-    <PackageReference Include="Grpc.Core" Version="2.35.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.35.0" />
+    <PackageReference Include="Grpc.Core" Version="2.35.0"/>
+    <PackageReference Include="Grpc.Tools" Version="2.35.0" >
+	  <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.0" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
