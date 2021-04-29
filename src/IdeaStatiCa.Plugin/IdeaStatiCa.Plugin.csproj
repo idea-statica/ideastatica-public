@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Grpc\GrpcReflectionServiceContract.proto" />
-    <None Include="..\..\..\IdeaStatiCa\ideastatica-public\README.md">
+    <None Include="..\..\..\ideastatica-public\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
