@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
-	internal class Geometry : IGeometry
+	public class Geometry : IGeometry
 	{
 		private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.geometry");
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
@@ -92,18 +92,24 @@ namespace IdeaStatiCa.BimImporter
 			_logger.LogInformation($"Got {_vertices.Count} vertices and {_edges.Count} edges.");
 		}
 
+		public IEnumerable<IIdeaMember1D> GetMembers() => _edges.Keys;
+
+		public IEnumerable<IIdeaNode> GetNodes() => _vertices.Keys;
+
 		private IEnumerable<IIdeaNode> EnumNodes(IIdeaMember1D member)
 		{
 			foreach (IIdeaElement1D element in member.Elements)
 			{
-				yield return element.Segment.StartNode;
+				IIdeaSegment3D segment = element.Segment;
 
-				if (element.Segment is IIdeaArcSegment3D arcSegment)
+				yield return segment.StartNode;
+
+				if (segment is IIdeaArcSegment3D arcSegment)
 				{
 					yield return arcSegment.ArcPoint;
 				}
 
-				yield return element.Segment.EndNode;
+				yield return segment.EndNode;
 			}
 		}
 

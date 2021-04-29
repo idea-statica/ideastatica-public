@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace IdeaStatiCa.BimImporter
 {
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public interface IGeometry
 	{
@@ -13,5 +13,9 @@ namespace IdeaStatiCa.BimImporter
 		IEnumerable<IIdeaMember1D> GetConnectedMembers(IIdeaNode node);
 
 		IEnumerable<IIdeaNode> GetNodesOnMember(IIdeaMember1D member);
+
+		IEnumerable<IIdeaMember1D> GetMembers();
+
+		IEnumerable<IIdeaNode> GetNodes();
 	}
 }

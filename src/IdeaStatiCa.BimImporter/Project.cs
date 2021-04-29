@@ -1,30 +1,32 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
-	public class Project: IProject
+	public class Project : IProject
 	{
-		private readonly Dictionary<string, int> _bimToIomId = new Dictionary<string, int>();
+		public ConversionDictionaryString IdMapping { get; private set; } = new ConversionDictionaryString();
+
 		private readonly Dictionary<int, IIdeaObject> _iomIdToBimObject = new Dictionary<int, IIdeaObject>();
 
 		private int _id = 1;
 
 		public int GetIomId(string bimId)
 		{
-			return _bimToIomId[bimId];
+			return IdMapping[bimId];
 		}
 
 		public int GetIomId(IIdeaObject obj)
 		{
-			if (_bimToIomId.TryGetValue(obj.Id, out int id))
+			if (IdMapping.TryGetValue(obj.Id, out int id))
 			{
 				return id;
 			}
 
 			id = _id++;
-			_bimToIomId.Add(obj.Id, id);
+			IdMapping.Add(obj.Id, id);
 			_iomIdToBimObject.Add(id, obj);
 
 			return id;
@@ -35,12 +37,20 @@ namespace IdeaStatiCa.BimImporter
 			return _iomIdToBimObject[id];
 		}
 
-		public void Save(string path)
+		public void Load(IGeometry geometry, ConversionDictionaryString conversionTable)
 		{
-		}
+			IEnumerable<IIdeaObject> objects = geometry.GetMembers().OfType<IIdeaObject>().Concat(geometry.GetNodes());
 
-		public void Load(string path)
-		{
+			foreach (IIdeaObject obj in objects)
+			{
+				string bimId = obj.Id;
+				if (conversionTable.TryGetValue(bimId, out int id))
+				{
+					_iomIdToBimObject.Add(id, obj);
+				}
+			}
+
+			IdMapping = conversionTable;
 		}
 	}
 }
