@@ -1,0 +1,2 @@
+# IdeaStatiCa.Plugin
+
