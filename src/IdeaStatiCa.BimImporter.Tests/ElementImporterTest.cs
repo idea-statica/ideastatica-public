@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.BimImporter.Tests.Helpers;
+using IdeaStatiCa.Plugin;
 using NUnit.Framework;
 
 namespace IdeaStatiCa.BimImporter.Tests
@@ -28,7 +29,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				new IdeaVector3D(4, 5, 6),
 				3);
 
-			ElementImporter elementImport = new ElementImporter();
+			ElementImporter elementImport = new ElementImporter(new NullLogger());
 
 			// Tested method
 			OpenElementId iomObject = elementImport.Import(ctxBuilder.Context, element);

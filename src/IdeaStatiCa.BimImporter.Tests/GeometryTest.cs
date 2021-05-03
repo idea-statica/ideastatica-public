@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Tests.Helpers;
+using IdeaStatiCa.Plugin;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaModel model = Substitute.For<IIdeaModel>();
 			model.GetMembers().Returns(new HashSet<IIdeaMember1D>());
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(model);
 
 			// Tested method
@@ -33,7 +34,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaModel model = Substitute.For<IIdeaModel>();
 			model.GetMembers().Returns(new HashSet<IIdeaMember1D>());
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(model);
 
 			// Tested method
@@ -49,7 +50,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: one member with a line segment
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder.Member(1, "line(0,1)").GetModel());
 
 			// Tested method
@@ -65,7 +66,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: one member with a line segment
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder.Member(1, "line(0,1)").GetModel());
 
 			// Tested method
@@ -83,7 +84,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: one member with an arc segment
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder.Member(1, "arc(0,1,2)").GetModel());
 
 			// Tested method
@@ -99,7 +100,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: one member with an arc segment
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder.Member(1, "arc(0,1,2)").GetModel());
 
 			// Tested method
@@ -119,7 +120,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: one member with two line segments
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder.Member(1, "line(0,1),line(1,2)").GetModel());
 
 			// Tested method
@@ -139,7 +140,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: two connected members, each with their own line segment
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder
 				.Member(1, "line(0,1)")
 				.Member(2, "line(1,2)")
@@ -162,7 +163,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: two connected members, each with their own line segment
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder
 				.Member(1, "line(0,1)")
 				.Member(2, "line(1,2)")
@@ -183,7 +184,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: two members, each with two line segments forming a cross shaped connection
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder
 				.Member(1, "line(0,1),line(1,2)")
 				.Member(2, "line(3,1),line(1,4)")
@@ -210,7 +211,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup: two members, each with two line segments forming a cross shaped connection
 			GeometryBuilder builder = new GeometryBuilder();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 			geometry.Build(builder
 				.Member(1, "line(0,1)")
 				.Member(2, "line(1,2)")
@@ -242,7 +243,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(4, "line(4,1)")
 				.GetModel();
 
-			Geometry geometry = new Geometry();
+			Geometry geometry = new Geometry(new NullLogger());
 
 			// Tested method + assert for second call
 			geometry.Build(model);

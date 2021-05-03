@@ -36,7 +36,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -70,7 +70,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -106,7 +106,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -147,7 +147,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -188,7 +188,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -229,7 +229,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -275,7 +275,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();
@@ -323,7 +323,7 @@ namespace IdeaStatiCa.BimImporter.Tests
             IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
             importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
 
-            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry());
+            BimImporter bimImporter = new BimImporter(model, new Project(), importer, new Geometry(new NullLogger()), new NullLogger());
 
             // Tested methods
             ModelBIM modelBIM = bimImporter.ImportConnections();

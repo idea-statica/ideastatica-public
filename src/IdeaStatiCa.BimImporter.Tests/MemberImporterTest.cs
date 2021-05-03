@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.BimImporter.Tests.Helpers;
+using IdeaStatiCa.Plugin;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				element1, element2
 			});
 
-			MemberImporter memberImporter = new MemberImporter();
+			MemberImporter memberImporter = new MemberImporter(new NullLogger());
 
 			// Tested method
 			OpenElementId iomObject = memberImporter.Import(ctxBuilder.Context, member);
@@ -61,13 +62,13 @@ namespace IdeaStatiCa.BimImporter.Tests
 		public void MemberImport_WhenElementsIsEmpty_ThrowsConstraintException()
 		{
 			// Setup
-			ImportContext ctx = new ImportContext(null, null);
+			ImportContext ctx = new ImportContext(null, null, new NullLogger());
 
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
 			member.Id.Returns("member1");
 			member.Elements.Returns(new List<IIdeaElement1D>());
 
-			MemberImporter memberImporter = new MemberImporter();
+			MemberImporter memberImporter = new MemberImporter(new NullLogger());
 
 			// Tested method
 			Assert.That(() => memberImporter.Import(ctx, member), Throws.TypeOf<ConstraintException>());
@@ -103,7 +104,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				element1, element2
 			});
 
-			MemberImporter memberImporter = new MemberImporter();
+			MemberImporter memberImporter = new MemberImporter(new NullLogger());
 
 			// Tested method
 			Assert.That(() => memberImporter.Import(ctxBuilder.Context, member), Throws.TypeOf<ConstraintException>());
@@ -132,7 +133,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				element1, element1
 			});
 
-			MemberImporter memberImporter = new MemberImporter();
+			MemberImporter memberImporter = new MemberImporter(new NullLogger());
 
 			// Tested method
 			Assert.That(() => memberImporter.Import(ctxBuilder.Context, member), Throws.TypeOf<ConstraintException>());

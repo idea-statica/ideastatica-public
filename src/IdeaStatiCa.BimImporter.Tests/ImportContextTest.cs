@@ -2,6 +2,7 @@
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
+using IdeaStatiCa.Plugin;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -22,7 +23,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
-			ImportContext ctx = new ImportContext(importer, project);
+			ImportContext ctx = new ImportContext(importer, project, new NullLogger());
 
 			ReferenceElement refElm = ctx.Import(bimObject);
 			
@@ -42,7 +43,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
-			ImportContext ctx = new ImportContext(importer, project);
+			ImportContext ctx = new ImportContext(importer, project, new NullLogger());
 
 			ReferenceElement refElm1 = ctx.Import(bimObject);
 			ReferenceElement refElm2 = ctx.Import(bimObject);
