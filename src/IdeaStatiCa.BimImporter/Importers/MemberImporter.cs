@@ -1,12 +1,17 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class MemberImporter : AbstractImporter<IIdeaMember1D>
 	{
+		public MemberImporter(IPluginLogger logger) : base(logger)
+		{
+		}
+
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaMember1D member)
 		{
 			if (member.Elements.Count == 0)

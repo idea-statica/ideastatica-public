@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.BimImporter.ImportedObjects;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class ConnectionImporter : AbstractImporter<Connection>
 	{
+		public ConnectionImporter(IPluginLogger logger) : base(logger)
+		{
+		}
+
 		protected override OpenElementId ImportInternal(IImportContext ctx, Connection connection)
 		{
 			List<ConnectedMember> connectedMembers = connection.Members

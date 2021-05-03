@@ -1,5 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,9 @@ namespace IdeaStatiCa.BimImporter
 {
 	public class Geometry : IGeometry
 	{
-		private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.geometry");
+		//private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.geometry");
+		private readonly IPluginLogger _logger;
+
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
 
 		private class Vertex
@@ -44,6 +46,11 @@ namespace IdeaStatiCa.BimImporter
 
 		private readonly Dictionary<IIdeaNode, Vertex> _vertices = new Dictionary<IIdeaNode, Vertex>(_comparer);
 		private readonly Dictionary<IIdeaMember1D, Edge> _edges = new Dictionary<IIdeaMember1D, Edge>(_comparer);
+
+		public Geometry(IPluginLogger logger)
+		{
+			_logger = logger;
+		}
 
 		public IEnumerable<IIdeaMember1D> GetConnectedMembers(IIdeaNode node)
 		{

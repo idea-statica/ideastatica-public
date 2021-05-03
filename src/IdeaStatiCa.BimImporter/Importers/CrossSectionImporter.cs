@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class CrossSectionImporter : AbstractImporter<IIdeaCrossSection>
 	{
+		public CrossSectionImporter(IPluginLogger logger) : base(logger)
+		{
+		}
+
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaCrossSection css)
 		{
 			CrossSection iomCss;

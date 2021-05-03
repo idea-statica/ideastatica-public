@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using MathNet.Numerics;
 using System;
 using Vector = MathNet.Spatial.Euclidean.Vector3D;
@@ -10,9 +10,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class SegmentImporter : AbstractImporter<IIdeaSegment3D>
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.segmentimporter");
+		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.segmentimporter");
+		private readonly IPluginLogger _logger;
 
 		private const double Precision = 1e-6;
+
+		public SegmentImporter(IPluginLogger logger): base(logger)
+		{
+			_logger = logger;
+		}
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaSegment3D segment)
 		{

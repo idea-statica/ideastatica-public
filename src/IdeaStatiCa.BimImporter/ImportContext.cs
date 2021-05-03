@@ -1,15 +1,16 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter
 {
-	internal class ImportContext: IImportContext
+	internal class ImportContext : IImportContext
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.importcontext");
+		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.importcontext");
+		private readonly IPluginLogger _logger;
 
 		public OpenModel OpenModel { get; } = new OpenModel();
 
@@ -20,10 +21,11 @@ namespace IdeaStatiCa.BimImporter
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
 			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
 
-		public ImportContext(IImporter<IIdeaObject> importer, IProject project)
+		public ImportContext(IImporter<IIdeaObject> importer, IProject project, IPluginLogger logger)
 		{
 			Importer = importer;
 			Project = project;
+			_logger = logger;
 		}
 
 		public ReferenceElement Import(IIdeaObject obj)

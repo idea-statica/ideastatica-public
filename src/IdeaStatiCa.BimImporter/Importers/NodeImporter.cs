@@ -1,12 +1,17 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class NodeImporter : AbstractImporter<IIdeaNode>
 	{
+		public NodeImporter(IPluginLogger logger) : base(logger)
+		{
+		}
+
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaNode node)
 		{
 			IdeaVector3D vec = node.Vector;

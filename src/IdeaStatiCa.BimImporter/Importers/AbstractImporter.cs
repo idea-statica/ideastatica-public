@@ -1,13 +1,19 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal abstract class AbstractImporter<T> : IImporter<T> where T : IIdeaObject
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.abstractimporter");
+		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.abstractimporter");
+		private readonly IPluginLogger _logger;
+
+		protected AbstractImporter(IPluginLogger logger)
+		{
+			_logger = logger;
+		}
 
 		public OpenElementId Import(IImportContext ctx, T obj)
 		{
