@@ -123,9 +123,9 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Setup
 			CoordSystemByVector coordSystem = new CoordSystemByVector()
 			{
-				VecX = CreateVector(1 + double.Epsilon, 0 + double.Epsilon, 0 - double.Epsilon),
-				VecY = CreateVector(0 + double.Epsilon, 1 - double.Epsilon, 0 - double.Epsilon),
-				VecZ = CreateVector(0 - double.Epsilon, 0 + double.Epsilon, 1 + double.Epsilon)
+				VecX = CreateVector(1 + float.Epsilon, 0 + float.Epsilon, 0 - float.Epsilon),
+				VecY = CreateVector(0 + float.Epsilon, 1 - float.Epsilon, 0 - float.Epsilon),
+				VecZ = CreateVector(0 - float.Epsilon, 0 + float.Epsilon, 1 + float.Epsilon)
 			};
 
 			IIdeaLineSegment3D segment = CreateMockLineSegment();

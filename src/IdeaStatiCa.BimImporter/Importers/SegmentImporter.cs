@@ -15,7 +15,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private const double Precision = 1e-6;
 
-		public SegmentImporter(IPluginLogger logger): base(logger)
+		public SegmentImporter(IPluginLogger logger) : base(logger)
 		{
 			_logger = logger;
 		}
@@ -81,33 +81,29 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private Vector3D NormalizeVector(Vector3D vector)
 		{
+			double x = Normalize(vector.X);
+			double y = Normalize(vector.Y);
+			double z = Normalize(vector.Z);
+
+			double mag = Math.Sqrt(x * x + y * y + z * z);
+
 			return new Vector3D()
 			{
-				X = Normalize(vector.X),
-				Y = Normalize(vector.Y),
-				Z = Normalize(vector.Z),
+				X = x / mag,
+				Y = y / mag,
+				Z = z / mag
 			};
 		}
 
 		private double Normalize(double value)
 		{
-			if (value.AlmostEqual(1.0, Precision))
+			double newValue = value.Round((int)-Math.Log10(Precision));
+			if (value != newValue)
 			{
-				_logger.LogInformation($"Normalizing {value} to 1.0.");
-				return 1.0;
-			}
-			else if (value.AlmostEqual(0.0, Precision))
-			{
-				_logger.LogInformation($"Normalizing {value} to 0.0.");
-				return 0.0;
-			}
-			else if (value.AlmostEqual(-1.0, Precision))
-			{
-				_logger.LogInformation($"Normalizing {value} to -1.0.");
-				return -1.0;
+				_logger.LogInformation($"Value {value} normalized to {newValue}.");
 			}
 
-			return value;
+			return newValue;
 		}
 
 		private void CheckVectorSpaceConstraints(Vector a, Vector b, Vector c)
