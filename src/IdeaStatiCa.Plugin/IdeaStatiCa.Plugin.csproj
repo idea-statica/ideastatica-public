@@ -1,58 +1,45 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Product>IdeaStatiCa.Plugin</Product>
-    <Copyright></Copyright>
+    <Copyright>Copyright (c) 2021 IDEA StatiCa</Copyright>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Authors>IdeaStatiCa</Authors>
+    <Authors>IDEA StatiCa</Authors>
+    <Deterministic>False</Deterministic>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
-    <Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
+    <RepositoryUrl>https://github.com/idea-statica/ideastatica-public.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
+    <Description>Gateway to IDEA StatiCa. Includes classes which allows communication and controlling IDEA StatiCa applications and includes classes which provides IDEA StatiCa services to other applications.</Description>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
-    <Platforms>x64</Platforms>
+    <PackageId>IdeaStatiCa.Plugin</PackageId>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>IdeaStatiCa;BIM;C#;FEA</PackageTags>
+    <Version>21.0.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>full</DebugType>
     <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>..\..\..\bin\Release\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\..\bin\Release\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\Release\</OutputPath>
+    <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|x64'">
-    <DocumentationFile />
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net46|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net46|x64'">
-    <DocumentationFile />
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
+	<ItemGroup>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,8 +50,11 @@
     <PackageReference Include="Castle.Windsor" Version="5.1.1" />
     <PackageReference Include="Google.Protobuf" Version="3.14.0" />
     <PackageReference Include="Grpc" Version="2.35.0" />
-    <PackageReference Include="Grpc.Core" Version="2.35.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.35.0" />
+    <PackageReference Include="Grpc.Core" Version="2.35.0"/>
+    <PackageReference Include="Grpc.Tools" Version="2.35.0" >
+	  <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.0" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
@@ -74,9 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Grpc\GrpcReflectionServiceContract.proto" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+    <None Include="..\..\..\ideastatica-public\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />

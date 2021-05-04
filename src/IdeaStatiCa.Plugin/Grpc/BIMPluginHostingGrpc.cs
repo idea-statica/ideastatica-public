@@ -155,10 +155,7 @@ namespace IdeaStatiCa.Plugin
 			{
 				IdeaStaticaApp.Dispose();
 			}
-			catch (Exception ex) 
-			{
-				ideaLogger.LogDebug("Disposing IdeaStaticaApp failed", ex);
-			}
+			catch { }
 			IdeaStaticaApp = null;
 
 			Stop();
@@ -227,11 +224,14 @@ namespace IdeaStatiCa.Plugin
 							tokenSource.Cancel();
 							//hostingTask.Dispose();
 						}
-						catch (Exception ex)
-						{
-							ideaLogger.LogDebug("Canceling thread failed",ex);
-						}
+						catch { }
 
+						try
+						{
+							//feaAppService.Dispose();
+							//feaAppService = null;
+						}
+						catch { }
 						mre.Dispose();
 						tokenSource.Dispose();
 					}
