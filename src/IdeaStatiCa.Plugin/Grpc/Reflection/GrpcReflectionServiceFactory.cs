@@ -15,6 +15,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <typeparam name="T"></typeparam>
 	public class GrpcReflectionServiceFactory
 	{
+		
 		public static T CreateInstance<T>(GrpcReflectionClient client) where T : class
 		{
 			ProxyGenerator generator = new ProxyGenerator();
@@ -28,12 +29,16 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			public OpCodeContainer(byte opCode)
 			{
+				var ideaLogger = new NullLogger();
 				data = opCode;
 				try
 				{
 					code = (OpCode)typeof(OpCodes).GetFields().First(t => ((OpCode)(t.GetValue(null))).Value == opCode).GetValue(null);
 				}
-				catch { }
+				catch (Exception ex)
+				{
+					ideaLogger.LogDebug("Fields by opcode was not find", ex);
+				}
 			}
 		}
 	}
