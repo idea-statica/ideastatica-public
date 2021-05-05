@@ -154,7 +154,10 @@ namespace IdeaStatiCa.Plugin
 					selfServiceHost.Close();
 					serverStoppedEvent.Set();
 				}
-				catch { }
+				catch (Exception ex)
+				{
+					ideaLogger.LogDebug("Closing server host failed", ex);
+				}
 			}
 		}
 
