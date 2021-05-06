@@ -23,12 +23,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 		class OpCodeContainer
 		{
-			NullLogger ideaLogger = new NullLogger();
+			IPluginLogger ideaLogger;
 			public OpCode? code;
 			byte data;
 
-			public OpCodeContainer(byte opCode)
+			public OpCodeContainer(byte opCode, IPluginLogger logger)
 			{
+				this.ideaLogger = logger ?? new Plugin.NullLogger();
 				data = opCode;
 				try
 				{
