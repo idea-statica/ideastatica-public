@@ -24,7 +24,13 @@ namespace FEAppTest
 			return new FakeFEA(log);
 		}
 
-
-		public string IdeaStaticaAppPath => @"C:\code\IdeaStatiCa\bin\Debug\IdeaCodeCheck.exe";
+		public string IdeaStaticaAppPath
+		{
+			get
+			{
+				var dir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+				return Path.Combine(dir, Properties.Settings.Default.IdeaStatiCaDir);
+			}
+		}
 	}
 }
