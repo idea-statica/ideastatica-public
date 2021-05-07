@@ -213,7 +213,10 @@ namespace IdeaStatiCa.Plugin
 						{
 							Stop();
 						}
-						catch { }
+						catch (Exception ex)
+						{
+							ideaLogger.LogDebug("Stopping task AutomationHostingGrpc failed", ex);
+						}
 
 						if (bimProcess != null)
 						{
