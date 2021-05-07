@@ -38,5 +38,5 @@ jobs:
       working-directory: main
 
     - name: Test
-      run: 'dotnet test -p:Configuration="Release" -p:Platform="Any CPU" ./src/IdeaStatiCa.Public.sln'
+      run: 'dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln'
       working-directory: main
