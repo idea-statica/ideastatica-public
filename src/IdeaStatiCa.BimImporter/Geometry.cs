@@ -37,16 +37,21 @@ namespace IdeaStatiCa.BimImporter
 		private readonly Dictionary<IIdeaMember1D, Edge> _edges = new Dictionary<IIdeaMember1D, Edge>(_comparer);
 		private readonly IPluginLogger _logger;
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="logger">Logger</param>
+		/// <exception cref="ArgumentNullException">If some argument is null.</exception>
 		public Geometry(IPluginLogger logger)
 		{
-			_logger = logger;
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
 		/// <inheritdoc cref="IGeometry.GetConnectedMembers(IIdeaNode)"/>
 		/// <exception cref="ArgumentNullException">If <paramref name="node"/> is null.</exception>
 		public IEnumerable<IIdeaMember1D> GetConnectedMembers(IIdeaNode node)
 		{
-			if (node == null)
+			if (node is null)
 			{
 				throw new ArgumentNullException(nameof(node));
 			}
@@ -64,7 +69,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="ArgumentNullException">If <paramref name="member"/> is null.</exception>
 		public IEnumerable<IIdeaNode> GetNodesOnMember(IIdeaMember1D member)
 		{
-			if (member == null)
+			if (member is null)
 			{
 				throw new ArgumentNullException(nameof(member));
 			}
@@ -82,7 +87,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="ArgumentNullException">If <paramref name="model"/> is null.</exception>
 		public void Build(IIdeaModel model)
 		{
-			if (model == null)
+			if (model is null)
 			{
 				throw new ArgumentNullException(nameof(model));
 			}
