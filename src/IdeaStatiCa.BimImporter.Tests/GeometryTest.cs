@@ -3,6 +3,7 @@ using IdeaStatiCa.BimImporter.Tests.Helpers;
 using IdeaStatiCa.Plugin;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter.Tests
@@ -10,6 +11,27 @@ namespace IdeaStatiCa.BimImporter.Tests
 	[TestFixture]
 	public class GeometryTest
 	{
+		[Test]
+		public void Build_IfArgumentIsNull_ThrowsArgumentNullException()
+		{
+			Geometry geometry = new Geometry(new NullLogger());
+			Assert.That(() => geometry.Build(null), Throws.InstanceOf<ArgumentNullException>());
+		}
+
+		[Test]
+		public void GetConnectedMembers_IfArgumentIsNull_ThrowsArgumentNullException()
+		{
+			Geometry geometry = new Geometry(new NullLogger());
+			Assert.That(() => geometry.GetConnectedMembers(null), Throws.InstanceOf<ArgumentNullException>());
+		}
+
+		[Test]
+		public void GetNodesOnMember_IfArgumentIsNull_ThrowsArgumentNullException()
+		{
+			Geometry geometry = new Geometry(new NullLogger());
+			Assert.That(() => geometry.Build(null), Throws.InstanceOf<ArgumentNullException>());
+		}
+
 		[Test]
 		public void GetConnectedMembers_WhenArgumentIsUnknownNode_ReturnsEmptyEnumerable()
 		{
@@ -21,10 +43,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			geometry.Build(model);
 
 			// Tested method
-			IEnumerable<IIdeaMember1D> result = geometry.GetConnectedMembers(Substitute.For<IIdeaNode>());
-
-			// Assert
-			Assert.That(result, Is.Empty);
+			Assert.That(() => geometry.GetConnectedMembers(Substitute.For<IIdeaNode>()), Throws.InstanceOf<ArgumentException>());
 		}
 
 		[Test]
@@ -38,10 +57,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			geometry.Build(model);
 
 			// Tested method
-			IEnumerable<IIdeaNode> result = geometry.GetNodesOnMember(Substitute.For<IIdeaMember1D>());
-
-			// Assert
-			Assert.That(result, Is.Empty);
+			Assert.That(() => geometry.GetNodesOnMember(Substitute.For<IIdeaMember1D>()), Throws.InstanceOf<ArgumentException>());
 		}
 
 		[Test]

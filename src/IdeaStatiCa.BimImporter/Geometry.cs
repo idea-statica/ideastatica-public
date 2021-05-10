@@ -1,15 +1,14 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
+	/// <inheritdoc cref="IGeometry"/>
 	public class Geometry : IGeometry
 	{
-		//private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.geometry");
-		private readonly IPluginLogger _logger;
-
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
 
 		private class Vertex
@@ -32,56 +31,66 @@ namespace IdeaStatiCa.BimImporter
 			{
 				Member = member;
 			}
-
-			public override bool Equals(object obj)
-			{
-				return obj is Edge edge && _comparer.Equals(Member, edge.Member);
-			}
-
-			public override int GetHashCode()
-			{
-				return _comparer.GetHashCode(Member);
-			}
 		}
 
 		private readonly Dictionary<IIdeaNode, Vertex> _vertices = new Dictionary<IIdeaNode, Vertex>(_comparer);
 		private readonly Dictionary<IIdeaMember1D, Edge> _edges = new Dictionary<IIdeaMember1D, Edge>(_comparer);
+		private readonly IPluginLogger _logger;
 
 		public Geometry(IPluginLogger logger)
 		{
 			_logger = logger;
 		}
 
+		/// <inheritdoc cref="IGeometry.GetConnectedMembers(IIdeaNode)"/>
+		/// <exception cref="ArgumentNullException">If <paramref name="node"/> is null.</exception>
 		public IEnumerable<IIdeaMember1D> GetConnectedMembers(IIdeaNode node)
 		{
+			if (node == null)
+			{
+				throw new ArgumentNullException(nameof(node));
+			}
+
 			if (_vertices.TryGetValue(node, out Vertex vertex))
 			{
 				return vertex.Edges.Select(x => x.Member);
 			}
 
 			_logger.LogWarning($"Node '{node}' was not found.");
-
-			return Enumerable.Empty<IIdeaMember1D>();
+			throw new ArgumentException($"Unknown node with id {node.Id}.", nameof(node));
 		}
 
+		/// <inheritdoc cref="IGeometry.GetNodesOnMember(IIdeaMember1D)"/>
+		/// <exception cref="ArgumentNullException">If <paramref name="member"/> is null.</exception>
 		public IEnumerable<IIdeaNode> GetNodesOnMember(IIdeaMember1D member)
 		{
+			if (member == null)
+			{
+				throw new ArgumentNullException(nameof(member));
+			}
+
 			if (_edges.TryGetValue(member, out Edge edge))
 			{
 				return edge.Vertices.Select(x => x.Node);
 			}
 
-			_logger.LogWarning($"Node '{edge}' was not found.");
-
-			return Enumerable.Empty<IIdeaNode>();
+			_logger.LogWarning($"Member '{edge}' was not found.");
+			throw new ArgumentException($"Unknown member with id {member.Id}.", nameof(member));
 		}
 
+		/// <inheritdoc cref="IGeometry.Build(IIdeaModel)"/>
+		/// <exception cref="ArgumentNullException">If <paramref name="model"/> is null.</exception>
 		public void Build(IIdeaModel model)
 		{
+			if (model == null)
+			{
+				throw new ArgumentNullException(nameof(model));
+			}
+
 			_vertices.Clear();
 			_edges.Clear();
 
-			_logger.LogInformation("Bulding model geometry.");
+			_logger.LogInformation("Building model geometry.");
 
 			foreach (IIdeaMember1D member in model.GetMembers())
 			{
@@ -99,8 +108,10 @@ namespace IdeaStatiCa.BimImporter
 			_logger.LogInformation($"Got {_vertices.Count} vertices and {_edges.Count} edges.");
 		}
 
+		/// <inheritdoc cref="IGeometry.GetMembers"/>
 		public IEnumerable<IIdeaMember1D> GetMembers() => _edges.Keys;
 
+		/// <inheritdoc cref="IGeometry.GetNodes"/>
 		public IEnumerable<IIdeaNode> GetNodes() => _vertices.Keys;
 
 		private IEnumerable<IIdeaNode> EnumNodes(IIdeaMember1D member)
