@@ -23,17 +23,22 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 		class OpCodeContainer
 		{
+			IPluginLogger ideaLogger;
 			public OpCode? code;
 			byte data;
 
-			public OpCodeContainer(byte opCode)
+			public OpCodeContainer(byte opCode, IPluginLogger logger)
 			{
+				this.ideaLogger = logger ?? new Plugin.NullLogger();
 				data = opCode;
 				try
 				{
 					code = (OpCode)typeof(OpCodes).GetFields().First(t => ((OpCode)(t.GetValue(null))).Value == opCode).GetValue(null);
 				}
-				catch { }
+				catch (Exception ex)
+				{
+					ideaLogger.LogDebug("Fields by opcode was not find", ex);
+				}
 			}
 		}
 	}

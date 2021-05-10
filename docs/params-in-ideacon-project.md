@@ -12,5 +12,5 @@ To be able to define and modify parameters in idea connection project you need t
 
 IdeaConnection.exe is run in the developer mode and user can define and set parameters for connection. See the project python-examples\projects\parameters-anchors.ideaCon
 
-![Parameters in Idea Connection](images/parameters-in-idea-connection.png)
+![Parameters in Idea Connection](../Images/parameters-in-idea-connection.png)
 
