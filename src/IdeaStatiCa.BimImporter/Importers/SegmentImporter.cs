@@ -13,8 +13,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.segmentimporter");
 		private readonly IPluginLogger _logger;
 
-		private const double Precision = 1e-6;
-
 		public SegmentImporter(IPluginLogger logger) : base(logger)
 		{
 			_logger = logger;
@@ -97,7 +95,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private double Normalize(double value)
 		{
-			double newValue = value.Round((int)-Math.Log10(Precision));
+			double newValue = value.Round((int)-Math.Log10(Constants.Precision));
 			if (value != newValue)
 			{
 				_logger.LogInformation($"Value {value} normalized to {newValue}.");
@@ -113,7 +111,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new ConstraintException("LCS basis vectors must have unit length.");
 			}
 
-			if (!a.IsPerpendicularTo(b, Precision) || !b.IsPerpendicularTo(c, Precision) || !c.IsPerpendicularTo(a, Precision))
+			if (!a.IsPerpendicularTo(b, Constants.Precision)
+				|| !b.IsPerpendicularTo(c, Constants.Precision)
+				|| !c.IsPerpendicularTo(a, Constants.Precision))
 			{
 				throw new ConstraintException("LCS basis vectors must be perpendicular to each other.");
 			}
@@ -126,7 +126,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private bool IsUnitVector(Vector vector)
 		{
-			return vector.Length.AlmostEqual(1.0, Precision);
+			return vector.Length.AlmostEqual(1.0, Constants.Precision);
 		}
 
 		private double GetVectorSpaceOrientation(Vector a, Vector b, Vector c)
