@@ -12,12 +12,10 @@ namespace IdeaStatiCa.BimImporter.Importers
     {
         private readonly IPluginLogger _logger;
 
-        private const double Precision = 1e-6;
-
-        public SegmentImporter(IPluginLogger logger) : base(logger)
-        {
-            _logger = logger;
-        }
+		public SegmentImporter(IPluginLogger logger) : base(logger)
+		{
+			_logger = logger;
+		}
 
         protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaSegment3D segment)
         {
@@ -94,13 +92,13 @@ namespace IdeaStatiCa.BimImporter.Importers
             };
         }
 
-        private double Normalize(double value)
-        {
-            double newValue = value.Round((int)-Math.Log10(Precision));
-            if (value != newValue)
-            {
-                _logger.LogInformation($"Value {value} normalized to {newValue}.");
-            }
+		private double Normalize(double value)
+		{
+			double newValue = value.Round((int)-Math.Log10(Constants.Precision));
+			if (value != newValue)
+			{
+				_logger.LogInformation($"Value {value} normalized to {newValue}.");
+			}
 
             return newValue;
         }
@@ -112,10 +110,12 @@ namespace IdeaStatiCa.BimImporter.Importers
                 throw new ConstraintException("LCS basis vectors must have unit length.");
             }
 
-            if (!a.IsPerpendicularTo(b, Precision) || !b.IsPerpendicularTo(c, Precision) || !c.IsPerpendicularTo(a, Precision))
-            {
-                throw new ConstraintException("LCS basis vectors must be perpendicular to each other.");
-            }
+			if (!a.IsPerpendicularTo(b, Constants.Precision)
+				|| !b.IsPerpendicularTo(c, Constants.Precision)
+				|| !c.IsPerpendicularTo(a, Constants.Precision))
+			{
+				throw new ConstraintException("LCS basis vectors must be perpendicular to each other.");
+			}
 
             if (GetVectorSpaceOrientation(a, b, c) < 0)
             {
@@ -123,10 +123,10 @@ namespace IdeaStatiCa.BimImporter.Importers
             }
         }
 
-        private bool IsUnitVector(Vector vector)
-        {
-            return vector.Length.AlmostEqual(1.0, Precision);
-        }
+		private bool IsUnitVector(Vector vector)
+		{
+			return vector.Length.AlmostEqual(1.0, Constants.Precision);
+		}
 
         private double GetVectorSpaceOrientation(Vector a, Vector b, Vector c)
         {
