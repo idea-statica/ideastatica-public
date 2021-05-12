@@ -1,15 +1,10 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaMaterialTendon : IIdeaMaterial
-	{
-
-		// TODO;
-
-	}
+    /// <summary>
+    /// Material of a tendon
+    /// </summary>
+    public interface IIdeaMaterialTendon : IIdeaMaterial
+    {
+        // TODO;
+    }
 }

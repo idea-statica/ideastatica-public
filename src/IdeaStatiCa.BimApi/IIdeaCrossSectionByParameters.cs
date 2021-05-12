@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace IdeaStatiCa.BimApi
 {
     /// <summary>
-    /// A cross-section specifed by parameters.
+    /// A cross-section defined by parameters.
     /// </summary>
     public interface IIdeaCrossSectionByParameters : IIdeaCrossSection
     {
