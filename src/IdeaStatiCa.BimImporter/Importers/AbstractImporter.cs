@@ -17,6 +17,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		public OpenElementId Import(IImportContext ctx, T obj)
 		{
+			_logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<null>"}', name '{obj.Name ?? "<null>"}'");
+
 			if (ctx == null)
 			{
 				throw new ArgumentNullException(nameof(ctx));
@@ -27,11 +29,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new ArgumentNullException(nameof(obj));
 			}
 
-			_logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<empty>"}', name '{obj.Name ?? "<empty>"}'");
-
 			if (string.IsNullOrEmpty(obj.Id))
 			{
-				throw new Exception("Object must specify non-empty Id.");
+				throw new InvalidOperationException("Object must specify non-empty Id.");
 			}
 
 			return ImportInternal(ctx, obj);

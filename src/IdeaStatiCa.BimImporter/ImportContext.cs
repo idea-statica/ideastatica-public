@@ -42,7 +42,7 @@ namespace IdeaStatiCa.BimImporter
 			int result = OpenModel.AddObject(iomObject);
 			if (result != 0)
 			{
-				throw new Exception();
+				throw new InvalidOperationException($"OpenModel.AddObject failed, return code {result}.");
 			}
 
 			refElm = new ReferenceElement(iomObject);

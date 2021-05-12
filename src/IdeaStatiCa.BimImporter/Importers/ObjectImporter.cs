@@ -59,7 +59,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _connectionImporter.Import(ctx, connection);
 			}
 
-			throw new NotImplementedException();
+			throw new ArgumentException($"Unsupported object type {obj.GetType()}");
 		}
 	}
 }
