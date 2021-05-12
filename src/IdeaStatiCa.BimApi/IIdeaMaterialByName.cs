@@ -1,6 +1,9 @@
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaMaterialByName : IIdeaMaterial
-	{
-	}
+    /// <summary>
+    /// A material specified by <see cref="IIdeaObject.Name"/>.
+    /// </summary>
+    public interface IIdeaMaterialByName : IIdeaMaterial
+    {
+    }
 }

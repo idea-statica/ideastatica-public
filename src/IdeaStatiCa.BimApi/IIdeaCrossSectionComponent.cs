@@ -1,20 +1,25 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using IdeaRS.OpenModel.Geometry2D;
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaCrossSectionComponent
-	{
-		IIdeaMaterial Material { get; }
+    /// <summary>
+    /// A component of a <see cref="IIdeaCrossSectionByComponents"/>.
+    /// </summary>
+    public interface IIdeaCrossSectionComponent
+    {
+        /// <summary>
+        /// Material of the component.
+        /// </summary>
+        IIdeaMaterial Material { get; }
 
-		IdeaRS.OpenModel.Geometry2D.Region2D Geometry { get; }
+        /// <summary>
+        /// Geometry of the component.
+        /// </summary>
+        Region2D Geometry { get; }
 
-		int Phase { get; }
-
-
-
-	}
+        /// <summary>
+        /// Phase
+        /// </summary>
+        int Phase { get; }
+    }
 }

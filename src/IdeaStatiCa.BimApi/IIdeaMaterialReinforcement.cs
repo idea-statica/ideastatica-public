@@ -2,8 +2,11 @@ using IdeaRS.OpenModel.Material;
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaMaterialReinforcement : IIdeaMaterial
-	{
-		MatReinforcement Material { get; }
-	}
+    /// <summary>
+    ///
+    /// </summary>
+    public interface IIdeaMaterialReinforcement : IIdeaMaterial
+    {
+        MatReinforcement Material { get; }
+    }
 }

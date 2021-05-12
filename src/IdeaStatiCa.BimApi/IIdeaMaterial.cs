@@ -1,13 +1,9 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaMaterial : IIdeaObject
-	{
-
-	}
+    /// <summary>
+    /// A material of a cross-section.
+    /// </summary>
+    public interface IIdeaMaterial : IIdeaObject
+    {
+    }
 }
