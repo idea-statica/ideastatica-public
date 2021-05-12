@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace IdeaStatiCa.BimApi
 {
     /// <summary>
-    /// 
+    /// Model for project to import.
     /// </summary>
     public interface IIdeaModel
     {
@@ -22,9 +22,9 @@ namespace IdeaStatiCa.BimApi
         void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members);
 
         /// <summary>
-        /// 
+        /// Returns information from the original application about the project this class refers to.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Project infomation</returns>
         OriginSettings GetOriginSettings();
     }
 }

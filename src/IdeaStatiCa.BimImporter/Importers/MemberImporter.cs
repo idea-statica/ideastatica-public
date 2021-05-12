@@ -27,19 +27,21 @@ namespace IdeaStatiCa.BimImporter.Importers
 				IIdeaElement1D element = member.Elements[i];
 				IIdeaSegment3D segment = element.Segment;
 
-				if (prevNode != null && segment.StartNode != prevNode)
+				// check that StartNode of n-th element is equal to EndNode of (n-1)-th element
+				if (prevNode != null && segment.StartNode.Id != prevNode.Id)
 				{
-					throw new ConstraintException();
+					throw new ConstraintException("StartNode of an element must be equal to EndNode of a previous element.");
 				}
 
 				prevNode = segment.EndNode;
 
+				// check that elements don't form a cycle
 				ReferenceElement refElement = ctx.Import(element);
 				for (int j = 0; j < i; j++)
 				{
 					if (refElement == refElements[j])
 					{
-						throw new ConstraintException();
+						throw new ConstraintException("Sequence of elements contains a cycle.");
 					}
 				}
 
