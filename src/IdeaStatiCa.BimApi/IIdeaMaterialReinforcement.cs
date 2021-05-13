@@ -7,6 +7,9 @@ namespace IdeaStatiCa.BimApi
     /// </summary>
     public interface IIdeaMaterialReinforcement : IIdeaMaterial
     {
+		/// <summary>
+		/// Material
+		/// </summary>
         MatReinforcement Material { get; }
     }
 }

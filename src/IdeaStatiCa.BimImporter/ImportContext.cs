@@ -9,7 +9,6 @@ namespace IdeaStatiCa.BimImporter
 {
 	internal class ImportContext : IImportContext
 	{
-		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.importcontext");
 		private readonly IPluginLogger _logger;
 
 		public OpenModel OpenModel { get; } = new OpenModel();
