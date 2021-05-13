@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+    <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+	<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+  </ItemGroup>
+
+</Project>
