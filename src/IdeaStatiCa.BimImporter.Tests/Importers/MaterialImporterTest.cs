@@ -40,14 +40,16 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		{
 			// Setup
 			MaterialImporter importer = new MaterialImporter(new NullLogger());
+			IImportContext ctx = Substitute.For<IImportContext>();
 
 			// Tested method
-			OpenElementId result = importer.Import(null, material);
+			OpenElementId result = importer.Import(ctx, material);
 
 			// Assert
 			Assert.That(result, Is.InstanceOf<Material>());
 		}
 
+		[Test]
 		public void Import_WhenObjectIsIIdeaMaterialByName_PropertyLoadFromLibraryIsTrue()
 		{
 			// Setup
@@ -56,12 +58,29 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			materialByName.Name.Returns("S 235");
 
 			MaterialImporter importer = new MaterialImporter(new NullLogger());
+			IImportContext ctx = Substitute.For<IImportContext>();
 
 			// Tested method
-			Material result = (Material)importer.Import(null, materialByName);
+			Material result = (Material)importer.Import(ctx, materialByName);
 
 			// Assert
 			Assert.That(result.LoadFromLibrary, Is.True);
+		}
+
+		[Test]
+		public void Import_WhenObjectIsIIdeaMaterialByNameAndNameIsNull_ThrowsConstraintException()
+		{
+			// Setup
+			IIdeaMaterialByName materialByName = Substitute.For<IIdeaMaterialByName>();
+			materialByName.Id.Returns("mat1");
+			string name = null;
+			materialByName.Name.Returns(name);
+
+			MaterialImporter importer = new MaterialImporter(new NullLogger());
+			IImportContext ctx = Substitute.For<IImportContext>();
+
+			// Tested method + assert
+			Assert.That(() => importer.Import(ctx, materialByName), Throws.InstanceOf<ConstraintException>());
 		}
 	}
 }
