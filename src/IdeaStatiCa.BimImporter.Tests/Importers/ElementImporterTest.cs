@@ -6,7 +6,7 @@ using IdeaStatiCa.BimImporter.Tests.Helpers;
 using IdeaStatiCa.Plugin;
 using NUnit.Framework;
 
-namespace IdeaStatiCa.BimImporter.Tests
+namespace IdeaStatiCa.BimImporter.Tests.Importers
 {
 	[TestFixture]
 	public class ElementImporterTest

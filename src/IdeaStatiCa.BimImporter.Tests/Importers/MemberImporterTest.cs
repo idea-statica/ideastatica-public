@@ -8,7 +8,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace IdeaStatiCa.BimImporter.Tests
+namespace IdeaStatiCa.BimImporter.Tests.Importers
 {
 	[TestFixture]
 	public class MemberImporterTest
