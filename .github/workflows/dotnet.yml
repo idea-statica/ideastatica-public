@@ -38,5 +38,5 @@ jobs:
       working-directory: main
 
     - name: Test
-      run: 'vstest.console.exe .\src\IdeaStatiCa.Plugin.Tests\bin\Release\IdeaStatiCa.Plugin.Tests.dll'
+      run: 'dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln'
       working-directory: main
