@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
@@ -9,22 +10,28 @@ namespace IdeaStatiCa.BimImporter
 {
 	internal class ImportContext : IImportContext
 	{
-		private readonly IPluginLogger _logger;
-
 		public OpenModel OpenModel { get; } = new OpenModel();
 
-		public IImporter<IIdeaObject> Importer { get; }
-
-		public IProject Project { get; }
+		public OpenModelResult OpenModelResult { get; } = new OpenModelResult();
 
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
 			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
 
-		public ImportContext(IImporter<IIdeaObject> importer, IProject project, IPluginLogger logger)
+		private readonly ResultOnMembers _resultOnMembers = new ResultOnMembers();
+
+		private readonly IPluginLogger _logger;
+		private readonly IProject _project;
+		private readonly IImporter<IIdeaObject> _importer;
+		private readonly IResultImporter _resultImporter;
+
+		public ImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project, IPluginLogger logger)
 		{
-			Importer = importer;
-			Project = project;
+			_importer = importer;
+			_resultImporter = resultImporter;
+			_project = project;
 			_logger = logger;
+
+			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
 		}
 
 		public ReferenceElement Import(IIdeaObject obj)
@@ -35,8 +42,8 @@ namespace IdeaStatiCa.BimImporter
 				return refElm;
 			}
 
-			OpenElementId iomObject = Importer.Import(this, obj);
-			iomObject.Id = Project.GetIomId(obj);
+			OpenElementId iomObject = _importer.Import(this, obj);
+			iomObject.Id = _project.GetIomId(obj);
 
 			int result = OpenModel.AddObject(iomObject);
 			if (result != 0)
@@ -46,6 +53,11 @@ namespace IdeaStatiCa.BimImporter
 
 			refElm = new ReferenceElement(iomObject);
 			_refElements.Add(obj, refElm);
+
+			if (obj is IIdeaObjectWithResults objectWithResults)
+			{
+				_resultOnMembers.Members.AddRange(_resultImporter.Import(refElm, objectWithResults));
+			}
 
 			return refElm;
 		}

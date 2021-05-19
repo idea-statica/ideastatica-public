@@ -17,7 +17,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 		private static BimImporter CreateBimImporter(IIdeaModel model, IImporter<IIdeaObject> importer)
 		{
 			NullLogger logger = new NullLogger();
-			return new BimImporter(model, new Project(logger), importer, new Geometry(logger), logger);
+			return new BimImporter(model, new Project(logger), importer, new Geometry(logger), logger, new ResultImporter(logger));
 		}
 
 		[Test]
