@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaMemberSection
+	public interface IIdeaResultSection
 	{
 		bool AbsoluteOrRelative { get; }
+
 		double Position { get; }
+
 		List<SectionResultBase> Results { get; }
 	}
 }

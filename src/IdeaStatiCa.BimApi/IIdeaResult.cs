@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaMemberResult
+	public interface IIdeaResult
 	{
-		IIdeaObject Member { get; }
 		ResultType Type { get; }
+
 		ResultLocalSystemType CoordinateSystemType { get; }
-		List<IIdeaMemberSection> Sections { get; }
+
+		List<IIdeaResultSection> Sections { get; }
 	}
 }
