@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Loading;
+using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
-	class LoadCaseImporter
+	internal class LoadCaseImporter : AbstractImporter<IIdeaLoadCase>
 	{
+		public LoadCaseImporter(IPluginLogger logger) : base(logger)
+		{
+		}
+
+		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaLoadCase lc)
+		{
+			LoadCase lcRet = new LoadCase()
+			{
+				Name = lc.Name,
+			};
+
+			return lcRet;
+		}
 	}
 }
