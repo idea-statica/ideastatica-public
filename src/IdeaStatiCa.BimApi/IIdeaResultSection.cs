@@ -9,6 +9,6 @@ namespace IdeaStatiCa.BimApi
 
 		double Position { get; }
 
-		List<SectionResultBase> Results { get; }
+		IEnumerable<SectionResultBase> Results { get; }
 	}
 }

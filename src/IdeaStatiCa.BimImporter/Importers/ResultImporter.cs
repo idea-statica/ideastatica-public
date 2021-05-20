@@ -19,6 +19,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		public IEnumerable<ResultOnMember> Import(ReferenceElement referenceElement, IIdeaObjectWithResults obj)
 		{
+			if (referenceElement is null)
+			{
+				throw new ArgumentNullException(nameof(referenceElement));
+			}
+
 			if (obj is null)
 			{
 				throw new ArgumentNullException(nameof(obj));
@@ -26,14 +31,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			if (!(obj is IIdeaMember1D || obj is IIdeaElement1D))
 			{
-				throw new ArgumentException($"Object with results must be an instance of {nameof(IIdeaMember1D)} or {nameof(IIdeaElement1D)}");
+				throw new ArgumentException($"Object with results must be an instance of {nameof(IIdeaMember1D)} or {nameof(IIdeaElement1D)}",
+					nameof(obj));
 			}
 
 			IEnumerable<IIdeaResult> results = obj.GetResults();
 			if (results is null)
 			{
 				_logger.LogDebug($"{nameof(IIdeaObjectWithResults)}.{nameof(IIdeaObjectWithResults.GetResults)} returned nuĺl.");
-				yield break;
+				return Enumerable.Empty<ResultOnMember>();
 			}
 
 			Member member = new Member
@@ -42,11 +48,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 				MemberType = obj is IIdeaMember1D ? MemberType.Member1D : MemberType.Element1D
 			};
 
-			foreach (ResultOnMember resultOnMember in results)
+			return results.Select(ImportResult).Select(x =>
 			{
-				resultOnMember.Member = member;
-				yield return resultOnMember;
-			}
+				x.Member = member;
+				return x;
+			});
 		}
 
 		private ResultOnMember ImportResult(IIdeaResult result)
@@ -55,7 +61,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				LocalSystemType = result.CoordinateSystemType,
 				ResultType = result.Type,
-				Results = result.Sections.Select(this.ImportMemberSection).ToList()
+				Results = result.Sections.Select(ImportMemberSection).ToList()
 			};
 		}
 
@@ -65,7 +71,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				AbsoluteRelative = memberSection.AbsoluteOrRelative ? AbsoluteRelative.Absolute : AbsoluteRelative.Relative,
 				Position = memberSection.Position,
-				Results = memberSection.Results
+				Results = memberSection.Results.ToList()
 			};
 		}
 	}
