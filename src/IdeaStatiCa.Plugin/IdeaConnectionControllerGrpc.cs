@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+using IdeaStatiCa.Plugin.Utilities;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.ServiceModel;
@@ -6,20 +8,44 @@ using System.Threading;
 
 namespace IdeaStatiCa.Plugin
 {
-	public class IdeaConnectionController : IDisposable, IConnectionController
+	public class IdeaConnectionControllerGrpc : IDisposable, IConnectionController
 	{
 		private readonly string IdeaInstallDir;
 		private Process IdeaStatiCaProcess { get; set; }
 		private Uri CalculatorUrl { get; set; }
 
+		private int GrpcPort { get; set; }
+
 		protected EventWaitHandle CurrentItemChangedEvent;
 
 		protected IdeaStatiCaClient<IAutomation> ConnectionAppClient { get; set; }
+
+		protected AutomationHostingGrpc<IAutomation, IAutomation> GrpcClient { get; set; }
+
 		protected virtual uint UserMode { get; } = 0;
 
+		public IAutomation ConnectionAppAutomation
+		{
+			get
+			{
+				if (ConnectionAppClient != null)
+				{
+					return ConnectionAppClient?.Service;
+				}
+
+				else if(GrpcClient != null)
+				{
+					return GrpcClient?.MyBIM;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
 		private string BaseAddress { get; set; }
 
-		public bool IsConnected => ConnectionAppClient?.Service != null;
+		bool IConnectionController.IsConnected => GrpcClient?.IsConnected == true;
 
 #if DEBUG
 		private int StartTimeout = -1;
@@ -27,20 +53,7 @@ namespace IdeaStatiCa.Plugin
 		int StartTimeout = 1000*20;
 #endif
 
-		public int OpenProject(string fileName)
-		{
-			ConnectionAppClient.Service.OpenProject(fileName);
-			return 0;
-		}
-
-		public int CloseProject()
-		{
-			ConnectionAppClient.Service.CloseProject();
-			return 0;
-		}
-
-
-		private IdeaConnectionController(string ideaInstallDir)
+		private IdeaConnectionControllerGrpc(string ideaInstallDir)
 		{
 			if(!Directory.Exists(ideaInstallDir))
 			{
@@ -52,20 +65,36 @@ namespace IdeaStatiCa.Plugin
 
 		public static IConnectionController Create(string ideaInstallDir)
 		{
-			IdeaConnectionController connectionController = new IdeaConnectionController(ideaInstallDir);
+			IdeaConnectionControllerGrpc connectionController = new IdeaConnectionControllerGrpc(ideaInstallDir);
 			connectionController.OpenConnectionClient();
 			return connectionController;
 		}
 
+		public int OpenProject(string fileName)
+		{
+			return 1;
+		}
+
+		public int CloseProject()
+		{
+			return 1;
+		}
+
 		private void OpenConnectionClient()
 		{
+			OpenConnectionClientGrpc();
+		}
+
+		private void OpenConnectionClientGrpc()
+		{
 			int processId = Process.GetCurrentProcess().Id;
+			GrpcPort = PortFinder.FindPort(50000, 50500);
 			string connChangedEventName = string.Format(Constants.ConnectionChangedEventFormat, processId);
 			CurrentItemChangedEvent = new EventWaitHandle(false, EventResetMode.AutoReset, connChangedEventName);
 
-			string applicationExePath = Path.Combine(IdeaInstallDir, "ideaconnection.exe");
+			string applicationExePath = Path.Combine(IdeaInstallDir, Constants.IdeaConnectionAppName);
 
-			if(!File.Exists(applicationExePath))
+			if (!File.Exists(applicationExePath))
 			{
 				throw new ArgumentException($"IdeaConnectionController.OpenConnectionClient - file '{applicationExePath}' doesn't exist");
 			}
@@ -74,11 +103,11 @@ namespace IdeaStatiCa.Plugin
 			string eventName = string.Format("IdeaStatiCaEvent{0}", processId);
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
-				connectionProc.StartInfo = new ProcessStartInfo(applicationExePath, $"-cmd:automation-{processId}  user-mode 192");
+				connectionProc.StartInfo = new ProcessStartInfo(applicationExePath, $"-cmd:automation-{processId} {IdeaStatiCa.Plugin.Constants.GrpcPortParam}:{GrpcPort} user-mode 192");
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 
-				if(!syncEvent.WaitOne(StartTimeout))
+				if (!syncEvent.WaitOne(StartTimeout))
 				{
 					throw new TimeoutException($"Time out - process '{applicationExePath}' doesn't set the event '{eventName}'");
 				}
@@ -86,13 +115,19 @@ namespace IdeaStatiCa.Plugin
 
 			IdeaStatiCaProcess = connectionProc;
 
-			BaseAddress = $"net.pipe://localhost/ConnectioService{connectionProc.Id}";
-
-			NetNamedPipeBinding binding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647, OpenTimeout = TimeSpan.MaxValue, CloseTimeout = TimeSpan.MaxValue, ReceiveTimeout = TimeSpan.MaxValue, SendTimeout = TimeSpan.MaxValue };
-			ConnectionAppClient = new IdeaStatiCaClient<IAutomation>(binding, new EndpointAddress(BaseAddress));
-			ConnectionAppClient.Open();
+			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, GrpcPort);
+			GrpcClient.RunAsync(processId.ToString());
 
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
+		}
+
+		private async void InitializeGrpc(string clientId, int grpcPort)
+		{
+			var grpcClient = new GrpcReflectionClient(clientId, grpcPort);
+
+			await grpcClient.ConnectAsync();
+
+			//Actions.Add($"GRPC server connected");
 		}
 
 		private void CalculatorProcess_Exited(object sender, EventArgs e)

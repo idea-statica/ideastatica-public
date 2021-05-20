@@ -13,7 +13,8 @@ namespace ConnectionAutomationApp
 		bool isIdea;
 		readonly string ideaStatiCaDir;
 		string statusMessage;
-		IdeaConnectionController connectionController;
+		IConnectionController connectionController;
+		string currentProjectFileName;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -67,7 +68,7 @@ namespace ConnectionAutomationApp
 			}
 		}
 
-		public IdeaConnectionController ConnectionController
+		public IConnectionController ConnectionController
 		{
 			get => connectionController;
 			set
@@ -77,15 +78,26 @@ namespace ConnectionAutomationApp
 			}
 		}
 
+		public string CurrentProjectFileName
+		{
+			get => currentProjectFileName;
+			set
+			{
+				currentProjectFileName = value;
+				NotifyPropertyChanged("CurrentProjectFileName");
+			}
+		}
+
 		private void CloseProject(object obj)
 		{
 			// close the currently open project
-			ConnectionController.ConnectionAppAutomation.CloseProject();
+			ConnectionController.CloseProject();
+			CurrentProjectFileName = string.Empty;
 		}
 
 		private bool CanCloseProject(object arg)
 		{
-			return !((this.ConnectionController == null) || (this.ConnectionController.ConnectionAppAutomation == null));
+			return !string.IsNullOrEmpty(CurrentProjectFileName);
 		}
 
 		private void OpenProject(object obj)
@@ -100,17 +112,19 @@ namespace ConnectionAutomationApp
 			try
 			{
 				// open selected idea connection project in the running application IdeaConnection.exe
-				ConnectionController.ConnectionAppAutomation.OpenProject(openFileDialog.FileName);
+				ConnectionController.OpenProject(openFileDialog.FileName);
+				CurrentProjectFileName = openFileDialog.FileName;
 			}
 			catch (Exception e)
 			{
 				Debug.Assert(false, e.Message);
+				CurrentProjectFileName = string.Empty;
 			}
 		}
 
 		private bool CanOpenProject(object arg)
 		{
-			return !((this.ConnectionController == null) || (this.ConnectionController.ConnectionAppAutomation == null));
+			return ((this.ConnectionController != null) && string.IsNullOrEmpty(CurrentProjectFileName));
 		}
 
 		private void RunIdeaConnection(object obj)
@@ -121,7 +135,7 @@ namespace ConnectionAutomationApp
 
 		private bool CanRunIdeaConnection(object arg)
 		{
-			return (this.ConnectionController == null) || (this.ConnectionController.ConnectionAppAutomation == null);
+			return (this.ConnectionController == null) || (this.ConnectionController.IsConnected == false);
 		}
 
 		private void NotifyPropertyChanged(string propertyName = "")
