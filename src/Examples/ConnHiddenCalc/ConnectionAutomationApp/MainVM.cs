@@ -130,7 +130,9 @@ namespace ConnectionAutomationApp
 		private void RunIdeaConnection(object obj)
 		{
 			// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
-			this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
+			//this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
+
+			this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir);
 		}
 
 		private bool CanRunIdeaConnection(object arg)

@@ -24,25 +24,7 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual uint UserMode { get; } = 0;
 
-		public IAutomation ConnectionAppAutomation
-		{
-			get
-			{
-				if (ConnectionAppClient != null)
-				{
-					return ConnectionAppClient?.Service;
-				}
 
-				else if(GrpcClient != null)
-				{
-					return GrpcClient?.MyBIM;
-				}
-				else
-				{
-					return null;
-				}
-			}
-		}
 		private string BaseAddress { get; set; }
 
 		bool IConnectionController.IsConnected => GrpcClient?.IsConnected == true;
@@ -72,11 +54,13 @@ namespace IdeaStatiCa.Plugin
 
 		public int OpenProject(string fileName)
 		{
+			GrpcClient.MyBIM.OpenProject(fileName);
 			return 1;
 		}
 
 		public int CloseProject()
 		{
+			GrpcClient.MyBIM.CloseProject();
 			return 1;
 		}
 
