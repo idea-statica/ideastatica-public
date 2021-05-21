@@ -35,3 +35,16 @@ jobs:
     - name: Build
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
       working-directory: main
+
+    - name: Create zip
+      uses: ihiroky/archive-action@v1
+      with:
+        root_dir: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        file_path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
+        retention-days: 5
