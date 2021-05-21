@@ -12,6 +12,8 @@ is the gateway to IDEA StatiCa. It includes classes which allows communication a
 ## IdeaRS.Connections
 The documentation of manufacturing operations. [IdeaRS.Connections.Data](https://idea-statica.github.io/iom/ideaconnections-api/latest/html/N_IdeaRS_Connections_Data.htm)
 
+# IdeaStatiCa Diagnostics
+There is description how to use [IdeaStatiCa.Diagnostics](docs/ccm-diagnostics.md) to get log files.
 
 # Examples
 Examples how to use IDEA StatiCa API
