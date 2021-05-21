@@ -36,14 +36,13 @@ jobs:
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
       working-directory: main
 
-    - name: Create 7z
-      uses: edgarrc/action-7z@v1
-      with:
-        args: 7z a -t7z -mx=9 ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.7z ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+    - name: Create archive
+      shell: pwsh
+      run: Compress-Archive -Path ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48 -DestinationPath ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.7z
+        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
         retention-days: 5
