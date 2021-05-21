@@ -37,14 +37,13 @@ jobs:
       working-directory: main
 
     - name: Create zip
-      uses: ihiroky/archive-action@v1
+      uses: edgarrc/action-7z@v1
       with:
-        root_dir: src\Examples\ConnHiddenCalc\ConnectionHiddenCalculation\bin\Release\net48
-        file_path: src\Examples\ConnHiddenCalc\ConnectionHiddenCalculation\bin\Release\ConnectionHiddenCalculation.zip
+        args: 7z a -t7z -mx=9 ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.7z ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
+        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.7z
         retention-days: 5
