@@ -38,7 +38,7 @@ jobs:
 
     - name: Create archive
       shell: pwsh
-      run: Compress-Archive -Path ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48 -DestinationPath ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
+      run: Compress-Archive -Path .\src\Examples\ConnHiddenCalc\ConnectionHiddenCalculation\bin\Release\net48\* -DestinationPath .\src\Examples\ConnHiddenCalc\ConnectionHiddenCalculation\bin\Release\ConnectionHiddenCalculation.zip
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
