@@ -7,7 +7,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 
-namespace IdeaStatiCa.BimImporter.Tests
+namespace IdeaStatiCa.BimImporter.Tests.Importers
 {
 	[TestFixture]
 	public class SegmentImporterTest
