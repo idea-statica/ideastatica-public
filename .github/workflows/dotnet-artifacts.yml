@@ -40,5 +40,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
         retention-days: 5
