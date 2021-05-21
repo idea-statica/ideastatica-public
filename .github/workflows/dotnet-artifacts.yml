@@ -36,13 +36,9 @@ jobs:
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
       working-directory: main
 
-    - name: Create archive
-      shell: pwsh
-      run: Compress-Archive -Path .\src\Examples\ConnHiddenCalc\ConnectionHiddenCalculation\bin\Release\net48\* -DestinationPath .\src\Examples\ConnHiddenCalc\ConnectionHiddenCalculation\bin\Release\ConnectionHiddenCalculation.zip
-
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/ConnectionHiddenCalculation.zip
+        path: src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
         retention-days: 5
