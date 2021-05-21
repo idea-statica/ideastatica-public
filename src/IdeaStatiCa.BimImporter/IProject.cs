@@ -12,11 +12,6 @@ namespace IdeaStatiCa.BimImporter
 	public interface IProject
 	{
 		/// <summary>
-		/// Conversion dictionary between ids.
-		/// </summary>
-		ConversionDictionaryString IdMapping { get; }
-
-		/// <summary>
 		/// Returns IOM id for given <paramref name="bimId"/>.
 		/// </summary>
 		/// <param name="bimId">BimApi id</param>
@@ -40,12 +35,5 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="obj">BimApi object</param>
 		/// <returns>IOM id</returns>
 		int GetIomId(IIdeaObject obj);
-
-		/// <summary>
-		/// Loads mapping between ids and restores mapping between <see cref="IIdeaMember1D"/> and <see cref="IIdeaNode"/> objects.
-		/// </summary>
-		/// <param name="geometry">Geometry providing all members and nodes</param>
-		/// <param name="conversionTable">Saved conversion table</param>
-		void Load(IGeometry geometry, ConversionDictionaryString conversionTable);
 	}
 }
