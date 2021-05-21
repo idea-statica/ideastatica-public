@@ -15,44 +15,66 @@ namespace IdeaStatiCa.Plugin
 
 		public virtual string TempWorkingDir => throw new NotImplementedException();
 
+		public string GetTempWorkingDir()
+		{
+			return TempWorkingDir;
+		}
+
 		public virtual string ProjectDir => throw new NotImplementedException();
 
-		public virtual void OpenProject(string fileName)
+		public string GetProjectDir()
 		{
-			Debug.Fail("Not implemented");
+			return ProjectDir;
 		}
 
-		public virtual void SelectItem(string itemId)
+		public virtual string OpenProject(string fileName)
 		{
 			Debug.Fail("Not implemented");
+			return "Not implemented";
 		}
 
-		public virtual void RefreshProject()
+		public virtual int SelectItem(string itemId)
 		{
 			Debug.Fail("Not implemented");
+			return -1;
 		}
 
-		public virtual void CloseProject()
+		public virtual int RefreshProject()
 		{
 			Debug.Fail("Not implemented");
+			return -1;
 		}
 
-		public virtual void Shutdown()
+		public virtual int CloseProject()
 		{
 			Debug.Fail("Not implemented");
+			return -1;
 		}
 
-		public virtual void Refresh()
+		public virtual int Shutdown()
 		{
 			Debug.Fail("Not implemented");
+			return -1;
 		}
 
-		public virtual void NotifyChange()
+		public virtual int Refresh()
 		{
 			Debug.Fail("Not implemented");
+			return -1;
+		}
+
+		public virtual int NotifyChange()
+		{
+			Debug.Fail("Not implemented");
+			return -1;
 		}
 
 		public AutomationStatus Status { get; protected set; }
+
+		public AutomationStatus GetStatus()
+		{
+			return Status;
+		}
 
 		#region IDisposable Support
 

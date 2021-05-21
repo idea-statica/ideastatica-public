@@ -20,48 +20,44 @@ namespace IdeaStatiCa.Plugin
 		/// Open <paramref name="fileName"/>
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
+		/// <returns>Returns 'true' if success</returns>
 		[OperationContract]
-		void OpenProject(string fileName);
+		string OpenProject(string fileName);
 
 		/// <summary>
 		/// Select item with <paramref name="itemId"/> in the project
 		/// </summary>
 		/// <param name="itemId">The identifier of the requested item</param>
+		/// <returns>Returns 1 if success</returns>
 		[OperationContract]
-		void SelectItem(string itemId);
+		int SelectItem(string itemId);
 
 		/// <summary>
 		/// Refresh the currently open project
 		/// </summary>
+		/// <returns>Returns 1 if success</returns>
 		[OperationContract]
-		void RefreshProject();
+		int RefreshProject();
 
 		/// <summary>
-		/// Close the
+		/// Close the project
 		/// </summary>
+		/// <returns>Returns 1 if success</returns>
 		[OperationContract]
-		void CloseProject();
-
-		[OperationContract]
-		void Shutdown();
+		int CloseProject();
 
 		[OperationContract]
-		void Refresh();
+		int Shutdown();
 
-		void NotifyChange();
+		[OperationContract]
+		int Refresh();
 
-		string TempWorkingDir
-		{
-			[OperationContract]
-			get;
-		}
+		int NotifyChange();
 
-		string ProjectDir
-		{
-			[OperationContract]
-			get;
-		}
+		string GetTempWorkingDir();
 
-		AutomationStatus Status { get; }
+		string GetProjectDir();
+		
+		AutomationStatus GetStatus();
 	}
 }
