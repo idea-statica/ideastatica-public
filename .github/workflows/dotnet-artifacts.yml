@@ -1,4 +1,4 @@
-name: .NET build artefacts
+name: .NET build artifacts
 
 on:
   workflow_dispatch:
