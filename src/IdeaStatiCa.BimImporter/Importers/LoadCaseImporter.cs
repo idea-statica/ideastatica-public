@@ -16,14 +16,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			LoadCase lcRet = new LoadCase()
 			{
 				Name = lc.Name,
-				Description = lc.Description,
-				LoadType = lc.LoadType,
-				Type = lc.Type,
-				Variable = lc.Variable,
-
 			};
-			ReferenceElement refElement = ctx.Import(lc.LoadGroup);
-			lcRet.LoadGroup = refElement;
 
 			return lcRet;
 		}
