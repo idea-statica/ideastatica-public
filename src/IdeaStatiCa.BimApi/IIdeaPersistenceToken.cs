@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaPersistenceToken : ISerializable
+	public interface IIdeaPersistenceToken
 	{
 	}
 }

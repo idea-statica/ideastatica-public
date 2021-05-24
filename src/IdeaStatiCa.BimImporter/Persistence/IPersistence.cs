@@ -11,6 +11,6 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 		IEnumerable<IIdeaPersistenceToken> GetTokens();
 
-		void StoreToken(IIdeaPersistenceToken serializable);
+		void StoreToken(IIdeaPersistenceToken token);
 	}
 }
