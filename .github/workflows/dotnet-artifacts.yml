@@ -38,8 +38,8 @@ jobs:
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
+      working-directory: main
       with:
-        working-directory: main
         name: my-artifact
         path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
 
