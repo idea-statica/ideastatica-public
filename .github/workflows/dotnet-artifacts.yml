@@ -39,5 +39,5 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
-        name: my-artifact
-        path: ./src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        name: nuget-artifact
+        path: ${{ github.workspace }}/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
