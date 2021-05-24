@@ -10,7 +10,7 @@ namespace IdeaStatiCa.BimImporter
 	/// <remarks>This class is not thread-safe.</remarks>
 	public class Project : IProject
 	{
-		private int _nextId = 0;
+		private int _nextId = 1;
 
 		private Dictionary<string, int> _idMapping = new Dictionary<string, int>();
 		private Dictionary<int, IIdeaObject> _objectMapping = new Dictionary<int, IIdeaObject>();
@@ -23,12 +23,10 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <param name="logger">Logger</param>
 		/// <exception cref="ArgumentNullException">Throws if <paramref name="logger"/> is null.</exception>
-		public Project(IPluginLogger logger, IObjectRestorer objectRestorer, IPersistence persistence)
+		public Project(IPluginLogger logger, IPersistence persistence)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_persistence = persistence;
-
-			Load(objectRestorer);
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(string)"/>
@@ -76,7 +74,7 @@ namespace IdeaStatiCa.BimImporter
 			return _objectMapping[id];
 		}
 
-		private void Load(IObjectRestorer objectRestorer)
+		public void Load(IObjectRestorer objectRestorer)
 		{
 			Dictionary<string, int> idMapping = new Dictionary<string, int>();
 			Dictionary<int, IIdeaObject> objectMapping = new Dictionary<int, IIdeaObject>();

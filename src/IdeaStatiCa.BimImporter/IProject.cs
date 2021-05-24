@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimImporter
@@ -35,5 +36,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="obj">BimApi object</param>
 		/// <returns>IOM id</returns>
 		int GetIomId(IIdeaObject obj);
+
+		void Load(IObjectRestorer objectRestorer);
 	}
 }
