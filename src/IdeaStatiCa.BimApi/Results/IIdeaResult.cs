@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel.Result;
 using System.Collections.Generic;
 
-namespace IdeaStatiCa.BimApi
+namespace IdeaStatiCa.BimApi.Results
 {
 	public interface IIdeaResult
 	{
@@ -9,6 +9,6 @@ namespace IdeaStatiCa.BimApi
 
 		ResultLocalSystemType CoordinateSystemType { get; }
 
-		List<IIdeaResultSection> Sections { get; }
+		List<IIdeaSection> Sections { get; }
 	}
 }

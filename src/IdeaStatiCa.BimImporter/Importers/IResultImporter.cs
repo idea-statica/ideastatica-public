@@ -7,6 +7,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal interface IResultImporter
 	{
-		IEnumerable<ResultOnMember> Import(ReferenceElement referenceElement, IIdeaObjectWithResults obj);
+		IEnumerable<ResultOnMember> Import(IImportContext ctx, ReferenceElement referenceElement, IIdeaObjectWithResults obj);
 	}
 }

@@ -56,7 +56,7 @@ namespace IdeaStatiCa.BimImporter
 
 			if (obj is IIdeaObjectWithResults objectWithResults)
 			{
-				_resultOnMembers.Members.AddRange(_resultImporter.Import(refElm, objectWithResults));
+				_resultOnMembers.Members.AddRange(_resultImporter.Import(this, refElm, objectWithResults));
 			}
 
 			return refElm;

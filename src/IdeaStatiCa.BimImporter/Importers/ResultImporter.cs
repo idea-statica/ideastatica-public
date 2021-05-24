@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,13 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_logger = logger;
 		}
 
-		public IEnumerable<ResultOnMember> Import(ReferenceElement referenceElement, IIdeaObjectWithResults obj)
+		public IEnumerable<ResultOnMember> Import(IImportContext ctx, ReferenceElement referenceElement, IIdeaObjectWithResults obj)
 		{
+			if (ctx is null)
+			{
+				throw new ArgumentNullException(nameof(ctx));
+			}
+
 			if (referenceElement is null)
 			{
 				throw new ArgumentNullException(nameof(referenceElement));
@@ -48,31 +54,48 @@ namespace IdeaStatiCa.BimImporter.Importers
 				MemberType = obj is IIdeaMember1D ? MemberType.Member1D : MemberType.Element1D
 			};
 
-			return results.Select(ImportResult).Select(x =>
+			return results.Select(x => ImportResult(ctx, x)).Select(x =>
 			{
 				x.Member = member;
 				return x;
 			});
 		}
 
-		private ResultOnMember ImportResult(IIdeaResult result)
+		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result)
 		{
 			return new ResultOnMember
 			{
 				LocalSystemType = result.CoordinateSystemType,
 				ResultType = result.Type,
-				Results = result.Sections.Select(ImportMemberSection).ToList()
+				Results = result.Sections.Select(x => ImportMemberSection(ctx, x)).ToList()
 			};
 		}
 
-		private ResultBase ImportMemberSection(IIdeaResultSection memberSection)
+		private ResultBase ImportMemberSection(IImportContext ctx, IIdeaSection memberSection)
 		{
 			return new ResultOnSection()
 			{
 				AbsoluteRelative = memberSection.AbsoluteOrRelative ? AbsoluteRelative.Absolute : AbsoluteRelative.Relative,
 				Position = memberSection.Position,
-				Results = memberSection.Results.ToList()
+				Results = memberSection.Results.Select(x => ProcessSectionResult(ctx, x)).ToList()
 			};
+		}
+
+		private SectionResultBase ProcessSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
+		{
+			SectionResultBase result = sectionResult.Result;
+
+			result.Loading = new ResultOfLoading()
+			{
+				LoadingType = LoadingType.LoadCase,
+				Id = ctx.Import(sectionResult.LoadCase).Id
+			};
+			result.Loading.Items.Add(new ResultOfLoadingItem()
+			{
+				Coefficient = 1.0
+			});
+
+			return result;
 		}
 	}
 }
