@@ -1,0 +1,39 @@
+name: .NET build artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  BuildAndTest:
+    name: "Build and Create IOM"
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        path: main
+
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1
+
+    - name: Nuget restore dependencies
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
+      working-directory: main
+
+    - name: Build
+      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+      working-directory: main
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: IOM-artifact
+        path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        if-no-files-found: error

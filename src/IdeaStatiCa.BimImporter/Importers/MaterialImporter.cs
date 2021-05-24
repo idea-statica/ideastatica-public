@@ -16,7 +16,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			if (material is IIdeaMaterialByName materialByName)
 			{
-				if(material.Name is null)
+				if (material.Name is null)
 				{
 					throw new ConstraintException("Name property must not be null for IIdeaMaterialByName.");
 				}
@@ -24,6 +24,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Material mat = CreateMaterialFromType(materialByName.MaterialType);
 				mat.LoadFromLibrary = true;
 				mat.Name = material.Name;
+
+				return mat;
 			}
 			else if (material is IIdeaMaterialSteel matSteal)
 			{

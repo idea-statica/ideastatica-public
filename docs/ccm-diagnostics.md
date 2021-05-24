@@ -3,14 +3,14 @@
 ![CCM Diagnostics](../Images/ccm-diagnostics.png)
 
 ### Setting of the severity of messages in the log file ###
-The severity level of messages which are written into log file can be configured in the file **_IdeaStatica.Diagnostics.dll.config_** which can be found in the IdeaStatiCa installation folder e.g. _C:\Program Files\IDEA StatiCa\StatiCa 20.1\IdeaStatica.Diagnostics.dll.config_
+The severity level of messages which are written into log file can be configured in the file **_IdeaDiagnostics.config_** which can be found in the IdeaStatiCa temp folder e.g. _C:\Users\YOUR-USER-NAME\AppData\Local\IDEA_RS\IdeaDiagnostics.config_
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-	<appSettings>
-		<add key="Severity" value="default=Debug;" />
-	</appSettings>
+<IdeaDiagnosticsSettings>
+	<DefaultLogLevel loglevel="Debug"/>
+	<!-- <LoggerLogLevel loggername="app.program" loglevel="Debug"/> -->
+	<!-- <DebugView active="false"/> -->
+</IdeaDiagnosticsSettings>
 ```
 
 The default value of Severity is **Information**. If it is changed to **Debug** or **Trace** more details are written to log file.
