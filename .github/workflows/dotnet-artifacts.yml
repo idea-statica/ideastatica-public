@@ -35,4 +35,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nuget-artifact
-        path: ${{ github.workspace }}/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        if-no-files-found: error
