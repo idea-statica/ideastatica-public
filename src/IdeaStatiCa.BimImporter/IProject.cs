@@ -6,8 +6,8 @@ namespace IdeaStatiCa.BimImporter
 {
 	/// <summary>
 	/// Stores and manages mapping between <see cref="IIdeaObject.Id"/> and <see cref="IdeaRS.OpenModel.OpenElementId.Id"/>.
-	/// 
-	/// <see cref="IdMapping"/> must be manually stored and subsequently restored by 
+	///
+	/// <see cref="IdMapping"/> must be manually stored and subsequently restored by
 	/// <see cref="Load(IGeometry, ConversionDictionaryString)"/> method.
 	/// </summary>
 	public interface IProject
@@ -37,6 +37,10 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>IOM id</returns>
 		int GetIomId(IIdeaObject obj);
 
+		/// <summary>
+		/// Loads mapping between ids and restores mapping between for <see cref="IIdeaPersistentObject"/> objects.
+		/// </summary>
+		/// <param name="objectRestorer">Object restorer for creating object from <see cref="IIdeaPersistenceToken"/></param>
 		void Load(IObjectRestorer objectRestorer);
 	}
 }

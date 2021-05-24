@@ -5,9 +5,12 @@ using System;
 
 namespace IdeaStatiCa.BimImporter.Persistence
 {
+	/// <summary>
+	/// A converter for serialization and deserialization of <see cref="IIdeaPersistenceToken"/> objects.
+	/// </summary>
 	internal class PersistenceTokenConverter : JsonConverter
 	{
-		private const string PropertiesName = "$properties";
+		private const string DataName = "$data";
 		private const string TypeName = "$type";
 
 		public override bool CanConvert(Type objectType)
@@ -25,7 +28,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				throw new InvalidOperationException();
 			}
 
-			return obj.GetValue(PropertiesName).ToObject(type);
+			return obj.GetValue(DataName).ToObject(type);
 		}
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -35,7 +38,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			writer.WritePropertyName(TypeName);
 			writer.WriteValue(value.GetType().AssemblyQualifiedName);
 
-			writer.WritePropertyName(PropertiesName);
+			writer.WritePropertyName(DataName);
 			JObject.FromObject(value).WriteTo(writer);
 
 			writer.WriteEndObject();

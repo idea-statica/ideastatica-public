@@ -19,14 +19,15 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IPersistence _persistence;
 
 		/// <summary>
-		/// Constructor.
+		/// Creates an instance of Project.
 		/// </summary>
 		/// <param name="logger">Logger</param>
-		/// <exception cref="ArgumentNullException">Throws if <paramref name="logger"/> is null.</exception>
+		/// <param name="persistence">Instance of IPersistence for storing of id mapping.</param>
+		/// <exception cref="ArgumentNullException">Throws if any argument is null.</exception>
 		public Project(IPluginLogger logger, IPersistence persistence)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-			_persistence = persistence;
+			_persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(string)"/>
@@ -36,6 +37,7 @@ namespace IdeaStatiCa.BimImporter
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(IIdeaObject)"/>
+		/// <remarks>Stores all newly created id mappings. Also stores token of all unseen <see cref="IIdeaPersistentObject"/>.</remarks>
 		/// <exception cref="ArgumentNullException">Throws if <paramref name="obj"/> is null.</exception>
 		public int GetIomId(IIdeaObject obj)
 		{
@@ -74,8 +76,15 @@ namespace IdeaStatiCa.BimImporter
 			return _objectMapping[id];
 		}
 
+		/// <inheritdoc cref="IProject.Load(IObjectRestorer)"/>
+		/// <exception cref="ArgumentNullException">Throws if <paramref name="objectRestorer"/> is null.</exception>
 		public void Load(IObjectRestorer objectRestorer)
 		{
+			if (objectRestorer is null)
+			{
+				throw new ArgumentNullException(nameof(objectRestorer));
+			}
+
 			Dictionary<string, int> idMapping = new Dictionary<string, int>();
 			Dictionary<int, IIdeaObject> objectMapping = new Dictionary<int, IIdeaObject>();
 
