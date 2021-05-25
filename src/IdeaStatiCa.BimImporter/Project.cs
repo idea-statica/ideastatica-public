@@ -14,9 +14,11 @@ namespace IdeaStatiCa.BimImporter
 
 		private Dictionary<string, int> _idMapping = new Dictionary<string, int>();
 		private Dictionary<int, IIdeaObject> _objectMapping = new Dictionary<int, IIdeaObject>();
+		private Dictionary<int, IIdeaPersistenceToken> _persistenceTokens = new Dictionary<int, IIdeaPersistenceToken>();
 
 		private readonly IPluginLogger _logger;
 		private readonly IPersistence _persistence;
+		private readonly IObjectRestorer _objectRestorer;
 
 		/// <summary>
 		/// Creates an instance of Project.
@@ -24,10 +26,13 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="logger">Logger</param>
 		/// <param name="persistence">Instance of IPersistence for storing of id mapping.</param>
 		/// <exception cref="ArgumentNullException">Throws if any argument is null.</exception>
-		public Project(IPluginLogger logger, IPersistence persistence)
+		public Project(IPluginLogger logger, IPersistence persistence, IObjectRestorer objectRestorer)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
+			_objectRestorer = objectRestorer ?? throw new ArgumentNullException(nameof(objectRestorer));
+
+			Load();
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(string)"/>
@@ -73,38 +78,33 @@ namespace IdeaStatiCa.BimImporter
 		/// <inheritdoc cref="IProject.GetBimObject(int)"/>
 		public IIdeaObject GetBimObject(int id)
 		{
-			return _objectMapping[id];
-		}
-
-		/// <inheritdoc cref="IProject.Load(IObjectRestorer)"/>
-		/// <exception cref="ArgumentNullException">Throws if <paramref name="objectRestorer"/> is null.</exception>
-		public void Load(IObjectRestorer objectRestorer)
-		{
-			if (objectRestorer is null)
+			if (_objectMapping.TryGetValue(id, out IIdeaObject obj))
 			{
-				throw new ArgumentNullException(nameof(objectRestorer));
+				return obj;
 			}
 
-			Dictionary<string, int> idMapping = new Dictionary<string, int>();
-			Dictionary<int, IIdeaObject> objectMapping = new Dictionary<int, IIdeaObject>();
+			if (_persistenceTokens.TryGetValue(id, out IIdeaPersistenceToken token))
+			{
+				obj = _objectRestorer.Restore(token);
+				_objectMapping.Add(id, obj);
+				return obj;
+			}
 
-			int maxId = 0;
+			throw new ArgumentException(nameof(id));
+		}
 
+		private void Load()
+		{
 			foreach ((int iomId, string bimApiId) in _persistence.GetMappings())
 			{
-				idMapping.Add(bimApiId, iomId);
-				maxId = Math.Max(maxId, iomId);
+				_idMapping.Add(bimApiId, iomId);
+				_nextId = Math.Max(_nextId, iomId);
 			}
 
 			foreach (IIdeaPersistenceToken token in _persistence.GetTokens())
 			{
-				IIdeaObject obj = objectRestorer.Restore(token);
-				objectMapping.Add(idMapping[obj.Id], obj);
+				_persistenceTokens.Add(_idMapping[token.Id], token);
 			}
-
-			_idMapping = idMapping;
-			_objectMapping = objectMapping;
-			_nextId = maxId;
 		}
 	}
 }

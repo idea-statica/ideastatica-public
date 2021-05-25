@@ -7,6 +7,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	/// </summary>
 	public abstract class AbstractPersistenceToken : IIdeaPersistenceToken
 	{
+		public string Id { get; set; }
+
 		/// <summary>
 		/// Type of the object
 		/// </summary>

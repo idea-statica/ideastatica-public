@@ -6,5 +6,6 @@
 	/// </summary>
 	public interface IIdeaPersistenceToken
 	{
+		string Id { get; }
 	}
 }
