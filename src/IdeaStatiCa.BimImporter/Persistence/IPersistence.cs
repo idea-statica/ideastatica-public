@@ -25,12 +25,12 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// Get all stored tokens.
 		/// </summary>
 		/// <returns>Tokens</returns>
-		IEnumerable<IIdeaPersistenceToken> GetTokens();
+		IEnumerable<(string, IIdeaPersistenceToken)> GetTokens();
 
 		/// <summary>
 		/// Store a token.
 		/// </summary>
-		/// <param name="token"></param>
-		void StoreToken(IIdeaPersistenceToken token);
+		/// <param name="token">Persistence token</param>
+		void StoreToken(string bimApiId, IIdeaPersistenceToken token);
 	}
 }

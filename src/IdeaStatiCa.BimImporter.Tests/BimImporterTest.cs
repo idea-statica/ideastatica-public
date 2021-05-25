@@ -20,7 +20,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 			NullLogger logger = new NullLogger();
 
 			IPersistence persistence = Substitute.For<IPersistence>();
-			return new BimImporter(model, new Project(logger, persistence), importer, new Geometry(logger), logger);
+			IObjectRestorer objectRestorer = Substitute.For<IObjectRestorer>();
+
+			return new BimImporter(model, new Project(logger, persistence, objectRestorer),
+				importer, new Geometry(logger), logger);
 		}
 
 		[Test]

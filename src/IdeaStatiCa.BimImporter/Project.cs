@@ -67,7 +67,7 @@ namespace IdeaStatiCa.BimImporter
 
 			if (obj is IIdeaPersistentObject persistentObject)
 			{
-				_persistence.StoreToken(persistentObject.Token);
+				_persistence.StoreToken(bimApiId, persistentObject.Token);
 			}
 
 			_logger.LogDebug($"Created new id mapping: BimApi id {bimApiId}, IOM id {iomId}");
@@ -90,7 +90,7 @@ namespace IdeaStatiCa.BimImporter
 				return obj;
 			}
 
-			throw new ArgumentException(nameof(id));
+			throw new KeyNotFoundException();
 		}
 
 		private void Load()
@@ -101,9 +101,9 @@ namespace IdeaStatiCa.BimImporter
 				_nextId = Math.Max(_nextId, iomId);
 			}
 
-			foreach (IIdeaPersistenceToken token in _persistence.GetTokens())
+			foreach ((string bimApiId, IIdeaPersistenceToken token) in _persistence.GetTokens())
 			{
-				_persistenceTokens.Add(_idMapping[token.Id], token);
+				_persistenceTokens.Add(_idMapping[bimApiId], token);
 			}
 		}
 	}

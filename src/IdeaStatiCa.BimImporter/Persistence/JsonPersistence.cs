@@ -15,7 +15,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		private class StoredData
 		{
 			public HashSet<(int, string)> Mappings { get; set; }
-			public HashSet<IIdeaPersistenceToken> Tokens { get; set; }
+			public Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; }
 		}
 
 		/// <summary>
@@ -33,7 +33,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <summary>
 		/// Saves stored data in a JSON file.
 		/// </summary>
-		/// <param name="writer">TextWriter to writed stored info into.</param>
+		/// <param name="writer">TextWriter to write stored info into.</param>
 		public void Save(TextWriter writer)
 		{
 			StoredData storedData = new StoredData()

@@ -72,7 +72,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 		public void GetTokens_IfNothingWasAdded_ReturnsEmptyEnumerable()
 		{
 			// Tested method
-			IEnumerable<IIdeaPersistenceToken> result = abstractPersistence.GetTokens();
+			IEnumerable<(string, IIdeaPersistenceToken)> result = abstractPersistence.GetTokens();
 
 			// Assert
 			Assert.That(result, Is.Empty);
@@ -86,18 +86,18 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			TestToken token2 = new TestToken() { TestProperty = "xyz", Type = TokenObjectType.Node };
 			TestToken token3 = new TestToken() { TestProperty = "mno", Type = TokenObjectType.Member };
 
-			abstractPersistence.StoreToken(token2);
-			abstractPersistence.StoreToken(token1);
-			abstractPersistence.StoreToken(token3);
+			abstractPersistence.StoreToken("a", token2);
+			abstractPersistence.StoreToken("b", token1);
+			abstractPersistence.StoreToken("c", token3);
 
 			// Tested method
-			IEnumerable<IIdeaPersistenceToken> result = abstractPersistence.GetTokens();
+			IEnumerable<(string, IIdeaPersistenceToken)> result = abstractPersistence.GetTokens();
 
 			// Assert: check using json because we don't care about equal references but the content of the classes
-			Assert.That(result, Is.EquivalentTo(new List<IIdeaPersistenceToken> {
-				token1,
-				token2,
-				token3
+			Assert.That(result, Is.EquivalentTo(new List<(string, IIdeaPersistenceToken)> {
+				("b", token1),
+				("a", token2),
+				("c", token3)
 			}).Using<IIdeaPersistenceToken, IIdeaPersistenceToken>(JsonComparer));
 		}
 
@@ -106,10 +106,10 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 		{
 			// Setup
 			TestToken token1 = new TestToken() { TestProperty = "abc", Type = TokenObjectType.Member };
-			abstractPersistence.StoreToken(token1);
+			abstractPersistence.StoreToken("a", token1);
 
 			// Assert: expect exception
-			Assert.That(() => abstractPersistence.StoreToken(token1), Throws.InstanceOf<ArgumentException>());
+			Assert.That(() => abstractPersistence.StoreToken("a", token1), Throws.InstanceOf<ArgumentException>());
 		}
 	}
 }

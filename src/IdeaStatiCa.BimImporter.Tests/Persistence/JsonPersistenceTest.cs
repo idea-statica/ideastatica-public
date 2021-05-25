@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimImporter.Persistence;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Persistence;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +33,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			};
 
 			// Store the token
-			jsonPersistence.StoreToken(testToken);
+			jsonPersistence.StoreToken("member-1", testToken);
 			jsonPersistence.StoreMapping(1, "member-1");
 
 			// Serialize data
@@ -44,11 +45,12 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			jsonPersistence.Load(reader);
 
 			// Check the data is valid
-			List<BimApi.IIdeaPersistenceToken> tokens = jsonPersistence.GetTokens().ToList();
+			List<(string, IIdeaPersistenceToken)> tokens = jsonPersistence.GetTokens().ToList();
 			Assert.That(tokens.Count, Is.EqualTo(1));
-			Assert.That(tokens[0], Is.InstanceOf<TestToken>());
-			Assert.That(((TestToken)tokens[0]).TestProperty, Is.EqualTo("123456"));
-			Assert.That(((TestToken)tokens[0]).Type, Is.EqualTo(TokenObjectType.Member));
+			Assert.That(tokens[0].Item1, Is.EqualTo("member-1"));
+			Assert.That(tokens[0].Item2, Is.InstanceOf<TestToken>());
+			Assert.That(((TestToken)tokens[0].Item2).TestProperty, Is.EqualTo("123456"));
+			Assert.That(((TestToken)tokens[0].Item2).Type, Is.EqualTo(TokenObjectType.Member));
 
 			List<(int, string)> mappings = jsonPersistence.GetMappings().ToList();
 			Assert.That(mappings.Count, Is.EqualTo(1));
@@ -66,7 +68,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			};
 
 			// Store the token
-			jsonPersistence.StoreToken(testToken);
+			jsonPersistence.StoreToken("member-1", testToken);
 			jsonPersistence.StoreMapping(1, "member-1");
 
 			// Serialize data
@@ -79,11 +81,12 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			jsonPersistence2.Load(reader);
 
 			// Check the data is valid
-			List<BimApi.IIdeaPersistenceToken> tokens = jsonPersistence2.GetTokens().ToList();
+			List<(string, IIdeaPersistenceToken)> tokens = jsonPersistence2.GetTokens().ToList();
 			Assert.That(tokens.Count, Is.EqualTo(1));
-			Assert.That(tokens[0], Is.InstanceOf<TestToken>());
-			Assert.That(((TestToken)tokens[0]).TestProperty, Is.EqualTo("123456"));
-			Assert.That(((TestToken)tokens[0]).Type, Is.EqualTo(TokenObjectType.Member));
+			Assert.That(tokens[0].Item1, Is.EqualTo("member-1"));
+			Assert.That(tokens[0].Item2, Is.InstanceOf<TestToken>());
+			Assert.That(((TestToken)tokens[0].Item2).TestProperty, Is.EqualTo("123456"));
+			Assert.That(((TestToken)tokens[0].Item2).Type, Is.EqualTo(TokenObjectType.Member));
 
 			List<(int, string)> mappings = jsonPersistence.GetMappings().ToList();
 			Assert.That(mappings.Count, Is.EqualTo(1));

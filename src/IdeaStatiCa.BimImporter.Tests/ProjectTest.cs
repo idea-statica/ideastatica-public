@@ -19,7 +19,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 		{
 			objectRestorer = Substitute.For<IObjectRestorer>();
 			persistence = Substitute.For<IPersistence>();
-			project = new Project(new NullLogger(), persistence);
+			project = new Project(new NullLogger(), persistence, objectRestorer);
 		}
 
 		[Test]
@@ -123,7 +123,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaCrossSection css = Substitute.For<IIdeaCrossSection>();
 			css.Id.Returns("css");
 
-			project.Load(objectRestorer);
+			// Created a new instance to load data
+			project = new Project(new NullLogger(), persistence, objectRestorer);
 
 			// Tested method: get id for object with id 'css'
 			int id = project.GetIomId(css);
@@ -144,7 +145,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObject obj = Substitute.For<IIdeaObject>();
 			obj.Id.Returns("id1");
 
-			project.Load(objectRestorer);
+			// Created a new instance to load data
+			project = new Project(new NullLogger(), persistence, objectRestorer);
 
 			// Tested method: create new mapping for an object
 			int idNew = project.GetIomId(obj);
@@ -162,9 +164,9 @@ namespace IdeaStatiCa.BimImporter.Tests
 			});
 
 			IIdeaPersistenceToken token = Substitute.For<IIdeaPersistenceToken>();
-			persistence.GetTokens().Returns(new List<IIdeaPersistenceToken>()
+			persistence.GetTokens().Returns(new List<(string, IIdeaPersistenceToken)>()
 			{
-				token
+				("member", token)
 			});
 
 			// Prepare a member with id 'member'
@@ -174,8 +176,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Prepare an object restorer for the member
 			objectRestorer.Restore(token).Returns(member);
 
-			// Load data
-			project.Load(objectRestorer);
+			// Created a new instance to load data
+			project = new Project(new NullLogger(), persistence, objectRestorer);
 
 			// Tested method: get object for iom id 1
 			IIdeaObject obj = project.GetBimObject(1);
@@ -193,9 +195,9 @@ namespace IdeaStatiCa.BimImporter.Tests
 			});
 
 			IIdeaPersistenceToken token = Substitute.For<IIdeaPersistenceToken>();
-			persistence.GetTokens().Returns(new List<IIdeaPersistenceToken>()
+			persistence.GetTokens().Returns(new List<(string, IIdeaPersistenceToken)>()
 			{
-				token
+				("member", token)
 			});
 
 			// Prepare a member with id 'member'
@@ -205,8 +207,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Prepare an object restorer for the member
 			objectRestorer.Restore(token).Returns(member);
 
-			// Load data
-			project.Load(objectRestorer);
+			// Created a new instance to load data
+			project = new Project(new NullLogger(), persistence, objectRestorer);
 
 			// Tested method: get id for the member
 			int id = project.GetIomId(member);
