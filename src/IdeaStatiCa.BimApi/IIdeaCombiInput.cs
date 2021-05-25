@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaCombiInput : IIdeaObject
+	public interface IIdeaCombiInput : IIdeaLoading
 	{
 		/// <summary>
 		/// Type of EC combination

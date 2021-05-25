@@ -1,7 +1,7 @@
 ﻿
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaLoadCase : IIdeaObject
+	public interface IIdeaLoadCase : IIdeaLoading
 	{
 		/// <summary>
 		/// Load case type

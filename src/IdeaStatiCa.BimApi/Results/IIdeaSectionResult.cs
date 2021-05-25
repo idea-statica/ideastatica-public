@@ -7,7 +7,7 @@ namespace IdeaStatiCa.BimApi.Results
 		/// <summary>
 		/// Replacement for <see cref="SectionResultBase.Loading"/>
 		/// </summary>
-		IIdeaLoadCase LoadCase { get; }
+		IIdeaLoading Loading { get; }
 
 		SectionResultBase Result { get; }
 	}
