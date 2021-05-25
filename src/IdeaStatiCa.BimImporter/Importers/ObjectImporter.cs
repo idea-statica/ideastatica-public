@@ -14,8 +14,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaElement1D> _elementImporter;
 		private readonly IImporter<IIdeaMember1D> _memberImporter;
 		private readonly IImporter<Connection> _connectionImporter;
-		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
-		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 
 		public ObjectImporter(
 			IImporter<IIdeaNode> nodeImporter,
@@ -24,8 +22,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			IImporter<IIdeaSegment3D> segmentImporter,
 			IImporter<IIdeaElement1D> elementImporter,
 			IImporter<IIdeaMember1D> memberImporter,
-			IImporter<IIdeaLoadCase> loadCaseImporter,
-			IImporter<IIdeaLoadGroup> loadGroupImporter,
 			IImporter<Connection> connectionImporter)
 		{
 			_nodeImporter = nodeImporter;
@@ -34,8 +30,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_segmentImporter = segmentImporter;
 			_elementImporter = elementImporter;
 			_memberImporter = memberImporter;
-			_loadCaseImporter = loadCaseImporter;
-			_loadGroupImporter = loadGroupImporter;
 			_connectionImporter = connectionImporter;
 		}
 
@@ -63,12 +57,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case Connection connection:
 					return _connectionImporter.Import(ctx, connection);
-
-				case IIdeaLoadCase loadCase:
-					return _loadCaseImporter.Import(ctx, loadCase);
-
-				case IIdeaLoadGroup loadGroup:
-					return _loadGroupImporter.Import(ctx, loadGroup);
 			}
 
 			throw new ArgumentException($"Unsupported object type {obj.GetType()}");
