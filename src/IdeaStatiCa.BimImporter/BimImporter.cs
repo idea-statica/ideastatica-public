@@ -49,6 +49,8 @@ namespace IdeaStatiCa.BimImporter
 			SegmentImporter segmentImporter = new SegmentImporter(logger);
 			ElementImporter elementImporter = new ElementImporter(logger);
 			MemberImporter memberImporter = new MemberImporter(logger);
+			LoadCaseImporter loadCaseImporter = new LoadCaseImporter(logger);
+			LoadGroupImporter loadGroupImporter = new LoadGroupImporter(logger);
 			ConnectionImporter connectionImporter = new ConnectionImporter(logger);
 
 			return new BimImporter(ideaModel, project, new ObjectImporter(
@@ -58,6 +60,8 @@ namespace IdeaStatiCa.BimImporter
 				segmentImporter,
 				elementImporter,
 				memberImporter,
+				loadCaseImporter,
+				loadGroupImporter,
 				connectionImporter),
 				geometry,
 				logger,
@@ -97,7 +101,13 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			importContext.OpenModel.OriginSettings = _ideaModel.GetOriginSettings();
-
+			ISet<IIdeaLoadCase> lcs = _ideaModel.ImportLoadCases();
+			foreach (var lc in lcs)
+			{
+				ReferenceElement refConnection = importContext.Import(lc);
+			}
+			//_ideaModel.ImportLoadCases();
+			//_ideaModel.ImportResults();
 			return new ModelBIM()
 			{
 				Items = bimItems,
