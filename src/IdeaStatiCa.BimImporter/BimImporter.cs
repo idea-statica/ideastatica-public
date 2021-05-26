@@ -43,26 +43,9 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IGeometry geometry, IPluginLogger logger)
 		{
-			NodeImporter nodeImporter = new NodeImporter(logger);
-			MaterialImporter materialImporter = new MaterialImporter(logger);
-			CrossSectionImporter crossSectionImporter = new CrossSectionImporter(logger);
-			SegmentImporter segmentImporter = new SegmentImporter(logger);
-			ElementImporter elementImporter = new ElementImporter(logger);
-			MemberImporter memberImporter = new MemberImporter(logger);
-			LoadCaseImporter loadCaseImporter = new LoadCaseImporter(logger);
-			LoadGroupImporter loadGroupImporter = new LoadGroupImporter(logger);
-			ConnectionImporter connectionImporter = new ConnectionImporter(logger);
-
-			return new BimImporter(ideaModel, project, new ObjectImporter(
-				nodeImporter,
-				materialImporter,
-				crossSectionImporter,
-				segmentImporter,
-				elementImporter,
-				memberImporter,
-				loadCaseImporter,
-				loadGroupImporter,
-				connectionImporter),
+			return new BimImporter(ideaModel,
+				project,
+				new ObjectImporter(logger),
 				geometry,
 				logger,
 				new ResultImporter(logger));
