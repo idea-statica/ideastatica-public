@@ -3,7 +3,6 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.Plugin;
-using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,47 +63,50 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result)
 		{
-			return new ResultOnMember
+			ResultOnMember resultOnMember = new ResultOnMember
 			{
 				LocalSystemType = result.CoordinateSystemType,
 				ResultType = result.Type,
-				Results = result.Sections.Select(x => ImportMemberSection(ctx, x)).ToList()
+				Results = new List<ResultBase>()
 			};
+
+			HashSet<double> importedPositions = new HashSet<double>();
+
+			foreach (IIdeaSection section in result.Sections)
+			{
+				double position = section.Position;
+
+				if (position < 0.0 || position > 1.0)
+				{
+					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
+				}
+
+				if (!importedPositions.Add(section.Position))
+				{
+					throw new ConstraintException($"Result section on the position '{position}' already exists.");
+				}
+
+				ResultOnSection resultOnSection = new ResultOnSection()
+				{
+					AbsoluteRelative = AbsoluteRelative.Absolute,
+					Position = section.Position,
+					Results = section.Results.Select(x => ImportSectionResult(ctx, x)).ToList()
+				};
+
+				resultOnMember.Results.Add(resultOnSection);
+			}
+
+			return resultOnMember;
 		}
 
-		private ResultBase ImportMemberSection(IImportContext ctx, IIdeaSection memberSection)
-		{
-			double position = memberSection.Position;
-
-			if (position.AlmostEqual(1.0, Constants.Precision))
-			{
-				position = 1.0;
-			}
-			else if (position.AlmostEqual(0.0, Constants.Precision))
-			{
-				position = 0.0;
-			}
-
-			if (position < 0.0 || position > 1.0)
-			{
-				throw new ConstraintException("IIdeaSection.Position must be in a open interval (0;1).");
-			}
-
-			return new ResultOnSection()
-			{
-				AbsoluteRelative = memberSection.AbsoluteOrRelative ? AbsoluteRelative.Absolute : AbsoluteRelative.Relative,
-				Position = memberSection.Position,
-				Results = memberSection.Results.Select(x => ProcessSectionResult(ctx, x)).ToList()
-			};
-		}
-
-		private SectionResultBase ProcessSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
+		private SectionResultBase ImportSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
 		{
 			IIdeaLoading loading = sectionResult.Loading;
 
 			if (!(loading is IIdeaLoadCase || loading is IIdeaCombiInput))
 			{
-				throw new ConstraintException($"IIdeaSectionResult.Loading must be instance of {nameof(IIdeaLoadCase)}");
+				throw new ConstraintException($"{nameof(IIdeaSectionResult.Loading)} property of {nameof(IIdeaSectionResult)} " +
+					$"must be instance of {nameof(IIdeaLoadCase)}");
 			}
 
 			SectionResultBase result = sectionResult.Result;

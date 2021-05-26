@@ -9,6 +9,6 @@ namespace IdeaStatiCa.BimApi.Results
 
 		ResultLocalSystemType CoordinateSystemType { get; }
 
-		List<IIdeaSection> Sections { get; }
+		IEnumerable<IIdeaSection> Sections { get; }
 	}
 }
