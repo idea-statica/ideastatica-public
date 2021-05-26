@@ -65,8 +65,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
+				ResultType = ResultType.InternalForces,
 				LocalSystemType = result.CoordinateSystemType,
-				ResultType = result.Type,
 				Results = new List<ResultBase>()
 			};
 
@@ -109,7 +109,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					$"must be instance of {nameof(IIdeaLoadCase)}");
 			}
 
-			SectionResultBase result = sectionResult.Result;
+			SectionResultBase result = ConvertResultData(sectionResult.Data);
 
 			result.Loading = new ResultOfLoading()
 			{
@@ -123,6 +123,24 @@ namespace IdeaStatiCa.BimImporter.Importers
 			});
 
 			return result;
+		}
+
+		private SectionResultBase ConvertResultData(IIdeaResultData resultData)
+		{
+			if (!(resultData is InternalForcesData internalForcesData))
+			{
+				throw new ConstraintException("Currently only results for internal forces are supported.");
+			}
+
+			return new ResultOfInternalForces()
+			{
+				N = internalForcesData.N,
+				Qy = internalForcesData.Qy,
+				Qz = internalForcesData.Qz,
+				Mx = internalForcesData.Mx,
+				My = internalForcesData.My,
+				Mz = internalForcesData.Mz
+			};
 		}
 	}
 }
