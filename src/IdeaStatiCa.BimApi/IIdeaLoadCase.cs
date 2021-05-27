@@ -21,7 +21,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Load group
 		/// </summary>
-		IIdeaLoadGroup LoadGroup { get;  }
+		IIdeaLoadGroup LoadGroup { get; set; }
 
 		/// <summary>
 		/// Additional info

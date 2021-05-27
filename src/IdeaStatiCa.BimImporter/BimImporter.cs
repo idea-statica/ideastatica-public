@@ -51,6 +51,7 @@ namespace IdeaStatiCa.BimImporter
 			MemberImporter memberImporter = new MemberImporter(logger);
 			LoadCaseImporter loadCaseImporter = new LoadCaseImporter(logger);
 			LoadGroupImporter loadGroupImporter = new LoadGroupImporter(logger);
+			CombiInputImporter combiInputImporter = new CombiInputImporter(logger);
 			ConnectionImporter connectionImporter = new ConnectionImporter(logger);
 
 			return new BimImporter(ideaModel, project, new ObjectImporter(
@@ -62,6 +63,7 @@ namespace IdeaStatiCa.BimImporter
 				memberImporter,
 				loadCaseImporter,
 				loadGroupImporter,
+				combiInputImporter,
 				connectionImporter),
 				geometry,
 				logger,
@@ -105,6 +107,11 @@ namespace IdeaStatiCa.BimImporter
 			foreach (var lc in lcs)
 			{
 				ReferenceElement refConnection = importContext.Import(lc);
+			}
+			ISet<IIdeaCombiInput> com = _ideaModel.ImportCombiInput();
+			foreach (var cm in com)
+			{
+				ReferenceElement refConnection = importContext.Import(cm);
 			}
 			//_ideaModel.ImportLoadCases();
 			//_ideaModel.ImportResults();
