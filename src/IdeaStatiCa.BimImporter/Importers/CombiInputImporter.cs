@@ -17,7 +17,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			CombiInputEC combi = new CombiInputEC()
 			{
-
+				Name = com.Name,
+				TypeCalculationCombi = com.TypeCalculationCombi,
+				TypeCombiEC = com.TypeCombiEC
 			};
 
 			foreach (var item in com.CombiItems)

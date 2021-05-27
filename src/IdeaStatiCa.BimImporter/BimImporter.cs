@@ -43,6 +43,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IGeometry geometry, IPluginLogger logger)
 		{
+
 			return new BimImporter(ideaModel,
 				project,
 				new ObjectImporter(logger),
@@ -88,6 +89,11 @@ namespace IdeaStatiCa.BimImporter
 			foreach (var lc in lcs)
 			{
 				ReferenceElement refConnection = importContext.Import(lc);
+			}
+			ISet<IIdeaCombiInput> com = _ideaModel.ImportCombiInput();
+			foreach (var cm in com)
+			{
+				ReferenceElement refConnection = importContext.Import(cm);
 			}
 			//_ideaModel.ImportLoadCases();
 			//_ideaModel.ImportResults();

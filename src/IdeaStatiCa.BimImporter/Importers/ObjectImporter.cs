@@ -17,7 +17,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<Connection> _connectionImporter;
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
-
+		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
 		public ObjectImporter(IPluginLogger logger)
 		{
 			_nodeImporter = new NodeImporter(logger);
@@ -28,6 +28,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_memberImporter = new MemberImporter(logger);
 			_loadCaseImporter = new LoadCaseImporter(logger);
 			_loadGroupImporter = new LoadGroupImporter(logger);
+			_combiInputImporter = new CombiInputImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
 		}
 
@@ -61,6 +62,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaLoadGroup loadGroup:
 					return _loadGroupImporter.Import(ctx, loadGroup);
+				case IIdeaCombiInput combiInput:
+					return _combiInputImporter.Import(ctx, combiInput);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
