@@ -47,10 +47,10 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		}
 
 		[Test]
-		public void Import_IfObjArgumentIsNotMemberOrElement_ThrowsArgumentException()
+		public void Import_IfObjArgumentIsNotMemberOrElement_ThrowsConstraintException()
 		{
 			Assert.That(() => resultImporter.Import(ctx, new ReferenceElement(), Substitute.For<IIdeaObjectWithResults>()),
-				Throws.InstanceOf<ArgumentException>());
+				Throws.InstanceOf<ConstraintException>());
 		}
 
 		[Test]
@@ -77,14 +77,12 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			List<IIdeaResult> results = new List<IIdeaResult>() { result };
 			member.GetResults().Returns(results);
 
-			result.Type.Returns(ResultType.InternalForces);
 			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
 
 			IIdeaSection section = Substitute.For<IIdeaSection>();
 			List<IIdeaSection> sections = new List<IIdeaSection>() { section };
 			result.Sections.Returns(sections);
 
-			section.AbsoluteOrRelative.Returns(true);
 			section.Position.Returns(0.5);
 
 			IIdeaLoadCase loadCase = Substitute.For<IIdeaLoadCase>();
@@ -94,9 +92,9 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			IIdeaSectionResult sectionResult = Substitute.For<IIdeaSectionResult>();
 			List<IIdeaSectionResult> sectionResults = new List<IIdeaSectionResult>() { sectionResult };
 			section.Results.Returns(sectionResults);
-			sectionResult.LoadCase.Returns(loadCase);
+			sectionResult.Loading.Returns(loadCase);
 
-			ResultOfInternalForces internalForces = new ResultOfInternalForces
+			InternalForcesData internalForces = new InternalForcesData
 			{
 				Mx = 1,
 				My = 2,
@@ -105,7 +103,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 				Qy = 5,
 				Qz = 6
 			};
-			sectionResult.Result.Returns(internalForces);
+			sectionResult.Data.Returns(internalForces);
 
 			ReferenceElement referenceElement = new ReferenceElement()
 			{
@@ -140,6 +138,146 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			Assert.That(resultOfLoading.Id, Is.EqualTo(2));
 			Assert.That(resultOfLoading.Items.Count, Is.EqualTo(1));
 			Assert.That(resultOfLoading.Items[0].Coefficient, Is.EqualTo(1.0));
+		}
+
+		[Test]
+		public void Import_IfSectionPositionIsGreaterThanOne_ThrowsConstraintException()
+		{
+			// Setup: result with position 2
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			IIdeaSection section = Substitute.For<IIdeaSection>();
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section };
+			result.Sections.Returns(sections);
+
+			section.Position.Returns(2);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			// Tested method
+			Assert.That(() => resultImporter.Import(ctx, referenceElement, member).ToList(), Throws.InstanceOf<ConstraintException>());
+		}
+
+		[Test]
+		public void Import_IfSectionPositionIsLessThanZero_ThrowsConstraintException()
+		{
+			// Setup: result with position 2
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			IIdeaSection section = Substitute.For<IIdeaSection>();
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section };
+			result.Sections.Returns(sections);
+
+			section.Position.Returns(-0.2);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			// Tested method
+			Assert.That(() => resultImporter.Import(ctx, referenceElement, member).ToList(), Throws.InstanceOf<ConstraintException>());
+		}
+
+		[Test]
+		public void Import_IfTwoSectionHaveTheSamePosition_ThrowsConstraintException()
+		{
+			// Setup
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			IIdeaSection section = Substitute.For<IIdeaSection>();
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section, section };
+			result.Sections.Returns(sections);
+
+			section.Position.Returns(0.5);
+
+			IIdeaLoadCase loadCase = Substitute.For<IIdeaLoadCase>();
+			ReferenceElement loadCaseRef = new ReferenceElement() { Id = 2 };
+			ctx.Import(loadCase).Returns(loadCaseRef);
+
+			IIdeaSectionResult sectionResult = Substitute.For<IIdeaSectionResult>();
+			List<IIdeaSectionResult> sectionResults = new List<IIdeaSectionResult>() { sectionResult };
+			section.Results.Returns(sectionResults);
+			sectionResult.Loading.Returns(loadCase);
+
+			InternalForcesData internalForces = new InternalForcesData
+			{
+				Mx = 1,
+				My = 2,
+				Mz = 3,
+				N = 4,
+				Qy = 5,
+				Qz = 6
+			};
+			sectionResult.Data.Returns(internalForces);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			// Tested method
+			Assert.That(() => resultImporter.Import(ctx, referenceElement, member).ToList(), Throws.InstanceOf<ConstraintException>());
+		}
+
+		[Test]
+		public void Import_IfResultDataIsNotInstanceOfIdeaInternalForces_ThrowConstrainException()
+		{
+			// Setup
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			IIdeaSection section = Substitute.For<IIdeaSection>();
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section };
+			result.Sections.Returns(sections);
+
+			section.Position.Returns(0.5);
+
+			IIdeaLoadCase loadCase = Substitute.For<IIdeaLoadCase>();
+			ReferenceElement loadCaseRef = new ReferenceElement() { Id = 2 };
+			ctx.Import(loadCase).Returns(loadCaseRef);
+
+			IIdeaSectionResult sectionResult = Substitute.For<IIdeaSectionResult>();
+			List<IIdeaSectionResult> sectionResults = new List<IIdeaSectionResult>() { sectionResult };
+			section.Results.Returns(sectionResults);
+			sectionResult.Loading.Returns(loadCase);
+
+			IIdeaResultData resultData = Substitute.For<IIdeaResultData>();
+			sectionResult.Data.Returns(resultData);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			// Tested method
+			Assert.That(() => resultImporter.Import(ctx, referenceElement, member).ToList(), Throws.InstanceOf<ConstraintException>());
 		}
 	}
 }

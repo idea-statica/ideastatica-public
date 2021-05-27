@@ -1,14 +1,18 @@
-﻿using IdeaRS.OpenModel.Result;
-
-namespace IdeaStatiCa.BimApi.Results
+﻿namespace IdeaStatiCa.BimApi.Results
 {
+	/// <summary>
+	/// Describes a result in a section.
+	/// </summary>
 	public interface IIdeaSectionResult
 	{
 		/// <summary>
-		/// Replacement for <see cref="SectionResultBase.Loading"/>
+		/// Loading source of the result.
 		/// </summary>
 		IIdeaLoading Loading { get; }
 
-		SectionResultBase Result { get; }
+		/// <summary>
+		/// Data for the result.
+		/// </summary>
+		IIdeaResultData Data { get; }
 	}
 }
