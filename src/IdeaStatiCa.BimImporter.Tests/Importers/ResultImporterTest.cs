@@ -279,5 +279,55 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			// Tested method
 			Assert.That(() => resultImporter.Import(ctx, referenceElement, member).ToList(), Throws.InstanceOf<ConstraintException>());
 		}
+
+		[Test]
+		public void Import_SectionPositionNormalizationOfZeroAndOne()
+		{
+			// Setup
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			IIdeaSection section1 = Substitute.For<IIdeaSection>();
+			section1.Position.Returns(0.0 - 1e-7);
+
+			IIdeaSection section2 = Substitute.For<IIdeaSection>();
+			section2.Position.Returns(1.0 + 1e-7);
+
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section1, section2 };
+			result.Sections.Returns(sections);
+
+			IIdeaLoadCase loadCase = Substitute.For<IIdeaLoadCase>();
+			ReferenceElement loadCaseRef = new ReferenceElement() { Id = 2 };
+			ctx.Import(loadCase).Returns(loadCaseRef);
+
+			IIdeaSectionResult sectionResult = Substitute.For<IIdeaSectionResult>();
+			List<IIdeaSectionResult> sectionResults = new List<IIdeaSectionResult>() { sectionResult };
+			sectionResult.Loading.Returns(loadCase);
+
+			section1.Results.Returns(sectionResults);
+			section2.Results.Returns(sectionResults);
+
+			IIdeaResultData resultData = new InternalForcesData();
+			sectionResult.Data.Returns(resultData);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			// Tested method
+			ResultOnMember resultOnMember = resultImporter.Import(ctx, referenceElement, member).ToList()[0];
+
+			// Assert
+			List<ResultOnSection> resultOnSections = resultOnMember.Results.Cast<ResultOnSection>().ToList();
+			Assert.That(resultOnSections[0].Position, Is.EqualTo(0.0).Within(double.Epsilon));
+			Assert.That(resultOnSections[1].Position, Is.EqualTo(1.0).Within(double.Epsilon));
+
+		}
 	}
 }
