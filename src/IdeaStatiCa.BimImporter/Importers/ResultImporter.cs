@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.Plugin;
+using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,17 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				double position = section.Position;
 
+				if (position.AlmostEqual(1.0, Constants.Precision))
+				{
+					_logger.LogDebug($"Normalizing section position from '{position}' to 1.0");
+					position = 1.0;
+				}
+				else if (position.AlmostEqual(0.0, Constants.Precision))
+				{
+					_logger.LogDebug($"Normalizing section position from '{position}' to 0.0");
+					position = 0.0;
+				}
+
 				if (position < 0.0 || position > 1.0)
 				{
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
@@ -89,7 +101,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				ResultOnSection resultOnSection = new ResultOnSection()
 				{
 					AbsoluteRelative = AbsoluteRelative.Absolute,
-					Position = section.Position,
+					Position = position,
 					Results = section.Results.Select(x => ImportSectionResult(ctx, x)).ToList()
 				};
 
