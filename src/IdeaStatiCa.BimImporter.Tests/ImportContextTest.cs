@@ -23,10 +23,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
-			ImportContext ctx = new ImportContext(importer, project, new NullLogger());
+			ImportContext ctx = new ImportContext(importer, null, project, new NullLogger());
 
 			ReferenceElement refElm = ctx.Import(bimObject);
-			
+
 			Assert.That(ctx.OpenModel.Member1D.Contains(iomObject), Is.True);
 			project.Received().GetIomId(bimObject);
 		}
@@ -43,7 +43,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
-			ImportContext ctx = new ImportContext(importer, project, new NullLogger());
+			ImportContext ctx = new ImportContext(importer, null, project, new NullLogger());
 
 			ReferenceElement refElm1 = ctx.Import(bimObject);
 			ReferenceElement refElm2 = ctx.Import(bimObject);
