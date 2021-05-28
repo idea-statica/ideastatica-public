@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.ImportedObjects;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
@@ -14,23 +15,21 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaElement1D> _elementImporter;
 		private readonly IImporter<IIdeaMember1D> _memberImporter;
 		private readonly IImporter<Connection> _connectionImporter;
-
-		public ObjectImporter(
-			IImporter<IIdeaNode> nodeImporter,
-			IImporter<IIdeaMaterial> materialImporter,
-			IImporter<IIdeaCrossSection> crossSectionImporter,
-			IImporter<IIdeaSegment3D> segmentImporter,
-			IImporter<IIdeaElement1D> elementImporter,
-			IImporter<IIdeaMember1D> memberImporter,
-			IImporter<Connection> connectionImporter)
+		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
+		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
+		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
+		public ObjectImporter(IPluginLogger logger)
 		{
-			_nodeImporter = nodeImporter;
-			_materialImporter = materialImporter;
-			_crossSectionImporter = crossSectionImporter;
-			_segmentImporter = segmentImporter;
-			_elementImporter = elementImporter;
-			_memberImporter = memberImporter;
-			_connectionImporter = connectionImporter;
+			_nodeImporter = new NodeImporter(logger);
+			_materialImporter = new MaterialImporter(logger);
+			_crossSectionImporter = new CrossSectionImporter(logger);
+			_segmentImporter = new SegmentImporter(logger);
+			_elementImporter = new ElementImporter(logger);
+			_memberImporter = new MemberImporter(logger);
+			_loadCaseImporter = new LoadCaseImporter(logger);
+			_loadGroupImporter = new LoadGroupImporter(logger);
+			_combiInputImporter = new CombiInputImporter(logger);
+			_connectionImporter = new ConnectionImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -57,9 +56,17 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case Connection connection:
 					return _connectionImporter.Import(ctx, connection);
+
+				case IIdeaLoadCase loadCase:
+					return _loadCaseImporter.Import(ctx, loadCase);
+
+				case IIdeaLoadGroup loadGroup:
+					return _loadGroupImporter.Import(ctx, loadGroup);
+				case IIdeaCombiInput combiInput:
+					return _combiInputImporter.Import(ctx, combiInput);
 			}
 
-			throw new ArgumentException($"Unsupported object type {obj.GetType()}");
+			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
 		}
 	}
 }
