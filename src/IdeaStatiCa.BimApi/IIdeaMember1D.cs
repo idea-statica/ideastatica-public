@@ -10,7 +10,7 @@ namespace IdeaStatiCa.BimApi
 	/// <para>
 	/// Members consist from one or more elements, each defining cros-section and materials.</para>
 	/// </summary>
-	public interface IIdeaMember1D : IIdeaPersistentObject
+	public interface IIdeaMember1D : IIdeaPersistentObject, IIdeaObjectWithResults
 	{
 		/// <summary>
 		/// Type of member: beam, column, truss, rib or beamslab.

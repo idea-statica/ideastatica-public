@@ -23,7 +23,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IObjectRestorer objectRestorer = Substitute.For<IObjectRestorer>();
 
 			return new BimImporter(model, new Project(logger, persistence, objectRestorer),
-				importer, new Geometry(logger), logger);
+				importer, new Geometry(logger), logger, new ResultImporter(logger));
 		}
 
 		[Test]

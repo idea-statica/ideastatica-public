@@ -17,6 +17,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IProject _project;
 		private readonly IGeometry _geometry;
+		private readonly IResultImporter _resultImporter;
 
 		/// <summary>
 		/// Creates instance of <see cref="BimImporter"/> with default <see cref="IGeometry"/> implementation.
@@ -42,34 +43,24 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IGeometry geometry, IPluginLogger logger)
 		{
-			NodeImporter nodeImporter = new NodeImporter(logger);
-			MaterialImporter materialImporter = new MaterialImporter(logger);
-			CrossSectionImporter crossSectionImporter = new CrossSectionImporter(logger);
-			SegmentImporter segmentImporter = new SegmentImporter(logger);
-			ElementImporter elementImporter = new ElementImporter(logger);
-			MemberImporter memberImporter = new MemberImporter(logger);
-			ConnectionImporter connectionImporter = new ConnectionImporter(logger);
 
-			return new BimImporter(ideaModel, project, new ObjectImporter(
-				nodeImporter,
-				materialImporter,
-				crossSectionImporter,
-				segmentImporter,
-				elementImporter,
-				memberImporter,
-				connectionImporter),
+			return new BimImporter(ideaModel,
+				project,
+				new ObjectImporter(logger),
 				geometry,
-				logger);
+				logger,
+				new ResultImporter(logger));
 		}
 
 		internal BimImporter(IIdeaModel ideaModel, IProject project, IImporter<IIdeaObject> importer, IGeometry geometry
-			, IPluginLogger logger)
+			, IPluginLogger logger, IResultImporter resultImporter)
 		{
 			_ideaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_importer = importer ?? throw new ArgumentNullException(nameof(importer));
 			_geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			_resultImporter = resultImporter ?? throw new ArgumentNullException(nameof(logger));
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportConnections"/>
@@ -80,7 +71,7 @@ namespace IdeaStatiCa.BimImporter
 
 			selectedMembers.UnionWith(selectedNodes.SelectMany(x => _geometry.GetConnectedMembers(x)));
 
-			ImportContext importContext = new ImportContext(_importer, _project, _logger);
+			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
 			List<BIMItemId> bimItems = new List<BIMItemId>();
 
 			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers))
@@ -94,14 +85,25 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			importContext.OpenModel.OriginSettings = _ideaModel.GetOriginSettings();
-
+			ISet<IIdeaLoadCase> lcs = _ideaModel.ImportLoadCases();
+			foreach (var lc in lcs)
+			{
+				ReferenceElement refConnection = importContext.Import(lc);
+			}
+			ISet<IIdeaCombiInput> com = _ideaModel.ImportCombiInput();
+			foreach (var cm in com)
+			{
+				ReferenceElement refConnection = importContext.Import(cm);
+			}
+			//_ideaModel.ImportLoadCases();
+			//_ideaModel.ImportResults();
 			return new ModelBIM()
 			{
 				Items = bimItems,
 				Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
 				Model = importContext.OpenModel,
 				Project = "",
-				Results = new IdeaRS.OpenModel.Result.OpenModelResult()
+				Results = importContext.OpenModelResult
 			};
 		}
 
@@ -111,7 +113,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 
-			ImportContext importContext = new ImportContext(_importer, _project, _logger);
+			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
 			List<BIMItemId> bimItems = new List<BIMItemId>();
 
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
@@ -138,7 +140,7 @@ namespace IdeaStatiCa.BimImporter
 				Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
 				Model = importContext.OpenModel,
 				Project = "",
-				Results = new IdeaRS.OpenModel.Result.OpenModelResult()
+				Results = importContext.OpenModelResult
 			};
 		}
 
@@ -149,7 +151,7 @@ namespace IdeaStatiCa.BimImporter
 
 		private ModelBIM ImportGroup(BIMItemsGroup group)
 		{
-			ImportContext importContext = new ImportContext(_importer, _project, _logger);
+			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
 
 			foreach (BIMItemId item in group.Items)
 			{
@@ -162,7 +164,7 @@ namespace IdeaStatiCa.BimImporter
 				Messages = new IdeaRS.OpenModel.Message.OpenMessages(),
 				Model = importContext.OpenModel,
 				Project = "",
-				Results = new IdeaRS.OpenModel.Result.OpenModelResult()
+				Results = importContext.OpenModelResult
 			};
 		}
 

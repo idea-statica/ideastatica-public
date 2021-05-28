@@ -26,5 +26,17 @@ namespace IdeaStatiCa.BimApi
         /// </summary>
         /// <returns>Project infomation</returns>
         OriginSettings GetOriginSettings();
-    }
+
+		/// <summary>
+		/// Returns a set of all load cases in the model.
+		/// </summary>
+		/// <returns>Set of all load case in the model.</returns>
+		ISet<IIdeaLoadCase> ImportLoadCases();
+
+		/// <summary>
+		/// Returns a set of all Combination in the model.
+		/// </summary>
+		/// <returns></returns>
+		ISet<IIdeaCombiInput> ImportCombiInput();
+	}
 }
