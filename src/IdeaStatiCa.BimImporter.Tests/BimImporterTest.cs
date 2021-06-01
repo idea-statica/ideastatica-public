@@ -2,6 +2,7 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.ImportedObjects;
 using IdeaStatiCa.BimImporter.Importers;
+using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.BimImporter.Tests.Helpers;
 using IdeaStatiCa.Plugin;
 using NSubstitute;
@@ -17,7 +18,12 @@ namespace IdeaStatiCa.BimImporter.Tests
 		private static BimImporter CreateBimImporter(IIdeaModel model, IImporter<IIdeaObject> importer)
 		{
 			NullLogger logger = new NullLogger();
-			return new BimImporter(model, new Project(logger), importer, new Geometry(logger), logger, new ResultImporter(logger));
+
+			IPersistence persistence = Substitute.For<IPersistence>();
+			IObjectRestorer objectRestorer = Substitute.For<IObjectRestorer>();
+
+			return new BimImporter(model, new Project(logger, persistence, objectRestorer),
+				importer, new Geometry(logger), logger, new ResultImporter(logger));
 		}
 
 		[Test]

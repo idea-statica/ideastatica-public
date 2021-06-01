@@ -31,9 +31,16 @@ jobs:
       run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
       working-directory: main
 
-    - name: 'Upload Artifact'
+    - name: 'Upload ConnectionHiddenCalculation'
       uses: actions/upload-artifact@v2
       with:
-        name: IOM-artifact
+        name: ConnectionHiddenCalculation
         path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        if-no-files-found: error
+
+    - name: 'Upload FEAppExample'
+      uses: actions/upload-artifact@v2
+      with:
+        name: FEAppExample
+        path: ${{ github.workspace }}/main/src/Examples/CCM/FEAppExample_1/bin/Release
         if-no-files-found: error
