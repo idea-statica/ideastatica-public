@@ -5,12 +5,12 @@
 		/// <summary>
 		/// Relation
 		/// </summary>
-		IdeaRS.OpenModel.Loading.Relation Relation { get; }
+		IdeaRS.OpenModel.Loading.Relation Relation { get; set; }
 
 		/// <summary>
 		/// Group type
 		/// </summary>
-		IdeaRS.OpenModel.Loading.LoadGroupType GroupType { get; }
+		IdeaRS.OpenModel.Loading.LoadGroupType GroupType { get; set; }
 
 		/// <summary>
 		/// γ <sub>Q</sub>
