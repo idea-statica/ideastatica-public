@@ -2,7 +2,6 @@
 using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,7 +31,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 			else
 			{
-				throw new NotImplementedException("Cross-section must be instance of IIdeaCrossSectionByParameters, " +
+				throw new ConstraintException("Cross-section must be instance of IIdeaCrossSectionByParameters, " +
 					"IIdeaCrossSectionByCenterLine, or IIdeaCrossSectionByComponents");
 			}
 
@@ -44,6 +43,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private CrossSection CreateCssParametric(IImportContext ctx, IIdeaCrossSectionByParameters cssParametric)
 		{
+			if (cssParametric.Type == CrossSectionType.OneComponentCss)
+			{
+				throw new ConstraintException($"Cross-section type cannot be {nameof(CrossSectionType.OneComponentCss)}, " +
+					$"use {nameof(IIdeaCrossSectionByComponents)}.");
+			}
+
 			return new CrossSectionParameter()
 			{
 				CrossSectionType = cssParametric.Type,
