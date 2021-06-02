@@ -94,6 +94,7 @@ namespace ConnectionHiddenCalculation
 			GetAllConnectionDataCmd = new GetAllConnDataCommand(this);
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
 			OpenTempProjectCmd = new CustomCommand(CanRunIdeaConnection, RunIdeaConnection);
+			DeleteOperationsCmd = new DeleteAllOperationsCommand(this);
 
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
 
@@ -127,6 +128,7 @@ namespace ConnectionHiddenCalculation
 		public ICommand GetLoadingCmd { get; set; }
 		public ICommand GetConnCheckResultsCmd { get; set; }
 		public ICommand OpenTempProjectCmd { get; set; }
+		public ICommand DeleteOperationsCmd { get; set; }
 
 		#endregion
 
@@ -240,10 +242,7 @@ namespace ConnectionHiddenCalculation
 			Results = string.Empty;
 			Connections.Clear();
 
-			if(connectionController != null)
-			{
-				connectionController.ConnectionAppAutomation.CloseProject();
-			}
+			connectionController?.ConnectionAppAutomation?.CloseProject();
 
 			DeleteTempProjectFile();
 		}
