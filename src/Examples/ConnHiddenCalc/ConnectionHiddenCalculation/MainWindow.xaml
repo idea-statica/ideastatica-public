@@ -74,6 +74,7 @@
 					</Button.CommandParameter>
 					Apply Simple Template
 				</Button>
+				<Button  Command="{Binding DeleteOperationsCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Delete all manufacturing operations in the connection">Delete operations</Button>
 				<Button Command="{Binding GetParametersCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get parameters which are defined for the connection">Parameters</Button>
 				<Button Command="{Binding GetLoadingCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get loading in the connection">Loading</Button>
 				<Button Command="{Binding GetConnCheckResultsCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get detailed results of the chech of connection.">Results</Button>

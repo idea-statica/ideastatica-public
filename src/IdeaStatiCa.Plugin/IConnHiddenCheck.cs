@@ -197,5 +197,13 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>Json which represents </returns>
 		[OperationContract]
 		string GetCheckResultsJSON(string connectionId);
+
+		/// <summary>
+		/// Delete all manufacturing operations in <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">Id of the connection</param>
+		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
+		[OperationContract]
+		string DeleteAllOperations(string connectionId);
 	}
 }

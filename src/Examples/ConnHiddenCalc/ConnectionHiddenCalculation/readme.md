@@ -16,6 +16,7 @@ In the project [IdeaStatiCa.ConnectionClient](https://github.com/idea-statica/io
 * [Get geometry of a connection](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionGeometryCommand.cs)
 * [Create template from a connection](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionToTemplateCommand.cs)
 * [Apply template](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplyTemplateCommand.cs)
+* [Delete all operations from the connection](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/DeleteAllOperationsCommand.cs)
 
 There are new methods for getting information about materials, cross-sections and bolt assemblies in idea connection project in [IConnHiddenCheck](https://github.com/idea-statica/ideastatica-plugin/blob/master/IdeaStatiCa.Plugin/IConnHiddenCheck.cs) since version **IDEA StatiCa v20.0.81**. It is also possible to add new bolt assemblies into a connection project - see method :
 
