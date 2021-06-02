@@ -35,6 +35,32 @@
 			//return ret;
 		}
 
+		//TODO DUS Missing xml params
+		/// <summary>
+		/// I shape base - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">Total height</param>
+		/// <param name="btf">Width of the upper part</param>
+		/// <param name="bbf">Width of the bottom part</param>
+		/// <param name="htf">Thickness of the upper part</param>
+		/// <param name="hbf">Thickness of the bottom  part</param>
+		/// <param name="tw">Thinkness of the web</param>
+		/// <param name="htfh"></param>
+		/// <param name="hbfh"></param>
+		public static void FillShapeIBase(CrossSectionParameter css, System.Double h, System.Double btf, System.Double bbf, System.Double htf, System.Double hbf, System.Double tw, System.Double htfh, System.Double hbfh)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Ign;
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bh", Value = btf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bs", Value = bbf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Ts", Value = hbf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Th", Value = htf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tw", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "Htfh", Value = htfh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Hbfh", Value = hbfh });
+		}
+
 		/// <summary>
 		/// I shape - massive concrete shape
 		/// </summary>
@@ -130,6 +156,25 @@
 		}
 
 		/// <summary>
+		/// TT shape  - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Top flange width</param>
+		/// <param name="bw">Wall width</param>
+		/// <param name="s">Spacing</param>
+		public static void FillShapeTT(CrossSectionParameter css, System.Double b, System.Double h, System.Double hf, System.Double bw, System.Double s)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Tg;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TopFlangeWidth", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WallWidth", Value = bw });
+			css.Parameters.Add(new ParameterDouble() { Name = "Spacing", Value = s });
+		}
+
+		/// <summary>
 		/// T turned shape - massive concrete shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
@@ -146,6 +191,40 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WallWidth", Value = bw });
 		}
 
+		//TODO DUS Missing xml params
+		/// <summary>
+		/// T turned shape - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Top flange width</param>
+		/// <param name="bw">Wall width</param>
+		/// <param name="hfh1"></param>
+		public static void FillShapeTrev1(CrossSectionParameter css, System.Double b, System.Double h, System.Double hf, System.Double bw, System.Double hfh1)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Tgrev;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TopFlangeWidth", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WallWidth", Value = bw });
+			css.Parameters.Add(new ParameterDouble() { Name = "TopFlangeWidth1", Value = hfh1 });
+		}
+
+		/// <summary>
+		/// Trapezoid shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="bt">Top width</param>
+		/// <param name="bb">Bottom width</param>
+		public static void FillShapeTrapezoid1(CrossSectionParameter css, System.Double h, System.Double bt, System.Double bb)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Trapezoid;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "TopWidth", Value = bt });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomWidth", Value = bb });
+		}
 
 		/// <summary>
 		/// Creates a U shape of css.
@@ -204,7 +283,25 @@
 			cssO.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
 		}
 
-
-
+		/// <summary>
+		/// Fill general shape
+		/// </summary>
+		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="pt0">Cross-section point 0</param>
+		/// <param name="pt1">Cross-section point 1</param>
+		/// <param name="pt2">Cross-section point 2</param>
+		/// <param name="pt3">Cross-section point 3</param>
+		/// <param name="pt4">Cross-section point 4</param>
+		/// <param name="pt5">Cross-section point 5</param>
+		public static void FillGeneralShape(CrossSectionParameter cssO, double pt0, double pt1, double pt2, double pt3, double pt4, double pt5)
+		{
+			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CHSg;
+			cssO.Parameters.Add(new ParameterDouble() { Name = "Pt0", Value = pt0 });
+			cssO.Parameters.Add(new ParameterDouble() { Name = "Pt1", Value = pt1 });
+			cssO.Parameters.Add(new ParameterDouble() { Name = "Pt2", Value = pt2 });
+			cssO.Parameters.Add(new ParameterDouble() { Name = "Pt3", Value = pt3 });
+			cssO.Parameters.Add(new ParameterDouble() { Name = "Pt4", Value = pt4 });
+			cssO.Parameters.Add(new ParameterDouble() { Name = "Pt5", Value = pt5 });
+		}
 	}
 }

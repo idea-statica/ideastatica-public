@@ -143,6 +143,11 @@ namespace IdeaStatiCa.Plugin
 			return Service.EvaluateExpression(connectionId, expression, arumentsJSON);
 		}
 
+		public string DeleteAllOperations(string connectionId)
+		{
+			return Service.DeleteAllOperations(connectionId);
+		}
+
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }
