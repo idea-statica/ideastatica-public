@@ -37,6 +37,6 @@ namespace IdeaStatiCa.BimApi
 		/// Returns a set of all Combination in the model.
 		/// </summary>
 		/// <returns></returns>
-		ISet<IIdeaCombiInput> ImportCombiInput();
+		ISet<IIdeaObject> ImportCombiInput();
 	}
 }
