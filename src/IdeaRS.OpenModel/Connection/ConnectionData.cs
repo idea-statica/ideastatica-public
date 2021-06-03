@@ -11,6 +11,12 @@ namespace IdeaRS.OpenModel.Connection
 	public class ConnectionData
 	{
 		/// <summary>
+		/// Connection Point Id
+		/// </summary>
+		[DataMember]
+		public int ConenctionPointId { get; set; }
+
+		/// <summary>
 		/// Connected beams
 		/// </summary>
 		public List<BeamData> Beams { get; set; }
@@ -558,7 +564,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// First plate
 		/// </summary>
-		public int Plate1Id { get ;set; }
+		public int Plate1Id { get; set; }
 
 		/// <summary>
 		/// Second plate
