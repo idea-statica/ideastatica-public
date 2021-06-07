@@ -67,11 +67,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
 				ResultType = ResultType.InternalForces,
-				LocalSystemType = result.CoordinateSystemType,
-				Results = new List<ResultBase>()
+				LocalSystemType = result.CoordinateSystemType
 			};
 
 			HashSet<double> importedPositions = new HashSet<double>();
+			List<ResultOnSection> results = new List<ResultOnSection>();
 
 			foreach (IIdeaSection section in result.Sections)
 			{
@@ -105,8 +105,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 					Results = section.Results.Select(x => ImportSectionResult(ctx, x)).ToList()
 				};
 
-				resultOnMember.Results.Add(resultOnSection);
+				results.Add(resultOnSection);
 			}
+
+			// order sections by their position from 0 to 1
+			resultOnMember.Results = results
+				.OrderBy(x => x.Position)
+				.Cast<ResultBase>()
+				.ToList();
 
 			return resultOnMember;
 		}

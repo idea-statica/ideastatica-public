@@ -17,12 +17,43 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 	{
 		private ResultImporter resultImporter;
 		private IImportContext ctx;
+		private int _nextId;
+
+		private IIdeaLoadCase CreateLoadCase(out int id)
+		{
+			id = _nextId++;
+
+			IIdeaLoadCase loadCase = Substitute.For<IIdeaLoadCase>();
+			loadCase.Id.Returns($"loadcase-{id}");
+
+			ReferenceElement loadCaseRef = new ReferenceElement()
+			{
+				Id = id
+			};
+			ctx.Import(loadCase).Returns(loadCaseRef);
+
+			return loadCase;
+		}
+
+		private List<IIdeaSectionResult> CreateOneSectionResult(IIdeaLoadCase loadCase)
+		{
+			IIdeaSectionResult sectionResult = Substitute.For<IIdeaSectionResult>();
+			List<IIdeaSectionResult> sectionResults = new List<IIdeaSectionResult>() { sectionResult };
+			sectionResult.Loading.Returns(loadCase);
+
+			IIdeaResultData resultData = new InternalForcesData();
+			sectionResult.Data.Returns(resultData);
+
+			return sectionResults;
+		}
 
 		[SetUp]
 		public void SetUp()
 		{
 			ctx = Substitute.For<IImportContext>();
 			resultImporter = new ResultImporter(new NullLogger());
+
+			_nextId = 1;
 		}
 
 		[Test]
@@ -327,7 +358,66 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			List<ResultOnSection> resultOnSections = resultOnMember.Results.Cast<ResultOnSection>().ToList();
 			Assert.That(resultOnSections[0].Position, Is.EqualTo(0.0).Within(double.Epsilon));
 			Assert.That(resultOnSections[1].Position, Is.EqualTo(1.0).Within(double.Epsilon));
+		}
 
+		[Test]
+		public void Import_ShouldOrderSectionPositionFrom0To1()
+		{
+			// Setup
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			// Create sections in a random order
+			IIdeaSection section1 = Substitute.For<IIdeaSection>();
+			List<IIdeaSectionResult> sectionResults1 = CreateOneSectionResult(CreateLoadCase(out int lcId1));
+			section1.Position.Returns(0.3);
+			section1.Results.Returns(sectionResults1);
+
+			IIdeaSection section2 = Substitute.For<IIdeaSection>();
+			List<IIdeaSectionResult> sectionResults2 = CreateOneSectionResult(CreateLoadCase(out int lcId2));
+			section2.Position.Returns(1.0);
+			section2.Results.Returns(sectionResults2);
+
+			IIdeaSection section3 = Substitute.For<IIdeaSection>();
+			List<IIdeaSectionResult> sectionResults3 = CreateOneSectionResult(CreateLoadCase(out int lcId3));
+			section3.Position.Returns(0.7);
+			section3.Results.Returns(sectionResults3);
+
+			IIdeaSection section4 = Substitute.For<IIdeaSection>();
+			List<IIdeaSectionResult> sectionResults4 = CreateOneSectionResult(CreateLoadCase(out int lcId4));
+			section4.Position.Returns(0.0);
+			section4.Results.Returns(sectionResults4);
+
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section1, section2, section3, section4 };
+			result.Sections.Returns(sections);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			// Tested method
+			ResultOnMember resultOnMember = resultImporter.Import(ctx, referenceElement, member).ToList()[0];
+
+			// Assert
+			List<ResultOnSection> resultOnSections = resultOnMember.Results.Cast<ResultOnSection>().ToList();
+
+			Assert.That(resultOnSections[0].Position, Is.EqualTo(0.0));
+			Assert.That(resultOnSections[0].Results[0].Loading.Id, Is.EqualTo(lcId4));
+
+			Assert.That(resultOnSections[1].Position, Is.EqualTo(0.3));
+			Assert.That(resultOnSections[1].Results[0].Loading.Id, Is.EqualTo(lcId1));
+
+			Assert.That(resultOnSections[2].Position, Is.EqualTo(0.7));
+			Assert.That(resultOnSections[2].Results[0].Loading.Id, Is.EqualTo(lcId3));
+
+			Assert.That(resultOnSections[3].Position, Is.EqualTo(1.0));
+			Assert.That(resultOnSections[3].Results[0].Loading.Id, Is.EqualTo(lcId2));
 		}
 	}
 }
