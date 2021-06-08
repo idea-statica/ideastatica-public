@@ -216,5 +216,27 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Assert
 			Assert.That(id, Is.EqualTo(1));
 		}
+
+		[Test]
+		public void GetGetIomId_AfterLoad_ReturnsNonCollidingId()
+		{
+			// Setup: stored id mapping 'obj1' -> 1
+			persistence.GetMappings().Returns(new List<(int, string)>() {
+				(1, "obj1"),
+			});
+
+			// Prepare a new fresh object
+			IIdeaObject obj = Substitute.For<IIdeaObject>();
+			obj.Id.Returns("obj2");
+
+			// Created a new instance to load data
+			project = new Project(new NullLogger(), persistence, objectRestorer);
+
+			// Tested method: get a new id for the new object
+			int id = project.GetIomId(obj);
+
+			// Assert
+			Assert.That(id, Is.Not.EqualTo(1));
+		}
 	}
 }

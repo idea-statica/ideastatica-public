@@ -90,7 +90,7 @@ namespace IdeaStatiCa.BimImporter
 			{
 				ReferenceElement refConnection = importContext.Import(lc);
 			}
-			ISet<IIdeaCombiInput> com = _ideaModel.ImportCombiInput();
+			ISet<IIdeaObject> com = _ideaModel.ImportCombiInput();
 			foreach (var cm in com)
 			{
 				ReferenceElement refConnection = importContext.Import(cm);

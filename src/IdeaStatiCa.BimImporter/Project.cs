@@ -98,7 +98,9 @@ namespace IdeaStatiCa.BimImporter
 			foreach ((int iomId, string bimApiId) in _persistence.GetMappings())
 			{
 				_idMapping.Add(bimApiId, iomId);
-				_nextId = Math.Max(_nextId, iomId);
+
+				// If current Id is 1 the next should be 2 so we do iomId+1
+				_nextId = Math.Max(_nextId, iomId + 1);
 			}
 
 			foreach ((string bimApiId, IIdeaPersistenceToken token) in _persistence.GetTokens())

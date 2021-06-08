@@ -63,9 +63,24 @@
 		ULS = 0,
 
 		/// <summary>
+		/// combination
+		/// </summary>
+		ULS_SET_C = 1,
+		
+		/// <summary>
 		/// accidental combination 1
 		/// </summary>
 		Accidental = 2,
+		
+		/// <summary>
+		/// accidental combination 1
+		/// </summary>
+		Accidental_2 = 3,
+
+		/// <summary>
+		/// seismic combination 
+		/// </summary>
+		Seismic = 4,
 
 		/// <summary>
 		/// characteristic combination
