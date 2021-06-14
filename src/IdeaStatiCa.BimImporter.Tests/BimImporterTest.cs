@@ -18,12 +18,16 @@ namespace IdeaStatiCa.BimImporter.Tests
 		private static BimImporter CreateBimImporter(IIdeaModel model, IImporter<IIdeaObject> importer)
 		{
 			NullLogger logger = new NullLogger();
+			Geometry geometry = new Geometry(logger, model);
 
 			IPersistence persistence = Substitute.For<IPersistence>();
 			IObjectRestorer objectRestorer = Substitute.For<IObjectRestorer>();
+			IGeometryProvider geometryProvider = Substitute.For<IGeometryProvider>();
+			geometryProvider.GetGeometry().Returns(geometry);
+			IProject project = new Project(logger, persistence, objectRestorer);
+			IResultImporter resultImporter = new ResultImporter(logger);
 
-			return new BimImporter(model, new Project(logger, persistence, objectRestorer),
-				importer, new Geometry(logger), logger, new ResultImporter(logger));
+			return new BimImporter(model, project, importer, logger, resultImporter, geometryProvider);
 		}
 
 		[Test]

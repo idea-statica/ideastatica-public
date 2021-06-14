@@ -16,51 +16,51 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IIdeaModel _ideaModel;
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IProject _project;
-		private readonly IGeometry _geometry;
 		private readonly IResultImporter _resultImporter;
+		private readonly IGeometryProvider _geometryProvider;
 
 		/// <summary>
 		/// Creates instance of <see cref="BimImporter"/> with default <see cref="IGeometry"/> implementation.
 		/// </summary>
 		/// <param name="ideaModel">Model for importing</param>
-		/// <param name="project"><see cref="IProject"/> instace for id mapping persistency</param>
+		/// <param name="project"><see cref="IProject"/> instance for id mapping persistence</param>
 		/// <param name="logger">Logger</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger)
 		{
-			return Create(ideaModel, project, new Geometry(logger), logger);
+			return Create(ideaModel, project, logger, new DefaultGeometryProvider(logger, ideaModel));
 		}
 
 		/// <summary>
 		///Creates instance of <see cref="BimImporter"/>.
 		/// </summary>
 		/// <param name="ideaModel">Model for importing</param>
-		/// <param name="project"><see cref="IProject"/> instace for id mapping persistency</param>
+		/// <param name="project"><see cref="IProject"/> instance for id mapping persistence</param>
 		/// <param name="geometry"><see cref="IGeometry"/> instance</param>
 		/// <param name="logger">Logger</param>
+		/// <param name="geometryProvider">Geometry provider</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
-		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IGeometry geometry, IPluginLogger logger)
+		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider)
 		{
-
 			return new BimImporter(ideaModel,
 				project,
 				new ObjectImporter(logger),
-				geometry,
 				logger,
-				new ResultImporter(logger));
+				new ResultImporter(logger),
+				geometryProvider);
 		}
 
-		internal BimImporter(IIdeaModel ideaModel, IProject project, IImporter<IIdeaObject> importer, IGeometry geometry
-			, IPluginLogger logger, IResultImporter resultImporter)
+		internal BimImporter(IIdeaModel ideaModel, IProject project, IImporter<IIdeaObject> importer,
+			IPluginLogger logger, IResultImporter resultImporter, IGeometryProvider geometryProvider)
 		{
 			_ideaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_importer = importer ?? throw new ArgumentNullException(nameof(importer));
-			_geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_resultImporter = resultImporter ?? throw new ArgumentNullException(nameof(logger));
+			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportConnections"/>
@@ -68,13 +68,19 @@ namespace IdeaStatiCa.BimImporter
 		public ModelBIM ImportConnections()
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			IGeometry geometry = _geometryProvider.GetGeometry();
 
-			selectedMembers.UnionWith(selectedNodes.SelectMany(x => _geometry.GetConnectedMembers(x)));
+			selectedMembers.UnionWith(selectedNodes.SelectMany(x => geometry.GetConnectedMembers(x)));
 
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
 			List<BIMItemId> bimItems = new List<BIMItemId>();
 
-			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers))
+			foreach (IIdeaLoading load in _ideaModel.GetLoads())
+			{
+				importContext.Import(load);
+			}
+
+			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
 			{
 				if (keyValue.Value.Count < 2)
 				{
@@ -85,18 +91,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			importContext.OpenModel.OriginSettings = _ideaModel.GetOriginSettings();
-			ISet<IIdeaLoadCase> lcs = _ideaModel.ImportLoadCases();
-			foreach (var lc in lcs)
-			{
-				ReferenceElement refConnection = importContext.Import(lc);
-			}
-			ISet<IIdeaObject> com = _ideaModel.ImportCombiInput();
-			foreach (var cm in com)
-			{
-				ReferenceElement refConnection = importContext.Import(cm);
-			}
-			//_ideaModel.ImportLoadCases();
-			//_ideaModel.ImportResults();
+
 			return new ModelBIM()
 			{
 				Items = bimItems,
@@ -112,9 +107,15 @@ namespace IdeaStatiCa.BimImporter
 		public ModelBIM ImportMembers()
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
 			List<BIMItemId> bimItems = new List<BIMItemId>();
+
+			foreach (IIdeaLoading load in _ideaModel.GetLoads())
+			{
+				importContext.Import(load);
+			}
 
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
@@ -126,9 +127,9 @@ namespace IdeaStatiCa.BimImporter
 					Type = BIMItemType.Member
 				});
 
-				foreach (IIdeaNode node in _geometry.GetNodesOnMember(selectedMember))
+				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
 				{
-					ImportConnection(importContext, bimItems, node, _geometry.GetConnectedMembers(node).ToHashSet());
+					ImportConnection(importContext, bimItems, node, geometry.GetConnectedMembers(node).ToHashSet());
 				}
 			}
 
@@ -152,6 +153,11 @@ namespace IdeaStatiCa.BimImporter
 		private ModelBIM ImportGroup(BIMItemsGroup group)
 		{
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
+
+			foreach (IIdeaLoading load in _ideaModel.GetLoads())
+			{
+				importContext.Import(load);
+			}
 
 			foreach (BIMItemId item in group.Items)
 			{
@@ -184,17 +190,16 @@ namespace IdeaStatiCa.BimImporter
 
 			nodes = selectedNodes;
 			members = selectedMembers;
-			_geometry.Build(_ideaModel);
 		}
 
-		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members)
+		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)
 		{
 			Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
 				new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
 
 			foreach (IIdeaMember1D member in members)
 			{
-				foreach (IIdeaNode node in _geometry.GetNodesOnMember(member))
+				foreach (IIdeaNode node in geometry.GetNodesOnMember(member))
 				{
 					if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
 					{

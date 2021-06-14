@@ -104,14 +104,19 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		public bool StartIdeaStaticaApp { get; set; }
 
+		/// <summary>
+		/// Name of the project
+		/// </summary>
+		public string ProjectName { get; set; }
 
-        /// <summary>
-        /// Name
-        /// </summary>
-        public string ProjectName { get; set; }
-        /// <summary>
-        /// Description
-        /// </summary>
-        public string ProjectDescription { get; set; }
-    }
+		/// <summary>
+		/// Description of the idea con project
+		/// </summary>
+		public string ProjectDescription { get; set; }
+
+		/// <summary>
+		/// The code which defines the source BIM application (the origin of the model)
+		/// </summary>
+		public string BimAppCode { get; set; }
+	}
 }
