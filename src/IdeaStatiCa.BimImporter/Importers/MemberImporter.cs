@@ -20,11 +20,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 
 			List<ReferenceElement> refElements = new List<ReferenceElement>();
+			List<IIdeaElement1D> elements = member.Elements;
 
 			IIdeaNode prevNode = null;
-			for (int i = 0; i < member.Elements.Count; i++)
+			for (int i = 0; i < elements.Count; i++)
 			{
-				IIdeaElement1D element = member.Elements[i];
+				IIdeaElement1D element = elements[i];
 				IIdeaSegment3D segment = element.Segment;
 
 				// check that StartNode of n-th element is equal to EndNode of (n-1)-th element
