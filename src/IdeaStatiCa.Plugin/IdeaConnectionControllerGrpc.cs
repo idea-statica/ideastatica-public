@@ -24,7 +24,6 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual uint UserMode { get; } = 0;
 
-
 		private string BaseAddress { get; set; }
 
 		bool IConnectionController.IsConnected => GrpcClient?.IsConnected == true;

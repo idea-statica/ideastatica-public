@@ -25,7 +25,7 @@ namespace ConnectionAutomationApp.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\git\\is-1\\bin\\Debug")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\brani\\Projects\\IdeaStatica\\IdeaStatiCa\\bin\\Debug")]
         public string IdeaStatiCaDir {
             get {
                 return ((string)(this["IdeaStatiCaDir"]));
