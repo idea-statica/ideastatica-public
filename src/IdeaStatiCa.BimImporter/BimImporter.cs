@@ -64,13 +64,15 @@ namespace IdeaStatiCa.BimImporter
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportConnections"/>
+		/// <remarks>Nodes are marked as a connection by following rules:<br/>
+		///  - nodes specified in <see cref="IIdeaModel.GetSelection"/> are connections,<br/>
+		///  - nodes with two or more connecting member are connections.
+		/// </remarks>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportConnections()
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
-
-			selectedMembers.UnionWith(selectedNodes.SelectMany(x => geometry.GetConnectedMembers(x)));
 
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
 			List<BIMItemId> bimItems = new List<BIMItemId>();
@@ -82,12 +84,10 @@ namespace IdeaStatiCa.BimImporter
 
 			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
 			{
-				if (keyValue.Value.Count < 2)
+				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
 				{
-					continue;
+					ImportConnection(importContext, bimItems, keyValue.Key, keyValue.Value);
 				}
-
-				ImportConnection(importContext, bimItems, keyValue.Key, keyValue.Value);
 			}
 
 			importContext.OpenModel.OriginSettings = _ideaModel.GetOriginSettings();
