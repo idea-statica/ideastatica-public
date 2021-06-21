@@ -82,7 +82,41 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
 		}
 
-		
+
+		/// <summary>
+		/// Fill parameters for cold formed C channel
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="Width">Css width</param>
+		/// <param name="Height">Height of cross-section</param>
+		/// <param name="Thickness">Thickness</param>
+		/// <param name="Radius">Inside radius</param>
+		/// <remarks>Dimension of cold formed CFU section<br/>
+		/// <img src="Images\CFU.png" /> <br/>
+		/// </remarks>
+		/// <example> 
+		/// This sample shows how to call this method./>
+		/// <code lang = "C#">
+		/// CrossSectionParameter css = new CrossSectionParameter();
+		/// css.Id = 6;
+		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
+		/// double Width = 0.15;
+		/// double Height = 0.20;
+		/// double Thickness = 0.003;
+		/// double InsideRadius = 0.005;
+		/// CrossSectionFactory.FillColdFormedC(css, Width, Height, Thickness, Radius);
+		/// openStructModel.AddObject(css);
+		/// </code>
+		/// </example>
+		public static void FillColdFormedChannel(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFU;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "InsideRadius", Value = Radius });
+		}
+
 
 		/// <summary>
 		/// Fill parameters for cold formed Z-ed section
@@ -341,7 +375,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		public static void FillColdFormedRHS(CrossSectionParameter css, double Height, double Width, double Thickness, double InsideRadius)
 		{
 			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledRHS;
-			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = Height});
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = Thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "r1", Value = InsideRadius });
