@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter
@@ -8,6 +9,8 @@ namespace IdeaStatiCa.BimImporter
 	/// </summary>
 	public interface IBimImporter
 	{
+		ModelBIM Import(IEnumerable<IIdeaObject> objects);
+
 		/// <summary>
 		/// Imports connections into IOM.
 		/// </summary>

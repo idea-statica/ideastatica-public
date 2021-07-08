@@ -106,7 +106,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers()
 		{
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			InitImport(out _, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
@@ -150,18 +150,18 @@ namespace IdeaStatiCa.BimImporter
 			return selected.Select(x => ImportGroup(x)).ToList();
 		}
 
-		private ModelBIM ImportGroup(BIMItemsGroup group)
+		public ModelBIM Import(IEnumerable<IIdeaObject> objects)
 		{
-			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
-
-			foreach (IIdeaLoading load in _ideaModel.GetLoads())
+			if (objects is null)
 			{
-				importContext.Import(load);
+				throw new ArgumentNullException(nameof(objects));
 			}
 
-			foreach (BIMItemId item in group.Items)
+			ImportContext importContext = new ImportContext(_importer, _resultImporter, _project, _logger);
+
+			foreach (IIdeaObject obj in objects)
 			{
-				importContext.Import(_project.GetBimObject(item.Id));
+				importContext.Import(obj);
 			}
 
 			return new ModelBIM()
@@ -172,6 +172,18 @@ namespace IdeaStatiCa.BimImporter
 				Project = "",
 				Results = importContext.OpenModelResult
 			};
+		}
+
+		private ModelBIM ImportGroup(BIMItemsGroup group)
+		{
+			if (group is null)
+			{
+				throw new ArgumentNullException(nameof(group));
+			}
+
+			return Import(group.Items
+				.Select(x => _project.GetBimObject(x.Id))
+				.Concat(_ideaModel.GetLoads()));
 		}
 
 		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
