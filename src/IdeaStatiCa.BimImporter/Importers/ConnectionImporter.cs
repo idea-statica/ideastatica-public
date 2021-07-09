@@ -34,7 +34,5 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			return connectionPoint;
 		}
-
-		override
 	}
 }
