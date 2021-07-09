@@ -47,10 +47,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
 				});
 
-			ConnectionPoint iomConnectionPoint = new ConnectionPoint();
+			IdeaRS.OpenModel.Connection.ConnectionPoint iomConnectionPoint = new IdeaRS.OpenModel.Connection.ConnectionPoint();
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(iomConnectionPoint);
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -83,10 +83,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
 				});
 
-			ConnectionPoint iomConnectionPoint = new ConnectionPoint();
+			IdeaRS.OpenModel.Connection.ConnectionPoint iomConnectionPoint = new IdeaRS.OpenModel.Connection.ConnectionPoint();
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(iomConnectionPoint);
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -96,7 +96,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint, Contains.Item(iomConnectionPoint));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == "connection node" &&
@@ -124,10 +124,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
 				});
 
-			ConnectionPoint iomConnectionPoint = new ConnectionPoint();
+			IdeaRS.OpenModel.Connection.ConnectionPoint iomConnectionPoint = new IdeaRS.OpenModel.Connection.ConnectionPoint();
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(iomConnectionPoint);
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -137,7 +137,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint, Contains.Item(iomConnectionPoint));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == "connection node" &&
@@ -165,10 +165,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
 				});
 
-			ConnectionPoint iomConnectionPoint = new ConnectionPoint();
+			IdeaRS.OpenModel.Connection.ConnectionPoint iomConnectionPoint = new IdeaRS.OpenModel.Connection.ConnectionPoint();
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(iomConnectionPoint);
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(iomConnectionPoint);
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -178,7 +178,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint, Contains.Item(iomConnectionPoint));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == "connection node" &&
@@ -209,7 +209,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				});
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(_ => new ConnectionPoint());
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -219,13 +219,13 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint.Count, Is.EqualTo(2));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == builder.Nodes[1].Name &&
 				Enumerable.SequenceEqual(x.Members, new List<IIdeaMember1D>() { builder.Members[1], builder.Members[2] })
 			));
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				 x.Id != null &&
 				 x.Node == builder.Nodes[4] &&
 				 x.Name == builder.Nodes[4].Name &&
@@ -255,7 +255,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				});
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(_ => new ConnectionPoint());
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -265,13 +265,13 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint.Count, Is.EqualTo(2));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == builder.Nodes[1].Name &&
 				Enumerable.SequenceEqual(x.Members, new List<IIdeaMember1D>() { builder.Members[1], builder.Members[2] })
 			));
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				 x.Id != null &&
 				 x.Node == builder.Nodes[2] &&
 				 x.Name == builder.Nodes[2].Name &&
@@ -299,7 +299,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				});
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(_ => new ConnectionPoint());
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -309,7 +309,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint.Count, Is.EqualTo(1));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == builder.Nodes[1].Name &&
@@ -338,7 +338,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				});
 
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
-			importer.Import(Arg.Any<IImportContext>(), Arg.Any<Connection>()).Returns(_ => new ConnectionPoint());
+			importer.Import(Arg.Any<IImportContext>(), Arg.Any<ConnectionPoint>()).Returns(_ => new ConnectionPoint());
 
 			BimImporter bimImporter = CreateBimImporter(model, importer);
 
@@ -348,13 +348,13 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Asserts
 			Assert.That(modelBIM.Model.ConnectionPoint.Count, Is.EqualTo(2));
 
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				x.Id != null &&
 				x.Node == builder.Nodes[1] &&
 				x.Name == builder.Nodes[1].Name &&
 				Enumerable.SequenceEqual(x.Members, new List<IIdeaMember1D>() { builder.Members[1] })
 			));
-			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<Connection>(x =>
+			importer.Received().Import(Arg.Any<IImportContext>(), Arg.Is<ImportedObjects.ConnectionPoint>(x =>
 				 x.Id != null &&
 				 x.Node == builder.Nodes[2] &&
 				 x.Name == builder.Nodes[2].Name &&

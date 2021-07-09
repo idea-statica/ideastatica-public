@@ -1,19 +1,18 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
-using IdeaStatiCa.BimImporter.ImportedObjects;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
-	internal class ConnectionImporter : AbstractImporter<Connection>
+	internal class ConnectionImporter : AbstractImporter<ImportedObjects.ConnectionPoint>
 	{
 		public ConnectionImporter(IPluginLogger logger) : base(logger)
 		{
 		}
 
-		protected override OpenElementId ImportInternal(IImportContext ctx, Connection connection)
+		protected override OpenElementId ImportInternal(IImportContext ctx, ImportedObjects.ConnectionPoint connection)
 		{
 			List<ConnectedMember> connectedMembers = connection.Members
 				.Select(x => ctx.Import(x))
@@ -35,5 +34,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			return connectionPoint;
 		}
+
+		override
 	}
 }

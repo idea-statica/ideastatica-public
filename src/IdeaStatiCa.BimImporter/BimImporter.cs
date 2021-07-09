@@ -229,7 +229,7 @@ namespace IdeaStatiCa.BimImporter
 		private void ImportConnection(ImportContext importContext, List<BIMItemId> bimItems,
 			IIdeaNode node, ISet<IIdeaMember1D> members)
 		{
-			Connection connection = new Connection(node, members);
+			ConnectionPoint connection = new ConnectionPoint(node, members);
 			ReferenceElement refConnection = importContext.Import(connection);
 
 			bimItems.Add(new BIMItemId()
