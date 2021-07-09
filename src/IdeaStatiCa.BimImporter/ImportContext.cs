@@ -6,6 +6,7 @@ using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace IdeaStatiCa.BimImporter
 {
@@ -48,6 +49,8 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			refElm = CreateAndStoreReferenceElement(obj);
+			Debug.Assert(_refElements[obj] == refElm);
+
 			_logger.LogDebug($"Object '{obj.Id}' imported, IOM id '{refElm.Id}'");
 
 			ImportResults(obj, refElm);
@@ -57,6 +60,8 @@ namespace IdeaStatiCa.BimImporter
 
 		public void ImportBimItem(IBimItem bimItem)
 		{
+			Debug.Assert(bimItem != null);
+
 			ReferenceElement refElm = Import(bimItem.ReferencedObject);
 			BimItems.Add(new BIMItemId()
 			{
@@ -77,6 +82,8 @@ namespace IdeaStatiCa.BimImporter
 		private ReferenceElement CreateAndStoreReferenceElement(IIdeaObject obj)
 		{
 			OpenElementId iomObject = _importer.Import(this, obj);
+			Debug.Assert(iomObject != null);
+
 			iomObject.Id = _project.GetIomId(obj);
 
 			int result = OpenModel.AddObject(iomObject);
