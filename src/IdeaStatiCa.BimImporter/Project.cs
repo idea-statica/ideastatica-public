@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Common;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using System;
@@ -12,7 +13,7 @@ namespace IdeaStatiCa.BimImporter
 	{
 		private int _nextId = 1;
 
-		private Dictionary<string, int> _idMapping = new Dictionary<string, int>();
+		private Map<string, int> _map = new Map<string, int>();
 		private Dictionary<int, IIdeaObject> _objectMapping = new Dictionary<int, IIdeaObject>();
 		private Dictionary<int, IIdeaPersistenceToken> _persistenceTokens = new Dictionary<int, IIdeaPersistenceToken>();
 
@@ -32,13 +33,19 @@ namespace IdeaStatiCa.BimImporter
 			_persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
 			_objectRestorer = objectRestorer ?? throw new ArgumentNullException(nameof(objectRestorer));
 
-			Load();
+			persistence.MappingLoaded += ReloadMapping;
+			ReloadMapping();
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(string)"/>
 		public int GetIomId(string bimId)
 		{
-			return _idMapping[bimId];
+			return _map.GetRight(bimId);
+		}
+
+		public string GetBimApiId(int iomId)
+		{
+			return _map.GetLeft(iomId);
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(IIdeaObject)"/>
@@ -53,14 +60,14 @@ namespace IdeaStatiCa.BimImporter
 
 			string bimApiId = obj.Id;
 
-			if (_idMapping.TryGetValue(bimApiId, out int iomId))
+			if (_map.TryGetRight(bimApiId, out int iomId))
 			{
 				return iomId;
 			}
 
 			iomId = _nextId++;
 
-			_idMapping.Add(bimApiId, iomId);
+			_map.Add(bimApiId, iomId);
 			_objectMapping.Add(iomId, obj);
 
 			_persistence.StoreMapping(iomId, bimApiId);
@@ -93,11 +100,20 @@ namespace IdeaStatiCa.BimImporter
 			throw new KeyNotFoundException();
 		}
 
-		private void Load()
+		public IIdeaPersistenceToken GetPersistenceToken(int iomId)
 		{
+			return _persistenceTokens[iomId];
+		}
+
+		private void ReloadMapping()
+		{
+			_nextId = 0;
+			_map.Clear();
+			_persistenceTokens.Clear();
+
 			foreach ((int iomId, string bimApiId) in _persistence.GetMappings())
 			{
-				_idMapping.Add(bimApiId, iomId);
+				_map.Add(bimApiId, iomId);
 
 				// If current Id is 1 the next should be 2 so we do iomId+1
 				_nextId = Math.Max(_nextId, iomId + 1);
@@ -105,7 +121,7 @@ namespace IdeaStatiCa.BimImporter
 
 			foreach ((string bimApiId, IIdeaPersistenceToken token) in _persistence.GetTokens())
 			{
-				_persistenceTokens.Add(_idMapping[bimApiId], token);
+				_persistenceTokens.Add(_map.GetRight(bimApiId), token);
 			}
 		}
 	}

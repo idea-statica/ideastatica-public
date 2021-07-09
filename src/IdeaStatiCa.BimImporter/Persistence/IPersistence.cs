@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using System;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter.Persistence
@@ -32,5 +33,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// </summary>
 		/// <param name="token">Persistence token</param>
 		void StoreToken(string bimApiId, IIdeaPersistenceToken token);
+
+		event Action MappingLoaded;
 	}
 }
