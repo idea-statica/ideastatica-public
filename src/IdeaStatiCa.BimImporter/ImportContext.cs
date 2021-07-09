@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
 using System;
@@ -52,6 +53,16 @@ namespace IdeaStatiCa.BimImporter
 			ImportResults(obj, refElm);
 
 			return refElm;
+		}
+
+		public void ImportBimItem(IBimItem bimItem)
+		{
+			ReferenceElement refElm = Import(bimItem.ReferencedObject);
+			BimItems.Add(new BIMItemId()
+			{
+				Type = bimItem.Type,
+				Id = refElm.Id
+			});
 		}
 
 		private void ImportResults(IIdeaObject obj, ReferenceElement refElm)
