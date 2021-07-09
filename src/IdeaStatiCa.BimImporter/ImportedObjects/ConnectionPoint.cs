@@ -11,9 +11,9 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IIdeaNode Node { get; }
 
-		public ISet<IIdeaMember1D> Members { get; }
+		public IEnumerable<IIdeaMember1D> Members { get; }
 
-		public ConnectionPoint(IIdeaNode node, ISet<IIdeaMember1D> members)
+		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{
 			Node = node;
 			Members = members;
