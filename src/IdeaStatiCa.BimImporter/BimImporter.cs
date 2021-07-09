@@ -184,7 +184,7 @@ namespace IdeaStatiCa.BimImporter
 
 		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
 		{
-			ModelBIM modelBIM = _bimObjectImporter.Convert(objects, bimItems, _project);
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects, bimItems, _project);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
 		}

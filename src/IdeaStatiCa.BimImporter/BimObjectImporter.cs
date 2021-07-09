@@ -24,7 +24,7 @@ namespace IdeaStatiCa.BimImporter
 			_resultImporter = resultImporter;
 		}
 
-		public ModelBIM Convert(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project)
+		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project)
 		{
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger);
 

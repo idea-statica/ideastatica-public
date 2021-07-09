@@ -7,6 +7,6 @@ namespace IdeaStatiCa.BimImporter
 {
 	public interface IBimObjectImporter
 	{
-		ModelBIM Convert(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems,  IProject project);
+		ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems,  IProject project);
 	}
 }
