@@ -9,11 +9,9 @@ namespace IdeaStatiCa.BimImporter.BimItems
 
 		public IIdeaObject ReferencedObject { get; }
 
-		private readonly IIdeaMember1D _member;
-
 		public Member(IIdeaMember1D member)
 		{
-			_member = member;
+			ReferencedObject = member;
 		}
 	}
 }

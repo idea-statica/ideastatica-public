@@ -10,6 +10,8 @@ namespace IdeaStatiCa.BimImporter
 	/// <inheritdoc cref="IBimImporter"/>
 	public class BimImporter : IBimImporter
 	{
+		private static readonly IIdeaObjectComparer _ideaObjectComparer = new IIdeaObjectComparer();
+
 		private readonly IPluginLogger _logger;
 		private readonly IIdeaModel _ideaModel;
 		private readonly IProject _project;
@@ -93,6 +95,7 @@ namespace IdeaStatiCa.BimImporter
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
+			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
 
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
@@ -100,8 +103,13 @@ namespace IdeaStatiCa.BimImporter
 
 				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
 				{
-					bimItems.Add(Connection.FromNodeAndMembers(node, geometry.GetConnectedMembers(node).ToHashSet()));
+					adjacentNodes.Add(node);
 				}
+			}
+
+			foreach (IIdeaNode node in adjacentNodes)
+			{
+				bimItems.Add(Connection.FromNodeAndMembers(node, geometry.GetConnectedMembers(node).ToHashSet()));
 			}
 
 			IEnumerable<IIdeaObject> objects = _ideaModel.GetLoads()

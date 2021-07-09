@@ -76,7 +76,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Import(
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
-						Enumerable.SequenceEqual(x, new List<Connection>() { expectedConnection }, _connectionEqualityComparer)),
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
 
@@ -115,7 +115,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Import(
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
-						Enumerable.SequenceEqual(x, new List<Connection>() { expectedConnection }, _connectionEqualityComparer)),
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
 
@@ -159,7 +159,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Import(
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
-						Enumerable.SequenceEqual(x, new List<Connection>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
 
@@ -202,7 +202,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Import(
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
-						Enumerable.SequenceEqual(x, new List<Connection>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
 
@@ -240,7 +240,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Import(
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
-						Enumerable.SequenceEqual(x, new List<Connection>() { expectedConnection }, _connectionEqualityComparer)),
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
 
@@ -252,9 +252,6 @@ namespace IdeaStatiCa.BimImporter.Tests
 			builder
 				.Member(1, "line(0,1)")
 				.Member(2, "line(2,3)");
-
-			builder.Nodes[1].Name.Returns("connection node1");
-			builder.Nodes[2].Name.Returns("connection node2");
 
 			IIdeaModel model = builder.GetModel();
 			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
@@ -285,7 +282,146 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Import(
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
-						Enumerable.SequenceEqual(x, new List<Connection>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
+					Arg.Any<IProject>());
+		}
+
+		[Test]
+		public void ImportMembers_OneMemberOneSelected()
+		{
+			// Setup: model with one member
+			GeometryBuilder builder = new GeometryBuilder();
+			builder
+				.Member(1, "line(0,1)");
+
+			IIdeaModel model = builder.GetModel();
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+				.Do(x =>
+				{
+					x[0] = new HashSet<IIdeaNode>();
+					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1] };
+				});
+
+			BimImporter bimImporter = CreateBimImporter(model);
+
+			// Tested methods
+			ModelBIM modelBIM = bimImporter.ImportMembers();
+
+			// Assert: expecting 1 member and 2 connections on both ends of the member
+			Member expectedMember = new Member(builder.Members[1]);
+			Connection expectedConnection1 = Connection.FromNodeAndMembers(builder.Nodes[0], new List<IIdeaMember1D>()
+			{
+				builder.Members[1]
+			});
+			Connection expectedConnection2 = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
+			{
+				builder.Members[1]
+			});
+
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Any<IEnumerable<IIdeaObject>>(),
+					Arg.Is<IEnumerable<IBimItem>>(x =>
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedMember, expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
+					Arg.Any<IProject>());
+		}
+
+		[Test]
+		public void ImportMembers_ThreeMembersOneSelected()
+		{
+			// Setup: model with three members connected in a continuous line
+			GeometryBuilder builder = new GeometryBuilder();
+			builder
+				.Member(1, "line(0,1)")
+				.Member(2, "line(1,2)")
+				.Member(3, "line(1,3)");
+
+			IIdeaModel model = builder.GetModel();
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+				.Do(x =>
+				{
+					x[0] = new HashSet<IIdeaNode>();
+					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1] };
+				});
+
+			BimImporter bimImporter = CreateBimImporter(model);
+
+			// Tested methods
+			ModelBIM modelBIM = bimImporter.ImportMembers();
+
+			// Assert: expecting 1 member and 2 connections with all member connected to the node
+			Member expectedMember = new Member(builder.Members[1]);
+			Connection expectedConnection1 = Connection.FromNodeAndMembers(builder.Nodes[0], new List<IIdeaMember1D>()
+			{
+				builder.Members[1]
+			});
+			Connection expectedConnection2 = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
+			{
+				builder.Members[1],
+				builder.Members[2],
+				builder.Members[3],
+			});
+
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Any<IEnumerable<IIdeaObject>>(),
+					Arg.Is<IEnumerable<IBimItem>>(x =>
+						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedMember, expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
+					Arg.Any<IProject>());
+		}
+
+		[Test]
+		public void ImportMembers_ThreeMembersSharingOneNodeTwoMembersSelected()
+		{
+			// Setup: model with three members connected into a one node, two members selected
+			GeometryBuilder builder = new GeometryBuilder();
+			builder
+				.Member(1, "line(0,1)")
+				.Member(2, "line(1,2)")
+				.Member(3, "line(1,3)");
+
+			IIdeaModel model = builder.GetModel();
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+				.Do(x =>
+				{
+					x[0] = new HashSet<IIdeaNode>();
+					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[3] };
+				});
+
+			BimImporter bimImporter = CreateBimImporter(model);
+
+			// Tested methods
+			ModelBIM modelBIM = bimImporter.ImportMembers();
+
+			// Assert: expecting 2 members (the selected ones), 3 connections
+			Member expectedMember1 = new Member(builder.Members[1]);
+			Member expectedMember2 = new Member(builder.Members[3]);
+			Connection expectedConnection1 = Connection.FromNodeAndMembers(builder.Nodes[0], new List<IIdeaMember1D>()
+			{
+				builder.Members[1]
+			});
+			Connection expectedConnection2 = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
+			{
+				builder.Members[1],
+				builder.Members[2],
+				builder.Members[3],
+			});
+			Connection expectedConnection3 = Connection.FromNodeAndMembers(builder.Nodes[3], new List<IIdeaMember1D>()
+			{
+				builder.Members[3],
+			});
+
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Any<IEnumerable<IIdeaObject>>(),
+					Arg.Is<IEnumerable<IBimItem>>(x =>
+						Enumerable.SequenceEqual(x, new List<IBimItem>() {
+							expectedMember1,
+							expectedMember2,
+							expectedConnection1,
+							expectedConnection2,
+							expectedConnection3
+						}, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
 	}
