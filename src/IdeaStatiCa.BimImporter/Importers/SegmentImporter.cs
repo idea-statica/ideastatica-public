@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.Plugin;
 using MathNet.Numerics;
 using System;
@@ -8,7 +9,7 @@ using Vector = MathNet.Spatial.Euclidean.Vector3D;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
-    internal class SegmentImporter : AbstractImporter<IIdeaSegment3D>
+	internal class SegmentImporter : AbstractImporter<IIdeaSegment3D>
     {
         private readonly IPluginLogger _logger;
 
