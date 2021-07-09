@@ -14,6 +14,8 @@ namespace IdeaStatiCa.BimImporter
 
 		public OpenModelResult OpenModelResult { get; } = new OpenModelResult();
 
+		public List<BIMItemId> BimItems { get; } = new List<BIMItemId>();
+
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
 			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
 
@@ -36,28 +38,44 @@ namespace IdeaStatiCa.BimImporter
 
 		public ReferenceElement Import(IIdeaObject obj)
 		{
+			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
+
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))
 			{
-				_logger.LogDebug($"Reusing already imported object, open model id '{refElm.Id}'");
+				_logger.LogDebug($"Object has been already imported with IOM id '{refElm.Id}'");
 				return refElm;
 			}
 
+			refElm = CreateAndStoreReferenceElement(obj);
+			_logger.LogDebug($"Object '{obj.Id}' imported, IOM id '{refElm.Id}'");
+
+			ImportResults(obj, refElm);
+
+			return refElm;
+		}
+
+		private void ImportResults(IIdeaObject obj, ReferenceElement refElm)
+		{
+			if (obj is IIdeaObjectWithResults objectWithResults)
+			{
+				_logger.LogDebug($"Importing results for object '{obj.Id}'");
+				_resultOnMembers.Members.AddRange(_resultImporter.Import(this, refElm, objectWithResults));
+			}
+		}
+
+		private ReferenceElement CreateAndStoreReferenceElement(IIdeaObject obj)
+		{
 			OpenElementId iomObject = _importer.Import(this, obj);
 			iomObject.Id = _project.GetIomId(obj);
 
 			int result = OpenModel.AddObject(iomObject);
 			if (result != 0)
 			{
-				throw new InvalidOperationException($"OpenModel.AddObject failed, return code {result}.");
+				throw new InvalidOperationException($"OpenModel.AddObject failed, return code '{result}'.");
 			}
 
-			refElm = new ReferenceElement(iomObject);
+			ReferenceElement refElm = new ReferenceElement(iomObject);
 			_refElements.Add(obj, refElm);
-
-			if (obj is IIdeaObjectWithResults objectWithResults)
-			{
-				_resultOnMembers.Members.AddRange(_resultImporter.Import(this, refElm, objectWithResults));
-			}
 
 			return refElm;
 		}
