@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter
 {
-	internal class BimObjectImporter : IBimObjectImporter
+	public class BimObjectImporter : IBimObjectImporter
 	{
 		private readonly IPluginLogger _logger;
 		private readonly IImporter<IIdeaObject> _importer;
