@@ -3,6 +3,7 @@ using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter.Tests
@@ -123,8 +124,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaCrossSection css = Substitute.For<IIdeaCrossSection>();
 			css.Id.Returns("css");
 
-			// Created a new instance to load data
-			project = new Project(new NullLogger(), persistence, objectRestorer);
+			// Reload data
+			persistence.MappingLoaded += Raise.Event<Action>();
 
 			// Tested method: get id for object with id 'css'
 			int id = project.GetIomId(css);
@@ -145,8 +146,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObject obj = Substitute.For<IIdeaObject>();
 			obj.Id.Returns("id1");
 
-			// Created a new instance to load data
-			project = new Project(new NullLogger(), persistence, objectRestorer);
+			// Reload data
+			persistence.MappingLoaded += Raise.Event<Action>();
 
 			// Tested method: create new mapping for an object
 			int idNew = project.GetIomId(obj);
@@ -176,8 +177,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Prepare an object restorer for the member
 			objectRestorer.Restore(token).Returns(member);
 
-			// Created a new instance to load data
-			project = new Project(new NullLogger(), persistence, objectRestorer);
+			// Reload data
+			persistence.MappingLoaded += Raise.Event<Action>();
 
 			// Tested method: get object for iom id 1
 			IIdeaObject obj = project.GetBimObject(1);
@@ -207,8 +208,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			// Prepare an object restorer for the member
 			objectRestorer.Restore(token).Returns(member);
 
-			// Created a new instance to load data
-			project = new Project(new NullLogger(), persistence, objectRestorer);
+			// Reload data
+			persistence.MappingLoaded += Raise.Event<Action>();
 
 			// Tested method: get id for the member
 			int id = project.GetIomId(member);
@@ -229,14 +230,70 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObject obj = Substitute.For<IIdeaObject>();
 			obj.Id.Returns("obj2");
 
-			// Created a new instance to load data
-			project = new Project(new NullLogger(), persistence, objectRestorer);
+			// Reload data
+			persistence.MappingLoaded += Raise.Event<Action>();
 
 			// Tested method: get a new id for the new object
 			int id = project.GetIomId(obj);
 
 			// Assert
 			Assert.That(id, Is.Not.EqualTo(1));
+		}
+
+		[Test]
+		public void GetPersistenceToken_ReturnsTokenOfFreshlyCreatedObject()
+		{
+			// Setup: create a member and its persistence token
+			IIdeaPersistenceToken token = Substitute.For<IIdeaPersistenceToken>();
+			persistence.GetTokens().Returns(new List<(string, IIdeaPersistenceToken)>()
+			{
+				("member", token)
+			});
+
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+			member.Id.Returns("member");
+			member.Token.Returns(token);
+
+			// Get a new IOM id for the member
+			int id = project.GetIomId(member);
+
+			// Tested method: retrieve the persistence token by the IOM id
+			IIdeaPersistenceToken returnedToken = project.GetPersistenceToken(id);
+
+			// Assert: check that tokens equal
+			Assert.That(returnedToken, Is.EqualTo(token));
+		}
+
+		[Test]
+		public void GetPersistenceToken_ReturnsTokenOfLoadedObject()
+		{
+			// Setup: create a stored member and its persistence token
+			persistence.GetMappings().Returns(new List<(int, string)>() {
+				(1, "member"),
+			});
+
+			IIdeaPersistenceToken token = Substitute.For<IIdeaPersistenceToken>();
+			persistence.GetTokens().Returns(new List<(string, IIdeaPersistenceToken)>()
+			{
+				("member", token)
+			});
+
+			// Prepare a member with id 'member'
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+			member.Id.Returns("member");
+			member.Token.Returns(token);
+
+			// Prepare an object restorer for the member
+			objectRestorer.Restore(token).Returns(member);
+
+			// Reload data
+			persistence.MappingLoaded += Raise.Event<Action>();
+
+			// Tested method: retrieve the persistence token by the IOM id
+			IIdeaPersistenceToken returnedToken = project.GetPersistenceToken(1);
+
+			// Assert: check that tokens equal
+			Assert.That(returnedToken, Is.EqualTo(token));
 		}
 	}
 }

@@ -74,7 +74,9 @@ namespace IdeaStatiCa.BimImporter
 
 			if (obj is IIdeaPersistentObject persistentObject)
 			{
-				_persistence.StoreToken(bimApiId, persistentObject.Token);
+				IIdeaPersistenceToken token = persistentObject.Token;
+				_persistence.StoreToken(bimApiId, token);
+				_persistenceTokens.Add(iomId, token);
 			}
 
 			_logger.LogDebug($"Created new id mapping: BimApi id {bimApiId}, IOM id {iomId}");
@@ -107,7 +109,7 @@ namespace IdeaStatiCa.BimImporter
 
 		private void ReloadMapping()
 		{
-			_nextId = 0;
+			_nextId = 1;
 			_map.Clear();
 			_persistenceTokens.Clear();
 
