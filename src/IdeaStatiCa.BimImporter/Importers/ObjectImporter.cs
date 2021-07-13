@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.ImportedObjects;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaStatiCa.BimImporter.Importers
@@ -16,27 +17,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<Connection> _connectionImporter;
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
-
-		public ObjectImporter(
-			IImporter<IIdeaNode> nodeImporter,
-			IImporter<IIdeaMaterial> materialImporter,
-			IImporter<IIdeaCrossSection> crossSectionImporter,
-			IImporter<IIdeaSegment3D> segmentImporter,
-			IImporter<IIdeaElement1D> elementImporter,
-			IImporter<IIdeaMember1D> memberImporter,
-			IImporter<IIdeaLoadCase> loadCaseImporter,
-			IImporter<IIdeaLoadGroup> loadGroupImporter,
-			IImporter<Connection> connectionImporter)
+		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
+		public ObjectImporter(IPluginLogger logger)
 		{
-			_nodeImporter = nodeImporter;
-			_materialImporter = materialImporter;
-			_crossSectionImporter = crossSectionImporter;
-			_segmentImporter = segmentImporter;
-			_elementImporter = elementImporter;
-			_memberImporter = memberImporter;
-			_loadCaseImporter = loadCaseImporter;
-			_loadGroupImporter = loadGroupImporter;
-			_connectionImporter = connectionImporter;
+			_nodeImporter = new NodeImporter(logger);
+			_materialImporter = new MaterialImporter(logger);
+			_crossSectionImporter = new CrossSectionImporter(logger);
+			_segmentImporter = new SegmentImporter(logger);
+			_elementImporter = new ElementImporter(logger);
+			_memberImporter = new MemberImporter(logger);
+			_loadCaseImporter = new LoadCaseImporter(logger);
+			_loadGroupImporter = new LoadGroupImporter(logger);
+			_combiInputImporter = new CombiInputImporter(logger);
+			_connectionImporter = new ConnectionImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -69,9 +62,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaLoadGroup loadGroup:
 					return _loadGroupImporter.Import(ctx, loadGroup);
+				case IIdeaCombiInput combiInput:
+					return _combiInputImporter.Import(ctx, combiInput);
 			}
 
-			throw new ArgumentException($"Unsupported object type {obj.GetType()}");
+			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
 		}
 	}
 }
