@@ -34,6 +34,9 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <param name="token">Persistence token</param>
 		void StoreToken(string bimApiId, IIdeaPersistenceToken token);
 
-		event Action MappingLoaded;
+		/// <summary>
+		/// Occurs when data are loaded or changed by an external process.
+		/// </summary>
+		event Action DataLoaded;
 	}
 }

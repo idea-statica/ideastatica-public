@@ -13,10 +13,13 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		protected HashSet<(int, string)> Mappings { get; set; } = new HashSet<(int, string)>();
 		protected Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; } = new Dictionary<string, IIdeaPersistenceToken>();
 
-		public abstract event Action MappingLoaded;
+		/// <inheritdoc cref="IPersistence.DataLoaded"/>
+		public abstract event Action DataLoaded;
 
+		/// <inheritdoc cref="IPersistence.GetMappings"/>
 		public IEnumerable<(int, string)> GetMappings() => Mappings;
 
+		/// <inheritdoc cref="IPersistence.GetTokens"/>
 		public IEnumerable<(string, IIdeaPersistenceToken)> GetTokens() => Tokens.Select(x => (x.Key, x.Value));
 
 		///<inheritdoc cref="IPersistence.StoreMapping(int, string)"/>

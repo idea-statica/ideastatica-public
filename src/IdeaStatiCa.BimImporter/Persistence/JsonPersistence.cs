@@ -13,7 +13,10 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	{
 		private static readonly PersistenceTokenConverter _tokenConverter = new PersistenceTokenConverter();
 
-		public override event Action MappingLoaded;
+		/// <summary>
+		/// Occurs when data are loaded.
+		/// </summary>
+		public override event Action DataLoaded;
 
 		private class StoredData
 		{
@@ -32,7 +35,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			Mappings = storedData.Mappings;
 			Tokens = storedData.Tokens;
 
-			MappingLoaded?.Invoke();
+			DataLoaded?.Invoke();
 		}
 
 		/// <summary>

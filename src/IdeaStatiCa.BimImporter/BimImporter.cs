@@ -91,7 +91,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers()
 		{
-			InitImport(out _, out ISet<IIdeaMember1D> selectedMembers);
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
@@ -113,11 +113,14 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			IEnumerable<IIdeaObject> objects = _ideaModel.GetLoads()
-				.Concat<IIdeaObject>(selectedMembers);
+				.Concat<IIdeaObject>(selectedNodes)
+				.Concat(selectedMembers);
 
 			return CreateModelBIM(objects, bimItems);
 		}
 
+		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected)
 		{
 			if (selected is null)
@@ -128,6 +131,8 @@ namespace IdeaStatiCa.BimImporter
 			return selected.Select(x => ImportGroup(x)).ToList();
 		}
 
+		/// <inheritdoc cref="IBimImporter.Import"/>
+		/// <exception cref="ArgumentNullException">Throws when argument is null.</exception>
 		public ModelBIM Import(IEnumerable<IIdeaObject> objects)
 		{
 			if (objects is null)

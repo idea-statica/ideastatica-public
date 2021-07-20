@@ -9,6 +9,11 @@ namespace IdeaStatiCa.BimImporter
 	/// </summary>
 	public interface IBimImporter
 	{
+		/// <summary>
+		/// Imports specified objects into IOM.
+		/// </summary>
+		/// <param name="objects">Objects to import.</param>
+		/// <returns>ModelBIM object.</returns>
 		ModelBIM Import(IEnumerable<IIdeaObject> objects);
 
 		/// <summary>

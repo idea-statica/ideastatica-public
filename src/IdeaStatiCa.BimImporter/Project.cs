@@ -33,7 +33,7 @@ namespace IdeaStatiCa.BimImporter
 			_persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
 			_objectRestorer = objectRestorer ?? throw new ArgumentNullException(nameof(objectRestorer));
 
-			persistence.MappingLoaded += ReloadMapping;
+			persistence.DataLoaded += ReloadMapping;
 			ReloadMapping();
 		}
 

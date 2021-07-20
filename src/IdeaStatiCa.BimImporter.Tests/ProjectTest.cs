@@ -125,7 +125,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			css.Id.Returns("css");
 
 			// Reload data
-			persistence.MappingLoaded += Raise.Event<Action>();
+			persistence.DataLoaded += Raise.Event<Action>();
 
 			// Tested method: get id for object with id 'css'
 			int id = project.GetIomId(css);
@@ -147,7 +147,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			obj.Id.Returns("id1");
 
 			// Reload data
-			persistence.MappingLoaded += Raise.Event<Action>();
+			persistence.DataLoaded += Raise.Event<Action>();
 
 			// Tested method: create new mapping for an object
 			int idNew = project.GetIomId(obj);
@@ -178,7 +178,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			objectRestorer.Restore(token).Returns(member);
 
 			// Reload data
-			persistence.MappingLoaded += Raise.Event<Action>();
+			persistence.DataLoaded += Raise.Event<Action>();
 
 			// Tested method: get object for iom id 1
 			IIdeaObject obj = project.GetBimObject(1);
@@ -209,7 +209,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			objectRestorer.Restore(token).Returns(member);
 
 			// Reload data
-			persistence.MappingLoaded += Raise.Event<Action>();
+			persistence.DataLoaded += Raise.Event<Action>();
 
 			// Tested method: get id for the member
 			int id = project.GetIomId(member);
@@ -231,7 +231,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			obj.Id.Returns("obj2");
 
 			// Reload data
-			persistence.MappingLoaded += Raise.Event<Action>();
+			persistence.DataLoaded += Raise.Event<Action>();
 
 			// Tested method: get a new id for the new object
 			int id = project.GetIomId(obj);
@@ -287,7 +287,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			objectRestorer.Restore(token).Returns(member);
 
 			// Reload data
-			persistence.MappingLoaded += Raise.Event<Action>();
+			persistence.DataLoaded += Raise.Event<Action>();
 
 			// Tested method: retrieve the persistence token by the IOM id
 			IIdeaPersistenceToken returnedToken = project.GetPersistenceToken(1);
