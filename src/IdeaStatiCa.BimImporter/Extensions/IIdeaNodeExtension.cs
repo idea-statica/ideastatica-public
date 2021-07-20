@@ -1,7 +1,7 @@
 ﻿using IdeaStatiCa.BimApi;
 using MathNet.Numerics;
 
-namespace IdeaStatiCa.BimImporter
+namespace IdeaStatiCa.BimImporter.Extensions
 {
 	internal static class IIdeaNodeExtension
 	{

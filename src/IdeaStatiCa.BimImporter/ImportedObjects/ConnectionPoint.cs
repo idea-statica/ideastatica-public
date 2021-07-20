@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter.ImportedObjects
 {
-	internal class Connection : IIdeaObject
+	internal class ConnectionPoint : IIdeaObject
 	{
 		public string Id => "$connection-" + Node.Id;
 
@@ -11,9 +11,9 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IIdeaNode Node { get; }
 
-		public ISet<IIdeaMember1D> Members { get; }
+		public IEnumerable<IIdeaMember1D> Members { get; }
 
-		public Connection(IIdeaNode node, ISet<IIdeaMember1D> members)
+		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{
 			Node = node;
 			Members = members;
