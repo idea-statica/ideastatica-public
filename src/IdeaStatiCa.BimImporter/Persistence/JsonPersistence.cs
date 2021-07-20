@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.BimApi;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -11,6 +12,11 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	public class JsonPersistence : AbstractPersistence, IFilePersistence
 	{
 		private static readonly PersistenceTokenConverter _tokenConverter = new PersistenceTokenConverter();
+
+		/// <summary>
+		/// Occurs when data are loaded.
+		/// </summary>
+		public override event Action DataLoaded;
 
 		private class StoredData
 		{
@@ -28,6 +34,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 			Mappings = storedData.Mappings;
 			Tokens = storedData.Tokens;
+
+			DataLoaded?.Invoke();
 		}
 
 		/// <summary>
@@ -42,7 +50,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				Tokens = Tokens
 			};
 
-			writer.Write(JsonConvert.SerializeObject(storedData, _tokenConverter));
+			writer.Write(JsonConvert.SerializeObject(storedData, Formatting.Indented, _tokenConverter));
 		}
 	}
 }

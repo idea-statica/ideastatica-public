@@ -14,7 +14,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaSegment3D> _segmentImporter;
 		private readonly IImporter<IIdeaElement1D> _elementImporter;
 		private readonly IImporter<IIdeaMember1D> _memberImporter;
-		private readonly IImporter<Connection> _connectionImporter;
+		private readonly IImporter<ConnectionPoint> _connectionImporter;
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
@@ -54,7 +54,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				case IIdeaMember1D member:
 					return _memberImporter.Import(ctx, member);
 
-				case Connection connection:
+				case ConnectionPoint connection:
 					return _connectionImporter.Import(ctx, connection);
 
 				case IIdeaLoadCase loadCase:
