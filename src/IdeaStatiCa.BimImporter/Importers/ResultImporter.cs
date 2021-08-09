@@ -88,7 +88,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					position = 0.0;
 				}
 
-				if (position < 0.0 || position > 1.0)
+				if (position < 0.0 || position > 1.0 + Constants.Precision)
 				{
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
 				}
