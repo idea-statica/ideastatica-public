@@ -5,6 +5,6 @@
 		/// <summary>
 		/// Precision for floating-point decimals
 		/// </summary>
-		public const double Precision = 1e-6;
+		public const double Precision = 1e-5;
 	}
 }
