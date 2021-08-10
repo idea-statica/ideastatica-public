@@ -15,30 +15,31 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaCrossSection css)
 		{
-			CrossSection iomCss;
-
-			if (css is IIdeaCrossSectionByParameters cssParametric)
-			{
-				iomCss = CreateCssParametric(ctx, cssParametric);
-			}
-			else if (css is IIdeaCrossSectionByCenterLine cssCentreLine)
-			{
-				iomCss = CreateCssCentreLine(ctx, cssCentreLine);
-			}
-			else if (css is IIdeaCrossSectionByComponents cssComponents)
-			{
-				iomCss = CreateCssComponents(ctx, cssComponents);
-			}
-			else
-			{
-				throw new ConstraintException("Cross-section must be instance of IIdeaCrossSectionByParameters, " +
-					"IIdeaCrossSectionByCenterLine, or IIdeaCrossSectionByComponents");
-			}
+			CrossSection iomCss = CreateCrossSection(ctx, css);
 
 			iomCss.Name = css.Name;
 			iomCss.CrossSectionRotation = css.Rotation;
 
 			return iomCss;
+		}
+
+		private CrossSection CreateCrossSection(IImportContext ctx, IIdeaCrossSection css)
+		{
+			switch (css)
+			{
+				case IIdeaCrossSectionByParameters cssParametric:
+					return CreateCssParametric(ctx, cssParametric);
+
+				case IIdeaCrossSectionByCenterLine cssCentreLine:
+					return CreateCssCentreLine(ctx, cssCentreLine);
+
+				case IIdeaCrossSectionByComponents cssComponents:
+					return CreateCssComponents(ctx, cssComponents);
+
+				case IIdeaCrossSectionByName cssNamed:
+					return CreateCssNamed(ctx, cssNamed)
+			}
+			throw new ConstraintException($"Unsupported cross-section type '{css.GetType().Name}'.");
 		}
 
 		private CrossSection CreateCssParametric(IImportContext ctx, IIdeaCrossSectionByParameters cssParametric)
@@ -81,6 +82,28 @@ namespace IdeaStatiCa.BimImporter.Importers
 						Phase = component.Phase
 					})
 					.ToList()
+			};
+		}
+
+		private CrossSection CreateCssNamed(IImportContext ctx, IIdeaCrossSectionByName cssNamed)
+		{
+			if (cssNamed.Name is null)
+			{
+				throw new ConstraintException($"Name property must not be null for {nameof(IIdeaCrossSectionByName)}.");
+			}
+
+			return new CrossSectionParameter()
+			{
+				CrossSectionType = CrossSectionType.UniqueName,
+				Material = ctx.Import(cssNamed.Material),
+				Parameters = new List<Parameter>()
+				{
+					new ParameterString()
+					{
+						Name = "UniqueName",
+						Value = cssNamed.Name
+					}
+				}
 			};
 		}
 	}
