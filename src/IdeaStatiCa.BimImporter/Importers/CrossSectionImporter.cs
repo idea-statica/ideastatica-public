@@ -37,7 +37,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return CreateCssComponents(ctx, cssComponents);
 
 				case IIdeaCrossSectionByName cssNamed:
-					return CreateCssNamed(ctx, cssNamed)
+					return CreateCssNamed(ctx, cssNamed);
 			}
 			throw new ConstraintException($"Unsupported cross-section type '{css.GetType().Name}'.");
 		}
