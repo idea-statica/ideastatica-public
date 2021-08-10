@@ -39,15 +39,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 				case IIdeaCrossSectionByName cssNamed:
 					return CreateCssNamed(ctx, cssNamed);
 			}
-			throw new ConstraintException($"Unsupported cross-section type '{css.GetType().Name}'.");
+
+			Logger.LogError($"Cross-section '{css.Id}' is of unsupported type '{css.GetType().Name}'.");
+			throw new ConstraintException($"Cross-section '{css.Id}' is of unsupported type '{css.GetType().Name}'.");
 		}
 
 		private CrossSection CreateCssParametric(IImportContext ctx, IIdeaCrossSectionByParameters cssParametric)
 		{
+			Logger.LogTrace($"Importing cross-section {cssParametric.Id} by parameters");
+
 			if (cssParametric.Type == CrossSectionType.OneComponentCss)
 			{
-				throw new ConstraintException($"Cross-section type cannot be {nameof(CrossSectionType.OneComponentCss)}, " +
-					$"use {nameof(IIdeaCrossSectionByComponents)}.");
+				Logger.LogError($"Cross-section '{cssParametric.Id}' must not be of type {nameof(CrossSectionType.OneComponentCss)}.");
+				throw new ConstraintException($"Cross-section '{cssParametric.Id}' must not be of type {nameof(CrossSectionType.OneComponentCss)}.");
 			}
 
 			return new CrossSectionParameter()
@@ -60,6 +64,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private CrossSection CreateCssCentreLine(IImportContext ctx, IIdeaCrossSectionByCenterLine cssCentreLine)
 		{
+			Logger.LogTrace($"Importing cross-section {cssCentreLine.Id} by center line");
+
 			return new CrossSectionGeneralColdFormed()
 			{
 				CrossSectionType = cssCentreLine.Type,
@@ -72,9 +78,13 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private CrossSection CreateCssComponents(IImportContext ctx, IIdeaCrossSectionByComponents cssComponents)
 		{
+			HashSet<IIdeaCrossSectionComponent> components = cssComponents.Components;
+
+			Logger.LogTrace($"Importing cross-section {cssComponents.Id} with {components.Count} components.");
+
 			return new CrossSectionComponent()
 			{
-				Components = cssComponents.Components
+				Components = components
 					.Select(component => new CssComponent()
 					{
 						Geometry = component.Geometry,
@@ -87,9 +97,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private CrossSection CreateCssNamed(IImportContext ctx, IIdeaCrossSectionByName cssNamed)
 		{
-			if (cssNamed.Name is null)
+			string name = cssNamed.Name;
+
+			Logger.LogTrace($"Importing cross-section {cssNamed.Id} by name '{name}'.");
+
+			if (string.IsNullOrEmpty(name))
 			{
-				throw new ConstraintException($"Name property must not be null for {nameof(IIdeaCrossSectionByName)}.");
+				Logger.LogError($"Cross-section '{cssNamed.Id}' has empty/null name.");
+				throw new ConstraintException($"Cross-section '{cssNamed.Id}' has empty/null name.");
 			}
 
 			return new CrossSectionParameter()
@@ -101,7 +116,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					new ParameterString()
 					{
 						Name = "UniqueName",
-						Value = cssNamed.Name
+						Value = name
 					}
 				}
 			};

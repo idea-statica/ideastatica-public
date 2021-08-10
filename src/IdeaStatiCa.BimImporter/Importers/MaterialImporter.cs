@@ -17,52 +17,63 @@ namespace IdeaStatiCa.BimImporter.Importers
 			switch (material)
 			{
 				case IIdeaMaterialByName materialByName:
-					return CreateMaterialByName(material, materialByName);
+					return CreateMaterialByName(materialByName);
 
 				case IIdeaMaterialSteel matSteal:
-					return CreateMaterialSteel(material, matSteal);
+					return CreateMaterialSteel(matSteal);
 
 				case IIdeaMaterialConcrete matConcrete:
-					return CreateMaterialConcrete(material, matConcrete);
+					return CreateMaterialConcrete(matConcrete);
 			}
 
-			throw new ConstraintException($"Unsupported cross-section type '{material.GetType().Name}'.");
+			Logger.LogError($"Material '{material.Id}' is of unsupported type '{material.GetType().Name}'.");
+			throw new ConstraintException($"Material '{material.Id}' is of unsupported type '{material.GetType().Name}'.");
 		}
 
-		private OpenElementId CreateMaterialConcrete(IIdeaMaterial material, IIdeaMaterialConcrete matConcrete)
+		private OpenElementId CreateMaterialConcrete(IIdeaMaterialConcrete matConcrete)
 		{
+			Logger.LogTrace($"Importing concrete material '{matConcrete.Id}'.");
+
 			MatConcrete mat = matConcrete.Material;
 
 			if (mat.Name == null)
 			{
-				mat.Name = material.Name;
+				mat.Name = matConcrete.Name;
 			}
 
 			return mat;
 		}
 
-		private OpenElementId CreateMaterialSteel(IIdeaMaterial material, IIdeaMaterialSteel matSteal)
+		private OpenElementId CreateMaterialSteel(IIdeaMaterialSteel matSteal)
 		{
+			Logger.LogTrace($"Importing steel material '{matSteal.Id}'.");
+
 			MatSteel mat = matSteal.Material;
 
 			if (mat.Name == null)
 			{
-				mat.Name = material.Name;
+				mat.Name = matSteal.Name;
 			}
 
 			return mat;
 		}
 
-		private OpenElementId CreateMaterialByName(IIdeaMaterial material, IIdeaMaterialByName materialByName)
+		private OpenElementId CreateMaterialByName(IIdeaMaterialByName materialByName)
 		{
-			if (material.Name is null)
+			string name = materialByName.Name;
+			MaterialType type = materialByName.MaterialType;
+
+			Logger.LogTrace($"Importing material of type '{type}' by name '{materialByName.Id}'.");
+
+			if (string.IsNullOrEmpty(name))
 			{
-				throw new ConstraintException($"Name property must not be null for {nameof(IIdeaMaterialByName)}.");
+				Logger.LogError($"Material '{materialByName.Id}' has empty/null name.");
+				throw new ConstraintException($"Material '{materialByName.Id}' has empty/null name.");
 			}
 
 			Material mat = CreateMaterialFromType(materialByName.MaterialType);
 			mat.LoadFromLibrary = true;
-			mat.Name = material.Name;
+			mat.Name = name;
 
 			return mat;
 		}
@@ -82,6 +93,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return new MatSteelEc2();
 			}
 
+			// if we got here then someone forgot to implement something
 			throw new NotImplementedException();
 		}
 	}
