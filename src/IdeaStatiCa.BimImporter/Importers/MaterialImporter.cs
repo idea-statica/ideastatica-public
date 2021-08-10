@@ -14,43 +14,57 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaMaterial material)
 		{
-			if (material is IIdeaMaterialByName materialByName)
+			switch (material)
 			{
-				if (material.Name is null)
-				{
-					throw new ConstraintException("Name property must not be null for IIdeaMaterialByName.");
-				}
+				case IIdeaMaterialByName materialByName:
+					return CreateMaterialByName(material, materialByName);
 
-				Material mat = CreateMaterialFromType(materialByName.MaterialType);
-				mat.LoadFromLibrary = true;
+				case IIdeaMaterialSteel matSteal:
+					return CreateMaterialSteel(material, matSteal);
+
+				case IIdeaMaterialConcrete matConcrete:
+					return CreateMaterialConcrete(material, matConcrete);
+			}
+
+			throw new ConstraintException($"Unsupported cross-section type '{material.GetType().Name}'.");
+		}
+
+		private OpenElementId CreateMaterialConcrete(IIdeaMaterial material, IIdeaMaterialConcrete matConcrete)
+		{
+			MatConcrete mat = matConcrete.Material;
+
+			if (mat.Name == null)
+			{
 				mat.Name = material.Name;
-
-				return mat;
 			}
-			else if (material is IIdeaMaterialSteel matSteal)
+
+			return mat;
+		}
+
+		private OpenElementId CreateMaterialSteel(IIdeaMaterial material, IIdeaMaterialSteel matSteal)
+		{
+			MatSteel mat = matSteal.Material;
+
+			if (mat.Name == null)
 			{
-				MatSteel mat = matSteal.Material;
-
-				if (mat.Name == null)
-				{
-					mat.Name = material.Name;
-				}
-
-				return mat;
+				mat.Name = material.Name;
 			}
-			else if (material is IIdeaMaterialConcrete matConcrete)
+
+			return mat;
+		}
+
+		private OpenElementId CreateMaterialByName(IIdeaMaterial material, IIdeaMaterialByName materialByName)
+		{
+			if (material.Name is null)
 			{
-				MatConcrete mat = matConcrete.Material;
-
-				if (mat.Name == null)
-				{
-					mat.Name = material.Name;
-				}
-
-				return mat;
+				throw new ConstraintException($"Name property must not be null for {nameof(IIdeaMaterialByName)}.");
 			}
 
-			throw new NotImplementedException();
+			Material mat = CreateMaterialFromType(materialByName.MaterialType);
+			mat.LoadFromLibrary = true;
+			mat.Name = material.Name;
+
+			return mat;
 		}
 
 		private Material CreateMaterialFromType(MaterialType matType)
@@ -64,7 +78,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				case MaterialType.Reinforcement:
 					return new MatReinforcementEc2();
 
-				case MaterialType.Steal:
+				case MaterialType.Steel:
 					return new MatSteelEc2();
 			}
 
