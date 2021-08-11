@@ -146,6 +146,11 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>());
 		}
 
+		/// <summary>
+		/// Imports items from <paramref name="group"/> into <see cref="ModelBIM"/>.
+		/// </summary>
+		/// <exception cref="ArgumentNullException">If any argument is null.</exception>
+		/// <exception cref="NotImplementedException">If the group type is not a connection or a substructure.</exception>
 		private ModelBIM ImportGroup(BIMItemsGroup group)
 		{
 			if (group is null)
@@ -232,6 +237,10 @@ namespace IdeaStatiCa.BimImporter
 			return connections;
 		}
 
+		/// <summary>
+		/// Creates and fills in <see cref="ModelBIM"/> from given <paramref name="objects"/> and <paramref name="bimItems"/>.
+		/// Loads from <see cref="IIdeaModel"/> are concatenated to <paramref name="objects"/>.
+		/// </summary>
 		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
 		{
 			Debug.Assert(objects != null);
