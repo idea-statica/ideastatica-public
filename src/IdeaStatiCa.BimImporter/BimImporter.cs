@@ -3,6 +3,7 @@ using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
@@ -80,8 +81,8 @@ namespace IdeaStatiCa.BimImporter
 				}
 			}
 
-			IEnumerable<IIdeaObject> objects = _ideaModel.GetLoads()
-				.Concat<IIdeaObject>(selectedNodes)
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
 			return CreateModelBIM(objects, connections);
@@ -112,8 +113,8 @@ namespace IdeaStatiCa.BimImporter
 				bimItems.Add(Connection.FromNodeAndMembers(node, geometry.GetConnectedMembers(node).ToHashSet()));
 			}
 
-			IEnumerable<IIdeaObject> objects = _ideaModel.GetLoads()
-				.Concat<IIdeaObject>(selectedNodes)
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
 			return CreateModelBIM(objects, bimItems);
@@ -140,7 +141,7 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(objects));
 			}
 
-			return CreateModelBIM(objects.Concat(_ideaModel.GetLoads()), Enumerable.Empty<IBimItem>());
+			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>());
 		}
 
 		private ModelBIM ImportGroup(BIMItemsGroup group)
@@ -150,9 +151,41 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(group));
 			}
 
-			return Import(group.Items
-				.Select(x => _project.GetBimObject(x.Id))
-				.Concat(_ideaModel.GetLoads()));
+			IEnumerable<IBimItem> bimItems = null;
+
+			if (group.Type == RequestedItemsType.Connections)
+			{
+				IIdeaNode node = group.Items
+					.Where(x => x.Type == BIMItemType.Node)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Cast<IIdeaNode>()
+					.First();
+
+				IEnumerable<IIdeaMember1D> members = group.Items
+					.Where(x => x.Type == BIMItemType.Member)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Cast<IIdeaMember1D>();
+
+				bimItems = new IBimItem[] {
+					Connection.FromNodeAndMembers(node, members)
+				};
+			}
+			else if (group.Type == RequestedItemsType.Substructure)
+			{
+				bimItems = group.Items
+					.Where(x => x.Type == BIMItemType.Member)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Cast<IIdeaMember1D>()
+					.Select(x => new Member(x));
+			}
+			else
+			{
+				throw new NotImplementedException();
+			}
+
+			Debug.Assert(bimItems != null);
+
+			return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
 		}
 
 		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
@@ -197,7 +230,7 @@ namespace IdeaStatiCa.BimImporter
 
 		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
 		{
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects, bimItems, _project);
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
 		}
