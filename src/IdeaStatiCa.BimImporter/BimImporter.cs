@@ -129,6 +129,8 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(selected));
 			}
 
+			_logger.LogTrace($"Importing of '{selected.Count}' selected items.");
+
 			return selected.Select(x => ImportGroup(x)).ToList();
 		}
 
@@ -151,6 +153,8 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(group));
 			}
 
+			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
+
 			IEnumerable<IBimItem> bimItems = null;
 
 			if (group.Type == RequestedItemsType.Connections)
@@ -166,7 +170,8 @@ namespace IdeaStatiCa.BimImporter
 					.Select(x => _project.GetBimObject(x.Id))
 					.Cast<IIdeaMember1D>();
 
-				bimItems = new IBimItem[] {
+				bimItems = new IBimItem[]
+				{
 					Connection.FromNodeAndMembers(node, members)
 				};
 			}
@@ -180,10 +185,9 @@ namespace IdeaStatiCa.BimImporter
 			}
 			else
 			{
-				throw new NotImplementedException();
+				_logger.LogError($"BIMItemsGroup type '{group.Type}' is not supported.");
+				throw new NotImplementedException($"BIMItemsGroup type '{group.Type}' is not supported.");
 			}
-
-			Debug.Assert(bimItems != null);
 
 			return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
 		}
@@ -230,6 +234,9 @@ namespace IdeaStatiCa.BimImporter
 
 		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
 		{
+			Debug.Assert(objects != null);
+			Debug.Assert(bimItems != null);
+
 			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
