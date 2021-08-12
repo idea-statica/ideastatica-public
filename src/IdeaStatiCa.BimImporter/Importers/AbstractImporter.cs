@@ -7,17 +7,16 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal abstract class AbstractImporter<T> : IImporter<T> where T : IIdeaObject
 	{
-		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.bimimporter.abstractimporter");
-		private readonly IPluginLogger _logger;
+		protected IPluginLogger Logger { get; private set; }
 
 		protected AbstractImporter(IPluginLogger logger)
 		{
-			_logger = logger;
+			Logger = logger;
 		}
 
 		public OpenElementId Import(IImportContext ctx, T obj)
 		{
-			_logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<null>"}', name '{obj.Name ?? "<null>"}'");
+			Logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<null>"}', name '{obj.Name ?? "<null>"}'");
 
 			if (ctx == null)
 			{
