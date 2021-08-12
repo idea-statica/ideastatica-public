@@ -13,11 +13,22 @@ namespace IdeaStatiCa.BimImporter.Tests
 	public class ImportContextTest
 	{
 		private IProject project;
+		private IPluginLogger logger;
+
+		private BimImporterConfiguration configuration;
 
 		[SetUp]
 		public void SetUp()
 		{
 			project = Substitute.For<IProject>();
+			logger = Substitute.For<IPluginLogger>();
+
+			configuration = new BimImporterConfiguration();
+		}
+
+		private ImportContext CreateImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project)
+		{
+			return new ImportContext(importer, resultImporter, project, logger, configuration);
 		}
 
 		[Test]
@@ -31,7 +42,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
-			ImportContext ctx = new ImportContext(importer, null, project, new NullLogger());
+			ImportContext ctx = CreateImportContext(importer, null, project);
 
 			// Tested method
 			ReferenceElement refElm = ctx.Import(bimObject);
@@ -53,7 +64,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
-			ImportContext ctx = new ImportContext(importer, null, project, new NullLogger());
+			ImportContext ctx = CreateImportContext(importer, null, project);
 
 			// Tested method
 			ReferenceElement refElm1 = ctx.Import(bimObject);
@@ -78,7 +89,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 
 			IResultImporter resultImporter = Substitute.For<IResultImporter>();
 
-			ImportContext ctx = new ImportContext(importer, resultImporter, project, new NullLogger());
+			ImportContext ctx = CreateImportContext(importer, resultImporter, project);
 
 			// Tested method
 			ReferenceElement refElm = ctx.Import(objectWithResults);
@@ -104,7 +115,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 
 			project.GetIomId(bimObject).Returns(1);
 
-			ImportContext ctx = new ImportContext(importer, null, project, new NullLogger());
+			ImportContext ctx = CreateImportContext(importer, null, project);
 
 			// Tested method
 			ctx.ImportBimItem(bimItem);

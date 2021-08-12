@@ -51,6 +51,10 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		public void SetUp()
 		{
 			ctx = Substitute.For<IImportContext>();
+
+			BimImporterConfiguration configuration = new BimImporterConfiguration();
+			ctx.Configuration.Returns(configuration);
+
 			resultImporter = new ResultImporter(new NullLogger());
 
 			_nextId = 1;

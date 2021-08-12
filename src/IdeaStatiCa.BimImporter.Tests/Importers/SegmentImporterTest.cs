@@ -12,6 +12,8 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 	[TestFixture]
 	public class SegmentImporterTest
 	{
+		private IImportContext ctx;
+
 		private static Vector3D CreateVector(double x, double y, double z)
 		{
 			return new Vector3D()
@@ -42,6 +44,15 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			return segment;
 		}
 
+		[SetUp]
+		public void SetUp()
+		{
+			ctx = Substitute.For<IImportContext>();
+
+			BimImporterConfiguration configuration = new BimImporterConfiguration();
+			ctx.Configuration.Returns(configuration);
+		}
+
 		//----------
 
 		[Test]
@@ -53,7 +64,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			segment.StartNode.Returns(node);
 			segment.EndNode.Returns(node);
 
-			IImportContext ctx = Substitute.For<IImportContext>();
 			SegmentImporter segmentImporter = new SegmentImporter(new NullLogger());
 
 			// Tested method
@@ -67,7 +77,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
 			segment.LocalCoordinateSystem.Returns(new CoordSystemByZup());
 
-			IImportContext ctx = Substitute.For<IImportContext>();
 			SegmentImporter segmentImporter = new SegmentImporter(new NullLogger());
 
 			// Tested method
@@ -87,7 +96,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			segment.EndNode.Returns(node2);
 			segment.LocalCoordinateSystem.Returns(new CoordSystemByVector());
 
-			IImportContext ctx = Substitute.For<IImportContext>();
 			SegmentImporter segmentImporter = new SegmentImporter(new NullLogger());
 
 			// Tested method
@@ -110,7 +118,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
 			segment.LocalCoordinateSystem.Returns(coordSystem);
 
-			IImportContext ctx = Substitute.For<IImportContext>();
 			SegmentImporter segmentImporter = new SegmentImporter(new NullLogger());
 
 			// Tested method
@@ -131,7 +138,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			IIdeaLineSegment3D segment = CreateMockLineSegment();
 			segment.LocalCoordinateSystem.Returns(coordSystem);
 
-			IImportContext ctx = Substitute.For<IImportContext>();
 			SegmentImporter segmentImporter = new SegmentImporter(new NullLogger());
 
 			// Tested method
