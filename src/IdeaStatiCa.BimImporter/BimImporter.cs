@@ -28,7 +28,8 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger)
 		{
-			return Create(ideaModel, project, logger, new DefaultGeometryProvider(logger, ideaModel));
+			return Create(ideaModel, project, logger, new DefaultGeometryProvider(logger, ideaModel),
+				new BimImporterConfiguration());
 		}
 
 		/// <summary>
@@ -41,13 +42,14 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="geometryProvider">Geometry provider</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
-		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider)
+		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
+			IGeometryProvider geometryProvider, BimImporterConfiguration configuration)
 		{
 			return new BimImporter(ideaModel,
 				project,
 				logger,
 				geometryProvider,
-				BimObjectImporter.Create(logger));
+				BimObjectImporter.Create(logger, configuration));
 		}
 
 		internal BimImporter(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider,
