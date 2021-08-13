@@ -18,6 +18,8 @@ namespace IdeaStatiCa.BimImporter
 
 		public List<BIMItemId> BimItems { get; } = new List<BIMItemId>();
 
+		public BimImporterConfiguration Configuration { get; private set; }
+
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
 			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
 
@@ -28,12 +30,15 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IResultImporter _resultImporter;
 
-		public ImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project, IPluginLogger logger)
+		public ImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project, IPluginLogger logger,
+			BimImporterConfiguration configuration)
 		{
 			_importer = importer;
 			_resultImporter = resultImporter;
 			_project = project;
 			_logger = logger;
+
+			Configuration = configuration;
 
 			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
 		}

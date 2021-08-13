@@ -17,21 +17,30 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IResultImporter _resultImporter;
 
+		private readonly BimImporterConfiguration _configuration;
+
 		/// <summary>
 		/// Creates instance of <see cref="IBimObjectImporter"/> with specific logger.
 		/// </summary>
 		/// <param name="logger">The logger.</param>
 		/// <returns>IBimObjectImporter instance.</returns>
-		public static IBimObjectImporter Create(IPluginLogger logger)
+		public static IBimObjectImporter Create(IPluginLogger logger,
+			BimImporterConfiguration configuration)
 		{
-			return new BimObjectImporter(logger, new ObjectImporter(logger), new ResultImporter(logger));
+			return new BimObjectImporter(
+				logger,
+				new ObjectImporter(logger),
+				new ResultImporter(logger),
+				configuration);
 		}
 
-		internal BimObjectImporter(IPluginLogger logger, IImporter<IIdeaObject> importer, IResultImporter resultImporter)
+		internal BimObjectImporter(IPluginLogger logger, IImporter<IIdeaObject> importer, IResultImporter resultImporter,
+			BimImporterConfiguration configuration)
 		{
 			_logger = logger;
 			_importer = importer;
 			_resultImporter = resultImporter;
+			_configuration = configuration;
 		}
 
 		/// <summary>
@@ -43,7 +52,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>ModelBIM</returns>
 		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project)
 		{
-			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger);
+			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration);
 
 			foreach (IBimItem bimItem in bimItems)
 			{

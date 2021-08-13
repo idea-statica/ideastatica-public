@@ -2,6 +2,7 @@
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.BimImporter.Common;
 using IdeaStatiCa.Plugin;
 using MathNet.Numerics;
 using System;
@@ -13,6 +14,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 	internal class ResultImporter : IResultImporter
 	{
 		private readonly IPluginLogger _logger;
+
+		private readonly DoubleApproximateEqualityComparer _doubleApproximateEqualityComparer
+			= new DoubleApproximateEqualityComparer();
 
 		public ResultImporter(IPluginLogger logger)
 		{
@@ -64,30 +68,35 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result)
 		{
+			double sectionPositionPrecision = ctx.Configuration.ResultSectionPositionPrecision;
+
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
 				ResultType = ResultType.InternalForces,
 				LocalSystemType = result.CoordinateSystemType
 			};
 
-			HashSet<double> importedPositions = new HashSet<double>();
+			_doubleApproximateEqualityComparer.Precision = sectionPositionPrecision;
+			HashSet<double> importedPositions = new HashSet<double>(_doubleApproximateEqualityComparer);
 			List<ResultOnSection> results = new List<ResultOnSection>();
 
 			foreach (IIdeaSection section in result.Sections)
 			{
 				double position = section.Position;
 
-				if (position.AlmostEqual(1.0, Constants.Precision))
+				if (position.AlmostEqual(1.0, sectionPositionPrecision))
 				{
-					_logger.LogDebug($"Normalizing section position from '{position}' to 1.0");
+					_logger.LogTrace($"Normalizing section position from '{position}' to 1.0");
 					position = 1.0;
 				}
-				else if (position.AlmostEqual(0.0, Constants.Precision))
+				else if (position.AlmostEqual(0.0, sectionPositionPrecision))
 				{
-					_logger.LogDebug($"Normalizing section position from '{position}' to 0.0");
+					_logger.LogTrace($"Normalizing section position from '{position}' to 0.0");
 					position = 0.0;
 				}
 
+				// 0.0 and 1.0 are already normalized at this point
+				// so we dont need to include epsilon in the comparison
 				if (position < 0.0 || position > 1.0)
 				{
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
