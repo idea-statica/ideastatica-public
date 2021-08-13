@@ -3,6 +3,7 @@ using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
@@ -82,8 +83,8 @@ namespace IdeaStatiCa.BimImporter
 				}
 			}
 
-			IEnumerable<IIdeaObject> objects = _ideaModel.GetLoads()
-				.Concat<IIdeaObject>(selectedNodes)
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
 			return CreateModelBIM(objects, connections);
@@ -114,8 +115,8 @@ namespace IdeaStatiCa.BimImporter
 				bimItems.Add(Connection.FromNodeAndMembers(node, geometry.GetConnectedMembers(node).ToHashSet()));
 			}
 
-			IEnumerable<IIdeaObject> objects = _ideaModel.GetLoads()
-				.Concat<IIdeaObject>(selectedNodes)
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
 			return CreateModelBIM(objects, bimItems);
@@ -130,6 +131,8 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(selected));
 			}
 
+			_logger.LogTrace($"Importing of '{selected.Count}' selected items.");
+
 			return selected.Select(x => ImportGroup(x)).ToList();
 		}
 
@@ -142,9 +145,14 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(objects));
 			}
 
-			return CreateModelBIM(objects.Concat(_ideaModel.GetLoads()), Enumerable.Empty<IBimItem>());
+			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>());
 		}
 
+		/// <summary>
+		/// Imports items from <paramref name="group"/> into <see cref="ModelBIM"/>.
+		/// </summary>
+		/// <exception cref="ArgumentNullException">If any argument is null.</exception>
+		/// <exception cref="NotImplementedException">If the group type is not a connection or a substructure.</exception>
 		private ModelBIM ImportGroup(BIMItemsGroup group)
 		{
 			if (group is null)
@@ -152,9 +160,43 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(group));
 			}
 
-			return Import(group.Items
-				.Select(x => _project.GetBimObject(x.Id))
-				.Concat(_ideaModel.GetLoads()));
+			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
+
+			IEnumerable<IBimItem> bimItems = null;
+
+			if (group.Type == RequestedItemsType.Connections)
+			{
+				IIdeaNode node = group.Items
+					.Where(x => x.Type == BIMItemType.Node)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Cast<IIdeaNode>()
+					.First();
+
+				IEnumerable<IIdeaMember1D> members = group.Items
+					.Where(x => x.Type == BIMItemType.Member)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Cast<IIdeaMember1D>();
+
+				bimItems = new IBimItem[]
+				{
+					Connection.FromNodeAndMembers(node, members)
+				};
+			}
+			else if (group.Type == RequestedItemsType.Substructure)
+			{
+				bimItems = group.Items
+					.Where(x => x.Type == BIMItemType.Member)
+					.Select(x => _project.GetBimObject(x.Id))
+					.Cast<IIdeaMember1D>()
+					.Select(x => new Member(x));
+			}
+			else
+			{
+				_logger.LogError($"BIMItemsGroup type '{group.Type}' is not supported.");
+				throw new NotImplementedException($"BIMItemsGroup type '{group.Type}' is not supported.");
+			}
+
+			return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
 		}
 
 		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
@@ -197,9 +239,16 @@ namespace IdeaStatiCa.BimImporter
 			return connections;
 		}
 
+		/// <summary>
+		/// Creates and fills in <see cref="ModelBIM"/> from given <paramref name="objects"/> and <paramref name="bimItems"/>.
+		/// Loads from <see cref="IIdeaModel"/> are concatenated to <paramref name="objects"/>.
+		/// </summary>
 		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
 		{
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects, bimItems, _project);
+			Debug.Assert(objects != null);
+			Debug.Assert(bimItems != null);
+
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
 		}
