@@ -62,7 +62,8 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		public void MemberImport_WhenElementsIsEmpty_ThrowsConstraintException()
 		{
 			// Setup
-			ImportContext ctx = new ImportContext(null, null, null, new NullLogger());
+			ImportContext ctx = new ImportContext(null, null, null, new NullLogger(),
+				new BimImporterConfiguration());
 
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
 			member.Id.Returns("member1");

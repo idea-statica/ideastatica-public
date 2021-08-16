@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.ImportedObjects
 {
@@ -16,7 +17,7 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{
 			Node = node;
-			Members = members;
+			Members = members.ToList();
 		}
 	}
 }
