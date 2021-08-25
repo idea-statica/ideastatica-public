@@ -106,7 +106,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			double newValue = value.Round(lcsPrecision.LeadingDecimalZeros());
 			if (value != newValue)
 			{
-				_logger.LogInformation($"Value {value} normalized to {newValue}.");
+				_logger.LogTrace($"Value {value} normalized to {newValue}.");
 			}
 
 			return newValue;
