@@ -6,7 +6,7 @@
 	public enum MaterialType
 	{
 		Concrete,
-		Steal,
+		Steel,
 		Reinforcement,
 	}
 }

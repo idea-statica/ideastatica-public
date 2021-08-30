@@ -14,7 +14,14 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>IOM id</returns>
 		/// <exception cref="System.Collections.Generic.KeyNotFoundException">Throws when no mapping
 		/// for given <paramref name="bimId"/> exists.</exception>
-		int GetIomId(string bimId);
+		int GetIomId(string bimApiId);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="iomId"></param>
+		/// <returns></returns>
+		string GetBimApiId(int iomId);
 
 		/// <summary>
 		/// Returns BimApi object for given IOM <paramref name="id"/>.
@@ -31,5 +38,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="obj">BimApi object</param>
 		/// <returns>IOM id</returns>
 		int GetIomId(IIdeaObject obj);
+
+		IIdeaPersistenceToken GetPersistenceToken(int iomId);
 	}
 }
