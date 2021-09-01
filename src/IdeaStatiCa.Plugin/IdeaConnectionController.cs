@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace IdeaStatiCa.Plugin
 {
-	public class IdeaConnectionController : IDisposable
+	public class IdeaConnectionController : IDisposable, IConnectionController
 	{
 		private readonly string IdeaInstallDir;
 		private Process IdeaStatiCaProcess { get; set; }
@@ -17,21 +17,28 @@ namespace IdeaStatiCa.Plugin
 		protected IdeaStatiCaClient<IAutomation> ConnectionAppClient { get; set; }
 		protected virtual uint UserMode { get; } = 0;
 
-		public IAutomation ConnectionAppAutomation
-		{
-			get
-			{
-				return ConnectionAppClient?.Service;
-			}
-		}
-
 		private string BaseAddress { get; set; }
+
+		public bool IsConnected => ConnectionAppClient?.Service != null;
 
 #if DEBUG
 		private int StartTimeout = -1;
 #else
 		int StartTimeout = 1000*20;
 #endif
+
+		public int OpenProject(string fileName)
+		{
+			ConnectionAppClient.Service.OpenProject(fileName);
+			return 0;
+		}
+
+		public int CloseProject()
+		{
+			ConnectionAppClient.Service.CloseProject();
+			return 0;
+		}
+
 
 		private IdeaConnectionController(string ideaInstallDir)
 		{
@@ -43,7 +50,7 @@ namespace IdeaStatiCa.Plugin
 			IdeaInstallDir = ideaInstallDir;
 		}
 
-		public static IdeaConnectionController Create(string ideaInstallDir)
+		public static IConnectionController Create(string ideaInstallDir)
 		{
 			IdeaConnectionController connectionController = new IdeaConnectionController(ideaInstallDir);
 			connectionController.OpenConnectionClient();

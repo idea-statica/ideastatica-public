@@ -1,8 +1,9 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.Common;
+using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
@@ -10,29 +11,45 @@ namespace IdeaStatiCa.BimImporter
 	/// <remarks>This class is not thread-safe.</remarks>
 	public class Project : IProject
 	{
-		/// <inheritdoc cref="IProject.IdMapping"/>
-		public ConversionDictionaryString IdMapping { get; private set; } = new ConversionDictionaryString();
+		private int _nextId = 1;
 
-		private Dictionary<int, IIdeaObject> _iomIdToBimObject = new Dictionary<int, IIdeaObject>();
+		private Map<string, int> _map = new Map<string, int>();
+		private Dictionary<int, IIdeaObject> _objectMapping = new Dictionary<int, IIdeaObject>();
+		private Dictionary<int, IIdeaPersistenceToken> _persistenceTokens = new Dictionary<int, IIdeaPersistenceToken>();
+
 		private readonly IPluginLogger _logger;
+		private readonly IPersistence _persistence;
+		private readonly IObjectRestorer _objectRestorer;
 
 		/// <summary>
-		/// Constructor.
+		/// Creates an instance of Project.
 		/// </summary>
 		/// <param name="logger">Logger</param>
-		/// <exception cref="ArgumentNullException">Throws if <paramref name="logger"/> is null.</exception>
-		public Project(IPluginLogger logger)
+		/// <param name="persistence">Instance of IPersistence for storing of id mapping.</param>
+		/// <exception cref="ArgumentNullException">Throws if any argument is null.</exception>
+		public Project(IPluginLogger logger, IPersistence persistence, IObjectRestorer objectRestorer)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			_persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
+			_objectRestorer = objectRestorer ?? throw new ArgumentNullException(nameof(objectRestorer));
+
+			persistence.DataLoaded += ReloadMapping;
+			ReloadMapping();
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(string)"/>
 		public int GetIomId(string bimId)
 		{
-			return IdMapping[bimId];
+			return _map.GetRight(bimId);
+		}
+
+		public string GetBimApiId(int iomId)
+		{
+			return _map.GetLeft(iomId);
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(IIdeaObject)"/>
+		/// <remarks>Stores all newly created id mappings. Also stores token of all unseen <see cref="IIdeaPersistentObject"/>.</remarks>
 		/// <exception cref="ArgumentNullException">Throws if <paramref name="obj"/> is null.</exception>
 		public int GetIomId(IIdeaObject obj)
 		{
@@ -41,17 +58,28 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(obj));
 			}
 
-			string bimId = obj.Id;
+			string bimApiId = obj.Id;
 
-			if (IdMapping.TryGetValue(bimId, out int iomId))
+			if (_map.TryGetRight(bimApiId, out int iomId))
 			{
 				return iomId;
 			}
 
-			iomId = IdMapping.MapId(bimId);
-			_iomIdToBimObject.Add(iomId, obj);
+			iomId = _nextId++;
 
-			_logger.LogDebug($"Creating new id mapping: BimApi id {bimId}, IOM id {iomId}");
+			_map.Add(bimApiId, iomId);
+			_objectMapping.Add(iomId, obj);
+
+			_persistence.StoreMapping(iomId, bimApiId);
+
+			if (obj is IIdeaPersistentObject persistentObject)
+			{
+				IIdeaPersistenceToken token = persistentObject.Token;
+				_persistence.StoreToken(bimApiId, token);
+				_persistenceTokens.Add(iomId, token);
+			}
+
+			_logger.LogDebug($"Created new id mapping: BimApi id {bimApiId}, IOM id {iomId}");
 
 			return iomId;
 		}
@@ -59,38 +87,44 @@ namespace IdeaStatiCa.BimImporter
 		/// <inheritdoc cref="IProject.GetBimObject(int)"/>
 		public IIdeaObject GetBimObject(int id)
 		{
-			return _iomIdToBimObject[id];
+			if (_objectMapping.TryGetValue(id, out IIdeaObject obj))
+			{
+				return obj;
+			}
+
+			if (_persistenceTokens.TryGetValue(id, out IIdeaPersistenceToken token))
+			{
+				obj = _objectRestorer.Restore(token);
+				_objectMapping.Add(id, obj);
+				return obj;
+			}
+
+			throw new KeyNotFoundException();
 		}
 
-		/// <inheritdoc cref="IProject.Load(IGeometry, ConversionDictionaryString)"/>
-		/// <exception cref="ArgumentNullException">If some argument is null.</exception>
-		public void Load(IGeometry geometry, ConversionDictionaryString conversionTable)
+		public IIdeaPersistenceToken GetPersistenceToken(int iomId)
 		{
-			if (geometry is null)
+			return _persistenceTokens[iomId];
+		}
+
+		private void ReloadMapping()
+		{
+			_nextId = 1;
+			_map.Clear();
+			_persistenceTokens.Clear();
+
+			foreach ((int iomId, string bimApiId) in _persistence.GetMappings())
 			{
-				throw new ArgumentNullException(nameof(geometry));
+				_map.Add(bimApiId, iomId);
+
+				// If current Id is 1 the next should be 2 so we do iomId+1
+				_nextId = Math.Max(_nextId, iomId + 1);
 			}
 
-			if (conversionTable is null)
+			foreach ((string bimApiId, IIdeaPersistenceToken token) in _persistence.GetTokens())
 			{
-				throw new ArgumentNullException(nameof(conversionTable));
+				_persistenceTokens.Add(_map.GetRight(bimApiId), token);
 			}
-
-			IEnumerable<IIdeaObject> objects = geometry.GetMembers().OfType<IIdeaObject>().Concat(geometry.GetNodes());
-			Dictionary<int, IIdeaObject> iom2BimObj = new Dictionary<int, IIdeaObject>();
-
-			foreach (IIdeaObject obj in objects)
-			{
-				string bimId = obj.Id;
-				if (conversionTable.TryGetValue(bimId, out int iomId))
-				{
-					iom2BimObj.Add(iomId, obj);
-					_logger.LogDebug($"Loaded id mapping: BimApi id {bimId}, IOM id {iomId}");
-				}
-			}
-
-			IdMapping = conversionTable;
-			_iomIdToBimObject = iom2BimObj; // ensures that _iomIdToBimObject is in a valid state
 		}
 	}
 }

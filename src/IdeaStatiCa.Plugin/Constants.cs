@@ -7,6 +7,7 @@
 		public const string GrpcReflectionErrorException = "GrpcReflectionError";
 		#endregion
 
+		public const string IdeaConnectionAppName = "IdeaConnection.exe";
 		public const string CheckbotAppName = "IdeaCheckbot.exe";
 		public const string ViewerPluginAppName = "IdeaStatiCa.ViewerPlugin.exe";
 		public const string AutomationParam = "-automation";

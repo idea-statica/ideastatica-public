@@ -51,7 +51,7 @@ namespace IdeaStatiCa.Plugin
 		/// <summary>
 		/// Determines whether automation hosting is connected to Grpc server.
 		/// </summary>
-		public bool IsConnected { get { return (grpcClient?.IsConnected).Value; } }
+		public bool IsConnected { get { return grpcClient?.IsConnected == true; } }
 
 		/// <summary>
 		/// Triggered when BIM status changes.

@@ -1,50 +1,103 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace IdeaStatiCa.BimImporter
 {
 	internal class ImportContext : IImportContext
 	{
-		private readonly IPluginLogger _logger;
-
 		public OpenModel OpenModel { get; } = new OpenModel();
 
-		public IImporter<IIdeaObject> Importer { get; }
+		public OpenModelResult OpenModelResult { get; } = new OpenModelResult();
 
-		public IProject Project { get; }
+		public List<BIMItemId> BimItems { get; } = new List<BIMItemId>();
+
+		public BimImporterConfiguration Configuration { get; private set; }
 
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
 			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
 
-		public ImportContext(IImporter<IIdeaObject> importer, IProject project, IPluginLogger logger)
+		private readonly ResultOnMembers _resultOnMembers = new ResultOnMembers();
+
+		private readonly IPluginLogger _logger;
+		private readonly IProject _project;
+		private readonly IImporter<IIdeaObject> _importer;
+		private readonly IResultImporter _resultImporter;
+
+		public ImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project, IPluginLogger logger,
+			BimImporterConfiguration configuration)
 		{
-			Importer = importer;
-			Project = project;
+			_importer = importer;
+			_resultImporter = resultImporter;
+			_project = project;
 			_logger = logger;
+
+			Configuration = configuration;
+
+			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
 		}
 
 		public ReferenceElement Import(IIdeaObject obj)
 		{
+			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
+
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))
 			{
-				_logger.LogDebug($"Reusing already imported object, open model id '{refElm.Id}'");
+				_logger.LogDebug($"Object has been already imported with IOM id '{refElm.Id}'");
 				return refElm;
 			}
 
-			OpenElementId iomObject = Importer.Import(this, obj);
-			iomObject.Id = Project.GetIomId(obj);
+			refElm = CreateAndStoreReferenceElement(obj);
+			Debug.Assert(_refElements[obj] == refElm);
+
+			_logger.LogDebug($"Object '{obj.Id}' imported, IOM id '{refElm.Id}'");
+
+			ImportResults(obj, refElm);
+
+			return refElm;
+		}
+
+		public void ImportBimItem(IBimItem bimItem)
+		{
+			Debug.Assert(bimItem != null);
+
+			ReferenceElement refElm = Import(bimItem.ReferencedObject);
+			BimItems.Add(new BIMItemId()
+			{
+				Type = bimItem.Type,
+				Id = refElm.Id
+			});
+		}
+
+		private void ImportResults(IIdeaObject obj, ReferenceElement refElm)
+		{
+			if (obj is IIdeaObjectWithResults objectWithResults)
+			{
+				_logger.LogDebug($"Importing results for object '{obj.Id}'");
+				_resultOnMembers.Members.AddRange(_resultImporter.Import(this, refElm, objectWithResults));
+			}
+		}
+
+		private ReferenceElement CreateAndStoreReferenceElement(IIdeaObject obj)
+		{
+			OpenElementId iomObject = _importer.Import(this, obj);
+			Debug.Assert(iomObject != null);
+
+			iomObject.Id = _project.GetIomId(obj);
 
 			int result = OpenModel.AddObject(iomObject);
 			if (result != 0)
 			{
-				throw new InvalidOperationException($"OpenModel.AddObject failed, return code {result}.");
+				throw new InvalidOperationException($"OpenModel.AddObject failed, return code '{result}'.");
 			}
 
-			refElm = new ReferenceElement(iomObject);
+			ReferenceElement refElm = new ReferenceElement(iomObject);
 			_refElements.Add(obj, refElm);
 
 			return refElm;

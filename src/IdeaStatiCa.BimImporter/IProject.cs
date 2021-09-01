@@ -1,21 +1,12 @@
 ﻿using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimImporter
 {
 	/// <summary>
 	/// Stores and manages mapping between <see cref="IIdeaObject.Id"/> and <see cref="IdeaRS.OpenModel.OpenElementId.Id"/>.
-	/// 
-	/// <see cref="IdMapping"/> must be manually stored and subsequently restored by 
-	/// <see cref="Load(IGeometry, ConversionDictionaryString)"/> method.
 	/// </summary>
 	public interface IProject
 	{
-		/// <summary>
-		/// Conversion dictionary between ids.
-		/// </summary>
-		ConversionDictionaryString IdMapping { get; }
-
 		/// <summary>
 		/// Returns IOM id for given <paramref name="bimId"/>.
 		/// </summary>
@@ -23,7 +14,14 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>IOM id</returns>
 		/// <exception cref="System.Collections.Generic.KeyNotFoundException">Throws when no mapping
 		/// for given <paramref name="bimId"/> exists.</exception>
-		int GetIomId(string bimId);
+		int GetIomId(string bimApiId);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="iomId"></param>
+		/// <returns></returns>
+		string GetBimApiId(int iomId);
 
 		/// <summary>
 		/// Returns BimApi object for given IOM <paramref name="id"/>.
@@ -41,11 +39,6 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>IOM id</returns>
 		int GetIomId(IIdeaObject obj);
 
-		/// <summary>
-		/// Loads mapping between ids and restores mapping between <see cref="IIdeaMember1D"/> and <see cref="IIdeaNode"/> objects.
-		/// </summary>
-		/// <param name="geometry">Geometry providing all members and nodes</param>
-		/// <param name="conversionTable">Saved conversion table</param>
-		void Load(IGeometry geometry, ConversionDictionaryString conversionTable);
+		IIdeaPersistenceToken GetPersistenceToken(int iomId);
 	}
 }

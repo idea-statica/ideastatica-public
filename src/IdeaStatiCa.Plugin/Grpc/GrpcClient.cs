@@ -191,6 +191,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 			{
 				var result = await handler.HandleClientMessage(message, this);
 			}
+			else
+			{
+				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
+			}
 
 			MessageReceived?.Invoke(this, message);
 		}

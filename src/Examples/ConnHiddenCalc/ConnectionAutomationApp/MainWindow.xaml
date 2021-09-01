@@ -6,22 +6,23 @@
         xmlns:local="clr-namespace:ConnectionAutomationApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
-    <DockPanel LastChildFill="True">
-        <ToolBar DockPanel.Dock="Top">
-            <Button Command="{Binding RunIdeaConnectionCmd, Mode=TwoWay}">Run IdeaConnection</Button>
-            <Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
-            <Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
-        </ToolBar>
-        <StackPanel DockPanel.Dock="Bottom">
-            <TextBlock Text="{Binding StatusMessage}"></TextBlock>
-        </StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="450"></ColumnDefinition>
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+	<DockPanel LastChildFill="True">
+		<ToolBar DockPanel.Dock="Top">
+			<CheckBox IsChecked="{Binding UseGrpcCommunication, Mode=TwoWay}">Use GRPC</CheckBox>
+			<Button Command="{Binding RunIdeaConnectionCmd, Mode=TwoWay}">Run IdeaConnection</Button>
+			<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
+			<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
+		</ToolBar>
+		<StackPanel DockPanel.Dock="Bottom">
+			<TextBlock Text="{Binding StatusMessage}"></TextBlock>
+		</StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="450"></ColumnDefinition>
+				<ColumnDefinition Width="5" />
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
 
-        </Grid>
-    </DockPanel>
+		</Grid>
+	</DockPanel>
 </Window>

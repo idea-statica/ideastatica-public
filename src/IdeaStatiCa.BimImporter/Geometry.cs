@@ -42,9 +42,10 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <param name="logger">Logger</param>
 		/// <exception cref="ArgumentNullException">If some argument is null.</exception>
-		public Geometry(IPluginLogger logger)
+		public Geometry(IPluginLogger logger, IIdeaModel model)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+			Build(model ?? throw new ArgumentNullException(nameof(model)));
 		}
 
 		/// <inheritdoc cref="IGeometry.GetConnectedMembers(IIdeaNode)"/>
@@ -83,18 +84,8 @@ namespace IdeaStatiCa.BimImporter
 			throw new ArgumentException($"Unknown member with id {member.Id}.", nameof(member));
 		}
 
-		/// <inheritdoc cref="IGeometry.Build(IIdeaModel)"/>
-		/// <exception cref="ArgumentNullException">If <paramref name="model"/> is null.</exception>
-		public void Build(IIdeaModel model)
+		private void Build(IIdeaModel model)
 		{
-			if (model is null)
-			{
-				throw new ArgumentNullException(nameof(model));
-			}
-
-			_vertices.Clear();
-			_edges.Clear();
-
 			_logger.LogInformation("Building model geometry.");
 
 			foreach (IIdeaMember1D member in model.GetMembers())
@@ -112,12 +103,6 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogInformation($"Got {_vertices.Count} vertices and {_edges.Count} edges.");
 		}
-
-		/// <inheritdoc cref="IGeometry.GetMembers"/>
-		public IEnumerable<IIdeaMember1D> GetMembers() => _edges.Keys;
-
-		/// <inheritdoc cref="IGeometry.GetNodes"/>
-		public IEnumerable<IIdeaNode> GetNodes() => _vertices.Keys;
 
 		private IEnumerable<IIdeaNode> EnumNodes(IIdeaMember1D member)
 		{

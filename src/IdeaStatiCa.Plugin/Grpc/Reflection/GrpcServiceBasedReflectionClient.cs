@@ -14,6 +14,8 @@
 		public GrpcServiceBasedReflectionClient(string clientId, int port) : base(clientId, port)
 		{
 			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(this);
+
+			RegisterHandler(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service));
 		}
 	}
 }

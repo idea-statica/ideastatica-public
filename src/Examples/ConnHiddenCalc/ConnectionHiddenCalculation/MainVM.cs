@@ -39,7 +39,7 @@ namespace ConnectionHiddenCalculation
 		readonly JsonSerializerSettings jsonSerializerSettings;
 		int supportingMember;
 		int attachedMember;
-		IdeaConnectionController connectionController;
+		IConnectionController connectionController;
 		readonly string ideaConnExeFileName;
 		private string ideaConTempFileName;
 		private string expression;
@@ -242,7 +242,7 @@ namespace ConnectionHiddenCalculation
 
 			if(connectionController != null)
 			{
-				connectionController.ConnectionAppAutomation.CloseProject();
+				connectionController.CloseProject();
 			}
 
 			DeleteTempProjectFile();
@@ -330,7 +330,7 @@ namespace ConnectionHiddenCalculation
 		{
 			if(connectionController != null)
 			{
-				connectionController.ConnectionAppAutomation.CloseProject();
+				connectionController.CloseProject();
 				DeleteTempProjectFile();
 			}
 
@@ -349,7 +349,7 @@ namespace ConnectionHiddenCalculation
 
 		#region View model's properties and methods
 
-		public IdeaConnectionController ConnectionController
+		public IConnectionController ConnectionController
 		{
 			get => connectionController;
 			set
@@ -368,14 +368,14 @@ namespace ConnectionHiddenCalculation
 			}
 			else
 			{
-				this.ConnectionController.ConnectionAppAutomation.CloseProject();
+				this.ConnectionController.CloseProject();
 				DeleteTempProjectFile();
 			}
 
 			IdeaConTempFileName = Path.ChangeExtension(Path.GetTempFileName(), ".ideacon");
 			SaveAsProjectCmd.Execute(IdeaConTempFileName);
 
-			ConnectionController.ConnectionAppAutomation.OpenProject(IdeaConTempFileName);
+			ConnectionController.OpenProject(IdeaConTempFileName);
 		}
 
 		private bool CanRunIdeaConnection(object arg)

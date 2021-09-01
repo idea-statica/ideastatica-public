@@ -28,6 +28,16 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		}
 
 		/// <summary>
+		/// Registers a message handler.
+		/// </summary>
+		/// <param name="handlerId">UniqueID of the handler.</param>
+		/// <param name="handler">Handler implementation.</param>
+		public void RegisterHandler(string handlerId, IGrpcMessageHandler handler)
+		{
+			client.RegisterHandler(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, handler);
+		}
+
+		/// <summary>
 		/// Connects the client to the server.
 		/// </summary>
 		/// <returns></returns>
