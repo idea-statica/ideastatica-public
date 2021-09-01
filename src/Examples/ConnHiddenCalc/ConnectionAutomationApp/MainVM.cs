@@ -11,14 +11,17 @@ namespace ConnectionAutomationApp
 	public class MainVM : INotifyPropertyChanged, IDisposable
 	{
 		bool isIdea;
+		bool useGrpcCommunication;
 		readonly string ideaStatiCaDir;
 		string statusMessage;
-		IdeaConnectionController connectionController;
+		IConnectionController connectionController;
+		string currentProjectFileName;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public MainVM()
 		{
+			UseGrpcCommunication = true;
 			ideaStatiCaDir = Properties.Settings.Default.IdeaStatiCaDir;
 			if (Directory.Exists(ideaStatiCaDir))
 			{
@@ -57,6 +60,17 @@ namespace ConnectionAutomationApp
 			}
 		}
 
+		public bool UseGrpcCommunication
+		{
+			get => useGrpcCommunication;
+
+			set
+			{
+				useGrpcCommunication = value;
+				NotifyPropertyChanged("UseGrpcCommunication");
+			}
+		}
+
 		public string StatusMessage
 		{
 			get => statusMessage;
@@ -67,7 +81,7 @@ namespace ConnectionAutomationApp
 			}
 		}
 
-		public IdeaConnectionController ConnectionController
+		public IConnectionController ConnectionController
 		{
 			get => connectionController;
 			set
@@ -77,15 +91,26 @@ namespace ConnectionAutomationApp
 			}
 		}
 
+		public string CurrentProjectFileName
+		{
+			get => currentProjectFileName;
+			set
+			{
+				currentProjectFileName = value;
+				NotifyPropertyChanged("CurrentProjectFileName");
+			}
+		}
+
 		private void CloseProject(object obj)
 		{
 			// close the currently open project
-			ConnectionController.ConnectionAppAutomation.CloseProject();
+			ConnectionController.CloseProject();
+			CurrentProjectFileName = string.Empty;
 		}
 
 		private bool CanCloseProject(object arg)
 		{
-			return !((this.ConnectionController == null) || (this.ConnectionController.ConnectionAppAutomation == null));
+			return !string.IsNullOrEmpty(CurrentProjectFileName);
 		}
 
 		private void OpenProject(object obj)
@@ -100,28 +125,36 @@ namespace ConnectionAutomationApp
 			try
 			{
 				// open selected idea connection project in the running application IdeaConnection.exe
-				ConnectionController.ConnectionAppAutomation.OpenProject(openFileDialog.FileName);
+				ConnectionController.OpenProject(openFileDialog.FileName);
+				CurrentProjectFileName = openFileDialog.FileName;
 			}
 			catch (Exception e)
 			{
 				Debug.Assert(false, e.Message);
+				CurrentProjectFileName = string.Empty;
 			}
 		}
 
 		private bool CanOpenProject(object arg)
 		{
-			return !((this.ConnectionController == null) || (this.ConnectionController.ConnectionAppAutomation == null));
+			return ((this.ConnectionController != null) && string.IsNullOrEmpty(CurrentProjectFileName));
 		}
 
 		private void RunIdeaConnection(object obj)
 		{
-			// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
-			this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
+			if(UseGrpcCommunication)
+			{
+				this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir);
+			}
+			else
+			{
+				this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
+			}
 		}
 
 		private bool CanRunIdeaConnection(object arg)
 		{
-			return (this.ConnectionController == null) || (this.ConnectionController.ConnectionAppAutomation == null);
+			return (this.ConnectionController == null) || (this.ConnectionController.IsConnected == false);
 		}
 
 		private void NotifyPropertyChanged(string propertyName = "")

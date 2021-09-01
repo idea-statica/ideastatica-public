@@ -35,7 +35,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
 				var arguments = grpcInvokeData.Parameters;
 				var result = await ReflectionHelper.InvokeMethodFromGrpc(instance, grpcInvokeData.MethodName, arguments);
-				var jsonResult = result != null ? JsonConvert.SerializeObject(result) : null;
+				var jsonResult = result != null ? JsonConvert.SerializeObject(result) : string.Empty;
 
 				await server.SendMessageAsync(
 						message.OperationId,
@@ -56,8 +56,13 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
 		{
 			var callback = JsonConvert.DeserializeObject<GrpcReflectionCallbackData>(message.Data);
-			var value = callback.Value != null ? JsonConvert.DeserializeObject(callback.Value.ToString(), Type.GetType(callback.ValueType)) : null;
+			if(callback == null)
+			{
+				object res = null;
+				return Task<object>.FromResult(res);
+			}
 
+			var value = callback.Value != null ? JsonConvert.DeserializeObject(callback.Value.ToString(), Type.GetType(callback.ValueType)) : null;
 			return Task<object>.FromResult(value);
 		}
 	}

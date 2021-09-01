@@ -39,7 +39,7 @@ namespace ConnectionHiddenCalculation
 		readonly JsonSerializerSettings jsonSerializerSettings;
 		int supportingMember;
 		int attachedMember;
-		IdeaConnectionController connectionController;
+		IConnectionController connectionController;
 		readonly string ideaConnExeFileName;
 		private string ideaConTempFileName;
 		private string expression;
@@ -94,7 +94,6 @@ namespace ConnectionHiddenCalculation
 			GetAllConnectionDataCmd = new GetAllConnDataCommand(this);
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
 			OpenTempProjectCmd = new CustomCommand(CanRunIdeaConnection, RunIdeaConnection);
-			DeleteOperationsCmd = new DeleteAllOperationsCommand(this);
 
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
 
@@ -128,7 +127,6 @@ namespace ConnectionHiddenCalculation
 		public ICommand GetLoadingCmd { get; set; }
 		public ICommand GetConnCheckResultsCmd { get; set; }
 		public ICommand OpenTempProjectCmd { get; set; }
-		public ICommand DeleteOperationsCmd { get; set; }
 
 		#endregion
 
@@ -242,7 +240,10 @@ namespace ConnectionHiddenCalculation
 			Results = string.Empty;
 			Connections.Clear();
 
-			connectionController?.ConnectionAppAutomation?.CloseProject();
+			if(connectionController != null)
+			{
+				connectionController.CloseProject();
+			}
 
 			DeleteTempProjectFile();
 		}
@@ -329,7 +330,7 @@ namespace ConnectionHiddenCalculation
 		{
 			if(connectionController != null)
 			{
-				connectionController.ConnectionAppAutomation.CloseProject();
+				connectionController.CloseProject();
 				DeleteTempProjectFile();
 			}
 
@@ -348,7 +349,7 @@ namespace ConnectionHiddenCalculation
 
 		#region View model's properties and methods
 
-		public IdeaConnectionController ConnectionController
+		public IConnectionController ConnectionController
 		{
 			get => connectionController;
 			set
@@ -367,14 +368,14 @@ namespace ConnectionHiddenCalculation
 			}
 			else
 			{
-				this.ConnectionController.ConnectionAppAutomation.CloseProject();
+				this.ConnectionController.CloseProject();
 				DeleteTempProjectFile();
 			}
 
 			IdeaConTempFileName = Path.ChangeExtension(Path.GetTempFileName(), ".ideacon");
 			SaveAsProjectCmd.Execute(IdeaConTempFileName);
 
-			ConnectionController.ConnectionAppAutomation.OpenProject(IdeaConTempFileName);
+			ConnectionController.OpenProject(IdeaConTempFileName);
 		}
 
 		private bool CanRunIdeaConnection(object arg)
