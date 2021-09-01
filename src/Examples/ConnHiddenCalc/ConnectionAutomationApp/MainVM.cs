@@ -11,6 +11,7 @@ namespace ConnectionAutomationApp
 	public class MainVM : INotifyPropertyChanged, IDisposable
 	{
 		bool isIdea;
+		bool useGrpcCommunication;
 		readonly string ideaStatiCaDir;
 		string statusMessage;
 		IConnectionController connectionController;
@@ -20,6 +21,7 @@ namespace ConnectionAutomationApp
 
 		public MainVM()
 		{
+			UseGrpcCommunication = true;
 			ideaStatiCaDir = Properties.Settings.Default.IdeaStatiCaDir;
 			if (Directory.Exists(ideaStatiCaDir))
 			{
@@ -55,6 +57,17 @@ namespace ConnectionAutomationApp
 			{
 				isIdea = value;
 				NotifyPropertyChanged("IsIdea");
+			}
+		}
+
+		public bool UseGrpcCommunication
+		{
+			get => useGrpcCommunication;
+
+			set
+			{
+				useGrpcCommunication = value;
+				NotifyPropertyChanged("UseGrpcCommunication");
 			}
 		}
 
@@ -129,10 +142,14 @@ namespace ConnectionAutomationApp
 
 		private void RunIdeaConnection(object obj)
 		{
-			// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
-			//this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
-
-			this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir);
+			if(UseGrpcCommunication)
+			{
+				this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir);
+			}
+			else
+			{
+				this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
+			}
 		}
 
 		private bool CanRunIdeaConnection(object arg)
