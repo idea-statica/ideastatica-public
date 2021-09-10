@@ -205,24 +205,12 @@ namespace IdeaStatiCa.BIM.Common
 					new Node(i * 2 + 2, b.End, surre, b),
 				};
 			}).ToArray();
+
 			foreach (var node in nodes)
 			{
-				node.ConnectedMembers.AddRange(nodes
-					.Where(b => b.Master != node.Master && node.Contains(b.Location))
-					.Select(b => new ConnectedMember(b, b.RelativePosition)));
-
-				foreach (var beam in data.Members.Where(m => m != node.Master))
-				{
-					if (node.ConnectedMembers.Find(cm => cm.Member == beam) == null)
-					{
-						var relpos = beam.GetPositionOnMember(node.Location, settings);
-						if (relpos >= 0 && relpos <= 1)
-						{
-							node.ConnectedMembers.Add(new ConnectedMember(beam, relpos));
-							// hledat mimobezne pruty
-						}
-					}
-				}
+				//try to find and get together similar (exists in surrounding) nodes and continuous members
+				var nodecopy = nodes.ToList();
+				while (AddMembers(nodecopy, node, settings)) ;
 			}
 
 			var joints = new List<Joint>();
@@ -285,6 +273,7 @@ namespace IdeaStatiCa.BIM.Common
 
 			return new SorterResult(joints);
 		}
+
 
 		internal static (Member m, bool isended) SelectBearingMember(IEnumerable<(Member m, bool isended)> members, Node node)
 		{
@@ -529,6 +518,42 @@ namespace IdeaStatiCa.BIM.Common
 					AddConnectedMembers(node, cm.Node.ConnectedMembers, settings, excluded, members);
 				}
 			}
+		}
+		private static bool AddMembers(List<Node> source, Node node, SorterSettings settings)
+		{
+			var found = false;
+			for (var i = source.Count - 1; i >= 0; --i)
+			{
+				var b = source[i];
+				if (b.Master == node.Master)
+				{
+					continue;
+				}
+
+				if (node.Contains(b.Location))
+				{
+					node.ConnectedMembers.Add(new ConnectedMember(b, b.RelativePosition));
+					node.Inflate(b);
+					found = true;
+					source.Remove(b);
+					continue;
+				}
+
+				if (node.ConnectedMembers.Find(cm => cm.Member == b.Master) == null)
+				{
+					var relpos = b.Master.GetPositionOnMember(node.Location, settings);
+					if (relpos >= 0 && relpos <= 1)
+					{
+						node.ConnectedMembers.Add(new ConnectedMember(b.Master, relpos));
+						// hledat mimobezne pruty
+						found = true;
+						node.Inflate(new Node(0, b.Master.GetPointOnRelativePosition(relpos), b.Surroundings, b.Master));
+						source.Remove(b);
+					}
+				}
+			}
+
+			return found;
 		}
 
 		private static bool AddPlates(List<Plate> source, List<Plate> target, Node node)
@@ -875,6 +900,27 @@ namespace IdeaStatiCa.BIM.Common
 			}
 
 			return double.NaN;
+		}
+
+		/// <summary>
+		/// Get point on member represent relative position
+		/// </summary>
+		/// <param name="member"></param>
+		/// <param name="relativePosition"></param>
+		/// <returns>point</returns>
+		public static IPoint3D GetPointOnRelativePosition(this Member member, double relativePosition)
+		{
+			if (relativePosition <= 0)
+			{
+				return member.Begin;
+			}
+
+			if (relativePosition >= 1)
+			{
+				return member.End;
+			}
+			var vect = GeomOperation.Subtract(member.End, member.Begin) * relativePosition;
+			return GeomOperation.Add(member.Begin, vect);
 		}
 
 		public static bool IsHorizontal(this Member member, double tolerance = 1e-9)
