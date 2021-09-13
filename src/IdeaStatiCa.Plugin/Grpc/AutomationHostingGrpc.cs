@@ -88,6 +88,10 @@ namespace IdeaStatiCa.Plugin
 			tokenSource = new CancellationTokenSource();
 			var token = tokenSource.Token;
 
+			// initialize grpc client
+			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort);
+			grpcClient.ConnectAsync().WaitAndUnwrapException();
+
 			hostingTask = Task.Run(() =>
 			{
 				try
@@ -133,10 +137,6 @@ namespace IdeaStatiCa.Plugin
 				bimProcess = Process.GetProcessById(myAutomatingProcessId);
 				bimProcess.EnableRaisingEvents = true;
 				bimProcess.Exited += new EventHandler(BimProcess_Exited);
-
-				// initialize grpc client
-				grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort);
-				grpcClient.ConnectAsync().WaitAndUnwrapException();
 
 				if (!string.IsNullOrEmpty(id))
 				{
