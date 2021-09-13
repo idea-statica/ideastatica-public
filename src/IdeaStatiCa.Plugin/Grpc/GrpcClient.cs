@@ -103,7 +103,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				// Handle incoming messages
 				_ = Task.Run(async () =>
 				{
-					while (await client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None))
+					while (await ResponseStrem())
 					{
 						var response = client.ResponseStream.Current;
 
@@ -116,6 +116,18 @@ namespace IdeaStatiCa.Plugin.Grpc
 				errorMessage = e.Message;
 
 				await DisconnectAsync();
+			}
+		}
+
+		private async Task<bool> ResponseStrem()
+		{
+			try
+			{
+				return await client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None);
+			}
+			catch (Exception)
+			{
+				return await Task.FromResult(false);
 			}
 		}
 
