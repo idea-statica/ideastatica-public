@@ -156,6 +156,25 @@
 		}
 
 		/// <summary>
+		/// T shape  - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Flange thickness</param>
+		/// <param name="bwT">Web thickness top</param>
+		/// <param name="bwB">Web thickness bottom</param>
+		public static void FillShapeTwh(CrossSectionParameter css, System.Double b, System.Double h, System.Double hf, System.Double bwT, System.Double bwB)
+		{
+			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Twh;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessTop", Value = bwT });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessBottom", Value = bwB });
+		}
+
+		/// <summary>
 		/// TT shape  - massive concrete shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
