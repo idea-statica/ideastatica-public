@@ -306,8 +306,16 @@ namespace FEAppExample_1
 			{
 				ideaStatiCaApp.Open();
 				Add(string.Format("Getting connection model for connection #{0}", firstItem.Id));
-				connectionData = ideaStatiCaApp.GetConnectionModel(firstItem.Id);
-
+				try
+				{
+					connectionData = ideaStatiCaApp.GetConnectionModel(firstItem.Id);
+				}
+				catch(Exception e)
+				{
+					// show error message
+					Add(e.Message);
+					return;
+				}
 
 				System.Windows.Application.Current.Dispatcher.BeginInvoke(
 					System.Windows.Threading.DispatcherPriority.Normal,
