@@ -79,6 +79,7 @@ namespace IdeaStatiCa.Plugin
 		/// Get connection model in IOM format
 		/// </summary>
 		/// <param name="connectionId">The ID of the connection in the project</param>
+		/// <exception cref="System.Exception">Exception is thrown if operation fails or no data are provided by the service</exception>
 		/// <returns>Connection model</returns>
 		[OperationContract]
 		IdeaRS.OpenModel.Connection.ConnectionData GetConnectionModel(int connectionId);
@@ -87,6 +88,7 @@ namespace IdeaStatiCa.Plugin
 		/// Get structural data and corresponding results of FE analysi for <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">Identifier of the required connection</param>
+		/// <exception cref="System.Exception">Exception is thrown if operation fails or no data are provided by the service</exception>
 		/// <returns>XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)</returns>
 		[OperationContract]
 		string GetAllConnectionData(int connectionId);

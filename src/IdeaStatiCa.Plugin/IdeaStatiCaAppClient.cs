@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Connection;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using System.Linq;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -44,11 +45,29 @@ namespace IdeaStatiCa.Plugin
 			return Service.GetMaterialsInProject();
 		}
 
+		/// <inheritdoc cref="IIdeaStaticaApp.GetConnectionModel(int)"/>
 		public ConnectionData GetConnectionModel(int connectionId)
 		{
-			return Service.GetConnectionModel(connectionId);
+			// get OpenModelContainer in XML format
+			string completeModelXml = GetAllConnectionData(connectionId);
+			var completeModel = Tools.OpenModelContainerFromXml(completeModelXml);
+
+			var iom = completeModel?.OpenModel;
+			if (iom == null)
+			{
+				throw new Exception("GetConnectionModel - not valid IOM is provided by IdeaStatiCa");
+			}
+
+			ConnectionData conData = iom?.Connections.FirstOrDefault();
+			if(conData == null)
+			{
+				throw new Exception("GetConnectionModel - no geometrical data of the requested connection is provided by IdeaStatiCa");
+			}
+
+			return conData;
 		}
 
+		/// <inheritdoc cref="IIdeaStaticaApp.GetAllConnectionData(int)"/>
 		public string GetAllConnectionData(int connectionId)
 		{
 			return Service.GetAllConnectionData(connectionId);
