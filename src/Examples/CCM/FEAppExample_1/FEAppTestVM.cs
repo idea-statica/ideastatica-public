@@ -14,8 +14,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Input;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace FEAppExample_1
 {
@@ -46,6 +44,7 @@ namespace FEAppExample_1
 			GetMatInProjectCmd = new CustomCommand(this.CanGetMatInProject, this.GetMatInProject);
 			GetMatInMprlCmd = new CustomCommand(this.CanGetMatInMprl, this.GetGetMatInMprl);
 			ShowCCMLogCmd = new CustomCommand(this.CanOpenCCMLogFile, this.OpenCCMLogFile);
+			SaveTextAsCmd = new CustomCommand(this.CanSaveTextAs, this.SaveTextAs);
 			ProjectName = string.Empty;
 
 			WorkingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Process.GetCurrentProcess().ProcessName);
@@ -71,6 +70,7 @@ namespace FEAppExample_1
 		public CustomCommand GetMatInProjectCmd { get; set; }
 		public CustomCommand GetMatInMprlCmd { get; set; }
 		public CustomCommand ShowCCMLogCmd { get; set; }
+		public CustomCommand SaveTextAsCmd { get; set; }
 
 		public string ModelFeaXml { get => modelFeaXml; set => modelFeaXml = value; }
 
@@ -438,7 +438,6 @@ namespace FEAppExample_1
 			}
 		}
 
-
 		private bool CanGetMatInMprl(object arg)
 		{
 			return FeaAppHosting?.Service != null;
@@ -639,11 +638,23 @@ namespace FEAppExample_1
 			}
 		}
 
-		/// <summary>
-		/// Can CCM log file be opened 
-		/// </summary>
-		/// <param name="arg"></param>
-		/// <returns>Returs true if CCM log file exists</returns>
+		private bool CanSaveTextAs(object arg)
+		{
+			return !string.IsNullOrEmpty(DetailInformation);
+		}
+
+		private void SaveTextAs(object obj)
+		{
+			var saveFileDialog = new SaveFileDialog { Filter = "XML Files|*.xml|All Files|*.*", CheckPathExists = true};
+			if (saveFileDialog.ShowDialog() == true)
+			{
+				using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName, false, Encoding.Unicode))
+				{
+					writer.Write(DetailInformation);
+				}
+			}
+		}
+
 		private bool CanOpenCCMLogFile(object arg)
 		{
 			return File.Exists(GetCCMLogFile());
@@ -673,7 +684,7 @@ namespace FEAppExample_1
 		/// <returns></returns>
 		private static string GetCCMLogFile()
 		{
-			var logFileFileName = Path.Combine(Path.GetTempPath(), "IdeaStatiCa\\Logs\\", "IdeaStatiCaCodeCheckManager.log");
+			var logFileFileName = Path.Combine(Path.GetTempPath(), "IdeaStatiCa\\Logs\\", "IdeaStatiCaCheckbot.log");
 			return logFileFileName;
 		}
 

@@ -7,63 +7,64 @@
 	xmlns:local="clr-namespace:FEAppExample_1"
 	mc:Ignorable="d"
 	Title="Some FE Application" Height="450" Width="800">
-    <Window.InputBindings>
-        <KeyBinding Command="{Binding RunCmd}" Key="F5" />
-    </Window.InputBindings>
+	<Window.InputBindings>
+		<KeyBinding Command="{Binding RunCmd}" Key="F5" />
+	</Window.InputBindings>
 
-    <DockPanel LastChildFill="True">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="LightGray" Height="22">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Height" Value="20" />
-                </Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                    <Setter Property="Height" Value="20" />
-                </Style>
-            </StackPanel.Resources>
-            <Button Command="{Binding RunCmd, Mode=TwoWay}" Margin="5,0">_Run IDEA StatiCa CCM</Button>
-            <Button Command="{Binding LoadCmd}" Margin="5,0">_Load model</Button>
-            <Button Command="{Binding LoadCmd}" CommandParameter="FEA_Model_Examples\default_project.xml" Margin="5,0">Default</Button>
-            <CheckBox Margin="5,3" IsChecked="{Binding IsCAD}">Is CAD</CheckBox>
-            <Button Command="{Binding GetConnectionModelCmd}" Margin="5,0" ToolTip="Get connection model for active connection. (chosen in CCM)">GetConnectionModel</Button>
-            <Button Command="{Binding GetAllConnectionDataCmd}" Margin="5,0" ToolTip="Get structural data and corresponding results of FE analysis (the instance of IdeaRS.OpenModel.OpenModelContainer)">GetAllConnectionData</Button>
+	<DockPanel LastChildFill="True">
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="LightGray" Height="22">
+			<StackPanel.Resources>
+				<Style TargetType="Button">
+					<Setter Property="Height" Value="20" />
+				</Style>
+				<Style TargetType="TextBlock">
+					<Setter Property="VerticalAlignment" Value="Center" />
+				</Style>
+				<Style TargetType="TextBox">
+					<Setter Property="VerticalAlignment" Value="Center" />
+					<Setter Property="Height" Value="20" />
+				</Style>
+			</StackPanel.Resources>
+			<Button Command="{Binding RunCmd, Mode=TwoWay}" Margin="5,0">_Run IDEA StatiCa CCM</Button>
+			<Button Command="{Binding LoadCmd}" Margin="5,0">_Load model</Button>
+			<Button Command="{Binding LoadCmd}" CommandParameter="FEA_Model_Examples\default_project.xml" Margin="5,0">Default</Button>
+			<CheckBox Margin="5,3" IsChecked="{Binding IsCAD}">Is CAD</CheckBox>
+			<Button Command="{Binding GetConnectionModelCmd}" Margin="5,0" ToolTip="Get connection model for active connection. (chosen in CCM)">GetConnectionModel</Button>
+			<Button Command="{Binding GetAllConnectionDataCmd}" Margin="5,0" ToolTip="Get structural data and corresponding results of FE analysis (the instance of IdeaRS.OpenModel.OpenModelContainer)">GetAllConnectionData</Button>
 			<Button Command="{Binding GetModelBIMCmd}" Margin="5,0" ToolTip="Get structural data and corresponding results of FE analysis (the instance of IdeaStatiCa.Plugin.ModelBIM)">GetModelBIM</Button>
 			<Button Command="{Binding GetCssInProjectCmd}" Margin="5,0">CSS in project</Button>
-            <Button Command="{Binding GetCssInMprlCmd}" Margin="5,0">CSS in MPRL</Button>
-            <Button Command="{Binding GetMatInProjectCmd}" Margin="5,0">Materials in project</Button>
-            <Button Command="{Binding GetMatInMprlCmd}" Margin="5,0">Materials in MPRL</Button>
-        </StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <TextBlock Margin="5,0,10,0">Project location:</TextBlock>
-                <TextBox Text="{Binding ProjectDir}" MinWidth="75" Margin="5,0" />
-                <Button Command="{Binding ShowCCMLogCmd}" ToolTip="Logs available from IdeaStatiCa v20.1.2">Show CCM log</Button>
-            </StackPanel>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                
-                <ListView x:Name="listView"
+			<Button Command="{Binding GetCssInMprlCmd}" Margin="5,0">CSS in MPRL</Button>
+			<Button Command="{Binding GetMatInProjectCmd}" Margin="5,0">Materials in project</Button>
+			<Button Command="{Binding GetMatInMprlCmd}" Margin="5,0">Materials in MPRL</Button>
+		</StackPanel>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20"></RowDefinition>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0" Orientation="Horizontal">
+				<TextBlock Margin="5,0,10,0">Project location:</TextBlock>
+				<TextBox Text="{Binding ProjectDir}" MinWidth="75" Margin="5,0" />
+				<Button Command="{Binding ShowCCMLogCmd}" ToolTip="Logs available from IdeaStatiCa v20.1.2">Show CCM log</Button>
+				<Button Command="{Binding SaveTextAsCmd}" ToolTip="Save text in the output window to file">Save as</Button>
+			</StackPanel>
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition Width="5" />
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+
+				<ListView x:Name="listView"
                       ItemsSource="{Binding Actions}"/>
-                
-                <TextBox Grid.Column="2" Text="{Binding DetailInformation}"
+
+				<TextBox Grid.Column="2" Text="{Binding DetailInformation}"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                  ScrollViewer.VerticalScrollBarVisibility="Auto">
-                </TextBox>
+				</TextBox>
 
-                <GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
-            </Grid>
-        </Grid>
-    </DockPanel>
+				<GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
+			</Grid>
+		</Grid>
+	</DockPanel>
 </Window>
