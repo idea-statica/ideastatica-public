@@ -40,6 +40,7 @@ namespace FEAppExample_1
 			LoadCmd = new CustomCommand(this.CanLoad, this.Load);
 			GetConnectionModelCmd = new CustomCommand(this.CanGetConnectionModel, this.GetConnectionModel);
 			GetAllConnectionDataCmd = new CustomCommand(this.CanGetAllConnectionData, this.GetAllConnectionData);
+			GetModelBIMCmd = new CustomCommand(this.CanGetAllConnectionData, this.GetModelBIM);
 			GetCssInProjectCmd = new CustomCommand(this.CanGetCssInProject, this.GetCssInProject);
 			GetCssInMprlCmd = new CustomCommand(this.CanGetCssInMprl, this.GetCssInMprl);
 			GetMatInProjectCmd = new CustomCommand(this.CanGetMatInProject, this.GetMatInProject);
@@ -64,6 +65,7 @@ namespace FEAppExample_1
 		public CustomCommand RunCmd { get; set; }
 		public CustomCommand GetConnectionModelCmd { get; set; }
 		public CustomCommand GetAllConnectionDataCmd { get; set; }
+		public CustomCommand GetModelBIMCmd { get; set; }
 		public CustomCommand GetCssInProjectCmd { get; set; }
 		public CustomCommand GetCssInMprlCmd { get; set; }
 		public CustomCommand GetMatInProjectCmd { get; set; }
@@ -189,7 +191,7 @@ namespace FEAppExample_1
 				? GetFilePath()
 				: Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), param.ToString());
 
-			if(string.IsNullOrEmpty(filePath))
+			if (string.IsNullOrEmpty(filePath))
 			{
 				// nothing to load;
 				return;
@@ -205,7 +207,7 @@ namespace FEAppExample_1
 			Add($"File '{filePath}' loaded.");
 
 			ProjectDir = Path.Combine(WorkingDirectory, ProjectName);
-			if(!Directory.Exists(ProjectDir))
+			if (!Directory.Exists(ProjectDir))
 			{
 				Directory.CreateDirectory(ProjectDir);
 				File.Copy(filePath, Path.Combine(ProjectDir, Path.GetFileName(filePath)));
@@ -242,18 +244,18 @@ namespace FEAppExample_1
 
 		private bool CanGetConnectionModel(object arg)
 		{
-			if(SelectedItems == null)
+			if (SelectedItems == null)
 			{
 				return false;
 			}
 
 			var firstItem = SelectedItems.FirstOrDefault();
-			if(firstItem == null)
+			if (firstItem == null)
 			{
 				return false;
 			}
 
-			if(firstItem.Type != BIMItemType.Node)
+			if (firstItem.Type != BIMItemType.Node)
 			{
 				return false;
 			}
@@ -310,7 +312,7 @@ namespace FEAppExample_1
 				{
 					connectionData = ideaStatiCaApp.GetConnectionModel(firstItem.Id);
 				}
-				catch(Exception e)
+				catch (Exception e)
 				{
 					// show error message
 					Add(e.Message);
@@ -386,6 +388,56 @@ namespace FEAppExample_1
 					}));
 			}
 		}
+
+		private void GetModelBIM(object obj)
+		{
+			var firstItem = SelectedItems.FirstOrDefault();
+
+			if (FeaAppHosting == null)
+			{
+				return;
+			}
+
+			var bimAppliction = (ApplicationBIM)FeaAppHosting.Service;
+			if (bimAppliction == null)
+			{
+				Debug.Fail("Can not cast to ApplicationBIM");
+				return;
+			}
+
+			int myProcessId = bimAppliction.Id;
+			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
+
+			OpenModelContainer openModelContainer = null;
+
+			using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+			{
+				ideaStatiCaApp.Open();
+				Add(string.Format("Getting connection IOM model for connection #{0}", firstItem.Id));
+				string openModelContainerXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
+
+				openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
+				ModelBIM modelBIM = new ModelBIM();
+				modelBIM.Model = openModelContainer.OpenModel;
+				modelBIM.Results = openModelContainer.OpenModelResult;
+				modelBIM.RequestedItems = RequestedItemsType.Connections;
+				modelBIM.Items = new List<BIMItemId>();
+				modelBIM.Messages = new IdeaRS.OpenModel.Message.OpenMessages();
+				modelBIM.Items.Add(firstItem);
+
+				var modelBimXml = Tools.ModelToXml(modelBIM);
+
+				System.Windows.Application.Current.Dispatcher.BeginInvoke(
+					System.Windows.Threading.DispatcherPriority.Normal,
+					(Action)(() =>
+					{
+						Add("GetModelBIM succeeded");
+						SetDetailInformation(modelBimXml);
+						CommandManager.InvalidateRequerySuggested();
+					}));
+			}
+		}
+
 
 		private bool CanGetMatInMprl(object arg)
 		{
@@ -673,7 +725,7 @@ namespace FEAppExample_1
 		private void FakeFea_SelectionChanged(object sender, EventArgs e)
 		{
 			FakeFEA fakeFea = (FakeFEA)sender;
-			if(fakeFea != null)
+			if (fakeFea != null)
 			{
 				System.Windows.Application.Current.Dispatcher.BeginInvoke(
 					System.Windows.Threading.DispatcherPriority.Normal,
