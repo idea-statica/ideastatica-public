@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.BimImporter.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginsTools", "IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj", "{5166DBC3-FF77-48B4-8980-C3ED05614957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Plugin.Tests", "IdeaStatiCa.Plugin.Tests\IdeaStatiCa.Plugin.Tests.csproj", "{83D352D6-57C3-4700-8EED-F4915A5E503D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Plugin.Tests", "IdeaStatiCa.Plugin.Tests\IdeaStatiCa.Plugin.Tests.csproj", "{5DC41163-15BE-4C1C-B844-4B8AD388098F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,10 +117,10 @@ Global
 		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5166DBC3-FF77-48B4-8980-C3ED05614957}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83D352D6-57C3-4700-8EED-F4915A5E503D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83D352D6-57C3-4700-8EED-F4915A5E503D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83D352D6-57C3-4700-8EED-F4915A5E503D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83D352D6-57C3-4700-8EED-F4915A5E503D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC41163-15BE-4C1C-B844-4B8AD388098F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC41163-15BE-4C1C-B844-4B8AD388098F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC41163-15BE-4C1C-B844-4B8AD388098F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC41163-15BE-4C1C-B844-4B8AD388098F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
