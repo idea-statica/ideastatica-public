@@ -195,7 +195,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="message">Message incoming from server.</param>
 		/// <returns></returns>
-		protected virtual async Task HandleMessageAsync(GrpcMessage message)
+		internal virtual async Task HandleMessageAsync(GrpcMessage message)
 		{
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
