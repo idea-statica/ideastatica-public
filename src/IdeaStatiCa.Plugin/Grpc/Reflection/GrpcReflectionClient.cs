@@ -10,7 +10,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	/// </summary>
 	public class GrpcReflectionClient
 	{
-		private GrpcSynchronousClient client;
+		private IGrpcSynchronousClient client;
 
 		/// <summary>
 		/// Determines whether the client is connected.
@@ -25,6 +25,15 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		public GrpcReflectionClient(string clientId, int port)
 		{
 			client = new GrpcSynchronousClient(clientId, port);
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="client">Client for grpc communication</param>
+		internal GrpcReflectionClient(IGrpcSynchronousClient client)
+		{
+			this.client = client;
 		}
 
 		/// <summary>
@@ -71,7 +80,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageDataSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject<T>(response.Data);
@@ -88,7 +97,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageDataSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject(response.Data, returnType);

@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
+	public interface IGrpcClient
+	{
+		bool IsConnected { get; }
+		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
+
+		Task SendMessageAsync(GrpcMessage message);
+
+		Task ConnectAsync();
+
+		Task DisconnectAsync();
+	}
+
 	/// <summary>
 	/// Client implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcClient
+	public class GrpcClient : IGrpcClient
 	{
 		#region Private Fields
 		private Channel channel;

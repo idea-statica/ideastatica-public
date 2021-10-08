@@ -4,10 +4,15 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
+	public interface IGrpcSynchronousClient : IGrpcClient
+	{
+		GrpcMessage SendMessageDataSync(string messageName, string data);
+	}
+
 	/// <summary>
 	/// GrpcClient implementation that waits for message callbacks.
 	/// </summary>
-	public class GrpcSynchronousClient : GrpcClient
+	public class GrpcSynchronousClient : GrpcClient, IGrpcSynchronousClient
 	{
 		TaskCompletionSource<GrpcMessage> grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 
@@ -21,12 +26,19 @@ namespace IdeaStatiCa.Plugin.Grpc
 		}
 
 		/// <summary>
+		/// Needed for by UT
+		/// </summary>
+		public GrpcSynchronousClient() : base("", 80)
+		{
+		}
+
+		/// <summary>
 		/// Sends message and waits for the callback from the server.
 		/// </summary>
 		/// <param name="messageName">Message identificator.</param>
 		/// <param name="data">Body of the message.</param>
 		/// <returns></returns>
-		public GrpcMessage SendMessageSync(string messageName, string data)
+		public GrpcMessage SendMessageDataSync(string messageName, string data)
 		{
 			return Task.Run(async () =>
 			{
