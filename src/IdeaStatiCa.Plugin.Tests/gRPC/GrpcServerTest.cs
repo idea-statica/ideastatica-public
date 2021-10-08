@@ -16,8 +16,12 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		{
 		}
 
+		/// <summary>
+		/// Test of processing messages by GrpcServer
+		/// </summary>
+		/// <returns></returns>
 		[Fact]
-		public async Task ServerHandleMessagesTest()
+		public async Task GrpcServerHandleMessagesTest()
 		{
 			var grpcServer = new GrpcServer(80);
 
@@ -37,6 +41,8 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 
 			grpcServer.RegisterHandler(messageName, handler);
 
+
+			// prepare two messages to process
 			List<GrpcMessage> inputMessages = new List<GrpcMessage>();
 
 			var msg1 = new GrpcMessage();
@@ -60,6 +66,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 
 			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
 
+			// message handler should be called two times
 			Assert.Equal(2, handledMessages.Count);
 		}
 

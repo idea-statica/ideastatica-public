@@ -80,6 +80,18 @@ namespace IdeaStatiCa.Plugin.Grpc
 		}
 
 		/// <summary>
+		/// Requests server to shutdown
+		/// </summary>
+		/// <returns></returns>
+		public async Task StopAsync()
+		{
+			if(server != null)
+			{
+				await server.ShutdownAsync();
+			}
+		}
+
+		/// <summary>
 		/// Registers a message handler.
 		/// </summary>
 		/// <param name="handlerId">UniqueID of the handler.</param>
