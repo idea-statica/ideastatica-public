@@ -1,5 +1,7 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Public;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +14,12 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 	/// </summary>
 	public class ProjectContentClientHandler : IGrpcMessageHandler, IProjectContent
 	{
-		IGrpcSynchronousClient syncClient;
+		readonly IGrpcSynchronousClient syncClient;
+		readonly string HandlerName;
 
 		public ProjectContentClientHandler(IGrpcSynchronousClient client)
 		{
+			this.HandlerName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
 			this.syncClient = client;
 		}
 
@@ -47,7 +51,22 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 
 		public List<ProjectDataItem> GetContent()
 		{
-			throw new NotImplementedException();
+			string data = string.Empty;
+			var grpcMessage = new GrpcMessage();
+			grpcMessage.MessageName = HandlerName;
+
+			var invokeData = new GrpcReflectionInvokeData();
+			invokeData.MethodName = "GetContent";
+			var parameters = new List<GrpcReflectionArgument>();
+			invokeData.Parameters = parameters;
+			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
+
+
+			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+
+			var projectContent = !string.IsNullOrEmpty(grpcResult?.Data) ? JsonConvert.DeserializeObject<List<ProjectDataItem>>(grpcResult?.Data) : null;
+
+			return projectContent;
 		} 
 		#endregion
 

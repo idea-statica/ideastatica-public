@@ -7,6 +7,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	public interface IGrpcSynchronousClient : IGrpcClient
 	{
 		GrpcMessage SendMessageDataSync(string messageName, string data);
+		GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage);
 	}
 
 	/// <summary>
@@ -47,6 +48,44 @@ namespace IdeaStatiCa.Plugin.Grpc
 				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 
 				await SendMessageAsync(messageName, data, operationId);
+
+				// wait for the callback handler
+				var messageReceived = false;
+				GrpcMessage incomingMessage = null;
+
+				while (!messageReceived)
+				{
+					incomingMessage = await grpcMessageCompletionSource.Task;
+
+					if (incomingMessage.OperationId == operationId)
+					{
+						if (incomingMessage.MessageName == "Error")
+						{
+							throw new ApplicationException(incomingMessage.Data);
+						}
+
+						messageReceived = true;
+					}
+					else
+					{
+						grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
+					}
+				}
+
+				return incomingMessage;
+			}).WaitAndUnwrapException();
+		}
+
+		public GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage)
+		{
+			return Task.Run(async () =>
+			{
+				var operationId = Guid.NewGuid().ToString();
+				grpcMessage.OperationId = operationId;
+
+				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
+
+				await SendMessageAsync(grpcMessage);
 
 				// wait for the callback handler
 				var messageReceived = false;

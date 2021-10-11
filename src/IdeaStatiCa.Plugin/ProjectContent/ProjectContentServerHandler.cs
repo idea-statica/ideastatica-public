@@ -39,6 +39,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 						{
 							var result = ContentSource.GetContent();
 							var jsonResult = result != null ? JsonConvert.SerializeObject(result) : string.Empty;
+
 							await server.SendMessageAsync(
 									message.OperationId,
 									message.MessageName,
