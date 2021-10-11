@@ -12,6 +12,13 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 	/// </summary>
 	public class ProjectContentClientHandler : IGrpcMessageHandler, IProjectContent
 	{
+		IGrpcSynchronousClient syncClient;
+
+		public ProjectContentClientHandler(IGrpcSynchronousClient client)
+		{
+			this.syncClient = client;
+		}
+
 		#region IProjectContent
 		public void CopyContent(IProjectContent sourceContent)
 		{

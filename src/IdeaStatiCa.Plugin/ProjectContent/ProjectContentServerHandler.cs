@@ -12,14 +12,14 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 	/// </summary>
 	public class ProjectContentServerHandler : IGrpcMessageHandler
 	{
-		private IProjectContent projectContent;
+		private IProjectContent contentSource;
 
-		public ProjectContentServerHandler()
+		public ProjectContentServerHandler(IProjectContent projectContent)
 		{
-
+			this.contentSource = projectContent;
 		}
 
-		public IProjectContent ProjectContent { get => projectContent; private set => projectContent = value; }
+		public IProjectContent ContentSource { get => contentSource; private set => contentSource = value; }
 
 		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
 		{
@@ -33,9 +33,23 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
 				var arguments = grpcInvokeData.Parameters;
 
-				//grpcInvokeData.MethodName
+				switch(grpcInvokeData.MethodName)
+				{
+					case "GetContent":
+						{
+							var result = ContentSource.GetContent();
+							var jsonResult = result != null ? JsonConvert.SerializeObject(result) : string.Empty;
+							await server.SendMessageAsync(
+									message.OperationId,
+									message.MessageName,
+									jsonResult
+									);
+							return Task.FromResult(true);
+						}
+					default:
+						throw new Exception($"HandleServerMessage: not supported method '{grpcInvokeData?.MethodName}' ");
+				}
 
-				return Task.FromResult<object>(new object());
 			}
 			catch (Exception e)
 			{

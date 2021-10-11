@@ -1,11 +1,11 @@
 ﻿using Grpc.Core;
 using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
+using IdeaStatiCa.Public;
+using Newtonsoft.Json;
 using NSubstitute;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -20,11 +20,19 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
+
+			IProjectContent projectContentMock = Substitute.For<IProjectContent>();
+
+			var projContentList = new List<ProjectDataItem>();
+			projContentList.Add(new ProjectDataItem("File1.xml", ItemType.File));
+			projectContentMock.GetContent().Returns(projContentList);
+
 			var context = Substitute.For<ServerCallContext>();
 
 			List<GrpcMessage> handledMessages = new List<GrpcMessage>();
 
-			var contentHandler = new ProjectContentServerHandler();
+			var contentHandler = new ProjectContentServerHandler(projectContentMock);
+
 			const string messageName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
 			grpcServer.RegisterHandler(messageName, contentHandler);
 
@@ -36,6 +44,14 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			msg1.MessageName = messageName;
 			inputMessages.Add(msg1);
 
+			var getContentMsgData = new GrpcReflectionInvokeData();
+			getContentMsgData.MethodName = "GetContent";
+			var parameters = new List<GrpcReflectionArgument>();
+			getContentMsgData.Parameters = parameters;
+
+			msg1.Data = JsonConvert.SerializeObject(getContentMsgData);
+
+
 			var readEnumerator = inputMessages.GetEnumerator();
 
 			streamReader.MoveNext().ReturnsForAnyArgs(t =>
@@ -45,11 +61,17 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			streamReader.Current.ReturnsForAnyArgs(t => readEnumerator.Current);
 
+			GrpcMessage lastHandledMessage = null;
+
+			streamWriter.WriteAsync(default).ReturnsForAnyArgs(t => {
+				handledMessages.Add(t[0] as GrpcMessage);
+				lastHandledMessage = t[0] as GrpcMessage;
+				return Task.CompletedTask;
+			});
+
 			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
 
-			// message handler should be called two times
-			//Assert.Equal(1, handledMessages.Count);
-
+			Assert.NotNull(lastHandledMessage);
 		}
 	}
 }
