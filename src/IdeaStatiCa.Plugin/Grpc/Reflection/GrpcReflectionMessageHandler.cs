@@ -10,8 +10,6 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	/// </summary>
 	public class GrpcReflectionMessageHandler : IGrpcMessageHandler<object>
 	{
-		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
-
 		private object instance;
 
 		/// <summary>

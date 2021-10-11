@@ -15,7 +15,7 @@
 		{
 			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(this);
 
-			RegisterHandler(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service));
+			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service));
 		}
 	}
 }

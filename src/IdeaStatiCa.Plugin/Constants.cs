@@ -40,5 +40,10 @@
 		public const string ConnHiddenCalculatorUrlFormat = "net.pipe://localhost/IdeaStatiCa.ConnHiddenCalculator{0}";
 
 		public const string MemberHiddenCalculatorUrlFormat = "net.pipe://localhost/IdeaStatiCa.MemberHiddenCalculator{0}";
+
+		#region grpc message handlers
+		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
+		public const string GRPC_PROJECTCONTENT_HANDLER_MESSAGE = "Grpc.Handlers.ProjContent";
+		#endregion
 	}
 }

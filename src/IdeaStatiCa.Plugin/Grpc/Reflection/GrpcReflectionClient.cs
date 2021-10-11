@@ -43,7 +43,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// <param name="handler">Handler implementation.</param>
 		public void RegisterHandler(string handlerId, IGrpcMessageHandler handler)
 		{
-			client.RegisterHandler(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, handler);
+			client.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, handler);
 		}
 
 		/// <summary>
@@ -80,7 +80,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = client.SendMessageDataSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageDataSync(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject<T>(response.Data);
@@ -97,7 +97,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = client.SendMessageDataSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageDataSync(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject(response.Data, returnType);

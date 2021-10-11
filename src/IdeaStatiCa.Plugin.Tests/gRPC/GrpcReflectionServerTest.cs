@@ -36,7 +36,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 
 			List<GrpcMessage> handledMessages = new List<GrpcMessage>();
 
-			const string messageName = GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE;
+			const string messageName = Constants.GRPC_REFLECTION_HANDLER_MESSAGE;
 
 			List<GrpcMessage> inputMessages = new List<GrpcMessage>();
 
