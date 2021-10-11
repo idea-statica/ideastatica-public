@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using FluentAssertions;
+using Grpc.Core;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
@@ -25,6 +26,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			var projContentList = new List<ProjectDataItem>();
 			projContentList.Add(new ProjectDataItem("File1.xml", ItemType.File));
+			projContentList.Add(new ProjectDataItem("File2.xml", ItemType.File));
 			projectContentMock.GetContent().Returns(projContentList);
 
 			var context = Substitute.For<ServerCallContext>();
@@ -72,6 +74,11 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
 
 			Assert.NotNull(lastHandledMessage);
+			Assert.NotNull(lastHandledMessage.Data);
+
+			var resData = JsonConvert.DeserializeObject<List<ProjectDataItem>>(lastHandledMessage.Data);
+			Assert.NotNull(resData);
+			resData.Should().BeEquivalentTo(projContentList);
 		}
 	}
 }
