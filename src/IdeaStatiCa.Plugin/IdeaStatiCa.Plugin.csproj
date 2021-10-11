@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Grpc\GrpcReflectionServiceContract.proto" />
