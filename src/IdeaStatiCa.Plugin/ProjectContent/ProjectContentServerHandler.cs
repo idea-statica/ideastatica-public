@@ -10,11 +10,11 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 	/// <summary>
 	/// Responsible for accessing to data of a project
 	/// </summary>
-	public class GrpcProjectContentServerHandler : IGrpcMessageHandler
+	public class ProjectContentServerHandler : IGrpcMessageHandler
 	{
 		private IProjectContent projectContent;
 
-		public GrpcProjectContentServerHandler()
+		public ProjectContentServerHandler()
 		{
 
 		}
