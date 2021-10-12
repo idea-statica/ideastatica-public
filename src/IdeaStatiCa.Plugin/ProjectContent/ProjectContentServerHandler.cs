@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
 
 namespace IdeaStatiCa.Plugin.ProjectContent
 {
@@ -34,7 +35,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
 				var arguments = grpcInvokeData.Parameters;
 
-				switch(grpcInvokeData.MethodName)
+				switch (grpcInvokeData.MethodName)
 				{
 					case "GetContent":
 						{
@@ -73,6 +74,21 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 									message.OperationId,
 									message.MessageName,
 									jsonResult
+									);
+							return Task.FromResult(true);
+						}
+					case "Write":
+						{
+							var arg1 = arguments.First();
+							var contentId = arg1.Value.ToString();
+
+							var destStream = ContentSource.Get(contentId);
+							message.Buffer.WriteTo(destStream);
+
+							await server.SendMessageAsync(
+									message.OperationId,
+									message.MessageName,
+									"OK"
 									);
 							return Task.FromResult(true);
 						}
