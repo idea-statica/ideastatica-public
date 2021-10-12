@@ -83,7 +83,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			}
 			catch (Exception e)
 			{
-				await server.SendMessageAsync(message.OperationId, "Error", e.Message);
+				await server.SendMessageAsync(message.OperationId, "Error", $"Error '{e.Message}'");
 
 				return null;
 			}
