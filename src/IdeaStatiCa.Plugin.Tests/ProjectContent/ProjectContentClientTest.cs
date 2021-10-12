@@ -112,6 +112,43 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public void DeleteTest()
 		{
+			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+
+			const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+
+			string item1Id = "item1Id";
+			string item2Id = "*";
+
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t => {
+				var request = (t[0] as GrpcMessage);
+
+
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+
+				var firstParam = invokeData.Parameters.First();
+
+				bool result = false;
+				var response = new GrpcMessage(request);
+				if (firstParam.Value.ToString().Equals(item1Id))
+				{
+					response.Data = string.Empty;
+				}
+				else if (firstParam.Value.ToString().Equals(item2Id))
+				{
+					response.Data = "Error";
+					return response;
+				}
+
+				response.Data = JsonConvert.SerializeObject(result);
+				return response;
+			});
+
+			grpcClient.RegisterHandler(messageName1, projectContentHandler);
+
+			projectContentHandler.Invoking(o => o.Delete(item1Id)).Should().NotThrow<Exception>("Deleting should not throw exception pass");
+			projectContentHandler.Invoking(o => o.Delete(item2Id)).Should().Throw<Exception>("'*' is not supported character");
 		}
 	}
 }
