@@ -1,27 +1,26 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Public;
 using Newtonsoft.Json;
 using NSubstitute;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
+using System.Linq;
+using System;
 
 namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 {
 	public class ProjectContentClientTest
 	{
+		/// <summary>
+		/// Check of the calling of method <see cref="IProjectContent.GetContent"/>
+		/// </summary>
 		[Fact]
-		public async Task GetContentTest()
+		public void GetContentTest()
 		{
-			const string clientId = "client1";
 			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
-
-			GrpcMessage handler1Msg = null;
 
 			var projContentList = new List<ProjectDataItem>();
 			projContentList.Add(new ProjectDataItem("File1.xml", ItemType.File));
@@ -46,6 +45,73 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			Assert.NotNull(projectContentResult);
 			projectContentResult.Should().BeEquivalentTo(projContentList);
+		}
+
+		/// <summary>
+		/// Check of the calling of method <see cref="IProjectContent.Exist(string)"/>
+		/// </summary>
+		[Fact]
+		public void ExistTest()
+		{
+			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+
+			const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+
+			string item1Id = "item1Id";
+			string item2Id = "item2Id";
+			string item3Id = "*";
+
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t => {
+				var request = (t[0] as GrpcMessage);
+				
+
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+
+				var firstParam = invokeData.Parameters.First();
+
+				bool result = false;
+				var response = new GrpcMessage(request);
+				if (firstParam.Value.ToString().Equals(item1Id))
+				{
+					// true for 'item1Id'
+					result = true;
+				}
+				else if(firstParam.Value.ToString().Equals(item3Id))
+				{
+					response.Data = "Error";
+					return response;
+				}
+				else
+				{
+					// false for 'item2Id'
+					result = false;
+				}
+
+				
+				response.Data = JsonConvert.SerializeObject(result);
+
+				return response;
+			});
+
+			grpcClient.RegisterHandler(messageName1, projectContentHandler);
+
+			var isItem1 = projectContentHandler.Exist(item1Id);
+			isItem1.Should().BeTrue();
+
+			var isItem2 = projectContentHandler.Exist(item2Id);
+			isItem2.Should().BeFalse();
+
+			projectContentHandler.Invoking(o => o.Exist(item3Id)).Should().Throw<Exception>("'*' is not supported character");
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Fact]
+		public void DeleteTest()
+		{
 		}
 	}
 }

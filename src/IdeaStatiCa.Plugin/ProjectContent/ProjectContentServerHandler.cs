@@ -4,6 +4,7 @@ using IdeaStatiCa.Public;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace IdeaStatiCa.Plugin.ProjectContent
 {
@@ -47,8 +48,36 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 									);
 							return Task.FromResult(true);
 						}
+					case "Delete":
+						{
+							var arg1 = arguments.First();
+							var contentId = arg1.Value.ToString();
+							ContentSource.Delete(contentId);
+							var jsonResult = "OK";
+
+							await server.SendMessageAsync(
+									message.OperationId,
+									message.MessageName,
+									jsonResult
+									);
+							return Task.FromResult(true);
+						}
+					case "Exist":
+						{
+							var arg1 = arguments.First();
+							var contentId = arg1.Value.ToString();
+							var contentExist = ContentSource.Exist(contentId);
+							var jsonResult = contentExist.ToString();
+
+							await server.SendMessageAsync(
+									message.OperationId,
+									message.MessageName,
+									jsonResult
+									);
+							return Task.FromResult(true);
+						}
 					default:
-						throw new Exception($"HandleServerMessage: not supported method '{grpcInvokeData?.MethodName}' ");
+						throw new Exception($"Error HandleServerMessage: not supported method '{grpcInvokeData?.MethodName}' ");
 				}
 
 			}
