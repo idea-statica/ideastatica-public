@@ -265,10 +265,6 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			handledMessages[1].Data.Should().Be("OK");
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
 		[Fact]
 		public async Task WriteTest()
 		{
@@ -355,6 +351,93 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 					byte val = (byte)memStream.ReadByte();
 					val.Should().Be(Convert.ToByte(count));
 					count++;
+				}
+			}
+		}
+
+
+		[Fact]
+		public async Task ReadTest()
+		{
+			var grpcServer = new GrpcServer(80);
+
+			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
+			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
+
+			IProjectContent projectContentMock = Substitute.For<IProjectContent>();
+
+			string item1 = "item1";
+			using (var memStream = new MemoryStream())
+			{
+				// create the array of 5 bytes and write original values which will be checked 
+				int bufferSize = 5;
+				byte[] buffer = new byte[bufferSize];
+				for (int i = 0; i < bufferSize; i++)
+				{
+					memStream.WriteByte(Convert.ToByte(i));
+				}
+
+				memStream.Seek(0, SeekOrigin.Begin);
+
+				projectContentMock.Get(item1).Returns(memStream);
+
+				var context = Substitute.For<ServerCallContext>();
+
+				List<GrpcMessage> handledMessages = new List<GrpcMessage>();
+
+				var contentHandler = new ProjectContentServerHandler(projectContentMock);
+
+				const string messageName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+				grpcServer.RegisterHandler(messageName, contentHandler);
+
+				// prepare two messages to process
+				List<GrpcMessage> inputMessages = new List<GrpcMessage>();
+
+				var msg1 = new GrpcMessage();
+				msg1.ClientId = "client1";
+				msg1.MessageName = messageName;
+				inputMessages.Add(msg1);
+
+				var getContentMsgData = new GrpcReflectionInvokeData();
+				getContentMsgData.MethodName = "Read";
+				var parameters = new List<GrpcReflectionArgument>();
+
+				var arg = new GrpcReflectionArgument();
+				arg.FromVal(item1);
+
+				parameters.Add(arg);
+				getContentMsgData.Parameters = parameters;
+
+				msg1.Data = JsonConvert.SerializeObject(getContentMsgData);
+
+				var readEnumerator = inputMessages.GetEnumerator();
+
+				streamReader.MoveNext().ReturnsForAnyArgs(t =>
+				{
+					return readEnumerator.MoveNext();
+				});
+
+				streamReader.Current.ReturnsForAnyArgs(t => readEnumerator.Current);
+
+				GrpcMessage lastHandledMessage = null;
+
+				streamWriter.WriteAsync(default).ReturnsForAnyArgs(t =>
+				{
+					handledMessages.Add(t[0] as GrpcMessage);
+					lastHandledMessage = t[0] as GrpcMessage;
+					return Task.CompletedTask;
+				});
+
+				await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+
+				Assert.NotNull(lastHandledMessage);
+				lastHandledMessage.Data.Should().Be("OK");
+
+				var resByteArray = lastHandledMessage.Buffer.ToByteArray();
+				resByteArray.Length.Should().Be(bufferSize);
+				for(int i =  0; i < bufferSize; i++)
+				{
+					resByteArray[i].Should().Be(Convert.ToByte(i));
 				}
 			}
 		}

@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using System.Linq;
 using System.IO;
+using Google.Protobuf;
 
 namespace IdeaStatiCa.Plugin.ProjectContent
 {
@@ -84,12 +85,23 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 
 							var destStream = ContentSource.Get(contentId);
 							message.Buffer.WriteTo(destStream);
+							message.Data = "OK";
 
-							await server.SendMessageAsync(
-									message.OperationId,
-									message.MessageName,
-									"OK"
-									);
+							await server.SendMessageAsync(message);
+							return Task.FromResult(true);
+						}
+					case "Read":
+						{
+							var arg1 = arguments.First();
+							var contentId = arg1.Value.ToString();
+
+							using (var srcStream = ContentSource.Get(contentId))
+							{
+								message.Buffer = ByteString.FromStream(srcStream);
+							}
+							message.Data = "OK";
+
+							await server.SendMessageAsync(message);
 							return Task.FromResult(true);
 						}
 					default:

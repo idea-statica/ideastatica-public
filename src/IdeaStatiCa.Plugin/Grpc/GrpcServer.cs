@@ -177,6 +177,18 @@ namespace IdeaStatiCa.Plugin.Grpc
 			}
 		}
 
+		public async Task SendMessageAsync(GrpcMessage message)
+		{
+			if (IsConnected)
+			{
+				await currentClientStream.WriteAsync(message);
+			}
+			else
+			{
+				throw new Exception("Client disconnected.");
+			}
+		}
+
 		/// <summary>
 		/// Handle incoming messages.
 		/// </summary>
