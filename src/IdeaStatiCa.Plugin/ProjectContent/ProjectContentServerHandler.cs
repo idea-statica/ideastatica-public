@@ -121,10 +121,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 							}
 							else
 							{
-								using (var srcStream = ContentSource.Create(contentId))
-								{
-									message.Buffer = ByteString.FromStream(srcStream);
-								}
+								message.Buffer = ByteString.Empty;
 							}
 	
 							message.Data = "OK";
