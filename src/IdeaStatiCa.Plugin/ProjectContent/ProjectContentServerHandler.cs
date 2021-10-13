@@ -82,9 +82,27 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 						{
 							var arg1 = arguments.First();
 							var contentId = arg1.Value.ToString();
+							Stream destStream = null;
+							try
+							{
+								if (!ContentSource.Exist(contentId))
+								{
+									destStream = ContentSource.Create(contentId);
+								}
+								else
+								{
+									destStream = ContentSource.Get(contentId);
+								}
 
-							var destStream = ContentSource.Get(contentId);
-							message.Buffer.WriteTo(destStream);
+								message.Buffer.WriteTo(destStream);
+							}
+							finally
+							{
+								if(destStream != null)
+								{
+									destStream.Dispose();
+								}
+							}
 							message.Data = "OK";
 
 							await server.SendMessageAsync(message);
@@ -94,11 +112,21 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 						{
 							var arg1 = arguments.First();
 							var contentId = arg1.Value.ToString();
-
-							using (var srcStream = ContentSource.Get(contentId))
+							if(ContentSource.Exist(contentId))
 							{
-								message.Buffer = ByteString.FromStream(srcStream);
+								using (var srcStream = ContentSource.Get(contentId))
+								{
+									message.Buffer = ByteString.FromStream(srcStream);
+								}
 							}
+							else
+							{
+								using (var srcStream = ContentSource.Create(contentId))
+								{
+									message.Buffer = ByteString.FromStream(srcStream);
+								}
+							}
+	
 							message.Data = "OK";
 
 							await server.SendMessageAsync(message);

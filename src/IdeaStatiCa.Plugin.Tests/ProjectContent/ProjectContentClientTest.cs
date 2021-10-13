@@ -291,5 +291,11 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 				}
 			}
 		}
+
+		[Fact]
+		public void GetStreamTest()
+		{
+
+		}
 	}
 }

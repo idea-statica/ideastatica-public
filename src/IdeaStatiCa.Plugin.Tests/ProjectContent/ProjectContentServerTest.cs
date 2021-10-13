@@ -277,9 +277,23 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 
 			string item1 = "item1";
+
 			using (var memStream = new MemoryStream())
 			{
-				projectContentMock.Get(item1).Returns(memStream);
+				var storage = Substitute.For<IProjectContentStorage>();
+				storage.WriteData(default, default).ReturnsForAnyArgs(t => {
+					var arg1 = (t[0] as string);
+					Stream st = (t[1] as Stream);
+					memStream.Seek(0, SeekOrigin.Begin);
+					st.CopyTo(memStream);
+					memStream.Seek(0, SeekOrigin.Begin);
+					return 1;
+				});
+
+				projectContentMock.Exist(item1).Returns(true);
+				projectContentMock.Get(item1).ReturnsForAnyArgs(t => {
+					return new RemoteDataStream(item1, storage);
+				});
 
 				var context = Substitute.For<ServerCallContext>();
 
@@ -380,6 +394,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 				memStream.Seek(0, SeekOrigin.Begin);
 
 				projectContentMock.Get(item1).Returns(memStream);
+				projectContentMock.Exist(item1).Returns(true);
 
 				var context = Substitute.For<ServerCallContext>();
 

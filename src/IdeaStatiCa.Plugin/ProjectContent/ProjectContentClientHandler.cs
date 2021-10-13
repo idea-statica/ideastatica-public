@@ -106,9 +106,14 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			return projectContent;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="contentId"></param>
+		/// <returns></returns>
 		public Stream Get(string contentId)
 		{
-			throw new NotImplementedException();
+			return new RemoteDataStream(contentId, this);
 		}
 
 		/// <summary>
