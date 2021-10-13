@@ -156,10 +156,10 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		}
 
 		/// <summary>
-		/// Test of the method ProjectContentClientHandler.WriteToStream
+		/// Test of the method ProjectContentClientHandler.ReadData
 		/// </summary>
 		[Fact]
-		public void WriteToStreamTest()
+		public void ReadDataTest()
 		{
 			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
 
@@ -207,11 +207,11 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			using (var resultStream = new MemoryStream())
 			{
-				projectContentHandler.WriteToStream(item1Id, resultStream);
+				projectContentHandler.ReadData(item1Id, resultStream);
 				resultStream.Seek(0, SeekOrigin.Begin);
 
 				resultStream.Length.Should().Be(bufferSize);
-				for(int i = 0; i < resultStream.Length; i++)
+				for (int i = 0; i < resultStream.Length; i++)
 				{
 					byte b = (byte)resultStream.ReadByte();
 					b.Should().Be(buffer[i]);
@@ -220,7 +220,75 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			using (var resultStream = new MemoryStream())
 			{
-				projectContentHandler.Invoking(o => o.WriteToStream(notExistingItemId, resultStream)).Should().Throw<Exception>("Exception should be thrown for not existing content");
+				projectContentHandler.Invoking(o => o.ReadData(notExistingItemId, resultStream)).Should().Throw<Exception>("Exception should be thrown for not existing content");
+			}
+		}
+
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.WriteData
+		/// </summary>
+		[Fact]
+		public void WriteDataTest()
+		{
+			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+
+			const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+
+			string item1Id = "item1Id";
+
+			// create the array of 5 bytes and write original values which will be checked 
+			int bufferSize = 5;
+			using (var inputDataStream = new MemoryStream())
+			{
+				for (int i = 0; i < bufferSize; i++)
+				{
+					inputDataStream.WriteByte(Convert.ToByte(i));
+				}
+				inputDataStream.Seek(0, SeekOrigin.Begin);
+
+				using (var sentDataStream = new MemoryStream())
+				{
+
+					grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
+					{
+						var request = (t[0] as GrpcMessage);
+
+						GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+
+						var firstParam = invokeData.Parameters.First();
+						var response = new GrpcMessage(request);
+
+						if (firstParam.Value.ToString() == item1Id)
+						{
+							if (firstParam.Value.ToString().Equals(item1Id))
+							{
+								request.Buffer.WriteTo(sentDataStream);
+								response.Data = "OK";
+							}
+						}
+						else
+						{
+							response.Data = "Error";
+						}
+
+						return response;
+					});
+
+					grpcClient.RegisterHandler(messageName1, projectContentHandler);
+
+
+					projectContentHandler.WriteData(item1Id, inputDataStream);
+					sentDataStream.Seek(0, SeekOrigin.Begin);
+
+					sentDataStream.Length.Should().Be(bufferSize);
+					for(byte i = 0; i < bufferSize; i++)
+					{
+						var b = (byte)sentDataStream.ReadByte();
+						b.Should().Be(i);
+					}
+				}
 			}
 		}
 	}
