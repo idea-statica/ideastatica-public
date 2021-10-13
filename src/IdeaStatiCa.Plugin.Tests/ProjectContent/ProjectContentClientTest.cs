@@ -295,7 +295,86 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public void GetStreamTest()
 		{
+			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
 
+			const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+
+			string item1Id = "item1Id";
+
+			// create the array of 5 bytes and write original values which will be checked 
+			int bufferSize = 5;
+			byte[] buffer = new byte[bufferSize];
+			for (int i = 0; i < bufferSize; i++)
+			{
+				buffer[i] = Convert.ToByte(i);
+			}
+
+
+			GrpcMessage writtenMessage = null;
+
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
+
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+
+				var firstParam = invokeData.Parameters.First();
+				var response = new GrpcMessage(request);
+				if (invokeData.MethodName == "Read")
+				{
+					if (firstParam.Value.ToString() == item1Id)
+					{
+						if (firstParam.Value.ToString().Equals(item1Id))
+						{
+							response.Data = string.Empty;
+							response.Buffer = Google.Protobuf.ByteString.CopyFrom(buffer);
+						}
+					}
+					else
+					{
+						response.Data = "Error";
+					}
+				}
+				else if (invokeData.MethodName == "Write")
+				{
+					if (firstParam.Value.ToString() == item1Id)
+					{
+						if (firstParam.Value.ToString().Equals(item1Id))
+						{
+							// store message for validation
+							writtenMessage = request;
+							response.Data = string.Empty;
+							response.Buffer = Google.Protobuf.ByteString.Empty;
+						}
+					}
+					else
+					{
+						response.Data = "Error";
+					}
+				}
+
+				return response;
+			});
+
+			grpcClient.RegisterHandler(messageName1, projectContentHandler);
+
+			using (var content1Stream = projectContentHandler.Get(item1Id))
+			{
+				content1Stream.Length.Should().Be(bufferSize, "Expecting data from buffer in the stream");
+
+				writtenMessage.Should().BeNull();
+
+				content1Stream.Seek(0, SeekOrigin.End);
+				content1Stream.WriteByte(6);
+
+				writtenMessage.Should().BeNull();
+			}
+
+			writtenMessage.Should().NotBeNull();
+			var writtenBytes = writtenMessage.Buffer.ToByteArray();
+			writtenBytes.Length.Should().Be(6);
 		}
 	}
 }
