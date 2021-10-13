@@ -9,13 +9,14 @@ using System.Collections.Generic;
 using Xunit;
 using System.Linq;
 using System;
+using System.IO;
 
 namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 {
 	public class ProjectContentClientTest
 	{
 		/// <summary>
-		/// Check of the calling of method <see cref="IProjectContent.GetContent"/>
+		/// Test of the method ProjectContentClientHandler.GetContent
 		/// </summary>
 		[Fact]
 		public void GetContentTest()
@@ -30,7 +31,8 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			var projectContentHandler = new ProjectContentClientHandler(grpcClient);
 
-				grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t => {
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
+			{
 				var request = (t[0] as GrpcMessage);
 				var response = new GrpcMessage(request);
 
@@ -48,7 +50,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		}
 
 		/// <summary>
-		/// Check of the calling of method <see cref="IProjectContent.Exist(string)"/>
+		/// Test of the method ProjectContentClientHandler.Exist
 		/// </summary>
 		[Fact]
 		public void ExistTest()
@@ -63,9 +65,10 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			string item2Id = "item2Id";
 			string item3Id = "*";
 
-			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t => {
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
+			{
 				var request = (t[0] as GrpcMessage);
-				
+
 
 				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
 
@@ -78,7 +81,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 					// true for 'item1Id'
 					result = true;
 				}
-				else if(firstParam.Value.ToString().Equals(item3Id))
+				else if (firstParam.Value.ToString().Equals(item3Id))
 				{
 					response.Data = "Error";
 					return response;
@@ -89,7 +92,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 					result = false;
 				}
 
-				
+
 				response.Data = JsonConvert.SerializeObject(result);
 
 				return response;
@@ -107,7 +110,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		}
 
 		/// <summary>
-		/// 
+		/// Test of the method ProjectContentClientHandler.Delete
 		/// </summary>
 		[Fact]
 		public void DeleteTest()
@@ -121,7 +124,8 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			string item1Id = "item1Id";
 			string item2Id = "*";
 
-			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t => {
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
+			{
 				var request = (t[0] as GrpcMessage);
 
 
@@ -149,6 +153,75 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 
 			projectContentHandler.Invoking(o => o.Delete(item1Id)).Should().NotThrow<Exception>("Deleting should not throw exception pass");
 			projectContentHandler.Invoking(o => o.Delete(item2Id)).Should().Throw<Exception>("'*' is not supported character");
+		}
+
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.WriteToStream
+		/// </summary>
+		[Fact]
+		public void WriteToStreamTest()
+		{
+			var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+
+			const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+
+			string item1Id = "item1Id";
+			string notExistingItemId = "notExistingItemId";
+
+			// create the array of 5 bytes and write original values which will be checked 
+			int bufferSize = 5;
+			byte[] buffer = new byte[bufferSize];
+			for (int i = 0; i < bufferSize; i++)
+			{
+				buffer[i] = Convert.ToByte(i);
+			}
+
+			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
+
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+
+				var firstParam = invokeData.Parameters.First();
+				var response = new GrpcMessage(request);
+
+				if (firstParam.Value.ToString() == item1Id)
+				{
+					if (firstParam.Value.ToString().Equals(item1Id))
+					{
+						response.Data = string.Empty;
+						response.Buffer = Google.Protobuf.ByteString.CopyFrom(buffer);
+					}
+				}
+				else
+				{
+					response.Data = "Error";
+				}
+
+				return response;
+			});
+
+			grpcClient.RegisterHandler(messageName1, projectContentHandler);
+
+			using (var resultStream = new MemoryStream())
+			{
+				projectContentHandler.WriteToStream(item1Id, resultStream);
+				resultStream.Seek(0, SeekOrigin.Begin);
+
+				resultStream.Length.Should().Be(bufferSize);
+				for(int i = 0; i < resultStream.Length; i++)
+				{
+					byte b = (byte)resultStream.ReadByte();
+					b.Should().Be(buffer[i]);
+				}
+			}
+
+			using (var resultStream = new MemoryStream())
+			{
+				projectContentHandler.Invoking(o => o.WriteToStream(notExistingItemId, resultStream)).Should().Throw<Exception>("Exception should be thrown for not existing content");
+			}
 		}
 	}
 }

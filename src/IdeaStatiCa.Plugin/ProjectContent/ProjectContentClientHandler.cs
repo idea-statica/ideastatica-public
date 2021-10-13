@@ -4,6 +4,7 @@ using IdeaStatiCa.Public;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -112,8 +113,35 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		public Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
 		{
 			throw new NotImplementedException();
-		} 
+		}
 		#endregion
+
+		/// <summary>
+		/// Write binary data of requested <paramref name="contentId"/> to <paramref name="outputStream"/>
+		/// </summary>
+		/// <param name="contentId">Id of the requested project content</param>
+		/// <param name="outputStream">Stream to store result</param>
+		/// <exception cref="System.Exception">Exception is thrown if the operation fails</exception>
+		public void WriteToStream(string contentId, Stream outputStream)
+		{
+			Debug.Assert(outputStream != null);
+			string data = string.Empty;
+			var grpcMessage = new GrpcMessage();
+			grpcMessage.MessageName = HandlerName;
+
+			var invokeData = new GrpcReflectionInvokeData();
+			invokeData.MethodName = "Read";
+			var parameters = new List<GrpcReflectionArgument>();
+			parameters.Add(new GrpcReflectionArgument(typeof(string).ToString(), contentId));
+			invokeData.Parameters = parameters;
+			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
+
+			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+			CheckError(grpcResult.Data);
+
+			grpcResult.Buffer.WriteTo(outputStream);
+		}
+
 
 		void CheckError(string data)
 		{
