@@ -261,4 +261,7 @@
     <value>Material in not in library.</value>
     <comment>DO NOT TRANSLATE!!!</comment>
   </data>
+  <data name="ErrBadWeldMaterialProperty" xml:space="preserve">
+    <value>Bad weld material property</value>
+  </data>
 </root>
