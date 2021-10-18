@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
+using System.Diagnostics;
+using System.Threading;
 using SystemTestService;
 
 namespace GrpcServerHost
@@ -9,12 +11,29 @@ namespace GrpcServerHost
 	{
 		static void Main(string[] args)
 		{
+			//Debug.Assert(false);
 			int grpcPort = 0;
+			string eventName = string.Empty;
 			if (args.Length > 0)
 			{
+				// the first argument is grpcServerPort, the second is event name
+				if(args.Length != 2)
+				{
+					throw new Exception("Expecting 2 argument - the first argument is grpcServerPort, the second is event name");
+				}
+
+				// parse the first argument is tcp port
 				var firstArg = args[0];
-				string portNumber = firstArg.Substring("-port:".Length);
+				Console.WriteLine($"First argument : '${firstArg}'");
+				string portNumber = firstArg.Substring("-grpcPort:".Length);
 				grpcPort = int.Parse(portNumber);
+
+				// parse the second argument is event name
+				var secondArg = args[1];
+				Console.WriteLine($"Second argument : '${secondArg}'");
+				eventName = secondArg.Substring("-startEvent:".Length);
+
+				Console.WriteLine($"Parsed arguments grpcPort = {grpcPort}, eventName = '{eventName}'");
 			}
 			else
 			{
@@ -27,7 +46,20 @@ namespace GrpcServerHost
 			var grpcServer = new GrpcReflectionServer(service, grpcPort);
 			grpcServer.Start();
 
-			Console.WriteLine($"GrpcServer is listening on port {grpcPort}");
+			EventWaitHandle syncEvent;
+
+			if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
+			{
+				Console.WriteLine($"Setting event '{eventName}'");
+				syncEvent.Set();
+				syncEvent.Dispose();
+			}
+			else
+			{
+				Console.WriteLine($"Setting event '{eventName}'");
+			}
+
+			Console.WriteLine($"Event doesn't exist '{eventName}'");
 
 			var l = Console.ReadLine();
 		}

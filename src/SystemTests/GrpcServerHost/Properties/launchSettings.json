@@ -2,7 +2,7 @@
   "profiles": {
     "GrpcServerHost": {
       "commandName": "Project",
-      "commandLineArgs": "-port:81"
+      "commandLineArgs": "-grpcPort:81 -startEvent:serverStart81"
     }
   }
 }
