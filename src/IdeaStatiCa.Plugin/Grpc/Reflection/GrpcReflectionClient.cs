@@ -17,6 +17,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// </summary>
 		public bool IsConnected => client.IsConnected;
 
+		public IGrpcSynchronousClient GrpcSyncClient => client;
+
 		/// <summary>
 		/// Initializes the <see cref="GrpcReflectionClient"/>
 		/// </summary>
@@ -43,7 +45,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// <param name="handler">Handler implementation.</param>
 		public void RegisterHandler(string handlerId, IGrpcMessageHandler handler)
 		{
-			client.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, handler);
+			client.RegisterHandler(handlerId, handler);
 		}
 
 		/// <summary>

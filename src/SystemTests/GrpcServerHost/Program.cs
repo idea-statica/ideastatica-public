@@ -1,7 +1,7 @@
 ﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using SystemTestService;
 
@@ -44,6 +44,11 @@ namespace GrpcServerHost
 
 			// Create Grpc server
 			var grpcServer = new GrpcReflectionServer(service, grpcPort);
+
+			var projectContentInMemory = new ProjectContentInMemory();
+			var contentHandler = new ProjectContentServerHandler(projectContentInMemory);
+			grpcServer.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
+
 			grpcServer.Start();
 
 			Console.WriteLine($"GrpcServer is listening on port '{grpcPort}'");

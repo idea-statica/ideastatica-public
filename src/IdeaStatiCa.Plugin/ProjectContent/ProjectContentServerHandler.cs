@@ -69,7 +69,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 							var arg1 = arguments.First();
 							var contentId = arg1.Value.ToString();
 							var contentExist = ContentSource.Exist(contentId);
-							var jsonResult = contentExist.ToString();
+							var jsonResult = JsonConvert.SerializeObject(contentExist);
 
 							await server.SendMessageAsync(
 									message.OperationId,

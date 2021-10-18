@@ -187,8 +187,8 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			Assert.NotNull(lastHandledMessage);
 			Assert.NotNull(lastHandledMessage.Data);
 
-			handledMessages[0].Data.Should().Be("True");
-			handledMessages[1].Data.Should().Be("False");
+			handledMessages[0].Data.Should().Be("true");
+			handledMessages[1].Data.Should().Be("false");
 			handledMessages[2].Data.Should().StartWith("Error");
 		}
 

@@ -4,4 +4,9 @@
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
+  </ItemGroup>
+
 </Project>
