@@ -1,15 +1,14 @@
+using FluentAssertions;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
+using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Threading;
-using Xunit;
-using FluentAssertions;
-using IdeaStatiCa.Plugin.Grpc.Reflection;
 using System.Threading.Tasks;
 using SystemTestService;
-using IdeaStatiCa.Plugin.ProjectContent;
+using Xunit;
 
 namespace ST_GrpcCommunication
 {
@@ -21,6 +20,10 @@ namespace ST_GrpcCommunication
 		public const int StartTimeout = 1000*20;
 #endif
 
+		/// <summary>
+		/// System test for invoking remote methods on GrpcServer
+		/// </summary>
+		/// <returns></returns>
 		[Fact]
 		public async Task InvokeMethodTest()
 		{
@@ -77,6 +80,11 @@ namespace ST_GrpcCommunication
 			}
 		}
 
+
+		/// <summary>
+		/// System test of the implementation <see cref="ProjectContentClientHandler"/> which validates grpc communication with the GrpcServer
+		/// </summary>
+		/// <returns></returns>
 		[Fact]
 		public async Task ProjectContentTest()
 		{

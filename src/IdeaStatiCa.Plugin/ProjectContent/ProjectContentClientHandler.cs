@@ -54,16 +54,29 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		}
 
 		#region IProjectContent
+		/// <summary>
+		/// Not implemented
+		/// </summary>
+		/// <param name="sourceContent"></param>
 		public void CopyContent(IProjectContent sourceContent)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Not implemented
+		/// </summary>
+		/// <param name="contentId"></param>
+		/// <returns></returns>
 		public Stream Create(string contentId)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Invoke method 'Delete' remotely
+		/// </summary>
+		/// <param name="contentId">Id of the item to delete</param>
 		public void Delete(string contentId)
 		{
 			string data = string.Empty;
@@ -85,6 +98,11 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			return;
 		}
 
+		/// <summary>
+		/// Invoke method 'Exist' remotely
+		/// </summary>
+		/// <param name="contentId">Id of the project item</param>
+		/// <returns>OK</returns>
 		public bool Exist(string contentId)
 		{
 			string data = string.Empty;
@@ -142,11 +160,24 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		#endregion
 
 		#region IGrpcMessageHandler
+
+		/// <summary>
+		/// Not implementd
+		/// </summary>
+		/// <param name="message"></param>
+		/// <param name="client"></param>
+		/// <returns></returns>
 		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Not implemented
+		/// </summary>
+		/// <param name="message"></param>
+		/// <param name="server"></param>
+		/// <returns></returns>
 		public Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
 		{
 			throw new NotImplementedException();
@@ -212,10 +243,14 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			CheckError(grpcResult.Data);
 
 			return 1;
-		} 
+		}
 		#endregion
 
 
+		/// <summary>
+		/// Validate <paramref name="data"/> and thow Exception if <paramref name="data"/> represents an error
+		/// </summary>
+		/// <param name="data">String to validate</param>
 		void CheckError(string data)
 		{
 			if(!string.IsNullOrEmpty(data) && data.StartsWith(Error))

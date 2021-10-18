@@ -22,6 +22,9 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			this.contentSource = projectContent;
 		}
 
+		/// <summary>
+		/// Get or set the source of data
+		/// </summary>
 		public IProjectContent ContentSource { get => contentSource; private set => contentSource = value; }
 
 		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
@@ -29,6 +32,12 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Invoke methods implemented in the instance <see cref="contentSource"/> and send result back to a caller by <paramref name="server"/>
+		/// </summary>
+		/// <param name="message">Request</param>
+		/// <param name="server">Server to be used to send response to a caller</param>
+		/// <returns></returns>
 		public async Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
 		{
 			try
