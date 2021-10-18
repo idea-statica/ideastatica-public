@@ -121,8 +121,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		internal override Task HandleMessageAsync(GrpcMessage message)
 		{
 			grpcMessageCompletionSource?.TrySetResult(message);
-
-			return base.HandleMessageAsync(message);
+			return Task.CompletedTask;
 		}
 	}
 }

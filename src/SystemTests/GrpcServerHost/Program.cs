@@ -46,8 +46,9 @@ namespace GrpcServerHost
 			var grpcServer = new GrpcReflectionServer(service, grpcPort);
 			grpcServer.Start();
 
-			EventWaitHandle syncEvent;
+			Console.WriteLine($"GrpcServer is listening on port '{grpcPort}'");
 
+			EventWaitHandle syncEvent;
 			if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
 			{
 				Console.WriteLine($"Setting event '{eventName}'");
@@ -56,10 +57,10 @@ namespace GrpcServerHost
 			}
 			else
 			{
-				Console.WriteLine($"Setting event '{eventName}'");
+				Console.WriteLine($"Event doesn't exist '{eventName}'");
 			}
 
-			Console.WriteLine($"Event doesn't exist '{eventName}'");
+			Console.WriteLine("Enter any line to finish");
 
 			var l = Console.ReadLine();
 		}

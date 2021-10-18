@@ -76,9 +76,12 @@ namespace IdeaStatiCa.Plugin.Utilities
 				invocation.ReturnValue = returnValue;
 				return;
 			}
-			var returnType = invocation.Method.ReturnType.IsGenericType ? invocation.Method.ReturnType.GetGenericArguments()[0] : typeof(object);
-			var method = _taskCompletionSourceMethod.MakeGenericMethod(returnType);
-			invocation.ReturnValue = method.Invoke(this, new object[] { invocation });
+			else
+			{
+				var returnType = invocation.Method.ReturnType.IsGenericType ? invocation.Method.ReturnType.GetGenericArguments()[0] : typeof(object);
+				var method = _taskCompletionSourceMethod.MakeGenericMethod(returnType);
+				invocation.ReturnValue = method.Invoke(this, new object[] { invocation });
+			}
 		}
 	}
 }

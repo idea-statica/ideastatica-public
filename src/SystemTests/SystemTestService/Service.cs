@@ -6,7 +6,7 @@ namespace SystemTestService
 	{
 		public string Foo(string arg1)
 		{
-			return string.Format($"Hi 'arg1'");
+			return string.Format($"Hi {arg1}");
 		}
 	}
 }
