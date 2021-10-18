@@ -10,12 +10,14 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	/// </summary>
 	public class GrpcReflectionClient
 	{
-		private GrpcSynchronousClient client;
+		private IGrpcSynchronousClient client;
 
 		/// <summary>
 		/// Determines whether the client is connected.
 		/// </summary>
 		public bool IsConnected => client.IsConnected;
+
+		public IGrpcSynchronousClient GrpcSyncClient => client;
 
 		/// <summary>
 		/// Initializes the <see cref="GrpcReflectionClient"/>
@@ -28,13 +30,22 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		}
 
 		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="client">Client for grpc communication</param>
+		internal GrpcReflectionClient(IGrpcSynchronousClient client)
+		{
+			this.client = client;
+		}
+
+		/// <summary>
 		/// Registers a message handler.
 		/// </summary>
 		/// <param name="handlerId">UniqueID of the handler.</param>
 		/// <param name="handler">Handler implementation.</param>
 		public void RegisterHandler(string handlerId, IGrpcMessageHandler handler)
 		{
-			client.RegisterHandler(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, handler);
+			client.RegisterHandler(handlerId, handler);
 		}
 
 		/// <summary>
@@ -71,7 +82,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageDataSync(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject<T>(response.Data);
@@ -88,7 +99,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Parameters = parsedArgs
 			};
 			var data = JsonConvert.SerializeObject(request);
-			var response = client.SendMessageSync(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, data);
+			var response = client.SendMessageDataSync(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, data);
 
 			// hadnle response
 			var responseData = JsonConvert.DeserializeObject(response.Data, returnType);

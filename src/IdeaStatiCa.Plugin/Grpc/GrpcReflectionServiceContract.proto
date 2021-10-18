@@ -11,4 +11,5 @@ message GrpcMessage {
     string data = 2;
     string clientId = 3;
     string operationId = 4;
+    bytes buffer = 5;
 } 

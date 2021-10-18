@@ -10,9 +10,9 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	/// </summary>
 	public class GrpcReflectionMessageHandler : IGrpcMessageHandler<object>
 	{
-		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
-
 		private object instance;
+
+		public bool IsSynchronous => true;
 
 		/// <summary>
 		/// Initializes new <see cref="GrpcReflectionMessageHandler"/>
@@ -65,5 +65,6 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			var value = callback.Value != null ? JsonConvert.DeserializeObject(callback.Value.ToString(), Type.GetType(callback.ValueType)) : null;
 			return Task<object>.FromResult(value);
 		}
+
 	}
 }

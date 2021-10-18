@@ -6,6 +6,17 @@
 	public class GrpcReflectionCallbackData
 	{
 		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public GrpcReflectionCallbackData() { }
+
+		public GrpcReflectionCallbackData(string type, object value)
+		{
+			ValueType = type;
+			Value = value;
+		}
+
+		/// <summary>
 		/// FullName of the value type.
 		/// </summary>
 		public string ValueType { get; set; }

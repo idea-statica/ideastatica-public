@@ -80,6 +80,18 @@ namespace IdeaStatiCa.Plugin.Grpc
 		}
 
 		/// <summary>
+		/// Requests server to shutdown
+		/// </summary>
+		/// <returns></returns>
+		public async Task StopAsync()
+		{
+			if(server != null)
+			{
+				await server.ShutdownAsync();
+			}
+		}
+
+		/// <summary>
 		/// Registers a message handler.
 		/// </summary>
 		/// <param name="handlerId">UniqueID of the handler.</param>
@@ -158,6 +170,18 @@ namespace IdeaStatiCa.Plugin.Grpc
 					MessageName = messageName,
 					Data = data
 				});
+			}
+			else
+			{
+				throw new Exception("Client disconnected.");
+			}
+		}
+
+		public async Task SendMessageAsync(GrpcMessage message)
+		{
+			if (IsConnected)
+			{
+				await currentClientStream.WriteAsync(message);
 			}
 			else
 			{

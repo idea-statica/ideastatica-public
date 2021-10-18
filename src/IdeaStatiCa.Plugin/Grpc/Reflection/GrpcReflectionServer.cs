@@ -12,7 +12,7 @@
 		/// <param name="port">Port on which server will run.</param>
 		public GrpcReflectionServer(object instance, int port) : base(port)
 		{
-			RegisterHandler(GrpcReflectionMessageHandler.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance));
+			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance));
 		}
 	}
 }
