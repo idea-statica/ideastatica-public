@@ -9,6 +9,9 @@ namespace IdeaStatiCa.Plugin
 		Connections,
 		Substructure,
 		SingleConnection,
+
+		// Items, that are not in any design item (connection, substructure), but should be synchronized
+		Unassigned,
 	}
 
 	/// <summary>
