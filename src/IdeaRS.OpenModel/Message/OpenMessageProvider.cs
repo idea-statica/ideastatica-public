@@ -213,6 +213,12 @@ namespace IdeaRS.OpenModel.Message
 		[EnumMember]
 		ErrNoInLibrary = Error | 0x16,
 
+		/// <summary>
+		/// <include file='../IdeaRS.OpenModel/Properties/Resources.resx' path='root/data[@name="ErrBadWeldMaterialProperty"]/value/text()/*' />
+		/// </summary>
+		[EnumMember]
+		ErrBadWeldMaterialProperty = Error | 0x17,
+
 		#endregion
 	}
 

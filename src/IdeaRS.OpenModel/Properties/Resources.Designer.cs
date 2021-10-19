@@ -61,6 +61,15 @@ namespace IdeaRS.OpenModel.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bad weld material property.
+        /// </summary>
+        internal static string ErrBadWeldMaterialProperty {
+            get {
+                return ResourceManager.GetString("ErrBadWeldMaterialProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bolts are too close to each other..
         /// </summary>
         internal static string ErrBoltsTooClose {
