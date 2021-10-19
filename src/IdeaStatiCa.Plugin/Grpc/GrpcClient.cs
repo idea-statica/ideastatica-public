@@ -30,8 +30,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private string errorMessage;
 		private List<ChannelOption> channelOptions = new List<ChannelOption>()
 				{
-						new ChannelOption(ChannelOptions.MaxReceiveMessageLength, "2048 MB"),
-						new ChannelOption(ChannelOptions.MaxSendMessageLength, "2048 MB")
+						new ChannelOption(ChannelOptions.MaxReceiveMessageLength, Constants.GRPC_MAX_MSG_SIZE),
+						new ChannelOption(ChannelOptions.MaxSendMessageLength, Constants.GRPC_MAX_MSG_SIZE)
 				};
 		#endregion
 
