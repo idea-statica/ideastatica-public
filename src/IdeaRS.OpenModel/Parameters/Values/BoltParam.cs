@@ -307,7 +307,7 @@ namespace IdeaRS.OpenModel.Parameters
 		/// Gets or sets the fasteners positions {X, Y}.
 		/// </summary>
 		[DataMember]
-		public List<Point> Positions { get; set; }
+		public List<IdeaRS.OpenModel.Geometry2D.Point> Positions { get; set; }
 
 		#endregion
 
