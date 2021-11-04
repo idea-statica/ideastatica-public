@@ -30,7 +30,7 @@ namespace IdeaStatiCa.Plugin
 			return Service.GetCssInMPRL(countryCode);
 		}
 
-		public List<ProjectItem> GetCssInProject()
+		public List<CrossSectionProjectItem> GetCssInProject()
 		{
 			return Service.GetCssInProject();
 		}
@@ -59,7 +59,7 @@ namespace IdeaStatiCa.Plugin
 			}
 
 			ConnectionData conData = iom?.Connections.FirstOrDefault();
-			if(conData == null)
+			if (conData == null)
 			{
 				throw new Exception("GetConnectionModel - no geometrical data of the requested connection is provided by IdeaStatiCa");
 			}
