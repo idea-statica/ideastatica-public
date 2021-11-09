@@ -9,14 +9,24 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug__IdeaStatiCa_Internal</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug__IdeaStatiCa_Internal|x64'">
     <OutputPath>..\..\..\..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|x64'">
     <OutputPath>..\..\..\..\..\bin\Release\</OutputPath>
   </PropertyGroup>
   
