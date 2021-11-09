@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<OutputPath>..\..\..\bin\$(Configuration)\</OutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Platforms>x64</Platforms>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <Compile Include="..\..\..\Common\GlobalAssemblyInfo\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics.PluginAdapter\IdeaStatiCa.Diagnostics.PluginAdapter.csproj" />
+		<ProjectReference Include="..\..\..\Common\IdeaStatiCa.Diagnostics\IdeaStatiCa.Diagnostics.csproj" />
+		<ProjectReference Include="..\..\..\ideastatica-public\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\ideastatica-public\src\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+		<ProjectReference Include="..\..\..\ideastatica-public\src\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+		<ProjectReference Include="..\..\..\ideastatica-public\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Dlubal.RSTAB6">
+			<HintPath>..\..\..\Common\3rdPartyBinaries\Dlubal.RSTAB6.dll</HintPath>
+			<EmbedInteropTypes>true</EmbedInteropTypes>
+		</Reference>
+		<Reference Include="Dlubal.RSTAB8">
+			<HintPath>..\..\..\Common\3rdPartyBinaries\Dlubal.RSTAB8.dll</HintPath>
+			<EmbedInteropTypes>true</EmbedInteropTypes>
+		</Reference>
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
+
+</Project>
