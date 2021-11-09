@@ -1,18 +1,17 @@
 ﻿using Dlubal.RSTAB8;
+using IdeaRS.OpenModel.Geometry3D;
 using IdeaRstabPlugin.BimApi;
 using IdeaRstabPlugin.Geometry;
 using IdeaRstabPlugin.Providers;
-using IdeaRstabPlugin.Utilities;
-using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.Factories
 {
 	internal class ElementFactory : IElementFactory
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.factories");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		private readonly IModelDataProvider _modelDataProvider;
 		private readonly ILinesAndNodes _linesAndNodes;

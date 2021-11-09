@@ -6,22 +6,22 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Platforms>x64</Platforms>
-		<PlatformTarget>AnyCPU</PlatformTarget>
+		<PlatformTarget>x64</PlatformTarget>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-
-		<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-		<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>    
 	</PropertyGroup>
-	
+
 	<ItemGroup>
-	  <Compile Include="..\..\..\Common\GlobalAssemblyInfo\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+		<PackageReference Include="Dlubal.RSTAB" Version="1.0.1" />
+		<PackageReference Include="MathNet.Spatial" Version="0.6.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+	  <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+	  <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+	  <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+	  <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

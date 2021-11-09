@@ -1,12 +1,11 @@
-﻿using Dlubal.RSTAB6;
-using Dlubal.RSTAB8;
+﻿using Dlubal.RSTAB8;
+using IdeaRS.OpenModel.Model;
 using IdeaRstabPlugin.Factories;
 using IdeaRstabPlugin.Providers;
-using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.BimImporter.Persistence;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.BimApi
@@ -14,7 +13,7 @@ namespace IdeaRstabPlugin.BimApi
 	/// <inheritdoc cref="IIdeaMember1D"/>
 	internal class RstabMember : IIdeaMember1D
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		public Member1DType Type => GetMemberType();
 

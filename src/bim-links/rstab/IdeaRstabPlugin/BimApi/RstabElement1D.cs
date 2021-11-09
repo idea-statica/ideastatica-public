@@ -1,8 +1,8 @@
-﻿using IdeaRstabPlugin.Factories;
-using IdeaRS.OpenModel.Geometry3D;
+﻿using IdeaRS.OpenModel.Geometry3D;
+using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +11,7 @@ namespace IdeaRstabPlugin.BimApi
 	/// <inheritdoc cref="IIdeaElement1D"/>
 	internal class RstabElement1D : IIdeaElement1D
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		public IIdeaCrossSection StartCrossSection => _objectFactory.GetCrossSection(_startCssNo);
 

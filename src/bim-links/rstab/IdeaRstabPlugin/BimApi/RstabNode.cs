@@ -2,7 +2,7 @@
 using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Persistence;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaRstabPlugin.BimApi
@@ -12,7 +12,7 @@ namespace IdeaRstabPlugin.BimApi
 	/// </summary>
 	internal class RstabNode : IIdeaNode
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		/// <summary>
 		/// Position of the node in cartesian coordinates.

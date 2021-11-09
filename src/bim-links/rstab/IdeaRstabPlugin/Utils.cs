@@ -1,7 +1,7 @@
 ﻿using Dlubal.RSTAB8;
 using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using MathNet.Spatial.Euclidean;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace IdeaRstabPlugin
 {
 	internal static class Utils
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab");
 
 		/// <summary>
 		/// Parses RSTAB object list. It is a comma separated list of number (e.g. 1,5,3,4), list of ranges (e.g. 1-3,7-10),

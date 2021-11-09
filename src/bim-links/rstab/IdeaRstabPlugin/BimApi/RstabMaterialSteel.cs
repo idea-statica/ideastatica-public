@@ -3,7 +3,7 @@ using Dlubal.RSTAB8;
 using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Material;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaRstabPlugin.BimApi
@@ -11,7 +11,7 @@ namespace IdeaRstabPlugin.BimApi
 	/// <inheritdoc cref="IIdeaMaterialSteel"/>
 	internal class RstabMaterialSteel : RstabMaterial, IIdeaMaterialSteel
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		public string Id => $"material-steel-{GetData().No}";
 

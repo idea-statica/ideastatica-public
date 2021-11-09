@@ -2,7 +2,6 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
-using IdeaStatiCa.Diagnostics;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace IdeaRstabPlugin
 {
 	public abstract class BimApiApplication : ApplicationBIM
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.IdeaRstabPlugin.bimapiapplication");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("ideastatica.IdeaRstabPlugin.bimapiapplication");
 
 		private const string PersistencyStorage = "bimapi-data.json";
 

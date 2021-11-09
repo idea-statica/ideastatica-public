@@ -1,7 +1,7 @@
 ﻿using Dlubal.RSTAB8;
 using IdeaRstabPlugin.BimApi;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Diagnostics;
 
@@ -12,7 +12,7 @@ namespace IdeaRstabPlugin.Factories
 	/// </summary>
 	internal class MaterialFactory : IFactory<IMaterial, IIdeaMaterial>
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.factories");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		/// <summary>
 		/// Creates an instance of <see cref="IIdeaMaterial"/> from a given <see cref="IMaterial"/>.

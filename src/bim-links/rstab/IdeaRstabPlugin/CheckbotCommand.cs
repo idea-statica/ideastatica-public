@@ -1,7 +1,4 @@
 ﻿using Dlubal.RSTAB8;
-using IdeaRstabPlugin.BimApi;
-using IdeaStatiCa.Diagnostics;
-using IdeaStatiCa.Diagnostics.PluginAdapter;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Diagnostics;
@@ -13,22 +10,14 @@ namespace IdeaRstabPlugin
 	[ComVisible(true)]
 	public class CheckbotCommand : IExternalCommand
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.IdeaRstabPlugin");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		public CheckbotCommand()
 		{
-			IdeaDiagnostics.Init(
-				logToFileName: "IdeaRstabPlugin.log",
-				sentryDsn: "https://1dd058bc68994ea78f1b7d1125225e69@o330948.ingest.sentry.io/5465617",
-				logToGoogleAnalytics: true,
-				applicationName: "IdeaRstabPlugin",
-				applicationId: "IdeaRstabPlugin");
 		}
 
 		public void Execute(object Model, string Params)
 		{
-			IdeaStatiCa.Diagnostics.Tools.AttachDebugger("IDEA_RSTAB_IMPORT");
-
 			if (!(Model is IModel rstabModel))
 			{
 				throw new ArgumentException($"{nameof(Model)} must be instance of {nameof(IModel)}.");
@@ -47,9 +36,9 @@ namespace IdeaRstabPlugin
 		{
 			try
 			{
-				_logger.LogEventInformation(new ApplicationStartedEvent());
+				_logger.LogInformation("RSTAB Link started");
 
-				PluginFactory pluginFactory = new PluginFactory((IModel)param, new PluginLogger(_logger));
+				PluginFactory pluginFactory = new PluginFactory((IModel)param, _logger);
 				using (BIMPluginHosting pluginHosting = new BIMPluginHosting(pluginFactory))
 				{
 					await pluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);
@@ -57,7 +46,7 @@ namespace IdeaRstabPlugin
 			}
 			catch (Exception e)
 			{
-				_logger.LogCritical("RSTAB link crashed", e);
+				_logger.LogError("RSTAB link crashed", e);
 			}
 			finally
 			{
@@ -74,7 +63,7 @@ namespace IdeaRstabPlugin
 				GC.Collect();
 				GC.WaitForPendingFinalizers();
 
-				_logger.LogEventInformation(new ApplicationExitedEvent(0));
+				_logger.LogInformation("RSTAB Link finished");
 			}
 		}
 	}

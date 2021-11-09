@@ -1,4 +1,4 @@
-﻿using IdeaStatiCa.Diagnostics;
+﻿using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace IdeaRstabPlugin.Factories
 	/// <typeparam name="T">Type to store</typeparam>
 	public class ObjectStorage<T>
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.factories");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		private readonly Dictionary<int, (int hashCode, T obj)> _objects = new Dictionary<int, (int, T)>();
 		private readonly IEqualityComparer<T> _equalityComparer;

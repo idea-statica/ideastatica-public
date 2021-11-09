@@ -1,14 +1,14 @@
-﻿using IdeaRstabPlugin.Factories;
-using IdeaRS.OpenModel.Geometry3D;
+﻿using IdeaRS.OpenModel.Geometry3D;
+using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 
 namespace IdeaRstabPlugin.BimApi
 {
 	/// <inheritdoc cref="IIdeaLineSegment3D"/>
 	internal class RstabLineSegment3D : IIdeaLineSegment3D
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		public IIdeaNode StartNode => _objectFactory.GetNode(_startNodeNo);
 

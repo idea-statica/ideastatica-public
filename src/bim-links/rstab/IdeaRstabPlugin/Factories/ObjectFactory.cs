@@ -4,7 +4,7 @@ using IdeaRstabPlugin.Geometry;
 using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
-using IdeaStatiCa.Diagnostics;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace IdeaRstabPlugin.Factories
 	/// </summary>
 	internal class ObjectFactory : IObjectFactory, IDataCache
 	{
-		private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.rstab.factories");
+		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
 		private static readonly IdeaMaterialEqualityComparer _materialEqualityComparer = new IdeaMaterialEqualityComparer();

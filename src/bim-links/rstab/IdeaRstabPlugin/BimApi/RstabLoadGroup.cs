@@ -1,9 +1,7 @@
 ﻿using Dlubal.RSTAB8;
-using IdeaRstabPlugin.Factories;
 using IdeaRS.OpenModel.Loading;
+using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Diagnostics;
-using System;
 
 namespace IdeaRstabPlugin.BimApi
 {
