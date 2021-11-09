@@ -85,7 +85,14 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <returns>Cross-sections in the project</returns>
 		[OperationContract]
-		List<CrossSectionProjectItem> GetCssInProject();
+		List<ProjectItem> GetCssInProject();
+
+		/// <summary>
+		/// Get all cross-sections in the currently open project
+		/// </summary>
+		/// <returns>Cross-sections with assigned material in the project</returns>
+		[OperationContract]
+		List<CrossSectionProjectItem> GetCssInProjectV2();
 
 		/// <summary>
 		/// Get all materials in the currently open project

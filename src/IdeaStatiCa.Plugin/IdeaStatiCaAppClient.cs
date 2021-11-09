@@ -30,9 +30,14 @@ namespace IdeaStatiCa.Plugin
 			return Service.GetCssInMPRL(countryCode);
 		}
 
-		public List<CrossSectionProjectItem> GetCssInProject()
+		public List<ProjectItem> GetCssInProject()
 		{
 			return Service.GetCssInProject();
+		}
+
+		public List<CrossSectionProjectItem> GetCssInProjectV2()
+		{
+			return Service.GetCssInProjectV2();
 		}
 
 		public List<LibraryItem> GetMaterialsInMPRL(CountryCode countryCode)
