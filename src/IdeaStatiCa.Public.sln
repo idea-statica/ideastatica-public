@@ -55,7 +55,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServerHost", "SystemTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemTestService", "SystemTests\SystemTestService\SystemTestService.csproj", "{8763410B-44A3-474A-9F00-28AD33AD2719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST_GrpcCommunication", "SystemTests\ST_GrpcCommunication\ST_GrpcCommunication.csproj", "{15686FF6-1077-40F3-9262-B0CE0A8F7DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST_GrpcCommunication", "SystemTests\ST_GrpcCommunication\ST_GrpcCommunication.csproj", "{15686FF6-1077-40F3-9262-B0CE0A8F7DDA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bim-links", "bim-links", "{2B90DD40-F065-4518-BEA5-188E150DD004}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rstab", "rstab", "{4F55791A-F67C-4A45-A1AD-5B6245901564}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRstabPlugin", "bim-links\rstab\IdeaRstabPlugin\IdeaRstabPlugin.csproj", "{3AF9D6E8-AB50-4D08-94C0-4163721BFE59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +153,10 @@ Global
 		{15686FF6-1077-40F3-9262-B0CE0A8F7DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15686FF6-1077-40F3-9262-B0CE0A8F7DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15686FF6-1077-40F3-9262-B0CE0A8F7DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF9D6E8-AB50-4D08-94C0-4163721BFE59}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3AF9D6E8-AB50-4D08-94C0-4163721BFE59}.Debug|Any CPU.Build.0 = Debug|x64
+		{3AF9D6E8-AB50-4D08-94C0-4163721BFE59}.Release|Any CPU.ActiveCfg = Release|x64
+		{3AF9D6E8-AB50-4D08-94C0-4163721BFE59}.Release|Any CPU.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +179,8 @@ Global
 		{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D} = {6450E996-847E-4AEA-878D-9905100CA668}
 		{8763410B-44A3-474A-9F00-28AD33AD2719} = {6450E996-847E-4AEA-878D-9905100CA668}
 		{15686FF6-1077-40F3-9262-B0CE0A8F7DDA} = {6450E996-847E-4AEA-878D-9905100CA668}
+		{4F55791A-F67C-4A45-A1AD-5B6245901564} = {2B90DD40-F065-4518-BEA5-188E150DD004}
+		{3AF9D6E8-AB50-4D08-94C0-4163721BFE59} = {4F55791A-F67C-4A45-A1AD-5B6245901564}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
