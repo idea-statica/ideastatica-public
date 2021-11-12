@@ -1,4 +1,4 @@
-# Registration of the plugin for RSTAB
+# COM Registration of the plugin for RSTAB
 
 1. register COM: regasm /codebase IdeaRstabPlugin.dll
 
