@@ -1,12 +1,12 @@
 # COM Registration of the plugin for RSTAB
 
-1. register COM: regasm /codebase IdeaRstabPlugin.dll
+1. open directory which includes IdeaRstabPlugin.dll
 
-2. add following lines to RSTAB.ini in RSTAB installation directory:
+2. make sure it contains IdeaRstabPluginInstaller.exe
 
-*ModuleName3=IDEA StatiCa New Api*
+3. run exe with parameter */i*
 
-*ModuleDescription3=IDEA StatiCa*
+*IdeaRstabPluginInstaller.exe /i*
 
-*ModuleClassName3=IdeaRstabPlugin.StartCCMCommand*
+
 
