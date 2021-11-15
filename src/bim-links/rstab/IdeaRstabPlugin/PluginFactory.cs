@@ -5,7 +5,6 @@ using IdeaRstabPlugin.Geometry;
 using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.Plugin;
 using System.IO;
-using System.Reflection;
 
 namespace IdeaRstabPlugin
 {
@@ -17,8 +16,17 @@ namespace IdeaRstabPlugin
 		{
 			get
 			{
+				string ideaInstallDir = string.Empty;
+#if PUBLIC
+				// get installation directory from windosw registry
+				ideaInstallDir = IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools.GetIdeaStatiCaInstallDir(Constants.IdeaStatiCaVersion);
+#else
+				// the plugin is located in installation directory of IdeaStatiCa
 				Assembly assembly = Assembly.GetExecutingAssembly();
-				return Path.Combine(Path.GetDirectoryName(assembly.Location), Constants.CheckbotAppName);
+				ideaInstallDir = assembly.Location;
+				
+#endif
+				return Path.Combine(ideaInstallDir, Constants.CheckbotAppName);
 			}
 		}
 

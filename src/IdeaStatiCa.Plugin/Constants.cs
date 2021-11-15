@@ -2,6 +2,9 @@
 {
 	public sealed class Constants
 	{
+		// the version of the compatible IdeaStatiCa
+		public const string IdeaStatiCaVersion = "21.1";
+
 		#region gRPC Constants 
 		public const string GrpcPortParam = "-grpcPort";
 		public const string GrpcReflectionErrorException = "GrpcReflectionError";
