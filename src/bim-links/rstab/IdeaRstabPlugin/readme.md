@@ -6,7 +6,8 @@
 
 3. run exe with parameter */i*
 
-*IdeaRstabPluginInstaller.exe /i*
-
+```
+IdeaRstabPluginInstaller.exe /i
+```
 
 
