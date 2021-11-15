@@ -17,8 +17,15 @@ namespace IdeaRstabPlugin
 		{
 			get
 			{
+				string ideaInstallDir = string.Empty;
+#if PUBLIC
+				ideaInstallDir = IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools.GetIdeaStatiCaInstallDir();
+#else
 				Assembly assembly = Assembly.GetExecutingAssembly();
-				return Path.Combine(Path.GetDirectoryName(assembly.Location), Constants.CheckbotAppName);
+				ideaInstallDir = assembly.Location;
+				
+#endif
+				return Path.Combine(ideaInstallDir, Constants.CheckbotAppName);
 			}
 		}
 
