@@ -75,15 +75,29 @@ namespace IdeaRstabPlugin.Providers
 
 		public IEnumerable<ResultCombination> GetResultCombinations()
 		{
-			foreach (ResultCombination resultCombination in _loads.GetResultCombinations())
+			for (int i = 0; i < _loads.GetResultCombinations().Length; i++)
 			{
+				ResultCombination resultCombination = _loads.GetResultCombinations()[i];
 				if (!_loads.HasLoadingResults(resultCombination.Loading))
 				{
 					continue;
 				}
 
-				Set(resultCombination.Loading.No, DataType.ResultCombination, resultCombination);
-				yield return resultCombination;
+				CombinationLoading[] rfCombiItems = _loads.GetResultCombination(i, ItemAt.AtIndex).GetLoadings();
+				int numCombiItems = rfCombiItems.Length;
+				bool ex = false;
+				for (int j = 0; j < numCombiItems; j++)
+				{
+					if (rfCombiItems[j].Loading.Type == Dlubal.RSTAB8.LoadingType.LoadCaseType || (rfCombiItems[j].Loading.Type == LoadingType.LoadCombinationType))
+					{
+						ex = true;
+					}
+				}
+				if (ex)
+				{
+					Set(resultCombination.Loading.No, DataType.ResultCombination, resultCombination);
+					yield return resultCombination;
+				}
 			}
 		}
 
