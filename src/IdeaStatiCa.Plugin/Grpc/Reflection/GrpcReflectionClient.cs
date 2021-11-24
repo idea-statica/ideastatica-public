@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.Plugin.Utilities;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
@@ -11,6 +12,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	public class GrpcReflectionClient
 	{
 		private IGrpcSynchronousClient client;
+
+		protected readonly IPluginLogger Logger;
 
 		/// <summary>
 		/// Determines whether the client is connected.
@@ -24,8 +27,11 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// </summary>
 		/// <param name="clientId">ID of the client.</param>
 		/// <param name="port">Port on which <see cref="GrpcServer"/> is running.</param>
+		/// <param name="logger"></param>
 		public GrpcReflectionClient(string clientId, int port, IPluginLogger logger)
 		{
+			Debug.Assert(logger != null);
+			this.Logger = logger;
 			client = new GrpcSynchronousClient(clientId, port, logger);
 		}
 
@@ -45,6 +51,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// <param name="handler">Handler implementation.</param>
 		public void RegisterHandler(string handlerId, IGrpcMessageHandler handler)
 		{
+			Logger.LogDebug($"GrpcReflectionClient.GrpcReflectionClient handlerId = {handlerId}, handler = ${handler.GetType().Name}");
 			client.RegisterHandler(handlerId, handler);
 		}
 
@@ -54,6 +61,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// <returns></returns>
 		public async Task ConnectAsync()
 		{
+			Logger.LogDebug($"GrpcReflectionClient.ConnectAsync()");
 			await client.ConnectAsync();
 		}
 

@@ -10,7 +10,8 @@
 		/// </summary>
 		/// <param name="instance">Instance targeted by reflection calls.</param>
 		/// <param name="port">Port on which server will run.</param>
-		public GrpcReflectionServer(object instance, int port) : base(port)
+		/// <param name="logger">logger</param>
+		public GrpcReflectionServer(object instance, int port, IPluginLogger logger) : base(port, logger)
 		{
 			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance));
 		}

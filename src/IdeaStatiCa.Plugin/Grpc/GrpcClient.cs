@@ -98,6 +98,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 				throw new ArgumentException($"Handler with ID {handlerId} is already registered.");
 			}
 
+			Logger.LogDebug($"GrpcClient.RegisterHandler handlerId = {handlerId}, handler = {handler.GetType().Name}");
+
 			handlers.Add(handlerId, handler);
 		}
 
@@ -106,9 +108,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		public async Task ConnectAsync()
 		{
+			string address = $"localhost:{Port}";
+			Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
 			try
 			{
-				channel = new Channel($"localhost:{Port}", ChannelCredentials.Insecure, channelOptions);
+				channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
 
 				var serviceClient = new GrpcService.GrpcServiceClient(channel);
 
@@ -154,6 +158,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public async Task DisconnectAsync()
 		{
+			Logger.LogDebug("GrpcClient.GrpcClient()");
 			await client?.RequestStream?.CompleteAsync();
 			await channel.ShutdownAsync();
 
@@ -197,6 +202,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public Task SendMessageAsync(GrpcMessage message)
 		{
+			Logger.LogDebug($"GrpcClient.GrpcClient MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
 			if (IsConnected)
 			{
 				return client.RequestStream.WriteAsync(message);
@@ -214,10 +220,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		internal virtual async Task HandleMessageAsync(GrpcMessage message)
 		{
+			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
+
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
 			if (handler != null)
 			{
+				Logger.LogDebug($"GrpcClient.HandleMessageAsync calling handler {handler.GetType().Name}");
 				var result = await handler.HandleClientMessage(message, this);
 			}
 			else

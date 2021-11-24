@@ -120,6 +120,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		internal override Task HandleMessageAsync(GrpcMessage message)
 		{
+			Logger.LogDebug($"GrpcSynchronousClient.HandleMessageAsync MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
 			grpcMessageCompletionSource?.TrySetResult(message);
 			return Task.CompletedTask;
 		}

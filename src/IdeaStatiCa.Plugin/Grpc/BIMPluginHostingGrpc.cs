@@ -124,7 +124,7 @@ namespace IdeaStatiCa.Plugin
 			ideaLogger.LogInformation("Starting gRPC server");
 
 			// Create Grpc server
-			grpcServer = new GrpcReflectionServer(bimAppService, GrpcPort);
+			grpcServer = new GrpcReflectionServer(bimAppService, GrpcPort, ideaLogger);
 			grpcServer.Start();
 
 			// Open IDEA StatiCa

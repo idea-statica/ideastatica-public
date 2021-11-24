@@ -84,6 +84,8 @@ namespace IdeaStatiCa.Plugin
 				return Task.CompletedTask;
 			}
 
+			ideaLogger.LogDebug($"AutomationHostingGrpc.RunAsync id = '{id}");
+
 			tokenSource = new CancellationTokenSource();
 			var token = tokenSource.Token;
 
