@@ -157,7 +157,7 @@ namespace IdeaStatiCa.Plugin
 
 			if (!isBimRunning)
 			{
-				ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}' is not running");
+				ideaLogger.LogInformation($"AutomationHostingGrpc.RunServer - processId == '{myAutomatingProcessId}' is not running");
 				bimProcess = null;
 				myAutomatingProcessId = -1;
 			}
