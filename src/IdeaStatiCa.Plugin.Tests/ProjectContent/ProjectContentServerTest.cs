@@ -23,7 +23,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public async Task GetContentTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
@@ -94,7 +94,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public async Task ExistTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
@@ -195,7 +195,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public async Task DeleteTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
@@ -268,7 +268,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public async Task WriteTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
@@ -373,7 +373,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		[Fact]
 		public async Task ReadTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();

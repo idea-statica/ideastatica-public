@@ -23,7 +23,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		[Fact]
 		public async Task GrpcServerHandleMessagesTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
@@ -77,7 +77,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		[Fact]
 		public async Task GrpcServerTwoHandlesTest()
 		{
-			var grpcServer = new GrpcServer(80);
+			var grpcServer = new GrpcServer(80, new NullLogger());
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();

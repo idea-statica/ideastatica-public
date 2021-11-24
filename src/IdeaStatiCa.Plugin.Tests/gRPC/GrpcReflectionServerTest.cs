@@ -32,7 +32,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
 			var context = Substitute.For<ServerCallContext>();
 
-			var reflexionServer = new GrpcReflectionServer(serviceMock, 80);
+			var reflexionServer = new GrpcReflectionServer(serviceMock, 80, new NullLogger());
 
 			List<GrpcMessage> handledMessages = new List<GrpcMessage>();
 
