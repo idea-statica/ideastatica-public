@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,6 +29,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private Dictionary<string, IGrpcMessageHandler> handlers = new Dictionary<string, IGrpcMessageHandler>();
 		private AsyncDuplexStreamingCall<GrpcMessage, GrpcMessage> client;
 		private string errorMessage;
+		protected readonly IPluginLogger Logger;
 		private List<ChannelOption> channelOptions = new List<ChannelOption>()
 				{
 						new ChannelOption(ChannelOptions.MaxReceiveMessageLength, Constants.GRPC_MAX_MSG_SIZE),
@@ -73,8 +75,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="clientId">Current client ID (PID)</param>
 		/// <param name="port">Port on which the server is running.</param>
-		public GrpcClient(string clientId, int port)
+		/// <param name="logger">The instance of the logger</param>
+		public GrpcClient(string clientId, int port, IPluginLogger logger)
 		{
+			Debug.Assert(logger != null);
+			this.Logger = logger;
 			ClientID = clientId;
 			Port = port;
 		}

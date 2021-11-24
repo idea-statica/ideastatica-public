@@ -1,4 +1,5 @@
 using FluentAssertions;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
@@ -49,7 +50,7 @@ namespace ST_GrpcCommunication
 					string clientId = grpcServerPort.ToString();
 
 					// create claint of the service IService which runs on grpcServer
-					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(clientId, grpcServerPort);
+					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(clientId, grpcServerPort, new NullLogger());
 
 					await grpcClient.ConnectAsync();
 					grpcClient.IsConnected.Should().BeTrue("The client shoul be connected");
@@ -110,7 +111,7 @@ namespace ST_GrpcCommunication
 					string clientId = grpcServerPort.ToString();
 
 					// create claint of the service IService which runs on grpcServer
-					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(clientId, grpcServerPort);
+					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(clientId, grpcServerPort, new NullLogger());
 
 					var projectContentHandler = new ProjectContentClientHandler(grpcClient.GrpcSyncClient);
 

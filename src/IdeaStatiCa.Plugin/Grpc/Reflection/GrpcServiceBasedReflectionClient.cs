@@ -11,7 +11,7 @@
 		/// </summary>
 		public IReflectionService Service { get; private set; }
 
-		public GrpcServiceBasedReflectionClient(string clientId, int port) : base(clientId, port)
+		public GrpcServiceBasedReflectionClient(string clientId, int port, IPluginLogger logger) : base(clientId, port, logger)
 		{
 			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(this);
 

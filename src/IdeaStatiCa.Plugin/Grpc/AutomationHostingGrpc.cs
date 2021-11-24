@@ -60,10 +60,9 @@ namespace IdeaStatiCa.Plugin
 
 		public AutomationHostingGrpc(MyInterface hostedService,
 				int grpcPort,
-	IPluginLogger logger = null,
+				IPluginLogger logger = null,
 				string eventName = Constants.DefaultPluginEventName)
 		{
-			//ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhostinggrpc");
 			ideaLogger = logger ?? new NullLogger();
 			Status = AutomationStatus.Unknown;
 			automation = hostedService;
@@ -89,7 +88,7 @@ namespace IdeaStatiCa.Plugin
 			var token = tokenSource.Token;
 
 			// initialize grpc client
-			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort);
+			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort, ideaLogger);
 			grpcClient.ConnectAsync().WaitAndUnwrapException();
 
 			hostingTask = Task.Run(() =>
@@ -156,6 +155,7 @@ namespace IdeaStatiCa.Plugin
 
 			if (!isBimRunning)
 			{
+				ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}' is not running");
 				bimProcess = null;
 				myAutomatingProcessId = -1;
 			}

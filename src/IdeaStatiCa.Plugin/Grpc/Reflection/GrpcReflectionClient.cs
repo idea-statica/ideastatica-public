@@ -24,9 +24,9 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// </summary>
 		/// <param name="clientId">ID of the client.</param>
 		/// <param name="port">Port on which <see cref="GrpcServer"/> is running.</param>
-		public GrpcReflectionClient(string clientId, int port)
+		public GrpcReflectionClient(string clientId, int port, IPluginLogger logger)
 		{
-			client = new GrpcSynchronousClient(clientId, port);
+			client = new GrpcSynchronousClient(clientId, port, logger);
 		}
 
 		/// <summary>

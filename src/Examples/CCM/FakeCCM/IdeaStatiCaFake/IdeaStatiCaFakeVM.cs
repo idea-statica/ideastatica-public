@@ -93,7 +93,7 @@ namespace IdeaStatiCaFake
 
 		private async void InitializeGrpc(string clientId, int grpcPort)
 		{
-			grpcClient = new GrpcReflectionClient(clientId, grpcPort);
+			grpcClient = new GrpcReflectionClient(clientId, grpcPort, new NullLogger());
 
 			await grpcClient.ConnectAsync();
 

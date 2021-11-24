@@ -22,14 +22,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="clientId">ID of the client.</param>
 		/// <param name="port"></param>
-		public GrpcSynchronousClient(string clientId, int port) : base(clientId, port)
+		public GrpcSynchronousClient(string clientId, int port, IPluginLogger logger) : base(clientId, port, logger)
 		{
 		}
 
 		/// <summary>
 		/// Needed for by UT
 		/// </summary>
-		public GrpcSynchronousClient() : base("", 80)
+		public GrpcSynchronousClient() : base("", 80, new NullLogger())
 		{
 		}
 

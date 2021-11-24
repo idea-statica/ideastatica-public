@@ -12,7 +12,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		{
 			const string clientId = "client1";
 
-			var grpcClient = new GrpcClient(clientId, 80);
+			var grpcClient = new GrpcClient(clientId, 80, new NullLogger());
 
 			GrpcMessage handler1Msg = null;
 
