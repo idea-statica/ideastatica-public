@@ -146,8 +146,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 			{
 				return await client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				Logger.LogWarning("GrpcClient.ResponseStrem failed", ex);
 				return await Task.FromResult(false);
 			}
 		}

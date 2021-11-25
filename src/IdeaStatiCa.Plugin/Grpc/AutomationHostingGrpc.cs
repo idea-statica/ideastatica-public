@@ -126,55 +126,64 @@ namespace IdeaStatiCa.Plugin
 		{
 			ideaLogger.LogInformation("Calling RunServer");
 
-			mre.Reset();
-
-			bool isBimRunning = false;
-
-			if (!string.IsNullOrEmpty(id))
+			try
 			{
-				myAutomatingProcessId = int.Parse(id);
-				ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}'");
+				mre.Reset();
 
-				bimProcess = Process.GetProcessById(myAutomatingProcessId);
-				bimProcess.EnableRaisingEvents = true;
-				bimProcess.Exited += new EventHandler(BimProcess_Exited);
+				bool isBimRunning = false;
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					// notify plugin that service is running
-					EventWaitHandle syncEvent;
-					if (EventWaitHandle.TryOpenExisting(EventName, out syncEvent))
+					myAutomatingProcessId = int.Parse(id);
+					ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}'");
+
+					bimProcess = Process.GetProcessById(myAutomatingProcessId);
+					bimProcess.EnableRaisingEvents = true;
+					bimProcess.Exited += new EventHandler(BimProcess_Exited);
+
+					if (!string.IsNullOrEmpty(id))
 					{
-						syncEvent.Set();
-						syncEvent.Dispose();
+						// notify plugin that service is running
+						EventWaitHandle syncEvent;
+						if (EventWaitHandle.TryOpenExisting(EventName, out syncEvent))
+						{
+							syncEvent.Set();
+							syncEvent.Dispose();
+						}
 					}
+
+					Status |= AutomationStatus.IsClient;
+					isBimRunning = true;
 				}
 
-				Status |= AutomationStatus.IsClient;
-				isBimRunning = true;
-			}
+				if (!isBimRunning)
+				{
+					ideaLogger.LogInformation($"AutomationHostingGrpc.RunServer - processId == '{myAutomatingProcessId}' is not running");
+					bimProcess = null;
+					myAutomatingProcessId = -1;
+				}
 
-			if (!isBimRunning)
+				NotifyBIMStatusChanged(AppStatus.Started);
+
+				while (!cancellationToken.IsCancellationRequested)
+				{
+					Thread.Sleep(100);
+				}
+
+				ideaLogger.LogInformation($"RunServer - Automation Service has been stopped");
+			}
+			catch(Exception ex)
 			{
-				ideaLogger.LogInformation($"AutomationHostingGrpc.RunServer - processId == '{myAutomatingProcessId}' is not running");
-				bimProcess = null;
-				myAutomatingProcessId = -1;
+				ideaLogger.LogWarning("RunServer failed", ex);
 			}
-
-			NotifyBIMStatusChanged(AppStatus.Started);
-
-			while (!cancellationToken.IsCancellationRequested)
+			finally
 			{
-				Thread.Sleep(100);
+				grpcClient?.DisconnectAsync().WaitAndUnwrapException();
+
+				NotifyBIMStatusChanged(AppStatus.Finished);
+
+				mre.Set();
 			}
-
-			ideaLogger.LogInformation($"RunServer - Automation Service has been stopped");
-
-			grpcClient?.DisconnectAsync().WaitAndUnwrapException();
-
-			NotifyBIMStatusChanged(AppStatus.Finished);
-
-			mre.Set();
 		}
 
 		protected virtual void NotifyBIMStatusChanged(AppStatus newStatus)
