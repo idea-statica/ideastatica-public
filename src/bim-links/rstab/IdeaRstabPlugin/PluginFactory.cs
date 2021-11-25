@@ -23,7 +23,7 @@ namespace IdeaRstabPlugin
 #else
 				// the plugin is located in installation directory of IdeaStatiCa
 				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-				ideaInstallDir = assembly.Location;
+				ideaInstallDir = Path.GetDirectoryName(assembly.Location);
 #endif
 				return Path.Combine(ideaInstallDir, Constants.CheckbotAppName);
 			}
