@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.ServiceModel.Dispatcher;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -57,6 +58,7 @@ namespace IdeaStatiCa.Plugin
 			this.EventName = eventName;
 			this.PluginUrlFormat = pluginUrlFormat;
 			ideaLogger = logger ?? new NullLogger();
+			WcfErrorHandler.InitLogger(ideaLogger);
 		}
 
 		public event ISEventHandler AppStatusChanged;
@@ -212,7 +214,6 @@ namespace IdeaStatiCa.Plugin
 
 		private void SelfServiceHost_Faulted(object sender, EventArgs e)
 		{
-			ideaLogger.LogError($"Faulted service '{ServiceBaseAddress}', fault details = '{e?.ToString()}'.");
 		}
 
 		private void IS_Exited(object sender, EventArgs e)
