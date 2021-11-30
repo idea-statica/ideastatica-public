@@ -214,7 +214,6 @@ namespace IdeaStatiCa.Plugin
 
 		private void SelfServiceHost_Faulted(object sender, EventArgs e)
 		{
-			ideaLogger.LogError($"Faulted service '{ServiceBaseAddress}', fault details = '{e?.ToString()}'.");
 		}
 
 		private void IS_Exited(object sender, EventArgs e)
