@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRstabPlugin", "bim-link
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRstabPluginInstaller", "bim-links\rstab\IdeaRstabPluginInstaller\IdeaRstabPluginInstaller.csproj", "{46D65A8D-4866-4012-A149-41F63567B637}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bentley-ram", "bentley-ram", "{A140BC08-DF0F-45A8-84EA-E3855D907B47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -188,6 +190,7 @@ Global
 		{4F55791A-F67C-4A45-A1AD-5B6245901564} = {2B90DD40-F065-4518-BEA5-188E150DD004}
 		{3AF9D6E8-AB50-4D08-94C0-4163721BFE59} = {4F55791A-F67C-4A45-A1AD-5B6245901564}
 		{46D65A8D-4866-4012-A149-41F63567B637} = {4F55791A-F67C-4A45-A1AD-5B6245901564}
+		{A140BC08-DF0F-45A8-84EA-E3855D907B47} = {2B90DD40-F065-4518-BEA5-188E150DD004}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
