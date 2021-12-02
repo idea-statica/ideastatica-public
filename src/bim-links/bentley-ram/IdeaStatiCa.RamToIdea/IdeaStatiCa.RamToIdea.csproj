@@ -17,6 +17,12 @@
     <PackageReference Include="Idea.Bentley.Ram" Version="17.2.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
