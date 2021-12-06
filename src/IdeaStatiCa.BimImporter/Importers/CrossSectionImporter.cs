@@ -84,15 +84,24 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			return new CrossSectionComponent()
 			{
-				Components = components
-					.Select(component => new CssComponent()
-					{
-						Geometry = component.Geometry,
-						Material = ctx.Import(component.Material),
-						Phase = component.Phase
-					})
-					.ToList()
+				Components = ConvertComponents(ctx, components).ToList()
 			};
+		}
+
+		private IEnumerable<CssComponent> ConvertComponents(IImportContext ctx, IEnumerable<IIdeaCrossSectionComponent> components)
+		{
+			int id = 1; // component id be non-zero
+
+			foreach (IIdeaCrossSectionComponent component in components)
+			{
+				yield return new CssComponent()
+				{
+					Geometry = component.Geometry,
+					Material = ctx.Import(component.Material),
+					Phase = component.Phase,
+					Id = id++
+				};
+			}
 		}
 
 		private CrossSection CreateCssNamed(IImportContext ctx, IIdeaCrossSectionByName cssNamed)

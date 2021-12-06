@@ -102,7 +102,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
 				}
 
-				if (!importedPositions.Add(section.Position))
+				if (!importedPositions.Add(position))
 				{
 					throw new ConstraintException($"Result section on the position '{position}' already exists.");
 				}
