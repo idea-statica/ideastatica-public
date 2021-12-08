@@ -274,7 +274,6 @@ namespace IdeaStatiCa.BIM.Common
 			return new SorterResult(joints);
 		}
 
-
 		internal static (Member m, bool isended) SelectBearingMember(IEnumerable<(Member m, bool isended)> members, Node node)
 		{
 			(Member m, bool isended) member;
@@ -519,6 +518,7 @@ namespace IdeaStatiCa.BIM.Common
 				}
 			}
 		}
+
 		private static bool AddMembers(List<Node> source, Node node, SorterSettings settings)
 		{
 			var found = false;
@@ -678,6 +678,7 @@ namespace IdeaStatiCa.BIM.Common
 				Id = id;
 				Location = location;
 				Surroundings = surroundings;
+				OriginalSurroundings = new CI.Common.BoundingBox3D(surroundings);
 				Master = master;
 				LocationInLCS = master.LCS.TransformToLCS(location);
 			}
@@ -687,6 +688,8 @@ namespace IdeaStatiCa.BIM.Common
 			public IPoint3D Location { get; }
 
 			public CI.Common.BoundingBox3D Surroundings { get; }
+
+			public CI.Common.BoundingBox3D OriginalSurroundings { get; }
 
 			public Member Master { get; }
 
@@ -713,7 +716,7 @@ namespace IdeaStatiCa.BIM.Common
 				var nloc = (WM.Vector3D)n.LocationInLCS.ToMediaPoint();
 				var loc = LocationInLCS.ToMediaPoint();
 
-				var npoints = n.Surroundings.GetPoints();
+				var npoints = n.OriginalSurroundings.GetPoints();
 				for (var i = npoints.Count - 1; i >= 0; --i)
 				{
 					var np = npoints[i] + nloc;

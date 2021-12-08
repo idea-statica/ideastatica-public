@@ -1,10 +1,12 @@
-﻿using System.Windows.Media.Media3D;
+﻿using System.Diagnostics;
+using System.Windows.Media.Media3D;
 
 namespace CI.Common
 {
 	/// <summary>
 	/// Defines an axis-aligned box-shaped 3D volume. 
 	/// </summary>
+	[DebuggerDisplay("dx={DeltaX};dy={DeltaY};dz={DeltaZ}")]
 	public class BoundingBox3D
 	{
 		#region Fields
