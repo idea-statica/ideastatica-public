@@ -44,3 +44,10 @@ jobs:
         name: FEAppExample
         path: ${{ github.workspace }}/main/src/Examples/CCM/FEAppExample_1/bin/Release
         if-no-files-found: error
+
+    - name: 'Upload IdeaRstabPlugin'
+      uses: actions/upload-artifact@v2
+      with:
+        name: IdeaRstabPlugin
+        path: ${{ github.workspace }}/main/src/bim-links/rstab/IdeaRstabPlugin/bin/Release
+        if-no-files-found: error

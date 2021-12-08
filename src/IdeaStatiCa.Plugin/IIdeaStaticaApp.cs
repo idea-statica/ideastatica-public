@@ -42,6 +42,25 @@ namespace IdeaStatiCa.Plugin
 		public string Name { get; set; }
 	}
 
+	/// <summary>
+	/// Identification of an crossection item in the Idea project
+	/// </summary>
+	[DataContract]
+	public class CrossSectionProjectItem : ProjectItem
+	{
+		/// <summary>
+		/// Id of the material item in the idea project
+		/// </summary>
+		[DataMember]
+		public int MaterialIdentifier { get; set; }
+
+		/// <summary>
+		/// Name of the material item in the idea project
+		/// </summary>
+		[DataMember]
+		public string MaterialName { get; set; }
+	}
+
 	[ServiceContract]
 	public interface IIdeaStaticaApp
 	{
@@ -67,6 +86,13 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>Cross-sections in the project</returns>
 		[OperationContract]
 		List<ProjectItem> GetCssInProject();
+
+		/// <summary>
+		/// Get all cross-sections in the currently open project
+		/// </summary>
+		/// <returns>Cross-sections with assigned material in the project</returns>
+		[OperationContract]
+		List<CrossSectionProjectItem> GetCssInProjectV2();
 
 		/// <summary>
 		/// Get all materials in the currently open project

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.ServiceModel.Dispatcher;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -78,7 +80,6 @@ namespace IdeaStatiCa.Plugin
 		{
 			ideaLogger = logger ?? new NullLogger();
 
-			//ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhosting");
 			this.Status = AutomationStatus.Unknown;
 			this.automation = hostedService;
 			this.EventName = eventName;
@@ -155,7 +156,6 @@ namespace IdeaStatiCa.Plugin
 		protected virtual void RunServer(string id, System.Threading.CancellationToken cancellationToken)
 		{
 			ideaLogger.LogInformation($"Starting sever processId = {id}");
-
 			try
 			{
 				bool isBimRunning = false;

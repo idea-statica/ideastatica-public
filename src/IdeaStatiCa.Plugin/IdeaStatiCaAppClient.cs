@@ -24,22 +24,45 @@ namespace IdeaStatiCa.Plugin
 		{
 			return new EndpointAddress(string.Format(Constants.DefaultIdeaStaticaAutoUrlFormat, id));
 		}
-
+		/// <summary>
+		/// Get all cross-sections from IDEA StatiCa MPRL (material and product range library) which belongs to <paramref name="countryCode"/>
+		/// </summary>
+		/// <param name="countryCode">Country code filter</param>
+		/// <returns>Cross-sections in the MPRL</returns>
 		public List<LibraryItem> GetCssInMPRL(CountryCode countryCode)
 		{
 			return Service.GetCssInMPRL(countryCode);
 		}
-
+		/// <summary>
+		/// Get all cross-sections in the currently open project
+		/// </summary>
+		/// <returns>Cross-sections in the project</returns>
 		public List<ProjectItem> GetCssInProject()
 		{
 			return Service.GetCssInProject();
 		}
-
+		/// <summary>
+		/// Get all cross-sections in the currently open project
+		/// </summary>
+		/// <returns>Cross-sections with assigned material in the project</returns>
+		public List<CrossSectionProjectItem> GetCssInProjectV2()
+		{
+			return Service.GetCssInProjectV2();
+		}
+		/// <summary>
+		/// Get all materials from IDEA StatiCa MPRL (material and product range library) which belongs to <paramref name="countryCode"/>
+		/// </summary>
+		/// <param name="countryCode">Country code filter</param>
+		/// <returns>Materials in the MPRL</returns>
 		public List<LibraryItem> GetMaterialsInMPRL(CountryCode countryCode)
 		{
 			return Service.GetMaterialsInMPRL(countryCode);
 		}
 
+		/// <summary>
+		/// Get all materials in the currently open project
+		/// </summary>
+		/// <returns>Materials in the project</returns>
 		public List<ProjectItem> GetMaterialsInProject()
 		{
 			return Service.GetMaterialsInProject();
@@ -59,7 +82,7 @@ namespace IdeaStatiCa.Plugin
 			}
 
 			ConnectionData conData = iom?.Connections.FirstOrDefault();
-			if(conData == null)
+			if (conData == null)
 			{
 				throw new Exception("GetConnectionModel - no geometrical data of the requested connection is provided by IdeaStatiCa");
 			}

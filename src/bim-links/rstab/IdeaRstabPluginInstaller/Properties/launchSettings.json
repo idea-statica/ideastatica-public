@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "IdeaRstabPluginInstaller": {
+      "commandName": "Project",
+      "commandLineArgs": "/i"
+    }
+  }
+}
