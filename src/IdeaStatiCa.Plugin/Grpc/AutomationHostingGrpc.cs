@@ -116,9 +116,13 @@ namespace IdeaStatiCa.Plugin
 				tokenSource.Cancel();
 				var stopRes = mre.WaitOne();
 
-				await grpcClient.DisconnectAsync();
-
-				Debug.Assert(stopRes, "Cannot stop");
+				try
+				{
+					await grpcClient.DisconnectAsync();
+				}
+				catch
+				{
+				}
 			}
 		}
 
@@ -143,9 +147,12 @@ namespace IdeaStatiCa.Plugin
 
 					if (!string.IsNullOrEmpty(id))
 					{
+						string eventName = string.Format("{0}{1}", EventName, id);
+
 						// notify plugin that service is running
 						EventWaitHandle syncEvent;
-						if (EventWaitHandle.TryOpenExisting(EventName, out syncEvent))
+						ideaLogger.LogDebug($"RunServer - tryprocessId == '{myAutomatingProcessId}'");
+						if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
 						{
 							syncEvent.Set();
 							syncEvent.Dispose();

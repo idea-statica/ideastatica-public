@@ -147,6 +147,8 @@ namespace IdeaStatiCa.Plugin
 			{
 				Thread.Sleep(100);
 			}
+
+			mre.Set();
 		}
 
 		private void OnIdeaStatiCaAppExit(object sender, EventArgs e)
