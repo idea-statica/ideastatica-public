@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+﻿using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Nito.AsyncEx.Synchronous;
 using System;
 using System.Diagnostics;
@@ -37,6 +38,11 @@ namespace IdeaStatiCa.Plugin
 				return grpcClient.Service;
 			}
 		}
+
+		/// <summary>
+		/// Grpc Client which is responsible for processing all grpc communication
+		/// </summary>
+		public GrpcReflectionClient GrpcReflectionClient { get => grpcClient; }
 
 		/// <summary>
 		/// Port on which the Grpc server is running.
@@ -91,6 +97,10 @@ namespace IdeaStatiCa.Plugin
 
 			// initialize grpc client
 			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort, ideaLogger);
+
+			// register handler which serves MyInterface requests
+			grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
+
 			grpcClient.ConnectAsync().WaitAndUnwrapException();
 
 			hostingTask = Task.Run(() =>

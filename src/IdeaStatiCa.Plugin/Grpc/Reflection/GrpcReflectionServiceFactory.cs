@@ -15,7 +15,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <typeparam name="T"></typeparam>
 	public class GrpcReflectionServiceFactory
 	{
-		public static T CreateInstance<T>(GrpcReflectionClient client) where T : class
+		public static T CreateInstance<T>(IMethodInvoker client) where T : class
 		{
 			ProxyGenerator generator = new ProxyGenerator();
 			return generator.CreateInterfaceProxyWithoutTarget<T>(new ReflectionServiceInterceptor(client));
@@ -45,9 +45,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 	internal class ReflectionServiceInterceptor : AsyncInterceptor
 	{
-		private GrpcReflectionClient client;
+		private IMethodInvoker client;
 
-		public ReflectionServiceInterceptor(GrpcReflectionClient client)
+		public ReflectionServiceInterceptor(IMethodInvoker client)
 		{
 			if (client == null)
 			{
