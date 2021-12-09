@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <summary>
 	/// Server implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcServer : GrpcService.GrpcServiceBase
+	public class GrpcServer : GrpcService.GrpcServiceBase, IGrpcSender
 	{
 		#region Private fields
 		private Server server;
@@ -26,10 +26,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 		#endregion
 
 		#region Properties & Events
-		/// <summary>
-		/// Triggered every time a message is received from client.
-		/// </summary>
-		public event EventHandler<GrpcMessage> MessageReceived;
+		///// <summary>
+		///// Triggered every time a message is received from client.
+		///// </summary>
+		//public event EventHandler<GrpcMessage> MessageReceived;
 
 		/// <summary>
 		/// Triggered every time client connects. Sends a client ID in args.
@@ -225,7 +225,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
 			}
 
-			MessageReceived?.Invoke(this, message);
+			//MessageReceived?.Invoke(this, message);
 		}
 		#endregion
 	}

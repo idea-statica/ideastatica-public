@@ -97,22 +97,5 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 			return responseData;
 		}
-
-		//public object InvokeMethod(Type returnType, string methodName, params object[] arguments)
-		//{
-		//	var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
-		//	var request = new GrpcReflectionInvokeData()
-		//	{
-		//		MethodName = methodName,
-		//		Parameters = parsedArgs
-		//	};
-		//	var data = JsonConvert.SerializeObject(request);
-		//	var response = client.SendMessageDataSync(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, data);
-
-		//	// hadnle response
-		//	var responseData = JsonConvert.DeserializeObject(response.Data, returnType);
-
-		//	return responseData;
-		//}
 	}
 }

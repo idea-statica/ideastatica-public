@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
-	public interface IGrpcClient
+	public interface IGrpcSender
+	{
+		Task SendMessageAsync(string messageName, string data, string operationId);
+		Task SendMessageAsync(GrpcMessage message);
+	}
+
+	public interface IGrpcClient : IGrpcSender
 	{
 		bool IsConnected { get; }
 		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
-
-		Task SendMessageAsync(GrpcMessage message);
 
 		Task ConnectAsync();
 
@@ -38,10 +42,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 		#endregion
 
 		#region Properties & Events
-		/// <summary>
-		/// Triggered when a message is received from the server.
-		/// </summary>
-		public event EventHandler<GrpcMessage> MessageReceived;
+		///// <summary>
+		///// Triggered when a message is received from the server.
+		///// </summary>
+		//public event EventHandler<GrpcMessage> MessageReceived;
 
 		/// <summary>
 		/// Triggered every time client connects. Sends a client ID in args.
@@ -222,20 +226,20 @@ namespace IdeaStatiCa.Plugin.Grpc
 		internal virtual async Task HandleMessageAsync(GrpcMessage message)
 		{
 			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
-
+			object result = null;
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
 			if (handler != null)
 			{
 				Logger.LogDebug($"GrpcClient.HandleMessageAsync calling handler {handler.GetType().Name}");
-				var result = await handler.HandleClientMessage(message, this);
+				result = await handler.HandleClientMessage(message, this);
 			}
 			else
 			{
 				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
 			}
 
-			MessageReceived?.Invoke(this, message);
+			//MessageReceived?.Invoke(this, message);
 		}
 		#endregion
 	}

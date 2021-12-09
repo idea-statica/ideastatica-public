@@ -13,7 +13,7 @@ namespace IdeaStatiCa.Plugin
 	/// </summary>
 	public class BIMPluginHostingGrpc : IBIMPluginHosting, IDisposable
 	{
-		private GrpcReflectionServer grpcServer;
+		public GrpcReflectionServer GrpcServer { get; private set; }
 		private CancellationTokenSource tokenSource;
 		private ManualResetEvent mre;
 		private IApplicationBIM bimAppService;
@@ -124,8 +124,8 @@ namespace IdeaStatiCa.Plugin
 			ideaLogger.LogInformation("Starting gRPC server");
 
 			// Create Grpc server
-			grpcServer = new GrpcReflectionServer(bimAppService, GrpcPort, ideaLogger);
-			grpcServer.Start();
+			GrpcServer = new GrpcReflectionServer(bimAppService, GrpcPort, ideaLogger);
+			GrpcServer.Start();
 
 			// Open IDEA StatiCa
 			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);
