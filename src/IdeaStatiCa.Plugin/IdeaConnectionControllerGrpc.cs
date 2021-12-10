@@ -104,15 +104,6 @@ namespace IdeaStatiCa.Plugin
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
 		}
 
-		private async void InitializeGrpc(string clientId, int grpcPort, IPluginLogger logger)
-		{
-			var grpcClient = new GrpcReflectionClient(clientId, grpcPort, logger);
-
-			await grpcClient.ConnectAsync();
-
-			//Actions.Add($"GRPC server connected");
-		}
-
 		private void CalculatorProcess_Exited(object sender, EventArgs e)
 		{
 			if (IdeaStatiCaProcess == null)

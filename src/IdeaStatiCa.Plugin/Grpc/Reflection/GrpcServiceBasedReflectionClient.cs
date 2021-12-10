@@ -4,7 +4,7 @@
 	/// WCF-like implementation of the GrpcReflectionClient that uses interceptors to proxy calls to server.
 	/// </summary>
 	/// <typeparam name="IReflectionService"></typeparam>
-	public class GrpcServiceBasedReflectionClient<IReflectionService> : GrpcReflectionClient where IReflectionService : class
+	public class GrpcServiceBasedReflectionClient<IReflectionService> : GrpcClient where IReflectionService : class
 	{
 		/// <summary>
 		/// Service used to call server methods.
@@ -13,9 +13,9 @@
 
 		public GrpcServiceBasedReflectionClient(string clientId, int port, IPluginLogger logger) : base(clientId, port, logger)
 		{
-			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(this);
-
-			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service));
+			var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, this);
+			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(grpcReflectionHandler);
+			RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, grpcReflectionHandler);
 		}
 	}
 }

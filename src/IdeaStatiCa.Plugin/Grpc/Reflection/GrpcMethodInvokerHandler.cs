@@ -123,12 +123,14 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
 		{
-			throw new NotImplementedException();
+			grpcMessageCompletionSource?.TrySetResult(message);
+			return Task.FromResult<object>(null);
 		}
 
 		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
 		{
-			throw new NotImplementedException();
+			grpcMessageCompletionSource?.TrySetResult(message);
+			return Task.FromResult<object>(null);
 		}
 	}
 }

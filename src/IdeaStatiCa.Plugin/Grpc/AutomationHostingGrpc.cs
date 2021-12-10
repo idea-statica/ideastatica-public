@@ -40,11 +40,6 @@ namespace IdeaStatiCa.Plugin
 		}
 
 		/// <summary>
-		/// Grpc Client which is responsible for processing all grpc communication
-		/// </summary>
-		public GrpcReflectionClient GrpcReflectionClient { get => grpcClient; }
-
-		/// <summary>
 		/// Port on which the Grpc server is running.
 		/// </summary>
 		public int GrpcPort { get; private set; }
@@ -98,8 +93,11 @@ namespace IdeaStatiCa.Plugin
 			// initialize grpc client
 			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort, ideaLogger);
 
-			// register handler which serves MyInterface requests
-			grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
+			if (automation != null)
+			{
+				// register handler which serves MyInterface requests
+				grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
+			}
 
 			grpcClient.ConnectAsync().WaitAndUnwrapException();
 
