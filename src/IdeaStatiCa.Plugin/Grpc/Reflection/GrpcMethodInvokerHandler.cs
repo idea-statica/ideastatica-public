@@ -52,7 +52,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 
-				await GrpcSender.SendMessageAsync(messageName, data, operationId);
+				await GrpcSender.SendMessageAsync(operationId, messageName, data);
 
 				// wait for the callback handler
 				var messageReceived = false;

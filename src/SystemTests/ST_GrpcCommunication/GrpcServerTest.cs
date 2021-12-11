@@ -113,15 +113,13 @@ namespace ST_GrpcCommunication
 					// create claint of the service IService which runs on grpcServer
 					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(clientId, grpcServerPort, new NullLogger());
 
-					var projectContentHandler = new ProjectContentClientHandler(grpcClient.GrpcSyncClient);
+					var projectContentHandler = new ProjectContentClientHandler(grpcClient);
 
 					// add project content handler
 					grpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, projectContentHandler);
 
 					await grpcClient.ConnectAsync();
 					grpcClient.IsConnected.Should().BeTrue("The client shoul be connected");
-
-					projectContentHandler = new ProjectContentClientHandler(grpcClient.GrpcSyncClient);
 
 					const string item1Id = "Item1";
 					var isItem1 = projectContentHandler.Exist(item1Id);

@@ -21,7 +21,7 @@ namespace IdeaStatiCaFake
 {
 	public class IdeaStatiCaFakeVM : INotifyPropertyChanged, IDisposable
 	{
-		private GrpcReflectionClient grpcClient;
+		private GrpcServiceBasedReflectionClient<IAutomation> grpcClient;
 
 		private AutomationHostingGrpc<IAutomation, IApplicationBIM> AutomationHosting { get; set; }
 		private IApplicationBIM FEA
@@ -93,7 +93,7 @@ namespace IdeaStatiCaFake
 
 		private async void InitializeGrpc(string clientId, int grpcPort)
 		{
-			grpcClient = new GrpcReflectionClient(clientId, grpcPort, new NullLogger());
+			grpcClient = new GrpcServiceBasedReflectionClient<IAutomation>(clientId, grpcPort, new NullLogger());
 
 			await grpcClient.ConnectAsync();
 

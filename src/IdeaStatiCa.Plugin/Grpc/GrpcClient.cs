@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 {
 	public interface IGrpcSender
 	{
-		Task SendMessageAsync(string messageName, string data, string operationId);
+		Task SendMessageAsync(string operationId, string messageName, string data);
 		Task SendMessageAsync(GrpcMessage message);
 	}
 
@@ -176,10 +176,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Sends a message to the server.
 		/// </summary>
-		/// <param name="messageName">Message identificator.</param>
-		/// <param name="data">Body of the message.</param>
+		/// <param name="operationId">Id of the request</param>
+		/// <param name="messageName">Message identificator - name the event handler</param>
+		/// <param name="data">Body of the message</param>
 		/// <returns></returns>
-		public Task SendMessageAsync(string messageName, string data = "", string operationId = null)
+		public Task SendMessageAsync(string operationId, string messageName, string data)
 		{
 			if (IsConnected)
 			{
