@@ -33,7 +33,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			var response = SendMessageDataSync(HandlerName, data);
 
 			// hadnle response
-			var responseData = JsonConvert.DeserializeObject<T>(string.Empty);
+			var responseData = JsonConvert.DeserializeObject<T>(response.Data);
 
 			return responseData;
 		}
@@ -124,13 +124,13 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		public Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
 		{
 			grpcMessageCompletionSource?.TrySetResult(message);
-			return Task.FromResult<object>(null);
+			return Task.FromResult<object>(message);
 		}
 
 		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
 		{
 			grpcMessageCompletionSource?.TrySetResult(message);
-			return Task.FromResult<object>(null);
+			return Task.FromResult<object>(message);
 		}
 	}
 }
