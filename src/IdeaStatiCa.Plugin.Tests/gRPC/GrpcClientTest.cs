@@ -39,6 +39,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 			var msg1 = new GrpcMessage();
 			msg1.ClientId = clientId;
 			msg1.MessageName = messageName1;
+			msg1.MessageType = GrpcMessage.Types.MessageType.Response;
 			msg1.Data = "1";
 
 			await grpcClient.HandleMessageAsync(msg1);
@@ -52,6 +53,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 			var msg2 = new GrpcMessage();
 			msg2.ClientId = clientId;
 			msg2.MessageName = messageName2;
+			msg2.MessageType = GrpcMessage.Types.MessageType.Response;
 			msg2.Data = "2";
 
 			await grpcClient.HandleMessageAsync(msg2);
