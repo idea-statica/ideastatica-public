@@ -1,5 +1,4 @@
-﻿using IdeaStatiCa.Plugin.Grpc;
-using IdeaStatiCa.Plugin.Grpc.Reflection;
+﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Nito.AsyncEx.Synchronous;
 using System;
 using System.Diagnostics;

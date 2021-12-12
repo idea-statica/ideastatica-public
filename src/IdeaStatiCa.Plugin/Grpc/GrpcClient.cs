@@ -232,8 +232,16 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			if (handler != null)
 			{
-				Logger.LogDebug($"GrpcClient.HandleMessageAsync calling handler {handler.GetType().Name}");
-				result = await handler.HandleClientMessage(message, this);
+				Logger.LogDebug($"GrpcClient.HandleMessageAsync calling handler Handler = {handler.GetType().Name}, MessageName = {message?.MessageName},MessageType = '{message?.MessageType}'");
+
+				if (message?.MessageType == GrpcMessage.Types.MessageType.Request)
+				{
+					result = await handler.HandleServerMessage(message, this);
+				}
+				else
+				{
+					result = await handler.HandleClientMessage(message, this);
+				}
 			}
 			else
 			{
