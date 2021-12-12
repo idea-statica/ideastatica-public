@@ -28,32 +28,51 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			this.instance = instance;
 		}
 
-		public async Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
+		public async Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
 			try
 			{
 				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
 				var arguments = grpcInvokeData.Parameters;
 				var result = await ReflectionHelper.InvokeMethodFromGrpc(instance, grpcInvokeData.MethodName, arguments);
+
 				var jsonResult = result != null ? JsonConvert.SerializeObject(result) : string.Empty;
 
-				await server.SendMessageAsync(
-						message.OperationId,
-						message.MessageName,
-						jsonResult
-						);
+				string dataType = result != null ? result.GetType().Name : string.Empty;
+
+				var responseMsg = new GrpcMessage()
+				{
+					ClientId = message.ClientId,
+					OperationId = message.OperationId,
+					MessageName = message.MessageName,
+					MessageType = GrpcMessage.Types.MessageType.Response,
+					Data = jsonResult,
+					DataType = dataType,
+				};
+
+
+				await grpcSender.SendMessageAsync(responseMsg);
 
 				return result;
 			}
 			catch (Exception e)
 			{
-				await server.SendMessageAsync(message.OperationId, "Error", e.Message);
+				var errMsg = new GrpcMessage()
+				{
+					OperationId = message.OperationId,
+					MessageType = GrpcMessage.Types.MessageType.Response,
+					MessageName = "Error",
+					Data = e.Message,
+					DataType = typeof(string).Name
+				};
+
+				await grpcSender.SendMessageAsync(errMsg);
 
 				return null;
 			}
 		}
 
-		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
+		public Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender client)
 		{
 			var callback = JsonConvert.DeserializeObject<GrpcReflectionCallbackData>(message.Data);
 			if(callback == null)

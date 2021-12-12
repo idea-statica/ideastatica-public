@@ -218,7 +218,15 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			if (handler != null)
 			{
-				var result = await handler.HandleServerMessage(message, this);
+				if(message?.MessageType == GrpcMessage.Types.MessageType.Response)
+				{
+					var result = await handler.HandleClientMessage(message, null);
+				}
+				else
+				{
+					var result = await handler.HandleServerMessage(message, this);
+				}
+				
 			}
 			else
 			{

@@ -11,5 +11,11 @@ message GrpcMessage {
     string data = 2;
     string clientId = 3;
     string operationId = 4;
-    bytes buffer = 5;
+    string dataType = 5;
+    enum MessageType {
+        REQUEST = 0;
+        RESPONSE = 1;
+      }
+    MessageType messageType = 6;
+    bytes buffer = 7;
 } 
