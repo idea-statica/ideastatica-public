@@ -39,11 +39,15 @@ namespace IdeaRstabPlugin
 				_logger.LogInformation("RSTAB Link started");
 
 				PluginFactory pluginFactory = new PluginFactory((IModel)param, _logger);
-				using (BIMPluginHosting pluginHosting = new BIMPluginHosting(pluginFactory))
+				using (var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, _logger))
 				{
-					await pluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);
+					await bimPluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);
 				}
-			}
+					//using (BIMPluginHosting pluginHosting = new BIMPluginHosting(pluginFactory))
+					//{
+					//	await pluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);
+					//}
+				}
 			catch (Exception e)
 			{
 				_logger.LogError("RSTAB link crashed", e);
