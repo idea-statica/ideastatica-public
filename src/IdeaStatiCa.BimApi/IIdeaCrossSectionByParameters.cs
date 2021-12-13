@@ -5,7 +5,7 @@ namespace IdeaStatiCa.BimApi
     /// <summary>
     /// A cross-section defined by parameters.
     /// </summary>
-    public interface IIdeaCrossSectionByName : IIdeaCrossSection
+    public interface IIdeaCrossSectionByParameters : IIdeaCrossSection
     {
         /// <summary>
         /// Material of the cross-section.
