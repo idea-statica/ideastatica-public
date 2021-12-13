@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdeaStatiCa.RamToIdea
+namespace IdeaStatiCa.RamToIdea.Utilities
 {
-    public class Class1
-    {
-    }
+	public static class RamMaterialRetriever
+	{
+
+	}
 }

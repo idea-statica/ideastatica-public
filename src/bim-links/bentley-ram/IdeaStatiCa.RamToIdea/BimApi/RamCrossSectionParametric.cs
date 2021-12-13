@@ -1,11 +1,15 @@
-﻿using IdeaRS.OpenModel.CrossSection;
-using IdeaStatiCa.BimApi;
+﻿using System;
 using System.Collections.Generic;
+using IdeaStatiCa.BimApi;
+using IdeaRS.OpenModel.CrossSection;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace IdeaRstabPlugin.BimApi
+namespace IdeaStatiCa.RamToIdea.BimApi
 {
 	/// <inheritdoc cref="IIdeaCrossSectionByName"/>
-	internal class RstabCrossSectionParametric : IIdeaCrossSectionByName
+	internal class RamCrossSectionParametric : IIdeaCrossSectionByName
 	{
 		public double Rotation { get; set; }
 

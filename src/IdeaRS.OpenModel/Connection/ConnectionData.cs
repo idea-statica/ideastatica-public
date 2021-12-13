@@ -129,6 +129,8 @@ namespace IdeaRS.OpenModel.Connection
 	/// </summary>
 	public class BoltGrid
 	{
+
+		public string BoltAssemblyRef { get; set; }
 		/// <summary>
 		/// Unique Id of the bolt grid
 		/// </summary>

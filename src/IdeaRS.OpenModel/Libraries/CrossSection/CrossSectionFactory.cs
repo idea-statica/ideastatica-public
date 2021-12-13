@@ -5,6 +5,12 @@
 	/// </summary>
 	public partial class CrossSectionFactory
 	{
+		public static void FillLibraryShape(CrossSectionParameter css, string searchName)
+		{
+			css.CrossSectionType = CrossSectionType.UniqueName;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = searchName });
+		}
+
 		/// <summary>
 		/// Rectangle shape - massive concrete shape
 		/// </summary>

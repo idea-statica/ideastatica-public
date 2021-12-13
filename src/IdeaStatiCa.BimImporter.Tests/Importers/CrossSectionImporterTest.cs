@@ -26,7 +26,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		public void Import_IfImportingIIdeaCrossSectionByParametersAndCssTypeIsOneComponentCss_ThrowsConstraintException()
 		{
 			// Setup: create a IIdeaCrossSectionByParameters instance with type OneComponentCss
-			IIdeaCrossSectionByParameters css = Substitute.For<IIdeaCrossSectionByParameters>();
+			IIdeaCrossSectionByName css = Substitute.For<IIdeaCrossSectionByName>();
 			css.Id.Returns("css");
 			css.Type.Returns(CrossSectionType.OneComponentCss);
 

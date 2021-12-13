@@ -27,7 +27,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			switch (css)
 			{
-				case IIdeaCrossSectionByParameters cssParametric:
+				case IIdeaCrossSectionByName cssParametric:
 					return CreateCssParametric(ctx, cssParametric);
 
 				case IIdeaCrossSectionByCenterLine cssCentreLine:
@@ -44,7 +44,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			throw new ConstraintException($"Cross-section '{css.Id}' is of unsupported type '{css.GetType().Name}'.");
 		}
 
-		private CrossSection CreateCssParametric(IImportContext ctx, IIdeaCrossSectionByParameters cssParametric)
+		private CrossSection CreateCssParametric(IImportContext ctx, IIdeaCrossSectionByName cssParametric)
 		{
 			Logger.LogTrace($"Importing cross-section {cssParametric.Id} by parameters");
 
