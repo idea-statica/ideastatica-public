@@ -123,7 +123,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				// Handle incoming messages
 				_ = Task.Run(async () =>
 				{
-					while (await ResponseStrem())
+					while (await ResponseStream())
 					{
 						var response = client.ResponseStream.Current;
 
@@ -139,15 +139,15 @@ namespace IdeaStatiCa.Plugin.Grpc
 			}
 		}
 
-		private async Task<bool> ResponseStrem()
+		private async Task<bool> ResponseStream()
 		{
 			try
 			{
 				return await client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None);
 			}
-			catch (Exception ex)
+			catch
 			{
-				Logger.LogWarning("GrpcClient.ResponseStrem failed", ex);
+				//Logger.LogWarning("GrpcClient.ResponseStrem failed", ex);
 				return await Task.FromResult(false);
 			}
 		}
