@@ -98,19 +98,11 @@ namespace IdeaStatiCa.Plugin
 
 			IdeaStatiCaProcess = connectionProc;
 
-			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, GrpcPort);
-			GrpcClient.RunAsync(processId.ToString());
+			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null);
+
+			GrpcClient.RunAsync(processId.ToString(), GrpcPort.ToString());
 
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
-		}
-
-		private async void InitializeGrpc(string clientId, int grpcPort)
-		{
-			var grpcClient = new GrpcReflectionClient(clientId, grpcPort);
-
-			await grpcClient.ConnectAsync();
-
-			//Actions.Add($"GRPC server connected");
 		}
 
 		private void CalculatorProcess_Exited(object sender, EventArgs e)

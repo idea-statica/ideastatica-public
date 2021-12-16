@@ -26,11 +26,12 @@ namespace IdeaStatiCa.Plugin
 		event ISEventHandler BIMStatusChanged;
 
 		/// <summary>
-		/// Starts BIM application
+		/// Starts client for BIM application which enables communication between Checkbot and BIM plugins
 		/// </summary>
-		/// <param name="id">Identified of </param>
-		/// <returns></returns>
-		Task RunAsync(string id);
+		/// <param name="id">ID of the BIM application (its process id)</param>
+		/// <param name="gRpcPort">TCP port for communication between CheckBot and BIM application</param>
+		/// <returns>Task wich is responsible for gRPC communication </returns>
+		Task RunAsync(string id, string gRpcPort);
 
 		/// <summary>
 		/// Stops BIM application
@@ -92,12 +93,9 @@ namespace IdeaStatiCa.Plugin
 
 		public AutomationStatus Status { get; private set; }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="id">The identifier if BIM application (its process id)</param>
-		/// <returns>Running task. </returns>
-		public Task RunAsync(string id)
+
+		/// <inheritdoc cref="RunAsync(string, string)"/>
+		public Task RunAsync(string id, string gRpcPort = null)
 		{
 			if (hostingTask != null)
 			{

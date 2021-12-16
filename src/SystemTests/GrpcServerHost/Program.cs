@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+﻿using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
@@ -11,7 +12,7 @@ namespace GrpcServerHost
 	{
 		static void Main(string[] args)
 		{
-			//Debug.Assert(false);
+			//System.Diagnostics.Debug.Assert(false);
 			int grpcPort = 0;
 			string eventName = string.Empty;
 			if (args.Length > 0)
@@ -43,7 +44,7 @@ namespace GrpcServerHost
 			var service = new Service();
 
 			// Create Grpc server
-			var grpcServer = new GrpcReflectionServer(service, grpcPort);
+			var grpcServer = new GrpcReflectionServer(service, grpcPort, new NullLogger());
 
 			var projectContentInMemory = new ProjectContentInMemory();
 			var contentHandler = new ProjectContentServerHandler(projectContentInMemory);

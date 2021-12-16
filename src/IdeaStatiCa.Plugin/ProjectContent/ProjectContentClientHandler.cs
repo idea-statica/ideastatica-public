@@ -37,20 +37,16 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 	/// <summary>
 	/// Implementation of <see cref="IProjectContent"/> for accessing project data of using grpc 
 	/// </summary>
-	public class ProjectContentClientHandler : IGrpcMessageHandler, IProjectContent, IProjectContentStorage
+	public class ProjectContentClientHandler : GrpcMethodInvokerHandler, IProjectContent, IProjectContentStorage
 	{
-		readonly IGrpcSynchronousClient syncClient;
-		readonly string HandlerName;
 		readonly static string Error = "Error";
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="client">Grpc client</param>
-		public ProjectContentClientHandler(IGrpcSynchronousClient client)
+		public ProjectContentClientHandler(IGrpcSender client) : base(Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, client)
 		{
-			this.HandlerName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-			this.syncClient = client;
 		}
 
 		#region IProjectContent
@@ -90,7 +86,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			invokeData.Parameters = parameters;
 			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
 
-			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+			var grpcResult = SendMessageDataSync(grpcMessage);
 			CheckError(grpcResult.Data);
 
 			var projectContent = !string.IsNullOrEmpty(grpcResult?.Data) ? JsonConvert.DeserializeObject<bool>(grpcResult?.Data) : false;
@@ -116,7 +112,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			invokeData.Parameters = parameters;
 			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
 
-			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+			var grpcResult = SendMessageDataSync(grpcMessage);
 			CheckError(grpcResult.Data);
 
 			var projectContent = JsonConvert.DeserializeObject<bool>(grpcResult?.Data);
@@ -150,38 +146,13 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			invokeData.Parameters = parameters;
 			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
 
-			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+			var grpcResult = SendMessageDataSync(grpcMessage);
 			CheckError(grpcResult.Data);
 
 			var projectContent = !string.IsNullOrEmpty(grpcResult?.Data) ? JsonConvert.DeserializeObject<List<ProjectDataItem>>(grpcResult?.Data) : null;
 
 			return projectContent;
 		} 
-		#endregion
-
-		#region IGrpcMessageHandler
-
-		/// <summary>
-		/// Not implementd
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="client"></param>
-		/// <returns></returns>
-		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>
-		/// Not implemented
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="server"></param>
-		/// <returns></returns>
-		public Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
-		{
-			throw new NotImplementedException();
-		}
 		#endregion
 
 		#region IProjectContentStorage
@@ -208,7 +179,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			invokeData.Parameters = parameters;
 			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
 
-			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+			var grpcResult = SendMessageDataSync(grpcMessage);
 			CheckError(grpcResult.Data);
 
 			grpcResult.Buffer.WriteTo(outputStream);
@@ -239,7 +210,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			grpcMessage.Data = JsonConvert.SerializeObject(invokeData);
 			grpcMessage.Buffer = Google.Protobuf.ByteString.FromStream(inputStream);
 
-			var grpcResult = syncClient.SendMessageDataSync(grpcMessage);
+			var grpcResult = SendMessageDataSync(grpcMessage);
 			CheckError(grpcResult.Data);
 
 			return 1;

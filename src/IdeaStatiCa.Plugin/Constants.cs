@@ -47,6 +47,7 @@
 		#region grpc message handlers
 		public const int GRPC_MAX_MSG_SIZE = 20 * 1024 * 1024; // 20MB max
 		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
+		public const string GRPC_CHECKBOT_HANDLER_MESSAGE = "Grpc.Handlers.CheckBot";
 		public const string GRPC_PROJECTCONTENT_HANDLER_MESSAGE = "Grpc.Handlers.ProjContent";
 		#endregion
 	}

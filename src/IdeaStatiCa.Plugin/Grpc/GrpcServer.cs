@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
@@ -8,13 +9,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <summary>
 	/// Server implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcServer : GrpcService.GrpcServiceBase
+	public class GrpcServer : GrpcService.GrpcServiceBase, IGrpcSender
 	{
 		#region Private fields
 		private Server server;
 		private string currentClientId;
 		private IServerStreamWriter<GrpcMessage> currentClientStream = null;
 		private Dictionary<string, IGrpcMessageHandler> handlers = new Dictionary<string, IGrpcMessageHandler>();
+		protected readonly IPluginLogger Logger;
 
 		private List<ChannelOption> channelOptions = new List<ChannelOption>()
 				{
@@ -24,11 +26,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 		#endregion
 
 		#region Properties & Events
-		/// <summary>
-		/// Triggered every time a message is received from client.
-		/// </summary>
-		public event EventHandler<GrpcMessage> MessageReceived;
-
 		/// <summary>
 		/// Triggered every time client connects. Sends a client ID in args.
 		/// </summary>
@@ -60,13 +57,20 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// Initializes the IdeaStatiCa Grpc server.
 		/// </summary>
 		/// <param name="port">Sets the <see cref="Port"/></param>
-		public GrpcServer(int port)
+		/// <param name="logger">Logger</param>
+		public GrpcServer(int port, IPluginLogger logger)
 		{
+			Debug.Assert(logger != null);
+
+			this.Logger = logger;
 			Port = port;
+			string host = "localhost";
+
+			Logger.LogDebug($"GrpcServer listening on port ${host}:${port}");
 			server = new Server(channelOptions)
 			{
 				Services = { GrpcService.BindService(this) },
-				Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+				Ports = { new ServerPort(host, Port, ServerCredentials.Insecure) }
 			};
 		}
 		#endregion
@@ -77,6 +81,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		public void Start()
 		{
+			Logger.LogDebug("GrpcServer.Start");
 			server.Start();
 		}
 
@@ -86,7 +91,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public async Task StopAsync()
 		{
-			if(server != null)
+			Logger.LogDebug("GrpcServer.StopAsync");
+			if (server != null)
 			{
 				await server.ShutdownAsync();
 			}
@@ -99,6 +105,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="handler">Handler implementation.</param>
 		public void RegisterHandler(string handlerId, IGrpcMessageHandler handler)
 		{
+			Logger.LogDebug($"GrpcServer.RegisterHandler handlerId = '{handlerId}' handler = '{handler.GetType().Name}'");
 			if (handlers.ContainsKey(handlerId))
 			{
 				throw new ArgumentException($"Handler with ID {handlerId} is already registered.");
@@ -115,6 +122,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public async override Task ConnectAsync(IAsyncStreamReader<GrpcMessage> requestStream, IServerStreamWriter<GrpcMessage> responseStream, ServerCallContext context)
 		{
+			Logger.LogDebug("GrpcServer.ConnectAsync");
 			if (!await requestStream.MoveNext())
 			{
 				IsConnected = false;
@@ -126,6 +134,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 				// do not allow connection from multiple clients.
 				if (IsConnected && currentClientId != requestStream.Current.ClientId)
 				{
+	
+					Logger.LogDebug("GrpcServer.ConnectAsync error = Client already connected");
 					await SendMessageAsync("Error", "Client already connected");
 				}
 				else
@@ -165,6 +175,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			if (IsConnected)
 			{
+				Logger.LogDebug($"GrpcServer.SendMessageAsync operationId = '{operationId}, messageName = '{messageName}'");
 				await currentClientStream.WriteAsync(new GrpcMessage
 				{
 					OperationId = operationId,
@@ -174,6 +185,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			}
 			else
 			{
+				Logger.LogDebug("GrpcServer.SendMessageAsync error = Client disconnected");
 				throw new Exception("Client disconnected.");
 			}
 		}
@@ -201,14 +213,22 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			if (handler != null)
 			{
-				var result = await handler.HandleServerMessage(message, this);
+				if(message?.MessageType == GrpcMessage.Types.MessageType.Response)
+				{
+					var result = await handler.HandleClientMessage(message, null);
+				}
+				else
+				{
+					var result = await handler.HandleServerMessage(message, this);
+				}
+				
 			}
 			else
 			{
 				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
 			}
 
-			MessageReceived?.Invoke(this, message);
+			//MessageReceived?.Invoke(this, message);
 		}
 		#endregion
 	}

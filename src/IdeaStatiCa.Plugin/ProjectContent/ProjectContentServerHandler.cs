@@ -27,7 +27,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		/// </summary>
 		public IProjectContent ContentSource { get => contentSource; private set => contentSource = value; }
 
-		public Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client)
+		public Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
 			throw new NotImplementedException();
 		}
@@ -38,8 +38,9 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		/// <param name="message">Request</param>
 		/// <param name="server">Server to be used to send response to a caller</param>
 		/// <returns></returns>
-		public async Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server)
+		public async Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
+			GrpcServer server = (GrpcServer)grpcSender;
 			try
 			{
 				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);

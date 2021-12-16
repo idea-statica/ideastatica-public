@@ -18,7 +18,7 @@ namespace IdeaStatiCa.Plugin
 		private MyInterface automation;
 		private Process bimProcess = null;
 		private int myAutomatingProcessId;
-		private readonly string EventName;
+		protected string EventName { get; set; }
 		private GrpcServiceBasedReflectionClient<ClientInterface> grpcClient;
 		private readonly IPluginLogger ideaLogger = null;
 
@@ -59,25 +59,18 @@ namespace IdeaStatiCa.Plugin
 		public event ISEventHandler BIMStatusChanged;
 
 		public AutomationHostingGrpc(MyInterface hostedService,
-				int grpcPort,
-	IPluginLogger logger = null,
+				IPluginLogger logger = null,
 				string eventName = Constants.DefaultPluginEventName)
 		{
-			//ideaLogger = Diagnostics.IdeaDiagnostics.GetLogger("ideastatica.plugin.automationhostinggrpc");
 			ideaLogger = logger ?? new NullLogger();
 			Status = AutomationStatus.Unknown;
 			automation = hostedService;
 			EventName = eventName;
-			GrpcPort = grpcPort;
 			mre = new ManualResetEvent(false);
 		}
 
-		/// <summary>
-		/// Starts the <see cref="AutomationHostingGrpc{MyInterface, ClientInterface}".
-		/// </summary>
-		/// <param name="id">Client id</param>
-		/// <returns></returns>
-		public Task RunAsync(string id)
+		/// <inheritdoc cref="RunAsync(string, string)"/>
+		public Task RunAsync(string id, string gRpcPort)
 		{
 			if (hostingTask != null)
 			{
@@ -85,11 +78,24 @@ namespace IdeaStatiCa.Plugin
 				return Task.CompletedTask;
 			}
 
+			Debug.Assert(!string.IsNullOrEmpty(gRpcPort));
+
+			GrpcPort = int.Parse(gRpcPort);
+
+			ideaLogger.LogDebug($"AutomationHostingGrpc.RunAsync id = '{id}");
+
 			tokenSource = new CancellationTokenSource();
 			var token = tokenSource.Token;
 
 			// initialize grpc client
-			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort);
+			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort, ideaLogger);
+
+			if (automation != null)
+			{
+				// register handler which serves MyInterface requests
+				grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
+			}
+
 			grpcClient.ConnectAsync().WaitAndUnwrapException();
 
 			hostingTask = Task.Run(() =>
@@ -115,9 +121,13 @@ namespace IdeaStatiCa.Plugin
 				tokenSource.Cancel();
 				var stopRes = mre.WaitOne();
 
-				await grpcClient.DisconnectAsync();
-
-				Debug.Assert(stopRes, "Cannot stop");
+				try
+				{
+					await grpcClient.DisconnectAsync();
+				}
+				catch
+				{
+				}
 			}
 		}
 
@@ -125,55 +135,67 @@ namespace IdeaStatiCa.Plugin
 		{
 			ideaLogger.LogInformation("Calling RunServer");
 
-			mre.Reset();
-
-			bool isBimRunning = false;
-
-			if (!string.IsNullOrEmpty(id))
+			try
 			{
-				myAutomatingProcessId = int.Parse(id);
-				ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}'");
+				mre.Reset();
 
-				bimProcess = Process.GetProcessById(myAutomatingProcessId);
-				bimProcess.EnableRaisingEvents = true;
-				bimProcess.Exited += new EventHandler(BimProcess_Exited);
+				bool isBimRunning = false;
 
 				if (!string.IsNullOrEmpty(id))
 				{
-					// notify plugin that service is running
-					string myEventName = string.Format("{0}{1}", EventName, id);
-					EventWaitHandle syncEvent;
-					if (EventWaitHandle.TryOpenExisting(myEventName, out syncEvent))
+					myAutomatingProcessId = int.Parse(id);
+					ideaLogger.LogInformation($"RunServer - processId == '{myAutomatingProcessId}'");
+
+					bimProcess = Process.GetProcessById(myAutomatingProcessId);
+					bimProcess.EnableRaisingEvents = true;
+					bimProcess.Exited += new EventHandler(BimProcess_Exited);
+
+					if (!string.IsNullOrEmpty(id))
 					{
-						syncEvent.Set();
-						syncEvent.Dispose();
+						string eventName = string.Format("{0}{1}", EventName, id);
+
+						// notify plugin that service is running
+						EventWaitHandle syncEvent;
+						ideaLogger.LogDebug($"RunServer - tryprocessId == '{myAutomatingProcessId}'");
+						if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
+						{
+							syncEvent.Set();
+							syncEvent.Dispose();
+						}
 					}
+
+					Status |= AutomationStatus.IsClient;
+					isBimRunning = true;
 				}
 
-				Status |= AutomationStatus.IsClient;
-				isBimRunning = true;
-			}
+				if (!isBimRunning)
+				{
+					ideaLogger.LogInformation($"AutomationHostingGrpc.RunServer - processId == '{myAutomatingProcessId}' is not running");
+					bimProcess = null;
+					myAutomatingProcessId = -1;
+				}
 
-			if (!isBimRunning)
+				NotifyBIMStatusChanged(AppStatus.Started);
+
+				while (!cancellationToken.IsCancellationRequested)
+				{
+					Thread.Sleep(100);
+				}
+
+				ideaLogger.LogInformation($"RunServer - Automation Service has been stopped");
+			}
+			catch(Exception ex)
 			{
-				bimProcess = null;
-				myAutomatingProcessId = -1;
+				ideaLogger.LogWarning("RunServer failed", ex);
 			}
-
-			NotifyBIMStatusChanged(AppStatus.Started);
-
-			while (!cancellationToken.IsCancellationRequested)
+			finally
 			{
-				Thread.Sleep(100);
+				grpcClient?.DisconnectAsync().WaitAndUnwrapException();
+
+				NotifyBIMStatusChanged(AppStatus.Finished);
+
+				mre.Set();
 			}
-
-			ideaLogger.LogInformation($"RunServer - Automation Service has been stopped");
-
-			grpcClient?.DisconnectAsync().WaitAndUnwrapException();
-
-			NotifyBIMStatusChanged(AppStatus.Finished);
-
-			mre.Set();
 		}
 
 		protected virtual void NotifyBIMStatusChanged(AppStatus newStatus)

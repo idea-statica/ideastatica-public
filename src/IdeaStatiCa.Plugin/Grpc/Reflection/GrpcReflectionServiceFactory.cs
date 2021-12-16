@@ -15,10 +15,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <typeparam name="T"></typeparam>
 	public class GrpcReflectionServiceFactory
 	{
-		public static T CreateInstance<T>(GrpcReflectionClient client) where T : class
+		public static T CreateInstance<T>(IMethodInvoker methodInvoker) where T : class
 		{
 			ProxyGenerator generator = new ProxyGenerator();
-			return generator.CreateInterfaceProxyWithoutTarget<T>(new ReflectionServiceInterceptor(client));
+			return generator.CreateInterfaceProxyWithoutTarget<T>(new ReflectionServiceInterceptor(methodInvoker));
 		}
 
 		class OpCodeContainer
@@ -45,23 +45,23 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 	internal class ReflectionServiceInterceptor : AsyncInterceptor
 	{
-		private GrpcReflectionClient client;
+		private IMethodInvoker methodInvoker;
 
-		public ReflectionServiceInterceptor(GrpcReflectionClient client)
+		public ReflectionServiceInterceptor(IMethodInvoker methodInvoker)
 		{
-			if (client == null)
+			if (methodInvoker == null)
 			{
 				throw new ArgumentNullException("Client cannot be null");
 			}
 
-			this.client = client;
+			this.methodInvoker = methodInvoker;
 		}
 
 		protected override async Task<Object> InterceptAsync(object target, MethodBase method, object[] arguments, Func<Task<object>> proceed)
 		{
 			try
 			{
-				var returnValue = client.InvokeMethod<object>(method.Name, arguments);
+				var returnValue = methodInvoker.InvokeMethod<object>(method.Name, arguments);
 
 				await Task.CompletedTask;
 
@@ -79,7 +79,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			{
 				await Task.CompletedTask;
 
-				return client.InvokeMethod<object>(method.Name, arguments);
+				return methodInvoker.InvokeMethod<object>(method.Name, arguments);
 			}
 			catch (Exception e)
 			{

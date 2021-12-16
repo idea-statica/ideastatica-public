@@ -12,14 +12,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="message">Message sent by client.</param>
 		/// <returns></returns>
-		new Task<T> HandleServerMessage(GrpcMessage message, GrpcServer server);
+		new Task<T> HandleServerMessage(GrpcMessage message, IGrpcSender server);
 
 		/// <summary>
 		/// Handles response incoming from the server.
 		/// </summary>
 		/// <param name="message">Message sent by server.</param>
 		/// <returns></returns>
-		new Task<T> HandleClientMessage(GrpcMessage message, GrpcClient client);
+		new Task<T> HandleClientMessage(GrpcMessage message, IGrpcSender client);
 	}
 
 	/// <summary>
@@ -30,15 +30,17 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Handles request incoming from the client.
 		/// </summary>
-		/// <param name="message">Message sent by client.</param>
+		/// <param name="message"></param>
+		/// <param name="grpcSender"></param>
 		/// <returns></returns>
-		Task<object> HandleServerMessage(GrpcMessage message, GrpcServer server);
+		Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender);
 
 		/// <summary>
 		/// Handles response incoming from the server.
 		/// </summary>
-		/// <param name="message">Message sent by server.</param>
+		/// <param name="message"></param>
+		/// <param name="grpcSender"></param>
 		/// <returns></returns>
-		Task<object> HandleClientMessage(GrpcMessage message, GrpcClient client);
+		Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender grpcSender);
 	}
 }
