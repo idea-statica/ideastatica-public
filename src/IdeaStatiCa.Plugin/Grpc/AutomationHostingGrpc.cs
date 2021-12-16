@@ -69,29 +69,18 @@ namespace IdeaStatiCa.Plugin
 			mre = new ManualResetEvent(false);
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="grpcPort"></param>
-		/// <param name="eventName"></param>
-		public void Init(int grpcPort, string eventName = Constants.DefaultPluginEventName)
-		{
-			this.GrpcPort = grpcPort;
-			this.EventName = eventName;
-		}
-
-		/// <summary>
-		/// Starts the <see cref="AutomationHostingGrpc{MyInterface, ClientInterface}".
-		/// </summary>
-		/// <param name="id">Client id</param>
-		/// <returns></returns>
-		public Task RunAsync(string id)
+		/// <inheritdoc cref="RunAsync(string, string)"/>
+		public Task RunAsync(string id, string gRpcPort)
 		{
 			if (hostingTask != null)
 			{
 				Debug.Fail("Task is running");
 				return Task.CompletedTask;
 			}
+
+			Debug.Assert(!string.IsNullOrEmpty(gRpcPort));
+
+			GrpcPort = int.Parse(gRpcPort);
 
 			ideaLogger.LogDebug($"AutomationHostingGrpc.RunAsync id = '{id}");
 

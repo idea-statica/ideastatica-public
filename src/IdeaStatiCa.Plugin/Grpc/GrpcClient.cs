@@ -9,7 +9,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 {
 	public interface IGrpcSender
 	{
-		//Task SendMessageAsync(string operationId, string messageName, string data);
 		Task SendMessageAsync(GrpcMessage message);
 	}
 
@@ -42,10 +41,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 		#endregion
 
 		#region Properties & Events
-		///// <summary>
-		///// Triggered when a message is received from the server.
-		///// </summary>
-		//public event EventHandler<GrpcMessage> MessageReceived;
 
 		/// <summary>
 		/// Triggered every time client connects. Sends a client ID in args.
@@ -173,33 +168,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 			IsConnected = false;
 		}
 
-		///// <summary>
-		///// Sends a message to the server.
-		///// </summary>
-		///// <param name="operationId">Id of the request</param>
-		///// <param name="messageName">Message identificator - name the event handler</param>
-		///// <param name="data">Body of the message</param>
-		///// <returns></returns>
-		//public Task SendMessageAsync(string operationId, string messageName, string data)
-		//{
-		//	if (IsConnected)
-		//	{
-		//		var message = new GrpcMessage()
-		//		{
-		//			ClientId = this.ClientID,
-		//			Data = data,
-		//			OperationId = operationId,
-		//			MessageName = messageName
-		//		};
-
-		//		return SendMessageAsync(message);
-		//	}
-		//	else
-		//	{
-		//		throw new ApplicationException("Client disconnected.");
-		//	}
-		//}
-
 		/// <summary>
 		/// Sends a message to the server.
 		/// </summary>
@@ -247,8 +215,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 			{
 				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
 			}
-
-			//MessageReceived?.Invoke(this, message);
 		}
 		#endregion
 	}

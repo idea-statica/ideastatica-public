@@ -26,11 +26,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 		#endregion
 
 		#region Properties & Events
-		///// <summary>
-		///// Triggered every time a message is received from client.
-		///// </summary>
-		//public event EventHandler<GrpcMessage> MessageReceived;
-
 		/// <summary>
 		/// Triggered every time client connects. Sends a client ID in args.
 		/// </summary>

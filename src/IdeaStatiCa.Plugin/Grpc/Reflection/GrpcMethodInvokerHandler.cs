@@ -46,49 +46,6 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			return responseData;
 		}
 
-		///// <summary>
-		///// Sends message and waits for the callback from the server.
-		///// </summary>
-		///// <param name="messageName">Message identificator.</param>
-		///// <param name="data">Body of the message.</param>
-		///// <returns></returns>
-		//public GrpcMessage SendMessageDataSync(string messageName, string data)
-		//{
-		//	return Task.Run(async () =>
-		//	{
-		//		var operationId = Guid.NewGuid().ToString();
-
-		//		grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
-
-		//		await GrpcSender.SendMessageAsync(operationId, messageName, data);
-
-		//		// wait for the callback handler
-		//		var messageReceived = false;
-		//		GrpcMessage incomingMessage = null;
-
-		//		while (!messageReceived)
-		//		{
-		//			incomingMessage = await grpcMessageCompletionSource.Task;
-
-		//			if (incomingMessage.OperationId == operationId)
-		//			{
-		//				if (incomingMessage.MessageName == "Error")
-		//				{
-		//					throw new ApplicationException(incomingMessage.Data);
-		//				}
-
-		//				messageReceived = true;
-		//			}
-		//			else
-		//			{
-		//				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
-		//			}
-		//		}
-
-		//		return incomingMessage;
-		//	}).WaitAndUnwrapException();
-		//}
-
 		public GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage)
 		{
 			return Task.Run(async () =>
@@ -126,8 +83,6 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				return incomingMessage;
 			}).WaitAndUnwrapException();
 		}
-
-
 
 		public Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
