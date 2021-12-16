@@ -130,8 +130,14 @@ namespace IdeaStatiCa.Plugin.Utilities
 			return underlyingType != null && IsSimpleType(underlyingType);
 		}
 
+		/// <summary>
+		/// TODO - how to get the type from the string <paramref name="fullName"/> correctly ?
+		/// </summary>
+		/// <param name="fullName"></param>
+		/// <returns></returns>
 		public static Type GetLoadedType(string fullName)
 		{
+			// Do we need to iterate all types in all loaded assemblies ?
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
 				foreach (Type t in a.GetTypes())
@@ -143,7 +149,9 @@ namespace IdeaStatiCa.Plugin.Utilities
 				}
 			}
 
-			return null;
+			// why not to use the method GetType ? 
+			// what to do when fullname which describes the type of the item includes a different version than this setup has ??
+			return Type.GetType(fullName);
 		}
 	}
 }

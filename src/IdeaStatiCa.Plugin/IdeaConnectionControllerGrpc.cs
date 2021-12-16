@@ -98,7 +98,8 @@ namespace IdeaStatiCa.Plugin
 
 			IdeaStatiCaProcess = connectionProc;
 
-			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, GrpcPort);
+			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null);
+			GrpcClient.Init(GrpcPort);
 			GrpcClient.RunAsync(processId.ToString());
 
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;

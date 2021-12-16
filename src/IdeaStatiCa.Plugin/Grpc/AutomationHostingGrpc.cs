@@ -18,7 +18,7 @@ namespace IdeaStatiCa.Plugin
 		private MyInterface automation;
 		private Process bimProcess = null;
 		private int myAutomatingProcessId;
-		private readonly string EventName;
+		protected string EventName { get; set; }
 		private GrpcServiceBasedReflectionClient<ClientInterface> grpcClient;
 		private readonly IPluginLogger ideaLogger = null;
 
@@ -59,7 +59,6 @@ namespace IdeaStatiCa.Plugin
 		public event ISEventHandler BIMStatusChanged;
 
 		public AutomationHostingGrpc(MyInterface hostedService,
-				int grpcPort,
 				IPluginLogger logger = null,
 				string eventName = Constants.DefaultPluginEventName)
 		{
@@ -67,8 +66,18 @@ namespace IdeaStatiCa.Plugin
 			Status = AutomationStatus.Unknown;
 			automation = hostedService;
 			EventName = eventName;
-			GrpcPort = grpcPort;
 			mre = new ManualResetEvent(false);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="grpcPort"></param>
+		/// <param name="eventName"></param>
+		public void Init(int grpcPort, string eventName = Constants.DefaultPluginEventName)
+		{
+			this.GrpcPort = grpcPort;
+			this.EventName = eventName;
 		}
 
 		/// <summary>
