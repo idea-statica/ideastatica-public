@@ -18,6 +18,9 @@ using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel
 {
+	///Version history
+	/// V2 15. 12. 2021 cad plugins have member id conversion table => member id must be lower than 32 768
+
 	/// <summary>
 	/// Open model
 	/// </summary>
@@ -30,7 +33,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = 1;
+			Version = 2;
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();
@@ -322,7 +325,7 @@ namespace IdeaRS.OpenModel
 		/// Design Member
 		/// </summary>
 		public List<SubStructure> SubStructure { get; set; }
-		
+
 		///// <summary>
 		///// Design Member
 		///// </summary>
