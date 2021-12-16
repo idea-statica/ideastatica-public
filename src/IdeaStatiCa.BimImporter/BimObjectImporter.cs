@@ -54,14 +54,20 @@ namespace IdeaStatiCa.BimImporter
 		{
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration);
 
-			foreach (IBimItem bimItem in bimItems)
+			if (!(bimItems is null))
 			{
-				importContext.ImportBimItem(bimItem);
+				foreach (IBimItem bimItem in bimItems)
+				{
+					importContext.ImportBimItem(bimItem);
+				}
 			}
 
-			foreach (IIdeaObject obj in objects)
+			if (!(objects is null))
 			{
-				importContext.Import(obj);
+				foreach (IIdeaObject obj in objects)
+				{
+					importContext.Import(obj);
+				}
 			}
 
 			return new ModelBIM()
