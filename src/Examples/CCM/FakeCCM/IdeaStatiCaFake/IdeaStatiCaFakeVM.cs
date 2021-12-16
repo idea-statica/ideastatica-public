@@ -79,9 +79,9 @@ namespace IdeaStatiCaFake
 				if (!string.IsNullOrEmpty(clientId) && grpcEnabled)
 				{
 					Actions.Add(string.Format("Starting Automation clientid = {0}", clientId));
-					AutomationHosting = new AutomationHostingGrpc<IAutomation, IApplicationBIM>(new AutomationService<IApplicationBIM>(), grpcPort);
+					AutomationHosting = new AutomationHostingGrpc<IAutomation, IApplicationBIM>(new AutomationService<IApplicationBIM>());
 					AutomationHosting.BIMStatusChanged += new ISEventHandler(AutomationHosting_FEAStatusChanged);
-					AutomationHosting.RunAsync(clientId);
+					AutomationHosting.RunAsync(clientId, grpcPort.ToString());
 				}
 
 				if (grpcEnabled)
