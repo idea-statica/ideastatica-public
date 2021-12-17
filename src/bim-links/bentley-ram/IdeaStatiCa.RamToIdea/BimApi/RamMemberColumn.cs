@@ -13,6 +13,14 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected override double Rotation => _column.dOrientation;
 
+		protected override EMATERIALTYPES MaterialType => _column.eMaterial;
+
+		protected override int MaterialUID => _column.lMaterialID;
+
+		protected override string CrossSectionName => _column.strSectionLabel;
+
+		protected override int CrossSectionUID => _column.lSectionID;
+
 		private readonly IColumn _column;
 
 		public RamMemberColumn(IObjectFactory objectFactory, INodes nodes, IColumn column)

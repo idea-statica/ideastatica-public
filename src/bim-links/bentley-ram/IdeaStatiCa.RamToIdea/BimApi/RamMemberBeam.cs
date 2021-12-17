@@ -11,6 +11,14 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected override int Label => _beam.lLabel;
 
+		protected override EMATERIALTYPES MaterialType => _beam.eMaterial;
+
+		protected override int MaterialUID => _beam.lMaterialID;
+
+		protected override string CrossSectionName => _beam.strSectionLabel;
+
+		protected override int CrossSectionUID => _beam.lSectionID;
+
 		private readonly IBeam _beam;
 
 		public RamMemberBeam(IObjectFactory objectFactory, INodes nodes, IBeam beam)

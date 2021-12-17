@@ -44,10 +44,17 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		public abstract int UID { get; }
 
 		public abstract MemberType MemberType { get; }
+		protected virtual double Rotation { get; }
 
 		protected abstract int Label { get; }
 
-		protected virtual double Rotation { get; }
+		protected abstract EMATERIALTYPES MaterialType { get; }
+
+		protected abstract int MaterialUID { get; }
+
+		protected abstract string CrossSectionName { get; }
+
+		protected abstract int CrossSectionUID { get; }
 
 		private readonly IObjectFactory _objectFactory;
 		private readonly INodes _nodes;
@@ -74,17 +81,11 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				EndNode = _objectFactory.GetNode(endNode)
 			};
 
-			RamMaterialByName material = new RamMaterialByName()
-			{
-				Id = "mat",
-				MaterialType = MaterialType.Steel,
-				Name = "S355"
-			};
-
+			IIdeaMaterial material = _objectFactory.GetMaterial(MaterialType, MaterialUID);
 			RamCrossSectionByName css = new RamCrossSectionByName()
 			{
-				Id = "css",
-				Name = "IPE240",
+				Id = $"css-{CrossSectionUID}",
+				Name = CrossSectionName,
 				Material = material
 			};
 
