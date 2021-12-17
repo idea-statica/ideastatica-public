@@ -1,13 +1,14 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.BimApi;
 using RAMDATAACCESSLib;
+using System;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
 	internal class ObjectFactory : IObjectFactory
 	{
-		private IModel _model;
-		private INodes _nodes;
+		private readonly IModel _model;
+		private readonly INodes _nodes;
 
 		public ObjectFactory(IModel model)
 		{
@@ -38,6 +39,30 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		public IIdeaNode GetNode(INode node)
 		{
 			return new RamNode(node);
+		}
+
+		public IIdeaMaterial GetMaterial(EMATERIALTYPES materialType, int uid)
+		{
+			switch (materialType)
+			{
+				case EMATERIALTYPES.ESteelMat:
+					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
+					return new RamMaterialByName(uid)
+					{
+						Name = $"Steel {matSteel.dFy}",
+						MaterialType = MaterialType.Steel
+					};
+
+				case EMATERIALTYPES.EConcreteMat:
+					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
+					return new RamMaterialByName(uid)
+					{
+						Name = $"Concrete {matConcrete.dFpc}",
+						MaterialType = MaterialType.Concrete
+					};
+			}
+
+			throw new ArgumentException(nameof(materialType));
 		}
 	}
 }
