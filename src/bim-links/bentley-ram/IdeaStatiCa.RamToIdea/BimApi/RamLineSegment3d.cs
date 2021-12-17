@@ -1,55 +1,75 @@
-﻿using System;
+﻿using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
-using IdeaRS.OpenModel.Geometry3D;
-using IdeaStatiCa.RamToIdea.Factories;
-using IdeaStatiCa.Plugin;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MathNet.Numerics;
+using MathNet.Spatial.Euclidean;
+using System.Numerics;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
 	/// <inheritdoc cref="IIdeaLineSegment3D"/>
 	internal class RamLineSegment3D : IIdeaLineSegment3D
 	{
+		private const double Tolerance = 1e-6;
+
 		//TODO
 		//private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.ramss.bimapi");
 
-		public IIdeaNode StartNode => _objectFactory.GetNode(_startNodeNo);
+		public IIdeaNode StartNode { get; set; }
 
-		public IIdeaNode EndNode => _objectFactory.GetNode(_endNodeNo);
+		public IIdeaNode EndNode { get; set; }
 
-		public CoordSystem LocalCoordinateSystem { get; }
+		public CoordSystem LocalCoordinateSystem => CalculateLCS();
 
-		public string Id => "segment-" + Name;
+		public string Id => $"segment-{MemberUID}";
 
 		public string Name { get; }
 
-		private readonly IObjectFactory _objectFactory;
-		private readonly int _startNodeNo;
-		private readonly int _endNodeNo;
+		public int MemberUID { get; set; }
 
-		public RamLineSegment3D(IObjectFactory objectFactory, CoordSystem cs, int startNodeNo, int endNodeNo)
+		private CoordSystem CalculateLCS()
 		{
-			_objectFactory = objectFactory;
+			var startNodeVec = StartNode.Vector;
+			var endNodeVec = EndNode.Vector;
 
-			_startNodeNo = startNodeNo;
-			_endNodeNo = endNodeNo;
+			double x = endNodeVec.X - startNodeVec.X;
+			double y = endNodeVec.Y - startNodeVec.Y;
+			double z = endNodeVec.Z - startNodeVec.Z;
 
-			if (startNodeNo < endNodeNo)
+			UnitVector3D zBasis;
+			UnitVector3D vecX = UnitVector3D.Create(x, y, z);
+
+			if(vecX.Z.AlmostEqual(1, 1e-6))
 			{
-				Name = $"line-{startNodeNo}-{endNodeNo}";
+				zBasis = UnitVector3D.Create(0, 1, 0);
+			}
+			else if (vecX.Z.AlmostEqual(-1, 1e-6))
+			{
+				zBasis = UnitVector3D.Create(0, -1, 0);
 			}
 			else
 			{
-				Name = $"line-{endNodeNo}-{startNodeNo}";
+				zBasis = UnitVector3D.Create(0, 0, 1);
 			}
 
-			LocalCoordinateSystem = cs;
+			UnitVector3D vecY = vecX.CrossProduct(zBasis);
+			UnitVector3D vecZ = vecX.CrossProduct(vecY);
 
-			//TODO
-			//_logger.LogDebug($"Created {nameof(RamLineSegment3D)} with id {Id}");
+			return new CoordSystemByVector()
+			{
+				VecX = ConvertVector(vecX),
+				VecY = ConvertVector(vecY),
+				VecZ = ConvertVector(vecZ),
+			};
+		}
+
+		private IdeaRS.OpenModel.Geometry3D.Vector3D ConvertVector(UnitVector3D vec)
+		{
+			return new IdeaRS.OpenModel.Geometry3D.Vector3D()
+			{
+				X = vec.X,
+				Y = vec.Y,
+				Z = vec.Z
+			};
 		}
 	}
 }

@@ -12,10 +12,19 @@ namespace IdeaStatiCa.RamToIdea
 		/// </summary>
 		public int UID { get; set; }
 
+		public MemberType MemberType { get; set; }
+
 		public PersistenceToken(TokenObjectType tokenType, int uID)
 		{
 			Type = tokenType;
 			UID = uID;
+		}
+
+		public PersistenceToken(int uid, MemberType memberType)
+		{
+			Type = TokenObjectType.Member;
+			UID = uid;
+			MemberType = memberType;
 		}
 	}
 }

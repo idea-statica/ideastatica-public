@@ -12,10 +12,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 	{
 		public IIdeaMaterial Material { get; set; }
 
-		public CrossSectionType Type { get; set; }
-
-		public HashSet<Parameter> Parameters { get; set; }
-
 		public double Rotation { get; set; }
 
 		public string Id { get; set; }

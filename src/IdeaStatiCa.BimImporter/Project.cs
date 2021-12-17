@@ -72,16 +72,26 @@ namespace IdeaStatiCa.BimImporter
 
 			_persistence.StoreMapping(iomId, bimApiId);
 
-			if (obj is IIdeaPersistentObject persistentObject)
-			{
-				IIdeaPersistenceToken token = persistentObject.Token;
-				_persistence.StoreToken(bimApiId, token);
-				_persistenceTokens.Add(iomId, token);
-			}
+			StorePersistenceToken(obj, bimApiId, iomId);
 
 			_logger.LogDebug($"Created new id mapping: BimApi id {bimApiId}, IOM id {iomId}");
 
 			return iomId;
+		}
+
+		private void StorePersistenceToken(IIdeaObject obj, string bimApiId, int iomId)
+		{
+			if (obj is IIdeaPersistentObject persistentObject)
+			{
+				IIdeaPersistenceToken token = persistentObject.Token;
+
+				if (token is null)
+				{
+					return;
+				}
+				_persistence.StoreToken(bimApiId, token);
+				_persistenceTokens.Add(iomId, token);
+			}
 		}
 
 		/// <inheritdoc cref="IProject.GetBimObject(int)"/>
