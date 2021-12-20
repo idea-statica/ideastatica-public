@@ -55,7 +55,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		//[Fact]
 		//public void ExistTest()
 		//{
-		//	var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+		//	var grpcClient = Substitute.For<IGrpcSender>();
 
 		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
 
@@ -115,7 +115,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		//[Fact]
 		//public void DeleteTest()
 		//{
-		//	var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+		//	var grpcClient = Substitute.For<IRgp>();
 
 		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
 
@@ -161,7 +161,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		//[Fact]
 		//public void ReadDataTest()
 		//{
-		//	var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+		//	var grpcClient = Substitute.For<IGrpcSender>();
 
 		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
 
@@ -230,7 +230,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		//[Fact]
 		//public void WriteDataTest()
 		//{
-		//	var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+		//	var grpcClient = Substitute.For<IGrpcSender>();
 
 		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
 
@@ -283,7 +283,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		//			sentDataStream.Seek(0, SeekOrigin.Begin);
 
 		//			sentDataStream.Length.Should().Be(bufferSize);
-		//			for(byte i = 0; i < bufferSize; i++)
+		//			for (byte i = 0; i < bufferSize; i++)
 		//			{
 		//				var b = (byte)sentDataStream.ReadByte();
 		//				b.Should().Be(i);
