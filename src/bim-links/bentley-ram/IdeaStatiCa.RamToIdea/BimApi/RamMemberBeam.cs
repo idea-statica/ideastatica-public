@@ -15,7 +15,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IBeam _beam;
 
-		public RamMemberBeam(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes, IBeam beam)
+		public RamMemberBeam(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IBeam beam)
 			: base(objectFactory, sectionProvider, nodes)
 		{
 			_beam = beam;

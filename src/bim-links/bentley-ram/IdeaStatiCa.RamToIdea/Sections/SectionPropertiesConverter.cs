@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
-	internal class RamSectionPropertiesConverter : IRamSectionPropertiesConverter
+	internal class SectionPropertiesConverter : ISectionPropertiesConverter
 	{
 		public CrossSectionParameter Convert(SteelSectionProperties steelSection)
 		{

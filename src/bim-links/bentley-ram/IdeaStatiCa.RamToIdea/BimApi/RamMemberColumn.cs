@@ -15,7 +15,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IColumn _column;
 
-		public RamMemberColumn(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes, IColumn column)
+		public RamMemberColumn(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IColumn column)
 			: base(objectFactory, sectionProvider, nodes)
 		{
 			_column = column;

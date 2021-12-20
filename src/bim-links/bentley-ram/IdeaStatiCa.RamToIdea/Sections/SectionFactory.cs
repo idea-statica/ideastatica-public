@@ -5,14 +5,14 @@ using System;
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
-	internal class RamSectionProvider : IRamSectionProvider
+	internal class SectionFactory : ISectionFactory
 	{
-		private readonly IRamSectionPropertiesConverter _sectionParametersConverter;
+		private readonly ISectionPropertiesConverter _converter;
 		private readonly IMemberData1 _memberData;
 
-		public RamSectionProvider(IRamSectionPropertiesConverter sectionParametersConverter, IMemberData1 memberData)
+		public SectionFactory(ISectionPropertiesConverter converter, IMemberData1 memberData)
 		{
-			_sectionParametersConverter = sectionParametersConverter;
+			_converter = converter;
 			_memberData = memberData;
 		}
 
@@ -55,7 +55,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 				ref steelSection.Imin,
 				ref steelSection.Area);
 
-			CrossSectionParameter parameters = _sectionParametersConverter.Convert(steelSection);
+			CrossSectionParameter parameters = _converter.Convert(steelSection);
 
 			if (parameters is null)
 			{

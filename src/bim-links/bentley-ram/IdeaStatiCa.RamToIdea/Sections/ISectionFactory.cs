@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
-	internal interface IRamSectionProvider
+	internal interface ISectionFactory
 	{
 		IRamSection GetSection(RamMemberProperties memberProperties);
 	}
