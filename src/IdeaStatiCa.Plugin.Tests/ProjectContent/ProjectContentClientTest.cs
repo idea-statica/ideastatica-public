@@ -153,226 +153,216 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			projectContentHandler.Invoking(o => o.Delete(item2Id)).Should().Throw<Exception>("'*' is not supported character");
 		}
 
-		///// <summary>
-		///// Test of the method ProjectContentClientHandler.ReadData
-		///// </summary>
-		//[Fact]
-		//public void ReadDataTest()
-		//{
-		//	var grpcClient = Substitute.For<IGrpcSender>();
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.ReadData
+		/// </summary>
+		[Fact]
+		public void ReadDataTest()
+		{
+			var grpcSender = Substitute.For<IGrpcSender>();
 
-		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
 
-		//	var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+			string item1Id = "item1Id";
+			string notExistingItemId = "notExistingItemId";
 
-		//	string item1Id = "item1Id";
-		//	string notExistingItemId = "notExistingItemId";
+			// create the array of 5 bytes and write original values which will be checked 
+			int bufferSize = 5;
+			byte[] buffer = new byte[bufferSize];
+			for (int i = 0; i < bufferSize; i++)
+			{
+				buffer[i] = Convert.ToByte(i);
+			}
 
-		//	// create the array of 5 bytes and write original values which will be checked 
-		//	int bufferSize = 5;
-		//	byte[] buffer = new byte[bufferSize];
-		//	for (int i = 0; i < bufferSize; i++)
-		//	{
-		//		buffer[i] = Convert.ToByte(i);
-		//	}
+			grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
 
-		//	grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
-		//	{
-		//		var request = (t[0] as GrpcMessage);
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
 
-		//		GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+				var firstParam = invokeData.Parameters.First();
+				var response = new GrpcMessage(request);
 
-		//		var firstParam = invokeData.Parameters.First();
-		//		var response = new GrpcMessage(request);
+				if (firstParam.Value.ToString() == item1Id)
+				{
+					if (firstParam.Value.ToString().Equals(item1Id))
+					{
+						response.Data = string.Empty;
+						response.Buffer = Google.Protobuf.ByteString.CopyFrom(buffer);
+					}
+				}
+				else
+				{
+					response.Data = "Error";
+				}
 
-		//		if (firstParam.Value.ToString() == item1Id)
-		//		{
-		//			if (firstParam.Value.ToString().Equals(item1Id))
-		//			{
-		//				response.Data = string.Empty;
-		//				response.Buffer = Google.Protobuf.ByteString.CopyFrom(buffer);
-		//			}
-		//		}
-		//		else
-		//		{
-		//			response.Data = "Error";
-		//		}
-
-		//		return response;
-		//	});
-
-		//	grpcClient.RegisterHandler(messageName1, projectContentHandler);
-
-		//	using (var resultStream = new MemoryStream())
-		//	{
-		//		projectContentHandler.ReadData(item1Id, resultStream);
-		//		resultStream.Seek(0, SeekOrigin.Begin);
-
-		//		resultStream.Length.Should().Be(bufferSize);
-		//		for (int i = 0; i < resultStream.Length; i++)
-		//		{
-		//			byte b = (byte)resultStream.ReadByte();
-		//			b.Should().Be(buffer[i]);
-		//		}
-		//	}
-
-		//	using (var resultStream = new MemoryStream())
-		//	{
-		//		projectContentHandler.Invoking(o => o.ReadData(notExistingItemId, resultStream)).Should().Throw<Exception>("Exception should be thrown for not existing content");
-		//	}
-		//}
-
-		///// <summary>
-		///// Test of the method ProjectContentClientHandler.WriteData
-		///// </summary>
-		//[Fact]
-		//public void WriteDataTest()
-		//{
-		//	var grpcClient = Substitute.For<IGrpcSender>();
-
-		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-
-		//	var projectContentHandler = new ProjectContentClientHandler(grpcClient);
-
-		//	string item1Id = "item1Id";
-
-		//	// create the array of 5 bytes and write original values which will be checked 
-		//	int bufferSize = 5;
-		//	using (var inputDataStream = new MemoryStream())
-		//	{
-		//		for (int i = 0; i < bufferSize; i++)
-		//		{
-		//			inputDataStream.WriteByte(Convert.ToByte(i));
-		//		}
-		//		inputDataStream.Seek(0, SeekOrigin.Begin);
-
-		//		using (var sentDataStream = new MemoryStream())
-		//		{
-
-		//			grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
-		//			{
-		//				var request = (t[0] as GrpcMessage);
-
-		//				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
-
-		//				var firstParam = invokeData.Parameters.First();
-		//				var response = new GrpcMessage(request);
-
-		//				if (firstParam.Value.ToString() == item1Id)
-		//				{
-		//					if (firstParam.Value.ToString().Equals(item1Id))
-		//					{
-		//						request.Buffer.WriteTo(sentDataStream);
-		//						response.Data = "OK";
-		//					}
-		//				}
-		//				else
-		//				{
-		//					response.Data = "Error";
-		//				}
-
-		//				return response;
-		//			});
-
-		//			grpcClient.RegisterHandler(messageName1, projectContentHandler);
+				projectContentHandler.HandleClientMessage(response, grpcSender);
+				return Task.CompletedTask;
+			});
 
 
-		//			projectContentHandler.WriteData(item1Id, inputDataStream);
-		//			sentDataStream.Seek(0, SeekOrigin.Begin);
+			using (var resultStream = new MemoryStream())
+			{
+				projectContentHandler.ReadData(item1Id, resultStream);
+				resultStream.Seek(0, SeekOrigin.Begin);
 
-		//			sentDataStream.Length.Should().Be(bufferSize);
-		//			for (byte i = 0; i < bufferSize; i++)
-		//			{
-		//				var b = (byte)sentDataStream.ReadByte();
-		//				b.Should().Be(i);
-		//			}
-		//		}
-		//	}
-		//}
+				resultStream.Length.Should().Be(bufferSize);
+				for (int i = 0; i < resultStream.Length; i++)
+				{
+					byte b = (byte)resultStream.ReadByte();
+					b.Should().Be(buffer[i]);
+				}
+			}
 
-		//[Fact]
-		//public void GetStreamTest()
-		//{
-		//	var grpcClient = Substitute.For<IGrpcSynchronousClient>();
+			using (var resultStream = new MemoryStream())
+			{
+				projectContentHandler.Invoking(o => o.ReadData(notExistingItemId, resultStream)).Should().Throw<Exception>("Exception should be thrown for not existing content");
+			}
+		}
 
-		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.WriteData
+		/// </summary>
+		[Fact]
+		public void WriteDataTest()
+		{
+			var grpcSender = Substitute.For<IGrpcSender>();
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
 
-		//	var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+			string item1Id = "item1Id";
 
-		//	string item1Id = "item1Id";
+			// create the array of 5 bytes and write original values which will be checked 
+			int bufferSize = 5;
+			using (var inputDataStream = new MemoryStream())
+			{
+				for (int i = 0; i < bufferSize; i++)
+				{
+					inputDataStream.WriteByte(Convert.ToByte(i));
+				}
+				inputDataStream.Seek(0, SeekOrigin.Begin);
 
-		//	// create the array of 5 bytes and write original values which will be checked 
-		//	int bufferSize = 5;
-		//	byte[] buffer = new byte[bufferSize];
-		//	for (int i = 0; i < bufferSize; i++)
-		//	{
-		//		buffer[i] = Convert.ToByte(i);
-		//	}
+				using (var sentDataStream = new MemoryStream())
+				{
+					grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
+					{
+						var request = (t[0] as GrpcMessage);
+
+						GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+
+						var firstParam = invokeData.Parameters.First();
+						var response = new GrpcMessage(request);
+
+						if (firstParam.Value.ToString() == item1Id)
+						{
+							if (firstParam.Value.ToString().Equals(item1Id))
+							{
+								request.Buffer.WriteTo(sentDataStream);
+								response.Data = "OK";
+							}
+						}
+						else
+						{
+							response.Data = "Error";
+						}
+
+						projectContentHandler.HandleClientMessage(response, grpcSender);
+						return Task.CompletedTask;
+						//return response;
+					});
+
+					projectContentHandler.WriteData(item1Id, inputDataStream);
+					sentDataStream.Seek(0, SeekOrigin.Begin);
+
+					sentDataStream.Length.Should().Be(bufferSize);
+					for (byte i = 0; i < bufferSize; i++)
+					{
+						var b = (byte)sentDataStream.ReadByte();
+						b.Should().Be(i);
+					}
+				}
+			}
+		}
+
+		[Fact]
+		public void GetStreamTest()
+		{
+			var grpcSender = Substitute.For<IGrpcSender>();
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+
+			string item1Id = "item1Id";
+
+			// create the array of 5 bytes and write original values which will be checked 
+			int bufferSize = 5;
+			byte[] buffer = new byte[bufferSize];
+			for (int i = 0; i < bufferSize; i++)
+			{
+				buffer[i] = Convert.ToByte(i);
+			}
 
 
-		//	GrpcMessage writtenMessage = null;
+			GrpcMessage writtenMessage = null;
 
-		//	grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
-		//	{
-		//		var request = (t[0] as GrpcMessage);
+			grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
 
-		//		GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
 
-		//		var firstParam = invokeData.Parameters.First();
-		//		var response = new GrpcMessage(request);
-		//		if (invokeData.MethodName == "Read")
-		//		{
-		//			if (firstParam.Value.ToString() == item1Id)
-		//			{
-		//				if (firstParam.Value.ToString().Equals(item1Id))
-		//				{
-		//					response.Data = string.Empty;
-		//					response.Buffer = Google.Protobuf.ByteString.CopyFrom(buffer);
-		//				}
-		//			}
-		//			else
-		//			{
-		//				response.Data = "Error";
-		//			}
-		//		}
-		//		else if (invokeData.MethodName == "Write")
-		//		{
-		//			if (firstParam.Value.ToString() == item1Id)
-		//			{
-		//				if (firstParam.Value.ToString().Equals(item1Id))
-		//				{
-		//					// store message for validation
-		//					writtenMessage = request;
-		//					response.Data = string.Empty;
-		//					response.Buffer = Google.Protobuf.ByteString.Empty;
-		//				}
-		//			}
-		//			else
-		//			{
-		//				response.Data = "Error";
-		//			}
-		//		}
+				var firstParam = invokeData.Parameters.First();
+				var response = new GrpcMessage(request);
+				if (invokeData.MethodName == "Read")
+				{
+					if (firstParam.Value.ToString() == item1Id)
+					{
+						if (firstParam.Value.ToString().Equals(item1Id))
+						{
+							response.Data = string.Empty;
+							response.Buffer = Google.Protobuf.ByteString.CopyFrom(buffer);
+						}
+					}
+					else
+					{
+						response.Data = "Error";
+					}
+				}
+				else if (invokeData.MethodName == "Write")
+				{
+					if (firstParam.Value.ToString() == item1Id)
+					{
+						if (firstParam.Value.ToString().Equals(item1Id))
+						{
+							// store message for validation
+							writtenMessage = request;
+							response.Data = string.Empty;
+							response.Buffer = Google.Protobuf.ByteString.Empty;
+						}
+					}
+					else
+					{
+						response.Data = "Error";
+					}
+				}
 
-		//		return response;
-		//	});
+				projectContentHandler.HandleClientMessage(response, grpcSender);
+				return Task.CompletedTask;
+			});
 
-		//	grpcClient.RegisterHandler(messageName1, projectContentHandler);
+			using (var content1Stream = projectContentHandler.Get(item1Id))
+			{
+				content1Stream.Length.Should().Be(bufferSize, "Expecting data from buffer in the stream");
 
-		//	using (var content1Stream = projectContentHandler.Get(item1Id))
-		//	{
-		//		content1Stream.Length.Should().Be(bufferSize, "Expecting data from buffer in the stream");
+				writtenMessage.Should().BeNull();
 
-		//		writtenMessage.Should().BeNull();
+				content1Stream.Seek(0, SeekOrigin.End);
+				content1Stream.WriteByte(6);
 
-		//		content1Stream.Seek(0, SeekOrigin.End);
-		//		content1Stream.WriteByte(6);
+				writtenMessage.Should().BeNull();
+			}
 
-		//		writtenMessage.Should().BeNull();
-		//	}
-
-		//	writtenMessage.Should().NotBeNull();
-		//	var writtenBytes = writtenMessage.Buffer.ToByteArray();
-		//	writtenBytes.Length.Should().Be(6);
-		//}
+			writtenMessage.Should().NotBeNull();
+			var writtenBytes = writtenMessage.Buffer.ToByteArray();
+			writtenBytes.Length.Should().Be(6);
+		}
 	}
 }
