@@ -10,44 +10,43 @@ using Xunit;
 using System.Linq;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 {
 	public class ProjectContentClientTest
 	{
-		///// <summary>
-		///// Test of the method ProjectContentClientHandler.GetContent
-		///// </summary>
-		//[Fact]
-		//public void GetContentTest()
-		//{
-		//	var grpcSender = Substitute.For<IGrpcSender>();
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.GetContent
+		/// </summary>
+		[Fact]
+		public void GetContentTest()
+		{
+			var grpcSender = Substitute.For<IGrpcSender>();
 
-		//	var projContentList = new List<ProjectDataItem>();
-		//	projContentList.Add(new ProjectDataItem("File1.xml", ItemType.File));
-		//	projContentList.Add(new ProjectDataItem("File2.xml", ItemType.File));
+			var projContentList = new List<ProjectDataItem>();
+			projContentList.Add(new ProjectDataItem("File1.xml", ItemType.File));
+			projContentList.Add(new ProjectDataItem("File2.xml", ItemType.File));
 
-		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
 
-		//	var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			GrpcMessage response = null;
+			grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
+				response = new GrpcMessage(request);
+				response.Data = JsonConvert.SerializeObject(projContentList);
 
-		//	grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
-		//	{
-		//		var request = (t[0] as GrpcMessage);
-		//		var response = new GrpcMessage(request);
+				projectContentHandler.HandleClientMessage(response, grpcSender);
 
-		//		response.Data = JsonConvert.SerializeObject(projContentList);
+				return Task.CompletedTask;
+			});
 
-		//		return response;
-		//	});
+			var projectContentResult = projectContentHandler.GetContent();
 
-		//	grpcSender.RegisterHandler(messageName1, projectContentHandler);
-
-		//	var projectContentResult = projectContentHandler.GetContent();
-
-		//	Assert.NotNull(projectContentResult);
-		//	projectContentResult.Should().BeEquivalentTo(projContentList);
-		//}
+			Assert.NotNull(projectContentResult);
+			projectContentResult.Should().BeEquivalentTo(projContentList);
+		}
 
 		///// <summary>
 		///// Test of the method ProjectContentClientHandler.Exist

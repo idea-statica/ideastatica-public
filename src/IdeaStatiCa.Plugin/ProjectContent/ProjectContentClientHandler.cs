@@ -78,6 +78,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			string data = string.Empty;
 			var grpcMessage = new GrpcMessage();
 			grpcMessage.MessageName = HandlerName;
+			grpcMessage.MessageType = GrpcMessage.Types.MessageType.Request;
 
 			var invokeData = new GrpcReflectionInvokeData();
 			invokeData.MethodName = "Delete";
@@ -104,6 +105,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			string data = string.Empty;
 			var grpcMessage = new GrpcMessage();
 			grpcMessage.MessageName = HandlerName;
+			grpcMessage.MessageType = GrpcMessage.Types.MessageType.Request;
 
 			var invokeData = new GrpcReflectionInvokeData();
 			invokeData.MethodName = "Exist";
@@ -139,6 +141,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			string data = string.Empty;
 			var grpcMessage = new GrpcMessage();
 			grpcMessage.MessageName = HandlerName;
+			grpcMessage.MessageType = GrpcMessage.Types.MessageType.Request;
 
 			var invokeData = new GrpcReflectionInvokeData();
 			invokeData.MethodName = "GetContent";
