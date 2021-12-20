@@ -14,7 +14,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public string Name { get; }
 
-		public IIdeaPersistenceToken Token { get; }
+		public IIdeaPersistenceToken Token => null;
 
 		public RamNode(INode node)
 		{

@@ -41,7 +41,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public string Name => Properties.Label;
 
-		public IIdeaPersistenceToken Token => new PersistenceToken(UID, MemberType);
+		public IIdeaPersistenceToken Token => null;
 
 		public abstract int UID { get; }
 
