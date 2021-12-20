@@ -3,7 +3,7 @@ using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
-	public interface IObjectFactory
+	internal interface IObjectFactory
 	{
 		IIdeaMember1D GetBeam(IBeam beam);
 
@@ -14,6 +14,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		IIdeaMember1D GetVerticalBrace(IVerticalBrace verticalBrace);
 
 		IIdeaNode GetNode(INode node);
+
 		IIdeaMaterial GetMaterial(EMATERIALTYPES materialType, int uid);
 	}
 }

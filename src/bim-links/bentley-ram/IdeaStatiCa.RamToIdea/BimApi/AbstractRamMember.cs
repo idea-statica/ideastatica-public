@@ -2,6 +2,8 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Model;
+using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
@@ -37,31 +39,24 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public string Id => $"member-{UID}";
 
-		public string Name => Label.ToString();
+		public string Name => Properties.Label;
 
 		public IIdeaPersistenceToken Token => new PersistenceToken(UID, MemberType);
 
 		public abstract int UID { get; }
 
 		public abstract MemberType MemberType { get; }
-		protected virtual double Rotation { get; }
 
-		protected abstract int Label { get; }
-
-		protected abstract EMATERIALTYPES MaterialType { get; }
-
-		protected abstract int MaterialUID { get; }
-
-		protected abstract string CrossSectionName { get; }
-
-		protected abstract int CrossSectionUID { get; }
+		protected abstract RamMemberProperties Properties { get; }
 
 		private readonly IObjectFactory _objectFactory;
+		private readonly IRamSectionProvider _sectionProvider;
 		private readonly INodes _nodes;
 
-		public AbstractRamMember(IObjectFactory objectFactory, INodes nodes)
+		public AbstractRamMember(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes)
 		{
 			_objectFactory = objectFactory;
+			_sectionProvider = sectionProvider;
 			_nodes = nodes;
 		}
 
@@ -81,21 +76,15 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				EndNode = _objectFactory.GetNode(endNode)
 			};
 
-			IIdeaMaterial material = _objectFactory.GetMaterial(MaterialType, MaterialUID);
-			RamCrossSectionByName css = new RamCrossSectionByName()
-			{
-				Id = $"css-{CrossSectionUID}",
-				Name = CrossSectionName,
-				Material = material
-			};
+			IRamSection section = _sectionProvider.GetSection(Properties);
 
 			RamElement1D element = new RamElement1D()
 			{
 				Segment = segment,
 				MemberUID = UID,
-				StartCrossSection = css,
-				EndCrossSection = css,
-				RotationRx = Rotation
+				StartCrossSection = section,
+				EndCrossSection = section,
+				RotationRx = Properties.Rotation
 			};
 
 			return element;

@@ -1,4 +1,6 @@
 ﻿using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Model;
+using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
@@ -9,22 +11,25 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override MemberType MemberType => MemberType.HorizontalBrace;
 
-		protected override int Label => _brace.lLabel;
-
-		protected override EMATERIALTYPES MaterialType => _brace.eMaterial;
-
-		protected override int MaterialUID => _brace.lMaterialID;
-
-		protected override string CrossSectionName => _brace.strSectionLabel;
-
-		protected override int CrossSectionUID => _brace.lSectionID;
+		protected override RamMemberProperties Properties { get; }
 
 		private readonly IHorizBrace _brace;
 
-		public RamMemberHorizontalBrace(IObjectFactory objectFactory, INodes nodes, IHorizBrace brace)
-			: base(objectFactory, nodes)
+		public RamMemberHorizontalBrace(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes, IHorizBrace brace)
+			: base(objectFactory, sectionProvider, nodes)
 		{
 			_brace = brace;
+
+			Properties = new RamMemberProperties()
+			{
+				Label = _brace.strSectionLabel,
+				MaterialType = _brace.eMaterial,
+				MaterialUID = _brace.lMaterialID,
+				MemberUID = _brace.lUID,
+				Rotation = 0,
+				SectionID = _brace.lSectionID,
+				SectionLabel = _brace.strSectionLabel
+			};
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()

@@ -1,13 +1,9 @@
-﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.BimApi;
-using IdeaStatiCa.BimImporter;
-using IdeaStatiCa.BimImporter.Persistence;
-using IdeaStatiCa.Plugin;
+﻿using Autofac;
+using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace IdeaStatiCa.RamToIdea
 {
@@ -16,10 +12,11 @@ namespace IdeaStatiCa.RamToIdea
 		private bool _disposed;
 
 		private readonly IDBIO1 _dbIo;
-		private readonly IModel _model;
 
 		// RamDataAccess1 must be released after IDBIO1 so it cannot be a local variable
 		private readonly RamDataAccess1 _ramDataAccess;
+
+		private readonly IContainer _container;
 
 		public static RamDatabase Create(string path)
 		{
@@ -29,10 +26,21 @@ namespace IdeaStatiCa.RamToIdea
 		internal RamDatabase(string path)
 		{
 			_ramDataAccess = new RamDataAccess1();
-			_dbIo = (IDBIO1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
-			_model = (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
 
-			_dbIo.LoadDataBase(@"C:\Users\dalibor.bacovsky\Downloads\PoCStructure.rss");
+			ContainerBuilder builder = new ContainerBuilder();
+
+			builder.RegisterType<ObjectFactory>().As<IObjectFactory>().SingleInstance();
+			builder.RegisterType<RamSectionProvider>().As<IRamSectionProvider>().SingleInstance();
+
+			builder.RegisterType<RamModel>();
+
+			builder.RegisterInstance((IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
+			builder.RegisterInstance((IModelData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModelData_INT));
+
+			_container = builder.Build();
+
+			_dbIo = (IDBIO1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+			_dbIo.LoadDataBase(path);
 		}
 
 		~RamDatabase()
@@ -63,61 +71,15 @@ namespace IdeaStatiCa.RamToIdea
 			GC.SuppressFinalize(this);
 		}
 
-		private class RamModel : IIdeaModel
+		public RamModel GetModel()
 		{
-			private readonly IModel _model;
-			private readonly RamImporter _importer;
-			private readonly List<IIdeaMember1D> _members;
+			//JsonPersistence persistence = new JsonPersistence();
+			//Project project = new Project(new NullLogger(), persistence);
 
-			public RamModel(IModel model)
-			{
-				_model = model;
-				_importer = new RamImporter(new ObjectFactory(_model), _model);
-				_members = _importer.GetAllMembers().ToList();
-			}
+			//var importer = BimImporter.BimImporter.Create(new RamModel(_model), project, new NullLogger());
 
-			public ISet<IIdeaLoading> GetLoads()
-			{
-				return new HashSet<IIdeaLoading>();
-			}
-
-			public ISet<IIdeaMember1D> GetMembers()
-			{
-				return _members.ToHashSet(); ;
-			}
-
-			public OriginSettings GetOriginSettings()
-			{
-				return new IdeaRS.OpenModel.OriginSettings()
-				{
-					CountryCode = IdeaRS.OpenModel.CountryCode.ECEN,
-					ProjectName = _model.strProjectName
-				}; ;
-			}
-
-			public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
-			{
-				nodes = new HashSet<IIdeaNode>();
-				members = _members.ToHashSet();
-			}
-		}
-
-		public ModelBIM GetModelBIM()
-		{
-			JsonPersistence persistence = new JsonPersistence();
-			Project project = new Project(new NullLogger(), persistence, new DummyRestorer());
-
-			var importer = BimImporter.BimImporter.Create(new RamModel(_model), project, new NullLogger());
-
-			return importer.ImportConnections();
-		}
-
-		private class DummyRestorer : IObjectRestorer
-		{
-			public IIdeaPersistentObject Restore(IIdeaPersistenceToken token)
-			{
-				throw new NotImplementedException();
-			}
+			//return importer.ImportConnections();
+			return _container.Resolve<RamModel>();
 		}
 	}
 }

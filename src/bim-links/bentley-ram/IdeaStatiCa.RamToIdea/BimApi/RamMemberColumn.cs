@@ -1,4 +1,6 @@
 ﻿using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Model;
+using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
@@ -9,24 +11,25 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override MemberType MemberType => MemberType.Column;
 
-		protected override int Label => _column.lLabel;
-
-		protected override double Rotation => _column.dOrientation;
-
-		protected override EMATERIALTYPES MaterialType => _column.eMaterial;
-
-		protected override int MaterialUID => _column.lMaterialID;
-
-		protected override string CrossSectionName => _column.strSectionLabel;
-
-		protected override int CrossSectionUID => _column.lSectionID;
+		protected override RamMemberProperties Properties { get; }
 
 		private readonly IColumn _column;
 
-		public RamMemberColumn(IObjectFactory objectFactory, INodes nodes, IColumn column)
-			: base(objectFactory, nodes)
+		public RamMemberColumn(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes, IColumn column)
+			: base(objectFactory, sectionProvider, nodes)
 		{
 			_column = column;
+
+			Properties = new RamMemberProperties()
+			{
+				Label = _column.strSectionLabel,
+				MaterialType = _column.eMaterial,
+				MaterialUID = _column.lMaterialID,
+				MemberUID = _column.lUID,
+				Rotation = _column.dOrientation,
+				SectionID = _column.lSectionID,
+				SectionLabel = _column.strSectionLabel
+			};
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()

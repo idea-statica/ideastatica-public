@@ -1,23 +1,51 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IdeaStatiCa.RamToIdea
+namespace IdeaStatiCa.RamToIdea.BimApi
 {
-	public class RamImporter
+	public class RamModel : IIdeaModel
 	{
-		private readonly IModel _model;
 		private readonly IObjectFactory _objectFactory;
+		private readonly HashSet<IIdeaMember1D> _members;
+		private readonly IModel _model;
 
-		internal RamImporter(IObjectFactory objectFactory, IModel model)
+		internal RamModel(IObjectFactory objectFactory, IModel model)
 		{
 			_objectFactory = objectFactory;
 			_model = model;
+			_members = GetAllMembers().ToHashSet();
 		}
 
-		public IEnumerable<IIdeaMember1D> GetAllMembers()
+		public ISet<IIdeaLoading> GetLoads()
+		{
+			return new HashSet<IIdeaLoading>();
+		}
+
+		public ISet<IIdeaMember1D> GetMembers()
+		{
+			return _members;
+		}
+
+		public OriginSettings GetOriginSettings()
+		{
+			return new OriginSettings()
+			{
+				CountryCode = CountryCode.ECEN,
+				ProjectName = _model.strProjectName
+			};
+		}
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		{
+			nodes = new HashSet<IIdeaNode>();
+			members = _members.ToHashSet();
+		}
+
+		private IEnumerable<IIdeaMember1D> GetAllMembers()
 		{
 			//TODO Improve to allow for story input selection
 

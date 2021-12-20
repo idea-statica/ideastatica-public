@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.BimApi;
+using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
 using System;
 
@@ -9,31 +10,34 @@ namespace IdeaStatiCa.RamToIdea.Factories
 	{
 		private readonly IModel _model;
 		private readonly INodes _nodes;
+		private readonly IRamSectionProvider _sectionProvider;
 
-		public ObjectFactory(IModel model)
+		public ObjectFactory(IModel model, IRamSectionProvider sectionProvider)
 		{
 			_model = model;
+			_sectionProvider = sectionProvider;
+
 			_nodes = _model.GetFrameAnalysisNodes();
 		}
 
 		public IIdeaMember1D GetBeam(IBeam beam)
 		{
-			return new RamMemberBeam(this, _nodes, beam);
+			return new RamMemberBeam(this, _sectionProvider, _nodes, beam);
 		}
 
 		public IIdeaMember1D GetColumn(IColumn column)
 		{
-			return new RamMemberColumn(this, _nodes, column);
+			return new RamMemberColumn(this, _sectionProvider, _nodes, column);
 		}
 
 		public IIdeaMember1D GetHorizontalBrace(IHorizBrace horizBrace)
 		{
-			return new RamMemberHorizontalBrace(this, _nodes, horizBrace);
+			return new RamMemberHorizontalBrace(this, _sectionProvider, _nodes, horizBrace);
 		}
 
 		public IIdeaMember1D GetVerticalBrace(IVerticalBrace verticalBrace)
 		{
-			return new RamMemberVerticalBrace(this, _nodes, verticalBrace);
+			return new RamMemberVerticalBrace(this, _sectionProvider, _nodes, verticalBrace);
 		}
 
 		public IIdeaNode GetNode(INode node)
