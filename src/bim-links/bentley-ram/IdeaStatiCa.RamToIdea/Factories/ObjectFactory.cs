@@ -44,29 +44,5 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		{
 			return new RamNode(node);
 		}
-
-		public IIdeaMaterial GetMaterial(EMATERIALTYPES materialType, int uid)
-		{
-			switch (materialType)
-			{
-				case EMATERIALTYPES.ESteelMat:
-					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
-					return new RamMaterialByName(uid)
-					{
-						Name = $"Steel {matSteel.dFy}",
-						MaterialType = MaterialType.Steel
-					};
-
-				case EMATERIALTYPES.EConcreteMat:
-					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
-					return new RamMaterialByName(uid)
-					{
-						Name = $"Concrete {matConcrete.dFpc}",
-						MaterialType = MaterialType.Concrete
-					};
-			}
-
-			throw new ArgumentException(nameof(materialType));
-		}
 	}
 }

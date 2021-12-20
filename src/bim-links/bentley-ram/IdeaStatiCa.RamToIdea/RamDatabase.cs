@@ -32,8 +32,9 @@ namespace IdeaStatiCa.RamToIdea
 			ContainerBuilder builder = new ContainerBuilder();
 
 			builder.RegisterType<ObjectFactory>().As<IObjectFactory>().SingleInstance();
-			builder.RegisterType<IMaterialFactory>().As<IMaterialFactory>().SingleInstance();
+			builder.RegisterType<MaterialFactory>().As<IMaterialFactory>().SingleInstance();
 			builder.RegisterType<SectionFactory>().As<ISectionFactory>().SingleInstance();
+			builder.RegisterType<SectionPropertiesConverter>().As<ISectionPropertiesConverter>().SingleInstance();
 
 			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();
 

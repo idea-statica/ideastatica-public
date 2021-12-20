@@ -14,12 +14,12 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		public string Name => _properties.SectionLabel;
 
-		private readonly IObjectFactory _objectFactory;
+		private readonly IMaterialFactory _materialFactory;
 		private readonly RamMemberProperties _properties;
 
-		public AbstractRamSection(IObjectFactory objectFactory, double height, RamMemberProperties props)
+		public AbstractRamSection(IMaterialFactory materialFactory, double height, RamMemberProperties props)
 		{
-			_objectFactory = objectFactory;
+			_materialFactory = materialFactory;
 
 			Height = height;
 			_properties = props;
@@ -27,7 +27,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		protected IIdeaMaterial GetMaterial()
 		{
-			return _objectFactory.GetMaterial(_properties.MaterialType, _properties.MaterialUID);
+			return _materialFactory.GetMaterial(_properties);
 		}
 	}
 }

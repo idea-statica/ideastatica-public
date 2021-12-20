@@ -14,7 +14,5 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		IIdeaMember1D GetVerticalBrace(IVerticalBrace verticalBrace);
 
 		IIdeaNode GetNode(INode node);
-
-		IIdeaMaterial GetMaterial(EMATERIALTYPES materialType, int uid);
 	}
 }

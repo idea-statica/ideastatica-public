@@ -16,8 +16,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		private readonly CrossSectionParameter _cssParams;
 
-		public RamSectionParametric(IObjectFactory objectFactory, double height, RamMemberProperties props, CrossSectionParameter cssParam)
-			: base(objectFactory, height, props)
+		public RamSectionParametric(IMaterialFactory materialFactory, double height, RamMemberProperties props, CrossSectionParameter cssParam)
+			: base(materialFactory, height, props)
 		{
 			_cssParams = cssParam;
 		}

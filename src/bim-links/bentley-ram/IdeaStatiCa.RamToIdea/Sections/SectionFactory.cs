@@ -9,13 +9,13 @@ namespace IdeaStatiCa.RamToIdea.Sections
 	{
 		private readonly ISectionPropertiesConverter _converter;
 		private readonly IMemberData1 _memberData;
-		private readonly IObjectFactory _objectFactory;
+		private readonly IMaterialFactory _materialFactory;
 
-		public SectionFactory(ISectionPropertiesConverter converter, IMemberData1 memberData)
+		public SectionFactory(ISectionPropertiesConverter converter, IMemberData1 memberData, IMaterialFactory materialFactory)
 		{
 			_converter = converter;
 			_memberData = memberData;
-			_objectFactory = objectFactory;
+			_materialFactory = materialFactory;
 		}
 
 		public IRamSection GetSection(RamMemberProperties props)
@@ -25,8 +25,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 				case EMATERIALTYPES.ESteelMat:
 					return GetSteelSection(props);
 			}
-
-			return new RamSectionNamed(_objectFactory, 0, props);
+			return CreateNamed(0, props);
 		}
 
 		private IRamSection GetSteelSection(RamMemberProperties props)
@@ -61,14 +60,19 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 			if (parameters is null)
 			{
-				return new RamSectionNamed(_objectFactory, steelSection.Depth, props);
+				return CreateNamed(steelSection.Depth, props);
 			}
 
 			return new RamSectionParametric(
-				_objectFactory,
+				_materialFactory,
 				steelSection.Depth,
 				props,
 				parameters);
+		}
+
+		private IRamSection CreateNamed(double height, RamMemberProperties props)
+		{
+			return new RamSectionNamed(_materialFactory, height, props);
 		}
 	}
 }
