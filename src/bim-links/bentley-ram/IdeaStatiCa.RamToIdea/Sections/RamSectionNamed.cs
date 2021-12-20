@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 
 namespace IdeaStatiCa.RamToIdea.Sections
@@ -7,8 +8,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 	{
 		public IIdeaMaterial Material => GetMaterial();
 
-		public RamSectionNamed(double height, RamMemberProperties props)
-			: base(height, props)
+		public RamSectionNamed(IObjectFactory objectFactory, double height, RamMemberProperties props)
+			: base(objectFactory, height, props)
 		{
 		}
 	}

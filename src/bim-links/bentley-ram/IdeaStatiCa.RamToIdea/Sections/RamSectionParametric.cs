@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 using System.Collections.Generic;
 
@@ -15,8 +16,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		private readonly CrossSectionParameter _cssParams;
 
-		public RamSectionParametric(double height, RamMemberProperties props, CrossSectionParameter cssParam)
-			: base(height, props)
+		public RamSectionParametric(IObjectFactory objectFactory, double height, RamMemberProperties props, CrossSectionParameter cssParam)
+			: base(objectFactory, height, props)
 		{
 			_cssParams = cssParam;
 		}

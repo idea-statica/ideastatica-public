@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
+using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 using RAMDATAACCESSLib;
-using System;
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
@@ -9,11 +9,14 @@ namespace IdeaStatiCa.RamToIdea.Sections
 	{
 		private readonly IRamSectionPropertiesConverter _sectionParametersConverter;
 		private readonly IMemberData1 _memberData;
+		private readonly IObjectFactory _objectFactory;
 
-		public RamSectionProvider(IRamSectionPropertiesConverter sectionParametersConverter, IMemberData1 memberData)
+		public RamSectionProvider(IRamSectionPropertiesConverter sectionParametersConverter, IMemberData1 memberData,
+			IObjectFactory objectFactory)
 		{
 			_sectionParametersConverter = sectionParametersConverter;
 			_memberData = memberData;
+			_objectFactory = objectFactory;
 		}
 
 		public IRamSection GetSection(RamMemberProperties props)
@@ -24,7 +27,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 					return GetSteelSection(props);
 			}
 
-			return new RamSectionNamed(0, props);
+			return new RamSectionNamed(_objectFactory, 0, props);
 		}
 
 		private IRamSection GetSteelSection(RamMemberProperties props)
@@ -59,10 +62,11 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 			if (parameters is null)
 			{
-				return new RamSectionNamed(steelSection.Depth, props);
+				return new RamSectionNamed(_objectFactory, steelSection.Depth, props);
 			}
 
 			return new RamSectionParametric(
+				_objectFactory,
 				steelSection.Depth,
 				props,
 				parameters);

@@ -17,8 +17,10 @@ namespace IdeaStatiCa.RamToIdea.Sections
 		private readonly IObjectFactory _objectFactory;
 		private readonly RamMemberProperties _properties;
 
-		public AbstractRamSection(double height, RamMemberProperties props)
+		public AbstractRamSection(IObjectFactory objectFactory, double height, RamMemberProperties props)
 		{
+			_objectFactory = objectFactory;
+
 			Height = height;
 			_properties = props;
 		}

@@ -2,8 +2,10 @@
 using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Sections;
+using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
+using System.Runtime.InteropServices;
 
 namespace IdeaStatiCa.RamToIdea
 {
@@ -31,16 +33,27 @@ namespace IdeaStatiCa.RamToIdea
 
 			builder.RegisterType<ObjectFactory>().As<IObjectFactory>().SingleInstance();
 			builder.RegisterType<RamSectionProvider>().As<IRamSectionProvider>().SingleInstance();
+			builder.RegisterType<RamSectionPropertiesConverter>().As<IRamSectionPropertiesConverter>().SingleInstance();
 
-			builder.RegisterType<RamModel>();
+			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();
 
-			builder.RegisterInstance((IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
-			builder.RegisterInstance((IModelData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModelData_INT));
+			builder.Register(x => (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
+			builder.Register(x => (IMemberData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT));
 
 			_container = builder.Build();
 
 			_dbIo = (IDBIO1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
-			_dbIo.LoadDataBase(path);
+
+			try
+			{
+				_dbIo.LoadDataBase(path);
+			}
+			catch (COMException)
+			{
+				string a = null, b = null;
+				int c = 0;
+				_ramDataAccess.GetLastError(ref a, ref b, ref c);
+			}
 		}
 
 		~RamDatabase()
