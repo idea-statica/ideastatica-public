@@ -136,7 +136,15 @@ namespace IdeaStatiCa.Plugin.Grpc
 				{
 	
 					Logger.LogDebug("GrpcServer.ConnectAsync error = Client already connected");
-					await SendMessageAsync("Error", "Client already connected");
+					var errorMsg = new GrpcMessage()
+					{
+						OperationId = "Error",
+						MessageName = "Client already connected",
+						MessageType = GrpcMessage.Types.MessageType.Response,
+						DataType = typeof(string).Name
+					};
+
+					await SendMessageAsync(errorMsg);
 				}
 				else
 				{
@@ -165,33 +173,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 			currentClientId = null;
 		}
 
-		/// <summary>
-		/// Sends a message to client.
-		/// </summary>
-		/// <param name="messageName">Message identificator.</param>
-		/// <param name="data">Body of the message.</param>
-		/// <returns></returns>
-		public async Task SendMessageAsync(string operationId, string messageName, string data = "")
-		{
-			if (IsConnected)
-			{
-				Logger.LogDebug($"GrpcServer.SendMessageAsync operationId = '{operationId}, messageName = '{messageName}'");
-				await currentClientStream.WriteAsync(new GrpcMessage
-				{
-					OperationId = operationId,
-					MessageName = messageName,
-					Data = data
-				});
-			}
-			else
-			{
-				Logger.LogDebug("GrpcServer.SendMessageAsync error = Client disconnected");
-				throw new Exception("Client disconnected.");
-			}
-		}
-
 		public async Task SendMessageAsync(GrpcMessage message)
 		{
+			Logger.LogDebug($"GrpcServer.SendMessageAsync operationId = '{message.OperationId}, messageName = '{message.MessageName}'");
 			if (IsConnected)
 			{
 				await currentClientStream.WriteAsync(message);

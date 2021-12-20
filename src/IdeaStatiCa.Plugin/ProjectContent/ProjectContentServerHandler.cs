@@ -40,7 +40,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		/// <returns></returns>
 		public async Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
-			GrpcServer server = (GrpcServer)grpcSender;
+			IGrpcSender server = (IGrpcSender)grpcSender;
 			try
 			{
 				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
@@ -53,11 +53,16 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 							var result = ContentSource.GetContent();
 							var jsonResult = result != null ? JsonConvert.SerializeObject(result) : string.Empty;
 
-							await server.SendMessageAsync(
-									message.OperationId,
-									message.MessageName,
-									jsonResult
-									);
+							var responseMsg = new GrpcMessage()
+							{
+								OperationId = message.OperationId,
+								MessageName = message.MessageName,
+								Data = jsonResult,
+								MessageType = GrpcMessage.Types.MessageType.Response,
+								DataType = result.GetType().Name
+							};
+
+							await server.SendMessageAsync(responseMsg);
 							return Task.FromResult(true);
 						}
 					case "Delete":
@@ -67,11 +72,16 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 							ContentSource.Delete(contentId);
 							var jsonResult = "OK";
 
-							await server.SendMessageAsync(
-									message.OperationId,
-									message.MessageName,
-									jsonResult
-									);
+							var responseMsg = new GrpcMessage()
+							{
+								OperationId = message.OperationId,
+								MessageName = message.MessageName,
+								Data = jsonResult,
+								MessageType = GrpcMessage.Types.MessageType.Response,
+								DataType = jsonResult.GetType().Name
+							};
+
+							await server.SendMessageAsync(responseMsg);
 							return Task.FromResult(true);
 						}
 					case "Exist":
@@ -81,11 +91,16 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 							var contentExist = ContentSource.Exist(contentId);
 							var jsonResult = JsonConvert.SerializeObject(contentExist);
 
-							await server.SendMessageAsync(
-									message.OperationId,
-									message.MessageName,
-									jsonResult
-									);
+							var responseMsg = new GrpcMessage()
+							{
+								OperationId = message.OperationId,
+								MessageName = message.MessageName,
+								Data = jsonResult,
+								MessageType = GrpcMessage.Types.MessageType.Response,
+								DataType = jsonResult.GetType().Name
+							};
+
+							await server.SendMessageAsync(responseMsg);
 							return Task.FromResult(true);
 						}
 					case "Write":
@@ -146,7 +161,16 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 			}
 			catch (Exception e)
 			{
-				await server.SendMessageAsync(message.OperationId, "Error", $"Error '{e.Message}'");
+				var errorMsg = new GrpcMessage()
+				{
+					OperationId = message.OperationId,
+					MessageName = "Error",
+					Data = $"Error '{e.Message}'",
+					MessageType = GrpcMessage.Types.MessageType.Response,
+					DataType = typeof(string).Name
+				};
+
+				await server.SendMessageAsync(errorMsg);
 
 				return null;
 			}
