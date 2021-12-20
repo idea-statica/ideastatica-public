@@ -15,7 +15,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IVerticalBrace _brace;
 
-		public RamMemberVerticalBrace(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes, IVerticalBrace brace)
+		public RamMemberVerticalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IVerticalBrace brace)
 			: base(objectFactory, sectionProvider, nodes)
 		{
 			_brace = brace;

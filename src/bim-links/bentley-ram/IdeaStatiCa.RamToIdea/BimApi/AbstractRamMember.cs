@@ -50,10 +50,10 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		protected abstract RamMemberProperties Properties { get; }
 
 		private readonly IObjectFactory _objectFactory;
-		private readonly IRamSectionProvider _sectionProvider;
+		private readonly ISectionFactory _sectionProvider;
 		private readonly INodes _nodes;
 
-		public AbstractRamMember(IObjectFactory objectFactory, IRamSectionProvider sectionProvider, INodes nodes)
+		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes)
 		{
 			_objectFactory = objectFactory;
 			_sectionProvider = sectionProvider;
