@@ -48,111 +48,110 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			projectContentResult.Should().BeEquivalentTo(projContentList);
 		}
 
-		///// <summary>
-		///// Test of the method ProjectContentClientHandler.Exist
-		///// </summary>
-		//[Fact]
-		//public void ExistTest()
-		//{
-		//	var grpcClient = Substitute.For<IGrpcSender>();
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.Exist
+		/// </summary>
+		[Fact]
+		public void ExistTest()
+		{
+			var grpcSender = Substitute.For<IGrpcSender>();
 
-		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
 
-		//	var projectContentHandler = new ProjectContentClientHandler(grpcClient);
+			string item1Id = "item1Id";
+			string item2Id = "item2Id";
+			string item3Id = "*";
 
-		//	string item1Id = "item1Id";
-		//	string item2Id = "item2Id";
-		//	string item3Id = "*";
-
-		//	grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
-		//	{
-		//		var request = (t[0] as GrpcMessage);
+			grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
 
 
-		//		GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
 
-		//		var firstParam = invokeData.Parameters.First();
+				var firstParam = invokeData.Parameters.First();
 
-		//		bool result = false;
-		//		var response = new GrpcMessage(request);
-		//		if (firstParam.Value.ToString().Equals(item1Id))
-		//		{
-		//			// true for 'item1Id'
-		//			result = true;
-		//		}
-		//		else if (firstParam.Value.ToString().Equals(item3Id))
-		//		{
-		//			response.Data = "Error";
-		//			return response;
-		//		}
-		//		else
-		//		{
-		//			// false for 'item2Id'
-		//			result = false;
-		//		}
+				bool result = false;
+				var response = new GrpcMessage(request);
+				if (firstParam.Value.ToString().Equals(item1Id))
+				{
+					// true for 'item1Id'
+					result = true;
+				}
+				else if (firstParam.Value.ToString().Equals(item3Id))
+				{
+					response.Data = "Error";
+
+					projectContentHandler.HandleClientMessage(response, grpcSender);
+					return Task.CompletedTask;
+				}
+				else
+				{
+					// false for 'item2Id'
+					result = false;
+				}
+
+				response.Data = JsonConvert.SerializeObject(result);
+				projectContentHandler.HandleClientMessage(response, grpcSender);
+
+				//return response;
+				return Task.CompletedTask;
+			});
+
+			var isItem1 = projectContentHandler.Exist(item1Id);
+			isItem1.Should().BeTrue();
+
+			var isItem2 = projectContentHandler.Exist(item2Id);
+			isItem2.Should().BeFalse();
+
+			projectContentHandler.Invoking(o => o.Exist(item3Id)).Should().Throw<Exception>("'*' is not supported character");
+		}
+
+		/// <summary>
+		/// Test of the method ProjectContentClientHandler.Delete
+		/// </summary>
+		[Fact]
+		public void DeleteTest()
+		{
+			var grpcSender = Substitute.For<IGrpcSender>();
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+
+			string item1Id = "item1Id";
+			string item2Id = "*";
+
+			grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
+			{
+				var request = (t[0] as GrpcMessage);
 
 
-		//		response.Data = JsonConvert.SerializeObject(result);
+				GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
 
-		//		return response;
-		//	});
+				var firstParam = invokeData.Parameters.First();
 
-		//	grpcClient.RegisterHandler(messageName1, projectContentHandler);
+				bool result = false;
+				var response = new GrpcMessage(request);
+				if (firstParam.Value.ToString().Equals(item1Id))
+				{
+					response.Data = string.Empty;
+				}
+				else if (firstParam.Value.ToString().Equals(item2Id))
+				{
+					response.Data = "Error";
+					projectContentHandler.HandleClientMessage(response, grpcSender);
+					return Task.CompletedTask;
+				}
 
-		//	var isItem1 = projectContentHandler.Exist(item1Id);
-		//	isItem1.Should().BeTrue();
-
-		//	var isItem2 = projectContentHandler.Exist(item2Id);
-		//	isItem2.Should().BeFalse();
-
-		//	projectContentHandler.Invoking(o => o.Exist(item3Id)).Should().Throw<Exception>("'*' is not supported character");
-		//}
-
-		///// <summary>
-		///// Test of the method ProjectContentClientHandler.Delete
-		///// </summary>
-		//[Fact]
-		//public void DeleteTest()
-		//{
-		//	var grpcClient = Substitute.For<IRgp>();
-
-		//	const string messageName1 = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-
-		//	var projectContentHandler = new ProjectContentClientHandler(grpcClient);
-
-		//	string item1Id = "item1Id";
-		//	string item2Id = "*";
-
-		//	grpcClient.SendMessageDataSync(default).ReturnsForAnyArgs(t =>
-		//	{
-		//		var request = (t[0] as GrpcMessage);
+				response.Data = JsonConvert.SerializeObject(result);
+				projectContentHandler.HandleClientMessage(response, grpcSender);
+				return Task.CompletedTask;
+			});
 
 
-		//		GrpcReflectionInvokeData invokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(request.Data);
 
-		//		var firstParam = invokeData.Parameters.First();
-
-		//		bool result = false;
-		//		var response = new GrpcMessage(request);
-		//		if (firstParam.Value.ToString().Equals(item1Id))
-		//		{
-		//			response.Data = string.Empty;
-		//		}
-		//		else if (firstParam.Value.ToString().Equals(item2Id))
-		//		{
-		//			response.Data = "Error";
-		//			return response;
-		//		}
-
-		//		response.Data = JsonConvert.SerializeObject(result);
-		//		return response;
-		//	});
-
-		//	grpcClient.RegisterHandler(messageName1, projectContentHandler);
-
-		//	projectContentHandler.Invoking(o => o.Delete(item1Id)).Should().NotThrow<Exception>("Deleting should not throw exception pass");
-		//	projectContentHandler.Invoking(o => o.Delete(item2Id)).Should().Throw<Exception>("'*' is not supported character");
-		//}
+			projectContentHandler.Invoking(o => o.Delete(item1Id)).Should().NotThrow<Exception>("Deleting should not throw exception pass");
+			projectContentHandler.Invoking(o => o.Delete(item2Id)).Should().Throw<Exception>("'*' is not supported character");
+		}
 
 		///// <summary>
 		///// Test of the method ProjectContentClientHandler.ReadData
