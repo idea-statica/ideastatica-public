@@ -25,7 +25,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
 					return new RamMaterialByName(uid)
 					{
-						Name = $"Steel {matSteel.dFy}",
+						Name = $"Steel {Math.Round(matSteel.dFy)}Kips",
 						MaterialType = MaterialType.Steel
 					};
 
@@ -33,7 +33,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
 					return new RamMaterialByName(uid)
 					{
-						Name = $"Concrete {matConcrete.dFpc}",
+						Name = $"Concrete {Math.Round(matConcrete.dFpc)}Kips",
 						MaterialType = MaterialType.Concrete
 					};
 			}
