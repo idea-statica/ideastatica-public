@@ -39,7 +39,18 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public string Id => $"member-{UID}";
 
-		public string Name => Properties.Label;
+		public string Name
+		{
+			get
+			{
+				if (Properties.Story == 0)
+				{
+					return Properties.Label.ToString();
+				}
+
+				return $"{_objectFactory.GetStory(Properties.Story).lLevel}-{Properties.Label}";
+			}
+		}
 
 		public IIdeaPersistenceToken Token => null;
 

@@ -44,5 +44,10 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		{
 			return new RamNode(node);
 		}
+
+		public IStory GetStory(int uid)
+		{
+			return _model.GetStory(uid);
+		}
 	}
 }

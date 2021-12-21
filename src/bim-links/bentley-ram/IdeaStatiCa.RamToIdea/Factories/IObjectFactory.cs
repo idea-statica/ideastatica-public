@@ -14,5 +14,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		IIdeaMember1D GetVerticalBrace(IVerticalBrace verticalBrace);
 
 		IIdeaNode GetNode(INode node);
+
+		IStory GetStory(int uid);
 	}
 }

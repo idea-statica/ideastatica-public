@@ -22,13 +22,14 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 			Properties = new RamMemberProperties()
 			{
-				Label = _brace.strSectionLabel,
+				Label = _brace.lLabel,
 				MaterialType = _brace.eMaterial,
 				MaterialUID = _brace.lMaterialID,
 				MemberUID = _brace.lUID,
 				Rotation = 0,
 				SectionID = _brace.lSectionID,
-				SectionLabel = _brace.strSectionLabel
+				SectionLabel = _brace.strSectionLabel,
+				Story = 0
 			};
 		}
 
