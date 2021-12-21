@@ -39,6 +39,18 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		}
 
 		/// <summary>
+		/// Loads saved data from a JSON stream.
+		/// </summary>
+		/// <param name="reader">Stream to read saved info from.</param>
+		public void Load(Stream stream)
+		{
+			using (StreamReader streamReader = new StreamReader(stream))
+			{
+				Load(streamReader);
+			}
+		}
+
+		/// <summary>
 		/// Saves stored data in a JSON file.
 		/// </summary>
 		/// <param name="writer">TextWriter to write stored info into.</param>
@@ -51,6 +63,18 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			};
 
 			writer.Write(JsonConvert.SerializeObject(storedData, Formatting.Indented, _tokenConverter));
+		}
+
+		/// <summary>
+		/// Saves stored data in a JSON file.
+		/// </summary>
+		/// <param name="writer">Stream to write stored info into.</param>
+		public void Save(Stream stream)
+		{
+			using (StreamWriter streamWriter = new StreamWriter(stream))
+			{
+				Save(streamWriter);
+			}
 		}
 	}
 }
