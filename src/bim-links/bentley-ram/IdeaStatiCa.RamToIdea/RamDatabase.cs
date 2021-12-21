@@ -5,28 +5,25 @@ using IdeaStatiCa.RamToIdea.Sections;
 using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
-using System.Runtime.InteropServices;
 
 namespace IdeaStatiCa.RamToIdea
 {
 	public class RamDatabase : IDisposable
 	{
 		private bool _disposed;
+		private bool _isOpen;
 
 		private readonly IDBIO1 _dbIo;
+		private readonly IContainer _container;
+		private readonly string _path;
 
 		// RamDataAccess1 must be released after IDBIO1 so it cannot be a local variable
 		private readonly RamDataAccess1 _ramDataAccess;
 
-		private readonly IContainer _container;
-
-		public static RamDatabase Create(string path)
+		public RamDatabase(string path)
 		{
-			return new RamDatabase(path);
-		}
+			_path = path;
 
-		internal RamDatabase(string path)
-		{
 			_ramDataAccess = new RamDataAccess1();
 
 			ContainerBuilder builder = new ContainerBuilder();
@@ -44,17 +41,6 @@ namespace IdeaStatiCa.RamToIdea
 			_container = builder.Build();
 
 			_dbIo = (IDBIO1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
-
-			try
-			{
-				_dbIo.LoadDataBase(path);
-			}
-			catch (COMException)
-			{
-				string a = null, b = null;
-				int c = 0;
-				_ramDataAccess.GetLastError(ref a, ref b, ref c);
-			}
 		}
 
 		~RamDatabase()
@@ -69,12 +55,11 @@ namespace IdeaStatiCa.RamToIdea
 				return;
 			}
 
-			if (disposing)
+			if (_isOpen)
 			{
-				// TODO: dispose managed state (managed objects)
+				_dbIo?.CloseDatabase();
+				_isOpen = false;
 			}
-
-			_dbIo?.CloseDatabase();
 
 			_disposed = true;
 		}
@@ -87,13 +72,17 @@ namespace IdeaStatiCa.RamToIdea
 
 		public RamModel GetModel()
 		{
-			//JsonPersistence persistence = new JsonPersistence();
-			//Project project = new Project(new NullLogger(), persistence);
-
-			//var importer = BimImporter.BimImporter.Create(new RamModel(_model), project, new NullLogger());
-
-			//return importer.ImportConnections();
+			_dbIo.LoadDataBase(_path);
+			_isOpen = true;
 			return _container.Resolve<RamModel>();
+		}
+
+		public void GetLastError(out string shortError, out string longError, out int errorId)
+		{
+			shortError = null;
+			longError = null;
+			errorId = 0;
+			_ramDataAccess.GetLastError(ref shortError, ref longError, ref errorId);
 		}
 	}
 }
