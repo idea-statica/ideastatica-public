@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
+using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.Sections
@@ -65,14 +66,14 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 			return new RamSectionParametric(
 				_materialFactory,
-				steelSection.Depth,
+				steelSection.Depth.InchesToMeters(),
 				props,
 				parameters);
 		}
 
-		private IRamSection CreateNamed(double height, RamMemberProperties props)
+		private IRamSection CreateNamed(double heightInches, RamMemberProperties props)
 		{
-			return new RamSectionNamed(_materialFactory, height, props);
+			return new RamSectionNamed(_materialFactory, heightInches.InchesToMeters(), props);
 		}
 	}
 }

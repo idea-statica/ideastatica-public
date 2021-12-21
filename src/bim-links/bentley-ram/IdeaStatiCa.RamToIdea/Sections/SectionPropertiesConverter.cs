@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
+using IdeaStatiCa.RamToIdea.Utilities;
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
@@ -13,18 +14,21 @@ namespace IdeaStatiCa.RamToIdea.Sections
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlWF:
 					ConvertEStlWF(steelSection, parameter);
 					break;
+
+				default:
+					return null;
 			}
 
-			return null;
+			return parameter;
 		}
 
 		private void ConvertEStlWF(SteelSectionProperties props, CrossSectionParameter parameter)
 		{
 			CrossSectionFactory.FillCssIarc(parameter,
-				props.BfTop,
-				props.Depth,
-				props.WebT,
-				props.TfTop,
+				props.BfTop.InchesToMeters(),
+				props.Depth.InchesToMeters(),
+				props.WebT.InchesToMeters(),
+				props.TfTop.InchesToMeters(),
 				0,
 				0,
 				0);

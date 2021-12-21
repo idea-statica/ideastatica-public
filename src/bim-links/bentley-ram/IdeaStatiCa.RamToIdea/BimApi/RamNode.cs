@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
@@ -23,14 +24,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 			SCoordinate coord = node.sLocation;
 			Vector = new IdeaVector3D(
-				Inches2Meters(coord.dXLoc),
-				Inches2Meters(coord.dYLoc),
-				Inches2Meters(coord.dZLoc));
-		}
-
-		private static double Inches2Meters(double val)
-		{
-			return val * 0.0254;
+				coord.dXLoc.InchesToMeters(),
+				coord.dYLoc.InchesToMeters(),
+				coord.dZLoc.InchesToMeters());
 		}
 	}
 }
