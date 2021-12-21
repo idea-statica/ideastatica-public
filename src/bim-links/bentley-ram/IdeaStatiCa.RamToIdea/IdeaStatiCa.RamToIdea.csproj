@@ -5,14 +5,7 @@
     <AssemblyTitle>IdeaStatiCa.RamToIdea</AssemblyTitle>
     <Product>IdeaStatiCa.RamToIdea</Product>
     <Copyright>Copyright ©  2021</Copyright>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-    <Platforms>x86</Platforms>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <DebugType>pdbonly</DebugType>
+	<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
