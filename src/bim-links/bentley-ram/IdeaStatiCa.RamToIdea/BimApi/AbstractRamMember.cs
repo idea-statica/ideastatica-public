@@ -78,13 +78,25 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 			IRamSection section = _sectionProvider.GetSection(Properties);
 
+			IdeaVector3D offset;
+			if (MemberType == MemberType.Beam)
+			{
+				offset = new IdeaVector3D(0, 0, section.Height / 2);
+			}
+			else
+			{
+				offset = new IdeaVector3D(0, 0, 0);
+			}
+
 			RamElement1D element = new RamElement1D()
 			{
 				Segment = segment,
 				MemberUID = UID,
 				StartCrossSection = section,
 				EndCrossSection = section,
-				RotationRx = Properties.Rotation
+				RotationRx = Properties.Rotation,
+				EccentricityBegin = offset,
+				EccentricityEnd = offset
 			};
 
 			return element;
