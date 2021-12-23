@@ -31,10 +31,20 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
-			_objectRestorer = objectRestorer ?? throw new ArgumentNullException(nameof(objectRestorer));
+			_objectRestorer = objectRestorer;
 
 			persistence.DataLoaded += ReloadMapping;
 			ReloadMapping();
+		}
+
+		/// <summary>
+		/// Creates an instance of Project.
+		/// </summary>
+		/// <param name="logger">Logger</param>
+		/// <exception cref="ArgumentNullException">Throws if any argument is null.</exception>
+		public Project(IPluginLogger logger, IPersistence persistence)
+			: this(logger, persistence, null)
+		{
 		}
 
 		/// <inheritdoc cref="IProject.GetIomId(string)"/>
@@ -72,16 +82,26 @@ namespace IdeaStatiCa.BimImporter
 
 			_persistence.StoreMapping(iomId, bimApiId);
 
-			if (obj is IIdeaPersistentObject persistentObject)
-			{
-				IIdeaPersistenceToken token = persistentObject.Token;
-				_persistence.StoreToken(bimApiId, token);
-				_persistenceTokens.Add(iomId, token);
-			}
+			StorePersistenceToken(obj, bimApiId, iomId);
 
 			_logger.LogDebug($"Created new id mapping: BimApi id {bimApiId}, IOM id {iomId}");
 
 			return iomId;
+		}
+
+		private void StorePersistenceToken(IIdeaObject obj, string bimApiId, int iomId)
+		{
+			if (obj is IIdeaPersistentObject persistentObject)
+			{
+				IIdeaPersistenceToken token = persistentObject.Token;
+
+				if (token is null)
+				{
+					return;
+				}
+				_persistence.StoreToken(bimApiId, token);
+				_persistenceTokens.Add(iomId, token);
+			}
 		}
 
 		/// <inheritdoc cref="IProject.GetBimObject(int)"/>
@@ -92,11 +112,14 @@ namespace IdeaStatiCa.BimImporter
 				return obj;
 			}
 
-			if (_persistenceTokens.TryGetValue(id, out IIdeaPersistenceToken token))
+			if (!(_objectRestorer is null))
 			{
-				obj = _objectRestorer.Restore(token);
-				_objectMapping.Add(id, obj);
-				return obj;
+				if (_persistenceTokens.TryGetValue(id, out IIdeaPersistenceToken token))
+				{
+					obj = _objectRestorer.Restore(token);
+					_objectMapping.Add(id, obj);
+					return obj;
+				}
 			}
 
 			throw new KeyNotFoundException();
