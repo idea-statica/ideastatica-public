@@ -5,6 +5,7 @@ using IdeaStatiCa.RamToIdea.Sections;
 using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
+using System.Runtime.InteropServices;
 
 namespace IdeaStatiCa.RamToIdea
 {
@@ -19,6 +20,19 @@ namespace IdeaStatiCa.RamToIdea
 
 		// RamDataAccess1 must be released after IDBIO1 so it cannot be a local variable
 		private readonly RamDataAccess1 _ramDataAccess;
+
+		public static bool IsInstalled()
+		{
+			try
+			{
+				_ = new RamDataAccess1();
+				return true;
+			}
+			catch (COMException)
+			{
+				return false;
+			}
+		}
 
 		public RamDatabase(string path)
 		{
