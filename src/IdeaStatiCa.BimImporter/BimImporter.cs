@@ -162,41 +162,42 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
-			IEnumerable<IBimItem> bimItems = null;
-
 			if (group.Type == RequestedItemsType.Connections)
 			{
-				IIdeaNode node = group.Items
-					.Where(x => x.Type == BIMItemType.Node)
+				IGeometry geometry = _geometryProvider.GetGeometry();
+
+				List<IIdeaObject> objects = group.Items
 					.Select(x => _project.GetBimObject(x.Id))
-					.Cast<IIdeaNode>()
+					.ToList();
+
+				IIdeaNode node = objects
+					.OfType<IIdeaNode>()
 					.First();
 
-				IEnumerable<IIdeaMember1D> members = group.Items
-					.Where(x => x.Type == BIMItemType.Member)
-					.Select(x => _project.GetBimObject(x.Id))
-					.Cast<IIdeaMember1D>();
+				IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
+				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = GetConnections(members, geometry)
+					.First(x => x.Key == node);
 
-				bimItems = new IBimItem[]
+				return CreateModelBIM(objects, new IBimItem[]
 				{
-					Connection.FromNodeAndMembers(node, members)
-				};
+					Connection.FromNodeAndMembers(node, connection.Value)
+				});
 			}
 			else if (group.Type == RequestedItemsType.Substructure)
 			{
-				bimItems = group.Items
+				IEnumerable<Member> bimItems = group.Items
 					.Where(x => x.Type == BIMItemType.Member)
 					.Select(x => _project.GetBimObject(x.Id))
 					.Cast<IIdeaMember1D>()
 					.Select(x => new Member(x));
+
+				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
 			}
 			else
 			{
 				_logger.LogError($"BIMItemsGroup type '{group.Type}' is not supported.");
 				throw new NotImplementedException($"BIMItemsGroup type '{group.Type}' is not supported.");
 			}
-
-			return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
 		}
 
 		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
