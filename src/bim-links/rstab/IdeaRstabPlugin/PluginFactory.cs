@@ -38,7 +38,6 @@ namespace IdeaRstabPlugin
 		{
 			_model = model;
 			_logger = pluginLogger;
-
 			WorkingDirectory = Path.Combine(Path.GetDirectoryName(_model.GetPath()), "IdeaStatiCa-" + _model.GetName());
 			if (!Directory.Exists(WorkingDirectory))
 			{
