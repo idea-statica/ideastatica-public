@@ -44,7 +44,7 @@ namespace IdeaRstabPlugin
 				string IdeaDirectory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 				AppDomain.CurrentDomain.AssemblyResolve += Domain_AssemblyResolve; 
-				PluginFactory pluginFactory = new PluginFactory((IModel)param, IdeaDirectory, _logger);
+				PluginFactory pluginFactory = new PluginFactory((IModel)param, _logger);
 
 				// It will be used for gRPC communication
 				var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, _logger);

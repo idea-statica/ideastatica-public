@@ -12,7 +12,6 @@ namespace IdeaRstabPlugin
 	{
 		public string FeaAppName => "RSTAB";
 
-		private string _ideaPath = "";
 		public string IdeaStaticaAppPath
 		{
 			get
@@ -23,7 +22,8 @@ namespace IdeaRstabPlugin
 				ideaInstallDir = IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools.GetIdeaStatiCaInstallDir(Constants.IdeaStatiCaVersion);
 #else
 				// the plugin is located in installation directory of IdeaStatiCa
-				ideaInstallDir = _ideaPath;
+				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+				ideaInstallDir = Path.GetDirectoryName(assembly.Location);
 #endif
 				return Path.Combine(ideaInstallDir, Constants.CheckbotAppName);
 			}
@@ -34,11 +34,10 @@ namespace IdeaRstabPlugin
 		private readonly IModel _model;
 		private readonly IPluginLogger _logger;
 
-		public PluginFactory(IModel model, string ideaPath, IPluginLogger pluginLogger)
+		public PluginFactory(IModel model, IPluginLogger pluginLogger)
 		{
 			_model = model;
 			_logger = pluginLogger;
-			_ideaPath = ideaPath;
 			WorkingDirectory = Path.Combine(Path.GetDirectoryName(_model.GetPath()), "IdeaStatiCa-" + _model.GetName());
 			if (!Directory.Exists(WorkingDirectory))
 			{
