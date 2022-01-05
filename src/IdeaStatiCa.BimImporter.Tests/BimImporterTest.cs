@@ -526,5 +526,64 @@ namespace IdeaStatiCa.BimImporter.Tests
 						}, _connectionEqualityComparer)),
 					Arg.Any<IProject>());
 		}
+
+		[Test]
+		public void ImportSelected_RequestedMemberIsNoConnectedToTheNode_BimObjectImporterConnectionBimItemsShouldNotContainTheMember()
+		{
+			// Setup
+			GeometryBuilder builder = new GeometryBuilder();
+			builder
+				.Member(1, "line(0,1)")
+				.Member(2, "line(1,2)")
+				.Member(3, "line(3,4)");
+
+			project = Substitute.For<IProject>();
+			project.GetBimObject(1).Returns(builder.Nodes[1]);
+			project.GetBimObject(2).Returns(builder.Members[1]);
+			project.GetBimObject(3).Returns(builder.Members[2]);
+			project.GetBimObject(4).Returns(builder.Members[3]);
+
+			IIdeaModel model = builder.GetModel();
+
+			BimImporter bimImporter = CreateBimImporter(model);
+
+			// Tested method
+			List<ModelBIM> modelBIMs = bimImporter.ImportSelected(new List<BIMItemsGroup>()
+			{
+				new BIMItemsGroup()
+				{
+					Type = RequestedItemsType.Connections,
+					Items = new List<BIMItemId>()
+					{
+						new BIMItemId() { Type = BIMItemType.Node, Id = 1 },
+						new BIMItemId() { Type = BIMItemType.Member, Id = 2 },
+						new BIMItemId() { Type = BIMItemType.Member, Id = 3 },
+						new BIMItemId() { Type = BIMItemType.Member, Id = 4 },
+					}
+				}
+			});
+
+			// Assert
+			bimObjectImporter.Received()
+				.Import(
+					Arg.Is<IEnumerable<IIdeaObject>>(x =>
+						Enumerable.SequenceEqual(x, new List<IIdeaObject>()
+						{
+							builder.Nodes[1],
+							builder.Members[1],
+							builder.Members[2],
+							builder.Members[3],
+						})),
+					Arg.Is<IEnumerable<IBimItem>>(x =>
+						Enumerable.SequenceEqual(x, new List<IBimItem>()
+						{
+							Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
+							{
+								builder.Members[1],
+								builder.Members[2],
+							})
+						}, _connectionEqualityComparer)),
+					Arg.Any<IProject>());
+		}
 	}
 }
