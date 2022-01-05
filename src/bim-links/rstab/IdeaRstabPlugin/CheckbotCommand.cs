@@ -35,8 +35,8 @@ namespace IdeaRstabPlugin
 
 		private async static void PluginThread(object param)
 		{
-			Debug.Fail("Plugin for RSTAB is starting");
-			//AppDomain domain = null;
+			//Debug.Fail("Plugin for RSTAB is starting");
+
 			try
 			{
 				_logger.LogInformation("RSTAB Link started");
