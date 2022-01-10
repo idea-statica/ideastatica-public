@@ -32,7 +32,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Dlubal.RSTAB" Version="1.0.1" />
     <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
@@ -52,6 +51,15 @@
 
   <ItemGroup>
     <Reference Include="WindowsBase" />
-  </ItemGroup>
+    
+    <Reference Include="Dlubal.RSTAB6">
+      <HintPath>libs\Dlubal.RSTAB6.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </Reference>
 
+    <Reference Include="Dlubal.RSTAB8">
+      <HintPath>libs\Dlubal.RSTAB8.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
 </Project>
