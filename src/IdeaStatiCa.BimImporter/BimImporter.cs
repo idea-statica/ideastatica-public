@@ -176,7 +176,7 @@ namespace IdeaStatiCa.BimImporter
 
 				IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
 				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = GetConnections(members, geometry)
-					.First(x => x.Key == node);
+					.First(x => x.Key.Id == node.Id);
 
 				return CreateModelBIM(objects, new IBimItem[]
 				{
