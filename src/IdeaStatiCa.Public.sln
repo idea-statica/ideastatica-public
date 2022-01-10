@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRS.OpenModel", "IdeaRS.OpenModel\IdeaRS.OpenModel.csproj", "{9C319AF9-ABFE-4887-8B0A-E1039013FC0A}"
 EndProject
@@ -176,8 +176,8 @@ Global
 		{EC8DF878-7CE5-458D-BF3E-FEC30768A104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC8DF878-7CE5-458D-BF3E-FEC30768A104}.Release|Any CPU.Build.0 = Release|Any CPU
 		{175D43EC-FF80-4501-A2E6-858DE11AFB3C}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{175D43EC-FF80-4501-A2E6-858DE11AFB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{175D43EC-FF80-4501-A2E6-858DE11AFB3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175D43EC-FF80-4501-A2E6-858DE11AFB3C}.Release|Any CPU.ActiveCfg = Release|x86
+		{175D43EC-FF80-4501-A2E6-858DE11AFB3C}.Release|Any CPU.Build.0 = Release|x86
 		{8967AE55-5709-47F2-802F-312D3862668F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8967AE55-5709-47F2-802F-312D3862668F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8967AE55-5709-47F2-802F-312D3862668F}.Release|Any CPU.ActiveCfg = Release|Any CPU
