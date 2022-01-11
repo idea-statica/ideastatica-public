@@ -1,8 +1,7 @@
 ﻿using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
-using MathNet.Numerics;
 using MathNet.Spatial.Euclidean;
-using System.Numerics;
+using System;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -28,38 +27,41 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private CoordSystem CalculateLCS()
 		{
-			var startNodeVec = StartNode.Vector;
-			var endNodeVec = EndNode.Vector;
+			IdeaVector3D startNodeVec = StartNode.Vector;
+			IdeaVector3D endNodeVec = EndNode.Vector;
 
 			double x = endNodeVec.X - startNodeVec.X;
 			double y = endNodeVec.Y - startNodeVec.Y;
 			double z = endNodeVec.Z - startNodeVec.Z;
 
-			UnitVector3D zBasis;
-			UnitVector3D vecX = UnitVector3D.Create(x, y, z);
-
-			if(vecX.Z.AlmostEqual(1, 1e-6))
-			{
-				zBasis = UnitVector3D.Create(0, 1, 0);
-			}
-			else if (vecX.Z.AlmostEqual(-1, 1e-6))
-			{
-				zBasis = UnitVector3D.Create(0, -1, 0);
-			}
-			else
-			{
-				zBasis = UnitVector3D.Create(0, 0, 1);
-			}
-
-			UnitVector3D vecY = vecX.CrossProduct(zBasis);
-			UnitVector3D vecZ = vecX.CrossProduct(vecY);
+			UnitVector3D axisX = UnitVector3D.Create(x, y, z);
+			UnitVector3D axisY = GetNormalVector(axisX);
+			UnitVector3D axisZ = axisX.CrossProduct(axisY);
 
 			return new CoordSystemByVector()
 			{
-				VecX = ConvertVector(vecX),
-				VecY = ConvertVector(vecY),
-				VecZ = ConvertVector(vecZ),
+				VecX = ConvertVector(axisX),
+				VecY = ConvertVector(axisY),
+				VecZ = ConvertVector(axisZ),
 			};
+		}
+
+		private UnitVector3D GetNormalVector(UnitVector3D directionVector)
+		{
+			if (Math.Abs(directionVector.Z) < 1e-6)
+			{
+				return UnitVector3D.Create(0, 0, 1.0);
+			}
+
+			if (directionVector.Z < 0)
+			{
+				directionVector = directionVector.Negate();
+			}
+
+			UnitVector3D locationVectorXYProj = UnitVector3D.Create(directionVector.X, directionVector.Y, 0);
+			UnitVector3D axisY = locationVectorXYProj.CrossProduct(directionVector);
+
+			return axisY.CrossProduct(directionVector);
 		}
 
 		private IdeaRS.OpenModel.Geometry3D.Vector3D ConvertVector(UnitVector3D vec)
