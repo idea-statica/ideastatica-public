@@ -222,7 +222,7 @@ namespace FEAppExample_1
 		public void Run(object param)
 		{
 			var factory = new PluginFactory(this);
-			FeaAppHosting = new BIMPluginHosting(factory);
+			FeaAppHosting = new BIMPluginHostingGrpc(factory);
 			FeaAppHosting.AppStatusChanged += new ISEventHandler(IdeaStaticAppStatusChanged);
 			var id = Process.GetCurrentProcess().Id.ToString();
 
