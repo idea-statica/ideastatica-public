@@ -83,6 +83,7 @@ namespace ConnectionHiddenCalculation
 			ConnectionToTemplateCmd = new ConnectionToTemplateCommand(this);
 			ApplyTemplateCmd = new ApplyTemplateCommand(this);
 
+			GetConnectionCostCmd = new GetConnectionCostCommand(this);
 			GetMaterialsCmd = new GetMaterialsCommand(this);
 			GetCrossSectionsCmd = new GetCrossSectionsCommand(this);
 			GetBoltAssembliesCmd = new GetBoltAssembliesCommand(this);
@@ -113,6 +114,7 @@ namespace ConnectionHiddenCalculation
 		public ICommand CalculateConnectionCmd { get; set; }
 		public ICommand ConnectionGeometryCmd { get; set; }
 		public ICommand GetAllConnectionDataCmd { get; set; }
+		public ICommand GetConnectionCostCmd { get; set; }
 		public ICommand SaveAsProjectCmd { get; set; }
 		public ICommand ConnectionToTemplateCmd { get; set; }
 		public ICommand ApplyTemplateCmd { get; set; }

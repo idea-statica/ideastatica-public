@@ -79,6 +79,13 @@ namespace IdeaStatiCa.Plugin
 		ConnectionResultsData Calculate(string connectionId);
 
 		/// <summary>
+		/// Gets connection price given by <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The identifier of the required connection</param>
+		/// <returns>Connection price results</returns>
+		[OperationContract]
+		string GetConnectionCost(string connectionId);
+		/// <summary>
 		/// Get the geometry of the <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">Identifier of the required connection</param>

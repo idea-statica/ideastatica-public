@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="IdeaStatiCaDir" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 21.1</Value>
+      <Value Profile="(Default)">C:\Users\richard.torhan\GIT\IdeaStatiCa\bin\Debug</Value>
     </Setting>
   </Settings>
 </SettingsFile>
