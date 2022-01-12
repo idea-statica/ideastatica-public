@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Providers;
 using IdeaStatiCa.RamToIdea.Sections;
 using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
@@ -46,6 +47,10 @@ namespace IdeaStatiCa.RamToIdea
 			builder.RegisterType<MaterialFactory>().As<IMaterialFactory>().SingleInstance();
 			builder.RegisterType<SectionFactory>().As<ISectionFactory>().SingleInstance();
 			builder.RegisterType<SectionPropertiesConverter>().As<ISectionPropertiesConverter>().SingleInstance();
+
+			builder.RegisterType<LoadsProvider>().As<ILoadsProvider>().SingleInstance();
+			builder.RegisterType<ResultsProvider>().As<IResultsProvider>().SingleInstance();
+			builder.RegisterType<ResultsFactory>().As<IResultsFactory>().SingleInstance();
 
 			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();
 

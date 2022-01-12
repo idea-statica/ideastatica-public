@@ -1,8 +1,11 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using IdeaRS.OpenModel.Loading;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.BimApi;
+using IdeaStatiCa.RamToIdea.Providers;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
 using System;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
@@ -11,13 +14,19 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		private readonly IModel _model;
 		private readonly INodes _nodes;
 		private readonly ISectionFactory _sectionFactory;
+		private readonly ILoadsProvider _loadsProvider;
 
-		public ObjectFactory(IModel model, ISectionFactory sectionFactory)
+		private readonly Dictionary<int, IIdeaLoadCase> _loadCases = new Dictionary<int, IIdeaLoadCase>();
+		private readonly Dictionary<ILoadCombination, IIdeaCombiInput> _combinations = new Dictionary<ILoadCombination, IIdeaCombiInput>();
+		private readonly Dictionary<string, IIdeaLoadGroup> _loadGroups = new Dictionary<string, IIdeaLoadGroup>();
+
+		public ObjectFactory(IModel model, ISectionFactory sectionFactory, ILoadsProvider loadsProvider)
 		{
 			_model = model;
 			_sectionFactory = sectionFactory;
 
 			_nodes = _model.GetFrameAnalysisNodes();
+			_loadsProvider = loadsProvider;
 		}
 
 		public IIdeaMember1D GetBeam(IBeam beam)
@@ -48,6 +57,32 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		public IStory GetStory(int uid)
 		{
 			return _model.GetStory(uid);
+		}
+
+		public IIdeaCombiInput GetLoadCombiInput(ILoadCombination combination)
+		{
+			return GetOrCreate(_combinations, combination, () => new RamCombiInput(this, combination));
+		}
+
+		public IIdeaLoadCase GetLoadCase(int uid)
+		{
+			return GetOrCreate(_loadCases, uid, () => new RamLoadCase(this, _loadsProvider, uid));
+		}
+
+		public IIdeaLoadGroup GetLoadGroup(string loadGroupName, LoadGroupType type)
+		{
+			return GetOrCreate(_loadGroups, loadGroupName, () => new RamLoadGroup(loadGroupName, type));
+		}
+
+		private static TValue GetOrCreate<TKey, TValue>(Dictionary<TKey, TValue> store, TKey key, Func<TValue> creator)
+		{
+			if (!store.TryGetValue(key, out var value))
+			{
+				value = creator();
+				store.Add(key, value);
+			}
+
+			return value;
 		}
 	}
 }

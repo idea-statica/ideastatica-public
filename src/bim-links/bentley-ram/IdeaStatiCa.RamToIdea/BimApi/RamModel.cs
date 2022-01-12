@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Providers;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,21 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		private readonly IObjectFactory _objectFactory;
 		private readonly HashSet<IIdeaMember1D> _members;
 		private readonly IModel _model;
+		private readonly ILoadsProvider _loadsProvider;
 
-		internal RamModel(IObjectFactory objectFactory, IModel model)
+		internal RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider)
 		{
 			_objectFactory = objectFactory;
 			_model = model;
+			_loadsProvider = loadsProvider;
 			_members = GetAllMembers().ToHashSet();
 		}
 
 		public ISet<IIdeaLoading> GetLoads()
 		{
-			return new HashSet<IIdeaLoading>();
+			return _loadsProvider.GetLoadCombinations()
+				.Select(x => (IIdeaLoading)_objectFactory.GetLoadCombiInput(x))
+				.ToHashSet();
 		}
 
 		public ISet<IIdeaMember1D> GetMembers()

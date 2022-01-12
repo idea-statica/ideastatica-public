@@ -16,5 +16,11 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		IIdeaNode GetNode(INode node);
 
 		IStory GetStory(int uid);
+
+		IIdeaLoadCase GetLoadCase(int uid);
+
+		IIdeaCombiInput GetLoadCombiInput(ILoadCombination combination);
+
+		IIdeaLoadGroup GetLoadGroup(string loadGroupName, IdeaRS.OpenModel.Loading.LoadGroupType type);
 	}
 }
