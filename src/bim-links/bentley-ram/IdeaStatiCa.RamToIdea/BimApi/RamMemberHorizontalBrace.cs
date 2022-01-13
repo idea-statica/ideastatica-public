@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
@@ -15,8 +16,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IHorizBrace _brace;
 
-		public RamMemberHorizontalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IHorizBrace brace)
-			: base(objectFactory, sectionProvider, nodes)
+		public RamMemberHorizontalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, IGeometry geometry,
+			ISegmentFactory segmentFactory, IHorizBrace brace)
+			: base(objectFactory, sectionProvider, geometry, segmentFactory)
 		{
 			_brace = brace;
 

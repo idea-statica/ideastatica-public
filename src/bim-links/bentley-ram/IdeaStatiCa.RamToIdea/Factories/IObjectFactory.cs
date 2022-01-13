@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.RamToIdea.Geometry;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.Factories
@@ -12,8 +13,6 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		IIdeaMember1D GetHorizontalBrace(IHorizBrace horizBrace);
 
 		IIdeaMember1D GetVerticalBrace(IVerticalBrace verticalBrace);
-
-		IIdeaNode GetNode(INode node);
 
 		IStory GetStory(int uid);
 	}

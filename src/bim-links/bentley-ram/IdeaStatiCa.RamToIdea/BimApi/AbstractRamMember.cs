@@ -2,6 +2,7 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
@@ -32,10 +33,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 		}
 
-		public List<IIdeaElement1D> Elements => new List<IIdeaElement1D>()
-		{
-			CreateElement(_nodes)
-		};
+		public List<IIdeaElement1D> Elements { get; }
 
 		public string Id => $"member-{UID}";
 
@@ -62,13 +60,17 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
-		private readonly INodes _nodes;
+		private readonly IGeometry _geometry;
+		private readonly ISegmentFactory _segmentFactory;
 
-		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes)
+		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IGeometry geometry, ISegmentFactory segmentFactory)
 		{
 			_objectFactory = objectFactory;
 			_sectionProvider = sectionProvider;
-			_nodes = nodes;
+			_geometry = geometry;
+			_segmentFactory = segmentFactory;
+
+			Elements = CreateElements();
 		}
 
 		public IEnumerable<IIdeaResult> GetResults()
@@ -76,17 +78,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			return null;
 		}
 
-		private RamElement1D CreateElement(INodes nodes)
+		private List<IIdeaElement1D> CreateElements()
 		{
-			(INode startNode, INode endNode) = GetNodes(nodes);
-
-			RamLineSegment3D segment = new RamLineSegment3D()
-			{
-				MemberUID = UID,
-				StartNode = _objectFactory.GetNode(startNode),
-				EndNode = _objectFactory.GetNode(endNode)
-			};
-
+			Line line = CreateLine();
 			IRamSection section = _sectionProvider.GetSection(Properties);
 
 			IdeaVector3D offset;
@@ -99,32 +93,31 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				offset = new IdeaVector3D(0, 0, 0);
 			}
 
-			RamElement1D element = new RamElement1D()
+			List<IIdeaElement1D> elements = new List<IIdeaElement1D>();
+
+			foreach (RamLineSegment3D segment in _segmentFactory.CreateSegments(line))
 			{
-				Segment = segment,
-				MemberUID = UID,
-				StartCrossSection = section,
-				EndCrossSection = section,
-				RotationRx = Properties.Rotation,
-				EccentricityBegin = offset,
-				EccentricityEnd = offset
-			};
+				RamElement1D element = new RamElement1D()
+				{
+					Segment = segment,
+					MemberUID = UID,
+					StartCrossSection = section,
+					EndCrossSection = section,
+					RotationRx = Properties.Rotation,
+					EccentricityBegin = offset,
+					EccentricityEnd = offset
+				};
 
-			return element;
+				elements.Add(element);
+			}
+
+			return elements;
 		}
 
-		private INode FindNode(INodes nodes, SCoordinate coordinate)
-		{
-			return nodes.GetClosestNode(coordinate.dXLoc, coordinate.dYLoc, coordinate.dZLoc);
-		}
-
-		private (INode, INode) GetNodes(INodes nodes)
+		private Line CreateLine()
 		{
 			(SCoordinate start, SCoordinate end) = GetStartEndCoordinates();
-			INode startNode = FindNode(nodes, start);
-			INode endNode = FindNode(nodes, end);
-
-			return (startNode, endNode);
+			return _geometry.CreateLine(start, end);
 		}
 
 		protected abstract (SCoordinate, SCoordinate) GetStartEndCoordinates();

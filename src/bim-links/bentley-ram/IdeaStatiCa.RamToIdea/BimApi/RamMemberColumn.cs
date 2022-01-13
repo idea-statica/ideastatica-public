@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
@@ -15,8 +16,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IColumn _column;
 
-		public RamMemberColumn(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IColumn column)
-			: base(objectFactory, sectionProvider, nodes)
+		public RamMemberColumn(IObjectFactory objectFactory, ISectionFactory sectionProvider, IGeometry geometry,
+			ISegmentFactory segmentFactory, IColumn column)
+			: base(objectFactory, sectionProvider, geometry, segmentFactory)
 		{
 			_column = column;
 

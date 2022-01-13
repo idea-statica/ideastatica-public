@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,14 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		private readonly IObjectFactory _objectFactory;
 		private readonly HashSet<IIdeaMember1D> _members;
 		private readonly IModel _model;
+		private readonly IGeometry _geometry;
 
-		internal RamModel(IObjectFactory objectFactory, IModel model)
+		internal RamModel(IObjectFactory objectFactory, IModel model, IGeometry geometry)
 		{
 			_objectFactory = objectFactory;
 			_model = model;
 			_members = GetAllMembers().ToHashSet();
+			_geometry = geometry;
 		}
 
 		public ISet<IIdeaLoading> GetLoads()
@@ -49,6 +52,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			//TODO Improve to allow for story input selection
 
+			CreateNodes();
+			return CreateMembers();
+		}
+
+		private List<IIdeaMember1D> CreateMembers()
+		{
 			List<IIdeaMember1D> members = new List<IIdeaMember1D>();
 
 			IStories stories = _model.GetStories();
@@ -60,6 +69,16 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 
 			return members;
+		}
+
+		private void CreateNodes()
+		{
+			INodes nodes = _model.GetFrameAnalysisNodes();
+			int count = nodes.GetCount();
+			for (int i = 0; i < count; i++)
+			{
+				_geometry.AddNode(nodes.GetAt(i));
+			}
 		}
 
 		private IEnumerable<IIdeaMember1D> GetAllStoryMembers(IStory story)
