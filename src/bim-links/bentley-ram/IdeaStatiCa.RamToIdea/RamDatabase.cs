@@ -49,7 +49,6 @@ namespace IdeaStatiCa.RamToIdea
 			builder.RegisterType<SectionPropertiesConverter>().As<ISectionPropertiesConverter>().SingleInstance();
 
 			builder.RegisterType<LoadsProvider>().As<ILoadsProvider>().SingleInstance();
-			builder.RegisterType<ResultsProvider>().As<IResultsProvider>().SingleInstance();
 			builder.RegisterType<ResultsFactory>().As<IResultsFactory>().SingleInstance();
 
 			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();

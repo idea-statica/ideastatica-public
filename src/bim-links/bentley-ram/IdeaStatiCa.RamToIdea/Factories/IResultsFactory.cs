@@ -1,7 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
-using IdeaStatiCa.RamToIdea.BimApi;
-using IdeaStatiCa.RamToIdea.Providers;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
 

@@ -60,21 +60,21 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected abstract RamMemberProperties Properties { get; }
 
+		protected IResultsFactory ResultsFactory { get; }
+
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
 		private readonly INodes _nodes;
 
-		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes)
+		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, INodes nodes)
 		{
 			_objectFactory = objectFactory;
+			ResultsFactory = resultsFactory;
 			_sectionProvider = sectionProvider;
 			_nodes = nodes;
 		}
 
-		public IEnumerable<IIdeaResult> GetResults()
-		{
-			return null;
-		}
+		public abstract IEnumerable<IIdeaResult> GetResults();
 
 		private RamElement1D CreateElement(INodes nodes)
 		{

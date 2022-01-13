@@ -1,7 +1,9 @@
-﻿using IdeaStatiCa.RamToIdea.Factories;
+﻿using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -15,8 +17,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IVerticalBrace _brace;
 
-		public RamMemberVerticalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IVerticalBrace brace)
-			: base(objectFactory, sectionProvider, nodes)
+		public RamMemberVerticalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, INodes nodes, IVerticalBrace brace)
+			: base(objectFactory, sectionProvider, resultsFactory, nodes)
 		{
 			_brace = brace;
 
@@ -31,6 +33,11 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				SectionLabel = _brace.strSectionLabel,
 				Story = 0
 			};
+		}
+
+		public override IEnumerable<IIdeaResult> GetResults()
+		{
+			return ResultsFactory.GetVerticalBraceResults(_brace);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()
