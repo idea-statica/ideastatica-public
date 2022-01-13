@@ -177,7 +177,7 @@ namespace FEAppExample_1
 
 		public bool CanLoad(object param)
 		{
-			return (IdeaStatiCaStatus != AppStatus.Started);
+			return true;
 		}
 
 		public bool CanRun(object param)
@@ -187,17 +187,27 @@ namespace FEAppExample_1
 
 		public void Load(object param)
 		{
-			var filePath = param == null
-				? GetFilePath()
-				: Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), param.ToString());
-
-			if (string.IsNullOrEmpty(filePath))
+			if (string.IsNullOrEmpty(ProjectName))
 			{
-				// nothing to load;
-				return;
-			}
+				// there is no open project in the application
+				var filePath = param == null
+					? GetFilePath()
+					: Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), param.ToString());
 
-			CreateProjectDirectory(filePath);
+				if (string.IsNullOrEmpty(filePath))
+				{
+					// nothing to load;
+					return;
+				}
+
+				CreateProjectDirectory(filePath);
+			}
+			else
+			{
+				var filePath = GetFilePath();
+				ModelFeaXml = File.ReadAllText(filePath);
+				SetModelFromXml(ModelFeaXml);
+			}
 		}
 
 		private void CreateProjectDirectory(string filePath)
@@ -709,18 +719,15 @@ namespace FEAppExample_1
 
 			if (e.Status == AppStatus.Started)
 			{
-				if (string.IsNullOrEmpty(modelFeaXml))
+				if (string.IsNullOrEmpty(ModelFeaXml))
 				{
 					string fileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), Path.ChangeExtension(ProjectName, ".xml"));
 					ModelFeaXml = File.ReadAllText(fileName);
 					Add($"Model {fileName} loaded.");
 				}
 
-				var model = Tools.ModelFromXml(ModelFeaXml);
-				var fakeFea = ((FakeFEA)(FeaAppHosting.Service));
-				fakeFea.IsCadApplication = IsCAD;
-				fakeFea.SelectionChanged += FakeFea_SelectionChanged;
-				((FakeFEA)(FeaAppHosting.Service)).FeaModel = model;
+				var xmlString = ModelFeaXml;
+				SetModelFromXml(xmlString);
 			}
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
@@ -731,6 +738,20 @@ namespace FEAppExample_1
 					IdeaStatiCaStatus = e.Status;
 					CommandManager.InvalidateRequerySuggested();
 				}));
+		}
+
+		/// <summary>
+		/// Deserialize ModelBIM from <paramref name="xmlString"/> and set store it in FeaAppHosting.Service
+		/// </summary>
+		/// <param name="xmlString">xml which represents FEA model</param>
+		private void SetModelFromXml(string xmlString)
+		{
+			var model = Tools.ModelFromXml(xmlString);
+			ModelFeaXml = xmlString;
+			var fakeFea = ((FakeFEA)(FeaAppHosting.Service));
+			fakeFea.IsCadApplication = IsCAD;
+			fakeFea.SelectionChanged += FakeFea_SelectionChanged;
+			((FakeFEA)(FeaAppHosting.Service)).FeaModel = model;
 		}
 
 		private void FakeFea_SelectionChanged(object sender, EventArgs e)
