@@ -1,8 +1,10 @@
-﻿using IdeaStatiCa.RamToIdea.Factories;
+﻿using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -16,9 +18,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IBeam _beam;
 
-		public RamMemberBeam(IObjectFactory objectFactory, ISectionFactory sectionProvider, IGeometry geometry,
+		public RamMemberBeam(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry,
 			ISegmentFactory segmentFactory, IBeam beam)
-			: base(objectFactory, sectionProvider, geometry, segmentFactory)
+			: base(objectFactory, sectionProvider, resultsFactory, geometry, segmentFactory)
 		{
 			_beam = beam;
 
@@ -33,6 +35,11 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				SectionLabel = _beam.strSectionLabel,
 				Story = _beam.lStoryID
 			};
+		}
+
+		public override IEnumerable<IIdeaResult> GetResults()
+		{
+			return ResultsFactory.GetBeamResults(_beam, this);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()

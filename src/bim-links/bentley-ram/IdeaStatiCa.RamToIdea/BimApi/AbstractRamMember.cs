@@ -58,14 +58,17 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected abstract RamMemberProperties Properties { get; }
 
+		protected IResultsFactory ResultsFactory { get; }
+
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
 		private readonly IGeometry _geometry;
 		private readonly ISegmentFactory _segmentFactory;
 
-		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IGeometry geometry, ISegmentFactory segmentFactory)
+		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry, ISegmentFactory segmentFactory)
 		{
 			_objectFactory = objectFactory;
+			ResultsFactory = resultsFactory;
 			_sectionProvider = sectionProvider;
 			_geometry = geometry;
 			_segmentFactory = segmentFactory;
@@ -73,10 +76,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			Elements = CreateElements();
 		}
 
-		public IEnumerable<IIdeaResult> GetResults()
-		{
-			return null;
-		}
+		public abstract IEnumerable<IIdeaResult> GetResults();
 
 		private List<IIdeaElement1D> CreateElements()
 		{
