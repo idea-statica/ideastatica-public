@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Geometry;
+using MathNet.Numerics;
 using MathNet.Spatial.Euclidean;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace IdeaStatiCa.RamToIdea.Factories
 {
 	internal class SegmentFactory : ISegmentFactory
 	{
+		private const double Tolerance = 1e-6;
+
 		public List<RamLineSegment3D> CreateSegments(Line line)
 		{
 			List<RamLineSegment3D> segments = new List<RamLineSegment3D>();
@@ -54,9 +57,14 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 		private UnitVector3D GetNormalVector(UnitVector3D directionVector)
 		{
-			if (Math.Abs(directionVector.Z) < 1e-6)
+			if (Math.Abs(directionVector.Z) < Tolerance)
 			{
 				return UnitVector3D.Create(0, 0, 1.0);
+			}
+
+			if (Math.Abs(directionVector.Z).AlmostEqual(1.0, Tolerance))
+			{
+				return UnitVector3D.Create(0, 0, directionVector.Z > 0 ? 1.0 : -1.0);
 			}
 
 			if (directionVector.Z < 0)
