@@ -6,8 +6,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 	/// <inheritdoc cref="IIdeaLineSegment3D"/>
 	internal class RamLineSegment3D : IIdeaLineSegment3D
 	{
-		private const double Tolerance = 1e-6;
-
 		//TODO
 		//private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.ramss.bimapi");
 
