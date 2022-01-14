@@ -47,16 +47,17 @@ namespace IdeaStatiCa.RamToIdea
 			builder.RegisterType<MaterialFactory>().As<IMaterialFactory>().SingleInstance();
 			builder.RegisterType<SectionFactory>().As<ISectionFactory>().SingleInstance();
 			builder.RegisterType<SectionPropertiesConverter>().As<ISectionPropertiesConverter>().SingleInstance();
-			builder.RegisterType<Geometry.IGeometry>().As<Geometry.Geometry>().SingleInstance();
-			builder.RegisterType<ISegmentFactory>().As<SegmentFactory>().SingleInstance();
+			builder.RegisterType<Geometry.Geometry>().As<Geometry.IGeometry>().SingleInstance();
+			builder.RegisterType<SegmentFactory>().As<ISegmentFactory>().SingleInstance();
 
 			builder.RegisterType<LoadsProvider>().As<ILoadsProvider>().SingleInstance();
-			builder.RegisterType<ResultsFactory>().As<IResultsFactory>().SingleInstance();
 
 			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();
 
-			builder.Register(x => (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
-			builder.Register(x => (IMemberData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT));
+			builder.Register(_ => (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
+			builder.Register(_ => (IMemberData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT));
+			builder.Register(_ => (IForces1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT));
+			builder.Register(_ => (IForces2)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces2_INT));
 
 			_container = builder.Build();
 

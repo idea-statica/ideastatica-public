@@ -39,7 +39,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override IEnumerable<IIdeaResult> GetResults()
 		{
-			return ResultsFactory.GetColumnResults(_column);
+			return ResultsFactory.GetResultsForColumn(_column);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()

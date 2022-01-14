@@ -23,15 +23,17 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		private readonly Dictionary<string, IIdeaLoadGroup> _loadGroups = new Dictionary<string, IIdeaLoadGroup>();
 		private readonly IResultsFactory _resultsFactory;
 
-		public ObjectFactory(IModel model, ISectionFactory sectionFactory, IResultsFactory resultsFactory, ILoadsProvider loadsProvider
-			, IGeometry geometry, ISegmentFactory segmentFactory)
+		public ObjectFactory(IModel model, ISectionFactory sectionFactory, ILoadsProvider loadsProvider
+			, IGeometry geometry, ISegmentFactory segmentFactory
+			, IForces1 forces1, IForces2 forces2)
 		{
 			_model = model;
 			_sectionFactory = sectionFactory;
 			_loadsProvider = loadsProvider;
-			_resultsFactory = resultsFactory;
 			_geometry = geometry;
 			_segmentFactory = segmentFactory;
+
+			_resultsFactory = new ResultsFactory(this, _loadsProvider, forces1, forces2);
 		}
 
 		public IIdeaMember1D GetBeam(IBeam beam)

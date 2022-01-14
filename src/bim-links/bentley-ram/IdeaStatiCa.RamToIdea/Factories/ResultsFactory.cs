@@ -26,7 +26,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			_forces2 = forces2;
 		}
 
-		public IEnumerable<IIdeaResult> GetBeamResults(IBeam ramBeam, IIdeaMember1D ideaMember)
+		public IEnumerable<IIdeaResult> GetResultsForBeam(IBeam ramBeam, IIdeaMember1D ideaMember)
 		{
 			//_logger.LogDebug($"Getting results for member '{beam.lUID}'");
 
@@ -99,7 +99,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			return new IIdeaResult[] { results };
 		}
 
-		public IEnumerable<IIdeaResult> GetColumnResults(IColumn column)
+		public IEnumerable<IIdeaResult> GetResultsForColumn(IColumn column)
 		{
 			//_logger.LogDebug($"Getting results for member '{column.lUID}'");
 
@@ -173,12 +173,12 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			return new IIdeaResult[] { results };
 		}
 
-		public IEnumerable<IIdeaResult> GetVerticalBraceResults(IVerticalBrace brace)
+		public IEnumerable<IIdeaResult> GetResultsForVerticalBrace(IVerticalBrace brace)
 		{
 			return GetBraceResults(brace.lUID);
 		}
 
-		public IEnumerable<IIdeaResult> GetHorizontalBraceResults(IHorizBrace brace)
+		public IEnumerable<IIdeaResult> GetResultsForHorizontalBrace(IHorizBrace brace)
 		{
 			return GetBraceResults(brace.lUID);
 		}

@@ -39,7 +39,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override IEnumerable<IIdeaResult> GetResults()
 		{
-			return ResultsFactory.GetVerticalBraceResults(_brace);
+			return ResultsFactory.GetResultsForVerticalBrace(_brace);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()
