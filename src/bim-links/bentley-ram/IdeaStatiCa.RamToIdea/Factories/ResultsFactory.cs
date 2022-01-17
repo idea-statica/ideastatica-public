@@ -6,6 +6,7 @@ using RAMDATAACCESSLib;
 using System.Collections.Generic;
 using MathNet.Spatial.Euclidean;
 using System.Linq;
+using IdeaStatiCa.RamToIdea.Utilities;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
@@ -289,12 +290,12 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		{
 			return new InternalForcesData
 			{
-				N = nx,
-				Qy = vy,
-				Qz = vz,
-				Mx = mx,
-				My = my,
-				Mz = mz,
+				N = nx.KipsToNewtons(),
+				Qy = vy.KipsToNewtons(),
+				Qz = vz.KipsToNewtons(),
+				Mx = mx.KipsToNewtons().InchesToMeters(),
+				My = my.KipsToNewtons().InchesToMeters(),
+				Mz = mz.KipsToNewtons().InchesToMeters(),
 			};
 		}
 	}
