@@ -61,6 +61,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected IResultsFactory ResultsFactory { get; }
 
+		private Line _line;
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
 		private readonly IGeometry _geometry;
@@ -77,11 +78,15 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			_elements = new Lazy<List<IIdeaElement1D>>(CreateElements);
 		}
 
+		protected void Init()
+		{
+			_line = CreateLine();
+		}
+
 		public abstract IEnumerable<IIdeaResult> GetResults();
 
 		private List<IIdeaElement1D> CreateElements()
 		{
-			Line line = CreateLine();
 			IRamSection section = _sectionProvider.GetSection(Properties);
 
 			IdeaVector3D offset;
@@ -96,7 +101,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 			List<IIdeaElement1D> elements = new List<IIdeaElement1D>();
 
-			foreach (RamLineSegment3D segment in _segmentFactory.CreateSegments(line))
+			foreach (RamLineSegment3D segment in _segmentFactory.CreateSegments(_line))
 			{
 				RamElement1D element = new RamElement1D()
 				{

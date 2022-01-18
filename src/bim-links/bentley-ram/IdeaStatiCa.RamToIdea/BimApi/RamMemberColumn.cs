@@ -36,6 +36,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Story = _column.lStoryID,
 				CanBeSubdivided = _column.eFramingType == EFRAMETYPE.MemberIsLateral,
 			};
+
+			Init();
 		}
 
 		public override IEnumerable<IIdeaResult> GetResults()

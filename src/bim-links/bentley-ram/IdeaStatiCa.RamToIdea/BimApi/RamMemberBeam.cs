@@ -38,6 +38,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Story = _beam.lStoryID,
 				CanBeSubdivided = true,
 			};
+
+			Init();
 		}
 
 		public override IEnumerable<IIdeaResult> GetResults()

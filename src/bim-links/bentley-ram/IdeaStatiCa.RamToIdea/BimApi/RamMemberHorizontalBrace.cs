@@ -36,6 +36,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Story = _brace.lStoryID,
 				CanBeSubdivided = false,
 			};
+
+			Init();
 		}
 
 		public override IEnumerable<IIdeaResult> GetResults()

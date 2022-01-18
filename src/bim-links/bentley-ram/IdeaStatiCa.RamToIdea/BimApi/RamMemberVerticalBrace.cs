@@ -35,6 +35,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				SectionLabel = _brace.strSectionLabel,
 				CanBeSubdivided = false,
 			};
+
+			Init();
 		}
 
 		public override IEnumerable<IIdeaResult> GetResults()

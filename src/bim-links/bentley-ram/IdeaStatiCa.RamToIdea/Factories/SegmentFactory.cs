@@ -38,10 +38,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 		private RamLineSegment3D CreateSegment(RamNode start, RamNode end, IdeaRS.OpenModel.Geometry3D.CoordSystem lcs)
 		{
-			return new RamLineSegment3D(
-				start,
-				end,
-				  lcs);
+			return new RamLineSegment3D(start, end, lcs);
 		}
 
 		private IdeaRS.OpenModel.Geometry3D.CoordSystem CreateCoordinateSystem(Line line)

@@ -130,7 +130,7 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 		{
 			double length = line.Vector.Length;
 
-			Vector3D lineStartToRamNode = line.Start.Position - node.Position;
+			Vector3D lineStartToRamNode = node.Position - line.Start.Position;
 			return line.Vector.Normalize().DotProduct(lineStartToRamNode) / length;
 		}
 	}
