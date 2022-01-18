@@ -12,26 +12,52 @@ namespace IdeaStatiCa.RamToIdea.Sections
 			switch (steelSection.Shape)
 			{
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlWF:
-					ConvertEStlWF(steelSection, parameter);
-					break;
+					if (steelSection.RolledFlag == RAMDATAACCESSLib.ESTEEL_ROLLED_FLAG.EStlRolled)
+					{
+						CssFactoryHelper.FillCssIRolled(steelSection, parameter);
+					}
+					else
+					{
+						CssFactoryHelper.FillCssISection(steelSection, parameter);
+					}
 
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlTube:
+					CssFactoryHelper.FillCssTube(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlPipe:
+					CssFactoryHelper.FillCssPipe(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlChannel:
+					CssFactoryHelper.FillCssChannel(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlDoubleL:
+					CssFactoryHelper.FillShapeDblLu(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlLSection:
+					CssFactoryHelper.FillCssLSection(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlFlatBar:
+					CssFactoryHelper.FillCssRectangle(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EstlRoundBar:
+					CssFactoryHelper.FillCssCircle(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlTSection:
+					CssFactoryHelper.FillCssTsection(steelSection, parameter);
+					break;
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlNone:
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlStar:
+				case RAMDATAACCESSLib.ESTEEL_SEC.EStlCoreBrace:
+					parameter.Name = steelSection.StrSize;
+					parameter.CrossSectionType = CrossSectionType.UniqueName;
+					parameter.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = parameter.Name });
+					break;
 				default:
 					return null;
 			}
 
 			return parameter;
-		}
-
-		private void ConvertEStlWF(SteelSectionProperties props, CrossSectionParameter parameter)
-		{
-			CrossSectionFactory.FillCssIarc(parameter,
-				props.BfTop.InchesToMeters(),
-				props.Depth.InchesToMeters(),
-				props.WebT.InchesToMeters(),
-				props.TfTop.InchesToMeters(),
-				0,
-				0,
-				0);
 		}
 	}
 }
