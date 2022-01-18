@@ -44,8 +44,24 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		private IdeaRS.OpenModel.Geometry3D.CoordSystem CreateCoordinateSystem(Line line)
 		{
 			UnitVector3D axisX = line.Vector.Normalize();
-			UnitVector3D axisY = GetNormalVector(axisX);
-			UnitVector3D axisZ = axisX.CrossProduct(axisY);
+			UnitVector3D axisZ, axisY;
+
+			if (Math.Abs(axisX.Z) < Tolerance)
+			{
+				axisZ = UnitVector3D.ZAxis;
+				axisY = axisZ.CrossProduct(axisX);
+			}
+			else if (Math.Abs(axisX.Z).AlmostEqual(1.0, Tolerance))
+			{
+				axisZ = UnitVector3D.XAxis;
+				axisY = UnitVector3D.Create(0.0, axisX.Z > 0 ? -1 : 1, 0);
+			}
+			else
+			{
+				UnitVector3D locationVectorXYProj = UnitVector3D.Create(axisX.X, axisX.Y, 0);
+				axisY = locationVectorXYProj.CrossProduct(axisX);
+				axisZ = axisX.CrossProduct(axisY);
+			}
 
 			return new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
 			{
@@ -53,29 +69,6 @@ namespace IdeaStatiCa.RamToIdea.Factories
 				VecY = ConvertVector(axisY),
 				VecZ = ConvertVector(axisZ),
 			};
-		}
-
-		private UnitVector3D GetNormalVector(UnitVector3D directionVector)
-		{
-			if (Math.Abs(directionVector.Z) < Tolerance)
-			{
-				return UnitVector3D.Create(0, 0.0, 1.0);
-			}
-
-			if (Math.Abs(directionVector.Z).AlmostEqual(1.0, Tolerance))
-			{
-				return UnitVector3D.Create(0.0, 1.0, 0);
-			}
-
-			if (directionVector.Z < 0)
-			{
-				directionVector = directionVector.Negate();
-			}
-
-			UnitVector3D locationVectorXYProj = UnitVector3D.Create(directionVector.X, directionVector.Y, 0);
-			UnitVector3D axisY = locationVectorXYProj.CrossProduct(directionVector);
-
-			return axisY.CrossProduct(directionVector);
 		}
 
 		private IdeaRS.OpenModel.Geometry3D.Vector3D ConvertVector(UnitVector3D vec)
