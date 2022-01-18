@@ -12,7 +12,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		public string Id => $"{_properties.SectionID}-{_properties.SectionLabel}";
 
-		public string Name => _properties.SectionLabel;
+		public string Name => string.IsNullOrEmpty(_properties.SectionLabel) ? "<empty>" : _properties.SectionLabel;
 
 		private readonly IMaterialFactory _materialFactory;
 		private readonly RamMemberProperties _properties;

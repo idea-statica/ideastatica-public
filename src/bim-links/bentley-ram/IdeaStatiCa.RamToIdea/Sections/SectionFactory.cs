@@ -3,6 +3,7 @@ using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
+using System;
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
@@ -21,11 +22,17 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		public IRamSection GetSection(RamMemberProperties props)
 		{
+			if (props.SectionID == 0)
+			{
+				return CreateNamed(0, props);
+			}
+
 			switch (props.MaterialType)
 			{
 				case EMATERIALTYPES.ESteelMat:
 					return GetSteelSection(props);
 			}
+
 			return CreateNamed(0, props);
 		}
 
