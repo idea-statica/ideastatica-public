@@ -2,11 +2,11 @@
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Providers;
+using IdeaStatiCa.RamToIdea.Utilities;
+using MathNet.Spatial.Euclidean;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
-using MathNet.Spatial.Euclidean;
 using System.Linq;
-using IdeaStatiCa.RamToIdea.Utilities;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
@@ -32,7 +32,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			//_logger.LogDebug($"Getting results for member '{beam.lUID}'");
 
 			// Get all load cases
-			var loadCases = _loadsProvider.GetLoadCases();
+			var loadCases = _loadsProvider.GetLoadCases().Where(x => x.eAnalyzedState == EStateStatus.eStateCurrent);
 
 			// Get sections, where results are required
 			var locations = GetResultLocations(ideaMember);
@@ -105,7 +105,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			//_logger.LogDebug($"Getting results for member '{column.lUID}'");
 
 			// Get all load cases
-			var loadCases = _loadsProvider.GetLoadCases();
+			var loadCases = _loadsProvider.GetLoadCases().Where(x => x.eAnalyzedState == EStateStatus.eStateCurrent);
 
 			// Results for beam - sections - loadcases
 			var sections = new List<IIdeaSection>(2);
@@ -189,7 +189,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			//_logger.LogDebug($"Getting results for member '{uid}'");
 
 			// Get all load cases
-			var loadCases = _loadsProvider.GetLoadCases();
+			var loadCases = _loadsProvider.GetLoadCases().Where(x => x.eAnalyzedState == EStateStatus.eStateCurrent);
 
 			// results for beam - sections - loadcases
 			var sections = new List<IIdeaSection>(2);
