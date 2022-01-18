@@ -54,10 +54,10 @@ namespace IdeaStatiCa.RamToIdea
 
 			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();
 
-			builder.Register(_ => (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
-			builder.Register(_ => (IMemberData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT));
-			builder.Register(_ => (IForces1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT));
-			builder.Register(_ => (IForces2)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces2_INT));
+			builder.Register(x => (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
+			builder.Register(x => (IMemberData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT));
+			builder.Register(x => (IForces1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT));
+			builder.Register(x => (IForces2)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces2_INT));
 
 			_container = builder.Build();
 

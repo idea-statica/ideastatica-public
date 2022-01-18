@@ -16,12 +16,14 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected override RamMemberProperties Properties { get; }
 
+		private readonly IGeometry _geometry;
 		private readonly IBeam _beam;
 
 		public RamMemberBeam(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry,
 			ISegmentFactory segmentFactory, IBeam beam)
 			: base(objectFactory, sectionProvider, resultsFactory, geometry, segmentFactory)
 		{
+			_geometry = geometry;
 			_beam = beam;
 
 			Properties = new RamMemberProperties()
@@ -33,7 +35,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Rotation = 0,
 				SectionID = _beam.lSectionID,
 				SectionLabel = _beam.strSectionLabel,
-				Story = _beam.lStoryID
+				Story = _beam.lStoryID,
+				CanBeSubdivided = true,
 			};
 		}
 
@@ -50,6 +53,23 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			_beam.GetCoordinates(EBeamCoordLoc.eBeamEnds, ref start, ref end);
 
 			return (start, end);
+		}
+
+		protected override Line CreateLine()
+		{
+			Line line = base.CreateLine();
+
+			SCoordinate start = new SCoordinate();
+			SCoordinate end = new SCoordinate();
+			_beam.GetCoordinates(EBeamCoordLoc.eBeamSupports, ref start, ref end);
+
+			if (_beam.eFramingType == EFRAMETYPE.MemberIsLateral)
+			{
+				_geometry.AddNodeToLine(line, start);
+				_geometry.AddNodeToLine(line, end);
+			}
+
+			return line;
 		}
 	}
 }

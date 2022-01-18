@@ -19,13 +19,16 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			RamNode prevNode = line.Start;
 			IdeaRS.OpenModel.Geometry3D.CoordSystem lcs = CreateCoordinateSystem(line);
 
-			var nodes = line.IntermediateNodes
-				.OrderBy(x => x.Position);
-
-			foreach ((_, RamNode node) in nodes)
+			if (line.AllowsIntermediateNodes)
 			{
-				segments.Add(CreateSegment(prevNode, node, lcs));
-				prevNode = node;
+				IOrderedEnumerable<(double Position, RamNode RamNode)> nodes = line.IntermediateNodes
+					.OrderBy(x => x.Position);
+
+				foreach ((_, RamNode node) in nodes)
+				{
+					segments.Add(CreateSegment(prevNode, node, lcs));
+					prevNode = node;
+				}
 			}
 
 			segments.Add(CreateSegment(prevNode, line.End, lcs));
@@ -59,12 +62,12 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		{
 			if (Math.Abs(directionVector.Z) < Tolerance)
 			{
-				return UnitVector3D.Create(0, 0, 1.0);
+				return UnitVector3D.Create(0, 0.0, 1.0);
 			}
 
 			if (Math.Abs(directionVector.Z).AlmostEqual(1.0, Tolerance))
 			{
-				return UnitVector3D.Create(0, 0, directionVector.Z > 0 ? 1.0 : -1.0);
+				return UnitVector3D.Create(0.0, 1.0, 0);
 			}
 
 			if (directionVector.Z < 0)

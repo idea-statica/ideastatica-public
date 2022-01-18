@@ -9,7 +9,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 	{
 		public IIdeaSegment3D Segment { get; set; }
 
-		public string Id => $"element-{MemberUID}";
+		public string Id => $"element-{Segment.Id}";
 
 		public string Name { get; }
 
@@ -22,8 +22,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		public IdeaVector3D EccentricityEnd { get; set; } = new IdeaVector3D(0, 0, 0);
 
 		public double RotationRx { get; set; }
-
-		public int MemberUID { get; set; }
 
 		public IEnumerable<IIdeaResult> GetResults()
 		{

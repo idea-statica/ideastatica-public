@@ -24,12 +24,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private RamNode(double x, double y, double z)
 		{
-			Vector = new IdeaVector3D(x, y, z);
+			Vector = new IdeaVector3D(x.InchesToMeters(), y.InchesToMeters(), z.InchesToMeters());
 			Position = new Vector3D(x, y, z);
 		}
 
 		public RamNode(INode node)
-			: this(node.sLocation.dXLoc.InchesToMeters(), node.sLocation.dYLoc.InchesToMeters(), node.sLocation.dZLoc.InchesToMeters())
+			: this(node.sLocation.dXLoc, node.sLocation.dYLoc, node.sLocation.dZLoc)
 		{
 			Id = $"node-{node.lUniqueID}";
 			Name = node.lLabel.ToString();

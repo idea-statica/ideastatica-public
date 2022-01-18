@@ -4,6 +4,7 @@ using MathNet.Spatial.Euclidean;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.RamToIdea.Geometry
 {
@@ -14,11 +15,14 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 		private readonly List<RamNode> _nodes = new List<RamNode>();
 		private readonly List<Line> _lines = new List<Line>();
 
-		public Line CreateLine(SCoordinate start, SCoordinate end)
+		public Line CreateLine(SCoordinate start, SCoordinate end, bool allowsIntermediateNodes)
 		{
-			Line line = new Line(GetOrCreateAt(start), GetOrCreateAt(end));
+			Line line = new Line(
+				GetOrCreateAt(start),
+				GetOrCreateAt(end),
+				allowsIntermediateNodes);
 			_lines.Add(line);
-			AddLineIntersection(line);
+
 			return line;
 		}
 
@@ -30,7 +34,25 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 			AddRamNodeToIntermediates(ramNode);
 		}
 
-		public RamNode GetOrCreateAt(SCoordinate position)
+		public void AddNodeToLine(Line line, SCoordinate position)
+		{
+			RamNode node = GetOrCreateAt(position.ToVector3D());
+
+			if (line.Start == node || line.End == node)
+			{
+				return;
+			}
+
+			if (line.IntermediateNodes.Any(x => x.RamNode == node))
+			{
+				return;
+			}
+
+			double projection = GetRamNodeOnLineProjection(node, line);
+			line.AddIntermediateNode(projection, node);
+		}
+
+		private RamNode GetOrCreateAt(SCoordinate position)
 		{
 			return GetOrCreateAt(position.ToVector3D());
 		}
@@ -69,6 +91,11 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 		{
 			foreach (Line line in _lines)
 			{
+				if (!line.AllowsIntermediateNodes)
+				{
+					continue;
+				}
+
 				if (GetRamNodeToLineDistance(node, line) > Precision)
 				{
 					continue;
@@ -80,20 +107,6 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 				{
 					line.AddIntermediateNode(projection, node);
 				}
-			}
-		}
-
-		private void AddLineIntersection(Line line)
-		{
-			foreach (Line intersectingLine in _lines)
-			{
-				if (GetLineToLineDistance(line, intersectingLine) > Precision)
-				{
-					continue;
-				}
-
-				Vector3D nearestPoint = GetNearestPoint(intersectingLine, line);
-				GetOrCreateAt(nearestPoint);
 			}
 		}
 
@@ -119,32 +132,6 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 
 			Vector3D lineStartToRamNode = line.Start.Position - node.Position;
 			return line.Vector.Normalize().DotProduct(lineStartToRamNode) / length;
-		}
-
-		private double GetLineToLineDistance(Line line1, Line line2)
-		{
-			Vector3D crossVec = line1.Vector.CrossProduct(line2.Vector);
-
-			if (crossVec.Length <= Precision)
-			{
-				return double.MaxValue;
-			}
-
-			Vector3D startToStartVec = line1.Start.Position - line2.Start.Position;
-
-			return crossVec.DotProduct(startToStartVec) / crossVec.Length;
-		}
-
-		private Vector3D GetNearestPoint(Line line, Line otherLine)
-		{
-			Vector3D crossVec = otherLine.Vector.CrossProduct(line.Vector);
-			Vector3D planeNormal = otherLine.Vector.CrossProduct(crossVec);
-
-			Vector3D lineStart = line.Start.Position;
-			Vector3D otherLineStart = otherLine.Start.Position;
-
-			return lineStart
-				+ (otherLineStart - lineStart).DotProduct(planeNormal) / otherLineStart.DotProduct(planeNormal) * otherLineStart;
 		}
 	}
 }

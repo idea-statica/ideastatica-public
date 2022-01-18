@@ -12,5 +12,6 @@ namespace IdeaStatiCa.RamToIdea.Model
 		public EMATERIALTYPES MaterialType;
 		public int MaterialUID;
 		public int Story;
+		public bool CanBeSubdivided;
 	}
 }

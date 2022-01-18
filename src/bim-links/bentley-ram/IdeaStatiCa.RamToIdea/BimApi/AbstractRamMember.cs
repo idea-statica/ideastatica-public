@@ -33,7 +33,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 		}
 
-		public List<IIdeaElement1D> Elements { get; }
+		private readonly Lazy<List<IIdeaElement1D>> _elements;
+		public List<IIdeaElement1D> Elements => _elements.Value;
 
 		public string Id => $"member-{UID}";
 
@@ -73,7 +74,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			_geometry = geometry;
 			_segmentFactory = segmentFactory;
 
-			Elements = CreateElements();
+			_elements = new Lazy<List<IIdeaElement1D>>(CreateElements);
 		}
 
 		public abstract IEnumerable<IIdeaResult> GetResults();
@@ -100,7 +101,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				RamElement1D element = new RamElement1D()
 				{
 					Segment = segment,
-					MemberUID = UID,
 					StartCrossSection = section,
 					EndCrossSection = section,
 					RotationRx = Properties.Rotation,
@@ -114,10 +114,10 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			return elements;
 		}
 
-		private Line CreateLine()
+		protected virtual Line CreateLine()
 		{
 			(SCoordinate start, SCoordinate end) = GetStartEndCoordinates();
-			return _geometry.CreateLine(start, end);
+			return _geometry.CreateLine(start, end, Properties.CanBeSubdivided);
 		}
 
 		protected abstract (SCoordinate, SCoordinate) GetStartEndCoordinates();

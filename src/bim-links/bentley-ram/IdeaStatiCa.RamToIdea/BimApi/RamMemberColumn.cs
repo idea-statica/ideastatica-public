@@ -33,7 +33,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Rotation = _column.dOrientation,
 				SectionID = _column.lSectionID,
 				SectionLabel = _column.strSectionLabel,
-				Story = _column.lStoryID
+				Story = _column.lStoryID,
+				CanBeSubdivided = _column.eFramingType == EFRAMETYPE.MemberIsLateral,
 			};
 		}
 

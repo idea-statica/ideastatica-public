@@ -12,18 +12,20 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 	public class RamModel : IIdeaModel
 	{
 		private readonly IObjectFactory _objectFactory;
-		private readonly HashSet<IIdeaMember1D> _members;
 		private readonly IModel _model;
 		private readonly IGeometry _geometry;
 		private readonly ILoadsProvider _loadsProvider;
+
+		private readonly HashSet<IIdeaMember1D> _members;
 
 		internal RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry)
 		{
 			_objectFactory = objectFactory;
 			_model = model;
 			_loadsProvider = loadsProvider;
-			_members = GetAllMembers().ToHashSet();
 			_geometry = geometry;
+
+			_members = GetAllMembers().ToHashSet();
 		}
 
 		public ISet<IIdeaLoading> GetLoads()

@@ -33,7 +33,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Rotation = 0,
 				SectionID = _brace.lSectionID,
 				SectionLabel = _brace.strSectionLabel,
-				Story = _brace.lStoryID
+				Story = _brace.lStoryID,
+				CanBeSubdivided = false,
 			};
 		}
 
