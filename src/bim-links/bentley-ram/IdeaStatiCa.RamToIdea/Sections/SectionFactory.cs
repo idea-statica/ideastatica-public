@@ -3,7 +3,6 @@ using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
-using System;
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
@@ -22,7 +21,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		public IRamSection GetSection(RamMemberProperties props)
 		{
-			if (props.SectionID == 0)
+			if (props.SectionID == 0 && string.IsNullOrEmpty(props.SectionLabel))
 			{
 				return CreateNamed(0, props);
 			}
