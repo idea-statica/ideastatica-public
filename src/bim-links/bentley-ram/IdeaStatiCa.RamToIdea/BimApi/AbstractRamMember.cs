@@ -1,4 +1,5 @@
-﻿using IdeaRS.OpenModel.Model;
+﻿using IdeaRS.OpenModel.Geometry3D;
+using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.Factories;
@@ -93,7 +94,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			IdeaVector3D offset;
 			if (MemberType == MemberType.Beam)
 			{
-				offset = new IdeaVector3D(0, 0, section.Height / 2);
+				offset = new IdeaVector3D(0, 0, -section.Height / 2);
 			}
 			else
 			{
@@ -104,14 +105,17 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 			foreach (RamLineSegment3D segment in _segmentFactory.CreateSegments(_line))
 			{
+				var cs = (CoordSystemByVector)segment.LocalCoordinateSystem;
+				var offset2 = new IdeaVector3D(cs.VecX.Z * offset.Z, cs.VecY.Z * offset.Z, cs.VecZ.Z * offset.Z);
+
 				RamElement1D element = new RamElement1D()
 				{
 					Segment = segment,
 					StartCrossSection = section,
 					EndCrossSection = section,
 					RotationRx = Properties.Rotation.DegreesToRadians(),
-					EccentricityBegin = offset,
-					EccentricityEnd = offset
+					EccentricityBegin = offset2,
+					EccentricityEnd = offset2
 				};
 
 				elements.Add(element);
