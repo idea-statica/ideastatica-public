@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace IdeaStatiCa.RamToIdea.Utilities
 {
@@ -14,6 +15,12 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 		public static double KipsToNewtons(this double val)
 		{
 			return val * 4448.2216;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static double DegreesToRadians(this double val)
+		{
+			return val / 180.0 * Math.PI;
 		}
 	}
 }

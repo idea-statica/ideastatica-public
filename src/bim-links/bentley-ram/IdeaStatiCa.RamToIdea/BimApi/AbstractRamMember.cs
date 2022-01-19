@@ -5,6 +5,7 @@ using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
+using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
@@ -108,7 +109,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 					Segment = segment,
 					StartCrossSection = section,
 					EndCrossSection = section,
-					RotationRx = Properties.Rotation,
+					RotationRx = Properties.Rotation.DegreesToRadians(),
 					EccentricityBegin = offset,
 					EccentricityEnd = offset
 				};
