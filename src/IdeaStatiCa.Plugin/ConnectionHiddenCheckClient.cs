@@ -56,6 +56,10 @@ namespace IdeaStatiCa.Plugin
 		{
 			return Service.ExportToTemplate(connectionId, conTemplateFileName);
 		}
+		public string GetConnectionCost(string connectionId)
+		{
+			return Service.GetConnectionCost(connectionId);
+		}
 
 		public ConnectionData GetConnectionModel(string connectionId)
 		{

@@ -25,6 +25,7 @@ namespace IdeaRS.OpenModel.Connection
 			DesignCode = "ECEN";
 			StartIdeaStaticaApp = true;
 			OrderMembersById = true;
+			AmericanSubcode = string.Empty;
 			// DefaultConnectionFileName = null;
 		}
 
@@ -93,6 +94,17 @@ namespace IdeaRS.OpenModel.Connection
 		/// RUS
 		/// </summary>
 		public string DesignCode { get; set; }
+
+
+		/// <summary>
+		/// Gets or sets the American Sub code
+		/// None
+		/// LRFD 
+		/// ASD,
+		/// LRFD10,
+		/// ASD10
+		/// </summary>
+		public string AmericanSubcode { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name of the default weld material
