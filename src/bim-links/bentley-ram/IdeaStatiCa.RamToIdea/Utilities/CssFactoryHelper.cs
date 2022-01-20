@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.RamToIdea.Sections;
+using System;
 
 namespace IdeaStatiCa.RamToIdea.Utilities
 {
@@ -50,10 +51,9 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			/// <param name="r">The radius of circle.</param>
 			/// <param name="t">The thickness of wall.</param>
 
-			double r = props.BfTop.InchesToMeters();
 			double t = props.WebT.InchesToMeters();
-
-			CrossSectionFactory.FillSteelTube(crossSectionParameter, r, t);
+			var diameter = props.Depth.InchesToMeters();
+			CrossSectionFactory.FillSteelTube(crossSectionParameter, diameter, t);
 		}
 
 
@@ -70,7 +70,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double B = props.BfTop.InchesToMeters();
 			double D = props.Depth.InchesToMeters();
 			double tw = props.WebT.InchesToMeters();
-			double tf = props.TfTop.InchesToMeters();
+			double tf = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double rw = RadiusDefault;
 			double rf = RadiusDefault;
 			double taperF = RadiusDefault;
@@ -101,7 +101,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 		internal static void FillCssCircle(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
 		{
-			double d = props.BfTop.InchesToMeters();
+			double d = props.Depth.InchesToMeters();
 
 			CrossSectionFactory.FillCircle(crossSectionParameter, d);
 		}
@@ -122,7 +122,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double cssGeomB = props.BfTop.InchesToMeters();
 			double cssGeomH = props.Depth.InchesToMeters();
 			double cssGeomTw = props.WebT.InchesToMeters();
-			double cssGeomTf = props.TfTop.InchesToMeters();
+			double cssGeomTf = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double cssGeomR = RadiusDefault;
 			double cssGeomR1 = RadiusDefault;
 			double cssGeomR2 = RadiusDefault;
@@ -152,7 +152,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 			double h = props.Depth.InchesToMeters();
 			double b = props.BfTop.InchesToMeters();
-			double th = props.TFBot.InchesToMeters();
+			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double sh = props.WebT.InchesToMeters();
 
 			CrossSectionFactory.FillShapeL(crossSectionParameter, h, b, th, sh);
@@ -171,7 +171,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double cssGeomBh = props.BfTop.InchesToMeters();
 			double cssGeomH = props.Depth.InchesToMeters();
 			double cssGeomS = props.WebT.InchesToMeters();
-			double cssGeomT = props.TfTop.InchesToMeters();
+			double cssGeomT = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double cssGeomR2 = RadiusDefault;
 			double tapperF = RadiusDefault;
 			double r1 = RadiusDefault;
@@ -190,7 +190,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 			double B = props.BfTop.InchesToMeters();
 			double D = props.Depth.InchesToMeters();
-			double t = props.TfTop.InchesToMeters();
+			double t = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double rw = RadiusDefault;
 			double r2 = RadiusDefault;
 			double C = 0.0;
@@ -257,7 +257,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double b = props.BFBot.InchesToMeters();
 			double h = props.Depth.InchesToMeters();
 			double sh = props.WebT.InchesToMeters();
-			double th = props.TFBot.InchesToMeters();
+			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double dis = props.BfTop.InchesToMeters() - props.BFBot.InchesToMeters() * 2;
 
 			CrossSectionFactory.FillShapeDblL(crossSectionParameter, h, b, th, sh, dis);
@@ -274,7 +274,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double b = props.BFBot.InchesToMeters();
 			double h = props.Depth.InchesToMeters();
 			double sh = props.WebT.InchesToMeters();
-			double th = props.TFBot.InchesToMeters();
+			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double dis = props.BfTop.InchesToMeters() - props.BFBot.InchesToMeters() * 2;
 
 			CrossSectionFactory.FillShapeDblLu(crossSectionParameter, h, b, th, sh, dis);

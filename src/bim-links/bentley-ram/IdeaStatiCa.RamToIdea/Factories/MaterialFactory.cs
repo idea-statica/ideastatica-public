@@ -23,22 +23,37 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			{
 				case EMATERIALTYPES.ESteelMat:
 					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
-					return new RamMaterialByName(uid)
+					return new RamMaterialByName()
 					{
-						Name = $"Steel {Math.Round(matSteel.dFy)}Kips",
+						Name = $"Steel {Math.Round(matSteel.dFy)}{GetUnit()}",
 						MaterialType = MaterialType.Steel
 					};
 
 				case EMATERIALTYPES.EConcreteMat:
 					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
-					return new RamMaterialByName(uid)
+					return new RamMaterialByName()
 					{
-						Name = $"Concrete {Math.Round(matConcrete.dFpc)}Kips",
+						Name = $"Concrete {Math.Round(matConcrete.dFpc)}{GetUnit()}",
 						MaterialType = MaterialType.Concrete
 					};
 			}
 
 			throw new NotImplementedException();
+		}
+
+		private string GetUnit()
+		{
+			switch (_model.eDisplayUnits)
+			{
+				case EUnits.eUnitsEnglish:
+					return "Kips";
+				case EUnits.eUnitsSI:
+					return "N";
+				case EUnits.eUnitsMetric:
+					return "kN";
+				default:
+					return "Kips";
+			}
 		}
 	}
 }
