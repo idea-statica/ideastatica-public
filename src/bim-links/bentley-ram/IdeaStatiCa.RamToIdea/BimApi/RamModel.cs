@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
-	public class RamModel : IIdeaModel
+	internal class RamModel : IIdeaModel
 	{
 		private readonly IObjectFactory _objectFactory;
 		private readonly IModel _model;
@@ -18,7 +18,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly HashSet<IIdeaMember1D> _members;
 
-		internal RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry)
+		public RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry)
 		{
 			_objectFactory = objectFactory;
 			_model = model;

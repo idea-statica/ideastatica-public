@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Providers;
@@ -52,7 +53,7 @@ namespace IdeaStatiCa.RamToIdea
 
 			builder.RegisterType<LoadsProvider>().As<ILoadsProvider>().SingleInstance();
 
-			builder.RegisterType<RamModel>().FindConstructorsWith(new AllConstructorFinder()).AsSelf();
+			builder.RegisterType<RamModel>().AsSelf();
 
 			builder.Register(x => (IModel)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT));
 			builder.Register(x => (IMemberData1)_ramDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT));
@@ -91,7 +92,7 @@ namespace IdeaStatiCa.RamToIdea
 			GC.SuppressFinalize(this);
 		}
 
-		public RamModel GetModel()
+		public IIdeaModel GetModel()
 		{
 			_dbIo.LoadDataBase(_path);
 			_isOpen = true;
