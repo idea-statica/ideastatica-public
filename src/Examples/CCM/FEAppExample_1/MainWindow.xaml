@@ -11,6 +11,10 @@
 		<KeyBinding Command="{Binding RunCmd}" Key="F5" />
 	</Window.InputBindings>
 
+	<Window.Resources>
+		<local:InvertBooleanConverter  x:Key="invertBoolConvert"/>
+	</Window.Resources>
+
 	<DockPanel LastChildFill="True">
 		<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="LightGray" Height="22">
 			<StackPanel.Resources>
@@ -25,7 +29,8 @@
 					<Setter Property="Height" Value="20" />
 				</Style>
 			</StackPanel.Resources>
-			<Button Command="{Binding RunCmd, Mode=TwoWay}" Margin="5,0">_Run IDEA StatiCa CCM</Button>
+			<CheckBox Margin="5,3" IsChecked="{Binding IsGRPC}" IsEnabled="{Binding IsCheckBotRunning, Converter={StaticResource invertBoolConvert}}">gRPC</CheckBox>
+			<Button Command="{Binding RunCmd, Mode=TwoWay}" Margin="5,0">_Run IDEA CheckBot</Button>
 			<Button Command="{Binding LoadCmd}" Margin="5,0">_Load model</Button>
 			<Button Command="{Binding LoadCmd}" CommandParameter="FEA_Model_Examples\default_project.xml" Margin="5,0">Default</Button>
 			<CheckBox Margin="5,3" IsChecked="{Binding IsCAD}">Is CAD</CheckBox>

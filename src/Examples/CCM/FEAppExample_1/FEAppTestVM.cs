@@ -28,6 +28,8 @@ namespace FEAppExample_1
 		private string projectDir;
 		private IdeaRS.OpenModel.CountryCode countryCode;
 		private bool isCAD;
+		private bool isGRPC;
+		private bool isCheckBotRunning;
 		private string detailInformation;
 		private IIdeaStaticaApp ideaStatica;
 
@@ -111,6 +113,19 @@ namespace FEAppExample_1
 			}
 		}
 
+		/// <summary>
+		/// Use gRPC for communication with CheckBot
+		/// </summary>
+		public bool IsGRPC
+		{
+			get => isGRPC;
+			set
+			{
+				isGRPC = value;
+				NotifyPropertyChanged("IsGRPC");
+			}
+		}
+
 		public string ProjectName
 		{
 			get => projectName;
@@ -191,6 +206,16 @@ namespace FEAppExample_1
 		public bool CanRun(object param)
 		{
 			return ((IdeaStatiCaStatus == AppStatus.Finished) && !string.IsNullOrEmpty(ProjectName));
+		}
+
+		public bool IsCheckBotRunning
+		{
+			get => isCheckBotRunning;
+			set
+			{
+				isCheckBotRunning = value;
+				NotifyPropertyChanged("IsCheckBotRunning");
+			}
 		}
 
 		public void Load(object param)
@@ -718,6 +743,7 @@ namespace FEAppExample_1
 		{
 			if (e.Status == AppStatus.Finished)
 			{
+				IsCheckBotRunning = false;
 				FeaAppHosting.AppStatusChanged -= new ISEventHandler(IdeaStaticAppStatusChanged);
 				FeaAppHosting = null;
 			}
@@ -740,6 +766,8 @@ namespace FEAppExample_1
 
 					IdeaStatica = checkBotClient.Service;
 				}
+
+				IsCheckBotRunning = true;
 			}
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
