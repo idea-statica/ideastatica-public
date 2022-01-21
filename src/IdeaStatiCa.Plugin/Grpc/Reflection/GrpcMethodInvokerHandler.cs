@@ -19,7 +19,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			GrpcSender = grpcSender;
 		}
 
-		public T InvokeMethod<T>(string methodName, params object[] arguments)
+		public T InvokeMethod<T>(string methodName, Type returnType, params object[] arguments)
 		{
 			var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
 			var request = new GrpcReflectionInvokeData()
@@ -41,9 +41,9 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			var response = SendMessageDataSync(msg);
 
 			// hadnle response
-			var responseData = JsonConvert.DeserializeObject<T>(response.Data);
+			var responseData = JsonConvert.DeserializeObject(response.Data, returnType);
 
-			return responseData;
+			return (T)responseData;
 		}
 
 		public GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage)

@@ -57,11 +57,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 			this.methodInvoker = methodInvoker;
 		}
 
-		protected override async Task<Object> InterceptAsync(object target, MethodBase method, object[] arguments, Func<Task<object>> proceed)
+		protected override async Task<Object> InterceptAsync(object target, MethodBase method, object[] arguments, Type returnType, Func<Task<object>> proceed)
 		{
 			try
 			{
-				var returnValue = methodInvoker.InvokeMethod<object>(method.Name, arguments);
+				var returnValue = methodInvoker.InvokeMethod<object>(method.Name, returnType, arguments);
 
 				await Task.CompletedTask;
 
@@ -73,13 +73,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 			}
 		}
 
-		protected override async Task<object> Intercept(object target, MethodBase method, object[] arguments, Action proceed)
+		protected override async Task<object> Intercept(object target, MethodBase method, object[] arguments, Type returnType, Action proceed)
 		{
 			try
 			{
 				await Task.CompletedTask;
-
-				return methodInvoker.InvokeMethod<object>(method.Name, arguments);
+				return methodInvoker.InvokeMethod<object>(method.Name, returnType, arguments);
 			}
 			catch (Exception e)
 			{

@@ -35,6 +35,7 @@ namespace FEAppExample_1
 
 		public FEAppExample_1VM()
 		{
+			this.IsGRPC = true;
 			this.CountryCode = CountryCode.ECEN;
 
 			Actions = new ObservableCollection<string>();
@@ -565,8 +566,9 @@ namespace FEAppExample_1
 			List<ProjectItem> materialsInProject = null;
 			if (IdeaStatica != null)
 			{
-				// gRPC communication
-				materialsInProject = IdeaStatica.GetMaterialsInProject();
+					// gRPC communication
+					object o = IdeaStatica.GetMaterialsInProject();
+					materialsInProject = IdeaStatica.GetMaterialsInProject();
 			}
 			else
 			{
