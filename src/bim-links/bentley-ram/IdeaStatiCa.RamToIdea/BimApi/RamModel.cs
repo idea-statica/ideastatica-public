@@ -18,13 +18,15 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly HashSet<IIdeaMember1D> _members;
 
-		public RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry)
+		IdeaRS.OpenModel.CountryCode _countryCode;
+
+		public RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry, IdeaRS.OpenModel.CountryCode countryCode)
 		{
 			_objectFactory = objectFactory;
 			_model = model;
 			_loadsProvider = loadsProvider;
 			_geometry = geometry;
-
+			_countryCode = countryCode;
 			_members = GetAllMembers().ToHashSet();
 		}
 
@@ -44,7 +46,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			return new OriginSettings()
 			{
-				CountryCode = CountryCode.ECEN,
+				CountryCode = _countryCode,
 				ProjectName = _model.strProjectName
 			};
 		}

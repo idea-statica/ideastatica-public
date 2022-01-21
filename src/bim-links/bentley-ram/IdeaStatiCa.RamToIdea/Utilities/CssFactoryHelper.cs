@@ -53,7 +53,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 			double t = props.WebT.InchesToMeters();
 			var diameter = props.Depth.InchesToMeters();
-			CrossSectionFactory.FillSteelTube(crossSectionParameter, diameter, t);
+			CrossSectionFactory.FillSteelTube(crossSectionParameter, diameter/2, t);
 		}
 
 
