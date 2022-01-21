@@ -59,7 +59,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			else
 			{
 				UnitVector3D locationVectorXYProj = UnitVector3D.Create(axisX.X, axisX.Y, 0);
-				axisY = locationVectorXYProj.CrossProduct(axisX);
+				axisY = axisX.CrossProduct(locationVectorXYProj);
 				axisZ = axisX.CrossProduct(axisY);
 			}
 
