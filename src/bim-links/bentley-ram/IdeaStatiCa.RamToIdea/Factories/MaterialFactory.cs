@@ -22,6 +22,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			switch (props.MaterialType)
 			{
 				case EMATERIALTYPES.ESteelMat:
+				case EMATERIALTYPES.ESteelJoistMat:
 					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
 					return new RamMaterialByName()
 					{
@@ -30,6 +31,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					};
 
 				case EMATERIALTYPES.EConcreteMat:
+				case EMATERIALTYPES.EWallPropConcreteMat:
 					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
 					return new RamMaterialByName()
 					{
@@ -47,10 +49,13 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			{
 				case EUnits.eUnitsEnglish:
 					return "Kips";
+
 				case EUnits.eUnitsSI:
 					return "N";
+
 				case EUnits.eUnitsMetric:
 					return "kN";
+
 				default:
 					return "Kips";
 			}
