@@ -441,8 +441,8 @@ namespace FEAppExample_1
 					}
 					else
 					{
-							// get an instance of OpenModelContainer from XML
-							openModelTuple = Tools.OpenModelContainerFromXml(openModelTupleXml);
+						// get an instance of OpenModelContainer from XML
+						openModelTuple = Tools.OpenModelContainerFromXml(openModelTupleXml);
 
 						Add("GetAllConnectionData succeeded");
 						SetDetailInformation(openModelTupleXml);
@@ -470,34 +470,42 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
-			OpenModelContainer openModelContainer = null;
-
-			using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+			string openModelContainerXml = String.Empty;
+			if (IdeaStatica != null)
 			{
-				ideaStatiCaApp.Open();
-				Add(string.Format("Getting connection IOM model for connection #{0}", firstItem.Id));
-				string openModelContainerXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
-
-				openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
-				ModelBIM modelBIM = new ModelBIM();
-				modelBIM.Model = openModelContainer.OpenModel;
-				modelBIM.Results = openModelContainer.OpenModelResult;
-				modelBIM.RequestedItems = RequestedItemsType.Connections;
-				modelBIM.Items = new List<BIMItemId>();
-				modelBIM.Messages = new IdeaRS.OpenModel.Message.OpenMessages();
-				modelBIM.Items.Add(firstItem);
-
-				var modelBimXml = Tools.ModelToXml(modelBIM);
-
-				System.Windows.Application.Current.Dispatcher.BeginInvoke(
-					System.Windows.Threading.DispatcherPriority.Normal,
-					(Action)(() =>
-					{
-						Add("GetModelBIM succeeded");
-						SetDetailInformation(modelBimXml);
-						CommandManager.InvalidateRequerySuggested();
-					}));
+				// gRPC communication
+				openModelContainerXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
 			}
+			else
+			{
+				// windows pipe communication
+				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+				{
+					ideaStatiCaApp.Open();
+					openModelContainerXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
+				}
+			}
+
+
+			var openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
+			ModelBIM modelBIM = new ModelBIM();
+			modelBIM.Model = openModelContainer.OpenModel;
+			modelBIM.Results = openModelContainer.OpenModelResult;
+			modelBIM.RequestedItems = RequestedItemsType.Connections;
+			modelBIM.Items = new List<BIMItemId>();
+			modelBIM.Messages = new IdeaRS.OpenModel.Message.OpenMessages();
+			modelBIM.Items.Add(firstItem);
+
+			var modelBimXml = Tools.ModelToXml(modelBIM);
+
+			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+				System.Windows.Threading.DispatcherPriority.Normal,
+				(Action)(() =>
+				{
+					Add("GetModelBIM succeeded");
+					SetDetailInformation(modelBimXml);
+					CommandManager.InvalidateRequerySuggested();
+				}));
 		}
 
 		private bool CanGetMatInMprl(object arg)
@@ -537,7 +545,6 @@ namespace FEAppExample_1
 					mprlMaterials = ideaStatiCaApp.GetMaterialsInMPRL(this.CountryCode);
 				}
 			}
-
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
