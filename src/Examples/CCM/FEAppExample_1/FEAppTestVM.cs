@@ -1,7 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -566,9 +565,8 @@ namespace FEAppExample_1
 			List<ProjectItem> materialsInProject = null;
 			if (IdeaStatica != null)
 			{
-					// gRPC communication
-					object o = IdeaStatica.GetMaterialsInProject();
-					materialsInProject = IdeaStatica.GetMaterialsInProject();
+				// gRPC communication
+				materialsInProject = IdeaStatica.GetMaterialsInProject();
 			}
 			else
 			{
@@ -624,32 +622,43 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
-			using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+			List<LibraryItem> cssInMprl = null;
+
+			if (IdeaStatica != null)
 			{
-				ideaStatiCaApp.Open();
+				// gRPC communication
 
-				var cssInMprl = ideaStatiCaApp.GetCssInMPRL(this.CountryCode);
-
-				System.Windows.Application.Current.Dispatcher.BeginInvoke(
-					System.Windows.Threading.DispatcherPriority.Normal,
-					(Action)(() =>
-					{
-						if (cssInMprl == null)
-						{
-							Add("GetCssInMprl - No data");
-						}
-						else
-						{
-							var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
-							var jsonFormating = Newtonsoft.Json.Formatting.Indented;
-							string cssInMprlJson = JsonConvert.SerializeObject(cssInMprl, jsonFormating, jsonSetting);
-
-							Add("GetCssInMprl succeeded");
-							SetDetailInformation(cssInMprlJson);
-						}
-						CommandManager.InvalidateRequerySuggested();
-					}));
+				cssInMprl = IdeaStatica.GetCssInMPRL(this.CountryCode);
 			}
+			else
+			{
+				// windows pipe communication
+				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+				{
+					ideaStatiCaApp.Open();
+					cssInMprl = ideaStatiCaApp.GetCssInMPRL(this.CountryCode);
+				}
+			}
+
+			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+				System.Windows.Threading.DispatcherPriority.Normal,
+				(Action)(() =>
+				{
+					if (cssInMprl == null)
+					{
+						Add("GetCssInMprl - No data");
+					}
+					else
+					{
+						var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
+						var jsonFormating = Newtonsoft.Json.Formatting.Indented;
+						string cssInMprlJson = JsonConvert.SerializeObject(cssInMprl, jsonFormating, jsonSetting);
+
+						Add("GetCssInMprl succeeded");
+						SetDetailInformation(cssInMprlJson);
+					}
+					CommandManager.InvalidateRequerySuggested();
+				}));
 		}
 
 		private bool CanGetCssInProject(object arg)
