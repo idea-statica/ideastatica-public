@@ -413,33 +413,42 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
+			string openModelTupleXml = String.Empty;
 			OpenModelContainer openModelTuple = null;
 
-			using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+			if (IdeaStatica != null)
 			{
-				ideaStatiCaApp.Open();
-				Add(string.Format("Getting connection IOM model for connection #{0}", firstItem.Id));
-				string openModelTupleXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
+				// gRPC communication
+				openModelTupleXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
+			}
+			else
+			{
+				// windows pipe communication
+				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+				{
+					ideaStatiCaApp.Open();
+					openModelTupleXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
+				}
+			}
 
-				System.Windows.Application.Current.Dispatcher.BeginInvoke(
-					System.Windows.Threading.DispatcherPriority.Normal,
-					(Action)(() =>
+			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+				System.Windows.Threading.DispatcherPriority.Normal,
+				(Action)(() =>
+				{
+					if (string.IsNullOrEmpty(openModelTupleXml) || openModelTupleXml.StartsWith("Error", StringComparison.InvariantCultureIgnoreCase))
 					{
-						if (string.IsNullOrEmpty(openModelTupleXml) || openModelTupleXml.StartsWith("Error", StringComparison.InvariantCultureIgnoreCase))
-						{
-							Add("Error - see details in the CCM logfile");
-						}
-						else
-						{
+						Add("Error - see details in the CCM logfile");
+					}
+					else
+					{
 							// get an instance of OpenModelContainer from XML
 							openModelTuple = Tools.OpenModelContainerFromXml(openModelTupleXml);
 
-							Add("GetAllConnectionData succeeded");
-							SetDetailInformation(openModelTupleXml);
-						}
-						CommandManager.InvalidateRequerySuggested();
-					}));
-			}
+						Add("GetAllConnectionData succeeded");
+						SetDetailInformation(openModelTupleXml);
+					}
+					CommandManager.InvalidateRequerySuggested();
+				}));
 		}
 
 		private void GetModelBIM(object obj)
@@ -528,6 +537,7 @@ namespace FEAppExample_1
 					mprlMaterials = ideaStatiCaApp.GetMaterialsInMPRL(this.CountryCode);
 				}
 			}
+
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
