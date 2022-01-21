@@ -513,31 +513,40 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
-			using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+			List<LibraryItem> mprlMaterials = null;
+			if (IdeaStatica != null)
 			{
-				ideaStatiCaApp.Open();
-
-				var mprlMaterials = ideaStatiCaApp.GetMaterialsInMPRL(this.CountryCode);
-
-				System.Windows.Application.Current.Dispatcher.BeginInvoke(
-					System.Windows.Threading.DispatcherPriority.Normal,
-					(Action)(() =>
-					{
-						if (mprlMaterials == null)
-						{
-							Add("No data");
-						}
-						else
-						{
-							var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
-							var jsonFormating = Newtonsoft.Json.Formatting.Indented;
-							string mprlMaterialsJson = JsonConvert.SerializeObject(mprlMaterials, jsonFormating, jsonSetting);
-							Add("GetGetMatInMprl succeeded");
-							SetDetailInformation(mprlMaterialsJson);
-						}
-						CommandManager.InvalidateRequerySuggested();
-					}));
+				// gRPC communication
+				mprlMaterials = IdeaStatica.GetMaterialsInMPRL(this.CountryCode);
 			}
+			else
+			{
+				// windows pipe communication
+				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+				{
+					ideaStatiCaApp.Open();
+					mprlMaterials = ideaStatiCaApp.GetMaterialsInMPRL(this.CountryCode);
+				}
+			}
+
+			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+				System.Windows.Threading.DispatcherPriority.Normal,
+				(Action)(() =>
+				{
+					if (mprlMaterials == null)
+					{
+						Add("No data");
+					}
+					else
+					{
+						var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
+						var jsonFormating = Newtonsoft.Json.Formatting.Indented;
+						string mprlMaterialsJson = JsonConvert.SerializeObject(mprlMaterials, jsonFormating, jsonSetting);
+						Add("GetGetMatInMprl succeeded");
+						SetDetailInformation(mprlMaterialsJson);
+					}
+					CommandManager.InvalidateRequerySuggested();
+				}));
 		}
 
 		private bool CanGetMatInProject(object arg)
