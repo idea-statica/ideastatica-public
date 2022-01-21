@@ -265,8 +265,17 @@ namespace FEAppExample_1
 		public void Run(object param)
 		{
 			var factory = new PluginFactory(this);
-			var pluginHostingGrpc = new BIMPluginHostingGrpc(factory);
-			FeaAppHosting = pluginHostingGrpc;
+			if (IsGRPC)
+			{
+				var pluginHostingGrpc = new BIMPluginHostingGrpc(factory);
+				FeaAppHosting = pluginHostingGrpc;
+			}
+			else
+			{
+				var pluginHosting = new BIMPluginHosting(factory);
+				FeaAppHosting = pluginHosting;
+			}
+
 			FeaAppHosting.AppStatusChanged += new ISEventHandler(IdeaStaticAppStatusChanged);
 			var id = Process.GetCurrentProcess().Id.ToString();
 
@@ -553,9 +562,21 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
-
-
-			var materialsInProject = IdeaStatica.GetMaterialsInProject();
+			List<ProjectItem> materialsInProject = null;
+			if (IdeaStatica != null)
+			{
+				// gRPC communication
+				materialsInProject = IdeaStatica.GetMaterialsInProject();
+			}
+			else
+			{
+				// windows pipe communication
+				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+				{
+					ideaStatiCaApp.Open();
+					materialsInProject = ideaStatiCaApp.GetMaterialsInProject();
+				}
+			}
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
@@ -651,9 +672,21 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
-
-
-			var cssInProject = IdeaStatica.GetCssInProject();
+			List<ProjectItem> cssInProject = null;
+			if (IdeaStatica != null)
+			{
+				// gRPC communication
+				cssInProject = IdeaStatica.GetCssInProject();
+			}
+			else
+			{
+				// windows pipe communication
+				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+				{
+					ideaStatiCaApp.Open();
+					cssInProject = ideaStatiCaApp.GetCssInProject();
+				}
+			}
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
