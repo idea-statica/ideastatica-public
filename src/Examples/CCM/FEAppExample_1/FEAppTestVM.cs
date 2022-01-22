@@ -355,43 +355,51 @@ namespace FEAppExample_1
 
 			ConnectionData connectionData = null;
 			int myProcessId = bimAppliction.Id;
+			try
+			{
+				if (IdeaStatica != null)
+				{
+					// gRPC communication
+					connectionData = IdeaStatica.GetConnectionModel(firstItem.Id);
+				}
+				else
+				{
+					// windows pipe communication
+					using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
+					{
+						ideaStatiCaApp.Open();
+						connectionData = ideaStatiCaApp.GetConnectionModel(firstItem.Id);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				// show error message
+				Add(e.Message);
+				return;
+			}
+
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
-			using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-			{
-				ideaStatiCaApp.Open();
-				Add(string.Format("Getting connection model for connection #{0}", firstItem.Id));
-				try
+			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+				System.Windows.Threading.DispatcherPriority.Normal,
+				(Action)(() =>
 				{
-					connectionData = ideaStatiCaApp.GetConnectionModel(firstItem.Id);
-				}
-				catch (Exception e)
-				{
-					// show error message
-					Add(e.Message);
-					return;
-				}
-
-				System.Windows.Application.Current.Dispatcher.BeginInvoke(
-					System.Windows.Threading.DispatcherPriority.Normal,
-					(Action)(() =>
+					if (connectionData == null)
 					{
-						if (connectionData == null)
-						{
-							Add("No data");
-						}
-						else
-						{
-							var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
-							var jsonFormating = Newtonsoft.Json.Formatting.Indented;
-							string geometryInJson = JsonConvert.SerializeObject(connectionData, jsonFormating, jsonSetting);
+						Add("No data");
+					}
+					else
+					{
+						var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
+						var jsonFormating = Newtonsoft.Json.Formatting.Indented;
+						string geometryInJson = JsonConvert.SerializeObject(connectionData, jsonFormating, jsonSetting);
 
-							Add("GetConnectionModel succeeded");
-							SetDetailInformation(geometryInJson);
-						}
-						CommandManager.InvalidateRequerySuggested();
-					}));
-			}
+						Add("GetConnectionModel succeeded");
+						SetDetailInformation(geometryInJson);
+					}
+					CommandManager.InvalidateRequerySuggested();
+				}));
 		}
 
 		private void GetAllConnectionData(object obj)
@@ -485,7 +493,6 @@ namespace FEAppExample_1
 					openModelContainerXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
 				}
 			}
-
 
 			var openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
 			ModelBIM modelBIM = new ModelBIM();
