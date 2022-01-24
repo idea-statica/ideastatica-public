@@ -3,6 +3,7 @@ using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Model;
 using RAMDATAACCESSLib;
 using System;
+using IdeaStatiCa.RamToIdea.Utilities;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
@@ -26,7 +27,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
 					return new RamMaterialByName()
 					{
-						Name = $"Steel {Math.Round(matSteel.dFy)}{GetUnit()}",
+						Name = $"Steel {Math.Round(GetValue(matSteel.dFy))}{GetUnit()}",
 						MaterialType = MaterialType.Steel
 					};
 
@@ -35,12 +36,27 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
 					return new RamMaterialByName()
 					{
-						Name = $"Concrete {Math.Round(matConcrete.dFpc)}{GetUnit()}",
+						Name = $"Concrete {Math.Round(GetValue(matConcrete.dFpc))}{GetUnit()}",
 						MaterialType = MaterialType.Concrete
 					};
 			}
 
 			throw new NotImplementedException();
+		}
+
+		private double GetValue(double value)
+		{
+			switch (_model.eDisplayUnits)
+			{
+				case EUnits.eUnitsEnglish:
+					return value;
+				case EUnits.eUnitsSI:
+					return value.KipsToMPascal();
+				case EUnits.eUnitsMetric:
+					return value.KipsToKgPerCm2();
+				default:
+					return value;
+			}
 		}
 
 		private string GetUnit()
@@ -51,10 +67,10 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					return "Kips";
 
 				case EUnits.eUnitsSI:
-					return "N";
+					return "Mpa";
 
 				case EUnits.eUnitsMetric:
-					return "kN";
+					return "kg/cm^2";
 
 				default:
 					return "Kips";

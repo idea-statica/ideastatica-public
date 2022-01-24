@@ -18,6 +18,18 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static double KipsToMPascal(this double val)
+		{
+			return val * 6.89475728;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static double KipsToKgPerCm2(this double val)
+		{
+			return val * 70.306957829636;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double DegreesToRadians(this double val)
 		{
 			return val / 180.0 * Math.PI;
