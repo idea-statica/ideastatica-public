@@ -10,7 +10,5 @@ namespace IdeaStatiCa.RamToIdea.Providers
 		IEnumerable<ILoadCombination> GetLoadCombinations();
 
 		ILoadCase GetLoadCase(int uid);
-
-		ILoadCombination GetLoadCombination(int index);
 	}
 }
