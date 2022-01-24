@@ -35,7 +35,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 					CssFactoryHelper.FillShapeDblLu(steelSection, parameter);
 					break;
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlLSection:
-					CssFactoryHelper.FillCssLSection(steelSection, parameter);
+					CssFactoryHelper.FillCssAngle(steelSection, parameter);
 					break;
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlFlatBar:
 					CssFactoryHelper.FillCssRectangle(steelSection, parameter);
