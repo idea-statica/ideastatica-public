@@ -159,8 +159,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 						ClientConnected?.Invoke(this, currentClientId);
 					}
 
-					// handle incoming message 
-					await HandleMessageAsync(requestStream.Current);
+					// handle incoming message
+					var handlerTask = HandleMessageAsync(requestStream.Current);
 				}
 
 			} while (await requestStream.MoveNext());

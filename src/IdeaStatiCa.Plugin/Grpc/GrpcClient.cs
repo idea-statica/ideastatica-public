@@ -127,7 +127,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 					{
 						var response = client.ResponseStream.Current;
 
-						await HandleMessageAsync(response);
+						var handlerTask  = HandleMessageAsync(response);
 					}
 				});
 			}
