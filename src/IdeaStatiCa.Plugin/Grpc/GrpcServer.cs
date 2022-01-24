@@ -134,7 +134,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				// do not allow connection from multiple clients.
 				if (IsConnected && currentClientId != requestStream.Current.ClientId)
 				{
-	
+
 					Logger.LogDebug("GrpcServer.ConnectAsync error = Client already connected");
 					var errorMsg = new GrpcMessage()
 					{
@@ -159,8 +159,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 						ClientConnected?.Invoke(this, currentClientId);
 					}
 
-					// handle incoming message
-					var handlerTask = HandleMessageAsync(requestStream.Current);
+					var message = requestStream.Current;
+
+					RunHandler(message);
 				}
 
 			} while (await requestStream.MoveNext());
@@ -171,6 +172,15 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			currentClientStream = null;
 			currentClientId = null;
+		}
+
+		private void RunHandler(GrpcMessage message)
+		{
+			Task.Run(() =>
+			{
+				// handle incoming message
+				HandleMessageAsync(message);
+			});
 		}
 
 		public async Task SendMessageAsync(GrpcMessage message)
@@ -191,7 +201,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="message">Message incoming from client.</param>
 		/// <returns></returns>
-		protected virtual async Task HandleMessageAsync(GrpcMessage message)
+		protected virtual Task HandleMessageAsync(GrpcMessage message)
 		{
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
@@ -199,11 +209,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 			{
 				if(message?.MessageType == GrpcMessage.Types.MessageType.Response)
 				{
-					var result = await handler.HandleClientMessage(message, null);
+					handler.HandleClientMessage(message, null);
 				}
 				else
 				{
-					var result = await handler.HandleServerMessage(message, this);
+					handler.HandleServerMessage(message, this);
 				}
 				
 			}
@@ -212,6 +222,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
 			}
 
+			return Task.CompletedTask;
 			//MessageReceived?.Invoke(this, message);
 		}
 		#endregion

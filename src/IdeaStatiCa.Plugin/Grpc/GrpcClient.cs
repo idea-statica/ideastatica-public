@@ -121,14 +121,19 @@ namespace IdeaStatiCa.Plugin.Grpc
 				ClientConnected?.Invoke(this, EventArgs.Empty);
 
 				// Handle incoming messages
-				_ = Task.Run(async () =>
+				_ = Task.Run(() =>
 				{
-					while (await ResponseStream())
+					client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None).ContinueWith((r) =>
 					{
-						var response = client.ResponseStream.Current;
 
-						var handlerTask  = HandleMessageAsync(response);
-					}
+					});
+
+					//while (await ResponseStream())
+					//{
+					//	var response = client.ResponseStream.Current;
+
+					//	var handlerTask  = HandleMessageAsync(response);
+					//}
 				});
 			}
 			catch (Exception e)
