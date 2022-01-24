@@ -4,6 +4,7 @@
     <TargetFramework>net48</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
@@ -27,4 +28,11 @@
 	<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\..\ideastatica-public\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
 </Project>
