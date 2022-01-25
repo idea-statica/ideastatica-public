@@ -105,38 +105,51 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Connects to the server.
 		/// </summary>
-		public async Task ConnectAsync()
+		public Task ConnectAsync()
 		{
-			string address = $"localhost:{Port}";
-			Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
-			try
-			{
-				channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
+			return Task.Run(async () =>
+		   {
+			   string address = $"localhost:{Port}";
+			   Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
+			   try
+			   {
+				   channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
 
-				var serviceClient = new GrpcService.GrpcServiceClient(channel);
+				   var serviceClient = new GrpcService.GrpcServiceClient(channel);
 
-				client = serviceClient.ConnectAsync();
-				IsConnected = true;
+				   client = serviceClient.ConnectAsync();
+				   IsConnected = true;
 
-				ClientConnected?.Invoke(this, EventArgs.Empty);
+				   ClientConnected?.Invoke(this, EventArgs.Empty);
 
-				// Handle incoming messages
-				_ = Task.Run(async () =>
-				{
+					// Handle incoming messages
+
+					//client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None).ContinueWith((r) =>
+					//{
+
+					//});
+
 					while (await ResponseStream())
-					{
-						var response = client.ResponseStream.Current;
+				   {
+					   var grpcMessage = client.ResponseStream.Current;
+					   RunMessageHandler(grpcMessage);
+				   }
+			   }
+			   catch (Exception e)
+			   {
+				   errorMessage = e.Message;
 
-						await HandleMessageAsync(response);
-					}
-				});
-			}
-			catch (Exception e)
+				   await DisconnectAsync();
+			   }
+		   });
+		}
+
+		private void RunMessageHandler(GrpcMessage message)
+		{
+			Task.Factory.StartNew(() =>
 			{
-				errorMessage = e.Message;
-
-				await DisconnectAsync();
-			}
+				HandleMessageAsync(message);
+			});
 		}
 
 		private async Task<bool> ResponseStream()
@@ -192,10 +205,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="message">Message incoming from server.</param>
 		/// <returns></returns>
-		internal virtual async Task HandleMessageAsync(GrpcMessage message)
+		internal virtual void HandleMessageAsync(GrpcMessage message)
 		{
 			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
-			object result = null;
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
 			if (handler != null)
@@ -204,11 +216,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 				if (message?.MessageType == GrpcMessage.Types.MessageType.Request)
 				{
-					result = await handler.HandleServerMessage(message, this);
+					handler.HandleServerMessage(message, this);
 				}
 				else
 				{
-					result = await handler.HandleClientMessage(message, this);
+					handler.HandleClientMessage(message, this);
 				}
 			}
 			else
