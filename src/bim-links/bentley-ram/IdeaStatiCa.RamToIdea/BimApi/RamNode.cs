@@ -22,7 +22,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public INode FrameNode { get; }
 
-		private RamNode(double x, double y, double z)
+		internal RamNode(double x, double y, double z)
 		{
 			Vector = new IdeaVector3D(x.InchesToMeters(), y.InchesToMeters(), z.InchesToMeters());
 			Position = new Vector3D(x, y, z);
