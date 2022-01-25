@@ -22,12 +22,12 @@ namespace IdeaStatiCa.Plugin.Utilities
 			.Single(x => x.GetCustomAttributes(typeof(TaskCompletionSourceMethodMarkerAttribute)).Any());
 
 
-		protected virtual Task<Object> InterceptAsync(Object target, MethodBase method, object[] arguments, Func<Task<Object>> proceed)
+		protected virtual Task<Object> InterceptAsync(Object target, MethodBase method, object[] arguments, Type returnType, Func<Task<Object>> proceed)
 		{
 			return proceed();
 		}
 
-		protected virtual Task<object> Intercept(Object target, MethodBase method, object[] arguments, Action proceed)
+		protected virtual Task<object> Intercept(Object target, MethodBase method, object[] arguments, Type returnType, Action proceed)
 		{
 			return null;
 		}
@@ -37,7 +37,7 @@ namespace IdeaStatiCa.Plugin.Utilities
 		{
 			var tcs = new TaskCompletionSource<TResult>();
 
-			var task = InterceptAsync(invocation.InvocationTarget, invocation.Method, invocation.Arguments, () =>
+			var task = InterceptAsync(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Method.ReturnType, () =>
 			{
 				var task2 = (Task)invocation.Method.Invoke(invocation.InvocationTarget, invocation.Arguments);
 				var tcs2 = new TaskCompletionSource<Object>();
@@ -72,7 +72,7 @@ namespace IdeaStatiCa.Plugin.Utilities
 		{
 			if (!typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
 			{
-				var returnValue = Intercept(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Proceed).WaitAndUnwrapException();
+				var returnValue = Intercept(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Method.ReturnType, invocation.Proceed).WaitAndUnwrapException();
 				invocation.ReturnValue = returnValue;
 				return;
 			}

@@ -87,6 +87,7 @@
 					</Button.CommandParameter>
 					Eval Expression
 				</Button>
+				<Button Command="{Binding GetConnectionCostCmd}"  CommandParameter="{Binding SelectedConnection}">Get Cost</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<StackPanel DockPanel.Dock="Bottom">
