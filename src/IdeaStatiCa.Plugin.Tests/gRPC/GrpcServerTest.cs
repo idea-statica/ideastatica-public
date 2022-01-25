@@ -16,59 +16,59 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		{
 		}
 
-		/// <summary>
-		/// Test of processing messages by GrpcServer
-		/// </summary>
-		/// <returns></returns>
-		[Fact]
-		public async Task GrpcServerHandleMessagesTest()
-		{
-			var grpcServer = new GrpcServer(80, new NullLogger());
+		///// <summary>
+		///// Test of processing messages by GrpcServer
+		///// </summary>
+		///// <returns></returns>
+		//[Fact]
+		//public async Task GrpcServerHandleMessagesTest()
+		//{
+		//	var grpcServer = new GrpcServer(80, new NullLogger());
 
-			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
-			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
-			var context = Substitute.For<ServerCallContext>();
+		//	var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
+		//	var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
+		//	var context = Substitute.For<ServerCallContext>();
 
-			List<GrpcMessage> handledMessages = new List<GrpcMessage>();
+		//	List<GrpcMessage> handledMessages = new List<GrpcMessage>();
 
-			var handler = Substitute.For<IGrpcMessageHandler>();
-			handler.HandleServerMessage(default, default).ReturnsForAnyArgs(t => {
-				handledMessages.Add(t[0] as GrpcMessage);
-				return Task.FromResult(new object());
-			});
+		//	var handler = Substitute.For<IGrpcMessageHandler>();
+		//	handler.HandleServerMessage(default, default).ReturnsForAnyArgs(t => {
+		//		handledMessages.Add(t[0] as GrpcMessage);
+		//		return Task.FromResult(new object());
+		//	});
 
-			const string messageName = "msg1";
+		//	const string messageName = "msg1";
 
-			grpcServer.RegisterHandler(messageName, handler);
+		//	grpcServer.RegisterHandler(messageName, handler);
 
 
-			// prepare two messages to process
-			List<GrpcMessage> inputMessages = new List<GrpcMessage>();
+		//	// prepare two messages to process
+		//	List<GrpcMessage> inputMessages = new List<GrpcMessage>();
 
-			var msg1 = new GrpcMessage();
-			msg1.ClientId = "client1";
-			msg1.MessageName = messageName;
-			inputMessages.Add(msg1);
+		//	var msg1 = new GrpcMessage();
+		//	msg1.ClientId = "client1";
+		//	msg1.MessageName = messageName;
+		//	inputMessages.Add(msg1);
 
-			var msg2 = new GrpcMessage();
-			msg2.ClientId = "client1";
-			msg2.MessageName = messageName;
-			inputMessages.Add(msg2);
+		//	var msg2 = new GrpcMessage();
+		//	msg2.ClientId = "client1";
+		//	msg2.MessageName = messageName;
+		//	inputMessages.Add(msg2);
 
-			var readEnumerator = inputMessages.GetEnumerator();
+		//	var readEnumerator = inputMessages.GetEnumerator();
 
-			streamReader.MoveNext().ReturnsForAnyArgs(t =>
-			{
-				return readEnumerator.MoveNext();
-			});
+		//	streamReader.MoveNext().ReturnsForAnyArgs(t =>
+		//	{
+		//		return readEnumerator.MoveNext();
+		//	});
 
-			streamReader.Current.ReturnsForAnyArgs(t => readEnumerator.Current);
+		//	streamReader.Current.ReturnsForAnyArgs(t => readEnumerator.Current);
 
-			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+		//	await grpcServer.ConnectAsync(streamReader, streamWriter, context);
 
-			// message handler should be called two times
-			Assert.Equal(2, handledMessages.Count);
-		}
+		//	// message handler should be called two times
+		//	Assert.Equal(2, handledMessages.Count);
+		//}
 
 		/// <summary>
 		/// Test of GrpcServer which has more registered handles
