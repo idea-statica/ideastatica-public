@@ -96,7 +96,7 @@ namespace IdeaStatiCa.Plugin
 				grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
 			}
 
-			grpcClient.ConnectAsync().WaitAndUnwrapException();
+			grpcClient.ConnectAsync();
 
 			hostingTask = Task.Run(() =>
 			{

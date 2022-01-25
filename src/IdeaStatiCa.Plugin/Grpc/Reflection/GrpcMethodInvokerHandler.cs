@@ -103,8 +103,12 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 			var response = SendMessageDataSync(msg);
 
-			// hadnle response
-			var responseData = JsonConvert.DeserializeObject(response.Data, returnType);
+			object responseData = null;
+			if (!string.IsNullOrEmpty(response?.Data))
+			{
+				// hadnle response
+				responseData = JsonConvert.DeserializeObject(response.Data, returnType);
+			}
 
 			return (T)responseData;
 		}
