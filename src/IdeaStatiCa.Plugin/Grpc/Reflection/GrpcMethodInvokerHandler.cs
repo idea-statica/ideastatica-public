@@ -100,17 +100,17 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				MessageType = GrpcMessage.Types.MessageType.Request,
 			};
 
-
 			var response = SendMessageDataSync(msg);
 
-			object responseData = null;
-			if (!string.IsNullOrEmpty(response?.Data))
+			if (!string.IsNullOrEmpty(response.Data) || returnType != typeof(void))
 			{
 				// hadnle response
-				responseData = JsonConvert.DeserializeObject(response.Data, returnType);
+				var responseData = JsonConvert.DeserializeObject(response.Data, returnType);
+
+				return (T)responseData;
 			}
 
-			return (T)responseData;
+			return default(T);
 		}
 
 		public GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage)
