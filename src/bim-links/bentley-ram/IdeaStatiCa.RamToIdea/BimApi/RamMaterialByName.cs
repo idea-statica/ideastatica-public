@@ -6,13 +6,10 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 	{
 		public MaterialType MaterialType { get; set; }
 
-		public string Id { get; }
+		///fix of duplicity materials PAV
+		public string Id { get => $"material-named-{Name}"; }
 
 		public string Name { get; set; }
 
-		public RamMaterialByName(int uid)
-		{
-			Id = $"material-named-{uid}";
-		}
 	}
 }

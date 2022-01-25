@@ -1,7 +1,10 @@
-﻿using IdeaStatiCa.RamToIdea.Factories;
+﻿using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -15,8 +18,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IHorizBrace _brace;
 
-		public RamMemberHorizontalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IHorizBrace brace)
-			: base(objectFactory, sectionProvider, nodes)
+		public RamMemberHorizontalBrace(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry,
+			ISegmentFactory segmentFactory, IHorizBrace brace)
+			: base(objectFactory, sectionProvider, resultsFactory, geometry, segmentFactory)
 		{
 			_brace = brace;
 
@@ -29,8 +33,16 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Rotation = 0,
 				SectionID = _brace.lSectionID,
 				SectionLabel = _brace.strSectionLabel,
-				Story = _brace.lStoryID
+				Story = _brace.lStoryID,
+				CanBeSubdivided = false,
 			};
+
+			Init();
+		}
+
+		public override IEnumerable<IIdeaResult> GetResults()
+		{
+			return ResultsFactory.GetResultsForHorizontalBrace(_brace);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()

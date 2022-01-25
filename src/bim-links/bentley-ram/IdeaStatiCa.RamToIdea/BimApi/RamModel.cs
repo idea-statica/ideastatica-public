@@ -1,28 +1,40 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
+using IdeaStatiCa.RamToIdea.Providers;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
-	public class RamModel : IIdeaModel
+	internal class RamModel : IIdeaModel
 	{
 		private readonly IObjectFactory _objectFactory;
-		private readonly HashSet<IIdeaMember1D> _members;
 		private readonly IModel _model;
+		private readonly IGeometry _geometry;
+		private readonly ILoadsProvider _loadsProvider;
 
-		internal RamModel(IObjectFactory objectFactory, IModel model)
+		private readonly HashSet<IIdeaMember1D> _members;
+
+		IdeaRS.OpenModel.CountryCode _countryCode;
+
+		public RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry, IdeaRS.OpenModel.CountryCode countryCode)
 		{
 			_objectFactory = objectFactory;
 			_model = model;
+			_loadsProvider = loadsProvider;
+			_geometry = geometry;
+			_countryCode = countryCode;
 			_members = GetAllMembers().ToHashSet();
 		}
 
 		public ISet<IIdeaLoading> GetLoads()
 		{
-			return new HashSet<IIdeaLoading>();
+			return _loadsProvider.GetLoadCombinations()
+				.Select(x => (IIdeaLoading)_objectFactory.GetLoadCombiInput(x))
+				.ToHashSet();
 		}
 
 		public ISet<IIdeaMember1D> GetMembers()
@@ -34,7 +46,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			return new OriginSettings()
 			{
-				CountryCode = CountryCode.ECEN,
+				CountryCode = _countryCode,
 				ProjectName = _model.strProjectName
 			};
 		}
@@ -49,6 +61,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			//TODO Improve to allow for story input selection
 
+			CreateNodes();
+			return CreateMembers();
+		}
+
+		private List<IIdeaMember1D> CreateMembers()
+		{
 			List<IIdeaMember1D> members = new List<IIdeaMember1D>();
 
 			IStories stories = _model.GetStories();
@@ -60,6 +78,16 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 
 			return members;
+		}
+
+		private void CreateNodes()
+		{
+			INodes nodes = _model.GetFrameAnalysisNodes();
+			int count = nodes.GetCount();
+			for (int i = 0; i < count; i++)
+			{
+				_geometry.AddNode(nodes.GetAt(i));
+			}
 		}
 
 		private IEnumerable<IIdeaMember1D> GetAllStoryMembers(IStory story)

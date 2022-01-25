@@ -1,7 +1,10 @@
-﻿using IdeaStatiCa.RamToIdea.Factories;
+﻿using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -15,8 +18,9 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly IColumn _column;
 
-		public RamMemberColumn(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes, IColumn column)
-			: base(objectFactory, sectionProvider, nodes)
+		public RamMemberColumn(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry,
+			ISegmentFactory segmentFactory, IColumn column)
+			: base(objectFactory, sectionProvider, resultsFactory, geometry, segmentFactory)
 		{
 			_column = column;
 
@@ -29,8 +33,16 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				Rotation = _column.dOrientation,
 				SectionID = _column.lSectionID,
 				SectionLabel = _column.strSectionLabel,
-				Story = _column.lStoryID
+				Story = _column.lStoryID,
+				CanBeSubdivided = _column.eFramingType == EFRAMETYPE.MemberIsLateral,
 			};
+
+			Init();
+		}
+
+		public override IEnumerable<IIdeaResult> GetResults()
+		{
+			return ResultsFactory.GetResultsForColumn(_column);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()

@@ -3,6 +3,7 @@ using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Model;
 using RAMDATAACCESSLib;
 using System;
+using IdeaStatiCa.RamToIdea.Utilities;
 
 namespace IdeaStatiCa.RamToIdea.Factories
 {
@@ -22,23 +23,58 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			switch (props.MaterialType)
 			{
 				case EMATERIALTYPES.ESteelMat:
+				case EMATERIALTYPES.ESteelJoistMat:
 					ISteelMaterial matSteel = _model.GetSteelMaterial(uid);
-					return new RamMaterialByName(uid)
+					return new RamMaterialByName()
 					{
-						Name = $"Steel {Math.Round(matSteel.dFy)}Kips",
+						Name = $"Steel {Math.Round(GetValue(matSteel.dFy))}{GetUnit()}",
 						MaterialType = MaterialType.Steel
 					};
 
 				case EMATERIALTYPES.EConcreteMat:
+				case EMATERIALTYPES.EWallPropConcreteMat:
 					IConcreteMaterial matConcrete = _model.GetConcreteMaterial(uid);
-					return new RamMaterialByName(uid)
+					return new RamMaterialByName()
 					{
-						Name = $"Concrete {Math.Round(matConcrete.dFpc)}Kips",
+						Name = $"Concrete {Math.Round(GetValue(matConcrete.dFpc))}{GetUnit()}",
 						MaterialType = MaterialType.Concrete
 					};
 			}
 
 			throw new NotImplementedException();
+		}
+
+		private double GetValue(double value)
+		{
+			switch (_model.eDisplayUnits)
+			{
+				case EUnits.eUnitsEnglish:
+					return value;
+				case EUnits.eUnitsSI:
+					return value.KipsToMPascal();
+				case EUnits.eUnitsMetric:
+					return value.KipsToKgPerCm2();
+				default:
+					return value;
+			}
+		}
+
+		private string GetUnit()
+		{
+			switch (_model.eDisplayUnits)
+			{
+				case EUnits.eUnitsEnglish:
+					return "Kips";
+
+				case EUnits.eUnitsSI:
+					return "Mpa";
+
+				case EUnits.eUnitsMetric:
+					return "kg/cm^2";
+
+				default:
+					return "Kips";
+			}
 		}
 	}
 }

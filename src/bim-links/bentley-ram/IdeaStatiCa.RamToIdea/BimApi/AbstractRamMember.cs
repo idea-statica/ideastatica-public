@@ -2,8 +2,10 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.Factories;
+using IdeaStatiCa.RamToIdea.Geometry;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Sections;
+using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
 using System;
 using System.Collections.Generic;
@@ -32,10 +34,8 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 		}
 
-		public List<IIdeaElement1D> Elements => new List<IIdeaElement1D>()
-		{
-			CreateElement(_nodes)
-		};
+		private readonly Lazy<List<IIdeaElement1D>> _elements;
+		public List<IIdeaElement1D> Elements => _elements.Value;
 
 		public string Id => $"member-{UID}";
 
@@ -60,71 +60,82 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected abstract RamMemberProperties Properties { get; }
 
+		protected IResultsFactory ResultsFactory { get; }
+
+		private Line _line;
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
-		private readonly INodes _nodes;
+		private readonly IGeometry _geometry;
+		private readonly ISegmentFactory _segmentFactory;
 
-		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, INodes nodes)
+		public AbstractRamMember(IObjectFactory objectFactory, ISectionFactory sectionProvider, IResultsFactory resultsFactory, IGeometry geometry, ISegmentFactory segmentFactory)
 		{
 			_objectFactory = objectFactory;
+			ResultsFactory = resultsFactory;
 			_sectionProvider = sectionProvider;
-			_nodes = nodes;
+			_geometry = geometry;
+			_segmentFactory = segmentFactory;
+
+			_elements = new Lazy<List<IIdeaElement1D>>(CreateElements);
 		}
 
-		public IEnumerable<IIdeaResult> GetResults()
+		protected void Init()
 		{
-			return null;
+			_line = CreateLine();
 		}
 
-		private RamElement1D CreateElement(INodes nodes)
+		public abstract IEnumerable<IIdeaResult> GetResults();
+
+		private List<IIdeaElement1D> CreateElements()
 		{
-			(INode startNode, INode endNode) = GetNodes(nodes);
-
-			RamLineSegment3D segment = new RamLineSegment3D()
-			{
-				MemberUID = UID,
-				StartNode = _objectFactory.GetNode(startNode),
-				EndNode = _objectFactory.GetNode(endNode)
-			};
-
 			IRamSection section = _sectionProvider.GetSection(Properties);
+			IdeaVector3D eccentricity = GetTopOfSteelEccentricity(section);
 
-			IdeaVector3D offset;
+			List<IIdeaElement1D> elements = new List<IIdeaElement1D>();
+
+			foreach (RamLineSegment3D segment in _segmentFactory.CreateSegments(_line))
+			{
+				RamElement1D element = new RamElement1D()
+				{
+					Segment = segment,
+					StartCrossSection = section,
+					EndCrossSection = section,
+					RotationRx = Properties.Rotation.DegreesToRadians(),
+					EccentricityBegin = eccentricity,
+					EccentricityEnd = eccentricity
+				};
+
+				elements.Add(element);
+			}
+
+			return elements;
+		}
+
+		private IdeaVector3D GetTopOfSteelEccentricity(IRamSection section)
+		{
+			IdeaRS.OpenModel.Geometry3D.CoordSystemByVector cs = _line.LCS;
+			double zOffset = GetZOffset(section);
+
+			return new IdeaVector3D(
+				cs.VecX.Z * zOffset,
+				cs.VecY.Z * zOffset,
+				cs.VecZ.Z * zOffset);
+		}
+
+		private double GetZOffset(IRamSection section)
+		{
 			if (MemberType == MemberType.Beam)
 			{
-				offset = new IdeaVector3D(0, 0, section.Height / 2);
-			}
-			else
-			{
-				offset = new IdeaVector3D(0, 0, 0);
+				return -section.Height / 2;
 			}
 
-			RamElement1D element = new RamElement1D()
-			{
-				Segment = segment,
-				MemberUID = UID,
-				StartCrossSection = section,
-				EndCrossSection = section,
-				RotationRx = Properties.Rotation,
-				EccentricityBegin = offset,
-				EccentricityEnd = offset
-			};
-
-			return element;
+			return 0;
 		}
 
-		private INode FindNode(INodes nodes, SCoordinate coordinate)
-		{
-			return nodes.GetClosestNode(coordinate.dXLoc, coordinate.dYLoc, coordinate.dZLoc);
-		}
-
-		private (INode, INode) GetNodes(INodes nodes)
+		protected virtual Line CreateLine()
 		{
 			(SCoordinate start, SCoordinate end) = GetStartEndCoordinates();
-			INode startNode = FindNode(nodes, start);
-			INode endNode = FindNode(nodes, end);
-
-			return (startNode, endNode);
+			return _geometry.CreateLine(start, end, Properties.CanBeSubdivided);
 		}
 
 		protected abstract (SCoordinate, SCoordinate) GetStartEndCoordinates();

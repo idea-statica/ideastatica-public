@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.RamToIdea.Geometry;
 using RAMDATAACCESSLib;
 
 namespace IdeaStatiCa.RamToIdea.Factories
@@ -13,8 +14,12 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 		IIdeaMember1D GetVerticalBrace(IVerticalBrace verticalBrace);
 
-		IIdeaNode GetNode(INode node);
-
 		IStory GetStory(int uid);
+
+		IIdeaLoadCase GetLoadCase(int uid);
+
+		IIdeaCombiInput GetLoadCombiInput(ILoadCombination combination);
+
+		IIdeaLoadGroup GetLoadGroup(string loadGroupName, IdeaRS.OpenModel.Loading.LoadGroupType type);
 	}
 }
