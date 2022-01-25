@@ -71,7 +71,7 @@ namespace IdeaStatiCa.Plugin
 		private void OpenConnectionClientGrpc()
 		{
 			int processId = Process.GetCurrentProcess().Id;
-			GrpcPort = PortFinder.FindPort(50000, 50500);
+			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 			string connChangedEventName = string.Format(Constants.ConnectionChangedEventFormat, processId);
 			CurrentItemChangedEvent = new EventWaitHandle(false, EventResetMode.AutoReset, connChangedEventName);
 

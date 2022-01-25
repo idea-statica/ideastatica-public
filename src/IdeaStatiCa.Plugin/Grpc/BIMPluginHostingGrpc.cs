@@ -119,7 +119,7 @@ namespace IdeaStatiCa.Plugin
 			mre.Reset();
 			bimAppService = bimPluginFactory?.Create();
 
-			GrpcPort = PortFinder.FindPort(50000, 50500);
+			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 
 			ideaLogger.LogInformation("Starting gRPC server");
 
