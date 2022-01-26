@@ -11,7 +11,7 @@
 		/// </summary>
 		public IReflectionService Service { get; private set; }
 
-		public GrpcServiceBasedReflectionClient(string clientId, int port, IPluginLogger logger) : base(clientId, port, logger)
+		public GrpcServiceBasedReflectionClient(IPluginLogger logger) : base(logger)
 		{
 			var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, this);
 			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(grpcReflectionHandler);

@@ -27,7 +27,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="clientId">Current client ID (PID)</param>
 		/// <param name="port">Port on which the server is running.</param>
 		/// <returns></returns>
-		Task ConnectAsync(string clientId, int port);
+		Task StartAsync(string clientId, int port);
 
 		/// <summary>
 		/// Stopos gRPC communication
@@ -88,16 +88,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Initializes the IdeaStatiCa Grpc client.
 		/// </summary>
-		/// <param name="clientId">Current client ID (PID)</param>
-		/// <param name="port">Port on which the server is running.</param>
 		/// <param name="logger">The instance of the logger</param>
-		public GrpcClient(string clientId, int port, IPluginLogger logger)
+		public GrpcClient(IPluginLogger logger)
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
 			Host = "localhost";
-			ClientID = clientId;
-			Port = port;
 		}
 		#endregion
 
@@ -125,7 +121,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="clientId">Current client ID (PID)</param>
 		/// <param name="port">Port on which the server is running.</param>
 		/// <returns></returns>
-		public Task ConnectAsync(string clientId, int port)
+		public Task StartAsync(string clientId, int port)
 		{
 			ClientID = clientId;
 			Port = port;
@@ -143,13 +139,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 				   IsConnected = true;
 
 				   ClientConnected?.Invoke(this, EventArgs.Empty);
-
-					// Handle incoming messages
-
-					//client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None).ContinueWith((r) =>
-					//{
-
-					//});
 
 					while (await ResponseStream())
 				   {

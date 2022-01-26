@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+﻿using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Nito.AsyncEx.Synchronous;
 using System;
 using System.Diagnostics;
@@ -19,29 +20,13 @@ namespace IdeaStatiCa.Plugin
 		private Process bimProcess = null;
 		private int myAutomatingProcessId;
 		protected string EventName { get; set; }
-		private GrpcServiceBasedReflectionClient<ClientInterface> grpcClient;
 		private readonly IPluginLogger ideaLogger = null;
+		private readonly IGrpcCommunicator GrpcCommunicator = null;
 
 		/// <summary>
 		/// My BIM object.
 		/// </summary>
-		public ClientInterface MyBIM
-		{
-			get
-			{
-				if (grpcClient == null || !grpcClient.IsConnected)
-				{
-					return null;
-				}
-
-				return grpcClient.Service;
-			}
-		}
-
-		/// <summary>
-		/// Port on which the Grpc server is running.
-		/// </summary>
-		public int GrpcPort { get; private set; }
+		public ClientInterface MyBIM {get; set;}
 
 		/// <summary>
 		/// Current automation status.
@@ -49,9 +34,9 @@ namespace IdeaStatiCa.Plugin
 		public AutomationStatus Status { get; private set; }
 
 		/// <summary>
-		/// Determines whether automation hosting is connected to Grpc server.
+		/// Determines whether BIM application is connected.
 		/// </summary>
-		public bool IsConnected { get { return grpcClient?.IsConnected == true; } }
+		public bool IsConnected { get { return MyBIM != null; } }
 
 		/// <summary>
 		/// Triggered when BIM status changes.
@@ -59,18 +44,20 @@ namespace IdeaStatiCa.Plugin
 		public event ISEventHandler BIMStatusChanged;
 
 		public AutomationHostingGrpc(MyInterface hostedService,
-				IPluginLogger logger = null,
-				string eventName = Constants.DefaultPluginEventName)
+			IGrpcCommunicator grpcCommunicator,
+			IPluginLogger logger = null,
+			string eventName = Constants.DefaultPluginEventName)
 		{
 			ideaLogger = logger ?? new NullLogger();
 			Status = AutomationStatus.Unknown;
 			automation = hostedService;
+			GrpcCommunicator = grpcCommunicator;
 			EventName = eventName;
 			mre = new ManualResetEvent(false);
 		}
 
-		/// <inheritdoc cref="RunAsync(string, string)"/>
-		public Task RunAsync(string id, string gRpcPort)
+		/// <inheritdoc cref="RunAsync(string)"/>
+		public Task RunAsync(string id)
 		{
 			if (hostingTask != null)
 			{
@@ -78,25 +65,24 @@ namespace IdeaStatiCa.Plugin
 				return Task.CompletedTask;
 			}
 
-			Debug.Assert(!string.IsNullOrEmpty(gRpcPort));
-
-			GrpcPort = int.Parse(gRpcPort);
-
 			ideaLogger.LogDebug($"AutomationHostingGrpc.RunAsync id = '{id}");
 
 			tokenSource = new CancellationTokenSource();
 			var token = tokenSource.Token;
 
-			// initialize grpc client
-			grpcClient = new GrpcServiceBasedReflectionClient<ClientInterface>(id, GrpcPort, ideaLogger);
+			if(!string.IsNullOrEmpty(id))
+			{
+				// bim link
+				var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, GrpcCommunicator);
+				MyBIM = GrpcReflectionServiceFactory.CreateInstance<ClientInterface>(grpcReflectionHandler);
+				GrpcCommunicator.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, grpcReflectionHandler);
+			}
 
 			if (automation != null)
 			{
 				// register handler which serves MyInterface requests
-				grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
+				GrpcCommunicator.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
 			}
-
-			grpcClient.ConnectAsync(id, GrpcPort);
 
 			hostingTask = Task.Run(() =>
 			{
@@ -120,10 +106,11 @@ namespace IdeaStatiCa.Plugin
 			{
 				tokenSource.Cancel();
 				var stopRes = mre.WaitOne();
+				MyBIM = null;
 
 				try
 				{
-					await grpcClient.DisconnectAsync();
+					await GrpcCommunicator.DisconnectAsync();
 				}
 				catch
 				{
@@ -190,7 +177,7 @@ namespace IdeaStatiCa.Plugin
 			}
 			finally
 			{
-				grpcClient?.DisconnectAsync().WaitAndUnwrapException();
+				GrpcCommunicator?.DisconnectAsync().WaitAndUnwrapException();
 
 				NotifyBIMStatusChanged(AppStatus.Finished);
 

@@ -60,12 +60,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="port">Sets the <see cref="Port"/></param>
 		/// <param name="logger">Logger</param>
-		public GrpcServer(int port, IPluginLogger logger)
+		public GrpcServer(IPluginLogger logger)
 		{
 			Debug.Assert(logger != null);
 
 			this.Logger = logger;
-			Port = port;
 			Host = "localhost";
 		}
 		#endregion
@@ -74,7 +73,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Initializes server on specified port.
 		/// </summary>
-		public void Start()
+		private void Start()
 		{
 			Logger.LogDebug($"GrpcServer.Start listening on port ${Host}:${Port}");
 			server = new Server(channelOptions)
@@ -92,11 +91,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="clientId">Current client ID (PID)</param>
 		/// <param name="port">Port on which the server is running.</param>
 		/// <returns></returns>
-		public Task ConnectAsync(string clientId, int port)
+		public Task StartAsync(string clientId, int port)
 		{
+			Logger.LogDebug("GrpcServer.ConnectAsync");
 			ClientID = clientId;
 			Port = port;
-			Logger.LogDebug("GrpcServer.ConnectAsync");
+			Start();
 			return Task.CompletedTask;
 		}
 
