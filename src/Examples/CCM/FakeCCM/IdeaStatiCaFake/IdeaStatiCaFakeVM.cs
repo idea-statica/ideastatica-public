@@ -94,8 +94,8 @@ namespace IdeaStatiCaFake
 		private async void InitializeGrpc(string clientId, int grpcPort)
 		{
 			grpcClient = new GrpcServiceBasedReflectionClient<IAutomation>(clientId, grpcPort, new NullLogger());
-
-			await grpcClient.ConnectAsync();
+			grpcClient.Connect();
+			await grpcClient.RunAsync();
 
 			Actions.Add($"GRPC server connected");
 		}
