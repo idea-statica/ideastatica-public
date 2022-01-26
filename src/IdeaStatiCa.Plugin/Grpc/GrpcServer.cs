@@ -44,7 +44,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Port on which the server will communicate.
 		/// </summary>
-		protected int Port { get; private set; }
+		public int Port { get; private set; }
+
+		public string Host { get; private set; }
 
 		/// <summary>
 		/// Returns ID of currently connected client.
@@ -64,14 +66,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			this.Logger = logger;
 			Port = port;
-			string host = "localhost";
-
-			Logger.LogDebug($"GrpcServer listening on port ${host}:${port}");
-			server = new Server(channelOptions)
-			{
-				Services = { GrpcService.BindService(this) },
-				Ports = { new ServerPort(host, Port, ServerCredentials.Insecure) }
-			};
+			Host = "localhost";
 		}
 		#endregion
 
@@ -81,12 +76,26 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		public void Start()
 		{
-			Logger.LogDebug("GrpcServer.Start");
+			Logger.LogDebug($"GrpcServer.Start listening on port ${Host}:${Port}");
+			server = new Server(channelOptions)
+			{
+				Services = { GrpcService.BindService(this) },
+				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }
+			};
+
 			server.Start();
 		}
 
-		public Task ConnectAsync()
+		/// <summary>
+		/// Starts the server.
+		/// </summary>
+		/// <param name="clientId">Current client ID (PID)</param>
+		/// <param name="port">Port on which the server is running.</param>
+		/// <returns></returns>
+		public Task ConnectAsync(string clientId, int port)
 		{
+			ClientID = clientId;
+			Port = port;
 			Logger.LogDebug("GrpcServer.ConnectAsync");
 			return Task.CompletedTask;
 		}

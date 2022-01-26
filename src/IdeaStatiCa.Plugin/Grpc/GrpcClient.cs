@@ -14,11 +14,25 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 	public interface IGrpcCommunicator : IGrpcSender
 	{
+		int Port { get; }
+
+		string Host { get; }
+
 		bool IsConnected { get; }
 		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
 
-		Task ConnectAsync();
+		/// <summary>
+		/// Starts gRPC communication
+		/// </summary>
+		/// <param name="clientId">Current client ID (PID)</param>
+		/// <param name="port">Port on which the server is running.</param>
+		/// <returns></returns>
+		Task ConnectAsync(string clientId, int port);
 
+		/// <summary>
+		/// Stopos gRPC communication
+		/// </summary>
+		/// <returns></returns>
 		Task DisconnectAsync();
 	}
 
@@ -58,9 +72,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public string ClientID { get; private set; }
 
 		/// <summary>
-		/// Servert port.
+		/// Port on which the server will communicate.
 		/// </summary>
 		public int Port { get; private set; }
+
+		public string Host { get; private set; }
 
 		/// <summary>
 		/// Determines whether client is connected.
@@ -79,6 +95,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
+			Host = "localhost";
 			ClientID = clientId;
 			Port = port;
 		}
@@ -105,11 +122,16 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Connects to the server.
 		/// </summary>
-		public Task ConnectAsync()
+		/// <param name="clientId">Current client ID (PID)</param>
+		/// <param name="port">Port on which the server is running.</param>
+		/// <returns></returns>
+		public Task ConnectAsync(string clientId, int port)
 		{
+			ClientID = clientId;
+			Port = port;
 			return Task.Run(async () =>
 		   {
-			   string address = $"localhost:{Port}";
+			   string address = $"{Host}:{Port}";
 			   Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
 			   try
 			   {
