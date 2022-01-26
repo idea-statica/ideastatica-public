@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <summary>
 	/// Server implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcServer : GrpcService.GrpcServiceBase, IGrpcSender
+	public class GrpcServer : GrpcService.GrpcServiceBase, IGrpcCommunicator
 	{
 		#region Private fields
 		private Server server;
@@ -85,13 +85,19 @@ namespace IdeaStatiCa.Plugin.Grpc
 			server.Start();
 		}
 
+		public Task ConnectAsync()
+		{
+			Logger.LogDebug("GrpcServer.ConnectAsync");
+			return Task.CompletedTask;
+		}
+
 		/// <summary>
 		/// Requests server to shutdown
 		/// </summary>
 		/// <returns></returns>
-		public async Task StopAsync()
+		public async Task DisconnectAsync()
 		{
-			Logger.LogDebug("GrpcServer.StopAsync");
+			Logger.LogDebug("GrpcServer.DisconnectAsync");
 			if (server != null)
 			{
 				await server.ShutdownAsync();

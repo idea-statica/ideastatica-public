@@ -12,7 +12,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		Task SendMessageAsync(GrpcMessage message);
 	}
 
-	public interface IGrpcClient : IGrpcSender
+	public interface IGrpcCommunicator : IGrpcSender
 	{
 		bool IsConnected { get; }
 		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
@@ -25,7 +25,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <summary>
 	/// Client implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcClient : IGrpcClient
+	public class GrpcClient : IGrpcCommunicator
 	{
 		#region Private Fields
 		private Channel channel;
