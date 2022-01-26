@@ -17,7 +17,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 		bool IsConnected { get; }
 		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
 
-		Task ConnectAsync();
+		void Connect();
+
+		Task RunAsync();
 
 		Task DisconnectAsync();
 	}
@@ -105,43 +107,41 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Connects to the server.
 		/// </summary>
-		public Task ConnectAsync()
+		public void Connect()
+		{
+
+			string address = $"localhost:{Port}";
+			Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
+
+			channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
+
+			var serviceClient = new GrpcService.GrpcServiceClient(channel);
+
+			client = serviceClient.ConnectAsync();
+			IsConnected = true;
+
+			ClientConnected?.Invoke(this, EventArgs.Empty);
+		}
+
+		public Task RunAsync()
 		{
 			return Task.Run(async () =>
-		   {
-			   string address = $"localhost:{Port}";
-			   Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
-			   try
-			   {
-				   channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
-
-				   var serviceClient = new GrpcService.GrpcServiceClient(channel);
-
-				   client = serviceClient.ConnectAsync();
-				   IsConnected = true;
-
-				   ClientConnected?.Invoke(this, EventArgs.Empty);
-
-					// Handle incoming messages
-
-					//client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None).ContinueWith((r) =>
-					//{
-
-					//});
-
+			{
+				try
+				{
 					while (await ResponseStream())
-				   {
-					   var grpcMessage = client.ResponseStream.Current;
-					   RunMessageHandler(grpcMessage);
-				   }
-			   }
-			   catch (Exception e)
-			   {
-				   errorMessage = e.Message;
+					{
+						var grpcMessage = client.ResponseStream.Current;
+						RunMessageHandler(grpcMessage);
+					}
+				}
+				catch (Exception e)
+				{
+					errorMessage = e.Message;
 
-				   await DisconnectAsync();
-			   }
-		   });
+					await DisconnectAsync();
+				}
+			});
 		}
 
 		private void RunMessageHandler(GrpcMessage message)

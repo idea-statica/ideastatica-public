@@ -29,12 +29,7 @@ namespace IdeaStatiCa.Plugin
 		{
 			get
 			{
-				if (grpcClient == null || !grpcClient.IsConnected)
-				{
-					return null;
-				}
-
-				return grpcClient.Service;
+				return grpcClient?.Service;
 			}
 		}
 
@@ -96,7 +91,8 @@ namespace IdeaStatiCa.Plugin
 				grpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
 			}
 
-			grpcClient.ConnectAsync();
+			grpcClient.Connect();
+			var grpcClientTask = grpcClient.RunAsync();
 
 			hostingTask = Task.Run(() =>
 			{
