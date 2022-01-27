@@ -318,7 +318,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 				this.memberLength = memberLength;
 			}
 
-			public double MinSourceSectionsDistance { get; set; } = 1e-5;
+			public double MinSourceSectionsDistance { get; set; } = 5e-4;
 			public double MinTargetSectionsDistance { get; set; } = 1e-6;
 
 			public IList<SectionMap> CreateDoubleSection(double absolutePosition)
