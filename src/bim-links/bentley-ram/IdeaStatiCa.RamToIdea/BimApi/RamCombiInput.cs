@@ -13,8 +13,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			Id = ramCombination.lUID.ToString();
 
-			Name = $"CO {Id} ({ramCombination.strDisplayString})";
-
 			// Use this method to get LoadCases which make up combination and factors
 			ILoadCombinationTerms comboTerms = ramCombination.GetLoadCombinationTerms();
 
@@ -40,6 +38,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public string Id { get; }
 
-		public string Name { get; }
+		public string Name => "CO" + Id;
 	}
 }

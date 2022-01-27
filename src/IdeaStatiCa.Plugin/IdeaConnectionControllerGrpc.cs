@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+﻿using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
@@ -15,6 +16,8 @@ namespace IdeaStatiCa.Plugin
 		private Uri CalculatorUrl { get; set; }
 
 		private int GrpcPort { get; set; }
+
+		private IPluginLogger Logger { get; set; }
 
 		protected EventWaitHandle CurrentItemChangedEvent;
 
@@ -34,9 +37,10 @@ namespace IdeaStatiCa.Plugin
 		int StartTimeout = 1000*20;
 #endif
 
-		private IdeaConnectionControllerGrpc(string ideaInstallDir)
+		private IdeaConnectionControllerGrpc(string ideaInstallDir, IPluginLogger logger)
 		{
-			if(!Directory.Exists(ideaInstallDir))
+			Logger = logger ?? new NullLogger();
+			if (!Directory.Exists(ideaInstallDir))
 			{
 				throw new ArgumentException($"IdeaConnectionController.IdeaConnectionController - directory '{ideaInstallDir}' doesn't exist");
 			}
@@ -44,9 +48,9 @@ namespace IdeaStatiCa.Plugin
 			IdeaInstallDir = ideaInstallDir;
 		}
 
-		public static IConnectionController Create(string ideaInstallDir)
+		public static IConnectionController Create(string ideaInstallDir, IPluginLogger logger)
 		{
-			IdeaConnectionControllerGrpc connectionController = new IdeaConnectionControllerGrpc(ideaInstallDir);
+			IdeaConnectionControllerGrpc connectionController = new IdeaConnectionControllerGrpc(ideaInstallDir, logger);
 			connectionController.OpenConnectionClient();
 			return connectionController;
 		}
@@ -71,7 +75,7 @@ namespace IdeaStatiCa.Plugin
 		private void OpenConnectionClientGrpc()
 		{
 			int processId = Process.GetCurrentProcess().Id;
-			GrpcPort = PortFinder.FindPort(50000, 50500);
+			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 			string connChangedEventName = string.Format(Constants.ConnectionChangedEventFormat, processId);
 			CurrentItemChangedEvent = new EventWaitHandle(false, EventResetMode.AutoReset, connChangedEventName);
 
@@ -97,10 +101,13 @@ namespace IdeaStatiCa.Plugin
 			}
 
 			IdeaStatiCaProcess = connectionProc;
+			var grpcClient = new GrpcClient(Logger);
+			grpcClient.Connect(processId.ToString(), GrpcPort);
 
-			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null);
+			var grpcClientTask = grpcClient.StartAsync();
 
-			GrpcClient.RunAsync(processId.ToString(), GrpcPort.ToString());
+			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, grpcClient, Logger);
+			GrpcClient.RunAsync(processId.ToString());
 
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
 		}

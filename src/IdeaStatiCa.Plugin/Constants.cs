@@ -45,6 +45,8 @@
 		public const string MemberHiddenCalculatorUrlFormat = "net.pipe://localhost/IdeaStatiCa.MemberHiddenCalculator{0}";
 
 		#region grpc message handlers
+		public const int MinGrpcPort = 50000;
+		public const int MaxGrpcPort = 50500;
 		public const int GRPC_MAX_MSG_SIZE = 20 * 1024 * 1024; // 20MB max
 		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
 		public const string GRPC_CHECKBOT_HANDLER_MESSAGE = "Grpc.Handlers.CheckBot";

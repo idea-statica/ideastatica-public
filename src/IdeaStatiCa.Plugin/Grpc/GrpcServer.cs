@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	/// <summary>
 	/// Server implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcServer : GrpcService.GrpcServiceBase, IGrpcSender
+	public class GrpcServer : GrpcService.GrpcServiceBase, IGrpcCommunicator
 	{
 		#region Private fields
 		private Server server;
@@ -44,7 +44,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Port on which the server will communicate.
 		/// </summary>
-		protected int Port { get; private set; }
+		public int Port { get; private set; }
+
+		public string Host { get; private set; }
 
 		/// <summary>
 		/// Returns ID of currently connected client.
@@ -58,20 +60,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="port">Sets the <see cref="Port"/></param>
 		/// <param name="logger">Logger</param>
-		public GrpcServer(int port, IPluginLogger logger)
+		public GrpcServer(IPluginLogger logger)
 		{
 			Debug.Assert(logger != null);
 
 			this.Logger = logger;
-			Port = port;
-			string host = "localhost";
-
-			Logger.LogDebug($"GrpcServer listening on port ${host}:${port}");
-			server = new Server(channelOptions)
-			{
-				Services = { GrpcService.BindService(this) },
-				Ports = { new ServerPort(host, Port, ServerCredentials.Insecure) }
-			};
+			Host = "localhost";
 		}
 		#endregion
 
@@ -79,19 +73,43 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Initializes server on specified port.
 		/// </summary>
-		public void Start()
+		private void Start()
 		{
-			Logger.LogDebug("GrpcServer.Start");
+			Logger.LogDebug($"GrpcServer.Start listening on port ${Host}:${Port}");
+			server = new Server(channelOptions)
+			{
+				Services = { GrpcService.BindService(this) },
+				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }
+			};
+
 			server.Start();
+		}
+
+		/// <summary>
+		/// Starts the server.
+		/// </summary>
+		/// <param name="clientId">Current client ID (PID)</param>
+		/// <param name="port">Port on which the server is running.</param>
+		public void Connect(string clientId, int port)
+		{
+			Logger.LogDebug("GrpcServer.ConnectAsync");
+			ClientID = clientId;
+			Port = port;
+			Start();
+		}
+
+		public Task StartAsync()
+		{
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
 		/// Requests server to shutdown
 		/// </summary>
 		/// <returns></returns>
-		public async Task StopAsync()
+		public async Task DisconnectAsync()
 		{
-			Logger.LogDebug("GrpcServer.StopAsync");
+			Logger.LogDebug("GrpcServer.DisconnectAsync");
 			if (server != null)
 			{
 				await server.ShutdownAsync();

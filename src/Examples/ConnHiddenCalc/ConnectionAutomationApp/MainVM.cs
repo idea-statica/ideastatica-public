@@ -144,7 +144,7 @@ namespace ConnectionAutomationApp
 		{
 			if(UseGrpcCommunication)
 			{
-				this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir);
+				this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir, new NullLogger());
 			}
 			else
 			{

@@ -12,7 +12,6 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			var ramLoadCase = loadsProvider.GetLoadCase(uid);
 			Id = uid.ToString();
-			Name = $"{ramLoadCase.strTypeLabel} ({ramLoadCase.strLoadCaseGroupLabel})";
 			var (lt, ls) = GetLoadCaseType(ramLoadCase.eLoadType);
 			LoadType = lt;
 			Type = ls;
@@ -36,7 +35,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public string Id { get; }
 
-		public string Name { get; }
+		public string Name => "LC" + Id;
 
 		private static (LoadCaseType lt, LoadCaseSubType ls) GetLoadCaseType(ELoadCaseType ramLoadType)
 		{
