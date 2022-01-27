@@ -137,15 +137,24 @@ namespace IdeaStatiCa.Plugin.Utilities
 		/// <returns></returns>
 		public static Type GetLoadedType(string fullName)
 		{
+			
 			// Do we need to iterate all types in all loaded assemblies ?
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				foreach (Type t in a.GetTypes())
+				try
 				{
-					if (t.FullName == fullName)
+					foreach (Type t in a.GetTypes())
 					{
-						return t;
+						if (t.FullName == fullName)
+						{
+							return t;
+						}
 					}
+				}
+				catch (System.Reflection.ReflectionTypeLoadException)
+				{
+					//some assembly from revit cannot be loaded and GetTypes throw this ex
+					continue;
 				}
 			}
 
