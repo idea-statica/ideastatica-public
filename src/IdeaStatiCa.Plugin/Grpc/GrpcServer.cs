@@ -90,13 +90,16 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		/// <param name="clientId">Current client ID (PID)</param>
 		/// <param name="port">Port on which the server is running.</param>
-		/// <returns></returns>
-		public Task StartAsync(string clientId, int port)
+		public void Connect(string clientId, int port)
 		{
 			Logger.LogDebug("GrpcServer.ConnectAsync");
 			ClientID = clientId;
 			Port = port;
 			Start();
+		}
+
+		public Task StartAsync()
+		{
 			return Task.CompletedTask;
 		}
 

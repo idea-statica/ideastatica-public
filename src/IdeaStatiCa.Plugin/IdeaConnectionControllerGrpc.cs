@@ -102,7 +102,10 @@ namespace IdeaStatiCa.Plugin
 
 			IdeaStatiCaProcess = connectionProc;
 			var grpcClient = new GrpcClient(Logger);
-			grpcClient.StartAsync(processId.ToString(), GrpcPort);
+			grpcClient.Connect(processId.ToString(), GrpcPort);
+
+			var grpcClientTask = grpcClient.StartAsync();
+
 			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, grpcClient, Logger);
 			GrpcClient.RunAsync(processId.ToString());
 

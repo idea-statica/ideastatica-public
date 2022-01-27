@@ -125,7 +125,8 @@ namespace IdeaStatiCa.Plugin
 
 			// Create Grpc server
 			GrpcServer = new GrpcReflectionServer(bimAppService, ideaLogger);
-			GrpcServer.StartAsync(clientId, GrpcPort);
+			GrpcServer.Connect(clientId, GrpcPort);
+			var grpcServarTask = GrpcServer.StartAsync();
 
 			// Open IDEA StatiCa
 			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);

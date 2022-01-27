@@ -44,13 +44,13 @@ namespace GrpcServerHost
 			var service = new Service();
 
 			// Create Grpc server
-			var grpcServer = new GrpcReflectionServer(service, grpcPort, new NullLogger());
+			var grpcServer = new GrpcReflectionServer(service, new NullLogger());
 
 			var projectContentInMemory = new ProjectContentInMemory();
 			var contentHandler = new ProjectContentServerHandler(projectContentInMemory);
 			grpcServer.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
 
-			grpcServer.Start();
+			grpcServer.Connect(null, grpcPort);
 
 			Console.WriteLine($"GrpcServer is listening on port '{grpcPort}'");
 
