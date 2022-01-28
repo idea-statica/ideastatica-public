@@ -119,13 +119,14 @@ namespace IdeaStatiCa.Plugin
 			mre.Reset();
 			bimAppService = bimPluginFactory?.Create();
 
-			GrpcPort = PortFinder.FindPort(50000, 50500);
+			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 
 			ideaLogger.LogInformation("Starting gRPC server");
 
 			// Create Grpc server
-			GrpcServer = new GrpcReflectionServer(bimAppService, GrpcPort, ideaLogger);
-			GrpcServer.Start();
+			GrpcServer = new GrpcReflectionServer(bimAppService, ideaLogger);
+			GrpcServer.Connect(clientId, GrpcPort);
+			var grpcServarTask = GrpcServer.StartAsync();
 
 			// Open IDEA StatiCa
 			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);

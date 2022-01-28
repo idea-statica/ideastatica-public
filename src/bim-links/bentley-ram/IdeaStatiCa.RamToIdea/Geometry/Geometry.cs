@@ -23,6 +23,11 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 				allowsIntermediateNodes);
 			_lines.Add(line);
 
+			if (allowsIntermediateNodes)
+			{
+				AddLineIntersection(line);
+			}
+
 			return line;
 		}
 
@@ -110,6 +115,25 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 			}
 		}
 
+		private void AddLineIntersection(Line line)
+		{
+			foreach (Line intersectingLine in _lines)
+			{
+				if (!intersectingLine.AllowsIntermediateNodes)
+				{
+					continue;
+				}
+
+				if (GetLineToLineDistance(line, intersectingLine) > Precision)
+				{
+					continue;
+				}
+
+				Vector3D nearestPoint = GetNearestPoint(intersectingLine, line);
+				GetOrCreateAt(nearestPoint);
+			}
+		}
+
 		private double GetRamNodeToLineDistance(RamNode node, Line line)
 		{
 			Vector3D lineStartToRamNode = line.Start.Position - node.Position;
@@ -132,6 +156,32 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 
 			Vector3D lineStartToRamNode = node.Position - line.Start.Position;
 			return line.Vector.Normalize().DotProduct(lineStartToRamNode) / length;
+		}
+
+		private double GetLineToLineDistance(Line line1, Line line2)
+		{
+			Vector3D crossVec = line1.Vector.CrossProduct(line2.Vector);
+
+			if (crossVec.Length <= Precision)
+			{
+				return double.MaxValue;
+			}
+
+			Vector3D startToStartVec = line1.Start.Position - line2.Start.Position;
+
+			return crossVec.DotProduct(startToStartVec) / crossVec.Length;
+		}
+
+		private Vector3D GetNearestPoint(Line line, Line otherLine)
+		{
+			Vector3D crossVec = line.Vector.CrossProduct(otherLine.Vector);
+			Vector3D planeNormal = otherLine.Vector.CrossProduct(crossVec);
+
+			Vector3D lineStart = line.Start.Position;
+			Vector3D otherLineStart = otherLine.Start.Position;
+
+			return lineStart
+				+ (otherLineStart - lineStart).DotProduct(planeNormal) / line.Vector.DotProduct(planeNormal) * line.Vector;
 		}
 	}
 }
