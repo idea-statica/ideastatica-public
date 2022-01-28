@@ -140,11 +140,22 @@ namespace IdeaStatiCa.Plugin.Utilities
 			// Do we need to iterate all types in all loaded assemblies ?
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				foreach (Type t in a.GetTypes())
+				if (a.ManifestModule.Name == "IdeaRS.OpenModel.dll")
 				{
-					if (t.FullName == fullName)
+					try
 					{
-						return t;
+						foreach (Type t in a.GetTypes())
+						{
+							if (t.FullName == fullName)
+							{
+								return t;
+							}
+						}
+					}
+					catch (System.Reflection.ReflectionTypeLoadException)
+					{
+						//some assembly from revit cannot be loaded and GetTypes throw this ex
+						continue;
 					}
 				}
 			}

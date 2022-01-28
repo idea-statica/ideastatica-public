@@ -225,7 +225,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 			if (handler != null)
 			{
-				if(message?.MessageType == GrpcMessage.Types.MessageType.Response)
+				if (message?.MessageType == GrpcMessage.Types.MessageType.Response)
 				{
 					handler.HandleClientMessage(message, null);
 				}
@@ -233,7 +233,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				{
 					handler.HandleServerMessage(message, this);
 				}
-				
+
 			}
 			else
 			{
