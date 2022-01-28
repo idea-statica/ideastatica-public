@@ -43,13 +43,13 @@ namespace IdeaRstabPlugin
 
 				string IdeaDirectory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-				AppDomain.CurrentDomain.AssemblyResolve += Domain_AssemblyResolve; 
+				AppDomain.CurrentDomain.AssemblyResolve += IdeaStatiCa.Public.Tools.AssemblyResolver.Domain_AssemblyResolve;
 				PluginFactory pluginFactory = new PluginFactory((IModel)param, _logger);
 
 				// It will be used for gRPC communication
 				var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, _logger);
 				//Run GRPC
-				await bimPluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);				
+				await bimPluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);
 			}
 			catch (Exception e)
 			{
@@ -72,17 +72,6 @@ namespace IdeaRstabPlugin
 
 
 			}
-		}
-
-		private static Assembly Domain_AssemblyResolve(object sender, ResolveEventArgs args)
-		{
-			string IdeaDirectory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-			if (args.Name.Contains("System.Runtime.CompilerServices.Unsafe")) //Only missing DLL
-			{
-				return Assembly.LoadFrom(System.IO.Path.Combine(IdeaDirectory, "System.Runtime.CompilerServices.Unsafe.dll")); //Resolve our missing DLL
-			}
-			return null;
 		}
 	}
 }
