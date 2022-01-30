@@ -112,7 +112,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 			Logger.LogDebug("GrpcServer.DisconnectAsync");
 			if (server != null)
 			{
-				await server.ShutdownAsync();
+				try
+				{
+					await server.ShutdownAsync();
+				}
+				catch(Exception ex)
+				{
+					Logger.LogWarning("GrpcServer.DisconnectAsync failed", ex);
+				}
 			}
 		}
 
