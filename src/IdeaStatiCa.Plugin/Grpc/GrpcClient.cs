@@ -154,15 +154,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 			   Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
 			   try
 			   {
-				   channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
-
-				   var serviceClient = new GrpcService.GrpcServiceClient(channel);
-
-				   client = serviceClient.ConnectAsync();
-				   IsConnected = true;
-
-				   ClientConnected?.Invoke(this, EventArgs.Empty);
-
 					while (await ResponseStream())
 				   {
 					   var grpcMessage = client.ResponseStream.Current;
@@ -172,7 +163,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 			   catch (Exception e)
 			   {
 				   errorMessage = e.Message;
-
 				   await DisconnectAsync();
 			   }
 		   });
@@ -188,15 +178,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 		private async Task<bool> ResponseStream()
 		{
-			try
-			{
-				return await client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None);
-			}
-			catch
-			{
-				//Logger.LogWarning("GrpcClient.ResponseStrem failed", ex);
-				return await Task.FromResult(false);
-			}
+			return await client.ResponseStream.MoveNext(cancellationToken: CancellationToken.None);
 		}
 
 		/// <summary>
@@ -205,14 +187,21 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public async Task DisconnectAsync()
 		{
-			Logger.LogDebug("GrpcClient.GrpcClient()");
-			await client?.RequestStream?.CompleteAsync();
-			await channel.ShutdownAsync();
-
-			IsConnected = false;
-			ClientDisconnected?.Invoke(this, EventArgs.Empty);
-
-			IsConnected = false;
+			Logger.LogDebug("GrpcClient.DisconnectAsync");
+			try
+			{
+				await client?.RequestStream?.CompleteAsync();
+				await channel.ShutdownAsync();
+			}
+			catch(Exception e)
+			{
+				Logger.LogWarning("GprcClient.DisconnectAsync", e);
+			}
+			finally
+			{
+				IsConnected = false;
+				ClientDisconnected?.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		/// <summary>
