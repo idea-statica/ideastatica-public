@@ -18,7 +18,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		private readonly HashSet<IIdeaMember1D> _members;
 
-		IdeaRS.OpenModel.CountryCode _countryCode;
+		private IdeaRS.OpenModel.CountryCode _countryCode;
 
 		public RamModel(IObjectFactory objectFactory, IModel model, ILoadsProvider loadsProvider, IGeometry geometry, IdeaRS.OpenModel.CountryCode countryCode)
 		{
@@ -27,6 +27,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			_loadsProvider = loadsProvider;
 			_geometry = geometry;
 			_countryCode = countryCode;
+
 			_members = GetAllMembers().ToHashSet();
 		}
 
@@ -61,7 +62,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			//TODO Improve to allow for story input selection
 
-			CreateNodes();
+			_geometry.Initialize(GetNodes());
 			return CreateMembers();
 		}
 
@@ -80,13 +81,13 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			return members;
 		}
 
-		private void CreateNodes()
+		private IEnumerable<INode> GetNodes()
 		{
 			INodes nodes = _model.GetFrameAnalysisNodes();
 			int count = nodes.GetCount();
 			for (int i = 0; i < count; i++)
 			{
-				_geometry.AddNode(nodes.GetAt(i));
+				yield return nodes.GetAt(i);
 			}
 		}
 

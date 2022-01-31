@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.RamToIdea.BimApi;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.Geometry
 {
@@ -7,8 +8,8 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 	{
 		Line CreateLine(SCoordinate start, SCoordinate end, bool allowsIntermediateNodes);
 
-		void AddNode(INode node);
-
 		void AddNodeToLine(Line line, SCoordinate position);
+
+		void Initialize(IEnumerable<INode> nodes);
 	}
 }

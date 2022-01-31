@@ -23,6 +23,9 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 				allowsIntermediateNodes);
 			_lines.Add(line);
 
+			AddRamNodeToIntermediates(line.Start);
+			AddRamNodeToIntermediates(line.End);
+
 			if (allowsIntermediateNodes)
 			{
 				AddLineIntersection(line);
@@ -31,12 +34,12 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 			return line;
 		}
 
-		public void AddNode(INode node)
+		public void Initialize(IEnumerable<INode> nodes)
 		{
-			RamNode ramNode = new RamNode(node);
-			_nodes.Add(ramNode);
-
-			AddRamNodeToIntermediates(ramNode);
+			foreach (INode node in nodes)
+			{
+				_nodes.Add(new RamNode(node));
+			}
 		}
 
 		public void AddNodeToLine(Line line, SCoordinate position)
@@ -97,6 +100,11 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 			foreach (Line line in _lines)
 			{
 				if (!line.AllowsIntermediateNodes)
+				{
+					continue;
+				}
+
+				if (line.ContainsNode(node))
 				{
 					continue;
 				}

@@ -3,6 +3,7 @@ using MathNet.Numerics;
 using MathNet.Spatial.Euclidean;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.RamToIdea.Geometry
 {
@@ -47,6 +48,18 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 			}
 
 			_intermediateNodes.Add((position, node));
+		}
+
+		public bool ContainsNode(RamNode ramNode)
+		{
+			string id = ramNode.Id;
+
+			if (id == Start.Id || id == End.Id)
+			{
+				return true;
+			}
+
+			return _intermediateNodes.Any(x => x.Item2.Id == id);
 		}
 
 		private static IdeaRS.OpenModel.Geometry3D.CoordSystemByVector GetCoordinateSystem(Vector3D directionVector)
