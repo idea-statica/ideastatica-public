@@ -70,6 +70,7 @@ namespace IdeaStatiCa.Plugin
 
 		public Task RunAsync(string id, string workingDirectory)
 		{
+			ideaLogger.LogDebug($"RunAsync id = {id}, workingDirectory = '{workingDirectory}'");
 			if (hostingTask != null)
 			{
 				Debug.Fail("Task is running");

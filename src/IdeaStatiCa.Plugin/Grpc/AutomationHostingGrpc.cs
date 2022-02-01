@@ -73,7 +73,7 @@ namespace IdeaStatiCa.Plugin
 			if(!string.IsNullOrEmpty(id))
 			{
 				// bim link
-				var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, GrpcCommunicator);
+				var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, GrpcCommunicator, ideaLogger);
 				MyBIM = GrpcReflectionServiceFactory.CreateInstance<ClientInterface>(grpcReflectionHandler);
 				GrpcCommunicator.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, grpcReflectionHandler);
 			}
@@ -81,7 +81,7 @@ namespace IdeaStatiCa.Plugin
 			if (automation != null)
 			{
 				// register handler which serves MyInterface requests
-				GrpcCommunicator.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation));
+				GrpcCommunicator.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation, ideaLogger));
 			}
 
 			hostingTask = Task.Run(() =>

@@ -13,18 +13,20 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		private object instance;
 
 		public bool IsSynchronous => true;
+		internal IPluginLogger Logger { get; private set; }
 
 		/// <summary>
 		/// Initializes new <see cref="GrpcReflectionMessageHandler"/>
 		/// </summary>
 		/// <param name="instance">Instance for which the messages will be handled.</param>
-		public GrpcReflectionMessageHandler(object instance)
+		public GrpcReflectionMessageHandler(object instance, IPluginLogger logger)
 		{
 			if (instance == null)
 			{
 				throw new ArgumentException("Instance cannot be null.");
 			}
 
+			Logger = logger;
 			this.instance = instance;
 		}
 

@@ -173,10 +173,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 				}
 				else
 				{
+
 					// Handle first connection
 					if (!IsConnected)
 					{
 						currentClientId = requestStream.Current.ClientId;
+						Logger.LogDebug($"GrpcServer.ConnectAsync - first connection currentClientId = {currentClientId}, ");
 						currentClientStream = responseStream;
 
 						IsConnected = true;
@@ -201,6 +203,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 		private void RunHandler(GrpcMessage message)
 		{
+			Logger.LogDebug($"GrpcServer.RunHandler : clientID = '{message?.ClientId}', operationId = {message?.OperationId}");
 			Task.Run(() =>
 			{
 				// handle incoming message
@@ -229,7 +232,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		protected virtual Task HandleMessageAsync(GrpcMessage message)
 		{
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
-
+			Logger.LogDebug($"GrpcServer.HandleMessageAsync : clientID = '{message?.ClientId}', operationId = '{message?.OperationId}', MessageName = '{message.MessageName}'	");
 			if (handler != null)
 			{
 				if (message?.MessageType == GrpcMessage.Types.MessageType.Response)
@@ -244,7 +247,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			}
 			else
 			{
-				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
+				throw new ApplicationException($"GrpcServer.HandleMessageAsync  error. Message handler '{message.MessageName}' is not registered!");
 			}
 
 			return Task.CompletedTask;
