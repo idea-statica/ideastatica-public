@@ -13,15 +13,15 @@
 		/// Constructor
 		/// </summary>
 		/// <param name="handlerName">Handler name</param>
-		/// <param name="grpcServer">gRPC server</param>
-		public GrpcServiceClient(string handlerName, GrpcServer grpcServer, IPluginLogger logger)
+		/// <param name="grpcCommunicator">gRPC communicator</param>
+		public GrpcServiceClient(string handlerName, IGrpcCommunicator grpcCommunicator, IPluginLogger logger)
 		{
 			this.Logger = logger;
 			HandlerName = handlerName;
-			var grpcReflectionHandler = new GrpcMethodInvokerHandler(HandlerName, grpcServer, logger);
+			var grpcReflectionHandler = new GrpcMethodInvokerHandler(HandlerName, grpcCommunicator, logger);
 			Service = GrpcReflectionServiceFactory.CreateInstance<ServiceType>(grpcReflectionHandler);
 
-			grpcServer.RegisterHandler(HandlerName, grpcReflectionHandler);
+			grpcCommunicator.RegisterHandler(HandlerName, grpcReflectionHandler);
 		}
 
 		/// <summary>
