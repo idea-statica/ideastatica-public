@@ -114,6 +114,8 @@ namespace IdeaStatiCa.Plugin
 
 		private void RunServer(string id, string workingDirectory, System.Threading.CancellationToken cancellationToken)
 		{
+			ideaLogger.LogInformation($"BIMPluginHostingGrpc id = '{id}', workingDirectory = '{workingDirectory}'");
+
 			clientId = id;
 			this.workingDirectory = workingDirectory;
 
@@ -121,8 +123,6 @@ namespace IdeaStatiCa.Plugin
 			bimAppService = bimPluginFactory?.Create();
 
 			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
-
-			ideaLogger.LogInformation("Starting gRPC server");
 
 			// Create Grpc server
 			GrpcServer = new GrpcReflectionServer(bimAppService, ideaLogger);
