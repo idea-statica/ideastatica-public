@@ -130,9 +130,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 			Port = port;
 
 			string address = $"localhost:{Port}";
-			Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
+			Logger.LogDebug($"GrpcClient.Connect address = '{address}', clientId = '{clientId}', port = '{port}'");
 
 			channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
+
 
 			var serviceClient = new GrpcService.GrpcServiceClient(channel);
 
@@ -140,6 +141,8 @@ namespace IdeaStatiCa.Plugin.Grpc
 			IsConnected = true;
 
 			ClientConnected?.Invoke(this, EventArgs.Empty);
+
+			Logger.LogDebug("GrpcClient.Connect : client is connected");
 		}
 
 		/// <summary>
@@ -151,7 +154,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			return Task.Run(async () =>
 		   {
 			   string address = $"{Host}:{Port}";
-			   Logger.LogDebug($"GrpcClient.ConnectAsync address = '{address}'");
+			   Logger.LogDebug($"GrpcClient.StartAsync : address = '{address}'");
 			   try
 			   {
 					while (await ResponseStream())
@@ -172,7 +175,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			Task.Factory.StartNew(() =>
 			{
-				HandleMessageAsync(message);
+				try
+				{
+					HandleMessageAsync(message);
+				}
+				catch(Exception e)
+				{
+					Logger.LogWarning($"GrpcClient.RunMessageHandler failed : MessageName = '{message.MessageName}', OperationId = '{message.OperationId}'", e);
+				}
 			});
 		}
 
@@ -212,14 +222,15 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public Task SendMessageAsync(GrpcMessage message)
 		{
-			Logger.LogDebug($"GrpcClient.GrpcClient MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
+			Logger.LogDebug($"GrpcClient.GrpcClient MessageName = '{message?.MessageName};, ClientId = '{message?.ClientId}', OperationId = '{message?.OperationId}'");
 			if (IsConnected)
 			{
 				return client.RequestStream.WriteAsync(message);
 			}
 			else
 			{
-				throw new Exception("Client disconnected.");
+				Logger.LogDebug($"GrpcClient.SendMessageAsync failed : client is not connected. MessageName = '{message?.MessageName}' OperationId = '{message?.OperationId}'");
+				throw new Exception("GrpcClient.SendMessageAsync client is not connected.");
 			}
 		}
 

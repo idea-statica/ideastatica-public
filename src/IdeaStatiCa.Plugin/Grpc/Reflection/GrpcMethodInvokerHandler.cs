@@ -34,7 +34,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage)
 		{
-			Logger.LogDebug($"MethodTask.SendMessageDataSync operationId = '{OperationId}', ");
+			Logger.LogDebug($"MethodTask.SendMessageDataSync operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
 
 			return Task.Run(async () =>
 			{
