@@ -220,26 +220,20 @@ namespace IdeaStatiCa.Plugin
 			{
 				if (disposing)
 				{
-					//if (hostingTask != null)
-					//{
-					//	try
-					//	{
-					//		tokenSource.Cancel();
-					//		//hostingTask.Dispose();
-					//	}
-					//	catch (Exception ex)
-					//	{
-					//		ideaLogger.LogDebug("Canceling thread failed", ex);
-					//	}
-					//	mre.Dispose();
-					//	tokenSource.Dispose();
-					//}
-					// TODO: dispose managed state (managed objects).
+					if (hostingTask != null)
+					{
+						try
+						{
+							Stop();
+						}
+						catch (Exception ex)
+						{
+							ideaLogger.LogDebug("Canceling thread failed", ex);
+						}
+						mre.Dispose();
+						tokenSource.Dispose();
+					}
 				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
-
 				disposedValue = true;
 			}
 		}
