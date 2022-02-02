@@ -73,15 +73,31 @@ namespace IdeaStatiCa.Plugin
 
 		public Task RunAsync(string id, string workingDirectory)
 		{
-			ideaLogger.LogDebug($"RunAsync id = {id}, workingDirectory = '{workingDirectory}'");
+			ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunAsync id = {id}, workingDirectory = '{workingDirectory}'");
 
 			if (hostingTask != null)
 			{
-				Debug.Fail("Task is running");
+				throw new Exception("BIMPluginHostingGrpc.RunAsync is already running");
+			}
 
-				ideaLogger.LogInformation("Starting BIM Plugin Hosting");
+			clientId = id;
+			this.workingDirectory = workingDirectory;
 
-				return Task.CompletedTask;
+			mre.Reset();
+
+			// Open IDEA StatiCa
+			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);
+
+			if (IdeaStaticaApp != null)
+			{
+				IdeaStaticaApp.Exited += OnIdeaStatiCaAppExit;
+
+				RaiseAppStatusChanged(AppStatus.Started);
+
+				if (bimAppService is ApplicationBIM appBim)
+				{
+					appBim.Id = IdeaStaticaApp.Id;
+				}
 			}
 
 			tokenSource = new CancellationTokenSource();
@@ -89,7 +105,7 @@ namespace IdeaStatiCa.Plugin
 
 			hostingTask = Task.Run(() =>
 			{
-				RunServer(id, workingDirectory, token);
+				WaitTillAppFinish(token);
 			}, token);
 
 			return hostingTask;
@@ -126,29 +142,9 @@ namespace IdeaStatiCa.Plugin
 			}
 		}
 
-		private void RunServer(string id, string workingDirectory, System.Threading.CancellationToken cancellationToken)
+		private void WaitTillAppFinish(System.Threading.CancellationToken cancellationToken)
 		{
-			ideaLogger.LogInformation($"BIMPluginHostingGrpc.RunServer id = '{id}', workingDirectory = '{workingDirectory}'");
-
-			clientId = id;
-			this.workingDirectory = workingDirectory;
-
-			mre.Reset();
-
-			// Open IDEA StatiCa
-			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);
-
-			if (IdeaStaticaApp != null)
-			{
-				IdeaStaticaApp.Exited += OnIdeaStatiCaAppExit;
-
-				RaiseAppStatusChanged(AppStatus.Started);
-
-				if (bimAppService is ApplicationBIM appBim)
-				{
-					appBim.Id = IdeaStaticaApp.Id;
-				}
-			}
+			ideaLogger.LogDebug("BIMPluginHostingGrpc.WaitTillAppFinish");
 
 			// Handle cancellation token
 			while (!cancellationToken.IsCancellationRequested)
@@ -156,6 +152,7 @@ namespace IdeaStatiCa.Plugin
 				Thread.Sleep(100);
 			}
 
+			ideaLogger.LogDebug("BIMPluginHostingGrpc.WaitTillAppFinish - finished");
 			mre.Set();
 		}
 
@@ -167,7 +164,7 @@ namespace IdeaStatiCa.Plugin
 			}
 			catch (Exception ex)
 			{
-				ideaLogger.LogDebug("Disposing IdeaStaticaApp failed", ex);
+				ideaLogger.LogDebug("BIMPluginHostingGrpc.Dispose failed", ex);
 			}
 			IdeaStaticaApp = null;
 
@@ -188,7 +185,7 @@ namespace IdeaStatiCa.Plugin
 			}
 
 			Process connectionProc = new Process();
-
+			ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunIdeaIdeaStatiCa  strarting exePath = '{exePath}', id = '{id}', grpcPort = {GrpcCommunicator.Port} ");
 			string eventName = string.Format("{0}{1}", EventName, id);
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
