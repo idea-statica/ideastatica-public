@@ -171,6 +171,14 @@ namespace IdeaStatiCa.Plugin
 		string GetParametersJSON(string connectionId);
 
 		/// <summary>
+		/// Get code setup in JSON format 
+		/// <see href=https://idea-statica.github.io/iom/iom-api/latest/html/Properties_T_IdeaRS_OpenModel_ConnectionSetup.htm">IOM connection setup</see>
+		/// </summary>
+		/// <returns></returns>
+		[OperationContract]
+		string GetCodeSetupJSON();
+
+		/// <summary>
 		/// Apply <paramref name="parametersJSON"/> on connection<paramref name="connectionId"/>
 		/// <see href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</see>
 		/// </summary>
@@ -196,6 +204,15 @@ namespace IdeaStatiCa.Plugin
 		/// <returns></returns>
 		[OperationContract]
 		string UpdateLoadingFromJson(string connectionId, string loadingJSON);
+
+
+		/// <summary>
+		/// Set codesetup for the connection
+		/// </summary>
+		/// <param name="connectionSetupJSON">connection setup in JSON format</param>
+		/// <returns></returns>
+		[OperationContract]
+		string UpdateCodeSetupJSON(string connectionSetupJSON);
 
 		/// <summary>
 		/// Get the details results of the connection <paramref name="connectionId"/>

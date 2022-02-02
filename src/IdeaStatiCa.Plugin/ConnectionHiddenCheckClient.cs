@@ -152,6 +152,16 @@ namespace IdeaStatiCa.Plugin
 			return Service.DeleteAllOperations(connectionId);
 		}
 
+		public string GetCodeSetupJSON()
+		{
+			return Service.GetCodeSetupJSON();
+		}
+
+		public string UpdateCodeSetupJSON(string connectionSetupJSON)
+		{
+			return Service.UpdateCodeSetupJSON(connectionSetupJSON);
+		}
+
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }
