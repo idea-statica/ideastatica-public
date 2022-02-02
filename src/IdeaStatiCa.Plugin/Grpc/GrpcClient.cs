@@ -165,6 +165,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			   }
 			   catch (Exception e)
 			   {
+				   Logger.LogTrace("GrpcClient.StartAsync reading response stream failed", e);
 				   errorMessage = e.Message;
 				   await DisconnectAsync();
 			   }
@@ -205,12 +206,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 			}
 			catch(Exception e)
 			{
-				Logger.LogWarning("GprcClient.DisconnectAsync", e);
+				Logger.LogWarning("GprcClient.DisconnectAsync - can not close gRPC client", e);
 			}
 			finally
 			{
 				IsConnected = false;
 				ClientDisconnected?.Invoke(this, EventArgs.Empty);
+				Logger.LogWarning("GprcClient.DisconnectAsync : disconnected");
 			}
 		}
 
@@ -225,7 +227,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 			Logger.LogDebug($"GrpcClient.SendMessageAsync MessageName = '{message?.MessageName};, ClientId = '{message?.ClientId}', OperationId = '{message?.OperationId}'");
 			if (IsConnected)
 			{
-				await client.RequestStream.WriteAsync(message);
+				try
+				{
+					await client.RequestStream.WriteAsync(message);
+				}
+				catch (Exception e)
+				{
+					Logger.LogDebug("GrpcClient.SendMessageAsync failed in 'await client.RequestStream.WriteAsync(message)'", e);
+				}
 			}
 			else
 			{
