@@ -100,6 +100,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 		public Task StartAsync()
 		{
+			Logger.LogDebug("GrpcServer.StartAsync");
 			return Task.CompletedTask;
 		}
 
@@ -148,9 +149,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public async override Task ConnectAsync(IAsyncStreamReader<GrpcMessage> requestStream, IServerStreamWriter<GrpcMessage> responseStream, ServerCallContext context)
 		{
 			Logger.LogDebug("GrpcServer.ConnectAsync");
+
 			if (!await requestStream.MoveNext())
 			{
-				IsConnected = false;
+				Logger.LogDebug("GrpcServer.ConnectAsync MoveNext returned false");
 				return;
 			}
 
@@ -186,8 +188,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 						ClientConnected?.Invoke(this, currentClientId);
 					}
 
+					Logger.LogTrace($"GrpcServer.ConnectAsync - reading message ");
+
 					var message = requestStream.Current;
 
+
+					Logger.LogTrace($"GrpcServer.ConnectAsync - calling RunHandler");
 					RunHandler(message);
 				}
 
