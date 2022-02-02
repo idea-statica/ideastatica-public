@@ -100,25 +100,35 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		public void Stop()
 		{
+			ideaLogger.LogInformation("BIMPluginHostingGrpc.Stop");
 			if (hostingTask != null)
 			{
+				ideaLogger.LogInformation("BIMPluginHostingGrpc.Stop : tokenSource.Cancel");
 				tokenSource.Cancel();
 
 				var stopRes = mre.WaitOne();
 
-				Debug.Assert(stopRes, "Can not stop");
-
-				ideaLogger.LogInformation("Stopping BIM Plugin Hosting");
-
-				hostingTask = null;
+				if (stopRes)
+				{
+					ideaLogger.LogDebug("BIMPluginHostingGrpc.Stop : BIM Plugin Hosting stoped");
+					hostingTask = null;
+				}
+				else
+				{
+					ideaLogger.LogDebug("BIMPluginHostingGrpc.Stop failed - timeout");
+				}
 
 				RaiseAppStatusChanged(AppStatus.Finished);
+			}
+			else
+			{
+				ideaLogger.LogInformation("BIMPluginHostingGrpc.Stop : nothing to stop hostingTask == null");
 			}
 		}
 
 		private void RunServer(string id, string workingDirectory, System.Threading.CancellationToken cancellationToken)
 		{
-			ideaLogger.LogInformation($"BIMPluginHostingGrpc id = '{id}', workingDirectory = '{workingDirectory}'");
+			ideaLogger.LogInformation($"BIMPluginHostingGrpc.RunServer id = '{id}', workingDirectory = '{workingDirectory}'");
 
 			clientId = id;
 			this.workingDirectory = workingDirectory;
