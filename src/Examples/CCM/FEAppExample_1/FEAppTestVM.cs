@@ -269,7 +269,8 @@ namespace FEAppExample_1
 			var factory = new PluginFactory(this);
 			if (IsGRPC)
 			{
-				var pluginHostingGrpc = new BIMPluginHostingGrpc(factory);
+				var bimHostingFactory = new GrpcBimHostingFactory(factory, new NullLogger());
+				var pluginHostingGrpc = bimHostingFactory.Create();
 				FeaAppHosting = pluginHostingGrpc;
 			}
 			else
