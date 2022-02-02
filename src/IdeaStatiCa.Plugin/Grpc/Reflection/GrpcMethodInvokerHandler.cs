@@ -38,19 +38,26 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 			return Task.Run(async () =>
 			{
+				Logger.LogDebug($"MethodTask.SendMessageDataSync : Task is starting  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
 				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 				string originalOperationId = grpcMessage.OperationId;
 
 				await GrpcSender.SendMessageAsync(grpcMessage);
 
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : message was sent  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
 				// wait for the callback handler
 				var messageReceived = false;
 				GrpcMessage incomingMessage = null;
 
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : starting to wait for a response  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
+
 				while (!messageReceived)
 				{
-
 					incomingMessage = await grpcMessageCompletionSource.Task;
+
 					Logger.LogDebug($"MethodTask.SendMessageDataSync message  OperationId = '{incomingMessage?.OperationId}', MessageName = '{incomingMessage?.MessageName}'");
 
 					if (incomingMessage.OperationId == originalOperationId)
@@ -67,6 +74,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 						grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 					}
 				}
+
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : returning = '{incomingMessage.OperationId}', MessageName = '{incomingMessage?.MessageName}', ClientId = '{incomingMessage.ClientId}'");
 
 				return incomingMessage;
 			}).WaitAndUnwrapException();
@@ -171,6 +180,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		private void SetCompleted(GrpcMessage message)
 		{
+			Logger.LogTrace($"MethodTask.SetCompleted : operationId = '{message.OperationId}'");
+
 			if (executedMethods.TryRemove(message.OperationId, out var methodTask))
 			{
 				methodTask.SetResult(message);

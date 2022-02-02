@@ -220,12 +220,12 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="message">Grpc message to send.</param>
 		/// <param name="data">Body of the message.</param>
 		/// <returns></returns>
-		public Task SendMessageAsync(GrpcMessage message)
+		public async Task SendMessageAsync(GrpcMessage message)
 		{
-			Logger.LogDebug($"GrpcClient.GrpcClient MessageName = '{message?.MessageName};, ClientId = '{message?.ClientId}', OperationId = '{message?.OperationId}'");
+			Logger.LogDebug($"GrpcClient.SendMessageAsync MessageName = '{message?.MessageName};, ClientId = '{message?.ClientId}', OperationId = '{message?.OperationId}'");
 			if (IsConnected)
 			{
-				return client.RequestStream.WriteAsync(message);
+				await client.RequestStream.WriteAsync(message);
 			}
 			else
 			{
