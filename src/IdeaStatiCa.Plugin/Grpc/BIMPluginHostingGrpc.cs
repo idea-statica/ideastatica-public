@@ -158,6 +158,7 @@ namespace IdeaStatiCa.Plugin
 
 		private void OnIdeaStatiCaAppExit(object sender, EventArgs e)
 		{
+			ideaLogger.LogDebug("BIMPluginHostingGrpc.OnIdeaStatiCaAppExit");
 			try
 			{
 				IdeaStaticaApp.Dispose();
@@ -223,6 +224,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		protected virtual void Dispose(bool disposing)
 		{
+			ideaLogger.LogDebug($"BIMPluginHostingGrpc.Dispose : disposing {disposing}");
 			if (!disposedValue)
 			{
 				if (disposing)
@@ -235,7 +237,7 @@ namespace IdeaStatiCa.Plugin
 						}
 						catch (Exception ex)
 						{
-							ideaLogger.LogDebug("Canceling thread failed", ex);
+							ideaLogger.LogDebug("BIMPluginHostingGrpc.Dispose : canceling thread failed", ex);
 						}
 						mre.Dispose();
 						tokenSource.Dispose();
