@@ -195,7 +195,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 		{
 			return new InternalForcesData
 			{
-				N = nx.KipsToNewtons(),
+				N = -nx.KipsToNewtons(),
 				Qy = vy.KipsToNewtons(),
 				Qz = vz.KipsToNewtons(),
 				Mx = mx.KipsToNewtons().InchesToMeters(),
