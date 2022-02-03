@@ -34,7 +34,7 @@ namespace IdeaStatiCa.Plugin
 		/// <summary>
 		/// App process
 		/// </summary>
-		internal Process IdeaStaticaApp { get; private set; }
+		public Process IdeaStaticaApp { get; set; }
 
 		internal IGrpcCommunicator GrpcCommunicator { get; private set; }
 

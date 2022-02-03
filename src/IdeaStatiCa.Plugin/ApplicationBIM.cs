@@ -12,6 +12,11 @@ namespace IdeaStatiCa.Plugin
 
 		public abstract void ActivateInBIM(List<BIMItemId> items);
 
+		/// <summary>
+		/// communication canal for sending message to the checkbot
+		/// </summary>
+		public IIdeaStaticaApp IdeaStaticaApp { get; set; }
+
 		public virtual List<BIMItemId> GetActiveSelection() => null;
 
 		public int Id { get; internal set; }

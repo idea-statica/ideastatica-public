@@ -34,6 +34,11 @@ namespace IdeaStatiCa.Plugin
 
 			// It will be used for gRPC communication
 			var pluginHostingGrpc = new BIMPluginHostingGrpc(PluginFactory, grpcServer, Logger);
+			if(pluginHostingGrpc.Service is ApplicationBIM appBim)
+			{
+				appBim.IdeaStaticaApp = checkBotClient.Service;
+			}
+
 			return pluginHostingGrpc;
 		}
 	}
