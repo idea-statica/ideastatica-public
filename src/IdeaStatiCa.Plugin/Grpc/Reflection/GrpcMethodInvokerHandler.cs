@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Nito.AsyncEx.Synchronous;
 using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
@@ -16,32 +17,48 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	public class MethodTask : IMethodTask
 	{
 		public readonly string OperationId;
+		internal IPluginLogger Logger { get; private set; }
 		public IGrpcSender GrpcSender { get; private set; }
 
 		TaskCompletionSource<GrpcMessage> grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 
-		public MethodTask(IGrpcSender grpcSender, string operationId)
+		public MethodTask(IPluginLogger logger, IGrpcSender grpcSender, string operationId)
 		{
+			Debug.Assert(logger != null);
+			Debug.Assert(grpcSender != null);
+			
+			this.Logger = logger;
 			this.OperationId = operationId;
 			this.GrpcSender = grpcSender;
 		}
 
 		public GrpcMessage SendMessageDataSync(GrpcMessage grpcMessage)
 		{
+			Logger.LogDebug($"MethodTask.SendMessageDataSync operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
 			return Task.Run(async () =>
 			{
+				Logger.LogDebug($"MethodTask.SendMessageDataSync : Task is starting  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
 				grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 				string originalOperationId = grpcMessage.OperationId;
 
 				await GrpcSender.SendMessageAsync(grpcMessage);
 
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : message was sent  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
 				// wait for the callback handler
 				var messageReceived = false;
 				GrpcMessage incomingMessage = null;
 
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : starting to wait for a response  operationId = '{grpcMessage.OperationId}', MessageName = '{grpcMessage?.MessageName}', ClientId = '{grpcMessage.ClientId}'");
+
+
 				while (!messageReceived)
 				{
 					incomingMessage = await grpcMessageCompletionSource.Task;
+
+					Logger.LogDebug($"MethodTask.SendMessageDataSync message  OperationId = '{incomingMessage?.OperationId}', MessageName = '{incomingMessage?.MessageName}'");
 
 					if (incomingMessage.OperationId == originalOperationId)
 					{
@@ -58,6 +75,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 					}
 				}
 
+				Logger.LogTrace($"MethodTask.SendMessageDataSync : returning = '{incomingMessage.OperationId}', MessageName = '{incomingMessage?.MessageName}', ClientId = '{incomingMessage.ClientId}'");
+
 				return incomingMessage;
 			}).WaitAndUnwrapException();
 		}
@@ -73,17 +92,31 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		public readonly string HandlerName;
 		public IGrpcSender GrpcSender { get; private set; }
 
+		internal IPluginLogger Logger { get; private set; }
+
 		//TaskCompletionSource<GrpcMessage> grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
 		ConcurrentDictionary<string, IMethodTask> executedMethods = new ConcurrentDictionary<string, IMethodTask>();
 
-		public GrpcMethodInvokerHandler(string handlerName, IGrpcSender grpcSender)
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="handlerName">Name of the message handler</param>
+		/// <param name="grpcSender">Message sender</param>
+		/// <param name="logger">Logger</param>
+		public GrpcMethodInvokerHandler(string handlerName, IGrpcSender grpcSender, IPluginLogger logger)
 		{
+			Debug.Assert(!string.IsNullOrEmpty(handlerName));
+			Debug.Assert(grpcSender != null);
+			Debug.Assert(logger != null);
 			HandlerName = handlerName;
 			GrpcSender = grpcSender;
+			Logger = logger;
 		}
 
 		public T InvokeMethod<T>(string methodName, Type returnType, params object[] arguments)
 		{
+			Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod methodName = $'{methodName}', returnType = '{returnType.Name}'");
+
 			var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
 			var request = new GrpcReflectionInvokeData()
 			{
@@ -107,6 +140,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				// hadnle response
 				var responseData = JsonConvert.DeserializeObject(response.Data, returnType);
 
+				Logger.LogDebug("GrpcMethodInvokerHandler.InvokeMethod finished");
 				return (T)responseData;
 			}
 
@@ -118,67 +152,36 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			var operationId = Guid.NewGuid().ToString();
 			grpcMessage.OperationId = operationId;
 
-			var methodTask = new MethodTask(this.GrpcSender, operationId);
+			var methodTask = new MethodTask(this.Logger, this.GrpcSender, operationId);
 			if (executedMethods.TryAdd(operationId, methodTask) == false)
 			{
 				throw new Exception($"Operation {operationId} is executing");
 			}
 
+			Logger.LogDebug($"GrpcMethodInvokerHandler.SendMessageDataSync operationId = $'{grpcMessage.OperationId}'");
 			GrpcMessage incomingMessage = methodTask.SendMessageDataSync(grpcMessage);
 
 			return incomingMessage;
-
-
-			//return Task.Run(async () =>
-			//{
-			//	var operationId = Guid.NewGuid().ToString();
-			//	grpcMessage.OperationId = operationId;
-
-			//	grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
-
-			//	await GrpcSender.SendMessageAsync(grpcMessage);
-
-			//	// wait for the callback handler
-			//	var messageReceived = false;
-			//	GrpcMessage incomingMessage = null;
-
-			//	while (!messageReceived)
-			//	{
-			//		incomingMessage = await grpcMessageCompletionSource.Task;
-
-			//		if (incomingMessage.OperationId == operationId)
-			//		{
-			//			if (incomingMessage.MessageName == "Error")
-			//			{
-			//				throw new ApplicationException(incomingMessage.Data);
-			//			}
-
-			//			messageReceived = true;
-			//		}
-			//		else
-			//		{
-			//			grpcMessageCompletionSource = new TaskCompletionSource<GrpcMessage>();
-			//		}
-			//	}
-
-			//	return incomingMessage;
-			//}).WaitAndUnwrapException();
 		}
 
 		public Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
+			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleServerMessage operationId = $'{message.OperationId}', messageName = '{message.MessageName}'");
 			SetCompleted(message);
 			return Task.FromResult<object>(message);
 		}
 
 		public Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
+			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleClientMessage operationId = $'{message.OperationId}', messageName = '{message.MessageName}'");
 			SetCompleted(message);
 			return Task.FromResult<object>(message);
 		}
 
 		private void SetCompleted(GrpcMessage message)
 		{
+			Logger.LogTrace($"MethodTask.SetCompleted : operationId = '{message.OperationId}'");
+
 			if (executedMethods.TryRemove(message.OperationId, out var methodTask))
 			{
 				methodTask.SetResult(message);

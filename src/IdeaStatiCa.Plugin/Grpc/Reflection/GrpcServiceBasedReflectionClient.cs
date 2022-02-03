@@ -13,7 +13,7 @@
 
 		public GrpcServiceBasedReflectionClient(IPluginLogger logger) : base(logger)
 		{
-			var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, this);
+			var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, this, logger);
 			Service = GrpcReflectionServiceFactory.CreateInstance<IReflectionService>(grpcReflectionHandler);
 			RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, grpcReflectionHandler);
 		}

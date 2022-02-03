@@ -23,12 +23,13 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		public void GetContentTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
+			var logger = Substitute.For<IPluginLogger>();
 
 			var projContentList = new List<ProjectDataItem>();
 			projContentList.Add(new ProjectDataItem("File1.xml", ItemType.File));
 			projContentList.Add(new ProjectDataItem("File2.xml", ItemType.File));
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender, logger);
 
 			GrpcMessage response = null;
 			grpcSender.SendMessageAsync(default).ReturnsForAnyArgs(t =>
@@ -55,8 +56,9 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		public void ExistTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
+			var logger = Substitute.For<IPluginLogger>();
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender, logger);
 
 			string item1Id = "item1Id";
 			string item2Id = "item2Id";
@@ -114,8 +116,9 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		public void DeleteTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
+			var logger = Substitute.For<IPluginLogger>();
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender, logger);
 
 			string item1Id = "item1Id";
 			string item2Id = "*";
@@ -160,8 +163,9 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		public void ReadDataTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
+			var logger = Substitute.For<IPluginLogger>();
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender, logger);
 
 			string item1Id = "item1Id";
 			string notExistingItemId = "notExistingItemId";
@@ -227,7 +231,9 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		public void WriteDataTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
-			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			var logger = Substitute.For<IPluginLogger>();
+
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender, logger);
 
 			string item1Id = "item1Id";
 
@@ -287,8 +293,9 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		public void GetStreamTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
+			var logger = Substitute.For<IPluginLogger>();
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcSender);
+			var projectContentHandler = new ProjectContentClientHandler(grpcSender, logger);
 
 			string item1Id = "item1Id";
 

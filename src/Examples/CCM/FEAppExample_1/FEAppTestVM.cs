@@ -31,9 +31,11 @@ namespace FEAppExample_1
 		private bool isCheckBotRunning;
 		private string detailInformation;
 		private IIdeaStaticaApp ideaStatica;
+		private IdeaStatiCa.Plugin.IPluginLogger Logger { get; set; }
 
 		public FEAppExample_1VM()
 		{
+			this.Logger = new NullLogger();
 			this.IsGRPC = true;
 			this.CountryCode = CountryCode.ECEN;
 
@@ -267,7 +269,8 @@ namespace FEAppExample_1
 			var factory = new PluginFactory(this);
 			if (IsGRPC)
 			{
-				var pluginHostingGrpc = new BIMPluginHostingGrpc(factory);
+				var bimHostingFactory = new GrpcBimHostingFactory(factory, new NullLogger());
+				var pluginHostingGrpc = bimHostingFactory.Create();
 				FeaAppHosting = pluginHostingGrpc;
 			}
 			else
@@ -839,7 +842,7 @@ namespace FEAppExample_1
 
 				if (FeaAppHosting is BIMPluginHostingGrpc grpcClient)
 				{
-					GrpcServiceClient<IIdeaStaticaApp> checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(IdeaStatiCa.Plugin.Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcClient.GrpcServer);
+					GrpcServiceClient<IIdeaStaticaApp> checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(IdeaStatiCa.Plugin.Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcClient.GrpcServer, Logger);
 
 					IdeaStatica = checkBotClient.Service;
 				}

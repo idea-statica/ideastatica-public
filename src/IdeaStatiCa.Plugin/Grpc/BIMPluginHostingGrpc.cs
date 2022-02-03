@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc.Reflection;
+﻿using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
@@ -33,7 +34,9 @@ namespace IdeaStatiCa.Plugin
 		/// <summary>
 		/// App process
 		/// </summary>
-		internal Process IdeaStaticaApp { get; private set; }
+		public Process IdeaStaticaApp { get; set; }
+
+		internal IGrpcCommunicator GrpcCommunicator { get; private set; }
 
 		/// <summary>
 		/// BIM Service.
@@ -41,13 +44,8 @@ namespace IdeaStatiCa.Plugin
 		public IApplicationBIM Service
 		{
 			get => bimAppService;
-			private set => bimAppService = value;
+			set => bimAppService = value;
 		}
-
-		/// <summary>
-		/// Port for Grpc communication.
-		/// </summary>
-		public int GrpcPort { get; set; }
 
 		/// <summary>
 		/// System event name.
@@ -60,73 +58,32 @@ namespace IdeaStatiCa.Plugin
 		readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
 #endif
 
-		public BIMPluginHostingGrpc(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)
+		public BIMPluginHostingGrpc(IBIMPluginFactory factory, IGrpcCommunicator grpcCommunicator, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)
 		{
 			this.EventName = eventName;
+			this.GrpcCommunicator = grpcCommunicator;
 			mre = new ManualResetEvent(false);
 			bimPluginFactory = factory;
 			ideaLogger = logger ?? new NullLogger();
+			tokenSource = new CancellationTokenSource();
+			hostingTask = null;
+			Service = bimPluginFactory.Create();
+			grpcCommunicator.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service, logger));
 		}
 
 		public Task RunAsync(string id, string workingDirectory)
 		{
+			ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunAsync id = {id}, workingDirectory = '{workingDirectory}'");
+
 			if (hostingTask != null)
 			{
-				Debug.Fail("Task is running");
-
-				ideaLogger.LogInformation("Starting BIM Plugin Hosting");
-
-				return Task.CompletedTask;
+				throw new Exception("BIMPluginHostingGrpc.RunAsync is already running");
 			}
 
-			tokenSource = new CancellationTokenSource();
-			var token = tokenSource.Token;
-
-			hostingTask = Task.Run(() =>
-			{
-				RunServer(id, workingDirectory, token);
-			}, token);
-
-			return hostingTask;
-		}
-
-		/// <summary>
-		/// Stops the plugin host.
-		/// </summary>
-		public void Stop()
-		{
-			if (hostingTask != null)
-			{
-				tokenSource.Cancel();
-
-				var stopRes = mre.WaitOne();
-
-				Debug.Assert(stopRes, "Can not stop");
-
-				ideaLogger.LogInformation("Stopping BIM Plugin Hosting");
-
-				hostingTask = null;
-
-				RaiseAppStatusChanged(AppStatus.Finished);
-			}
-		}
-
-		private void RunServer(string id, string workingDirectory, System.Threading.CancellationToken cancellationToken)
-		{
 			clientId = id;
 			this.workingDirectory = workingDirectory;
 
 			mre.Reset();
-			bimAppService = bimPluginFactory?.Create();
-
-			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
-
-			ideaLogger.LogInformation("Starting gRPC server");
-
-			// Create Grpc server
-			GrpcServer = new GrpcReflectionServer(bimAppService, ideaLogger);
-			GrpcServer.Connect(clientId, GrpcPort);
-			var grpcServarTask = GrpcServer.StartAsync();
 
 			// Open IDEA StatiCa
 			IdeaStaticaApp = RunIdeaIdeaStatiCa(bimPluginFactory.IdeaStaticaAppPath, clientId);
@@ -143,24 +100,72 @@ namespace IdeaStatiCa.Plugin
 				}
 			}
 
+			tokenSource = new CancellationTokenSource();
+			var token = tokenSource.Token;
+
+			hostingTask = Task.Run(() =>
+			{
+				WaitTillAppFinish(token);
+			}, token);
+
+			return hostingTask;
+		}
+
+		/// <summary>
+		/// Stops the plugin host.
+		/// </summary>
+		public void Stop()
+		{
+			ideaLogger.LogInformation("BIMPluginHostingGrpc.Stop");
+			if (hostingTask != null)
+			{
+				ideaLogger.LogInformation("BIMPluginHostingGrpc.Stop : tokenSource.Cancel");
+				tokenSource.Cancel();
+
+				var stopRes = mre.WaitOne();
+
+				if (stopRes)
+				{
+					ideaLogger.LogDebug("BIMPluginHostingGrpc.Stop : BIM Plugin Hosting stoped");
+					hostingTask = null;
+				}
+				else
+				{
+					ideaLogger.LogDebug("BIMPluginHostingGrpc.Stop failed - timeout");
+				}
+
+				RaiseAppStatusChanged(AppStatus.Finished);
+			}
+			else
+			{
+				ideaLogger.LogInformation("BIMPluginHostingGrpc.Stop : nothing to stop hostingTask == null");
+			}
+		}
+
+		private void WaitTillAppFinish(System.Threading.CancellationToken cancellationToken)
+		{
+			ideaLogger.LogDebug("BIMPluginHostingGrpc.WaitTillAppFinish");
+
 			// Handle cancellation token
 			while (!cancellationToken.IsCancellationRequested)
 			{
 				Thread.Sleep(100);
 			}
 
+			ideaLogger.LogDebug("BIMPluginHostingGrpc.WaitTillAppFinish - finished");
 			mre.Set();
 		}
 
 		private void OnIdeaStatiCaAppExit(object sender, EventArgs e)
 		{
+			ideaLogger.LogDebug("BIMPluginHostingGrpc.OnIdeaStatiCaAppExit");
 			try
 			{
 				IdeaStaticaApp.Dispose();
 			}
 			catch (Exception ex)
 			{
-				ideaLogger.LogDebug("Disposing IdeaStaticaApp failed", ex);
+				ideaLogger.LogDebug("BIMPluginHostingGrpc.Dispose failed", ex);
 			}
 			IdeaStaticaApp = null;
 
@@ -181,12 +186,12 @@ namespace IdeaStatiCa.Plugin
 			}
 
 			Process connectionProc = new Process();
-
+			ideaLogger.LogDebug($"BIMPluginHostingGrpc.RunIdeaIdeaStatiCa  strarting exePath = '{exePath}', id = '{id}', grpcPort = {GrpcCommunicator.Port} ");
 			string eventName = string.Format("{0}{1}", EventName, id);
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
-				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\" {Constants.GrpcPortParam}:{GrpcPort}");
+				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\" {Constants.GrpcPortParam}:{GrpcCommunicator.Port}");
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 
@@ -219,6 +224,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		protected virtual void Dispose(bool disposing)
 		{
+			ideaLogger.LogDebug($"BIMPluginHostingGrpc.Dispose : disposing {disposing}");
 			if (!disposedValue)
 			{
 				if (disposing)
@@ -227,22 +233,16 @@ namespace IdeaStatiCa.Plugin
 					{
 						try
 						{
-							tokenSource.Cancel();
-							//hostingTask.Dispose();
+							Stop();
 						}
 						catch (Exception ex)
 						{
-							ideaLogger.LogDebug("Canceling thread failed", ex);
+							ideaLogger.LogDebug("BIMPluginHostingGrpc.Dispose : canceling thread failed", ex);
 						}
 						mre.Dispose();
 						tokenSource.Dispose();
 					}
-					// TODO: dispose managed state (managed objects).
 				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
-
 				disposedValue = true;
 			}
 		}

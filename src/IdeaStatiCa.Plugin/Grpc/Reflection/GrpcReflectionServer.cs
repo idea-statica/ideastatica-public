@@ -10,9 +10,11 @@
 		/// </summary>
 		/// <param name="instance">Instance targeted by reflection calls.</param>
 		/// <param name="logger">logger</param>
-		public GrpcReflectionServer(object instance, IPluginLogger logger) : base(logger)
+		public GrpcReflectionServer(object instance,  IPluginLogger logger) : base(logger)
 		{
-			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance));
+			logger.LogDebug("GrpcReflectionServer");
+
+			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance, logger));
 		}
 	}
 }

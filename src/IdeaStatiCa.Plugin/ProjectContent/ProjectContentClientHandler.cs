@@ -45,7 +45,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		/// Constructor
 		/// </summary>
 		/// <param name="client">Grpc client</param>
-		public ProjectContentClientHandler(IGrpcSender client) : base(Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, client)
+		public ProjectContentClientHandler(IGrpcSender client, IPluginLogger logger) : base(Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, client, logger)
 		{
 		}
 

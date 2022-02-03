@@ -1,5 +1,7 @@
 ﻿using Dlubal.RSTAB8;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -46,8 +48,16 @@ namespace IdeaRstabPlugin
 				AppDomain.CurrentDomain.AssemblyResolve += IdeaStatiCa.Public.Tools.AssemblyResolver.Domain_AssemblyResolve;
 				PluginFactory pluginFactory = new PluginFactory((IModel)param, _logger);
 
-				// It will be used for gRPC communication
-				var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, _logger);
+				int clientId = Process.GetCurrentProcess().Id;
+				int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
+
+				// run gRPC server
+				var grpcServer = new GrpcServer(_logger);
+				grpcServer.Connect(clientId.ToString(), grpcPort);
+				var gRPCtask = grpcServer.StartAsync();
+
+				var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, grpcServer, _logger);
+
 				//Run GRPC
 				await bimPluginHosting.RunAsync(Process.GetCurrentProcess().Id.ToString(), pluginFactory.WorkingDirectory);
 			}
