@@ -132,6 +132,7 @@ namespace IdeaRS.OpenModel
 			JointBetaFactor = 0.67;
 			NumberIterations = 15;
 			EffectiveAreaStressCoeff = 0.1;
+			EffectiveAreaStressCoeffAISC = 0.4;
 			FrictionCoefficient = 0.25;
 			Mdiv = 3;
 			WeldEvaluationData = WeldEvaluation.ForceResultant;
@@ -261,6 +262,11 @@ namespace IdeaRS.OpenModel
 		/// Effective area is taken from intersection of stress area and area of joined items according to EN1993-1-8 art. 6.2.5
 		/// </summary>
 		public double EffectiveAreaStressCoeff { get; set; }
+
+		/// <summary>
+		/// Effective area stress coefficient - Concrete loaded area: Stress cut-off is set for AISC
+		/// </summary>
+		public double EffectiveAreaStressCoeffAISC { get; set; }
 
 		/// <summary>
 		/// Coefficient of friction between base plate and concrete block
