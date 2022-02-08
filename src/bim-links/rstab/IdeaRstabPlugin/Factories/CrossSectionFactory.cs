@@ -1,12 +1,13 @@
 ﻿using Dlubal.RSTAB6;
 using Dlubal.RSTAB8;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaRstabPlugin.BimApi;
 using IdeaRstabPlugin.Factories.RstabPluginUtils;
-using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.BimApi;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using IOM = IdeaRS.OpenModel.CrossSection;
 
 using PM = IdeaRstabPlugin.Factories.RstabParamName;
@@ -28,7 +29,7 @@ namespace IdeaRstabPlugin.Factories
 		/// <returns>IIdeaCrossSection instance</returns>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown in case of incomplete data in RSTAB TextId property</exception>
 		/// <param name="css">RSTAB cross-section</param>
-		
+
 		public IIdeaCrossSection Create(IObjectFactory objectFactory, IImportSession importSession, Dlubal.RSTAB8.ICrossSection css)
 		{
 			Dlubal.RSTAB8.CrossSection cssData = css.GetData();
@@ -60,6 +61,10 @@ namespace IdeaRstabPlugin.Factories
 				case "Kreis":
 				case "RD":
 					IOM.CrossSectionFactory.FillCircle(crossSectionParameter, pm.Get(PM.D));
+					break;
+
+				case "Rundstahl":
+					IOM.CrossSectionFactory.FillCircle(crossSectionParameter, pm.Get(PM.D) * 1000.0);
 					break;
 
 				case "PB":
