@@ -272,6 +272,7 @@ namespace FEAppExample_1
 				var bimHostingFactory = new GrpcBimHostingFactory(factory, new NullLogger());
 				var pluginHostingGrpc = bimHostingFactory.Create();
 				FeaAppHosting = pluginHostingGrpc;
+				this.IdeaStatica = ((ApplicationBIM)FeaAppHosting.Service).IdeaStaticaApp;
 			}
 			else
 			{
@@ -839,13 +840,6 @@ namespace FEAppExample_1
 
 				var xmlString = ModelFeaXml;
 				SetModelFromXml(xmlString);
-
-				if (FeaAppHosting is BIMPluginHostingGrpc grpcClient)
-				{
-					GrpcServiceClient<IIdeaStaticaApp> checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(IdeaStatiCa.Plugin.Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcClient.GrpcServer, Logger);
-
-					IdeaStatica = checkBotClient.Service;
-				}
 
 				IsCheckBotRunning = true;
 			}
