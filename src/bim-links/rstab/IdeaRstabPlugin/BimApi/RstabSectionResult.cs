@@ -87,6 +87,7 @@ namespace IdeaRstabPlugin.BimApi
 			}
 			else
 			{
+				forces.Qz *= -1.0;
 				forces.Mz *= -1.0;
 			}
 
