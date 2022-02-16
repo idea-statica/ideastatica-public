@@ -182,6 +182,7 @@ namespace IdeaRS.OpenModel
 			LimitDeformationCheck = false;
 			AnalysisGNL = true;
 			//WeldingTypeSNIP = WeldingTypeSNIP.AutomaticAndMachine;
+			DevelopedFillers = false;
 		}
 
 		/// <summary>
@@ -407,6 +408,11 @@ namespace IdeaRS.OpenModel
 		/// True if cracked concrete is considered
 		/// </summary>
 		public bool CrackedConcrete { get; set; }
+
+		/// <summary>
+		/// True if developed fillers is considered
+		/// </summary>
+		public bool DevelopedFillers { get; set; }
 
 
 		/// <summary>
