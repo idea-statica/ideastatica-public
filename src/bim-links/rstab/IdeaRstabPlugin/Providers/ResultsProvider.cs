@@ -16,7 +16,7 @@ namespace IdeaRstabPlugin.Providers
 	internal class ResultsProvider : IResultsProvider
 	{
 		private readonly Dictionary<int, List<(Loading, MemberForces)>> _results = new Dictionary<int, List<(Loading, MemberForces)>>();
-		private readonly List<int> _membersToFetch = new List<int>();
+		private readonly HashSet<int> _membersToFetch = new HashSet<int>();
 		private readonly ILoadsProvider _loadsProvider;
 		private readonly ICalculation _calculation;
 
