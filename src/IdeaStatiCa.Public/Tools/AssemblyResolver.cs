@@ -6,6 +6,27 @@ namespace IdeaStatiCa.Public.Tools
 {
 	public static class AssemblyResolver
 	{
+		public static void ReplaceAssemblyResolve()
+		{
+			// Because the SAP's assembly resolve handler is not implemented properly (it return non-null value even when it can't load the assembly),
+			// we have to register our handler before it.
+
+			// AppDomain.AssemblyResolve internally references _AssemblyResolve (see .NET source code);
+			FieldInfo fieldInfo = typeof(AppDomain).GetField("_AssemblyResolve", BindingFlags.NonPublic | BindingFlags.Instance);
+
+			ResolveEventHandler resolveEvent = (ResolveEventHandler)fieldInfo.GetValue(AppDomain.CurrentDomain); // Original event
+			ResolveEventHandler myResolveEvent = new ResolveEventHandler(Domain_AssemblyResolve); // Our event
+
+			// Add all existing handlers to the our event
+			foreach (Delegate handler in resolveEvent.GetInvocationList())
+			{
+				myResolveEvent += (ResolveEventHandler)handler;
+			}
+
+			// Replace the original event with ours in AppDomain.CurrentDomain
+			fieldInfo.SetValue(AppDomain.CurrentDomain, myResolveEvent);
+		}
+
 		/// <summary>
 		/// AssemblyResolve forIDEA StatiCa 
 		/// </summary>
@@ -17,6 +38,7 @@ namespace IdeaStatiCa.Public.Tools
 			AssemblyName assemblyName = new AssemblyName(args.Name);
 
 			string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			var ass2 = Assembly.GetCallingAssembly();
 			string path;
 
 			if (string.IsNullOrEmpty(assemblyName.CultureName))
