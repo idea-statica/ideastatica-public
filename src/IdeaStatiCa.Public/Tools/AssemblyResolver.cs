@@ -6,6 +6,10 @@ namespace IdeaStatiCa.Public.Tools
 {
 	public static class AssemblyResolver
 	{
+		/// <summary>
+		/// Because the SAP's assembly resolve handler is not implemented properly (it return non-null value even when it can't load the assembly),
+		/// we have to register our handler before it.
+		/// </summary>
 		public static void ReplaceAssemblyResolve()
 		{
 			// Because the SAP's assembly resolve handler is not implemented properly (it return non-null value even when it can't load the assembly),
@@ -38,7 +42,6 @@ namespace IdeaStatiCa.Public.Tools
 			AssemblyName assemblyName = new AssemblyName(args.Name);
 
 			string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			var ass2 = Assembly.GetCallingAssembly();
 			string path;
 
 			if (string.IsNullOrEmpty(assemblyName.CultureName))
