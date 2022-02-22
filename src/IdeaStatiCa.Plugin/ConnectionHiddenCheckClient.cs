@@ -46,6 +46,10 @@ namespace IdeaStatiCa.Plugin
 		{
 			Service.SaveAsProject(newProjectFileName);
 		}
+		public void Save()
+		{
+			Service.Save();
+		}
 
 		public string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)
 		{

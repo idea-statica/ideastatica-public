@@ -25,6 +25,7 @@
 				<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
 				<Button Command="{Binding ImportIOMCmd, Mode=TwoWay}">Import from IOM</Button>
 				<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
+				<Button Command="{Binding SaveProjectCmd, Mode=TwoWay}">Save Project</Button>
 				<Button Command="{Binding SaveAsProjectCmd, Mode=TwoWay}">Save Project As...</Button>
 				<Button Command="{Binding GetMaterialsCmd, Mode=TwoWay}" ToolTip="Get all materials in the open Idea Connection project">Get materials</Button>
 				<Button Command="{Binding GetCrossSectionsCmd, Mode=TwoWay}" ToolTip="Get all cross-sections in the open Idea Connection project">Get CSS</Button>

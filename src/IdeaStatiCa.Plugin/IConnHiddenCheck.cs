@@ -25,6 +25,12 @@ namespace IdeaStatiCa.Plugin
 		void SaveAsProject(string newProjectFileName);
 
 		/// <summary>
+		/// Saves the current data
+		/// </summary>
+		[OperationContract]
+		void Save();
+
+		/// <summary>
 		/// Apply the selected template in file <paramref name="conTemplateFileName"/> on connection <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">Identifier of the connection in the project, empty guid means the first connection in the project</param>

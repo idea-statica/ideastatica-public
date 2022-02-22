@@ -80,6 +80,7 @@ namespace ConnectionHiddenCalculation
 			ApplySimpleTemplateCmd = new ApplySimpleTemplateCommand(this);
 			ConnectionGeometryCmd = new ConnectionGeometryCommand(this);
 			SaveAsProjectCmd = new SaveAsProjectCommand(this);
+			SaveProjectCmd = new SaveProjectCommand(this);
 			ConnectionToTemplateCmd = new ConnectionToTemplateCommand(this);
 			ApplyTemplateCmd = new ApplyTemplateCommand(this);
 
@@ -115,6 +116,7 @@ namespace ConnectionHiddenCalculation
 		public ICommand ConnectionGeometryCmd { get; set; }
 		public ICommand GetAllConnectionDataCmd { get; set; }
 		public ICommand GetConnectionCostCmd { get; set; }
+		public ICommand SaveProjectCmd { get; set; }
 		public ICommand SaveAsProjectCmd { get; set; }
 		public ICommand ConnectionToTemplateCmd { get; set; }
 		public ICommand ApplyTemplateCmd { get; set; }
