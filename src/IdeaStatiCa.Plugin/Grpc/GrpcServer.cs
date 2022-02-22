@@ -75,7 +75,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		private void Start()
 		{
-			Logger.LogDebug($"GrpcServer.Start listening on port ${Host}:${Port}");
+			Logger.LogDebug($"GrpcServer.Start listening on port {Host}:{Port}");
 			server = new Server(channelOptions)
 			{
 				Services = { GrpcService.BindService(this) },
