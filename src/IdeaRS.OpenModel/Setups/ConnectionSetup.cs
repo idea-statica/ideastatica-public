@@ -183,6 +183,7 @@ namespace IdeaRS.OpenModel
 			AnalysisGNL = true;
 			//WeldingTypeSNIP = WeldingTypeSNIP.AutomaticAndMachine;
 			DevelopedFillers = false;
+			DeformationBoltHole = true;
 		}
 
 		/// <summary>
@@ -414,6 +415,10 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public bool DevelopedFillers { get; set; }
 
+		/// <summary>
+		/// True if bolt hole deformation is considered 
+		/// </summary>
+		public bool DeformationBoltHole { get; set; }
 
 		/// <summary>
 		/// ExtensionLengthRationOpenSections
