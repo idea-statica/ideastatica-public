@@ -94,6 +94,8 @@ namespace IdeaStatiCa.Plugin
 		/// <inheritdoc cref="RunAsync(string)"/>
 		public Task RunAsync(string id)
 		{
+			ideaLogger.LogDebug($"RunAsync id = '{id}'");
+
 			if (hostingTask != null)
 			{
 				Debug.Fail("Task is running");
@@ -110,6 +112,7 @@ namespace IdeaStatiCa.Plugin
 			{
 				try
 				{
+					ideaLogger.LogDebug("RunAsync - calling RunServer");
 					RunServer(id, token);
 				}
 				catch(Exception e)
