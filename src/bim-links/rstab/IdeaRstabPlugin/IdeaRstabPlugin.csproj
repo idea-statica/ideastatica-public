@@ -62,4 +62,6 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </Reference>
   </ItemGroup>
+
+  <Import Project="..\..\..\Logger\SerilogFacade\SerilogFacade.projitems" Label="Shared" />
 </Project>

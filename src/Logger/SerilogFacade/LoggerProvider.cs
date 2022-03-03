@@ -1,8 +1,8 @@
-﻿using IdeaStatiCa.Plugin;
-using Serilog.Configuration;
+﻿using Serilog.Configuration;
 using Serilog.Core;
+using IdeaStatiCa.Plugin;
 
-namespace IdeaRstabPlugin
+namespace IdeaStatiCa.PluginLogger
 {
 	/// <summary>
 	/// Singleton which provides logger to plugin

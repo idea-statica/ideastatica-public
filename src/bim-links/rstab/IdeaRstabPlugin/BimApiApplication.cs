@@ -3,6 +3,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -6,6 +6,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.BimApi

@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System;
 using System.Collections.Generic;
 

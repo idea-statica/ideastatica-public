@@ -2,6 +2,7 @@
 using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 
 namespace IdeaRstabPlugin.BimApi
 {

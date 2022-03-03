@@ -3,6 +3,7 @@ using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System;
 
 namespace IdeaRstabPlugin.BimApi

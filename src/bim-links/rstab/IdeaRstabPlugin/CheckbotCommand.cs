@@ -2,6 +2,7 @@
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.PluginLogger;
 using System;
 using System.Diagnostics;
 using System.Reflection;

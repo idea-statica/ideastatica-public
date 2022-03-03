@@ -2,6 +2,7 @@
 using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using MathNet.Spatial.Euclidean;
 using System;
 using System.Collections.Generic;

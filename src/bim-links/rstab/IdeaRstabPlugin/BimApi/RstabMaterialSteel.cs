@@ -4,6 +4,7 @@ using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Material;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System;
 
 namespace IdeaRstabPlugin.BimApi

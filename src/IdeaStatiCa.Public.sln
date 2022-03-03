@@ -73,9 +73,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.RamToIdeaApp", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.RamToIdeaTest", "bim-links\bentley-ram\IdeaStatiCa.RamToIdeaTest\IdeaStatiCa.RamToIdeaTest.csproj", "{8967AE55-5709-47F2-802F-312D3862668F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginLogger", "IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logger", "Logger", "{0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginLogger", "Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{3814F9B8-46DE-4343-94A7-E7A81D371007}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -184,10 +193,10 @@ Global
 		{8967AE55-5709-47F2-802F-312D3862668F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8967AE55-5709-47F2-802F-312D3862668F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8967AE55-5709-47F2-802F-312D3862668F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,6 +226,8 @@ Global
 		{EC8DF878-7CE5-458D-BF3E-FEC30768A104} = {A140BC08-DF0F-45A8-84EA-E3855D907B47}
 		{175D43EC-FF80-4501-A2E6-858DE11AFB3C} = {A140BC08-DF0F-45A8-84EA-E3855D907B47}
 		{8967AE55-5709-47F2-802F-312D3862668F} = {A140BC08-DF0F-45A8-84EA-E3855D907B47}
+		{3814F9B8-46DE-4343-94A7-E7A81D371007} = {0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}
+		{D09CA0D0-737E-4481-8D89-371388E70F03} = {0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}

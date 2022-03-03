@@ -3,7 +3,7 @@ using Serilog;
 using System;
 using System.IO;
 
-namespace IdeaRstabPlugin
+namespace IdeaStatiCa.PluginLogger
 {
 	/// <summary>
 	/// Allows to use Serilog as IPluginLogger
