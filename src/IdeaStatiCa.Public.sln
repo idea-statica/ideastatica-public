@@ -73,6 +73,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.RamToIdeaApp", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.RamToIdeaTest", "bim-links\bentley-ram\IdeaStatiCa.RamToIdeaTest\IdeaStatiCa.RamToIdeaTest.csproj", "{8967AE55-5709-47F2-802F-312D3862668F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginLogger", "IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -182,6 +184,10 @@ Global
 		{8967AE55-5709-47F2-802F-312D3862668F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8967AE55-5709-47F2-802F-312D3862668F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8967AE55-5709-47F2-802F-312D3862668F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04587C4-2E06-48D1-96AF-287B4CA6D3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
