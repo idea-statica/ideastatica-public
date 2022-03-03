@@ -54,6 +54,7 @@ namespace IdeaStatiCa.Plugin
 			GrpcCommunicator = grpcCommunicator;
 			EventName = eventName;
 			mre = new ManualResetEvent(false);
+			ideaLogger.LogDebug($"AutomationHostingGrpc EventName = '{EventName}'");
 		}
 
 		/// <inheritdoc cref="RunAsync(string)"/>
