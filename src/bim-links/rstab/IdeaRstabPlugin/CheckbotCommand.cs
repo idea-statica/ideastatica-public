@@ -2,6 +2,7 @@
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.PluginLogger;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -13,10 +14,17 @@ namespace IdeaRstabPlugin
 	[ComVisible(true)]
 	public class CheckbotCommand : IExternalCommand
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger;
 
 		public CheckbotCommand()
 		{
+		}
+
+		static CheckbotCommand()
+		{
+			// set the name of the logfile
+			SerilogFacade.Initialize("IdeaRstabPlugin.log");
+			_logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 		}
 
 		public void Execute(object Model, string Params)

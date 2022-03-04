@@ -3,6 +3,7 @@ using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System.Collections.Generic;
 using System.Linq;
 

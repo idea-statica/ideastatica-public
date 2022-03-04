@@ -5,6 +5,7 @@ using IdeaRstabPlugin.Geometry;
 using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.Factories

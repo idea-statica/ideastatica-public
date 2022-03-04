@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,7 +17,15 @@ namespace FEAppExample_1
 		public MainWindow()
 		{
 			InitializeComponent();
-			this.vm = new FEAppExample_1VM();
+			try
+			{
+				this.vm = new FEAppExample_1VM();
+			}
+			catch
+			{
+				MessageBox.Show($"Initializatio failed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
 			DataContext = vm;
 
 			vm.Actions.CollectionChanged += OnItemsSourceChanged;

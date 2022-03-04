@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Grpc.Reflection;
+using IdeaStatiCa.PluginLogger;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -31,11 +31,17 @@ namespace FEAppExample_1
 		private bool isCheckBotRunning;
 		private string detailInformation;
 		private IIdeaStaticaApp ideaStatica;
-		private IdeaStatiCa.Plugin.IPluginLogger Logger { get; set; }
+		private static IdeaStatiCa.Plugin.IPluginLogger Logger { get; set; }
+
+		static FEAppExample_1VM()
+		{
+			// initialize logger
+			SerilogFacade.Initialize();
+			Logger = LoggerProvider.GetLogger("feappexample");
+		}
 
 		public FEAppExample_1VM()
 		{
-			this.Logger = new NullLogger();
 			this.IsGRPC = true;
 			this.CountryCode = CountryCode.ECEN;
 
@@ -269,14 +275,14 @@ namespace FEAppExample_1
 			var factory = new PluginFactory(this);
 			if (IsGRPC)
 			{
-				var bimHostingFactory = new GrpcBimHostingFactory(factory, new NullLogger());
+				var bimHostingFactory = new GrpcBimHostingFactory(factory, Logger);
 				var pluginHostingGrpc = bimHostingFactory.Create();
 				FeaAppHosting = pluginHostingGrpc;
 				this.IdeaStatica = ((ApplicationBIM)FeaAppHosting.Service).IdeaStaticaApp;
 			}
 			else
 			{
-				var pluginHosting = new BIMPluginHosting(factory);
+				var pluginHosting = new BIMPluginHosting(factory, Logger);
 				FeaAppHosting = pluginHosting;
 			}
 

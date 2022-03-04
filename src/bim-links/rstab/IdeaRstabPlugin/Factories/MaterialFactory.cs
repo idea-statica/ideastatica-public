@@ -2,6 +2,7 @@
 using IdeaRstabPlugin.BimApi;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using System;
 using System.Diagnostics;
 
