@@ -2,6 +2,9 @@
 using Serilog;
 using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace IdeaStatiCa.PluginLogger
 {
@@ -13,14 +16,67 @@ namespace IdeaStatiCa.PluginLogger
 		// format used for logging to the Serilog
 		private static readonly string SerilogFormat = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({ProcessId}-{ThreadId}) {Message:lj}{NewLine}{Exception}";
 
+		/// <summary>
+		/// File name of the log file
+		/// </summary>
+		private static string LogFileName { get; set; }
 
 		// global Serilog logger (Serilog allows to create only one logger, so we are creating is one and share it across all our IdeaLoggers)
 		private Serilog.Core.Logger globalSerilogLogger = null;
 		private bool disposedValue;
 
+		static SerilogFacade()
+		{
+			var entryAssembly = Assembly.GetEntryAssembly();
+			var entryAssemblyName = entryAssembly.GetName();
+			LogFileName = entryAssemblyName.Name + ".log";
+
+			try
+			{
+
+
+				// try to get log level from IdeaDiagnostics.config
+				// load the XML
+
+
+				string userProfileLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				string ideaRsPath = Path.Combine(userProfileLocalPath, "IDEA_RS");
+				string diagnosticsConfFile = Path.Combine(userProfileLocalPath, "");
+
+					var diagnosticsSettingsFilePath = Path.Combine(Path.GetTempPath(), );
+
+				XDocument doc = XDocument.Load(diagnosticsSettingsFilePath);
+
+				// get all the elements under <IdeaDiagnosticsSettings> tag
+				var xmlElements = doc.Descendants("IdeaDiagnosticsSettings").Nodes().Where(x => x.NodeType == System.Xml.XmlNodeType.Element).Cast<XElement>();
+
+				// get the default log level value from the <DefaultLogLevel> tag
+				var defaultLogLevelTag = xmlElements.Where(x => x.Name.ToString() == "DefaultLogLevel").FirstOrDefault();
+
+			}
+			catch (Exception ex)
+			{
+
+			}
+		}
+
 		/// <summary>
-		/// Returns the default logfilename for IdeaRstabPlugin
-		/// If the directory for logfile doesn't exist it will be created
+		/// Initialization of plugin logger must be the first call 
+		/// </summary>
+		/// <param name="logFileName"></param>
+		public static void Initialize(string logFileName = null)
+		{
+			if(!string.IsNullOrEmpty(logFileName))
+			{
+				LogFileName = logFileName;
+			}
+		}
+
+		/// <summary>
+		/// Returns the default full pathname for log file 
+		/// If the directory for logfile doesn't exist it will be created.
+		/// Log file can be found in the directory  '%Temp%\IdeaStatiCa\Logs\'
+		/// The logfilename corresponds to the name of the entry assembly but it can be set by calling the method Initialze
 		/// </summary>
 		/// <exception cref="System.Exception">Exception can be thrown if directory for logfile can not be created</exception>
 		/// <returns>Valid file name for log file</returns>
@@ -35,7 +91,7 @@ namespace IdeaStatiCa.PluginLogger
 			}
 
 			// determine the log file path
-			var logPath = Path.Combine(defaultLogDir, "IdeaRstabPlugin.log");
+			var logPath = Path.Combine(defaultLogDir, LogFileName);
 			return logPath;
 		}
 
@@ -58,7 +114,7 @@ namespace IdeaStatiCa.PluginLogger
 				.Enrich.WithProcessId()
 				.Enrich.WithThreadId();
 
-			if(!string.IsNullOrEmpty(logFileName))
+			if (!string.IsNullOrEmpty(logFileName))
 			{
 				// default log size is 512 kB
 				long DefaultFileSize = 512 * 1024;

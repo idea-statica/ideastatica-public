@@ -14,10 +14,17 @@ namespace IdeaRstabPlugin
 	[ComVisible(true)]
 	public class CheckbotCommand : IExternalCommand
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
+		private readonly static IPluginLogger _logger;
 
 		public CheckbotCommand()
 		{
+		}
+
+		static CheckbotCommand()
+		{
+			// set the name of the logfile
+			SerilogFacade.Initialize("IdeaRstabPlugin.log");
+			_logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 		}
 
 		public void Execute(object Model, string Params)
