@@ -23,6 +23,11 @@ namespace IdeaStatiCa.PluginLogger
 			logger = new SerilogFacade(SerilogFacade.GetDefaultLogFileName(), isDebug);
 		}
 
+		/// <summary>
+		/// Get the instance of the logger
+		/// </summary>
+		/// <param name="loggerName">The value is not used now.</param>
+		/// <returns>The value of the logger (singleton)</returns>
 		public static IPluginLogger GetLogger(string loggerName)
 		{
 			return logger;
