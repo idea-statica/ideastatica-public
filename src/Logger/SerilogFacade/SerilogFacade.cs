@@ -24,39 +24,36 @@ namespace IdeaStatiCa.PluginLogger
 		// global Serilog logger (Serilog allows to create only one logger, so we are creating is one and share it across all our IdeaLoggers)
 		private Serilog.Core.Logger globalSerilogLogger = null;
 		private bool disposedValue;
+		public static string LogLevel { get; private set; }
 
 		static SerilogFacade()
 		{
+			LogLevel = "Information";
 			var entryAssembly = Assembly.GetEntryAssembly();
 			var entryAssemblyName = entryAssembly.GetName();
 			LogFileName = entryAssemblyName.Name + ".log";
 
-			try
+			// try to get log level from IdeaDiagnostics.config
+			// load the XML
+
+			string userProfileLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			string ideaRsPath = Path.Combine(userProfileLocalPath, "IDEA_RS");
+			string diagnosticsConfFile = Path.Combine(ideaRsPath, "IdeaDiagnostics.config");
+
+			if (File.Exists(diagnosticsConfFile))
 			{
-
-
-				// try to get log level from IdeaDiagnostics.config
-				// load the XML
-
-
-				string userProfileLocalPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-				string ideaRsPath = Path.Combine(userProfileLocalPath, "IDEA_RS");
-				string diagnosticsConfFile = Path.Combine(userProfileLocalPath, "");
-
-					var diagnosticsSettingsFilePath = Path.Combine(Path.GetTempPath(), );
-
-				XDocument doc = XDocument.Load(diagnosticsSettingsFilePath);
+				XDocument doc = XDocument.Load(diagnosticsConfFile);
 
 				// get all the elements under <IdeaDiagnosticsSettings> tag
 				var xmlElements = doc.Descendants("IdeaDiagnosticsSettings").Nodes().Where(x => x.NodeType == System.Xml.XmlNodeType.Element).Cast<XElement>();
 
 				// get the default log level value from the <DefaultLogLevel> tag
 				var defaultLogLevelTag = xmlElements.Where(x => x.Name.ToString() == "DefaultLogLevel").FirstOrDefault();
-
-			}
-			catch (Exception ex)
-			{
-
+				// if the tag was found
+				if (defaultLogLevelTag != null)
+				{
+					LogLevel = defaultLogLevelTag.Attribute("loglevel").Value.ToString();
+				}
 			}
 		}
 
@@ -66,7 +63,7 @@ namespace IdeaStatiCa.PluginLogger
 		/// <param name="logFileName"></param>
 		public static void Initialize(string logFileName = null)
 		{
-			if(!string.IsNullOrEmpty(logFileName))
+			if (!string.IsNullOrEmpty(logFileName))
 			{
 				LogFileName = logFileName;
 			}
@@ -106,13 +103,48 @@ namespace IdeaStatiCa.PluginLogger
 			// create the default logger configuration
 			LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
 				// enrich the logs with process and thread id
-#if DEBUG
-				.MinimumLevel.Debug()
-#else
-				.MinimumLevel.Information()
-#endif
 				.Enrich.WithProcessId()
 				.Enrich.WithThreadId();
+
+			var logLevel = LogLevel.Trim();
+			logLevel = logLevel.ToLowerInvariant();
+
+			switch (logLevel)
+			{
+				case "debug":
+					{
+						loggerConfiguration = loggerConfiguration.MinimumLevel.Debug();
+						break;
+					}
+
+				case "trace":
+					{
+						loggerConfiguration = loggerConfiguration.MinimumLevel.Verbose();
+						break;
+					}
+
+				case "warning":
+					{
+						loggerConfiguration = loggerConfiguration.MinimumLevel.Warning();
+						break;
+					}
+
+				case "error":
+					{
+						loggerConfiguration = loggerConfiguration.MinimumLevel.Error();
+						break;
+					}
+
+				case "critical":
+					{
+						loggerConfiguration = loggerConfiguration.MinimumLevel.Error();
+						break;
+					}
+
+				default:
+					loggerConfiguration = loggerConfiguration.MinimumLevel.Information();
+					break;
+			}
 
 			if (!string.IsNullOrEmpty(logFileName))
 			{
@@ -177,7 +209,7 @@ namespace IdeaStatiCa.PluginLogger
 			{
 				if (disposing)
 				{
-					if(globalSerilogLogger != null)
+					if (globalSerilogLogger != null)
 					{
 						globalSerilogLogger.Dispose();
 						globalSerilogLogger = null;

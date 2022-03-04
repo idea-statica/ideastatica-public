@@ -13,7 +13,14 @@ namespace IdeaStatiCa.PluginLogger
 
 		static LoggerProvider()
 		{
-			logger = new SerilogFacade(SerilogFacade.GetDefaultLogFileName(), true);
+
+#if DEBUG
+			bool isDebug = true;
+#else
+			bool isDebug = false;
+#endif
+
+			logger = new SerilogFacade(SerilogFacade.GetDefaultLogFileName(), isDebug);
 		}
 
 		public static IPluginLogger GetLogger(string loggerName)

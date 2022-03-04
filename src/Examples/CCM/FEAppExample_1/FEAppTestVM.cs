@@ -36,7 +36,7 @@ namespace FEAppExample_1
 		static FEAppExample_1VM()
 		{
 			// initialize logger
-			SerilogFacade.Initialize("xxxx.log");
+			SerilogFacade.Initialize();
 			Logger = LoggerProvider.GetLogger("feappexample");
 		}
 
