@@ -42,6 +42,7 @@ namespace FEAppExample_1
 
 		public FEAppExample_1VM()
 		{
+			Logger.LogInformation("FEAppExample_1VM");
 			this.IsGRPC = true;
 			this.CountryCode = CountryCode.ECEN;
 
@@ -272,9 +273,11 @@ namespace FEAppExample_1
 
 		public void Run(object param)
 		{
+			Logger.LogInformation($"Run param = '{param?.ToString()}'");
 			var factory = new PluginFactory(this);
 			if (IsGRPC)
 			{
+				Logger.LogDebug("Run - calling GrpcBimHostingFactory");
 				var bimHostingFactory = new GrpcBimHostingFactory(factory, Logger);
 				var pluginHostingGrpc = bimHostingFactory.Create();
 				FeaAppHosting = pluginHostingGrpc;
@@ -282,6 +285,7 @@ namespace FEAppExample_1
 			}
 			else
 			{
+				Logger.LogDebug("Run - calling BIMPluginHosting");
 				var pluginHosting = new BIMPluginHosting(factory, Logger);
 				FeaAppHosting = pluginHosting;
 			}
@@ -292,7 +296,12 @@ namespace FEAppExample_1
 			ProjectDir = Path.Combine(WorkingDirectory, ProjectName);
 			if (!Directory.Exists(ProjectDir))
 			{
+				Logger.LogDebug($"Run - creating new project dir '{ProjectDir}'");
 				Directory.CreateDirectory(ProjectDir);
+			}
+			else
+			{
+				Logger.LogDebug($"Run - using existing dir '{ProjectDir}'");
 			}
 
 			var ideaStatiCaProjectDir = Path.Combine(ProjectDir, "IdeaStatiCa-" + ProjectName);
@@ -828,6 +837,7 @@ namespace FEAppExample_1
 
 		private void IdeaStaticAppStatusChanged(object sender, ISEventArgs e)
 		{
+			Logger.LogDebug($"IdeaStaticAppStatusChanged status = '{e?.Status}'");
 			if (e.Status == AppStatus.Finished)
 			{
 				IsCheckBotRunning = false;
