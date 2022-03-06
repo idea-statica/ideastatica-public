@@ -14,4 +14,4 @@ The severity of the messages in log is taken from the configuration file of IDEA
 
 The logfile can be found in the directory %Temp%\IdeaStatiCa\Logs\ The name of the logfile is taken from the name of the Entry assembly or it san be set 
 
-IdeaStatica.PluginLogger is availabe as nuget package
+IdeaStatica.PluginLogger is availabe as [nuget package](https://www.nuget.org/packages/IdeaStatiCa.PluginLogger/)
