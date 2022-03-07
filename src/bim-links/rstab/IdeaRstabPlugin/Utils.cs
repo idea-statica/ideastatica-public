@@ -128,7 +128,7 @@ namespace IdeaRstabPlugin
 		/// <param name="node1">An another node for rotation by a plane</param>
 		/// <param name="node2">An another node for rotation by a plane</param>
 		/// <returns>Angle in radians</returns>
-		public static double ConvertRotation(Rotation rotation, IObjectFactory objectFactory, IIdeaNode node1, IIdeaNode node2)
+		public static double ConvertRotation(Rotation rotation, IObjectFactory objectFactory, int startNodeNo, int endNodeNo)
 		{
 			switch (rotation.Type)
 			{
@@ -141,8 +141,8 @@ namespace IdeaRstabPlugin
 				case RotationType.HelpNode:
 					return Utils.GetEulerXAxisAngle(
 						rotation.Plane,
-						node1.Vector,
-						node2.Vector,
+						objectFactory.GetNode(startNodeNo).Vector,
+						objectFactory.GetNode(endNodeNo).Vector,
 						objectFactory.GetNode(rotation.HelpNodeNo).Vector
 					);
 
