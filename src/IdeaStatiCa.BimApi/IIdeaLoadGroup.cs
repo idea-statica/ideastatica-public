@@ -7,12 +7,12 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Relation
 		/// </summary>
-		Relation Relation { get; set; }
+		Relation Relation { get; }
 
 		/// <summary>
 		/// Group type
 		/// </summary>
-		LoadGroupType GroupType { get; set; }
+		LoadGroupType GroupType { get; }
 
 		/// <summary>
 		/// γ <sub>Q</sub>
