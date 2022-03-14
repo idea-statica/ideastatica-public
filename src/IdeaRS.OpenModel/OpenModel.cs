@@ -4,7 +4,6 @@ using IdeaRS.OpenModel.Detail;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Loading;
 using IdeaRS.OpenModel.Material;
-using IdeaRS.OpenModel.Message;
 using IdeaRS.OpenModel.Model;
 using System;
 using System.Collections;
@@ -460,6 +459,7 @@ namespace IdeaRS.OpenModel
 			lst1.Add(obj);
 			return 0;
 		}
+
 		/// <summary>
 		/// Add new object into collections
 		/// </summary>
@@ -692,59 +692,49 @@ namespace IdeaRS.OpenModel
 		/// <summary>
 		/// Should be called after deserialization of the open model from xml
 		/// </summary>
-		public void ReferenceElementsReconstruction()
+		public void ReferenceElementsReconstruction(bool renewReferences = false)
 		{
-			foreach (var listobj in GetData().ToArray())
+			foreach (IList listobj in GetData().Values.ToList())
 			{
-				foreach (var obj in listobj.Value)
+				foreach (object obj in listobj)
 				{
-					ObjectReferenceElementReconstruction(obj);
+					ReferenceElementReconstruction(obj, renewReferences);
 				}
 			}
 		}
 
-		private void ObjectReferenceElementReconstruction(object obj)
+		private void ReferenceElementReconstruction(object obj, bool renewReferences = false)
 		{
-			var props = TypeDescriptor.GetProperties(obj);
-			foreach (PropertyDescriptor p in props)
+			if (obj is ReferenceElement referenceElement)
 			{
-				object src = p.GetValue(obj);
-				if (p.PropertyType == typeof(ReferenceElement))
+				if (renewReferences)
 				{
-					ReferenceElement re = (ReferenceElement)src;
-					if ((re != null) && (re.Element == null))
-					{
-						re.Element = GetObject(re);
-						//p.SetValue(obj, re);
-					}
+					int id = referenceElement.Id;
+					string typeName = referenceElement.TypeName;
+
+					referenceElement.Element = null;
+
+					referenceElement.Id = id;
+					referenceElement.TypeName = typeName;
 				}
-				//else if (p.PropertyType is IList)
-				else if (src is IList)
+
+				if (referenceElement.Element == null)
 				{
-					foreach (object elem in (src as IList))
-					{
-						var t = elem.GetType();
-						if (t.IsClass)
-						{
-							if (elem is ReferenceElement)
-							{
-								ReferenceElement re = (ReferenceElement)elem;
-								if ((re != null) && (re.Element == null))
-								{
-									re.Element = GetObject(re);
-									//p.SetValue(obj, re);
-								}
-							}
-							else
-							{
-								ObjectReferenceElementReconstruction(elem);
-							}
-						}
-					}
+					referenceElement.Element = GetObject(referenceElement);
 				}
-				else if (p.PropertyType.IsClass)
+			}
+			else if (obj is IEnumerable enumerable)
+			{
+				foreach (object elem in enumerable)
 				{
-					ObjectReferenceElementReconstruction(src);
+					ReferenceElementReconstruction(elem, renewReferences);
+				}
+			}
+			else
+			{
+				foreach (PropertyDescriptor p in TypeDescriptor.GetProperties(obj))
+				{
+					ReferenceElementReconstruction(p.GetValue(obj), renewReferences);
 				}
 			}
 		}
