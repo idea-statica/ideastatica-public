@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.Plugin;
 using Serilog;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -23,15 +24,14 @@ namespace IdeaStatiCa.PluginLogger
 
 		// global Serilog logger (Serilog allows to create only one logger, so we are creating is one and share it across all our IdeaLoggers)
 		private Serilog.Core.Logger globalSerilogLogger = null;
+
 		private bool disposedValue;
 		public static string LogLevel { get; private set; }
 
 		static SerilogFacade()
 		{
 			LogLevel = "Information";
-			var entryAssembly = Assembly.GetEntryAssembly();
-			var entryAssemblyName = entryAssembly.GetName();
-			LogFileName = entryAssemblyName.Name + ".log";
+			LogFileName = GetLogName() + ".log";
 
 			// try to get log level from IdeaDiagnostics.config
 			// load the XML
@@ -58,7 +58,7 @@ namespace IdeaStatiCa.PluginLogger
 		}
 
 		/// <summary>
-		/// Initialization of plugin logger must be the first call 
+		/// Initialization of plugin logger must be the first call
 		/// </summary>
 		/// <param name="logFileName"></param>
 		public static void Initialize(string logFileName = null)
@@ -70,7 +70,7 @@ namespace IdeaStatiCa.PluginLogger
 		}
 
 		/// <summary>
-		/// Returns the default full pathname for log file 
+		/// Returns the default full pathname for log file
 		/// If the directory for logfile doesn't exist it will be created.
 		/// Log file can be found in the directory  '%Temp%\IdeaStatiCa\Logs\'
 		/// The logfilename corresponds to the name of the entry assembly but it can be set by calling the method Initialze
@@ -93,7 +93,7 @@ namespace IdeaStatiCa.PluginLogger
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="logFileName"></param>
 		/// <param name="logToDebugView"></param>
@@ -170,7 +170,6 @@ namespace IdeaStatiCa.PluginLogger
 
 			// create the global serilog logger
 			globalSerilogLogger = loggerConfiguration.CreateLogger();
-
 		}
 
 		/// <inheritdoc cref="IPluginLogger.LogDebug(string, Exception)"/>
@@ -234,6 +233,20 @@ namespace IdeaStatiCa.PluginLogger
 			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
+		}
+
+		private static string GetLogName()
+		{
+			Assembly entryAssembly = Assembly.GetEntryAssembly();
+
+			if (entryAssembly != null)
+			{
+				AssemblyName entryAssemblyName = entryAssembly.GetName();
+				return entryAssemblyName.Name;
+			}
+
+			Process process = Process.GetCurrentProcess();
+			return $"{process.ProcessName}_{process.Id}";
 		}
 	}
 }
