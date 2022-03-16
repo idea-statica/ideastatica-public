@@ -103,7 +103,7 @@ namespace IdeaStatiCaFake
 
 			grpcClient.Connect(clientId, grpcPort);
 
-			var grpcTask = grpcClient.StartAsync();
+			await grpcClient.StartAsync();
 
 			Actions.Add($"GRPC server connected");
 		}

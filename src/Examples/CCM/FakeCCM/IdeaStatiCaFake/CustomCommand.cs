@@ -5,7 +5,9 @@ namespace IdeaStatiCaFake
 {
 	public class CustomCommand : ICommand
 	{
+#pragma warning disable CS0067 // The event is never used
 		private event EventHandler _internalCanExecuteChanged;
+#pragma warning restore CS0067
 
 		private Action<object> ExecuteFunc;
 		private Func<object, bool> CanExecuteFunc;

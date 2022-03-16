@@ -14,7 +14,6 @@ namespace FEAppTest
 	public class FEAppTestVM : INotifyPropertyChanged, IHistoryLog
 	{
 		private IBIMPluginHosting feaAppHosting;
-		private GrpcClient client;
 		private string modelFeaXml;
 
 		public FEAppTestVM()

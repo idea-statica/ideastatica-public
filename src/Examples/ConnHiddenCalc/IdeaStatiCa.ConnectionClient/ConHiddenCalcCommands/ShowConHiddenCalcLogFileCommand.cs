@@ -10,7 +10,9 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 	/// </summary>
 	public class ShowConHiddenCalcLogFileCommand : ICommand
 	{
+#pragma warning disable CS0067 // The event is never used
 		public event EventHandler CanExecuteChanged;
+#pragma warning restore CS0067
 
 		public bool CanExecute(object parameter)
 		{
