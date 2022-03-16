@@ -6,13 +6,18 @@ using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
+using MathNet.Numerics;
+using System;
 using System.Collections.Generic;
+using UnitVector3D = MathNet.Spatial.Euclidean.UnitVector3D;
 
 namespace IdeaRstabPlugin.Factories
 {
 	internal class ElementFactory : IElementFactory
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
+		private const double Tolerance = 1e-6;
+
+		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		private readonly IModelDataProvider _modelDataProvider;
 		private readonly ILinesAndNodes _linesAndNodes;
@@ -32,78 +37,79 @@ namespace IdeaRstabPlugin.Factories
 		{
 			IMember member = _modelDataProvider.GetIMember(memberNo);
 			Member memberData = _modelDataProvider.GetMember(memberNo);
-			//IList<int> nodes = new List<int>();
-			//nodes.Add(memberData.StartNodeNo);
-			//nodes.Add(memberData.EndNodeNo);
 
-			CoordSystem cs = ConvertLCS(member.GetLocalCoordinateSystem(0.0));
+			CoordSystem cs = GetMemberLCS(memberData);
 
-			List<IIdeaElement1D> elements = new List<IIdeaElement1D>();
-			//foreach ((int startNodeNo, int endNodeNo) in _linesAndNodes.GetNodesOnMember(memberNo).SelectPairs((x, y) => (x, y)))
+			RstabElement1D element = new RstabElement1D(
+				_objectFactory,
+				cs,
+				memberData.StartNodeNo,
+				memberData.EndNodeNo,
+				memberData.StartCrossSectionNo,
+				memberData.EndCrossSectionNo)
 			{
-				RstabElement1D element = new RstabElement1D(
-					_objectFactory,
-					cs,
-					memberData.StartNodeNo,
-					memberData.EndNodeNo,
-					memberData.StartCrossSectionNo,
-					memberData.EndCrossSectionNo);
-				elements.Add(element);
-			}
-
-			((RstabElement1D)elements[0]).EccentricityBegin = GetEccentricity(member, 0.0);
-
-			// End eccentricity is already "included" in LCS
-			//((RSTABElement1D)elements[elements.Count - 1]).EccentricityEnd = GetEccentricity(member, 1.0);
-
-			return elements;
-		}
-
-		private CoordSystem ConvertLCS(ICoordinateSystem cs)
-		{
-			CoordinateSystem csData = cs.GetData();
-
-			return new CoordSystemByVector()
-			{
-				VecX = Point2Vector(csData.AxisX),
-				VecY = Point2Vector(csData.AxisY),
-				VecZ = Point2Vector(csData.AxisZ),
+				EccentricityBegin = GetEccentricity(member, 0.0),
+				EccentricityEnd = GetEccentricity(member, 1.0)
 			};
+
+			return new List<IIdeaElement1D>() { element };
 		}
 
-		private Vector3D Point2Vector(Dlubal.RSTAB8.Point3D point)
+		private CoordSystem GetMemberLCS(Member memberData)
 		{
-			if (_importSession.IsGCSOrientedUpwards)
+			double rotationRad = Utils.ConvertRotation(memberData.Rotation, _objectFactory, memberData.StartNodeNo, memberData.EndNodeNo);
+			return CreateLCS(memberData.StartNodeNo, memberData.EndNodeNo, rotationRad);
+		}
+
+		private CoordSystem CreateLCS(int startNodeNo, int endNodeNo, double rotation)
+		{
+			IIdeaNode startNode = _objectFactory.GetNode(startNodeNo);
+			IIdeaNode endNode = _objectFactory.GetNode(endNodeNo);
+
+			IdeaVector3D startNodePos = startNode.Vector;
+			IdeaVector3D endNodePos = endNode.Vector;
+
+			UnitVector3D axisX = UnitVector3D.Create(
+				endNodePos.X - startNodePos.X,
+				endNodePos.Y - startNodePos.Y,
+				endNodePos.Z - startNodePos.Z);
+
+			UnitVector3D axisZ, axisY;
+			if (Math.Abs(axisX.Z).AlmostEqual(1.0, Tolerance))
 			{
-				return new Vector3D
-				{
-					X = point.X,
-					Y = point.Y,
-					Z = point.Z,
-				};
+				axisZ = UnitVector3D.XAxis;
 			}
 			else
 			{
-				return new Vector3D
-				{
-					X = point.X,
-					Y = -point.Y,
-					Z = -point.Z,
-				};
+				axisZ = UnitVector3D.ZAxis;
 			}
+
+			axisY = axisZ.CrossProduct(axisX).Rotate(axisX, MathNet.Spatial.Units.Angle.FromRadians(rotation));
+			axisZ = axisX.CrossProduct(axisY);
+
+			return new CoordSystemByVector()
+			{
+				VecX = MNVector2Vector(axisX),
+				VecY = MNVector2Vector(axisY),
+				VecZ = MNVector2Vector(axisZ),
+			};
+		}
+
+		private Vector3D MNVector2Vector(UnitVector3D vector3D)
+		{
+			return new Vector3D()
+			{
+				X = vector3D.X,
+				Y = vector3D.Y,
+				Z = vector3D.Z
+			};
 		}
 
 		private IdeaVector3D GetEccentricity(IMember member, double param)
 		{
 			Dlubal.RSTAB8.Point3D point = member.GetEccentricity(param);
-			if (_importSession.IsGCSOrientedUpwards)
-			{
-				return new IdeaVector3D(point.X, point.Y, point.Z);
-			}
-			else
-			{
-				return new IdeaVector3D(point.X, -point.Y, -point.Z);
-			}
+
+			return new IdeaVector3D(point.X, -point.Y, -point.Z);
 		}
 	}
 }

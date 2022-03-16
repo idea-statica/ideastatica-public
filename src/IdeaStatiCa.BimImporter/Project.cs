@@ -13,9 +13,9 @@ namespace IdeaStatiCa.BimImporter
 	{
 		private int _nextId = 1;
 
-		private Map<string, int> _map = new Map<string, int>();
-		private Dictionary<int, IIdeaObject> _objectMapping = new Dictionary<int, IIdeaObject>();
-		private Dictionary<int, IIdeaPersistenceToken> _persistenceTokens = new Dictionary<int, IIdeaPersistenceToken>();
+		private readonly Map<string, int> _map = new Map<string, int>();
+		private readonly Dictionary<int, IIdeaObject> _objectMapping = new Dictionary<int, IIdeaObject>();
+		private readonly Dictionary<int, IIdeaPersistenceToken> _persistenceTokens = new Dictionary<int, IIdeaPersistenceToken>();
 
 		private readonly IPluginLogger _logger;
 		private readonly IPersistence _persistence;

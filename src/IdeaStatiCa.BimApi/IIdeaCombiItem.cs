@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IdeaStatiCa.BimApi
+﻿namespace IdeaStatiCa.BimApi
 {
 	public interface IIdeaCombiItem : IIdeaObject
 	{
-		IIdeaLoadCase LoadCase { get; set; }
+		IIdeaLoadCase LoadCase { get; }
 
 		/// <summary>
 		/// Coefficient
 		/// </summary>
-		System.Double Coeff { get; set; }
+		double Coeff { get; }
 
 		/// <summary>
 		/// Inserted another combination
 		/// </summary>
-		IIdeaCombiInput Combination { get; set; }
+		IIdeaCombiInput Combination { get; }
 	}
 }

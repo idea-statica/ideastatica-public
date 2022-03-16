@@ -156,7 +156,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			Assert.That(resultsOnMember[0].Results.Count, Is.EqualTo(1));
 
 			ResultOnSection resultOnSection = (ResultOnSection)resultsOnMember[0].Results[0];
-			Assert.That(resultOnSection.AbsoluteRelative, Is.EqualTo(AbsoluteRelative.Absolute));
+			Assert.That(resultOnSection.AbsoluteRelative, Is.EqualTo(AbsoluteRelative.Relative));
 			Assert.That(resultOnSection.Position, Is.EqualTo(0.5));
 			Assert.That(resultOnSection.Results.Count, Is.EqualTo(1));
 

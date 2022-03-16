@@ -54,7 +54,7 @@ namespace IdeaRstabPlugin.BimApi
 				{
 					continue;
 				}
-				IdeaStatiCa.BimApi.IIdeaCombiItem combiItem = new IdeaStatiCa.BimImporter.ImportedObjects.CombiItemBIM();
+				IdeaStatiCa.BimImporter.ImportedObjects.CombiItemBIM combiItem = new IdeaStatiCa.BimImporter.ImportedObjects.CombiItemBIM();
 				int id = rfCombiItems[j].Loading.No;
 				RstabLoadCaseBase loadCase = null;
 				if (rfCombiItems[j].Loading.Type == LoadingType.LoadCombinationType)
@@ -254,19 +254,19 @@ namespace IdeaRstabPlugin.BimApi
 
 			foreach (KeyValuePair<int, Tuple<bool, IList<RstabLoadCaseBase>>> it in groupLCs)
 			{
-				IIdeaLoadGroup lg = null;
+				RstabLoadGroup lg = null;
 				foreach (RstabLoadCaseBase lc in it.Value.Item2)
 				{
 					if (!IsIdLoadGroup(lc.LoadGroup.Id)) //1 - 4 jsou default grupy
 					{
-						lg = lc.LoadGroup;
+						lg = lc.LoadGroup as RstabLoadGroup;
 						break;
 					}
 				}
 
 				if (lg == null)
 				{
-					lg = _objectFactory.GetLoadGroup(_objectFactory.LoadGroup.Count() + 1);
+					lg = _objectFactory.GetLoadGroup(_objectFactory.LoadGroup.Count() + 1) as RstabLoadGroup;
 					//lg.Name = "";
 					lg.Relation = Relation.Exclusive;
 					lg.GroupType = it.Value.Item1 ? LoadGroupType.Fatigue : LoadGroupType.Variable;

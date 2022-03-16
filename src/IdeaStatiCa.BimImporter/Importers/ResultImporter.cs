@@ -109,7 +109,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				ResultOnSection resultOnSection = new ResultOnSection()
 				{
-					AbsoluteRelative = AbsoluteRelative.Absolute,
+					AbsoluteRelative = AbsoluteRelative.Relative,
 					Position = position,
 					Results = section.Results.Select(x => ImportSectionResult(ctx, x)).ToList()
 				};
