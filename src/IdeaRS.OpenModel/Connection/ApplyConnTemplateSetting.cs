@@ -31,5 +31,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public int DefaultStiffMemberCrossSectionID { get; set; }
+
+		/// <summary>
+		/// Get or set whether to use materials from original connection model (and these materials must exist in the project)
+		/// </summary>
+		[DataMember]
+		public bool UseMatFromOrigin { get; set; }
 	}
 }
