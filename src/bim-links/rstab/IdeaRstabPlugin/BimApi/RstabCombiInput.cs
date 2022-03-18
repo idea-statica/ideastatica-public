@@ -379,17 +379,17 @@ namespace IdeaRstabPlugin.BimApi
 
 				case DesignSituationType.UlsStrPermanentTransient610:
 					combiTypeCombiEC = TypeOfCombiEC.ULS;
-					typeOfCombination = TypeCalculationCombiEC.Code610;
+					typeOfCombination = TypeCalculationCombiEC.Envelope;
 					break;
 
 				case DesignSituationType.UlsStrPermanentTransient610AAndB:
 					combiTypeCombiEC = TypeOfCombiEC.ULS;
-					typeOfCombination = TypeCalculationCombiEC.Code610ab;
+					typeOfCombination = TypeCalculationCombiEC.Envelope;
 					break;
 
 				case DesignSituationType.UlsStrPermanentTransient610AModB:
 					combiTypeCombiEC = TypeOfCombiEC.ULS;
-					typeOfCombination = TypeCalculationCombiEC.Code610ab;
+					typeOfCombination = TypeCalculationCombiEC.Envelope;
 					break;
 
 				case DesignSituationType.UlsStrAccidental:
