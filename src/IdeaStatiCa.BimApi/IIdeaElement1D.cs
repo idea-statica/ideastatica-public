@@ -21,11 +21,13 @@ namespace IdeaStatiCa.BimApi
 
 		/// <summary>
 		/// Eccentricity (offset) at the start of the element.
+		/// It is defined in the global coordinate system.
 		/// </summary>
 		IdeaVector3D EccentricityBegin { get; }
 
 		/// <summary>
 		/// Eccentricity (offset) at the end of the element.
+		/// It is defined in the global coordinate system.
 		/// </summary>
 		IdeaVector3D EccentricityEnd { get; }
 
