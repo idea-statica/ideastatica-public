@@ -81,7 +81,7 @@ namespace IdeaRstabPlugin.Factories
 			}
 			else
 			{
-				axisZ = UnitVector3D.ZAxis;
+				axisZ = UnitVector3D.ZAxis.Negate();
 			}
 
 			axisY = axisZ.CrossProduct(axisX).Rotate(axisX, MathNet.Spatial.Units.Angle.FromRadians(rotation));
@@ -107,9 +107,16 @@ namespace IdeaRstabPlugin.Factories
 
 		private IdeaVector3D GetEccentricity(IMember member, double param)
 		{
-			Dlubal.RSTAB8.Point3D point = member.GetEccentricity(param);
+			Dlubal.RSTAB8.Point3D point = member.GetEccentricity(param, false);
 
-			return new IdeaVector3D(point.X, -point.Y, -point.Z);
+			if (_importSession.IsGCSOrientedUpwards)
+			{
+				return new IdeaVector3D(point.X, -point.Y, -point.Z);
+			}
+			else
+			{
+				return new IdeaVector3D(point.X, -point.Y, point.Z);
+			}
 		}
 	}
 }
