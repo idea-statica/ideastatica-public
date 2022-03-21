@@ -212,7 +212,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			{
 				IsConnected = false;
 				ClientDisconnected?.Invoke(this, EventArgs.Empty);
-				Logger.LogWarning("GprcClient.DisconnectAsync : disconnected");
+				Logger.LogDebug("GprcClient.DisconnectAsync : disconnected");
 			}
 		}
 
