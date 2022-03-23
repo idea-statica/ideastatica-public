@@ -52,7 +52,7 @@ namespace IdeaRstabPlugin.BimApi
 					throw new NotImplementedException($"Unsupported country code {m_CountryCode}");
 
 				case CountryCode.ECEN:
-					matConcrete = new MatConcreteEc2();
+					matConcrete = new MatConcreteEc2 { CalculateDependentValues = true, };
 					SetConcreteEc2(matConcrete as MatConcreteEc2);
 					break;
 
