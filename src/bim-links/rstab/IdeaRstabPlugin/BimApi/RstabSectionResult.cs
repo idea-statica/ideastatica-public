@@ -79,17 +79,7 @@ namespace IdeaRstabPlugin.BimApi
 
 		private static InternalForcesData ConvertForces(InternalForcesData forces, bool isCSDownwards)
 		{
-			if (isCSDownwards)
-			{
-				forces.Qy *= -1.0;
-				forces.Qz *= -1.0;
-				forces.My *= -1.0;
-			}
-			else
-			{
-				forces.Qz *= -1.0;
-				forces.Mz *= -1.0;
-			}
+			forces.My *= -1.0;
 
 			return forces;
 		}

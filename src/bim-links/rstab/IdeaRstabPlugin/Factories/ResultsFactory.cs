@@ -73,7 +73,7 @@ namespace IdeaRstabPlugin.Factories
 
 			RstabResult result = new RstabResult
 			{
-				CoordinateSystemType = ResultLocalSystemType.Principle,
+				CoordinateSystemType = ResultLocalSystemType.Local,
 				Sections = results
 					.EnumerateByLeft()
 					.Select(x => new RstabSection()
