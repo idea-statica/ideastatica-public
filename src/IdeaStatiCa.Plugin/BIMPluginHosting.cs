@@ -125,10 +125,6 @@ namespace IdeaStatiCa.Plugin
 				binding.ReceiveTimeout = TimeSpan.MaxValue;
 				selfServiceHost.AddServiceEndpoint(typeof(IApplicationBIM), binding, ServiceBaseAddress);
 
-				//BasicHttpBinding httpBinding = new BasicHttpBinding { MaxReceivedMessageSize = 2147483647 };
-				//httpBinding.ReceiveTimeout = TimeSpan.MaxValue;
-				//selfServiceHost.AddServiceEndpoint(typeof(IApplicationBIM), httpBinding, "http://localhost/bim_p1");
-
 				//MEX - Meta data exchange
 				ServiceMetadataBehavior behavior = new ServiceMetadataBehavior();
 				selfServiceHost.Description.Behaviors.Add(behavior);
@@ -273,8 +269,12 @@ namespace IdeaStatiCa.Plugin
 				if (!syncEvent.WaitOne(OpenServerTimeLimit))
 				{
 					syncEvent.Close();
-					throw new CommunicationException(string.Format("Cannot establish the connection to new application with '{0}' with process id {1} within {2}ms timeout.", exePath, connectionProc.Id, OpenServerTimeLimit));
+					string msg = string.Format("BIMPluginHosting.RunIdeaIdeaStatiCa FAILED : the application '{0}' with process id {1} do not respond {2}ms timeout.", exePath, connectionProc.Id, OpenServerTimeLimit);
+					ideaLogger.LogWarning(msg);
+
+					throw new CommunicationException(msg);
 				}
+
 				syncEvent.Close();
 			}
 

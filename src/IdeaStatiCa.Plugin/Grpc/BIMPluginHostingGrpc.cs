@@ -199,9 +199,10 @@ namespace IdeaStatiCa.Plugin
 				{
 					syncEvent.Close();
 
-					ideaLogger.LogDebug($"Cannot start '{exePath}', throwing exception.");
+					string msg = string.Format("BIMPluginHostingGrpc.RunIdeaIdeaStatiCa FAILED : the application '{0}' with process id {1} do not respond {2}ms timeout.", exePath, connectionProc.Id, OpenServerTimeLimit);
+					ideaLogger.LogWarning(msg);
 
-					throw new CommunicationException($"Cannot start '{exePath}'.");
+					throw new CommunicationException(msg);
 				}
 				syncEvent.Close();
 			}
