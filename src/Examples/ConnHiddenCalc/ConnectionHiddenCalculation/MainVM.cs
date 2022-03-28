@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Linq;
+using IdeaStatiCa.PluginLogger;
 
 namespace ConnectionHiddenCalculation
 {
@@ -24,6 +25,7 @@ namespace ConnectionHiddenCalculation
 	public class MainVM : INotifyPropertyChanged, IConHiddenCalcModel
 	{
 		#region private fields
+		private static IdeaStatiCa.Plugin.IPluginLogger Logger { get; set; }
 		public event PropertyChangedEventHandler PropertyChanged;
 		bool isIdea;
 		string statusMessage;
@@ -47,6 +49,13 @@ namespace ConnectionHiddenCalculation
 		#endregion
 
 		#region Constructor
+		static MainVM()
+		{
+			// initialize logger
+			SerilogFacade.Initialize();
+			Logger = LoggerProvider.GetLogger("feappexample");
+		}
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -368,7 +377,8 @@ namespace ConnectionHiddenCalculation
 			if (this.ConnectionController == null)
 			{
 				// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
-				this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
+				this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir, Logger);
+				this.ConnectionController.ConnectionAppExited += ConnectionController_ConnectionAppExited;
 			}
 			else
 			{
@@ -380,6 +390,18 @@ namespace ConnectionHiddenCalculation
 			SaveAsProjectCmd.Execute(IdeaConTempFileName);
 
 			ConnectionController.OpenProject(IdeaConTempFileName);
+		}
+
+		private void ConnectionController_ConnectionAppExited(object sender, EventArgs e)
+		{
+			ConnectionController.ConnectionAppExited -= ConnectionController_ConnectionAppExited;
+			IDisposable disp = ConnectionController as IDisposable;
+			if(disp != null)
+			{
+				disp.Dispose();
+			}
+
+			ConnectionController = null;
 		}
 
 		private bool CanRunIdeaConnection(object arg)

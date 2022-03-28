@@ -51,6 +51,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.ConnectionClient\IdeaStatiCa.ConnectionClient.csproj" />
   </ItemGroup>
   <ItemGroup>

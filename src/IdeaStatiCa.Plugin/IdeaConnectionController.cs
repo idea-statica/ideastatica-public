@@ -14,6 +14,8 @@ namespace IdeaStatiCa.Plugin
 
 		protected EventWaitHandle CurrentItemChangedEvent;
 
+		public event EventHandler ConnectionAppExited;
+
 		protected IdeaStatiCaClient<IAutomation> ConnectionAppClient { get; set; }
 		protected virtual uint UserMode { get; } = 0;
 
@@ -106,6 +108,11 @@ namespace IdeaStatiCa.Plugin
 			IdeaStatiCaProcess = null;
 			CalculatorUrl = null;
 			ConnectionAppClient = null;
+
+			if(ConnectionAppExited != null)
+			{
+				ConnectionAppExited(this, e);
+			}
 		}
 
 		#region IDisposable Support

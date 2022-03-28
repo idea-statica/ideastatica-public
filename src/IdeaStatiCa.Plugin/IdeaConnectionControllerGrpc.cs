@@ -1,10 +1,8 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
-using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.ServiceModel;
 using System.Threading;
 
 namespace IdeaStatiCa.Plugin
@@ -14,6 +12,8 @@ namespace IdeaStatiCa.Plugin
 		private readonly string IdeaInstallDir;
 		private Process IdeaStatiCaProcess { get; set; }
 		private Uri CalculatorUrl { get; set; }
+
+		public event EventHandler ConnectionAppExited;
 
 		private int GrpcPort { get; set; }
 
@@ -123,6 +123,11 @@ namespace IdeaStatiCa.Plugin
 			IdeaStatiCaProcess = null;
 			CalculatorUrl = null;
 			ConnectionAppClient = null;
+
+			if (ConnectionAppExited != null)
+			{
+				ConnectionAppExited(this, e);
+			}
 		}
 
 		#region IDisposable Support
