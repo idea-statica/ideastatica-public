@@ -113,6 +113,16 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			Logger = logger;
 		}
 
+		/// <summary>
+		/// Invoke method by reflex
+		/// </summary>
+		/// <typeparam name="T">Type of the result</typeparam>
+		/// <param name="methodName">Name of the method to invoke</param>
+		/// <param name="returnType">Type of the return value</param>
+		/// <param name="arguments">arguments which will be passed to the invoked method</param>
+		/// <returns>Result of the method</returns>
+		/// <exception cref="ArgumentException">Exception is thrown in case of an error</exception>
+
 		public T InvokeMethod<T>(string methodName, Type returnType, params object[] arguments)
 		{
 			Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod methodName = $'{methodName}', returnType = '{returnType.Name}'");
@@ -138,6 +148,12 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			if (!string.IsNullOrEmpty(response.Data) || returnType != typeof(void))
 			{
 				// hadnle response
+				if(!string.IsNullOrEmpty(response.DataType) && response.DataType.Equals(typeof(Exception).Name))
+				{
+					// thgrow exception - an error has happened in plugin
+					throw new ArgumentException(response.Data);
+				}
+
 				var responseData = JsonConvert.DeserializeObject(response.Data, returnType);
 
 				Logger.LogDebug("GrpcMethodInvokerHandler.InvokeMethod finished");

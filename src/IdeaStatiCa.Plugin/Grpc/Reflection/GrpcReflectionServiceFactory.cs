@@ -80,8 +80,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 				await Task.CompletedTask;
 				return methodInvoker.InvokeMethod<object>(method.Name, returnType, arguments);
 			}
+			catch(ArgumentException ae)
+			{
+				// rethrow exeption which were handled by a plugin
+				throw ae;
+			}
 			catch (Exception e)
 			{
+				// this is a general error
 				throw new InvalidOperationException("Grpc method couldn't be invoked. Check if your server implemnents specified interface", e);
 			}
 		}

@@ -59,13 +59,14 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			}
 			catch (Exception e)
 			{
+				// return information about exception to the caller
 				var errMsg = new GrpcMessage()
 				{
 					OperationId = message.OperationId,
 					MessageType = GrpcMessage.Types.MessageType.Response,
-					MessageName = "Error",
-					Data = e.Message,
-					DataType = typeof(string).Name
+					MessageName = message.MessageName,
+					Data = e?.InnerException != null ? e.InnerException.Message : e.Message,
+					DataType = typeof(Exception).Name
 				};
 
 				await grpcSender.SendMessageAsync(errMsg);
