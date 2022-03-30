@@ -1,13 +1,15 @@
 ﻿using Grpc.Core;
 using IdeaStatiCa.Plugin.Grpc;
 using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace IdeaStatiCa.Plugin.Tests.gRPC
 {
+	[TestFixture]
 	public class GrpcServerTest : IDisposable
 	{
 		private bool disposedValue;
@@ -20,7 +22,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		///// Test of processing messages by GrpcServer
 		///// </summary>
 		///// <returns></returns>
-		//[Fact]
+		//[Test]
 		//public async Task GrpcServerHandleMessagesTest()
 		//{
 		//	var grpcServer = new GrpcServer(80, new NullLogger());
@@ -74,7 +76,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		///// Test of GrpcServer which has more registered handles
 		///// </summary>
 		///// <returns></returns>
-		//[Fact]
+		//[Test]
 		//public async Task GrpcServerTwoHandlesTest()
 		//{
 		//	var grpcServer = new GrpcServer(80, new NullLogger());

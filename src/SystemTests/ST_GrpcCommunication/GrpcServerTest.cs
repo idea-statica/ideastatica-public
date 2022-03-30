@@ -3,16 +3,18 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
+using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using SystemTestService;
-using Xunit;
+
 
 namespace ST_GrpcCommunication
 {
+	[TestFixture]
 	public class GrpcServerTest
 	{
 #if DEBUG
@@ -25,7 +27,7 @@ namespace ST_GrpcCommunication
 		///// System test for invoking remote methods on GrpcServer
 		///// </summary>
 		///// <returns></returns>
-		//[Fact]
+		//[Test]
 		//public async Task InvokeMethodTest()
 		//{
 		//	int grpcServerPort = PortFinder.FindPort(50000, 50500);
@@ -86,7 +88,7 @@ namespace ST_GrpcCommunication
 		///// System test of the implementation <see cref="ProjectContentClientHandler"/> which validates grpc communication with the GrpcServer
 		///// </summary>
 		///// <returns></returns>
-		//[Fact]
+		//[Test]
 		//public async Task ProjectContentTest()
 		//{
 		//	int grpcServerPort = PortFinder.FindPort(50000, 50500);

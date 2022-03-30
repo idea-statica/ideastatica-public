@@ -1,10 +1,11 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace IdeaStatiCa.Plugin.Tests.gRPC
 {
+	[TestFixture]
 	public class ReflectionServiceInterceptorTest
 	{
 		public interface IService
@@ -15,7 +16,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		/// <summary>
 		/// It validates calling the method 'MakeSum' in the mocked interface 'IService'
 		/// </summary>
-		[Fact]
+		[Test]
 		public void MakeSumTest()
 		{
 			//const string clientId = "client1";

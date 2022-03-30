@@ -20,7 +20,7 @@
 //		/// Test of invocation <see cref="IProjectContent.GetContent"/> on the server
 //		/// </summary>
 //		/// <returns></returns>
-//		[Fact]
+//		[Test]
 //		public async Task GetContentTest()
 //		{
 //			var grpcServer = new GrpcServer(80, new NullLogger());
@@ -91,7 +91,7 @@
 //		/// Test of invocation <see cref="IProjectContent.Exist(string)"/> on the server
 //		/// </summary>
 //		/// <returns></returns>
-//		[Fact]
+//		[Test]
 //		public async Task ExistTest()
 //		{
 //			var grpcServer = new GrpcServer(80, new NullLogger());
@@ -192,7 +192,7 @@
 //			handledMessages[2].Data.Should().StartWith("Error");
 //		}
 
-//		[Fact]
+//		[Test]
 //		public async Task DeleteTest()
 //		{
 //			var grpcServer = new GrpcServer(80, new NullLogger());
@@ -265,7 +265,7 @@
 //			handledMessages[1].Data.Should().Be("OK");
 //		}
 
-//		[Fact]
+//		[Test]
 //		public async Task WriteTest()
 //		{
 //			var grpcServer = new GrpcServer(80, new NullLogger());
@@ -370,7 +370,7 @@
 //		}
 
 
-//		[Fact]
+//		[Test]
 //		public async Task ReadTest()
 //		{
 //			var grpcServer = new GrpcServer(80, new NullLogger());
