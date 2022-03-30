@@ -3,9 +3,10 @@ using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Newtonsoft.Json;
 using NSubstitute;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace IdeaStatiCa.Plugin.Tests.gRPC
 {
@@ -14,13 +15,15 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		int MakeSum(int a, int b);
 	}
 
+	[TestFixture]
+
 	public class GrpcReflectionServerTest
 	{
 		///// <summary>
 		///// Test of invocation of method by GrpcReflectionServer
 		///// </summary>
 		///// <returns></returns>
-		//[Fact]
+		//[Test]
 		//public async Task GrpcServerHandleMessagesTest()
 		//{
 		//	const int ExpectedResult = 11;

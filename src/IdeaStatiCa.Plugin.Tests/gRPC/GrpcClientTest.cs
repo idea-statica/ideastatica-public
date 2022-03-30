@@ -1,13 +1,15 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
 using NSubstitute;
+using NUnit.Framework;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace IdeaStatiCa.Plugin.Tests.gRPC
 {
+	[TestFixture]
 	public class GrpcClientTest
 	{
-	//	[Fact]
+	//	[Test]
 	//	public async Task GrpcClientHandleMessagesTest()
 	//	{
 	//		const string clientId = "client1";

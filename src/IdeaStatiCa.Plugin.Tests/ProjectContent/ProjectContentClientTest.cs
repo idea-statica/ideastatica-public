@@ -6,20 +6,21 @@ using IdeaStatiCa.Public;
 using Newtonsoft.Json;
 using NSubstitute;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 {
+	[TestFixture]
 	public class ProjectContentClientTest
 	{
 		/// <summary>
 		/// Test of the method ProjectContentClientHandler.GetContent
 		/// </summary>
-		[Fact]
+		[Test]
 		public void GetContentTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
@@ -52,7 +53,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		/// <summary>
 		/// Test of the method ProjectContentClientHandler.Exist
 		/// </summary>
-		[Fact]
+		[Test]
 		public void ExistTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
@@ -112,7 +113,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		/// <summary>
 		/// Test of the method ProjectContentClientHandler.Delete
 		/// </summary>
-		[Fact]
+		[Test]
 		public void DeleteTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
@@ -159,7 +160,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		/// <summary>
 		/// Test of the method ProjectContentClientHandler.ReadData
 		/// </summary>
-		[Fact]
+		[Test]
 		public void ReadDataTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
@@ -227,7 +228,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 		/// <summary>
 		/// Test of the method ProjectContentClientHandler.WriteData
 		/// </summary>
-		[Fact]
+		[Test]
 		public void WriteDataTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();
@@ -289,7 +290,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			}
 		}
 
-		[Fact]
+		[Test]
 		public void GetStreamTest()
 		{
 			var grpcSender = Substitute.For<IGrpcSender>();

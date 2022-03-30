@@ -1,15 +1,16 @@
 ﻿using FluentAssertions;
 using IdeaStatiCa.Plugin.ProjectContent;
 using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.IO;
-using Xunit;
 
 namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 {
+	[TestFixture]
 	public class RemoteDataStreamTest
 	{
-		[Fact]
+		[Test]
 		public void InitStreamTest()
 		{
 			string contentId = "item1";
