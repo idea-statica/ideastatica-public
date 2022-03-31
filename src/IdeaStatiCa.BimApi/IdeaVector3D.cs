@@ -1,7 +1,7 @@
 ﻿namespace IdeaStatiCa.BimApi
 {
 	/// <summary>
-	/// A immutable class representing a point in a 3D euclidean space. 
+	/// A immutable class representing a point in a 3D euclidean space.
 	/// </summary>
 	public class IdeaVector3D
 	{

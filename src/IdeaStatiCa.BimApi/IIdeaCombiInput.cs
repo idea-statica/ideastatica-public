@@ -14,7 +14,6 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		IdeaRS.OpenModel.Loading.TypeCalculationCombiEC TypeCalculationCombi { get; }
 
-
 		List<IIdeaCombiItem> CombiItems { get; }
 	}
 }
