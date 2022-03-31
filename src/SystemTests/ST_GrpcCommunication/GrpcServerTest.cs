@@ -7,6 +7,7 @@ using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using SystemTestService;
@@ -23,65 +24,69 @@ namespace ST_GrpcCommunication
 		public const int StartTimeout = 1000*20;
 #endif
 
-		///// <summary>
-		///// System test for invoking remote methods on GrpcServer
-		///// </summary>
-		///// <returns></returns>
-		//[Test]
-		//public async Task InvokeMethodTest()
-		//{
-		//	int grpcServerPort = PortFinder.FindPort(50000, 50500);
+		/// <summary>
+		/// System test for invoking remote methods on GrpcServer
+		/// </summary>
+		/// <returns></returns>
+		[Test]
+		public async Task InvokeMethodTest()
+		{
+			int grpcServerPort = PortFinder.FindPort(50000, 50500);
+			
+			var currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-		//	Process grpcServerProc = new Process();
-		//	string eventName = string.Format("GrpsServer_Start{0}", grpcServerPort);
-		//	string applicationExePath = Path.Combine("GrpcServerHost.exe");
+			Process grpcServerProc = new Process();
+			string eventName = string.Format("GrpsServer_Start{0}", grpcServerPort);
+			string applicationExePath = Path.Combine(currentDir, "GrpcServerHost.exe");
 
-		//	try
-		//	{
-		//		using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
-		//		{
-		//			grpcServerProc.StartInfo = new ProcessStartInfo(applicationExePath, $"{IdeaStatiCa.Plugin.Constants.GrpcPortParam}:{grpcServerPort} -startEvent:{eventName}");
-		//			grpcServerProc.EnableRaisingEvents = true;
-		//			grpcServerProc.Start();
+			try
+			{
+				using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
+				{
+					grpcServerProc.StartInfo = new ProcessStartInfo(applicationExePath, $"{IdeaStatiCa.Plugin.Constants.GrpcPortParam}:{grpcServerPort} -startEvent:{eventName}");
+					grpcServerProc.EnableRaisingEvents = true;
+					grpcServerProc.Start();
 
-		//			if (!syncEvent.WaitOne(StartTimeout))
-		//			{
-		//				throw new TimeoutException($"Time out - process '{applicationExePath}' doesn't set the event '{eventName}'");
-		//			}
+					if (!syncEvent.WaitOne(StartTimeout))
+					{
+						throw new TimeoutException($"Time out - process '{applicationExePath}' doesn't set the event '{eventName}'");
+					}
 
-		//			string clientId = grpcServerPort.ToString();
+					string clientId = grpcServerPort.ToString();
 
-		//			// create claint of the service IService which runs on grpcServer
-		//			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(clientId, grpcServerPort, new NullLogger());
+					// create claint of the service IService which runs on grpcServer
+					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(new NullLogger());
 
-		//			await grpcClient.ConnectAsync();
-		//			grpcClient.IsConnected.Should().BeTrue("The client shoul be connected");
+					grpcClient.Connect(clientId, grpcServerPort);
+					var task = grpcClient.StartAsync();
 
-		//			// get interface of the service
-		//			IService serviceClient = grpcClient.Service;
+					grpcClient.IsConnected.Should().BeTrue("The client shoul be connected");
 
-		//			// invote method remotly
-		//			string fooResult = serviceClient.Foo("IDEA StatiCa");
+					// get interface of the service
+					IService serviceClient = grpcClient.Service;
 
-		//			fooResult.Should().BeEquivalentTo("Hi IDEA StatiCa");
+					// invote method remotly
+					string fooResult = serviceClient.Foo("IDEA StatiCa");
 
-		//			await grpcClient.DisconnectAsync();
-		//		}
-		//	}
-		//	finally
-		//	{
-		//		if (grpcServerProc != null)
-		//		{
-		//			try
-		//			{
-		//				grpcServerProc.Kill();
-		//				grpcServerProc.WaitForExit();
-		//				grpcServerProc = null;
-		//			}
-		//			catch { }
-		//		}
-		//	}
-		//}
+					fooResult.Should().BeEquivalentTo("Hi IDEA StatiCa");
+
+					await grpcClient.DisconnectAsync();
+				}
+			}
+			finally
+			{
+				if (grpcServerProc != null)
+				{
+					try
+					{
+						grpcServerProc.Kill();
+						grpcServerProc.WaitForExit();
+						grpcServerProc = null;
+					}
+					catch { }
+				}
+			}
+		}
 
 
 		///// <summary>

@@ -2,8 +2,10 @@
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.PluginLogger;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using SystemTestService;
 
 namespace GrpcServerHost
@@ -13,6 +15,10 @@ namespace GrpcServerHost
 		static void Main(string[] args)
 		{
 			//System.Diagnostics.Debug.Assert(false);
+
+			SerilogFacade.Initialize();
+			var logger = LoggerProvider.GetLogger("grpcserverhost");
+
 			int grpcPort = 0;
 			string eventName = string.Empty;
 			if (args.Length > 0)
@@ -43,28 +49,32 @@ namespace GrpcServerHost
 			
 			var service = new Service();
 
-			// Create Grpc server
-			var grpcServer = new GrpcReflectionServer(service, new NullLogger());
-
-			var projectContentInMemory = new ProjectContentInMemory();
-			var contentHandler = new ProjectContentServerHandler(projectContentInMemory);
-			grpcServer.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
-
-			grpcServer.Connect(null, grpcPort);
-
-			Console.WriteLine($"GrpcServer is listening on port '{grpcPort}'");
-
-			EventWaitHandle syncEvent;
-			if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
+			var task = Task.Run(() =>
 			{
-				Console.WriteLine($"Setting event '{eventName}'");
-				syncEvent.Set();
-				syncEvent.Dispose();
-			}
-			else
-			{
-				Console.WriteLine($"Event doesn't exist '{eventName}'");
-			}
+				// Create Grpc server
+				var grpcServer = new GrpcReflectionServer(service, logger);
+
+				var projectContentInMemory = new ProjectContentInMemory();
+				var contentHandler = new ProjectContentServerHandler(projectContentInMemory);
+				grpcServer.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
+
+				grpcServer.Connect(null, grpcPort);
+				grpcServer.StartAsync();
+
+				logger.LogDebug($"GrpcServer is listening on port '{grpcPort}'");
+
+				EventWaitHandle syncEvent;
+				if (EventWaitHandle.TryOpenExisting(eventName, out syncEvent))
+				{
+					logger.LogDebug($"Setting event '{eventName}'");
+					syncEvent.Set();
+					syncEvent.Dispose();
+				}
+				else
+				{
+					logger.LogWarning($"Event doesn't exist '{eventName}'");
+				}
+			});
 
 			Console.WriteLine("Enter any line to finish");
 
