@@ -33,6 +33,19 @@ namespace IdeaRS.OpenModel.Model
 		BeamSlab,
 	}
 
+	public enum Alignment
+	{
+		Center,
+		Top,
+		Bottom,
+		Left,
+		Right,
+		TopLeft,
+		TopRight,
+		BottomLeft,
+		BottomRight
+	}
+
 	/// <summary>
 	/// Representation of member1D
 	/// </summary>
@@ -72,5 +85,14 @@ namespace IdeaRS.OpenModel.Model
 		/// Gets, sets hinge located in the end of element
 		/// </summary>
 		public ReferenceElement HingeEnd { get; set; }
+
+		/// <summary>
+		/// List of <see cref="Span"/>.
+		/// </summary>
+		public List<ReferenceElement> Spans { get; set; }
+
+		public ReferenceElement CrossSection { get; set; }
+
+		public Alignment Alignment { get; set; }
 	}
 }
