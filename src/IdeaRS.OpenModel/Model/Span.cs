@@ -1,10 +1,10 @@
 ﻿namespace IdeaRS.OpenModel.Model
 {
-	public class Span
+	public class Span : OpenElementId
 	{
-		public ReferenceElement CrossSectionBegin { get; set; }
+		public ReferenceElement StartCrossSection { get; set; }
 
-		public ReferenceElement CrossSectionEnd { get; set; }
+		public ReferenceElement EndCrossSection { get; set; }
 
 		public double StartPosition { get; set; }
 
