@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
     <ProjectReference Include="..\SystemTestService\SystemTestService.csproj" />
   </ItemGroup>
 
