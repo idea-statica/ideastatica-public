@@ -79,6 +79,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginLogger", 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4695F2E-5B27-43F9-A101-002152336ABB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
