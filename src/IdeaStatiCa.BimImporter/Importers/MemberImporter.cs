@@ -86,8 +86,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private List<ReferenceElement> ImportSpans(IImportContext ctx, IEnumerable<IIdeaSpan> spans)
 		{
 			return spans
-				.Select(x => ctx.Import(x))
-				.ToList();
+				?.Select(x => ctx.Import(x))
+				.ToList() ?? new List<ReferenceElement>();
 		}
 	}
 }

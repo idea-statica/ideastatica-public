@@ -16,7 +16,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return new Span
 			{
 				StartCrossSection = ctx.Import(obj.StartCrossSection),
-				EndCrossSection = ctx.Import(obj.EndCrossSection),
+				EndCrossSection = ctx.Import(obj.EndCrossSection ?? obj.StartCrossSection),
 				StartPosition = obj.StartPosition,
 				EndPosition = obj.EndPosition,
 			};
