@@ -1,5 +1,6 @@
 ﻿namespace IdeaRS.OpenModel.Model
 {
+	[OpenModelClass("CI.StructModel.Structure.Span,CI.StructuralElements", "CI.StructModel.Structure.ISpan,CI.BasicTypes")]
 	public class Span : OpenElementId
 	{
 		public ReferenceElement StartCrossSection { get; set; }
