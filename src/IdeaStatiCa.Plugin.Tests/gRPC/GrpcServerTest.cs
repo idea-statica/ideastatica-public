@@ -15,6 +15,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 	{
 		private bool disposedValue;
 
+
 		public GrpcServerTest()
 		{
 		}
