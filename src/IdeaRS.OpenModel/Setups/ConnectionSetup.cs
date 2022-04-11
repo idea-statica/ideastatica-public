@@ -132,7 +132,7 @@ namespace IdeaRS.OpenModel
 			JointBetaFactor = 0.67;
 			NumberIterations = 15;
 			EffectiveAreaStressCoeff = 0.1;
-			EffectiveAreaStressCoeffAISC = 0.4;
+			EffectiveAreaStressCoeffAISC = 0.1;
 			FrictionCoefficient = 0.25;
 			Mdiv = 3;
 			WeldEvaluationData = WeldEvaluation.ForceResultant;
