@@ -80,10 +80,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 				await Task.CompletedTask;
 				return methodInvoker.InvokeMethod<object>(method.Name, returnType, arguments);
 			}
-			catch(ArgumentException ae)
+			catch(ArgumentException)
 			{
 				// rethrow exeption which were handled by a plugin
-				throw ae;
+				throw;
 			}
 			catch (Exception e)
 			{
