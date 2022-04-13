@@ -12,8 +12,6 @@ namespace IdeaStatiCa.RamToIdea.Factories
 {
 	internal class ResultsFactory : IResultsFactory
 	{
-		//private readonly static IIdeaLogger _logger = IdeaDiagnostics.GetLogger("bim.ram.resultsfactory");
-
 		private readonly IForces1 _forces1;
 		private readonly IForces2 _forces2;
 		private readonly ILoadsProvider _loadsProvider;
@@ -29,8 +27,6 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 		public IEnumerable<IIdeaResult> GetResultsForBeam(IBeam ramBeam, IIdeaMember1D ideaMember)
 		{
-			//_logger.LogDebug($"Getting results for member '{beam.lUID}'");
-
 			// Get all load cases
 			var loadCases = _loadsProvider.GetLoadCases();
 
@@ -78,8 +74,8 @@ namespace IdeaStatiCa.RamToIdea.Factories
 								case ELoadCaseType.LiveRoofLCa:
 								case ELoadCaseType.LiveStorageLCa:
 								case ELoadCaseType.LiveUnReducibleLCa:
-									double liveShear = pdNegLiveShear == 0.0 ? pdPosLiveShear : pdNegLiveShear;
-									double liveMoment = pdNegLiveMoment == 0.0 ? pdPosLiveMoment : pdNegLiveMoment;
+									double liveShear = IsPositiveLoad(loadCase) ? pdPosLiveShear : pdNegLiveShear;
+									double liveMoment = IsPositiveLoad(loadCase) ? pdPosLiveMoment : pdNegLiveMoment;
 
 									sectionResults.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(0.0, 0.0, liveShear, 0.0, liveMoment, 0.0)));
 									break;
@@ -156,15 +152,15 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 							case ELoadCaseType.LiveLCa:
 							case ELoadCaseType.LiveUnReducibleLCa:
-								nx = pdNegLLNonRed == 0.0 ? pdPosLLNonRed : pdNegLLNonRed;
+								nx = IsPositiveLoad(loadCase) ? pdPosLLNonRed : pdNegLLNonRed;
 								break;
 
 							case ELoadCaseType.LiveReducibleLCa:
-								nx = pdNegLLRed == 0.0 ? pdPosLLRed : pdNegLLRed;
+								nx = IsPositiveLoad(loadCase) ? pdPosLLRed : pdNegLLRed;
 								break;
 
 							case ELoadCaseType.LiveRoofLCa:
-								nx = pdNegLLRoof == 0.0 ? pdPosLLRoof : pdNegLLRoof;
+								nx = IsPositiveLoad(loadCase) ? pdPosLLRoof : pdNegLLRoof;
 								break;
 
 							case ELoadCaseType.LiveStorageLCa:
@@ -269,10 +265,13 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			return locations;
 		}
 
+		private static bool IsPositiveLoad(ILoadCase loadCase)
+		{
+			return loadCase.eLoadDirectionSubType == EAnalysisSubType.Positive;
+		}
+
 		private IEnumerable<IIdeaResult> GetBraceResults(int uid)
 		{
-			//_logger.LogDebug($"Getting results for member '{uid}'");
-
 			// Get all load cases
 			var loadCases = _loadsProvider.GetLoadCases();
 
