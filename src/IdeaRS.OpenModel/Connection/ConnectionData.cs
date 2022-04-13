@@ -1,4 +1,4 @@
-using IdeaRS.OpenModel.Model;
+using IdeaRS.OpenModel.Parameters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -246,6 +246,18 @@ namespace IdeaRS.OpenModel.Connection
 		/// Data of concrete block
 		/// </summary>
 		public ConcreteBlock ConcreteBlock { get; set; }
+
+		/// <summary>
+		/// Anchor Type - washer
+		/// </summary>
+		public AnchorType AnchorType { get; set; }
+
+
+		/// <summary>
+		/// Washer Size used if AnchorType is washer
+		/// </summary>
+		public double WasherSize { get; set; }
+
 	}
 
 	/// <summary>
@@ -618,6 +630,15 @@ namespace IdeaRS.OpenModel.Connection
 		/// Plane normal
 		/// </summary>
 		public IdeaRS.OpenModel.Geometry3D.Vector3D NormalVector { get; set; }
+
+		/// <summary>
+		/// Direction of cut [Parallel|Perpendicular]
+		/// </summary>
+		public CutOrientation Direction { get; set; }
+		/// <summary>
+		/// Offset - shift of cut
+		/// </summary>
+		public double Offset { get; set; }
 	}
 
 	/// <summary>
@@ -671,6 +692,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// PlaneOnCuttingObject
 		/// </summary>
 		public DistanceComparison PlaneOnCuttingObject { get; set; }
+
+		/// <summary>
+		/// CutPart - The part of the stiffening member which is cut off
+		/// </summary>
+		public CutPart CutPart { get; set; }
 	}
 
 	/// <summary>
@@ -729,6 +755,23 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// Mitre
 		/// </summary>
-		Mitre
+		Mitre,
+		/// <summary>
+		/// SurfaceAll
+		/// </summary>
+		SurfaceAll
+	}
+
+	public enum CutPart
+	{
+		/// <summary>
+		/// The begin is cut off
+		/// </summary>
+		Begin,
+
+		/// <summary>
+		/// The end is cut off
+		/// </summary>
+		End,
 	}
 }
