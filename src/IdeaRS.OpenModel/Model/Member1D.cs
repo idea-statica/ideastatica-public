@@ -86,10 +86,7 @@ namespace IdeaRS.OpenModel.Model
 		/// </summary>
 		public ReferenceElement HingeEnd { get; set; }
 
-		/// <summary>
-		/// List of <see cref="Span"/>.
-		/// </summary>
-		public List<ReferenceElement> Spans { get; set; }
+		public ReferenceElement Taper { get; set; }
 
 		public ReferenceElement CrossSection { get; set; }
 

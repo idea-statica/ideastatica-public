@@ -3,7 +3,6 @@ using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -45,7 +44,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Member1DType = member.Type,
 				Elements1D = ImportElements(ctx, elements),
 				CrossSection = ctx.Import(css),
-				Spans = ImportSpans(ctx, member.Spans)
+				Taper = ctx.Import(member.Taper)
 			};
 		}
 
@@ -81,13 +80,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 
 			return refElements;
-		}
-
-		private List<ReferenceElement> ImportSpans(IImportContext ctx, IEnumerable<IIdeaSpan> spans)
-		{
-			return spans
-				?.Select(x => ctx.Import(x))
-				.ToList() ?? new List<ReferenceElement>();
 		}
 	}
 }

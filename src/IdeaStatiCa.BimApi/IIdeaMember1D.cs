@@ -32,10 +32,7 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		List<IIdeaElement1D> Elements { get; }
 
-		/// <summary>
-		/// List of <see cref="Span"/>.
-		/// </summary>
-		IEnumerable<IIdeaSpan> Spans { get; }
+		IIdeaTaper Taper { get; }
 
 		IIdeaCrossSection CrossSection { get; }
 

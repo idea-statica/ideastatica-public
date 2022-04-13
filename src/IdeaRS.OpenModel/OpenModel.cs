@@ -88,6 +88,9 @@ namespace IdeaRS.OpenModel
 			RebarGeneral = new List<RebarGeneral>();
 			RebarSingle = new List<RebarSingle>();
 			RebarStirrups = new List<RebarStirrups>();
+
+			Taper = new List<Taper>();
+			Span = new List<Span>();
 		}
 
 		/// <summary>
@@ -375,6 +378,10 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public List<RebarStirrups> RebarStirrups { get; set; }
 
+		public List<Taper> Taper { get; set; }
+
+		public List<Span> Span { get; set; }
+
 		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
@@ -651,11 +658,12 @@ namespace IdeaRS.OpenModel
 					{ typeof(CheckSection).Name, ConcreteCheckSection },
 					{ typeof(SubStructure).Name, SubStructure },
 					{ typeof(DesignMember).Name, DesignMember },
-
 					{ typeof(RebarShape).Name, RebarShape },
 					{ typeof(RebarGeneral).Name, RebarGeneral },
 					{ typeof(RebarSingle).Name, RebarSingle },
-					{ typeof(RebarStirrups).Name, RebarStirrups }
+					{ typeof(RebarStirrups).Name, RebarStirrups },
+					{ typeof(Taper).Name, Taper },
+					{ typeof(Span).Name, Span },
 				};
 			}
 
