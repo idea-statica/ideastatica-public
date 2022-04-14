@@ -61,7 +61,11 @@ namespace IdeaStatiCa.RamToIdea.Factories
 						{
 							double pdDeadMoment = 0.0, pdDeadShear = 0.0, pdCDMoment = 0.0, pdCDShear = 0.0, pdCLMoment = 0.0, pdCLShear = 0.0, pdPosLiveMoment = 0.0, pdPosLiveShear = 0.0, pdNegLiveMoment = 0.0, pdNegLiveShear = 0.0;
 
-							_forces1.GetGravBeamForcesLeftAt(ramBeam.lUID, local.SourceRelPosition, ref pdDeadMoment, ref pdDeadShear, ref pdCDMoment, ref pdCDShear, ref pdCLMoment, ref pdCLShear, ref pdPosLiveMoment, ref pdPosLiveShear, ref pdNegLiveMoment, ref pdNegLiveShear);
+							// Skip force extraction for concrete gravity columns for now, because of a bug in the RAM API
+							if (ramBeam.eMaterial != EMATERIALTYPES.EConcreteMat)
+							{
+								_forces1.GetGravBeamForcesLeftAt(ramBeam.lUID, local.SourceRelPosition, ref pdDeadMoment, ref pdDeadShear, ref pdCDMoment, ref pdCDShear, ref pdCLMoment, ref pdCLShear, ref pdPosLiveMoment, ref pdPosLiveShear, ref pdNegLiveMoment, ref pdNegLiveShear);
+							}
 
 							switch (loadCase.eLoadType)
 							{
@@ -141,7 +145,11 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					{
 						double pdDead = 0.0, pdPosLLRed = 0.0, pdPosLLNonRed = 0.0, pdPosLLStorage = 0.0, pdPosLLRoof = 0.0, pdNegLLRed = 0.0, pdNegLLNonRed = 0.0, pdNegLLStorage = 0.0, pdNegLLRoof = 0.0;
 
-						_forces1.GetGrvColForcesForLCase(column.lUID, ref pdDead, ref pdPosLLRed, ref pdPosLLNonRed, ref pdPosLLStorage, ref pdPosLLRoof, ref pdNegLLRed, ref pdPosLLNonRed, ref pdNegLLStorage, ref pdNegLLRoof);
+						// Skip force extraction for concrete gravity columns for now, because of a bug in the RAM API
+						if (column.eMaterial != EMATERIALTYPES.EConcreteMat)
+						{
+							_forces1.GetGrvColForcesForLCase(column.lUID, ref pdDead, ref pdPosLLRed, ref pdPosLLNonRed, ref pdPosLLStorage, ref pdPosLLRoof, ref pdNegLLRed, ref pdPosLLNonRed, ref pdNegLLStorage, ref pdNegLLRoof);
+						}
 
 						double nx = 0;
 						switch (loadCase.eLoadType)
