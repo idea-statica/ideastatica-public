@@ -24,10 +24,7 @@ namespace IdeaStatiCa.RamToIdea.Providers
 			{
 				var lc = ramLoadCases.GetAt(i);
 				System.Diagnostics.Debug.WriteLine($"Load case {lc.lUID} - {lc.eAnalyzedState}");
-				if (lc.eAnalyzedState == EStateStatus.eStateCurrent)
-				{
-					loadCases.Add(lc);
-				}
+				loadCases.Add(lc);
 			}
 
 			return loadCases;
