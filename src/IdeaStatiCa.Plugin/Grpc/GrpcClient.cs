@@ -250,7 +250,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		internal virtual void HandleMessageAsync(GrpcMessage message)
 		{
-			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = ${message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = ${message?.OperationId}");
+			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = {message?.MessageName}, ClientId = ${message?.ClientId}, OperationId = {message?.OperationId}");
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
 			if (handler != null)
