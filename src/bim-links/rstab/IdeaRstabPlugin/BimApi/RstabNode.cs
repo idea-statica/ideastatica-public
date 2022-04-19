@@ -1,4 +1,5 @@
 ﻿using Dlubal.RSTAB8;
+using IdeaRstabPlugin.Factories;
 using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Persistence;
@@ -13,7 +14,7 @@ namespace IdeaRstabPlugin.BimApi
 	/// </summary>
 	internal class RstabNode : IIdeaNode
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
+		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		/// <summary>
 		/// Position of the node in cartesian coordinates.
@@ -36,6 +37,7 @@ namespace IdeaRstabPlugin.BimApi
 
 		private readonly IImportSession _importSession;
 		private readonly IModelDataProvider _modelDataProvider;
+		private readonly ObjectFactory _objectFactory;
 
 		/// <summary>
 		/// Constructor.
@@ -44,10 +46,12 @@ namespace IdeaRstabPlugin.BimApi
 		/// <param name="node">RSTAB node to convert.</param>
 		/// <exception cref="NotImplementedException">If <see cref="Node.CS"/> is not
 		/// Cartesian, XCylindrical, YCylindrical, ZCylindrical, or Polar.</exception>
-		public RstabNode(IImportSession importSession, IModelDataProvider modelDataProvider, int nodeNo)
+		public RstabNode(IImportSession importSession, IModelDataProvider modelDataProvider, ObjectFactory objectFactory,
+			int nodeNo)
 		{
 			_importSession = importSession;
 			_modelDataProvider = modelDataProvider;
+			_objectFactory = objectFactory;
 
 			No = nodeNo;
 			Token = new PersistenceToken(TokenObjectType.Node, No);
@@ -64,13 +68,26 @@ namespace IdeaRstabPlugin.BimApi
 		{
 			IdeaVector3D pos = GetCartesianPosition();
 
+			double x = pos.X, y = pos.Y, z = pos.Z;
 			if (!_importSession.IsGCSOrientedUpwards)
 			{
 				// RSTAB rotates the Y axis to keep the coordinate system right handed.
-				return new IdeaVector3D(pos.X, -pos.Y, -pos.Z);
+				y = -y;
+				z = -z;
 			}
 
-			return pos;
+			Node data = GetData();
+
+			int refNode = data.RefObjectNo;
+			if (refNode != 0)
+			{
+				IdeaVector3D refNodePos = _objectFactory.GetNode(refNode).Vector;
+				x += refNodePos.X;
+				y += refNodePos.Y;
+				z += refNodePos.Z;
+			}
+
+			return new IdeaVector3D(x, y, z);
 		}
 
 		private IdeaVector3D GetCartesianPosition()

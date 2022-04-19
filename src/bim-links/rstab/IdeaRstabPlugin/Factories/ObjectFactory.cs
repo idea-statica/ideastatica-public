@@ -117,7 +117,7 @@ namespace IdeaRstabPlugin.Factories
 			_logger.LogTrace($"ObjectFactory.GetNode({nodeNo})");
 
 			return _nodes.GetOrCreate(nodeNo,
-				() => new RstabNode(_importSession, _modelDataProvider, nodeNo));
+				() => new RstabNode(_importSession, _modelDataProvider, this, nodeNo));
 		}
 
 		public IIdeaLoadCase GetLoadCase(int loadCaseNo)
