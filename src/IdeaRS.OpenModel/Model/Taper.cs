@@ -2,6 +2,7 @@
 
 namespace IdeaRS.OpenModel.Model
 {
+	[OpenModelClass("CI.StructModel.Structure.MemberTapered,CI.StructuralElements", "CI.StructModel.Structure.IMemberTapered,CI.BasicTypes")]
 	public class Taper : OpenElementId
 	{
 		/// <summary>
