@@ -174,7 +174,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				throw new Exception($"Operation {operationId} is executing");
 			}
 
-			Logger.LogDebug($"GrpcMethodInvokerHandler.SendMessageDataSync operationId = $'{grpcMessage.OperationId}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.SendMessageDataSync operationId = '{grpcMessage.OperationId}'");
 			GrpcMessage incomingMessage = methodTask.SendMessageDataSync(grpcMessage);
 
 			return incomingMessage;
@@ -182,14 +182,14 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
-			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleServerMessage operationId = $'{message.OperationId}', messageName = '{message.MessageName}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleServerMessage operationId = '{message.OperationId}', messageName = '{message.MessageName}'");
 			SetCompleted(message);
 			return Task.FromResult<object>(message);
 		}
 
 		public Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
-			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleClientMessage operationId = $'{message.OperationId}', messageName = '{message.MessageName}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleClientMessage operationId = '{message.OperationId}', messageName = '{message.MessageName}'");
 			SetCompleted(message);
 			return Task.FromResult<object>(message);
 		}
