@@ -116,7 +116,7 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 
 				double projection = GetRamNodeOnLineProjection(node, line);
 
-				if (projection >= 0 && projection <= 1)
+				if (projection.IsLarger(0, Precision) && projection.IsSmaller(1, Precision))
 				{
 					line.AddIntermediateNode(projection, node);
 				}
