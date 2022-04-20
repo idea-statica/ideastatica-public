@@ -42,7 +42,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public override IEnumerable<IIdeaResult> GetResults()
 		{
-			return ResultsFactory.GetResultsForHorizontalBrace(_brace);
+			return ResultsFactory.GetResultsForHorizontalBrace(_brace, this);
 		}
 
 		protected override (SCoordinate, SCoordinate) GetStartEndCoordinates()
