@@ -62,6 +62,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected IResultsFactory ResultsFactory { get; }
 
+		public IIdeaTaper Taper => null;
+
+		public IIdeaCrossSection CrossSection => null;
+
+		public Alignment Alignment => Alignment.Center;
+
 		private Line _line;
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
