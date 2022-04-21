@@ -64,47 +64,8 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			}
 			catch (Exception e)
 			{
-				StringBuilder sb = new StringBuilder();
+				Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED : MessageName = '{message?.MessageName}', MethodName = '{grpcInvokeData?.MethodName}'", e);
 
-				try
-				{
-					if (grpcInvokeData != null)
-					{
-						var arguments = grpcInvokeData.Parameters;
-						if (arguments?.Any() == true)
-						{
-							int i = 1;
-							foreach (var arg in arguments)
-							{
-								var argVal = JsonConvert.SerializeObject(arg);
-								if (argVal?.Length > 255)
-								{
-									// do not write too long strings to logfile
-									argVal = argVal.Substring(0, 255);
-								}
-
-								sb.Append($"arg{i} : type = '{arg.GetType().FullName}', val = '{argVal}' ;");
-								i++;
-							}
-						}
-						else
-						{
-							sb.Append("no parameters are passed,");
-						}
-					}
-					else
-					{
-						sb.Append("grpcInvokeData is null");
-					}
-
-					Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED : MessageName = $'{message?.MessageName}', MethodName = '{grpcInvokeData?.MethodName}' arguments = '{sb.ToString()}'");
-				}
-				catch (Exception ex)
-				{
-					Logger.LogDebug("GrpcMethodInvokerHandler.InvokeMethod - can not create log", ex);
-				}
-
-				Logger.LogDebug($"");
 				// return information about exception to the caller
 				var errMsg = new GrpcMessage()
 				{

@@ -126,7 +126,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public T InvokeMethod<T>(string methodName, Type returnType, params object[] arguments)
 		{
-			Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod methodName = $'{methodName}', returnType = '{returnType.Name}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod methodName = '{methodName}', returnType = '{returnType.Name}'");
 
 			var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
 			var request = new GrpcReflectionInvokeData()
@@ -164,10 +164,10 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 								argVal = argVal.Substring(0, 255);
 							}
 
-							sb.Append($"type = '{arg.GetType().FullName}' : val = '{argVal}' ;");
+							sb.Append($"type = '{arg.GetType().Name}' : val = '{argVal}' ;");
 						}
 
-						Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED methodName = $'{methodName}' arguments = '{sb.ToString()}'");
+						Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED methodName = '{methodName}' arguments = '{sb.ToString()}'");
 					}
 					catch (Exception ex)
 					{
