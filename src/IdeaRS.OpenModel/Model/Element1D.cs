@@ -16,14 +16,14 @@ namespace IdeaRS.OpenModel.Model
 		/// <summary>
 		/// Gets, sets cross section located in the begining of this element1D
 		/// </summary>
-		[Obsolete("Element cross-section are obsolete, use member cross-section or member spans for haunched members.")]
+		//[Obsolete("Element cross-section are obsolete, use member cross-section or member spans for haunched members.")]
 		public ReferenceElement CrossSectionBegin { get; set; }
 
 		/// <summary>
 		/// Gets, sets cross section located at the end of this element1D
 		/// </summary>
 		///
-		[Obsolete("Element cross-section are obsolete, use member cross-section or member spans for haunched members.")]
+		//[Obsolete("Element cross-section are obsolete, use member cross-section or member spans for haunched members.")]
 		public ReferenceElement CrossSectionEnd { get; set; }
 
 		/// <summary>
