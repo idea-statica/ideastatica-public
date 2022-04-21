@@ -16,7 +16,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworkSDKToolsDirectory Condition=" '$(PlatformTarget)' == 'x64'">$(TargetFrameworkSDKToolsDirectory)\$(PlatformTarget)\</TargetFrameworkSDKToolsDirectory>
+    
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
