@@ -86,10 +86,19 @@ namespace IdeaRS.OpenModel.Model
 		/// </summary>
 		public ReferenceElement HingeEnd { get; set; }
 
+		/// <summary>
+		/// <see cref="Model.Taper"/> for defining haunched member. 
+		/// </summary>
 		public ReferenceElement Taper { get; set; }
 
+		/// <summary>
+		/// <see cref="CrossSection.CrossSection">Cross-section</see> of the member.
+		/// </summary>
 		public ReferenceElement CrossSection { get; set; }
 
+		/// <summary>
+		/// Alignment of the member's cross-section. Eccentricities are added up to the alignment.
+		/// </summary>
 		public Alignment Alignment { get; set; }
 	}
 }

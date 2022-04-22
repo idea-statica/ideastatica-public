@@ -32,10 +32,19 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		List<IIdeaElement1D> Elements { get; }
 
+		/// <summary>
+		/// Taper for specifying haunched member.
+		/// </summary>
 		IIdeaTaper Taper { get; }
 
+		/// <summary>
+		/// Cross-section of the member.
+		/// </summary>
 		IIdeaCrossSection CrossSection { get; }
 
+		/// <summary>
+		/// Alignment of the member's cross-section. Eccentricities are added up to the alignment.
+		/// </summary>
 		Alignment Alignment { get; }
 	}
 }

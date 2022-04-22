@@ -1,19 +1,29 @@
 ﻿namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Span allows specifying haunched member.
+	///
+	/// Both cross-sect
 	public interface IIdeaSpan : IIdeaObject
 	{
 		/// <summary>
-		/// Cross-section at the start of the element.
+		/// <see cref="IIdeaCrossSection">Cross-section</see> at the start position of the span. Must not be null.
 		/// </summary>
 		IIdeaCrossSection StartCrossSection { get; }
 
 		/// <summary>
-		/// Cross-section at the and of the element.
+		/// <see cref="IIdeaCrossSection">Cross-section</see> at the end position of the span.
 		/// </summary>
 		IIdeaCrossSection EndCrossSection { get; }
 
+		/// <summary>
+		/// Relative position on the member where the span starts.
+		/// </summary>
 		double StartPosition { get; }
 
+		/// <summary>
+		/// Relative position on the member where the span ends.
+		/// </summary>
 		double EndPosition { get; }
 	}
 }
