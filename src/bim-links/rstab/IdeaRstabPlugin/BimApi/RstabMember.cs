@@ -14,7 +14,7 @@ namespace IdeaRstabPlugin.BimApi
 	/// <inheritdoc cref="IIdeaMember1D"/>
 	internal class RstabMember : IIdeaMember1D
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
+		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.bimapi");
 
 		public Member1DType Type => GetMemberType();
 
@@ -27,6 +27,12 @@ namespace IdeaRstabPlugin.BimApi
 		public int No => GetData().No;
 
 		public IIdeaPersistenceToken Token => new PersistenceToken(TokenObjectType.Member, No);
+
+		public IIdeaTaper Taper => null;
+
+		public IIdeaCrossSection CrossSection => null;
+
+		public Alignment Alignment => Alignment.Center;
 
 		private readonly IObjectFactory _objectFactory;
 		private readonly IResultsFactory _resultsFactory;

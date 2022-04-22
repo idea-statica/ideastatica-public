@@ -1,3 +1,4 @@
+using IdeaRS.OpenModel.Model;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
@@ -15,7 +16,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Type of member: beam, column, truss, rib or beamslab.
 		/// </summary>
-		IdeaRS.OpenModel.Model.Member1DType Type { get; }
+		Member1DType Type { get; }
 
 		/// <summary>
 		/// Elements this member consists of. Always returns a valid list with at least one element.
@@ -31,10 +32,10 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		List<IIdeaElement1D> Elements { get; }
 
-		// IdeaReleases startReleases;
+		IIdeaTaper Taper { get; }
 
-		// IdeaReleases endReleases;
+		IIdeaCrossSection CrossSection { get; }
 
-		// void midPoint;
+		Alignment Alignment { get; }
 	}
 }
