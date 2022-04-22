@@ -44,7 +44,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Member1DType = member.Type,
 				Elements1D = ImportElements(ctx, elements),
 				CrossSection = ctx.Import(css),
-				Taper = ctx.Import(member.Taper)
+				Taper = ctx.Import(member.Taper),
+				Alignment = member.Alignment,
 			};
 		}
 
