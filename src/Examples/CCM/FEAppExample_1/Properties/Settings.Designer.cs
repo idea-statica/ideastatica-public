@@ -25,7 +25,7 @@ namespace FEAppExample_1.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1\\IdeaCheckbot.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\IDEA StatiCa\\StatiCa 22.0\\IdeaCheckbot.exe")]
         public string IdeaStatiCaDir {
             get {
                 return ((string)(this["IdeaStatiCaDir"]));

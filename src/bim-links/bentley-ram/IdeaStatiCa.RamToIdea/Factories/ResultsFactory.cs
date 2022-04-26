@@ -3,6 +3,7 @@ using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.RamToIdea.BimApi;
 using IdeaStatiCa.RamToIdea.Providers;
 using IdeaStatiCa.RamToIdea.Utilities;
+using MathNet.Numerics;
 using RAMDATAACCESSLib;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -104,30 +105,31 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			return new IIdeaResult[] { results };
 		}
 
-		public IEnumerable<IIdeaResult> GetResultsForColumn(IColumn column)
+		public IEnumerable<IIdeaResult> GetResultsForColumn(IColumn column, IIdeaMember1D ideaMember)
 		{
-			//_logger.LogDebug($"Getting results for member '{column.lUID}'");
-
 			// Get all load cases
 			var loadCases = _loadsProvider.GetLoadCases();
 
+			// Get sections, where results are required
+			var locations = GetResultLocations(ideaMember, divideSmoothly: false);
+
 			// Results for beam - sections - loadcases
-			var sections = new List<IIdeaSection>(2);
+			var sections = new List<IIdeaSection>(locations.Count);
 			var results = new RamResult
 			{
 				CoordinateSystemType = IdeaRS.OpenModel.Result.ResultLocalSystemType.Principle,
 				Sections = sections,
 			};
 
-			if (loadCases.Any())
+			if (loadCases.Any() && locations.Count > 1)
 			{
-				// Column has only 2 sections - at the begin and at the end of the member
-				var sectionResults0 = new List<IIdeaSectionResult>(2);
-				var sectionResults1 = new List<IIdeaSectionResult>(2);
-				var section0 = new RamSection { Position = 0, Results = sectionResults0, };
-				var section1 = new RamSection { Position = 1, Results = sectionResults1, };
-				sections.Add(section0);
-				sections.Add(section1);
+				// Column has only 2 sections - at the begin and at the end of the member, but we need to interpolate them along all elements
+				sections.AddRange(locations.Select(local =>
+				{
+					var sectionResults = new List<IIdeaSectionResult>(10);
+					var section = new RamSection { Position = local.TargetRelPosition, Results = sectionResults, };
+					return section;
+				}));
 
 				foreach (var loadCase in loadCases)
 				{
@@ -138,8 +140,11 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 						_forces2.GetColForcesForLCase(column.lUID, loadCase.lAnalyzeNo, ref pdAxialI, ref pdMajMomI, ref pdMinMomI, ref pdMajShearI, ref pdMinShearI, ref pdTorsionI, ref pdAxialJ, ref pdMajMomJ, ref pdMinMomJ, ref pdMajShearJ, ref pdMinShearJ, ref pdTorsionJ);
 
-						sectionResults0.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(pdAxialI, pdMinShearI, pdMajShearI, pdTorsionI, pdMajMomI, pdMinMomI)));
-						sectionResults1.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(pdAxialJ, pdMinShearJ, pdMajShearJ, pdTorsionJ, pdMajMomJ, pdMinMomJ)));
+						BuildInterpolatedResults(
+							ideaLoadCase,
+							CreateInternalForces(pdAxialI, pdMinShearI, pdMajShearI, pdTorsionI, pdMajMomI, pdMinMomI),
+							CreateInternalForces(pdAxialJ, pdMinShearJ, pdMajShearJ, pdTorsionJ, pdMajMomJ, pdMinMomJ),
+							sections);
 					}
 					else if (column.eFramingType == EFRAMETYPE.MemberIsGravity)
 					{
@@ -176,8 +181,11 @@ namespace IdeaStatiCa.RamToIdea.Factories
 								break;
 						}
 
-						sectionResults0.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(nx)));
-						sectionResults1.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(nx)));
+						BuildInterpolatedResults(
+							ideaLoadCase,
+							CreateInternalForces(nx),
+							CreateInternalForces(nx),
+							sections);
 					}
 				}
 			}
@@ -185,17 +193,40 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			return new IIdeaResult[] { results };
 		}
 
-		public IEnumerable<IIdeaResult> GetResultsForHorizontalBrace(IHorizBrace brace)
+		public IEnumerable<IIdeaResult> GetResultsForHorizontalBrace(IHorizBrace brace, IIdeaMember1D ideaMember)
 		{
-			return GetBraceResults(brace.lUID);
+			return GetBraceResults(brace.lUID, ideaMember);
 		}
 
-		public IEnumerable<IIdeaResult> GetResultsForVerticalBrace(IVerticalBrace brace)
+		public IEnumerable<IIdeaResult> GetResultsForVerticalBrace(IVerticalBrace brace, IIdeaMember1D ideaMember)
 		{
-			return GetBraceResults(brace.lUID);
+			return GetBraceResults(brace.lUID, ideaMember);
 		}
 
-		private static IIdeaResultData CreateInternalForces(double nx = 0, double vy = 0, double vz = 0, double mx = 0, double my = 0, double mz = 0)
+		private static void AddResultToSection(IIdeaLoadCase ideaLoadCase, InternalForcesData sectionResult, IIdeaSection section)
+		{
+			var results = section.Results as IList<IIdeaSectionResult>;
+			results.Add(new RamSectionResult(ideaLoadCase, sectionResult));
+		}
+
+		private static void BuildInterpolatedResults(IIdeaLoadCase ideaLoadCase, InternalForcesData sectionResults0, InternalForcesData sectionResults1, List<IIdeaSection> sections)
+		{
+			// Add results at the begin of member
+			AddResultToSection(ideaLoadCase, sectionResults0, sections[0]);
+
+			for (int i = 1; i < sections.Count - 1; i++)
+			{
+				// Interpolate intermediate sections
+				var interpolated = Interpolate(0, sectionResults0, 1, sectionResults1, sections[i].Position);
+
+				AddResultToSection(ideaLoadCase, interpolated, sections[i]);
+			}
+
+			// Add results at the end of member
+			AddResultToSection(ideaLoadCase, sectionResults1, sections.Last());
+		}
+
+		private static InternalForcesData CreateInternalForces(double nx = 0, double vy = 0, double vz = 0, double mx = 0, double my = 0, double mz = 0)
 		{
 			return new InternalForcesData
 			{
@@ -208,7 +239,7 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			};
 		}
 
-		private static IList<SectionMap> GetResultLocations(IIdeaMember1D ideaMember)
+		private static IList<SectionMap> GetResultLocations(IIdeaMember1D ideaMember, bool divideSmoothly = true)
 		{
 			const double MaxSectionsDistance = 0.5;
 			var locations = new List<SectionMap>();
@@ -253,18 +284,21 @@ namespace IdeaStatiCa.RamToIdea.Factories
 				// position at the end of the member
 				locations.Add(builder.CreateSingleSection(length));
 
-				// add some sections, if distance between locations is too big
-				var count = locations.Count;
-				for (var i = count - 2; i >= 0; --i)
+				if (divideSmoothly)
 				{
-					var dist = locations[i + 1].SourceAbsPosition - locations[i].SourceAbsPosition;
-					if (dist > MaxSectionsDistance)
+					// add some sections, if distance between locations is too big
+					var count = locations.Count;
+					for (var i = count - 2; i >= 0; --i)
 					{
-						var n = (int)(dist / MaxSectionsDistance);
-						var d = dist / n;
-						for (int j = n - 1; j > 0; --j)
+						var dist = locations[i + 1].SourceAbsPosition - locations[i].SourceAbsPosition;
+						if (dist > MaxSectionsDistance)
 						{
-							locations.Insert(i + 1, builder.CreateSingleSection(locations[i].SourceAbsPosition + d * j));
+							var n = (int)(dist / MaxSectionsDistance);
+							var d = dist / n;
+							for (int j = n - 1; j > 0; --j)
+							{
+								locations.Insert(i + 1, builder.CreateSingleSection(locations[i].SourceAbsPosition + d * j));
+							}
 						}
 					}
 				}
@@ -273,15 +307,77 @@ namespace IdeaStatiCa.RamToIdea.Factories
 			return locations;
 		}
 
+		private static InternalForcesData Interpolate(double section0, InternalForcesData value0, double section1, InternalForcesData value1, double sectionX)
+		{
+			var interpolated = new InternalForcesData
+			{
+				N = Interpolate(section0, value0.N, section1, value1.N, sectionX, false),
+				Qy = Interpolate(section0, value0.Qy, section1, value1.Qy, sectionX, false),
+				Qz = Interpolate(section0, value0.Qz, section1, value1.Qz, sectionX, false),
+				Mx = Interpolate(section0, value0.Mx, section1, value1.Mx, sectionX, false),
+				My = Interpolate(section0, value0.My, section1, value1.My, sectionX, false),
+				Mz = Interpolate(section0, value0.Mz, section1, value1.Mz, sectionX, false),
+			};
+			return interpolated;
+		}
+
+		private static double Interpolate(double xa, double ya, double xb, double yb, double x, bool extrapolate)
+		{
+			if (!xa.AlmostEqual(xb))
+			{
+				if (!extrapolate)
+				{
+					if (xa > xb)
+					{
+						Swap(ref xa, ref xb);
+						Swap(ref ya, ref yb);
+					}
+
+					if (x <= xa)
+					{
+						return ya;
+					}
+					else if (x >= xb)
+					{
+						return yb;
+					}
+				}
+
+				return ya + ((yb - ya) / (xb - xa) * (x - xa));
+			}
+			else
+			{
+				if (x <= xa)
+				{
+					return ya;
+				}
+				else
+				{
+					return yb;
+				}
+			}
+		}
+
 		private static bool IsPositiveLoad(ILoadCase loadCase)
 		{
 			return loadCase.eLoadDirectionSubType == EAnalysisSubType.Positive;
 		}
 
-		private IEnumerable<IIdeaResult> GetBraceResults(int uid)
+		private static void Swap<T>(ref T lhs, ref T rhs)
+		{
+			T temp;
+			temp = lhs;
+			lhs = rhs;
+			rhs = temp;
+		}
+
+		private IEnumerable<IIdeaResult> GetBraceResults(int uid, IIdeaMember1D ideaMember)
 		{
 			// Get all load cases
 			var loadCases = _loadsProvider.GetLoadCases();
+
+			// Get sections, where results are required
+			var locations = GetResultLocations(ideaMember, divideSmoothly: false);
 
 			// results for beam - sections - loadcases
 			var sections = new List<IIdeaSection>(2);
@@ -293,13 +389,13 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 			if (loadCases.Any())
 			{
-				// for column are only 2 sections - at the begin and at the end of the member.
-				var sectionResults0 = new List<IIdeaSectionResult>(2);
-				var sectionResults1 = new List<IIdeaSectionResult>(2);
-				var section0 = new RamSection { Position = 0, Results = sectionResults0, };
-				var section1 = new RamSection { Position = 1, Results = sectionResults1, };
-				sections.Add(section0);
-				sections.Add(section1);
+				// for braces are only 2 sections - at the begin and at the end of the member, but we need to interpolate them along all elements
+				sections.AddRange(locations.Select(local =>
+				{
+					var sectionResults = new List<IIdeaSectionResult>(10);
+					var section = new RamSection { Position = local.TargetRelPosition, Results = sectionResults, };
+					return section;
+				}));
 
 				foreach (var loadCase in loadCases)
 				{
@@ -308,8 +404,11 @@ namespace IdeaStatiCa.RamToIdea.Factories
 					double pdAxial = 0.0, pdMajMomTop = 0.0, pdMinMomTop = 0.0, pdMajShearTop = 0.0, pdMinShearTop = 0.0, pdTorsionTop = 0.0, pdMajMomBot = 0.0, pdMinMomBot = 0.0, pdMajShearBot = 0.0, pdMinShearBot = 0.0, pdTorsionBot = 0.0;
 					_forces2.GetLatBraceForces(uid, loadCase.lAnalyzeNo, ref pdAxial, ref pdMajMomTop, ref pdMinMomTop, ref pdMajShearTop, ref pdMinShearTop, ref pdTorsionTop, ref pdMajMomBot, ref pdMinMomBot, ref pdMajShearBot, ref pdMinShearBot, ref pdTorsionBot);
 
-					sectionResults0.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(pdAxial, pdMinShearBot, pdMajShearBot, pdTorsionBot, pdMajMomBot, pdMinMomBot)));
-					sectionResults1.Add(new RamSectionResult(ideaLoadCase, CreateInternalForces(pdAxial, pdMinShearTop, pdMajShearTop, pdTorsionTop, pdMajMomTop, pdMinMomTop)));
+					BuildInterpolatedResults(
+						ideaLoadCase,
+						CreateInternalForces(pdAxial, pdMinShearBot, pdMajShearBot, pdTorsionBot, pdMajMomBot, pdMinMomBot),
+						CreateInternalForces(pdAxial, pdMinShearTop, pdMajShearTop, pdTorsionTop, pdMajMomTop, pdMinMomTop),
+						sections);
 				}
 			}
 

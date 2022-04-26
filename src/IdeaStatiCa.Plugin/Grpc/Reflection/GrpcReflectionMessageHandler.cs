@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.Plugin.Utilities;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
@@ -32,11 +34,15 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public async Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
+			Logger.LogDebug($"GrpcReflectionMessageHandler.HandleServerMessage msg MessageName = '{message?.MessageName}'");
+			GrpcReflectionInvokeData grpcInvokeData = null;
 			try
 			{
-				var grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
+				grpcInvokeData = JsonConvert.DeserializeObject<GrpcReflectionInvokeData>(message.Data);
 				var arguments = grpcInvokeData.Parameters;
-				var result = await ReflectionHelper.InvokeMethodFromGrpc(instance, grpcInvokeData.MethodName, arguments);
+				object result = null;
+
+				result = await ReflectionHelper.InvokeMethodFromGrpc(instance, grpcInvokeData.MethodName, arguments);
 
 				var jsonResult = result != null ? JsonConvert.SerializeObject(result) : string.Empty;
 
@@ -52,13 +58,14 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 					DataType = dataType,
 				};
 
-
 				await grpcSender.SendMessageAsync(responseMsg);
 
 				return result;
 			}
 			catch (Exception e)
 			{
+				Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED : MessageName = '{message?.MessageName}', MethodName = '{grpcInvokeData?.MethodName}'", e);
+
 				// return information about exception to the caller
 				var errMsg = new GrpcMessage()
 				{

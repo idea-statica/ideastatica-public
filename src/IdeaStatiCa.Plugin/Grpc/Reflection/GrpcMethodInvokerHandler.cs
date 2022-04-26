@@ -4,6 +4,7 @@ using Nito.AsyncEx.Synchronous;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
@@ -125,7 +126,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public T InvokeMethod<T>(string methodName, Type returnType, params object[] arguments)
 		{
-			Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod methodName = $'{methodName}', returnType = '{returnType.Name}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod methodName = '{methodName}', returnType = '{returnType.Name}'");
 
 			var parsedArgs = ReflectionHelper.GetMethodInvokeArguments(arguments);
 			var request = new GrpcReflectionInvokeData()
@@ -147,10 +148,33 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 			if (!string.IsNullOrEmpty(response.Data) || returnType != typeof(void))
 			{
-				// hadnle response
+				// handle response
 				if(!string.IsNullOrEmpty(response.DataType) && response.DataType.Equals(typeof(Exception).Name))
 				{
-					// thgrow exception - an error has happened in plugin
+					// en exception was thrown - write arguments to log 
+					try
+					{
+						StringBuilder sb = new StringBuilder();
+						foreach (var arg in arguments)
+						{
+							var argVal = JsonConvert.SerializeObject(arg);
+							if (argVal?.Length > 255)
+							{
+								// do not write too long strings to logfile
+								argVal = argVal.Substring(0, 255);
+							}
+
+							sb.Append($"type = '{arg.GetType().Name}' : val = '{argVal}' ;");
+						}
+
+						Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED methodName = '{methodName}' arguments = '{sb.ToString()}'");
+					}
+					catch (Exception ex)
+					{
+						Logger.LogWarning("GrpcMethodInvokerHandler.InvokeMethod - can not write arguments to log", ex);
+					}
+
+
 					throw new ArgumentException(response.Data);
 				}
 
@@ -174,7 +198,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				throw new Exception($"Operation {operationId} is executing");
 			}
 
-			Logger.LogDebug($"GrpcMethodInvokerHandler.SendMessageDataSync operationId = $'{grpcMessage.OperationId}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.SendMessageDataSync operationId = '{grpcMessage.OperationId}'");
 			GrpcMessage incomingMessage = methodTask.SendMessageDataSync(grpcMessage);
 
 			return incomingMessage;
@@ -182,14 +206,14 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 
 		public Task<object> HandleServerMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
-			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleServerMessage operationId = $'{message.OperationId}', messageName = '{message.MessageName}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleServerMessage operationId = '{message.OperationId}', messageName = '{message.MessageName}'");
 			SetCompleted(message);
 			return Task.FromResult<object>(message);
 		}
 
 		public Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender grpcSender)
 		{
-			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleClientMessage operationId = $'{message.OperationId}', messageName = '{message.MessageName}'");
+			Logger.LogDebug($"GrpcMethodInvokerHandler.HandleClientMessage operationId = '{message.OperationId}', messageName = '{message.MessageName}'");
 			SetCompleted(message);
 			return Task.FromResult<object>(message);
 		}
