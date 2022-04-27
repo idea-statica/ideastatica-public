@@ -5,11 +5,6 @@ using System.Diagnostics;
 
 namespace IdeaStatiCa.Plugin
 {
-	public interface IBimHostingFactory
-	{
-		IBIMPluginHosting Create();
-	}
-
 	public class GrpcBimHostingFactory : IBimHostingFactory
 	{
 		private IPluginLogger Logger { get; set; }
