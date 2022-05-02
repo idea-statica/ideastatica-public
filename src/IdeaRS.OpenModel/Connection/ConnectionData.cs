@@ -235,6 +235,16 @@ namespace IdeaRS.OpenModel.Connection
 		/// Id of the weld
 		/// </summary>
 		public List<string> ConnectedPartIds { get; set; }
+
+		/// <summary>
+		/// Indicates, whether a shear plane is in the thread of a bolt.
+		/// </summary>
+		public bool ShearInThread { get; set; }
+
+		/// <summary>
+		/// Indicates type of shear transfer
+		/// </summary>
+		public BoltShearType BoltInteraction { get; set; }
 	}
 
 	/// <summary>
