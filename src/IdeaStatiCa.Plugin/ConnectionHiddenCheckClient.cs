@@ -165,6 +165,10 @@ namespace IdeaStatiCa.Plugin
 		{
 			return Service.UpdateCodeSetupJSON(connectionSetupJSON);
 		}
+		public void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName)
+		{
+			Service.UpdateConProjFromIOM(iomXmlFileName, iomResXmlFileName);
+		}
 
 		protected IConnHiddenCheck Service => base.Channel;
 	}
