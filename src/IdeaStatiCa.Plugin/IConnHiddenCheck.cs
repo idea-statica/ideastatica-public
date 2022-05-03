@@ -118,6 +118,14 @@ namespace IdeaStatiCa.Plugin
 		string EvaluateExpression(string connectionId, string expression, string arumentsJSON);
 
 		/// <summary>
+		/// Update opened Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/>
+		/// </summary>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
+		[OperationContract]
+		void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName);
+
+		/// <summary>
 		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects saves into the <paramref name="newIdeaConFileName"/>
 		/// </summary>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
