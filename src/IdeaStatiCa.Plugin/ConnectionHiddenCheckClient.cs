@@ -79,6 +79,10 @@ namespace IdeaStatiCa.Plugin
 		{
 			return Service.GetConnectionModelXML(connectionId);
 		}
+		public void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName)
+		{
+			Service.UpdateConProjFromIOM(iomXmlFileName, iomResXmlFileName);
+		}
 
 		public void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName)
 		{
@@ -165,11 +169,6 @@ namespace IdeaStatiCa.Plugin
 		{
 			return Service.UpdateCodeSetupJSON(connectionSetupJSON);
 		}
-		public void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName)
-		{
-			Service.UpdateConProjFromIOM(iomXmlFileName, iomResXmlFileName);
-		}
-
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }

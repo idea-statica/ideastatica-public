@@ -24,6 +24,7 @@
 			<ToolBar Band="1" DockPanel.Dock="Top">
 				<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
 				<Button Command="{Binding ImportIOMCmd, Mode=TwoWay}">Import from IOM</Button>
+				<Button Command="{Binding UpdateIOMCmd, Mode=TwoWay}">Update from IOM</Button>
 				<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
 				<Button Command="{Binding SaveProjectCmd, Mode=TwoWay}">Save Project</Button>
 				<Button Command="{Binding SaveAsProjectCmd, Mode=TwoWay}">Save Project As...</Button>

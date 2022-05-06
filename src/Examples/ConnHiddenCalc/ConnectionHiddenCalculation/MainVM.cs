@@ -3,6 +3,7 @@ using IdeaStatiCa.ConnectionClient.Commands;
 using IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands;
 using IdeaStatiCa.ConnectionClient.Model;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.PluginLogger;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Linq;
-using IdeaStatiCa.PluginLogger;
 
 namespace ConnectionHiddenCalculation
 {
@@ -84,6 +84,7 @@ namespace ConnectionHiddenCalculation
 
 			OpenProjectCmd = new OpenProjectCommand(this);
 			ImportIOMCmd = new ImportIOMCommand(this);
+			UpdateIOMCmd = new UpdateIOMCommand(this);
 			CloseProjectCmd = new CloseProjectCommand(this);
 			CalculateConnectionCmd = new CalculateConnectionCommand(this);
 			ApplySimpleTemplateCmd = new ApplySimpleTemplateCommand(this);
@@ -108,7 +109,7 @@ namespace ConnectionHiddenCalculation
 
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
 
-			TemplateSetting = new IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting() { DefaultBoltAssemblyID = 1, DefaultCleatCrossSectionID = 1, DefaultConcreteMaterialID = 1, DefaultStiffMemberCrossSectionID = 1, UseMatFromOrigin = false};
+			TemplateSetting = new IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting() { DefaultBoltAssemblyID = 1, DefaultCleatCrossSectionID = 1, DefaultConcreteMaterialID = 1, DefaultStiffMemberCrossSectionID = 1, UseMatFromOrigin = false };
 
 			jsonSerializerSettings = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
 
@@ -120,6 +121,7 @@ namespace ConnectionHiddenCalculation
 		#region Commands
 		public ICommand OpenProjectCmd { get; set; }
 		public ICommand ImportIOMCmd { get; set; }
+		public ICommand UpdateIOMCmd { get; set; }
 		public ICommand CloseProjectCmd { get; set; }
 		public ICommand CalculateConnectionCmd { get; set; }
 		public ICommand ConnectionGeometryCmd { get; set; }
@@ -213,7 +215,7 @@ namespace ConnectionHiddenCalculation
 			{
 				templateSettingString = value;
 				NotifyPropertyChanged("TemplateSettingString");
-				
+
 				try
 				{
 					TemplateSetting = AppConSettingFromJsonString(templateSettingString);
@@ -253,7 +255,7 @@ namespace ConnectionHiddenCalculation
 			Results = string.Empty;
 			Connections.Clear();
 
-			if(connectionController != null)
+			if (connectionController != null)
 			{
 				connectionController.CloseProject();
 			}
@@ -308,7 +310,7 @@ namespace ConnectionHiddenCalculation
 					 var jsonFormating = Formatting.Indented;
 					 Results = JsonConvert.SerializeObject(projectItems, jsonFormating, jsonSetting);
 				 }
-				 else if(res is ConnectionLoadingJson connLoading)
+				 else if (res is ConnectionLoadingJson connLoading)
 				 {
 					 var upadateParamCmd = new UpdateLoadingCommand(this);
 					 var conParamsVM = new ConnDataJsonVM(upadateParamCmd, connLoading, "Update loading");
@@ -341,7 +343,7 @@ namespace ConnectionHiddenCalculation
 
 		public void SetConProjectData(ConProjectInfo projectData)
 		{
-			if(connectionController != null)
+			if (connectionController != null)
 			{
 				connectionController.CloseProject();
 				DeleteTempProjectFile();
@@ -396,7 +398,7 @@ namespace ConnectionHiddenCalculation
 		{
 			ConnectionController.ConnectionAppExited -= ConnectionController_ConnectionAppExited;
 			IDisposable disp = ConnectionController as IDisposable;
-			if(disp != null)
+			if (disp != null)
 			{
 				disp.Dispose();
 			}
