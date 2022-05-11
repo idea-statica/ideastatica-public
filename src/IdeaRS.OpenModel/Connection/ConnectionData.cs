@@ -1,3 +1,4 @@
+using IdeaRS.OpenModel.Geometry2D;
 using IdeaRS.OpenModel.Parameters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -545,10 +546,17 @@ namespace IdeaRS.OpenModel.Connection
 		public IdeaRS.OpenModel.Geometry3D.Vector3D AxisZ { get; set; }
 
 		/// <summary>
-		/// Geometry of the plate in svg format
+		/// Geometry of the plate in svg format. In next version will be mark as OBSOLETE! New use property GeometryRegion
 		/// </summary>
 		[DataMember]
 		public string Region { get; set; }
+
+		/// <summary>
+		/// Geometry of the plate described by Region2D - new prefered representation of geometry
+		/// </summary>
+		[DataMember]
+		public Region2D GeometryRegion { get; set; }
+
 
 		/// <summary>
 		/// Get or set the identification in the original model
