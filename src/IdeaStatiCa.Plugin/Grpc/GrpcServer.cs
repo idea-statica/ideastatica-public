@@ -17,12 +17,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private IServerStreamWriter<GrpcMessage> currentClientStream = null;
 		private Dictionary<string, IGrpcMessageHandler> handlers = new Dictionary<string, IGrpcMessageHandler>();
 		protected readonly IPluginLogger Logger;
-
-		private List<ChannelOption> channelOptions = new List<ChannelOption>()
-				{
-						new ChannelOption(ChannelOptions.MaxReceiveMessageLength, Constants.GRPC_MAX_MSG_SIZE),
-						new ChannelOption(ChannelOptions.MaxSendMessageLength, Constants.GRPC_MAX_MSG_SIZE)
-				};
+		private readonly int BufferSize;
 		#endregion
 
 		#region Properties & Events
@@ -58,12 +53,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Initializes the IdeaStatiCa Grpc server.
 		/// </summary>
-		/// <param name="port">Sets the <see cref="Port"/></param>
 		/// <param name="logger">Logger</param>
-		public GrpcServer(IPluginLogger logger)
+		public GrpcServer(IPluginLogger logger, int bufferSize = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			Debug.Assert(logger != null);
-
+			BufferSize = bufferSize;
 			this.Logger = logger;
 			Host = "localhost";
 		}
@@ -76,7 +70,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private void Start()
 		{
 			Logger.LogDebug($"GrpcServer.Start listening on port {Host}:{Port}");
-			server = new Server(channelOptions)
+			server = new Server(CommunicationTools.GetChannelOptions(BufferSize))
 			{
 				Services = { GrpcService.BindService(this) },
 				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }

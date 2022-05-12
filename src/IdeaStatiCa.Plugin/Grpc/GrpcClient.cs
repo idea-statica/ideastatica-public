@@ -50,11 +50,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private AsyncDuplexStreamingCall<GrpcMessage, GrpcMessage> client;
 		private string errorMessage;
 		protected readonly IPluginLogger Logger;
-		private List<ChannelOption> channelOptions = new List<ChannelOption>()
-				{
-						new ChannelOption(ChannelOptions.MaxReceiveMessageLength, Constants.GRPC_MAX_MSG_SIZE),
-						new ChannelOption(ChannelOptions.MaxSendMessageLength, Constants.GRPC_MAX_MSG_SIZE)
-				};
+		private readonly int BufferSize;
 		#endregion
 
 		#region Properties & Events
@@ -92,9 +88,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// Initializes the IdeaStatiCa Grpc client.
 		/// </summary>
 		/// <param name="logger">The instance of the logger</param>
-		public GrpcClient(IPluginLogger logger)
+		/// <param name="bufferSize">The maximal size of GrpcMessage.data in grpc message</param>
+		public GrpcClient(IPluginLogger logger, int bufferSize = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			Debug.Assert(logger != null);
+			BufferSize = bufferSize;
 			this.Logger = logger;
 			Host = "localhost";
 		}
@@ -132,7 +130,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			string address = $"localhost:{Port}";
 			Logger.LogDebug($"GrpcClient.Connect address = '{address}', clientId = '{clientId}', port = '{port}'");
 
-			channel = new Channel(address, ChannelCredentials.Insecure, channelOptions);
+			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(BufferSize));
 
 
 			var serviceClient = new GrpcService.GrpcServiceClient(channel);
