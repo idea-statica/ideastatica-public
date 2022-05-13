@@ -8,6 +8,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SystemTestService;
@@ -69,6 +70,17 @@ namespace ST_GrpcCommunication
 					string fooResult = serviceClient.Foo("IDEA StatiCa");
 
 					fooResult.Should().BeEquivalentTo("Hi IDEA StatiCa");
+
+					// try to send too string which exceeds Constants.GRPC_MAX_MSG_SIZE
+					StringBuilder sb = new StringBuilder();
+					for (int i = 0; i < Constants.GRPC_MAX_MSG_SIZE; i++)
+					{
+						sb.Append("MP");
+					}
+
+					// invote method remotly
+					string fooResult2 = serviceClient.Foo(sb.ToString());
+					fooResult2.StartsWith("Hi MP").Should().BeTrue();
 
 					await grpcClient.DisconnectAsync();
 				}
