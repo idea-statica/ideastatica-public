@@ -50,7 +50,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private AsyncDuplexStreamingCall<GrpcMessage, GrpcMessage> client;
 		private string errorMessage;
 		protected readonly IPluginLogger Logger;
-		private readonly int BufferSize;
+		private readonly int MaxDataLength;
 		#endregion
 
 		#region Properties & Events
@@ -88,11 +88,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// Initializes the IdeaStatiCa Grpc client.
 		/// </summary>
 		/// <param name="logger">The instance of the logger</param>
-		/// <param name="bufferSize">The maximal size of GrpcMessage.data in grpc message</param>
-		public GrpcClient(IPluginLogger logger, int bufferSize = Constants.GRPC_MAX_MSG_SIZE)
+		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in grpc message</param>
+		public GrpcClient(IPluginLogger logger, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			Debug.Assert(logger != null);
-			BufferSize = bufferSize;
+			MaxDataLength = maxDataLength;
 			this.Logger = logger;
 			Host = "localhost";
 		}
@@ -130,8 +130,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			string address = $"localhost:{Port}";
 			Logger.LogDebug($"GrpcClient.Connect address = '{address}', clientId = '{clientId}', port = '{port}'");
 
-			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(BufferSize));
-
+			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(MaxDataLength + 1024 * 30));
 
 			var serviceClient = new GrpcService.GrpcServiceClient(channel);
 
@@ -222,7 +221,19 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		public async Task SendMessageAsync(GrpcMessage message)
 		{
-			Logger.LogDebug($"GrpcClient.SendMessageAsync MessageName = '{message?.MessageName};, ClientId = '{message?.ClientId}', OperationId = '{message?.OperationId}'");
+			int dataStringLength = string.IsNullOrEmpty(message.Data) ? 0 : message.Data.Length;
+
+			Logger.LogDebug($"GrpcClient.SendMessageAsync MessageName = '{message?.MessageName};, ClientId = '{message?.ClientId}', OperationId = '{message?.OperationId}', dataLength = {dataStringLength}");
+
+			// check if the size of the sending data is not bigger than size of the buffer
+			if ((2 * dataStringLength) > MaxDataLength)
+			{
+				// data are too large - compress them
+				message.Compression = true;
+				message.Data = CommunicationTools.Zip(message.Data);
+				Logger.LogTrace($"Compressing data origSize = {dataStringLength}, compressedSize = {message.Data.Length}");
+			}
+
 			if (IsConnected)
 			{
 				try
@@ -248,7 +259,15 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <returns></returns>
 		internal virtual void HandleMessageAsync(GrpcMessage message)
 		{
-			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = {message?.MessageName}, ClientId = {message?.ClientId}, OperationId = {message?.OperationId}");
+			Logger.LogDebug($"GrpcClient.HandleMessageAsync MessageName = {message?.MessageName}, ClientId = {message?.ClientId}, OperationId = {message?.OperationId}, Compression = {message.Compression}");
+
+			if (message.Compression)
+			{
+				// data are compressed
+				message.Data = CommunicationTools.Unzip(message.Data);
+				message.Compression = false;
+			}
+
 			var handler = handlers.ContainsKey(message.MessageName) ? handlers[message.MessageName] : null;
 
 			if (handler != null)
