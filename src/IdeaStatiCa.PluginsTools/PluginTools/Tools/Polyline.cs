@@ -78,32 +78,71 @@ namespace IdeaRS.GeometricItems
 		[DataMember]
 		public SegmentType Type { get; set; }
 
+		/// <summary>
+		/// Create Starting Segment
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
 		public static Segment StartPoint(double x, double y)
 		{
 			return new Segment() { Type = SegmentType.StartPoint, Parameters = new double[] { x, y } };
 		}
 
+		/// <summary>
+		/// Create Line Segment
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
 		public static Segment LineSegment(double x, double y)
 		{
 			return new Segment() { Type = SegmentType.Line, Parameters = new double[] { x, y } };
 		}
 
+		/// <summary>
+		/// Create Arc Segment
+		/// </summary>
+		/// <param name="EndX"></param>
+		/// <param name="EndY"></param>
+		/// <param name="PointX"></param>
+		/// <param name="PointY"></param>
+		/// <returns></returns>
 		public static Segment ArcSegment(double EndX, double EndY, double PointX, double PointY)
 		{
 			return new Segment() { Type = SegmentType.CircArc3Points, Parameters = new double[] { EndX, EndY, PointX, PointY } };
 		}
 
+		/// <summary>
+		/// Create Arc Segment
+		/// </summary>
+		/// <param name="radius"></param>
+		/// <param name="largeArcFlag"></param>
+		/// <param name="sweepFlag"></param>
+		/// <param name="endX"></param>
+		/// <param name="endY"></param>
+		/// <returns></returns>
 		public static Segment ArcSegment(double radius, double largeArcFlag, double sweepFlag, double endX, double endY)
 		{
 			return new Segment() { Type = SegmentType.CircArc3Points, Parameters = new double[] { radius, largeArcFlag, sweepFlag, endX, endY } };
 		}
 
+		/// <summary>
+		/// Clone Segment
+		/// </summary>
+		/// <returns></returns>
 		public Segment Clone()
 		{
 			var clone = new Segment { Type = this.Type, Parameters = this.Parameters.ToArray(), };
 			return clone;
 		}
 
+		/// <summary>
+		/// Get Segment Boundary
+		/// </summary>
+		/// <param name="startPoint"></param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
 		public Rect2D GetBoundary(Point startPoint)
 		{
 			switch (Type)
