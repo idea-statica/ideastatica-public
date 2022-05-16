@@ -95,13 +95,7 @@ namespace IdeaRS.GeometricItems
 				}
 				else if (segment is IdeaRS.OpenModel.Geometry2D.ArcSegment2D acrSegment)
 				{
-					var arc = new CI.Geometry2D.CircularArcSegment2D(new System.Windows.Point(acrSegment.EndPoint.X, acrSegment.EndPoint.Y), new System.Windows.Point(acrSegment.Point.X, acrSegment.Point.Y));
-
-					double radius = arc.GetRadius(ref prevpoint);
-					var sweepFlag = arc.IsCounterClockwise(ref prevpoint) > 0 ? 0 : 1;
-					var largeArcFlag = arc.GetAngle(ref prevpoint) > 180 ? 1 : 0;
-
-					omOutline.Segments.Add(IdeaRS.GeometricItems.Segment.ArcSegment(radius, largeArcFlag, sweepFlag, acrSegment.EndPoint.X, acrSegment.EndPoint.Y));
+					omOutline.Segments.Add(IdeaRS.GeometricItems.Segment.ArcSegment(acrSegment.EndPoint.X, acrSegment.EndPoint.Y, acrSegment.Point.X, acrSegment.Point.Y));
 
 					prevpoint = new System.Windows.Point(acrSegment.EndPoint.X, acrSegment.EndPoint.X);
 				}

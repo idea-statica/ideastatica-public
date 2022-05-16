@@ -114,20 +114,6 @@ namespace IdeaRS.GeometricItems
 		}
 
 		/// <summary>
-		/// Create Arc Segment
-		/// </summary>
-		/// <param name="radius"></param>
-		/// <param name="largeArcFlag"></param>
-		/// <param name="sweepFlag"></param>
-		/// <param name="endX"></param>
-		/// <param name="endY"></param>
-		/// <returns></returns>
-		public static Segment ArcSegment(double radius, double largeArcFlag, double sweepFlag, double endX, double endY)
-		{
-			return new Segment() { Type = SegmentType.CircArc3Points, Parameters = new double[] { radius, largeArcFlag, sweepFlag, endX, endY } };
-		}
-
-		/// <summary>
 		/// Clone Segment
 		/// </summary>
 		/// <returns></returns>
