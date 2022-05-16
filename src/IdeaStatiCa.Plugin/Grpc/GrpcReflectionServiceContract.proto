@@ -18,4 +18,5 @@ message GrpcMessage {
       }
     MessageType messageType = 6;
     bytes buffer = 7;
+    bool compression = 8;
 } 
