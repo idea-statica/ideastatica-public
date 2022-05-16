@@ -1,5 +1,6 @@
 using IdeaRS.OpenModel.Geometry2D;
 using IdeaRS.OpenModel.Parameters;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -549,6 +550,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// Geometry of the plate in svg format. In next version will be mark as OBSOLETE! New use property Geometry
 		/// </summary>
 		[DataMember]
+		[ObsoleteAttribute("This property is obsolete. Use Geometry instead.", false)]
 		public string Region { get; set; }
 
 		/// <summary>
