@@ -546,7 +546,7 @@ namespace IdeaRS.OpenModel.Connection
 		public IdeaRS.OpenModel.Geometry3D.Vector3D AxisZ { get; set; }
 
 		/// <summary>
-		/// Geometry of the plate in svg format. In next version will be mark as OBSOLETE! New use property GeometryRegion
+		/// Geometry of the plate in svg format. In next version will be mark as OBSOLETE! New use property Geometry
 		/// </summary>
 		[DataMember]
 		public string Region { get; set; }
@@ -555,7 +555,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// Geometry of the plate described by Region2D - new prefered representation of geometry
 		/// </summary>
 		[DataMember]
-		public Region2D GeometryRegion { get; set; }
+		public Region2D Geometry { get; set; }
 
 
 		/// <summary>
