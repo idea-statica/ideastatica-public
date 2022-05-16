@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Windows;
-using CI;
+﻿using CI;
+using CI.Geometry2D;
 using System;
-using System.Globalization;
-using System.Text;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Windows;
 
 namespace IdeaRS.GeometricItems
 {
@@ -79,9 +79,48 @@ namespace IdeaRS.GeometricItems
 			return r;
 		}
 
+		private static Polyline GetPolyline(IdeaRS.OpenModel.Geometry2D.PolyLine2D polyLine2D)
+		{
+			Polyline omOutline = new Polyline();
+			omOutline.Segments = new List<Segment>();
+			omOutline.Segments.Add(Segment.StartPoint(polyLine2D.StartPoint.X, polyLine2D.StartPoint.Y));
+
+			System.Windows.Point prevpoint = new System.Windows.Point(polyLine2D.StartPoint.X, polyLine2D.StartPoint.Y);
+			foreach (var segment in polyLine2D.Segments)
+			{
+				if (segment is IdeaRS.OpenModel.Geometry2D.LineSegment2D lineSegment)
+				{
+					omOutline.Segments.Add(Segment.LineSegment(lineSegment.EndPoint.X, lineSegment.EndPoint.Y));
+					prevpoint = new System.Windows.Point(lineSegment.EndPoint.X, lineSegment.EndPoint.Y);
+				}
+				else if (segment is IdeaRS.OpenModel.Geometry2D.ArcSegment2D acrSegment)
+				{
+					omOutline.Segments.Add(IdeaRS.GeometricItems.Segment.ArcSegment(acrSegment.EndPoint.X, acrSegment.EndPoint.Y, acrSegment.Point.X, acrSegment.Point.Y));
+
+					prevpoint = new System.Windows.Point(acrSegment.EndPoint.X, acrSegment.EndPoint.X);
+				}
+			}
+
+			return omOutline;
+		}
+
+		public static Region Region2DIOMToRegion(IdeaRS.OpenModel.Geometry2D.Region2D iomRegion)
+		{
+			Region r = new Region();
+			r.Openings = new List<Polyline>();
+			r.Outline = GetPolyline(iomRegion.Outline);
+
+			foreach (var opening in iomRegion.Openings)
+			{
+				r.Openings.Add(GetPolyline(opening));
+			}
+
+			return r;
+		}
+
 		public static int getQuadrant(Point Center, Point Start, double radius)
 		{
-			double a = Math.Sqrt(Math.Pow(radius, 2) * 2) /2 ;
+			double a = Math.Sqrt(Math.Pow(radius, 2) * 2) / 2;
 			Point s1 = new Point(Center.X - a, Center.Y + a);
 			Point s2 = new Point(Center.X + a, Center.Y + a);
 			Point s3 = new Point(Center.X + a, Center.Y - a);
@@ -126,14 +165,14 @@ namespace IdeaRS.GeometricItems
 			Point prevPoint = new Point();
 			while (i < paramCount)
 			{
-				switch(stringVals[i++].ToUpper())
+				switch (stringVals[i++].ToUpper())
 				{
 					case "M":
 						{
 							p.Segments.Add(Segment.StartPoint(Double.Parse(stringVals[i++], CultureInfo.InvariantCulture),
 								Double.Parse(stringVals[i++], CultureInfo.InvariantCulture)));
-							prevPoint.X = Double.Parse(stringVals[i-2], CultureInfo.InvariantCulture);
-							prevPoint.Y = Double.Parse(stringVals[i-1], CultureInfo.InvariantCulture);
+							prevPoint.X = Double.Parse(stringVals[i - 2], CultureInfo.InvariantCulture);
+							prevPoint.Y = Double.Parse(stringVals[i - 1], CultureInfo.InvariantCulture);
 							continue;
 						}
 					case "L":
@@ -167,7 +206,7 @@ namespace IdeaRS.GeometricItems
 
 							goto Finish;
 						}
-						case "A":
+					case "A":
 						{
 							//Get values
 							double radius = Double.Parse(stringVals[i++], CultureInfo.InvariantCulture);
@@ -176,16 +215,16 @@ namespace IdeaRS.GeometricItems
 							double ClockWiseArc = Double.Parse(stringVals[i++], CultureInfo.InvariantCulture);
 							//ClockWiseArc = 0;
 
-							Point endArcPoint = new Point(Double.Parse(stringVals[i++], CultureInfo.InvariantCulture),Double.Parse(stringVals[i++], CultureInfo.InvariantCulture));
+							Point endArcPoint = new Point(Double.Parse(stringVals[i++], CultureInfo.InvariantCulture), Double.Parse(stringVals[i++], CultureInfo.InvariantCulture));
 							//endArcPoint.X = 0.05;
 							//endArcPoint.Y = 0.15;
 
-						#region calCenterpoint
+							#region calCenterpoint
 							Point CenterArcPoint = new Point();
 
 							//double radius
 							double l2 = Math.Sqrt(Math.Pow(endArcPoint.X - prevPoint.X, 2) + Math.Pow(endArcPoint.Y - prevPoint.Y, 2));
-							double l = l2 /2;
+							double l = l2 / 2;
 
 							var vY = (((endArcPoint.Y - prevPoint.Y) * Math.Sqrt(Math.Pow(radius, 2) - Math.Pow(l, 2))) / l2);
 							if (double.IsNaN(vY))
@@ -201,7 +240,7 @@ namespace IdeaRS.GeometricItems
 							double Y1 = ((prevPoint.Y + endArcPoint.Y) / 2) + vX;
 
 							double ClockWise = (prevPoint.X - X1) * (endArcPoint.Y - Y1) - (prevPoint.Y - Y1) * (endArcPoint.X - X1);
-							if ((ClockWise.IsGreater(0.0)  && ClockWiseArc == 0) || (ClockWise.IsLesserOrEqual(0.0) && ClockWiseArc > 0))
+							if ((ClockWise.IsGreater(0.0) && ClockWiseArc == 0) || (ClockWise.IsLesserOrEqual(0.0) && ClockWiseArc > 0))
 							{
 								CenterArcPoint.X = X1;
 								CenterArcPoint.Y = Y1;
@@ -223,9 +262,9 @@ namespace IdeaRS.GeometricItems
 								CenterArcPoint.X = X2;
 								CenterArcPoint.Y = Y2;
 							}
-						#endregion
+							#endregion
 
-						#region calSomeMiddlePoin
+							#region calSomeMiddlePoin
 							double midX = 0;
 							double midY = 0;
 							midX = (prevPoint.X + endArcPoint.X) / 2;
@@ -338,7 +377,7 @@ namespace IdeaRS.GeometricItems
 								if ((l2 - (2 * radius)) < 4e-6)
 								{
 									int quadratStart = getQuadrant(CenterArcPoint, prevPoint, radius);
-									int quadratP1 = getQuadrant(CenterArcPoint, new Point(x1,midY), radius);
+									int quadratP1 = getQuadrant(CenterArcPoint, new Point(x1, midY), radius);
 									int quadratP2 = getQuadrant(CenterArcPoint, new Point(x2, midY), radius);
 									if (ClockWiseArc == 0)
 									{
@@ -363,19 +402,19 @@ namespace IdeaRS.GeometricItems
 									}
 									else
 									{
-										while(true)
+										while (true)
 										{
-											if(quadratStart == quadratP1)
+											if (quadratStart == quadratP1)
 											{
 												midX = x1;
 												break;
 											}
-											if(quadratStart == quadratP2)
+											if (quadratStart == quadratP2)
 											{
 												midX = x2;
 												break;
 											}
-											quadratStart ++;
+											quadratStart++;
 											if (quadratStart > 4)
 											{
 												quadratStart = 1;
@@ -395,7 +434,7 @@ namespace IdeaRS.GeometricItems
 									}
 								}
 							}
-						#endregion
+							#endregion
 							p.Segments.Add(Segment.ArcSegment(endArcPoint.X, endArcPoint.Y, midX, midY));
 							continue;
 						}
@@ -405,7 +444,7 @@ namespace IdeaRS.GeometricItems
 				}
 			}
 
-Finish:
+		Finish:
 			if (p.Segments.Count < 3)
 			{
 				return null;
@@ -430,13 +469,64 @@ Finish:
 			return regionSB.ToString();
 		}
 
+		private static OpenModel.Geometry2D.PolyLine2D GetPolyline2D(IPolyLine2D polyLine2D)
+		{
+			OpenModel.Geometry2D.PolyLine2D omOutline = new OpenModel.Geometry2D.PolyLine2D();
+			omOutline.StartPoint = new OpenModel.Geometry2D.Point2D();
+			omOutline.StartPoint.X = polyLine2D.StartPoint.X;
+			omOutline.StartPoint.Y = polyLine2D.StartPoint.Y;
+
+			foreach (var drdSegment in polyLine2D.Segments)
+			{
+				OpenModel.Geometry2D.LineSegment2D omSegmen = new OpenModel.Geometry2D.LineSegment2D();
+				omSegmen.EndPoint = new OpenModel.Geometry2D.Point2D();
+				omSegmen.EndPoint.X = drdSegment.EndPoint.X;
+				omSegmen.EndPoint.Y = drdSegment.EndPoint.Y;
+				omOutline.Segments.Add(omSegmen);
+			}
+
+			return omOutline;
+		}
+
+		/// <summary>
+		/// conver  IdeaRS.GeometricItems.Region to the IdeaRS.OpenModel.Geometry2D.Region2
+		/// </summary>
+		/// <param name="region"></param>
+		/// <returns></returns>
+		public static IdeaRS.OpenModel.Geometry2D.Region2D RegionToRegion2DIOM(Region region)
+		{
+			return RegionToRegion2DIOM(region.Convert());
+		}
+
+		/// <summary>
+		/// conver  IdeaRS.GeometricItems.Region to the IdeaRS.OpenModel.Geometry2D.Region2
+		/// </summary>
+		/// <param name="region"></param>
+		/// <returns></returns>
+		public static IdeaRS.OpenModel.Geometry2D.Region2D RegionToRegion2DIOM(IRegion2D region)
+		{
+			var iomRegion = new IdeaRS.OpenModel.Geometry2D.Region2D();
+			iomRegion.Openings = new List<OpenModel.Geometry2D.PolyLine2D>();
+			iomRegion.Outline = GetPolyline2D(region.Outline);
+			if (region.Openings != null)
+			{
+				foreach (var opening in region.Openings)
+				{
+					iomRegion.Openings.Add(GetPolyline2D(opening));
+				}
+			}
+
+			return iomRegion;
+
+		}
+
 		public static string PolylineToString(this Polyline p)
 		{
 			StringBuilder sb = new StringBuilder();
 			int segmentsCount = p.Segments.Count;
 			for (int i = 0; i < segmentsCount; i++)
 			{
-				if(i > 0)
+				if (i > 0)
 				{
 					sb.Append(" ");
 				}
@@ -465,7 +555,7 @@ Finish:
 				}
 				else
 				{
-					switch(s.Type)
+					switch (s.Type)
 					{
 						case SegmentType.StartPoint:
 							sb.AppendFormat("M {0} {1}", s.Parameters[0].ToString(CultureInfo.InvariantCulture), s.Parameters[1].ToString(CultureInfo.InvariantCulture));
@@ -532,12 +622,5 @@ Finish:
 		{
 			return new Point(segment.Parameters[0], segment.Parameters[1]);
 		}
-        //public static IPolyLine2D DiscretizePolyline(Polyline polyline, double discretisationAngle)
-        //{
-        //    IPolyLine2D pln2D = polyline.Convert();
-        //    IRegion2D region = new Region2D(pln2D);
-        //    region = CI.Geometry2D.GeomTools2D.DiscretizeRegion(region, discretisationAngle);
-        //    return region.Outline;
-        //}
-    }
+	}
 }
