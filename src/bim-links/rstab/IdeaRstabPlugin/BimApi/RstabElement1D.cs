@@ -48,14 +48,14 @@ namespace IdeaRstabPlugin.BimApi
 		private readonly int _endCssNo;
 
 		public RstabElement1D(IObjectFactory objectFactory, CoordSystem coordSystem, int startNodeNo, int endNodeNo,
-			int startCrossSectionNo, int endCrossSectionNo)
+			int startCrossSectionNo, int endCrossSectionNo, double rotation)
 		{
 			_objectFactory = objectFactory;
 			_startCssNo = startCrossSectionNo;
 			_endCssNo = endCrossSectionNo;
 
 			Segment = new RstabLineSegment3D(objectFactory, coordSystem, startNodeNo, endNodeNo);
-			RotationRx = 0.0;
+			RotationRx = rotation;
 
 			if (startNodeNo < endNodeNo)
 			{

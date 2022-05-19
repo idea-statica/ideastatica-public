@@ -9,6 +9,7 @@ using IdeaStatiCa.PluginLogger;
 using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
+using NMVector3D = MathNet.Spatial.Euclidean.Vector3D;
 using UnitVector3D = MathNet.Spatial.Euclidean.UnitVector3D;
 
 namespace IdeaRstabPlugin.Factories
@@ -38,15 +39,16 @@ namespace IdeaRstabPlugin.Factories
 			IMember member = _modelDataProvider.GetIMember(memberNo);
 			Member memberData = _modelDataProvider.GetMember(memberNo);
 
-			CoordSystem cs = GetMemberLCS(memberData);
+			(CoordSystem lcs, double rotationRad) = GetLCSAndRotation(memberData);
 
 			RstabElement1D element = new RstabElement1D(
 				_objectFactory,
-				cs,
+				lcs,
 				memberData.StartNodeNo,
 				memberData.EndNodeNo,
 				memberData.StartCrossSectionNo,
-				memberData.EndCrossSectionNo)
+				memberData.EndCrossSectionNo,
+				rotationRad)
 			{
 				EccentricityBegin = GetEccentricity(member, 0.0),
 				EccentricityEnd = GetEccentricity(member, 1.0)
@@ -55,37 +57,51 @@ namespace IdeaRstabPlugin.Factories
 			return new List<IIdeaElement1D>() { element };
 		}
 
-		private CoordSystem GetMemberLCS(Member memberData)
+		private (CoordSystem LCS, double Rotation) GetLCSAndRotation(Member memberData)
 		{
-			double rotationRad = Utils.ConvertRotation(memberData.Rotation, _objectFactory, memberData.StartNodeNo, memberData.EndNodeNo);
-			return CreateLCS(memberData.StartNodeNo, memberData.EndNodeNo, rotationRad);
+			if (memberData.Rotation.Type == RotationType.HelpNode)
+			{
+				var lcs = GetLCSByPlane(memberData.Rotation, memberData.StartNodeNo, memberData.EndNodeNo);
+				if (!(lcs is null))
+				{
+					return (lcs, 0);
+				}
+			}
+
+			return (GetMemberLCS(memberData.StartNodeNo, memberData.EndNodeNo), GetRotation(memberData.Rotation));
 		}
 
-		private CoordSystem CreateLCS(int startNodeNo, int endNodeNo, double rotation)
+		private CoordSystem GetLCSByPlane(Rotation rotation, int startNodeNo, int endNodeNo)
 		{
-			IIdeaNode startNode = _objectFactory.GetNode(startNodeNo);
-			IIdeaNode endNode = _objectFactory.GetNode(endNodeNo);
-
-			IdeaVector3D startNodePos = startNode.Vector;
-			IdeaVector3D endNodePos = endNode.Vector;
-
-			UnitVector3D axisX = UnitVector3D.Create(
-				endNodePos.X - startNodePos.X,
-				endNodePos.Y - startNodePos.Y,
-				endNodePos.Z - startNodePos.Z);
-
-			UnitVector3D axisZ, axisY;
-			if (Math.Abs(axisX.Z).AlmostEqual(1.0, Tolerance))
+			if (rotation.Plane != PlaneType.PlaneXY && rotation.Plane != PlaneType.PlaneXZ)
 			{
-				axisZ = UnitVector3D.XAxis;
+				return null;
+			}
+
+			NMVector3D helpNodePos = Vector2MNVector(_objectFactory.GetNode(rotation.HelpNodeNo).Vector);
+			UnitVector3D axisX = GetAxisX(startNodeNo, endNodeNo);
+
+			if (axisX.DotProduct(helpNodePos).AlmostEqual(1.0, 1e-6))
+			{
+				return null;
+			}
+
+			IIdeaNode startNode = _objectFactory.GetNode(startNodeNo);
+
+			UnitVector3D axisY = (helpNodePos - Vector2MNVector(startNode.Vector)).Normalize();
+			UnitVector3D axisZ;
+
+			if (rotation.Plane == PlaneType.PlaneXY)
+			{
+				axisZ = axisX.CrossProduct(axisY);
+				axisY = axisZ.CrossProduct(axisX);
+				axisZ = axisX.CrossProduct(axisY);
 			}
 			else
 			{
-				axisZ = UnitVector3D.ZAxis.Negate();
+				axisZ = axisY.CrossProduct(axisX);
+				axisY = axisX.CrossProduct(axisZ);
 			}
-
-			axisY = axisZ.CrossProduct(axisX).Rotate(axisX, MathNet.Spatial.Units.Angle.FromRadians(rotation));
-			axisZ = axisX.CrossProduct(axisY);
 
 			return new CoordSystemByVector()
 			{
@@ -93,6 +109,59 @@ namespace IdeaRstabPlugin.Factories
 				VecY = MNVector2Vector(axisY),
 				VecZ = MNVector2Vector(axisZ),
 			};
+		}
+
+		private double GetRotation(Rotation rotation)
+		{
+			if (rotation.Type == RotationType.Angle)
+			{
+				return rotation.Angle;
+			}
+
+			return 0.0;
+		}
+
+		private CoordSystem GetMemberLCS(int startNodeNo, int endNodeNo)
+		{
+			UnitVector3D axisX = GetAxisX(startNodeNo, endNodeNo);
+
+			UnitVector3D axisZ, axisY;
+			if (axisX.Z.AlmostEqual(1.0, Tolerance))
+			{
+				axisZ = UnitVector3D.XAxis.Negate();
+			}
+			else if (axisX.Z.AlmostEqual(-1.0, Tolerance))
+			{
+				axisZ = UnitVector3D.XAxis;
+			}
+			else
+			{
+				axisZ = UnitVector3D.ZAxis;
+			}
+
+			axisY = axisZ.CrossProduct(axisX);
+			axisZ = axisX.CrossProduct(axisY);
+
+			return new CoordSystemByVector()
+			{
+				VecX = MNVector2Vector(axisX),
+				VecY = MNVector2Vector(axisY.Negate()),
+				VecZ = MNVector2Vector(axisZ.Negate()),
+			};
+		}
+
+		private UnitVector3D GetAxisX(int startNodeNo, int endNodeNo)
+		{
+			IIdeaNode startNode = _objectFactory.GetNode(startNodeNo);
+			IIdeaNode endNode = _objectFactory.GetNode(endNodeNo);
+
+			IdeaVector3D startNodePos = startNode.Vector;
+			IdeaVector3D endNodePos = endNode.Vector;
+
+			return UnitVector3D.Create(
+					endNodePos.X - startNodePos.X,
+					endNodePos.Y - startNodePos.Y,
+					endNodePos.Z - startNodePos.Z);
 		}
 
 		private Vector3D MNVector2Vector(UnitVector3D vector3D)
@@ -103,6 +172,11 @@ namespace IdeaRstabPlugin.Factories
 				Y = vector3D.Y,
 				Z = vector3D.Z
 			};
+		}
+
+		private NMVector3D Vector2MNVector(IdeaVector3D vector3D)
+		{
+			return new NMVector3D(vector3D.X, vector3D.Y, vector3D.Z);
 		}
 
 		private IdeaVector3D GetEccentricity(IMember member, double param)
