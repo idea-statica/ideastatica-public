@@ -3,6 +3,9 @@ syntax = "proto3";
 service PluginService {
     rpc Hello(HelloReq) returns (HelloResp);
     rpc NewVersion(NewVersionReq) returns (NewVersionResp);
+
+    rpc OperationRollback(OperationRollbackReq) returns (OperationRollbackResp);
+    rpc OperationCompleted(OperationCompletedReq) returns (OperationCompletedResp);
 }
 
 message HelloReq {
@@ -16,9 +19,11 @@ message HelloReq {
 }
 
 message HelloResp {
-    string api_version = 1;
-    string idea_version = 2;
+    HelloStatus status = 1;
+    string api_version = 2;
+    string idea_version = 3;
 }
+
 
 message NewVersionReq {
     string new_version = 1;
@@ -26,4 +31,19 @@ message NewVersionReq {
 
 message NewVersionResp {
 
+}
+
+
+message OperationRollbackReq { }
+message OperationRollbackResp { }
+
+
+message OperationCompletedReq { }
+message OperationCompletedResp { }
+
+
+enum HelloStatus {
+    OK,
+    ERROR,
+    UNSUPPORTED_API_VERSION
 }
