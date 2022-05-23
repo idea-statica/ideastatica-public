@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+service ProjectService {
+    rpc GetInfo(ProjectInfoReq) returns (ProjectInfoResp);
+
+    rpc GetModel(GetModelReq) returns (stream GetModelResp);
+    rpc UpdateModel(stream UpdateModelReq) returns (UpdateModelResp);
+
+    rpc ListObjects(ListObjectsReq) returns (ListObjectsRes);
+    rpc GetObjects(GetObjectsReq) returns (stream GetObjectsResp);
+}
+
+message ProjectInfoReq { }
+
+message ProjectInfoResp {
+    string path = 1;
+    string name = 2;
+    string country_code = 3;
+}
+
+
+message GetModelReq { 
+    bool with_results = 1;
+}
+
+message GetModelResp { 
+    ModelPacket packet = 1;
+}
+
+
+message UpdateModelReq { 
+    ModelPacket packet = 1;
+}
+
+message UpdateModelResp { }
+
+
+message ListObjectsReq { }
+
+message ListObjectsRes {
+    repeated ModelObject objects = 1;
+}
+
+
+message GetObjectsReq {
+    bool with_results = 1;
+    repeated ModelObject objects = 2;
+}
+
+message GetObjectsResp {
+    ModelObject item = 1;
+    ModelPacket packet = 2;
+}
+
+
+enum ModelObjectType {
+    CONNECTION_POINT = 0;
+    SUBSTRUCTURE = 1;
+}
+
+message ModelObject {
+    ModelObjectType type = 1;
+    int32 id = 2;
+}
+
+message ModelPacket {
+    bool is_first = 1;
+    bool is_last = 2;
+    bytes data = 3;
+}

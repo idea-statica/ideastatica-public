@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+service HealthCheck {
+    rpc Watch(stream CheckReq) returns (stream CheckResp);
+}
+
+message CheckReq { }
+
+message CheckResp { }

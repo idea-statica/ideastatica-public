@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+service EventService {
+    rpc Subscribe(SubscribeReq) returns (stream Event);
+}
+
+message SubscribeReq { }
+
+message Event {
+    oneof event {
+        EventProjectOpened project_opened = 1;
+        EventOpenCheckApplication open_check_application = 2;
+    }
+}
+
+message EventProjectOpened {
+
+}
+
+message EventOpenCheckApplication {
+
+}

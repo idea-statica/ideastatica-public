@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+service PluginService {
+    rpc Hello(HelloReq) returns (HelloResp);
+    rpc NewVersion(NewVersionReq) returns (NewVersionResp);
+}
+
+message HelloReq {
+    int32 id = 1;
+
+    string name = 2;
+    string description = 3;
+    string author = 4;
+    string version = 5;
+    string api_version = 6;
+}
+
+message HelloResp {
+    string api_version = 1;
+    string idea_version = 2;
+}
+
+message NewVersionReq {
+    string new_version = 1;
+}
+
+message NewVersionResp {
+
+}
