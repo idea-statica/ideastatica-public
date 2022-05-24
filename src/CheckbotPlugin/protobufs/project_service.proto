@@ -4,7 +4,6 @@ service ProjectService {
     rpc GetInfo(ProjectInfoReq) returns (ProjectInfoResp);
 
     rpc GetModel(GetModelReq) returns (stream GetModelResp);
-    rpc UpdateModel(stream UpdateModelReq) returns (UpdateModelResp);
 
     rpc ListObjects(ListObjectsReq) returns (ListObjectsRes);
     rpc GetObjects(GetObjectsReq) returns (stream GetObjectsResp);
@@ -25,13 +24,6 @@ message GetModelReq {
 message GetModelResp { 
     ModelPacket packet = 1;
 }
-
-
-message UpdateModelReq { 
-    ModelPacket packet = 1;
-}
-
-message UpdateModelResp { }
 
 
 message ListObjectsReq { }
