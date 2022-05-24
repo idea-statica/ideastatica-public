@@ -39,8 +39,7 @@ message GetObjectsReq {
 }
 
 message GetObjectsResp {
-    ModelObject item = 1;
-    ModelPacket packet = 2;
+    ModelPacket packet = 1;
 }
 
 
