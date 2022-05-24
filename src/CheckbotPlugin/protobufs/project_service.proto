@@ -18,7 +18,7 @@ message ProjectInfoResp {
 
 
 message GetModelReq { 
-    bool with_results = 1;
+    ModelOptions options = 1;
 }
 
 message GetModelResp { 
@@ -34,7 +34,7 @@ message ListObjectsRes {
 
 
 message GetObjectsReq {
-    bool with_results = 1;
+    ModelOptions options = 1;
     repeated ModelObject objects = 2;
 }
 
@@ -54,7 +54,10 @@ message ModelObject {
 }
 
 message ModelPacket {
-    bool is_first = 1;
-    bool is_last = 2;
-    bytes data = 3;
+    bytes data = 1;
+}
+
+message ModelExportOptions {
+    bool results = 1;
+    bool generic_css_always = 2;
 }
