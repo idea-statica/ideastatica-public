@@ -56,18 +56,6 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContentOnDisk
 		}
 
 		[Test]
-		public void Test_DeleteMethod()
-		{
-			File.Create(Path.Combine(tempDirectory, TestFileName)).Close();
-			var contentOnDisc = new ProjectContentOnDisc(Path.Combine(tempDirectory));
-
-			// Tests if implementation deletes file.
-			contentOnDisc.Delete(TestFileName);
-			Assert.IsFalse(File.Exists(TestFileName), "File wasn't deleted.");
-			Assert.That(() => contentOnDisc.Delete(TestFileName), Throws.TypeOf<FileNotFoundException>());
-		}
-
-		[Test]
 		public void TestExistsMethod()
 		{
 			var contentOnDisc = new ProjectContentOnDisc(tempDirectory);
