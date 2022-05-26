@@ -1,10 +1,14 @@
 syntax = "proto3";
 
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+
+package ideastatica.checkbotplugin.v1;
+
 service PluginService {
     rpc Hello(HelloReq) returns (HelloResp);
     rpc NewVersion(NewVersionReq) returns (NewVersionResp);
 
-    rpc OperationRollback(OperationRollbackReq) returns (OperationRollbackResp);
+    rpc OperationDiscard(OperationDiscardReq) returns (OperationDiscardResp);
     rpc OperationCompleted(OperationCompletedReq) returns (OperationCompletedResp);
 }
 
@@ -34,8 +38,8 @@ message NewVersionResp {
 }
 
 
-message OperationRollbackReq { }
-message OperationRollbackResp { }
+message OperationDiscardReq { }
+message OperationDiscardResp { }
 
 
 message OperationCompletedReq { }
@@ -43,7 +47,7 @@ message OperationCompletedResp { }
 
 
 enum HelloStatus {
-    OK,
-    ERROR,
-    UNSUPPORTED_API_VERSION
+    OK = 0;
+    ERROR = 1;
+    UNSUPPORTED_API_VERSION = 2;
 }

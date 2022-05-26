@@ -1,0 +1,84 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "items": {
+        "$ref": "#/$defs/Plugin"
+    },
+    "$defs": {
+        "Plugin": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "enum": [
+                        "import",
+                        "check"
+                    ]
+                },
+                "driver": {
+                    "$ref": "#/$defs/Driver"
+                }
+            },
+            "required": [
+                "type",
+                "driver"
+            ]
+        },
+        "Driver": {
+            "type": "object",
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/DotNetRunnerDriver"
+                },
+                {
+                    "$ref": "#/$defs/ExecutableDriver"
+                }
+            ]
+        },
+        "DotNetRunnerDriver": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "dotnet_runner"
+                },
+                "path": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "classname": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "path"
+            ]
+        },
+        "ExecutableDriver": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "executable"
+                },
+                "path": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "additional_arguments": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "required": [
+                "path"
+            ]
+        }
+    }
+}

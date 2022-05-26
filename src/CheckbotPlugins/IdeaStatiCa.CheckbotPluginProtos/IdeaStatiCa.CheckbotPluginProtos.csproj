@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.21.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.46.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="application_service.proto" GrpcServices="Client" />
+    <Protobuf Include="event_service.proto" GrpcServices="Client" />
+    <Protobuf Include="health_check.proto" GrpcServices="Client" />
+    <Protobuf Include="plugin_service.proto" GrpcServices="Client" />
+    <Protobuf Include="project_service.proto" GrpcServices="Client" />
+    <Protobuf Include="storage_service.proto" GrpcServices="Client" />
+  </ItemGroup>
+</Project>

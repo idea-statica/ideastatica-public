@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPluginProtos\IdeaStatiCa.CheckbotPluginProtos.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin\IdeaStatiCa.CheckbotPlugin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+  </ItemGroup>
+
+</Project>

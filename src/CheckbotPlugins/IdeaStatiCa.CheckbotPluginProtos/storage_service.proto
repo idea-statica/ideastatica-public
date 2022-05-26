@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+
+package ideastatica.checkbotplugin.v1;
+
 service StorageService {
     rpc Set(SetReq) returns (SetResp);
     rpc Get(GetReq) returns (GetResp);

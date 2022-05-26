@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+
+package ideastatica.checkbotplugin.v1;
+
 service ProjectService {
     rpc GetInfo(ProjectInfoReq) returns (ProjectInfoResp);
 
@@ -18,7 +22,7 @@ message ProjectInfoResp {
 
 
 message GetModelReq { 
-    ModelOptions options = 1;
+    ModelExportOptions options = 1;
 }
 
 message GetModelResp { 
@@ -34,7 +38,7 @@ message ListObjectsRes {
 
 
 message GetObjectsReq {
-    ModelOptions options = 1;
+    ModelExportOptions options = 1;
     repeated ModelObject objects = 2;
 }
 
@@ -46,6 +50,10 @@ message GetObjectsResp {
 enum ModelObjectType {
     CONNECTION_POINT = 0;
     SUBSTRUCTURE = 1;
+    MEMBER = 2;
+    NODE = 3;
+    CROSS_SECTION = 4;
+    MATERIAL = 5;
 }
 
 message ModelObject {
@@ -58,6 +66,6 @@ message ModelPacket {
 }
 
 message ModelExportOptions {
-    bool results = 1;
-    bool generic_css_always = 2;
+    bool with_results = 1;
+    bool all_cross_sections_as_general = 2;
 }

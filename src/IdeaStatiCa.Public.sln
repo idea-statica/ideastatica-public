@@ -79,6 +79,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginLogger", 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CheckbotPlugins", "CheckbotPlugins", "{D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin\IdeaStatiCa.CheckbotPlugin.csproj", "{F3D2A3A6-BCBF-408D-B71A-B413395734B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginRunner", "CheckbotPlugins\IdeaStatiCa.PluginRunner\IdeaStatiCa.PluginRunner.csproj", "{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.CheckbotPluginProtos", "CheckbotPlugins\IdeaStatiCa.CheckbotPluginProtos\IdeaStatiCa.CheckbotPluginProtos.csproj", "{04209ECE-6A43-444B-9FE2-347A8267B0F4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
@@ -198,6 +206,18 @@ Global
 		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D2A3A6-BCBF-408D-B71A-B413395734B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D2A3A6-BCBF-408D-B71A-B413395734B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D2A3A6-BCBF-408D-B71A-B413395734B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D2A3A6-BCBF-408D-B71A-B413395734B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04209ECE-6A43-444B-9FE2-347A8267B0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04209ECE-6A43-444B-9FE2-347A8267B0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04209ECE-6A43-444B-9FE2-347A8267B0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04209ECE-6A43-444B-9FE2-347A8267B0F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -229,6 +249,9 @@ Global
 		{8967AE55-5709-47F2-802F-312D3862668F} = {A140BC08-DF0F-45A8-84EA-E3855D907B47}
 		{3814F9B8-46DE-4343-94A7-E7A81D371007} = {0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}
 		{D09CA0D0-737E-4481-8D89-371388E70F03} = {0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}
+		{F3D2A3A6-BCBF-408D-B71A-B413395734B0} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{04209ECE-6A43-444B-9FE2-347A8267B0F4} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}

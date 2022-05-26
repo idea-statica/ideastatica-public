@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+
+package ideastatica.checkbotplugin.v1;
+
 service ApplicationService {
     rpc GetSettings(GetSettingsReq) returns (GetSettingsResp);
     rpc GetAllSettings(GetAllSettingsReq) returns (GetAllSettingsResp);

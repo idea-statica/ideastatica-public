@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "project_service.proto";
+
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+
+package ideastatica.checkbotplugin.v1;
+
+service EventService {
+    rpc Subscribe(SubscribeReq) returns (stream Event);
+}
+
+message SubscribeReq { }
+
+message Event {
+    oneof event {
+        EventPluginStop plugin_stop = 1;
+        EventOperationBegin operation_started = 4;
+        EventOpenCheckApplication open_check_application = 3;
+    }
+}
+
+message EventPluginStop { }
+
+message EventOperationBegin { }
+
+message EventOpenCheckApplication { 
+    ModelObject object = 1;
+}
