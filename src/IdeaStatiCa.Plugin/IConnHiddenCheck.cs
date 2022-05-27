@@ -243,5 +243,22 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
 		[OperationContract]
 		string DeleteAllOperations(string connectionId);
+
+		/// <summary>
+		/// Change the material of a cross-section currently available in the Project
+		/// </summary>
+		/// <param name="crossSectionId">Id of the cross-section</param>
+		/// <param name="materialId">Id of the material</param>
+		[OperationContract]
+		void SetCrossSectionMaterial(int crossSectionId, int materialId);
+
+		/// <summary>
+		/// Change the cross-section of a member in a connection in the Project through
+		/// </summary>
+		/// <param name="connectionId">Id of the connection</param>
+		/// <param name="memberId">Id of the member</param>
+		/// <param name="crossSectionId">Id of the cross-section</param>
+		[OperationContract]
+		void SetMemberCrossSection(int connectionId, int memberId, int crossSectionId);
 	}
 }

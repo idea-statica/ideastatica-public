@@ -169,6 +169,17 @@ namespace IdeaStatiCa.Plugin
 		{
 			return Service.UpdateCodeSetupJSON(connectionSetupJSON);
 		}
+
+		public void SetCrossSectionMaterial(int crossSectionId, int materialId)
+		{
+			Service.SetCrossSectionMaterial(crossSectionId, materialId);
+		}
+
+		public void SetMemberCrossSection(int connectionId, int memberId, int crossSectionId)
+		{
+			Service.SetMemberCrossSection(connectionId, memberId, crossSectionId);
+		}
+
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }
