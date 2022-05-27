@@ -2,7 +2,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Models
 {
 	public class PluginInfo
 	{
-		public string Name { get; }
+		public string DisplayName { get; }
 
 		public string Description { get; }
 
@@ -12,9 +12,9 @@ namespace IdeaStatiCa.CheckbotPlugin.Models
 
 		public string ApiVersion { get; } = "0.1.0";
 
-		public PluginInfo(string name, string description, string author, string version)
+		public PluginInfo(string displayName, string description, string author, string version)
 		{
-			Name = name;
+			DisplayName = displayName;
 			Description = description;
 			Author = author;
 			Version = version;
