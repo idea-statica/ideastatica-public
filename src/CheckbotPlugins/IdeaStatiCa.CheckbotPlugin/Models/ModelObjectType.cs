@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.CheckbotPlugin
+﻿namespace IdeaStatiCa.CheckbotPlugin.Models
 {
 	public enum ModelObjectType
 	{

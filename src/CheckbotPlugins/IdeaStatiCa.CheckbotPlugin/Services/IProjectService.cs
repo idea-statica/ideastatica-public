@@ -2,8 +2,11 @@ using IdeaRS.OpenModel;
 using IdeaStatiCa.CheckbotPlugin.Models;
 using System.Collections.Generic;
 
-namespace IdeaStatiCa.CheckbotPlugin
+namespace IdeaStatiCa.CheckbotPlugin.Services
 {
+	/// <summary>
+	/// Provides project data.
+	/// </summary>
 	public interface IProjectService
 	{
 		/// <summary>

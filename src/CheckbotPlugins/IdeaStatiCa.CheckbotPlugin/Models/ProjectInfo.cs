@@ -1,6 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 
-namespace IdeaStatiCa.CheckbotPlugin
+namespace IdeaStatiCa.CheckbotPlugin.Models
 {
 	public class ProjectInfo
 	{
