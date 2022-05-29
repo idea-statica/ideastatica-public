@@ -7,3 +7,5 @@ A library contains interfaces of services that plugin may use when running under
 ## IdeaStatiCa.PluginRunner
 
 Runner that handles communication with Checkbot. The plugin is only required to implement interface **IPlugin** from IdeaStatiCa.CheckbotPlugin, the class implementing this interface must be public.
+
+*NOTE: This project will become a nuget in the final version.*
