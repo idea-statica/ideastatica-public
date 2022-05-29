@@ -12,15 +12,9 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		Task NewVersion(string newVersion);
 
 		/// <summary>
-		/// Ends current operation and discards any changes by the plugin.
+		/// Ends current procedure and unblocks Checkbot for the user.
 		/// </summary>
 		/// <returns></returns>
-		Task OperationDiscard();
-
-		/// <summary>
-		/// Ends current operation and applies all changes from the plugin.
-		/// </summary>
-		/// <returns></returns>
-		Task OperationCompleted();
+		Task ProcedureComplete();
 	}
 }

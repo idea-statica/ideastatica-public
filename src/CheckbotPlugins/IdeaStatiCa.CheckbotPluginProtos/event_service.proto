@@ -15,14 +15,14 @@ message SubscribeReq { }
 message Event {
     oneof event {
         EventPluginStop plugin_stop = 1;
-        EventOperationBegin operation_started = 4;
+        EventProcedureBegin operation_started = 2;
         EventOpenCheckApplication open_check_application = 3;
     }
 }
 
 message EventPluginStop { }
 
-message EventOperationBegin { }
+message EventProcedureBegin { }
 
 message EventOpenCheckApplication { 
     ModelObject object = 1;

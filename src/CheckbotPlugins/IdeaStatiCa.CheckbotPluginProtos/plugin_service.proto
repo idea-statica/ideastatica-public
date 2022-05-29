@@ -8,8 +8,7 @@ service PluginService {
     rpc Hello(HelloReq) returns (HelloResp);
     rpc NewVersion(NewVersionReq) returns (NewVersionResp);
 
-    rpc OperationDiscard(OperationDiscardReq) returns (OperationDiscardResp);
-    rpc OperationCompleted(OperationCompletedReq) returns (OperationCompletedResp);
+    rpc ProcedureCompleted(ProcedureCompleteReq) returns (ProcedureCompleteResp);
 }
 
 message HelloReq {
@@ -38,12 +37,8 @@ message NewVersionResp {
 }
 
 
-message OperationDiscardReq { }
-message OperationDiscardResp { }
-
-
-message OperationCompletedReq { }
-message OperationCompletedResp { }
+message ProcedureCompleteReq { }
+message ProcedureCompleteResp { }
 
 
 enum HelloStatus {
