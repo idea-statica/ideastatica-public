@@ -259,6 +259,6 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="memberId">Id of the member</param>
 		/// <param name="crossSectionId">Id of the cross-section</param>
 		[OperationContract]
-		void SetMemberCrossSection(int connectionId, int memberId, int crossSectionId);
+		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
 	}
 }
