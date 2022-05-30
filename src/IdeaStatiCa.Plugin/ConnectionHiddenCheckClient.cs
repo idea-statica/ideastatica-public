@@ -175,7 +175,7 @@ namespace IdeaStatiCa.Plugin
 			Service.SetCrossSectionMaterial(crossSectionId, materialId);
 		}
 
-		public void SetMemberCrossSection(int connectionId, int memberId, int crossSectionId)
+		public void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId)
 		{
 			Service.SetMemberCrossSection(connectionId, memberId, crossSectionId);
 		}
