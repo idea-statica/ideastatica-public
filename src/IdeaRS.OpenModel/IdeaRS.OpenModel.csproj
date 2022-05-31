@@ -15,9 +15,12 @@
     <RepositoryUrl>https://github.com/idea-statica/ideastatica-public.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>IdeaStatiCa;BIM;C#;FEA</PackageTags>
+    <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
     <Description>OpenModel used for IdeaStatiCa.Plugin, containing all base classes required for Plugin to fully work.</Description>
     <Version>21.0.0</Version>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
