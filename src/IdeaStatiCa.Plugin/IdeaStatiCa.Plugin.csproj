@@ -17,9 +17,9 @@
     <PackageId>IdeaStatiCa.Plugin</PackageId>
     <PackageLicenseFile>README.md</PackageLicenseFile>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>IdeaStatiCa;BIM;C#;FEA</PackageTags>
+    <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM</PackageTags>
     <Version>21.0.0</Version>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
     <DebugType>full</DebugType>

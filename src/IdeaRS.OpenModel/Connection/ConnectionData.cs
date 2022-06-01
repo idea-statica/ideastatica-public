@@ -154,37 +154,37 @@ namespace IdeaRS.OpenModel.Connection
 		public double HoleDiameter { get; set; }
 
 		/// <summary>
-		/// The diameter of bold
+		/// The diameter of bolt
 		/// </summary>
 		public double Diameter { get; set; }
 
 		/// <summary>
-		/// The head diameter of bold
+		/// The head diameter of bolt
 		/// </summary>
 		public double HeadDiameter { get; set; }
 
 		/// <summary>
-		/// The Diagonal Head Diameter of bold
+		/// The Diagonal Head Diameter of bolt
 		/// </summary>
 		public double DiagonalHeadDiameter { get; set; }
 
 		/// <summary>
-		/// The Head Height of bold
+		/// The Head Height of bolt
 		/// </summary>
 		public double HeadHeight { get; set; }
 
 		/// <summary>
-		/// The BoreHole of bold
+		/// The BoreHole of bolt
 		/// </summary>
 		public double BoreHole { get; set; }
 
 		/// <summary>
-		/// The Tensile Stress Area of bold
+		/// The Tensile Stress Area of bolt
 		/// </summary>
 		public double TensileStressArea { get; set; }
 
 		/// <summary>
-		/// The Nut Thickness of bold
+		/// The Nut Thickness of bolt
 		/// </summary>
 		public double NutThickness { get; set; }
 
