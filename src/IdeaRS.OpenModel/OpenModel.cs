@@ -710,6 +710,11 @@ namespace IdeaRS.OpenModel
 
 		private void ReferenceElementReconstruction(object obj, bool renewReferences = false)
 		{
+			if (obj is null)
+			{
+				return;
+			}
+
 			if (obj is ReferenceElement referenceElement)
 			{
 				if (renewReferences)
@@ -737,8 +742,15 @@ namespace IdeaRS.OpenModel
 			}
 			else
 			{
+				Type objType = obj.GetType();
+
 				foreach (PropertyDescriptor p in TypeDescriptor.GetProperties(obj))
 				{
+					if (p.PropertyType == objType)
+					{
+						continue;
+					}
+
 					ReferenceElementReconstruction(p.GetValue(obj), renewReferences);
 				}
 			}
