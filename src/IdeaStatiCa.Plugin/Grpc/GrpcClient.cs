@@ -201,16 +201,19 @@ namespace IdeaStatiCa.Plugin.Grpc
 				await client?.RequestStream?.CompleteAsync();
 				await channel.ShutdownAsync();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
-				Logger.LogWarning("GprcClient.DisconnectAsync - can not close gRPC client", e);
+				// client can already been closed
+				Logger.LogDebug("GprcClient.DisconnectAsync - can not close gRPC client", e);
+				return;
 			}
 			finally
 			{
 				IsConnected = false;
 				ClientDisconnected?.Invoke(this, EventArgs.Empty);
-				Logger.LogDebug("GprcClient.DisconnectAsync : disconnected");
 			}
+
+			Logger.LogDebug("GprcClient.DisconnectAsync : disconnected");
 		}
 
 		/// <summary>
