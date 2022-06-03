@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SAF2IOM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Converter from SAF to IOM" Height="450" Width="800">
 
 	<DockPanel LastChildFill="False">
 		<ToolBarTray DockPanel.Dock="Top">
@@ -14,8 +14,10 @@
 				<Button Command="{Binding SaveIomCommand}">Save IOM</Button>
 			</ToolBar>
 		</ToolBarTray>
+		<Grid>
 			<ScrollViewer>
 				<TextBox Text="{Binding IOM}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
 			</ScrollViewer>
+		</Grid>
 	</DockPanel>
 </Window>

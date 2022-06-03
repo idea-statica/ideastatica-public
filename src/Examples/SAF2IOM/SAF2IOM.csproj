@@ -18,4 +18,10 @@
     <ProjectReference Include="..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="SafExamples\saf-example1.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
