@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace SAF2IOM
@@ -22,6 +23,9 @@ namespace SAF2IOM
 
 		public CustomCommand(Func<object, bool> canExecuteFunc, Action<object> executeFunc)
 		{
+			Debug.Assert(executeFunc != null);
+			Debug.Assert(canExecuteFunc != null);
+
 			ExecuteFunc = executeFunc;
 			CanExecuteFunc = canExecuteFunc;
 		}

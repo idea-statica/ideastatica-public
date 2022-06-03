@@ -10,7 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdeaStatiCa.Public" Version="22.0.2.602" />
     <PackageReference Include="IdeaStatiCa.SAF2IOM" Version="22.0.2.602" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
   </ItemGroup>
 
 </Project>

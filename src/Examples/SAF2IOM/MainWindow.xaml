@@ -14,10 +14,8 @@
 				<Button Command="{Binding SaveIomCommand}">Save IOM</Button>
 			</ToolBar>
 		</ToolBarTray>
-		<Grid>
 			<ScrollViewer>
-				<TextBox Text="{Binding Iom}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
+				<TextBox Text="{Binding IOM}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
 			</ScrollViewer>
-		</Grid>
 	</DockPanel>
 </Window>
