@@ -158,6 +158,24 @@ namespace IdeaStatiCa.Plugin.Utilities
 						continue;
 					}
 				}
+				else if (a.ManifestModule.Name == "ConnectionDataMiner.Types.dll")
+				{
+					try
+					{
+						foreach (Type t in a.GetTypes())
+						{
+							if (t.FullName == fullName)
+							{
+								return t;
+							}
+						}
+					}
+					catch (System.Reflection.ReflectionTypeLoadException)
+					{
+						//some assembly from revit cannot be loaded and GetTypes throw this ex
+						continue;
+					}
+				}
 			}
 
 			// why not to use the method GetType ? 
