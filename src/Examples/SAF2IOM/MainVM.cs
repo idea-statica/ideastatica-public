@@ -79,7 +79,7 @@ namespace SAF2IOM
 				}
 				catch(Exception ex)
 				{
-					Logger.LogDebug("Importing SAM model failed", ex);
+					Logger.LogDebug("Importing SAF model failed", ex);
 					MessageBox.Show("Can not open document", "Error", MessageBoxButton.OK);
 					IOM = $"Converting SAF to IOM failed : {ex.Message}";
 				}
