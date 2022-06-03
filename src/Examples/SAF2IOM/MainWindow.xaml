@@ -6,7 +6,18 @@
         xmlns:local="clr-namespace:SAF2IOM"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
-    </Grid>
+	<DockPanel LastChildFill="False">
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar>
+				<Button Command="{Binding OpenSafCommand}">Open SAF</Button>
+				<Button Command="{Binding SaveIomCommand}">Save IOM</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<Grid>
+			<ScrollViewer>
+				<TextBox Text="{Binding Iom}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
+			</ScrollViewer>
+		</Grid>
+	</DockPanel>
 </Window>

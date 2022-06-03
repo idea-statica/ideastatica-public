@@ -10,6 +10,9 @@ namespace SAF2IOM
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			var vm = new MainVM();
+			this.DataContext = vm;
 		}
 	}
 }
