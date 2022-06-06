@@ -6,9 +6,9 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml.Serialization;
 
 namespace SAF2IOM
 {
@@ -48,52 +48,106 @@ namespace SAF2IOM
 			}
 		}
 
+	private bool isWorking;
+		public bool IsWorking
+		{
+			get { return isWorking; }
+			set
+			{
+				isWorking = value;
+				NotifyPropertyChanged("IsWorking");
+			}
+		}
+
 		public ModelBIM BimModel { get; set; }
 
 		private bool CanOpenSaf(object param)
 		{
-			return string.IsNullOrEmpty(IOM);
+			if (IsWorking)
+			{
+				return false;
+			}
+
+			return true;
 		}
 
-		private void OpenSaf(object param)
+		private async void OpenSaf(object param)
 		{
-			OpenFileDialog openFilleDlg = new OpenFileDialog();
-			openFilleDlg.Filter = "SAF documents (.xlsx)|*.xlsx";
-			openFilleDlg.CheckFileExists = true;
-			var res = openFilleDlg.ShowDialog();
+			OpenFileDialog openFileDlg = new OpenFileDialog();
+			openFileDlg.Filter = "SAF documents (.xlsx)|*.xlsx";
+			openFileDlg.CheckFileExists = true;
+			var res = openFileDlg.ShowDialog();
 			if(res == true)
 			{
 				try
 				{
-					using (var ms = new MemoryStream())
-					{
-						using (var safStrema = new FileStream(openFilleDlg.FileName, FileMode.Open, FileAccess.Read))
-						{
-							BimModel = SafToIomConverter.Convert(new SafConvertInput(IdeaRS.OpenModel.CountryCode.ECEN, safStrema, ms));
-							if (BimModel?.Model != null)
-							{
-								IOM = Tools.SerializeObject<OpenModel>(BimModel.Model);
-							}
-						}
-					}
+					IsWorking = true;
+					Mouse.OverrideCursor = Cursors.Wait;
+					IOM = "Generating IOM";
+					IOM = await GenerateIOM(openFileDlg.FileName);
 				}
-				catch(Exception ex)
+				finally
 				{
-					Logger.LogDebug("Importing SAF model failed", ex);
-					MessageBox.Show("Can not open document", "Error", MessageBoxButton.OK);
-					IOM = $"Converting SAF to IOM failed : {ex.Message}";
+					IsWorking = false;
+					Mouse.OverrideCursor = null;
 				}
 			}
 		}
 
+		private async Task<string> GenerateIOM(string safFileName)
+		{
+			var generateIomTask = Task<string>.Run(() =>
+			{
+				string res = string.Empty;
+				try
+				{
+					using (var ms = new MemoryStream())
+					{
+						using (var safStrema = new FileStream(safFileName, FileMode.Open, FileAccess.Read))
+						{
+							BimModel = SafToIomConverter.Convert(new SafConvertInput(IdeaRS.OpenModel.CountryCode.ECEN, safStrema, ms));
+							if (BimModel?.Model != null)
+							{
+								res = Tools.SerializeObject<OpenModel>(BimModel.Model);
+							}
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Logger.LogDebug("Importing SAF model failed", ex);
+					MessageBox.Show("Can not open document", "Error", MessageBoxButton.OK);
+					res = $"Converting SAF to IOM failed : {ex.Message}";
+				}
+				return res;
+			});
+
+			var iomResult = await generateIomTask;
+			return iomResult;
+		}
+
 		private bool CanSaveIom(object param)
 		{
+			if(IsWorking)
+			{
+				return false;
+			}
+
 			return !string.IsNullOrEmpty(IOM);
 		}
 
 		private void SaveIom(object param)
 		{
+			SaveFileDialog saveFileDlg = new SaveFileDialog();
+			saveFileDlg.Filter = "IOM documents (.iom)|*.iom";
+			saveFileDlg.CheckPathExists = true;
+			saveFileDlg.OverwritePrompt = true;
 
+			var res = saveFileDlg.ShowDialog();
+			if (res == true)
+			{
+				File.WriteAllText(saveFileDlg.FileName, IOM);
+			}
 		}
 
 		private void NotifyPropertyChanged(string propertyName = "")
