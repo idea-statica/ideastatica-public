@@ -1,5 +1,6 @@
 using IdeaStatiCa.CheckbotPlugin.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
 {
@@ -8,8 +9,8 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 	/// </summary>
 	public interface IApplicationService
 	{
-		string GetSettings(string key);
+		Task<string> GetSettings(string key);
 
-		IReadOnlyCollection<SettingsValue> GetAllSettings();
+		Task<IReadOnlyCollection<SettingsValue>> GetAllSettings();
 	}
 }
