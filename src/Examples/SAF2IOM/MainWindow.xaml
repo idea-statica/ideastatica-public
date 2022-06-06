@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Converter from SAF to IOM" Height="450" Width="800">
 
-	<DockPanel LastChildFill="False">
+	<DockPanel LastChildFill="True">
 		<ToolBarTray DockPanel.Dock="Top">
 			<ToolBar>
 				<Button Command="{Binding OpenSafCommand}">Open SAF</Button>
