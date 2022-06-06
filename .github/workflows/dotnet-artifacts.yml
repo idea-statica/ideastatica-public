@@ -52,17 +52,17 @@ jobs:
         path: ${{ github.workspace }}/main/src/bim-links/rstab/IdeaRstabPlugin/bin/Release
         if-no-files-found: error
 
-    - name: Nuget restore dependencies
-      run: nuget restore ./src/Examples/SAF2IOM/SAF2IOM.sln
-      working-directory: main
+    # - name: Nuget restore dependencies
+    #   run: nuget restore ./src/Examples/SAF2IOM/SAF2IOM.sln
+    #   working-directory: main
 
-    - name: Build
-      run: msbuild ./src\Examples/SAF2IOM/SAF2IOM.sln /p:Configuration=Release
-      working-directory: main
+    # - name: Build
+    #   run: msbuild ./src/Examples/SAF2IOM/SAF2IOM.sln /p:Configuration=Release
+    #   working-directory: main
 
-    - name: 'Upload SAF2IOM'
-      uses: actions/upload-artifact@v2
-      with:
-        name: SAF2IOM
-        path: ${{ github.workspace }}/main/src/Examples/SAF2IOM/bin/x64/Release/net48
-        if-no-files-found: error
+    # - name: 'Upload SAF2IOM'
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: SAF2IOM
+    #     path: ${{ github.workspace }}/main/src/Examples/SAF2IOM/bin/x64/Release/net48
+    #     if-no-files-found: error
