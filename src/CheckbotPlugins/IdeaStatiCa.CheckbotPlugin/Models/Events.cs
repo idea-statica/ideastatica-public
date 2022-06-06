@@ -10,5 +10,12 @@
 	{ }
 
 	public class EventOpenCheckApplication : Event
-	{ }
+	{
+		public ModelObject ModelObject { get; }
+
+		public EventOpenCheckApplication(ModelObject modelObject)
+		{
+			ModelObject = modelObject;
+		}
+	}
 }
