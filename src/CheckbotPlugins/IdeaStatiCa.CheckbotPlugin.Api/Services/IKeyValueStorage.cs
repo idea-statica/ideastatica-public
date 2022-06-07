@@ -12,12 +12,13 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// <summary>
 		/// Stores data arbitrary data under a given <paramref name="key"/>.
 		/// If the key already exists, it is overwritten.
+		/// <paramref name="value"/> must contain at least 1 byte.
 		/// </summary>
 		/// <param name="key"></param>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
+		/// <exception cref="ArgumentException"><paramref name="value"/> is zero-length.</exception>
 		Task Set(string key, ReadOnlyMemory<byte> value);
 
 		/// <summary>
