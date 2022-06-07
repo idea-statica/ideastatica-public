@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>IdeaStatiCa.PluginRunner.Lib</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Protos\IdeaStatiCa.CheckbotPlugin.Protos.csproj" />
+  </ItemGroup>
+  
+</Project>
