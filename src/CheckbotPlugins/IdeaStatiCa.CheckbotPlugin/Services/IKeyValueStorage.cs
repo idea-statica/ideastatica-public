@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
@@ -15,7 +16,9 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// <param name="key"></param>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		Task Set(string key, byte[] value);
+		/// <exception cref="ArgumentNullException">An argument is null.</exception>
+		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
+		Task Set(string key, ReadOnlyMemory<byte> value);
 
 		/// <summary>
 		/// Gets data with the given <paramref name="key"/>.
@@ -23,7 +26,9 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// </summary>
 		/// <param name="key"></param>
 		/// <returns></returns>
-		Task<byte[]?> Get(string key);
+		/// <exception cref="ArgumentNullException">An argument is null.</exception>
+		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
+		Task<ReadOnlyMemory<byte[]>> Get(string key);
 
 		/// <summary>
 		/// Deletes given <paramref name="key"/>.
@@ -32,6 +37,8 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// </summary>
 		/// <param name="key"></param>
 		/// <returns></returns>
+		/// <exception cref="ArgumentNullException">An argument is null.</exception>
+		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
 		Task<bool> Delete(string key);
 
 		/// <summary>
@@ -39,6 +46,8 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// </summary>
 		/// <param name="key"></param>
 		/// <returns></returns>
+		/// <exception cref="ArgumentNullException">An argument is null.</exception>
+		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
 		Task<bool> Exists(string key);
 	}
 }
