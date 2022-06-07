@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IdeaStatiCa.CheckbotPlugin</RootNamespace>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
   </ItemGroup>

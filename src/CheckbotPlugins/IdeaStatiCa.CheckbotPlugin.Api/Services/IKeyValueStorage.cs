@@ -28,7 +28,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
-		Task<ReadOnlyMemory<byte[]>> Get(string key);
+		Task<ReadOnlyMemory<byte>?> Get(string key);
 
 		/// <summary>
 		/// Deletes given <paramref name="key"/>.
