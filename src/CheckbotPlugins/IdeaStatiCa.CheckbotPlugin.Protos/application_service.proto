@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 
 package ideastatica.checkbotplugin.v1;
 

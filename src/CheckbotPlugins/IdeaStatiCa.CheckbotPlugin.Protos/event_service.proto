@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "project_service.proto";
 
-option csharp_namespace = "IdeaStatiCa.CheckbotPlugin";
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 
 package ideastatica.checkbotplugin.v1;
 
