@@ -7,14 +7,15 @@
     <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-    <ProjectReference Include="..\IdeaStatiCa.CheckbotPluginProtos\IdeaStatiCa.CheckbotPluginProtos.csproj" />
-    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin\IdeaStatiCa.CheckbotPlugin.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.PluginRunner.Lib\IdeaStatiCa.PluginRunner.Lib.csproj" />
   </ItemGroup>
 
 </Project>
