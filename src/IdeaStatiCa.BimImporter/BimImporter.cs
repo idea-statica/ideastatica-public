@@ -112,7 +112,7 @@ namespace IdeaStatiCa.BimImporter
 
 			foreach (IIdeaNode node in adjacentNodes)
 			{
-				bimItems.Add(Connection.FromNodeAndMembers(node, geometry.GetConnectedMembers(node).ToHashSet()));
+				bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
 			}
 
 			IEnumerable<IIdeaObject> objects = selectedNodes

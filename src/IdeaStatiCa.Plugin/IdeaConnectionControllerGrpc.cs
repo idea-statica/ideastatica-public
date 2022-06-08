@@ -21,7 +21,7 @@ namespace IdeaStatiCa.Plugin
 
 		protected EventWaitHandle CurrentItemChangedEvent;
 
-		protected IdeaStatiCaClient<IAutomation> ConnectionAppClient { get; set; }
+		//protected IdeaStatiCaClient<IAutomation> ConnectionAppClient { get; set; }
 
 		protected AutomationHostingGrpc<IAutomation, IAutomation> GrpcClient { get; set; }
 
@@ -122,7 +122,7 @@ namespace IdeaStatiCa.Plugin
 			IdeaStatiCaProcess.Dispose();
 			IdeaStatiCaProcess = null;
 			CalculatorUrl = null;
-			ConnectionAppClient = null;
+			//ConnectionAppClient = null;
 
 			if (ConnectionAppExited != null)
 			{

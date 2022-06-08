@@ -30,7 +30,6 @@
 				</Style>
 			</ToolBarTray.Resources>
 			<ToolBar>
-				<CheckBox Margin="5,3" IsChecked="{Binding IsGRPC}" IsEnabled="{Binding IsCheckBotRunning, Converter={StaticResource invertBoolConvert}}">gRPC</CheckBox>
 				<Button Command="{Binding RunCmd, Mode=TwoWay}" Margin="5,0">Run IDEA CheckBot</Button>
 				<Button Command="{Binding LoadCmd}" Margin="5,0">Load model</Button>
 				<Button Command="{Binding LoadCmd}" CommandParameter="FEA_Model_Examples\default_project.xml" Margin="5,0">Default</Button>

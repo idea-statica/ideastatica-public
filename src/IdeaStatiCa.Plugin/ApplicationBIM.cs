@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
+#if NET48
 	[ErrorHandlerAttribute(typeof(WcfErrorHandler))]
+#endif
 	public abstract class ApplicationBIM : IApplicationBIM
 	{
 		private IPluginLogger ideaLogger; //= IdeaDiagnostics.GetLogger("bim.plugin.application");
