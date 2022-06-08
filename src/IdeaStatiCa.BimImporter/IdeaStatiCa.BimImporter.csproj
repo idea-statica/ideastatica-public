@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -13,6 +13,8 @@
     <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>False</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
