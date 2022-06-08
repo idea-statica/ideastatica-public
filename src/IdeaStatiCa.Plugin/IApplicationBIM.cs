@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.ServiceModel;
 using System.Threading.Tasks;
+#if NET48
+using System.ServiceModel;
+#endif
 
 namespace IdeaStatiCa.Plugin
 {

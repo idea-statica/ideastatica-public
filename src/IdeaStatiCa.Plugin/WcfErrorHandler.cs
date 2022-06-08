@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET48
+
+using System;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
@@ -93,3 +95,4 @@ namespace IdeaStatiCa.Plugin
 		}
 	}
 }
+#endif
