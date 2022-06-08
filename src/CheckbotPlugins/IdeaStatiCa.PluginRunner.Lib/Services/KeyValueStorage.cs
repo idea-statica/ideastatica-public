@@ -1,15 +1,16 @@
 ﻿using Google.Protobuf;
-using IdeaStatiCa.CheckbotPlugin.Protos;
 using IdeaStatiCa.CheckbotPlugin.Services;
 using IdeaStatiCa.PluginRunner.Utils;
 
+using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
+
 namespace IdeaStatiCa.PluginRunner.Services
 {
-	public class KeyValueStorageGrpc : IKeyValueStorage
+	public class KeyValueStorage : IKeyValueStorage
 	{
-		private readonly StorageService.StorageServiceClient _client;
+		private readonly Protos.StorageService.StorageServiceClient _client;
 
-		public KeyValueStorageGrpc(StorageService.StorageServiceClient client)
+		public KeyValueStorage(Protos.StorageService.StorageServiceClient client)
 		{
 			_client = client;
 		}
@@ -18,11 +19,11 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			Ensure.ArgNotEmpty(key);
 
-			DeleteReq reg = new()
+			Protos.DeleteReq reg = new()
 			{
 				Key = key
 			};
-			DeleteResp resp = await _client.DeleteAsync(reg);
+			Protos.DeleteResp resp = await _client.DeleteAsync(reg);
 
 			return resp.Success;
 		}
@@ -31,11 +32,11 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			Ensure.ArgNotEmpty(key);
 
-			ExistsReq reg = new()
+			Protos.ExistsReq reg = new()
 			{
 				Key = key
 			};
-			ExistsResp resp = await _client.ExistsAsync(reg);
+			Protos.ExistsResp resp = await _client.ExistsAsync(reg);
 
 			return resp.Exists;
 		}
@@ -44,11 +45,11 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			Ensure.ArgNotEmpty(key);
 
-			GetReq reg = new()
+			Protos.GetReq reg = new()
 			{
 				Key = key
 			};
-			GetResp resp = await _client.GetAsync(reg);
+			Protos.GetResp resp = await _client.GetAsync(reg);
 
 			if (!resp.Success)
 			{
@@ -67,12 +68,12 @@ namespace IdeaStatiCa.PluginRunner.Services
 				throw new ArgumentException("Value cannot be zero-length.");
 			}
 
-			SetReq reg = new()
+			Protos.SetReq reg = new()
 			{
 				Key = key,
 				Value = ByteString.CopyFrom(value.Span)
 			};
-			SetResp resp = await _client.SetAsync(reg);
+			Protos.SetResp resp = await _client.SetAsync(reg);
 
 			if (!resp.Success)
 			{

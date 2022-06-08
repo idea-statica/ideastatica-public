@@ -1,24 +1,25 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Protos;
-using IdeaStatiCa.CheckbotPlugin.Services;
+﻿using IdeaStatiCa.CheckbotPlugin.Services;
 using IdeaStatiCa.PluginRunner.Utils;
 
 using Models = IdeaStatiCa.CheckbotPlugin.Models;
 
+using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
+
 namespace IdeaStatiCa.PluginRunner.Services
 {
-	public class ApplicationServiceGrpc : IApplicationService
+	public class ApplicationService : IApplicationService
 	{
-		private readonly ApplicationService.ApplicationServiceClient _client;
+		private readonly Protos.ApplicationService.ApplicationServiceClient _client;
 
-		public ApplicationServiceGrpc(ApplicationService.ApplicationServiceClient client)
+		public ApplicationService(Protos.ApplicationService.ApplicationServiceClient client)
 		{
 			_client = client;
 		}
 
 		public async Task<IReadOnlyCollection<Models.SettingsValue>> GetAllSettings()
 		{
-			GetAllSettingsReq reg = new();
-			GetAllSettingsResp resp = await _client.GetAllSettingsAsync(reg);
+			Protos.GetAllSettingsReq reg = new();
+			Protos.GetAllSettingsResp resp = await _client.GetAllSettingsAsync(reg);
 
 			return resp.Values
 				.Select(x => new Models.SettingsValue(x.Name, x.Value))
@@ -29,8 +30,8 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			Ensure.ArgNotEmpty(key);
 
-			GetSettingsReq reg = new();
-			GetSettingsResp resp = await _client.GetSettingsAsync(reg);
+			Protos.GetSettingsReq reg = new();
+			Protos.GetSettingsResp resp = await _client.GetSettingsAsync(reg);
 
 			return resp.Value.Value;
 		}

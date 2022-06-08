@@ -4,19 +4,21 @@ using IdeaStatiCa.PluginRunner.Utils;
 using System.Reactive.Linq;
 using Models = IdeaStatiCa.CheckbotPlugin.Models;
 
+using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
+
 namespace IdeaStatiCa.PluginRunner.Services
 {
-	public class EventServiceGrpc : IEventService
+	public class EventService : IEventService
 	{
 		internal class EventNone : Models.Event
 		{ }
 
 		internal static readonly Models.Event None = new EventNone();
 
-		private readonly EventService.EventServiceClient _client;
+		private readonly Protos.EventService.EventServiceClient _client;
 		private IObservable<Models.Event>? _events;
 
-		public EventServiceGrpc(EventService.EventServiceClient client)
+		public EventService(Protos.EventService.EventServiceClient client)
 		{
 			_client = client;
 		}
