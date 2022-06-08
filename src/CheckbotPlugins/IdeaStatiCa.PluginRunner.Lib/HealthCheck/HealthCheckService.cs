@@ -19,32 +19,45 @@ namespace IdeaStatiCa.PluginRunner.HealthCheck
 
 		public void Run(CancellationToken cancellationToken = default)
 		{
+			RunObserver(GetTickFunc(), cancellationToken);
+		}
+
+		private void RunObserver(Action<bool> tick, CancellationToken cancellationToken)
+		{
 			CancellationTokenSource cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-			IObservable<bool> pingObserable = Observable.FromEvent<Action, bool>(
-				x => () => x(true),
-				   x => _endpoint.Pinged += x,
-				   x => _endpoint.Pinged -= x);
-
-			IObservable<bool> intervalObserable = Observable.Interval(TimeSpan.FromSeconds(1))
-				.Select(_ => false);
-
-			T state = _checker.NewState();
-
-			Observable.Merge(pingObserable, intervalObserable)
+			Observable.Merge(GetPingObserable(), GetTimerObserable())
 				.Subscribe(
-				x => Tick(x),
+				x => tick(x),
 				   ex => cancellationTokenSource.Cancel(),
 				   () => cancellationTokenSource.Cancel(),
 				   cancellationTokenSource.Token);
+		}
 
-			void Tick(bool gotHeartbeat)
+		private static IObservable<bool> GetTimerObserable()
+		{
+			return Observable.Interval(TimeSpan.FromSeconds(1))
+							.Select(_ => false);
+		}
+
+		private IObservable<bool> GetPingObserable()
+		{
+			return Observable.FromEvent<Action, bool>(
+							x => () => x(true),
+							   x => _endpoint.Pinged += x,
+							   x => _endpoint.Pinged -= x);
+		}
+
+		private Action<bool> GetTickFunc()
+		{
+			T state = _checker.NewState();
+			return (bool gotHeartbeat) =>
 			{
 				T newState = _checker.Tick(state, DateTime.Now, gotHeartbeat);
 
 				if (newState.PingNow)
 				{
-					_endpoint.Ping(cancellationToken).ConfigureAwait(false);
+					_endpoint.Ping().ConfigureAwait(false);
 				}
 
 				if (!newState.Equals(state))

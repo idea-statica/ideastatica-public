@@ -4,6 +4,6 @@
 	{
 		event Action Pinged;
 
-		Task Ping(CancellationToken cancellationToken);
+		Task Ping();
 	}
 }
