@@ -1,8 +1,5 @@
 ﻿using Grpc.Core;
-using System;
 using System.Collections.Immutable;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace IdeaStatiCa.PluginRunner.Utils
 {
@@ -39,6 +36,8 @@ namespace IdeaStatiCa.PluginRunner.Utils
 
 			public async Task Run(CancellationToken cancellationToken)
 			{
+				bool onError = false;
+
 				try
 				{
 					while (await _streamReader.MoveNext(cancellationToken))
@@ -48,10 +47,14 @@ namespace IdeaStatiCa.PluginRunner.Utils
 				}
 				catch (Exception ex)
 				{
+					onError = true;
 					_subscriptions.ForEach(x => x.Observer.OnError(ex));
 				}
 
-				_subscriptions.ForEach(x => x.Observer.OnCompleted());
+				if (!onError)
+				{
+					_subscriptions.ForEach(x => x.Observer.OnCompleted());
+				}
 			}
 
 			internal class Subscription : IDisposable
