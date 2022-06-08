@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿#if NET48
+
+using System.Threading;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -49,3 +51,5 @@ namespace IdeaStatiCa.Plugin
 		protected IMemberHiddenCheck Service => base.Channel;
 	}
 }
+
+#endif

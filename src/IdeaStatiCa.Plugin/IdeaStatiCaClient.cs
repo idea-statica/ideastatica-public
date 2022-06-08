@@ -1,4 +1,6 @@
-﻿namespace IdeaStatiCa.Plugin
+﻿#if NET48
+
+namespace IdeaStatiCa.Plugin
 {
 	public class IdeaStatiCaClient<T> : System.ServiceModel.ClientBase<T> where T : class
 	{
@@ -9,3 +11,5 @@
 		public T Service => base.Channel;
 	}
 }
+
+#endif

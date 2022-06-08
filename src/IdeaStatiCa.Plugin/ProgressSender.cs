@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET48
+
+using System;
 using System.ServiceModel;
 
 namespace IdeaStatiCa.Plugin
@@ -39,3 +41,4 @@ namespace IdeaStatiCa.Plugin
 		protected IProgressCallback Service => base.Channel;
 	}
 }
+#endif
