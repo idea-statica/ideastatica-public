@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -35,7 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.1'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.0'">
     <DebugType>full</DebugType>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -53,7 +53,7 @@
     <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.1'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.0'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>bin\Release\</OutputPath>
     <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Remove="IConnectionAutomation.cs" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Remove="Grpc\GrpcReflectionServiceContract.proto" />
     <None Include="..\..\..\ideastatica-public\README.md">
@@ -91,10 +92,12 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <Protobuf Include="Grpc\GrpcReflectionServiceContract.proto" />
   </ItemGroup>
