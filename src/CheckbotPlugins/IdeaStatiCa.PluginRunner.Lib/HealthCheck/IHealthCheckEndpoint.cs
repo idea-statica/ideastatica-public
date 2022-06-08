@@ -2,7 +2,7 @@
 {
 	public interface IHealthCheckEndpoint
 	{
-		event Action Pinged;
+		event Action? Pinged;
 
 		Task Ping();
 	}
