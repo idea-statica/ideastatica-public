@@ -27,7 +27,6 @@ namespace FEAppExample_1
 		private string projectDir;
 		private IdeaRS.OpenModel.CountryCode countryCode;
 		private bool isCAD;
-		private bool isGRPC;
 		private bool isCheckBotRunning;
 		private string detailInformation;
 		private IIdeaStaticaApp ideaStatica;
@@ -43,7 +42,6 @@ namespace FEAppExample_1
 		public FEAppExample_1VM()
 		{
 			Logger.LogInformation("FEAppExample_1VM");
-			this.IsGRPC = true;
 			this.CountryCode = CountryCode.ECEN;
 
 			Actions = new ObservableCollection<string>();
@@ -119,19 +117,6 @@ namespace FEAppExample_1
 				}
 
 				NotifyPropertyChanged("IsCAD");
-			}
-		}
-
-		/// <summary>
-		/// Use gRPC for communication with CheckBot
-		/// </summary>
-		public bool IsGRPC
-		{
-			get => isGRPC;
-			set
-			{
-				isGRPC = value;
-				NotifyPropertyChanged("IsGRPC");
 			}
 		}
 
@@ -275,20 +260,11 @@ namespace FEAppExample_1
 		{
 			Logger.LogInformation($"Run param = '{param?.ToString()}'");
 			var factory = new PluginFactory(this);
-			if (IsGRPC)
-			{
 				Logger.LogDebug("Run - calling GrpcBimHostingFactory");
 				var bimHostingFactory = new GrpcBimHostingFactory(factory, Logger);
 				var pluginHostingGrpc = bimHostingFactory.Create();
 				FeaAppHosting = pluginHostingGrpc;
 				this.IdeaStatica = ((ApplicationBIM)FeaAppHosting.Service).IdeaStaticaApp;
-			}
-			else
-			{
-				Logger.LogDebug("Run - calling BIMPluginHosting");
-				var pluginHosting = new BIMPluginHosting(factory, Logger);
-				FeaAppHosting = pluginHosting;
-			}
 
 			FeaAppHosting.AppStatusChanged += new ISEventHandler(IdeaStaticAppStatusChanged);
 			var id = Process.GetCurrentProcess().Id.ToString();
@@ -376,20 +352,8 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			try
 			{
-				if (IdeaStatica != null)
-				{
 					// gRPC communication
 					connectionData = IdeaStatica.GetConnectionModel(firstItem.Id);
-				}
-				else
-				{
-					// windows pipe communication
-					using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-					{
-						ideaStatiCaApp.Open();
-						connectionData = ideaStatiCaApp.GetConnectionModel(firstItem.Id);
-					}
-				}
 			}
 			catch (Exception e)
 			{
@@ -443,20 +407,8 @@ namespace FEAppExample_1
 			string openModelTupleXml = String.Empty;
 			OpenModelContainer openModelTuple = null;
 
-			if (IdeaStatica != null)
-			{
 				// gRPC communication
 				openModelTupleXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
-			}
-			else
-			{
-				// windows pipe communication
-				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-				{
-					ideaStatiCaApp.Open();
-					openModelTupleXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
-				}
-			}
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
@@ -498,20 +450,8 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			string openModelContainerXml = String.Empty;
-			if (IdeaStatica != null)
-			{
 				// gRPC communication
 				openModelContainerXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
-			}
-			else
-			{
-				// windows pipe communication
-				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-				{
-					ideaStatiCaApp.Open();
-					openModelContainerXml = ideaStatiCaApp.GetAllConnectionData(firstItem.Id);
-				}
-			}
 
 			var openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
 			ModelBIM modelBIM = new ModelBIM();
@@ -557,20 +497,8 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<LibraryItem> mprlMaterials = null;
-			if (IdeaStatica != null)
-			{
 				// gRPC communication
 				mprlMaterials = IdeaStatica.GetMaterialsInMPRL(this.CountryCode);
-			}
-			else
-			{
-				// windows pipe communication
-				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-				{
-					ideaStatiCaApp.Open();
-					mprlMaterials = ideaStatiCaApp.GetMaterialsInMPRL(this.CountryCode);
-				}
-			}
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
@@ -615,22 +543,11 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<ProjectItem> materialsInProject = null;
-			if (IdeaStatica != null)
-			{
+
 				// gRPC communication
 				materialsInProject = IdeaStatica.GetMaterialsInProject();
-			}
-			else
-			{
-				// windows pipe communication
-				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-				{
-					ideaStatiCaApp.Open();
-					materialsInProject = ideaStatiCaApp.GetMaterialsInProject();
-				}
-			}
 
-			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+				System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
 				(Action)(() =>
 				{
@@ -675,23 +592,8 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<LibraryItem> cssInMprl = null;
-
-			if (IdeaStatica != null)
-			{
-				// gRPC communication
-
 				cssInMprl = IdeaStatica.GetCssInMPRL(this.CountryCode);
-			}
-			else
-			{
-				// windows pipe communication
-				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-				{
-					ideaStatiCaApp.Open();
-					cssInMprl = ideaStatiCaApp.GetCssInMPRL(this.CountryCode);
-				}
-			}
-
+	
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
 				(Action)(() =>
@@ -736,21 +638,9 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<ProjectItem> cssInProject = null;
-			if (IdeaStatica != null)
-			{
 				// gRPC communication
 				cssInProject = IdeaStatica.GetCssInProject();
-			}
-			else
-			{
-				// windows pipe communication
-				using (IdeaStatiCaAppClient ideaStatiCaApp = new IdeaStatiCaAppClient(myProcessId.ToString()))
-				{
-					ideaStatiCaApp.Open();
-					cssInProject = ideaStatiCaApp.GetCssInProject();
-				}
-			}
-
+	
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
 				(Action)(() =>
