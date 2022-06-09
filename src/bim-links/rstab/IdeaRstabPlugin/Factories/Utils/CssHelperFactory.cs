@@ -226,7 +226,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 			double b = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_D);
 			double t = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_s);
 
-			IOM.CrossSectionFactory.FillCHSPar(crossSectionParameter, b * 0.5, t);
+			IOM.CrossSectionFactory.FillCssSteelCircularHollow(crossSectionParameter, b * 0.5, t);
 		}
 
 		/// <summary>
