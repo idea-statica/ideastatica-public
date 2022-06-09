@@ -153,6 +153,7 @@ namespace IdeaRstabPlugin.Factories
 					CssHelperFactory.FillCssRHS(crossSectionParameter, css);
 					break;
 
+				case "Rohr":
 				case "CHS":
 					CssHelperFactory.FillCssCHS(crossSectionParameter, css);
 					break;
