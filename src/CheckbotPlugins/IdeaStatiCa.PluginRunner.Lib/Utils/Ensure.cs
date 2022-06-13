@@ -22,5 +22,13 @@ namespace IdeaStatiCa.PluginRunner.Utils
 				throw new ArgumentNullException(argName);
 			}
 		}
+
+		public static void CollectionNotEmpty<T>([NotNull] ICollection<T> value, [CallerArgumentExpression("value")] string argName = "")
+		{
+			if (value.Count == 0)
+			{
+				throw new ArgumentException("Collection must not be empty.", argName);
+			}
+		}
 	}
 }
