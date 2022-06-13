@@ -12,9 +12,9 @@ service PluginService {
 }
 
 message HelloReq {
-    int32 id = 1;
+    string communication_id = 1;
 
-    string name = 2;
+    string display_name = 2;
     string description = 3;
     string author = 4;
     string version = 5;
