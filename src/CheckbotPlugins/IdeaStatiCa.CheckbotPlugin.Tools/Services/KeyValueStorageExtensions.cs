@@ -1,8 +1,7 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Services;
-using MessagePack;
+﻿using MessagePack;
 using System.Buffers;
 
-namespace IdeaStatiCa.CheckbotPlugin.Extensions
+namespace IdeaStatiCa.CheckbotPlugin.Services
 {
 	public static class KeyValueStorageExtensions
 	{
