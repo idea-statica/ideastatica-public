@@ -40,7 +40,7 @@ namespace IdeaStatiCa.PluginRunner.Tests.Integration.HealthCheck
 			sut.Run();
 			endpoint.Pinged += Raise.Event<Action>();
 
-			endpoint.Received().Ping(Arg.Any<CancellationToken>());
+			endpoint.Received().Ping();
 		}
 	}
 
