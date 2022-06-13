@@ -1,11 +1,10 @@
 ﻿using Dlubal.RSTAB6;
-using IdeaRstabPlugin.Model;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Geometry2D;
+using IdeaRstabPlugin.Model;
 using IdeaStatiCa.BimApi;
 using System;
 using System.Collections.Generic;
-using System.Windows;
 
 using IOM = IdeaRS.OpenModel.CrossSection;
 
@@ -16,6 +15,9 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 	/// </summary>
 	internal static class CssHelperFactory
 	{
+		private const double kX = 0.001;
+		private const double kY = -0.001;
+
 		/// <summary>
 		/// Filles instance of CrossSectionParameter
 		/// </summary>
@@ -204,7 +206,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 			double ri = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_r);
 			double ro = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_r_o);
 
-			if(ro == 0.0)
+			if (ro == 0.0)
 			{
 				ro = 1e-6;
 			}
@@ -239,7 +241,8 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 			IrsCrossSectionDB2 cssDB = (IrsCrossSectionDB2)css.GetDatabaseCrossSection();
 			CURVE_2D[] shape = cssDB.rsGetShape();
 
-			IList<PolyLine2D> outlines = GetPolyLineShape(shape, BOUND_TYPE.BT_OUTER);
+			List<PolyLine2D> outlines = GetPolyLineShape(shape, BOUND_TYPE.BT_OUTER);
+			List<PolyLine2D> openings = GetPolyLineShape(shape, BOUND_TYPE.BT_INNER);
 
 			IIdeaCrossSectionByComponents crossSection = new IdeaCrossSectionByComponents()
 			{
@@ -247,10 +250,14 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 				Name = cssData.Description
 			};
 
-			foreach (var item in outlines)
+			for (int i = 0; i < outlines.Count; i++)
 			{
-				var region = new Region2D();
-				region.Outline = item;
+				Region2D region = new Region2D
+				{
+					Outline = outlines[i],
+					Openings = openings.Count == 0 ? null : openings
+				};
+
 				IIdeaCrossSectionComponent component = new IdeaCrossSectionComponent
 				{
 					Geometry = region,
@@ -268,11 +275,9 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 		/// <param name="shape">RSTAB CURVE_2D[] shape</param>
 		/// <param name="maybound">RSTAB BOUND_TYPE enum</param>
 		/// <returns>RSTAB cross-section polyline</returns>
-		internal static IList<PolyLine2D> GetPolyLineShape(CURVE_2D[] shape, BOUND_TYPE maybound)
+		internal static List<PolyLine2D> GetPolyLineShape(CURVE_2D[] shape, BOUND_TYPE maybound)
 		{
-			double kunity = -0.001;
-			double kunitx = 0.001;
-			IList<PolyLine2D> retList = new List<PolyLine2D>();
+			List<PolyLine2D> retList = new List<PolyLine2D>();
 
 			PolyLine2D polyline = null;
 			bool firstRun = true;
@@ -287,20 +292,26 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 					if (firstRun && (shape[i].type == CURVE_TYPE.CT_CIRCLE))
 					{
-						polyline = new PolyLine2D { StartPoint = new Point2D { X = points[1].x * kunitx, Y = points[1].y * kunity } };
-
-						Point2D center = new Point2D { X = points[0].x * kunitx, Y = points[0].y * kunity };
-						Vector v = new Vector((points[1].x - points[0].x) * kunitx, (points[1].y - points[0].y) * kunity);
-
-						Segment2D seg = new ArcSegment2D
+						polyline = new PolyLine2D
 						{
-							Point = new Point2D { X = center.X + v.Y, Y = center.Y - v.X },
-							EndPoint = new Point2D { X = center.X - v.X, Y = center.Y - v.Y }
+							StartPoint = new Point2D { X = points[1].x * kX, Y = points[1].y * kY }
 						};
-						polyline.Segments.Add(seg);
 
-						seg = new ArcSegment2D { EndPoint = new Point2D { X = center.X - v.Y, Y = center.Y + v.X } };
-						polyline.Segments.Add(seg);
+						Point2D center = new Point2D { X = points[0].x * kX, Y = points[0].y * kY };
+						double radius = GetCircleRadius(points[0], points[1]);
+
+						polyline.Segments.Add(new ArcSegment2D
+						{
+							Point = new Point2D { X = center.X, Y = center.Y + radius },
+							EndPoint = new Point2D { X = center.X - radius, Y = center.Y }
+						});
+
+						polyline.Segments.Add(new ArcSegment2D
+						{
+							Point = new Point2D { X = center.X, Y = center.Y - radius },
+							EndPoint = new Point2D { X = center.X + radius, Y = center.Y }
+						});
+
 						retList.Add(polyline);
 
 						continue;
@@ -308,16 +319,16 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 					if (firstRun)
 					{
-						polyline = new PolyLine2D { StartPoint = new Point2D { X = points[0].x * kunitx, Y = points[0].y * kunity } };
+						polyline = new PolyLine2D { StartPoint = new Point2D { X = points[0].x * kX, Y = points[0].y * kY } };
 						firstRun = false;
 						retList.Add(polyline);
 					}
 
 					if (polyline != null)
 					{
-						double ex = points[numPoints - 1].x * kunitx;
-						double ey = points[numPoints - 1].y * kunity;
-						if ((Math.Abs(ex- polyline.StartPoint.X) < 1e-3)
+						double ex = points[numPoints - 1].x * kX;
+						double ey = points[numPoints - 1].y * kY;
+						if ((Math.Abs(ex - polyline.StartPoint.X) < 1e-3)
 							&& (Math.Abs(ey - polyline.StartPoint.Y) < 1e-3))
 						{
 							firstRun = true;
@@ -330,7 +341,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 						case CURVE_TYPE.CT_LINE:
 							if (numPoints == 2)
 							{
-								Segment2D seg = new LineSegment2D { EndPoint = new Point2D { X = points[1].x * kunitx, Y = points[1].y * kunity } };
+								Segment2D seg = new LineSegment2D { EndPoint = new Point2D { X = points[1].x * kX, Y = points[1].y * kY } };
 								polyline.Segments.Add(seg);
 							}
 							break;
@@ -342,13 +353,13 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 								{
 									Point = new Point2D
 									{
-										X = points[1].x * kunitx,
-										Y = points[1].y * kunity
+										X = points[1].x * kX,
+										Y = points[1].y * kY
 									},
 									EndPoint = new Point2D
 									{
-										X = points[2].x * kunitx,
-										Y = points[2].y * kunity
+										X = points[2].x * kX,
+										Y = points[2].y * kY
 									}
 								};
 								polyline.Segments.Add(seg);
@@ -359,6 +370,13 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 			}
 
 			return retList;
+		}
+
+		private static double GetCircleRadius(IPOINT_2D centre, IPOINT_2D point)
+		{
+			double dx = (point.x - centre.x) * kX;
+			double dy = (point.y - centre.y) * kY;
+			return Math.Sqrt(dx * dx + dy * dy);
 		}
 	}
 }

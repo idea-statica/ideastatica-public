@@ -1,4 +1,6 @@
-﻿using IdeaRS.OpenModel.Connection;
+﻿#if NET48
+
+using IdeaRS.OpenModel.Connection;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -175,7 +177,7 @@ namespace IdeaStatiCa.Plugin
 			Service.SetCrossSectionMaterial(crossSectionId, materialId);
 		}
 
-		public void SetMemberCrossSection(int connectionId, int memberId, int crossSectionId)
+		public void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId)
 		{
 			Service.SetMemberCrossSection(connectionId, memberId, crossSectionId);
 		}
@@ -183,3 +185,4 @@ namespace IdeaStatiCa.Plugin
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }
+#endif

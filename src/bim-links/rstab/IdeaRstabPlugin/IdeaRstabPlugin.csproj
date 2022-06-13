@@ -52,7 +52,7 @@
 
   <ItemGroup>
     <Reference Include="WindowsBase" />
-    
+
     <Reference Include="Dlubal.RSTAB6">
       <HintPath>libs\Dlubal.RSTAB6.dll</HintPath>
       <EmbedInteropTypes>true</EmbedInteropTypes>

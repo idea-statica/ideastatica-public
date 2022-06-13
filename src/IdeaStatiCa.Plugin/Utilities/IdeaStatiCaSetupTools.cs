@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿#if NET48
+
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -65,3 +67,4 @@ namespace IdeaStatiCa.Plugin.Utilities
 		}
 	}
 }
+#endif

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET48
+
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.ServiceModel;
@@ -152,3 +154,4 @@ namespace IdeaStatiCa.Plugin
 		#endregion
 	}
 }
+#endif

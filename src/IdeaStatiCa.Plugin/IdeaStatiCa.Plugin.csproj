@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -17,41 +17,57 @@
     <PackageId>IdeaStatiCa.Plugin</PackageId>
     <PackageLicenseFile>README.md</PackageLicenseFile>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>IdeaStatiCa;BIM;C#;FEA</PackageTags>
+    <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM</PackageTags>
     <Version>21.0.0</Version>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <EnableNETAnalyzers>False</EnableNETAnalyzers>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
     <DebugType>full</DebugType>
     <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND '$(TargetFramework)' == 'net48'">
     <DebugType>full</DebugType>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.1'">
+    <DebugType>full</DebugType>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>..\..\..\bin\Release\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Optimize>True</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' AND '$(TargetFramework)' == 'net48'">
     <DebugType>pdbonly</DebugType>
     <OutputPath>bin\Release\</OutputPath>
     <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
   </PropertyGroup>
-	<ItemGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.1'">
+    <DebugType>pdbonly</DebugType>
+    <OutputPath>bin\Release\</OutputPath>
+    <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
+  </PropertyGroup>
+    
+	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
+  
   <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Castle.Windsor" Version="5.1.1" />
     <PackageReference Include="Google.Protobuf" Version="3.15.0" />
     <PackageReference Include="Grpc" Version="2.35.0" />
@@ -68,6 +84,7 @@
   <ItemGroup>
     <Compile Remove="IConnectionAutomation.cs" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Remove="Grpc\GrpcReflectionServiceContract.proto" />
     <None Include="..\..\..\ideastatica-public\README.md">
@@ -75,10 +92,12 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <Protobuf Include="Grpc\GrpcReflectionServiceContract.proto" />
   </ItemGroup>
