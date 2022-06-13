@@ -1,26 +1,43 @@
 ﻿using CommandLine;
+using IdeaStatiCa.CheckbotPlugin.Models;
+using IdeaStatiCa.CheckbotPlugin.Services;
 using IdeaStatiCa.PluginRunner;
 using System;
 using System.IO;
-using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 Parser.Default.ParseArguments<Arguments>(args)
-	.WithParsed(Run);
+	.WithParsedAsync(Run);
 
-static void Run(Arguments arguments)
-{
-	InitPlugin(arguments);
-}
-
-static void InitPlugin(Arguments arguments)
+static async Task Run(Arguments arguments)
 {
 	string path = GetPluginPath(arguments);
 	ChangeCurrentDirectory(path);
 
-	Assembly assembly = Assembly.LoadFrom(path);
-	Type entryPointClass = PluginEntryPoint.GetEntryPointClass(assembly, arguments.ClassName);
+	PluginLaunchRequest pluginLaunchRequest = new(
+		   arguments.Path,
+		   arguments.CommunicationId,
+			  arguments.ClassName);
 
-	PluginEntryPoint.GetInstance(entryPointClass);
+	CancellationTokenSource cancellationTokenSource = new();
+
+	PluginRunner pluginRunner = PluginRunner.Create(arguments.Port);
+	PluginLaunchResponse pluginLaunchResponse = await pluginRunner.Run(pluginLaunchRequest);
+
+	Console.WriteLine("Starting plugin");
+
+	pluginRunner.GetService<IEventService>().Subscribe(x =>
+	{
+		if (x is EventPluginStop)
+		{
+			cancellationTokenSource.Cancel();
+		}
+	});
+
+	await Task.Delay(-1, cancellationTokenSource.Token);
+
+	Console.WriteLine("Stopping plugin");
 }
 
 static string GetPluginPath(Arguments arguments)

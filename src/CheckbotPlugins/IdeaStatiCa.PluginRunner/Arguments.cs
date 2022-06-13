@@ -10,6 +10,9 @@ namespace IdeaStatiCa.PluginRunner
 		[Option('c', "classname", HelpText = "Name of the entrypoint class.")]
 		public string? ClassName { get; set; }
 
+		[Option('i', "id", Required = true, HelpText = "Communication ID.")]
+		public string CommunicationId { get; set; } = string.Empty;
+
 		[Value(0, MetaName = "path", HelpText = "Path to assembly.")]
 		public string Path { get; set; } = string.Empty;
 	}

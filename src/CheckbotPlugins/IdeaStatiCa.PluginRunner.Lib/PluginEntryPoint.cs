@@ -1,12 +1,9 @@
 ﻿using IdeaStatiCa.CheckbotPlugin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace IdeaStatiCa.PluginRunner
 {
-	internal static class PluginEntryPoint
+	public static class PluginEntryPoint
 	{
 		public static Type GetEntryPointClass(Assembly assembly, string? className)
 		{

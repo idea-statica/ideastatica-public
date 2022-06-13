@@ -50,7 +50,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 				Event.EventOneofCase.None => None,
 				Event.EventOneofCase.PluginStop => new Models.EventPluginStop(),
 				Event.EventOneofCase.OperationBegin => new Models.EventOperationBegin(),
-				Event.EventOneofCase.OpenCheckApplication => new Models.EventOpenCheckApplication(evt.OpenCheckApplication.Object.Convert()),
+				Event.EventOneofCase.OpenCheckApplication => new Models.EventOpenCheckApplication(evt.OpenCheckApplication.Object.FromProto()),
 				_ => throw new NotImplementedException(),
 			};
 		}

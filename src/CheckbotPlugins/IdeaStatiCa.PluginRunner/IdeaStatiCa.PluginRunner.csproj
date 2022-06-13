@@ -15,6 +15,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Tools\IdeaStatiCa.CheckbotPlugin.Tools.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.PluginRunner.Lib\IdeaStatiCa.PluginRunner.Lib.csproj" />
   </ItemGroup>
 

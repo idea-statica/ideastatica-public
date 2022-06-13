@@ -12,7 +12,7 @@ namespace IdeaStatiCa.PluginRunner.Utils
 			return obserable;
 		}
 
-		private class ObserableAsyncStreamReader<T> : IObservable<T>
+		private sealed class ObserableAsyncStreamReader<T> : IObservable<T>
 		{
 			private ImmutableList<Subscription> _subscriptions = ImmutableList<Subscription>.Empty;
 			private readonly IAsyncStreamReader<T> _streamReader;

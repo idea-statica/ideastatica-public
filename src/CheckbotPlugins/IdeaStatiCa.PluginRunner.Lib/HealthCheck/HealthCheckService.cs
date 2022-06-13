@@ -66,7 +66,7 @@ namespace IdeaStatiCa.PluginRunner.HealthCheck
 				}
 
 				state = newState;
-			}
+			};
 		}
 	}
 }
