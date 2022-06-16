@@ -12,11 +12,11 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="application_service.proto" GrpcServices="Client" />
-    <Protobuf Include="event_service.proto" GrpcServices="Client" />
-    <Protobuf Include="health_check.proto" GrpcServices="Client" />
-    <Protobuf Include="plugin_service.proto" GrpcServices="Client" />
-    <Protobuf Include="project_service.proto" GrpcServices="Client" />
-    <Protobuf Include="storage_service.proto" GrpcServices="Client" />
+    <Protobuf Include="application_service.proto" GrpcServices="Both" />
+    <Protobuf Include="event_service.proto" GrpcServices="Both" />
+    <Protobuf Include="health_check.proto" GrpcServices="Both" />
+    <Protobuf Include="plugin_service.proto" GrpcServices="Both" />
+    <Protobuf Include="project_service.proto" GrpcServices="Both" />
+    <Protobuf Include="storage_service.proto" GrpcServices="Both" />
   </ItemGroup>
 </Project>
