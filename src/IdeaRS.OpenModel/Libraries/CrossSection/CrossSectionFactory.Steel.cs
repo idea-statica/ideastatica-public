@@ -5,7 +5,6 @@
 	/// </summary>
 	public partial class CrossSectionFactory
 	{
-
 		/// <summary>
 		/// Fill steel section of welded I
 		/// </summary>
@@ -17,7 +16,7 @@
 		/// <remarks>Dimension of welded I section<br/>
 		/// <img src="Images\WeldedI.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -52,7 +51,7 @@
 		/// <remarks>Dimension of welded T section<br/>
 		/// <img src="Images\WeldedT.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -75,7 +74,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = tf });
 		}
 
-
 		/// <summary>
 		/// Fill steel section of channel shape
 		/// </summary>
@@ -91,7 +89,7 @@
 		/// <remarks>Dimension of channel section<br/>
 		/// <img src="Images\WeldedC.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -120,7 +118,6 @@
 			cssO.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = taperF });
 		}
 
-
 		/// <summary>
 		/// Fill steel section of angle shape
 		/// </summary>
@@ -136,7 +133,7 @@
 		/// <remarks>Dimension of angle section<br/>
 		/// <img src="Images\WeldedL.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -165,7 +162,6 @@
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
-
 		/// <summary>
 		/// Fill steel section of parametric I section
 		/// </summary>
@@ -181,7 +177,7 @@
 		/// <remarks>Dimension of parametric I section<br/>
 		/// <img src="Images\Iarc.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -224,7 +220,7 @@
 		/// <param name="tapperF">Flange tapper</param>
 		/// <param name="tapperW">Web tapper</param>
 		/// <returns></returns>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -257,7 +253,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperW", Value = tapperW });
 		}
 
-
 		/// <summary>
 		/// Welded I asymetrical - steel shape
 		/// </summary>
@@ -271,7 +266,7 @@
 		/// <remarks>Dimension of assymetrical I section<br/>
 		/// <img src="Images\Iasym.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -299,7 +294,7 @@
 		}
 
 		/// <summary>
-		/// Creates a ][ steel shape of css. 
+		/// Creates a ][ steel shape of css.
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="bt">The width of U top flange.</param>
@@ -312,7 +307,7 @@
 		/// <remarks>Dimension of assymetrical I section<br/>
 		/// <img src="Images\Iasym.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -364,7 +359,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
 		}
 
-
 		/// <summary>
 		/// Circular hollow section  - steel shape
 		/// </summary>
@@ -377,8 +371,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = D / 2.0 });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
 		}
-
-
 
 		/// <summary>
 		/// Create steel section Channel shape - steel shape
@@ -426,6 +418,18 @@
 			cssO.Parameters.Add(new ParameterDouble() { Name = "d", Value = d });
 		}
 
+		/// <summary>
+		/// Circular hollow section
+		/// </summary>
+		/// <param name="cssO"></param>
+		/// <param name="r">Radius</param>
+		/// <param name="t">Thickness</param>
+		public static void FillCssSteelCircularHollow(CrossSectionParameter cssO, double r, double t)
+		{
+			cssO.CrossSectionType = CrossSectionType.RolledCHS;
+			cssO.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
+			cssO.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
+		}
 
 		/// <summary>
 		/// Fill steel section Channel shape
@@ -440,6 +444,7 @@
 			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
+
 		/// <summary>
 		/// Fill steel section Lt shape
 		/// </summary>
