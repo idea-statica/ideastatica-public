@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
     <RootNamespace>IdeaStatiCa.CheckbotPlugin</RootNamespace>
@@ -18,5 +18,6 @@
     <Protobuf Include="plugin_service.proto" GrpcServices="Both" />
     <Protobuf Include="project_service.proto" GrpcServices="Both" />
     <Protobuf Include="storage_service.proto" GrpcServices="Both" />
+    <Protobuf Include="country_code.proto" GrpcServices="Both" />
   </ItemGroup>
 </Project>

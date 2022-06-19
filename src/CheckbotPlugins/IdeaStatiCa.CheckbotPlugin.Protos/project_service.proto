@@ -4,6 +4,8 @@ option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 
 package ideastatica.checkbotplugin.v1;
 
+import "country_code.proto";
+
 service ProjectService {
     rpc GetInfo(ProjectInfoReq) returns (ProjectInfoResp);
 
@@ -17,7 +19,8 @@ message ProjectInfoReq { }
 
 message ProjectInfoResp {
     string name = 1;
-    string country_code = 2;
+	CountryCode country_code = 2;
+    CountryCodeConfig country_code_config = 3;
 }
 
 
