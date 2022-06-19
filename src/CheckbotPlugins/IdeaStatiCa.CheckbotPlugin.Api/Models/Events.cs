@@ -6,7 +6,7 @@
 	public class EventPluginStop : Event
 	{ }
 
-	public class EventOperationBegin : Event
+	public class EventProcedureBegin : Event
 	{ }
 
 	public class EventOpenCheckApplication : Event
