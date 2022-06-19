@@ -35,19 +35,6 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// <param name="objects"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		Task<OpenModelContainer> GetObjects(List<ModelObject> objects, ModelExportOptions options);
-	}
-
-	public static class IProjectServiceExtension
-	{
-		public static Task<OpenModelContainer> GetModel(this IProjectService projectService)
-		{
-			return projectService.GetModel(ModelExportOptions.Default);
-		}
-
-		public static Task<OpenModelContainer> GetObjects(this IProjectService projectService, List<ModelObject> objects)
-		{
-			return projectService.GetObjects(objects, ModelExportOptions.Default);
-		}
+		Task<OpenModelContainer> GetObjects(IEnumerable<ModelObject> objects, ModelExportOptions options);
 	}
 }
