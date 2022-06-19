@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Protos;
+﻿using AutoMapper;
+using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.CheckbotPlugin.Services;
 using IdeaStatiCa.PluginRunner.Utils;
 using System.Reactive.Linq;
@@ -10,10 +11,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 {
 	public class EventService : IEventService
 	{
-		internal class EventNone : Models.Event
-		{ }
-
-		internal static readonly Models.Event None = new EventNone();
+		private static Mapper _mapper = Mapping.GetMapper();
 
 		private readonly Protos.EventService.EventServiceClient _client;
 		private IObservable<Models.Event>? _events;
@@ -33,26 +31,13 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			if (_events is null)
 			{
-				SubscribeReq req = new();
+				Protos.SubscribeReq req = new();
 				_events = _client.Subscribe(req).ResponseStream
 					.AsObservable()
-					.Select(x => TranslateEvent(x))
-					.Where(x => x != None);
+					.Select(x => _mapper.Map<Models.Event>(x));
 			}
 
 			return _events;
-		}
-
-		private static Models.Event TranslateEvent(Event evt)
-		{
-			return evt.EventCase switch
-			{
-				Event.EventOneofCase.None => None,
-				Event.EventOneofCase.PluginStop => new Models.EventPluginStop(),
-				Event.EventOneofCase.OperationBegin => new Models.EventOperationBegin(),
-				Event.EventOneofCase.OpenCheckApplication => new Models.EventOpenCheckApplication(evt.OpenCheckApplication.Object.FromProto()),
-				_ => throw new NotImplementedException(),
-			};
 		}
 	}
 }

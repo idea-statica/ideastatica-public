@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.Services;
-using System;
 
 namespace IdeaStatiCa.PluginRunner
 {

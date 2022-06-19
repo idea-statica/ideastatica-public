@@ -1,5 +1,5 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Services;
-using IdeaStatiCa.PluginRunner.Utils;
+﻿using IdeaStatiCa.CheckbotPlugin.Common;
+using IdeaStatiCa.CheckbotPlugin.Services;
 using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
 
 namespace IdeaStatiCa.PluginRunner.Services
@@ -15,7 +15,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 		public async Task NewVersion(string newVersion)
 		{
-			Ensure.ArgNotEmpty(newVersion);
+			Ensure.NotEmpty(newVersion);
 
 			Protos.NewVersionReq req = new()
 			{

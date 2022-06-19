@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Protos\IdeaStatiCa.CheckbotPlugin.Protos.csproj" />
   </ItemGroup>
   

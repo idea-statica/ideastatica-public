@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf;
+using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.CheckbotPlugin.Services;
-using IdeaStatiCa.PluginRunner.Utils;
 
 using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
 
@@ -17,7 +17,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 		public async Task<bool> Delete(string key)
 		{
-			Ensure.ArgNotEmpty(key);
+			Ensure.NotEmpty(key);
 
 			Protos.DeleteReq reg = new()
 			{
@@ -30,7 +30,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 		public async Task<bool> Exists(string key)
 		{
-			Ensure.ArgNotEmpty(key);
+			Ensure.NotEmpty(key);
 
 			Protos.ExistsReq reg = new()
 			{
@@ -43,7 +43,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 		public async Task<ReadOnlyMemory<byte>?> Get(string key)
 		{
-			Ensure.ArgNotEmpty(key);
+			Ensure.NotEmpty(key);
 
 			Protos.GetReq reg = new()
 			{
@@ -61,7 +61,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 		public async Task Set(string key, ReadOnlyMemory<byte> value)
 		{
-			Ensure.ArgNotEmpty(key);
+			Ensure.NotEmpty(key);
 
 			if (value.Length == 0)
 			{
