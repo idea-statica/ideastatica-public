@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using FluentAssertions;
+﻿using FluentAssertions;
 using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;

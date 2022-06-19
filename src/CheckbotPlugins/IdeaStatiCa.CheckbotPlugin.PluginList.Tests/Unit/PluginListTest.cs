@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using FluentAssertions;
+﻿using FluentAssertions;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
 using NSubstitute;
