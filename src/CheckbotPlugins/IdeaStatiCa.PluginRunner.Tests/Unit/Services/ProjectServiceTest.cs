@@ -13,13 +13,5 @@ namespace IdeaStatiCa.PluginRunner.Tests.Unit.Services
 		[SetUp]
 		public void SetUp() => sut = new(null);
 
-		[Test]
-		public async Task GetObjects_WhenListIsEmpty_ThrowsException()
-		{
-			await sut
-				.Invoking(x => x.GetObjects(new(), ModelExportOptions.Default))
-				.Should()
-				.ThrowAsync<ArgumentException>();
-		}
 	}
 }
