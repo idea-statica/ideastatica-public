@@ -15,7 +15,7 @@ message SubscribeReq { }
 message Event {
     oneof event {
         EventPluginStop plugin_stop = 1;
-        EventProcedureBegin operation_begin = 2;
+        EventProcedureBegin procedure_begin = 2;
         EventOpenCheckApplication open_check_application = 3;
     }
 }
