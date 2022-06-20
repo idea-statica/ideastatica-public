@@ -9,12 +9,23 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.PluginSystem.PluginList
 {
+	/// <summary>
+	/// Represents list of all plugins integrated into Checkbot.
+	/// </summary>
 	public class PluginList
 	{
 		private readonly JsonPluginList _list;
 
+		/// <summary>
+		/// Creates a default instance of <see cref="PluginList"/>.
+		/// </summary>
+		/// <returns></returns>
 		public static PluginList Create() => new PluginList(new AppDataStorage());
 
+		/// <summary>
+		/// Ctor.
+		/// </summary>
+		/// <param name="storage"></param>
 		public PluginList(IStorage storage)
 		{
 			Ensure.NotNull(storage, nameof(storage));
@@ -22,6 +33,11 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 			_list = new JsonPluginList(storage);
 		}
 
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
 		public async Task<PluginDescriptor> Get(string name)
 		{
 			Ensure.NotEmpty(name, nameof(name));
@@ -32,8 +48,21 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 				.FirstOrDefault(x => x.Name == name);
 		}
 
-		public async Task<IReadOnlyList<PluginDescriptor>> GetAll() => await Load();
+		/// <summary>
+		/// Returns list of all integrated plugins or an empty list
+		/// if there isn't any.
+		/// </summary>
+		/// <returns>List of <see cref="PluginDescriptor"/></returns>
+		public async Task<IReadOnlyList<PluginDescriptor>> GetAll()
+			=> await Load();
 
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="pluginDescriptor"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException">A plugin with the same name already exists.</exception>
+		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		public async Task Add(PluginDescriptor pluginDescriptor)
 		{
 			Ensure.NotNull(pluginDescriptor, nameof(pluginDescriptor));
@@ -42,7 +71,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 
 			if (pluginList.Any(x => x.Name == pluginDescriptor.Name))
 			{
-				throw new ArgumentException();
+				throw new ArgumentException("A plugin with the same name already exists.");
 			}
 
 			pluginList.Add(pluginDescriptor);
@@ -50,6 +79,11 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 			await Store(pluginList);
 		}
 
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="pluginDescriptor"></param>
+		/// <returns></returns>
 		public async Task<bool> Remove(PluginDescriptor pluginDescriptor)
 		{
 			Ensure.NotNull(pluginDescriptor, nameof(pluginDescriptor));

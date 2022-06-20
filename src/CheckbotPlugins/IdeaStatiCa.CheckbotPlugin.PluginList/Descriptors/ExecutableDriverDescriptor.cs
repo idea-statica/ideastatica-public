@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaStatiCa.CheckbotPlugin.Common;
+using System;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
@@ -11,8 +12,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 
 		public ExecutableDriverDescriptor(string path, string[] additionalArguments)
 		{
+			Ensure.NotEmpty(path, nameof(path));
+
 			Path = path;
-			AdditionalArguments = additionalArguments;
+			AdditionalArguments = additionalArguments ?? new string[0];
 		}
 
 		public override bool Equals(object obj)
