@@ -471,9 +471,9 @@ namespace IdeaRS.OpenModel
 		public double FatigueSectionOffset { get; set; }
 
 		/// <summary>
-		/// Condensed element length (CBCond length = css.Height * Multiply)
+		/// Condensed element length factor (CEF). Condensed beam legth = maxCssSize * CEF
 		/// </summary>
-		public double Multiply { get; set; }
+		public double CondensedElementLengthFactor { get; set; }
 		/*
 		/// <summary>
 		/// True if bore holes
