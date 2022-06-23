@@ -469,6 +469,11 @@ namespace IdeaRS.OpenModel
 		/// Fatigue section Offset = FatigueSectionOffset x Legsize
 		/// </summary>
 		public double FatigueSectionOffset { get; set; }
+
+		/// <summary>
+		/// Condensed element length (CBCond length = css.Height * Multiply)
+		/// </summary>
+		public double Multiply { get; set; }
 		/*
 		/// <summary>
 		/// True if bore holes
