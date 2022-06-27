@@ -57,10 +57,9 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 			=> await Load();
 
 		/// <summary>
-		///
+		/// Adds a new plugin.
 		/// </summary>
-		/// <param name="pluginDescriptor"></param>
-		/// <returns></returns>
+		/// <param name="pluginDescriptor">Plugin descriptor</param>
 		/// <exception cref="ArgumentException">A plugin with the same name already exists.</exception>
 		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		public async Task Add(PluginDescriptor pluginDescriptor)
