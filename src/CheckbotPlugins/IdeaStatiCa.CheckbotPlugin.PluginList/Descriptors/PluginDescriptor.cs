@@ -37,16 +37,6 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			DriverDescriptor = driverDescriptor;
 		}
 
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(this, obj))
-			{
-				return true;
-			}
-
-			return Equals(obj as PluginDescriptor);
-		}
-
 		public bool Equals(PluginDescriptor other)
 		{
 			if (other is null)
@@ -54,11 +44,26 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 				return false;
 			}
 
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
 			return Name == other.Name
 				&& Type == other.Type
 				&& DriverDescriptor.Equals(other.DriverDescriptor);
 		}
 
-		public override int GetHashCode() => HashCode.Combine(Name, Type, DriverDescriptor);
+		public override bool Equals(object obj)
+			 => Equals(obj as PluginDescriptor);
+
+		public override int GetHashCode()
+			=> HashCode.Combine(Name, Type, DriverDescriptor);
+
+		public static bool operator ==(PluginDescriptor left, PluginDescriptor right) 
+			=> Equals(left, right);
+
+		public static bool operator !=(PluginDescriptor left, PluginDescriptor right) 
+			=> !Equals(left, right);
 	}
 }
