@@ -73,5 +73,25 @@ namespace IdeaStatiCa.CheckbotPlugin.Common
 
 			return fallback;
 		}
+
+		public T GetOrElse(Func<T> fallbackSource)
+		{
+			if (_hasValue)
+			{
+				return _value;
+			}
+
+			return fallbackSource();
+		}
+
+		public T GetOrThrow(Exception exception)
+		{
+			if (_hasValue)
+			{
+				return _value;
+			}
+
+			throw exception;
+		}
 	}
 }
