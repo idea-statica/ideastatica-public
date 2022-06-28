@@ -55,7 +55,7 @@ namespace IdeaStatiCa.PluginRunner
 		{
 			return assembly.GetExportedTypes()
 				.Where(x => x.IsClass)
-				.Where(x => x.IsSubclassOf(typeof(IPlugin)));
+				.Where(x => x.IsAssignableTo(typeof(IPlugin)));
 		}
 	}
 }
