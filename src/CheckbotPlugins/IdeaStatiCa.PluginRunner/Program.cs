@@ -7,7 +7,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-Parser.Default.ParseArguments<Arguments>(args)
+await new Parser(x => x.GetoptMode = true)
+	.ParseArguments<Arguments>(args)
 	.WithParsedAsync(Run);
 
 static async Task Run(Arguments arguments)
@@ -16,13 +17,12 @@ static async Task Run(Arguments arguments)
 	ChangeCurrentDirectory(path);
 
 	PluginLaunchRequest pluginLaunchRequest = new(
-		   arguments.Path,
-		   arguments.CommunicationId,
-			  arguments.ClassName);
+		arguments.Path,
+		arguments.ClassName);
 
 	CancellationTokenSource cancellationTokenSource = new();
 
-	PluginRunner pluginRunner = PluginRunner.Create(arguments.Port);
+	PluginRunner pluginRunner = PluginRunner.Create(arguments.Port, arguments.CommunicationId);
 	PluginLaunchResponse pluginLaunchResponse = await pluginRunner.Run(pluginLaunchRequest);
 
 	Console.WriteLine("Starting plugin");
