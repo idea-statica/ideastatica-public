@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
 using IdeaStatiCa.PluginRunner.Services;
 using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
 
@@ -10,21 +11,22 @@ namespace IdeaStatiCa.PluginRunner
 		private readonly PluginServicesProvider _pluginServicesProvider;
 		private readonly PluginLauncher _pluginLauncher;
 
-		public static PluginRunner Create(int port)
+		public static PluginRunner Create(int port, string communicationId)
 		{
 			Channel channel = new($"127.0.0.1:{port}", ChannelCredentials.Insecure);
-			return new PluginRunner(channel);
+			return new PluginRunner(channel, communicationId);
 		}
 
-		public PluginRunner(Channel channel)
+		public PluginRunner(Channel channel, string communicationId)
 		{
-			IContainer container = GetContainer(channel);
+			IContainer container = GetContainer(channel, communicationId);
 
 			_pluginServicesProvider = container.Resolve<PluginServicesProvider>();
 			_pluginLauncher = container.Resolve<PluginLauncher>();
 		}
 
-		public Task<PluginLaunchResponse> Run(PluginLaunchRequest request) => _pluginLauncher.Launch(_pluginServicesProvider, request);
+		public Task<PluginLaunchResponse> Run(PluginLaunchRequest request)
+			=> _pluginLauncher.Launch(_pluginServicesProvider, request);
 
 		public T GetService<T>()
 		{
@@ -38,17 +40,18 @@ namespace IdeaStatiCa.PluginRunner
 			return (T)service;
 		}
 
-		private static IContainer GetContainer(Channel channel)
+		private static IContainer GetContainer(Channel channel, string communicationId)
 		{
 			ContainerBuilder builder = new();
 
-			builder.RegisterInstance(channel).As<ChannelBase>();
+			CallInvoker callInvoker = channel.Intercept(new SessionIdInterceptor(communicationId));
+			builder.RegisterInstance(callInvoker);
 
-			builder.RegisterType<Protos.ApplicationService.ApplicationServiceClient>().AsImplementedInterfaces();
-			builder.RegisterType<Protos.EventService.EventServiceClient>().AsImplementedInterfaces();
-			builder.RegisterType<Protos.StorageService.StorageServiceClient>().AsImplementedInterfaces();
-			builder.RegisterType<Protos.PluginService.PluginServiceClient>().AsImplementedInterfaces();
-			builder.RegisterType<Protos.ProjectService.ProjectServiceClient>().AsImplementedInterfaces();
+			builder.RegisterType<Protos.ApplicationService.ApplicationServiceClient>();
+			builder.RegisterType<Protos.EventService.EventServiceClient>();
+			builder.RegisterType<Protos.StorageService.StorageServiceClient>();
+			builder.RegisterType<Protos.PluginService.PluginServiceClient>();
+			builder.RegisterType<Protos.ProjectService.ProjectServiceClient>();
 
 			builder.RegisterType<ApplicationService>().AsImplementedInterfaces();
 			builder.RegisterType<EventService>().AsImplementedInterfaces();
@@ -57,7 +60,7 @@ namespace IdeaStatiCa.PluginRunner
 			builder.RegisterType<ProjectService>().AsImplementedInterfaces();
 
 			builder.RegisterType<PluginServicesProvider>().SingleInstance();
-			builder.RegisterType<PluginLaunchRequest>().SingleInstance();
+			builder.RegisterType<PluginLauncher>().SingleInstance();
 
 			IContainer container = builder.Build();
 			return container;

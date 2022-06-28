@@ -9,20 +9,16 @@ namespace IdeaStatiCa.PluginRunner
 	{
 		public IPlugin Plugin { get; }
 
-		public string CommunicationId { get; }
-
-		public PluginLaunchRequest(IPlugin plugin, string communicationId)
+		public PluginLaunchRequest(IPlugin plugin)
 		{
 			Plugin = plugin;
-			CommunicationId = communicationId;
 		}
 
-		public PluginLaunchRequest(string path, string communicationId, string? className)
+		public PluginLaunchRequest(string path, string? className)
 		{
 			Assembly assembly = Assembly.LoadFile(path);
 			Type entryPointClass = PluginEntryPoint.GetEntryPointClass(assembly, className);
 			Plugin = PluginEntryPoint.GetInstance(entryPointClass);
-			CommunicationId = communicationId;
 		}
 	}
 
@@ -57,7 +53,6 @@ namespace IdeaStatiCa.PluginRunner
 				ApiVersion = ApiVersion.Version,
 				Author = info.Author,
 				Description = info.Description,
-				CommunicationId = request.CommunicationId,
 				DisplayName = info.DisplayName,
 				Version = info.Version
 			});
