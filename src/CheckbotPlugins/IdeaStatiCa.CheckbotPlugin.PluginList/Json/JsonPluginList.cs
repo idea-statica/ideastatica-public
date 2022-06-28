@@ -86,10 +86,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 				switch (type)
 				{
 					case "dotnet_runner":
-						return Maybe.From<Driver>(JsonSerializer.Deserialize<DotNetRunnerDriver>(doc, options));
+						return Maybe.From<Driver>(JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options));
 
 					case "executable":
-						return Maybe.From<Driver>(JsonSerializer.Deserialize<ExecutableDriver>(doc, options));
+						return Maybe.From<Driver>(JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options));
 				}
 
 				return new Maybe<Driver>();
