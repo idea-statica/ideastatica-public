@@ -1,6 +1,6 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.Common;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Serialization;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
-using IdeaStatiCa.PluginSystem.PluginList.Json;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 	/// </summary>
 	public class PluginList
 	{
-		private readonly JsonPluginList _list;
+		private readonly JsonPluginListSerializer _list;
 
 		/// <summary>
 		/// Creates a default instance of <see cref="PluginList"/>.
@@ -30,7 +30,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		{
 			Ensure.NotNull(storage, nameof(storage));
 
-			_list = new JsonPluginList(storage);
+			_list = new JsonPluginListSerializer(storage);
 		}
 
 		/// <summary>

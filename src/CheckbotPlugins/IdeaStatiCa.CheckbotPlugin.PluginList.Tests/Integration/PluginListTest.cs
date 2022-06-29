@@ -2,7 +2,9 @@
 using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using System.Text;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 {
@@ -10,6 +12,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 	public class PluginListTest
 	{
 		private PluginList _pluginList;
+		private StorageStub _storageStub;
 
 		private static readonly PluginDescriptor pluginDescriptor = new(
 			 "testplugin",
@@ -22,13 +25,17 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 			 new DotNetRunnerDriverDescriptor(@"c:\plugin2.exe", "TestPlugin.Main"));
 
 		[SetUp]
-		public void SetUp() => _pluginList = new PluginList(new StorageStub());
+		public void SetUp()
+		{
+			_storageStub = new StorageStub();
+			_pluginList = new PluginList(_storageStub);
+		}
 
 		[Test]
 		public async Task GetAll_NoPlugins()
 		{
 			IReadOnlyList<PluginDescriptor> plugins = await _pluginList.GetAll();
-			plugins.Should().BeEmpty();
+			_ = plugins.Should().BeEmpty();
 		}
 
 		[Test]
@@ -37,8 +44,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 			await _pluginList.Add(pluginDescriptor);
 
 			IReadOnlyList<PluginDescriptor> plugins = await _pluginList.GetAll();
-			plugins.Count.Should().Be(1);
-			plugins.Should().ContainEquivalentOf(pluginDescriptor);
+			_ = plugins.Count.Should().Be(1);
+			_ = plugins.Should().ContainEquivalentOf(pluginDescriptor);
 		}
 
 		[Test]
@@ -49,9 +56,9 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 
 			IReadOnlyList<PluginDescriptor> plugins = await _pluginList.GetAll();
 
-			plugins.Count.Should().Be(2);
-			plugins.Should().ContainEquivalentOf(pluginDescriptor);
-			plugins.Should().ContainEquivalentOf(pluginDescriptor2);
+			_ = plugins.Count.Should().Be(2);
+			_ = plugins.Should().ContainEquivalentOf(pluginDescriptor);
+			_ = plugins.Should().ContainEquivalentOf(pluginDescriptor2);
 		}
 
 		[Test]
@@ -59,7 +66,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 		{
 			await _pluginList.Add(pluginDescriptor);
 
-			await _pluginList
+			_ = await _pluginList
 				.Awaiting(x => x.Add(pluginDescriptor))
 				.Should()
 				.ThrowAsync<ArgumentException>();
@@ -69,10 +76,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 		public async Task AddOne_RemoveOne()
 		{
 			await _pluginList.Add(pluginDescriptor);
-			await _pluginList.Remove(pluginDescriptor);
+			_ = await _pluginList.Remove(pluginDescriptor);
 
 			IReadOnlyList<PluginDescriptor> plugins = await _pluginList.GetAll();
-			plugins.Should().BeEmpty();
+			_ = plugins.Should().BeEmpty();
 		}
 
 		[Test]
@@ -81,11 +88,11 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 			await _pluginList.Add(pluginDescriptor);
 			await _pluginList.Add(pluginDescriptor2);
 
-			await _pluginList.Remove(pluginDescriptor);
+			_ = await _pluginList.Remove(pluginDescriptor);
 
 			IReadOnlyList<PluginDescriptor> plugins = await _pluginList.GetAll();
-			plugins.Count.Should().Be(1);
-			plugins.Should().ContainEquivalentOf(pluginDescriptor2);
+			_ = plugins.Count.Should().Be(1);
+			_ = plugins.Should().ContainEquivalentOf(pluginDescriptor2);
 		}
 
 		[Test]
@@ -96,13 +103,27 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 
 			PluginDescriptor result = await _pluginList.Get("testplugin");
 
-			result.Should().BeEquivalentTo(pluginDescriptor);
+			_ = result.Should().BeEquivalentTo(pluginDescriptor);
+		}
+
+		[Test]
+		public async Task Test_HandwrittenJson()
+		{
+			string expectedString = "[{\"type\":\"check\",\"name\":\"testplugin\",\"driver\":{\"type\":\"dotnet_runner\",\"path\":\"c:\\\\plugin1.exe\",\"class_name\":\"TestPlugin.Main\"}}]";
+			JToken expected = JToken.Parse(expectedString);
+
+			await _pluginList.Add(pluginDescriptor);
+			JToken actual = JToken.Parse(_storageStub.GetData());
+
+			actual.Should().BeEquivalentTo(expected);
 		}
 	}
 
 	internal class StorageStub : IStorage
 	{
 		private byte[] _data;
+
+		public string GetData() => Encoding.UTF8.GetString(_data);
 
 		public Maybe<Stream> GetReadStream()
 		{
@@ -147,7 +168,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 			{
 				byte[] data = new byte[Position];
 				Position = 0;
-				Read(data, 0, data.Length);
+				_ = Read(data, 0, data.Length);
 
 				_flush(data);
 			}

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
+using IdeaStatiCa.PluginSystem.PluginList.Json;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Json
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 {
 	internal class JsonMappingProfile : Profile
 	{

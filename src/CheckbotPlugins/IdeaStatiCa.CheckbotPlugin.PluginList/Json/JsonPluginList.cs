@@ -1,25 +1,25 @@
 ﻿using AutoMapper;
 using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
+using IdeaStatiCa.PluginSystem.PluginList.Json;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Json
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 {
-	internal class JsonPluginList
+	internal class JsonPluginListSerializer
 	{
-		internal static readonly IMapper Mapper
+		internal static readonly IMapper _mapper
 			= new Mapper(new MapperConfiguration(
 				  x => x.AddProfile(typeof(JsonMappingProfile))));
 
 		private readonly IStorage _storage;
 
-		public JsonPluginList(IStorage storage)
+		public JsonPluginListSerializer(IStorage storage)
 		{
 			_storage = storage;
 		}
@@ -35,7 +35,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 		{
 			using (Stream stream = _storage.GetWriteStream())
 			{
-				List<Plugin> plugins = Mapper.Map<List<Plugin>>(pluginDescriptors);
+				List<Plugin> plugins = _mapper.Map<List<Plugin>>(pluginDescriptors);
 				return JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
 			}
 		}
@@ -45,7 +45,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 			using (stream)
 			{
 				return Maybe.From(await JsonSerializer.DeserializeAsync<List<Plugin>>(stream, GetOptions()))
-					.Map(x => Mapper.Map<List<PluginDescriptor>>(x))
+					.Map(x => _mapper.Map<List<PluginDescriptor>>(x))
 					.Get(new List<PluginDescriptor>());
 			}
 		}
@@ -55,45 +55,14 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 			JsonSerializerOptions options = new JsonSerializerOptions()
 			{
 				WriteIndented = true,
-				AllowTrailingCommas = true
+				AllowTrailingCommas = true,
+				PropertyNameCaseInsensitive = true
 			};
 
 			options.Converters.Add(new DriverConverter());
+			options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
 
 			return options;
-		}
-
-		private sealed class DriverConverter : JsonConverter<Driver>
-		{
-			public override bool CanConvert(Type typeToConvert) => typeToConvert == typeof(Driver);
-
-			public override Driver Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-			{
-				JsonDocument doc = JsonDocument.ParseValue(ref reader);
-
-				return Maybe.From(doc.RootElement.GetProperty("type").GetString())
-					.Bind(x => DeserializeDriver(x, doc, options))
-					.Get(new Driver());
-			}
-
-			public override void Write(Utf8JsonWriter writer, Driver value, JsonSerializerOptions options)
-			{
-				JsonSerializer.Serialize(writer, value, value.GetType(), options);
-			}
-
-			private static Maybe<Driver> DeserializeDriver(string type, JsonDocument doc, JsonSerializerOptions options)
-			{
-				switch (type)
-				{
-					case "dotnet_runner":
-						return Maybe.From<Driver>(JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options));
-
-					case "executable":
-						return Maybe.From<Driver>(JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options));
-				}
-
-				return new Maybe<Driver>();
-			}
 		}
 	}
 }

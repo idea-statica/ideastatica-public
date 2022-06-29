@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentAssertions;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Serialization;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Json;
 using NUnit.Framework;
