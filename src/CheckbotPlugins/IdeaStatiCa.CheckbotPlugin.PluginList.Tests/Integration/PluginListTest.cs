@@ -129,10 +129,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 		{
 			if (_data is null)
 			{
-				return new Maybe<Stream>();
+				return Maybe<Stream>.Empty();
 			}
 
-			return new Maybe<Stream>(new StubStream(_data, x => _data = x));
+			return new StubStream(_data, x => _data = x).ToMaybe<Stream>();
 		}
 
 		public Stream GetWriteStream()

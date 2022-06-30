@@ -10,10 +10,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Storage
 		{
 			if (!File.Exists(GetPath()))
 			{
-				return new Maybe<Stream>();
+				return Maybe<Stream>.Empty();
 			}
 
-			return new Maybe<Stream>(File.OpenRead(GetPath()));
+			return File.OpenRead(GetPath()).ToMaybe<Stream>();
 		}
 
 		public Stream GetWriteStream()

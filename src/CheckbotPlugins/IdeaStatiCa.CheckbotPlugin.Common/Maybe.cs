@@ -1,97 +1,74 @@
-﻿#if NET5_0_OR_GREATER
-#nullable disable
-#endif
-
-using System;
+﻿using System;
 
 namespace IdeaStatiCa.CheckbotPlugin.Common
 {
-	public static class Maybe
+	public abstract class Maybe<T>
 	{
-		public static Maybe<T> From<T>(T value)
+		internal sealed class None : Maybe<T>
 		{
-			return new Maybe<T>(value);
+			public override Maybe<R> Bind<R>(Func<T, Maybe<R>> f)
+				=> new Maybe<R>.None();
+
+			public override void Eval(Action<T> f)
+			{ }
+
+			public override T GetOrElse(T fallback)
+				=> fallback;
+
+			public override T GetOrElse(Func<T> fallbackSource)
+				=> fallbackSource();
+
+			public override T GetOrThrow(Exception exception)
+				=> throw exception;
+
+			public override Maybe<R> Map<R>(Func<T, R> f)
+				=> new Maybe<R>.None();
 		}
-	}
 
-	public class Maybe<T>
-	{
-		private readonly bool _hasValue;
-		private readonly T _value;
-
-		public Maybe()
+		internal sealed class Some : Maybe<T>
 		{
-		}
+			private readonly T _value;
 
-		public Maybe(T value)
-		{
-			if (value != null)
+			public Some(T value)
 			{
-				_hasValue = true;
 				_value = value;
 			}
+
+			internal T Get()
+				=> _value;
+
+			public override Maybe<R> Bind<R>(Func<T, Maybe<R>> f)
+				=> f(_value);
+
+			public override void Eval(Action<T> f)
+				=> f(_value);
+
+			public override T GetOrElse(T fallback)
+				=> _value;
+
+			public override T GetOrElse(Func<T> fallbackSource)
+				=> _value;
+
+			public override T GetOrThrow(Exception exception)
+				=> _value;
+
+			public override Maybe<R> Map<R>(Func<T, R> f)
+				=> new Maybe<R>.Some(f(_value));
 		}
 
-		public Maybe<R> Map<R>(Func<T, R> f)
-		{
-			if (_hasValue)
-			{
-				return new Maybe<R>(f(_value));
-			}
-			else
-			{
-				return new Maybe<R>();
-			}
-		}
+		public static Maybe<T> Empty()
+			=> new None();
 
-		public Maybe<R> Bind<R>(Func<T, Maybe<R>> f)
-		{
-			if (_hasValue)
-			{
-				return f(_value);
-			}
-			else
-			{
-				return new Maybe<R>();
-			}
-		}
+		public abstract Maybe<R> Map<R>(Func<T, R> f);
 
-		public void Eval(Action<T> f)
-		{
-			if (_hasValue)
-			{
-				f(_value);
-			}
-		}
+		public abstract Maybe<R> Bind<R>(Func<T, Maybe<R>> f);
 
-		public T Get(T fallback)
-		{
-			if (_hasValue)
-			{
-				return _value;
-			}
+		public abstract void Eval(Action<T> f);
 
-			return fallback;
-		}
+		public abstract T GetOrElse(T fallback);
 
-		public T GetOrElse(Func<T> fallbackSource)
-		{
-			if (_hasValue)
-			{
-				return _value;
-			}
+		public abstract T GetOrElse(Func<T> fallbackSource);
 
-			return fallbackSource();
-		}
-
-		public T GetOrThrow(Exception exception)
-		{
-			if (_hasValue)
-			{
-				return _value;
-			}
-
-			throw exception;
-		}
+		public abstract T GetOrThrow(Exception exception);
 	}
 }
