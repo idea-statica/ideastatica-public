@@ -34,7 +34,10 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 				_handler = handler;
 			}
 
-			public void OnEvent(Event e) => _handler(e).Start(TaskScheduler.Default);
+			public void OnEvent(Event e)
+			{
+				Task.Run(() => _handler(e));
+			}
 		}
 	}
 }
