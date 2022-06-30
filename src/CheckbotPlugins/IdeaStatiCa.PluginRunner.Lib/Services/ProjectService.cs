@@ -5,6 +5,7 @@ using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.CheckbotPlugin.Models;
 using IdeaStatiCa.CheckbotPlugin.Services;
 using System.IO.Pipelines;
+using System.Text;
 using System.Xml.Serialization;
 using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
 
@@ -12,7 +13,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 {
 	public class ProjectService : IProjectService
 	{
-		private static Mapper _mapper = Mapping.GetMapper();
+		private static readonly Mapper _mapper = Mapping.GetMapper();
 
 		private readonly Protos.ProjectService.ProjectServiceClient _client;
 
@@ -68,7 +69,9 @@ namespace IdeaStatiCa.PluginRunner.Services
 					.Select(converter), cancellationToken);
 		}
 
-		private static async Task<OpenModelContainer> GetOpenModelContainerFromPackets(IAsyncEnumerable<Protos.ModelPacket> packets, CancellationToken cancellationToken = default)
+		private static async Task<OpenModelContainer> GetOpenModelContainerFromPackets(
+			IAsyncEnumerable<Protos.ModelPacket> packets,
+			CancellationToken cancellationToken = default)
 		{
 			Pipe pipe = new();
 			PipeWriter pipeWriter = pipe.Writer;
@@ -76,27 +79,33 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 			CancellationTokenSource cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-			Task grpcTask = packets
-				.ForEachAsync(async x =>
+			Task readTask = Task.Run(async () =>
 			{
-				Memory<byte> memory = pipeWriter.GetMemory(x.Data.Length);
-				x.Data.Memory.CopyTo(memory);
-				pipeWriter.Advance(x.Data.Length);
+				await foreach (Protos.ModelPacket packet in packets.WithCancellation(cancellationTokenSource.Token))
+				{
+					Memory<byte> memory = pipeWriter.GetMemory(packet.Data.Length);
+					packet.Data.Memory.CopyTo(memory);
+					pipeWriter.Advance(packet.Data.Length);
 
-				await pipeWriter.FlushAsync(cancellationTokenSource.Token);
+					await pipeWriter.FlushAsync(cancellationTokenSource.Token);
+				}
+
+				await pipeWriter.CompleteAsync();
 			}, cancellationTokenSource.Token);
 
 			OpenModelContainer? model = null;
 
 			Task xmlTask = Task.Run(() =>
 			{
+				using StreamReader reader = new(pipeReader.AsStream(), Encoding.UTF8);
+
 				XmlSerializer serializer = new(typeof(OpenModelContainer));
-				model = (OpenModelContainer?)serializer.Deserialize(pipeReader.AsStream());
+				model = (OpenModelContainer?)serializer.Deserialize(reader);
 			}, cancellationTokenSource.Token);
 
 			try
 			{
-				await Task.WhenAll(grpcTask, xmlTask);
+				await Task.WhenAll(readTask, xmlTask);
 
 				if (model is null)
 				{
