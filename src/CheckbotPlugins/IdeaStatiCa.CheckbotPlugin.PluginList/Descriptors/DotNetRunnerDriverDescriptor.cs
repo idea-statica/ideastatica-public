@@ -32,10 +32,9 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		public DotNetRunnerDriverDescriptor(string path, string className)
 		{
 			Ensure.NotEmpty(path, nameof(path));
-			Ensure.NotEmpty(className, nameof(className));
 
 			Path = path;
-			ClassName = className;
+			ClassName = string.IsNullOrEmpty(className) ? null : className;
 		}
 
 		public override bool Equals(object obj)
