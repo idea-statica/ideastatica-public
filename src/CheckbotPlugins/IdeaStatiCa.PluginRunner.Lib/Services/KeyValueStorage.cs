@@ -23,7 +23,8 @@ namespace IdeaStatiCa.PluginRunner.Services
 			{
 				Key = key
 			};
-			Protos.DeleteResp resp = await _client.DeleteAsync(reg);
+			Protos.DeleteResp resp = await _client.DeleteAsync(reg)
+				.ConfigureAwait(false);
 
 			return resp.Success;
 		}
@@ -36,12 +37,13 @@ namespace IdeaStatiCa.PluginRunner.Services
 			{
 				Key = key
 			};
-			Protos.ExistsResp resp = await _client.ExistsAsync(reg);
+			Protos.ExistsResp resp = await _client.ExistsAsync(reg)
+				.ConfigureAwait(false);
 
 			return resp.Exists;
 		}
 
-		public async Task<ReadOnlyMemory<byte>?> Get(string key)
+		public async Task<ReadOnlyMemory<byte>> Get(string key)
 		{
 			Ensure.NotEmpty(key);
 
@@ -49,11 +51,12 @@ namespace IdeaStatiCa.PluginRunner.Services
 			{
 				Key = key
 			};
-			Protos.GetResp resp = await _client.GetAsync(reg);
+			Protos.GetResp resp = await _client.GetAsync(reg)
+				.ConfigureAwait(false);
 
 			if (!resp.Success)
 			{
-				return null;
+				throw new KeyNotFoundException($"Key '{key}' does not exist.");
 			}
 
 			return resp.Value.ToByteArray();
@@ -73,12 +76,9 @@ namespace IdeaStatiCa.PluginRunner.Services
 				Key = key,
 				Value = ByteString.CopyFrom(value.Span)
 			};
-			Protos.SetResp resp = await _client.SetAsync(reg);
 
-			if (!resp.Success)
-			{
-				throw new Exception();
-			}
+			await _client.SetAsync(reg)
+				.ConfigureAwait(false);
 		}
 	}
 }

@@ -16,9 +16,7 @@ message SetReq {
     bytes value = 2;
 }
 
-message SetResp {
-    bool success = 1;
-}
+message SetResp { }
 
 
 message GetReq {

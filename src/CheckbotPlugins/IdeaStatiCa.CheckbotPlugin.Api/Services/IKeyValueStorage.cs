@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
@@ -23,13 +24,13 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 
 		/// <summary>
 		/// Gets data with the given <paramref name="key"/>.
-		/// Returns null with the key does not exist.
 		/// </summary>
 		/// <param name="key"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		/// <exception cref="ArgumentException"><paramref name="key"/> is an empty string.</exception>
-		Task<ReadOnlyMemory<byte>?> Get(string key);
+		/// <exception cref="KeyNotFoundException">Key does not exist.</exception>
+		Task<ReadOnlyMemory<byte>> Get(string key);
 
 		/// <summary>
 		/// Deletes given <paramref name="key"/>.
