@@ -14,9 +14,10 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 		{
 			JsonDocument doc = JsonDocument.ParseValue(ref reader);
 
-			return Maybe.From(doc.RootElement.GetProperty("type").GetString())
+			return doc.RootElement.GetProperty("type").GetString()
+				.ToMaybe()
 				.Bind(x => DeserializeDriver(x, doc, options))
-				.Get(new Driver());
+				.GetOrElse(new Driver());
 		}
 
 		public override void Write(Utf8JsonWriter writer, Driver value, JsonSerializerOptions options)
@@ -29,13 +30,13 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 			switch (type.ToLower())
 			{
 				case "dotnet_runner":
-					return Maybe.From<Driver>(JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options));
+					return JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options).ToMaybe<Driver>();
 
 				case "executable":
-					return Maybe.From<Driver>(JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options));
+					return JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options).ToMaybe<Driver>();
 			}
 
-			return new Maybe<Driver>();
+			return Maybe<Driver>.Empty();
 		}
 	}
 }

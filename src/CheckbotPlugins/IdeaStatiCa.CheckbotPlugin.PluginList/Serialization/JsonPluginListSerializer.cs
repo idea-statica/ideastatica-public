@@ -28,7 +28,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 		{
 			return _storage.GetReadStream()
 				.Map(ReadStream)
-				.Get(Task.FromResult(new List<PluginDescriptor>()));
+				.GetOrElse(Task.FromResult(new List<PluginDescriptor>()));
 		}
 
 		public Task Write(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
@@ -40,13 +40,16 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 			}
 		}
 
-		private static async Task<List<PluginDescriptor>> ReadStream(Stream stream)
+		private static Task<List<PluginDescriptor>> ReadStream(Stream stream)
 		{
-			using (stream)
+			using (StreamReader streamReader = new StreamReader(stream))
 			{
-				return Maybe.From(await JsonSerializer.DeserializeAsync<List<Plugin>>(stream, GetOptions()))
+				string content = streamReader.ReadToEnd();
+
+				return Task.FromResult(JsonSerializer.Deserialize<List<Plugin>>(content, GetOptions())
+					.ToMaybe()
 					.Map(x => _mapper.Map<List<PluginDescriptor>>(x))
-					.Get(new List<PluginDescriptor>());
+					.GetOrElse(new List<PluginDescriptor>()));
 			}
 		}
 
