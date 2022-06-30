@@ -64,5 +64,10 @@ namespace IdeaStatiCa.PluginRunner
 
 			return new PluginLaunchResponse(helloResp.ApiVersion, helloResp.IdeaVersion);
 		}
+
+		public async Task Ready()
+		{
+			await _client.ReadyAsync(new Protos.ReadyReq());
+		}
 	}
 }

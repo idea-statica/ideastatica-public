@@ -27,6 +27,8 @@ static async Task Run(Arguments arguments)
 
 	Console.WriteLine("Starting plugin");
 
+	pluginLaunchRequest.Plugin.Startup(pluginRunner);
+
 	pluginRunner.GetService<IEventService>().Subscribe(x =>
 	{
 		if (x is EventPluginStop)
@@ -35,7 +37,11 @@ static async Task Run(Arguments arguments)
 		}
 	});
 
+	await pluginRunner.Ready();
+
 	await Task.Delay(-1, cancellationTokenSource.Token);
+
+	pluginLaunchRequest.Plugin.Shutdown();
 
 	Console.WriteLine("Stopping plugin");
 }

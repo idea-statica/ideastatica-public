@@ -6,7 +6,7 @@ using Protos = IdeaStatiCa.CheckbotPlugin.Protos;
 
 namespace IdeaStatiCa.PluginRunner
 {
-	public class PluginRunner
+	public class PluginRunner : IServiceProvider
 	{
 		private readonly PluginServicesProvider _pluginServicesProvider;
 		private readonly PluginLauncher _pluginLauncher;
@@ -27,6 +27,8 @@ namespace IdeaStatiCa.PluginRunner
 
 		public Task<PluginLaunchResponse> Run(PluginLaunchRequest request)
 			=> _pluginLauncher.Launch(_pluginServicesProvider, request);
+
+		public Task Ready() => _pluginLauncher.Ready();
 
 		public T GetService<T>()
 		{
@@ -65,5 +67,7 @@ namespace IdeaStatiCa.PluginRunner
 			IContainer container = builder.Build();
 			return container;
 		}
+
+		public object? GetService(Type serviceType) => _pluginServicesProvider.GetService(serviceType);
 	}
 }

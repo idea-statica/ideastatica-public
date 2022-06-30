@@ -61,5 +61,10 @@ namespace IdeaStatiCa.PluginRunner
 		{
 			return continuation(request, GetContext(context));
 		}
+
+		public override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
+		{
+			return continuation(request, GetContext(context));
+		}
 	}
 }

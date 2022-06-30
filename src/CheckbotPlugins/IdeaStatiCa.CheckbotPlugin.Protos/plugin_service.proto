@@ -6,6 +6,7 @@ package ideastatica.checkbotplugin.v1;
 
 service PluginService {
     rpc Hello(HelloReq) returns (HelloResp);
+    rpc Ready(ReadyReq) returns (ReadyResp);
     rpc NewVersion(NewVersionReq) returns (NewVersionResp);
 
     rpc ProcedureCompleted(ProcedureCompleteReq) returns (ProcedureCompleteResp);
@@ -26,6 +27,11 @@ message HelloResp {
     string api_version = 2;
     string idea_version = 3;
 }
+
+
+message ReadyReq { }
+
+message ReadyResp { }
 
 
 message NewVersionReq {

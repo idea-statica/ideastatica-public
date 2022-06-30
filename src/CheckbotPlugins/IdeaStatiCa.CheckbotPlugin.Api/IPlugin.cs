@@ -16,9 +16,15 @@ namespace IdeaStatiCa.CheckbotPlugin
 
 		/// <summary>
 		/// Entrypoint method, called when the plugin is started.
+		/// When this method returns the plugin will start receiving events/requests from Checkbot.
 		/// </summary>
 		/// <param name="serviceProvider">Provider for Checkbot plugin services
 		/// (e.g. <see cref="IProjectService"/>, <see cref="IKeyValueStorage"/>, ...).</param>
-		void Entrypoint(IServiceProvider serviceProvider);
+		void Startup(IServiceProvider serviceProvider);
+
+		/// <summary>
+		/// Call when plugin is about to shutdown.
+		/// </summary>
+		void Shutdown();
 	}
 }
