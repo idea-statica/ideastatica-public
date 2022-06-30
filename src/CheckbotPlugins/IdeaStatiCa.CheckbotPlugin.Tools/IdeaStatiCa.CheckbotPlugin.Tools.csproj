@@ -9,11 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.3.85" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj" />
   </ItemGroup>
 
 </Project>

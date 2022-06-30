@@ -1,41 +1,56 @@
-﻿using MessagePack;
-using System.Buffers;
+﻿using IdeaStatiCa.CheckbotPlugin.Common;
+using System.Text;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
 {
 	public static class KeyValueStorageExtensions
 	{
-		public static Task Set<T>(this IKeyValueStorage storage, string key, T value, bool compressed = false)
-		{
-			MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard;
+		public static Task Set(this IKeyValueStorage storage, string key, short value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-			if (compressed)
-			{
-				options = options.WithCompression(MessagePackCompression.Lz4BlockArray);
-			}
+		public static Task Set(this IKeyValueStorage storage, string key, int value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-			ArrayBufferWriter<byte> writer = new();
-			MessagePackSerializer.Serialize(writer, value, options);
+		public static Task Set(this IKeyValueStorage storage, string key, long value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-			return storage.Set(key, writer.WrittenMemory);
-		}
+		public static Task Set(this IKeyValueStorage storage, string key, float value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-		public static async Task<T?> Get<T>(this IKeyValueStorage storage, string key, bool compressed = false)
-		{
-			ReadOnlyMemory<byte>? value = await storage.Get(key).ConfigureAwait(false);
-			if (!value.HasValue)
-			{
-				return default;
-			}
+		public static Task Set(this IKeyValueStorage storage, string key, double value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-			MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard;
+		public static Task Set(this IKeyValueStorage storage, string key, bool value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-			if (compressed)
-			{
-				options = options.WithCompression(MessagePackCompression.Lz4BlockArray);
-			}
+		public static Task Set(this IKeyValueStorage storage, string key, char value)
+			=> storage.Set(key, BitConverter.GetBytes(value));
 
-			return MessagePackSerializer.Deserialize<T>(value.Value, options);
-		}
+		public static Task Set(this IKeyValueStorage storage, string key, string value)
+			=> storage.Set(key, Encoding.UTF8.GetBytes(value));
+
+		public static Task<short> GetShort(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToInt16(x.Span));
+
+		public static Task<int> GetInt(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToInt32(x.Span));
+
+		public static Task<long> GetLong(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToInt64(x.Span));
+
+		public static Task<float> GetFloat(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToSingle(x.Span));
+
+		public static Task<double> GetDouble(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToDouble(x.Span));
+
+		public static Task<bool> GetBool(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToBoolean(x.Span));
+
+		public static Task<char> GetChar(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => BitConverter.ToChar(x.Span));
+
+		public static Task<string> GetString(this IKeyValueStorage storage, string key)
+			=> storage.Get(key).Then(x => Encoding.UTF8.GetString(x.Span));
 	}
 }
