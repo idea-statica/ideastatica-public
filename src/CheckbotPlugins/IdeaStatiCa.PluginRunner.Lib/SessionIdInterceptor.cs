@@ -47,22 +47,31 @@ namespace IdeaStatiCa.PluginRunner
 			return continuation(GetContext(context));
 		}
 
-		public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(ClientInterceptorContext<TRequest, TResponse> context, AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
+		public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
+			ClientInterceptorContext<TRequest, TResponse> context,
+			AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
 		{
 			return continuation(GetContext(context));
 		}
 
-		public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
+		public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(TRequest request,
+			ClientInterceptorContext<TRequest, TResponse> context,
+			AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
 		{
 			return continuation(request, GetContext(context));
 		}
 
-		public override TResponse BlockingUnaryCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
+		public override TResponse BlockingUnaryCall<TRequest, TResponse>(
+			TRequest request,
+			ClientInterceptorContext<TRequest, TResponse> context,
+			BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
 		{
 			return continuation(request, GetContext(context));
 		}
 
-		public override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(TRequest request, ClientInterceptorContext<TRequest, TResponse> context, AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
+		public override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(TRequest request,
+			ClientInterceptorContext<TRequest, TResponse> context,
+			AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
 		{
 			return continuation(request, GetContext(context));
 		}
