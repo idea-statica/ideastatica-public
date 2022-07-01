@@ -7,10 +7,10 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		public static void Subscribe(this IEventService eventService, Action<Event> handler)
 			=> eventService.Subscribe(new EventListener(handler));
 
-		public static void SubscribeAsync(this IEventService eventService, IAsyncEventListener asyncListener)
+		public static void Subscribe(this IEventService eventService, IAsyncEventListener asyncListener)
 			=> eventService.Subscribe(new AsyncEventListenerAdapter(asyncListener.OnEvent));
 
-		public static void SubscribeAsync(this IEventService eventService, Func<Event, Task> handler)
+		public static void Subscribe(this IEventService eventService, Func<Event, Task> handler)
 			=> eventService.Subscribe(new AsyncEventListenerAdapter(handler));
 
 		internal class EventListener : IEventListener
