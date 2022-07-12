@@ -21,5 +21,9 @@
 		/// </summary>
 		public double GammaM2 { get; set; }
 
+		/// <summary>
+		/// GammaMfi in fire design
+		/// </summary>
+		public double GammaMfi { get; set; }
 	}
 }
