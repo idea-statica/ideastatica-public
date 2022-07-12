@@ -68,6 +68,10 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		public Alignment Alignment => Alignment.Center;
 
+		public bool MirrorY => false;
+
+		public bool MirrorZ => false;
+
 		private Line _line;
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;

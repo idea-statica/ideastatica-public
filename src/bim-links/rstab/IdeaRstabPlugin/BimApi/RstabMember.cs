@@ -34,6 +34,10 @@ namespace IdeaRstabPlugin.BimApi
 
 		public Alignment Alignment => Alignment.Center;
 
+		public bool MirrorY => false;
+
+		public bool MirrorZ => false;
+
 		private readonly IObjectFactory _objectFactory;
 		private readonly IResultsFactory _resultsFactory;
 		private readonly IModelDataProvider _modelDataProvider;
