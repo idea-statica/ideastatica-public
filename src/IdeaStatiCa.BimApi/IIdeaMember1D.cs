@@ -46,5 +46,9 @@ namespace IdeaStatiCa.BimApi
 		/// Alignment of the member's cross-section. Eccentricities are added up to the alignment.
 		/// </summary>
 		Alignment Alignment { get; }
+
+		bool MirrorY { get; }
+
+		bool MirrorZ { get; }
 	}
 }

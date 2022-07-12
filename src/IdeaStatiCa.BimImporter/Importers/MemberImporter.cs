@@ -46,6 +46,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 				CrossSection = ctx.Import(css),
 				Taper = ctx.Import(member.Taper),
 				Alignment = member.Alignment,
+				MirrorY = member.MirrorY,
+				MirrorZ = member.MirrorZ
 			};
 		}
 
