@@ -87,7 +87,7 @@ namespace IdeaRS.OpenModel.Model
 		public ReferenceElement HingeEnd { get; set; }
 
 		/// <summary>
-		/// <see cref="Model.Taper"/> for defining haunched member. 
+		/// <see cref="Model.Taper"/> for defining haunched member.
 		/// </summary>
 		public ReferenceElement Taper { get; set; }
 
@@ -100,5 +100,9 @@ namespace IdeaRS.OpenModel.Model
 		/// Alignment of the member's cross-section. Eccentricities are added up to the alignment.
 		/// </summary>
 		public Alignment Alignment { get; set; }
+
+		public bool MirrorZ { get; set; }
+
+		public bool MirrorY { get; set; }
 	}
 }
