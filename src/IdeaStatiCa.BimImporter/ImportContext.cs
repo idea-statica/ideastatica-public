@@ -94,7 +94,15 @@ namespace IdeaStatiCa.BimImporter
 			int result = OpenModel.AddObject(iomObject);
 			if (result != 0)
 			{
-				throw new InvalidOperationException($"OpenModel.AddObject failed, return code '{result}'.");
+				//skip object witch is not in IOM collection
+				if (result == -10)
+				{
+					_logger.LogDebug($"OpenModel.AddObject skiped adding to the collection, return code '{result}'. Due");
+				}
+				else
+				{
+					throw new InvalidOperationException($"OpenModel.AddObject failed, return code '{result}'.");
+				}
 			}
 
 			ReferenceElement refElm = new ReferenceElement(iomObject);

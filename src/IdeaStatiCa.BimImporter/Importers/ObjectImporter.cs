@@ -1,6 +1,5 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.BimImporter.ImportedObjects;
 using IdeaStatiCa.Plugin;
 using System;
 
@@ -14,10 +13,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaSegment3D> _segmentImporter;
 		private readonly IImporter<IIdeaElement1D> _elementImporter;
 		private readonly IImporter<IIdeaMember1D> _memberImporter;
-		private readonly IImporter<ConnectionPoint> _connectionImporter;
+		private readonly IImporter<IIdeaConnectionPoint> _connectionImporter;
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
+		private readonly IImporter<IIdeaConnectedMember> _connectedMemberImporter;
+
 		public ObjectImporter(IPluginLogger logger)
 		{
 			_nodeImporter = new NodeImporter(logger);
@@ -30,6 +31,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_loadGroupImporter = new LoadGroupImporter(logger);
 			_combiInputImporter = new CombiInputImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
+			_connectedMemberImporter = new ConnectedMemberImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -51,10 +53,13 @@ namespace IdeaStatiCa.BimImporter.Importers
 				case IIdeaElement1D element:
 					return _elementImporter.Import(ctx, element);
 
+				case IIdeaConnectedMember connectedMember:
+					return _connectedMemberImporter.Import(ctx, connectedMember);
+
 				case IIdeaMember1D member:
 					return _memberImporter.Import(ctx, member);
 
-				case ConnectionPoint connection:
+				case IIdeaConnectionPoint connection:
 					return _connectionImporter.Import(ctx, connection);
 
 				case IIdeaLoadCase loadCase:

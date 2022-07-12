@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.ImportedObjects
 {
-	internal class ConnectionPoint : IIdeaObject
+	public class ConnectionPoint : IIdeaConnectionPoint
 	{
 		public string Id => "$connection-" + Node.Id;
 
@@ -12,12 +12,12 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IIdeaNode Node { get; }
 
-		public IEnumerable<IIdeaMember1D> Members { get; }
+		public IEnumerable<IIdeaConnectedMember> ConnectedMembers { get; }
 
 		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{
 			Node = node;
-			Members = members.ToList();
+			ConnectedMembers = members.Select(x => new ConnectedMember(x)).ToList();
 		}
 	}
 }
