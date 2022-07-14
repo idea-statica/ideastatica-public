@@ -47,8 +47,14 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		Alignment Alignment { get; }
 
+		/// <summary>
+		/// Mirrors member on the Y-axis.
+		/// </summary>
 		bool MirrorY { get; }
 
+		/// <summary>
+		/// Mirrors member on the Y-axis.
+		/// </summary>
 		bool MirrorZ { get; }
 	}
 }

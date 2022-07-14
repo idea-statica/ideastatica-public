@@ -101,8 +101,14 @@ namespace IdeaRS.OpenModel.Model
 		/// </summary>
 		public Alignment Alignment { get; set; }
 
-		public bool MirrorZ { get; set; }
-
+		/// <summary>
+		/// Mirrors member on the Y-axis.
+		/// </summary>
 		public bool MirrorY { get; set; }
+
+		/// <summary>
+		/// Mirrors member on the Z-axis.
+		/// </summary>
+		public bool MirrorZ { get; set; }
 	}
 }
