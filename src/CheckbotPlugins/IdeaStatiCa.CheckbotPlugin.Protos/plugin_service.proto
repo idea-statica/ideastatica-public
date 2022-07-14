@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
+
+package ideastatica.checkbotplugin.v1;
+
+service PluginService {
+    rpc Hello(HelloReq) returns (HelloResp);
+    rpc Ready(ReadyReq) returns (ReadyResp);
+    rpc NewVersion(NewVersionReq) returns (NewVersionResp);
+
+    rpc ProcedureCompleted(ProcedureCompleteReq) returns (ProcedureCompleteResp);
+}
+
+message HelloReq {
+    string communication_id = 1;
+
+    string display_name = 2;
+    string description = 3;
+    string author = 4;
+    string version = 5;
+    string api_version = 6;
+}
+
+message HelloResp {
+    HelloStatus status = 1;
+    string api_version = 2;
+    string idea_version = 3;
+}
+
+
+message ReadyReq { }
+
+message ReadyResp { }
+
+
+message NewVersionReq {
+    string new_version = 1;
+}
+
+message NewVersionResp {
+
+}
+
+
+message ProcedureCompleteReq { }
+message ProcedureCompleteResp { }
+
+
+enum HelloStatus {
+    OK = 0;
+    ERROR = 1;
+    UNSUPPORTED_API_VERSION = 2;
+}

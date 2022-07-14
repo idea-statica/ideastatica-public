@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Tools\IdeaStatiCa.CheckbotPlugin.Tools.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.PluginRunner.Lib\IdeaStatiCa.PluginRunner.Lib.csproj" />
+  </ItemGroup>
+
+</Project>
