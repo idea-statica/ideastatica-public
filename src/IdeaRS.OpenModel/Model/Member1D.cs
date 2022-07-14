@@ -102,12 +102,12 @@ namespace IdeaRS.OpenModel.Model
 		public Alignment Alignment { get; set; }
 
 		/// <summary>
-		/// Mirrors member on the Y-axis.
+		/// Mirrors the cross-section of this member on the Y-axis.
 		/// </summary>
 		public bool MirrorY { get; set; }
 
 		/// <summary>
-		/// Mirrors member on the Z-axis.
+		/// Mirrors the cross-section of this member on the Z-axis.
 		/// </summary>
 		public bool MirrorZ { get; set; }
 	}

@@ -48,12 +48,12 @@ namespace IdeaStatiCa.BimApi
 		Alignment Alignment { get; }
 
 		/// <summary>
-		/// Mirrors member on the Y-axis.
+		/// Mirrors the cross-section of this member on the Y-axis.
 		/// </summary>
 		bool MirrorY { get; }
 
 		/// <summary>
-		/// Mirrors member on the Y-axis.
+		/// Mirrors the cross-section of this member on the Z-axis.
 		/// </summary>
 		bool MirrorZ { get; }
 	}
