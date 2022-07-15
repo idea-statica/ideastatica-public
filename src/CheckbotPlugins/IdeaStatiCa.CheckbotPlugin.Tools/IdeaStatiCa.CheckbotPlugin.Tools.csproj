@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>IdeaStatiCa.CheckbotPlugin</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj" />
+  </ItemGroup>
+
+</Project>
