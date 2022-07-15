@@ -14,10 +14,17 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IEnumerable<IIdeaConnectedMember> ConnectedMembers { get; }
 
+		public IEnumerable<IIdeaPlate> Plates { get; }
+
+		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
+
+		public IEnumerable<IIdeaWeld> Welds { get; }
+
 		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{
 			Node = node;
 			ConnectedMembers = members.Select(x => new ConnectedMember(x)).ToList();
+			Plates = new List<IIdeaPlate>();
 		}
 	}
 }

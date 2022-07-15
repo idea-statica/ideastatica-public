@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System;
@@ -37,5 +38,37 @@ namespace IdeaStatiCa.BimImporter.Importers
 		}
 
 		protected abstract OpenElementId ImportInternal(IImportContext ctx, T obj);
+
+		public object Import(IImportContext ctx, T obj, ConnectionData connectionData)
+		{
+			Logger.LogDebug($"Importing {obj.GetType().Name}, id '{obj.Id ?? "<null>"}', name '{obj.Name ?? "<null>"}'");
+
+			if (ctx == null)
+			{
+				throw new ArgumentNullException(nameof(ctx));
+			}
+
+			if (obj == null)
+			{
+				throw new ArgumentNullException(nameof(obj));
+			}
+
+			if (connectionData == null)
+			{
+				throw new ArgumentNullException(nameof(connectionData));
+			}
+
+			if (string.IsNullOrEmpty(obj.Id))
+			{
+				throw new InvalidOperationException("Object must specify non-empty Id.");
+			}
+
+			return ImportInternal(ctx, obj, connectionData);
+		}
+
+		protected virtual object ImportInternal(IImportContext ctx, T obj, ConnectionData connectionData)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
@@ -22,6 +23,9 @@ namespace IdeaStatiCa.BimImporter
 
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
 			= new Dictionary<IIdeaObject, ReferenceElement>(new IIdeaObjectComparer());
+
+		private readonly Dictionary<IIdeaObject, object> _refConnectionItems
+			= new Dictionary<IIdeaObject, object>(new IIdeaObjectComparer());
 
 		private readonly ResultOnMembers _resultOnMembers = new ResultOnMembers();
 
@@ -109,6 +113,25 @@ namespace IdeaStatiCa.BimImporter
 			_refElements.Add(obj, refElm);
 
 			return refElm;
+		}
+
+		public object ImportConnectionItem(IIdeaObject obj, ConnectionData connectionData)
+		{
+			if (_refConnectionItems.TryGetValue(obj, out object refElm))
+			{
+				_logger.LogDebug($"Object has been already imported with IOM id '{refElm}'");
+				return refElm;
+			}
+
+			var item = _importer.Import(this, obj, connectionData);
+			if (item != null)
+			{
+				throw new InvalidOperationException($"OpenModel add connection item failed, return code '{item}'.");
+			}
+			Debug.Assert(_refConnectionItems[obj] == item);
+			_refConnectionItems.Add(obj, item);
+
+			return item;
 		}
 	}
 }

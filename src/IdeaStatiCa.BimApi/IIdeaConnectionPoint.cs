@@ -7,5 +7,11 @@ namespace IdeaStatiCa.BimApi
 		IIdeaNode Node { get; }
 
 		IEnumerable<IIdeaConnectedMember> ConnectedMembers { get; }
+
+		IEnumerable<IIdeaPlate> Plates { get; }
+
+		IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
+
+		IEnumerable<IIdeaWeld> Welds { get; }
 	}
 }

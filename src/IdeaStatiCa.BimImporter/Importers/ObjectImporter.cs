@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System;
@@ -18,6 +19,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
 		private readonly IImporter<IIdeaConnectedMember> _connectedMemberImporter;
+		private readonly IImporter<IIdeaPlate> _plateImporter;
+		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
+		private readonly IImporter<IIdeaWeld> _weldImporter;
+		private readonly IImporter<IIdeaBoltGrid> _boltGridImporter;
+
 
 		public ObjectImporter(IPluginLogger logger)
 		{
@@ -32,6 +38,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_combiInputImporter = new CombiInputImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
 			_connectedMemberImporter = new ConnectedMemberImporter(logger);
+			_plateImporter = new PlateImporter(logger);
+			_beamImporter = new BeamImporter(logger);
+			_boltGridImporter = new BoltGridImporter(logger);
+			_weldImporter = new WeldImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -69,6 +79,26 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _loadGroupImporter.Import(ctx, loadGroup);
 				case IIdeaCombiInput combiInput:
 					return _combiInputImporter.Import(ctx, combiInput);
+			}
+
+			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
+		}
+
+		public object Import(IImportContext ctx, IIdeaObject obj, ConnectionData connectionData)
+		{
+			switch (obj)
+			{
+
+				case IIdeaNegativePlate nPlate:
+					return _plateImporter.Import(ctx, nPlate, connectionData);
+				case IIdeaPlate plate:
+					return _plateImporter.Import(ctx, plate, connectionData);
+				case IIdeaConnectedMember member:
+					return _beamImporter.Import(ctx, member, connectionData);
+				case IIdeaBoltGrid boltGrid:
+					return _boltGridImporter.Import(ctx, boltGrid, connectionData);
+				case IIdeaWeld weld:
+					return _weldImporter.Import(ctx, weld, connectionData);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
