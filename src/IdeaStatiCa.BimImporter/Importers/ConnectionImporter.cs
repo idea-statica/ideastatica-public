@@ -41,6 +41,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			connection.Welds.ToList().ForEach(w => { ctx.ImportConnectionItem(w, connectionData); });
 
+			connection.Cuts.ToList().ForEach(c => { ctx.ImportConnectionItem(c, connectionData); });
+
 			return connectionPoint;
 		}
 	}

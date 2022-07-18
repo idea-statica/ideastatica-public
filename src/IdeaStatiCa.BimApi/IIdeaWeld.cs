@@ -34,6 +34,6 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Type of weld
 		/// </summary>
-		WeldType Weldtype { get; }
+		WeldType WeldType { get; }
 	}
 }

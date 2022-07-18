@@ -13,5 +13,7 @@ namespace IdeaStatiCa.BimApi
 		IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
 
 		IEnumerable<IIdeaWeld> Welds { get; }
+
+		IEnumerable<IIdeaCut> Cuts { get; }
 	}
 }

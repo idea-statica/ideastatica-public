@@ -23,6 +23,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
 		private readonly IImporter<IIdeaWeld> _weldImporter;
 		private readonly IImporter<IIdeaBoltGrid> _boltGridImporter;
+		private readonly IImporter<IIdeaCut> _cutImporter;
 
 
 		public ObjectImporter(IPluginLogger logger)
@@ -42,6 +43,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_beamImporter = new BeamImporter(logger);
 			_boltGridImporter = new BoltGridImporter(logger);
 			_weldImporter = new WeldImporter(logger);
+			_cutImporter = new CutImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -99,6 +101,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _boltGridImporter.Import(ctx, boltGrid, connectionData);
 				case IIdeaWeld weld:
 					return _weldImporter.Import(ctx, weld, connectionData);
+				case IIdeaCut cut:
+					return _cutImporter.Import(ctx, cut, connectionData);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");

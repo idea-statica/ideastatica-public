@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.ImportedObjects
 {
+	/// <summary>
+	/// Connection Point
+	/// </summary>
 	public class ConnectionPoint : IIdeaConnectionPoint
 	{
 		public string Id => "$connection-" + Node.Id;
@@ -19,6 +22,8 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
 
 		public IEnumerable<IIdeaWeld> Welds { get; }
+
+		public IEnumerable<IIdeaCut> Cuts { get; }
 
 		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{

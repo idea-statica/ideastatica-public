@@ -25,7 +25,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Material = weld.Material.Name,
 				Thickness = weld.Thickness,
 				Name = weld.Name,
-				WeldType = weld.Weldtype
+				WeldType = weld.WeldType
 			};
 
 
@@ -33,7 +33,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			(connectionData.Welds ?? (connectionData.Welds = new List<WeldData>())).Add(weldIOM);
 
 			//set correct Id
-			weldIOM.Id = connectionData.Plates.Max(w => w.Id) + 1;
+			weldIOM.Id = connectionData.Welds.Max(w => w.Id) + 1;
 
 			return weldIOM;
 		}
