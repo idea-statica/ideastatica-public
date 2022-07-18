@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using FluentAssertions;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.ImportedObjects;
 using System.Collections.Generic;
@@ -40,8 +41,11 @@ namespace IdeaStatiCa.BimImporter.Tests.Helpers
 			ConnectionPoint connA = (ConnectionPoint)a.ReferencedObject;
 			ConnectionPoint connB = (ConnectionPoint)b.ReferencedObject;
 
-			return _ideaObjectComparer.Equals(connA.Node, connB.Node) &&
-				Enumerable.SequenceEqual(connA.Members, connB.Members);
+			connA.ConnectedMembers.Should().BeEquivalentTo(connB.ConnectedMembers, options => options
+			.AllowingInfiniteRecursion()
+			);
+			return _ideaObjectComparer.Equals(connA.Node, connB.Node);
+
 		}
 
 		private bool MembersEqual(Member a, Member b)
