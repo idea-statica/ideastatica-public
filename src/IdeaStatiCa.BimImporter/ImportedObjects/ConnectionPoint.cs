@@ -21,6 +21,8 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
 
+		public IEnumerable<IIdeaAnchorGrid> AnchorGrids { get; }
+
 		public IEnumerable<IIdeaWeld> Welds { get; }
 
 		public IEnumerable<IIdeaCut> Cuts { get; }

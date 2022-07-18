@@ -23,8 +23,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
 		private readonly IImporter<IIdeaWeld> _weldImporter;
 		private readonly IImporter<IIdeaBoltGrid> _boltGridImporter;
+		private readonly IImporter<IIdeaAnchorGrid> _anchorGridImporter;
 		private readonly IImporter<IIdeaCut> _cutImporter;
-
+		private readonly IImporter<IIdeaConcreteBlock> _concreteBlockImporter;
 
 		public ObjectImporter(IPluginLogger logger)
 		{
@@ -44,6 +45,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_boltGridImporter = new BoltGridImporter(logger);
 			_weldImporter = new WeldImporter(logger);
 			_cutImporter = new CutImporter(logger);
+			_concreteBlockImporter = new ConcreteBlockImporter(logger);
+			_anchorGridImporter = new AnchorGridImporter(logger);
+
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -97,8 +101,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _plateImporter.Import(ctx, plate, connectionData);
 				case IIdeaConnectedMember member:
 					return _beamImporter.Import(ctx, member, connectionData);
+				case IIdeaAnchorGrid anchorGrid:
+					return _anchorGridImporter.Import(ctx, anchorGrid, connectionData);
 				case IIdeaBoltGrid boltGrid:
 					return _boltGridImporter.Import(ctx, boltGrid, connectionData);
+				case IIdeaConcreteBlock concreteBlock:
+					return _concreteBlockImporter.Import(ctx, concreteBlock, connectionData);
 				case IIdeaWeld weld:
 					return _weldImporter.Import(ctx, weld, connectionData);
 				case IIdeaCut cut:

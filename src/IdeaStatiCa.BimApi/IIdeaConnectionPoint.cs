@@ -10,6 +10,8 @@ namespace IdeaStatiCa.BimApi
 
 		IEnumerable<IIdeaPlate> Plates { get; }
 
+		IEnumerable<IIdeaAnchorGrid> AnchorGrids { get; }
+
 		IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
 
 		IEnumerable<IIdeaWeld> Welds { get; }

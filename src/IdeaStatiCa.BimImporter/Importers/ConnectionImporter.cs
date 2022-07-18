@@ -35,7 +35,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			///Add connection items
 			connection.ConnectedMembers.ToList().ForEach(cm => ctx.ImportConnectionItem(cm, connectionData));
+
 			connection.Plates.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
+
+			connection.AnchorGrids.ToList().ForEach(a => { ctx.ImportConnectionItem(a, connectionData); });
 
 			connection.BoltGrids.ToList().ForEach(b => { ctx.ImportConnectionItem(b, connectionData); });
 
