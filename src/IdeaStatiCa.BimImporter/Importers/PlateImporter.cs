@@ -21,7 +21,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			PlateData plateIOM = new PlateData()
 			{
 				Geometry = plate.Geometry,
-				//Id = plate.Id,
+				Id = 0,
 				AxisX = lcs.VecX,
 				AxisY = lcs.VecY,
 				AxisZ = lcs.VecZ,

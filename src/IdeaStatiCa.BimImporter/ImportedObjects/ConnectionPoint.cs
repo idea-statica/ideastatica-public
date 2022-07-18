@@ -19,6 +19,8 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IEnumerable<IIdeaPlate> Plates { get; }
 
+		public IEnumerable<IIdeaFoldedPlate> FoldedPlates { get; }
+
 		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; }
 
 		public IEnumerable<IIdeaAnchorGrid> AnchorGrids { get; }
