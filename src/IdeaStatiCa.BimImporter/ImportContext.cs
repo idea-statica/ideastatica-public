@@ -124,11 +124,10 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			var item = _importer.Import(this, obj, connectionData);
-			if (item != null)
+			if (item == null)
 			{
 				throw new InvalidOperationException($"OpenModel add connection item failed, return code '{item}'.");
 			}
-			Debug.Assert(_refConnectionItems[obj] == item);
 			_refConnectionItems.Add(obj, item);
 
 			return item;

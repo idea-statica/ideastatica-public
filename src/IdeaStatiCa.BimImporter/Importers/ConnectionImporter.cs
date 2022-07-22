@@ -34,19 +34,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 			(ctx.OpenModel.Connections ?? (ctx.OpenModel.Connections = new List<ConnectionData>())).Add(connectionData);
 
 			///Add connection items
-			connection.ConnectedMembers.ToList().ForEach(cm => ctx.ImportConnectionItem(cm, connectionData));
+			connection.ConnectedMembers?.ToList().ForEach(cm => ctx.ImportConnectionItem(cm, connectionData));
 
-			connection.Plates.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
+			connection.Plates?.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
 
-			connection.FoldedPlates.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
+			connection.FoldedPlates?.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
 
-			connection.AnchorGrids.ToList().ForEach(a => { ctx.ImportConnectionItem(a, connectionData); });
+			connection.AnchorGrids?.ToList().ForEach(a => { ctx.ImportConnectionItem(a, connectionData); });
 
-			connection.BoltGrids.ToList().ForEach(b => { ctx.ImportConnectionItem(b, connectionData); });
+			connection.BoltGrids?.ToList().ForEach(b => { ctx.ImportConnectionItem(b, connectionData); });
 
-			connection.Welds.ToList().ForEach(w => { ctx.ImportConnectionItem(w, connectionData); });
+			connection.Welds?.ToList().ForEach(w => { ctx.ImportConnectionItem(w, connectionData); });
 
-			connection.Cuts.ToList().ForEach(c => { ctx.ImportConnectionItem(c, connectionData); });
+			connection.Cuts?.ToList().ForEach(c => { ctx.ImportConnectionItem(c, connectionData); });
 
 			return connectionPoint;
 		}
