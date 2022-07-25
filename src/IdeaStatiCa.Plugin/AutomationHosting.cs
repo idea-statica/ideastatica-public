@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET48
+
+using System;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Description;
@@ -148,7 +150,7 @@ namespace IdeaStatiCa.Plugin
 							if (counter > 200)
 							{
 								ideaLogger.LogInformation($"Could not open client '{feaPluginUrl}' within 20s timeout. Throwing an exception.");
-								throw new CommunicationException("Could not open client '{feaPluginUrl}' within 20s timeout.");
+								throw new InvalidOperationException("Could not open client '{feaPluginUrl}' within 20s timeout.");
 							}
 							counter++;
 						}
@@ -421,3 +423,4 @@ namespace IdeaStatiCa.Plugin
 		#endregion IDisposable Support
 	}
 }
+#endif

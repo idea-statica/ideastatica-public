@@ -357,3 +357,5 @@ src/Examples/CCM/FakeCCM/FEAppTest/Properties/Resources.*.resx
 src/Examples/CCM/FakeCCM/IdeaStatiCaFake/Properties/Resources.*.resx
 src/Examples/ConnHiddenCalc/ConnectionAutomationApp/Properties/Resources.*.resx
 src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/Properties/Resources.*.resx
+
+!FolderProfile.pubxml

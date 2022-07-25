@@ -140,7 +140,7 @@ namespace IdeaStatiCa.Plugin.Utilities
 			// Do we need to iterate all types in all loaded assemblies ?
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				if (a.ManifestModule.Name == "IdeaRS.OpenModel.dll")
+				if (a.ManifestModule.Name == "IdeaRS.OpenModel.dll" || a.ManifestModule.Name == "IdeaStatiCa.Plugin.dll")
 				{
 					try
 					{

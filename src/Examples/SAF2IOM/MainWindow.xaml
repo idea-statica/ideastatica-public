@@ -1,0 +1,23 @@
+﻿<Window x:Class="SAF2IOM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAF2IOM"
+        mc:Ignorable="d"
+        Title="Converter from SAF to IOM" Height="450" Width="800">
+
+	<DockPanel LastChildFill="True">
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar>
+				<Button Command="{Binding OpenSafCommand}">Open SAF</Button>
+				<Button Command="{Binding SaveIomCommand}">Save IOM</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<Grid>
+			<ScrollViewer>
+				<TextBox Text="{Binding IOM}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
+			</ScrollViewer>
+		</Grid>
+	</DockPanel>
+</Window>

@@ -1,4 +1,6 @@
-﻿using IdeaRS.OpenModel;
+﻿#if NET48
+
+using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
 using System;
 using System.Collections.Generic;
@@ -99,3 +101,5 @@ namespace IdeaStatiCa.Plugin
 		protected IIdeaStaticaApp Service => base.Channel;
 	}
 }
+
+#endif

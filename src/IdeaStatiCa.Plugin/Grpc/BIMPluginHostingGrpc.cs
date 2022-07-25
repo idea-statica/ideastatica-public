@@ -3,7 +3,6 @@ using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
 using System;
 using System.Diagnostics;
-using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -202,7 +201,7 @@ namespace IdeaStatiCa.Plugin
 					string msg = string.Format("BIMPluginHostingGrpc.RunIdeaIdeaStatiCa FAILED : the application '{0}' with process id {1} do not respond {2}ms timeout.", exePath, connectionProc.Id, OpenServerTimeLimit);
 					ideaLogger.LogWarning(msg);
 
-					throw new CommunicationException(msg);
+					throw new InvalidOperationException(msg);
 				}
 				syncEvent.Close();
 			}
