@@ -30,7 +30,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 
 			ConnectionData connectionData = new ConnectionData();
+
 			connectionData.ConenctionPointId = connectionPoint.Id;
+
 			(ctx.OpenModel.Connections ?? (ctx.OpenModel.Connections = new List<ConnectionData>())).Add(connectionData);
 
 			///Add connection items

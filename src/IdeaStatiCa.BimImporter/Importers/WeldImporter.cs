@@ -22,7 +22,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				ConnectedPartIds = weld.ConnectedParts.Select(cp => cp.Id).ToList(),
 				Start = ctx.Import(weld.Start).Element as Point3D,
 				End = ctx.Import(weld.End).Element as Point3D,
-				Material = weld.Material.Name,
+				Material = weld.Material?.Name,
 				Thickness = weld.Thickness,
 				Name = weld.Name,
 				WeldType = weld.WeldType

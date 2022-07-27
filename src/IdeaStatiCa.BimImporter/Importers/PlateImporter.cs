@@ -27,7 +27,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				AxisZ = lcs.VecZ,
 				Material = plate.Material.Name,
 				Name = plate.Name,
-				OriginalModelId = plate.Token.ToString(),
+				OriginalModelId = plate.Id,
 				Origin = ctx.Import(plate.Origin).Element as Point3D,
 				Thickness = plate.Thickness,
 				IsNegativeObject = plate is IIdeaNegativePlate,

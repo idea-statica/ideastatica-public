@@ -112,6 +112,11 @@ namespace IdeaStatiCa.BimImporter
 			ReferenceElement refElm = new ReferenceElement(iomObject);
 			_refElements.Add(obj, refElm);
 
+			if (iomObject is ConnectionPoint cp && OpenModel.Connections.Count > 0)
+			{
+				OpenModel.Connections[OpenModel.Connections.Count - 1].ConenctionPointId = cp.Id;
+			}
+
 			return refElm;
 		}
 

@@ -27,9 +27,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 					PlanePoint = ctx.Import(workPlane.Origin).Element as Point3D,
 
 				};
+				var beamIOM = connectionData.Beams.Find(b => b.OriginalModelId == cut.ModifiedObject.Id);
+				if (beamIOM != null)
+				{
+					(beamIOM.Cuts ?? (beamIOM.Cuts = new List<CutData>())).Add(cutData);
+				}
 
-				var beam = ctx.ImportConnectionItem(cut.ModifiedObject, connectionData) as BeamData;
-				(beam.Cuts ?? (beam.Cuts = new List<CutData>())).Add(cutData);
 				return cutData;
 			}
 			else

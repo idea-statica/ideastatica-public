@@ -34,6 +34,8 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 			Node = node;
 			ConnectedMembers = members.Select(x => new ConnectedMember(x)).ToList();
 			Plates = new List<IIdeaPlate>();
+			Welds = new List<IIdeaWeld>();
+			Cuts = new List<IIdeaCut>();
 		}
 	}
 }
