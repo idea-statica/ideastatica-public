@@ -5,7 +5,7 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// CrossSectionFactory
 	/// </summary>
-	public partial class CrossSectionFactory
+	public static partial class CrossSectionFactory
 	{
 		/// <summary>
 		/// Fill parameters for cold formed Z section
@@ -19,7 +19,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed Z section<br/>
 		/// <img src="Images\CFZ.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -36,13 +36,12 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedZ(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, bool Mirror)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFZ;
+			css.CrossSectionType = CrossSectionType.CFZ;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
 			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = Mirror });
-
 		}
 
 		/// <summary>
@@ -57,7 +56,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed Z section<br/>
 		/// <img src="Images\CFZ.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -74,14 +73,13 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedC(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double lip)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFC;
+			css.CrossSectionType = CrossSectionType.CFC;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
 			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
 		}
-
 
 		/// <summary>
 		/// Fill parameters for cold formed C channel
@@ -94,7 +92,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed CFU section<br/>
 		/// <img src="Images\CFU.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -110,13 +108,12 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedChannel(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFU;
+			css.CrossSectionType = CrossSectionType.CFU;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "InsideRadius", Value = Radius });
 		}
-
 
 		/// <summary>
 		/// Fill parameters for cold formed Z-ed section
@@ -131,7 +128,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed Z-ed section<br/>
 		/// <img src="Images\CFZed.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -149,14 +146,13 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedZed(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double Lip, bool Mirror)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFZed;
+			css.CrossSectionType = CrossSectionType.CFZed;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
 			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = Lip });
 			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = Mirror });
-
 		}
 
 		/// <summary>
@@ -171,7 +167,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed Omega section<br/>
 		/// <img src="Images\CFOmega.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -188,7 +184,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedOmega(CrossSectionParameter css, double Width, double Height, double FlangeWidth, double Thickness, double Radius)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFOmega;
+			css.CrossSectionType = CrossSectionType.CFOmega;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeWidth", Value = FlangeWidth });
@@ -207,7 +203,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed L section<br/>
 		/// <img src="Images\CFL.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -223,7 +219,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedL(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFL;
+			css.CrossSectionType = CrossSectionType.CFL;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
@@ -242,7 +238,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed L - gen section<br/>
 		/// <img src="Images\CFLgen.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -259,7 +255,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedLgen(CrossSectionParameter css, double Width, double Height, double Angle, double Thickness, double Radius)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFLgen;
+			css.CrossSectionType = CrossSectionType.CFLgen;
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Angle", Value = Angle });
@@ -278,7 +274,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed Regular polygon section<br/>
 		/// <img src="Images\CFRegP.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -294,7 +290,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedRegularPolygon(CrossSectionParameter css, double Radius, int Number, double Thickness, double InsideRadius)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFRegPolygon;
+			css.CrossSectionType = CrossSectionType.CFRegPolygon;
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
 			css.Parameters.Add(new ParameterInt() { Name = "Number", Value = Number });
 			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
@@ -316,7 +312,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed sigma section<br/>
 		/// <img src="Images\CFSigma.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -336,7 +332,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedSigma(CrossSectionParameter css, double Height, double Width, double Lip, double Thickness, double InsideRadius, double HeightMiddle, double HeightEdge, double Depth)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CFSigma;
+			css.CrossSectionType = CrossSectionType.CFSigma;
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = Lip });
@@ -358,7 +354,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <remarks>Dimension of cold formed RHS section<br/>
 		/// <img src="Images\CFRHS.png" /> <br/>
 		/// </remarks>
-		/// <example> 
+		/// <example>
 		/// This sample shows how to call this method./>
 		/// <code lang = "C#">
 		/// CrossSectionParameter css = new CrossSectionParameter();
@@ -374,7 +370,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// </example>
 		public static void FillColdFormedRHS(CrossSectionParameter css, double Height, double Width, double Thickness, double InsideRadius)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledRHS;
+			css.CrossSectionType = CrossSectionType.RolledRHS;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = Height });
 			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = Thickness });
@@ -386,7 +382,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <summary>
 		/// Fill center line for general cold formed css
 		/// </summary>
-		/// <param name="gcf"></param>		
+		/// <param name="gcf"></param>
 		/// <param name="region2D">We need PolyLine2D from region2D</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="InsideRadius">Inside radius</param>
@@ -396,6 +392,5 @@ namespace IdeaRS.OpenModel.CrossSection
 			gcf.Thickness = Thickness;
 			gcf.Radius = InsideRadius;
 		}
-
 	}
 }

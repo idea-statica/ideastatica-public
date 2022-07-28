@@ -3,7 +3,7 @@
 	/// <summary>
 	/// CrossSectionFactory
 	/// </summary>
-	public partial class CrossSectionFactory
+	public static partial class CrossSectionFactory
 	{
 		/// <summary>
 		/// Fill steel section of welded I
@@ -31,9 +31,9 @@
 		/// </code>
 		/// </example>
 
-		public static void FillWeldedI(CrossSectionParameter css, System.Double bu, System.Double hw, System.Double tw, System.Double tf)
+		public static void FillWeldedI(CrossSectionParameter css, double bu, double hw, double tw, double tf)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Iw;
+			css.CrossSectionType = CrossSectionType.Iw;
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeWidth", Value = bu });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
@@ -67,7 +67,7 @@
 		/// </example>
 		public static void FillWeldedT(CrossSectionParameter css, double b, double h, double tw, double tf)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Tw;
+			css.CrossSectionType = CrossSectionType.Tw;
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeWidth", Value = b });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = h });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
@@ -108,7 +108,7 @@
 		/// </example>
 		public static void FillWeldedU(CrossSectionParameter cssO, double b, double hw, double tw, double tf, double rw, double rf, double taperF)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledUPar;
+			cssO.CrossSectionType = CrossSectionType.RolledUPar;
 			cssO.Parameters.Add(new ParameterDouble() { Name = "b", Value = b });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "hw", Value = hw });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "tw", Value = tw });
@@ -152,7 +152,7 @@
 		/// </example>
 		public static void FillCssSteelAngle(CrossSectionParameter css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledAngle;
+			css.CrossSectionType = CrossSectionType.RolledAngle;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
 			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = D });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
@@ -196,7 +196,7 @@
 		/// </example>
 		public static void FillCssIarc(CrossSectionParameter css, double cssGeomB, double cssGeomH, double cssGeomS, double cssGeomT, double cssGeomR2, double tapperF, double r1)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledI;
+			css.CrossSectionType = CrossSectionType.RolledI;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = cssGeomB });
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = cssGeomH });
 			css.Parameters.Add(new ParameterDouble() { Name = "s", Value = cssGeomS });
@@ -241,7 +241,7 @@
 		/// </example>
 		public static void FillCssTarc(CrossSectionParameter css, double cssGeomB, double cssGeomH, double cssGeomTw, double cssGeomTf, double cssGeomR, double cssGeomR1, double cssGeomR2, double tapperF, double tapperW)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledT;
+			css.CrossSectionType = CrossSectionType.RolledT;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = cssGeomB });
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = cssGeomH });
 			css.Parameters.Add(new ParameterDouble() { Name = "Tw", Value = cssGeomTw });
@@ -282,9 +282,9 @@
 		/// openStructModel.AddObject(css);
 		/// </code>
 		/// </example>
-		public static void FillWeldedAsymI(CrossSectionParameter css, System.Double bu, System.Double bb, System.Double hw, System.Double tw, System.Double tfu, System.Double tfb)
+		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.Iwn;
+			css.CrossSectionType = CrossSectionType.Iwn;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
@@ -326,7 +326,7 @@
 		/// </example>
 		public static void FillShapeDblU(CrossSectionParameter css, double bt, double bb, double h, double tb, double tl, double tr, double dis)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledDoubleUo;
+			css.CrossSectionType = CrossSectionType.RolledDoubleUo;
 			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = bt });
 			css.Parameters.Add(new ParameterDouble() { Name = "Bb", Value = bb });
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
@@ -347,9 +347,9 @@
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tfu">Upper flange thickness</param>
 		/// <param name="tfb">Bottom flange thickness</param>
-		public static void FillBox2(CrossSectionParameter css, System.Double bu, System.Double bb, System.Double hw, System.Double b1, System.Double tw, System.Double tfu, System.Double tfb)
+		public static void FillBox2(CrossSectionParameter css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.BoxFl;
+			css.CrossSectionType = CrossSectionType.BoxFl;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
@@ -365,9 +365,9 @@
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="D">Diameter</param>
 		/// <param name="t">thickness</param>
-		public static void FillCHSPar(CrossSectionParameter css, System.Double D, System.Double t)
+		public static void FillCHSPar(CrossSectionParameter css, double D, double t)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CHSPar;
+			css.CrossSectionType = CrossSectionType.CHSPar;
 			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = D / 2.0 });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
 		}
@@ -386,7 +386,7 @@
 		/// <returns></returns>
 		public static void FillCssSteelChannel(CrossSectionParameter css, double B, double D, double tw, double tf, double rw, double rf, double taperF)
 		{
-			css.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledU;
+			css.CrossSectionType = CrossSectionType.RolledU;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
 			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = D });
 			css.Parameters.Add(new ParameterDouble() { Name = "tw", Value = tw });
@@ -409,7 +409,7 @@
 		/// <returns></returns>
 		public static void FillCssSteelRectangularHollow(CrossSectionParameter cssO, double D, double B, double t, double r1, double r2, double d)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledRHS;
+			cssO.CrossSectionType = CrossSectionType.RolledRHS;
 			cssO.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "D", Value = D });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
@@ -440,7 +440,7 @@
 		/// <returns></returns>
 		public static void FillWelded2Uc(CrossSectionParameter cssO, string name, double Distance)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledDoubleUc;
+			cssO.CrossSectionType = CrossSectionType.RolledDoubleUc;
 			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
@@ -454,7 +454,7 @@
 		/// <returns></returns>
 		public static void FillWelded2Lt(CrossSectionParameter cssO, string name, double Distance)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledDoubleLt;
+			cssO.CrossSectionType = CrossSectionType.RolledDoubleLt;
 			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
@@ -468,7 +468,7 @@
 		/// <returns></returns>
 		public static void FillSteelTI(CrossSectionParameter cssO, string name, double H)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledTI;
+			cssO.CrossSectionType = CrossSectionType.RolledTI;
 			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "H", Value = H });
 		}
@@ -482,7 +482,7 @@
 		/// <returns></returns>
 		public static void FillWelded2Lu(CrossSectionParameter cssO, string name, double Distance)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledDoubleLu;
+			cssO.CrossSectionType = CrossSectionType.RolledDoubleLu;
 			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
@@ -496,7 +496,7 @@
 		/// <returns></returns>
 		public static void FillSteelTube(CrossSectionParameter cssO, double r, double t)
 		{
-			cssO.CrossSectionType = IdeaRS.OpenModel.CrossSection.CrossSectionType.CHSPar;
+			cssO.CrossSectionType = CrossSectionType.CHSPar;
 			cssO.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
 			cssO.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
