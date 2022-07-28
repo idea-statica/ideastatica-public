@@ -1,3 +1,4 @@
+using IdeaRS.OpenModel.Model;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
@@ -15,7 +16,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Type of member: beam, column, truss, rib or beamslab.
 		/// </summary>
-		IdeaRS.OpenModel.Model.Member1DType Type { get; }
+		Member1DType Type { get; }
 
 		/// <summary>
 		/// Elements this member consists of. Always returns a valid list with at least one element.
@@ -31,10 +32,29 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		List<IIdeaElement1D> Elements { get; }
 
-		// IdeaReleases startReleases;
+		/// <summary>
+		/// Taper for specifying haunched member.
+		/// </summary>
+		IIdeaTaper Taper { get; }
 
-		// IdeaReleases endReleases;
+		/// <summary>
+		/// Cross-section of the member.
+		/// </summary>
+		IIdeaCrossSection CrossSection { get; }
 
-		// void midPoint;
+		/// <summary>
+		/// Alignment of the member's cross-section. Eccentricities are added up to the alignment.
+		/// </summary>
+		Alignment Alignment { get; }
+
+		/// <summary>
+		/// Mirrors the cross-section of this member on the Y-axis.
+		/// </summary>
+		bool MirrorY { get; }
+
+		/// <summary>
+		/// Mirrors the cross-section of this member on the Z-axis.
+		/// </summary>
+		bool MirrorZ { get; }
 	}
 }
