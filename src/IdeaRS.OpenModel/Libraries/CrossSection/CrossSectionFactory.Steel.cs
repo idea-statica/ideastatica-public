@@ -13,24 +13,6 @@
 		/// <param name="hw">Height of web</param>
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tf">Flange thickness</param>
-		/// <remarks>Dimension of welded I section<br/>
-		/// <img src="Images\WeldedI.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 1;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());  // I have only one material, I take the first one
-		/// double bu = 0.2;
-		/// double hw = 0.4;
-		/// double tw = 0.025;
-		/// double tf = 0.02;
-		/// CrossSectionFactory.FillWeldedI(css, bu, hw, tw, tf);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
-
 		public static void FillWeldedI(CrossSectionParameter css, double bu, double hw, double tw, double tf)
 		{
 			css.CrossSectionType = CrossSectionType.Iw;
@@ -48,23 +30,6 @@
 		/// <param name="h">Height of web</param>
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tf">Flange thickness</param>
-		/// <remarks>Dimension of welded T section<br/>
-		/// <img src="Images\WeldedT.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 2;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double b = 0.2;
-		/// double h = 0.4;
-		/// double tw = 0.02;
-		/// double tf = 0.35;
-		/// CrossSectionFactory.FillWeldedT(css, b, h, tw, tf);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillWeldedT(CrossSectionParameter css, double b, double h, double tw, double tf)
 		{
 			css.CrossSectionType = CrossSectionType.Tw;
@@ -85,27 +50,6 @@
 		/// <param name="rw">root radius</param>
 		/// <param name="rf">flange edge rounding radius</param>
 		/// <param name="taperF">Flange taper</param>
-		/// <returns></returns>
-		/// <remarks>Dimension of channel section<br/>
-		/// <img src="Images\WeldedC.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 3;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double b = 0.2;
-		/// double hw = 0.4;
-		/// double tw = 0.025;
-		/// double tf= 0.02;
-		/// double rw= 0.004;
-		/// double rf = 0.002;
-		/// double taperF = 0.001;
-		/// CrossSectionFactory.FillWeldedU(css, b, hw, tw, tf, rw, rf, taperF);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillWeldedU(CrossSectionParameter cssO, double b, double hw, double tw, double tf, double rw, double rf, double taperF)
 		{
 			cssO.CrossSectionType = CrossSectionType.RolledUPar;
@@ -129,27 +73,6 @@
 		/// <param name="r2">toe radius</param>
 		/// <param name="C">centroid position</param>
 		/// <param name="mirrorZ">profile can be mirrored</param>
-		/// <returns></returns>
-		/// <remarks>Dimension of angle section<br/>
-		/// <img src="Images\WeldedL.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 4;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double B = 0.2;
-		/// double D = 0.4;
-		/// double t = 0.025;
-		/// double rw = 0.004;
-		/// double r2 = 0.002;
-		/// double C = 0.0;
-		/// bool mirrorZ = false;
-		/// CrossSectionFactory.FillCssSteelAngle(css, B, D, t, rw, r2, C, mirrorZ);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillCssSteelAngle(CrossSectionParameter css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledAngle;
@@ -173,27 +96,7 @@
 		/// <param name="cssGeomR2">inside radius</param>
 		/// <param name="tapperF">Flange tapper</param>
 		/// <param name="r1">Flange edge rounding radius</param>
-		/// <returns></returns>
 		/// <remarks>Dimension of parametric I section<br/>
-		/// <img src="Images\Iarc.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 8;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double cssGeomB = 0.25;
-		/// double cssGeomH = 0.45;
-		/// double cssGeomS = 0.02;
-		/// double cssGeomT = 0.03;
-		/// double cssGeomR2 = 0.012;
-		/// double tapperF = Math.PI / 180.0 * 5.0;
-		/// double r1 = 0.015;
-		/// CrossSectionFactory.FillCssIarc(css, cssGeomB, cssGeomH, cssGeomS, cssGeomT, cssGeomR2, tapperF, r1);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillCssIarc(CrossSectionParameter css, double cssGeomB, double cssGeomH, double cssGeomS, double cssGeomT, double cssGeomR2, double tapperF, double r1)
 		{
 			css.CrossSectionType = CrossSectionType.RolledI;
@@ -219,26 +122,6 @@
 		/// <param name="cssGeomR2">Web edge rounding radius</param>
 		/// <param name="tapperF">Flange tapper</param>
 		/// <param name="tapperW">Web tapper</param>
-		/// <returns></returns>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 9;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double cssGeomB = 0.25;
-		/// double cssGeomH = 0.30;
-		/// double cssGeomTw = 0.02;
-		/// double cssGeomTf = 0.03;
-		/// double cssGeomR = 0.015;
-		/// double cssGeomR1 = 0.008;
-		/// double cssGeomR2 = 0.0010;
-		/// double tapperF = Math.PI / 180.0 * 5.0;
-		/// double tapperW = Math.PI / 180.0 * 7.0;
-		/// CrossSectionFactory.FillCssTarc(css, cssGeomB, cssGeomH, cssGeomTw, cssGeomTf, cssGeomR, cssGeomR1, cssGeomR2, tapperF, tapperW);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillCssTarc(CrossSectionParameter css, double cssGeomB, double cssGeomH, double cssGeomTw, double cssGeomTf, double cssGeomR, double cssGeomR1, double cssGeomR2, double tapperF, double tapperW)
 		{
 			css.CrossSectionType = CrossSectionType.RolledT;
@@ -263,25 +146,6 @@
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tfu">Upper flange thickness</param>
 		/// <param name="tfb">Bottom flange thickness</param>
-		/// <remarks>Dimension of assymetrical I section<br/>
-		/// <img src="Images\Iasym.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 4;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double bu = 0.150;
-		/// double bb = 0.180;
-		/// double hw = 0.320;
-		/// double tw = 0.016;
-		/// double tfu = 0.014;
-		/// double tfb = 0.018;
-		/// CrossSectionFactory.FillWeldedAsymI(css, bu, bb, hw, tw, tfu, tfb);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb)
 		{
 			css.CrossSectionType = CrossSectionType.Iwn;
@@ -304,26 +168,6 @@
 		/// <param name="tl">The left deck thickness.</param>
 		/// <param name="tr">The right deck thickness.</param>
 		/// <param name="dis">Distance between ][</param>
-		/// <remarks>Dimension of assymetrical I section<br/>
-		/// <img src="Images\Iasym.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 5;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double bt = 0.150;
-		/// double bb = 0.180;
-		/// double h = 0.320;
-		/// double tb = 0.016;
-		/// double tfu = 0.014;
-		/// double tfb = 0.018;
-		/// double dis= 0.025;
-		/// CrossSectionFactory.FillShapeDblU(css, bt, bb, h, tb, tl, tr, dis);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillShapeDblU(CrossSectionParameter css, double bt, double bb, double h, double tb, double tl, double tr, double dis)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleUo;
@@ -383,7 +227,6 @@
 		/// <param name="rw">root radius</param>
 		/// <param name="rf">flange edge rounding radius</param>
 		/// <param name="taperF">Flange taper</param>
-		/// <returns></returns>
 		public static void FillCssSteelChannel(CrossSectionParameter css, double B, double D, double tw, double tf, double rw, double rf, double taperF)
 		{
 			css.CrossSectionType = CrossSectionType.RolledU;
@@ -406,7 +249,6 @@
 		/// <param name="r1">inner radius</param>
 		/// <param name="r2">outer radius</param>
 		/// <param name="d">web buckling depth</param>
-		/// <returns></returns>
 		public static void FillCssSteelRectangularHollow(CrossSectionParameter cssO, double D, double B, double t, double r1, double r2, double d)
 		{
 			cssO.CrossSectionType = CrossSectionType.RolledRHS;
@@ -437,7 +279,6 @@
 		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="Distance">Distance</param>
-		/// <returns></returns>
 		public static void FillWelded2Uc(CrossSectionParameter cssO, string name, double Distance)
 		{
 			cssO.CrossSectionType = CrossSectionType.RolledDoubleUc;
@@ -451,7 +292,6 @@
 		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="Distance">Distance</param>
-		/// <returns></returns>
 		public static void FillWelded2Lt(CrossSectionParameter cssO, string name, double Distance)
 		{
 			cssO.CrossSectionType = CrossSectionType.RolledDoubleLt;
@@ -465,7 +305,6 @@
 		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="H">Height</param>
-		/// <returns></returns>
 		public static void FillSteelTI(CrossSectionParameter cssO, string name, double H)
 		{
 			cssO.CrossSectionType = CrossSectionType.RolledTI;
@@ -479,7 +318,6 @@
 		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="Distance">Distance</param>
-		/// <returns></returns>
 		public static void FillWelded2Lu(CrossSectionParameter cssO, string name, double Distance)
 		{
 			cssO.CrossSectionType = CrossSectionType.RolledDoubleLu;
@@ -493,7 +331,6 @@
 		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="r">The radius of circle.</param>
 		/// <param name="t">The thickness of wall.</param>
-		/// <returns></returns>
 		public static void FillSteelTube(CrossSectionParameter cssO, double r, double t)
 		{
 			cssO.CrossSectionType = CrossSectionType.CHSPar;

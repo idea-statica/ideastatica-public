@@ -16,24 +16,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
 		/// <param name="Mirror">Mirrored shape</param>
-		/// <remarks>Dimension of cold formed Z section<br/>
-		/// <img src="Images\CFZ.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 6;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.15;
-		/// double Height = 0.20;
-		/// double Thickness = 0.003;
-		/// double Radius = 0.005;
-		/// bool Mirror = false;
-		/// CrossSectionFactory.FillColdFormedZ(css, Width, Height, Thickness, Radius, Mirror);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedZ(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, bool Mirror)
 		{
 			css.CrossSectionType = CrossSectionType.CFZ;
@@ -53,24 +35,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
 		/// <param name="lip">Lip length</param>
-		/// <remarks>Dimension of cold formed Z section<br/>
-		/// <img src="Images\CFZ.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 6;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.15;
-		/// double Height = 0.20;
-		/// double Thickness = 0.003;
-		/// double Radius = 0.005;
-		/// bool Mirror = false;
-		/// CrossSectionFactory.FillColdFormedC(css, Width, Height, Thickness, Radius, Mirror);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedC(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double lip)
 		{
 			css.CrossSectionType = CrossSectionType.CFC;
@@ -89,23 +53,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Height">Height of cross-section</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
-		/// <remarks>Dimension of cold formed CFU section<br/>
-		/// <img src="Images\CFU.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 6;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.15;
-		/// double Height = 0.20;
-		/// double Thickness = 0.003;
-		/// double InsideRadius = 0.005;
-		/// CrossSectionFactory.FillColdFormedC(css, Width, Height, Thickness, Radius);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedChannel(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius)
 		{
 			css.CrossSectionType = CrossSectionType.CFU;
@@ -125,25 +72,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Radius">Inside radius</param>
 		/// <param name="Lip">Lip length</param>
 		/// <param name="Mirror">Mirrored shape</param>
-		/// <remarks>Dimension of cold formed Z-ed section<br/>
-		/// <img src="Images\CFZed.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 7;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.15;
-		/// double Height = 0.20;
-		/// double Thickness = 0.004;
-		/// double Radius = 0.01;
-		/// double Lip = 0.02;
-		/// bool Mirror = false;
-		/// CrossSectionFactory.FillColdFormedZed(css, Width, Height, Thickness, Radius, Lip, Mirror);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedZed(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double Lip, bool Mirror)
 		{
 			css.CrossSectionType = CrossSectionType.CFZed;
@@ -164,24 +92,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="FlangeWidth">Flange width</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
-		/// <remarks>Dimension of cold formed Omega section<br/>
-		/// <img src="Images\CFOmega.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 8;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.20;
-		/// double Height = 0.10;
-		/// double FlangeWidth = 0.10;
-		/// double Thickness = 0.003;
-		/// double Radius = 0.005;
-		/// CrossSectionFactory.FillColdFormedOmega(css, Width, Height, FlangeWidth, Thickness, Radius);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedOmega(CrossSectionParameter css, double Width, double Height, double FlangeWidth, double Thickness, double Radius)
 		{
 			css.CrossSectionType = CrossSectionType.CFOmega;
@@ -200,23 +110,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Height">Vertical leg length</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
-		/// <remarks>Dimension of cold formed L section<br/>
-		/// <img src="Images\CFL.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 9;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.10;
-		/// double Height = 0.10;
-		/// double Thickness = 0.003;
-		/// double Radius = 0.005;
-		/// CrossSectionFactory.FillColdFormedL(css, Width, Height, Thickness, Radius);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedL(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius)
 		{
 			css.CrossSectionType = CrossSectionType.CFL;
@@ -235,24 +128,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Angle">Angle between legs</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
-		/// <remarks>Dimension of cold formed L - gen section<br/>
-		/// <img src="Images\CFLgen.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 10;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Width = 0.10;
-		/// double Height = 0.10;
-		/// double Angle = Math.PI / 2.0;
-		/// double Thickness = 0.003;
-		/// double Radius = 0.005;
-		/// CrossSectionFactory.FillColdFormedLgen(css, Width, Height, Angle, Thickness, Radius);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedLgen(CrossSectionParameter css, double Width, double Height, double Angle, double Thickness, double Radius)
 		{
 			css.CrossSectionType = CrossSectionType.CFLgen;
@@ -271,23 +146,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Number">Number</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="InsideRadius">Inside radius</param>
-		/// <remarks>Dimension of cold formed Regular polygon section<br/>
-		/// <img src="Images\CFRegP.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 11;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Radius = 0.10;
-		/// int Number = 8;
-		/// double Thickness = 0.003;
-		/// double InsideRadius = 0.005;
-		/// CrossSectionFactory.FillColdFormedRegularPolygon(css, Radius, Number, Thickness, InsideRadius);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedRegularPolygon(CrossSectionParameter css, double Radius, int Number, double Thickness, double InsideRadius)
 		{
 			css.CrossSectionType = CrossSectionType.CFRegPolygon;
@@ -309,27 +167,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="HeightMiddle">Height of middle part</param>
 		/// <param name="HeightEdge">Height of edge part</param>
 		/// <param name="Depth">Depth of web-fold</param>
-		/// <remarks>Dimension of cold formed sigma section<br/>
-		/// <img src="Images\CFSigma.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 12;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Height = 0.20;
-		/// double Width = 0.15;
-		/// double Lip = 0.02;
-		/// double Thickness = 0.005;
-		/// double InsideRadius = 0.010;
-		/// double HeightMiddle = 0.10;
-		/// double HeightEdge = 0.035;
-		/// double Depth = 0.035;
-		/// CrossSectionFactory.FillColdFormedSigma(css, Height, Width, Lip, Thickness, InsideRadius, HeightMiddle, HeightEdge, Depth);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedSigma(CrossSectionParameter css, double Height, double Width, double Lip, double Thickness, double InsideRadius, double HeightMiddle, double HeightEdge, double Depth)
 		{
 			css.CrossSectionType = CrossSectionType.CFSigma;
@@ -351,23 +188,6 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Width">Width</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="InsideRadius">Inside radius</param>
-		/// <remarks>Dimension of cold formed RHS section<br/>
-		/// <img src="Images\CFRHS.png" /> <br/>
-		/// </remarks>
-		/// <example>
-		/// This sample shows how to call this method./>
-		/// <code lang = "C#">
-		/// CrossSectionParameter css = new CrossSectionParameter();
-		/// css.Id = 13;
-		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
-		/// double Height = 0.20;
-		/// double Width = 0.15;
-		/// double Thickness = 0.005;
-		/// double InsideRadius = 0.010;
-		/// CrossSectionFactory.FillColdFormedRHS(css, Width, Height, Thickness, InsideRadius);
-		/// openStructModel.AddObject(css);
-		/// </code>
-		/// </example>
 		public static void FillColdFormedRHS(CrossSectionParameter css, double Height, double Width, double Thickness, double InsideRadius)
 		{
 			css.CrossSectionType = CrossSectionType.RolledRHS;

@@ -17,7 +17,6 @@
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="width">Width of the rectangle</param>
 		/// <param name="height">Height of the rectangle</param>
-		/// <returns></returns>
 		public static void FillRectangle(CrossSectionParameter css, double width, double height)
 		{
 			css.CrossSectionType = CrossSectionType.Rect;
@@ -30,14 +29,12 @@
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="d">Diametrer of the shape</param>
-		/// <returns></returns>
 		public static void FillCircle(CrossSectionParameter css, double d)
 		{
 			css.CrossSectionType = CrossSectionType.O;
 			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = d });
 		}
 
-		//TODO DUS Missing xml params
 		/// <summary>
 		/// I shape base - massive concrete shape
 		/// </summary>
@@ -211,7 +208,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WallWidth", Value = bw });
 		}
 
-		//TODO DUS Missing xml params
 		/// <summary>
 		/// T turned shape - massive concrete shape
 		/// </summary>
@@ -277,7 +273,6 @@
 		/// <param name="thickRight">The thickness at the rigth side.</param>
 		/// <param name="thickTop">The thickness at the top.</param>
 		/// <param name="thickBottom">The thickness at the bottom.</param>
-		/// <returns></returns>
 		public static void FillCssRectangleHollow(CrossSectionParameter cssO, double width, double height, double thickLeft, double thickRight, double thickTop, double thickBottom)
 		{
 			cssO.CrossSectionType = CrossSectionType.RHSg;
@@ -295,7 +290,6 @@
 		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="r">The radius of circle.</param>
 		/// <param name="t">The thickness of wall.</param>
-		/// <returns></returns>
 		public static void FillOHollow(CrossSectionParameter cssO, double r, double t)
 		{
 			cssO.CrossSectionType = CrossSectionType.CHSg;
