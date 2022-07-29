@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+
 namespace IdeaRS.OpenModel.Geometry3D
 {
 	/// <summary>
@@ -11,21 +12,21 @@ namespace IdeaRS.OpenModel.Geometry3D
 		/// <summary>
 		/// Gets or sets the X-dirrection value
 		/// </summary>
-		[OpenModelPropertyAttribute("DirectionX")]
+		[OpenModelProperty("DirectionX")]
 		[DataMember]
 		public double X { get; set; }
 
 		/// <summary>
 		/// Gets or sets the Y-dirrection value
 		/// </summary>
-		[OpenModelPropertyAttribute("DirectionY")]
+		[OpenModelProperty("DirectionY")]
 		[DataMember]
 		public double Y { get; set; }
 
 		/// <summary>
 		/// Gets or sets the Z-dirrection value
 		/// </summary>
-		[OpenModelPropertyAttribute("DirectionZ")]
+		[OpenModelProperty("DirectionZ")]
 		[DataMember]
 		public double Z { get; set; }
 	}

@@ -27,21 +27,18 @@ namespace IdeaStatiCa.BimImporter.Tests.Helpers
 			});
 		}
 
-		public static IIdeaElement1D CreateElement(string name, IIdeaSegment3D segment, IIdeaCrossSection cssStart,
-			IIdeaCrossSection cssEnd = null, IdeaVector3D eccentricityBegin = null, IdeaVector3D eccentricityEnd = null,
+		public static IIdeaElement1D CreateElement(string name, IIdeaSegment3D segment,
+			IdeaVector3D eccentricityBegin = null, IdeaVector3D eccentricityEnd = null,
 			double rotation = 0, string id = null)
 		{
 			id = MakeId(id);
 
-			cssEnd = cssEnd ?? cssStart;
 			eccentricityBegin = eccentricityBegin ?? new IdeaVector3D(0, 0, 0);
 			eccentricityEnd = eccentricityEnd ?? new IdeaVector3D(0, 0, 0);
 
 			IIdeaElement1D element = Substitute.For<IIdeaElement1D>();
 			element.Id.Returns(id);
 			element.Name.Returns(name);
-			element.StartCrossSection.Returns(cssStart);
-			element.EndCrossSection.Returns(cssEnd);
 			element.EccentricityBegin.Returns(eccentricityBegin);
 			element.EccentricityEnd.Returns(eccentricityEnd);
 			element.RotationRx.Returns(rotation);
@@ -50,7 +47,21 @@ namespace IdeaStatiCa.BimImporter.Tests.Helpers
 			return element;
 		}
 
-		public static IIdeaNode CreateNode(float x, float y, float z, string id = null)
+		public static IIdeaElement1D CreateElement(string id = null)
+		{
+			id = MakeId(id);
+
+			var segment = CreateLineSegment(CreateNode(), CreateNode());
+
+			IIdeaElement1D element = Substitute.For<IIdeaElement1D>();
+			element.Id.Returns(id);
+			element.Name.Returns($"element-{id}");
+			element.Segment.Returns(segment);
+
+			return element;
+		}
+
+		public static IIdeaNode CreateNode(double x = 0.0, double y = 0.0, double z = 0.0, string id = null)
 		{
 			id = MakeId(id);
 
@@ -61,6 +72,19 @@ namespace IdeaStatiCa.BimImporter.Tests.Helpers
 			node.Vector.Returns(vector);
 
 			return node;
+		}
+
+		public static IIdeaSegment3D CreateLineSegment(IIdeaNode start, IIdeaNode end, string name = null, string id = null)
+		{
+			id = MakeId(id);
+
+			IIdeaSegment3D segment = Substitute.For<IIdeaSegment3D>();
+			segment.Id.Returns(id);
+			segment.Name.Returns(name ?? $"element-{id}");
+			segment.StartNode.Returns(start);
+			segment.EndNode.Returns(end);
+
+			return segment;
 		}
 	}
 }
