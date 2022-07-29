@@ -42,7 +42,7 @@
 		/// <summary>
 		/// Fill steel section of channel shape
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="b">width</param>
 		/// <param name="hw">depth</param>
 		/// <param name="tw">web thickness</param>
@@ -50,16 +50,16 @@
 		/// <param name="rw">root radius</param>
 		/// <param name="rf">flange edge rounding radius</param>
 		/// <param name="taperF">Flange taper</param>
-		public static void FillWeldedU(CrossSectionParameter cssO, double b, double hw, double tw, double tf, double rw, double rf, double taperF)
+		public static void FillWeldedU(CrossSectionParameter css, double b, double hw, double tw, double tf, double rw, double rf, double taperF)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledUPar;
-			cssO.Parameters.Add(new ParameterDouble() { Name = "b", Value = b });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "hw", Value = hw });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "tw", Value = tw });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "tf", Value = tf });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "rw", Value = rw });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "rf", Value = rf });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = taperF });
+			css.CrossSectionType = CrossSectionType.RolledUPar;
+			css.Parameters.Add(new ParameterDouble() { Name = "b", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "hw", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "tw", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "tf", Value = tf });
+			css.Parameters.Add(new ParameterDouble() { Name = "rw", Value = rw });
+			css.Parameters.Add(new ParameterDouble() { Name = "rf", Value = rf });
+			css.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = taperF });
 		}
 
 		/// <summary>
@@ -73,7 +73,7 @@
 		/// <param name="r2">toe radius</param>
 		/// <param name="C">centroid position</param>
 		/// <param name="mirrorZ">profile can be mirrored</param>
-		public static void FillCssSteelAngle(CrossSectionParameter css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false)
+		public static void FillCssSteelAngle(CrossSectionParameter css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledAngle;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
@@ -83,6 +83,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "r2", Value = r2 });
 			css.Parameters.Add(new ParameterDouble() { Name = "C", Value = C });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
@@ -242,101 +243,139 @@
 		/// <summary>
 		/// Fill cross-section of shape rectangular for steel sections
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="D">depth</param>
 		/// <param name="B">width</param>
 		/// <param name="t">thickness</param>
 		/// <param name="r1">inner radius</param>
 		/// <param name="r2">outer radius</param>
 		/// <param name="d">web buckling depth</param>
-		public static void FillCssSteelRectangularHollow(CrossSectionParameter cssO, double D, double B, double t, double r1, double r2, double d)
+		public static void FillCssSteelRectangularHollow(CrossSectionParameter css, double D, double B, double t, double r1, double r2, double d)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledRHS;
-			cssO.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "D", Value = D });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "r1", Value = r1 });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "r2", Value = r2 });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "d", Value = d });
+			css.CrossSectionType = CrossSectionType.RolledRHS;
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
+			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = D });
+			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
+			css.Parameters.Add(new ParameterDouble() { Name = "r1", Value = r1 });
+			css.Parameters.Add(new ParameterDouble() { Name = "r2", Value = r2 });
+			css.Parameters.Add(new ParameterDouble() { Name = "d", Value = d });
 		}
 
 		/// <summary>
 		/// Circular hollow section
 		/// </summary>
-		/// <param name="cssO"></param>
+		/// <param name="css"></param>
 		/// <param name="r">Radius</param>
 		/// <param name="t">Thickness</param>
-		public static void FillCssSteelCircularHollow(CrossSectionParameter cssO, double r, double t)
+		public static void FillCssSteelCircularHollow(CrossSectionParameter css, double r, double t)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledCHS;
-			cssO.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
+			css.CrossSectionType = CrossSectionType.RolledCHS;
+			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
+			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
 		}
 
 		/// <summary>
 		/// Fill steel section Channel shape
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="Distance">Distance</param>
-		public static void FillWelded2Uc(CrossSectionParameter cssO, string name, double Distance)
+		public static void FillWelded2Uc(CrossSectionParameter css, string name, double Distance)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledDoubleUc;
-			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
+			css.CrossSectionType = CrossSectionType.RolledDoubleUc;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
 
 		/// <summary>
 		/// Fill steel section Lt shape
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="Distance">Distance</param>
-		public static void FillWelded2Lt(CrossSectionParameter cssO, string name, double Distance)
+		public static void FillWelded2Lt(CrossSectionParameter css, string name, double Distance)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledDoubleLt;
-			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
+			css.CrossSectionType = CrossSectionType.RolledDoubleLt;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
 
 		/// <summary>
 		/// Fill steel T profile made from part of I profile
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="H">Height</param>
-		public static void FillSteelTI(CrossSectionParameter cssO, string name, double H)
+		public static void FillSteelTI(CrossSectionParameter css, string name, double H)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledTI;
-			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "H", Value = H });
+			css.CrossSectionType = CrossSectionType.RolledTI;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = H });
 		}
 
 		/// <summary>
 		/// Fill steel section Lu shape
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="Distance">Distance</param>
-		public static void FillWelded2Lu(CrossSectionParameter cssO, string name, double Distance)
+		public static void FillWelded2Lu(CrossSectionParameter css, string name, double Distance)
 		{
-			cssO.CrossSectionType = CrossSectionType.RolledDoubleLu;
-			cssO.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
+			css.CrossSectionType = CrossSectionType.RolledDoubleLu;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = Distance });
 		}
 
 		/// <summary>
 		/// Fill steel tube
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="r">The radius of circle.</param>
 		/// <param name="t">The thickness of wall.</param>
-		public static void FillSteelTube(CrossSectionParameter cssO, double r, double t)
+		public static void FillSteelTube(CrossSectionParameter css, double r, double t)
 		{
-			cssO.CrossSectionType = CrossSectionType.CHSPar;
-			cssO.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
+			css.CrossSectionType = CrossSectionType.CHSPar;
+			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
+			css.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
+			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
+		}
+
+		/// <summary>
+		/// Creates a new L shape css
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">The height of css.</param>
+		/// <param name="b">The width of css.</param>
+		/// <param name="th">The bottom flange thisckness.</param>
+		/// <param name="sh">The wall thickness.</param>
+		/// <param name="dis">Distance between _||_</param>
+		public static void FillShapeDblL(CrossSectionParameter css, double h, double b, double th, double sh, double dis)
+		{
+			css.CrossSectionType = CrossSectionType.RolledDoubleLt;
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
+		}
+
+		/// <summary>
+		/// Creates a new L shape css.
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">The height of css.</param>
+		/// <param name="b">The width of css.</param>
+		/// <param name="th">The bottom flange thisckness.</param>
+		/// <param name="sh">The wall thickness.</param>
+		/// <param name="dis">Distance between _||_</param>
+		public static void FillShapeDblLu(CrossSectionParameter css, double h, double b, double th, double sh, double dis)
+		{
+			css.CrossSectionType = CrossSectionType.RolledDoubleLu;
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
 		}
 	}
 }
