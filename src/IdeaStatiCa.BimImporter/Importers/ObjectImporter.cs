@@ -18,6 +18,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
+		private readonly IImporter<IIdeaTaper> _taperImporter;
+		private readonly IImporter<IIdeaSpan> _spanImporter;
+
 		public ObjectImporter(IPluginLogger logger)
 		{
 			_nodeImporter = new NodeImporter(logger);
@@ -30,6 +33,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_loadGroupImporter = new LoadGroupImporter(logger);
 			_combiInputImporter = new CombiInputImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
+			_taperImporter = new TaperImporter(logger);
+			_spanImporter = new SpanImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -62,8 +67,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaLoadGroup loadGroup:
 					return _loadGroupImporter.Import(ctx, loadGroup);
+
 				case IIdeaCombiInput combiInput:
 					return _combiInputImporter.Import(ctx, combiInput);
+
+				case IIdeaTaper taper:
+					return _taperImporter.Import(ctx, taper);
+
+				case IIdeaSpan span:
+					return _spanImporter.Import(ctx, span);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");

@@ -1,3 +1,5 @@
+using System;
+
 namespace IdeaStatiCa.BimApi
 {
 	/// <summary>
@@ -10,11 +12,13 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Cross-section at the start of the element.
 		/// </summary>
+		//[Obsolete("Element cross-section are obsolete, use member cross-section or member spans for haunched members.")]
 		IIdeaCrossSection StartCrossSection { get; }
 
 		/// <summary>
 		/// Cross-section at the and of the element.
 		/// </summary>
+		//[Obsolete("Element cross-section are obsolete, use member cross-section or member spans for haunched members.")]
 		IIdeaCrossSection EndCrossSection { get; }
 
 		/// <summary>
