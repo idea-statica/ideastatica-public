@@ -198,35 +198,35 @@
 		/// <summary>
 		/// Fill cross-section of shape rectangular for concrete sections
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="width">The width of css.</param>
 		/// <param name="height">The height of css.</param>
 		/// <param name="thickLeft">The thickness at the left side.</param>
 		/// <param name="thickRight">The thickness at the rigth side.</param>
 		/// <param name="thickTop">The thickness at the top.</param>
 		/// <param name="thickBottom">The thickness at the bottom.</param>
-		public static void FillCssRectangleHollow(CrossSectionParameter cssO, double width, double height, double thickLeft, double thickRight, double thickTop, double thickBottom)
+		public static void FillCssRectangleHollow(CrossSectionParameter css, double width, double height, double thickLeft, double thickRight, double thickTop, double thickBottom)
 		{
-			cssO.CrossSectionType = CrossSectionType.RHSg;
-			cssO.Parameters.Add(new ParameterDouble() { Name = "W", Value = width });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "H", Value = height });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Tl", Value = thickLeft });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Tr", Value = thickRight });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = thickTop });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "Tb", Value = thickBottom });
+			css.CrossSectionType = CrossSectionType.RHSg;
+			css.Parameters.Add(new ParameterDouble() { Name = "W", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tl", Value = thickLeft });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tr", Value = thickRight });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = thickTop });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tb", Value = thickBottom });
 		}
 
 		/// <summary>
 		/// Fill massive pipe shape
 		/// </summary>
-		/// <param name="cssO">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="r">The radius of circle.</param>
 		/// <param name="t">The thickness of wall.</param>
-		public static void FillOHollow(CrossSectionParameter cssO, double r, double t)
+		public static void FillOHollow(CrossSectionParameter css, double r, double t)
 		{
-			cssO.CrossSectionType = CrossSectionType.CHSg;
-			cssO.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
-			cssO.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
+			css.CrossSectionType = CrossSectionType.CHSg;
+			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
+			css.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
 		}
 	}
 }

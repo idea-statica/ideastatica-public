@@ -90,22 +90,22 @@
 		/// Fill steel section of parametric I section
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="cssGeomB">Css width</param>
-		/// <param name="cssGeomH">Height of cross-section</param>
-		/// <param name="cssGeomS">Web thickness</param>
-		/// <param name="cssGeomT">Flange thickness</param>
-		/// <param name="cssGeomR2">inside radius</param>
+		/// <param name="B">Css width</param>
+		/// <param name="H">Height of cross-section</param>
+		/// <param name="S">Web thickness</param>
+		/// <param name="T">Flange thickness</param>
+		/// <param name="R2">inside radius</param>
 		/// <param name="tapperF">Flange tapper</param>
 		/// <param name="r1">Flange edge rounding radius</param>
 		/// <remarks>Dimension of parametric I section<br/>
-		public static void FillCssIarc(CrossSectionParameter css, double cssGeomB, double cssGeomH, double cssGeomS, double cssGeomT, double cssGeomR2, double tapperF, double r1)
+		public static void FillCssIarc(CrossSectionParameter css, double B, double H, double S, double T, double R2, double tapperF, double r1)
 		{
 			css.CrossSectionType = CrossSectionType.RolledI;
-			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = cssGeomB });
-			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = cssGeomH });
-			css.Parameters.Add(new ParameterDouble() { Name = "s", Value = cssGeomS });
-			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = cssGeomT });
-			css.Parameters.Add(new ParameterDouble() { Name = "r2", Value = cssGeomR2 });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = H });
+			css.Parameters.Add(new ParameterDouble() { Name = "s", Value = S });
+			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = T });
+			css.Parameters.Add(new ParameterDouble() { Name = "r2", Value = R2 });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = tapperF });
 			css.Parameters.Add(new ParameterDouble() { Name = "r1", Value = r1 });
 		}
@@ -114,25 +114,25 @@
 		/// Creates one item cross-section T - steel shape
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="cssGeomB">Css width</param>
-		/// <param name="cssGeomH">Height of cross-section</param>
-		/// <param name="cssGeomTw">Web thickness</param>
-		/// <param name="cssGeomTf">Flange thickness</param>
-		/// <param name="cssGeomR">Inside radius</param>
-		/// <param name="cssGeomR1">Flange edge rounding radius</param>
-		/// <param name="cssGeomR2">Web edge rounding radius</param>
+		/// <param name="B">Css width</param>
+		/// <param name="H">Height of cross-section</param>
+		/// <param name="Tw">Web thickness</param>
+		/// <param name="Tf">Flange thickness</param>
+		/// <param name="R">Inside radius</param>
+		/// <param name="R1">Flange edge rounding radius</param>
+		/// <param name="R2">Web edge rounding radius</param>
 		/// <param name="tapperF">Flange tapper</param>
 		/// <param name="tapperW">Web tapper</param>
-		public static void FillCssTarc(CrossSectionParameter css, double cssGeomB, double cssGeomH, double cssGeomTw, double cssGeomTf, double cssGeomR, double cssGeomR1, double cssGeomR2, double tapperF, double tapperW)
+		public static void FillCssTarc(CrossSectionParameter css, double B, double H, double Tw, double Tf, double R, double R1, double R2, double tapperF, double tapperW)
 		{
 			css.CrossSectionType = CrossSectionType.RolledT;
-			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = cssGeomB });
-			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = cssGeomH });
-			css.Parameters.Add(new ParameterDouble() { Name = "Tw", Value = cssGeomTw });
-			css.Parameters.Add(new ParameterDouble() { Name = "Tf", Value = cssGeomTf });
-			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = cssGeomR });
-			css.Parameters.Add(new ParameterDouble() { Name = "R1", Value = cssGeomR1 });
-			css.Parameters.Add(new ParameterDouble() { Name = "R2", Value = cssGeomR2 });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = H });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tw", Value = Tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tf", Value = Tf });
+			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = R });
+			css.Parameters.Add(new ParameterDouble() { Name = "R1", Value = R1 });
+			css.Parameters.Add(new ParameterDouble() { Name = "R2", Value = R2 });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = tapperF });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperW", Value = tapperW });
 		}
