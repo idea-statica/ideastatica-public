@@ -4,6 +4,7 @@
 	/// Span allows specifying haunched member.
 	///
 	/// Both cross-sect
+	/// </summary>
 	public interface IIdeaSpan : IIdeaObject
 	{
 		/// <summary>

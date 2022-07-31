@@ -41,6 +41,7 @@ namespace IdeaStatiCa.BimImporter
 		/// Constructor
 		/// </summary>
 		/// <param name="logger">Logger</param>
+		/// <param name="model">Model</param>
 		/// <exception cref="ArgumentNullException">If some argument is null.</exception>
 		public Geometry(IPluginLogger logger, IIdeaModel model)
 		{
