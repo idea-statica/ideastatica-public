@@ -145,5 +145,10 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 				yield return braces.GetAt(i);
 			}
 		}
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

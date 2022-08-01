@@ -99,6 +99,28 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, connections);
 		}
 
+		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>	
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		public ModelBIM ImportSingleConnection()
+		{
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
+			IGeometry geometry = _geometryProvider.GetGeometry();
+
+			List<Connection> connections = new List<Connection>();
+
+			if (connectionPoint != null)
+			{
+				connections.Add(Connection.FromConnectionPoint(connectionPoint));
+
+			}
+
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
+				.Concat(selectedMembers);
+
+			return CreateModelBIM(objects, connections);
+		}
+
 		/// <inheritdoc cref="IBimImporter.ImportMember"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers()
@@ -232,6 +254,25 @@ namespace IdeaStatiCa.BimImporter
 			nodes = selectedNodes;
 			members = selectedMembers;
 			connectionPoints = selectedConnectionPoints;
+		}
+
+		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		{
+			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint selectedConnectionPoint);
+
+			if (selectedNodes == null)
+			{
+				throw new InvalidOperationException("Out argument 'nodes' in GetSelection cannot be null.");
+			}
+
+			if (selectedMembers == null)
+			{
+				throw new InvalidOperationException("Out argument 'members' in GetSelection cannot be null.");
+			}
+
+			nodes = selectedNodes;
+			members = selectedMembers;
+			connectionPoint = selectedConnectionPoint;
 		}
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)

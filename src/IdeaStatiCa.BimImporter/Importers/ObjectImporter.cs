@@ -104,7 +104,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _plateImporter.Import(ctx, plate, connectionData);
 				case IIdeaFoldedPlate foldedPlate:
 					return _foldedPlateImporter.Import(ctx, foldedPlate, connectionData);
-
 				case IIdeaConnectedMember member:
 					return _beamImporter.Import(ctx, member, connectionData);
 				case IIdeaAnchorGrid anchorGrid:

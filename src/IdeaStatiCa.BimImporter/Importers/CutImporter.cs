@@ -37,21 +37,27 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 			else
 			{
-				var cutIOM = new IdeaRS.OpenModel.Connection.CutBeamByBeamData
+				var beamIOM = connectionData.Beams.Find(b => b.OriginalModelId == cut.ModifiedObject.Id);
+				if (beamIOM != null)
 				{
-					CuttingObject = new ReferenceElement(ctx.ImportConnectionItem(cut.CuttingObject, connectionData) as OpenElementId),
-					ModifiedObject = new ReferenceElement(ctx.ImportConnectionItem(cut.ModifiedObject, connectionData) as OpenElementId),
-					IsWeld = cut.Weld != null,
-					Method = cut.CutMethod,
-					Orientation = cut.CutOrientation,
-					PlaneOnCuttingObject = cut.DistanceComparison,
-					WeldThickness = cut.Weld != null ? cut.Weld.Thickness : 0.0,
-					WeldType = cut.Weld != null ? cut.Weld.WeldType : WeldType.Fillet,
-				};
+					var cutIOM = new IdeaRS.OpenModel.Connection.CutBeamByBeamData
+					{
+						CuttingObject = new ReferenceElement(ctx.ImportConnectionItem(cut.CuttingObject, connectionData) as OpenElementId),
+						ModifiedObject = new ReferenceElement(beamIOM),
+						IsWeld = cut.Weld != null,
+						Method = cut.CutMethod,
+						Orientation = cut.CutOrientation,
+						PlaneOnCuttingObject = cut.DistanceComparison,
+						WeldThickness = cut.Weld != null ? cut.Weld.Thickness : 0.0,
+						WeldType = cut.Weld != null ? cut.Weld.WeldType : WeldType.Fillet,
+					};
 
-				(connectionData.CutBeamByBeams ?? (connectionData.CutBeamByBeams = new List<CutBeamByBeamData>())).Add(cutIOM);
+					(connectionData.CutBeamByBeams ?? (connectionData.CutBeamByBeams = new List<CutBeamByBeamData>())).Add(cutIOM);
 
-				return cutIOM;
+					return cutIOM;
+				}
+
+				return null;
 			}
 		}
 

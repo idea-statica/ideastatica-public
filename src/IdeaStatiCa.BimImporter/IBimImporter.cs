@@ -17,6 +17,13 @@ namespace IdeaStatiCa.BimImporter
 		ModelBIM Import(IEnumerable<IIdeaObject> objects);
 
 		/// <summary>
+		/// Import single connections into IOM. Typycaly complicated connection from cad
+		/// </summary>
+		/// <returns>ModelBIM object.</returns>
+		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
+		ModelBIM ImportSingleConnection();
+
+		/// <summary>
 		/// Imports connections into IOM.
 		/// </summary>
 		/// <returns>ModelBIM object.</returns>

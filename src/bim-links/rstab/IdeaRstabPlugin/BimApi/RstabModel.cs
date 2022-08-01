@@ -150,5 +150,10 @@ namespace IdeaRstabPlugin.BimApi
 				///CountryCode = CountryCode.ECEN // RSTAB api won't give me the country code/standard
 			};
 		}
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

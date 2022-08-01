@@ -20,14 +20,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Id = referenceMember.Id,
 				RefLineInCenterOfGravity = true,
 				AutoAddCutByWorkplane = true,
-				IsAdded = member.ConnectedMemberType == IdeaConnectedMemberType.Stiffening,
+				IsAdded = member.ConnectedMemberType != IdeaConnectedMemberType.Structural,
 				IsNegativeObject = member.ConnectedMemberType == IdeaConnectedMemberType.Negative,
 				IsBearingMember = member.IsBearing,
 				Name = member.IdeaMember.Name,
 				OriginalModelId = member.IdeaMember.Id,
+				MirrorY = false,
 			};
 
-			if (beamIOM.IsAdded)
+			if (beamIOM.IsAdded || beamIOM.IsNegativeObject)
 			{
 				beamIOM.AddedMember = referenceMember;
 			}
