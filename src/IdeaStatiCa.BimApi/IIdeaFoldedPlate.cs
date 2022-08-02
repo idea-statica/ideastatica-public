@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaFoldedPlate : IIdeaObject
+	public interface IIdeaFoldedPlate : IIdeaPersistentObject
 	{
 		/// <summary>
 		/// Collection of plates
@@ -25,7 +25,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// second plate
 		/// </summary>
-		IIdeaBend Plate2 { get; }
+		IIdeaPlate Plate2 { get; }
 
 		/// <summary>
 		/// Radius
