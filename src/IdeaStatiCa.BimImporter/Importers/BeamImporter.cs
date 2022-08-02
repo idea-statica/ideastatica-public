@@ -25,7 +25,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				IsBearingMember = member.IsBearing,
 				Name = member.IdeaMember.Name,
 				OriginalModelId = member.IdeaMember.Id,
-				MirrorY = false,
+				MirrorY = member.IdeaMember.MirrorY,
 			};
 
 			if (beamIOM.IsAdded || beamIOM.IsNegativeObject)
