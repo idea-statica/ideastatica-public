@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// </summary>
 		public override event Action DataLoaded;
 
-		private class StoredData
+		private sealed class StoredData
 		{
 			public HashSet<(int, string)> Mappings { get; set; }
 			public Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; }
@@ -41,7 +41,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <summary>
 		/// Loads saved data from a JSON stream.
 		/// </summary>
-		/// <param name="reader">Stream to read saved info from.</param>
+		/// <param name="stream">Stream to read saved info from.</param>
 		public void Load(Stream stream)
 		{
 			using (StreamReader streamReader = new StreamReader(stream))
@@ -68,7 +68,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <summary>
 		/// Saves stored data in a JSON file.
 		/// </summary>
-		/// <param name="writer">Stream to write stored info into.</param>
+		/// <param name="stream">Stream to write stored info into.</param>
 		public void Save(Stream stream)
 		{
 			using (StreamWriter streamWriter = new StreamWriter(stream))

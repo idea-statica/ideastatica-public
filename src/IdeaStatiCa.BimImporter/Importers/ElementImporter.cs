@@ -16,6 +16,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 			Element1D iomElement = new Element1D
 			{
 				Name = element.Name,
+				CrossSectionBegin = ctx.Import(element.StartCrossSection),
+				CrossSectionEnd = ctx.Import(element.EndCrossSection),
 				Segment = ctx.Import(element.Segment),
 				EccentricityBeginX = element.EccentricityBegin.X,
 				EccentricityBeginY = element.EccentricityBegin.Y,

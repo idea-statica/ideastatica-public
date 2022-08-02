@@ -8,18 +8,18 @@ namespace IdeaStatiCa.BimImporter
 	public interface IProject
 	{
 		/// <summary>
-		/// Returns IOM id for given <paramref name="bimId"/>.
+		/// Returns IOM id for given <paramref name="bimApiId"/>.
 		/// </summary>
-		/// <param name="bimId">BimApi id</param>
+		/// <param name="bimApiId">BimApi id</param>
 		/// <returns>IOM id</returns>
 		/// <exception cref="System.Collections.Generic.KeyNotFoundException">Throws when no mapping
-		/// for given <paramref name="bimId"/> exists.</exception>
+		/// for given <paramref name="bimApiId"/> exists.</exception>
 		int GetIomId(string bimApiId);
 
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="iomId"></param>
+		/// <param name="iomId">IOM id</param>
 		/// <returns></returns>
 		string GetBimApiId(int iomId);
 
@@ -39,6 +39,11 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>IOM id</returns>
 		int GetIomId(IIdeaObject obj);
 
+		/// <summary>
+		/// Returns instance of <see cref="IIdeaPersistenceToken"/> for a given IOM id.
+		/// </summary>
+		/// <param name="iomId">IOM id</param>
+		/// <returns>Persistence token instance.</returns>
 		IIdeaPersistenceToken GetPersistenceToken(int iomId);
 	}
 }

@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
@@ -15,10 +14,6 @@ namespace IdeaStatiCa.BimImporter.Tests
 	{
 		private IProject project;
 		private IPluginLogger logger;
-		private IImporter<IIdeaObject> importer;
-		private IResultImporter resultImporter;
-
-		private ImportContext ctx;
 
 		private BimImporterConfiguration configuration;
 
@@ -27,22 +22,13 @@ namespace IdeaStatiCa.BimImporter.Tests
 		{
 			project = Substitute.For<IProject>();
 			logger = Substitute.For<IPluginLogger>();
-			importer = Substitute.For<IImporter<IIdeaObject>>();
-			resultImporter = Substitute.For<IResultImporter>();
 
 			configuration = new BimImporterConfiguration();
-
-			ctx = new ImportContext(importer, resultImporter, project, logger, configuration);
 		}
 
-		[Test]
-		public void Import_IfArgumentIsNull_ShouldReturnNull()
+		private ImportContext CreateImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project)
 		{
-			// Tested method
-			ReferenceElement refElm = ctx.Import(null);
-
-			// Assert: should add the imported object into IOM
-			refElm.Should().BeNull();
+			return new ImportContext(importer, resultImporter, project, logger, configuration);
 		}
 
 		[Test]
@@ -53,7 +39,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObject bimObject = Substitute.For<IIdeaObject>();
 			bimObject.Id.Returns("testobject");
 
+			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
+
+			ImportContext ctx = CreateImportContext(importer, null, project);
 
 			// Tested method
 			ReferenceElement refElm = ctx.Import(bimObject);
@@ -72,7 +61,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObject bimObject = Substitute.For<IIdeaObject>();
 			bimObject.Id.Returns("testobject");
 
+			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
+
+			ImportContext ctx = CreateImportContext(importer, null, project);
 
 			// Tested method
 			ReferenceElement refElm1 = ctx.Import(bimObject);
@@ -92,7 +84,12 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObjectWithResults objectWithResults = Substitute.For<IIdeaObjectWithResults>();
 			objectWithResults.Id.Returns("testobject");
 
+			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), objectWithResults).Returns(iomObject);
+
+			IResultImporter resultImporter = Substitute.For<IResultImporter>();
+
+			ImportContext ctx = CreateImportContext(importer, resultImporter, project);
 
 			// Tested method
 			ReferenceElement refElm = ctx.Import(objectWithResults);
@@ -109,6 +106,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			IIdeaObject bimObject = Substitute.For<IIdeaObject>();
 			bimObject.Id.Returns("testobject");
 
+			IImporter<IIdeaObject> importer = Substitute.For<IImporter<IIdeaObject>>();
 			importer.Import(Arg.Any<ImportContext>(), bimObject).Returns(iomObject);
 
 			IBimItem bimItem = Substitute.For<IBimItem>();
@@ -116,6 +114,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 			bimItem.ReferencedObject.Returns(bimObject);
 
 			project.GetIomId(bimObject).Returns(1);
+
+			ImportContext ctx = CreateImportContext(importer, null, project);
 
 			// Tested method
 			ctx.ImportBimItem(bimItem);

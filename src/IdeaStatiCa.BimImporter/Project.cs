@@ -26,6 +26,7 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <param name="logger">Logger</param>
 		/// <param name="persistence">Instance of IPersistence for storing of id mapping.</param>
+		/// <param name="objectRestorer">Object restorer</param>
 		/// <exception cref="ArgumentNullException">Throws if any argument is null.</exception>
 		public Project(IPluginLogger logger, IPersistence persistence, IObjectRestorer objectRestorer)
 		{
@@ -41,6 +42,7 @@ namespace IdeaStatiCa.BimImporter
 		/// Creates an instance of Project.
 		/// </summary>
 		/// <param name="logger">Logger</param>
+		/// <param name="persistence">Instance of IPersistence for storing of id mapping.</param>
 		/// <exception cref="ArgumentNullException">Throws if any argument is null.</exception>
 		public Project(IPluginLogger logger, IPersistence persistence)
 			: this(logger, persistence, null)

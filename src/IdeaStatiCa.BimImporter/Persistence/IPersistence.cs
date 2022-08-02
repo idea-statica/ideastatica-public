@@ -31,6 +31,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <summary>
 		/// Store a token.
 		/// </summary>
+		/// <param name="bimApiId">BimApi id</param>
 		/// <param name="token">Persistence token</param>
 		void StoreToken(string bimApiId, IIdeaPersistenceToken token);
 
