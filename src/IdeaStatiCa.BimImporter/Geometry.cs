@@ -11,7 +11,7 @@ namespace IdeaStatiCa.BimImporter
 	{
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
 
-		private class Vertex
+		private sealed class Vertex
 		{
 			public HashSet<Edge> Edges { get; } = new HashSet<Edge>();
 			public IIdeaNode Node { get; }
@@ -22,7 +22,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 		}
 
-		private class Edge
+		private sealed class Edge
 		{
 			public HashSet<Vertex> Vertices { get; } = new HashSet<Vertex>();
 			public IIdeaMember1D Member { get; }
@@ -41,6 +41,7 @@ namespace IdeaStatiCa.BimImporter
 		/// Constructor
 		/// </summary>
 		/// <param name="logger">Logger</param>
+		/// <param name="model">Model</param>
 		/// <exception cref="ArgumentNullException">If some argument is null.</exception>
 		public Geometry(IPluginLogger logger, IIdeaModel model)
 		{

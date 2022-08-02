@@ -79,12 +79,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginLogger", 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CheckbotPlugins", "CheckbotPlugins", "{D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginRunner", "CheckbotPlugins\IdeaStatiCa.PluginRunner\IdeaStatiCa.PluginRunner.csproj", "{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginRunner.Tests", "CheckbotPlugins\IdeaStatiCa.PluginRunner.Tests\IdeaStatiCa.PluginRunner.Tests.csproj", "{9E7D1995-DF34-45A6-8718-F9C0F3547A4F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginRunner.Lib", "CheckbotPlugins\IdeaStatiCa.PluginRunner.Lib\IdeaStatiCa.PluginRunner.Lib.csproj", "{CAF8EE14-5641-4AD7-8FF5-8328793AD6AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.Api", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj", "{E7CB9091-BCD5-4B2B-AA4E-9F36283E2D19}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.Protos", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.Protos\IdeaStatiCa.CheckbotPlugin.Protos.csproj", "{AD3DB0E2-6C53-492C-9BC9-E105EC51AE42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.Tools", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.Tools\IdeaStatiCa.CheckbotPlugin.Tools.csproj", "{BF195DEB-DF93-4B9C-A016-E7A741AD53B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.Common", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj", "{FA159D73-9776-412E-94FC-91C449B7376F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.Common.Tests", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.Common.Tests\IdeaStatiCa.CheckbotPlugin.Common.Tests.csproj", "{39592B60-6243-42A3-8ACB-65694C92839F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.PluginList", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.PluginList\IdeaStatiCa.CheckbotPlugin.PluginList.csproj", "{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.PluginList.Tests", "CheckbotPlugins\IdeaStatiCa.CheckbotPlugin.PluginList.Tests\IdeaStatiCa.CheckbotPlugin.PluginList.Tests.csproj", "{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamplePlugin", "CheckbotPlugins\ExamplePlugin\ExamplePlugin.csproj", "{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatica.BimApiLink", "IdeaStatica.BimApiLink\IdeaStatica.BimApiLink.csproj", "{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
-		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
-		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -198,6 +219,54 @@ Global
 		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3814F9B8-46DE-4343-94A7-E7A81D371007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E7D1995-DF34-45A6-8718-F9C0F3547A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E7D1995-DF34-45A6-8718-F9C0F3547A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E7D1995-DF34-45A6-8718-F9C0F3547A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E7D1995-DF34-45A6-8718-F9C0F3547A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF8EE14-5641-4AD7-8FF5-8328793AD6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF8EE14-5641-4AD7-8FF5-8328793AD6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF8EE14-5641-4AD7-8FF5-8328793AD6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF8EE14-5641-4AD7-8FF5-8328793AD6AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7CB9091-BCD5-4B2B-AA4E-9F36283E2D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7CB9091-BCD5-4B2B-AA4E-9F36283E2D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7CB9091-BCD5-4B2B-AA4E-9F36283E2D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7CB9091-BCD5-4B2B-AA4E-9F36283E2D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD3DB0E2-6C53-492C-9BC9-E105EC51AE42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD3DB0E2-6C53-492C-9BC9-E105EC51AE42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD3DB0E2-6C53-492C-9BC9-E105EC51AE42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD3DB0E2-6C53-492C-9BC9-E105EC51AE42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF195DEB-DF93-4B9C-A016-E7A741AD53B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF195DEB-DF93-4B9C-A016-E7A741AD53B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF195DEB-DF93-4B9C-A016-E7A741AD53B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF195DEB-DF93-4B9C-A016-E7A741AD53B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA159D73-9776-412E-94FC-91C449B7376F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA159D73-9776-412E-94FC-91C449B7376F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA159D73-9776-412E-94FC-91C449B7376F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA159D73-9776-412E-94FC-91C449B7376F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39592B60-6243-42A3-8ACB-65694C92839F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39592B60-6243-42A3-8ACB-65694C92839F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39592B60-6243-42A3-8ACB-65694C92839F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39592B60-6243-42A3-8ACB-65694C92839F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -229,8 +298,24 @@ Global
 		{8967AE55-5709-47F2-802F-312D3862668F} = {A140BC08-DF0F-45A8-84EA-E3855D907B47}
 		{3814F9B8-46DE-4343-94A7-E7A81D371007} = {0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}
 		{D09CA0D0-737E-4481-8D89-371388E70F03} = {0BA67D32-F3DE-4081-8CFD-096FCDB5C99B}
+		{9F8F1F8A-6F96-4329-BB57-DAB34113C2F2} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{9E7D1995-DF34-45A6-8718-F9C0F3547A4F} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{CAF8EE14-5641-4AD7-8FF5-8328793AD6AB} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{E7CB9091-BCD5-4B2B-AA4E-9F36283E2D19} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{AD3DB0E2-6C53-492C-9BC9-E105EC51AE42} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{BF195DEB-DF93-4B9C-A016-E7A741AD53B2} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{FA159D73-9776-412E-94FC-91C449B7376F} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{39592B60-6243-42A3-8ACB-65694C92839F} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

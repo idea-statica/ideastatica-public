@@ -10,7 +10,14 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	/// </summary>
 	public abstract class AbstractPersistence : IPersistence
 	{
-		protected HashSet<(int, string)> Mappings { get; set; } = new HashSet<(int, string)>();
+		/// <summary>
+		/// Pairs of ids between IOM and BimApi.
+		/// </summary>
+		protected HashSet<(int IomId, string BimApiId)> Mappings { get; set; } = new HashSet<(int, string)>();
+
+		/// <summary>
+		/// Map of persistence tokens to BimApi id.
+		/// </summary>
 		protected Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; } = new Dictionary<string, IIdeaPersistenceToken>();
 
 		/// <inheritdoc cref="IPersistence.DataLoaded"/>
@@ -32,7 +39,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			}
 		}
 
-		///<inheritdoc cref="IPersistence.StoreToken(IIdeaPersistenceToken)"/>
+		///<inheritdoc cref="IPersistence.StoreToken(string, IIdeaPersistenceToken)"/>
 		///<exception cref="ArgumentNullException">Throws if <paramref name="token"/> is null.</exception>
 		///<exception cref="ArgumentException">Throws if the token has already been stored before.</exception>
 		public void StoreToken(string bimApiId, IIdeaPersistenceToken token)

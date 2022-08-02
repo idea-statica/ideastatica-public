@@ -38,9 +38,9 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <param name="ideaModel">Model for importing</param>
 		/// <param name="project"><see cref="IProject"/> instance for id mapping persistence</param>
-		/// <param name="geometry"><see cref="IGeometry"/> instance</param>
 		/// <param name="logger">Logger</param>
 		/// <param name="geometryProvider">Geometry provider</param>
+		/// <param name="configuration">Importer configuration</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,

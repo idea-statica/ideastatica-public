@@ -49,18 +49,24 @@ namespace IdeaStatiCa.BimImporter
 
 		public ReferenceElement Import(IIdeaObject obj)
 		{
+			if (obj is null)
+			{
+				_logger.LogTrace($"Trying to import null object.");
+				return null;
+			}
+
 			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
 
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))
 			{
-				_logger.LogDebug($"Object has been already imported with IOM id '{refElm.Id}'");
+				_logger.LogTrace($"Object has been already imported with IOM id '{refElm.Id}'");
 				return refElm;
 			}
 
 			refElm = CreateAndStoreReferenceElement(obj);
 			Debug.Assert(_refElements[obj] == refElm);
 
-			_logger.LogDebug($"Object '{obj.Id}' imported, IOM id '{refElm.Id}'");
+			_logger.LogTrace($"Object '{obj.Id}' imported, IOM id '{refElm.Id}'");
 
 			ImportResults(obj, refElm);
 
@@ -83,7 +89,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			if (obj is IIdeaObjectWithResults objectWithResults)
 			{
-				_logger.LogDebug($"Importing results for object '{obj.Id}'");
+				_logger.LogTrace($"Importing results for object '{obj.Id}'");
 				_resultOnMembers.Members.AddRange(_resultImporter.Import(this, refElm, objectWithResults));
 			}
 		}

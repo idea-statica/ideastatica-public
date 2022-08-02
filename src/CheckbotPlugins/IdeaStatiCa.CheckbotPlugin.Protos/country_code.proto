@@ -1,0 +1,33 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
+
+package ideastatica.checkbotplugin.v1;
+
+enum CountryCode {
+	ECEN = 0;
+	American = 1;
+	Canada = 2;
+	Australia = 3;
+	RUS = 4;
+	CHN = 5;
+	India = 6;
+	HKG = 7;
+}
+
+message CountryCodeConfig {
+	oneof config {
+		AmericanCodeConfig american = 1;
+	}
+}	
+
+message AmericanCodeConfig {
+	AmericanSubCode subcode = 1;
+}
+
+enum AmericanSubCode {
+	LRFD = 0; 
+	ASD = 1;
+	LRFD10 = 2;
+	ASD10 = 3;
+}
