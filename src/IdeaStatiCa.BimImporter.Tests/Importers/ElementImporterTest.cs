@@ -16,11 +16,15 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		{
 			// Setup
 			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
+			(var cssStart, var refCssStart) = ctxBuilder.Add<IIdeaCrossSection>();
+			(var cssEnd, var refCssEnd) = ctxBuilder.Add<IIdeaCrossSection>();
 			(var segment, var refSegment) = ctxBuilder.Add<IIdeaSegment3D>();
 
 			IIdeaElement1D element = MockHelper.CreateElement(
 				"elm",
 				segment,
+				cssStart,
+				cssEnd,
 				new IdeaVector3D(1, 2, 3),
 				new IdeaVector3D(4, 5, 6),
 				3);
@@ -35,6 +39,8 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			Element1D iomElement = (Element1D)iomObject;
 
 			Assert.That(iomElement.Name, Is.EqualTo("elm"));
+			Assert.That(iomElement.CrossSectionBegin, Is.EqualTo(refCssStart));
+			Assert.That(iomElement.CrossSectionEnd, Is.EqualTo(refCssEnd));
 			Assert.That(iomElement.Segment, Is.EqualTo(refSegment));
 			Assert.That(iomElement.RotationRx, Is.EqualTo(3));
 

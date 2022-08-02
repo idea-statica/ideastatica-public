@@ -147,9 +147,7 @@ namespace IOM.GeneratorExample
 					Y = 0,
 					Z = 0
 				},
-#pragma warning disable CS0618 // Type or member is obsolete
 				Region = "M 0 0 L 0.24 0 L 0.24 0.5 L 0 0.5 L 0 0",
-#pragma warning restore CS0618 // Type or member is obsolete
 			};
 
 			(openModel.Connections[0].Plates ?? (openModel.Connections[0].Plates = new List<IdeaRS.OpenModel.Connection.PlateData>())).Add(plateData);
@@ -251,9 +249,7 @@ namespace IOM.GeneratorExample
 					Y = 0,
 					Z = 1
 				},
-#pragma warning disable CS0618 // Type or member is obsolete
 				Region = "M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0",
-#pragma warning restore CS0618 // Type or member is obsolete
 			};
 
 			(openModel.Connections[0].Plates ?? (openModel.Connections[0].Plates = new List<IdeaRS.OpenModel.Connection.PlateData>())).Add(plateData2);
@@ -355,9 +351,7 @@ namespace IOM.GeneratorExample
 					Y = 0,
 					Z = 1
 				},
-#pragma warning disable CS0618 // Type or member is obsolete
 				Region = "M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0",
-#pragma warning restore CS0618 // Type or member is obsolete
 			};
 			openModel.Connections[0].Plates.Add(plateData3);
 
@@ -459,9 +453,7 @@ namespace IOM.GeneratorExample
 					Y = 0,
 					Z = 1
 				},
-#pragma warning disable CS0618 // Type or member is obsolete
 				Region = "M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0",
-#pragma warning restore CS0618 // Type or member is obsolete
 			};
 			openModel.Connections[0].Plates.Add(plateData4);
 
@@ -563,9 +555,7 @@ namespace IOM.GeneratorExample
 					Y = 0,
 					Z = 1
 				},
-#pragma warning disable CS0618 // Type or member is obsolete
 				Region = "M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0",
-#pragma warning restore CS0618 // Type or member is obsolete
 			};
 			openModel.Connections[0].Plates.Add(plateData5);
 

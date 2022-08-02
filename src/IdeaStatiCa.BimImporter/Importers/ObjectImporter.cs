@@ -18,9 +18,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
-		private readonly IImporter<IIdeaTaper> _taperImporter;
-		private readonly IImporter<IIdeaSpan> _spanImporter;
-
 		private readonly IImporter<IIdeaConnectedMember> _connectedMemberImporter;
 		private readonly IImporter<IIdeaPlate> _plateImporter;
 		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
@@ -44,8 +41,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_loadGroupImporter = new LoadGroupImporter(logger);
 			_combiInputImporter = new CombiInputImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
-			_taperImporter = new TaperImporter(logger);
-			_spanImporter = new SpanImporter(logger);
 			_connectedMemberImporter = new ConnectedMemberImporter(logger);
 			_plateImporter = new PlateImporter(logger);
 			_beamImporter = new BeamImporter(logger);
@@ -91,15 +86,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaLoadGroup loadGroup:
 					return _loadGroupImporter.Import(ctx, loadGroup);
-
 				case IIdeaCombiInput combiInput:
 					return _combiInputImporter.Import(ctx, combiInput);
-
-				case IIdeaTaper taper:
-					return _taperImporter.Import(ctx, taper);
-
-				case IIdeaSpan span:
-					return _spanImporter.Import(ctx, span);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
