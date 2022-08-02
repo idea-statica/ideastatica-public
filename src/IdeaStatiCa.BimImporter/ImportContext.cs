@@ -45,12 +45,6 @@ namespace IdeaStatiCa.BimImporter
 
 		public ReferenceElement Import(IIdeaObject obj)
 		{
-			if (obj is null)
-			{
-				_logger.LogTrace($"Trying to import null object.");
-				return null;
-			}
-
 			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
 
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))

@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 namespace IOM.GeneratorExample
 {
 	/// <summary>
-	/// This class contains helper methods for creating objects.
+	/// This class contains helper methods for creating objects. 
 	/// </summary>
 	public static class Helpers
 	{
@@ -65,11 +65,11 @@ namespace IOM.GeneratorExample
 			model.AddObject(segment);
 
 			// create 1D elements
-			Element1D element = CreateElement1D(model, segment);
+			Element1D element = CreateElement1D(model, css, segment);
 			model.AddObject(element);
 
 			// create 1D members
-			Member1D member = CreateMember1D(model, id, type, element, css);
+			Member1D member = CreateMember1D(model, id, type, element);
 			model.Member1D.Add(member);
 
 			// create and return connected member
@@ -94,7 +94,7 @@ namespace IOM.GeneratorExample
 		/// <returns>Connected member</returns>
 		public static ConnectedMember CreateMember(OpenModel model, int id, Member1DType type, CrossSection css, string startNode, string middleNode, string endNode)
 		{
-			// column members have different coordination system in our example
+			// column members have different coordination system in our example 
 			bool transformCoordSystem = type == Member1DType.Column ? true : false;
 
 			// create line segments
@@ -112,14 +112,14 @@ namespace IOM.GeneratorExample
 			model.AddObject(polyline);
 
 			// create 1D elements
-			Element1D element1 = CreateElement1D(model, segment1);
+			Element1D element1 = CreateElement1D(model, css, segment1);
 			model.AddObject(element1);
 
-			Element1D element2 = CreateElement1D(model, segment2);
+			Element1D element2 = CreateElement1D(model, css, segment2);
 			model.AddObject(element2);
 
 			// create 1D members
-			Member1D member = CreateMember1D(model, id, type, element1, element2, css);
+			Member1D member = CreateMember1D(model, id, type, element1, element2);
 			model.Member1D.Add(member);
 
 			// create and return connected member
@@ -165,13 +165,15 @@ namespace IOM.GeneratorExample
 		/// <param name="css">Cross section</param>
 		/// <param name="segment">Line segment</param>
 		/// <returns>Element 1D</returns>
-		private static Element1D CreateElement1D(OpenModel model, LineSegment3D segment)
+		private static Element1D CreateElement1D(OpenModel model, CrossSection css, LineSegment3D segment)
 		{
 			Element1D element1D = new Element1D();
 
 			element1D.Id = model.GetMaxId(element1D) + 1;
 			element1D.Name = "E" + element1D.Id.ToString();
 			element1D.Segment = new ReferenceElement(segment);
+			element1D.CrossSectionBegin = new ReferenceElement(css);
+			element1D.CrossSectionEnd = new ReferenceElement(css);
 
 			return element1D;
 		}
@@ -184,7 +186,7 @@ namespace IOM.GeneratorExample
 		/// <param name="type">Member type</param>
 		/// <param name="element">Element</param>
 		/// <returns>Member 1D</returns>
-		private static Member1D CreateMember1D(OpenModel model, int id, Member1DType type, Element1D element, CrossSection css)
+		private static Member1D CreateMember1D(OpenModel model, int id, Member1DType type, Element1D element)
 		{
 			Member1D member1D = new Member1D();
 
@@ -192,13 +194,12 @@ namespace IOM.GeneratorExample
 			member1D.Name = "M" + member1D.Id.ToString();
 			member1D.Member1DType = type;
 			member1D.Elements1D.Add(new ReferenceElement(element));
-			member1D.CrossSection = new ReferenceElement(css);
 
 			return member1D;
 		}
 
 		/// <summary>
-		/// Create compound member 1D
+		/// Create compound member 1D 
 		/// </summary>
 		/// <param name="model">Idea open model</param>
 		/// <param name="id">Member id</param>
@@ -206,7 +207,7 @@ namespace IOM.GeneratorExample
 		/// <param name="element1">First element</param>
 		/// <param name="element2">Second element</param>
 		/// <returns>Member 1D</returns>
-		private static Member1D CreateMember1D(OpenModel model, int id, Member1DType type, Element1D element1, Element1D element2, CrossSection css)
+		private static Member1D CreateMember1D(OpenModel model, int id, Member1DType type, Element1D element1, Element1D element2)
 		{
 			Member1D member1D = new Member1D();
 
@@ -215,7 +216,6 @@ namespace IOM.GeneratorExample
 			member1D.Member1DType = type;
 			member1D.Elements1D.Add(new ReferenceElement(element1));
 			member1D.Elements1D.Add(new ReferenceElement(element2));
-			member1D.CrossSection = new ReferenceElement(css);
 
 			return member1D;
 		}

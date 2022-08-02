@@ -11,7 +11,7 @@ namespace IdeaStatiCa.BimImporter
 	{
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
 
-		private sealed class Vertex
+		private class Vertex
 		{
 			public HashSet<Edge> Edges { get; } = new HashSet<Edge>();
 			public IIdeaNode Node { get; }
@@ -22,7 +22,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 		}
 
-		private sealed class Edge
+		private class Edge
 		{
 			public HashSet<Vertex> Vertices { get; } = new HashSet<Vertex>();
 			public IIdeaMember1D Member { get; }

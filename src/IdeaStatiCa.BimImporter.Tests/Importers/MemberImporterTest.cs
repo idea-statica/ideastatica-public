@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Model;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Importers;
@@ -19,6 +18,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		{
 			// Setup
 			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
+			(var css, var refCss) = ctxBuilder.Add<IIdeaCrossSection>();
 			(var segment1, _) = ctxBuilder.Add<IIdeaSegment3D>();
 			(var segment2, _) = ctxBuilder.Add<IIdeaSegment3D>();
 
@@ -31,9 +31,9 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			segment2.StartNode.Returns(node2);
 			segment2.EndNode.Returns(node3);
 
-			var element1 = MockHelper.CreateElement("elm1", segment1);
+			var element1 = MockHelper.CreateElement("elm1", segment1, css);
 			var refElement1 = ctxBuilder.Add(element1);
-			var element2 = MockHelper.CreateElement("elm2", segment2);
+			var element2 = MockHelper.CreateElement("elm2", segment2, css);
 			var refElement2 = ctxBuilder.Add(element2);
 
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
@@ -80,6 +80,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		{
 			// Setup
 			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
+			(var css, var refCss) = ctxBuilder.Add<IIdeaCrossSection>();
 			(var segment1, _) = ctxBuilder.Add<IIdeaSegment3D>();
 			(var segment2, _) = ctxBuilder.Add<IIdeaSegment3D>();
 
@@ -93,9 +94,9 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			segment2.StartNode.Returns(node3);
 			segment2.EndNode.Returns(node4);
 
-			var element1 = MockHelper.CreateElement("elm1", segment1);
+			var element1 = MockHelper.CreateElement("elm1", segment1, css);
 			ctxBuilder.Add(element1);
-			var element2 = MockHelper.CreateElement("elm2", segment2);
+			var element2 = MockHelper.CreateElement("elm2", segment2, css);
 			ctxBuilder.Add(element2);
 
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
@@ -115,6 +116,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		{
 			// Setup
 			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
+			(var css, var refCss) = ctxBuilder.Add<IIdeaCrossSection>();
 			(var segment1, _) = ctxBuilder.Add<IIdeaSegment3D>();
 
 			var node1 = MockHelper.CreateNode(0, 0, 0);
@@ -123,7 +125,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			segment1.StartNode.Returns(node1);
 			segment1.EndNode.Returns(node2);
 
-			var element1 = MockHelper.CreateElement("elm1", segment1);
+			var element1 = MockHelper.CreateElement("elm1", segment1, css);
 			ctxBuilder.Add(element1);
 
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
@@ -136,87 +138,6 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 
 			// Tested method
 			Assert.That(() => memberImporter.Import(ctxBuilder.Context, member), Throws.TypeOf<ConstraintException>());
-		}
-
-		[Test]
-		public void MemberImport_WhenCrossSectionIsNull_ThenUsesCrossSectionFromFirstElement()
-		{
-			// Setup
-			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
-			(var css, var refCss) = ctxBuilder.Add<IIdeaCrossSection>();
-
-			var element = MockHelper.CreateElement();
-#pragma warning disable CS0618 // Type or member is obsolete
-			element.StartCrossSection.Returns(css);
-#pragma warning restore CS0618 // Type or member is obsolete
-			ctxBuilder.Add(element);
-
-			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
-			member.Id.Returns("member1");
-			member.Elements.Returns(new List<IIdeaElement1D>() {
-				element
-			});
-			member.CrossSection.Returns((IIdeaCrossSection)null);
-
-			MemberImporter memberImporter = new MemberImporter(new NullLogger());
-
-			// Tested method
-			var memberIom = (Member1D)memberImporter.Import(ctxBuilder.Context, member);
-			memberIom.CrossSection.Should().BeSameAs(refCss);
-		}
-
-		[Test]
-		public void MemberImport_WhenMemberAndElementHasCrossSection_ThenUseCrossSectionFromMember()
-		{
-			// Setup
-			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
-			(var css1, var refCss1) = ctxBuilder.Add<IIdeaCrossSection>();
-			(var css2, var refCss2) = ctxBuilder.Add<IIdeaCrossSection>();
-
-			var element = MockHelper.CreateElement();
-#pragma warning disable CS0618 // Type or member is obsolete
-			element.StartCrossSection.Returns(css1);
-#pragma warning restore CS0618 // Type or member is obsolete
-			ctxBuilder.Add(element);
-
-			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
-			member.Id.Returns("member1");
-			member.Elements.Returns(new List<IIdeaElement1D>() {
-				element
-			});
-			member.CrossSection.Returns(css2);
-
-			MemberImporter memberImporter = new MemberImporter(new NullLogger());
-
-			// Tested method
-			var memberIom = (Member1D)memberImporter.Import(ctxBuilder.Context, member);
-			memberIom.CrossSection.Should().BeSameAs(refCss2);
-		}
-
-		[Test]
-		public void MemberImport_WhenNoCrossSectionIsSet_ThrowsContraintException()
-		{
-			// Setup
-			ImportContextBuilder ctxBuilder = new ImportContextBuilder();
-
-			var element = MockHelper.CreateElement();
-#pragma warning disable CS0618 // Type or member is obsolete
-			element.StartCrossSection.Returns((IIdeaCrossSection)null);
-#pragma warning restore CS0618 // Type or member is obsolete
-			ctxBuilder.Add(element);
-
-			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
-			member.Id.Returns("member1");
-			member.Elements.Returns(new List<IIdeaElement1D>() {
-				element
-			});
-			member.CrossSection.Returns((IIdeaCrossSection)null);
-
-			MemberImporter memberImporter = new MemberImporter(new NullLogger());
-
-			// Tested method
-			memberImporter.Invoking(x => x.Import(ctxBuilder.Context, member))
-				.Should().Throw<ConstraintException>();
 		}
 	}
 }

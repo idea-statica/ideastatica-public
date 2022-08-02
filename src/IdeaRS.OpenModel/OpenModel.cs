@@ -88,9 +88,6 @@ namespace IdeaRS.OpenModel
 			RebarGeneral = new List<RebarGeneral>();
 			RebarSingle = new List<RebarSingle>();
 			RebarStirrups = new List<RebarStirrups>();
-
-			Taper = new List<Taper>();
-			Span = new List<Span>();
 		}
 
 		/// <summary>
@@ -328,6 +325,11 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public List<SubStructure> SubStructure { get; set; }
 
+		///// <summary>
+		///// Design Member
+		///// </summary>
+		//public List<DesignMemberInSubStructure> DesignMemberInSubStructure { get; set; }
+
 		/// <summary>
 		/// Information about Connection Setup
 		/// </summary>
@@ -378,10 +380,6 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public List<RebarStirrups> RebarStirrups { get; set; }
 
-		public List<Taper> Taper { get; set; }
-
-		public List<Span> Span { get; set; }
-
 		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
@@ -395,10 +393,11 @@ namespace IdeaRS.OpenModel
 				return -10;
 			}
 
-			IEnumerable<OpenElementId> lst = obj.Cast<OpenElementId>();
+			//var lst = obj as IList<OpenElementId>;
+			var lst = ((IEnumerable)obj).Cast<OpenElementId>();
 			if (lst.Any())
 			{
-				return lst.Max(o => o.Id);
+				return lst.Max(o => (o as OpenElementId).Id);
 			}
 
 			return 0;
@@ -411,7 +410,7 @@ namespace IdeaRS.OpenModel
 		/// <returns>Max Id value or zero if don't any exists</returns>
 		public int GetMaxId(OpenElementId obj)
 		{
-			string typeName = GetObjectListName(obj);
+			var typeName = GetObjectListName(obj);
 			return GetMaxId(typeName);
 		}
 
@@ -422,29 +421,8 @@ namespace IdeaRS.OpenModel
 		/// <returns>Max Id value or zero if don't any exists</returns>
 		public int GetMaxId(Type t)
 		{
-			string typeName = GetObjectListName(t);
+			var typeName = GetObjectListName(t);
 			return GetMaxId(typeName);
-		}
-
-		/// <summary>
-		/// Add new atribute object into collections
-		/// </summary>
-		/// <param name="obj">Added object</param>
-		/// <returns>Return value 0 - OK, -1 - false</returns>
-		/// <remarks>
-		///
-		/// </remarks>
-		public int AddObject(OpenAttribute obj)
-		{
-			string typeName = typeof(OpenAttribute).Name;
-			IList lst1;
-			if (!GetData().TryGetValue(typeName, out lst1))
-			{
-				return -10;
-			}
-
-			lst1.Add(obj);
-			return 0;
 		}
 
 		/// <summary>
@@ -457,21 +435,22 @@ namespace IdeaRS.OpenModel
 		/// </remarks>
 		public int AddObject(OpenElementId obj)
 		{
-			string typeName = GetObjectListName(obj);
+			var typeName = GetObjectListName(obj);
 			IList lst1;
 			if (!GetData().TryGetValue(typeName, out lst1))
 			{
 				return -10;
 			}
 
-			IEnumerable<OpenElementId> lst = lst1.Cast<OpenElementId>();
-			int id = obj.Id;
+			//var lst = lst1 as List<OpenElementId>;
+			var lst = ((IEnumerable)lst1).Cast<OpenElementId>();
+			var id = obj.Id;
 			if (id < 1)
 			{
 				id = obj.Id = GetMaxId(typeName) + 1;
 			}
 
-			if (lst.Any(o => o.Id == id))
+			if (lst.Any(o => (o as OpenElementId).Id == id))
 			{
 				System.Diagnostics.Debug.Assert(false, "Snažíš se přidat do IOM objekt se stejným ID");
 				return -1;
@@ -491,22 +470,44 @@ namespace IdeaRS.OpenModel
 		/// </remarks>
 		public OpenElementId GetExistingObject(OpenElementId obj)
 		{
-			string typeName = GetObjectListName(obj);
+			var typeName = GetObjectListName(obj);
 			IList lst1;
 			if (!GetData().TryGetValue(typeName, out lst1))
 			{
 				return null;
 			}
 
-			IEnumerable<OpenElementId> lst = lst1.Cast<OpenElementId>();
-			int id = obj.Id;
+			//var lst = lst1 as List<OpenElementId>;
+			var lst = ((IEnumerable)lst1).Cast<OpenElementId>();
+			var id = obj.Id;
 			if (id < 1)
 			{
 				id = obj.Id = GetMaxId(typeName) + 1;
 			}
 
-			OpenElementId ret = lst.FirstOrDefault(o => o.Id == id);
+			var ret = lst.FirstOrDefault(o => (o as OpenElementId).Id == id);
 			return ret;
+		}
+
+		/// <summary>
+		/// Add new atribute object into collections
+		/// </summary>
+		/// <param name="obj">Added object</param>
+		/// <returns>Return value 0 - OK, -1 - false</returns>
+		/// <remarks>
+		///
+		/// </remarks>
+		public int AddObject(OpenAttribute obj)
+		{
+			var typeName = typeof(OpenAttribute).Name;
+			IList lst1;
+			if (!GetData().TryGetValue(typeName, out lst1))
+			{
+				return -10;
+			}
+
+			lst1.Add(obj);
+			return 0;
 		}
 
 		/// <summary>
@@ -520,10 +521,8 @@ namespace IdeaRS.OpenModel
 			XmlSerializer xs = new XmlSerializer(typeof(OpenModel));
 
 			Stream fs = new FileStream(xmlFileName, FileMode.Create);
-			XmlTextWriter writer = new XmlTextWriter(fs, Encoding.Unicode)
-			{
-				Formatting = Formatting.Indented
-			};
+			XmlTextWriter writer = new XmlTextWriter(fs, Encoding.Unicode);
+			writer.Formatting = Formatting.Indented;
 			// Serialize using the XmlTextWriter.
 			xs.Serialize(writer, this);
 			writer.Close();
@@ -555,10 +554,8 @@ namespace IdeaRS.OpenModel
 		/// <returns>The new instance of Open Model</returns>
 		public static OpenModel LoadFromStream(Stream xmlFileStream)
 		{
-			XmlReaderSettings xmlSettings = new XmlReaderSettings
-			{
-				CloseInput = false
-			};
+			XmlReaderSettings xmlSettings = new XmlReaderSettings();
+			xmlSettings.CloseInput = false;
 
 			XmlReader reader = XmlReader.Create(xmlFileStream, xmlSettings);
 			XmlSerializer xs = new XmlSerializer(typeof(OpenModel));
@@ -575,8 +572,8 @@ namespace IdeaRS.OpenModel
 		/// <returns>The new instance of Open Model</returns>
 		public static OpenModel LoadFromString(string xmlString)
 		{
-			StringReader stringReader = new System.IO.StringReader(xmlString);
-			XmlSerializer serializer = new XmlSerializer(typeof(OpenModel));
+			var stringReader = new System.IO.StringReader(xmlString);
+			var serializer = new XmlSerializer(typeof(OpenModel));
 			OpenModel openModel = serializer.Deserialize(stringReader) as OpenModel;
 			openModel.ReferenceElementsReconstruction();
 
@@ -601,7 +598,8 @@ namespace IdeaRS.OpenModel
 				return null;
 			}
 
-			IEnumerable<OpenElementId> lst = obj.Cast<OpenElementId>();
+			//var lst = obj as List<OpenElementId>;
+			var lst = ((IEnumerable)obj).Cast<OpenElementId>();
 			return lst.OfType<OpenElementId>().FirstOrDefault(it => it.Id == element.Id);
 		}
 
@@ -609,62 +607,59 @@ namespace IdeaRS.OpenModel
 		{
 			if (data == null)
 			{
-				data = new Dictionary<string, IList>
-				{
-					{ typeof(Point3D).Name, Point3D },
-					{ typeof(LineSegment3D).Name, LineSegment3D },
-					{ typeof(ArcSegment3D).Name, ArcSegment3D },
-					{ typeof(PolyLine3D).Name, PolyLine3D },
-					{ typeof(Region3D).Name, Region3D },
-					{ typeof(MatConcrete).Name, MatConcrete },
-					{ typeof(MatReinforcement).Name, MatReinforcement },
-					{ typeof(MatSteel).Name, MatSteel },
-					{ typeof(MatPrestressSteel).Name, MatPrestressSteel },
-					{ typeof(CrossSection.CrossSection).Name, CrossSection },
-					{ typeof(CrossSection.ReinforcedCrossSection).Name, ReinforcedCrossSection },
-					{ typeof(HingeElement1D).Name, HingeElement1D },
-					{ typeof(Opening).Name, Opening },
-					{ typeof(DappedEnd).Name, DappedEnd },
-					{ typeof(PatchDevice).Name, PatchDevice },
-					{ typeof(Element1D).Name, Element1D },
-					{ typeof(Detail.Beam).Name, Beam },
-					{ typeof(Member1D).Name, Member1D },
-					{ typeof(Element2D).Name, Element2D },
-					{ typeof(Wall).Name, Wall },
-					{ typeof(Member2D).Name, Member2D },
-					{ typeof(RigidLink).Name, RigidLink },
-					{ typeof(PointOnLine3D).Name, PointOnLine3D },
-					{ typeof(PointSupportNode).Name, PointSupportNode },
-					{ typeof(LineSupportSegment).Name, LineSupportSegment },
-					{ typeof(LoadInPoint).Name, LoadsInPoint },
-					{ typeof(LoadOnLine).Name, LoadsOnLine },
-					{ typeof(StrainLoadOnLine).Name, StrainLoadsOnLine },
-					{ typeof(PointLoadOnLine).Name, PointLoadsOnLine },
-					{ typeof(LoadOnSurface).Name, LoadsOnSurface },
-					{ typeof(Settlement).Name, Settlements },
-					{ typeof(TemperatureLoadOnLine).Name, TemperatureLoadsOnLine },
-					{ typeof(LoadGroup).Name, LoadGroup },
-					{ typeof(LoadCase).Name, LoadCase },
-					{ typeof(CombiInput).Name, CombiInput },
-					{ typeof(OpenAttribute).Name, Attribute },
-					{ typeof(ConnectionPoint).Name, ConnectionPoint },
-					{ typeof(ConnectionData).Name, Connections },
-					{ typeof(InitialImperfectionOfPoint).Name, InitialImperfectionOfPoint },
-					{ typeof(Tendon).Name, Tendon },
-					{ typeof(Reinforcement).Name, Reinforcement },
-					{ typeof(ISDModel).Name, ISDModel },
-					{ typeof(ResultClass).Name, ResultClass },
-					{ typeof(CheckMember).Name, CheckMember },
-					{ typeof(CheckSection).Name, ConcreteCheckSection },
-					{ typeof(SubStructure).Name, SubStructure },
-					{ typeof(DesignMember).Name, DesignMember },
-					{ typeof(RebarShape).Name, RebarShape },
-					{ typeof(RebarGeneral).Name, RebarGeneral },
-					{ typeof(RebarSingle).Name, RebarSingle },
-					{ typeof(RebarStirrups).Name, RebarStirrups },
-					{ typeof(Taper).Name, Taper },
-					{ typeof(Span).Name, Span },
-				};
+				data = new Dictionary<string, IList>();
+				data.Add(typeof(Point3D).Name, Point3D);
+				data.Add(typeof(LineSegment3D).Name, LineSegment3D);
+				data.Add(typeof(ArcSegment3D).Name, ArcSegment3D);
+				data.Add(typeof(PolyLine3D).Name, PolyLine3D);
+				data.Add(typeof(Region3D).Name, Region3D);
+				data.Add(typeof(MatConcrete).Name, MatConcrete);
+				data.Add(typeof(MatReinforcement).Name, MatReinforcement);
+				data.Add(typeof(MatSteel).Name, MatSteel);
+				data.Add(typeof(MatPrestressSteel).Name, MatPrestressSteel);
+				data.Add(typeof(CrossSection.CrossSection).Name, CrossSection);
+				data.Add(typeof(CrossSection.ReinforcedCrossSection).Name, ReinforcedCrossSection);
+				data.Add(typeof(HingeElement1D).Name, HingeElement1D);
+				data.Add(typeof(Opening).Name, Opening);
+				data.Add(typeof(DappedEnd).Name, DappedEnd);
+				data.Add(typeof(PatchDevice).Name, PatchDevice);
+				data.Add(typeof(Element1D).Name, Element1D);
+				data.Add(typeof(Detail.Beam).Name, Beam);
+				data.Add(typeof(Member1D).Name, Member1D);
+				data.Add(typeof(Element2D).Name, Element2D);
+				data.Add(typeof(Wall).Name, Wall);
+				data.Add(typeof(Member2D).Name, Member2D);
+				data.Add(typeof(RigidLink).Name, RigidLink);
+				data.Add(typeof(PointOnLine3D).Name, PointOnLine3D);
+				data.Add(typeof(PointSupportNode).Name, PointSupportNode);
+				data.Add(typeof(LineSupportSegment).Name, LineSupportSegment);
+				data.Add(typeof(LoadInPoint).Name, LoadsInPoint);
+				data.Add(typeof(LoadOnLine).Name, LoadsOnLine);
+				data.Add(typeof(StrainLoadOnLine).Name, StrainLoadsOnLine);
+				data.Add(typeof(PointLoadOnLine).Name, PointLoadsOnLine);
+				data.Add(typeof(LoadOnSurface).Name, LoadsOnSurface);
+				data.Add(typeof(Settlement).Name, Settlements);
+				data.Add(typeof(TemperatureLoadOnLine).Name, TemperatureLoadsOnLine);
+				data.Add(typeof(LoadGroup).Name, LoadGroup);
+				data.Add(typeof(LoadCase).Name, LoadCase);
+				data.Add(typeof(CombiInput).Name, CombiInput);
+				data.Add(typeof(OpenAttribute).Name, Attribute);
+				data.Add(typeof(ConnectionPoint).Name, ConnectionPoint);
+				data.Add(typeof(ConnectionData).Name, Connections);
+				data.Add(typeof(InitialImperfectionOfPoint).Name, InitialImperfectionOfPoint);
+				data.Add(typeof(Tendon).Name, Tendon);
+				data.Add(typeof(Reinforcement).Name, Reinforcement);
+				data.Add(typeof(ISDModel).Name, ISDModel);
+				data.Add(typeof(ResultClass).Name, ResultClass);
+				data.Add(typeof(CheckMember).Name, CheckMember);
+				data.Add(typeof(CheckSection).Name, ConcreteCheckSection);
+				data.Add(typeof(SubStructure).Name, SubStructure);
+				data.Add(typeof(DesignMember).Name, DesignMember);
+
+				data.Add(typeof(RebarShape).Name, RebarShape);
+				data.Add(typeof(RebarGeneral).Name, RebarGeneral);
+				data.Add(typeof(RebarSingle).Name, RebarSingle);
+				data.Add(typeof(RebarStirrups).Name, RebarStirrups);
 			}
 
 			data[typeof(ProjectData).Name] = new ProjectData[] { ProjectData };
@@ -675,16 +670,16 @@ namespace IdeaRS.OpenModel
 
 		private string GetObjectListName(OpenElementId obj)
 		{
-			Type t = obj.GetType();
+			var t = obj.GetType();
 			return GetObjectListName(t);
 		}
 
 		private string GetObjectListName(Type t)
 		{
-			object atr = t.GetCustomAttributes(typeof(IdeaRS.OpenModel.OpenModelClassAttribute), true).FirstOrDefault();
+			var atr = t.GetCustomAttributes(typeof(IdeaRS.OpenModel.OpenModelClassAttribute), true).FirstOrDefault();
 			if (atr != null)
 			{
-				Type t1 = (atr as IdeaRS.OpenModel.OpenModelClassAttribute).OpenModelListType;
+				var t1 = (atr as IdeaRS.OpenModel.OpenModelClassAttribute).OpenModelListType;
 				if (t1 != null)
 				{
 					return t1.Name;
