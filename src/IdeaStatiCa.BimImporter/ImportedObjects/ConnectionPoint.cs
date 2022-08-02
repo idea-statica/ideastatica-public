@@ -37,6 +37,7 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 			Welds = new List<IIdeaWeld>();
 			Cuts = new List<IIdeaCut>();
 			BoltGrids = new List<IIdeaBoltGrid>();
+			FoldedPlates = new List<IIdeaFoldedPlate>();
 		}
 	}
 }
