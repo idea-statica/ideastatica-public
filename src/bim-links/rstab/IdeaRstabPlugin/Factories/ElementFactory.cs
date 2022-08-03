@@ -7,7 +7,6 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using MathNet.Numerics;
-using System;
 using System.Collections.Generic;
 using NMVector3D = MathNet.Spatial.Euclidean.Vector3D;
 using UnitVector3D = MathNet.Spatial.Euclidean.UnitVector3D;
@@ -88,19 +87,21 @@ namespace IdeaRstabPlugin.Factories
 
 			IIdeaNode startNode = _objectFactory.GetNode(startNodeNo);
 
-			UnitVector3D axisY = (helpNodePos - Vector2MNVector(startNode.Vector)).Normalize();
+			UnitVector3D axisY;
 			UnitVector3D axisZ;
 
 			if (rotation.Plane == PlaneType.PlaneXY)
 			{
+				axisY = (helpNodePos - Vector2MNVector(startNode.Vector)).Normalize();
 				axisZ = axisX.CrossProduct(axisY);
-				axisY = axisZ.CrossProduct(axisX);
-				axisZ = axisX.CrossProduct(axisY);
+				axisY = axisX.CrossProduct(axisZ).Negate();
 			}
+			//PlaneXZ
 			else
 			{
-				axisZ = axisY.CrossProduct(axisX);
+				axisZ = (helpNodePos - Vector2MNVector(startNode.Vector)).Normalize();
 				axisY = axisX.CrossProduct(axisZ);
+				axisZ = axisX.CrossProduct(axisY);
 			}
 
 			return new CoordSystemByVector()
