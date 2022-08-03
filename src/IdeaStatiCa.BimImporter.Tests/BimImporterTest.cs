@@ -66,7 +66,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			bimImporter.ImportConnections();
+			bimImporter.ImportConnections(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting one connection in node 1 and members 1,2
 			Connection expectedConnection = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
@@ -105,7 +105,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportConnections();
+			ModelBIM modelBIM = bimImporter.ImportConnections(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting one connection in node 1 and members 1,2
 			Connection expectedConnection = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
@@ -143,7 +143,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportConnections();
+			ModelBIM modelBIM = bimImporter.ImportConnections(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting 2 connections:
 			//	1. node 1, members 1,2
@@ -186,7 +186,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportConnections();
+			ModelBIM modelBIM = bimImporter.ImportConnections(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting 2 connections:
 			//	1. node 1, members 1,2
@@ -230,7 +230,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportConnections();
+			ModelBIM modelBIM = bimImporter.ImportConnections(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting one connection in node 1, member 1
 			Connection expectedConnection = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
@@ -266,7 +266,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportConnections();
+			ModelBIM modelBIM = bimImporter.ImportConnections(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting 2 connections:
 			//	1. node 1, members 1
@@ -307,7 +307,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportMembers();
+			ModelBIM modelBIM = bimImporter.ImportMembers(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting 1 member and 2 connections on both ends of the member
 			Member expectedMember = new Member(builder.Members[1]);
@@ -349,7 +349,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportMembers();
+			ModelBIM modelBIM = bimImporter.ImportMembers(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting 1 member and 2 connections with all member connected to the node
 			Member expectedMember = new Member(builder.Members[1]);
@@ -393,7 +393,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			BimImporter bimImporter = CreateBimImporter(model);
 
 			// Tested methods
-			ModelBIM modelBIM = bimImporter.ImportMembers();
+			ModelBIM modelBIM = bimImporter.ImportMembers(IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert: expecting 2 members (the selected ones), 3 connections
 			Member expectedMember1 = new Member(builder.Members[1]);
@@ -461,7 +461,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 						new BIMItemId() { Type = BIMItemType.Member, Id = 4},
 					}
 				}
-			});
+			}, IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert
 			Connection expectedConnection = Connection.FromNodeAndMembers(builder.Nodes[1], new List<IIdeaMember1D>()
@@ -512,7 +512,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 						new BIMItemId() { Type = BIMItemType.Member, Id = 3},
 					}
 				}
-			});
+			}, IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert
 			bimObjectImporter.Received()
@@ -561,7 +561,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 						new BIMItemId() { Type = BIMItemType.Member, Id = 4 },
 					}
 				}
-			});
+			}, IdeaRS.OpenModel.CountryCode.ECEN);
 
 			// Assert
 			bimObjectImporter.Received()
