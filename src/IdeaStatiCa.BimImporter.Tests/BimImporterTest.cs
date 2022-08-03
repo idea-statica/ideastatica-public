@@ -35,7 +35,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 			project = new Project(logger, persistence, objectRestorer);
 
 			bimObjectImporter = Substitute.For<IBimObjectImporter>();
-			bimObjectImporter.Import(Arg.Any<IEnumerable<IIdeaObject>>(), Arg.Any<IEnumerable<IBimItem>>(), Arg.Any<IProject>())
+			bimObjectImporter.Import(Arg.Any<IEnumerable<IIdeaObject>>(), Arg.Any<IEnumerable<IBimItem>>(), Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN)
 				.Returns(new ModelBIM()
 				{
 					Model = new IdeaRS.OpenModel.OpenModel(),
@@ -79,7 +79,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -118,7 +118,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -162,7 +162,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -205,7 +205,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -243,7 +243,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -285,7 +285,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -325,7 +325,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedMember, expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -369,7 +369,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 					Arg.Any<IEnumerable<IIdeaObject>>(),
 					Arg.Is<IEnumerable<IBimItem>>(x =>
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedMember, expectedConnection1, expectedConnection2 }, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -424,7 +424,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 							expectedConnection2,
 							expectedConnection3
 						}, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -477,7 +477,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 						{
 							expectedConnection
 						}, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -524,7 +524,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 							new Member(builder.Members[1]),
 							new Member(builder.Members[2]),
 						}, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 
 		[Test]
@@ -583,7 +583,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 								builder.Members[2],
 							})
 						}, _connectionEqualityComparer)),
-					Arg.Any<IProject>());
+					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
 	}
 }
