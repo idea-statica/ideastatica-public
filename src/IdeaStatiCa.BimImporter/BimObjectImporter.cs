@@ -24,6 +24,7 @@ namespace IdeaStatiCa.BimImporter
 		/// Creates instance of <see cref="IBimObjectImporter"/> with specific logger.
 		/// </summary>
 		/// <param name="logger">The logger.</param>
+		/// <param name="configuration">Importer configuration</param>
 		/// <returns>IBimObjectImporter instance.</returns>
 		public static IBimObjectImporter Create(IPluginLogger logger,
 			BimImporterConfiguration configuration)

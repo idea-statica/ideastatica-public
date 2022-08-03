@@ -8,7 +8,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	public interface IObjectRestorer
 	{
 		/// <summary>
-		/// Creates an instance based on a given persistence <see cref="token"/>.
+		/// Creates an instance based on a given persistence <paramref name="token"/>.
 		/// </summary>
 		/// <param name="token">Persistence token</param>
 		/// <returns>Instance of <see cref="IIdeaPersistentObject"/></returns>
