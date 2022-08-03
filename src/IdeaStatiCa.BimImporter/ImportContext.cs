@@ -18,6 +18,8 @@ namespace IdeaStatiCa.BimImporter
 
 		public List<BIMItemId> BimItems { get; } = new List<BIMItemId>();
 
+		public CountryCode CoutryCode { get; set; }
+
 		public BimImporterConfiguration Configuration { get; private set; }
 
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
@@ -41,6 +43,21 @@ namespace IdeaStatiCa.BimImporter
 			Configuration = configuration;
 
 			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
+		}
+
+		public ImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project, IPluginLogger logger,
+			BimImporterConfiguration configuration, CountryCode countryCode)
+		{
+			_importer = importer;
+			_resultImporter = resultImporter;
+			_project = project;
+			_logger = logger;
+
+			Configuration = configuration;
+
+			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
+
+			this.CoutryCode = countryCode;
 		}
 
 		public ReferenceElement Import(IIdeaObject obj)

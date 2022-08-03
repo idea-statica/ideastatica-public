@@ -8,6 +8,8 @@ namespace IdeaStatiCa.BimImporter
 	{
 		BimImporterConfiguration Configuration { get; }
 
+		CountryCode CoutryCode { get; }
+
 		ReferenceElement Import(IIdeaObject obj);
 
 		void ImportBimItem(IBimItem bimItem);

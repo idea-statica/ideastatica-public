@@ -249,7 +249,7 @@ namespace IdeaStatiCa.BimImporter
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, _ideaModel.GetOriginSettings().CountryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
 		}
