@@ -21,24 +21,24 @@ namespace IdeaStatiCa.BimImporter
 		/// <summary>
 		/// Imports connections into IOM.
 		/// </summary>
-		/// <param name="coutryCode"></param>
+		/// <param name="countryCode"></param>
 		/// <returns>ModelBIM object.</returns>
 		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
-		ModelBIM ImportConnections(CountryCode coutryCode);
+		ModelBIM ImportConnections(CountryCode countryCode);
 
 		/// <summary>
 		/// Imports members into IOM.
 		/// </summary>
-		/// <param name="coutryCode"></param>
+		/// <param name="countryCode"></param>
 		/// <returns>ModelBIM object.</returns>
 		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
-		ModelBIM ImportMembers(CountryCode coutryCode);
+		ModelBIM ImportMembers(CountryCode countryCode);
 
 		/// <summary>
 		/// Reimports previously imported objects. 
 		/// </summary>
 		/// <param name="selected">List of objects to reimport.</param>
-		/// <param name="coutryCode"></param>
+		/// <param name="countryCode"></param>
 		/// <returns>List of ModelBIM objects.</returns>
 		List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode);
 	}

@@ -70,7 +70,7 @@ namespace IdeaStatiCa.BimImporter
 		///  - nodes with two or more connecting member are connections.
 		/// </remarks>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportConnections(CountryCode coutryCode)
+		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -88,12 +88,12 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, connections, coutryCode);
+			return CreateModelBIM(objects, connections, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportMembers"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportMembers(CountryCode coutryCode)
+		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -120,7 +120,7 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, bimItems, coutryCode);
+			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
@@ -245,12 +245,12 @@ namespace IdeaStatiCa.BimImporter
 		/// Creates and fills in <see cref="ModelBIM"/> from given <paramref name="objects"/> and <paramref name="bimItems"/>.
 		/// Loads from <see cref="IIdeaModel"/> are concatenated to <paramref name="objects"/>.
 		/// </summary>
-		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IdeaRS.OpenModel.CountryCode coutrycode)
+		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IdeaRS.OpenModel.CountryCode countryCode)
 		{
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, coutrycode);
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
 		}

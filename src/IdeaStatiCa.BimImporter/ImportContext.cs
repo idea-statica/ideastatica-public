@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimImporter
 
 		public List<BIMItemId> BimItems { get; } = new List<BIMItemId>();
 
-		public CountryCode CoutryCode { get; set; }
+		public CountryCode countryCode { get; set; }
 
 		public BimImporterConfiguration Configuration { get; private set; }
 
@@ -57,7 +57,7 @@ namespace IdeaStatiCa.BimImporter
 
 			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
 
-			this.CoutryCode = countryCode;
+			this.countryCode = countryCode;
 		}
 
 		public ReferenceElement Import(IIdeaObject obj)
