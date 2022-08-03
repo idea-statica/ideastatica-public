@@ -82,17 +82,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private Material CreateMaterialFromType(MaterialType matType)
 		{
-			CountryCode countryCode = CountryCode.ECEN;
-			if (contex is ImportContext importContext)
-			{
-				countryCode = importContext.countryCode;
-			}
 			// we use ECEN materials just as placeholders
 			switch (matType)
 			{
 				case MaterialType.Concrete:
 					{
-						switch (countryCode)
+						switch (contex.countryCode)
 						{
 							case CountryCode.India:
 								return new MatConcreteIND();
@@ -118,7 +113,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case MaterialType.Reinforcement:
 					{
-						switch (countryCode)
+						switch (contex.countryCode)
 						{
 							case CountryCode.India:
 								return new MatReinforcementIND();
@@ -142,7 +137,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case MaterialType.Steel:
 					{
-						switch (countryCode)
+						switch (contex.countryCode)
 						{
 							case CountryCode.India:
 								return new MatSteelIND();
