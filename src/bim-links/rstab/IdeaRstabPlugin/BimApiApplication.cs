@@ -99,11 +99,11 @@ namespace IdeaRstabPlugin
 
 				if (requestedType == RequestedItemsType.Connections)
 				{
-					modelBIM = _bimImporter.ImportConnections();
+					modelBIM = _bimImporter.ImportConnections(countryCode);
 				}
 				else
 				{
-					modelBIM = _bimImporter.ImportMembers();
+					modelBIM = _bimImporter.ImportMembers(countryCode);
 				}
 
 #if DEBUG
@@ -132,7 +132,7 @@ namespace IdeaRstabPlugin
 
 			try
 			{
-				return _bimImporter.ImportSelected(items);
+				return _bimImporter.ImportSelected(items, countryCode);
 			}
 			catch (Exception e)
 			{
