@@ -87,7 +87,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				case MaterialType.Concrete:
 					{
-						switch (contex.countryCode)
+						switch (contex.CountryCode)
 						{
 							case CountryCode.India:
 								return new MatConcreteIND();
@@ -113,7 +113,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case MaterialType.Reinforcement:
 					{
-						switch (contex.countryCode)
+						switch (contex.CountryCode)
 						{
 							case CountryCode.India:
 								return new MatReinforcementIND();
@@ -137,7 +137,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case MaterialType.Steel:
 					{
-						switch (contex.countryCode)
+						switch (contex.CountryCode)
 						{
 							case CountryCode.India:
 								return new MatSteelIND();
