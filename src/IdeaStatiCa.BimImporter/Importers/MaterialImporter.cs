@@ -8,12 +8,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class MaterialImporter : AbstractImporter<IIdeaMaterial>
 	{
+		private IImportContext contex;
 		public MaterialImporter(IPluginLogger logger) : base(logger)
 		{
 		}
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaMaterial material)
 		{
+			contex = ctx;
 			switch (material)
 			{
 				case IIdeaMaterialByName materialByName:
@@ -84,13 +86,77 @@ namespace IdeaStatiCa.BimImporter.Importers
 			switch (matType)
 			{
 				case MaterialType.Concrete:
-					return new MatConcreteEc2();
+					{
+						switch (contex.CountryCode)
+						{
+							case CountryCode.India:
+								return new MatConcreteIND();
+							case CountryCode.SIA:
+								return new MatConcreteSIA();
+							case CountryCode.American:
+								return new MatConcreteACI();
+							case CountryCode.Canada:
+								return new MatConcreteCAN();
+							case CountryCode.Australia:
+								return new MatConcreteAUS();
+							case CountryCode.RUS:
+								return new MatConcreteRUS();
+							case CountryCode.CHN:
+								return new MatConcreteCHN();
+							case CountryCode.HKG:
+								return new MatConcreteHKG();
+							default:
+								return new MatConcreteEc2();
+						}
+					}
+
 
 				case MaterialType.Reinforcement:
-					return new MatReinforcementEc2();
+					{
+						switch (contex.CountryCode)
+						{
+							case CountryCode.India:
+								return new MatReinforcementIND();
+							case CountryCode.American:
+								return new MatReinforcementACI();
+							case CountryCode.Canada:
+								return new MatReinforcementCAN();
+							case CountryCode.Australia:
+								return new MatReinforcementAUS();
+							case CountryCode.RUS:
+								return new MatReinforcementRUS();
+							case CountryCode.CHN:
+								return new MatReinforcementCHN();
+							case CountryCode.HKG:
+								return new MatReinforcementHKG();
+							default:
+								return new MatReinforcementEc2();
+						}
+
+					}
 
 				case MaterialType.Steel:
-					return new MatSteelEc2();
+					{
+						switch (contex.CountryCode)
+						{
+							case CountryCode.India:
+								return new MatSteelIND();
+							case CountryCode.American:
+								return new MatSteelAISC();
+							case CountryCode.Canada:
+								return new MatSteelCISC();
+							case CountryCode.Australia:
+								return new MatSteelAUS();
+							case CountryCode.RUS:
+								return new MatSteelRUS();
+							case CountryCode.CHN:
+								return new MatSteelCHN();
+							case CountryCode.HKG:
+								return new MatSteelHKG();
+							default:
+								return new MatSteelEc2();
+						}
+					}
 			}
 
 			// if we got here then someone forgot to implement something

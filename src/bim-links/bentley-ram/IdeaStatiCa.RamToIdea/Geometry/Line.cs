@@ -11,6 +11,8 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 	{
 		private const double Tolerance = 1e-6;
 
+		private readonly int uid;
+
 		public RamNode Start { get; }
 
 		public RamNode End { get; }
@@ -25,8 +27,9 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 
 		private readonly List<(double, RamNode)> _intermediateNodes = new List<(double, RamNode)>();
 
-		public Line(RamNode start, RamNode end, bool allowsIntermediateNode)
+		public Line(int uid, RamNode start, RamNode end, bool allowsIntermediateNode)
 		{
+			this.uid = uid;
 			Start = start;
 			End = end;
 

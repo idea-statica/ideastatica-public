@@ -7,6 +7,6 @@ namespace IdeaStatiCa.Plugin
 	public class BIMProject
 	{
 		[DataMember]
-		public CountryCode CoutryCode { get; set; }
+		public CountryCode CountryCode { get; set; }
 	}
 }

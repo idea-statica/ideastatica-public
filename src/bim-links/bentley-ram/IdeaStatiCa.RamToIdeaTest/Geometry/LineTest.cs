@@ -17,7 +17,7 @@ namespace IdeaStatiCa.RamToIdeaTest.Geometry
 			RamNode end = new RamNode(-2, 5, 3);
 
 			// Tested method
-			Line line = new Line(start, end, false);
+			Line line = new Line(1, start, end, false);
 
 			// Assert
 			line.Vector.Should().Be(new Vector3D(-3, 4, 2));
@@ -31,7 +31,7 @@ namespace IdeaStatiCa.RamToIdeaTest.Geometry
 			RamNode end = new RamNode(-2, 5, 3);
 
 			// Tested method
-			Line line = new Line(start, end, false);
+			Line line = new Line(1, start, end, false);
 
 			// Assert
 			line.Vector.Should().Be(new Vector3D(-3, 4, 2));
