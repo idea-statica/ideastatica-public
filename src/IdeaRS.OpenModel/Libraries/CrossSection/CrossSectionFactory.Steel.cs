@@ -30,13 +30,14 @@
 		/// <param name="h">Height of web</param>
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tf">Flange thickness</param>
-		public static void FillWeldedT(CrossSectionParameter css, double b, double h, double tw, double tf)
+		public static void FillWeldedT(CrossSectionParameter css, double b, double h, double tw, double tf, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.Tw;
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeWidth", Value = b });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = h });
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = tf });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
@@ -50,7 +51,7 @@
 		/// <param name="rw">root radius</param>
 		/// <param name="rf">flange edge rounding radius</param>
 		/// <param name="taperF">Flange taper</param>
-		public static void FillWeldedU(CrossSectionParameter css, double b, double hw, double tw, double tf, double rw, double rf, double taperF)
+		public static void FillWeldedU(CrossSectionParameter css, double b, double hw, double tw, double tf, double rw, double rf, double taperF, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledUPar;
 			css.Parameters.Add(new ParameterDouble() { Name = "b", Value = b });
@@ -60,6 +61,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "rw", Value = rw });
 			css.Parameters.Add(new ParameterDouble() { Name = "rf", Value = rf });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = taperF });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
 		/// <summary>
@@ -123,7 +125,7 @@
 		/// <param name="R2">Web edge rounding radius</param>
 		/// <param name="tapperF">Flange tapper</param>
 		/// <param name="tapperW">Web tapper</param>
-		public static void FillCssTarc(CrossSectionParameter css, double B, double H, double Tw, double Tf, double R, double R1, double R2, double tapperF, double tapperW)
+		public static void FillCssTarc(CrossSectionParameter css, double B, double H, double Tw, double Tf, double R, double R1, double R2, double tapperF, double tapperW, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledT;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
@@ -135,6 +137,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "R2", Value = R2 });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = tapperF });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperW", Value = tapperW });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
@@ -147,7 +150,7 @@
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tfu">Upper flange thickness</param>
 		/// <param name="tfb">Bottom flange thickness</param>
-		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb)
+		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.Iwn;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
@@ -156,6 +159,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
@@ -228,7 +232,7 @@
 		/// <param name="rw">root radius</param>
 		/// <param name="rf">flange edge rounding radius</param>
 		/// <param name="taperF">Flange taper</param>
-		public static void FillCssSteelChannel(CrossSectionParameter css, double B, double D, double tw, double tf, double rw, double rf, double taperF)
+		public static void FillCssSteelChannel(CrossSectionParameter css, double B, double D, double tw, double tf, double rw, double rf, double taperF, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledU;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
@@ -238,6 +242,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "rw", Value = rw });
 			css.Parameters.Add(new ParameterDouble() { Name = "rf", Value = rf });
 			css.Parameters.Add(new ParameterDouble() { Name = "tapperF", Value = taperF });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
 		/// <summary>
@@ -306,11 +311,12 @@
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="H">Height</param>
-		public static void FillSteelTI(CrossSectionParameter css, string name, double H)
+		public static void FillSteelTI(CrossSectionParameter css, string name, double H, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledTI;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = H });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
