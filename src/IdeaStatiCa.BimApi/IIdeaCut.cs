@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaCut : IIdeaObject
+	public interface IIdeaCut : IIdeaPersistentObject
 	{
 		/// <summary>
 		/// Modified Object

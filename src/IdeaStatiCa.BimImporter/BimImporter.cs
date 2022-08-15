@@ -199,7 +199,7 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
-			if (group.Type == RequestedItemsType.Connections)
+			if (group.Type == RequestedItemsType.Connections || group.Type == RequestedItemsType.SingleConnection)
 			{
 				IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -212,8 +212,9 @@ namespace IdeaStatiCa.BimImporter
 					.First();
 
 				IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
-				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = GetConnections(members, geometry)
+				var con = GetConnections(members, geometry)
 					.First(x => x.Key.Id == node.Id);
+				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = con;
 
 				return CreateModelBIM(objects, new IBimItem[]
 				{
