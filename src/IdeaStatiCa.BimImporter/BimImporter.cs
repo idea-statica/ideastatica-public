@@ -102,7 +102,7 @@ namespace IdeaStatiCa.BimImporter
 
 		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>	
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportSingleConnection()
+		public ModelBIM ImportSingleConnection(CountryCode countryCode)
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -119,7 +119,7 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, connections);
+			return CreateModelBIM(objects, connections, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportMember"/>

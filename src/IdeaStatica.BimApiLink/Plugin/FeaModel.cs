@@ -58,7 +58,10 @@ namespace IdeaStatica.BimApiLink.Plugin
 				.ToHashSet();
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		public OriginSettings GetOriginSettings()
+			=> _feaModel.GetOriginSettings();
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
 			FeaUserSelection selection = _feaModel.GetUserSelection();
 			_lastSelection = selection;
@@ -70,9 +73,13 @@ namespace IdeaStatica.BimApiLink.Plugin
 			members = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
 				.ToHashSet();
+
+			connectionPoints = new HashSet<IIdeaConnectionPoint>();
 		}
 
-		public OriginSettings GetOriginSettings()
-			=> _feaModel.GetOriginSettings();
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

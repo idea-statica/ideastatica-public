@@ -23,7 +23,7 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <returns>ModelBIM object.</returns>
 		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
-		ModelBIM ImportSingleConnection();
+		ModelBIM ImportSingleConnection(CountryCode countryCode);
 
 		/// <summary>
 		/// Imports connections into IOM.
