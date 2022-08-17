@@ -20,6 +20,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Helpers
         {
             IIdeaModel model = Substitute.For<IIdeaModel>();
             model.GetMembers().Returns(Members.Values.ToHashSet());
+			model.GetOriginSettings().Returns(new IdeaRS.OpenModel.OriginSettings() { CountryCode = IdeaRS.OpenModel.CountryCode.ECEN });
             return model;
         }
 

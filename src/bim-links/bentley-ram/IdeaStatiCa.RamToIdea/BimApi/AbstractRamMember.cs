@@ -62,6 +62,16 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 
 		protected IResultsFactory ResultsFactory { get; }
 
+		public IIdeaTaper Taper => null;
+
+		public IIdeaCrossSection CrossSection => null;
+
+		public Alignment Alignment => Alignment.Center;
+
+		public bool MirrorY => false;
+
+		public bool MirrorZ => false;
+
 		private Line _line;
 		private readonly IObjectFactory _objectFactory;
 		private readonly ISectionFactory _sectionProvider;
@@ -135,7 +145,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		protected virtual Line CreateLine()
 		{
 			(SCoordinate start, SCoordinate end) = GetStartEndCoordinates();
-			return _geometry.CreateLine(start, end, Properties.CanBeSubdivided);
+			return _geometry.CreateLine(UID, start, end, Properties.CanBeSubdivided);
 		}
 
 		protected abstract (SCoordinate, SCoordinate) GetStartEndCoordinates();

@@ -14,6 +14,8 @@ namespace IdeaStatiCa.BimImporter
 
 		BimImporterConfiguration Configuration { get; }
 
+		CountryCode CountryCode { get; }
+
 		ReferenceElement Import(IIdeaObject obj);
 
 		object ImportConnectionItem(IIdeaObject obj, ConnectionData connectionData);

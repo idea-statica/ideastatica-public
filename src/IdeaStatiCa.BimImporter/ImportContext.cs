@@ -19,6 +19,8 @@ namespace IdeaStatiCa.BimImporter
 
 		public List<BIMItemId> BimItems { get; } = new List<BIMItemId>();
 
+		public CountryCode CountryCode { get; set; }
+
 		public BimImporterConfiguration Configuration { get; private set; }
 
 		private readonly Dictionary<IIdeaObject, ReferenceElement> _refElements
@@ -47,8 +49,29 @@ namespace IdeaStatiCa.BimImporter
 			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
 		}
 
+		public ImportContext(IImporter<IIdeaObject> importer, IResultImporter resultImporter, IProject project, IPluginLogger logger,
+			BimImporterConfiguration configuration, CountryCode countryCode)
+		{
+			_importer = importer;
+			_resultImporter = resultImporter;
+			_project = project;
+			_logger = logger;
+
+			Configuration = configuration;
+
+			OpenModelResult.ResultOnMembers.Add(_resultOnMembers);
+
+			this.CountryCode = countryCode;
+		}
+
 		public ReferenceElement Import(IIdeaObject obj)
 		{
+			if (obj is null)
+			{
+				_logger.LogTrace($"Trying to import null object.");
+				return null;
+			}
+
 			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
 
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))

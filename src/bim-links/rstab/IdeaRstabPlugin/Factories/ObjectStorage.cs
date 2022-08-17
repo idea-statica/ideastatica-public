@@ -11,7 +11,7 @@ namespace IdeaRstabPlugin.Factories
 	/// <typeparam name="T">Type to store</typeparam>
 	public class ObjectStorage<T>
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
+		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		private readonly Dictionary<int, (int hashCode, T obj)> _objects = new Dictionary<int, (int, T)>();
 		private readonly IEqualityComparer<T> _equalityComparer;
@@ -77,7 +77,11 @@ namespace IdeaRstabPlugin.Factories
 			_logger.LogDebug($"Creating new {nameof(T)} for id {index}");
 
 			T obj = factory();
-			_objects[index] = (_equalityComparer.GetHashCode(obj), obj);
+
+			if (obj != null)
+			{
+				_objects[index] = (_equalityComparer.GetHashCode(obj), obj);
+			}
 
 			return obj;
 		}

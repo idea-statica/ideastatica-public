@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.Plugin;
 using System;
@@ -69,7 +70,7 @@ namespace IdeaStatiCa.BimImporter
 		///  - nodes with two or more connecting member are connections.
 		/// </remarks>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportConnections()
+		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -96,7 +97,7 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, connections);
+			return CreateModelBIM(objects, connections, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>	
@@ -123,7 +124,7 @@ namespace IdeaStatiCa.BimImporter
 
 		/// <inheritdoc cref="IBimImporter.ImportMember"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportMembers()
+		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -156,12 +157,12 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, bimItems);
+			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected)
+		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode)
 		{
 			if (selected is null)
 			{
@@ -170,19 +171,19 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogTrace($"Importing of '{selected.Count}' selected items.");
 
-			return selected.Select(x => ImportGroup(x)).ToList();
+			return selected.Select(x => ImportGroup(x, countryCode)).ToList();
 		}
 
 		/// <inheritdoc cref="IBimImporter.Import"/>
 		/// <exception cref="ArgumentNullException">Throws when argument is null.</exception>
-		public ModelBIM Import(IEnumerable<IIdeaObject> objects)
+		public ModelBIM Import(IEnumerable<IIdeaObject> objects, CountryCode countryCode)
 		{
 			if (objects is null)
 			{
 				throw new ArgumentNullException(nameof(objects));
 			}
 
-			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>());
+			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>(), countryCode);
 		}
 
 		/// <summary>
@@ -190,7 +191,7 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <exception cref="ArgumentNullException">If any argument is null.</exception>
 		/// <exception cref="NotImplementedException">If the group type is not a connection or a substructure.</exception>
-		private ModelBIM ImportGroup(BIMItemsGroup group)
+		private ModelBIM ImportGroup(BIMItemsGroup group, CountryCode countryCode)
 		{
 			if (group is null)
 			{
@@ -219,7 +220,7 @@ namespace IdeaStatiCa.BimImporter
 				return CreateModelBIM(objects, new IBimItem[]
 				{
 					Connection.FromNodeAndMembers(node, connection.Value)
-				});
+				}, countryCode);
 			}
 			else if (group.Type == RequestedItemsType.Substructure)
 			{
@@ -229,7 +230,7 @@ namespace IdeaStatiCa.BimImporter
 					.Cast<IIdeaMember1D>()
 					.Select(x => new Member(x));
 
-				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
+				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems, countryCode);
 			}
 			else
 			{
@@ -302,12 +303,12 @@ namespace IdeaStatiCa.BimImporter
 		/// Creates and fills in <see cref="ModelBIM"/> from given <paramref name="objects"/> and <paramref name="bimItems"/>.
 		/// Loads from <see cref="IIdeaModel"/> are concatenated to <paramref name="objects"/>.
 		/// </summary>
-		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
+		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IdeaRS.OpenModel.CountryCode countryCode)
 		{
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 			return modelBIM;
 		}

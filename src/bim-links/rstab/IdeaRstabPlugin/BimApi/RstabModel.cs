@@ -44,8 +44,9 @@ namespace IdeaRstabPlugin.BimApi
 			using (new LicenceLock(_model))
 			{
 				return _modelData.GetMembers()
-				   .Select(x => _objectFactory.GetMember(x.No))
-				   .ToHashSet();
+					.Select(x => _objectFactory.GetMember(x.No))
+					.Where(x => x != null)
+					.ToHashSet();
 			}
 		}
 
@@ -111,6 +112,7 @@ namespace IdeaRstabPlugin.BimApi
 
 				members = selectedMembers
 					.Select(x => _objectFactory.GetMember(x))
+					.Where(x => x != null)
 					.ToHashSet();
 				nodes = selectedNodalSupports
 					.Select(x => _objectFactory.GetNode(x))
