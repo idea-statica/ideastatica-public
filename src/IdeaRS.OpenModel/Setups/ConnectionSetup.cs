@@ -474,6 +474,12 @@ namespace IdeaRS.OpenModel
 		/// Condensed element length factor (CEF). Condensed beam legth = maxCssSize * CEF
 		/// </summary>
 		public double CondensedElementLengthFactor { get; set; }
+
+		/// <summary>
+		/// Partial safety factor for Horizontal tying
+		/// </summary>
+		public double GammaMu { get; set; }
+
 		/*
 		/// <summary>
 		/// True if bore holes
