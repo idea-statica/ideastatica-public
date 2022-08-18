@@ -25,5 +25,10 @@
 		/// GammaMfi in fire design
 		/// </summary>
 		public double GammaMfi { get; set; }
+
+		/// <summary>
+		/// GammaMu
+		/// </summary>
+		public double GammaMu { get; set; }
 	}
 }
