@@ -29,7 +29,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Collection of parf witch shoud be welded
 		/// </summary>
-		IEnumerable<IIdeaObject> ConnectedParts { get; }
+		IEnumerable<IIdeaObjectConnectable> ConnectedParts { get; }
 
 		/// <summary>
 		/// Type of weld

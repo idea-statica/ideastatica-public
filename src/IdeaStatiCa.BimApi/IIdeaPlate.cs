@@ -3,7 +3,7 @@
 	/// <summary>
 	/// An plate is a part of a connection.
 	/// </summary>
-	public interface IIdeaPlate : IIdeaPersistentObject
+	public interface IIdeaPlate : IIdeaObjectConnectable
 	{
 		double Thickness { get; set; }
 

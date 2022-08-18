@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Tests.Helpers
 {
-	internal class BímItemEqualityComparer : IEqualityComparer<IBimItem>
+	internal class BimItemEqualityComparer : IEqualityComparer<IBimItem>
 	{
 		private static readonly IIdeaObjectComparer _ideaObjectComparer = new IIdeaObjectComparer();
 

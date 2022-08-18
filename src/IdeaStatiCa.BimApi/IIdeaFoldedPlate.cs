@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.BimApi
 {
-	public interface IIdeaFoldedPlate : IIdeaPersistentObject
+	public interface IIdeaFoldedPlate : IIdeaObjectConnectable
 	{
 		/// <summary>
 		/// Collection of plates

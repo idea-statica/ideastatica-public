@@ -13,7 +13,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 	[TestFixture]
 	public class BimImporterTest
 	{
-		private static readonly BímItemEqualityComparer _connectionEqualityComparer = new BímItemEqualityComparer();
+		private static readonly BimItemEqualityComparer _connectionEqualityComparer = new BimItemEqualityComparer();
 
 		private IBimObjectImporter bimObjectImporter;
 		private IProject project;

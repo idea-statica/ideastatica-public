@@ -24,7 +24,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Collection of parf witch shoud be bolted
 		/// </summary>
-		IEnumerable<IIdeaObject> ConnectedParts { get; }
+		IEnumerable<IIdeaObjectConnectable> ConnectedParts { get; }
 
 		/// <summary>
 		/// Shear in thread
