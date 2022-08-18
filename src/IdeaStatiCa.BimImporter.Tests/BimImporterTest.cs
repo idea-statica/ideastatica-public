@@ -13,7 +13,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 	[TestFixture]
 	public class BimImporterTest
 	{
-		private static readonly BímItemEqualityComparer _connectionEqualityComparer = new BímItemEqualityComparer();
+		private static readonly BimItemEqualityComparer _connectionEqualityComparer = new BimItemEqualityComparer();
 
 		private IBimObjectImporter bimObjectImporter;
 		private IProject project;
@@ -54,7 +54,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(2, "line(1,2)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();
@@ -93,7 +93,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(2,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();
@@ -133,11 +133,12 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(4, "line(4,5)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();
 					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2], builder.Members[3], builder.Members[4] };
+					x[2] = new HashSet<IIdeaConnectionPoint>();
 				});
 
 			BimImporter bimImporter = CreateBimImporter(model);
@@ -176,7 +177,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(2,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();
@@ -220,7 +221,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 
 			// select both the node and the member
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>() { builder.Nodes[1] };
@@ -256,7 +257,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(2, "line(2,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>() { builder.Nodes[1], builder.Nodes[2] };
@@ -297,7 +298,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(1, "line(0,1)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();
@@ -339,7 +340,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(1,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();
@@ -383,7 +384,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(1,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>()))
+			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
 				.Do(x =>
 				{
 					x[0] = new HashSet<IIdeaNode>();

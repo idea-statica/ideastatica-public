@@ -55,11 +55,11 @@ namespace IdeaRstabPlugin.BimApi
 		/// </summary>
 		/// <param name="nodes">Always empty</param>
 		/// <param name="members">Set of selected members</param>
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
 			nodes = new HashSet<IIdeaNode>();
 			members = new HashSet<IIdeaMember1D>();
-
+			connectionPoints = null;
 			using (new LicenceLock(_model))
 			{
 				List<int> selectedMembers = new List<int>();
@@ -151,6 +151,11 @@ namespace IdeaRstabPlugin.BimApi
 				ProjectDescription = _model.GetDescription(),
 				///CountryCode = CountryCode.ECEN // RSTAB api won't give me the country code/standard
 			};
+		}
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

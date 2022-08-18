@@ -18,9 +18,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
-		private readonly IImporter<IIdeaTaper> _taperImporter;
-		private readonly IImporter<IIdeaSpan> _spanImporter;
-
+<<<<<<< HEAD
 		private readonly IImporter<IIdeaConnectedMember> _connectedMemberImporter;
 		private readonly IImporter<IIdeaPlate> _plateImporter;
 		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
@@ -31,6 +29,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaConcreteBlock> _concreteBlockImporter;
 		private readonly IImporter<IIdeaFoldedPlate> _foldedPlateImporter;
 
+=======
+		private readonly IImporter<IIdeaTaper> _taperImporter;
+		private readonly IImporter<IIdeaSpan> _spanImporter;
+>>>>>>> main_22.1.0
 
 		public ObjectImporter(IPluginLogger logger)
 		{
@@ -44,8 +46,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_loadGroupImporter = new LoadGroupImporter(logger);
 			_combiInputImporter = new CombiInputImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
-			_taperImporter = new TaperImporter(logger);
-			_spanImporter = new SpanImporter(logger);
+<<<<<<< HEAD
 			_connectedMemberImporter = new ConnectedMemberImporter(logger);
 			_plateImporter = new PlateImporter(logger);
 			_beamImporter = new BeamImporter(logger);
@@ -56,6 +57,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_anchorGridImporter = new AnchorGridImporter(logger);
 			_foldedPlateImporter = new FoldedPlateImporter(logger);
 
+=======
+			_taperImporter = new TaperImporter(logger);
+			_spanImporter = new SpanImporter(logger);
+>>>>>>> main_22.1.0
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)

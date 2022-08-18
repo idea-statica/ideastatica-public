@@ -72,10 +72,19 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<Connection> connections = new List<Connection>();
+
+			if (connectionPoints != null)
+			{
+				foreach (var connectionPoint in connectionPoints)
+				{
+					connections.Add(Connection.FromConnectionPoint(connectionPoint));
+				}
+			}
+
 			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
 			{
 				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
@@ -91,16 +100,44 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, connections, countryCode);
 		}
 
-		/// <inheritdoc cref="IBimImporter.ImportMembers"/>
+		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>	
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		public ModelBIM ImportSingleConnection(CountryCode countryCode)
+		{
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
+			IGeometry geometry = _geometryProvider.GetGeometry();
+
+			List<Connection> connections = new List<Connection>();
+
+			if (connectionPoint != null)
+			{
+				connections.Add(Connection.FromConnectionPoint(connectionPoint));
+
+			}
+
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
+				.Concat(selectedMembers);
+
+			return CreateModelBIM(objects, connections, countryCode);
+		}
+
+		/// <inheritdoc cref="IBimImporter.ImportMember"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
 			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
-
+			if (connectionPoints != null)
+			{
+				foreach (var connectionPoint in connectionPoints)
+				{
+					bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
+				}
+			}
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
 				bimItems.Add(new Member(selectedMember));
@@ -163,7 +200,7 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
-			if (group.Type == RequestedItemsType.Connections)
+			if (group.Type == RequestedItemsType.Connections || group.Type == RequestedItemsType.SingleConnection)
 			{
 				IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -176,8 +213,9 @@ namespace IdeaStatiCa.BimImporter
 					.First();
 
 				IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
-				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = GetConnections(members, geometry)
+				var con = GetConnections(members, geometry)
 					.First(x => x.Key.Id == node.Id);
+				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = con;
 
 				return CreateModelBIM(objects, new IBimItem[]
 				{
@@ -201,9 +239,9 @@ namespace IdeaStatiCa.BimImporter
 			}
 		}
 
-		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
-			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> selectedConnectionPoints);
 
 			if (selectedNodes == null)
 			{
@@ -217,6 +255,26 @@ namespace IdeaStatiCa.BimImporter
 
 			nodes = selectedNodes;
 			members = selectedMembers;
+			connectionPoints = selectedConnectionPoints;
+		}
+
+		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		{
+			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint selectedConnectionPoint);
+
+			if (selectedNodes == null)
+			{
+				throw new InvalidOperationException("Out argument 'nodes' in GetSelection cannot be null.");
+			}
+
+			if (selectedMembers == null)
+			{
+				throw new InvalidOperationException("Out argument 'members' in GetSelection cannot be null.");
+			}
+
+			nodes = selectedNodes;
+			members = selectedMembers;
+			connectionPoint = selectedConnectionPoint;
 		}
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)

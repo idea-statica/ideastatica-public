@@ -19,6 +19,13 @@ namespace IdeaStatiCa.BimImporter
 		ModelBIM Import(IEnumerable<IIdeaObject> objects, CountryCode countryCode);
 
 		/// <summary>
+		/// Import single connections into IOM. Typycaly complicated connection from cad
+		/// </summary>
+		/// <returns>ModelBIM object.</returns>
+		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
+		ModelBIM ImportSingleConnection(CountryCode countryCode);
+
+		/// <summary>
 		/// Imports connections into IOM.
 		/// </summary>
 		/// <param name="countryCode"></param>
