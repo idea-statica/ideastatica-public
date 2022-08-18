@@ -19,7 +19,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				Id = referenceMember.Id,
 				RefLineInCenterOfGravity = true,
-				AutoAddCutByWorkplane = true,
+				AutoAddCutByWorkplane = member.ConnectedMemberType != IdeaConnectedMemberType.Negative,
 				IsAdded = member.ConnectedMemberType != IdeaConnectedMemberType.Structural,
 				IsNegativeObject = member.ConnectedMemberType == IdeaConnectedMemberType.Negative,
 				IsBearingMember = member.IsBearing,
