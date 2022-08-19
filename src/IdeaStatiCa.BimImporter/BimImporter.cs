@@ -212,21 +212,35 @@ namespace IdeaStatiCa.BimImporter
 					.OfType<IIdeaNode>()
 					.First();
 
-				IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
-				var con = GetConnections(members, geometry)
-					.First(x => x.Key.Id == node.Id);
-				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = con;
 
-				return CreateModelBIM(objects, new IBimItem[]
+				IEnumerable<IIdeaConnectionPoint> connectionPoints = objects.OfType<IIdeaConnectionPoint>();
+				List<Connection> connections = new List<Connection>();
+
+
+				if (connectionPoints.Any())
 				{
-					Connection.FromNodeAndMembers(node, connection.Value)
-				}, countryCode);
+					if (connectionPoints.First() != null)
+					{
+						connections.Add(Connection.FromConnectionPoint(connectionPoints.First()));
+					}
+				}
+				else
+				{
+					IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
+					var con = GetConnections(members, geometry)
+						.First(x => x.Key.Id == node.Id);
+
+					connections.Add(Connection.FromNodeAndMembers(node, con.Value));
+				}
+
+				return CreateModelBIM(objects, connections, countryCode);
 			}
 			else if (group.Type == RequestedItemsType.Substructure)
 			{
 				IEnumerable<Member> bimItems = group.Items
 					.Where(x => x.Type == BIMItemType.Member)
 					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null)
 					.Cast<IIdeaMember1D>()
 					.Select(x => new Member(x));
 
