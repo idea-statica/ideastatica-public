@@ -1,0 +1,48 @@
+﻿using IdeaRS.OpenModel.Connection;
+
+namespace IdeaStatiCa.BimApi
+{
+	public interface IIdeaCut : IIdeaPersistentObject
+	{
+		/// <summary>
+		/// Modified Object
+		/// </summary>
+		IIdeaObject ModifiedObject { get; }
+
+		/// <summary>
+		/// Modified Object
+		/// </summary>
+		IIdeaObject CuttingObject { get; }
+
+		/// <summary>
+		/// Offset
+		/// </summary>
+		double Offset { get; }
+
+		/// <summary>
+		/// Weld of cut
+		/// </summary>
+		IIdeaWeld Weld { get; }
+
+		/// <summary>
+		/// Cut Method
+		/// </summary>
+		CutMethod CutMethod { get; }
+
+		/// <summary>
+		/// Cut Orientation
+		/// </summary>
+		CutOrientation CutOrientation { get; }
+
+
+		/// <summary>
+		/// Distance Comparison
+		/// </summary>
+		DistanceComparison DistanceComparison { get; }
+
+		/// <summary>
+		/// Cut part
+		/// </summary>
+		CutPart CutPart { get; }
+	}
+}

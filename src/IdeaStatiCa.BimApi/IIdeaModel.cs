@@ -19,7 +19,14 @@ namespace IdeaStatiCa.BimApi
 		/// unless the user did not select anything.¨Set of <paramref name="members"/> must be a
 		/// subset of <see cref="GetMembers"/>.
 		/// </summary>
-		void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members);
+		void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints);
+
+		/// <summary>
+		/// Returns currently selected node and/or member. At least one of the sets must be non-empty
+		/// unless the user did not select anything.¨Set of <paramref name="members"/> must be a
+		/// subset of <see cref="GetMembers"/>.
+		/// </summary>
+		void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint);
 
 		/// <summary>
 		/// Returns information from the original application about the project this class refers to.

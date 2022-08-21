@@ -1,12 +1,11 @@
-﻿using IdeaStatiCa.RamToIdea.BimApi;
-using RAMDATAACCESSLib;
+﻿using RAMDATAACCESSLib;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.Geometry
 {
 	internal interface IGeometry
 	{
-		Line CreateLine(SCoordinate start, SCoordinate end, bool allowsIntermediateNodes);
+		Line CreateLine(int uid, SCoordinate start, SCoordinate end, bool allowsIntermediateNodes);
 
 		void AddNodeToLine(Line line, SCoordinate position);
 

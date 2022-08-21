@@ -16,7 +16,7 @@ namespace IdeaRstabPlugin.Factories
 	/// </summary>
 	internal class ObjectFactory : IObjectFactory, IDataCache
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
+		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("bim.rstab.factories");
 
 		private static readonly IIdeaObjectComparer _comparer = new IIdeaObjectComparer();
 		private static readonly IdeaMaterialEqualityComparer _materialEqualityComparer = new IdeaMaterialEqualityComparer();
@@ -28,7 +28,6 @@ namespace IdeaRstabPlugin.Factories
 
 		private readonly ObjectStorage<IIdeaLoadCase> _loadcases = new ObjectStorage<IIdeaLoadCase>(_comparer);
 		private readonly ObjectStorage<IIdeaLoadCase> _loadcasesNl = new ObjectStorage<IIdeaLoadCase>(_comparer);
-		private readonly ObjectStorage<IIdeaLoadGroup> _loadgroup = new ObjectStorage<IIdeaLoadGroup>(_comparer);
 		private readonly ObjectStorage<IIdeaCombiInput> _combiinput = new ObjectStorage<IIdeaCombiInput>(_comparer);
 
 		private readonly IModel _model;
@@ -43,6 +42,7 @@ namespace IdeaRstabPlugin.Factories
 		private readonly IImportSession _importSession;
 		private readonly ILoadsProvider _loadsProvider;
 		private readonly IResultsProvider _resultsProvider;
+		private readonly MemberFactory _memberFactory;
 
 		public IList<int> ids = new List<int>();
 		public IList<IIdeaLoadCase> notExclusiveIds = new List<IIdeaLoadCase>();
@@ -51,7 +51,7 @@ namespace IdeaRstabPlugin.Factories
 		public IList<IIdeaLoadCase> cyclicIds = new List<IIdeaLoadCase>();
 		public IList<IIdeaLoadCase> differentRelationLC = new List<IIdeaLoadCase>();
 
-		public ObjectStorage<IIdeaLoadGroup> LoadGroup { get { return _loadgroup; } }
+		public ObjectStorage<IIdeaLoadGroup> LoadGroup { get; } = new ObjectStorage<IIdeaLoadGroup>(_comparer);
 
 		/// <summary>
 		/// ObjectFactory
@@ -78,6 +78,7 @@ namespace IdeaRstabPlugin.Factories
 
 			_resultsFactory = new ResultsFactory(this, resultsProvider, importSession);
 			_elementFactory = new ElementFactory(modelDataProvider, linesAndNodes, this, _importSession);
+			_memberFactory = new MemberFactory(_resultsFactory, modelDataProvider, _elementFactory, resultsProvider);
 		}
 
 		public void Clear()
@@ -88,7 +89,7 @@ namespace IdeaRstabPlugin.Factories
 			_nodes.Clear();
 			_crossSections.Clear();
 			_loadcases.Clear();
-			_loadgroup.Clear();
+			LoadGroup.Clear();
 			_combiinput.Clear();
 		}
 
@@ -97,11 +98,7 @@ namespace IdeaRstabPlugin.Factories
 			_logger.LogTrace($"ObjectFactory.GetMember({memberNo})");
 
 			return _members.GetOrCreate(memberNo,
-				() =>
-				{
-					_resultsProvider.Prefetch(memberNo);
-					return new RstabMember(this, _modelDataProvider, _resultsFactory, _elementFactory, memberNo);
-				});
+				() => _memberFactory.Create(this, _importSession, memberNo));
 		}
 
 		public IIdeaCrossSection GetCrossSection(int cssNo)
@@ -132,7 +129,7 @@ namespace IdeaRstabPlugin.Factories
 		{
 			_logger.LogTrace($"ObjectFactory.GetLoadGroup({lgNo})");
 
-			return _loadgroup.GetOrCreate(lgNo,
+			return LoadGroup.GetOrCreate(lgNo,
 				() => new RstabLoadGroup(_model, this, lgNo));
 		}
 

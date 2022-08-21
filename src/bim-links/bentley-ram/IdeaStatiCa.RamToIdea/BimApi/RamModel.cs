@@ -52,10 +52,11 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			};
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
 			nodes = new HashSet<IIdeaNode>();
 			members = _members.ToHashSet();
+			connectionPoints = null;
 		}
 
 		private IEnumerable<IIdeaMember1D> GetAllMembers()
@@ -143,6 +144,11 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			{
 				yield return braces.GetAt(i);
 			}
+		}
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

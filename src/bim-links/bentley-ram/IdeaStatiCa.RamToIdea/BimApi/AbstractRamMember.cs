@@ -145,7 +145,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		protected virtual Line CreateLine()
 		{
 			(SCoordinate start, SCoordinate end) = GetStartEndCoordinates();
-			return _geometry.CreateLine(start, end, Properties.CanBeSubdivided);
+			return _geometry.CreateLine(UID, start, end, Properties.CanBeSubdivided);
 		}
 
 		protected abstract (SCoordinate, SCoordinate) GetStartEndCoordinates();
