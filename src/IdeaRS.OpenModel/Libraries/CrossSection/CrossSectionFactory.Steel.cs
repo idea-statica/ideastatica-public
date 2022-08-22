@@ -383,5 +383,45 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
+
+		public static void FillBoxWeb(CrossSectionParameter css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb, bool mirrorY = false)
+		{
+			css.CrossSectionType = CrossSectionType.BoxWeb;
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebDistance", Value = b1 });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		public static void FillBoxWeb(CrossSectionParameter css, double bu, double bb, double hw, double b1, double h, double tw, double tfu, double tfb, double overlap, BoxDeltaAligment aligment, bool mirrorY = false)
+		{
+			css.CrossSectionType = CrossSectionType.BoxDelta;
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebDistance", Value = b1 });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Overlap", Value = overlap });
+			css.Parameters.Add(new ParameterInt() { Name = "WebAlignment", Value = (int)aligment });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		public static void FillTriangle(CrossSectionParameter css, double h, double w, double fTh, double webTh, double webD, bool mirrorY = false)
+		{
+			css.CrossSectionType = CrossSectionType.BoxFl;
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = fTh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebDistance", Value = webD });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = webTh });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = w });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
 	}
 }
