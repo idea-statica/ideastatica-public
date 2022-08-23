@@ -18,14 +18,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 			BeamData beamIOM = new BeamData()
 			{
 				Id = referenceMember.Id,
-				RefLineInCenterOfGravity = true,
+				RefLineInCenterOfGravity = false,
 				AutoAddCutByWorkplane = member.ConnectedMemberType != IdeaConnectedMemberType.Negative,
 				IsAdded = member.ConnectedMemberType != IdeaConnectedMemberType.Structural,
 				IsNegativeObject = member.ConnectedMemberType == IdeaConnectedMemberType.Negative,
 				IsBearingMember = member.IsBearing,
 				Name = member.IdeaMember.Name,
 				OriginalModelId = member.IdeaMember.Id,
-				MirrorY = false,
+				MirrorY = member.IdeaMember.MirrorY,
 			};
 
 			if (beamIOM.IsAdded || beamIOM.IsNegativeObject)
