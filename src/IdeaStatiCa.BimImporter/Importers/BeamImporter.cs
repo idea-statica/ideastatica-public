@@ -26,6 +26,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Name = member.IdeaMember.Name,
 				OriginalModelId = member.IdeaMember.Id,
 				MirrorY = member.IdeaMember.MirrorY,
+				Cuts = new List<CutData>(),
+				Plates = new List<PlateData>(),
 			};
 
 			if (beamIOM.IsAdded || beamIOM.IsNegativeObject)
