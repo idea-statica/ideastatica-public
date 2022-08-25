@@ -145,19 +145,17 @@ namespace IdeaStatiCa.BimImporter
 
 		public object ImportConnectionItem(IIdeaObject obj, ConnectionData connectionData)
 		{
-			if (_refConnectionItems.TryGetValue(obj, out object refElm))
-			{
-				_logger.LogDebug($"Object has been already imported with IOM id '{refElm}'");
-				return refElm;
-			}
-
 			var item = _importer.Import(this, obj, connectionData);
 			if (item == null)
 			{
 				throw new InvalidOperationException($"OpenModel add connection item failed, return code '{item}'.");
 			}
-			_refConnectionItems.Add(obj, item);
 
+			if (!_refConnectionItems.ContainsKey(obj))
+			{
+
+				_refConnectionItems.Add(obj, item);
+			}
 			return item;
 		}
 	}
