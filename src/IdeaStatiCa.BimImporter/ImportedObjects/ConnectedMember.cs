@@ -33,6 +33,8 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public string Name => IdeaMember.Name;
 
+		public bool AutoAddCutByWorkplane { get; set; }
+
 		public IEnumerable<IIdeaResult> GetResults()
 		{
 			return IdeaMember.GetResults();
