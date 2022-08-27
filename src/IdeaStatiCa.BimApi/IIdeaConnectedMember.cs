@@ -100,5 +100,7 @@
 		IdeaBeamSegmentModelType MemberSegmentType { get; }
 
 		IIdeaMember1D IdeaMember { get; }
+
+		bool AutoAddCutByWorkplane { get; }
 	}
 }
