@@ -13,7 +13,7 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 		}
 		public IIdeaMember1D IdeaMember { get; }
 
-		public IdeaGeometricalType GeometricalType { get; set; }
+		public IdeaGeometricalType GeometricalType { get; set; } = IdeaGeometricalType.Ended;
 
 		public IdeaConnectedMemberType ConnectedMemberType { get; set; }
 
