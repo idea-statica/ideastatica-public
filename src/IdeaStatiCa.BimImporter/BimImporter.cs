@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,6 +19,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IProject _project;
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
+		private readonly IIdeaStaticaApp _remoteApp;
 
 		/// <summary>
 		/// Creates instance of <see cref="BimImporter"/> with default <see cref="IGeometry"/> implementation.
@@ -27,10 +29,10 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="logger">Logger</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
-		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger)
+		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IIdeaStaticaApp remoteApp = null)
 		{
 			return Create(ideaModel, project, logger, new DefaultGeometryProvider(logger, ideaModel),
-				new BimImporterConfiguration());
+				new BimImporterConfiguration(), remoteApp);
 		}
 
 		/// <summary>
@@ -44,23 +46,24 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
-			IGeometryProvider geometryProvider, BimImporterConfiguration configuration)
+			IGeometryProvider geometryProvider, BimImporterConfiguration configuration, IIdeaStaticaApp remoteApp = null)
 		{
 			return new BimImporter(ideaModel,
 				project,
 				logger,
 				geometryProvider,
-				BimObjectImporter.Create(logger, configuration));
+				BimObjectImporter.Create(logger, configuration), remoteApp);
 		}
 
 		internal BimImporter(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider,
-			IBimObjectImporter bimObjectImporter)
+			IBimObjectImporter bimObjectImporter, IIdeaStaticaApp remoteApp = null)
 		{
 			_ideaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
 			_bimObjectImporter = bimObjectImporter ?? throw new ArgumentNullException(nameof(bimObjectImporter));
+			_remoteApp = remoteApp;
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportConnections"/>
@@ -71,6 +74,8 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportConnections()
 		{
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
+
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -94,14 +99,17 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers()
 		{
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
-			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
+			var adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer).ToList(); // @Todo: prove that converting to list doesn't incur a large perf penalty in this case -Dan 23.8.2022
 
-			foreach (IIdeaMember1D selectedMember in selectedMembers)
+			for (var i = 0; i < selectedMembers.Count; i++)
 			{
+				var selectedMember = selectedMembers.ElementAt(i);
+				this._remoteApp?.SetStage(i + 1, selectedMembers.Count, "Member");
 				bimItems.Add(new Member(selectedMember));
 
 				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
@@ -110,8 +118,11 @@ namespace IdeaStatiCa.BimImporter
 				}
 			}
 
-			foreach (IIdeaNode node in adjacentNodes)
+			for (int i = 0; i < adjacentNodes.Count; i++)
 			{
+				IIdeaNode node = adjacentNodes[i];
+				this._remoteApp?.SetStage(i + 1, adjacentNodes.Count, "Node");
+
 				bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
 			}
 
@@ -160,6 +171,9 @@ namespace IdeaStatiCa.BimImporter
 				throw new ArgumentNullException(nameof(group));
 			}
 
+			this._remoteApp?.InitProgressDialog();
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "GROUP IMPORT");
+
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
 			if (group.Type == RequestedItemsType.Connections)
@@ -195,6 +209,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 			else
 			{
+				this._remoteApp?.CancelMessage();
 				_logger.LogError($"BIMItemsGroup type '{group.Type}' is not supported.");
 				throw new NotImplementedException($"BIMItemsGroup type '{group.Type}' is not supported.");
 			}
@@ -202,6 +217,8 @@ namespace IdeaStatiCa.BimImporter
 
 		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
 		{
+			this._remoteApp?.InitProgressDialog();
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
 			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
 
 			if (selectedNodes == null)
@@ -220,13 +237,19 @@ namespace IdeaStatiCa.BimImporter
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)
 		{
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
+
 			Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
 				new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
 
 			foreach (IIdeaMember1D member in members)
 			{
-				foreach (IIdeaNode node in geometry.GetNodesOnMember(member))
+				var nodes = geometry.GetNodesOnMember(member).ToList();
+				for (int i = 0; i < nodes.Count; i++)
 				{
+					IIdeaNode node = nodes[i];
+					this._remoteApp?.SetStageLocalised(i + 1, nodes.Count, LocalisedMessage.ImportingConnections); //  "Creating Connection"
+
 					if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
 					{
 						memberSet = new HashSet<IIdeaMember1D>();
@@ -249,8 +272,10 @@ namespace IdeaStatiCa.BimImporter
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "FINISHING IMPORT");
 			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
+			this._remoteApp?.CancelMessage();
 			return modelBIM;
 		}
 	}

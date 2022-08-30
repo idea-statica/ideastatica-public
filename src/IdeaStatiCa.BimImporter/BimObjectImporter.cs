@@ -3,6 +3,7 @@ using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
@@ -16,6 +17,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IPluginLogger _logger;
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IResultImporter _resultImporter;
+		private readonly IIdeaStaticaApp _remoteApp;
 
 		private readonly BimImporterConfiguration _configuration;
 
@@ -26,22 +28,23 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="configuration">Importer configuration</param>
 		/// <returns>IBimObjectImporter instance.</returns>
 		public static IBimObjectImporter Create(IPluginLogger logger,
-			BimImporterConfiguration configuration)
+			BimImporterConfiguration configuration, IIdeaStaticaApp remoteApp = null /* @Todo: make this mandatory */)
 		{
 			return new BimObjectImporter(
 				logger,
 				new ObjectImporter(logger),
 				new ResultImporter(logger),
-				configuration);
+				configuration, remoteApp);
 		}
 
 		internal BimObjectImporter(IPluginLogger logger, IImporter<IIdeaObject> importer, IResultImporter resultImporter,
-			BimImporterConfiguration configuration)
+			BimImporterConfiguration configuration, IIdeaStaticaApp remoteApp)
 		{
 			_logger = logger;
 			_importer = importer;
 			_resultImporter = resultImporter;
 			_configuration = configuration;
+			_remoteApp = remoteApp;
 		}
 
 		/// <summary>
@@ -53,10 +56,12 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>ModelBIM</returns>
 		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project)
 		{
+			_remoteApp?.SendMessage(MessageSeverity.Info, "Import started");
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration);
 
 			if (!(bimItems is null))
 			{
+				_remoteApp?.SendMessage(MessageSeverity.Info, "Importing BIM items");
 				foreach (IBimItem bimItem in bimItems)
 				{
 					importContext.ImportBimItem(bimItem);
@@ -65,8 +70,12 @@ namespace IdeaStatiCa.BimImporter
 
 			if (!(objects is null))
 			{
+				_remoteApp?.SendMessage(MessageSeverity.Info, "Importing objects");
+				int i = 1;
+				int count = objects.Count();
 				foreach (IIdeaObject obj in objects)
 				{
+					_remoteApp?.SetStage(i, count, "Creating connection");
 					importContext.Import(obj);
 				}
 			}

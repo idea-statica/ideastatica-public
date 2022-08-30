@@ -4,6 +4,8 @@ using IdeaStatica.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 
 namespace IdeaStatica.BimApiLink
 {
@@ -48,26 +50,26 @@ namespace IdeaStatica.BimApiLink
 			return this;
 		}
 
-		public Task Run()
+		public Task Run(GrpcServiceClient<IIdeaStaticaApp> checkBotClient = null, GrpcServer grpcServer = null)
 		{
 			ImporterDispatcher importerDispatcher = new(_importersConfiguration.Manager);
 
 			IPluginLogger pluginLogger = _pluginLogger ?? new NullLogger();
-			IApplicationBIM applicationBIM = Create(pluginLogger, importerDispatcher, _projectPath);
+			IApplicationBIM applicationBIM = Create(pluginLogger, importerDispatcher, _projectPath, checkBotClient?.Service);
 
 			PluginFactory pluginFactory = new(
 				applicationBIM,
 				_applicationName,
 				_ideaStatiCaPath);
 
-			IBIMPluginHosting pluginHosting = new GrpcBimHostingFactory(pluginFactory, pluginLogger)
-				.Create();
+			var pluginHosting = new GrpcBimHostingFactory(pluginFactory, pluginLogger)
+				.Create(checkBotClient, grpcServer);
 
 			string pid = Environment.ProcessId.ToString();
 			return pluginHosting.RunAsync(pid, _projectPath);
 		}
 
-		protected abstract IApplicationBIM Create(IPluginLogger logger, IBimApiImporter bimApiImporter, string projectPath);
+		protected abstract IApplicationBIM Create(IPluginLogger logger, IBimApiImporter bimApiImporter, string projectPath, IIdeaStaticaApp remoteApp);
 	}
 
 	internal class FeaBimLink : BimLink
@@ -80,14 +82,14 @@ namespace IdeaStatica.BimApiLink
 			_feaModel = feaModel;
 		}
 
-		protected override IApplicationBIM Create(IPluginLogger logger, IBimApiImporter bimApiImporter, string projectPath)
+		protected override IApplicationBIM Create(IPluginLogger logger, IBimApiImporter bimApiImporter, string projectPath, IIdeaStaticaApp remoteApp)
 		{
 			JsonPersistence jsonPersistence = new();
 			JsonProjectStorage projectStorage = new(jsonPersistence, projectPath);
 			Project project = new(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new(project, bimApiImporter);
 			FeaModelAdapter feaModelAdapter = new(bimApiImporter, _feaModel);
-			IBimImporter bimImporter = BimImporter.Create(feaModelAdapter, projectAdapter, logger);
+			IBimImporter bimImporter = BimImporter.Create(feaModelAdapter, projectAdapter, logger, remoteApp);
 
 			return new FeaApplication(ApplicationName, projectAdapter, projectStorage, bimImporter, bimApiImporter);
 		}

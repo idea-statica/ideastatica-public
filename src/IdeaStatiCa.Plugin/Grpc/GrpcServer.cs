@@ -16,7 +16,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private string currentClientId;
 		private IServerStreamWriter<GrpcMessage> currentClientStream = null;
 		private Dictionary<string, IGrpcMessageHandler> handlers = new Dictionary<string, IGrpcMessageHandler>();
-		protected readonly IPluginLogger Logger;
+		public readonly IPluginLogger Logger;
 		private readonly int MaxDataLength;
 		#endregion
 

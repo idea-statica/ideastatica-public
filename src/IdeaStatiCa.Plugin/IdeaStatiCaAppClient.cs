@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Linq;
+using System.Globalization;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -98,7 +99,73 @@ namespace IdeaStatiCa.Plugin
 			return Service.GetAllConnectionData(connectionId);
 		}
 
+		public void SendMessage(MessageSeverity severity, string text)
+		{
+			throw new NotImplementedException();
+			//Service.SendMessage(severity, text);
+		}
+
+		public void SetStage(int stage, int stageMax, string name)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetStageProgress(double percentage)
+		{
+			throw new NotImplementedException();
+		}
+
+		public string GetLocalizedText(LocalisedMessage msg)
+		{
+			throw new NotImplementedException();
+		}
+
+		public CultureInfo GetCurrentCulture()
+		{
+			throw new NotImplementedException();
+		}
+
+		public int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CancelMessage()
+		{
+			throw new NotImplementedException();
+		}
+
 		protected IIdeaStaticaApp Service => base.Channel;
+
+		public bool GetCancellationFlag()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void InitProgressDialog()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SendMessage(MessageSeverity severity, LocalisedMessage msg)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetStage(int stage, int stageMax, LocalisedMessage msg)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Nito.AsyncEx.Synchronous;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
@@ -60,8 +62,22 @@ namespace IdeaStatiCa.Plugin
 
 		public string GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{
+			try
+			{
+				return GetActiveSelectionModelXMLAsync(countryCode, requestedType).WaitAndUnwrapException();
+			}
+			catch (Exception ex)
+			{
+				ideaLogger.LogDebug("Import failed", ex);
+
+				throw;
+			}
+		}
+
+		public async Task<string> GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
+		{
 			ideaLogger.LogDebug($"Getting active selection model as XML: county code: {countryCode}, type = {requestedType}.");
-			var model = GetActiveSelectionModel(countryCode, requestedType);
+			var model = await Task.Run( () => GetActiveSelectionModel(countryCode, requestedType));
 
 			ideaLogger.LogTrace("Converting to XML.");
 			return Tools.ModelToXml(model);
@@ -80,12 +96,27 @@ namespace IdeaStatiCa.Plugin
 
 		public string GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
 		{
+			try
+			{
+				return GetModelForSelectionXMLAsync(countryCode, items).WaitAndUnwrapException();
+			}
+			catch (Exception ex)
+			{
+				ideaLogger.LogDebug("Import failed", ex);
+
+				throw;
+			}
+		}
+		
+		public async Task<string> GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
+		{
 			ideaLogger.LogDebug($"Getting model for selection as XML: county code: {countryCode}, {items.Count} item(s).");
-			var model = GetModelForSelection(countryCode, items);
+			var model = await Task.Run(() => GetModelForSelection(countryCode, items));
 
 			ideaLogger.LogTrace("Converting to XML.");
 			return Tools.ModelToXml(model);
 		}
+
 
 		public virtual bool IsCAD() => false;
 

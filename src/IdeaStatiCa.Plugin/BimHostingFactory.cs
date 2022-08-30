@@ -15,21 +15,21 @@ namespace IdeaStatiCa.Plugin
 			this.Logger = logger;
 			this.PluginFactory = pluginFactory;
 		}
-		public IBIMPluginHosting Create()
+		public IBIMPluginHosting Create(GrpcServiceClient<IIdeaStaticaApp> checkBotClient = null, GrpcServer grpcServer = null)
 		{
 			int clientId = Process.GetCurrentProcess().Id;
 			int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 
-			var grpcServer = new GrpcServer(Logger);
+			grpcServer = grpcServer ?? new GrpcServer(Logger);
 			grpcServer.Connect(clientId.ToString(), grpcPort);
+			
+			grpcServer.StartAsync();
 
-			var gRPCtask = grpcServer.StartAsync();
-
-			GrpcServiceClient<IIdeaStaticaApp> checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(IdeaStatiCa.Plugin.Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcServer, Logger);
+			checkBotClient = checkBotClient ?? new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcServer, grpcServer.Logger);
 
 			// It will be used for gRPC communication
-			var pluginHostingGrpc = new BIMPluginHostingGrpc(PluginFactory, grpcServer, Logger);
-			if(pluginHostingGrpc.Service is ApplicationBIM appBim)
+			var pluginHostingGrpc = new BIMPluginHostingGrpc(PluginFactory, grpcServer, grpcServer.Logger);
+			if (pluginHostingGrpc.Service is ApplicationBIM appBim)
 			{
 				appBim.IdeaStaticaApp = checkBotClient.Service;
 			}
