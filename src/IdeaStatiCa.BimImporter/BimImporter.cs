@@ -6,6 +6,7 @@ using IdeaStatiCa.Plugin.Grpc.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
@@ -137,7 +138,7 @@ namespace IdeaStatiCa.BimImporter
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
-			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
+			var adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
 			if (connectionPoints != null)
 			{
 				foreach (var connectionPoint in connectionPoints)
@@ -145,24 +146,22 @@ namespace IdeaStatiCa.BimImporter
 					bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
 			}
-			
+
+			int j = 1;
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
-				var selectedMember = selectedMembers.ElementAt(i);
-				this._remoteApp?.SetStage(i + 1, selectedMembers.Count, "Member");
+				this._remoteApp?.SetStage(j, selectedMembers.Count, "Member");
 				bimItems.Add(new Member(selectedMember));
 
 				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
 				{
 					adjacentNodes.Add(node);
 				}
+				j++;
 			}
 
-			for (int i = 0; i < adjacentNodes.Count; i++)
+			foreach (var node in adjacentNodes)
 			{
-				IIdeaNode node = adjacentNodes[i];
-				this._remoteApp?.SetStage(i + 1, adjacentNodes.Count, "Node");
-
 				bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
 			}
 
