@@ -17,7 +17,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			switch (material)
 			{
 				case IIdeaMaterialByName materialByName:
-					return CreateMaterialByName(materialByName);
+					return CreateMaterialByName(ctx, materialByName);
 
 				case IIdeaMaterialSteel matSteal:
 					return CreateMaterialSteel(matSteal);
@@ -58,7 +58,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return mat;
 		}
 
-		private OpenElementId CreateMaterialByName(IIdeaMaterialByName materialByName)
+		private OpenElementId CreateMaterialByName(IImportContext ctx, IIdeaMaterialByName materialByName)
 		{
 			string name = materialByName.Name;
 			MaterialType type = materialByName.MaterialType;
@@ -71,30 +71,125 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new ConstraintException($"Material '{materialByName.Id}' has empty/null name.");
 			}
 
-			Material mat = CreateMaterialFromType(materialByName.MaterialType);
+			Material mat = CreateMaterialFromType(ctx, materialByName.MaterialType);
 			mat.LoadFromLibrary = true;
 			mat.Name = name;
 
 			return mat;
 		}
 
-		private Material CreateMaterialFromType(MaterialType matType)
+		private static Material CreateMaterialFromType(IImportContext ctx, MaterialType matType)
 		{
-			// we use ECEN materials just as placeholders
+			CountryCode countryCode = ctx.CountryCode;
+
 			switch (matType)
 			{
 				case MaterialType.Concrete:
-					return new MatConcreteEc2();
+
+					return CreateMaterialConcrete(countryCode);
 
 				case MaterialType.Reinforcement:
-					return new MatReinforcementEc2();
+
+					return CreateMaterialReinforcement(countryCode);
 
 				case MaterialType.Steel:
-					return new MatSteelEc2();
+					return CreateMaterialSteel(countryCode);
 			}
 
-			// if we got here then someone forgot to implement something
 			throw new NotImplementedException();
+		}
+
+		private static Material CreateMaterialSteel(CountryCode countryCode)
+		{
+			switch (countryCode)
+			{
+				case CountryCode.India:
+					return new MatSteelIND();
+
+				case CountryCode.American:
+					return new MatSteelAISC();
+
+				case CountryCode.Canada:
+					return new MatSteelCISC();
+
+				case CountryCode.Australia:
+					return new MatSteelAUS();
+
+				case CountryCode.RUS:
+					return new MatSteelRUS();
+
+				case CountryCode.CHN:
+					return new MatSteelCHN();
+
+				case CountryCode.HKG:
+					return new MatSteelHKG();
+
+				default:
+					return new MatSteelEc2();
+			}
+		}
+
+		private static Material CreateMaterialReinforcement(CountryCode countryCode)
+		{
+			switch (countryCode)
+			{
+				case CountryCode.India:
+					return new MatReinforcementIND();
+
+				case CountryCode.American:
+					return new MatReinforcementACI();
+
+				case CountryCode.Canada:
+					return new MatReinforcementCAN();
+
+				case CountryCode.Australia:
+					return new MatReinforcementAUS();
+
+				case CountryCode.RUS:
+					return new MatReinforcementRUS();
+
+				case CountryCode.CHN:
+					return new MatReinforcementCHN();
+
+				case CountryCode.HKG:
+					return new MatReinforcementHKG();
+
+				default:
+					return new MatReinforcementEc2();
+			}
+		}
+
+		private static Material CreateMaterialConcrete(CountryCode countryCode)
+		{
+			switch (countryCode)
+			{
+				case CountryCode.India:
+					return new MatConcreteIND();
+
+				case CountryCode.SIA:
+					return new MatConcreteSIA();
+
+				case CountryCode.American:
+					return new MatConcreteACI();
+
+				case CountryCode.Canada:
+					return new MatConcreteCAN();
+
+				case CountryCode.Australia:
+					return new MatConcreteAUS();
+
+				case CountryCode.RUS:
+					return new MatConcreteRUS();
+
+				case CountryCode.CHN:
+					return new MatConcreteCHN();
+
+				case CountryCode.HKG:
+					return new MatConcreteHKG();
+
+				default:
+					return new MatConcreteEc2();
+			}
 		}
 	}
 }

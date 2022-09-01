@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
@@ -54,10 +55,10 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="bimItems">Bim items to import.</param>
 		/// <param name="project">Project for storing of mappings and tokens.</param>
 		/// <returns>ModelBIM</returns>
-		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project)
+		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project, CountryCode countryCode)
 		{
 			_remoteApp?.SendMessage(MessageSeverity.Info, "Import started");
-			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration);
+			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration, countryCode);
 
 			if (!(bimItems is null))
 			{

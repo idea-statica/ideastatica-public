@@ -28,10 +28,10 @@ namespace IdeaStatica.BimApiLink.Plugin
 			switch (requestedType)
 			{
 				case RequestedItemsType.Connections:
-					return _bimImporter.ImportConnections();
+					return _bimImporter.ImportConnections(countryCode);
 
 				case RequestedItemsType.Substructure:
-					return _bimImporter.ImportMembers();
+					return _bimImporter.ImportMembers(countryCode);
 
 				default:
 					throw new NotImplementedException();
@@ -40,7 +40,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 		protected override List<ModelBIM> Synchronize(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			return _bimImporter.ImportSelected(items);
+			return _bimImporter.ImportSelected(items, countryCode);
 		}
 
 		protected override void Select(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members)

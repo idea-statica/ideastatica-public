@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 
@@ -14,27 +15,38 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <param name="objects">Objects to import.</param>
 		/// <returns>ModelBIM object.</returns>
-		ModelBIM Import(IEnumerable<IIdeaObject> objects);
+		/// <param name="countryCode"></param>
+		ModelBIM Import(IEnumerable<IIdeaObject> objects, CountryCode countryCode);
+
+		/// <summary>
+		/// Import single connections into IOM. Typycaly complicated connection from cad
+		/// </summary>
+		/// <returns>ModelBIM object.</returns>
+		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
+		ModelBIM ImportSingleConnection(CountryCode countryCode);
 
 		/// <summary>
 		/// Imports connections into IOM.
 		/// </summary>
+		/// <param name="countryCode"></param>
 		/// <returns>ModelBIM object.</returns>
 		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
-		ModelBIM ImportConnections();
+		ModelBIM ImportConnections(CountryCode countryCode);
 
 		/// <summary>
 		/// Imports members into IOM.
 		/// </summary>
+		/// <param name="countryCode"></param>
 		/// <returns>ModelBIM object.</returns>
 		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
-		ModelBIM ImportMembers();
+		ModelBIM ImportMembers(CountryCode countryCode);
 
 		/// <summary>
 		/// Reimports previously imported objects. 
 		/// </summary>
 		/// <param name="selected">List of objects to reimport.</param>
+		/// <param name="countryCode"></param>
 		/// <returns>List of ModelBIM objects.</returns>
-		List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected);
+		List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode);
 	}
 }

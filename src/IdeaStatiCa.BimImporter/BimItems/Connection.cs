@@ -32,7 +32,17 @@ namespace IdeaStatiCa.BimImporter.BimItems
 			return new Connection(new ConnectionPoint(node, members));
 		}
 
-		internal Connection(ConnectionPoint connection)
+		/// <summary>
+		/// Creates a connection from a node and connecting members.
+		/// </summary>
+		/// <param name="connection">The conenection point.</param>
+		/// <returns>Connection instance.</returns>
+		public static Connection FromConnectionPoint(IIdeaConnectionPoint connection)
+		{
+			return new Connection(connection);
+		}
+
+		internal Connection(IIdeaConnectionPoint connection)
 		{
 			ReferencedObject = connection;
 		}

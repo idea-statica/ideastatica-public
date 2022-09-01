@@ -15,9 +15,10 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 		private readonly List<RamNode> _nodes = new List<RamNode>();
 		private readonly List<Line> _lines = new List<Line>();
 
-		public Line CreateLine(SCoordinate start, SCoordinate end, bool allowsIntermediateNodes)
+		public Line CreateLine(int uid, SCoordinate start, SCoordinate end, bool allowsIntermediateNodes)
 		{
 			Line line = new Line(
+				uid,
 				GetOrCreateAt(start),
 				GetOrCreateAt(end),
 				allowsIntermediateNodes);

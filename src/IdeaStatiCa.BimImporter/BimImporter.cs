@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
@@ -72,14 +73,23 @@ namespace IdeaStatiCa.BimImporter
 		///  - nodes with two or more connecting member are connections.
 		/// </remarks>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportConnections()
+		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
 			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
 
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<Connection> connections = new List<Connection>();
+
+			if (connectionPoints != null)
+			{
+				foreach (var connectionPoint in connectionPoints)
+				{
+					connections.Add(Connection.FromConnectionPoint(connectionPoint));
+				}
+			}
+
 			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
 			{
 				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
@@ -92,21 +102,51 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, connections);
+			return CreateModelBIM(objects, connections, countryCode);
 		}
 
-		/// <inheritdoc cref="IBimImporter.ImportMembers"/>
+		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>	
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public ModelBIM ImportMembers()
+		public ModelBIM ImportSingleConnection(CountryCode countryCode)
 		{
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "SINGLE CONNECTION IMPORT");
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
+			IGeometry geometry = _geometryProvider.GetGeometry();
+
+			List<Connection> connections = new List<Connection>();
+
+			if (connectionPoint != null)
+			{
+				connections.Add(Connection.FromConnectionPoint(connectionPoint));
+
+			}
+
+			IEnumerable<IIdeaObject> objects = selectedNodes
+				.Cast<IIdeaObject>()
+				.Concat(selectedMembers);
+
+			return CreateModelBIM(objects, connections, countryCode);
+		}
+
+		/// <inheritdoc cref="IBimImporter.ImportMember"/>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		public ModelBIM ImportMembers(CountryCode countryCode)
+		{
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "MEMBERS IMPORT");
+			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
-			var adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer).ToList(); // @Todo: prove that converting to list doesn't incur a large perf penalty in this case -Dan 23.8.2022
-
-			for (var i = 0; i < selectedMembers.Count; i++)
+			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
+			if (connectionPoints != null)
+			{
+				foreach (var connectionPoint in connectionPoints)
+				{
+					bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
+				}
+			}
+			
+			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
 				var selectedMember = selectedMembers.ElementAt(i);
 				this._remoteApp?.SetStage(i + 1, selectedMembers.Count, "Member");
@@ -130,12 +170,12 @@ namespace IdeaStatiCa.BimImporter
 				.Cast<IIdeaObject>()
 				.Concat(selectedMembers);
 
-			return CreateModelBIM(objects, bimItems);
+			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
-		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected)
+		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode)
 		{
 			if (selected is null)
 			{
@@ -144,19 +184,19 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogTrace($"Importing of '{selected.Count}' selected items.");
 
-			return selected.Select(x => ImportGroup(x)).ToList();
+			return selected.Select(x => ImportGroup(x, countryCode)).ToList();
 		}
 
 		/// <inheritdoc cref="IBimImporter.Import"/>
 		/// <exception cref="ArgumentNullException">Throws when argument is null.</exception>
-		public ModelBIM Import(IEnumerable<IIdeaObject> objects)
+		public ModelBIM Import(IEnumerable<IIdeaObject> objects, CountryCode countryCode)
 		{
 			if (objects is null)
 			{
 				throw new ArgumentNullException(nameof(objects));
 			}
 
-			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>());
+			return CreateModelBIM(objects, Enumerable.Empty<IBimItem>(), countryCode);
 		}
 
 		/// <summary>
@@ -164,7 +204,7 @@ namespace IdeaStatiCa.BimImporter
 		/// </summary>
 		/// <exception cref="ArgumentNullException">If any argument is null.</exception>
 		/// <exception cref="NotImplementedException">If the group type is not a connection or a substructure.</exception>
-		private ModelBIM ImportGroup(BIMItemsGroup group)
+		private ModelBIM ImportGroup(BIMItemsGroup group, CountryCode countryCode)
 		{
 			if (group is null)
 			{
@@ -176,7 +216,7 @@ namespace IdeaStatiCa.BimImporter
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
-			if (group.Type == RequestedItemsType.Connections)
+			if (group.Type == RequestedItemsType.Connections || group.Type == RequestedItemsType.SingleConnection)
 			{
 				IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -188,24 +228,39 @@ namespace IdeaStatiCa.BimImporter
 					.OfType<IIdeaNode>()
 					.First();
 
-				IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
-				KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> connection = GetConnections(members, geometry)
-					.First(x => x.Key.Id == node.Id);
 
-				return CreateModelBIM(objects, new IBimItem[]
+				IEnumerable<IIdeaConnectionPoint> connectionPoints = objects.OfType<IIdeaConnectionPoint>();
+				List<Connection> connections = new List<Connection>();
+
+
+				if (connectionPoints.Any())
 				{
-					Connection.FromNodeAndMembers(node, connection.Value)
-				});
+					if (connectionPoints.First() != null)
+					{
+						connections.Add(Connection.FromConnectionPoint(connectionPoints.First()));
+					}
+				}
+				else
+				{
+					IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
+					var con = GetConnections(members, geometry)
+						.First(x => x.Key.Id == node.Id);
+
+					connections.Add(Connection.FromNodeAndMembers(node, con.Value));
+				}
+
+				return CreateModelBIM(objects, connections, countryCode);
 			}
 			else if (group.Type == RequestedItemsType.Substructure)
 			{
 				IEnumerable<Member> bimItems = group.Items
 					.Where(x => x.Type == BIMItemType.Member)
 					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null)
 					.Cast<IIdeaMember1D>()
 					.Select(x => new Member(x));
 
-				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems);
+				return CreateModelBIM(Enumerable.Empty<IIdeaObject>(), bimItems, countryCode);
 			}
 			else
 			{
@@ -215,11 +270,12 @@ namespace IdeaStatiCa.BimImporter
 			}
 		}
 
-		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
+
 			this._remoteApp?.InitProgressDialog();
 			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
-			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers);
+			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> selectedConnectionPoints);
 
 			if (selectedNodes == null)
 			{
@@ -233,6 +289,26 @@ namespace IdeaStatiCa.BimImporter
 
 			nodes = selectedNodes;
 			members = selectedMembers;
+			connectionPoints = selectedConnectionPoints;
+		}
+
+		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		{
+			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint selectedConnectionPoint);
+
+			if (selectedNodes == null)
+			{
+				throw new InvalidOperationException("Out argument 'nodes' in GetSelection cannot be null.");
+			}
+
+			if (selectedMembers == null)
+			{
+				throw new InvalidOperationException("Out argument 'members' in GetSelection cannot be null.");
+			}
+
+			nodes = selectedNodes;
+			members = selectedMembers;
+			connectionPoint = selectedConnectionPoint;
 		}
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)
@@ -267,14 +343,16 @@ namespace IdeaStatiCa.BimImporter
 		/// Creates and fills in <see cref="ModelBIM"/> from given <paramref name="objects"/> and <paramref name="bimItems"/>.
 		/// Loads from <see cref="IIdeaModel"/> are concatenated to <paramref name="objects"/>.
 		/// </summary>
-		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems)
+		private ModelBIM CreateModelBIM(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IdeaRS.OpenModel.CountryCode countryCode)
 		{
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
 			this._remoteApp?.SendMessage(MessageSeverity.Info, "FINISHING IMPORT");
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project);
+
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
+
 			this._remoteApp?.CancelMessage();
 			return modelBIM;
 		}

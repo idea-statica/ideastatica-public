@@ -1,8 +1,8 @@
 ﻿using Dlubal.RSTAB8;
+using IdeaRS.OpenModel;
 using IdeaRstabPlugin.Factories;
 using IdeaRstabPlugin.Geometry;
 using IdeaRstabPlugin.Providers;
-using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
@@ -44,8 +44,9 @@ namespace IdeaRstabPlugin.BimApi
 			using (new LicenceLock(_model))
 			{
 				return _modelData.GetMembers()
-				   .Select(x => _objectFactory.GetMember(x.No))
-				   .ToHashSet();
+					.Select(x => _objectFactory.GetMember(x.No))
+					.Where(x => x != null)
+					.ToHashSet();
 			}
 		}
 
@@ -54,11 +55,11 @@ namespace IdeaRstabPlugin.BimApi
 		/// </summary>
 		/// <param name="nodes">Always empty</param>
 		/// <param name="members">Set of selected members</param>
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members)
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
 			nodes = new HashSet<IIdeaNode>();
 			members = new HashSet<IIdeaMember1D>();
-
+			connectionPoints = null;
 			using (new LicenceLock(_model))
 			{
 				List<int> selectedMembers = new List<int>();
@@ -111,6 +112,7 @@ namespace IdeaRstabPlugin.BimApi
 
 				members = selectedMembers
 					.Select(x => _objectFactory.GetMember(x))
+					.Where(x => x != null)
 					.ToHashSet();
 				nodes = selectedNodalSupports
 					.Select(x => _objectFactory.GetNode(x))
@@ -149,6 +151,11 @@ namespace IdeaRstabPlugin.BimApi
 				ProjectDescription = _model.GetDescription(),
 				///CountryCode = CountryCode.ECEN // RSTAB api won't give me the country code/standard
 			};
+		}
+
+		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

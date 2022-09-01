@@ -16,7 +16,7 @@ namespace IdeaStatiCa.PluginRunner
 
 		public PluginLaunchRequest(string path, string? className)
 		{
-			Assembly assembly = Assembly.LoadFile(path);
+			Assembly assembly = Assembly.LoadFrom(path);
 			Type entryPointClass = PluginEntryPoint.GetEntryPointClass(assembly, className);
 			Plugin = PluginEntryPoint.GetInstance(entryPointClass);
 		}

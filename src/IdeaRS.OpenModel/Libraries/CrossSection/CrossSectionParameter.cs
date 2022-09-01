@@ -549,6 +549,24 @@ namespace IdeaRS.OpenModel.CrossSection
 		UniqueName = 1001,
 	}
 
+	public enum BoxDeltaAligment
+	{
+		/// <summary>
+		/// Center
+		/// </summary>
+		Center = 0,
+
+		/// <summary>
+		/// Left
+		/// </summary>
+		Left = 1,
+
+		/// <summary>
+		/// Right
+		/// </summary>
+		Right = 2
+	}
+
 	/// <summary>
 	/// Cross-section defined by parameters
 	/// </summary>
