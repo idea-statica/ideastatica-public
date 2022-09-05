@@ -39,6 +39,15 @@ namespace IdeaStatiCa.RamToIdea.Factories
 						Name = $"Concrete {Math.Round(GetValue(matConcrete.dFpc))}{GetUnit()}",
 						MaterialType = MaterialType.Concrete
 					};
+
+				case EMATERIALTYPES.EOtherMat:
+				case EMATERIALTYPES.EWallPropOtherMat:
+					IOtherMaterial matOther = _model.GetOtherMaterial(uid);
+					return new RamMaterialByName()
+					{
+						Name = $"Other {Math.Round(GetValue(matOther.dE))}{GetUnit()}",
+						MaterialType = MaterialType.Steel
+					};
 			}
 
 			throw new NotImplementedException();
