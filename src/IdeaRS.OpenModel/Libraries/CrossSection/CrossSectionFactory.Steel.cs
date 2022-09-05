@@ -240,7 +240,7 @@
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tfu">Upper flange thickness</param>
 		/// <param name="tfb">Bottom flange thickness</param>
-		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb, bool mirrorY = false)
+		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb)
 		{
 			css.CrossSectionType = CrossSectionType.Iwn;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
@@ -249,7 +249,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
-			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
