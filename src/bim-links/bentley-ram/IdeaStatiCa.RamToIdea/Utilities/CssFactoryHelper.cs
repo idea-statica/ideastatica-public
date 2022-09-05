@@ -43,7 +43,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double tapperF = RadiusDefault;
 			double r1 = RadiusDefault;
 
-			CrossSectionFactory.FillCssIarc(crossSectionParameter, cssGeomBh, cssGeomH, cssGeomS, cssGeomT, cssGeomR2, tapperF, r1);
+			CrossSectionFactory.FillRolledI(crossSectionParameter, cssGeomBh, cssGeomH, cssGeomS, cssGeomT, cssGeomR2, tapperF, r1);
 		}
 
 		internal static void FillCssPipe(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
@@ -53,7 +53,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 			double t = props.WebT.InchesToMeters();
 			var diameter = props.Depth.InchesToMeters();
-			CrossSectionFactory.FillSteelTube(crossSectionParameter, diameter/2, t);
+			CrossSectionFactory.FillRolledCHS(crossSectionParameter, diameter/2, t);
 		}
 
 
@@ -75,7 +75,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double rf = RadiusDefault;
 			double taperF = RadiusDefault;
 
-			CrossSectionFactory.FillCssSteelChannel(crossSectionParameter, B, D, tw, tf, rw, rf, taperF);
+			CrossSectionFactory.FillRolledChannel(crossSectionParameter, B, D, tw, tf, rw, rf, taperF);
 		}
 
 
@@ -95,7 +95,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double r2 = RadiusDefault;
 			double d = RadiusDefault;
 
-			CrossSectionFactory.FillCssSteelRectangularHollow(crossSectionParameter, D, B, t, r1, r2, d);
+			CrossSectionFactory.FillRolledRHS(crossSectionParameter, D, B, t, r1, r2, d);
 		}
 
 
@@ -129,7 +129,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double tapperF = RadiusDefault;
 			double tapperW = RadiusDefault;
 
-			CrossSectionFactory.FillCssTarc(crossSectionParameter, cssGeomB, cssGeomH, cssGeomTw, cssGeomTf, cssGeomR, cssGeomR1, cssGeomR2, tapperF, tapperW);
+			CrossSectionFactory.FillRolledT(crossSectionParameter, cssGeomB, cssGeomH, cssGeomTw, cssGeomTf, cssGeomR, cssGeomR1, cssGeomR2, tapperF, tapperW);
 		}
 
 		internal static void FillCssRectangle(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
@@ -176,7 +176,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double tapperF = RadiusDefault;
 			double r1 = RadiusDefault;
 
-			CrossSectionFactory.FillCssIarc(crossSectionParameter, cssGeomBh, cssGeomH, cssGeomS, cssGeomT, cssGeomR2, tapperF, r1);
+			CrossSectionFactory.FillRolledI(crossSectionParameter, cssGeomBh, cssGeomH, cssGeomS, cssGeomT, cssGeomR2, tapperF, r1);
 		}
 
 		internal static void FillCssAngle(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
@@ -195,7 +195,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double r2 = RadiusDefault;
 			double C = 0.0;
 
-			CrossSectionFactory.FillCssSteelAngle(crossSectionParameter, B, D, t, rw, r2, C);
+			CrossSectionFactory.FillRolledAngle(crossSectionParameter, B, D, t, rw, r2, C);
 		}
 
 		internal static void FillCssColdFormedZee(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
@@ -260,7 +260,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double dis = props.BfTop.InchesToMeters() - props.BFBot.InchesToMeters() * 2;
 
-			CrossSectionFactory.FillShapeDblL(crossSectionParameter, h, b, th, sh, dis);
+			CrossSectionFactory.FillComposedDblLt(crossSectionParameter, h, b, th, sh, dis);
 		}
 
 		public static void FillShapeDblLu(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
@@ -277,7 +277,7 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double dis = props.BfTop.InchesToMeters() - props.BFBot.InchesToMeters() * 2;
 
-			CrossSectionFactory.FillShapeDblLu(crossSectionParameter, h, b, th, sh, dis);
+			CrossSectionFactory.FillComposedDblLu(crossSectionParameter, h, b, th, sh, dis);
 		}
 	}
 }
