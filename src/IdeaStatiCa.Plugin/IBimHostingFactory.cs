@@ -5,6 +5,6 @@ namespace IdeaStatiCa.Plugin
 {
 	public interface IBimHostingFactory
 	{
-		IBIMPluginHosting Create(GrpcServiceClient<IIdeaStaticaApp> checkBotClient = null, GrpcServer grpcServer = null);
+		IBIMPluginHosting Create(IBIMPluginFactory pluginFactory, IPluginLogger logger);
 	}
 }

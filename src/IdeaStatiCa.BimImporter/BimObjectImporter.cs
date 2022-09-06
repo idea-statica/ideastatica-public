@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IPluginLogger _logger;
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IResultImporter _resultImporter;
-		private readonly IIdeaStaticaApp _remoteApp;
+		private readonly IProgressMessaging _remoteApp;
 
 		private readonly BimImporterConfiguration _configuration;
 
@@ -29,7 +29,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="configuration">Importer configuration</param>
 		/// <returns>IBimObjectImporter instance.</returns>
 		public static IBimObjectImporter Create(IPluginLogger logger,
-			BimImporterConfiguration configuration, IIdeaStaticaApp remoteApp = null /* @Todo: make this mandatory */)
+			BimImporterConfiguration configuration, IProgressMessaging remoteApp = null /* @Todo: make this mandatory */)
 		{
 			return new BimObjectImporter(
 				logger,
@@ -39,7 +39,7 @@ namespace IdeaStatiCa.BimImporter
 		}
 
 		internal BimObjectImporter(IPluginLogger logger, IImporter<IIdeaObject> importer, IResultImporter resultImporter,
-			BimImporterConfiguration configuration, IIdeaStaticaApp remoteApp)
+			BimImporterConfiguration configuration, IProgressMessaging remoteApp)
 		{
 			_logger = logger;
 			_importer = importer;

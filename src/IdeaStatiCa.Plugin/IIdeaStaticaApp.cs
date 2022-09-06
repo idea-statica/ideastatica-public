@@ -88,13 +88,12 @@ namespace IdeaStatiCa.Plugin
 	[ServiceContract]
 	public interface IIdeaStaticaApp
 	{
-		bool GetCancellationFlag(); // @Todo: flags aren't the ideal solution
-
 		/// <summary>
 		/// Get all cross-sections from IDEA StatiCa MPRL (material and product range library) which belongs to <paramref name="countryCode"/>
 		/// </summary>
 		/// <param name="countryCode">Country code filter</param>
 		/// <returns>Cross-sections in the MPRL</returns>
+		[OperationContract]
 		List<LibraryItem> GetCssInMPRL(IdeaRS.OpenModel.CountryCode countryCode);
 
 		/// <summary>
@@ -102,24 +101,28 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="countryCode">Country code filter</param>
 		/// <returns>Materials in the MPRL</returns>
+		[OperationContract]
 		List<LibraryItem> GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode countryCode);
 
 		/// <summary>
 		/// Get all cross-sections in the currently open project
 		/// </summary>
 		/// <returns>Cross-sections in the project</returns>
+		[OperationContract]
 		List<ProjectItem> GetCssInProject();
 
 		/// <summary>
 		/// Get all cross-sections in the currently open project
 		/// </summary>
 		/// <returns>Cross-sections with assigned material in the project</returns>
+		[OperationContract]
 		List<CrossSectionProjectItem> GetCssInProjectV2();
 
 		/// <summary>
 		/// Get all materials in the currently open project
 		/// </summary>
 		/// <returns>Materials in the project</returns>
+		[OperationContract]
 		List<ProjectItem> GetMaterialsInProject();
 
 		/// <summary>
@@ -136,19 +139,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Identifier of the required connection</param>
 		/// <exception cref="System.Exception">Exception is thrown if operation fails or no data are provided by the service</exception>
 		/// <returns>XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)</returns>
+		[OperationContract]
 		string GetAllConnectionData(int connectionId);
-
-		void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg);
-		void SendMessage(MessageSeverity severity, string text);
-		int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons);
-		void CancelMessage();
-		void InitProgressDialog();
-
-		void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg);
-		void SetStage(int stage, int stageMax, string name);
-		void SetStageProgress(double percentage);
-
-		string GetLocalizedText(LocalisedMessage msg);
-		CultureInfo GetCurrentCulture();
 	}
 }

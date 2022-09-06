@@ -21,7 +21,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IProject _project;
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
-		private readonly IIdeaStaticaApp _remoteApp;
+		private readonly IProgressMessaging _remoteApp;
 
 		/// <summary>
 		/// Creates instance of <see cref="BimImporter"/> with default <see cref="IGeometry"/> implementation.
@@ -31,7 +31,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="logger">Logger</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
-		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IIdeaStaticaApp remoteApp = null)
+		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IProgressMessaging remoteApp = null)
 		{
 			return Create(ideaModel, project, logger, new DefaultGeometryProvider(logger, ideaModel),
 				new BimImporterConfiguration(), remoteApp);
@@ -48,7 +48,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
-			IGeometryProvider geometryProvider, BimImporterConfiguration configuration, IIdeaStaticaApp remoteApp = null)
+			IGeometryProvider geometryProvider, BimImporterConfiguration configuration, IProgressMessaging remoteApp = null)
 		{
 			return new BimImporter(ideaModel,
 				project,
@@ -58,7 +58,7 @@ namespace IdeaStatiCa.BimImporter
 		}
 
 		internal BimImporter(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider,
-			IBimObjectImporter bimObjectImporter, IIdeaStaticaApp remoteApp = null)
+			IBimObjectImporter bimObjectImporter, IProgressMessaging remoteApp = null)
 		{
 			_ideaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
 			_project = project ?? throw new ArgumentNullException(nameof(project));

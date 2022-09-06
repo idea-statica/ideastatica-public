@@ -20,6 +20,10 @@ namespace IdeaStatiCa.Plugin
 		/// communication canal for sending message to the checkbot
 		/// </summary>
 		public IIdeaStaticaApp IdeaStaticaApp { get; set; }
+		/// <summary>
+		/// communication canal for sending progress messages
+		/// </summary>
+		public IProgressMessaging Progress { get; set; }
 
 		public virtual List<BIMItemId> GetActiveSelection() => null;
 
@@ -77,7 +81,7 @@ namespace IdeaStatiCa.Plugin
 		public async Task<string> GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType)
 		{
 			ideaLogger.LogDebug($"Getting active selection model as XML: county code: {countryCode}, type = {requestedType}.");
-			var model = await Task.Run( () => GetActiveSelectionModel(countryCode, requestedType));
+			var model = await Task.Run(() => GetActiveSelectionModel(countryCode, requestedType));
 
 			ideaLogger.LogTrace("Converting to XML.");
 			return Tools.ModelToXml(model);
@@ -107,7 +111,7 @@ namespace IdeaStatiCa.Plugin
 				throw;
 			}
 		}
-		
+
 		public async Task<string> GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items)
 		{
 			ideaLogger.LogDebug($"Getting model for selection as XML: county code: {countryCode}, {items.Count} item(s).");

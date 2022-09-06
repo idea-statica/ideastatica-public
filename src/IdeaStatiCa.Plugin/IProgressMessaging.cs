@@ -1,0 +1,21 @@
+﻿using System.Globalization;
+
+namespace IdeaStatiCa.Plugin
+{
+	public interface IProgressMessaging
+	{
+		bool GetCancellationFlag(); // @Todo: flags aren't the ideal solution
+		void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg);
+		void SendMessage(MessageSeverity severity, string text);
+		int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons);
+		void CancelMessage();
+		void InitProgressDialog();
+
+		void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg);
+		void SetStage(int stage, int stageMax, string name);
+		void SetStageProgress(double percentage);
+
+		string GetLocalizedText(LocalisedMessage msg);
+		CultureInfo GetCurrentCulture();
+	}
+}
