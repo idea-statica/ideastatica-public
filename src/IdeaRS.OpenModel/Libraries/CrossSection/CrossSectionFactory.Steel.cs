@@ -77,7 +77,7 @@
 		/// <param name="r2">Toe radius</param>
 		/// <param name="C">Centroid position</param
 		/// <param name="mirrorZ">Z-axis mirror</param>
-		/// <param name="mirrorZ">Y-axis mirror</param>
+		/// <param name="mirrorY">Y-axis mirror</param>
 		public static void FillRolledAngle(CrossSectionParameter css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledAngle;
@@ -109,7 +109,7 @@
 		/// <param name="r1">inner radius</param>
 		/// <param name="r2">outer radius</param>
 		/// <param name="d">web buckling depth</param>
-		public static void FillSteelRHS(CrossSectionParameter css, double D, double B, double t, double r1, double r2, double d)
+		public static void FillRolledRHS(CrossSectionParameter css, double D, double B, double t, double r1, double r2, double d)
 		{
 			css.CrossSectionType = CrossSectionType.RolledRHS;
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = B });
@@ -120,7 +120,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "d", Value = d });
 		}
 
-		public static void FillSteelRHS(CrossSectionParameter css, string name)
+		public static void FillRolledRHS(CrossSectionParameter css, string name)
 		{
 			css.CrossSectionType = CrossSectionType.RolledRHS;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
@@ -128,17 +128,18 @@
 
 		/// <summary>
 		/// Steel circular hollow section
+		/// </summary>
 		/// <param name="css">CrossSectionParameter to fill</param>
 		/// <param name="r">Radius</param>
 		/// <param name="t">Thickness</param>
-		public static void FillSteelCHS(CrossSectionParameter css, double r, double t)
+		public static void FillRolledCHS(CrossSectionParameter css, double r, double t)
 		{
 			css.CrossSectionType = CrossSectionType.RolledCHS;
 			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = t });
 		}
 
-		public static void FillSteelCHS(CrossSectionParameter css, string name)
+		public static void FillRolledCHS(CrossSectionParameter css, string name)
 		{
 			css.CrossSectionType = CrossSectionType.RolledCHS;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
@@ -187,7 +188,7 @@
 		/// <param name="name">Name</param>
 		/// <param name="H">Height</param>
 		/// <param name="mirrorY">Y-axis mirror</param>
-		public static void FillSteelTFromI(CrossSectionParameter css, string name, double H, bool mirrorY = false)
+		public static void FillRolledTFromI(CrossSectionParameter css, string name, double H, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledTI;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
@@ -240,7 +241,7 @@
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tfu">Upper flange thickness</param>
 		/// <param name="tfb">Bottom flange thickness</param>
-		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb, bool mirrorY = false)
+		public static void FillWeldedAsymI(CrossSectionParameter css, double bu, double bb, double hw, double tw, double tfu, double tfb)
 		{
 			css.CrossSectionType = CrossSectionType.Iwn;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
@@ -249,7 +250,6 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
-			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
@@ -263,7 +263,7 @@
 		/// <param name="tl">The left deck thickness.</param>
 		/// <param name="tr">The right deck thickness.</param>
 		/// <param name="dis">Distance between ][</param>
-		public static void FillShapeDblU(CrossSectionParameter css, double bt, double bb, double h, double tb, double tl, double tr, double dis)
+		public static void FillComposedDblUo(CrossSectionParameter css, double bt, double bb, double h, double tb, double tl, double tr, double dis)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleUo;
 			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = bt });
@@ -281,41 +281,11 @@
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
 		/// <param name="distance">Distance</param>
-		public static void FillWelded2Uc(CrossSectionParameter css, string name, double distance)
+		public static void FillComposedDblUc(CrossSectionParameter css, string name, double distance)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleUc;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
 			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
-		}
-
-		/// <summary>
-		/// Fill steel section Lt shape
-		/// </summary>
-		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="name">Name</param>
-		/// <param name="distance">Distance</param>
-		public static void FillWelded2Lt(CrossSectionParameter css, string name, double distance, bool shortLegUp = false, bool mirrorY = false)
-		{
-			css.CrossSectionType = CrossSectionType.RolledDoubleLt;
-			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
-			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
-			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
-			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
-		}
-
-		/// <summary>
-		/// Fill steel section Lu shape
-		/// </summary>
-		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="name">Name</param>
-		/// <param name="distance">Distance</param>
-		public static void FillWelded2Lu(CrossSectionParameter css, string name, double distance, bool shortLegUp = false, bool mirrorY = false)
-		{
-			css.CrossSectionType = CrossSectionType.RolledDoubleLu;
-			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
-			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
-			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
-			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
 		/// <summary>
@@ -327,7 +297,7 @@
 		/// <param name="th">The bottom flange thisckness.</param>
 		/// <param name="sh">The wall thickness.</param>
 		/// <param name="dis">Distance between _||_</param>
-		public static void FillShapeDblL(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
+		public static void FillComposedDblLt(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleLt;
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
@@ -335,6 +305,21 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
 			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
 			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
+			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		/// <summary>
+		/// Fill steel section Lt shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="name">Name</param>
+		/// <param name="distance">Distance</param>
+		public static void FillComposedDblLt(CrossSectionParameter css, string name, double distance, bool shortLegUp = false, bool mirrorY = false)
+		{
+			css.CrossSectionType = CrossSectionType.RolledDoubleLt;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
 			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
@@ -348,7 +333,7 @@
 		/// <param name="th">The bottom flange thisckness.</param>
 		/// <param name="sh">The wall thickness.</param>
 		/// <param name="dis">Distance between _||_</param>
-		public static void FillShapeDblLu(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
+		public static void FillComposedDblLu(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleLu;
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
@@ -356,6 +341,21 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
 			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
 			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
+			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		/// <summary>
+		/// Fill steel section Lu shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="name">Name</param>
+		/// <param name="distance">Distance</param>
+		public static void FillComposedDblLu(CrossSectionParameter css, string name, double distance, bool shortLegUp = false, bool mirrorY = false)
+		{
+			css.CrossSectionType = CrossSectionType.RolledDoubleLu;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
 			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
@@ -371,7 +371,7 @@
 		/// <param name="tw">Web thickness</param>
 		/// <param name="tfu">Upper flange thickness</param>
 		/// <param name="tfb">Bottom flange thickness</param>
-		public static void FillBox2(CrossSectionParameter css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb)
+		public static void FillWeldedBoxFlange(CrossSectionParameter css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb)
 		{
 			css.CrossSectionType = CrossSectionType.BoxFl;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
@@ -383,7 +383,7 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
 		}
 
-		public static void FillBoxWeb(CrossSectionParameter css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb, bool mirrorY = false)
+		public static void FillWeldedBoxWeb(CrossSectionParameter css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.BoxWeb;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
@@ -396,7 +396,7 @@
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
-		public static void FillBoxWeb(CrossSectionParameter css, double bu, double bb, double hw, double b1, double h, double tw, double tfu, double tfb, double overlap, BoxDeltaAligment aligment, bool mirrorY = false)
+		public static void FillWeldedBoxDelta(CrossSectionParameter css, double bu, double bb, double hw, double b1, double h, double tw, double tfu, double tfb, double overlap, BoxDeltaAligment aligment, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.BoxDelta;
 			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
@@ -408,11 +408,11 @@
 			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
 			css.Parameters.Add(new ParameterDouble() { Name = "Overlap", Value = overlap });
-			css.Parameters.Add(new ParameterInt() { Name = "WebAlignment", Value = (int)aligment });
+			css.Parameters.Add(new ParameterString() { Name = "WebAlignment", Value = aligment.ToString() });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
-		public static void FillTriangle(CrossSectionParameter css, double h, double w, double fTh, double webTh, double webD, bool mirrorY = false)
+		public static void FillWeldedTriangle(CrossSectionParameter css, double h, double w, double fTh, double webTh, double webD, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.BoxFl;
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = fTh });

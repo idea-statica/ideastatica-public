@@ -35,7 +35,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 				beamIOM.AddedMember = referenceMember;
 			}
 
-			(connectionData.Beams ?? (connectionData.Beams = new List<BeamData>())).Add(beamIOM);
+
+			//for cuttin object skip and fix duplicity
+			if (connectionData.Beams == null || !connectionData.Beams.Exists(b => b.OriginalModelId == beamIOM.OriginalModelId))
+			{
+				(connectionData.Beams ?? (connectionData.Beams = new List<BeamData>())).Add(beamIOM);
+			}
 
 			return beamIOM;
 		}

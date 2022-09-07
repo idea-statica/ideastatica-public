@@ -71,7 +71,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 			double tw = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_s);
 			double bi = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_bi);
 
-			IOM.CrossSectionFactory.FillBox2(crossSectionParameter, btw, tfw, h - tfThickness - bfThickness, bi, tw, tfThickness, bfThickness);
+			IOM.CrossSectionFactory.FillWeldedBoxFlange(crossSectionParameter, btw, tfw, h - tfThickness - bfThickness, bi, tw, tfThickness, bfThickness);
 		}
 
 		/// <summary>
@@ -120,7 +120,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 				taperAngle = Math.Abs(Math.Atan(Math.Abs(y1 - y2) / Math.Abs(x1 - x2)));
 			}
 
-			IOM.CrossSectionFactory.FillCssIarc(crossSectionParameter, b, h, webTh, flangeTh, r, taperAngle, r1);
+			IOM.CrossSectionFactory.FillRolledI(crossSectionParameter, b, h, webTh, flangeTh, r, taperAngle, r1);
 		}
 
 		/// <summary>
@@ -152,7 +152,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 				taperAngle = Math.Abs(Math.Atan(Math.Abs(y1 - y2) / Math.Abs(x1 - x2)));
 			}
 
-			IOM.CrossSectionFactory.FillWeldedU(crossSectionParameter, b, h, webTh, flangeTh, r, r1, taperAngle);
+			IOM.CrossSectionFactory.FillRolledChannel(crossSectionParameter, b, h, webTh, flangeTh, r, r1, taperAngle);
 		}
 
 		/// <summary>
@@ -164,19 +164,13 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 		{
 			IrsCrossSectionDB2 cssDB = (IrsCrossSectionDB2)css.GetDatabaseCrossSection();
 
-			//for (int i = 1; i < 188; i++)
-			//{
-			//	var k = cssDB.rsGetProperty((DB_CRSC_PROPERTY_ID)i);
-			//	Console.WriteLine($"{Enum.GetNames(typeof(DB_CRSC_PROPERTY_ID))[i]} {k}");
-			//}
-
 			double h = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_h);
 			double b = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_b);
 			double webTh = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_s);
 			double r = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_r);
 			double r1 = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_r_1);
 
-			IOM.CrossSectionFactory.FillCssSteelAngle(crossSectionParameter, b, h, webTh, r, r1, 0.0);
+			IOM.CrossSectionFactory.FillRolledAngle(crossSectionParameter, b, h, webTh, r, r1, 0.0);
 		}
 
 		/// <summary>
@@ -211,7 +205,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 				ro = 1e-6;
 			}
 
-			IOM.CrossSectionFactory.FillCssSteelRectangularHollow(crossSectionParameter, h, b, webTh, ri, ro, 0.0);
+			IOM.CrossSectionFactory.FillRolledRHS(crossSectionParameter, h, b, webTh, ri, ro, 0.0);
 		}
 
 		/// <summary>
@@ -226,7 +220,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 			double b = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_D);
 			double t = cssDB.rsGetProperty(DB_CRSC_PROPERTY_ID.CRSC_PROP_s);
 
-			IOM.CrossSectionFactory.FillCHSPar(crossSectionParameter, b * 0.5, t);
+			IOM.CrossSectionFactory.FillRolledCHS(crossSectionParameter, b * 0.5, t);
 		}
 
 		/// <summary>
@@ -337,7 +331,6 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 					switch (shape[i].type)
 					{
-						default:
 						case CURVE_TYPE.CT_LINE:
 							if (numPoints == 2)
 							{
