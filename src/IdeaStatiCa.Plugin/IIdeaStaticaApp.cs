@@ -65,25 +65,6 @@ namespace IdeaStatiCa.Plugin
 		public string MaterialName { get; set; }
 	}
 
-	public enum MessageSeverity
-	{
-		Info,
-		Warning,
-		Error
-	}
-
-	public enum LocalisedMessage
-	{
-		ProcessingGeometry,
-		ProcessingResults,
-		ImportingNodes,
-		// ImportingElements
-		ImportingMembers,
-		ImportingConnections
-		// ImportingBeamNo
-		// ImportingCrossections
-		// CouldnotImportBeamNo
-	}
 
 	[ServiceContract]
 	public interface IIdeaStaticaApp

@@ -57,12 +57,11 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>ModelBIM</returns>
 		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project, CountryCode countryCode)
 		{
-			_remoteApp?.SendMessage(MessageSeverity.Info, "Import started");
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportStarted);
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration, countryCode);
 
 			if (!(bimItems is null))
 			{
-				_remoteApp?.SendMessage(MessageSeverity.Info, "Importing BIM items");
 				foreach (IBimItem bimItem in bimItems)
 				{
 					importContext.ImportBimItem(bimItem);
@@ -71,12 +70,12 @@ namespace IdeaStatiCa.BimImporter
 
 			if (!(objects is null))
 			{
-				_remoteApp?.SendMessage(MessageSeverity.Info, "Importing objects");
+				_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.InternalImport);
 				int i = 1;
 				int count = objects.Count();
 				foreach (IIdeaObject obj in objects)
 				{
-					_remoteApp?.SetStage(i, count, "Creating connection");
+					_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.CreatingConnection);
 					importContext.Import(obj);
 				}
 			}

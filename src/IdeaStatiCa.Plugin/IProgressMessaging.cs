@@ -2,6 +2,36 @@
 
 namespace IdeaStatiCa.Plugin
 {
+	public enum MessageSeverity
+	{
+		Info,
+		Warning,
+		Error
+	}
+
+	public enum LocalisedMessage
+	{
+		ImportingGroups,
+		ImportingMembers,
+		ImportingConnections,
+		InternalSync,
+		SyncingModel,
+		SavingProject,
+		ModelImport,
+		CancellingImport,
+		CreatingConnection,
+		ImportingStructuralModel,
+		ImportStarted,
+		ImportFailed,
+		ModelPostProcess,
+		InternalImport,
+		Member,
+		SavingData,
+		ConvertingModelFromXML,
+		ProcessingSubstructure,
+		ProcessingConnection
+	}
+
 	public interface IProgressMessaging
 	{
 		bool GetCancellationFlag(); // @Todo: flags aren't the ideal solution

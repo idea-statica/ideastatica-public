@@ -76,7 +76,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -133,7 +133,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "MEMBERS IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingMembers);
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -150,7 +150,7 @@ namespace IdeaStatiCa.BimImporter
 			int j = 1;
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
-				this._remoteApp?.SetStage(j, selectedMembers.Count, "Member");
+				this._remoteApp?.SetStageLocalised(j, selectedMembers.Count, LocalisedMessage.Member);
 				bimItems.Add(new Member(selectedMember));
 
 				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
@@ -211,7 +211,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 
 			this._remoteApp?.InitProgressDialog();
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "GROUP IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingGroups);
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
@@ -273,7 +273,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 
 			this._remoteApp?.InitProgressDialog();
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> selectedConnectionPoints);
 
 			if (selectedNodes == null)
@@ -312,7 +312,7 @@ namespace IdeaStatiCa.BimImporter
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)
 		{
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "MODEL IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 
 			Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
 				new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
@@ -347,7 +347,7 @@ namespace IdeaStatiCa.BimImporter
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "FINISHING IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.FinishingImport);
 
 			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
