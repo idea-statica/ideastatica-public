@@ -43,7 +43,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 		{
 			if (_lastSelection is null)
 			{
-				throw new InvalidOperationException();
+				return new HashSet<IIdeaLoading>();
 			}
 
 			return _lastSelection.Loads
