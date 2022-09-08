@@ -138,6 +138,10 @@ namespace IdeaStatiCa.BimImporter
 			if (iomObject is ConnectionPoint cp && OpenModel.Connections.Count > 0)
 			{
 				OpenModel.Connections[OpenModel.Connections.Count - 1].ConenctionPointId = cp.Id;
+				if (string.IsNullOrWhiteSpace(cp.Name))
+				{
+					cp.Name = $"C {cp.Id}";
+				}
 			}
 
 			return refElm;
