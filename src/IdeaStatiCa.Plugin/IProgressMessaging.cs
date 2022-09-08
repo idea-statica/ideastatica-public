@@ -29,7 +29,8 @@ namespace IdeaStatiCa.Plugin
 		SavingData,
 		ConvertingModelFromXML,
 		ProcessingSubstructure,
-		ProcessingConnection
+		ProcessingConnection,
+		FinishingImport
 	}
 
 	public interface IProgressMessaging
