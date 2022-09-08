@@ -67,7 +67,7 @@ namespace IdeaStatiCa.Plugin
 
 
 	[ServiceContract]
-	public interface IIdeaStaticaApp
+	public interface IIdeaStaticaApp: IProgressMessaging
 	{
 		/// <summary>
 		/// Get all cross-sections from IDEA StatiCa MPRL (material and product range library) which belongs to <paramref name="countryCode"/>
