@@ -15,6 +15,9 @@ namespace IdeaStatiCa.Plugin
 
 		public IBIMPluginHosting Create(IBIMPluginFactory pluginFactory, IPluginLogger logger)
 		{
+			if (_checkBotClient != null) Debug.Assert(_grpcServer != null);
+
+			this.InitGrpcClient(logger);
 			// It will be used for gRPC communication
 			var pluginHostingGrpc = new BIMPluginHostingGrpc(pluginFactory, _grpcServer, logger);
 			if (pluginHostingGrpc.Service is ApplicationBIM appBim)
