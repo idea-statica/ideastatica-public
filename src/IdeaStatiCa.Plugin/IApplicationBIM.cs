@@ -24,6 +24,7 @@ namespace IdeaStatiCa.Plugin
 
 		[OperationContract]
 		string GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType);
+		Task<string> GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType);
 
 		[OperationContract]
 		string GetApplicationName();
@@ -38,6 +39,8 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>A xml string representing a list of BIM models for requested <paramref name="items"/>.</returns>
 		[OperationContract]
 		string GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items);
+
+		Task<string> GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode countryCode, List<BIMItemsGroup> items);
 
 		[OperationContract]
 		bool IsCAD();

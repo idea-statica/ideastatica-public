@@ -4,6 +4,7 @@ using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Importers;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
 {
@@ -17,6 +18,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IPluginLogger _logger;
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IResultImporter _resultImporter;
+		private readonly IProgressMessaging _remoteApp;
 
 		private readonly BimImporterConfiguration _configuration;
 
@@ -27,22 +29,23 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="configuration">Importer configuration</param>
 		/// <returns>IBimObjectImporter instance.</returns>
 		public static IBimObjectImporter Create(IPluginLogger logger,
-			BimImporterConfiguration configuration)
+			BimImporterConfiguration configuration, IProgressMessaging remoteApp = null /* @Todo: make this mandatory */)
 		{
 			return new BimObjectImporter(
 				logger,
 				new ObjectImporter(logger),
 				new ResultImporter(logger),
-				configuration);
+				configuration, remoteApp);
 		}
 
 		internal BimObjectImporter(IPluginLogger logger, IImporter<IIdeaObject> importer, IResultImporter resultImporter,
-			BimImporterConfiguration configuration)
+			BimImporterConfiguration configuration, IProgressMessaging remoteApp)
 		{
 			_logger = logger;
 			_importer = importer;
 			_resultImporter = resultImporter;
 			_configuration = configuration;
+			_remoteApp = remoteApp;
 		}
 
 		/// <summary>
@@ -54,6 +57,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>ModelBIM</returns>
 		public ModelBIM Import(IEnumerable<IIdeaObject> objects, IEnumerable<IBimItem> bimItems, IProject project, CountryCode countryCode)
 		{
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportStarted);
 			ImportContext importContext = new ImportContext(_importer, _resultImporter, project, _logger, _configuration, countryCode);
 
 			if (!(bimItems is null))
@@ -66,8 +70,12 @@ namespace IdeaStatiCa.BimImporter
 
 			if (!(objects is null))
 			{
+				_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.InternalImport);
+				int i = 1;
+				int count = objects.Count();
 				foreach (IIdeaObject obj in objects)
 				{
+					_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.CreatingConnection);
 					importContext.Import(obj);
 				}
 			}

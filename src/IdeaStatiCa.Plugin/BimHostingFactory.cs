@@ -1,40 +1,51 @@
 ﻿using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.Utilities;
+using System;
 using System.Diagnostics;
 
 namespace IdeaStatiCa.Plugin
+
 {
+	/* why is this a class - couldn't it just be a static function? - Dan 2.9.2022 */
 	public class GrpcBimHostingFactory : IBimHostingFactory
 	{
-		private IPluginLogger Logger { get; set; }
-		private IBIMPluginFactory PluginFactory { get; set; }
+		private GrpcServer _grpcServer;
+		private GrpcServiceClient<IIdeaStaticaApp> _checkBotClient;
 
-		public GrpcBimHostingFactory(IBIMPluginFactory pluginFactory, IPluginLogger logger)
+		public IBIMPluginHosting Create(IBIMPluginFactory pluginFactory, IPluginLogger logger)
 		{
-			this.Logger = logger;
-			this.PluginFactory = pluginFactory;
-		}
-		public IBIMPluginHosting Create()
-		{
-			int clientId = Process.GetCurrentProcess().Id;
-			int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
+			if (_checkBotClient != null) Debug.Assert(_grpcServer != null);
 
-			var grpcServer = new GrpcServer(Logger);
-			grpcServer.Connect(clientId.ToString(), grpcPort);
-
-			var gRPCtask = grpcServer.StartAsync();
-
-			GrpcServiceClient<IIdeaStaticaApp> checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(IdeaStatiCa.Plugin.Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcServer, Logger);
-
+			this.InitGrpcClient(logger);
 			// It will be used for gRPC communication
-			var pluginHostingGrpc = new BIMPluginHostingGrpc(PluginFactory, grpcServer, Logger);
-			if(pluginHostingGrpc.Service is ApplicationBIM appBim)
+			var pluginHostingGrpc = new BIMPluginHostingGrpc(pluginFactory, _grpcServer, logger);
+			if (pluginHostingGrpc.Service is ApplicationBIM appBim)
 			{
-				appBim.IdeaStaticaApp = checkBotClient.Service;
+				appBim.IdeaStaticaApp = _checkBotClient.Service;
+				// @Todo: better way to pass it, maybe a common IRemoteApp interface that implements both?
+				if (_checkBotClient.Service is IProgressMessaging) appBim.Progress = (IProgressMessaging)_checkBotClient.Service;
 			}
 
 			return pluginHostingGrpc;
+		}
+
+		public IProgressMessaging InitGrpcClient(IPluginLogger logger)
+		{
+			if (_checkBotClient == null)
+			{
+				int clientId = Process.GetCurrentProcess().Id;
+				int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
+
+				_grpcServer = new GrpcServer(logger);
+				_grpcServer.Connect(clientId.ToString(), grpcPort);
+
+				_grpcServer.StartAsync();
+
+				_checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, _grpcServer, _grpcServer.Logger);
+			}
+
+			return _checkBotClient.Service is IProgressMessaging ? (IProgressMessaging)_checkBotClient.Service : null;
 		}
 	}
 }

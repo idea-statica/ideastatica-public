@@ -260,11 +260,11 @@ namespace FEAppExample_1
 		{
 			Logger.LogInformation($"Run param = '{param?.ToString()}'");
 			var factory = new PluginFactory(this);
-				Logger.LogDebug("Run - calling GrpcBimHostingFactory");
-				var bimHostingFactory = new GrpcBimHostingFactory(factory, Logger);
-				var pluginHostingGrpc = bimHostingFactory.Create();
-				FeaAppHosting = pluginHostingGrpc;
-				this.IdeaStatica = ((ApplicationBIM)FeaAppHosting.Service).IdeaStaticaApp;
+			Logger.LogDebug("Run - calling GrpcBimHostingFactory");
+			var bimHostingFactory = new GrpcBimHostingFactory();
+			var pluginHostingGrpc = bimHostingFactory.Create(factory, Logger);
+			FeaAppHosting = pluginHostingGrpc;
+			this.IdeaStatica = ((ApplicationBIM)FeaAppHosting.Service).IdeaStaticaApp;
 
 			FeaAppHosting.AppStatusChanged += new ISEventHandler(IdeaStaticAppStatusChanged);
 			var id = Process.GetCurrentProcess().Id.ToString();
@@ -352,8 +352,8 @@ namespace FEAppExample_1
 			int myProcessId = bimAppliction.Id;
 			try
 			{
-					// gRPC communication
-					connectionData = IdeaStatica.GetConnectionModel(firstItem.Id);
+				// gRPC communication
+				connectionData = IdeaStatica.GetConnectionModel(firstItem.Id);
 			}
 			catch (Exception e)
 			{
@@ -407,8 +407,8 @@ namespace FEAppExample_1
 			string openModelTupleXml = String.Empty;
 			OpenModelContainer openModelTuple = null;
 
-				// gRPC communication
-				openModelTupleXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
+			// gRPC communication
+			openModelTupleXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
@@ -450,8 +450,8 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			string openModelContainerXml = String.Empty;
-				// gRPC communication
-				openModelContainerXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
+			// gRPC communication
+			openModelContainerXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
 
 			var openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
 			ModelBIM modelBIM = new ModelBIM();
@@ -497,8 +497,8 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<LibraryItem> mprlMaterials = null;
-				// gRPC communication
-				mprlMaterials = IdeaStatica.GetMaterialsInMPRL(this.CountryCode);
+			// gRPC communication
+			mprlMaterials = IdeaStatica.GetMaterialsInMPRL(this.CountryCode);
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
@@ -544,28 +544,28 @@ namespace FEAppExample_1
 
 			List<ProjectItem> materialsInProject = null;
 
-				// gRPC communication
-				materialsInProject = IdeaStatica.GetMaterialsInProject();
+			// gRPC communication
+			materialsInProject = IdeaStatica.GetMaterialsInProject();
 
-				System.Windows.Application.Current.Dispatcher.BeginInvoke(
-				System.Windows.Threading.DispatcherPriority.Normal,
-				(Action)(() =>
+			System.Windows.Application.Current.Dispatcher.BeginInvoke(
+			System.Windows.Threading.DispatcherPriority.Normal,
+			(Action)(() =>
+			{
+				if (materialsInProject == null)
 				{
-					if (materialsInProject == null)
-					{
-						Add("No data");
-					}
-					else
-					{
-						var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
-						var jsonFormating = Newtonsoft.Json.Formatting.Indented;
-						string materialsJson = JsonConvert.SerializeObject(materialsInProject, jsonFormating, jsonSetting);
+					Add("No data");
+				}
+				else
+				{
+					var jsonSetting = new JsonSerializerSettings { ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(), Culture = CultureInfo.InvariantCulture };
+					var jsonFormating = Newtonsoft.Json.Formatting.Indented;
+					string materialsJson = JsonConvert.SerializeObject(materialsInProject, jsonFormating, jsonSetting);
 
-						Add("GetMatInProject succeeded");
-						SetDetailInformation(materialsJson);
-					}
-					CommandManager.InvalidateRequerySuggested();
-				}));
+					Add("GetMatInProject succeeded");
+					SetDetailInformation(materialsJson);
+				}
+				CommandManager.InvalidateRequerySuggested();
+			}));
 
 		}
 
@@ -592,8 +592,8 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<LibraryItem> cssInMprl = null;
-				cssInMprl = IdeaStatica.GetCssInMPRL(this.CountryCode);
-	
+			cssInMprl = IdeaStatica.GetCssInMPRL(this.CountryCode);
+
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
 				(Action)(() =>
@@ -638,9 +638,9 @@ namespace FEAppExample_1
 			Add(string.Format("Starting commication with IdeaStatiCa running in  the process {0}", myProcessId));
 
 			List<ProjectItem> cssInProject = null;
-				// gRPC communication
-				cssInProject = IdeaStatica.GetCssInProject();
-	
+			// gRPC communication
+			cssInProject = IdeaStatica.GetCssInProject();
+
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
 				(Action)(() =>

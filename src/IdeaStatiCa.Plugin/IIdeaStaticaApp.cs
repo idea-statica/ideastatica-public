@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 #if NET48
@@ -64,8 +65,9 @@ namespace IdeaStatiCa.Plugin
 		public string MaterialName { get; set; }
 	}
 
+
 	[ServiceContract]
-	public interface IIdeaStaticaApp
+	public interface IIdeaStaticaApp: IProgressMessaging
 	{
 		/// <summary>
 		/// Get all cross-sections from IDEA StatiCa MPRL (material and product range library) which belongs to <paramref name="countryCode"/>
@@ -110,11 +112,10 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">The ID of the connection in the project</param>
 		/// <exception cref="System.Exception">Exception is thrown if operation fails or no data are provided by the service</exception>
 		/// <returns>Connection model</returns>
-		[OperationContract]
 		IdeaRS.OpenModel.Connection.ConnectionData GetConnectionModel(int connectionId);
 
 		/// <summary>
-		/// Get structural data and corresponding results of FE analysi for <paramref name="connectionId"/>
+		/// Get structural data and corresponding results of FE analysis for <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">Identifier of the required connection</param>
 		/// <exception cref="System.Exception">Exception is thrown if operation fails or no data are provided by the service</exception>

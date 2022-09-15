@@ -2,9 +2,11 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Grpc.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 
 namespace IdeaStatiCa.BimImporter
@@ -19,6 +21,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IProject _project;
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
+		private readonly IProgressMessaging _remoteApp;
 
 		/// <summary>
 		/// Creates instance of <see cref="BimImporter"/> with default <see cref="IGeometry"/> implementation.
@@ -28,10 +31,10 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="logger">Logger</param>
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
-		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger)
+		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IProgressMessaging remoteApp = null)
 		{
 			return Create(ideaModel, project, logger, new DefaultGeometryProvider(logger, ideaModel),
-				new BimImporterConfiguration());
+				new BimImporterConfiguration(), remoteApp);
 		}
 
 		/// <summary>
@@ -45,23 +48,24 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
-			IGeometryProvider geometryProvider, BimImporterConfiguration configuration)
+			IGeometryProvider geometryProvider, BimImporterConfiguration configuration, IProgressMessaging remoteApp = null)
 		{
 			return new BimImporter(ideaModel,
 				project,
 				logger,
 				geometryProvider,
-				BimObjectImporter.Create(logger, configuration));
+				BimObjectImporter.Create(logger, configuration), remoteApp);
 		}
 
 		internal BimImporter(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider,
-			IBimObjectImporter bimObjectImporter)
+			IBimObjectImporter bimObjectImporter, IProgressMessaging remoteApp = null)
 		{
 			_ideaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
 			_bimObjectImporter = bimObjectImporter ?? throw new ArgumentNullException(nameof(bimObjectImporter));
+			_remoteApp = remoteApp;
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportConnections"/>
@@ -72,6 +76,8 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
+
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -104,6 +110,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportSingleConnection(CountryCode countryCode)
 		{
+			this._remoteApp?.SendMessage(MessageSeverity.Info, "SINGLE CONNECTION IMPORT");
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -126,11 +133,12 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingMembers);
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
-			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
+			var adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
 			if (connectionPoints != null)
 			{
 				foreach (var connectionPoint in connectionPoints)
@@ -138,17 +146,21 @@ namespace IdeaStatiCa.BimImporter
 					bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
 			}
+
+			int j = 1;
 			foreach (IIdeaMember1D selectedMember in selectedMembers)
 			{
+				this._remoteApp?.SetStageLocalised(j, selectedMembers.Count, LocalisedMessage.Member);
 				bimItems.Add(new Member(selectedMember));
 
 				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
 				{
 					adjacentNodes.Add(node);
 				}
+				j++;
 			}
 
-			foreach (IIdeaNode node in adjacentNodes)
+			foreach (var node in adjacentNodes)
 			{
 				bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
 			}
@@ -197,6 +209,9 @@ namespace IdeaStatiCa.BimImporter
 			{
 				throw new ArgumentNullException(nameof(group));
 			}
+
+			this._remoteApp?.InitProgressDialog();
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingGroups);
 
 			_logger.LogTrace($"Importing of bim items group, id '{group.Id}', type '{group.Type}', items count '{group.Items}'.");
 
@@ -248,6 +263,7 @@ namespace IdeaStatiCa.BimImporter
 			}
 			else
 			{
+				this._remoteApp?.CancelMessage();
 				_logger.LogError($"BIMItemsGroup type '{group.Type}' is not supported.");
 				throw new NotImplementedException($"BIMItemsGroup type '{group.Type}' is not supported.");
 			}
@@ -255,6 +271,9 @@ namespace IdeaStatiCa.BimImporter
 
 		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
+
+			this._remoteApp?.InitProgressDialog();
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
 			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> selectedConnectionPoints);
 
 			if (selectedNodes == null)
@@ -293,13 +312,19 @@ namespace IdeaStatiCa.BimImporter
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)
 		{
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
+
 			Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
 				new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
 
 			foreach (IIdeaMember1D member in members)
 			{
-				foreach (IIdeaNode node in geometry.GetNodesOnMember(member))
+				var nodes = geometry.GetNodesOnMember(member).ToList();
+				for (int i = 0; i < nodes.Count; i++)
 				{
+					IIdeaNode node = nodes[i];
+					this._remoteApp?.SetStageLocalised(i + 1, nodes.Count, LocalisedMessage.ImportingConnections); //  "Creating Connection"
+
 					if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
 					{
 						memberSet = new HashSet<IIdeaMember1D>();
@@ -322,8 +347,12 @@ namespace IdeaStatiCa.BimImporter
 			Debug.Assert(objects != null);
 			Debug.Assert(bimItems != null);
 
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.FinishingImport);
+
 			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
+
+			this._remoteApp?.CancelMessage();
 			return modelBIM;
 		}
 	}
