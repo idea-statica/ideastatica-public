@@ -18,6 +18,7 @@ namespace IdeaRstabPlugin
 
 		public CheckbotCommand()
 		{
+			AppDomain.CurrentDomain.AssemblyResolve += IdeaStatiCa.Public.Tools.AssemblyResolver.Domain_AssemblyResolve;
 		}
 
 		static CheckbotCommand()
@@ -53,7 +54,6 @@ namespace IdeaRstabPlugin
 
 				string IdeaDirectory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-				AppDomain.CurrentDomain.AssemblyResolve += IdeaStatiCa.Public.Tools.AssemblyResolver.Domain_AssemblyResolve;
 				PluginFactory pluginFactory = new PluginFactory((IModel)param, _logger);
 
 				int clientId = Process.GetCurrentProcess().Id;
