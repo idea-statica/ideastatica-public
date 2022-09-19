@@ -30,7 +30,8 @@ namespace IdeaStatiCa.Plugin
 		ConvertingModelFromXML,
 		ProcessingSubstructure,
 		ProcessingConnection,
-		FinishingImport
+		FinishingImport,
+		SciaSDKError
 	}
 
 	public interface IProgressMessaging
