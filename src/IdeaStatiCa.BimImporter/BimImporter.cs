@@ -54,7 +54,7 @@ namespace IdeaStatiCa.BimImporter
 				project,
 				logger,
 				geometryProvider,
-				BimObjectImporter.Create(logger, configuration), remoteApp);
+				BimObjectImporter.Create(logger, configuration, remoteApp), remoteApp);
 		}
 
 		internal BimImporter(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IGeometryProvider geometryProvider,
@@ -76,7 +76,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
-			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			IGeometry geometry = _geometryProvider.GetGeometry();
@@ -110,7 +110,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
 		public ModelBIM ImportSingleConnection(CountryCode countryCode)
 		{
-			this._remoteApp?.SendMessage(MessageSeverity.Info, "SINGLE CONNECTION IMPORT");
+			this._remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -352,7 +352,6 @@ namespace IdeaStatiCa.BimImporter
 			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 
-			this._remoteApp?.CancelMessage();
 			return modelBIM;
 		}
 	}

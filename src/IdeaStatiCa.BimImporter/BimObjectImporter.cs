@@ -62,9 +62,13 @@ namespace IdeaStatiCa.BimImporter
 
 			if (!(bimItems is null))
 			{
+				int i = 1;
+				int count = bimItems.Count();
 				foreach (IBimItem bimItem in bimItems)
 				{
+					_remoteApp?.SetStageLocalised(i, count, bimItem is Member ? LocalisedMessage.ImportingMembers : LocalisedMessage.ImportingConnections);
 					importContext.ImportBimItem(bimItem);
+					i++;
 				}
 			}
 
@@ -75,8 +79,9 @@ namespace IdeaStatiCa.BimImporter
 				int count = objects.Count();
 				foreach (IIdeaObject obj in objects)
 				{
-					_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.CreatingConnection);
+					_remoteApp?.SetStageLocalised(i, count, LocalisedMessage.ImportingIOMObject);
 					importContext.Import(obj);
+					i++;
 				}
 			}
 

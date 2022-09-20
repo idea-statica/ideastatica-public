@@ -20,6 +20,7 @@ namespace IdeaStatiCa.Plugin
 		ModelImport,
 		CancellingImport,
 		CreatingConnection,
+		ImportingIOMObject,
 		ImportingStructuralModel,
 		ImportStarted,
 		ImportFailed,
