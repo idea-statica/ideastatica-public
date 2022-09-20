@@ -18,6 +18,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			var lcs = plate.LocalCoordinateSystem as IdeaRS.OpenModel.Geometry3D.CoordSystemByVector;
 
+			//add material in to model
+			ctx.Import(plate.Material);
 			PlateData plateIOM = new PlateData()
 			{
 				Geometry = plate.Geometry,
