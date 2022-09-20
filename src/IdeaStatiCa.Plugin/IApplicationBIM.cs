@@ -47,5 +47,6 @@ namespace IdeaStatiCa.Plugin
 
 		[OperationContract]
 		Task SelectAsync(List<BIMItemId> items);
+		bool IsDataUpToDate();
 	}
 }
