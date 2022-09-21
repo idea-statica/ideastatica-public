@@ -126,7 +126,7 @@ namespace IdeaStatiCa.Plugin
 
 		public Task SelectAsync(List<BIMItemId> items) => Task.Run(() => ActivateInBIM(items)); 
 
-		public bool IsDataUpToDate()
+		public virtual bool IsDataUpToDate()
 			=> true;
 
 		protected abstract ModelBIM ImportActive(IdeaRS.OpenModel.CountryCode countryCode, RequestedItemsType requestedType);
