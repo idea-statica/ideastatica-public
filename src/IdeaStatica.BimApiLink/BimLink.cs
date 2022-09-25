@@ -54,7 +54,7 @@ namespace IdeaStatica.BimApiLink
 
 		public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
 		{
-			_bimHosting = new GrpcBimHostingFactory();
+			if (_bimHosting == null) _bimHosting = new GrpcBimHostingFactory();
 
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
