@@ -28,7 +28,8 @@ namespace IdeaStatica.BimApiLink
 			_project = project;
 			_projectStorage = projectStorage;
 			_bimApiImporter = bimApiImporter;
-			projectStorage.Load();
+
+			_projectStorage.Load();
 		}
 
 		public override void ActivateInBIM(List<BIMItemId> items)
@@ -49,6 +50,9 @@ namespace IdeaStatica.BimApiLink
 				Select(nodes, members);
 			}
 		}
+
+		public override bool IsDataUpToDate()
+			=> _projectStorage.IsValid();
 
 		protected override ModelBIM ImportActive(CountryCode countryCode, RequestedItemsType requestedType)
 		{

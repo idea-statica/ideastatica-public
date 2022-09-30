@@ -33,5 +33,10 @@ namespace IdeaStatica.BimApiLink.Persistence
 				_filePersistence.Load(streamReader);
 			}
 		}
+
+		public bool IsValid()
+		{
+			return File.Exists(_path);
+		}
 	}
 }

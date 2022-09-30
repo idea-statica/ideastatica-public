@@ -5,5 +5,7 @@
 		void Load();
 
 		void Save();
+
+		bool IsValid();
 	}
 }
