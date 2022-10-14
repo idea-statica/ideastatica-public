@@ -13,8 +13,8 @@ namespace IdeaStatica.BimApiLink.Plugin
 		public ICollection<Identifier<IIdeaMember1D>> Members { get; init; }
 			= Array.Empty<Identifier<IIdeaMember1D>>();
 
-		public ICollection<Identifier<IIdeaLoading>> Loads { get; init; }
-			= Array.Empty<Identifier<IIdeaLoading>>();
+		public ICollection<Identifier<IIdeaCombiInput>> Combinations { get; init; }
+			= Array.Empty<Identifier<IIdeaCombiInput>>();
 	}
 
 	public interface IFeaModel
@@ -46,8 +46,9 @@ namespace IdeaStatica.BimApiLink.Plugin
 				return new HashSet<IIdeaLoading>();
 			}
 
-			return _lastSelection.Loads
+			return _lastSelection.Combinations
 				.Select(x => _bimApiImporter.Get(x))
+				.Cast<IIdeaLoading>()
 				.ToHashSet();
 		}
 
