@@ -105,6 +105,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamplePlugin", "CheckbotPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatica.BimApiLink", "IdeaStatica.BimApiLink\IdeaStatica.BimApiLink.csproj", "{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\BimApiExample\BimApiExample.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -267,6 +269,10 @@ Global
 		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -309,6 +315,7 @@ Global
 		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
 		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
 		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
+		{669835E3-E2A5-48E5-8CF4-752370CB7051} = {E6888704-6043-4027-8A71-0BC948E91EAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
