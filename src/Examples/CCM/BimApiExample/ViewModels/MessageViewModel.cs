@@ -16,5 +16,15 @@ namespace BimApiExample.ViewModels
 		public Exception? Exception { get; init; }
 
 		public MessageSeverity Severity { get; init; }
+
+		public override string ToString()
+		{
+			if (Exception is not null)
+			{
+				return $"{Message}\r\n{Exception}";
+			}
+
+			return Message;
+		}
 	}
 }

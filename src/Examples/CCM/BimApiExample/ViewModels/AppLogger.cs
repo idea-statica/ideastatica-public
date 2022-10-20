@@ -1,6 +1,8 @@
-﻿using IdeaStatiCa.Plugin;
+﻿using CommunityToolkit.Mvvm.Input;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace BimApiExample.ViewModels
@@ -12,7 +14,11 @@ namespace BimApiExample.ViewModels
 		public AppLogger(Dispatcher uiDispatcher)
 		{
 			this.uiDispatcher = uiDispatcher;
+
+			ClearCommand = new RelayCommand(OnClear);
 		}
+
+		public ICommand ClearCommand { get; }
 
 		public bool EnableTrace { get; set; }
 
@@ -57,6 +63,11 @@ namespace BimApiExample.ViewModels
 			{
 				Messages.Add(new(severity, message, ex));
 			}));
+		}
+
+		private void OnClear()
+		{
+			Messages.Clear();
 		}
 	}
 }
