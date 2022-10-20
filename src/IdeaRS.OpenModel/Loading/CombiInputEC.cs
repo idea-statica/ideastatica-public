@@ -50,6 +50,11 @@
 		/// Combination according to 6.10ab
 		/// </summary>
 		Code610ab = 3,
+
+		/// <summary>
+		/// Nonlinear combination
+		/// </summary>
+		NonLinear = 4,
 	}
 
 	/// <summary>
