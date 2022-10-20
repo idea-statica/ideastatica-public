@@ -1,7 +1,7 @@
 ﻿using IdeaStatica.BimApiLink.BimApi;
 using IdeaStatiCa.BimApi;
 
-namespace BimApiExample.Plugin.BimApi
+namespace BimApiLinkFeaExample.BimApi
 {
 	internal class Member1D : IdeaMember1D
 	{

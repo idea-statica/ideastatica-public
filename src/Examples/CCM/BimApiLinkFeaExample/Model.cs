@@ -6,7 +6,7 @@ using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BimApiExample.Plugin
+namespace BimApiLinkFeaExample
 {
 	internal class Model : IFeaModel
 	{

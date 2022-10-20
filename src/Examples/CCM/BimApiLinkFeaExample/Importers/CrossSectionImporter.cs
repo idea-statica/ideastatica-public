@@ -1,8 +1,8 @@
-﻿using BimApiExample.Plugin.BimApi;
+﻿using BimApiLinkFeaExample.BimApi;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 
-namespace BimApiExample.Plugin.Importers
+namespace BimApiLinkFeaExample.Importers
 {
 	internal class CrossSectionImporter : IntIdentifierImporter<IIdeaCrossSection>
 	{

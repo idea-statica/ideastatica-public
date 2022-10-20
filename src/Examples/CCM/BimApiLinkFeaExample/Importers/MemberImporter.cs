@@ -1,10 +1,10 @@
-﻿using BimApiExample.Plugin.BimApi;
+﻿using BimApiLinkFeaExample.BimApi;
 using IdeaStatica.BimApiLink.BimApi;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
 
-namespace BimApiExample.Plugin.Importers
+namespace BimApiLinkFeaExample.Importers
 {
 	internal class MemberImporter : IntIdentifierImporter<IIdeaMember1D>
 	{

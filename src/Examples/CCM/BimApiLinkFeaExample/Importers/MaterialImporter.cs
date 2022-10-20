@@ -2,7 +2,7 @@
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 
-namespace BimApiExample.Plugin.Importers
+namespace BimApiLinkFeaExample.Importers
 {
 	internal class MaterialImporter : IntIdentifierImporter<IIdeaMaterial>
 	{
