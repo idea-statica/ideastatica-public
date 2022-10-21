@@ -24,6 +24,10 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.MappingProfiles
 				.ForCtorParam("modelObject", x => x.MapFrom(y => y.Object))
 				.ReverseMap()
 				.ForMember(x => x.Object, x => x.MapFrom(y => y.ModelObject));
+			CreateMap<Protos.EventCustomButtonClicked, Models.EventCustomButtonClicked>()
+				.ForCtorParam("buttonName", x => x.MapFrom(y => y.ButtonName))
+				.ReverseMap()
+				.ForMember(x => x.ButtonName, x => x.MapFrom(y => y.ButtonName));
 
 			CreateMap<Protos.Event, Models.Event>()
 				.ConstructUsing(Proto2ModelEventConverter)
@@ -46,6 +50,9 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.MappingProfiles
 
 				case Protos.Event.EventOneofCase.OpenCheckApplication:
 					return context.Mapper.Map<Models.EventOpenCheckApplication>(sourceMember.OpenCheckApplication);
+
+				case Protos.Event.EventOneofCase.CustomButtonClicked:
+					return context.Mapper.Map<Models.EventCustomButtonClicked>(sourceMember.CustomButtonClicked);
 			}
 
 			throw new NotImplementedException();
@@ -67,6 +74,10 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.MappingProfiles
 
 				case Models.EventOpenCheckApplication openCheckApplication:
 					evt.OpenCheckApplication = context.Mapper.Map<Protos.EventOpenCheckApplication>(openCheckApplication);
+					break;
+
+				case Models.EventCustomButtonClicked customButtonClicked:
+					evt.CustomButtonClicked = context.Mapper.Map<Protos.EventCustomButtonClicked>(customButtonClicked);
 					break;
 
 				default:
