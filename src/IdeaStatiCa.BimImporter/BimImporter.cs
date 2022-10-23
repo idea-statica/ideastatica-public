@@ -23,19 +23,6 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IProgressMessaging _remoteApp;
 
 		/// <summary>
-		/// Creates instance of <see cref="BimImporter"/> with default <see cref="IGeometry"/> implementation.
-		/// </summary>
-		/// <param name="ideaModel">Model for importing</param>
-		/// <param name="project"><see cref="IProject"/> instance for id mapping persistence</param>
-		/// <param name="logger">Logger</param>
-		/// <returns>Instance of <see cref="BimImporter"/></returns>
-		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
-		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger, IProgressMessaging remoteApp = null)
-		{
-			return Create(ideaModel, project, logger, null, null, remoteApp);
-		}
-
-		/// <summary>
 		///Creates instance of <see cref="BimImporter"/>.
 		/// </summary>
 		/// <param name="ideaModel">Model for importing</param>
