@@ -17,7 +17,7 @@ namespace IdeaStatica.BimApiLink.Importers
 			_interfaceRank[typeof(IIdeaObjectWithResults)] = 0;
 		}
 
-		public T Get<T>(Identifier<T> identifier)
+		public T? Get<T>(Identifier<T> identifier)
 			where T : IIdeaObject
 		{
 			foreach (Type? type in GetSortedInterfaces(typeof(T)))
@@ -31,7 +31,7 @@ namespace IdeaStatica.BimApiLink.Importers
 			throw new ArgumentException();
 		}
 
-		public IIdeaObject Get(IIdentifier identifier)
+		public IIdeaObject? Get(IIdentifier identifier)
 		{
 			foreach (Type? type in GetSortedInterfaces(identifier.ObjectType))
 			{

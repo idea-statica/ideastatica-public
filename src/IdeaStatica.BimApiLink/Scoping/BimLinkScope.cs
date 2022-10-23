@@ -21,6 +21,9 @@ namespace IdeaStatica.BimApiLink.Scoping
 		}
 
 		public void Dispose()
-			=> _current.Value = null;
+		{
+			_current.Value = null;
+			GC.SuppressFinalize(this);
+		}
 	}
 }
