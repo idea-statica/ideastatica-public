@@ -253,9 +253,15 @@ namespace IdeaStatiCa.BimImporter
 
 				if (connectionPoints.Any())
 				{
-					if (connectionPoints.First() != null)
+					var cp = connectionPoints.FirstOrDefault();
+					if (cp != null)
 					{
-						connections.Add(Connection.FromConnectionPoint(connectionPoints.First()));
+						connections.Add(Connection.FromConnectionPoint(cp));
+						//process connection
+						if (_ideaModel is IIdeaConnectionModel connectionModel)
+						{
+							connectionModel.ProcessConnection(cp);
+						}
 					}
 				}
 				else

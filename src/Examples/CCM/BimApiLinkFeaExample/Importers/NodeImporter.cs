@@ -3,7 +3,7 @@ using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using System;
 
-namespace BimApiExample.Plugin.Importers
+namespace BimApiLinkFeaExample.Importers
 {
 	internal class NodeImporter : IntIdentifierImporter<IIdeaNode>
 	{

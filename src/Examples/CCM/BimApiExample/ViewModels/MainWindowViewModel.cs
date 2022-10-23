@@ -1,4 +1,4 @@
-﻿using BimApiExample.Plugin;
+﻿using BimApiLinkFeaExample;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.IO;

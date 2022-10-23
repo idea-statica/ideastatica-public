@@ -1,16 +1,15 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using BimApiExample.Plugin.Importers;
+using BimApiLinkFeaExample.Importers;
 using IdeaStatica.BimApiLink;
 using IdeaStatiCa.Plugin;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 
-namespace BimApiExample.Plugin
+namespace BimApiLinkFeaExample
 {
-	internal class TestPlugin
+	public static class TestPlugin
 	{
 		public static async Task Run(string checkbotLocation, IPluginLogger logger)
 		{
@@ -42,7 +41,8 @@ namespace BimApiExample.Plugin
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+				logger.LogError("BimApi failed", ex);
+				throw;
 			}
 		}
 
