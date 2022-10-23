@@ -16,7 +16,7 @@ namespace IdeaRstabPlugin
 {
 	public abstract class BimApiApplication : ApplicationBIM
 	{
-		private readonly static IPluginLogger _logger = LoggerProvider.GetLogger("ideastatica.IdeaRstabPlugin.bimapiapplication");
+		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("ideastatica.IdeaRstabPlugin.bimapiapplication");
 
 		private const string PersistencyStorage = "bimapi-data.json";
 
@@ -55,7 +55,7 @@ namespace IdeaRstabPlugin
 			}
 
 			_project = new Project(logger, _jsonPersistence, objectRestorer);
-			_bimImporter = BimImporter.Create(ideaModel, _project, logger, geometryProvider, new BimImporterConfiguration());
+			_bimImporter = BimImporter.Create(ideaModel, _project, logger, geometryProvider, new BimImporterConfiguration(), null, null);
 
 			ImportFinished += OnImportFinished;
 		}
