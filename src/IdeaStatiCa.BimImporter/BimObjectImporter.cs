@@ -2,6 +2,7 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
 using IdeaStatiCa.BimImporter.Importers;
+using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IImporter<IIdeaObject> _importer;
 		private readonly IResultImporter _resultImporter;
 		private readonly IProgressMessaging _remoteApp;
-
+		private readonly IBimResultsProvider _resultsProvider;
 		private readonly BimImporterConfiguration _configuration;
 
 		/// <summary>
@@ -28,24 +29,36 @@ namespace IdeaStatiCa.BimImporter
 		/// <param name="logger">The logger.</param>
 		/// <param name="configuration">Importer configuration</param>
 		/// <returns>IBimObjectImporter instance.</returns>
-		public static IBimObjectImporter Create(IPluginLogger logger,
-			BimImporterConfiguration configuration, IProgressMessaging remoteApp = null /* @Todo: make this mandatory */)
+		///
+		public static IBimObjectImporter Create(
+			IPluginLogger logger,
+			BimImporterConfiguration configuration,
+			IBimResultsProvider resultsProvider,
+			IProgressMessaging remoteApp = null /* @Todo: make this mandatory */)
 		{
 			return new BimObjectImporter(
 				logger,
 				new ObjectImporter(logger),
 				new ResultImporter(logger),
-				configuration, remoteApp);
+				configuration,
+				remoteApp,
+				resultsProvider);
 		}
 
-		internal BimObjectImporter(IPluginLogger logger, IImporter<IIdeaObject> importer, IResultImporter resultImporter,
-			BimImporterConfiguration configuration, IProgressMessaging remoteApp)
+		internal BimObjectImporter(
+			IPluginLogger logger,
+			IImporter<IIdeaObject> importer,
+			IResultImporter resultImporter,
+			BimImporterConfiguration configuration,
+			IProgressMessaging remoteApp,
+			IBimResultsProvider resultsProvider)
 		{
 			_logger = logger;
 			_importer = importer;
 			_resultImporter = resultImporter;
 			_configuration = configuration;
 			_remoteApp = remoteApp;
+			_resultsProvider = resultsProvider;
 		}
 
 		/// <summary>
@@ -84,6 +97,8 @@ namespace IdeaStatiCa.BimImporter
 					i++;
 				}
 			}
+
+			importContext.ImportResults(_resultsProvider);
 
 			return new ModelBIM()
 			{
