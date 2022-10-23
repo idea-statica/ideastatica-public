@@ -46,9 +46,9 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
-			IGeometryProvider geometryProvider, BimImporterConfiguration configuration, IProgressMessaging remoteApp = null)
+			IGeometryProvider geometryProvider, BimImporterConfiguration configuration)
 		{
-			return Create(ideaModel, project, logger, geometryProvider, configuration, remoteApp, null);
+			return Create(ideaModel, project, logger, geometryProvider, configuration);
 		}
 
 		public static IBimImporter Create(
