@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
+using System;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimImporter.Results
@@ -15,9 +16,9 @@ namespace IdeaStatiCa.BimImporter.Results
 
 		public ResultsData(IIdeaObjectWithResults obj, MemberType memberType, IReadOnlyCollection<IIdeaResult> results)
 		{
-			Object = obj;
+			Object = obj ?? throw new ArgumentNullException(nameof(obj));
 			MemberType = memberType;
-			Results = results;
+			Results = results ?? new List<IIdeaResult>();
 		}
 	}
 }
