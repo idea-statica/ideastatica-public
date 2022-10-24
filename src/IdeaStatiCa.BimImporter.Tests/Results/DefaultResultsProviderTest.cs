@@ -41,7 +41,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Results
 			var result2 = Substitute.For<IIdeaResult>();
 			element.GetResults().Returns(new IIdeaResult[] { result2 });
 
-			_sut.GetResults(new IIdeaObjectWithResults[] { member })
+			_sut.GetResults(new IIdeaObjectWithResults[] { member, element })
 				.Should().BeEquivalentTo(new ResultsData[] 
 				{
 					new ResultsData(member, MemberType.Member1D, new IIdeaResult[] { result1 }),
