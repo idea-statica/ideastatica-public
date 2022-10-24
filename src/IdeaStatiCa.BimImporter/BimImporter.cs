@@ -35,7 +35,7 @@ namespace IdeaStatiCa.BimImporter
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
 			IGeometryProvider geometryProvider, BimImporterConfiguration configuration)
 		{
-			return Create(ideaModel, project, logger, geometryProvider, configuration);
+			return Create(ideaModel, project, logger, geometryProvider, configuration, null, null);
 		}
 
 		public static IBimImporter Create(
