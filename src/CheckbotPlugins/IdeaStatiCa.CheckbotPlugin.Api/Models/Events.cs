@@ -18,4 +18,14 @@
 			ModelObject = modelObject;
 		}
 	}
+
+	public class EventCustomButtonClicked : Event
+	{
+		public string ButtonName { get; }
+
+		public EventCustomButtonClicked(string buttonName)
+		{
+			ButtonName = buttonName;
+		}
+	}
 }

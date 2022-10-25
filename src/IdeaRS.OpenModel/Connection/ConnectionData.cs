@@ -646,7 +646,7 @@ namespace IdeaRS.OpenModel.Connection
 		public IdeaRS.OpenModel.Geometry3D.Point3D PlanePoint { get; set; }
 
 		/// <summary>
-		/// Plane normal
+		/// Plane normal. Direction of normal set remove part of beam
 		/// </summary>
 		public IdeaRS.OpenModel.Geometry3D.Vector3D NormalVector { get; set; }
 

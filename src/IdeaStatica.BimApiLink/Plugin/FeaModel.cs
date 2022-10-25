@@ -2,6 +2,7 @@
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
+using Nito.Disposables.Internals;
 
 namespace IdeaStatica.BimApiLink.Plugin
 {
@@ -56,6 +57,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 		{
 			return _feaModel.GetAllMembers()
 				.Select(x => _bimApiImporter.Get(x))
+				.WhereNotNull()
 				.ToHashSet();
 		}
 
@@ -69,10 +71,12 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 			nodes = selection.Nodes
 				.Select(x => _bimApiImporter.Get(x))
+				.WhereNotNull()
 				.ToHashSet();
 
 			members = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
+				.WhereNotNull()
 				.ToHashSet();
 
 			connectionPoints = new HashSet<IIdeaConnectionPoint>();

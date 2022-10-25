@@ -8,17 +8,35 @@ namespace IdeaStatica.BimApiLink
 {
 	public class BimLinkObject : ScopeAwareObject
 	{
-		protected T2 Get<T2>(Identifier<T2> identifier)
-			where T2 : IIdeaObject
+		protected T Get<T>(Identifier<T> identifier)
+			where T : IIdeaObject
+		{
+			return GetMaybe(identifier) ?? throw new InvalidOperationException();
+		}
+
+		protected T Get<T>(int id)
+			where T : IIdeaObject
+		{
+			return GetMaybe<T>(id) ?? throw new InvalidOperationException();
+		}
+
+		protected T Get<T>(string id)
+			where T : IIdeaObject
+		{
+			return GetMaybe<T>(id) ?? throw new InvalidOperationException();
+		}
+
+		protected T? GetMaybe<T>(Identifier<T> identifier)
+			where T : IIdeaObject
 			=> BimApiImporter.Get(identifier);
 
-		protected T2 Get<T2>(int id)
-			where T2 : IIdeaObject
-			=> Get(new IntIdentifier<T2>(id));
+		protected T? GetMaybe<T>(int id)
+			where T : IIdeaObject
+			=> Get(new IntIdentifier<T>(id));
 
-		protected T2 Get<T2>(string id)
-			where T2 : IIdeaObject
-			=> Get(new StringIdentifier<T2>(id));
+		protected T? GetMaybe<T>(string id)
+			where T : IIdeaObject
+			=> Get(new StringIdentifier<T>(id));
 
 		protected CountryCode CountryCode
 			=> Scope.CountryCode;

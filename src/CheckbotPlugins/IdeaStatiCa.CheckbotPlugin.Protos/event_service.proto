@@ -17,6 +17,7 @@ message Event {
         EventPluginStop plugin_stop = 1;
         EventProcedureBegin procedure_begin = 2;
         EventOpenCheckApplication open_check_application = 3;
+        EventCustomButtonClicked custom_button_clicked = 4;
     }
 }
 
@@ -26,4 +27,8 @@ message EventProcedureBegin { }
 
 message EventOpenCheckApplication { 
     ModelObject object = 1;
+}
+
+message EventCustomButtonClicked {
+    string button_name = 1;
 }

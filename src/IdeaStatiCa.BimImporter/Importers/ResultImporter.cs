@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.BimImporter.Common;
+using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using MathNet.Numerics;
 using System;
@@ -23,7 +24,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_logger = logger;
 		}
 
-		public IEnumerable<ResultOnMember> Import(IImportContext ctx, ReferenceElement referenceElement, IIdeaObjectWithResults obj)
+		public IEnumerable<ResultOnMember> Import(IImportContext ctx, ReferenceElement referenceElement, ResultsData resultsData)
 		{
 			if (ctx is null)
 			{
@@ -35,31 +36,18 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new ArgumentNullException(nameof(referenceElement));
 			}
 
-			if (obj is null)
+			if (resultsData is null)
 			{
-				throw new ArgumentNullException(nameof(obj));
-			}
-
-			if (!(obj is IIdeaMember1D || obj is IIdeaElement1D))
-			{
-				throw new ConstraintException($"Object with results must be an instance of {nameof(IIdeaMember1D)}" +
-					$" or {nameof(IIdeaElement1D)}");
-			}
-
-			IEnumerable<IIdeaResult> results = obj.GetResults();
-			if (results is null)
-			{
-				_logger.LogDebug($"{nameof(IIdeaObjectWithResults)}.{nameof(IIdeaObjectWithResults.GetResults)} returned null.");
-				return Enumerable.Empty<ResultOnMember>();
+				throw new ArgumentNullException(nameof(resultsData));
 			}
 
 			Member member = new Member
 			{
 				Id = referenceElement.Id,
-				MemberType = obj is IIdeaMember1D ? MemberType.Member1D : MemberType.Element1D
+				MemberType = resultsData.MemberType
 			};
 
-			return results.Select(x => ImportResult(ctx, x)).Select(x =>
+			return resultsData.Results.Select(x => ImportResult(ctx, x)).Select(x =>
 			{
 				x.Member = member;
 				return x;
@@ -77,23 +65,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 			};
 
 			_doubleApproximateEqualityComparer.Precision = sectionPositionPrecision;
-			HashSet<double> importedPositions = new HashSet<double>(_doubleApproximateEqualityComparer);
-			List<ResultOnSection> results = new List<ResultOnSection>();
+			Dictionary<double, Section> sections = new Dictionary<double, Section>(_doubleApproximateEqualityComparer);
 
 			foreach (IIdeaSection section in result.Sections)
 			{
-				double position = section.Position;
-
-				if (position.AlmostEqual(1.0, sectionPositionPrecision))
-				{
-					_logger.LogTrace($"Normalizing section position from '{position}' to 1.0");
-					position = 1.0;
-				}
-				else if (position.AlmostEqual(0.0, sectionPositionPrecision))
-				{
-					_logger.LogTrace($"Normalizing section position from '{position}' to 0.0");
-					position = 0.0;
-				}
+				double position = GetNormalizedPosition(sectionPositionPrecision, section);
 
 				// 0.0 and 1.0 are already normalized at this point
 				// so we dont need to include epsilon in the comparison
@@ -102,28 +78,51 @@ namespace IdeaStatiCa.BimImporter.Importers
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
 				}
 
-				if (!importedPositions.Add(position))
+				if (!sections.TryGetValue(position, out Section resultSection))
 				{
-					throw new ConstraintException($"Result section on the position '{position}' already exists.");
+					resultSection = new Section(position);
+					sections.Add(position, resultSection);
 				}
 
-				ResultOnSection resultOnSection = new ResultOnSection()
+				foreach (IIdeaSectionResult res in section.Results)
 				{
-					AbsoluteRelative = AbsoluteRelative.Relative,
-					Position = position,
-					Results = section.Results.Select(x => ImportSectionResult(ctx, x)).ToList()
-				};
+					var loading = res.Loading;
 
-				results.Add(resultOnSection);
+					if (resultSection.Contains(res.Loading))
+					{
+						throw new ConstraintException($"Duplicated load case '{loading.Id}' in result section {position}.");
+					}
+
+					resultSection.Add(loading, ImportSectionResult(ctx, res));
+				}
 			}
 
 			// order sections by their position from 0 to 1
-			resultOnMember.Results = results
+			resultOnMember.Results = sections
+				.Select(x => x.Value.ResultOnSection)
 				.OrderBy(x => x.Position)
 				.Cast<ResultBase>()
 				.ToList();
 
 			return resultOnMember;
+		}
+
+		private double GetNormalizedPosition(double sectionPositionPrecision, IIdeaSection section)
+		{
+			double position = section.Position;
+
+			if (position.AlmostEqual(1.0, sectionPositionPrecision))
+			{
+				_logger.LogTrace($"Normalizing section position from '{position}' to 1.0");
+				position = 1.0;
+			}
+			else if (position.AlmostEqual(0.0, sectionPositionPrecision))
+			{
+				_logger.LogTrace($"Normalizing section position from '{position}' to 0.0");
+				position = 0.0;
+			}
+
+			return position;
 		}
 
 		private SectionResultBase ImportSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
@@ -168,6 +167,33 @@ namespace IdeaStatiCa.BimImporter.Importers
 				My = internalForcesData.My,
 				Mz = internalForcesData.Mz
 			};
+		}
+
+		private sealed class Section
+		{
+			public ResultOnSection ResultOnSection { get; }
+
+			private readonly HashSet<string> _loadCaseIds = new HashSet<string>();
+			private readonly List<SectionResultBase> _results = new List<SectionResultBase>();
+
+			public Section(double position)
+			{
+				ResultOnSection = new ResultOnSection()
+				{
+					AbsoluteRelative = AbsoluteRelative.Relative,
+					Position = position,
+					Results = _results
+				};
+			}
+
+			public bool Contains(IIdeaLoading loading)
+				=> _loadCaseIds.Contains(loading.Id);
+
+			public void Add(IIdeaLoading loading, SectionResultBase result)
+			{
+				_loadCaseIds.Add(loading.Id);
+				_results.Add(result);
+			}
 		}
 	}
 }

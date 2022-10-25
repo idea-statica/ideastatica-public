@@ -6,7 +6,7 @@ namespace IdeaStatica.BimApiLink.Scoping
 {
 	internal class BimApiImporterCacheAdapter : IBimApiImporter
 	{
-		private readonly Dictionary<IIdentifier, IIdeaObject> _importedObjects = new();
+		private readonly Dictionary<IIdentifier, IIdeaObject?> _importedObjects = new();
 
 		private readonly IBimApiImporter _bimApiImporter;
 
@@ -15,32 +15,32 @@ namespace IdeaStatica.BimApiLink.Scoping
 			_bimApiImporter = bimApiImporter;
 		}
 
-		public T Get<T>(Identifier<T> identifier)
+		public T? Get<T>(Identifier<T> identifier)
 			where T : IIdeaObject
 		{
-			if (_importedObjects.TryGetValue(identifier, out var obj)
-				&& obj is T res)
+			if (_importedObjects.TryGetValue(identifier, out IIdeaObject? obj)
+				&& obj is T storedObj)
 			{
-				return res;
+				return storedObj;
 			}
 
-			res = _bimApiImporter.Get(identifier);
-			_importedObjects[identifier] = res;
+			T? newObj = _bimApiImporter.Get(identifier);
+			_importedObjects[identifier] = newObj;
 
-			return res;
+			return newObj;
 		}
 
-		public IIdeaObject Get(IIdentifier identifier)
+		public IIdeaObject? Get(IIdentifier identifier)
 		{
-			if (_importedObjects.TryGetValue(identifier, out var obj))
+			if (_importedObjects.TryGetValue(identifier, out IIdeaObject? obj))
 			{
 				return obj;
 			}
 
-			obj = _bimApiImporter.Get(identifier);
-			_importedObjects[identifier] = obj;
+			IIdeaObject? newObj = _bimApiImporter.Get(identifier);
+			_importedObjects[identifier] = newObj;
 
-			return obj;
+			return newObj;
 		}
 	}
 }

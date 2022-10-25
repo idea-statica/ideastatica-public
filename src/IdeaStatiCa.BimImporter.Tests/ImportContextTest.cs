@@ -84,22 +84,22 @@ namespace IdeaStatiCa.BimImporter.Tests
 			project.Received(1).GetIomId(bimObject);
 		}
 
-		[Test]
-		public void Import_IfObjectIsInstanceOfIIdeaObjectWithResults_CallsResultImporter()
-		{
-			// Setup
-			Member1D iomObject = new Member1D();
-			IIdeaObjectWithResults objectWithResults = Substitute.For<IIdeaObjectWithResults>();
-			objectWithResults.Id.Returns("testobject");
+		//[Test]
+		//public void Import_IfObjectIsInstanceOfIIdeaObjectWithResults_CallsResultImporter()
+		//{
+		//	// Setup
+		//	Member1D iomObject = new Member1D();
+		//	IIdeaObjectWithResults objectWithResults = Substitute.For<IIdeaObjectWithResults>();
+		//	objectWithResults.Id.Returns("testobject");
 
-			importer.Import(Arg.Any<ImportContext>(), objectWithResults).Returns(iomObject);
+		//	importer.Import(Arg.Any<ImportContext>(), objectWithResults).Returns(iomObject);
 
-			// Tested method
-			ReferenceElement refElm = ctx.Import(objectWithResults);
+		//	// Tested method
+		//	ReferenceElement refElm = ctx.Import(objectWithResults);
 
-			// Assert: should call IResultImporter.Import
-			resultImporter.Received().Import(ctx, refElm, objectWithResults);
-		}
+		//	// Assert: should call IResultImporter.Import
+		//	resultImporter.Received().Import(ctx, refElm, objectWithResults);
+		//}
 
 		[Test]
 		public void ImportBimItem_ShouldAddBimItemAndImportReferencedObject()

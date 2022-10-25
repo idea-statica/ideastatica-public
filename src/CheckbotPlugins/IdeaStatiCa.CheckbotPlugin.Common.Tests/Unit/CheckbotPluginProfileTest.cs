@@ -62,5 +62,34 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
 			dst.OpenCheckApplication.Object.Type.Should().Be(Protos.ModelObjectType.Node);
 			dst.OpenCheckApplication.Object.Id.Should().Be(1);
 		}
+
+		[Test]
+		public void Test_Mapping_EventCustomButtonClicked()
+		{
+			Protos.Event src = new()
+			{
+				CustomButtonClicked = new()
+				{
+					ButtonName = "my-button"
+				}
+			};
+
+			Models.Event dst = _mapper.Map<Models.Event>(src);
+			dst.Should().BeOfType<Models.EventCustomButtonClicked>();
+
+			Models.EventCustomButtonClicked evt = (Models.EventCustomButtonClicked)dst;
+			evt.ButtonName.Should().Be("my-button");
+		}
+
+		[Test]
+		public void Test_Mapping_EventCustomButtonClicked_Back()
+		{
+			Models.EventCustomButtonClicked src = new("my-button");
+
+			Protos.Event dst = _mapper.Map<Protos.Event>(src);
+
+			dst.EventCase.Should().Be(Protos.Event.EventOneofCase.CustomButtonClicked);
+			dst.CustomButtonClicked.ButtonName.Should().Be("my-button");
+		}
 	}
 }

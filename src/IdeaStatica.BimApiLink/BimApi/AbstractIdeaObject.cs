@@ -3,7 +3,7 @@ using IdeaStatiCa.BimApi;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
-	public abstract class AbstractIdeaObject<T> : BimLinkObject, IIdeaObject
+	public abstract class AbstractIdeaObject<T> : BimLinkObject, IIdeaObject, IEquatable<AbstractIdeaObject<T>>
 		where T : IIdeaObject
 	{
 		public string Id => Identifier.GetStringId();
@@ -15,6 +15,34 @@ namespace IdeaStatica.BimApiLink.BimApi
 		protected AbstractIdeaObject(Identifier<T> identifier)
 		{
 			Identifier = identifier;
+		}
+
+		public override int GetHashCode()
+			=> Id.GetHashCode();
+
+		public override bool Equals(object? obj)
+		{
+			if (obj is not AbstractIdeaObject<T> other)
+			{
+				return false;
+			}
+
+			return Equals(other);
+		}
+
+		public bool Equals(AbstractIdeaObject<T>? other)
+		{
+			if (other is null)
+			{
+				return false;
+			}
+
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
+			return Id == other.Id;
 		}
 	}
 }

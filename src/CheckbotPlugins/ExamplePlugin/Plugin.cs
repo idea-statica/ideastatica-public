@@ -40,6 +40,10 @@ namespace ExamplePlugin
 
 				Process.Start(startInfo);
 			}
+			if (evt is EventCustomButtonClicked customButtonClicked)
+			{
+				Console.WriteLine("Clicked on " + customButtonClicked.ButtonName);
+			}
 		}
 
 		private static void PrintConnectionInfo(OpenModelContainer iom, ConnectionPoint conn)
