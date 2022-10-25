@@ -1,8 +1,11 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
+using IdeaStatiCa.BentleyCrossSections.CrossSectionConversions;
+using IdeaStatiCa.PluginsTools.CrossSectionConversions;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Model;
 using IdeaStatiCa.RamToIdea.Utilities;
 using RAMDATAACCESSLib;
+using System;
 
 namespace IdeaStatiCa.RamToIdea.Sections
 {
@@ -11,6 +14,7 @@ namespace IdeaStatiCa.RamToIdea.Sections
 		private readonly ISectionPropertiesConverter _converter;
 		private readonly IMemberData1 _memberData;
 		private readonly IMaterialFactory _materialFactory;
+		private static readonly Lazy<CssConversions> conversions = new Lazy<CssConversions>(() => BuildConvertions());
 
 		public SectionFactory(ISectionPropertiesConverter converter, IMemberData1 memberData, IMaterialFactory materialFactory)
 		{
@@ -18,6 +22,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 			_memberData = memberData;
 			_materialFactory = materialFactory;
 		}
+
+		private static CssConversions Conversions => conversions.Value;
 
 		public IRamSection GetSection(RamMemberProperties props)
 		{
@@ -79,7 +85,28 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		private IRamSection CreateNamed(double heightInches, RamMemberProperties props)
 		{
+			props.SectionLabel = ConvertCrossSectionName(props.SectionLabel);
 			return new RamSectionNamed(_materialFactory, heightInches.InchesToMeters(), props);
+		}
+
+		private static string ConvertCrossSectionName(string ramName)
+		{
+			return Conversions.ConvertCrossSectionName(ramName);
+		}
+
+		private static CssConversions BuildConvertions()
+		{
+			var builder = new CssConversionBuilder();
+			builder
+				.Register(new RolledIConvertor())
+				.Register(new RolledUConvertor())
+				.Register(new ChsConvertor())
+				.Register(new ShsOrRhsConvertor())
+				.Register(new AngleConvertor())
+				.Register(new TeeConvertor());
+
+			var conversions = builder.Build();
+			return conversions;
 		}
 	}
 }

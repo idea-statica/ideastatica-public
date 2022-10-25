@@ -49,11 +49,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlNone:
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlStar:
 				case RAMDATAACCESSLib.ESTEEL_SEC.EStlCoreBrace:
-					parameter.Name = steelSection.StrSize;
-					parameter.CrossSectionType = CrossSectionType.UniqueName;
-					parameter.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = parameter.Name });
-					break;
 				default:
+					// Return null and create named cross-section
 					return null;
 			}
 
