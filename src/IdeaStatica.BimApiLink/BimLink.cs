@@ -1,4 +1,5 @@
-﻿using IdeaStatica.BimApiLink.Importers;
+﻿using IdeaStatica.BimApiLink.Hooks;
+using IdeaStatica.BimApiLink.Importers;
 using IdeaStatica.BimApiLink.Persistence;
 using IdeaStatica.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
@@ -18,8 +19,10 @@ namespace IdeaStatica.BimApiLink
 		private ResultsImportersConfiguration? _resultsImportersConfiguration;
 		private BimImporterConfiguration? _bimImporterConfiguration;
 		private readonly string _projectPath;
+		private IBimUserDataSource _bimUserDataSource = new NullBimUserDataSource();
 
 		private readonly ImportersConfiguration _importersConfiguration = new();
+		private readonly HookManagers _hookManagers = new();
 
 		public static BimLink Create(string applicationName, string checkbotProjectPath) => new FeaBimLink(applicationName, checkbotProjectPath);
 
@@ -62,6 +65,24 @@ namespace IdeaStatica.BimApiLink
 			return this;
 		}
 
+		public BimLink WithImporterHook(IImporterHook hook)
+		{
+			_hookManagers.ImporterHookManager.Add(hook);
+			return this;
+		}
+
+		public BimLink WithPluginHook(IPluginHook hook)
+		{
+			_hookManagers.PluginHookManager.Add(hook);
+			return this;
+		}
+
+		public BimLink WithUserDataSource(IBimUserDataSource userDataSource)
+		{
+			_bimUserDataSource = userDataSource;
+			return this;
+		}
+
 		public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
 		{
 			_bimHosting ??= new GrpcBimHostingFactory();
@@ -71,7 +92,9 @@ namespace IdeaStatica.BimApiLink
 
 		public Task Run(IFeaModel feaModel)
 		{
-			ImporterDispatcher importerDispatcher = new(_importersConfiguration.Manager);
+			ImporterDispatcher importerDispatcher = new(
+				_importersConfiguration.Manager,
+				_hookManagers.ImporterHookManager);
 
 			IPluginLogger pluginLogger = _pluginLogger ?? new NullLogger();
 			IBimResultsProvider resultsProvider = _resultsImportersConfiguration?.ResultsProvider ?? new DefaultResultsProvider();
@@ -84,7 +107,9 @@ namespace IdeaStatica.BimApiLink
 				bimImporterConfiguration,
 				InitHostingClient(pluginLogger),
 				resultsProvider,
-				feaModel);
+				_hookManagers.PluginHookManager,
+				feaModel,
+				_bimUserDataSource);
 
 			PluginFactory pluginFactory = new(
 				applicationBIM,
@@ -109,7 +134,14 @@ namespace IdeaStatica.BimApiLink
 			BimImporterConfiguration bimImporterConfiguration,
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
-			IFeaModel feaModel);
+			IPluginHook pluginHook,
+			IFeaModel feaModel,
+			IBimUserDataSource userDataSource);
+
+		private sealed class NullBimUserDataSource : IBimUserDataSource
+		{
+			public object? GetUserData() => null;
+		}
 	}
 
 	internal class FeaBimLink : BimLink
@@ -125,7 +157,9 @@ namespace IdeaStatica.BimApiLink
 			BimImporterConfiguration bimImporterConfiguration,
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
-			IFeaModel feaModel)
+			IPluginHook pluginHook,
+			IFeaModel feaModel,
+			IBimUserDataSource userDataSource)
 		{
 			JsonPersistence jsonPersistence = new();
 			JsonProjectStorage projectStorage = new(jsonPersistence, projectPath);
@@ -141,7 +175,14 @@ namespace IdeaStatica.BimApiLink
 				remoteApp,
 				resultsProvider);
 
-			return new FeaApplication(ApplicationName, projectAdapter, projectStorage, bimImporter, bimApiImporter);
+			return new FeaApplication(
+				ApplicationName,
+				projectAdapter,
+				projectStorage,
+				bimImporter,
+				bimApiImporter,
+				pluginHook,
+				userDataSource);
 		}
 	}
 }

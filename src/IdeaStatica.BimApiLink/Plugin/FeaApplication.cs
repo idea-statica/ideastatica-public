@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatica.BimApiLink.Hooks;
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatica.BimApiLink.Persistence;
@@ -17,8 +18,10 @@ namespace IdeaStatica.BimApiLink.Plugin
 			IProject project,
 			IProjectStorage projectStorage,
 			IBimImporter bimImporter,
-			IBimApiImporter bimApiImporter)
-			: base(applicationName, project, projectStorage, bimApiImporter)
+			IBimApiImporter bimApiImporter,
+			IPluginHook pluginHook,
+			IBimUserDataSource userDataSource)
+			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, userDataSource)
 		{
 			_bimImporter = bimImporter;
 		}

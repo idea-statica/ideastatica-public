@@ -41,6 +41,9 @@ namespace IdeaStatica.BimApiLink
 		protected CountryCode CountryCode
 			=> Scope.CountryCode;
 
+		protected object? UserData
+			=> Scope.UserData;
+
 		internal IBimApiImporter BimApiImporter
 			=> Scope.BimApiImporter;
 	}

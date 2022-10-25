@@ -12,10 +12,13 @@ namespace IdeaStatica.BimApiLink.Scoping
 
 		public CountryCode CountryCode { get; }
 
-		public BimLinkScope(IBimApiImporter bimApiImporter, CountryCode countryCode)
+		public object? UserData { get; }
+
+		public BimLinkScope(IBimApiImporter bimApiImporter, CountryCode countryCode, object? userData)
 		{
 			BimApiImporter = bimApiImporter;
 			CountryCode = countryCode;
+			UserData = userData;
 
 			_current.Value = this;
 		}

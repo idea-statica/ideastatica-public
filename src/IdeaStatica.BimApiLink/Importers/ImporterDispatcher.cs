@@ -1,4 +1,5 @@
-﻿using IdeaStatica.BimApiLink.Identifiers;
+﻿using IdeaStatica.BimApiLink.Hooks;
+using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
 
 namespace IdeaStatica.BimApiLink.Importers
@@ -7,11 +8,12 @@ namespace IdeaStatica.BimApiLink.Importers
 	{
 		private readonly Dictionary<Type, int> _interfaceRank = new();
 		private readonly ImporterManager _importerManager;
+		private readonly IImporterHook _importerHookManager;
 
-		public ImporterDispatcher(ImporterManager importerManager)
+		public ImporterDispatcher(ImporterManager importerManager, IImporterHook importerHookManager)
 		{
 			_importerManager = importerManager;
-			
+			_importerHookManager = importerHookManager;
 			_interfaceRank[typeof(IIdeaObject)] = 0;
 			_interfaceRank[typeof(IIdeaPersistentObject)] = 0;
 			_interfaceRank[typeof(IIdeaObjectWithResults)] = 0;
@@ -24,7 +26,21 @@ namespace IdeaStatica.BimApiLink.Importers
 			{
 				if (_importerManager.TryResolve(type, out IImporter? importer))
 				{
-					return importer.Create(identifier);
+					T? obj;
+
+					_importerHookManager.EnterCreate(identifier);
+					try
+					{
+						obj = importer.Create(identifier);
+						_importerHookManager.ExitCreate(identifier, obj);
+					}
+					catch
+					{
+						_importerHookManager.ExitCreate(identifier, null);
+						throw;
+					}
+
+					return obj;
 				}
 			}
 
@@ -37,7 +53,21 @@ namespace IdeaStatica.BimApiLink.Importers
 			{
 				if (_importerManager.TryResolve(type, out IImporter? importer))
 				{
-					return importer.Create(identifier);
+					IIdeaObject? obj;
+
+					_importerHookManager.EnterCreate(identifier);
+					try
+					{
+						obj = importer.Create(identifier);
+						_importerHookManager.ExitCreate(identifier, obj);
+					}
+					catch
+					{
+						_importerHookManager.ExitCreate(identifier, null);
+						throw;
+					}
+
+					return obj;
 				}
 			}
 

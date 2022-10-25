@@ -8,5 +8,7 @@ namespace IdeaStatica.BimApiLink.Scoping
 		IBimApiImporter BimApiImporter { get; }
 
 		CountryCode CountryCode { get; }
+
+		object? UserData { get; }
 	}
 }
