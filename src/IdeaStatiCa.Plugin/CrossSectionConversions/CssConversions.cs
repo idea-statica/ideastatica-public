@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,10 +8,12 @@ namespace IdeaStatiCa.PluginsTools.CrossSectionConversions
 	public class CssConversions
 	{
 		private readonly IEnumerable<Conversion> conversions;
+		private readonly IPluginLogger logger;
 
-		internal CssConversions(IEnumerable<Conversion> conversions)
+		internal CssConversions(IEnumerable<Conversion> conversions, IPluginLogger logger = null)
 		{
 			this.conversions = conversions;
+			this.logger = logger;
 		}
 
 		public string ConvertCrossSectionName(string originalName)
@@ -25,8 +28,7 @@ namespace IdeaStatiCa.PluginsTools.CrossSectionConversions
 			}
 			catch (Exception e)
 			{
-				//ideaLogger.LogDebug($"$Unable to parse {originalName} to Idea profile", e);
-				System.Diagnostics.Debug.WriteLine($"$Unable to parse {originalName} to Idea profile", e);
+				logger?.LogDebug($"$Unable to parse {originalName} to Idea profile", e);
 			}
 
 			return originalName;

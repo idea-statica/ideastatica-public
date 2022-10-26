@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using IdeaStatiCa.Plugin;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.PluginsTools.CrossSectionConversions
 {
 	public class CssConversionBuilder
 	{
 		private readonly List<Conversion> conversions = new List<Conversion>();
+		private readonly IPluginLogger logger;
+
+		public CssConversionBuilder(IPluginLogger logger = null)
+		{
+			this.logger = logger;
+		}
 
 		public CssConversionBuilder Register(ICssConvertor convertor)
 		{
@@ -12,6 +19,6 @@ namespace IdeaStatiCa.PluginsTools.CrossSectionConversions
 			return this;
 		}
 
-		public CssConversions Build() => new CssConversions(conversions);
+		public CssConversions Build() => new CssConversions(conversions, logger);
 	}
 }
