@@ -331,5 +331,6 @@ Global
 		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
 		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
 		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
+		bim-links\bentley-ram\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems*{ec8df878-7ce5-458d-bf3e-fec30768a104}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
