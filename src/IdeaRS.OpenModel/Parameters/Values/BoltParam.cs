@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Windows;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Parameters
 {
@@ -113,7 +112,7 @@ namespace IdeaRS.OpenModel.Parameters
 	public enum BoltShearType : int
 	{
 		/// <summary>
-		/// TODO DRA 1
+		/// Not used. Recomendation use value Interaction
 		/// </summary>
 		Bearing,
 
@@ -189,9 +188,9 @@ namespace IdeaRS.OpenModel.Parameters
 		public static NumberGroups Create(params string[] positions)
 		{
 			int countOfParams = positions.Length;
-			var numberGroups = new NumberGroups { new List<ValueCount>()};
+			var numberGroups = new NumberGroups { new List<ValueCount>() };
 
-			for (int i=0; i<countOfParams; i++)
+			for (int i = 0; i < countOfParams; i++)
 			{
 				var position = positions[i];
 				if (position.Contains("*"))
@@ -273,7 +272,7 @@ namespace IdeaRS.OpenModel.Parameters
 		public static NumberGroups CreateGroups(IEnumerable<double> positions)
 		{
 			var ngs = new NumberGroups();
-			ngs.AddRange(positions.Select(p => new List<ValueCount> { ValueCount.Create(p) } ));
+			ngs.AddRange(positions.Select(p => new List<ValueCount> { ValueCount.Create(p) }));
 			return ngs;
 		}
 
