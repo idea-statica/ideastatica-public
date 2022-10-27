@@ -246,6 +246,11 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 			for (int i = 0; i < outlines.Count; i++)
 			{
+				//in connection we don't support complex shape only rectangle
+				if (outlines[i].Segments.Count > 4)
+				{
+					return null;
+				}
 				Region2D region = new Region2D
 				{
 					Outline = outlines[i],

@@ -174,7 +174,11 @@ namespace IdeaRstabPlugin.Factories
 					//if (!ResolveThinwalledCssShapeV3(crossSectionParameter, css))
 					if (cssType.StartsWith("2") || !TryImportCssThinWalled(crossSectionParameter, css))
 					{
-						return CssHelperFactory.CreateCrossSectionByComponents(css, objectFactory);
+						var cssComponent = CssHelperFactory.CreateCrossSectionByComponents(css, objectFactory);
+						if (cssComponent != null)
+						{
+							return cssComponent;
+						}
 					}
 					break;
 			}
