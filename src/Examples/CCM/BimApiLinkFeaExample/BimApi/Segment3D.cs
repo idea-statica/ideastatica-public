@@ -9,9 +9,9 @@ namespace BimApiLinkFeaExample.BimApi
 
 		public override IIdeaNode EndNode => Get<IIdeaNode>(EndNodeNo);
 
-		public int StartNodeNo { get; init; }
+		public int StartNodeNo { get; set; }
 
-		public int EndNodeNo { get; init; }
+		public int EndNodeNo { get; set; }
 
 		public Segment3D(int no)
 			: base(no)

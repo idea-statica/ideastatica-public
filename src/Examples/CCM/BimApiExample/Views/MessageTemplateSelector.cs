@@ -6,13 +6,13 @@ namespace BimApiExample.Views
 {
 	internal class MessageTemplateSelector : DataTemplateSelector
 	{
-		public DataTemplate? StandardTemplate { get; set; }
+		public DataTemplate StandardTemplate { get; set; }
 
-		public DataTemplate? ExceptionTemplate { get; set; }
+		public DataTemplate ExceptionTemplate { get; set; }
 
 		public override DataTemplate SelectTemplate(object item, DependencyObject container)
 		{
-			if (item is MessageViewModel vm && StandardTemplate is not null && ExceptionTemplate is not null)
+			if (item is MessageViewModel vm && StandardTemplate != null && ExceptionTemplate != null)
 			{
 				return vm.Exception == null
 					? StandardTemplate
