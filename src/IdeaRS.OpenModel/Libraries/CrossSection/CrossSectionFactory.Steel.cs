@@ -253,7 +253,7 @@
 		}
 
 		/// <summary>
-		/// Creates a ][ steel shape of css.
+		/// Fills a double channel steel section. They form an open/front-to-front ][ shape.
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="bt">The width of U top flange.</param>
@@ -276,7 +276,20 @@
 		}
 
 		/// <summary>
-		/// Fill steel section Channel shape
+		/// Fills a double channel steel section. They form an open/front-to-front ][ shape.
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="name">Name</param>
+		/// <param name="distance">Distance</param>
+		public static void FillComposedDblUo(CrossSectionParameter css, string name, double distance)
+		{
+			css.CrossSectionType = CrossSectionType.RolledDoubleUo;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
+		}
+
+		/// <summary>
+		/// Fills a double channel steel section. They form a closed/back-to-back [] shape.
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="name">Name</param>
