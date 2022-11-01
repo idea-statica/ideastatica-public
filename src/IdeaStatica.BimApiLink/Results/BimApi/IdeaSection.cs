@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.BimApi.Results;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.Results.BimApi
 {
@@ -9,7 +10,7 @@ namespace IdeaStatica.BimApiLink.Results.BimApi
 
 		public IEnumerable<IIdeaSectionResult> Results => _results;
 
-		private readonly ConcurrentBag<IIdeaSectionResult> _results = new();
+		private readonly ConcurrentBag<IIdeaSectionResult> _results = new ConcurrentBag<IIdeaSectionResult>();
 
 		public IdeaSection(double position)
 		{

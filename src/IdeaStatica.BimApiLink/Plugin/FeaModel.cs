@@ -3,18 +3,21 @@ using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using Nito.Disposables.Internals;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatica.BimApiLink.Plugin
 {
 	public class FeaUserSelection
 	{
-		public ICollection<Identifier<IIdeaNode>> Nodes { get; init; }
+		public ICollection<Identifier<IIdeaNode>> Nodes { get; set; }
 			= Array.Empty<Identifier<IIdeaNode>>();
 
-		public ICollection<Identifier<IIdeaMember1D>> Members { get; init; }
+		public ICollection<Identifier<IIdeaMember1D>> Members { get; set; }
 			= Array.Empty<Identifier<IIdeaMember1D>>();
 
-		public ICollection<Identifier<IIdeaCombiInput>> Combinations { get; init; }
+		public ICollection<Identifier<IIdeaCombiInput>> Combinations { get; set; }
 			= Array.Empty<Identifier<IIdeaCombiInput>>();
 	}
 
@@ -29,7 +32,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 	internal class FeaModelAdapter : IIdeaModel
 	{
-		private FeaUserSelection? _lastSelection;
+		private FeaUserSelection _lastSelection;
 
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IFeaModel _feaModel;

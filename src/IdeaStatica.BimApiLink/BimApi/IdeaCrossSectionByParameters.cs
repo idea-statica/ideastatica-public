@@ -1,5 +1,6 @@
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
@@ -7,11 +8,11 @@ namespace IdeaStatica.BimApiLink.BimApi
 	{
 		public virtual double Rotation { get; set; }
 		
-		public virtual IIdeaMaterial Material { get; set; } = null!;
+		public virtual IIdeaMaterial Material { get; set; } = null;
 		
 		public virtual IdeaRS.OpenModel.CrossSection.CrossSectionType Type { get; set; }
 		
-		public virtual HashSet<IdeaRS.OpenModel.CrossSection.Parameter> Parameters { get; set; } = null!;
+		public virtual HashSet<IdeaRS.OpenModel.CrossSection.Parameter> Parameters { get; set; } = null;
 		
 		protected IdeaCrossSectionByParameters(Identifier<IIdeaCrossSectionByParameters> identifer)
 			: base(identifer)

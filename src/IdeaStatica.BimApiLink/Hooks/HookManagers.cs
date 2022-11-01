@@ -2,8 +2,8 @@
 {
 	internal class HookManagers
 	{
-		public ImporterHookManager ImporterHookManager { get; } = new();
+		public ImporterHookManager ImporterHookManager { get; } = new ImporterHookManager();
 
-		public PluginHookManager PluginHookManager { get; } = new();
+		public PluginHookManager PluginHookManager { get; } = new PluginHookManager();
 	}
 }

@@ -1,7 +1,9 @@
-﻿namespace IdeaStatica.BimApiLink.Importers
+﻿using System;
+
+namespace IdeaStatica.BimApiLink.Importers
 {
 	public interface IImporterProvider
 	{
-		IImporter? GetProvider(Type type);
+		IImporter GetProvider(Type type);
 	}
 }

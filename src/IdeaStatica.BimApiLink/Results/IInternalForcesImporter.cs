@@ -1,5 +1,5 @@
-﻿using IdeaStatica.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.Results
 {

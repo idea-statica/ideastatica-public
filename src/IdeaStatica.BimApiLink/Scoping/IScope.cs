@@ -9,6 +9,6 @@ namespace IdeaStatica.BimApiLink.Scoping
 
 		CountryCode CountryCode { get; }
 
-		object? UserData { get; }
+		object UserData { get; }
 	}
 }
