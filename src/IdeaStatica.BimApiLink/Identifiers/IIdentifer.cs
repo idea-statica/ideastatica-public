@@ -7,15 +7,4 @@ namespace IdeaStatica.BimApiLink.Identifiers
 	{
 		Type ObjectType { get; }
 	}
-
-	public abstract class Identifier<T> : IIdentifier
-		where T : IIdeaObject
-	{
-		public Type ObjectType => typeof(T);
-
-		public abstract string GetStringId();
-
-		public bool Equals(IIdentifier other)
-			=> other is Identifier<T> id && Equals(id);
-	}
 }
