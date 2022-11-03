@@ -13,16 +13,18 @@ namespace IdeaStatica.BimApiLink.Results
 	{
 		private readonly ResultLocalSystemType _resultLocalSystem;
 		private readonly Dictionary<string, IdeaResult> _results = new Dictionary<string, IdeaResult>();
-		private readonly HashSet<ResultsData<T>> _resultsData = new HashSet<ResultsData<T>>();
+		private readonly List<ResultsData<T>> _resultsData = new List<ResultsData<T>>();
 
 		public InternalForcesBuilder(ResultLocalSystemType resultLocalSystem)
 		{
 			_resultLocalSystem = resultLocalSystem;
 		}
 
-		public Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier) => For(obj, Get(loadCaseIdentifier));
+		public Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier) 
+			=> For(obj, Get(loadCaseIdentifier));
 
-		public Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase) => For(Get(objIdentifier), loadCase);
+		public Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase) 
+			=> For(Get(objIdentifier), loadCase);
 
 		public Sections For(T obj, IIdeaLoadCase loadCase)
 		{
