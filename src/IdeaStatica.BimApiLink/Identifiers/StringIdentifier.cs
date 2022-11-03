@@ -2,16 +2,15 @@
 
 namespace IdeaStatica.BimApiLink.Identifiers
 {
-	public class StringIdentifier<T> : Identifier<T>
-			where T : IIdeaObject
-		{
+	public class StringIdentifier<T> : ImmutableIdentifier<T>
+		where T : IIdeaObject
+	{
 		public string Id { get; }
 
 		public StringIdentifier(string id)
+			: base(typeof(T).FullName + "-" + id)
 		{
 			Id = id;
 		}
-
-		public override string GetStringId() => typeof(T).FullName + "-" + Id;
 	}
 }
