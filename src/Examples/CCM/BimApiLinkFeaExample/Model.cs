@@ -1,4 +1,5 @@
-﻿using IdeaRS.OpenModel;
+﻿using BimApiLinkFeaExample.FeaExampleApi;
+using IdeaRS.OpenModel;
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Plugin;
 using IdeaStatiCa.BimApi;
@@ -10,10 +11,12 @@ namespace BimApiLinkFeaExample
 {
 	internal class Model : IFeaModel
 	{
+		private readonly IFeaGeometryApi geometry;
 		private readonly IProgressMessaging messagingService;
 
-		public Model(IProgressMessaging messagingService)
+		public Model(IFeaGeometryApi geometry, IProgressMessaging messagingService)
 		{
+			this.geometry = geometry;
 			this.messagingService = messagingService;
 		}
 
@@ -31,7 +34,7 @@ namespace BimApiLinkFeaExample
 		/// <returns>All members in the model to be able find all related (connected) members, when select node only.</returns>
 		public IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers()
 		{
-			return new int[] { 1, 2, }
+			return geometry.GetMembersIdentifiers()
 				.Select(x => new IntIdentifier<IIdeaMember1D>(x));
 		}
 
@@ -44,12 +47,12 @@ namespace BimApiLinkFeaExample
 		/// <returns></returns>
 		public FeaUserSelection GetUserSelection()
 		{
-			List<Identifier<IIdeaNode>> nodes = new int[] { 1, 2, 3, }
+			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesIdentifiers()
 				.Select(x => new IntIdentifier<IIdeaNode>(x))
 				.Cast<Identifier<IIdeaNode>>()
 				.ToList();
 
-			List<Identifier<IIdeaMember1D>> members = new int[] { 1, 2, }
+			List<Identifier<IIdeaMember1D>> members = geometry.GetMembersIdentifiers()
 				.Select(x => new IntIdentifier<IIdeaMember1D>(x))
 				.Cast<Identifier<IIdeaMember1D>>()
 				.ToList();

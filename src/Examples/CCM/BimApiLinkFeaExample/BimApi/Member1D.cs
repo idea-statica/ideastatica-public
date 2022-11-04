@@ -5,7 +5,7 @@ namespace BimApiLinkFeaExample.BimApi
 {
 	internal class Member1D : IdeaMember1D
 	{
-		public int CrossSectionNo { get; init; }
+		public int CrossSectionNo { get; set; }
 
 		public override IIdeaCrossSection CrossSection => Get<IIdeaCrossSection>(CrossSectionNo);
 

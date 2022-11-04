@@ -7,7 +7,7 @@ namespace BimApiLinkFeaExample.BimApi
 	{
 		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
 
-		public int MaterialNo { get; init; }
+		public int MaterialNo { get; set; }
 
 		public CrossSectionByName(int no) : base(no)
 		{

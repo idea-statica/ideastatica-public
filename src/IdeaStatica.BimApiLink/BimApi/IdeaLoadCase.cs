@@ -11,9 +11,9 @@ namespace IdeaStatica.BimApiLink.BimApi
 		
 		public virtual IdeaRS.OpenModel.Loading.VariableType Variable { get; set; }
 		
-		public virtual IIdeaLoadGroup LoadGroup { get; set; } = null!;
+		public virtual IIdeaLoadGroup LoadGroup { get; set; } = null;
 		
-		public virtual string Description { get; set; } = null!;
+		public virtual string Description { get; set; } = null;
 		
 		protected IdeaLoadCase(Identifier<IIdeaLoadCase> identifer)
 			: base(identifer)

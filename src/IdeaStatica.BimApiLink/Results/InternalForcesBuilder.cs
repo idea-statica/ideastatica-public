@@ -4,6 +4,7 @@ using IdeaStatica.BimApiLink.Results.BimApi;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.Results
 {
@@ -11,23 +12,25 @@ namespace IdeaStatica.BimApiLink.Results
 		where T : IIdeaObjectWithResults
 	{
 		private readonly ResultLocalSystemType _resultLocalSystem;
-		private readonly Dictionary<string, IdeaResult> _results = new();
-		private readonly HashSet<ResultsData<T>> _resultsData = new();
+		private readonly Dictionary<string, IdeaResult> _results = new Dictionary<string, IdeaResult>();
+		private readonly List<ResultsData<T>> _resultsData = new List<ResultsData<T>>();
 
 		public InternalForcesBuilder(ResultLocalSystemType resultLocalSystem)
 		{
 			_resultLocalSystem = resultLocalSystem;
 		}
 
-		public Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier) => For(obj, Get(loadCaseIdentifier));
+		public Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier) 
+			=> For(obj, Get(loadCaseIdentifier));
 
-		public Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase) => For(Get(objIdentifier), loadCase);
+		public Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase) 
+			=> For(Get(objIdentifier), loadCase);
 
 		public Sections For(T obj, IIdeaLoadCase loadCase)
 		{
-			if (!_results.TryGetValue(obj.Id, out IdeaResult? result))
+			if (!_results.TryGetValue(obj.Id, out IdeaResult result))
 			{
-				result = new(_resultLocalSystem);
+				result = new IdeaResult(_resultLocalSystem);
 				_results.Add(obj.Id, result);
 			}
 
@@ -44,7 +47,7 @@ namespace IdeaStatica.BimApiLink.Results
 			private readonly IIdeaLoadCase _loadCase;
 			private readonly IdeaResult _result;
 
-			private readonly Dictionary<double, IdeaSection> _sections = new();
+			private readonly Dictionary<double, IdeaSection> _sections = new Dictionary<double, IdeaSection>();
 
 
 			internal Sections(IIdeaLoadCase loadCase, IdeaResult result)
@@ -55,7 +58,7 @@ namespace IdeaStatica.BimApiLink.Results
 
 			public Sections Add(double position, double n, double qy, double qz, double mx, double my, double mz)
 			{
-				InternalForcesData data = new()
+				InternalForcesData data = new InternalForcesData()
 				{
 					N = n,
 					Qy = qy,
@@ -72,9 +75,9 @@ namespace IdeaStatica.BimApiLink.Results
 
 			private IdeaSection GetSection(double position)
 			{
-				if (!_sections.TryGetValue(position, out IdeaSection? section))
+				if (!_sections.TryGetValue(position, out IdeaSection section))
 				{
-					section = new(position);
+					section = new IdeaSection(position);
 					_sections.Add(position, section);
 					_result.Add(section);
 				}
