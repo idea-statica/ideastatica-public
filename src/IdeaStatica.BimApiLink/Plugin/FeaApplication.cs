@@ -6,6 +6,8 @@ using IdeaStatica.BimApiLink.Persistence;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using System;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.Plugin
 {

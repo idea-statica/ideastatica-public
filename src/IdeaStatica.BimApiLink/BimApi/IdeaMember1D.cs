@@ -1,6 +1,8 @@
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
@@ -10,11 +12,11 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public virtual IdeaRS.OpenModel.Model.Member1DType Type { get; set; }
 
-		public virtual List<IIdeaElement1D> Elements { get; set; } = null!;
+		public virtual List<IIdeaElement1D> Elements { get; set; } = null;
 
-		public virtual IIdeaTaper Taper { get; set; } = null!;
+		public virtual IIdeaTaper Taper { get; set; } = null;
 
-		public virtual IIdeaCrossSection CrossSection { get; set; } = null!;
+		public virtual IIdeaCrossSection CrossSection { get; set; } = null;
 
 		public virtual IdeaRS.OpenModel.Model.Alignment Alignment { get; set; }
 

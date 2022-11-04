@@ -7,6 +7,8 @@ using IdeaStatica.BimApiLink.Scoping;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatica.BimApiLink
 {
@@ -112,7 +114,7 @@ namespace IdeaStatica.BimApiLink
 
 		private BimLinkScope CreateScope(CountryCode countryCode)
 		{
-			object? userData = _userDataSource.GetUserData();
+			object userData = _userDataSource.GetUserData();
 
 			return new BimLinkScope(new BimApiImporterCacheAdapter(_bimApiImporter), countryCode, userData);
 		}

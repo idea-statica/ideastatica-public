@@ -8,7 +8,7 @@ namespace IdeaStatica.BimApiLink
 	{
 		public IBimResultsProvider ResultsProvider => _adapter;
 
-		private readonly BimResultsProviderAdapter _adapter = new();
+		private readonly BimResultsProviderAdapter _adapter = new BimResultsProviderAdapter();
 
 		public ResultsImportersConfiguration RegisterImporter<T>(IInternalForcesImporter<T> importer)
 			where T : IIdeaObjectWithResults

@@ -1,5 +1,6 @@
 ﻿using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using System;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
@@ -20,9 +21,9 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public override int GetHashCode()
 			=> Id.GetHashCode();
 
-		public override bool Equals(object? obj)
+		public override bool Equals(object obj)
 		{
-			if (obj is not AbstractIdeaObject<T> other)
+			if (!(obj is AbstractIdeaObject<T> other))
 			{
 				return false;
 			}
@@ -30,7 +31,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 			return Equals(other);
 		}
 
-		public bool Equals(AbstractIdeaObject<T>? other)
+		public bool Equals(AbstractIdeaObject<T> other)
 		{
 			if (other is null)
 			{

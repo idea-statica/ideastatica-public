@@ -6,6 +6,9 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace IdeaStatica.BimApiLink
 {
@@ -13,16 +16,16 @@ namespace IdeaStatica.BimApiLink
 	{
 		protected string ApplicationName { get; }
 
-		private string? _ideaStatiCaPath;
-		private IPluginLogger? _pluginLogger;
-		private GrpcBimHostingFactory? _bimHosting;
-		private ResultsImportersConfiguration? _resultsImportersConfiguration;
-		private BimImporterConfiguration? _bimImporterConfiguration;
+		private string _ideaStatiCaPath;
+		private IPluginLogger _pluginLogger;
+		private GrpcBimHostingFactory _bimHosting;
+		private ResultsImportersConfiguration _resultsImportersConfiguration;
+		private BimImporterConfiguration _bimImporterConfiguration;
 		private readonly string _projectPath;
 		private IBimUserDataSource _bimUserDataSource = new NullBimUserDataSource();
 
-		private readonly ImportersConfiguration _importersConfiguration = new();
-		private readonly HookManagers _hookManagers = new();
+		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
+		private readonly HookManagers _hookManagers = new HookManagers();
 
 		public static BimLink Create(string applicationName, string checkbotProjectPath) => new FeaBimLink(applicationName, checkbotProjectPath);
 
@@ -52,7 +55,7 @@ namespace IdeaStatica.BimApiLink
 
 		public BimLink WithResultsImporters(Action<ResultsImportersConfiguration> func)
 		{
-			ResultsImportersConfiguration conf = new();
+			ResultsImportersConfiguration conf = new ResultsImportersConfiguration();
 			func(conf);
 			_resultsImportersConfiguration = conf;
 
@@ -85,14 +88,17 @@ namespace IdeaStatica.BimApiLink
 
 		public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
 		{
-			_bimHosting ??= new GrpcBimHostingFactory();
+			if (_bimHosting is null)
+			{
+				_bimHosting = new GrpcBimHostingFactory();
+			}
 
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
 
 		public Task Run(IFeaModel feaModel)
 		{
-			ImporterDispatcher importerDispatcher = new(
+			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
 				_importersConfiguration.Manager,
 				_hookManagers.ImporterHookManager);
 
@@ -111,7 +117,7 @@ namespace IdeaStatica.BimApiLink
 				feaModel,
 				_bimUserDataSource);
 
-			PluginFactory pluginFactory = new(
+			PluginFactory pluginFactory = new PluginFactory(
 				applicationBIM,
 				ApplicationName,
 				_ideaStatiCaPath);
@@ -123,7 +129,11 @@ namespace IdeaStatica.BimApiLink
 
 			IBIMPluginHosting pluginHosting = _bimHosting.Create(pluginFactory, pluginLogger);
 
+#if NET6_0
 			string pid = Environment.ProcessId.ToString();
+#else
+			string pid = Process.GetCurrentProcess().Id.ToString();
+#endif
 			return pluginHosting.RunAsync(pid, _projectPath);
 		}
 
@@ -140,7 +150,7 @@ namespace IdeaStatica.BimApiLink
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{
-			public object? GetUserData() => null;
+			public object GetUserData() => null;
 		}
 	}
 
@@ -161,11 +171,11 @@ namespace IdeaStatica.BimApiLink
 			IFeaModel feaModel,
 			IBimUserDataSource userDataSource)
 		{
-			JsonPersistence jsonPersistence = new();
-			JsonProjectStorage projectStorage = new(jsonPersistence, projectPath);
-			Project project = new(logger, jsonPersistence);
-			ProjectAdapter projectAdapter = new(project, bimApiImporter);
-			FeaModelAdapter feaModelAdapter = new(bimApiImporter, feaModel);
+			JsonPersistence jsonPersistence = new JsonPersistence();
+			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
+			Project project = new Project(logger, jsonPersistence);
+			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
+			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel);
 			IBimImporter bimImporter = BimImporter.Create(
 				feaModelAdapter,
 				projectAdapter,
