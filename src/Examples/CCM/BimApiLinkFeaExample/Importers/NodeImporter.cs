@@ -1,4 +1,5 @@
-﻿using IdeaStatica.BimApiLink.BimApi;
+﻿using BimApiLinkFeaExample.FeaExampleApi;
+using IdeaStatica.BimApiLink.BimApi;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using System;
@@ -7,8 +8,11 @@ namespace BimApiLinkFeaExample.Importers
 {
 	internal class NodeImporter : IntIdentifierImporter<IIdeaNode>
 	{
-		public NodeImporter(/*TODO pass API using DI*/)
+		private readonly IFeaGeometryApi geometry;
+
+		public NodeImporter(IFeaGeometryApi geometry)
 		{
+			this.geometry = geometry;
 		}
 
 		public override IIdeaNode Create(int id)
@@ -20,15 +24,10 @@ namespace BimApiLinkFeaExample.Importers
 			};
 		}
 
-		private static IdeaVector3D GetLocation(int id)
+		private IdeaVector3D GetLocation(int id)
 		{
-			return id switch
-			{
-				1 => new IdeaVector3D(0, 0, 0),
-				2 => new IdeaVector3D(0, 0, 3),
-				3 => new IdeaVector3D(5, 0, 3),
-				_ => throw new NotImplementedException(),
-			};
+			IFeaNode feaNode = geometry.GetNode(id);
+			return new IdeaVector3D(feaNode.X, feaNode.Y, feaNode.Z);
 		}
 	}
 }

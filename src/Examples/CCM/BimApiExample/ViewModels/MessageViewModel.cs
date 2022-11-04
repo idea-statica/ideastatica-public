@@ -2,24 +2,24 @@
 
 namespace BimApiExample.ViewModels
 {
-	internal record MessageViewModel
+	internal class MessageViewModel
 	{
-		public MessageViewModel(MessageSeverity severity, string message, Exception? exception = null)
+		public MessageViewModel(MessageSeverity severity, string message, Exception exception = null)
 		{
 			Message = message;
 			Exception = exception;
 			Severity = severity;
 		}
 
-		public string Message { get; init; }
+		public string Message { get; set; }
 
-		public Exception? Exception { get; init; }
+		public Exception Exception { get; set; }
 
-		public MessageSeverity Severity { get; init; }
+		public MessageSeverity Severity { get; set; }
 
 		public override string ToString()
 		{
-			if (Exception is not null)
+			if (Exception != null)
 			{
 				return $"{Message}\r\n{Exception}";
 			}

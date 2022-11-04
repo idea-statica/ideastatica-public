@@ -7,6 +7,6 @@ namespace IdeaStatica.BimApiLink.Hooks
 	{
 		void EnterCreate(IIdentifier identifier);
 
-		void ExitCreate(IIdentifier identifier, IIdeaObject? ideaObject);
+		void ExitCreate(IIdentifier identifier, IIdeaObject ideaObject);
 	}
 }

@@ -2,8 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
+		<TargetFrameworks>net6.0-windows;net48</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<ProjectGuid>{669835E3-E2A5-48E5-8CF4-752370CB7051}</ProjectGuid>
 	</PropertyGroup>
@@ -15,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj" />
+		<ProjectReference Include="..\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

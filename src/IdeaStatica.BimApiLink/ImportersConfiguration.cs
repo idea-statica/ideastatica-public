@@ -1,6 +1,7 @@
 ﻿using IdeaStatica.BimApiLink.Hooks;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
+using System;
 
 namespace IdeaStatica.BimApiLink
 {
@@ -44,7 +45,7 @@ namespace IdeaStatica.BimApiLink
 				_factory = factory;
 			}
 
-			public IImporter? GetProvider(Type type)
+			public IImporter GetProvider(Type type)
 			{
 				if (type != typeof(T))
 				{
@@ -64,10 +65,10 @@ namespace IdeaStatica.BimApiLink
 				_serviceProvider = serviceProvider;
 			}
 
-			public IImporter? GetProvider(Type type)
+			public IImporter GetProvider(Type type)
 			{
 				Type providerType = typeof(IImporter<>).MakeGenericType(type);
-				return (IImporter?)_serviceProvider.GetService(providerType);
+				return (IImporter)_serviceProvider.GetService(providerType);
 			}
 		}
 	}

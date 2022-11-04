@@ -2,6 +2,8 @@
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Results;
 using Nito.Disposables.Internals;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatica.BimApiLink.Results
 {
@@ -17,12 +19,12 @@ namespace IdeaStatica.BimApiLink.Results
 
 		public IEnumerable<ResultsData> GetResults(IEnumerable<IIdeaObjectWithResults> objects)
 		{
-			return _internalForcesImporter.GetResults(objects.OfType<T>().ToList())
+			return _internalForcesImporter.GetResults(objects.OfType<T>().ToArray())
 				.Select(Convert)
 				.WhereNotNull();
 		}
 
-		private ResultsData? Convert(ResultsData<T> resultsData)
+		private ResultsData Convert(ResultsData<T> resultsData)
 		{
 			MemberType? memberType = GetMemberType(resultsData.Object);
 			if (memberType is null)
@@ -36,11 +38,14 @@ namespace IdeaStatica.BimApiLink.Results
 				new[] { resultsData.Results });
 		}
 
-		private static MemberType? GetMemberType(T obj) => obj switch
+		private static MemberType? GetMemberType(T obj)
 		{
-			IIdeaMember1D => MemberType.Member1D,
-			IIdeaElement1D => MemberType.Element1D,
-			_ => null,
-		};
+			switch (obj)
+			{
+				case IIdeaMember1D _: return MemberType.Member1D;
+				case IIdeaElement1D _: return MemberType.Element1D;
+				default: return null;
+			}
+		}
 	}
 }
