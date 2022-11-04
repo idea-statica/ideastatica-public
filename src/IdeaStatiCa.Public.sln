@@ -109,7 +109,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiLinkFeaExample", "Examples\CCM\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj", "{7C20F445-680E-45BF-8088-0AF8E3BDD917}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginsTools.Windows", "IdeaStatiCa.PluginsTools.Windows\IdeaStatiCa.PluginsTools.Windows.csproj", "{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
+		bim-links\bentley-ram\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems*{ec8df878-7ce5-458d-bf3e-fec30768a104}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -279,6 +287,10 @@ Global
 		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -326,11 +338,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
-		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
-		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
-		bim-links\bentley-ram\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems*{ec8df878-7ce5-458d-bf3e-fec30768a104}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
