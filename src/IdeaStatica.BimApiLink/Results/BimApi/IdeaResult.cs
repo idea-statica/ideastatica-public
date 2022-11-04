@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi.Results;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.Results.BimApi
 {
@@ -9,7 +10,7 @@ namespace IdeaStatica.BimApiLink.Results.BimApi
 
 		public IEnumerable<IIdeaSection> Sections => _sections;
 
-		private readonly List<IIdeaSection> _sections = new();
+		private readonly List<IIdeaSection> _sections = new List<IIdeaSection>();
 
 		public IdeaResult(ResultLocalSystemType coordinateSystemType)
 		{

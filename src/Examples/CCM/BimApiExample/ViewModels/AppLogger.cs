@@ -24,9 +24,9 @@ namespace BimApiExample.ViewModels
 
 		public bool EnableDebug { get; set; }
 
-		public ObservableCollection<MessageViewModel> Messages { get; } = new();
+		public ObservableCollection<MessageViewModel> Messages { get; } = new ObservableCollection<MessageViewModel>();
 
-		public void LogDebug(string message, Exception? ex = null)
+		public void LogDebug(string message, Exception ex = null)
 		{
 			if (EnableDebug)
 			{
@@ -34,17 +34,17 @@ namespace BimApiExample.ViewModels
 			}
 		}
 
-		public void LogError(string message, Exception? ex = null)
+		public void LogError(string message, Exception ex = null)
 		{
 			Log(MessageSeverity.Error, message, ex);
 		}
 
-		public void LogInformation(string message, Exception? ex = null)
+		public void LogInformation(string message, Exception ex = null)
 		{
 			Log(MessageSeverity.Information, message, ex);
 		}
 
-		public void LogTrace(string message, Exception? ex = null)
+		public void LogTrace(string message, Exception ex = null)
 		{
 			if (EnableTrace)
 			{
@@ -52,16 +52,16 @@ namespace BimApiExample.ViewModels
 			}
 		}
 
-		public void LogWarning(string message, Exception? ex = null)
+		public void LogWarning(string message, Exception ex = null)
 		{
 			Log(MessageSeverity.Warning, message, ex);
 		}
 
-		private void Log(MessageSeverity severity, string message, Exception? ex)
+		private void Log(MessageSeverity severity, string message, Exception ex)
 		{
 			uiDispatcher.BeginInvoke(new Action(() =>
 			{
-				Messages.Add(new(severity, message, ex));
+				Messages.Add(new MessageViewModel(severity, message, ex));
 			}));
 		}
 

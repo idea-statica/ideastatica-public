@@ -1,63 +1,57 @@
 ﻿using BimApiLinkFeaExample.BimApi;
+using BimApiLinkFeaExample.FeaExampleApi;
 using IdeaStatica.BimApiLink.BimApi;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
+using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;
 
 namespace BimApiLinkFeaExample.Importers
 {
 	internal class MemberImporter : IntIdentifierImporter<IIdeaMember1D>
 	{
+		private readonly IFeaGeometryApi geometry;
+
+		public MemberImporter(IFeaGeometryApi geometry)
+		{
+			this.geometry = geometry;
+		}
+
 		public override IIdeaMember1D Create(int id)
 		{
+			IFeaMember member = geometry.GetMember(id);
 			return new Member1D(id)
 			{
 				Type = IdeaRS.OpenModel.Model.Member1DType.Beam,
-				CrossSectionNo = 1,
-				Elements = new List<IIdeaElement1D>() { new IdeaElement1D(id) { Segment = CreateSegment(id), }, },
+				CrossSectionNo = member.CrossSectionId,
+				Elements = new List<IIdeaElement1D>() { new IdeaElement1D(id) { Segment = CreateSegment(member), }, },
 			};
 		}
 
-		private IIdeaSegment3D CreateSegment(int id)
+		private IIdeaSegment3D CreateSegment(IFeaMember member)
 		{
-			var (beg, end) = GetNodes(id);
-			var lcs = GetCoordSystem(id);
+			var lcs = geometry.GetMemberLcs(member.Id);
 
-			return new Segment3D(id)
+			return new Segment3D(member.Id)
 			{
-				StartNodeNo = beg,
-				EndNodeNo = end,
-				LocalCoordinateSystem = lcs
-			};
-		}
-
-		private static (int beg, int end) GetNodes(int id)
-		{
-			if (id == 1)
-			{
-				return (1, 2);
-			}
-
-			return (2, 3);
-		}
-
-		private static IdeaRS.OpenModel.Geometry3D.CoordSystem GetCoordSystem(int id)
-		{
-			if (id == 1)
-			{
-				return new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
+				StartNodeNo = member.BeginNode,
+				EndNodeNo = member.EndNode,
+				LocalCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
 				{
-					VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D { Z = +1 },
-					VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D { Y = +1 },
-					VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = -1 },
-				};
-			}
+					VecX = ConvertVector(lcs.X),
+					VecY = ConvertVector(lcs.Y),
+					VecZ = ConvertVector(lcs.Z),
+				},
+			};
+		}
 
-			return new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
+		private static IdeaRS.OpenModel.Geometry3D.Vector3D ConvertVector(UnitVector3D v)
+		{
+			return new IdeaRS.OpenModel.Geometry3D.Vector3D
 			{
-				VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = 1 },
-				VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D { Y = 1 },
-				VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D { Z = 1 },
+				X = v.X,
+				Y = v.Y,
+				Z = v.Z,
 			};
 		}
 	}

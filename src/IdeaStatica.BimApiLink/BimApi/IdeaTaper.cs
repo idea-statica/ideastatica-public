@@ -1,11 +1,12 @@
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
 	public class IdeaTaper : AbstractIdeaObject<IIdeaTaper>, IIdeaTaper
 	{
-		public virtual IEnumerable<IIdeaSpan> Spans { get; set; } = null!;
+		public virtual IEnumerable<IIdeaSpan> Spans { get; set; } = null;
 		
 		protected IdeaTaper(Identifier<IIdeaTaper> identifer)
 			: base(identifer)

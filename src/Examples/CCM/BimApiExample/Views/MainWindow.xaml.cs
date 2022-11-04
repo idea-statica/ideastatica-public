@@ -1,9 +1,4 @@
 ﻿using BimApiExample.ViewModels;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,9 +13,9 @@ namespace BimApiExample.Views
 		public MainWindow()
 		{
 			InitializeComponent();
-			MainWindowViewModel viewModel = new();
+			MainWindowViewModel viewModel = new MainWindowViewModel();
 			DataContext = viewModel;
-			viewModel.Logger.Messages.CollectionChanged += (_, _) =>
+			viewModel.Logger.Messages.CollectionChanged += (_, __) =>
 			{
 				if (VisualTreeHelper.GetChildrenCount(listView) > 0)
 				{

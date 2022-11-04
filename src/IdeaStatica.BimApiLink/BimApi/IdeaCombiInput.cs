@@ -1,5 +1,6 @@
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
@@ -9,7 +10,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 		
 		public virtual IdeaRS.OpenModel.Loading.TypeCalculationCombiEC TypeCalculationCombi { get; set; }
 		
-		public virtual List<IIdeaCombiItem> CombiItems { get; set; } = null!;
+		public virtual List<IIdeaCombiItem> CombiItems { get; set; } = null;
 		
 		protected IdeaCombiInput(Identifier<IIdeaCombiInput> identifer)
 			: base(identifer)

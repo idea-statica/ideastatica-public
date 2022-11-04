@@ -7,7 +7,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 	{
 		public virtual IIdeaPersistenceToken Token { get; set; }
 		
-		public virtual IdeaVector3D Vector { get; set; } = null!;
+		public virtual IdeaVector3D Vector { get; set; } = null;
 		
 		protected IdeaNode(Identifier<IIdeaNode> identifer)
 			: base(identifer)

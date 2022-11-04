@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimImporter.Persistence;
+using System.IO;
 
 namespace IdeaStatica.BimApiLink.Persistence
 {
@@ -17,20 +18,22 @@ namespace IdeaStatica.BimApiLink.Persistence
 
 		public void Save()
 		{
-			using FileStream fs = File.OpenWrite(_path);
-			using StreamWriter streamWriter = new(fs);
-
-			_filePersistence.Save(streamWriter);
+			using (FileStream fs = File.OpenWrite(_path))
+			using (StreamWriter streamWriter = new StreamWriter(fs))
+			{
+				_filePersistence.Save(streamWriter);
+			}
 		}
 
 		public void Load()
 		{
 			if (File.Exists(_path))
 			{
-				using FileStream fs = File.OpenRead(_path);
-				using StreamReader streamReader = new(fs);
-
-				_filePersistence.Load(streamReader);
+				using (FileStream fs = File.OpenRead(_path))
+				using (StreamReader streamReader = new StreamReader(fs))
+				{
+					_filePersistence.Load(streamReader);
+				}
 			}
 		}
 
