@@ -2,7 +2,7 @@
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Json;
 
-namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
+namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 {
 	internal class JsonMappingProfile : Profile
 	{
