@@ -4,12 +4,10 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
+namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 {
 	internal class DriverConverter : JsonConverter<Driver>
 	{
-		public override bool CanConvert(Type typeToConvert) => typeToConvert == typeof(Driver);
-
 		public override Driver Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			JsonDocument doc = JsonDocument.ParseValue(ref reader);
