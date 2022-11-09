@@ -4,7 +4,6 @@ using IdeaRstabPlugin.Factories;
 using IdeaRstabPlugin.Geometry;
 using IdeaRstabPlugin.Providers;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.PluginsTools.Windows.Utilities;
 using System.IO;
 
 namespace IdeaRstabPlugin

@@ -47,7 +47,6 @@
     <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
     <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
     <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.PluginsTools.Windows\IdeaStatiCa.PluginsTools.Windows.csproj" />
     <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
 
