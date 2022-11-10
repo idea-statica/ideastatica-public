@@ -19,7 +19,7 @@ namespace IdeaRstabPlugin
 				string ideaInstallDir = string.Empty;
 #if PUBLIC
 				// get installation directory from windosw registry
-				ideaInstallDir = IdeaStatiCaSetupTools.GetIdeaStatiCaInstallDir(Constants.IdeaStatiCaVersion);
+				ideaInstallDir = IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools.GetIdeaStatiCaInstallDir(Constants.IdeaStatiCaVersion);
 #else
 				// the plugin is located in installation directory of IdeaStatiCa
 				System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
