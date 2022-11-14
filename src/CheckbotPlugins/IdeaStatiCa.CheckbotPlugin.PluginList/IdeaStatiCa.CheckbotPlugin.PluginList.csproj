@@ -5,7 +5,9 @@
     <ImplicitUsings>false</ImplicitUsings>
     <Nullable>disable</Nullable>
     <RootNamespace>IdeaStatiCa.PluginSystem.PluginList</RootNamespace>
-    <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

@@ -8,6 +8,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)'=='Release_IdeaStatiCa_Internal'">    
