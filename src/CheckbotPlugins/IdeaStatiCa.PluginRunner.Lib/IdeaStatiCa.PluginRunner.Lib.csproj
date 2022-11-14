@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

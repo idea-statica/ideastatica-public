@@ -21,13 +21,24 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		/// </summary>
 		public PluginDriverDescriptor DriverDescriptor { get; }
 
+		public SystemActionsDescriptor SystemActionsDescriptor { get; }
+
+		public ActionButtonDescriptor[] CustomActionDescriptors { get; }
+
 		/// <summary>
 		/// Ctor.
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="type"></param>
 		/// <param name="driverDescriptor"></param>
-		public PluginDescriptor(string name, PluginType type, PluginDriverDescriptor driverDescriptor)
+		/// <param name="systemActionsDescriptor"></param>
+		/// <param name="customActionDescriptors"></param>
+		public PluginDescriptor(
+			string name,
+			PluginType type,
+			PluginDriverDescriptor driverDescriptor,
+			SystemActionsDescriptor systemActionsDescriptor = null,
+			ActionButtonDescriptor[] customActionDescriptors = null)
 		{
 			Ensure.NotEmpty(name, nameof(name));
 			Ensure.NotNull(driverDescriptor, nameof(driverDescriptor));
@@ -35,6 +46,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			Name = name;
 			Type = type;
 			DriverDescriptor = driverDescriptor;
+			SystemActionsDescriptor = systemActionsDescriptor;
+			CustomActionDescriptors = customActionDescriptors;
 		}
 
 		public bool Equals(PluginDescriptor other)
@@ -60,10 +73,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		public override int GetHashCode()
 			=> HashCode.Combine(Name, Type, DriverDescriptor);
 
-		public static bool operator ==(PluginDescriptor left, PluginDescriptor right) 
+		public static bool operator ==(PluginDescriptor left, PluginDescriptor right)
 			=> Equals(left, right);
 
-		public static bool operator !=(PluginDescriptor left, PluginDescriptor right) 
+		public static bool operator !=(PluginDescriptor left, PluginDescriptor right)
 			=> !Equals(left, right);
 	}
 }

@@ -2,6 +2,7 @@
 using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Json;
+using IdeaStatiCa.PluginSystem.PluginList.Serialization;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
+namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 {
 	internal class JsonPluginListSerializer
 	{

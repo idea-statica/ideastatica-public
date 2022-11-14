@@ -1,6 +1,6 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using IdeaStatiCa.CheckbotPlugin.PluginList.Serialization;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
+using IdeaStatiCa.PluginSystem.PluginList.Serialization;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
 using System;
 using System.Collections.Generic;

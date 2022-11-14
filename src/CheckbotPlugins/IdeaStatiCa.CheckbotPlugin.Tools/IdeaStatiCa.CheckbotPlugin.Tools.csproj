@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IdeaStatiCa.CheckbotPlugin</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
