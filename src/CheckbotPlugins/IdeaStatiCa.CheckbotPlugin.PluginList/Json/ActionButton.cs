@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Json
 {
-	internal class CustomAction
+	internal class ActionButton
 	{
 		[JsonPropertyName("name")]
 		public string Name { get; set; } = string.Empty;
