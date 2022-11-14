@@ -105,18 +105,6 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 
 			_ = result.Should().BeEquivalentTo(pluginDescriptor);
 		}
-
-		[Test]
-		public async Task Test_HandwrittenJson()
-		{
-			string expectedString = "[{\"type\":\"check\",\"name\":\"testplugin\",\"driver\":{\"type\":\"dotnet_runner\",\"path\":\"c:\\\\plugin1.exe\",\"class_name\":\"TestPlugin.Main\"}}]";
-			JToken expected = JToken.Parse(expectedString);
-
-			await _pluginList.Add(pluginDescriptor);
-			JToken actual = JToken.Parse(_storageStub.GetData());
-
-			actual.Should().BeEquivalentTo(expected);
-		}
 	}
 
 	internal class StorageStub : IStorage
