@@ -274,7 +274,7 @@ namespace IdeaStatiCa.BIM.Common
 			return new SorterResult(joints);
 		}
 
-		internal static (Member m, bool isended) SelectBearingMember(IEnumerable<(Member m, bool isended)> members, Node node)
+		public static (Member m, bool isended) SelectBearingMember(IEnumerable<(Member m, bool isended)> members, Node node)
 		{
 			(Member m, bool isended) member;
 
@@ -669,7 +669,7 @@ namespace IdeaStatiCa.BIM.Common
 		}
 
 		[DebuggerDisplay("{Id}: {Location}")]
-		internal sealed class Node
+		public sealed class Node
 		{
 			private const double DefaultTolerance = 1e-10;
 
@@ -738,7 +738,7 @@ namespace IdeaStatiCa.BIM.Common
 			}
 		}
 
-		internal sealed class ConnectedMember
+		public sealed class ConnectedMember
 		{
 			private readonly Member _beam;
 
