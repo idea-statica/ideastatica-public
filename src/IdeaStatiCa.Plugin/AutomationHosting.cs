@@ -272,7 +272,7 @@ namespace IdeaStatiCa.Plugin
 					}
 					catch (Exception ex)
 					{
-						ideaLogger.LogWarning("Closing BIM client for processId = {id} failed", ex);
+						ideaLogger.LogWarning($"Closing BIM client for processId = {id} failed", ex);
 					}
 
 					try
