@@ -23,6 +23,10 @@ namespace IdeaStatiCa.Plugin
 		{
 			return IdeaRS.OpenModel.Tools.ConnectionDataToXml(model);
 		}
+		public static IdeaRS.OpenModel.Connection.ConnectionData ConnectionDataFromXml(string xml)
+		{
+			return IdeaRS.OpenModel.Tools.ConnectionDataFromXml(xml);
+		}
 
 		public static string ModelToXml(ModelBIM model)
 		{
