@@ -10,6 +10,7 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 {
 	internal class Geometry : IGeometry
 	{
+		private const double NodeEqualityPrecision = 1e-4;
 		private const double Precision = 1e-6;
 
 		private readonly List<RamNode> _nodes = new List<RamNode>();
@@ -72,7 +73,7 @@ namespace IdeaStatiCa.RamToIdea.Geometry
 
 			foreach (RamNode node in _nodes)
 			{
-				if (GetDistanceSquared(node.Position, vec) <= Precision)
+				if (GetDistanceSquared(node.Position, vec) <= NodeEqualityPrecision)
 				{
 					resultNode = node;
 					break;

@@ -16,6 +16,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override object ImportInternal(IImportContext ctx, IIdeaPlate plate, ConnectionData connectionData)
 		{
+			//for negative plate check duplicity
+			if (plate is IIdeaNegativePlate)
+			{
+				if (connectionData.Plates != null)
+				{
+					var foundPlate = connectionData.Plates.Find(p => p.OriginalModelId == plate.Id);
+					if (foundPlate != null)
+					{
+						return foundPlate;
+					}
+				}
+			}
+
 			var lcs = plate.LocalCoordinateSystem as IdeaRS.OpenModel.Geometry3D.CoordSystemByVector;
 
 			//add material in to model

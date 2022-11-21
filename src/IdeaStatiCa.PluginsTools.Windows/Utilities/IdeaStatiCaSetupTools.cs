@@ -1,11 +1,9 @@
-﻿#if NET48
-
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace IdeaStatiCa.Plugin.Utilities
+namespace IdeaStatiCa.PluginsTools.Windows.Utilities
 {
 	/// <summary>
 	/// Tools for getting information about installation of IdeaStatiCa on the local machine
@@ -67,4 +65,3 @@ namespace IdeaStatiCa.Plugin.Utilities
 		}
 	}
 }
-#endif

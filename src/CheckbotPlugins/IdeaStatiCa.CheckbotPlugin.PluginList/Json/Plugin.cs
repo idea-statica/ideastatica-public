@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Json
 {
@@ -12,5 +13,11 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 
 		[JsonPropertyName("name")]
 		public string Name { get; set; } = string.Empty;
+
+		[JsonPropertyName("actions")]
+		public SystemActions Actions { get; set; }
+
+		[JsonPropertyName("custom_actions")]
+		public ActionButton[] CustomActions { get; set; } = Array.Empty<ActionButton>();
 	}
 }
