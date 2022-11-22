@@ -9,11 +9,13 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public virtual double Rotation { get; set; }
 		
 		public virtual IIdeaMaterial Material { get; set; } = null;
-		
+
 		public virtual IdeaRS.OpenModel.CrossSection.CrossSectionType Type { get; set; }
 		
 		public virtual HashSet<IdeaRS.OpenModel.CrossSection.Parameter> Parameters { get; set; } = null;
-		
+
+		public virtual bool IsInPrincipal { get; set; }
+
 		protected IdeaCrossSectionByParameters(Identifier<IIdeaCrossSectionByParameters> identifer)
 			: base(identifer)
 		{ }
