@@ -19,6 +19,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			iomCss.Name = css.Name;
 			iomCss.CrossSectionRotation = css.Rotation;
+			iomCss.IsInPrincipal = css.IsInPrincipal;
 
 			return iomCss;
 		}
