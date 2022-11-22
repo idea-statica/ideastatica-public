@@ -12,5 +12,7 @@ namespace IdeaRstabPlugin.Model
 		public string Id { get; set; }
 
 		public string Name { get; set; }
+
+		public bool IsInPrincipal => false;
 	}
 }

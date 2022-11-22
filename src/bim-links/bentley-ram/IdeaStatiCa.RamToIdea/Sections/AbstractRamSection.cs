@@ -14,6 +14,8 @@ namespace IdeaStatiCa.RamToIdea.Sections
 
 		public string Name => string.IsNullOrEmpty(_properties.SectionLabel) ? "<empty>" : _properties.SectionLabel;
 
+		public bool IsInPrincipal => false;
+
 		private readonly IMaterialFactory _materialFactory;
 		private readonly RamMemberProperties _properties;
 

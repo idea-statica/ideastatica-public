@@ -18,5 +18,7 @@ namespace IdeaRstabPlugin.BimApi
 		public CrossSectionType Type { get; set; }
 
 		public HashSet<Parameter> Parameters { get; set; }
+
+		public bool IsInPrincipal => false;
 	}
 }
