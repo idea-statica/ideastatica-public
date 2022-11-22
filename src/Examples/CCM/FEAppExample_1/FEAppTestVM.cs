@@ -421,7 +421,7 @@ namespace FEAppExample_1
 					else
 					{
 						// get an instance of OpenModelContainer from XML
-						openModelTuple = Tools.OpenModelContainerFromXml(openModelTupleXml);
+						openModelTuple = IdeaStatiCa.Plugin.Tools.OpenModelContainerFromXml(openModelTupleXml);
 
 						Add("GetAllConnectionData succeeded");
 						SetDetailInformation(openModelTupleXml);
@@ -453,7 +453,7 @@ namespace FEAppExample_1
 			// gRPC communication
 			openModelContainerXml = IdeaStatica.GetAllConnectionData(firstItem.Id);
 
-			var openModelContainer = Tools.OpenModelContainerFromXml(openModelContainerXml);
+			var openModelContainer = IdeaStatiCa.Plugin.Tools.OpenModelContainerFromXml(openModelContainerXml);
 			ModelBIM modelBIM = new ModelBIM();
 			modelBIM.Model = openModelContainer.OpenModel;
 			modelBIM.Results = openModelContainer.OpenModelResult;
@@ -462,7 +462,7 @@ namespace FEAppExample_1
 			modelBIM.Messages = new IdeaRS.OpenModel.Message.OpenMessages();
 			modelBIM.Items.Add(firstItem);
 
-			var modelBimXml = Tools.ModelToXml(modelBIM);
+			var modelBimXml = IdeaStatiCa.Plugin.Tools.ModelToXml(modelBIM);
 
 			System.Windows.Application.Current.Dispatcher.BeginInvoke(
 				System.Windows.Threading.DispatcherPriority.Normal,
@@ -766,7 +766,7 @@ namespace FEAppExample_1
 		/// <param name="xmlString">xml which represents FEA model</param>
 		private void SetModelFromXml(string xmlString)
 		{
-			var model = Tools.ModelFromXml(xmlString);
+			var model = IdeaStatiCa.Plugin.Tools.ModelFromXml(xmlString);
 			ModelFeaXml = xmlString;
 			var fakeFea = ((FakeFEA)(FeaAppHosting.Service));
 			fakeFea.IsCadApplication = IsCAD;

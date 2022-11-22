@@ -1,8 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -10,80 +6,48 @@ namespace IdeaStatiCa.Plugin
 	{
 		public static string ModelToXml(List<ModelBIM> model)
 		{
-			XmlSerializer xs = new XmlSerializer(typeof(List<ModelBIM>));
-			return SerializeModel(model, xs);
+			return IdeaRS.OpenModel.Tools.SerializeModel<List<ModelBIM>>(model);
 		}
 
 		public static string OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer model)
 		{
-			XmlSerializer xs = new XmlSerializer(typeof(IdeaRS.OpenModel.OpenModelContainer));
-			return SerializeModel(model, xs);
+			return IdeaRS.OpenModel.Tools.OpenModelContainerToXml(model);
 		}
 
 		public static IdeaRS.OpenModel.OpenModelContainer OpenModelContainerFromXml(string xml)
 		{
-			var serializer = new XmlSerializer(typeof(IdeaRS.OpenModel.OpenModelContainer));
-			IdeaRS.OpenModel.OpenModelContainer iomTuple = serializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml))) as IdeaRS.OpenModel.OpenModelContainer;
-
-			if (iomTuple?.OpenModel != null)
-			{
-				iomTuple.OpenModel.ReferenceElementsReconstruction();
-			}
-
-			return iomTuple;
-		}
-
-		private static string SerializeModel(object model, XmlSerializer xs)
-		{
-			string res;
-			using (MemoryStream ms = new MemoryStream())
-			{
-				XmlTextWriter writer = new XmlTextWriter(ms, Encoding.Unicode);
-				// Serialize using the XmlTextWriter.
-				writer.Formatting = Formatting.Indented;
-				xs.Serialize(writer, model);
-				writer.Flush();
-				ms.Position = 0;
-				res = Encoding.Unicode.GetString(ms.ToArray());
-			}
-
-			return res;
+			return IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(xml);
 		}
 
 		public static string ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData model)
 		{
-			XmlSerializer xs = new XmlSerializer(typeof(IdeaRS.OpenModel.Connection.ConnectionData));
-			return SerializeModel(model, xs);
+			return IdeaRS.OpenModel.Tools.ConnectionDataToXml(model);
 		}
 		public static IdeaRS.OpenModel.Connection.ConnectionData ConnectionDataFromXml(string xml)
 		{
-			var serializer = new XmlSerializer(typeof(IdeaRS.OpenModel.Connection.ConnectionData));
-			return serializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml))) as IdeaRS.OpenModel.Connection.ConnectionData;
+			return IdeaRS.OpenModel.Tools.ConnectionDataFromXml(xml);
 		}
 
 		public static string ModelToXml(ModelBIM model)
 		{
-			XmlSerializer xs = new XmlSerializer(typeof(ModelBIM));
-			return SerializeModel(model, xs);
+			return IdeaRS.OpenModel.Tools.SerializeModel<ModelBIM>(model);
 		}
 
 		public static string ProjectToXml(BIMProject project)
 		{
-			XmlSerializer xs = new XmlSerializer(typeof(BIMProject));
-			return SerializeModel(project, xs);
+			return IdeaRS.OpenModel.Tools.SerializeModel<BIMProject>(project);
 		}
 
 		public static BIMProject ProjectFromXml(string xml)
 		{
-			var serializer = new XmlSerializer(typeof(BIMProject));
-			return serializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml))) as BIMProject;
+			return IdeaRS.OpenModel.Tools.DeserializeModel<BIMProject>(xml);
 		}
 
 		public static ModelBIM ModelFromXml(string xml)
 		{
-			var serializer = new XmlSerializer(typeof(ModelBIM));
-			ModelBIM modelFEA = serializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml))) as ModelBIM;
-			if (modelFEA != null && modelFEA.Model != null)
+			ModelBIM modelFEA = IdeaRS.OpenModel.Tools.DeserializeModel<ModelBIM>(xml);
+
+			if (modelFEA?.Model != null)
 			{
 				modelFEA.Model.ReferenceElementsReconstruction();
 			}
@@ -92,11 +56,11 @@ namespace IdeaStatiCa.Plugin
 
 		public static List<ModelBIM> ModelsFromXml(string xml)
 		{
-			var serializer = new XmlSerializer(typeof(List<ModelBIM>));
-			var models = serializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml))) as List<ModelBIM>;
+			List<ModelBIM> models = IdeaRS.OpenModel.Tools.DeserializeModel<List<ModelBIM>>(xml);
+
 			foreach (var model in models)
 			{
-				if (model != null && model.Model != null)
+				if (model?.Model != null)
 				{
 					model.Model.ReferenceElementsReconstruction();
 				}
