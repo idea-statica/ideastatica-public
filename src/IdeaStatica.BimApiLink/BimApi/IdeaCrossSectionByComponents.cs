@@ -8,8 +8,10 @@ namespace IdeaStatica.BimApiLink.BimApi
 	{
 		public virtual double Rotation { get; set; }
 		
-		public virtual HashSet<IIdeaCrossSectionComponent> Components { get; set; } = null;
+		public virtual HashSet<IIdeaCrossSectionComponent> Components { get; set; } = null; 
 		
+		public virtual bool IsInPrincipal { get; set; }
+
 		protected IdeaCrossSectionByComponents(Identifier<IIdeaCrossSectionByComponents> identifer)
 			: base(identifer)
 		{ }
