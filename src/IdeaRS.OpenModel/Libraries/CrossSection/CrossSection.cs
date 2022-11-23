@@ -30,7 +30,7 @@ namespace IdeaRS.OpenModel.CrossSection
 
 
 		/// <summary>
-		/// Rotation of Cross - Section
+		/// Specifies that the cross-section is in its principal axis.
 		/// </summary>
 		public bool IsInPrincipal { get; set; }
 	}
