@@ -21,7 +21,6 @@ namespace IdeaStatiCa.Plugin.Utilities
 		{
 			string curAssPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			Assembly.LoadFrom(Path.Combine(curAssPath, "IdeaRS.OpenModel.dll"));
-			Assembly.LoadFrom(Path.Combine(curAssPath, "IdeaStatiCa.Plugin.dll"));
 		}
 
 		/// <summary>
