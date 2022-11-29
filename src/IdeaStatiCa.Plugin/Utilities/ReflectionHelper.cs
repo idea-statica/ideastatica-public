@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Utilities
@@ -16,6 +16,13 @@ namespace IdeaStatiCa.Plugin.Utilities
 	public static class ReflectionHelper
 	{
 		static readonly ConcurrentDictionary<Type, bool> IsSimpleTypeCache = new ConcurrentDictionary<System.Type, bool>();
+
+		static ReflectionHelper()
+		{
+			string curAssPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			Assembly.LoadFrom(Path.Combine(curAssPath, "IdeaRS.OpenModel.dll"));
+			Assembly.LoadFrom(Path.Combine(curAssPath, "IdeaStatiCa.Plugin.dll"));
+		}
 
 		/// <summary>
 		/// Gets a gRPC message for invoking method.

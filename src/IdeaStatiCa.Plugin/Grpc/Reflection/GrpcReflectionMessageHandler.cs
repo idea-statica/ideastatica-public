@@ -1,8 +1,6 @@
 ﻿using IdeaStatiCa.Plugin.Utilities;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
