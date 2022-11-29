@@ -30,7 +30,8 @@ namespace IdeaStatiCa.Plugin.Utilities
 
 			foreach (var arg in args)
 			{
-				var parsedArg = new GrpcReflectionArgument(arg.GetType().FullName, JsonConvert.SerializeObject(arg));
+				var argType = arg.GetType();
+				var parsedArg = new GrpcReflectionArgument(argType.ToString(), JsonConvert.SerializeObject(arg));
 
 				parsedArguments.Add(parsedArg);
 			}
@@ -137,31 +138,6 @@ namespace IdeaStatiCa.Plugin.Utilities
 		/// <returns></returns>
 		public static Type GetLoadedType(string fullName)
 		{
-			// Do we need to iterate all types in all loaded assemblies ?
-			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-			{
-				if (a.ManifestModule.Name == "IdeaRS.OpenModel.dll" || a.ManifestModule.Name == "IdeaStatiCa.Plugin.dll")
-				{
-					try
-					{
-						foreach (Type t in a.GetTypes())
-						{
-							if (t.FullName == fullName)
-							{
-								return t;
-							}
-						}
-					}
-					catch (System.Reflection.ReflectionTypeLoadException)
-					{
-						//some assembly from revit cannot be loaded and GetTypes throw this ex
-						continue;
-					}
-				}
-			}
-
-			// why not to use the method GetType ? 
-			// what to do when fullname which describes the type of the item includes a different version than this setup has ??
 			return Type.GetType(fullName);
 		}
 	}
