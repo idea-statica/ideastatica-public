@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Utilities
@@ -16,6 +16,12 @@ namespace IdeaStatiCa.Plugin.Utilities
 	public static class ReflectionHelper
 	{
 		static readonly ConcurrentDictionary<Type, bool> IsSimpleTypeCache = new ConcurrentDictionary<System.Type, bool>();
+
+		static ReflectionHelper()
+		{
+			string curAssPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			Assembly.LoadFrom(Path.Combine(curAssPath, "IdeaRS.OpenModel.dll"));
+		}
 
 		/// <summary>
 		/// Gets a gRPC message for invoking method.
@@ -30,7 +36,8 @@ namespace IdeaStatiCa.Plugin.Utilities
 
 			foreach (var arg in args)
 			{
-				var parsedArg = new GrpcReflectionArgument(arg.GetType().FullName, JsonConvert.SerializeObject(arg));
+				var argType = arg.GetType();
+				var parsedArg = new GrpcReflectionArgument(argType.ToString(), JsonConvert.SerializeObject(arg));
 
 				parsedArguments.Add(parsedArg);
 			}
@@ -160,8 +167,6 @@ namespace IdeaStatiCa.Plugin.Utilities
 				}
 			}
 
-			// why not to use the method GetType ? 
-			// what to do when fullname which describes the type of the item includes a different version than this setup has ??
 			return Type.GetType(fullName);
 		}
 	}
