@@ -112,7 +112,7 @@ namespace IdeaStatica.BimApiLink
 		private void ImportFinished()
 			=> _projectStorage.Save();
 
-		private BimLinkScope CreateScope(CountryCode countryCode)
+		protected BimLinkScope CreateScope(CountryCode countryCode)
 		{
 			object userData = _userDataSource.GetUserData();
 

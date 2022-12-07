@@ -4,6 +4,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
+using Nito.Disposables.Internals;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -36,31 +37,31 @@ namespace IdeaStatiCa.BimImporter.Importers
 			(ctx.OpenModel.Connections ?? (ctx.OpenModel.Connections = new List<ConnectionData>())).Add(connectionData);
 
 			///Add connection items
-			connection.ConnectedMembers?.ToList().ForEach(cm => ctx.ImportConnectionItem(cm, connectionData));
+			connection.ConnectedMembers?.WhereNotNull().ToList().ForEach(cm => ctx.ImportConnectionItem(cm, connectionData));
 
 			if (connectionData.Beams == null) { connectionData.Beams = new List<BeamData>(); }
 
-			connection.Plates?.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
+			connection.Plates?.WhereNotNull().ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
 
 			if (connectionData.Plates == null) { connectionData.Plates = new List<PlateData>(); }
 
-			connection.FoldedPlates?.ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
+			connection.FoldedPlates?.WhereNotNull().ToList().ForEach(p => { ctx.ImportConnectionItem(p, connectionData); });
 
 			if (connectionData.FoldedPlates == null) { connectionData.FoldedPlates = new List<FoldedPlateData>(); }
 
-			connection.AnchorGrids?.ToList().ForEach(a => { ctx.ImportConnectionItem(a, connectionData); });
+			connection.AnchorGrids?.WhereNotNull().ToList().ForEach(a => { ctx.ImportConnectionItem(a, connectionData); });
 
 			if (connectionData.AnchorGrids == null) { connectionData.AnchorGrids = new List<AnchorGrid>(); }
 
-			connection.BoltGrids?.ToList().ForEach(b => { ctx.ImportConnectionItem(b, connectionData); });
+			connection.BoltGrids?.WhereNotNull().ToList().ForEach(b => { ctx.ImportConnectionItem(b, connectionData); });
 
 			if (connectionData.BoltGrids == null) { connectionData.BoltGrids = new List<BoltGrid>(); }
 
-			connection.Welds?.ToList().ForEach(w => { ctx.ImportConnectionItem(w, connectionData); });
+			connection.Welds?.WhereNotNull().ToList().ForEach(w => { ctx.ImportConnectionItem(w, connectionData); });
 
 			if (connectionData.Welds == null) { connectionData.Welds = new List<WeldData>(); }
 
-			connection.Cuts?.ToList().ForEach(c => { ctx.ImportConnectionItem(c, connectionData); });
+			connection.Cuts?.WhereNotNull().ToList().ForEach(c => { ctx.ImportConnectionItem(c, connectionData); });
 
 			if (connectionData.CutBeamByBeams == null) { connectionData.CutBeamByBeams = new List<CutBeamByBeamData>(); }
 

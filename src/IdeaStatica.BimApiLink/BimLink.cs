@@ -96,7 +96,7 @@ namespace IdeaStatica.BimApiLink
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
 
-		public Task Run(IFeaModel feaModel)
+		public Task Run(IModel model)
 		{
 			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
 				_importersConfiguration.Manager,
@@ -114,7 +114,7 @@ namespace IdeaStatica.BimApiLink
 				InitHostingClient(pluginLogger),
 				resultsProvider,
 				_hookManagers.PluginHookManager,
-				feaModel,
+				model,
 				_bimUserDataSource);
 
 			PluginFactory pluginFactory = new PluginFactory(
@@ -145,7 +145,7 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
-			IFeaModel feaModel,
+			IModel feaModel,
 			IBimUserDataSource userDataSource);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
@@ -154,45 +154,5 @@ namespace IdeaStatica.BimApiLink
 		}
 	}
 
-	internal class FeaBimLink : BimLink
-	{
-		public FeaBimLink(string applicationName, string projectPath) : base(applicationName, projectPath)
-		{
-		}
 
-		protected override IApplicationBIM Create(
-			IPluginLogger logger,
-			IBimApiImporter bimApiImporter,
-			string projectPath,
-			BimImporterConfiguration bimImporterConfiguration,
-			IProgressMessaging remoteApp,
-			IBimResultsProvider resultsProvider,
-			IPluginHook pluginHook,
-			IFeaModel feaModel,
-			IBimUserDataSource userDataSource)
-		{
-			JsonPersistence jsonPersistence = new JsonPersistence();
-			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
-			Project project = new Project(logger, jsonPersistence);
-			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel);
-			IBimImporter bimImporter = BimImporter.Create(
-				feaModelAdapter,
-				projectAdapter,
-				logger,
-				null,
-				bimImporterConfiguration,
-				remoteApp,
-				resultsProvider);
-
-			return new FeaApplication(
-				ApplicationName,
-				projectAdapter,
-				projectStorage,
-				bimImporter,
-				bimApiImporter,
-				pluginHook,
-				userDataSource);
-		}
-	}
 }

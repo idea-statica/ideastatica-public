@@ -1,5 +1,4 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using Nito.Disposables.Internals;
@@ -9,27 +8,6 @@ using System.Linq;
 
 namespace IdeaStatica.BimApiLink.Plugin
 {
-	public class FeaUserSelection
-	{
-		public ICollection<Identifier<IIdeaNode>> Nodes { get; set; }
-			= Array.Empty<Identifier<IIdeaNode>>();
-
-		public ICollection<Identifier<IIdeaMember1D>> Members { get; set; }
-			= Array.Empty<Identifier<IIdeaMember1D>>();
-
-		public ICollection<Identifier<IIdeaCombiInput>> Combinations { get; set; }
-			= Array.Empty<Identifier<IIdeaCombiInput>>();
-	}
-
-	public interface IFeaModel
-	{
-		FeaUserSelection GetUserSelection();
-
-		IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers();
-
-		OriginSettings GetOriginSettings();
-	}
-
 	internal class FeaModelAdapter : IIdeaModel
 	{
 		private FeaUserSelection _lastSelection;
