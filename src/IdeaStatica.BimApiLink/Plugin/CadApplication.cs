@@ -32,6 +32,8 @@ namespace IdeaStatica.BimApiLink.Plugin
 			_project = project;
 		}
 
+		public override bool IsCAD() => true;
+
 		protected override ModelBIM ImportSelection(CountryCode countryCode, RequestedItemsType requestedType)
 		{
 			switch (requestedType)

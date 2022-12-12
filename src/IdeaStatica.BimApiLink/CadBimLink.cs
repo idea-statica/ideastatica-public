@@ -9,11 +9,12 @@ using IdeaStatiCa.Plugin;
 
 namespace IdeaStatica.BimApiLink
 {
-	internal class CadBimLink : BimLink
+	public class CadBimLink : BimLink
 	{
 		public CadBimLink(string applicationName, string projectPath) : base(applicationName, projectPath)
 		{
 		}
+		public static BimLink Create(string applicationName, string checkbotProjectPath) => new CadBimLink(applicationName, checkbotProjectPath);
 
 		protected override IApplicationBIM Create(
 			IPluginLogger logger,

@@ -27,8 +27,6 @@ namespace IdeaStatica.BimApiLink
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
 		private readonly HookManagers _hookManagers = new HookManagers();
 
-		public static BimLink Create(string applicationName, string checkbotProjectPath) => new FeaBimLink(applicationName, checkbotProjectPath);
-
 		protected BimLink(string applicationName, string projectPath)
 		{
 			ApplicationName = applicationName;

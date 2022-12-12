@@ -9,11 +9,13 @@ using IdeaStatiCa.Plugin;
 
 namespace IdeaStatica.BimApiLink
 {
-	internal class FeaBimLink : BimLink
+	public class FeaBimLink : BimLink
 	{
 		public FeaBimLink(string applicationName, string projectPath) : base(applicationName, projectPath)
 		{
 		}
+
+		public static BimLink Create(string applicationName, string checkbotProjectPath) => new FeaBimLink(applicationName, checkbotProjectPath);
 
 		protected override IApplicationBIM Create(
 			IPluginLogger logger,
