@@ -16,6 +16,11 @@ namespace IdeaRS.OpenModel.Model
 		public CheckMember()
 		{
 		}
+
+		/// <summary>
+		/// Name of Element
+		/// </summary>
+		public string Name { get; set; }
 	}
 
 	/// <summary>
