@@ -31,8 +31,16 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			var lcs = plate.LocalCoordinateSystem as IdeaRS.OpenModel.Geometry3D.CoordSystemByVector;
 
-			//add material in to model
-			ctx.Import(plate.Material);
+			//allow set wron
+			if (string.IsNullOrWhiteSpace(plate.Material.Name) && plate.Material is IIdeaMaterialByName && plate is IIdeaNegativePlate)
+			{
+				//for negative plate allow skip definiton of material - conversion table solved it
+			}
+			else
+			{
+				//add material in to model
+				ctx.Import(plate.Material);
+			}
 			PlateData plateIOM = new PlateData()
 			{
 				Geometry = plate.Geometry,
