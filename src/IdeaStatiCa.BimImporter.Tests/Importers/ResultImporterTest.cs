@@ -1,4 +1,5 @@
-﻿using IdeaRS.OpenModel;
+﻿using FluentAssertions;
+using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
@@ -423,6 +424,58 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 
 			Assert.That(resultOnSections[3].Position, Is.EqualTo(1.0));
 			Assert.That(resultOnSections[3].Results[0].Loading.Id, Is.EqualTo(lcId2));
+		}
+
+		[Test]
+		public void Import_SectionPositionDoesNotNormalizeDifferenceEqualToPrecision()
+		{
+			// Setup
+			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
+
+			IIdeaResult result = Substitute.For<IIdeaResult>();
+			List<IIdeaResult> results = new List<IIdeaResult>() { result };
+			member.GetResults().Returns(results);
+
+			result.CoordinateSystemType.Returns(ResultLocalSystemType.Principle);
+
+			IIdeaSection section1 = Substitute.For<IIdeaSection>();
+			section1.Position.Returns(0.0);
+
+			IIdeaSection section2 = Substitute.For<IIdeaSection>();
+			double epsilon = ctx.Configuration.ResultSectionPositionPrecision;
+			section2.Position.Returns(epsilon);
+
+			List<IIdeaSection> sections = new List<IIdeaSection>() { section1, section2 };
+			result.Sections.Returns(sections);
+
+			IIdeaLoadCase loadCase = Substitute.For<IIdeaLoadCase>();
+			ReferenceElement loadCaseRef = new ReferenceElement() { Id = 2 };
+			ctx.Import(loadCase).Returns(loadCaseRef);
+
+			IIdeaSectionResult sectionResult = Substitute.For<IIdeaSectionResult>();
+			List<IIdeaSectionResult> sectionResults = new List<IIdeaSectionResult>() { sectionResult };
+			sectionResult.Loading.Returns(loadCase);
+
+			section1.Results.Returns(sectionResults);
+			section2.Results.Returns(sectionResults);
+
+			IIdeaResultData resultData = new InternalForcesData();
+			sectionResult.Data.Returns(resultData);
+
+			ReferenceElement referenceElement = new ReferenceElement()
+			{
+				Id = 1
+			};
+
+			ResultsData resultsData = new ResultsData(member, MemberType.Member1D, results);
+
+			// Tested method
+			ResultOnMember resultOnMember = resultImporter.Import(ctx, referenceElement, resultsData).ToList()[0];
+
+			// Assert
+			List<ResultOnSection> resultOnSections = resultOnMember.Results.Cast<ResultOnSection>().ToList();
+			Assert.That(resultOnSections[0].Position, Is.EqualTo(0.0).Within(double.Epsilon));
+			Assert.That(resultOnSections[1].Position, Is.EqualTo(epsilon).Within(double.Epsilon));
 		}
 	}
 }
