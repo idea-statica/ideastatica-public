@@ -352,7 +352,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 				Id = 1
 			};
 
-			ResultsData resultsData = new ResultsData(obj: member, MemberType.Member1D, results);
+			ResultsData resultsData = new ResultsData(member, MemberType.Member1D, results);
 
 			// Tested method
 			ResultOnMember resultOnMember = resultImporter.Import(ctx, referenceElement, resultsData).ToList()[0];
