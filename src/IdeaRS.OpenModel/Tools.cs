@@ -120,7 +120,7 @@ namespace IdeaRS.OpenModel
 		{
 			using (StringReader stringReader = new StringReader(xml))
 			{
-				// Try skipping utf-8 BOM for backwards compatibility
+				// Try skipping utf-16 BOM for backwards compatibility
 				int ch = stringReader.Peek();
 				if (ch == 0xfeff || ch == 0xffef)
 				{
