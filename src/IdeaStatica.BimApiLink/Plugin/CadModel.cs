@@ -101,6 +101,12 @@ namespace IdeaStatica.BimApiLink.Plugin
 							(connectionPoint.Plates as List<IIdeaPlate>).Add(plate);
 							break;
 						}
+					case nameof(IIdeaWeld):
+						{
+							var weld = _bimApiImporter.Get(item) as IIdeaWeld;
+							(connectionPoint.Welds as List<IIdeaWeld>).Add(weld);
+							break;
+						}
 				}
 			}
 
