@@ -7,8 +7,8 @@ namespace IdeaStatica.BimApiLink.Plugin
 {
 	public class CadUserSelection
 	{
-		public ICollection<Identifier<IIdeaObject>> Objects { get; set; }
-			= Array.Empty<Identifier<IIdeaObject>>();
+		public ICollection<IIdentifier> Objects { get; set; }
+			= Array.Empty<IIdentifier>();
 
 		public ICollection<Identifier<IIdeaMember1D>> Members { get; set; }
 			= Array.Empty<Identifier<IIdeaMember1D>>();

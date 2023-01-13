@@ -2,9 +2,9 @@
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using Nito.Disposables.Internals;
 using System.Collections.Generic;
 using System.Linq;
-using Nito.Disposables.Internals;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -16,7 +16,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaConnectionPoint connection)
 		{
-			List<ConnectedMember> connectedMembers = connection.ConnectedMembers.Where(cm => cm.ConnectedMemberType == IdeaConnectedMemberType.Structural)
+			List<ConnectedMember> connectedMembers = connection.ConnectedMembers?.Where(cm => cm.ConnectedMemberType == IdeaConnectedMemberType.Structural)
 				.Select(x => ctx.Import(x).Element as ConnectedMember)
 				.ToList();
 
