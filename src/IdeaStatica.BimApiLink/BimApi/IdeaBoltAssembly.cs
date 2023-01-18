@@ -6,12 +6,10 @@ namespace IdeaStatica.BimApiLink.BimApi
 	public class IdeaBoltAssembly : AbstractIdeaObject<IIdeaBoltAssembly>, IIdeaBoltAssembly
 	{
 		protected IdeaBoltAssembly(Identifier<IIdeaBoltAssembly> identifier) : base(identifier)
-		{
-		}
+		{ }
 
 		public IdeaBoltAssembly(string id) : this(new StringIdentifier<IIdeaBoltAssembly>(id))
 		{ }
-
 
 		public double HoleDiameter { get; set; }
 
@@ -34,7 +32,6 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public string Standard { get; set; }
 
 		public virtual IIdeaMaterial Material { get; set; }
-
 
 	}
 }
