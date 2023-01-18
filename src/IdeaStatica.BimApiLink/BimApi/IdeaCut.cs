@@ -1,0 +1,42 @@
+﻿using IdeaRS.OpenModel.Connection;
+using IdeaStatica.BimApiLink.Identifiers;
+using IdeaStatiCa.BimApi;
+
+namespace IdeaStatica.BimApiLink.BimApi
+{
+	public class IdeaCut : AbstractIdeaObject<IIdeaCut>, IIdeaCut
+	{
+		public virtual IIdeaPersistenceToken Token { get; set; }
+
+		public virtual IIdeaObject ModifiedObject { get; set; }
+
+		public virtual IIdeaObject CuttingObject { get; set; }
+
+		public double Offset { get; set; }
+
+		public IIdeaWeld Weld { get; set; }
+
+		public CutMethod CutMethod { get; set; }
+
+		public CutOrientation CutOrientation { get; set; }
+
+		public DistanceComparison DistanceComparison { get; set; }
+
+		public CutPart CutPart { get; set; }
+
+		protected IdeaCut(Identifier<IIdeaCut> identifer)
+			: base(identifer)
+		{
+			Token = identifer;
+		}
+
+		public IdeaCut(int id)
+			: this(new IntIdentifier<IIdeaCut>(id))
+		{ }
+
+		public IdeaCut(string id)
+			: this(new StringIdentifier<IIdeaCut>(id))
+		{ }
+
+	}
+}
