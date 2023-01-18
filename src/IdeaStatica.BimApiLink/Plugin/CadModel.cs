@@ -107,6 +107,8 @@ namespace IdeaStatica.BimApiLink.Plugin
 							(connectionPoint.Welds as List<IIdeaWeld>).Add(weld);
 							break;
 						}
+						// Ibolts
+						// Ianchors
 				}
 			}
 
