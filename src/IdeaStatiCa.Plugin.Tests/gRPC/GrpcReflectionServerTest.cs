@@ -93,7 +93,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 				return Task.CompletedTask;
 			});
 
-			await reflexionServer.ConnectAsync(streamReader, streamWriter, context);
+			await reflexionServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
 	;			// response message should be written
 			Assert.NotNull(writtenMessage);

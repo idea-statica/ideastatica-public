@@ -80,8 +80,7 @@ namespace IdeaStatiCaFake
 					Actions.Add(string.Format("Starting Automation clientid = {0}", clientId));
 
 					var grpcClient = new GrpcClient(new NullLogger());
-					grpcClient.Connect(clientId, grpcPort);
-					var grpcClientTask = grpcClient.StartAsync();
+					var grpcClientTask = grpcClient.StartAsync(clientId, grpcPort);
 
 					AutomationHosting = new AutomationHostingGrpc<IAutomation, IApplicationBIM>(new AutomationService<IApplicationBIM>(), grpcClient);
 					AutomationHosting.BIMStatusChanged += new ISEventHandler(AutomationHosting_FEAStatusChanged);
@@ -99,9 +98,7 @@ namespace IdeaStatiCaFake
 		{
 			grpcClient = new GrpcServiceBasedReflectionClient<IAutomation>(new NullLogger());
 
-			grpcClient.Connect(clientId, grpcPort);
-
-			await grpcClient.StartAsync();
+			await grpcClient.StartAsync(clientId, grpcPort);
 
 			Actions.Add($"GRPC server connected");
 		}

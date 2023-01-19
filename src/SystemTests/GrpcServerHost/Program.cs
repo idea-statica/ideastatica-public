@@ -56,10 +56,9 @@ namespace GrpcServerHost
 
 				var projectContentInMemory = new ProjectContentInMemory();
 				var contentHandler = new ProjectContentServerHandler(projectContentInMemory);
-				grpcServer.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
+				grpcServer.GrpcService.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
 
-				grpcServer.Connect(null, grpcPort);
-				grpcServer.StartAsync();
+				grpcServer.StartAsync(null, grpcPort);
 
 				logger.LogDebug($"GrpcServer is listening on port '{grpcPort}'");
 

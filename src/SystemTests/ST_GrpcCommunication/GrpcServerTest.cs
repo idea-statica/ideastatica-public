@@ -58,8 +58,7 @@ namespace ST_GrpcCommunication
 					// create claint of the service IService which runs on grpcServer
 					GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(new NullLogger());
 
-					grpcClient.Connect(clientId, grpcServerPort);
-					var task = grpcClient.StartAsync();
+					var task = grpcClient.StartAsync(clientId, grpcServerPort);
 
 					grpcClient.IsConnected.Should().BeTrue("The client shoul be connected");
 
@@ -82,7 +81,7 @@ namespace ST_GrpcCommunication
 					string fooResult2 = serviceClient.Foo(sb.ToString());
 					fooResult2.StartsWith("Hi MP").Should().BeTrue();
 
-					await grpcClient.DisconnectAsync();
+					await grpcClient.StopAsync();
 				}
 			}
 			finally
@@ -140,8 +139,7 @@ namespace ST_GrpcCommunication
 					// add project content handler
 					grpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, projectContentHandler);
 
-					grpcClient.Connect(clientId, grpcServerPort);
-					var task = grpcClient.StartAsync();
+					var task = grpcClient.StartAsync(clientId, grpcServerPort);
 					grpcClient.IsConnected.Should().BeTrue("The client shoul be connected");
 
 					const string item1Id = "Item1";
@@ -209,7 +207,7 @@ namespace ST_GrpcCommunication
 						}
 					}
 
-					await grpcClient.DisconnectAsync();
+					await grpcClient.StopAsync();
 				}
 			}
 			finally

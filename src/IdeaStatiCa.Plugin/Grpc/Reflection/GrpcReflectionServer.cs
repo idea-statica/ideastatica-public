@@ -14,7 +14,7 @@
 		{
 			logger.LogDebug("GrpcReflectionServer");
 
-			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance, logger));
+			GrpcService.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance, logger));
 		}
 	}
 }
