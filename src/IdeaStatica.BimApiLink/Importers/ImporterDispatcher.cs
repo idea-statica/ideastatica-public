@@ -109,7 +109,7 @@ namespace IdeaStatica.BimApiLink.Importers
 
 			return interfaces
 				.Select(x => GetInterfaceRank(x) + 1)
-				.Min();
+				.Max();
 		}
 	}
 }
