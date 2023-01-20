@@ -34,10 +34,11 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 			Node = node;
 			ConnectedMembers = members.Select(x => new ConnectedMember(x)).ToList();
 			Plates = new List<IIdeaPlate>();
+			FoldedPlates = new List<IIdeaFoldedPlate>();
+			BoltGrids = new List<IIdeaBoltGrid>();
+			AnchorGrids = new List<IIdeaAnchorGrid>();
 			Welds = new List<IIdeaWeld>();
 			Cuts = new List<IIdeaCut>();
-			BoltGrids = new List<IIdeaBoltGrid>();
-			FoldedPlates = new List<IIdeaFoldedPlate>();
 		}
 	}
 }

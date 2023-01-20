@@ -114,8 +114,18 @@ namespace IdeaStatica.BimApiLink.Plugin
 							(connectionPoint.Welds as List<IIdeaWeld>).Add(weld);
 							break;
 						}
-						// Ibolts
-						// Ianchors
+					case nameof(IIdeaBoltGrid):
+						{
+							var boltGrid = _bimApiImporter.Get(item) as IIdeaBoltGrid;
+							(connectionPoint.BoltGrids as List<IIdeaBoltGrid>).Add(boltGrid);
+							break;
+						}
+					case nameof(IIdeaAnchorGrid):
+						{
+							var anchorGrid = _bimApiImporter.Get(item) as IIdeaAnchorGrid;
+							(connectionPoint.AnchorGrids as List<IIdeaAnchorGrid>).Add(anchorGrid);
+							break;
+						}
 				}
 			}
 
