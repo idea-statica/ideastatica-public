@@ -1,5 +1,4 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatica.BimApiLink.BimApi;
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
@@ -40,25 +39,33 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
-			CadUserSelection selection = _cadModel.GetUserSelection();
-			_lastSelection = selection;
+			IEnumerable<CadUserSelection> selections = _cadModel.GetUserSelections();
+
 			nodes = new HashSet<IIdeaNode>();
-			nodes = selection.ConnectionPoints
-				.Select(x => _bimApiImporter.Get(x).Node)
-				.WhereNotNull()
-				.ToHashSet();
+			members = new HashSet<IIdeaMember1D>();
+			connectionPoints = new HashSet<IIdeaConnectionPoint>();
+			foreach (var selection in selections)
+			{
+				_lastSelection = selection;
+				var connectionPoint = selection.ConnectionPoints
+				.Select(x =>
+				_bimApiImporter.Get(x))
+				.WhereNotNull().First();
 
-			members = selection.Members
+				nodes.Add(connectionPoint.Node);
+
+				var connectionMembers = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
 				.WhereNotNull()
 				.ToHashSet();
 
-			/*connectionPoints = selection.ConnectionPoints
-				.Select(x => _bimApiImporter.Get(x))
-				.WhereNotNull()
-				.ToHashSet();*/
+				members.UnionWith(connectionMembers);
 
-			connectionPoints = (new List<IIdeaConnectionPoint>() { new IdeaConnectionPoint("cp1") }).ToHashSet();
+				ProcessConnectionMembers(nodes, members, connectionPoint);
+				ProcessConnectionObjects(connectionPoint, selection);
+
+				connectionPoints.Add(connectionPoint);
+			}
 		}
 
 		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
@@ -80,7 +87,13 @@ namespace IdeaStatica.BimApiLink.Plugin
 				.Select(x => _bimApiImporter.Get(x))
 				.WhereNotNull()
 				.ToHashSet();
+			ProcessConnectionMembers(nodes, members, connectionPoint);
+			ProcessConnectionObjects(connectionPoint, selection);
 
+		}
+
+		private void ProcessConnectionMembers(ISet<IIdeaNode> nodes, ISet<IIdeaMember1D> members, IIdeaConnectionPoint connectionPoint)
+		{
 			foreach (var ideaMember in members)
 			{
 				nodes.Add(ideaMember.Elements.First().Segment.StartNode);
@@ -90,7 +103,10 @@ namespace IdeaStatica.BimApiLink.Plugin
 				var cm = _bimApiImporter.Get(id);
 				(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(cm);
 			};
+		}
 
+		private void ProcessConnectionObjects(IIdeaConnectionPoint connectionPoint, CadUserSelection selection)
+		{
 			foreach (var item in selection.Objects)
 			{
 				switch (item.ObjectType.Name)
@@ -128,7 +144,6 @@ namespace IdeaStatica.BimApiLink.Plugin
 						}
 				}
 			}
-
 		}
 	}
 }

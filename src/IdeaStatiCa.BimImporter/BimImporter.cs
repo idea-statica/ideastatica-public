@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
+using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using System;
@@ -104,7 +105,16 @@ namespace IdeaStatiCa.BimImporter
 			{
 				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
 				{
-					connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+					var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
+
+					if (!connections.Exists(
+						 c =>
+							(newConnection.ReferencedObject as IIdeaConnectionPoint).Node.IsAlmostEqual(
+								 (c.ReferencedObject as IIdeaConnectionPoint).Node, 1E-08)
+						))
+					{
+						connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+					}
 				}
 			}
 
