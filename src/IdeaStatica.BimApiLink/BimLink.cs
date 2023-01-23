@@ -23,6 +23,7 @@ namespace IdeaStatica.BimApiLink
 		private BimImporterConfiguration _bimImporterConfiguration;
 		private readonly string _projectPath;
 		private IBimUserDataSource _bimUserDataSource = new NullBimUserDataSource();
+		private TaskScheduler _taskScheduler = TaskScheduler.Default;
 
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
 		private readonly HookManagers _hookManagers = new HookManagers();
@@ -86,6 +87,12 @@ namespace IdeaStatica.BimApiLink
 			return this;
 		}
 
+		public BimLink WithTaskScheduler(TaskScheduler taskScheduler)
+		{
+			_taskScheduler = taskScheduler;
+			return this;
+		}
+
 		public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
 		{
 			if (_bimHosting is null)
@@ -115,7 +122,8 @@ namespace IdeaStatica.BimApiLink
 				resultsProvider,
 				_hookManagers.PluginHookManager,
 				feaModel,
-				_bimUserDataSource);
+				_bimUserDataSource,
+				_taskScheduler);
 
 			PluginFactory pluginFactory = new PluginFactory(
 				applicationBIM,
@@ -146,7 +154,8 @@ namespace IdeaStatica.BimApiLink
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
 			IFeaModel feaModel,
-			IBimUserDataSource userDataSource);
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{
@@ -169,7 +178,8 @@ namespace IdeaStatica.BimApiLink
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
 			IFeaModel feaModel,
-			IBimUserDataSource userDataSource)
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler)
 		{
 			JsonPersistence jsonPersistence = new JsonPersistence();
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
@@ -192,7 +202,8 @@ namespace IdeaStatica.BimApiLink
 				bimImporter,
 				bimApiImporter,
 				pluginHook,
-				userDataSource);
+				userDataSource,
+				taskScheduler);
 		}
 	}
 }
