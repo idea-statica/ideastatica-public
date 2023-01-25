@@ -169,5 +169,44 @@ namespace IdeaStatica.BimApiLink.Utils
 			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
 			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = height });
 		}
+
+		/// <summary>
+		/// Fill parameters for cold formed Z section
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="width">Css width</param>
+		/// <param name="height">Height of cross-section</param>
+		/// <param name="thickness">Thickness</param>
+		/// <param name="radius">Inside radius</param>
+		/// <param name="mirrorZ">Mirrored shape</param>
+		public static void FillColdFormedZ(IdeaCrossSectionByParameters css, double width, double height, double thickness, double radius, bool mirrorZ)
+		{
+			css.Type = CrossSectionType.CFZ;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = radius });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
+		}
+
+		/// <summary>
+		/// Fill parameters for cold formed C section
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="Width">Css width</param>
+		/// <param name="Height">Height of cross-section</param>
+		/// <param name="Thickness">Thickness</param>
+		/// <param name="Radius">Inside radius</param>
+		/// <param name="lip">Lip length</param>
+		public static void FillColdFormedC(IdeaCrossSectionByParameters css, double Width, double Height, double Thickness, double Radius, double lip, bool mirrorZ = false)
+		{
+			css.Type = CrossSectionType.CFC;
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = Width });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = Height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Thickness", Value = Thickness });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
+			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
+		}
 	}
 }
