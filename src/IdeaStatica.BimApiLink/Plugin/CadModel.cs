@@ -47,10 +47,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 			foreach (var selection in selections)
 			{
 				_lastSelection = selection;
-				var connectionPoint = selection.ConnectionPoints
-				.Select(x =>
-				_bimApiImporter.Get(x))
-				.WhereNotNull().First();
+				var connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
 
 				nodes.Add(connectionPoint.Node);
 
@@ -73,10 +70,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 			CadUserSelection selection = _cadModel.GetUserSelection();
 			_lastSelection = selection;
 
-			connectionPoint = selection.ConnectionPoints
-				.Select(x =>
-				_bimApiImporter.Get(x))
-				.WhereNotNull().First();
+			connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
 
 			nodes = new HashSet<IIdeaNode>();
 
@@ -140,6 +134,13 @@ namespace IdeaStatica.BimApiLink.Plugin
 						{
 							var anchorGrid = _bimApiImporter.Get(item) as IIdeaAnchorGrid;
 							(connectionPoint.AnchorGrids as List<IIdeaAnchorGrid>).Add(anchorGrid);
+							break;
+						}
+					case nameof(IIdeaConnectedMember):
+						{
+							var stiffeningMember = _bimApiImporter.Get(item) as IIdeaConnectedMember;
+							stiffeningMember.ConnectedMemberType = IdeaConnectedMemberType.Stiffening;
+							(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(stiffeningMember);
 							break;
 						}
 				}

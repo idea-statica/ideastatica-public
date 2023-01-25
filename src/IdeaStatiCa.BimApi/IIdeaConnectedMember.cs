@@ -91,7 +91,7 @@
 	{
 		IdeaGeometricalType GeometricalType { get; }
 
-		IdeaConnectedMemberType ConnectedMemberType { get; }
+		IdeaConnectedMemberType ConnectedMemberType { get; set; }
 
 		bool IsBearing { get; }
 
