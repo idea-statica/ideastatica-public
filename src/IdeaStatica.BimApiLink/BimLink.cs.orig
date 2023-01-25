@@ -119,9 +119,14 @@ namespace IdeaStatica.BimApiLink
 				InitHostingClient(pluginLogger),
 				resultsProvider,
 				_hookManagers.PluginHookManager,
+<<<<<<< HEAD
 				model,
+				_bimUserDataSource);
+=======
+				feaModel,
 				_bimUserDataSource,
 				_taskScheduler);
+>>>>>>> bimapilink_scheduler
 
 			PluginFactory pluginFactory = new PluginFactory(
 				applicationBIM,
@@ -151,9 +156,14 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
+<<<<<<< HEAD
 			IModel feaModel,
+			IBimUserDataSource userDataSource);
+=======
+			IFeaModel feaModel,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler);
+>>>>>>> bimapilink_scheduler
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{
@@ -162,4 +172,44 @@ namespace IdeaStatica.BimApiLink
 	}
 
 
+<<<<<<< HEAD
+=======
+		protected override IApplicationBIM Create(
+			IPluginLogger logger,
+			IBimApiImporter bimApiImporter,
+			string projectPath,
+			BimImporterConfiguration bimImporterConfiguration,
+			IProgressMessaging remoteApp,
+			IBimResultsProvider resultsProvider,
+			IPluginHook pluginHook,
+			IFeaModel feaModel,
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler)
+		{
+			JsonPersistence jsonPersistence = new JsonPersistence();
+			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
+			Project project = new Project(logger, jsonPersistence);
+			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
+			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel);
+			IBimImporter bimImporter = BimImporter.Create(
+				feaModelAdapter,
+				projectAdapter,
+				logger,
+				null,
+				bimImporterConfiguration,
+				remoteApp,
+				resultsProvider);
+
+			return new FeaApplication(
+				ApplicationName,
+				projectAdapter,
+				projectStorage,
+				bimImporter,
+				bimApiImporter,
+				pluginHook,
+				userDataSource,
+				taskScheduler);
+		}
+	}
+>>>>>>> bimapilink_scheduler
 }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using IdeaRS.OpenModel.Connection;
+using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -8,13 +9,13 @@ namespace IdeaRS.OpenModel
 	public static class Tools
 	{
 		/// <summary>
-		/// Serialize OpenModelContainer to Xml 
+		/// Serialize OpenModelContainer to Xml
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		public static string OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer model)
+		public static string OpenModelContainerToXml(OpenModelContainer model)
 		{
-			return SerializeModel<IdeaRS.OpenModel.OpenModelContainer>(model);
+			return SerializeModel(model);
 		}
 
 		/// <summary>
@@ -22,9 +23,9 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		/// <param name="xml"></param>
 		/// <returns></returns>
-		public static IdeaRS.OpenModel.OpenModelContainer OpenModelContainerFromXml(string xml)
+		public static OpenModelContainer OpenModelContainerFromXml(string xml)
 		{
-			IdeaRS.OpenModel.OpenModelContainer iomTuple = DeserializeModel<IdeaRS.OpenModel.OpenModelContainer>(xml);
+			OpenModelContainer iomTuple = DeserializeModel<OpenModelContainer>(xml);
 
 			if (iomTuple?.OpenModel != null)
 			{
@@ -34,21 +35,31 @@ namespace IdeaRS.OpenModel
 			return iomTuple;
 		}
 
-		private static string SerializeModel(object model, XmlSerializer xs)
+		/// <summary>
+		/// Serialize OpenModelContainer to File
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		public static void OpenModelContainerToFile(OpenModelContainer model, string filePath)
 		{
-			string res;
-			using (MemoryStream ms = new MemoryStream())
+			SerializeModelToFile(model, filePath);
+		}
+
+		/// <summary>
+		/// Deserialize OpenModelContainer from file
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <returns></returns>
+		public static OpenModelContainer OpenModelContainerFromFile(string filePath)
+		{
+			OpenModelContainer iomTuple = DeserializeModelFromFile<OpenModelContainer>(filePath);
+
+			if (iomTuple?.OpenModel != null)
 			{
-				XmlTextWriter writer = new XmlTextWriter(ms, Encoding.Unicode);
-				// Serialize using the XmlTextWriter.
-				writer.Formatting = Formatting.Indented;
-				xs.Serialize(writer, model);
-				writer.Flush();
-				ms.Position = 0;
-				res = Encoding.Unicode.GetString(ms.ToArray());
+				iomTuple.OpenModel.ReferenceElementsReconstruction();
 			}
 
-			return res;
+			return iomTuple;
 		}
 
 		/// <summary>
@@ -56,9 +67,9 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		public static string ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData model)
+		public static string ConnectionDataToXml(ConnectionData model)
 		{
-			return SerializeModel<IdeaRS.OpenModel.Connection.ConnectionData>(model);
+			return SerializeModel(model);
 		}
 
 		/// <summary>
@@ -66,20 +77,37 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		/// <param name="xml"></param>
 		/// <returns></returns>
-		public static IdeaRS.OpenModel.Connection.ConnectionData ConnectionDataFromXml(string xml)
+		public static ConnectionData ConnectionDataFromXml(string xml)
 		{
-			return DeserializeModel<IdeaRS.OpenModel.Connection.ConnectionData>(xml);
+			return DeserializeModel<ConnectionData>(xml);
 		}
+
+		/// <summary>
+		/// Serialize Model
+		/// </summary>
+		/// <typeparam name="T">Type of model</typeparam>
+		/// <param name="model">instance of model</param>
+		/// <param name="filePath">File path</param>
+		/// <returns>Serialize model in string</returns>
+		public static void SerializeModelToFile<T>(T model, string filePath)
+		{
+			XmlWriter writer = XmlWriter.Create(filePath, GetWriterSettings());
+			SerializeModel(model, writer);
+		}
+
 		/// <summary>
 		/// Serialize Model
 		/// </summary>
 		/// <typeparam name="T">Type of model</typeparam>
 		/// <param name="model">instance of model</param>
 		/// <returns>Serialize model in string</returns>
-		public static string SerializeModel<T>(object model)
+		public static string SerializeModel<T>(T model)
 		{
-			XmlSerializer xs = new XmlSerializer(typeof(T));
-			return SerializeModel(model, xs);
+			StringBuilder builder = new StringBuilder();
+			XmlWriter writer = XmlWriter.Create(builder, GetWriterSettings());
+			SerializeModel(model, writer);
+
+			return builder.ToString();
 		}
 
 		/// <summary>
@@ -87,11 +115,85 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		/// <typeparam name="T">Type of model</typeparam>
 		/// <param name="xml">Serialize model in string</param>
-		/// <returns>Deserialize instance model </returns>
+		/// <returns>Deserialize instance model</returns>
 		public static T DeserializeModel<T>(string xml)
 		{
-			var serializer = new XmlSerializer(typeof(T));
-			return (T)serializer.Deserialize(new MemoryStream(Encoding.Unicode.GetBytes(xml)));
+			using (StringReader stringReader = new StringReader(xml))
+			{
+				// Try skipping utf-16 BOM for backwards compatibility
+				int ch = stringReader.Peek();
+				if (ch == 0xfeff || ch == 0xffef)
+				{
+					stringReader.Read();
+				}
+
+				XmlReader reader = XmlReader.Create(stringReader, GetReaderSettings());
+
+				return DeserializeModel<T>(reader);
+			}
+		}
+
+		/// <summary>
+		/// Creates the instance from the XML file
+		/// </summary>
+		/// <param name="xmlFileName">XML file name</param>
+		/// <returns>Deserialize instance model </returns>
+		public static T DeserializeModelFromFile<T>(string xmlFileName)
+		{
+			using (StreamReader streamReader = new StreamReader(xmlFileName))
+			{
+				// StreamReader doesn't skip encoding preable on its own so we have to do it manually.
+				streamReader.Read();
+				streamReader.BaseStream.Position = streamReader.CurrentEncoding.GetPreamble().Length;
+				streamReader.DiscardBufferedData();
+
+				XmlReader reader = XmlReader.Create(streamReader, GetReaderSettings());
+
+				return DeserializeModel<T>(reader);
+			}
+		}
+
+		/// <summary>
+		/// Deserialize Model from stream
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="stream"></param>
+		/// <returns>>Deserialize instance model</returns>
+		public static T DeserializeModelFromStream<T>(Stream stream)
+		{
+			XmlReader reader = XmlReader.Create(new StreamReader(stream), GetReaderSettings());
+			return DeserializeModel<T>(reader);
+		}
+
+		private static void SerializeModel<T>(T model, XmlWriter writer)
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			serializer.Serialize(writer, model);
+		}
+
+		private static T DeserializeModel<T>(XmlReader reader)
+		{
+			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			return (T)serializer.Deserialize(reader);
+		}
+
+		private static XmlWriterSettings GetWriterSettings()
+		{
+			return new XmlWriterSettings()
+			{
+				Indent = true,
+				CheckCharacters = false,
+				Encoding = Encoding.Unicode
+			};
+		}
+
+		private static XmlReaderSettings GetReaderSettings()
+		{
+			return new XmlReaderSettings()
+			{
+				IgnoreWhitespace = true,
+				CheckCharacters = false
+			};
 		}
 	}
 }

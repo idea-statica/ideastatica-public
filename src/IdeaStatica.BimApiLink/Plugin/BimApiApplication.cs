@@ -9,6 +9,8 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatica.BimApiLink
 {
@@ -19,6 +21,7 @@ namespace IdeaStatica.BimApiLink
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IPluginHook _pluginHook;
 		private readonly IBimUserDataSource _userDataSource;
+		private readonly TaskScheduler _taskScheduler;
 
 		protected override string ApplicationName { get; }
 
@@ -28,7 +31,8 @@ namespace IdeaStatica.BimApiLink
 			IProjectStorage projectStorage,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
-			IBimUserDataSource userDataSource)
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler)
 		{
 			ApplicationName = applicationName;
 
@@ -37,11 +41,25 @@ namespace IdeaStatica.BimApiLink
 			_bimApiImporter = bimApiImporter;
 			_pluginHook = pluginHook;
 			_userDataSource = userDataSource;
+			_taskScheduler = taskScheduler;
 
 			_projectStorage.Load();
 		}
 
 		public override void ActivateInBIM(List<BIMItemId> items)
+		{
+			Task task = Task.Factory.StartNew(() =>
+			{
+				ActivateMethod(items);
+			},
+			CancellationToken.None,
+			TaskCreationOptions.None,
+			_taskScheduler);
+
+			task.GetAwaiter().GetResult();
+		}
+
+		protected virtual void ActivateMethod(List<BIMItemId> items)
 		{
 			using (CreateScope(CountryCode.None))
 			{
@@ -65,42 +83,58 @@ namespace IdeaStatica.BimApiLink
 
 		protected override ModelBIM ImportActive(CountryCode countryCode, RequestedItemsType requestedType)
 		{
-			using (CreateScope(countryCode))
+			Task<ModelBIM> task = Task.Factory.StartNew(() =>
 			{
-				_pluginHook.EnterImport(countryCode);
-				_pluginHook.EnterImportSelection(requestedType);
-
-				try
+				using (CreateScope(countryCode))
 				{
-					return ImportSelection(countryCode, requestedType);
-				}
-				finally
-				{
-					ImportFinished();
+					_pluginHook.EnterImport(countryCode);
+					_pluginHook.EnterImportSelection(requestedType);
 
-					_pluginHook.ExitImportSelection(requestedType);
-					_pluginHook.ExitImport(countryCode);
+					try
+					{
+						return ImportSelection(countryCode, requestedType);
+					}
+					finally
+					{
+						ImportFinished();
+
+						_pluginHook.ExitImportSelection(requestedType);
+						_pluginHook.ExitImport(countryCode);
+					}
 				}
-			}
+			},
+			CancellationToken.None,
+			TaskCreationOptions.None,
+			_taskScheduler);
+
+			return task.GetAwaiter().GetResult();
 		}
 
 		protected override List<ModelBIM> ImportSelection(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			using (CreateScope(countryCode))
+			Task<List<ModelBIM>> task = Task.Factory.StartNew(() =>
 			{
-				_pluginHook.EnterImport(countryCode);
-
-				try
+				using (CreateScope(countryCode))
 				{
-					return Synchronize(countryCode, items);
-				}
-				finally
-				{
-					ImportFinished();
+					_pluginHook.EnterImport(countryCode);
 
-					_pluginHook.ExitImport(countryCode);
+					try
+					{
+						return Synchronize(countryCode, items);
+					}
+					finally
+					{
+						ImportFinished();
+
+						_pluginHook.ExitImport(countryCode);
+					}
 				}
-			}
+			},
+			CancellationToken.None,
+			TaskCreationOptions.None,
+			_taskScheduler);
+
+			return task.GetAwaiter().GetResult();
 		}
 
 		protected abstract void Select(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members);

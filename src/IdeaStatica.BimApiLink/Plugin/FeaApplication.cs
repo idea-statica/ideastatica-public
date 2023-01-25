@@ -8,6 +8,7 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IdeaStatica.BimApiLink.Plugin
 {
@@ -22,8 +23,9 @@ namespace IdeaStatica.BimApiLink.Plugin
 			IBimImporter bimImporter,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
-			IBimUserDataSource userDataSource)
-			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, userDataSource)
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler)
+			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, userDataSource, taskScheduler)
 		{
 			_bimImporter = bimImporter;
 		}

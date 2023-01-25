@@ -6,6 +6,7 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
+using System.Threading.Tasks;
 
 namespace IdeaStatica.BimApiLink
 {
@@ -25,7 +26,8 @@ namespace IdeaStatica.BimApiLink
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
 			IModel feaModel,
-			IBimUserDataSource userDataSource)
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler)
 		{
 			JsonPersistence jsonPersistence = new JsonPersistence();
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
@@ -40,10 +42,17 @@ namespace IdeaStatica.BimApiLink
 				bimImporterConfiguration,
 				remoteApp,
 				resultsProvider);
-			return CreateApplicationInstace(bimApiImporter, pluginHook, userDataSource, projectStorage, projectAdapter, bimImporter);
+			return CreateApplicationInstace(bimApiImporter, pluginHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
 		}
 
-		protected virtual IApplicationBIM CreateApplicationInstace(IBimApiImporter bimApiImporter, IPluginHook pluginHook, IBimUserDataSource userDataSource, IProjectStorage projectStorage, IProject projectAdapter, IBimImporter bimImporter)
+		protected virtual IApplicationBIM CreateApplicationInstace(
+			IBimApiImporter bimApiImporter,
+			IPluginHook pluginHook,
+			IBimUserDataSource userDataSource,
+			IProjectStorage projectStorage,
+			IProject projectAdapter,
+			IBimImporter bimImporter,
+			TaskScheduler taskScheduler)
 		{
 			return new CadApplication(
 							ApplicationName,
@@ -52,7 +61,8 @@ namespace IdeaStatica.BimApiLink
 							bimImporter,
 							bimApiImporter,
 							pluginHook,
-							userDataSource);
+							userDataSource,
+							taskScheduler);
 		}
 	}
 }
