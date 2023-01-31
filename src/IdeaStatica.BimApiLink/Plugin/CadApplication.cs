@@ -61,16 +61,16 @@ namespace IdeaStatica.BimApiLink.Plugin
 		{
 			using (CreateScope(CountryCode.None))
 			{
-				IEnumerable<Identifier<IIdeaObject>> tokens = items
+				IEnumerable<IIdeaObject> tokens = items
 					.Where(x => x.Type != BIMItemType.BIMItemsGroup)
-					.Select(x => _project.GetPersistenceToken(x.Id))
-					.OfType<Identifier<IIdeaObject>>();
+					.Select(x => _project.GetBimObject(x.Id));
+
 
 				Select(tokens);
 			}
 		}
 
-		protected virtual void Select(IEnumerable<Identifier<IIdeaObject>> objects)
+		protected virtual void Select(IEnumerable<IIdeaObject> objects)
 		{
 			throw new NotImplementedException();
 		}

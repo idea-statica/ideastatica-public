@@ -10,6 +10,8 @@ namespace IdeaStatica.BimApiLink.Identifiers
 
 		public abstract string GetStringId();
 
+		public abstract object GetId();
+
 		public virtual bool Equals(IIdentifier other)
 		{
 			if (!(other is Identifier<T> otherId))

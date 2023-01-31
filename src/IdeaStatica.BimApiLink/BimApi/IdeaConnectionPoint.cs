@@ -1,10 +1,11 @@
 ﻿using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatica.BimApiLink.BimApi
 {
-	public class IdeaConnectionPoint : AbstractIdeaObject<IIdeaConnectionPoint>, IIdeaConnectionPoint
+	public class IdeaConnectionPoint : AbstractIdeaObject<IIdeaConnectionPoint>, IIdeaConnectionPoint, IIdeaPersistentObject
 	{
 		protected IdeaConnectionPoint(Identifier<IIdeaConnectionPoint> identifer)
 			: base(identifer)
@@ -37,5 +38,20 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public IEnumerable<IIdeaWeld> Welds { get; set; }
 
 		public IEnumerable<IIdeaCut> Cuts { get; set; }
+
+		public IIdeaPersistenceToken Token
+		{
+			get => new ConnectionIdentifier<IIdeaConnectionPoint>(Node.Vector.X, Node.Vector.Y, Node.Vector.Z)
+			{
+				//ConnectedMembers = ConnectedMembers.Select(cm => cm.),
+				ConnectedMembers = new List<ImmutableIdentifier<IIdeaConnectedMember>>(),
+				Plates = Plates?.Select(p => p.Token as ImmutableIdentifier<IIdeaPlate>) ?? new List<ImmutableIdentifier<IIdeaPlate>>(),
+				FoldedPlates = FoldedPlates?.Select(fp => fp.Token as ImmutableIdentifier<IIdeaFoldedPlate>) ?? new List<ImmutableIdentifier<IIdeaFoldedPlate>>(),
+				AnchorGrids = AnchorGrids?.Select(ag => ag.Token as ImmutableIdentifier<IIdeaAnchorGrid>) ?? new List<ImmutableIdentifier<IIdeaAnchorGrid>>(),
+				BoltGrids = BoltGrids?.Select(bg => bg.Token as ImmutableIdentifier<IIdeaBoltGrid>) ?? new List<ImmutableIdentifier<IIdeaBoltGrid>>(),
+				Welds = Welds?.Select(w => w.Token as ImmutableIdentifier<IIdeaWeld>) ?? new List<ImmutableIdentifier<IIdeaWeld>>(),
+				Cuts = Cuts?.Select(c => c.Token as ImmutableIdentifier<IIdeaCut>) ?? new List<ImmutableIdentifier<IIdeaCut>>(),
+			};
+		}
 	}
 }

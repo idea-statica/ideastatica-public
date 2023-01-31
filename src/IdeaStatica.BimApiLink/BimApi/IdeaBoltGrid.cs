@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Connection;
-using IdeaRS.OpenModel.Geometry3D;
+﻿using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Parameters;
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
@@ -9,11 +8,18 @@ namespace IdeaStatica.BimApiLink.BimApi
 {
 	public class IdeaBoltGrid : AbstractIdeaObject<IIdeaBoltGrid>, IIdeaBoltGrid
 	{
-		public IdeaBoltGrid(Identifier<IIdeaBoltGrid> identifier) : base(identifier)
+		protected IdeaBoltGrid(Identifier<IIdeaBoltGrid> identifer)
+			: base(identifer)
 		{
+			Token = identifer;
 		}
 
-		public IdeaBoltGrid(string id) : this(new StringIdentifier<IIdeaBoltGrid>(id))
+		public IdeaBoltGrid(int id)
+			: this(new IntIdentifier<IIdeaBoltGrid>(id))
+		{ }
+
+		public IdeaBoltGrid(string id)
+			: this(new StringIdentifier<IIdeaBoltGrid>(id))
 		{ }
 
 		public virtual IIdeaNode Origin { get; set; }

@@ -8,10 +8,18 @@ namespace IdeaStatica.BimApiLink.BimApi
 {
 	public class IdeaAnchorGrid : AbstractIdeaObject<IIdeaAnchorGrid>, IIdeaAnchorGrid
 	{
-		public IdeaAnchorGrid(Identifier<IIdeaAnchorGrid> identifier) : base(identifier)
+		protected IdeaAnchorGrid(Identifier<IIdeaAnchorGrid> identifer)
+			: base(identifer)
+		{
+			Token = identifer;
+		}
+
+		public IdeaAnchorGrid(int id)
+			: this(new IntIdentifier<IIdeaAnchorGrid>(id))
 		{ }
 
-		public IdeaAnchorGrid(string id) : this(new StringIdentifier<IIdeaAnchorGrid>(id))
+		public IdeaAnchorGrid(string id)
+			: this(new StringIdentifier<IIdeaAnchorGrid>(id))
 		{ }
 
 		public AnchorType AnchorType { get; set; }

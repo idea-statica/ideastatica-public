@@ -8,5 +8,7 @@ namespace IdeaStatica.BimApiLink.Identifiers
 		Type ObjectType { get; }
 
 		string GetStringId();
+
+		object GetId();
 	}
 }
