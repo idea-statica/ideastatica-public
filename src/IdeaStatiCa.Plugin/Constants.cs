@@ -8,6 +8,8 @@
 		#region gRPC Constants 
 		public const string GrpcPortParam = "-grpcPort";
 		public const string GrpcReflectionErrorException = "GrpcReflectionError";
+		public const string BlobStorageId = "blobStorageId";
+		public const string ContentId = "contentId";
 		#endregion
 
 		public const string IdeaConnectionAppName = "IdeaConnection.exe";

@@ -52,9 +52,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private void Start()
 		{
 			Logger.LogDebug($"GrpcServer.Start listening on port {Host}:{Port}");
-			server = new Server(CommunicationTools.GetChannelOptions(MaxDataLength + 1024 * 30))
+			server = new Server(CommunicationTools.GetChannelOptions(MaxDataLength))
 			{
-				Services = { Grpc.GrpcService.BindService(GrpcService) },
+				Services =
+				{
+					Grpc.GrpcService.BindService(GrpcService),
+					Grpc.GrpcBlobStorageService.BindService(new Services.GrpcBlobStorageService())
+				},
 				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }
 			};
 

@@ -98,7 +98,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			string address = $"localhost:{Port}";
 			Logger.LogDebug($"GrpcClient.Connect address = '{address}', clientId = '{clientId}', port = '{port}'");
 
-			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(MaxDataLength + 1024 * 30));
+			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(MaxDataLength));
 
 			var serviceClient = new GrpcService.GrpcServiceClient(channel);
 
