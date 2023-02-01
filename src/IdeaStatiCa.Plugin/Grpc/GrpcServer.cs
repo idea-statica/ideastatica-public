@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using IdeaStatiCa.Public;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 	{
 		private Server server;
 		public readonly IPluginLogger Logger;
+		private readonly IBlobStorageProvider blobStorageProvider;
 		private readonly int MaxDataLength;
 
 		/// <summary>
@@ -36,11 +38,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// Initializes the IdeaStatiCa Grpc server.
 		/// </summary>
 		/// <param name="logger">Logger</param>
+		/// <param name="blobStorageProvider">Provider of blob storages</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in grpc message</param>
-		public GrpcServer(IPluginLogger logger, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
+		public GrpcServer(IPluginLogger logger, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
+			this.blobStorageProvider = blobStorageProvider;
 			MaxDataLength = maxDataLength;
 			Host = "localhost";
 			GrpcService = new Services.GrpcService(Logger, MaxDataLength);
@@ -57,7 +61,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				Services =
 				{
 					Grpc.GrpcService.BindService(GrpcService),
-					Grpc.GrpcBlobStorageService.BindService(new Services.GrpcBlobStorageService())
+					Grpc.GrpcBlobStorageService.BindService(new Services.GrpcBlobStorageService(Logger, blobStorageProvider))
 				},
 				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }
 			};

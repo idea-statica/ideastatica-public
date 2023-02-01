@@ -27,8 +27,8 @@ namespace ST_GrpcCommunication
 
 		private Process grpcServerProc;
 		int grpcServerPort;
-		// todo null logger
-
+		private readonly IPluginLogger nullLogger = new NullLogger();
+		
 		[OneTimeSetUp]
 		public void StartGrpcServerProcess()
 		{
@@ -66,7 +66,7 @@ namespace ST_GrpcCommunication
 				catch { }
 			}
 		}
-
+		
 		/// <summary>
 		/// System test for invoking remote methods on GrpcServer
 		/// </summary>
@@ -77,7 +77,7 @@ namespace ST_GrpcCommunication
 			string clientId = grpcServerPort.ToString();
 
 			// create client of the service IService which runs on grpcServer
-			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(new NullLogger());
+			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(nullLogger);
 
 			var task = grpcClient.StartAsync(clientId, grpcServerPort);
 
@@ -114,11 +114,10 @@ namespace ST_GrpcCommunication
 		{
 			string clientId = grpcServerPort.ToString();
 
-			var logger = new NullLogger();
 			// create client of the service IService which runs on grpcServer
-			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(logger);
+			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(nullLogger);
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcClient, logger);
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient, nullLogger);
 
 			// add project content handler
 			grpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, projectContentHandler);
@@ -197,8 +196,11 @@ namespace ST_GrpcCommunication
 		[Test]
 		public async Task GrpcBlobStorageServiceTest()
 		{
-			var client = new GrpcBlobStorageClient(new NullLogger(), grpcServerPort);
-			var res = await client.ExistAsync("testBlobStorage", "testFile1");
+			using (var client = new GrpcBlobStorageClient(nullLogger, grpcServerPort))
+			{
+				await client.WriteAsync("testBlobStorage", "testFile1", new MemoryStream(new byte[] { 1, 2, 3 }));
+
+			}
 		}
 	}
 
