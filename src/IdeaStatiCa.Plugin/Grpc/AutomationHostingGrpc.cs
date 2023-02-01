@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc;
+﻿using IdeaStatica.Communication;
+using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Nito.AsyncEx.Synchronous;
 using System;
@@ -11,7 +12,7 @@ namespace IdeaStatiCa.Plugin
 	/// <summary>
 	/// Grpc Hosting implementation of <see cref="AutomationHosting{MyInterface, ClientInterface}"/>
 	/// </summary>
-	public class AutomationHostingGrpc<MyInterface, ClientInterface> : IBIMPluginClient<ClientInterface>, IDisposable where MyInterface : class where ClientInterface : class
+	public class AutomationHostingGrpc<MyInterface, ClientInterface> : IGrpcCommunicationCommonInterface, IBIMPluginClient<ClientInterface>, IDisposable where MyInterface : class where ClientInterface : class
 	{
 		private Task hostingTask;
 		private CancellationTokenSource tokenSource;
