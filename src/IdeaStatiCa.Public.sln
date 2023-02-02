@@ -51,8 +51,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Public", "IdeaS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemTests", "SystemTests", "{6450E996-847E-4AEA-878D-9905100CA668}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServerHost", "SystemTests\GrpcServerHost\GrpcServerHost.csproj", "{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemTestService", "SystemTests\SystemTestService\SystemTestService.csproj", "{8763410B-44A3-474A-9F00-28AD33AD2719}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST_GrpcCommunication", "SystemTests\ST_GrpcCommunication\ST_GrpcCommunication.csproj", "{15686FF6-1077-40F3-9262-B0CE0A8F7DDA}"
@@ -109,15 +107,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiLinkFeaExample", "Examples\CCM\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj", "{7C20F445-680E-45BF-8088-0AF8E3BDD917}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginsTools.Windows", "IdeaStatiCa.PluginsTools.Windows\IdeaStatiCa.PluginsTools.Windows.csproj", "{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginsTools.Windows", "IdeaStatiCa.PluginsTools.Windows\IdeaStatiCa.PluginsTools.Windows.csproj", "{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
-		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
-		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
-		bim-links\bentley-ram\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems*{ec8df878-7ce5-458d-bf3e-fec30768a104}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -195,10 +187,6 @@ Global
 		{D3C76CA4-918D-4D24-A34D-72F5AAE467B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3C76CA4-918D-4D24-A34D-72F5AAE467B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3C76CA4-918D-4D24-A34D-72F5AAE467B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8763410B-44A3-474A-9F00-28AD33AD2719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8763410B-44A3-474A-9F00-28AD33AD2719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8763410B-44A3-474A-9F00-28AD33AD2719}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -310,7 +298,6 @@ Global
 		{270F2140-0363-4B34-A947-83761EEF2D66} = {E6888704-6043-4027-8A71-0BC948E91EAF}
 		{1F1DB95D-E340-4533-96CD-46645E10E5D5} = {270F2140-0363-4B34-A947-83761EEF2D66}
 		{259ADAF9-A9CA-4AAA-9AFE-FCF29256AB9F} = {270F2140-0363-4B34-A947-83761EEF2D66}
-		{8BBDCC6D-82D7-47A7-BD8D-D07A1581DF7D} = {6450E996-847E-4AEA-878D-9905100CA668}
 		{8763410B-44A3-474A-9F00-28AD33AD2719} = {6450E996-847E-4AEA-878D-9905100CA668}
 		{15686FF6-1077-40F3-9262-B0CE0A8F7DDA} = {6450E996-847E-4AEA-878D-9905100CA668}
 		{4F55791A-F67C-4A45-A1AD-5B6245901564} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
@@ -338,5 +325,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{3af9d6e8-ab50-4d08-94c0-4163721bfe59}*SharedItemsImports = 5
+		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
+		bim-links\bentley-ram\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems*{ec8df878-7ce5-458d-bf3e-fec30768a104}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

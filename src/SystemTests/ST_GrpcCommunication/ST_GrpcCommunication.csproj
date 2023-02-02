@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GrpcServerHost\GrpcServerHost.csproj" />
+    <ProjectReference Include="..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
     <ProjectReference Include="..\SystemTestService\SystemTestService.csproj" />
   </ItemGroup>
 

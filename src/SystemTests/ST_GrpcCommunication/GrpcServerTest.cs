@@ -4,11 +4,10 @@ using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using IdeaStatiCa.Plugin.ProjectContent;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.PluginLogger;
 using NUnit.Framework;
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,46 +24,44 @@ namespace ST_GrpcCommunication
 		public const int StartTimeout = 1000*20;
 #endif
 
-		private Process grpcServerProc;
-		int grpcServerPort;
+		private int grpcServerPort;
+		private IGrpcServer grpcServer;
 		private readonly IPluginLogger nullLogger = new NullLogger();
-		
+
 		[OneTimeSetUp]
-		public void StartGrpcServerProcess()
+		public void StartGrpcServerTask()
 		{
+			IPluginLogger grpcServerLogger = LoggerProvider.GetLogger("grpcServerLogger");
+
 			grpcServerPort = PortFinder.FindPort(50000, 50500);
+			var fooService = new Service();
+			var serverStartedEvent = new AutoResetEvent(false);
 
-			Process grpcServerProc = new Process();
-			string eventName = string.Format("GrpsServer_Start{0}", grpcServerPort);
-			var currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			string applicationExePath = Path.Combine(currentDir, "GrpcServerHost.exe");
-
-			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
+			Task.Run(() =>
 			{
-				grpcServerProc.StartInfo = new ProcessStartInfo(applicationExePath, $"{IdeaStatiCa.Plugin.Constants.GrpcPortParam}:{grpcServerPort} -startEvent:{eventName}");
-				grpcServerProc.EnableRaisingEvents = true;
-				grpcServerProc.Start();
+				// grpc server
+				grpcServer = new GrpcReflectionServer(fooService, grpcServerLogger);
+				
+				// project content handler
+				var projectContentInMemory = new ProjectContentInMemory();
+				var contentHandler = new ProjectContentServerHandler(projectContentInMemory);
+				grpcServer.GrpcService.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, contentHandler);
 
-				if (!syncEvent.WaitOne(StartTimeout))
-				{
-					throw new TimeoutException($"Time out - process '{applicationExePath}' doesn't set the event '{eventName}'");
-				}
-			}
+				// grpc server start
+				grpcServer.StartAsync(null, grpcServerPort);
+
+				grpcServerLogger.LogDebug($"GrpcServer is listening on port '{grpcServerPort}'");
+
+				serverStartedEvent.Set();
+			});
+
+			serverStartedEvent.WaitOne();
 		}
 
 		[OneTimeTearDown]
-		public void StopGrpcServerProcess()
+		public void StopGrpcServerTask()
 		{
-			if (grpcServerProc != null)
-			{
-				try
-				{
-					grpcServerProc.Kill();
-					grpcServerProc.WaitForExit();
-					grpcServerProc = null;
-				}
-				catch { }
-			}
+			grpcServer.StopAsync();
 		}
 		
 		/// <summary>
