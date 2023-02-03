@@ -91,8 +91,10 @@ namespace IdeaRS.OpenModel
 		/// <returns>Serialize model in string</returns>
 		public static void SerializeModelToFile<T>(T model, string filePath)
 		{
-			XmlWriter writer = XmlWriter.Create(filePath, GetWriterSettings());
-			SerializeModel(model, writer);
+			using (XmlWriter writer = XmlWriter.Create(filePath, GetWriterSettings()))
+			{
+				SerializeModel(model, writer);
+			}	
 		}
 
 		/// <summary>
