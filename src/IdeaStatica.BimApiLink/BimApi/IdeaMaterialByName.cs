@@ -6,8 +6,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 	public class IdeaMaterialByName : AbstractIdeaObject<IIdeaMaterialByName>, IIdeaMaterialByName
 	{
 		public virtual MaterialType MaterialType { get; set; }
-		
-		protected IdeaMaterialByName(Identifier<IIdeaMaterialByName> identifer)
+
+		public IdeaMaterialByName(Identifier<IIdeaMaterialByName> identifer)
 			: base(identifer)
 		{ }
 

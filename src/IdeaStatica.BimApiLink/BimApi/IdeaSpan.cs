@@ -12,8 +12,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public virtual double StartPosition { get; set; }
 		
 		public virtual double EndPosition { get; set; }
-		
-		protected IdeaSpan(Identifier<IIdeaSpan> identifer)
+
+		public IdeaSpan(Identifier<IIdeaSpan> identifer)
 			: base(identifer)
 		{ }
 

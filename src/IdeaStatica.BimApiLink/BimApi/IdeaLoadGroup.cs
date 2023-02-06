@@ -22,8 +22,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public virtual double Psi1 { get; set; }
 		
 		public virtual double Psi2 { get; set; }
-		
-		protected IdeaLoadGroup(Identifier<IIdeaLoadGroup> identifer)
+
+		public IdeaLoadGroup(Identifier<IIdeaLoadGroup> identifer)
 			: base(identifer)
 		{ }
 

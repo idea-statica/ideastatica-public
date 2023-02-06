@@ -6,8 +6,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 	public class IdeaMaterialConcrete : AbstractIdeaObject<IIdeaMaterialConcrete>, IIdeaMaterialConcrete
 	{
 		public virtual IdeaRS.OpenModel.Material.MatConcrete Material { get; set; } = null;
-		
-		protected IdeaMaterialConcrete(Identifier<IIdeaMaterialConcrete> identifer)
+
+		public IdeaMaterialConcrete(Identifier<IIdeaMaterialConcrete> identifer)
 			: base(identifer)
 		{ }
 
