@@ -10,8 +10,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public virtual IIdeaNode EndNode { get; set; } = null;
 		
 		public virtual IdeaRS.OpenModel.Geometry3D.CoordSystem LocalCoordinateSystem { get; set; } = null;
-		
-		protected IdeaLineSegment3D(Identifier<IIdeaLineSegment3D> identifer)
+
+		public IdeaLineSegment3D(Identifier<IIdeaLineSegment3D> identifer)
 			: base(identifer)
 		{ }
 

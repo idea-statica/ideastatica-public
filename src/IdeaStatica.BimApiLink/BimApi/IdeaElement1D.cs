@@ -20,7 +20,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public virtual IIdeaSegment3D Segment { get; set; } = null;
 
-		protected IdeaElement1D(Identifier<IIdeaElement1D> identifer)
+		public IdeaElement1D(Identifier<IIdeaElement1D> identifer)
 			: base(identifer)
 		{ }
 

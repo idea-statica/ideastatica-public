@@ -10,8 +10,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public virtual double Coeff { get; set; }
 		
 		public virtual IIdeaCombiInput Combination { get; set; } = null;
-		
-		protected IdeaCombiItem(Identifier<IIdeaCombiItem> identifer)
+
+		public IdeaCombiItem(Identifier<IIdeaCombiItem> identifer)
 			: base(identifer)
 		{ }
 

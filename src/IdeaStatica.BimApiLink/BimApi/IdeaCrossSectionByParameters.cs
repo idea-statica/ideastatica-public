@@ -16,7 +16,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public virtual bool IsInPrincipal { get; set; }
 
-		protected IdeaCrossSectionByParameters(Identifier<IIdeaCrossSectionByParameters> identifer)
+		public IdeaCrossSectionByParameters(Identifier<IIdeaCrossSectionByParameters> identifer)
 			: base(identifer)
 		{ }
 

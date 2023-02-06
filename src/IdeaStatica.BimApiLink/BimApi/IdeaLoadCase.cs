@@ -15,7 +15,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 		
 		public virtual string Description { get; set; } = null;
 		
-		protected IdeaLoadCase(Identifier<IIdeaLoadCase> identifer)
+		public IdeaLoadCase(Identifier<IIdeaLoadCase> identifer)
 			: base(identifer)
 		{ }
 
