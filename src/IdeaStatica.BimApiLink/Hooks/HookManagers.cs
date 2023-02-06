@@ -6,6 +6,6 @@
 
 		public PluginHookManager PluginHookManager { get; } = new PluginHookManager();
 
-		public PluginHookNoScopeManager PluginHookNoScopeManager { get; } = new PluginHookNoScopeManager();
+		public ScopeHookManager ScopeHookManager { get; } = new ScopeHookManager();
 	}
 }

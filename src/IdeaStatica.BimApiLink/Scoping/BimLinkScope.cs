@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatica.BimApiLink.Hooks;
 using IdeaStatica.BimApiLink.Importers;
 using System;
 using System.Threading;
@@ -8,6 +9,7 @@ namespace IdeaStatica.BimApiLink.Scoping
 	public class BimLinkScope : IScope, IDisposable
 	{
 		private static readonly AsyncLocal<BimLinkScope> _current = new AsyncLocal<BimLinkScope>();
+
 		internal static BimLinkScope Current => _current.Value ?? throw new InvalidOperationException();
 
 		public IBimApiImporter BimApiImporter { get; }
@@ -16,9 +18,12 @@ namespace IdeaStatica.BimApiLink.Scoping
 
 		public object UserData { get; }
 
-		public BimLinkScope(IBimApiImporter bimApiImporter, CountryCode countryCode, object userData)
+		private readonly IScopeHook _scopeHook;
+
+		public BimLinkScope(IBimApiImporter bimApiImporter, IScopeHook scopeHook, CountryCode countryCode, object userData)
 		{
 			BimApiImporter = bimApiImporter;
+			_scopeHook = scopeHook;
 			CountryCode = countryCode;
 			UserData = userData;
 
@@ -28,6 +33,7 @@ namespace IdeaStatica.BimApiLink.Scoping
 		public void Dispose()
 		{
 			_current.Value = null;
+			_scopeHook.PostScope();
 			GC.SuppressFinalize(this);
 		}
 	}

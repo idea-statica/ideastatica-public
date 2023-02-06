@@ -18,7 +18,7 @@ namespace IdeaStatica.BimApiLink
 		private readonly IProjectStorage _projectStorage;
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IPluginHook _pluginHook;
-		private readonly IPluginHookNoScope _pluginHookNoScope;
+		private readonly IScopeHook _scopeHook;
 		private readonly IBimUserDataSource _userDataSource;
 
 		protected override string ApplicationName { get; }
@@ -29,7 +29,7 @@ namespace IdeaStatica.BimApiLink
 			IProjectStorage projectStorage,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
-			IPluginHookNoScope pluginHookNoScope,
+			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource)
 		{
 			ApplicationName = applicationName;
@@ -38,7 +38,7 @@ namespace IdeaStatica.BimApiLink
 			_projectStorage = projectStorage;
 			_bimApiImporter = bimApiImporter;
 			_pluginHook = pluginHook;
-			_pluginHookNoScope = pluginHookNoScope;
+			_scopeHook = scopeHook;
 			_userDataSource = userDataSource;
 
 			_projectStorage.Load();
@@ -68,56 +68,40 @@ namespace IdeaStatica.BimApiLink
 
 		protected override ModelBIM ImportActive(CountryCode countryCode, RequestedItemsType requestedType)
 		{
-			_pluginHookNoScope.PreImport(countryCode);
-			try
+			using (CreateScope(countryCode))
 			{
-				using (CreateScope(countryCode))
+				_pluginHook.EnterImport(countryCode);
+				_pluginHook.EnterImportSelection(requestedType);
+
+				try
 				{
-					_pluginHook.EnterImport(countryCode);
-					_pluginHook.EnterImportSelection(requestedType);
-
-					try
-					{
-						return ImportSelection(countryCode, requestedType);
-					}
-					finally
-					{
-						ImportFinished();
-
-						_pluginHook.ExitImportSelection(requestedType);
-						_pluginHook.ExitImport(countryCode);
-					}
+					return ImportSelection(countryCode, requestedType);
 				}
-			}
-			finally
-			{
-				_pluginHookNoScope.PostImport(countryCode);
+				finally
+				{
+					ImportFinished();
+
+					_pluginHook.ExitImportSelection(requestedType);
+					_pluginHook.ExitImport(countryCode);
+				}
 			}
 		}
 
 		protected override List<ModelBIM> ImportSelection(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			_pluginHookNoScope.PreImport(countryCode);
-			try
+			using (CreateScope(countryCode))
 			{
-				using (CreateScope(countryCode))
+				_pluginHook.EnterImport(countryCode);
+				try
 				{
-					_pluginHook.EnterImport(countryCode);
-					try
-					{
-						return Synchronize(countryCode, items);
-					}
-					finally
-					{
-						ImportFinished();
-
-						_pluginHook.ExitImport(countryCode);
-					}
+					return Synchronize(countryCode, items);
 				}
-			}
-			finally
-			{
-				_pluginHookNoScope.PostImport(countryCode);
+				finally
+				{
+					ImportFinished();
+
+					_pluginHook.ExitImport(countryCode);
+				}
 			}
 		}
 
@@ -132,9 +116,15 @@ namespace IdeaStatica.BimApiLink
 
 		private BimLinkScope CreateScope(CountryCode countryCode)
 		{
+			_scopeHook.PostScope();
+
 			object userData = _userDataSource.GetUserData();
 
-			return new BimLinkScope(new BimApiImporterCacheAdapter(_bimApiImporter), countryCode, userData);
+			return new BimLinkScope(
+				new BimApiImporterCacheAdapter(_bimApiImporter),
+				_scopeHook,
+				countryCode,
+				userData);
 		}
 	}
 }
