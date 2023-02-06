@@ -8,7 +8,12 @@ namespace IdeaStatica.BimApiLink.Identifiers
 		public int Id { get; }
 
 		public IntIdentifier(int id)
-			: base(typeof(T).FullName + "-" + id.ToString())
+			: this(id, typeof(T).FullName)
+		{
+		}
+
+		protected IntIdentifier(int id, string typeName)
+			: base($"{typeName}-{id}")
 		{
 			Id = id;
 		}
