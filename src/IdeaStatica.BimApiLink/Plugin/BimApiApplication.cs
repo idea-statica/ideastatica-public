@@ -116,7 +116,7 @@ namespace IdeaStatica.BimApiLink
 
 		private BimLinkScope CreateScope(CountryCode countryCode)
 		{
-			_scopeHook.PostScope();
+			_scopeHook.PreScope();
 
 			object userData = _userDataSource.GetUserData();
 
