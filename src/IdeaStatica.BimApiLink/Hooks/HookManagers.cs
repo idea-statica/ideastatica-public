@@ -5,5 +5,7 @@
 		public ImporterHookManager ImporterHookManager { get; } = new ImporterHookManager();
 
 		public PluginHookManager PluginHookManager { get; } = new PluginHookManager();
+
+		public PluginHookNoScopeManager PluginHookNoScopeManager { get; } = new PluginHookNoScopeManager();
 	}
 }

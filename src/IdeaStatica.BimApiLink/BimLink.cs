@@ -80,6 +80,12 @@ namespace IdeaStatica.BimApiLink
 			return this;
 		}
 
+		public BimLink WithPluginHookNoScope(IPluginHookNoScope hook)
+		{
+			_hookManagers.PluginHookNoScopeManager.Add(hook);
+			return this;
+		}
+
 		public BimLink WithUserDataSource(IBimUserDataSource userDataSource)
 		{
 			_bimUserDataSource = userDataSource;
@@ -114,6 +120,7 @@ namespace IdeaStatica.BimApiLink
 				InitHostingClient(pluginLogger),
 				resultsProvider,
 				_hookManagers.PluginHookManager,
+				_hookManagers.PluginHookNoScopeManager,
 				feaModel,
 				_bimUserDataSource);
 
@@ -145,7 +152,8 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
-			IFeaModel feaModel,
+			IPluginHookNoScope pluginHookNoScope,
+			IFeaModel IPluginHookNoScope,
 			IBimUserDataSource userDataSource);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
@@ -168,6 +176,7 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
+			IPluginHookNoScope pluginHookNoScope,
 			IFeaModel feaModel,
 			IBimUserDataSource userDataSource)
 		{
@@ -192,6 +201,7 @@ namespace IdeaStatica.BimApiLink
 				bimImporter,
 				bimApiImporter,
 				pluginHook,
+				pluginHookNoScope,
 				userDataSource);
 		}
 	}

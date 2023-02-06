@@ -18,6 +18,7 @@ namespace IdeaStatica.BimApiLink
 		private readonly IProjectStorage _projectStorage;
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IPluginHook _pluginHook;
+		private readonly IPluginHookNoScope _pluginHookNoScope;
 		private readonly IBimUserDataSource _userDataSource;
 
 		protected override string ApplicationName { get; }
@@ -28,6 +29,7 @@ namespace IdeaStatica.BimApiLink
 			IProjectStorage projectStorage,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
+			IPluginHookNoScope pluginHookNoScope,
 			IBimUserDataSource userDataSource)
 		{
 			ApplicationName = applicationName;
@@ -36,6 +38,7 @@ namespace IdeaStatica.BimApiLink
 			_projectStorage = projectStorage;
 			_bimApiImporter = bimApiImporter;
 			_pluginHook = pluginHook;
+			_pluginHookNoScope = pluginHookNoScope;
 			_userDataSource = userDataSource;
 
 			_projectStorage.Load();
@@ -65,41 +68,56 @@ namespace IdeaStatica.BimApiLink
 
 		protected override ModelBIM ImportActive(CountryCode countryCode, RequestedItemsType requestedType)
 		{
-			using (CreateScope(countryCode))
+			_pluginHookNoScope.PreImport(countryCode);
+			try
 			{
-				_pluginHook.EnterImport(countryCode);
-				_pluginHook.EnterImportSelection(requestedType);
-
-				try
+				using (CreateScope(countryCode))
 				{
-					return ImportSelection(countryCode, requestedType);
-				}
-				finally
-				{
-					ImportFinished();
+					_pluginHook.EnterImport(countryCode);
+					_pluginHook.EnterImportSelection(requestedType);
 
-					_pluginHook.ExitImportSelection(requestedType);
-					_pluginHook.ExitImport(countryCode);
+					try
+					{
+						return ImportSelection(countryCode, requestedType);
+					}
+					finally
+					{
+						ImportFinished();
+
+						_pluginHook.ExitImportSelection(requestedType);
+						_pluginHook.ExitImport(countryCode);
+					}
 				}
+			}
+			finally
+			{
+				_pluginHookNoScope.PostImport(countryCode);
 			}
 		}
 
 		protected override List<ModelBIM> ImportSelection(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			using (CreateScope(countryCode))
+			_pluginHookNoScope.PreImport(countryCode);
+			try
 			{
-				_pluginHook.EnterImport(countryCode);
-
-				try
+				using (CreateScope(countryCode))
 				{
-					return Synchronize(countryCode, items);
-				}
-				finally
-				{
-					ImportFinished();
+					_pluginHook.EnterImport(countryCode);
+					try
+					{
+						return Synchronize(countryCode, items);
+					}
+					finally
+					{
+						ImportFinished();
 
-					_pluginHook.ExitImport(countryCode);
+						_pluginHook.ExitImport(countryCode);
+					}
 				}
+			}
+			finally
+			{
+				_pluginHookNoScope.PostImport(countryCode);
 			}
 		}
 
