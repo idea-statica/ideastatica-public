@@ -9,7 +9,6 @@ service GrpcService {
 
 // service for operation with data blob storage
 service GrpcBlobStorageService {
-    //rpc Init (InitRequest) returns (VoidResponse);
     rpc Write (stream ContentData) returns (VoidResponse); // blobStorageId and contentId are in metadata
     rpc Read (ContentRequest) returns (stream ContentData);
     rpc Exist (ContentRequest) returns (ExistResponse);
@@ -31,11 +30,6 @@ message GrpcMessage {
     bytes buffer = 7;
     bool compression = 8;
 }
-
-//message InitRequest {
-//    string basePath = 1;
-//    string blobStorageId = 2;
-//}
 
 message VoidResponse {}
 

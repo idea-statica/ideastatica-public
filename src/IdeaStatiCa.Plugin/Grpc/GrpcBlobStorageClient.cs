@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
+	/// <summary>
+	/// Client for gRPC blob storage communication
+	/// </summary>
 	public class GrpcBlobStorageClient : IDisposable
 	{
 		private readonly GrpcBlobStorageService.GrpcBlobStorageServiceClient client;
@@ -15,8 +18,14 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private readonly IPluginLogger logger;
 		private readonly int chunkSize;
 
-		// todo comments
-
+		/// <summary>
+		/// Creates gRPC blob storage client
+		/// </summary>
+		/// <param name="logger">Logger</param>
+		/// <param name="port">Port</param>
+		/// <param name="host">Host</param>
+		/// <param name="chunkSize">Size of chunk in bytes</param>
+		/// <param name="maxDataLength">Maximum message length in bytes for channel</param>
 		public GrpcBlobStorageClient(IPluginLogger logger, int port, string host = "localhost", int chunkSize = Constants.GRPC_CHUNK_SIZE, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			this.logger = logger;
@@ -24,11 +33,20 @@ namespace IdeaStatiCa.Plugin.Grpc
 			channel = new Channel(host, port, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(maxDataLength));
 			client = new GrpcBlobStorageService.GrpcBlobStorageServiceClient(channel);
 
-			logger.LogDebug($"Created GrpcBlobStorageClient, host: '{host}', port: '{port}', maxDataLength: '{maxDataLength}'");
+			logger.LogDebug($"Created GrpcBlobStorageClient, host: '{host}', port: '{port}', chunkSize: '{chunkSize}', maxDataLength: '{maxDataLength}'");
 		}
 
+		/// <summary>
+		/// Asynchronously writes data with content id to the specified blob storage
+		/// </summary>
+		/// <param name="blobStorageId">Blob storage id</param>
+		/// <param name="contentId">Id of the data in blob storage</param>
+		/// <param name="content">Source data</param>
+		/// <returns></returns>
 		public async Task WriteAsync(string blobStorageId, string contentId, Stream content)
 		{
+			logger.LogDebug($"GrpcBlobStorageClient starts Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
+
 			var metadata = new Metadata();
 			metadata.Add(Constants.BlobStorageId, blobStorageId);
 			metadata.Add(Constants.ContentId, contentId);
@@ -38,9 +56,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 				using (var call = client.Write(metadata))
 				{
 					var requestStream = call.RequestStream;
+					var buffer = new byte[chunkSize];
 					while (true)
 					{
-						byte[] buffer = new byte[chunkSize];
 						int numRead = await content.ReadAsync(buffer, 0, buffer.Length);
 						if (numRead == 0)
 						{
@@ -55,24 +73,36 @@ namespace IdeaStatiCa.Plugin.Grpc
 						{
 							Data = ByteString.CopyFrom(buffer)
 						});
+
+						logger.LogTrace($"GrpcBlobStorageClient Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}' sent {buffer.Length} bytes");
 					}
 					await requestStream.CompleteAsync();
 
 					var res = await call.ResponseAsync;
+					content.Seek(0, SeekOrigin.Begin);
 				}
+
+				logger.LogDebug($"GrpcBlobStorageClient ends Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
 			}
 			catch (Exception ex)
 			{
-				// todo
-				logger.LogError("todo host, port,...", ex);
+				logger.LogDebug("GrpcBlobStorageClient Write failed.", ex);
 				throw;
 			}
 		}
 
+		/// <summary>
+		/// Asynchronously reads data with content id from the specified blob storage
+		/// </summary>
+		/// <param name="blobStorageId">Blob storage id</param>
+		/// <param name="contentId">Id of the data in blob storage</param>
+		/// <returns>Readed data</returns>
 		public async Task<Stream> ReadAsync(string blobStorageId, string contentId)
 		{
 			try
 			{
+				logger.LogDebug($"GrpcBlobStorageClient begins Read, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
+
 				var contentRequest = new ContentRequest()
 				{
 					BlobStorageId = blobStorageId,
@@ -89,66 +119,116 @@ namespace IdeaStatiCa.Plugin.Grpc
 					{
 						currentData = responseStream.Current.Data;
 						currentData.WriteTo(content);
-						content.Position += currentData.Length;
+						logger.LogTrace($"GrpcBlobStorageClient Read, blobStorageId: '{blobStorageId}', contentId: '{contentId}' received {currentData.Length} bytes");
 					}
-					content.Position = 0;
+					content.Seek(0, SeekOrigin.Begin);
 				}
 
+				logger.LogDebug($"GrpcBlobStorageClient ends Read, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
 				return content;
 			}
 			catch (Exception ex)
 			{
-				// todo
-				logger.LogError("todo host, port,...", ex);
+				logger.LogDebug("GrpcBlobStorageClient Read failed.", ex);
 				throw;
 			}
 		}
 
+		/// <summary>
+		/// Asynchronously calls Exists on specified blob storage for the content id
+		/// </summary>
+		/// <param name="blobStorageId">Blob storage id</param>
+		/// <param name="contentId">Id of the data in blob storage</param>
+		/// <returns>Returns true if content id exists, otherwise false</returns>
 		public async Task<bool> ExistAsync(string blobStorageId, string contentId)
 		{
-			// todo log, try catch
-			var contentRequest = new ContentRequest()
+			try
 			{
-				BlobStorageId = blobStorageId,
-				ContentId = contentId
-			};
+				logger.LogDebug($"GrpcBlobStorageClient Exist, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
 
-			var response = await client.ExistAsync(contentRequest);
-			return response.Exist;
+				var contentRequest = new ContentRequest()
+				{
+					BlobStorageId = blobStorageId,
+					ContentId = contentId
+				};
+
+				var response = await client.ExistAsync(contentRequest);
+				return response.Exist;
+			}
+			catch (Exception ex)
+			{
+				logger.LogDebug("GrpcBlobStorageClient Exist failed.", ex);
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Asynchronously calls Delete on specified blob storage for the content id
+		/// </summary>
+		/// <param name="blobStorageId">Blob storage id</param>
+		/// <param name="contentId">Id of the data in blob storage</param>
+		/// <returns></returns>
 		public async Task DeleteAsync(string blobStorageId, string contentId)
 		{
-			// todo log, try catch
-			var contentRequest = new ContentRequest()
+			try
 			{
-				BlobStorageId = blobStorageId,
-				ContentId = contentId
-			};
+				logger.LogDebug($"GrpcBlobStorageClient Delete, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
+				
+				var contentRequest = new ContentRequest()
+				{
+					BlobStorageId = blobStorageId,
+					ContentId = contentId
+				};
 
-			_ = await client.DeleteAsync(contentRequest);
+				await client.DeleteAsync(contentRequest);
+			}
+			catch (Exception ex)
+			{
+				logger.LogDebug("GrpcBlobStorageClient Delete failed.", ex);
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Asynchronously calls GetEntries on specified blob storage
+		/// </summary>
+		/// <param name="blobStorageId">Blob storage id</param>
+		/// <returns>Returns list of all content ids in specified blob storage</returns>
 		public async Task<List<string>> GetEntriesAsync(string blobStorageId)
 		{
-			var getEntriesRequest = new GetEntriesRequest()
+			try
 			{
-				BlobStorageId = blobStorageId
-			};
+				logger.LogDebug($"GrpcBlobStorageClient GetEntries, blobStorageId: '{blobStorageId}'");
 
-			var response = await client.GetEntriesAsync(getEntriesRequest);
-			return response.ContentId.ToList();
+				var getEntriesRequest = new GetEntriesRequest()
+				{
+					BlobStorageId = blobStorageId
+				};
+
+				var response = await client.GetEntriesAsync(getEntriesRequest);
+				return response.ContentId.ToList();
+			}
+			catch (Exception ex)
+			{
+				logger.LogDebug("GrpcBlobStorageClient GetEntries failed.", ex);
+				throw;
+			}
 		}
 
+		/// <summary>
+		/// Shuts down communication channel with gRPC server
+		/// </summary>
 		public void Dispose()
 		{
 			try
 			{
 				channel.ShutdownAsync().Wait();
+
+				logger.LogDebug("Disposed GrpcBlobStorageClient");
 			}
 			catch (Exception ex)
 			{
-				logger.LogInformation("Dispose of GrpcBlobStorageClient instance failed.", ex);
+				logger.LogDebug("Dispose of GrpcBlobStorageClient failed.", ex);
 			}
 		}
 	}

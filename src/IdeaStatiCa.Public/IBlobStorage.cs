@@ -23,10 +23,10 @@ namespace IdeaStatiCa.Public
 		void Write(Stream content, string contentId);
 
 		/// <summary>
-		/// Read blob with <paramref name="contentId"/> identificator from the storage into the stream.
+		/// Read blob with <paramref name="contentId"/> identificator from the storage into the stream. Client have to DISPOSE stream when it is no longer needed.
 		/// </summary>
 		/// <param name="contentId">Uniqe blob identificator</param>
-		/// <returns>Readed blob as stream</returns>
+		/// <returns>Readed blob as stream. Client have to dispose stream.</returns>
 		Stream Read(string contentId);
 
 		/// <summary>
