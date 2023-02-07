@@ -222,7 +222,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			try
 			{
-				channel.ShutdownAsync().Wait();
+				if (!channel.ShutdownAsync().Wait(TimeSpan.FromMinutes(1)))
+				{
+					logger.LogDebug("Time out - gRPC client does not shut down channel within one minute.");
+				}
 
 				logger.LogDebug("Disposed GrpcBlobStorageClient");
 			}

@@ -35,7 +35,7 @@ namespace ST_GrpcCommunication
 		private int grpcServerPort;
 		private IGrpcServer grpcServer;
 		private const int chunkSize = 10;
-		private readonly IPluginLogger nullLogger = new NullLogger();
+		private IPluginLogger logger;
 
 		private readonly string blobStorageName = "testBlobStorage";
 		private IBlobStorageProvider blobStorageProviderMock;
@@ -49,7 +49,7 @@ namespace ST_GrpcCommunication
 		[OneTimeSetUp]
 		public void StartGrpcServerTask()
 		{
-			IPluginLogger grpcServerLogger = LoggerProvider.GetLogger("grpcServerLogger");
+			logger = LoggerProvider.GetLogger("not used name");
 
 			grpcServerPort = PortFinder.FindPort(50000, 50500);
 			var fooService = new Service();
@@ -59,7 +59,7 @@ namespace ST_GrpcCommunication
 			Task.Run(() =>
 			{
 				// grpc server
-				grpcServer = new GrpcReflectionServer(fooService, grpcServerLogger, blobStorageProviderMock, chunkSize: chunkSize);
+				grpcServer = new GrpcReflectionServer(fooService, logger, blobStorageProviderMock, chunkSize: chunkSize);
 
 				// project content handler
 				var projectContentInMemory = new ProjectContentInMemory();
@@ -69,21 +69,24 @@ namespace ST_GrpcCommunication
 				// grpc server start
 				grpcServer.StartAsync(null, grpcServerPort);
 
-				grpcServerLogger.LogDebug($"GrpcServer is listening on port '{grpcServerPort}'");
+				logger.LogDebug($"GrpcServer is listening on port '{grpcServerPort}'");
 
 				serverStartedEvent.Set();
 			});
 
-			serverStartedEvent.WaitOne();
+			if (!serverStartedEvent.WaitOne(StartTimeout))
+			{
+				throw new TimeoutException($"Time out - gRPC server doesn't start within {TimeSpan.FromMilliseconds(StartTimeout).TotalSeconds} seconds.");
+			}
 		}
 
 		/// <summary>
 		/// Stops gRPC server after all the tests are finished
 		/// </summary>
 		[OneTimeTearDown]
-		public void StopGrpcServerTask()
+		public async Task StopGrpcServerTask()
 		{
-			grpcServer.StopAsync();
+			await grpcServer.StopAsync();
 		}
 
 		/// <summary>
@@ -96,7 +99,7 @@ namespace ST_GrpcCommunication
 			string clientId = grpcServerPort.ToString();
 
 			// create client of the service IService which runs on grpcServer
-			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(nullLogger);
+			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(logger);
 
 			var task = grpcClient.StartAsync(clientId, grpcServerPort);
 
@@ -134,9 +137,9 @@ namespace ST_GrpcCommunication
 			string clientId = grpcServerPort.ToString();
 
 			// create client of the service IService which runs on grpcServer
-			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(nullLogger);
+			GrpcServiceBasedReflectionClient<IService> grpcClient = new GrpcServiceBasedReflectionClient<IService>(logger);
 
-			var projectContentHandler = new ProjectContentClientHandler(grpcClient, nullLogger);
+			var projectContentHandler = new ProjectContentClientHandler(grpcClient, logger);
 
 			// add project content handler
 			grpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE, projectContentHandler);
@@ -226,7 +229,7 @@ namespace ST_GrpcCommunication
 			var contentId = "testFile1";
 			using (var content = new MemoryStream(GenerateRandomByteArray(dataLength)))
 			{
-				using (var client = new GrpcBlobStorageClient(nullLogger, grpcServerPort, chunkSize: chunkSize))
+				using (var client = new GrpcBlobStorageClient(logger, grpcServerPort, chunkSize: chunkSize))
 				{
 					using (writtenContent = new MemoryStream(dataLength))
 					{
@@ -248,7 +251,7 @@ namespace ST_GrpcCommunication
 		[TestCase("two hundred and ninety nine")]
 		public async Task GrpcReadBlobStorageTest(string contentId)
 		{
-			using (var client = new GrpcBlobStorageClient(nullLogger, grpcServerPort))
+			using (var client = new GrpcBlobStorageClient(logger, grpcServerPort))
 			{
 				using (var readStream = await client.ReadAsync(blobStorageName, contentId))
 				{
@@ -268,7 +271,7 @@ namespace ST_GrpcCommunication
 		[TestCase("does not exist", ExpectedResult = false)]
 		public async Task<bool> GrpcExistBlobStorageTest(string contentId)
 		{
-			using (var client = new GrpcBlobStorageClient(nullLogger, grpcServerPort))
+			using (var client = new GrpcBlobStorageClient(logger, grpcServerPort))
 			{
 				var exist = await client.ExistAsync(blobStorageName, contentId);
 				return exist;
@@ -282,7 +285,7 @@ namespace ST_GrpcCommunication
 		public async Task GrpcDeleteBlobStorageTest()
 		{
 			var contentId = "test delete";
-			using (var client = new GrpcBlobStorageClient(nullLogger, grpcServerPort))
+			using (var client = new GrpcBlobStorageClient(logger, grpcServerPort))
 			{
 				await client.DeleteAsync(blobStorageName, contentId);
 			}
@@ -299,7 +302,7 @@ namespace ST_GrpcCommunication
 			var entries = new List<string>() { "one", "two", "three", "four" };
 			blobStorageMock.GetEntries().Returns(entries);
 
-			using (var client = new GrpcBlobStorageClient(nullLogger, grpcServerPort))
+			using (var client = new GrpcBlobStorageClient(logger, grpcServerPort))
 			{
 				var returnedEntries = await client.GetEntriesAsync(blobStorageName);
 
