@@ -87,7 +87,7 @@
 		NoBending = 32,
 	}
 
-	public interface IIdeaConnectedMember : IIdeaObject
+	public interface IIdeaConnectedMember : IIdeaObjectConnectable
 	{
 		IdeaGeometricalType GeometricalType { get; }
 

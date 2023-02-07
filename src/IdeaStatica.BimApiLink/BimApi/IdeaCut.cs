@@ -14,7 +14,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public double Offset { get; set; }
 
-		public IIdeaWeld Weld { get; set; }
+		public virtual IIdeaWeld Weld { get; set; }
 
 		public CutMethod CutMethod { get; set; }
 

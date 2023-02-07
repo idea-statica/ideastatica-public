@@ -25,32 +25,31 @@ namespace IdeaStatica.BimApiLink.BimApi
 		{ }
 		public virtual IIdeaNode Node { get; set; }
 
-		public IEnumerable<IIdeaConnectedMember> ConnectedMembers { get; set; }
+		public IEnumerable<IIdeaConnectedMember> ConnectedMembers { get; set; } = new List<IIdeaConnectedMember>();
 
-		public IEnumerable<IIdeaPlate> Plates { get; set; }
+		public IEnumerable<IIdeaPlate> Plates { get; set; } = new List<IIdeaPlate>();
 
-		public IEnumerable<IIdeaFoldedPlate> FoldedPlates { get; set; }
+		public IEnumerable<IIdeaFoldedPlate> FoldedPlates { get; set; } = new List<IIdeaFoldedPlate>();
 
-		public IEnumerable<IIdeaAnchorGrid> AnchorGrids { get; set; }
+		public IEnumerable<IIdeaAnchorGrid> AnchorGrids { get; set; } = new List<IIdeaAnchorGrid>();
 
-		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; set; }
+		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; set; } = new List<IIdeaBoltGrid>();
 
-		public IEnumerable<IIdeaWeld> Welds { get; set; }
+		public IEnumerable<IIdeaWeld> Welds { get; set; } = new List<IIdeaWeld>();
 
-		public IEnumerable<IIdeaCut> Cuts { get; set; }
+		public IEnumerable<IIdeaCut> Cuts { get; set; } = new List<IIdeaCut>();
 
 		public IIdeaPersistenceToken Token
 		{
 			get => new ConnectionIdentifier<IIdeaConnectionPoint>(Node.Vector.X, Node.Vector.Y, Node.Vector.Z)
 			{
-				//ConnectedMembers = ConnectedMembers.Select(cm => cm.),
-				ConnectedMembers = new List<ImmutableIdentifier<IIdeaConnectedMember>>(),
-				Plates = Plates?.Select(p => p.Token as ImmutableIdentifier<IIdeaPlate>) ?? new List<ImmutableIdentifier<IIdeaPlate>>(),
-				FoldedPlates = FoldedPlates?.Select(fp => fp.Token as ImmutableIdentifier<IIdeaFoldedPlate>) ?? new List<ImmutableIdentifier<IIdeaFoldedPlate>>(),
-				AnchorGrids = AnchorGrids?.Select(ag => ag.Token as ImmutableIdentifier<IIdeaAnchorGrid>) ?? new List<ImmutableIdentifier<IIdeaAnchorGrid>>(),
-				BoltGrids = BoltGrids?.Select(bg => bg.Token as ImmutableIdentifier<IIdeaBoltGrid>) ?? new List<ImmutableIdentifier<IIdeaBoltGrid>>(),
-				Welds = Welds?.Select(w => w.Token as ImmutableIdentifier<IIdeaWeld>) ?? new List<ImmutableIdentifier<IIdeaWeld>>(),
-				Cuts = Cuts?.Select(c => c.Token as ImmutableIdentifier<IIdeaCut>) ?? new List<ImmutableIdentifier<IIdeaCut>>(),
+				ConnectedMembers = ConnectedMembers?.Select(cp => cp.Token as ImmutableIdentifier<IIdeaConnectedMember>).ToList(),
+				Plates = Plates?.Select(p => p.Token as ImmutableIdentifier<IIdeaPlate>).ToList(),
+				FoldedPlates = FoldedPlates?.Select(fp => fp.Token as ImmutableIdentifier<IIdeaFoldedPlate>).ToList(),
+				AnchorGrids = AnchorGrids?.Select(ag => ag.Token as ImmutableIdentifier<IIdeaAnchorGrid>).ToList(),
+				BoltGrids = BoltGrids?.Select(bg => bg.Token as ImmutableIdentifier<IIdeaBoltGrid>).ToList(),
+				Welds = Welds?.Select(w => w.Token as ImmutableIdentifier<IIdeaWeld>).ToList(),
+				Cuts = Cuts?.Select(c => c.Token as ImmutableIdentifier<IIdeaCut>).ToList(),
 			};
 		}
 	}

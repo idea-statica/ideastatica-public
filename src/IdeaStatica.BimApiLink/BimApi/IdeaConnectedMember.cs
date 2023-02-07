@@ -10,8 +10,9 @@ namespace IdeaStatica.BimApiLink.BimApi
 		}
 
 		public IdeaConnectedMember(string id)
-			: this(new StringIdentifier<IIdeaConnectedMember>(id))
+			: this(new ConnectedMemberIdentidier<IIdeaConnectedMember>(id))
 		{
+
 		}
 
 		public IdeaGeometricalType GeometricalType { get; set; }
@@ -27,5 +28,19 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public IIdeaMember1D IdeaMember { get; set; }
 
 		public bool AutoAddCutByWorkplane { get; set; }
+
+
+		public IIdeaPersistenceToken Token
+		{
+			get => new ConnectedMemberIdentidier<IIdeaConnectedMember>(Identifier.GetId().ToString())
+			{
+				GeometricalType = GeometricalType,
+				ConnectedMemberType = ConnectedMemberType,
+				ForcesIn = ForcesIn,
+				AutoAddCutByWorkplane = AutoAddCutByWorkplane,
+				IsBearing = IsBearing,
+				MemberSegmentType = MemberSegmentType,
+			};
+		}
 	}
 }
