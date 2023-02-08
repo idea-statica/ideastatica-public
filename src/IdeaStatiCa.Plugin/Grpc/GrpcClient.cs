@@ -7,42 +7,10 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
-	public interface IGrpcSender
-	{
-		Task SendMessageAsync(GrpcMessage message);
-	}
-
-	public interface IGrpcCommunicator : IGrpcSender
-	{
-		int Port { get; }
-
-		string Host { get; }
-
-		bool IsConnected { get; }
-
-		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
-
-		void Connect(string clientId, int port);
-
-		/// <summary>
-		/// Starts gRPC communication
-		/// </summary>
-		/// <param name="clientId">Current client ID (PID)</param>
-		/// <param name="port">Port on which the server is running.</param>
-		/// <returns></returns>
-		Task StartAsync();
-
-		/// <summary>
-		/// Stopos gRPC communication
-		/// </summary>
-		/// <returns></returns>
-		Task DisconnectAsync();
-	}
-
 	/// <summary>
 	/// Client implementation for the Grpc connection.
 	/// </summary>
-	public class GrpcClient : IGrpcCommunicator
+	public class GrpcClient : IGrpcClient
 	{
 		#region Private Fields
 		private Channel channel;
@@ -122,7 +90,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="clientId">Current client ID (PID)</param>
 		/// <param name="port">Port on which the server is running.</param>
 		/// <returns></returns>
-		public void Connect(string clientId, int port)
+		private void Connect(string clientId, int port)
 		{
 			ClientID = clientId;
 			Port = port;
@@ -130,7 +98,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			string address = $"localhost:{Port}";
 			Logger.LogDebug($"GrpcClient.Connect address = '{address}', clientId = '{clientId}', port = '{port}'");
 
-			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(MaxDataLength + 1024 * 30));
+			channel = new Channel(address, ChannelCredentials.Insecure, CommunicationTools.GetChannelOptions(MaxDataLength));
 
 			var serviceClient = new GrpcService.GrpcServiceClient(channel);
 
@@ -143,30 +111,34 @@ namespace IdeaStatiCa.Plugin.Grpc
 		}
 
 		/// <summary>
-		/// Connects to the server.
+		/// Connects to the server and starts listen to responses.
 		/// </summary>
+		/// <param name="clientId">Current client ID (PID)</param>
+		/// <param name="port">Port on which the server is running.</param>
 		/// <returns></returns>
-		public Task StartAsync()
+		public Task StartAsync(string clientId, int port)
 		{
+			Connect(clientId, port);
+
 			return Task.Run(async () =>
-		   {
-			   string address = $"{Host}:{Port}";
-			   Logger.LogDebug($"GrpcClient.StartAsync : address = '{address}'");
-			   try
-			   {
+			{
+				string address = $"{Host}:{Port}";
+				Logger.LogDebug($"GrpcClient.StartAsync : address = '{address}'");
+				try
+				{
 					while (await ResponseStream())
-				   {
-					   var grpcMessage = client.ResponseStream.Current;
-					   RunMessageHandler(grpcMessage);
-				   }
-			   }
-			   catch (Exception e)
-			   {
-				   Logger.LogTrace("GrpcClient.StartAsync reading response stream failed", e);
-				   errorMessage = e.Message;
-				   await DisconnectAsync();
-			   }
-		   });
+					{
+						var grpcMessage = client.ResponseStream.Current;
+						RunMessageHandler(grpcMessage);
+					}
+				}
+				catch (Exception e)
+				{
+					Logger.LogTrace("GrpcClient.StartAsync reading response stream failed", e);
+					errorMessage = e.Message;
+					await StopAsync();
+				}
+			});
 		}
 
 		private void RunMessageHandler(GrpcMessage message)
@@ -177,7 +149,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				{
 					HandleMessageAsync(message);
 				}
-				catch(Exception e)
+				catch (Exception e)
 				{
 					Logger.LogWarning($"GrpcClient.RunMessageHandler failed : MessageName = '{message.MessageName}', OperationId = '{message.OperationId}'", e);
 				}
@@ -193,7 +165,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// Disconnets client from the server.
 		/// </summary>
 		/// <returns></returns>
-		public async Task DisconnectAsync()
+		public async Task StopAsync()
 		{
 			Logger.LogDebug("GrpcClient.DisconnectAsync");
 			try

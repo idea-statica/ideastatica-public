@@ -2,8 +2,18 @@
 
 option csharp_namespace = "IdeaStatiCa.Plugin.Grpc";
 
+// general grpc service for bi-directional streaming messaging
 service GrpcService {
 	rpc ConnectAsync(stream GrpcMessage) returns (stream GrpcMessage);
+}
+
+// service for operation with data blob storage
+service GrpcBlobStorageService {
+    rpc Write (stream ContentData) returns (VoidResponse); // blobStorageId and contentId are in metadata
+    rpc Read (ContentRequest) returns (stream ContentData);
+    rpc Exist (ContentRequest) returns (ExistResponse);
+    rpc Delete (ContentRequest) returns (VoidResponse);
+    rpc GetEntries (GetEntriesRequest) returns (GetEntriesResponse);
 }
 
 message GrpcMessage {
@@ -19,4 +29,27 @@ message GrpcMessage {
     MessageType messageType = 6;
     bytes buffer = 7;
     bool compression = 8;
-} 
+}
+
+message VoidResponse {}
+
+message ContentData {
+    bytes data = 1;
+}
+
+message ContentRequest {
+    string blobStorageId = 1;
+    string contentId = 2;
+}
+
+message ExistResponse {
+    bool exist = 1;
+}
+
+message GetEntriesRequest {
+    string blobStorageId = 1;
+}
+
+message GetEntriesResponse {
+    repeated string contentId = 1;
+}

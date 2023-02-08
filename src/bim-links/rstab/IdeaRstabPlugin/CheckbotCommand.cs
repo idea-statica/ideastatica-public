@@ -61,8 +61,7 @@ namespace IdeaRstabPlugin
 
 				// run gRPC server
 				var grpcServer = new GrpcServer(_logger);
-				grpcServer.Connect(clientId.ToString(), grpcPort);
-				var gRPCtask = grpcServer.StartAsync();
+				var gRPCtask = grpcServer.StartAsync(clientId.ToString(), grpcPort);
 
 				var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, grpcServer, _logger);
 

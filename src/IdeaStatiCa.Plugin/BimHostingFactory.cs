@@ -38,11 +38,9 @@ namespace IdeaStatiCa.Plugin
 				int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 
 				_grpcServer = new GrpcServer(logger);
-				_grpcServer.Connect(clientId.ToString(), grpcPort);
+				_grpcServer.StartAsync(clientId.ToString(), grpcPort);
 
-				_grpcServer.StartAsync();
-
-				_checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, _grpcServer, _grpcServer.Logger);
+				_checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, _grpcServer.GrpcService, _grpcServer.Logger);
 			}
 
 			return _checkBotClient.Service is IProgressMessaging ? (IProgressMessaging)_checkBotClient.Service : null;
