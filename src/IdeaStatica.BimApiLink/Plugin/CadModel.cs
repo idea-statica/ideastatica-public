@@ -113,6 +113,12 @@ namespace IdeaStatica.BimApiLink.Plugin
 							(connectionPoint.Plates as List<IIdeaPlate>).Add(plate);
 							break;
 						}
+					case nameof(IIdeaFoldedPlate):
+						{
+							var foldedPlate = _bimApiImporter.Get(item) as IIdeaFoldedPlate;
+							(connectionPoint.FoldedPlates as List<IIdeaFoldedPlate>).Add(foldedPlate);
+							break;
+						}
 					case nameof(IIdeaCut):
 						{
 							var cut = _bimApiImporter.Get(item) as IIdeaCut;
