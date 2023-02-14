@@ -26,7 +26,8 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
-			IModel feaModel,
+			IScopeHook scopeHook,
+			IModel model,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
 		{
@@ -34,7 +35,7 @@ namespace IdeaStatica.BimApiLink
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel as IFeaModel);
+			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, model as IFeaModel);
 			IBimImporter bimImporter = BimImporter.Create(
 				feaModelAdapter,
 				projectAdapter,
@@ -51,6 +52,7 @@ namespace IdeaStatica.BimApiLink
 				bimImporter,
 				bimApiImporter,
 				pluginHook,
+				scopeHook,
 				userDataSource,
 				taskScheduler);
 		}

@@ -26,9 +26,10 @@ namespace IdeaStatica.BimApiLink.Plugin
 			IBimImporter bimImporter,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
+			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
-			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, userDataSource, taskScheduler)
+			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler)
 		{
 			_bimImporter = bimImporter;
 			_project = project;

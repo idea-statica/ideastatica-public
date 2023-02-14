@@ -25,6 +25,7 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
+			IScopeHook scopeHook,
 			IModel feaModel,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
@@ -42,12 +43,13 @@ namespace IdeaStatica.BimApiLink
 				bimImporterConfiguration,
 				remoteApp,
 				resultsProvider);
-			return CreateApplicationInstace(bimApiImporter, pluginHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
+			return CreateApplicationInstace(bimApiImporter, pluginHook, scopeHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
 		}
 
 		protected virtual IApplicationBIM CreateApplicationInstace(
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
+			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
 			IProjectStorage projectStorage,
 			IProject projectAdapter,
@@ -61,6 +63,7 @@ namespace IdeaStatica.BimApiLink
 							bimImporter,
 							bimApiImporter,
 							pluginHook,
+							scopeHook,
 							userDataSource,
 							taskScheduler);
 		}

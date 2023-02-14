@@ -107,7 +107,7 @@ namespace IdeaStatica.BimApiLink
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
 
-		public Task Run(IModel model)
+		public Task Run(IFeaModel feaModel)
 		{
 			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
 				_importersConfiguration.Manager,
@@ -159,52 +159,13 @@ namespace IdeaStatica.BimApiLink
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
-			IFeaModel feaModel,
+			IModel model,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{
 			public object GetUserData() => null;
-		}
-	}
-
-
-		protected override IApplicationBIM Create(
-			IPluginLogger logger,
-			IBimApiImporter bimApiImporter,
-			string projectPath,
-			BimImporterConfiguration bimImporterConfiguration,
-			IProgressMessaging remoteApp,
-			IBimResultsProvider resultsProvider,
-			IPluginHook pluginHook,
-			IScopeHook scopeHook,
-			IFeaModel feaModel,
-			IBimUserDataSource userDataSource)
-		{
-			JsonPersistence jsonPersistence = new JsonPersistence();
-			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
-			Project project = new Project(logger, jsonPersistence);
-			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel);
-			IBimImporter bimImporter = BimImporter.Create(
-				feaModelAdapter,
-				projectAdapter,
-				logger,
-				null,
-				bimImporterConfiguration,
-				remoteApp,
-				resultsProvider);
-
-			return new FeaApplication(
-				ApplicationName,
-				projectAdapter,
-				projectStorage,
-				bimImporter,
-				bimApiImporter,
-				pluginHook,
-				scopeHook,
-				userDataSource);
 		}
 	}
 }
