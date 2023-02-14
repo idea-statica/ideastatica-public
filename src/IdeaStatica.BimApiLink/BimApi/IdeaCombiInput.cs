@@ -12,7 +12,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 		
 		public virtual List<IIdeaCombiItem> CombiItems { get; set; } = null;
 		
-		protected IdeaCombiInput(Identifier<IIdeaCombiInput> identifer)
+		public IdeaCombiInput(Identifier<IIdeaCombiInput> identifer)
 			: base(identifer)
 		{ }
 

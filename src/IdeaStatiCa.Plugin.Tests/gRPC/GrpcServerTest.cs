@@ -67,7 +67,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 				return Task.FromResult(new object());
 			});
 
-			grpcServer.RegisterHandler(messageName, handler);
+			grpcServer.GrpcService.RegisterHandler(messageName, handler);
 
 
 
@@ -90,7 +90,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 
 			streamReader.Current.ReturnsForAnyArgs(t => readEnumerator.Current);
 
-			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+			await grpcServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
 			// message handler should be called two times
 			handledMessages.Count.Should().Be(2);

@@ -44,7 +44,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			var contentHandler = new ProjectContentServerHandler(projectContentMock);
 
 			const string messageName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-			grpcServer.RegisterHandler(messageName, contentHandler);
+			grpcServer.GrpcService.RegisterHandler(messageName, contentHandler);
 
 			// prepare two messages to process
 			List<GrpcMessage> inputMessages = new List<GrpcMessage>();
@@ -99,7 +99,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 				return Task.FromResult(new object());
 			});
 
-			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+			await grpcServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
 			Assert.NotNull(lastHandledMessage);
 			Assert.NotNull(lastHandledMessage.Data);
@@ -255,7 +255,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 			var contentHandler = new ProjectContentServerHandler(projectContentMock);
 
 			const string messageName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-			grpcServer.RegisterHandler(messageName, contentHandler);
+			grpcServer.GrpcService.RegisterHandler(messageName, contentHandler);
 
 			// prepare two messages to process
 			List<GrpcMessage> inputMessages = new List<GrpcMessage>();
@@ -320,7 +320,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 				return Task.CompletedTask;
 			});
 
-			await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+			await grpcServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
 			Assert.NotNull(lastHandledMessage);
 			Assert.NotNull(lastHandledMessage.Data);
@@ -368,7 +368,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 				var contentHandler = new ProjectContentServerHandler(projectContentMock);
 
 				const string messageName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-				grpcServer.RegisterHandler(messageName, contentHandler);
+				grpcServer.GrpcService.RegisterHandler(messageName, contentHandler);
 
 				// prepare two messages to process
 				List<GrpcMessage> inputMessages = new List<GrpcMessage>();
@@ -437,7 +437,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 					return Task.CompletedTask;
 				});
 
-				await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+				await grpcServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
 				Assert.NotNull(lastHandledMessage);
 				lastHandledMessage.Data.Should().Be("OK");
@@ -489,7 +489,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 				var contentHandler = new ProjectContentServerHandler(projectContentMock);
 
 				const string messageName = Constants.GRPC_PROJECTCONTENT_HANDLER_MESSAGE;
-				grpcServer.RegisterHandler(messageName, contentHandler);
+				grpcServer.GrpcService.RegisterHandler(messageName, contentHandler);
 
 				// prepare two messages to process
 				List<GrpcMessage> inputMessages = new List<GrpcMessage>();
@@ -549,7 +549,7 @@ namespace IdeaStatiCa.Plugin.Tests.ProjectContent
 					return Task.CompletedTask;
 				});
 
-				await grpcServer.ConnectAsync(streamReader, streamWriter, context);
+				await grpcServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
 				Assert.NotNull(lastHandledMessage);
 				lastHandledMessage.Data.Should().Be("OK");

@@ -57,17 +57,17 @@ namespace IdeaStatiCa.Plugin
 		readonly TimeSpan OpenServerTimeLimit = TimeSpan.FromMinutes(1);
 #endif
 
-		public BIMPluginHostingGrpc(IBIMPluginFactory factory, IGrpcCommunicator grpcCommunicator, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)
+		public BIMPluginHostingGrpc(IBIMPluginFactory factory, IGrpcServer grpcServer, IPluginLogger logger = null, string eventName = Constants.DefaultPluginEventName)
 		{
 			this.EventName = eventName;
-			this.GrpcCommunicator = grpcCommunicator;
+			this.GrpcCommunicator = grpcServer;
 			mre = new ManualResetEvent(false);
 			bimPluginFactory = factory;
 			ideaLogger = logger ?? new NullLogger();
 			tokenSource = new CancellationTokenSource();
 			hostingTask = null;
 			Service = bimPluginFactory.Create();
-			grpcCommunicator.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service, logger));
+			grpcServer.GrpcService.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(Service, logger));
 		}
 
 		public Task RunAsync(string id, string workingDirectory)

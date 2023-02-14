@@ -24,7 +24,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public virtual bool MirrorZ { get; set; }
 
-		protected IdeaMember1D(Identifier<IIdeaMember1D> identifer)
+		public IdeaMember1D(Identifier<IIdeaMember1D> identifer)
 			: base(identifer)
 		{
 			Token = identifer;

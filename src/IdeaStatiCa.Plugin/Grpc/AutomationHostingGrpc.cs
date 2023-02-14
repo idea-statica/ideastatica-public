@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin.Grpc;
+﻿using IdeaStatica.Communication;
+using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Nito.AsyncEx.Synchronous;
 using System;
@@ -11,7 +12,7 @@ namespace IdeaStatiCa.Plugin
 	/// <summary>
 	/// Grpc Hosting implementation of <see cref="AutomationHosting{MyInterface, ClientInterface}"/>
 	/// </summary>
-	public class AutomationHostingGrpc<MyInterface, ClientInterface> : IBIMPluginClient<ClientInterface>, IDisposable where MyInterface : class where ClientInterface : class
+	public class AutomationHostingGrpc<MyInterface, ClientInterface> : IGrpcCommunicationCommonInterface, IBIMPluginClient<ClientInterface>, IDisposable where MyInterface : class where ClientInterface : class
 	{
 		private Task hostingTask;
 		private CancellationTokenSource tokenSource;
@@ -21,7 +22,7 @@ namespace IdeaStatiCa.Plugin
 		private int myAutomatingProcessId;
 		protected string EventName { get; set; }
 		private readonly IPluginLogger ideaLogger = null;
-		private readonly IGrpcCommunicator GrpcCommunicator = null;
+		private readonly IGrpcClient GrpcClient = null;
 
 		/// <summary>
 		/// My BIM object.
@@ -44,14 +45,14 @@ namespace IdeaStatiCa.Plugin
 		public event ISEventHandler BIMStatusChanged;
 
 		public AutomationHostingGrpc(MyInterface hostedService,
-			IGrpcCommunicator grpcCommunicator,
+			IGrpcClient grpcClient,
 			IPluginLogger logger = null,
 			string eventName = Constants.DefaultPluginEventName)
 		{
 			ideaLogger = logger ?? new NullLogger();
 			Status = AutomationStatus.Unknown;
 			automation = hostedService;
-			GrpcCommunicator = grpcCommunicator;
+			GrpcClient = grpcClient;
 			EventName = eventName;
 			mre = new ManualResetEvent(false);
 			ideaLogger.LogDebug($"AutomationHostingGrpc EventName = '{EventName}'");
@@ -73,15 +74,15 @@ namespace IdeaStatiCa.Plugin
 			if(!string.IsNullOrEmpty(id))
 			{
 				// bim link
-				var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, GrpcCommunicator, ideaLogger);
+				var grpcReflectionHandler = new GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, GrpcClient, ideaLogger);
 				MyBIM = GrpcReflectionServiceFactory.CreateInstance<ClientInterface>(grpcReflectionHandler);
-				GrpcCommunicator.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, grpcReflectionHandler);
+				GrpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_REFLECTION_HANDLER_MESSAGE, grpcReflectionHandler);
 			}
 
 			if (automation != null)
 			{
 				// register handler which serves MyInterface requests
-				GrpcCommunicator.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation, ideaLogger));
+				GrpcClient.RegisterHandler(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(automation, ideaLogger));
 			}
 
 			mre.Reset();
@@ -153,7 +154,7 @@ namespace IdeaStatiCa.Plugin
 				try
 				{
 					ideaLogger.LogDebug("AutomationHostingGrpc.Stop - disconnecting GrpcCommunicator");
-					await GrpcCommunicator.DisconnectAsync();
+					await GrpcClient.StopAsync();
 				}
 				catch
 				{
@@ -182,7 +183,7 @@ namespace IdeaStatiCa.Plugin
 			}
 			finally
 			{
-				GrpcCommunicator?.DisconnectAsync().WaitAndUnwrapException();
+				GrpcClient?.StopAsync().WaitAndUnwrapException();
 
 				NotifyBIMStatusChanged(AppStatus.Finished);
 

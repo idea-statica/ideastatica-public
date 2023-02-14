@@ -1,4 +1,6 @@
-﻿namespace IdeaStatiCa.Plugin.Grpc.Reflection
+﻿using IdeaStatiCa.Public;
+
+namespace IdeaStatiCa.Plugin.Grpc.Reflection
 {
 	/// <summary>
 	/// Instance of GrpcServer with Reflection Service added.
@@ -10,11 +12,14 @@
 		/// </summary>
 		/// <param name="instance">Instance targeted by reflection calls.</param>
 		/// <param name="logger">logger</param>
-		public GrpcReflectionServer(object instance,  IPluginLogger logger) : base(logger)
+		/// <param name="blobStorageProvider">Provider of blob storages</param>
+		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in bytes in grpc message</param>
+		/// <param name="chunkSize">Size of one chunk in bytes for blob storage data transferring</param>
+		public GrpcReflectionServer(object instance, IPluginLogger logger, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE) : base(logger, blobStorageProvider, maxDataLength, chunkSize)
 		{
 			logger.LogDebug("GrpcReflectionServer");
 
-			RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance, logger));
+			GrpcService.RegisterHandler(Constants.GRPC_REFLECTION_HANDLER_MESSAGE, new GrpcReflectionMessageHandler(instance, logger));
 		}
 	}
 }

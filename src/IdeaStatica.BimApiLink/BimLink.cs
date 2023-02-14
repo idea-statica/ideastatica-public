@@ -79,6 +79,12 @@ namespace IdeaStatica.BimApiLink
 			return this;
 		}
 
+		public BimLink WithScopeHook(IScopeHook hook)
+		{
+			_hookManagers.ScopeHookManager.Add(hook);
+			return this;
+		}
+
 		public BimLink WithUserDataSource(IBimUserDataSource userDataSource)
 		{
 			_bimUserDataSource = userDataSource;
@@ -119,7 +125,8 @@ namespace IdeaStatica.BimApiLink
 				InitHostingClient(pluginLogger),
 				resultsProvider,
 				_hookManagers.PluginHookManager,
-				model,
+				_hookManagers.ScopeHookManager,
+				feaModel,
 				_bimUserDataSource,
 				_taskScheduler);
 
@@ -151,7 +158,8 @@ namespace IdeaStatica.BimApiLink
 			IProgressMessaging remoteApp,
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
-			IModel feaModel,
+			IScopeHook scopeHook,
+			IFeaModel feaModel,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler);
 
@@ -162,4 +170,41 @@ namespace IdeaStatica.BimApiLink
 	}
 
 
+		protected override IApplicationBIM Create(
+			IPluginLogger logger,
+			IBimApiImporter bimApiImporter,
+			string projectPath,
+			BimImporterConfiguration bimImporterConfiguration,
+			IProgressMessaging remoteApp,
+			IBimResultsProvider resultsProvider,
+			IPluginHook pluginHook,
+			IScopeHook scopeHook,
+			IFeaModel feaModel,
+			IBimUserDataSource userDataSource)
+		{
+			JsonPersistence jsonPersistence = new JsonPersistence();
+			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
+			Project project = new Project(logger, jsonPersistence);
+			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
+			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel);
+			IBimImporter bimImporter = BimImporter.Create(
+				feaModelAdapter,
+				projectAdapter,
+				logger,
+				null,
+				bimImporterConfiguration,
+				remoteApp,
+				resultsProvider);
+
+			return new FeaApplication(
+				ApplicationName,
+				projectAdapter,
+				projectStorage,
+				bimImporter,
+				bimApiImporter,
+				pluginHook,
+				scopeHook,
+				userDataSource);
+		}
+	}
 }

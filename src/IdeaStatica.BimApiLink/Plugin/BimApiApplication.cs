@@ -20,6 +20,7 @@ namespace IdeaStatica.BimApiLink
 		private readonly IProjectStorage _projectStorage;
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IPluginHook _pluginHook;
+		private readonly IScopeHook _scopeHook;
 		private readonly IBimUserDataSource _userDataSource;
 		private readonly TaskScheduler _taskScheduler;
 
@@ -31,6 +32,7 @@ namespace IdeaStatica.BimApiLink
 			IProjectStorage projectStorage,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
+			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
 		{
@@ -40,6 +42,7 @@ namespace IdeaStatica.BimApiLink
 			_projectStorage = projectStorage;
 			_bimApiImporter = bimApiImporter;
 			_pluginHook = pluginHook;
+			_scopeHook = scopeHook;
 			_userDataSource = userDataSource;
 			_taskScheduler = taskScheduler;
 
@@ -117,7 +120,6 @@ namespace IdeaStatica.BimApiLink
 				using (CreateScope(countryCode))
 				{
 					_pluginHook.EnterImport(countryCode);
-
 					try
 					{
 						return Synchronize(countryCode, items);
@@ -148,9 +150,15 @@ namespace IdeaStatica.BimApiLink
 
 		protected BimLinkScope CreateScope(CountryCode countryCode)
 		{
+			_scopeHook.PreScope();
+
 			object userData = _userDataSource.GetUserData();
 
-			return new BimLinkScope(new BimApiImporterCacheAdapter(_bimApiImporter), countryCode, userData);
+			return new BimLinkScope(
+				new BimApiImporterCacheAdapter(_bimApiImporter),
+				_scopeHook,
+				countryCode,
+				userData);
 		}
 	}
 }

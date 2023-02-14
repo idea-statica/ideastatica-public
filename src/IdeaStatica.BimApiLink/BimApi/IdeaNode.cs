@@ -8,8 +8,8 @@ namespace IdeaStatica.BimApiLink.BimApi
 		public virtual IIdeaPersistenceToken Token { get; set; }
 		
 		public virtual IdeaVector3D Vector { get; set; } = null;
-		
-		protected IdeaNode(Identifier<IIdeaNode> identifer)
+
+		public IdeaNode(Identifier<IIdeaNode> identifer)
 			: base(identifer)
 		{
 			Token = identifer;
