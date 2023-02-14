@@ -55,6 +55,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 		protected override List<ModelBIM> Synchronize(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
+			items.ForEach(i => i.Items.Add(new BIMItemId() { Id = i.Id, Type = BIMItemType.BIMItemsGroup }));
 			return _bimImporter.ImportSelected(items, countryCode);
 		}
 

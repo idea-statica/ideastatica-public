@@ -44,6 +44,11 @@ namespace IdeaStatica.BimApiLink.Plugin
 			nodes = new HashSet<IIdeaNode>();
 			members = new HashSet<IIdeaMember1D>();
 			connectionPoints = new HashSet<IIdeaConnectionPoint>();
+			if (selections == null)
+			{
+				return;
+			}
+
 			foreach (var selection in selections)
 			{
 				_lastSelection = selection;
@@ -69,10 +74,16 @@ namespace IdeaStatica.BimApiLink.Plugin
 		{
 			CadUserSelection selection = _cadModel.GetUserSelection();
 			_lastSelection = selection;
+			nodes = new HashSet<IIdeaNode>();
 
+			if (selection == null)
+			{
+				members = new HashSet<IIdeaMember1D>();
+				connectionPoint = null;
+				return;
+			}
 			connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
 
-			nodes = new HashSet<IIdeaNode>();
 
 			nodes.Add(connectionPoint.Node);
 

@@ -39,7 +39,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public IEnumerable<IIdeaCut> Cuts { get; set; } = new List<IIdeaCut>();
 
-		public IIdeaPersistenceToken Token
+		public virtual IIdeaPersistenceToken Token
 		{
 			get => new ConnectionIdentifier<IIdeaConnectionPoint>(Node.Vector.X, Node.Vector.Y, Node.Vector.Z)
 			{
