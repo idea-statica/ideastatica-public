@@ -101,6 +101,8 @@
 
 		IIdeaMember1D IdeaMember { get; }
 
+		bool IsReferenceLineInCenterOfGravity { get; }
+
 		bool AutoAddCutByWorkplane { get; }
 	}
 }

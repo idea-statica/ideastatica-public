@@ -17,6 +17,8 @@ namespace IdeaStatica.BimApiLink.Identifiers
 
 		public bool AutoAddCutByWorkplane { get; set; }
 
+		public bool IsReferenceLineInCenterOfGravity { get; set; }
+
 		public Identifier<IIdeaMember1D> IdeaMember { get; set; }
 
 		public ConnectedMemberIdentidier(string id)

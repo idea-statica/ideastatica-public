@@ -29,6 +29,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public bool AutoAddCutByWorkplane { get; set; }
 
+		public bool IsReferenceLineInCenterOfGravity { get; set; }
 
 		public IIdeaPersistenceToken Token
 		{
@@ -40,7 +41,10 @@ namespace IdeaStatica.BimApiLink.BimApi
 				AutoAddCutByWorkplane = AutoAddCutByWorkplane,
 				IsBearing = IsBearing,
 				MemberSegmentType = MemberSegmentType,
+				IsReferenceLineInCenterOfGravity = IsReferenceLineInCenterOfGravity
 			};
 		}
+
+
 	}
 }
