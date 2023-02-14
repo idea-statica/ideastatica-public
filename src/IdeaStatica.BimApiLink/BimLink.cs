@@ -107,7 +107,7 @@ namespace IdeaStatica.BimApiLink
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
 
-		public Task Run(IFeaModel feaModel)
+		public Task Run(IModel model)
 		{
 			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
 				_importersConfiguration.Manager,
@@ -126,7 +126,7 @@ namespace IdeaStatica.BimApiLink
 				resultsProvider,
 				_hookManagers.PluginHookManager,
 				_hookManagers.ScopeHookManager,
-				feaModel,
+				model,
 				_bimUserDataSource,
 				_taskScheduler);
 
