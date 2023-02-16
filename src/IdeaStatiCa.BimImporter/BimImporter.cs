@@ -93,6 +93,7 @@ namespace IdeaStatiCa.BimImporter
 
 			List<Connection> connections = new List<Connection>();
 
+			bool skipAutoCreationOfConnection = false;
 			if (connectionPoints != null)
 			{
 				foreach (var connectionPoint in connectionPoints)
@@ -101,19 +102,27 @@ namespace IdeaStatiCa.BimImporter
 				}
 			}
 
-			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
+			if (connectionPoints != null && connectionPoints.Count > 0 && connections.Count > 0)
 			{
-				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
-				{
-					var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
+				skipAutoCreationOfConnection = true;
+			}
 
-					if (!connections.Exists(
-						 c =>
-							(newConnection.ReferencedObject as IIdeaConnectionPoint).Node.IsAlmostEqual(
-								 (c.ReferencedObject as IIdeaConnectionPoint).Node, 1E-08)
-						))
+			if (!skipAutoCreationOfConnection)
+			{
+				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
+				{
+					if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
 					{
-						connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+						var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
+
+						if (!connections.Exists(
+							 c =>
+								(newConnection.ReferencedObject as IIdeaConnectionPoint).Node.IsAlmostEqual(
+									 (c.ReferencedObject as IIdeaConnectionPoint).Node, 1E-08)
+							))
+						{
+							connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+						}
 					}
 				}
 			}

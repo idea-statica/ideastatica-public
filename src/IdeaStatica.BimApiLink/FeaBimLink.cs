@@ -47,6 +47,7 @@ namespace IdeaStatica.BimApiLink
 
 			return new FeaApplication(
 				ApplicationName,
+				logger,
 				projectAdapter,
 				projectStorage,
 				bimImporter,

@@ -18,9 +18,9 @@ namespace IdeaStatica.BimApiLink.Plugin
 		private readonly IBimImporter _bimImporter;
 		private readonly IProject _project;
 
-
 		public CadApplication(
 			string applicationName,
+			IPluginLogger logger,
 			IProject project,
 			IProjectStorage projectStorage,
 			IBimImporter bimImporter,
@@ -29,7 +29,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
-			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler)
+			: base(applicationName, logger, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler)
 		{
 			_bimImporter = bimImporter;
 			_project = project;

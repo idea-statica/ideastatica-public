@@ -3,10 +3,12 @@ using IdeaStatica.BimApiLink.Hooks;
 using IdeaStatica.BimApiLink.Identifiers;
 using IdeaStatica.BimApiLink.Importers;
 using IdeaStatica.BimApiLink.Persistence;
+using IdeaStatica.BimApiLink.Plugin;
 using IdeaStatica.BimApiLink.Scoping;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,11 +25,13 @@ namespace IdeaStatica.BimApiLink
 		private readonly IScopeHook _scopeHook;
 		private readonly IBimUserDataSource _userDataSource;
 		private readonly TaskScheduler _taskScheduler;
+		private readonly IPluginLogger _logger;
 
 		protected override string ApplicationName { get; }
 
 		protected BimApiApplication(
 			string applicationName,
+			IPluginLogger logger,
 			IProject project,
 			IProjectStorage projectStorage,
 			IBimApiImporter bimApiImporter,
@@ -38,6 +42,7 @@ namespace IdeaStatica.BimApiLink
 		{
 			ApplicationName = applicationName;
 
+			_logger = logger;
 			_project = project;
 			_projectStorage = projectStorage;
 			_bimApiImporter = bimApiImporter;
@@ -88,6 +93,11 @@ namespace IdeaStatica.BimApiLink
 		{
 			Task<ModelBIM> task = Task.Factory.StartNew(() =>
 			{
+				_logger.LogEventInformation(new BimConnectionsImportEvent(
+					   ApplicationName,
+					   Enum.GetName(typeof(RequestedItemsType), requestedType),
+					   Enum.GetName(typeof(CountryCode), countryCode))
+					);
 				using (CreateScope(countryCode))
 				{
 					_pluginHook.EnterImport(countryCode);
@@ -117,6 +127,10 @@ namespace IdeaStatica.BimApiLink
 		{
 			Task<List<ModelBIM>> task = Task.Factory.StartNew(() =>
 			{
+				_logger.LogEventInformation(new BimConnectionsSynchronizeEvent(
+					   ApplicationName,
+					   Enum.GetName(typeof(CountryCode), countryCode))
+					);
 				using (CreateScope(countryCode))
 				{
 					_pluginHook.EnterImport(countryCode);

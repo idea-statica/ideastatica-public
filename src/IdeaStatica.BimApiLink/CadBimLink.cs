@@ -43,10 +43,11 @@ namespace IdeaStatica.BimApiLink
 				bimImporterConfiguration,
 				remoteApp,
 				resultsProvider);
-			return CreateApplicationInstace(bimApiImporter, pluginHook, scopeHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
+			return CreateApplicationInstace(logger, bimApiImporter, pluginHook, scopeHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
 		}
 
 		protected virtual IApplicationBIM CreateApplicationInstace(
+			IPluginLogger logger,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
@@ -58,6 +59,7 @@ namespace IdeaStatica.BimApiLink
 		{
 			return new CadApplication(
 							ApplicationName,
+							logger,
 							projectAdapter,
 							projectStorage,
 							bimImporter,

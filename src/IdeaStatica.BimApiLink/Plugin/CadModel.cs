@@ -63,7 +63,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 				members.UnionWith(connectionMembers);
 
-				ProcessConnectionMembers(nodes, members, connectionPoint);
+				ProcessConnectionMembers(nodes, connectionMembers, connectionPoint);
 				ProcessConnectionObjects(connectionPoint, selection);
 
 				connectionPoints.Add(connectionPoint);
