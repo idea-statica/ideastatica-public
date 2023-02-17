@@ -7,19 +7,19 @@ namespace IdeaStatica.BimApiLink.Identifiers
 	public class ConnectionIdentifier<T> : ImmutableIdentifier<T>
 		where T : IIdeaObject
 	{
-		public ICollection<ImmutableIdentifier<IIdeaPlate>> Plates { get; set; }
+		public IList<ImmutableIdentifier<IIdeaPlate>> Plates { get; set; }
 
-		public ICollection<ImmutableIdentifier<IIdeaConnectedMember>> ConnectedMembers { get; set; }
+		public IList<ImmutableIdentifier<IIdeaConnectedMember>> ConnectedMembers { get; set; }
 
-		public ICollection<ImmutableIdentifier<IIdeaFoldedPlate>> FoldedPlates { get; set; }
+		public IList<ImmutableIdentifier<IIdeaFoldedPlate>> FoldedPlates { get; set; }
 
-		public ICollection<ImmutableIdentifier<IIdeaAnchorGrid>> AnchorGrids { get; set; }
+		public IList<ImmutableIdentifier<IIdeaAnchorGrid>> AnchorGrids { get; set; }
 
-		public ICollection<ImmutableIdentifier<IIdeaBoltGrid>> BoltGrids { get; set; }
+		public IList<ImmutableIdentifier<IIdeaBoltGrid>> BoltGrids { get; set; }
 
-		public ICollection<ImmutableIdentifier<IIdeaWeld>> Welds { get; set; }
+		public IList<ImmutableIdentifier<IIdeaWeld>> Welds { get; set; }
 
-		public ICollection<ImmutableIdentifier<IIdeaCut>> Cuts { get; set; }
+		public IList<ImmutableIdentifier<IIdeaCut>> Cuts { get; set; }
 
 		public Identifier<IIdeaNode> Node { get; set; }
 
