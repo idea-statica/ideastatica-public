@@ -10,7 +10,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 		}
 
 		public IdeaConnectedMember(string id)
-			: this(new ConnectedMemberIdentidier<IIdeaConnectedMember>(id))
+			: this(new ConnectedMemberIdentifier<IIdeaConnectedMember>(id))
 		{
 
 		}
@@ -33,7 +33,7 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public IIdeaPersistenceToken Token
 		{
-			get => new ConnectedMemberIdentidier<IIdeaConnectedMember>(Identifier.GetId().ToString())
+			get => new ConnectedMemberIdentifier<IIdeaConnectedMember>(Identifier.GetId().ToString())
 			{
 				GeometricalType = GeometricalType,
 				ConnectedMemberType = ConnectedMemberType,

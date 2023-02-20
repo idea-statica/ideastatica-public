@@ -1,5 +1,8 @@
 ﻿namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent bend of folded plate
+	/// </summary>
 	public interface IIdeaBend : IIdeaObject
 	{
 		/// <summary>

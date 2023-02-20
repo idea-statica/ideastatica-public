@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
 		private readonly IProgressMessaging _remoteApp;
+		private readonly BimImporterConfiguration _configuration;
 
 		/// <summary>
 		///Creates instance of <see cref="BimImporter"/>.
@@ -58,6 +59,7 @@ namespace IdeaStatiCa.BimImporter
 				project,
 				logger,
 				geometryProvider,
+				configuration,
 				BimObjectImporter.Create(logger, configuration, resultsProvider, remoteApp),
 				remoteApp);
 		}
@@ -67,6 +69,7 @@ namespace IdeaStatiCa.BimImporter
 			IProject project,
 			IPluginLogger logger,
 			IGeometryProvider geometryProvider,
+			BimImporterConfiguration configuration,
 			IBimObjectImporter bimObjectImporter,
 			IProgressMessaging remoteApp = null)
 		{
@@ -74,6 +77,7 @@ namespace IdeaStatiCa.BimImporter
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
+			_configuration = configuration;
 			_bimObjectImporter = bimObjectImporter ?? throw new ArgumentNullException(nameof(bimObjectImporter));
 			_remoteApp = remoteApp;
 		}
@@ -118,7 +122,7 @@ namespace IdeaStatiCa.BimImporter
 						if (!connections.Exists(
 							 c =>
 								(newConnection.ReferencedObject as IIdeaConnectionPoint).Node.IsAlmostEqual(
-									 (c.ReferencedObject as IIdeaConnectionPoint).Node, 1E-08)
+									 (c.ReferencedObject as IIdeaConnectionPoint).Node, _configuration.GeometryPrecision)
 							))
 						{
 							connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));

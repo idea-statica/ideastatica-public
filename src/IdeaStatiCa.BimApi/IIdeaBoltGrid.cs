@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent bolt grid
+	/// </summary>
 	public interface IIdeaBoltGrid : IIdeaPersistentObject
 	{
 		/// <summary>

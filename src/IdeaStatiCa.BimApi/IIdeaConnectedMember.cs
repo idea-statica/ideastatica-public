@@ -87,22 +87,49 @@
 		NoBending = 32,
 	}
 
+	/// <summary>
+	/// Represent Connected Member - member 1D assigned in to connection 
+	/// </summary>
 	public interface IIdeaConnectedMember : IIdeaObjectConnectable
 	{
+		/// <summary>
+		/// Member is [Continuous|Ended]
+		/// </summary>
 		IdeaGeometricalType GeometricalType { get; }
 
+		/// <summary>
+		/// Connected member type [Structural|Stiffening|Negative]
+		/// </summary>
 		IdeaConnectedMemberType ConnectedMemberType { get; set; }
 
+		/// <summary>
+		/// Is member bearing?
+		/// </summary>
 		bool IsBearing { get; }
 
+		/// <summary>
+		/// Load forces placed in
+		/// </summary>
 		IdeaForcesIn ForcesIn { get; set; }
 
+		/// <summary>
+		/// Member segment type
+		/// </summary>
 		IdeaBeamSegmentModelType MemberSegmentType { get; }
 
+		/// <summary>
+		/// member
+		/// </summary>
 		IIdeaMember1D IdeaMember { get; }
 
+		/// <summary>
+		/// Is Cross section place on reference line or center of gravity - affected member offsets
+		/// </summary>
 		bool IsReferenceLineInCenterOfGravity { get; }
 
+		/// <summary>
+		/// Add automatically cut by work plane on beginning and end of member
+		/// </summary>
 		bool AutoAddCutByWorkplane { get; }
 	}
 }

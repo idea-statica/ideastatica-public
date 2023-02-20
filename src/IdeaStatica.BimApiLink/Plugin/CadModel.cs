@@ -105,7 +105,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 				nodes.Add(ideaMember.Elements.Last().Segment.EndNode);
 				var no = (ideaMember.Token as StringIdentifier<IIdeaMember1D>).Id;
 
-				var id = new ConnectedMemberIdentidier<IIdeaConnectedMember>(no);
+				var id = new ConnectedMemberIdentifier<IIdeaConnectedMember>(no);
 				id.ConnectedMemberType = IdeaConnectedMemberType.Structural;
 				var cm = _bimApiImporter.Get(id);
 				(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(cm);

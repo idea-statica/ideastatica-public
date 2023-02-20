@@ -2,6 +2,9 @@
 
 namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent folded plate - connect IIdeaPlate and IIdeaBend in to one piece
+	/// </summary>
 	public interface IIdeaFoldedPlate : IIdeaObjectConnectable
 	{
 		/// <summary>

@@ -2,7 +2,7 @@
 
 namespace IdeaStatica.BimApiLink.Identifiers
 {
-	public class ConnectedMemberIdentidier<T> : StringIdentifier<T>
+	public class ConnectedMemberIdentifier<T> : StringIdentifier<T>
 		where T : IIdeaObject
 	{
 		public IdeaGeometricalType GeometricalType { get; set; }
@@ -21,7 +21,7 @@ namespace IdeaStatica.BimApiLink.Identifiers
 
 		public Identifier<IIdeaMember1D> IdeaMember { get; set; }
 
-		public ConnectedMemberIdentidier(string id)
+		public ConnectedMemberIdentifier(string id)
 			: base(id)
 		{
 			IdeaMember = new StringIdentifier<IIdeaMember1D>(id);

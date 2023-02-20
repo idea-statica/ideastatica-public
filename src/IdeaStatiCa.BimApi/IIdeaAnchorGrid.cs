@@ -2,6 +2,9 @@
 
 namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent anchor grid extend IIdeaBoltGrid
+	/// </summary>
 	public interface IIdeaAnchorGrid : IIdeaBoltGrid
 	{
 		/// <summary>

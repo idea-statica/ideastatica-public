@@ -8,9 +8,9 @@ namespace IdeaStatica.BimApiLink.Importers
 	{
 		public override T Create(Identifier<T> identifier)
 		{
-			return Create(((ConnectedMemberIdentidier<T>)identifier));
+			return Create(((ConnectedMemberIdentifier<T>)identifier));
 		}
 
-		public abstract T Create(ConnectedMemberIdentidier<T> id);
+		public abstract T Create(ConnectedMemberIdentifier<T> id);
 	}
 }
