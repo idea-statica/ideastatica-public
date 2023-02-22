@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.Serialization;
-
-#if NET48
 using System.ServiceModel;
-#endif
 
 namespace IdeaStatiCa.Plugin
 {
