@@ -1,8 +1,9 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using Castle.MicroKernel.SubSystems.Conversion;
+using IdeaStatiCa.BimApi;
 
 namespace IdeaStatica.BimApiLink.Identifiers
 {
-	public class ConnectedMemberIdentifier<T> : StringIdentifier<T>
+	public class ConnectedMemberIdentifier<T> : ImmutableIdentifier<T>
 		where T : IIdeaObject
 	{
 		public IdeaGeometricalType GeometricalType { get; set; }
@@ -21,10 +22,25 @@ namespace IdeaStatica.BimApiLink.Identifiers
 
 		public Identifier<IIdeaMember1D> IdeaMember { get; set; }
 
+		public override string GetStringId() => $"{typeof(T).FullName}-{IdeaMember?.GetId()}";
+
+		public override object GetId() => IdeaMember?.GetId();
+
+		public ConnectedMemberIdentifier()
+			: base("")
+		{
+		}
+
 		public ConnectedMemberIdentifier(string id)
 			: base(id)
 		{
 			IdeaMember = new StringIdentifier<IIdeaMember1D>(id);
+		}
+
+		public ConnectedMemberIdentifier(Identifier<IIdeaMember1D> id)
+			: base(id.GetStringId())
+		{
+			IdeaMember = id;
 		}
 	}
 }

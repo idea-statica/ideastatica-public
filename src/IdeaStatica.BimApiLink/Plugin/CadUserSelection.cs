@@ -10,8 +10,8 @@ namespace IdeaStatica.BimApiLink.Plugin
 		public ICollection<IIdentifier> Objects { get; set; }
 			= Array.Empty<IIdentifier>();
 
-		public ICollection<Identifier<IIdeaMember1D>> Members { get; set; }
-			= Array.Empty<Identifier<IIdeaMember1D>>();
+		public ICollection<Identifier<IIdeaConnectedMember>> Members { get; set; }
+			= Array.Empty<Identifier<IIdeaConnectedMember>>();
 
 		public Identifier<IIdeaConnectionPoint> ConnectionPoint { get; set; }
 

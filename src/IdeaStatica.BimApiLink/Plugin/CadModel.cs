@@ -56,14 +56,19 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 				nodes.Add(connectionPoint.Node);
 
-				var connectionMembers = selection.Members
+
+				var connectedMembers = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
+				.WhereNotNull()
+				.ToHashSet();
+				var connectionMembers = connectedMembers
+				.Select(x => x.IdeaMember)
 				.WhereNotNull()
 				.ToHashSet();
 
 				members.UnionWith(connectionMembers);
 
-				ProcessConnectionMembers(nodes, connectionMembers, connectionPoint);
+				ProcessConnectionMembers(nodes, connectedMembers, connectionPoint);
 				ProcessConnectionObjects(connectionPoint, selection);
 
 				connectionPoints.Add(connectionPoint);
@@ -87,28 +92,29 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 			nodes.Add(connectionPoint.Node);
 
-
-			members = selection.Members
+			var connectedMembers = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
 				.WhereNotNull()
 				.ToHashSet();
-			ProcessConnectionMembers(nodes, members, connectionPoint);
+
+			members = connectedMembers
+			.Select(x => x.IdeaMember)
+			.WhereNotNull()
+			.ToHashSet();
+
+			ProcessConnectionMembers(nodes, connectedMembers, connectionPoint);
 			ProcessConnectionObjects(connectionPoint, selection);
 
 		}
 
-		private void ProcessConnectionMembers(ISet<IIdeaNode> nodes, ISet<IIdeaMember1D> members, IIdeaConnectionPoint connectionPoint)
+		private void ProcessConnectionMembers(ISet<IIdeaNode> nodes, ISet<IIdeaConnectedMember> members, IIdeaConnectionPoint connectionPoint)
 		{
 			foreach (var ideaMember in members)
 			{
-				nodes.Add(ideaMember.Elements.First().Segment.StartNode);
-				nodes.Add(ideaMember.Elements.Last().Segment.EndNode);
-				var no = (ideaMember.Token as StringIdentifier<IIdeaMember1D>).Id;
-
-				var id = new ConnectedMemberIdentifier<IIdeaConnectedMember>(no);
-				id.ConnectedMemberType = IdeaConnectedMemberType.Structural;
-				var cm = _bimApiImporter.Get(id);
-				(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(cm);
+				nodes.Add(ideaMember.IdeaMember.Elements.First().Segment.StartNode);
+				nodes.Add(ideaMember.IdeaMember.Elements.Last().Segment.EndNode);
+				ideaMember.ConnectedMemberType = IdeaConnectedMemberType.Structural;
+				(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(ideaMember);
 			};
 		}
 
