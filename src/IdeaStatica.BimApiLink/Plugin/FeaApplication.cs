@@ -8,6 +8,7 @@ using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IdeaStatica.BimApiLink.Plugin
 {
@@ -17,14 +18,16 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 		public FeaApplication(
 			string applicationName,
+			IPluginLogger logger,
 			IProject project,
 			IProjectStorage projectStorage,
 			IBimImporter bimImporter,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
-			IBimUserDataSource userDataSource)
-			: base(applicationName, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource)
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler)
+			: base(applicationName, logger, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler)
 		{
 			_bimImporter = bimImporter;
 		}

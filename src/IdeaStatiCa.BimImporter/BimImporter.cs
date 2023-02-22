@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
+using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using System;
@@ -21,6 +22,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
 		private readonly IProgressMessaging _remoteApp;
+		private readonly BimImporterConfiguration _configuration;
 
 		/// <summary>
 		///Creates instance of <see cref="BimImporter"/>.
@@ -57,6 +59,7 @@ namespace IdeaStatiCa.BimImporter
 				project,
 				logger,
 				geometryProvider,
+				configuration,
 				BimObjectImporter.Create(logger, configuration, resultsProvider, remoteApp),
 				remoteApp);
 		}
@@ -66,6 +69,7 @@ namespace IdeaStatiCa.BimImporter
 			IProject project,
 			IPluginLogger logger,
 			IGeometryProvider geometryProvider,
+			BimImporterConfiguration configuration,
 			IBimObjectImporter bimObjectImporter,
 			IProgressMessaging remoteApp = null)
 		{
@@ -73,6 +77,7 @@ namespace IdeaStatiCa.BimImporter
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
+			_configuration = configuration;
 			_bimObjectImporter = bimObjectImporter ?? throw new ArgumentNullException(nameof(bimObjectImporter));
 			_remoteApp = remoteApp;
 		}
@@ -92,6 +97,7 @@ namespace IdeaStatiCa.BimImporter
 
 			List<Connection> connections = new List<Connection>();
 
+			bool skipAutoCreationOfConnection = false;
 			if (connectionPoints != null)
 			{
 				foreach (var connectionPoint in connectionPoints)
@@ -100,11 +106,28 @@ namespace IdeaStatiCa.BimImporter
 				}
 			}
 
-			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
+			if (connectionPoints != null && connectionPoints.Count > 0 && connections.Count > 0)
 			{
-				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
+				skipAutoCreationOfConnection = true;
+			}
+
+			if (!skipAutoCreationOfConnection)
+			{
+				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
 				{
-					connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+					if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
+					{
+						var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
+
+						if (!connections.Exists(
+							 c =>
+								(newConnection.ReferencedObject as IIdeaConnectionPoint).Node.IsAlmostEqual(
+									 (c.ReferencedObject as IIdeaConnectionPoint).Node, _configuration.GeometryPrecision)
+							))
+						{
+							connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+						}
+					}
 				}
 			}
 

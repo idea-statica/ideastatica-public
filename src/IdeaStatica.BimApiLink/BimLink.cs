@@ -23,11 +23,10 @@ namespace IdeaStatica.BimApiLink
 		private BimImporterConfiguration _bimImporterConfiguration;
 		private readonly string _projectPath;
 		private IBimUserDataSource _bimUserDataSource = new NullBimUserDataSource();
+		private TaskScheduler _taskScheduler = TaskScheduler.Default;
 
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
 		private readonly HookManagers _hookManagers = new HookManagers();
-
-		public static BimLink Create(string applicationName, string checkbotProjectPath) => new FeaBimLink(applicationName, checkbotProjectPath);
 
 		protected BimLink(string applicationName, string projectPath)
 		{
@@ -92,6 +91,12 @@ namespace IdeaStatica.BimApiLink
 			return this;
 		}
 
+		public BimLink WithTaskScheduler(TaskScheduler taskScheduler)
+		{
+			_taskScheduler = taskScheduler;
+			return this;
+		}
+
 		public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
 		{
 			if (_bimHosting is null)
@@ -102,7 +107,7 @@ namespace IdeaStatica.BimApiLink
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
 
-		public Task Run(IFeaModel feaModel)
+		public Task Run(IModel model)
 		{
 			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
 				_importersConfiguration.Manager,
@@ -121,8 +126,9 @@ namespace IdeaStatica.BimApiLink
 				resultsProvider,
 				_hookManagers.PluginHookManager,
 				_hookManagers.ScopeHookManager,
-				feaModel,
-				_bimUserDataSource);
+				model,
+				_bimUserDataSource,
+				_taskScheduler);
 
 			PluginFactory pluginFactory = new PluginFactory(
 				applicationBIM,
@@ -153,56 +159,13 @@ namespace IdeaStatica.BimApiLink
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
-			IFeaModel feaModel,
-			IBimUserDataSource userDataSource);
+			IModel model,
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{
 			public object GetUserData() => null;
-		}
-	}
-
-	internal class FeaBimLink : BimLink
-	{
-		public FeaBimLink(string applicationName, string projectPath) : base(applicationName, projectPath)
-		{
-		}
-
-		protected override IApplicationBIM Create(
-			IPluginLogger logger,
-			IBimApiImporter bimApiImporter,
-			string projectPath,
-			BimImporterConfiguration bimImporterConfiguration,
-			IProgressMessaging remoteApp,
-			IBimResultsProvider resultsProvider,
-			IPluginHook pluginHook,
-			IScopeHook scopeHook,
-			IFeaModel feaModel,
-			IBimUserDataSource userDataSource)
-		{
-			JsonPersistence jsonPersistence = new JsonPersistence();
-			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
-			Project project = new Project(logger, jsonPersistence);
-			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, feaModel);
-			IBimImporter bimImporter = BimImporter.Create(
-				feaModelAdapter,
-				projectAdapter,
-				logger,
-				null,
-				bimImporterConfiguration,
-				remoteApp,
-				resultsProvider);
-
-			return new FeaApplication(
-				ApplicationName,
-				projectAdapter,
-				projectStorage,
-				bimImporter,
-				bimApiImporter,
-				pluginHook,
-				scopeHook,
-				userDataSource);
 		}
 	}
 }

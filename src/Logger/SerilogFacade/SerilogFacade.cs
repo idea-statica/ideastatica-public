@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Public;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -247,6 +249,10 @@ namespace IdeaStatiCa.PluginLogger
 
 			Process process = Process.GetCurrentProcess();
 			return $"{process.ProcessName}_{process.Id}";
+		}
+
+		public void LogEventInformation(IIdeaUserEvent userEvent, string screenName = null, Dictionary<int, string> eventCustomDimensions = null)
+		{
 		}
 	}
 }

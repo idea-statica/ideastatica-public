@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Public;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -37,6 +39,10 @@ namespace BimApiExample.ViewModels
 		public void LogError(string message, Exception ex = null)
 		{
 			Log(MessageSeverity.Error, message, ex);
+		}
+
+		public void LogEventInformation(IIdeaUserEvent userEvent, string screenName = null, Dictionary<int, string> eventCustomDimensions = null)
+		{
 		}
 
 		public void LogInformation(string message, Exception ex = null)

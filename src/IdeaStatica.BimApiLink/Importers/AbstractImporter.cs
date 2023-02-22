@@ -37,6 +37,7 @@ namespace IdeaStatica.BimApiLink.Importers
 				return Create(id);
 			}
 
+			// tady to sleti - spatny importer
 			throw new ArgumentException();
 		}
 
