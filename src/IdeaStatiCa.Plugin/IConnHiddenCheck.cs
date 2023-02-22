@@ -1,9 +1,6 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using System.Collections.Generic;
-
-#if NET48
 using System.ServiceModel;
-#endif
 
 namespace IdeaStatiCa.Plugin
 {
