@@ -297,8 +297,15 @@ namespace ConnectionHiddenCalculation
 				 }
 				 else if (res is IdeaRS.OpenModel.Connection.ConnectionData conData)
 				 {
+					 var jsonSetting2 = new JsonSerializerSettings
+					 {
+						 ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(),
+						 Culture = CultureInfo.InvariantCulture,
+						 TypeNameHandling = TypeNameHandling.Auto
+					 };
+
 					 var jsonFormating = Formatting.Indented;
-					 Results = JsonConvert.SerializeObject(conData, jsonFormating, jsonSetting);
+					 Results = JsonConvert.SerializeObject(conData, jsonFormating, jsonSetting2);
 				 }
 				 else if (res is IdeaRS.OpenModel.OpenModelContainer openModelTuple)
 				 {

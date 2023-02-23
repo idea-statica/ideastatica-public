@@ -1,6 +1,4 @@
-﻿#if NET48
-using System.ServiceModel;
-#endif
+﻿using System.ServiceModel;
 using System;
 
 namespace IdeaStatiCa.Plugin
