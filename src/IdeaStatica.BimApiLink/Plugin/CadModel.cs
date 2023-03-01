@@ -43,6 +43,12 @@ namespace IdeaStatica.BimApiLink.Plugin
 			ProcessSelection(out nodes, out members, out connectionPoints, selections);
 		}
 
+		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		{
+			IEnumerable<CadUserSelection> selections = _cadModel.GetSelectionOfWholeModel();
+			ProcessSelection(out nodes, out members, out connectionPoints, selections);
+		}
+
 		private void ProcessSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints, IEnumerable<CadUserSelection> selections)
 		{
 			nodes = new HashSet<IIdeaNode>();
@@ -176,10 +182,6 @@ namespace IdeaStatica.BimApiLink.Plugin
 			}
 		}
 
-		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
-		{
-			IEnumerable<CadUserSelection> selections = _cadModel.GetSelectionOfWholeModel();
-			ProcessSelection(out nodes, out members, out connectionPoints, selections);
-		}
+
 	}
 }

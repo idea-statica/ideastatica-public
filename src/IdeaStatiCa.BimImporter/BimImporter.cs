@@ -153,7 +153,7 @@ namespace IdeaStatiCa.BimImporter
 		public ModelBIM ImportWholeModel(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
-			InitImportWholeModel(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
+			InitImportOfWholeModel(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
 			return ProcessSelectedModel(countryCode, selectedNodes, selectedMembers, connectionPoints);
 		}
 
@@ -336,7 +336,7 @@ namespace IdeaStatiCa.BimImporter
 			connectionPoints = selectedConnectionPoints;
 		}
 
-		private void InitImportWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		private void InitImportOfWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);

@@ -27,19 +27,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					PlanePoint = ctx.Import(workPlane.Origin).Element as Point3D,
 
 				};
-				var beamIOM = connectionData.Beams.Find(b =>
-				{
-					//modified member can be IIdeaConnectedMember or IIdeaMember1D
-					if (cut.ModifiedObject is IIdeaConnectedMember cm)
-					{
-						return b.OriginalModelId == cm.IdeaMember.Id;
-					}
-					else
-					{
-						return b.OriginalModelId == cut.ModifiedObject.Id;
-					}
-				}
-				);
+				BeamData beamIOM = FindBeamData(cut, connectionData);
 
 				if (beamIOM != null)
 				{
@@ -50,19 +38,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 			else
 			{
-				var beamIOM = connectionData.Beams.Find(b =>
-				{
-					//modified member can be IIdeaConnectedMember or IIdeaMember1D
-					if (cut.ModifiedObject is IIdeaConnectedMember cm)
-					{
-						return b.OriginalModelId == cm.IdeaMember.Id;
-					}
-					else
-					{
-						return b.OriginalModelId == cut.ModifiedObject.Id;
-					}
-				}
-				);
+				BeamData beamIOM = FindBeamData(cut, connectionData);
 
 				if (beamIOM != null)
 				{
@@ -74,7 +50,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 						Method = cut.CutMethod,
 						Orientation = cut.CutOrientation,
 						PlaneOnCuttingObject = cut.DistanceComparison,
-						WeldThickness = cut.Weld != null ? cut.Weld.Thickness : 0.0,
+						WeldThickness = (cut.Weld?.Thickness) ?? 0.0,
 						WeldType = cut.Weld != null ? cut.Weld.WeldType : WeldType.Fillet,
 					};
 
@@ -85,6 +61,23 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				return null;
 			}
+		}
+
+		private static BeamData FindBeamData(IIdeaCut cut, ConnectionData connectionData)
+		{
+			return connectionData.Beams.Find(b =>
+			{
+				//modified member can be IIdeaConnectedMember or IIdeaMember1D
+				if (cut.ModifiedObject is IIdeaConnectedMember cm)
+				{
+					return b.OriginalModelId == cm.IdeaMember.Id;
+				}
+				else
+				{
+					return b.OriginalModelId == cut.ModifiedObject.Id;
+				}
+			}
+			);
 		}
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaCut cut)
