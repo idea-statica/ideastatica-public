@@ -67,5 +67,10 @@ namespace IdeaStatica.BimApiLink.Plugin
 		{
 			throw new NotImplementedException();
 		}
+
+		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

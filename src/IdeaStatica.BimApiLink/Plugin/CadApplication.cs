@@ -47,7 +47,8 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 				case RequestedItemsType.SingleConnection:
 					return _bimImporter.ImportSingleConnection(countryCode);
-
+				case RequestedItemsType.WholeModel:
+					return _bimImporter.ImportWholeModel(countryCode);
 				default:
 					throw new NotImplementedException();
 			}

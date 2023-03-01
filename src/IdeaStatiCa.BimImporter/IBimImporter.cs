@@ -34,6 +34,14 @@ namespace IdeaStatiCa.BimImporter
 		ModelBIM ImportConnections(CountryCode countryCode);
 
 		/// <summary>
+		/// Import whole model into IOM.
+		/// </summary>
+		/// <param name="countryCode"></param>
+		/// <returns>ModelBIM object.</returns>
+		/// <exception cref="ConstraintException">Thrown when some constrain imposed on BimApi data is broken.</exception>
+		ModelBIM ImportWholeModel(CountryCode countryCode);
+
+		/// <summary>
 		/// Imports members into IOM.
 		/// </summary>
 		/// <param name="countryCode"></param>
