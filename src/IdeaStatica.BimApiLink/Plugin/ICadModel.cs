@@ -8,5 +8,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 		IEnumerable<CadUserSelection> GetUserSelections();
 
+		IEnumerable<CadUserSelection> GetSelectionOfWholeModel();
+
 	}
 }

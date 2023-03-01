@@ -27,7 +27,20 @@ namespace IdeaStatiCa.BimImporter.Importers
 					PlanePoint = ctx.Import(workPlane.Origin).Element as Point3D,
 
 				};
-				var beamIOM = connectionData.Beams.Find(b => b.OriginalModelId == cut.ModifiedObject.Id);
+				var beamIOM = connectionData.Beams.Find(b =>
+				{
+					//modified member can be IIdeaConnectedMember or IIdeaMember1D
+					if (cut.ModifiedObject is IIdeaConnectedMember cm)
+					{
+						return b.OriginalModelId == cm.IdeaMember.Id;
+					}
+					else
+					{
+						return b.OriginalModelId == cut.ModifiedObject.Id;
+					}
+				}
+				);
+
 				if (beamIOM != null)
 				{
 					(beamIOM.Cuts ?? (beamIOM.Cuts = new List<CutData>())).Add(cutData);
@@ -37,7 +50,20 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 			else
 			{
-				var beamIOM = connectionData.Beams.Find(b => b.OriginalModelId == cut.ModifiedObject.Id);
+				var beamIOM = connectionData.Beams.Find(b =>
+				{
+					//modified member can be IIdeaConnectedMember or IIdeaMember1D
+					if (cut.ModifiedObject is IIdeaConnectedMember cm)
+					{
+						return b.OriginalModelId == cm.IdeaMember.Id;
+					}
+					else
+					{
+						return b.OriginalModelId == cut.ModifiedObject.Id;
+					}
+				}
+				);
+
 				if (beamIOM != null)
 				{
 					var cutIOM = new IdeaRS.OpenModel.Connection.CutBeamByBeamData

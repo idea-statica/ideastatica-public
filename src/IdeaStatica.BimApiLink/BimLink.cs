@@ -109,26 +109,8 @@ namespace IdeaStatica.BimApiLink
 
 		public Task Run(IModel model)
 		{
-			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
-				_importersConfiguration.Manager,
-				_hookManagers.ImporterHookManager);
-
 			IPluginLogger pluginLogger = _pluginLogger ?? new NullLogger();
-			IBimResultsProvider resultsProvider = _resultsImportersConfiguration?.ResultsProvider ?? new DefaultResultsProvider();
-			BimImporterConfiguration bimImporterConfiguration = _bimImporterConfiguration ?? new BimImporterConfiguration();
-
-			IApplicationBIM applicationBIM = Create(
-				pluginLogger,
-				importerDispatcher,
-				_projectPath,
-				bimImporterConfiguration,
-				InitHostingClient(pluginLogger),
-				resultsProvider,
-				_hookManagers.PluginHookManager,
-				_hookManagers.ScopeHookManager,
-				model,
-				_bimUserDataSource,
-				_taskScheduler);
+			IApplicationBIM applicationBIM = CreateApplicationBIM(model, pluginLogger, InitHostingClient(pluginLogger));
 
 			PluginFactory pluginFactory = new PluginFactory(
 				applicationBIM,
@@ -148,6 +130,30 @@ namespace IdeaStatica.BimApiLink
 			string pid = Process.GetCurrentProcess().Id.ToString();
 #endif
 			return pluginHosting.RunAsync(pid, _projectPath);
+		}
+
+		public IApplicationBIM CreateApplicationBIM(IModel model, IPluginLogger pluginLogger, IProgressMessaging remoteApp = null)
+		{
+			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
+							_importersConfiguration.Manager,
+							_hookManagers.ImporterHookManager);
+
+			IBimResultsProvider resultsProvider = _resultsImportersConfiguration?.ResultsProvider ?? new DefaultResultsProvider();
+			BimImporterConfiguration bimImporterConfiguration = _bimImporterConfiguration ?? new BimImporterConfiguration();
+
+			IApplicationBIM applicationBIM = Create(
+				pluginLogger,
+				importerDispatcher,
+				_projectPath,
+				bimImporterConfiguration,
+				remoteApp,
+				resultsProvider,
+				_hookManagers.PluginHookManager,
+				_hookManagers.ScopeHookManager,
+				model,
+				_bimUserDataSource,
+				_taskScheduler);
+			return applicationBIM;
 		}
 
 		protected abstract IApplicationBIM Create(
