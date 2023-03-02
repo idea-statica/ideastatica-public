@@ -137,45 +137,66 @@ namespace IdeaStatica.BimApiLink.Plugin
 					case nameof(IIdeaPlate):
 						{
 							var plate = _bimApiImporter.Get(item) as IIdeaPlate;
-							(connectionPoint.Plates as List<IIdeaPlate>).Add(plate);
+							if (plate != null)
+							{
+								(connectionPoint.Plates as List<IIdeaPlate>).Add(plate);
+							}
 							break;
 						}
 					case nameof(IIdeaFoldedPlate):
 						{
 							var foldedPlate = _bimApiImporter.Get(item) as IIdeaFoldedPlate;
-							(connectionPoint.FoldedPlates as List<IIdeaFoldedPlate>).Add(foldedPlate);
+							if (foldedPlate != null)
+							{
+								(connectionPoint.FoldedPlates as List<IIdeaFoldedPlate>).Add(foldedPlate);
+							}
 							break;
 						}
 					case nameof(IIdeaCut):
 						{
 							var cut = _bimApiImporter.Get(item) as IIdeaCut;
-							(connectionPoint.Cuts as List<IIdeaCut>).Add(cut);
+							if (cut != null)
+							{
+								(connectionPoint.Cuts as List<IIdeaCut>).Add(cut);
+							}
 							break;
 						}
 
 					case nameof(IIdeaWeld):
 						{
 							var weld = _bimApiImporter.Get(item) as IIdeaWeld;
-							(connectionPoint.Welds as List<IIdeaWeld>).Add(weld);
+							if (weld != null)
+							{
+								(connectionPoint.Welds as List<IIdeaWeld>).Add(weld);
+							}
 							break;
 						}
 					case nameof(IIdeaBoltGrid):
 						{
 							var boltGrid = _bimApiImporter.Get(item) as IIdeaBoltGrid;
-							(connectionPoint.BoltGrids as List<IIdeaBoltGrid>).Add(boltGrid);
+							if (boltGrid != null)
+							{
+								(connectionPoint.BoltGrids as List<IIdeaBoltGrid>).Add(boltGrid);
+							}
 							break;
 						}
 					case nameof(IIdeaAnchorGrid):
 						{
 							var anchorGrid = _bimApiImporter.Get(item) as IIdeaAnchorGrid;
-							(connectionPoint.AnchorGrids as List<IIdeaAnchorGrid>).Add(anchorGrid);
+							if (anchorGrid != null)
+							{
+								(connectionPoint.AnchorGrids as List<IIdeaAnchorGrid>).Add(anchorGrid);
+							}
 							break;
 						}
 					case nameof(IIdeaConnectedMember):
 						{
 							var stiffeningMember = _bimApiImporter.Get(item) as IIdeaConnectedMember;
-							stiffeningMember.ConnectedMemberType = IdeaConnectedMemberType.Stiffening;
-							(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(stiffeningMember);
+							if (stiffeningMember != null)
+							{
+								stiffeningMember.ConnectedMemberType = IdeaConnectedMemberType.Stiffening;
+								(connectionPoint.ConnectedMembers as List<IIdeaConnectedMember>).Add(stiffeningMember);
+							}
 							break;
 						}
 				}
