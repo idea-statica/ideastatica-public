@@ -17,14 +17,9 @@ namespace IdeaRstabPlugin.BimApi
 		private readonly IObjectFactory _objectFactory;
 		private readonly Loading _loading;
 
-		public RstabSectionResult(IObjectFactory objectFactory, Member member, MemberForces memberForces, Loading loading, bool isCSDownwards)
+		public RstabSectionResult(IObjectFactory objectFactory, Member member, MemberForces memberForces, Loading loading, bool isCSDownwards, double position)
 		{
-			Position = memberForces.Location / member.Length;
-
-			if (Position > 1.0)
-			{
-				Position = 1;
-			}
+			Position = position;
 
 			_objectFactory = objectFactory;
 			_loading = loading;
