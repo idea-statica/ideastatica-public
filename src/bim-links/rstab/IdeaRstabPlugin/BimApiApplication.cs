@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRstabPlugin.Factories;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
@@ -54,8 +55,14 @@ namespace IdeaRstabPlugin
 				}
 			}
 
+			BimImporterConfiguration bimImporterConfiguration = new BimImporterConfiguration()
+			{
+				ResultSectionPositionPrecision = ResultsFactory.ResultsPrecision,
+				LCSPrecision = 1e-5
+			};
+
 			_project = new Project(logger, _jsonPersistence, objectRestorer);
-			_bimImporter = BimImporter.Create(ideaModel, _project, logger, geometryProvider, new BimImporterConfiguration(), null, null);
+			_bimImporter = BimImporter.Create(ideaModel, _project, logger, geometryProvider, bimImporterConfiguration, null, null);
 
 			ImportFinished += OnImportFinished;
 		}
