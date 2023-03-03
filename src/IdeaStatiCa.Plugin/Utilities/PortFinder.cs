@@ -18,8 +18,9 @@ namespace IdeaStatiCa.Plugin.Utilities
         /// Searches for the next available port.
         /// <paramref name="startPort"/> Initial port to start the search from.
         /// </summary>
+		/// <param name="usedPort">Port that was already generated for use but not assigned</param>
         /// <returns></returns>
-        public static int FindPort(int minPort, int maxPort)
+        public static int FindPort(int minPort, int maxPort, int? usedPort = null)
         {
             if (maxPort < minPort)
                 throw new ArgumentException("Max cannot be less than min.");
@@ -35,13 +36,16 @@ namespace IdeaStatiCa.Plugin.Utilities
                     .Select(endpoint => endpoint.Port)
                     .ToArray();
 
-            var firstUnused =
-                Enumerable.Range(minPort, maxPort - minPort)
-                    .Where(port => !usedPorts.Contains(port))
-                    .Select(port => new int?(port))
-                    .FirstOrDefault();
+			var allUnused =
+				Enumerable.Range(minPort, maxPort - minPort)
+					.Where(port => !usedPorts.Contains(port))
+					.Select(port => new int?(port));
 
-            if (!firstUnused.HasValue)
+			var firstUnused =allUnused
+				.Where(port => port != usedPort)
+				.FirstOrDefault();
+
+			if (!firstUnused.HasValue)
                 throw new Exception($"All local TCP ports between {minPort} and {maxPort} are currently in use.");
 
             return firstUnused.Value;
