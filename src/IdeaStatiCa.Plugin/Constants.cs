@@ -7,7 +7,7 @@
 
 		#region gRPC Constants 
 		public const string GrpcPortParam = "-grpcPort";
-		public const string GrpcDataPort = "-grpcDataPort";
+		public const string GrpcConnectionPort = "-grpcConnectionPort";
 		public const string GrpcReflectionErrorException = "GrpcReflectionError";
 		public const string BlobStorageId = "blobStorageId";
 		public const string ContentId = "contentId";
