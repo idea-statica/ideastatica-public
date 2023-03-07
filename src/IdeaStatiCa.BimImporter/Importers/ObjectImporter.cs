@@ -31,6 +31,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaConcreteBlock> _concreteBlockImporter;
 		private readonly IImporter<IIdeaFoldedPlate> _foldedPlateImporter;
 
+		private readonly IImporter<IIdeaMember2D> _member2DImporter;
+		private readonly IImporter<IIdeaElement2D> _element2DImporter;
+		private readonly IImporter<IIdeaPoint3D> _point3DImporter;
+		private readonly IImporter<IIdeaPolyLine3D> _polyLine3DImporter;
+		private readonly IImporter<IIdeaRegion3D> _region3DImporter;
+
 
 		public ObjectImporter(IPluginLogger logger)
 		{
@@ -55,7 +61,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_concreteBlockImporter = new ConcreteBlockImporter(logger);
 			_anchorGridImporter = new AnchorGridImporter(logger);
 			_foldedPlateImporter = new FoldedPlateImporter(logger);
-
+			_member2DImporter = new Member2DImporter(logger);
+			_element2DImporter = new Element2DImporter(logger);
+			_point3DImporter = new Point3DImporter(logger);
+			_polyLine3DImporter = new PolyLine3DImporter(logger);
+			_region3DImporter = new Region3DImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -100,6 +110,21 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaSpan span:
 					return _spanImporter.Import(ctx, span);
+
+				case IIdeaMember2D member2D:
+					return _member2DImporter.Import(ctx, member2D);
+
+				case IIdeaElement2D element2D:
+					return _element2DImporter.Import(ctx, element2D);
+
+				case IIdeaPoint3D point3D:
+					return _point3DImporter.Import(ctx, point3D);
+
+				case IIdeaPolyLine3D polyLine3D:
+					return _polyLine3DImporter.Import(ctx, polyLine3D);
+
+				case IIdeaRegion3D region3D:
+					return _region3DImporter.Import(ctx, region3D);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
