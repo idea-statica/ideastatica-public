@@ -17,5 +17,7 @@ namespace IdeaStatica.BimApiLink.Identifiers
 		{
 			Id = id;
 		}
+
+		public override object GetId() => Id;
 	}
 }

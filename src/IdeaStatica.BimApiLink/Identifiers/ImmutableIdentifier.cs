@@ -13,5 +13,7 @@ namespace IdeaStatica.BimApiLink.Identifiers
 		}
 
 		public override string GetStringId() => _stringId;
+
+		public override object GetId() => _stringId;
 	}
 }

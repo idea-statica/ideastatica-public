@@ -2,6 +2,9 @@
 
 namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent cut operation
+	/// </summary>
 	public interface IIdeaCut : IIdeaPersistentObject
 	{
 		/// <summary>

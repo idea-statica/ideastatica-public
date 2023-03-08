@@ -22,8 +22,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 		private BimImporter CreateBimImporter(IIdeaModel model)
 		{
 			IGeometryProvider geometryProvider = new DefaultGeometryProvider(logger, model);
-
-			return new BimImporter(model, project, logger, geometryProvider, bimObjectImporter);
+			BimImporterConfiguration configuration = new BimImporterConfiguration();
+			return new BimImporter(model, project, logger, geometryProvider, configuration, bimObjectImporter);
 		}
 
 		[SetUp]

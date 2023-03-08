@@ -12,6 +12,19 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	{
 		private const string DataName = "$data";
 		private const string TypeName = "$type";
+		private JsonSerializer jsonSerializer;
+
+		private JsonSerializer GetJsonSerializer()
+		{
+			return jsonSerializer ??
+					(
+						jsonSerializer = JsonSerializer.Create(new JsonSerializerSettings
+						{
+							TypeNameHandling = TypeNameHandling.All,
+						}
+					)
+				);
+		}
 
 		public override bool CanConvert(Type objectType)
 		{
@@ -28,7 +41,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				throw new InvalidOperationException();
 			}
 
-			return obj.GetValue(DataName).ToObject(type);
+			return obj.GetValue(DataName).ToObject(type, GetJsonSerializer());
 		}
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -39,7 +52,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			writer.WriteValue(value.GetType().AssemblyQualifiedName);
 
 			writer.WritePropertyName(DataName);
-			JObject.FromObject(value).WriteTo(writer);
+			JObject.FromObject(value, GetJsonSerializer()).WriteTo(
+				writer, new JsonConverter[] { this });
 
 			writer.WriteEndObject();
 		}

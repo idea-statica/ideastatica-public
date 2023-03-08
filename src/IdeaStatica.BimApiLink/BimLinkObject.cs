@@ -51,11 +51,11 @@ namespace IdeaStatica.BimApiLink
 
 		protected T GetMaybe<T>(int id)
 			where T : IIdeaObject
-			=> Get(new IntIdentifier<T>(id));
+			=> GetMaybe(new IntIdentifier<T>(id));
 
 		protected T GetMaybe<T>(string id)
 			where T : IIdeaObject
-			=> Get(new StringIdentifier<T>(id));
+			=> GetMaybe(new StringIdentifier<T>(id));
 
 		protected CountryCode CountryCode
 			=> Scope.CountryCode;

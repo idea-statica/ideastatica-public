@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			BeamData beamIOM = new BeamData()
 			{
 				Id = referenceMember.Id,
-				RefLineInCenterOfGravity = false,
+				RefLineInCenterOfGravity = member.IsReferenceLineInCenterOfGravity,
 				AutoAddCutByWorkplane = member.AutoAddCutByWorkplane && member.ConnectedMemberType != IdeaConnectedMemberType.Negative,
 				IsAdded = member.ConnectedMemberType != IdeaConnectedMemberType.Structural,
 				IsNegativeObject = member.ConnectedMemberType == IdeaConnectedMemberType.Negative,
