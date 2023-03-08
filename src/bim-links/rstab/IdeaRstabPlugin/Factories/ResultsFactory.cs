@@ -1,6 +1,7 @@
 ﻿using Dlubal.RSTAB8;
 using IdeaRS.OpenModel.Result;
 using IdeaRstabPlugin.BimApi;
+using IdeaRstabPlugin.Factories;
 using IdeaRstabPlugin.Providers;
 using IdeaRstabPlugin.Utilities;
 using IdeaStatiCa.BimApi;
@@ -13,18 +14,20 @@ namespace IdeaRstabPlugin.Factories
 {
 	internal class ResultsFactory : IResultsFactory
 	{
+		public const double ResultsPrecision = 1e-5;
+
 		private static readonly DoubleApproximateEquals _doubleApproximateEquals = new DoubleApproximateEquals();
 
-		private class DoubleApproximateEquals : IEqualityComparer<double>
+		private sealed class DoubleApproximateEquals : IEqualityComparer<double>
 		{
 			public bool Equals(double x, double y)
 			{
-				return x.AlmostEqual(y, 1e-6);
+				return x.AlmostEqual(y, ResultsPrecision);
 			}
 
 			public int GetHashCode(double x)
 			{
-				return x.Round(6).GetHashCode();
+				return x.Round(5).GetHashCode();
 			}
 		}
 
@@ -53,16 +56,7 @@ namespace IdeaRstabPlugin.Factories
 
 			foreach (RstabSectionResult sectionResult in GetSectionResults(member))
 			{
-				if (loads.Contains(sectionResult.Position, sectionResult.Loading))
-				{
-					RstabSectionResult existingResult = results
-						.GetRights(sectionResult.Position)
-						.Where(x => x.Loading == sectionResult.Loading)
-						.First();
-
-					existingResult.Add(sectionResult);
-				}
-				else
+				if (!loads.Contains(sectionResult.Position, sectionResult.Loading))
 				{
 					results.Add(sectionResult.Position, sectionResult);
 					loads.Add(sectionResult.Position, sectionResult.Loading);
@@ -96,7 +90,7 @@ namespace IdeaRstabPlugin.Factories
 
 			foreach (IIdeaLoading load in loads.GetRights())
 			{
-				if (loads.GetLefts(load).Count() == allPositions.Count())
+				if (loads.GetLefts(load).Count() == allPositions.Count)
 				{
 					continue;
 				}
@@ -105,7 +99,7 @@ namespace IdeaRstabPlugin.Factories
 				positions.Sort();
 
 				int i = 1, j = 1;
-				while (i < allPositions.Count && j < positions.Count)
+				while (i < allPositions.Count - 1 && j < positions.Count - 1)
 				{
 					double pos = allPositions[i];
 
@@ -118,28 +112,11 @@ namespace IdeaRstabPlugin.Factories
 
 					RstabSectionResult a = results
 						.GetRights(positions[j - 1])
-						.Where(x => x.Loading == load)
-						.FirstOrDefault();
-
-					double bPos = 0.0;
-
-					if (positions[j] > pos)
-					{
-						bPos = positions[j];
-					}
-					else if (j < positions.Count - 1)
-					{
-						bPos = positions[j + 1];
-					}
-					else
-					{
-						break;
-					}
+						.FirstOrDefault(x => x.Loading == load);
 
 					RstabSectionResult b = results
-						.GetRights(bPos)
-						.Where(x => x.Loading == load)
-						.FirstOrDefault();
+						.GetRights(positions[j])
+						.FirstOrDefault(x => x.Loading == load);
 
 					if (a != null && b != null)
 					{
@@ -157,16 +134,27 @@ namespace IdeaRstabPlugin.Factories
 
 			foreach ((Dlubal.RSTAB8.Loading loading, MemberForces memberForces) in _resultsProvider.GetInternalForces(member.No))
 			{
+				double position = memberForces.Location / member.Length;
+
 				if (memberForces.Flag == ResultsFlag.LeftSideFlag)
 				{
-					continue;
+					position -= ResultsPrecision;
 				}
 				else if (memberForces.Flag == ResultsFlag.RightSideFlag)
+				{
+					position += ResultsPrecision;
+				}
+				else if (memberForces.Flag != ResultsFlag.StandardValueFlag)
 				{
 					continue;
 				}
 
-				yield return new RstabSectionResult(_objectFactory, member, memberForces, loading, isCSDownwards);
+				if (position.IsLarger(1, ResultsPrecision) || position.IsSmaller(0, ResultsPrecision))
+				{
+					continue;
+				}
+
+				yield return new RstabSectionResult(_objectFactory, member, memberForces, loading, isCSDownwards, position);
 			}
 		}
 	}
