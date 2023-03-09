@@ -52,11 +52,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			};
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetBulkSelection()
 		{
-			nodes = new HashSet<IIdeaNode>();
-			members = _members.ToHashSet();
-			connectionPoints = null;
+			var nodes = new HashSet<IIdeaNode>();
+			var members = _members.ToHashSet();
+
+			return new BulkSelection(nodes, members, null);
 		}
 
 		private IEnumerable<IIdeaMember1D> GetAllMembers()
@@ -146,12 +147,12 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			}
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		public SingleSelection GetSingleSelection()
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetWholeModel()
 		{
 			throw new System.NotImplementedException();
 		}

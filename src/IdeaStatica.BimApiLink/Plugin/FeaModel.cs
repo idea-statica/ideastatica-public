@@ -45,30 +45,32 @@ namespace IdeaStatica.BimApiLink.Plugin
 		public OriginSettings GetOriginSettings()
 			=> _feaModel.GetOriginSettings();
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetBulkSelection()
 		{
 			FeaUserSelection selection = _feaModel.GetUserSelection();
 			_lastSelection = selection;
 
-			nodes = selection.Nodes
+			var nodes = selection.Nodes
 				.Select(x => _bimApiImporter.Get(x))
 				.WhereNotNull()
 				.ToHashSet();
 
-			members = selection.Members
+			var members = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
 				.WhereNotNull()
 				.ToHashSet();
 
-			connectionPoints = new HashSet<IIdeaConnectionPoint>();
+			var connectionPoints = new HashSet<IIdeaConnectionPoint>();
+
+			return new BulkSelection(nodes, members, connectionPoints);
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		public SingleSelection GetSingleSelection()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetWholeModel()
 		{
 			throw new NotImplementedException();
 		}

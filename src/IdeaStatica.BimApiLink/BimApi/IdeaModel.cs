@@ -21,17 +21,17 @@ namespace IdeaStatica.BimApiLink.BimApi
 
 		public abstract void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members);
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetBulkSelection()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		public SingleSelection GetSingleSelection()
 		{
 			throw new NotImplementedException();
 		}
 
-		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetWholeModel()
 		{
 			throw new NotImplementedException();
 		}
