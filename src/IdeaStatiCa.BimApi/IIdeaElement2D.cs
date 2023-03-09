@@ -36,7 +36,7 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Inner points of this region
 		/// </summary>
-		List<IIdeaPoint3D> InnerPoints { get; }
+		List<IIdeaNode> InnerPoints { get; }
 
 		/// <summary>
 		/// Analysis type - shell, plate, wall

@@ -33,7 +33,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 		private readonly IImporter<IIdeaMember2D> _member2DImporter;
 		private readonly IImporter<IIdeaElement2D> _element2DImporter;
-		private readonly IImporter<IIdeaPoint3D> _point3DImporter;
 		private readonly IImporter<IIdeaPolyLine3D> _polyLine3DImporter;
 		private readonly IImporter<IIdeaRegion3D> _region3DImporter;
 
@@ -63,7 +62,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_foldedPlateImporter = new FoldedPlateImporter(logger);
 			_member2DImporter = new Member2DImporter(logger);
 			_element2DImporter = new Element2DImporter(logger);
-			_point3DImporter = new Point3DImporter(logger);
 			_polyLine3DImporter = new PolyLine3DImporter(logger);
 			_region3DImporter = new Region3DImporter(logger);
 		}
@@ -116,9 +114,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaElement2D element2D:
 					return _element2DImporter.Import(ctx, element2D);
-
-				case IIdeaPoint3D point3D:
-					return _point3DImporter.Import(ctx, point3D);
 
 				case IIdeaPolyLine3D polyLine3D:
 					return _polyLine3DImporter.Import(ctx, polyLine3D);
