@@ -17,50 +17,54 @@ namespace IdeaStatiCa.Plugin.Grpc
 			this.blobStorageId = blobStorageId;
 		}
 
-		public void Delete(string contentId) =>
-			RunSynchroniously(grpcBlobStorageClient.DeleteAsync(blobStorageId, contentId)).Wait();
+		public void Delete(string contentId)
+		{
+			Task.Run(async () =>
+			{
+				await grpcBlobStorageClient.DeleteAsync(blobStorageId, contentId);
+			}).Wait();
+		}
 
 		public bool Exist(string contentId)
 		{
-			var resultTask = RunSynchroniously(grpcBlobStorageClient.ExistAsync(blobStorageId, contentId));
+			var resultTask = Task.Run(async () =>
+			{
+				return await grpcBlobStorageClient.ExistAsync(blobStorageId, contentId);
+			});
 			resultTask.Wait();
 			return resultTask.Result;
 		}
 
 		public IReadOnlyCollection<string> GetEntries()
 		{
-			var resultTask = RunSynchroniously(grpcBlobStorageClient.GetEntriesAsync(blobStorageId));
+			var resultTask = Task.Run(async () => { return await grpcBlobStorageClient.GetEntriesAsync(blobStorageId); });
 			resultTask.Wait();
 			return resultTask.Result;
 		}
 
-		public void Init(string basePath) =>
-			throw new NotImplementedException("Init is not implemented");
+		public void Init(string basePath)
+		{
+			var resultTask = Task.Run(async () =>
+			{
+				return await grpcBlobStorageClient.ExistAsync(blobStorageId, "xxx");
+			});
+			resultTask.Wait();
+		}
 
 		public Stream Read(string contentId)
 		{
-			var readTask= RunSynchroniously(grpcBlobStorageClient.ReadAsync(blobStorageId, contentId));
+			var readTask= Task.Run(async() => 
+			{
+				return await grpcBlobStorageClient.ReadAsync(blobStorageId, contentId).ConfigureAwait(false);
+			});
 			readTask.Wait();
 			return readTask.Result;
 		}
 
-		public void Write(Stream content, string contentId) =>
-			RunSynchroniously(grpcBlobStorageClient.WriteAsync(blobStorageId, contentId, content)).Wait();
-
-		private Task<T> RunSynchroniously<T>(Task<T> taskToRun)
+		public void Write(Stream content, string contentId)
 		{
-			return Task.Run(async () =>
-			{
-				return await taskToRun.ConfigureAwait(false);
-			});
+			Task.Run(async () => { await grpcBlobStorageClient.WriteAsync(blobStorageId, contentId, content); }).Wait();
 		}
 
-		private Task RunSynchroniously(Task taskToRun)
-		{
-			return Task.Run(async () =>
-			{
-				await taskToRun.ConfigureAwait(false);
-			});
-		}
 	}
 }
