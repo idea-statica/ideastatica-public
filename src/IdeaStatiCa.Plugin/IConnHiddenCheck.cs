@@ -129,6 +129,15 @@ namespace IdeaStatiCa.Plugin
 		void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName);
 
 		/// <summary>
+		/// Update selected <paramref name="connectionId"/ in opened Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/>
+		/// </summary>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
+		/// <param name="connectionId">The identifier of selected connection</param>
+		[OperationContract]
+		void UpdateSpecificConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string connectionId);
+
+		/// <summary>
 		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects saves into the <paramref name="newIdeaConFileName"/>
 		/// </summary>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>

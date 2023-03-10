@@ -19,6 +19,8 @@ namespace IdeaStatiCa.Plugin
 		private Process CalculatorProcess { get; set; }
 		private Uri CalculatorUrl { get; set; }
 
+		public event EventHandler HiddenCalculatorExit;
+
 #if DEBUG
 		private int StartTimeout = -1;
 #else
@@ -91,6 +93,8 @@ namespace IdeaStatiCa.Plugin
 
 		private void CalculatorProcess_Exited(object sender, EventArgs e)
 		{
+			HiddenCalculatorExit?.Invoke(this, EventArgs.Empty);
+
 			if (CalculatorProcess == null)
 			{
 				return;

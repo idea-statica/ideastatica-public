@@ -85,6 +85,10 @@ namespace IdeaStatiCa.Plugin
 		{
 			Service.UpdateConProjFromIOM(iomXmlFileName, iomResXmlFileName);
 		}
+		public void UpdateSpecificConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string connectionId)
+		{
+			Service.UpdateSpecificConProjFromIOM(iomXmlFileName, iomResXmlFileName, connectionId);
+		}
 
 		public void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName)
 		{
