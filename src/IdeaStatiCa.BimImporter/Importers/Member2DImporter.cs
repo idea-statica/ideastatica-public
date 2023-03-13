@@ -23,7 +23,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				Name = member2D.Name,
 				Elements2D = ImportElements2D(ctx, member2D.Elements2D),
-				Members1D = ImportMembers1D(ctx, member2D.Members1D)
 			};
 		}
 
@@ -49,11 +48,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 
 			return refElements;
-		}
-
-		private List<ReferenceElement> ImportMembers1D(IImportContext ctx, List<IIdeaMember1D> members1D)
-		{
-			return members1D.ConvertAll(m => ctx.Import(m));
 		}
 	}
 }

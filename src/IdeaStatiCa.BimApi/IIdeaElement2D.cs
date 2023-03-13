@@ -6,7 +6,7 @@ namespace IdeaStatiCa.BimApi
 	/// <summary>
 	/// Representation of element2D
 	/// </summary>
-	public interface IIdeaElement2D : IIdeaObjectWithResults
+	public interface IIdeaElement2D : IIdeaObject
 	{
 		/// <summary>
 		/// Material

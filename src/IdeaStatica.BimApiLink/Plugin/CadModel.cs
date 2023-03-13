@@ -96,7 +96,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 			if (selection == null)
 			{
-				return new SingleSelection(nodes, new HashSet<IIdeaMember1D>(), null);
+				return new SingleSelection(nodes, new HashSet<IIdeaMember1D>());
 			}
 
 			var connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);

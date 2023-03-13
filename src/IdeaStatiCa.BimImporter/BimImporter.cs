@@ -93,10 +93,10 @@ namespace IdeaStatiCa.BimImporter
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 
 			var selection = InitBulkImport();
-			return ProcessSelectedModel(countryCode, selection.Nodes, selection.Members, selection.ConnectionPoints);
+			return ProcessSelectedModel(countryCode, selection.Nodes, selection.Members, selection.Members2D, selection.ConnectionPoints);
 		}
 
-		private ModelBIM ProcessSelectedModel(CountryCode countryCode, ISet<IIdeaNode> selectedNodes, ISet<IIdeaMember1D> selectedMembers, ISet<IIdeaConnectionPoint> connectionPoints)
+		private ModelBIM ProcessSelectedModel(CountryCode countryCode, ISet<IIdeaNode> selectedNodes, ISet<IIdeaMember1D> selectedMembers, ISet<IIdeaMember2D> selectedMembers2D, ISet<IIdeaConnectionPoint> connectionPoints)
 		{
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
@@ -138,7 +138,8 @@ namespace IdeaStatiCa.BimImporter
 
 			IEnumerable<IIdeaObject> objects = selectedNodes
 				.Cast<IIdeaObject>()
-				.Concat(selectedMembers);
+				.Concat(selectedMembers)
+				.Concat(selectedMembers2D);
 
 			return CreateModelBIM(objects, connections, countryCode);
 		}
@@ -154,7 +155,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 			var selection = InitImportOfWholeModel();
-			return ProcessSelectedModel(countryCode, selection.Nodes, selection.Members, selection.ConnectionPoints);
+			return ProcessSelectedModel(countryCode, selection.Nodes, selection.Members, selection.Members2D, selection.ConnectionPoints);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>

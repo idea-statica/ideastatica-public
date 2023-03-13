@@ -57,7 +57,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			var nodes = new HashSet<IIdeaNode>();
 			var members = _members.ToHashSet();
 
-			return new BulkSelection(nodes, members, null);
+			return new BulkSelection(nodes, members);
 		}
 
 		private IEnumerable<IIdeaMember1D> GetAllMembers()

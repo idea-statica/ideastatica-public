@@ -118,7 +118,7 @@ namespace IdeaRstabPlugin.BimApi
 					.ToHashSet();
 			}
 
-			return new BulkSelection(nodes, members, null);
+			return new BulkSelection(nodes, members);
 		}
 
 		public void SelectObject(IEnumerable<IIdeaObject> objects)
