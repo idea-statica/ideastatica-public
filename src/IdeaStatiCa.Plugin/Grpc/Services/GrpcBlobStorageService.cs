@@ -91,32 +91,34 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		{
 			try
 			{
-				var content = blobStorageProvider.GetBlobStorage(request.BlobStorageId).Read(request.ContentId);
-
-				logger.LogDebug($"GrpcBlobStorageService starts Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}', content length in bytes: {content.Length}");
-
-				var buffer = new byte[chunkSize];
-				while (true)
+				using (var content = blobStorageProvider.GetBlobStorage(request.BlobStorageId).Read(request.ContentId))
 				{
-					int numRead = await content.ReadAsync(buffer, 0, buffer.Length);
-					if (numRead == 0)
+
+					logger.LogDebug($"GrpcBlobStorageService starts Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}', content length in bytes: {content.Length}");
+
+					var buffer = new byte[chunkSize];
+					while (true)
 					{
-						break;
-					}
-					if (numRead < buffer.Length)
-					{
-						Array.Resize(ref buffer, numRead);
+						int numRead = await content.ReadAsync(buffer, 0, buffer.Length);
+						if (numRead == 0)
+						{
+							break;
+						}
+						if (numRead < buffer.Length)
+						{
+							Array.Resize(ref buffer, numRead);
+						}
+
+						await responseStream.WriteAsync(new ContentData()
+						{
+							Data = ByteString.CopyFrom(buffer)
+						});
+
+						logger.LogTrace($"GrpcBlobStorageService Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}' sent {buffer.Length} bytes");
 					}
 
-					await responseStream.WriteAsync(new ContentData()
-					{
-						Data = ByteString.CopyFrom(buffer)
-					});
-
-					logger.LogTrace($"GrpcBlobStorageService Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}' sent {buffer.Length} bytes");
+					logger.LogDebug($"GrpcBlobStorageService ends Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}'");
 				}
-
-				logger.LogDebug($"GrpcBlobStorageService ends Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}'");
 			}
 			catch (Exception ex)
 			{
@@ -137,11 +139,11 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 			{
 				logger.LogDebug($"GrpcBlobStorageService Exist, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}'");
 
-				var exist = blobStorageProvider.GetBlobStorage(request.BlobStorageId).Exist(request.ContentId);
+				bool contentExists = blobStorageProvider.GetBlobStorage(request.BlobStorageId).Exist(request.ContentId);
 
 				return Task.FromResult(new ExistResponse()
 				{
-					Exist = exist
+					Exist = contentExists
 				});
 			}
 			catch (Exception ex)
