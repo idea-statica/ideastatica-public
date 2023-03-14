@@ -93,34 +93,34 @@ namespace IdeaStatiCa.BimImporter
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 
 			var selection = InitBulkImport();
-			return ProcessSelectedModel(countryCode, selection.Nodes, selection.Members, selection.Members2D, selection.ConnectionPoints);
+			return ProcessSelectedModel(countryCode, selection);
 		}
 
-		private ModelBIM ProcessSelectedModel(CountryCode countryCode, ISet<IIdeaNode> selectedNodes, ISet<IIdeaMember1D> selectedMembers, ISet<IIdeaMember2D> selectedMembers2D, ISet<IIdeaConnectionPoint> connectionPoints)
+		private ModelBIM ProcessSelectedModel(CountryCode countryCode, BulkSelection selection)
 		{
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<Connection> connections = new List<Connection>();
 
 			bool skipAutoCreationOfConnection = false;
-			if (connectionPoints != null)
+			if (selection.ConnectionPoints != null)
 			{
-				foreach (var connectionPoint in connectionPoints)
+				foreach (var connectionPoint in selection.ConnectionPoints)
 				{
 					connections.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
 			}
 
-			if (connectionPoints != null && connectionPoints.Count > 0 && connections.Count > 0)
+			if (selection.ConnectionPoints != null && selection.ConnectionPoints.Count > 0 && connections.Count > 0)
 			{
 				skipAutoCreationOfConnection = true;
 			}
 
 			if (!skipAutoCreationOfConnection)
 			{
-				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
+				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selection.Members, geometry))
 				{
-					if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
+					if (selection.Nodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
 					{
 						var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
 
@@ -136,10 +136,10 @@ namespace IdeaStatiCa.BimImporter
 				}
 			}
 
-			IEnumerable<IIdeaObject> objects = selectedNodes
+			IEnumerable<IIdeaObject> objects = selection.Nodes
 				.Cast<IIdeaObject>()
-				.Concat(selectedMembers)
-				.Concat(selectedMembers2D);
+				.Concat(selection.Members)
+				.Concat(selection.Members2D);
 
 			return CreateModelBIM(objects, connections, countryCode);
 		}
@@ -155,7 +155,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 			var selection = InitImportOfWholeModel();
-			return ProcessSelectedModel(countryCode, selection.Nodes, selection.Members, selection.Members2D, selection.ConnectionPoints);
+			return ProcessSelectedModel(countryCode, selection);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>
