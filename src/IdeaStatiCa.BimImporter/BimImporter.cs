@@ -138,8 +138,12 @@ namespace IdeaStatiCa.BimImporter
 
 			IEnumerable<IIdeaObject> objects = selection.Nodes
 				.Cast<IIdeaObject>()
-				.Concat(selection.Members)
-				.Concat(selection.Members2D);
+				.Concat(selection.Members);
+
+			if (selection.Members2D != null)
+			{
+				objects = objects.Concat(selection.Members2D);
+			}
 
 			return CreateModelBIM(objects, connections, countryCode);
 		}
