@@ -5,7 +5,6 @@ using IdeaRstabPlugin.Model;
 using IdeaStatiCa.BimApi;
 using System;
 using System.Collections.Generic;
-
 using IOM = IdeaRS.OpenModel.CrossSection;
 
 namespace IdeaRstabPlugin.Factories.RstabPluginUtils
@@ -237,6 +236,9 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 			List<PolyLine2D> outlines = GetPolyLineShape(shape, BOUND_TYPE.BT_OUTER);
 			List<PolyLine2D> openings = GetPolyLineShape(shape, BOUND_TYPE.BT_INNER);
+			//filter only valid polyline
+			outlines = outlines.FindAll(p => p.Segments.Count == 4
+			);
 
 			IIdeaCrossSectionByComponents crossSection = new IdeaCrossSectionByComponents()
 			{
@@ -251,6 +253,7 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 				{
 					return null;
 				}
+
 				Region2D region = new Region2D
 				{
 					Outline = outlines[i],

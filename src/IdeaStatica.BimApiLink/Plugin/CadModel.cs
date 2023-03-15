@@ -37,26 +37,27 @@ namespace IdeaStatica.BimApiLink.Plugin
 		public OriginSettings GetOriginSettings()
 			=> _cadModel.GetOriginSettings();
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetBulkSelection()
 		{
 			IEnumerable<CadUserSelection> selections = _cadModel.GetUserSelections();
-			ProcessSelection(out nodes, out members, out connectionPoints, selections);
+			return ProcessSelection(selections);
 		}
 
-		public void GetWholeModel(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		public BulkSelection GetWholeModel()
 		{
 			IEnumerable<CadUserSelection> selections = _cadModel.GetSelectionOfWholeModel();
-			ProcessSelection(out nodes, out members, out connectionPoints, selections);
+			return ProcessSelection(selections);
 		}
 
-		private void ProcessSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints, IEnumerable<CadUserSelection> selections)
+		private BulkSelection ProcessSelection(IEnumerable<CadUserSelection> selections)
 		{
-			nodes = new HashSet<IIdeaNode>();
-			members = new HashSet<IIdeaMember1D>();
-			connectionPoints = new HashSet<IIdeaConnectionPoint>();
+			var nodes = new HashSet<IIdeaNode>();
+			var members = new HashSet<IIdeaMember1D>();
+			var connectionPoints = new HashSet<IIdeaConnectionPoint>();
+
 			if (selections == null)
 			{
-				return;
+				return new BulkSelection(nodes, members, connectionPoints);
 			}
 
 			foreach (var selection in selections)
@@ -83,22 +84,22 @@ namespace IdeaStatica.BimApiLink.Plugin
 
 				connectionPoints.Add(connectionPoint);
 			}
+
+			return new BulkSelection(nodes, members, connectionPoints);
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		public SingleSelection GetSingleSelection()
 		{
 			CadUserSelection selection = _cadModel.GetUserSelection();
 			_lastSelection = selection;
-			nodes = new HashSet<IIdeaNode>();
+			var nodes = new HashSet<IIdeaNode>();
 
 			if (selection == null)
 			{
-				members = new HashSet<IIdeaMember1D>();
-				connectionPoint = null;
-				return;
+				return new SingleSelection(nodes, new HashSet<IIdeaMember1D>());
 			}
-			connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
 
+			var connectionPoint = _bimApiImporter.Get(selection.ConnectionPoint);
 
 			nodes.Add(connectionPoint.Node);
 
@@ -107,7 +108,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 				.WhereNotNull()
 				.ToHashSet();
 
-			members = connectedMembers
+			var members = connectedMembers
 			.Select(x => x.IdeaMember)
 			.WhereNotNull()
 			.ToHashSet();
@@ -115,6 +116,7 @@ namespace IdeaStatica.BimApiLink.Plugin
 			ProcessConnectionMembers(nodes, connectedMembers, connectionPoint);
 			ProcessConnectionObjects(connectionPoint, selection);
 
+			return new SingleSelection(nodes, members, connectionPoint);
 		}
 
 		private void ProcessConnectionMembers(ISet<IIdeaNode> nodes, ISet<IIdeaConnectedMember> members, IIdeaConnectionPoint connectionPoint)

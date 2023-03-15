@@ -38,7 +38,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		/// </summary>
 		/// <param name="logger">Logger</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in grpc message</param>
-		public GrpcService(IPluginLogger logger, int maxDataLength)
+		public GrpcService(IPluginLogger logger, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			this.logger = logger;
 			MaxDataLength = maxDataLength;
