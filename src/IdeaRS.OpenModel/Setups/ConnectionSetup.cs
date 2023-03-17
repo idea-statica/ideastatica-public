@@ -120,6 +120,7 @@ namespace IdeaRS.OpenModel
 			MaxSize = 0.05;
 			NumElement = 8;
 			NumElementRhs = 16;
+			NumElementPlate = 20;
 			WarnCheckLevel = 0.95;
 			OptimalCheckLevel = 0.6;
 			LimitPlasticStrain = 0.05;
@@ -181,6 +182,7 @@ namespace IdeaRS.OpenModel
 			LimitDeformation = 0.03;
 			LimitDeformationCheck = false;
 			AnalysisGNL = true;
+			AnalysisAllGNL = false;
 			//WeldingTypeSNIP = WeldingTypeSNIP.AutomaticAndMachine;
 			DevelopedFillers = false;
 			DeformationBoltHole = true;
@@ -296,6 +298,11 @@ namespace IdeaRS.OpenModel
 		public bool AnalysisGNL { get; set; }
 
 		/// <summary>
+		/// Analysis with All GNL
+		/// </summary>
+		public bool AnalysisAllGNL { get; set; }
+
+		/// <summary>
 		/// Warning plastic strain
 		/// </summary>
 		public double WarnPlasticStrain { get; set; }
@@ -394,6 +401,12 @@ namespace IdeaRS.OpenModel
 		/// Number of mesh elements in RHS height
 		/// </summary>
 		public int NumElementRhs { get; set; }
+
+		/// <summary>
+		/// Number of mesh elements on plates
+		/// </summary>
+		public int NumElementPlate { get; set; }
+
 
 		/// <summary>
 		/// True if rigid base plate is considered
