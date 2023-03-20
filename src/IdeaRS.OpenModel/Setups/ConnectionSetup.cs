@@ -184,6 +184,7 @@ namespace IdeaRS.OpenModel
 			//WeldingTypeSNIP = WeldingTypeSNIP.AutomaticAndMachine;
 			DevelopedFillers = false;
 			DeformationBoltHole = true;
+			CondensedElementLengthFactor= 1.0;
 		}
 
 		/// <summary>
