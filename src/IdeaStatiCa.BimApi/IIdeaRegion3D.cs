@@ -1,4 +1,4 @@
-﻿using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel.Geometry3D;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
@@ -17,5 +17,10 @@ namespace IdeaStatiCa.BimApi
 		/// Gets the hole polygons inside the region
 		/// </summary>
 		List<IIdeaPolyLine3D> Openings { get; }
+
+		/// <summary>
+		/// Local Coordinate System (LCS) of the region 3D.
+		/// </summary>
+		CoordSystem LocalCoordinateSystem { get; }
 	}
 }

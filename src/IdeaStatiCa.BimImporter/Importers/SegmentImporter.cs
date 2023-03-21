@@ -28,7 +28,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				throw new ConstraintException("StartNode and EndNode must not be the same node.");
 			}
 
-			if (!(segment.LocalCoordinateSystem is CoordSystemByVector coordSystem))
+			if (segment.LocalCoordinateSystem != null && !(segment.LocalCoordinateSystem is CoordSystemByVector))
 			{
 				throw new NotImplementedException("LocalCoordinateSystem must be instance of CoordSystemByVector.");
 			}
@@ -59,7 +59,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			iomSegment.StartPoint = ctx.Import(segment.StartNode);
 			iomSegment.EndPoint = ctx.Import(segment.EndNode);
-			iomSegment.LocalCoordinateSystem = ProcessCoordSystem(coordSystem, lcsPrecision);
+			if (segment.LocalCoordinateSystem != null)
+			{
+				iomSegment.LocalCoordinateSystem = ProcessCoordSystem(segment.LocalCoordinateSystem as CoordSystemByVector, lcsPrecision);
+			}
 
 			return iomSegment;
 		}
