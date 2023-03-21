@@ -26,5 +26,11 @@ namespace IdeaRS.OpenModel.Geometry3D
 		/// Gets or sets the list of references to <see cref="IdeaRS.OpenModel.Geometry3D.PolyLine3D "/>openning curve in the Region3D.
 		/// </summary>
 		public List<ReferenceElement> Openings { get; set; }
+
+		/// <summary>
+		/// Local coordinate system
+		/// </summary>
+		[OpenModelProperty("LCS")]
+		public CoordSystem LocalCoordinateSystem { get; set; }
 	}
 }
