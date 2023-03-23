@@ -16,7 +16,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return new Region3D()
 			{
 				Outline = ctx.Import(region3D.Outline),
-				Openings = region3D.Openings.ConvertAll(o => ctx.Import(o))
+				Openings = region3D.Openings.ConvertAll(o => ctx.Import(o)),
+				LocalCoordinateSystem = region3D.LocalCoordinateSystem,
 			};
 		}
 	}
