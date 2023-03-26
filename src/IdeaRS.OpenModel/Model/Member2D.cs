@@ -20,7 +20,7 @@ namespace IdeaRS.OpenModel.Model
 		/// <summary>
 		/// Name of Member
 		/// </summary>
-		public System.String Name { get; set; }
+		public string Name { get; set; }
 
 		/// <summary>
 		/// Array of element2D

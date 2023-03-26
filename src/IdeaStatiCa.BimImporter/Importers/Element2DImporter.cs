@@ -15,6 +15,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			return new Element2D()
 			{
+				Name = element2D.Name,
 				Material = ctx.Import(element2D.Material),
 				GeometricRegion = ctx.Import(element2D.GeometricRegion),
 				Thickness = element2D.Thickness,

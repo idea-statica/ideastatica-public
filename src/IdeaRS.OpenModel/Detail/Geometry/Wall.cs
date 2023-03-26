@@ -10,11 +10,6 @@ namespace IdeaRS.OpenModel.Detail
 	public class Wall : Model.Element2D, IGeometryPart
 	{
 		/// <summary>
-		/// Name
-		/// </summary>
-		public string Name { get; set; }
-
-		/// <summary>
 		/// Constructor
 		/// </summary>
 		public Wall() : base()
