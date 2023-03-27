@@ -41,6 +41,11 @@ namespace IdeaRS.OpenModel.Model
 		}
 
 		/// <summary>
+		/// Name of 2D element
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
 		/// Material
 		/// </summary>
 		public ReferenceElement Material { get; set; }
