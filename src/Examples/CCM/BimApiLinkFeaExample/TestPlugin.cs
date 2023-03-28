@@ -2,7 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using BimApiLinkFeaExample.FeaExampleApi;
 using BimApiLinkFeaExample.Importers;
-using IdeaStatica.BimApiLink;
+using IdeaStatiCa.BimApiLink;
 using IdeaStatiCa.Plugin;
 using System;
 using System.IO;

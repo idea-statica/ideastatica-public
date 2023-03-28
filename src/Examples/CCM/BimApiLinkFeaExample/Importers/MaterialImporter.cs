@@ -1,5 +1,5 @@
-﻿using IdeaStatica.BimApiLink.BimApi;
-using IdeaStatica.BimApiLink.Importers;
+﻿using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 
 namespace BimApiLinkFeaExample.Importers

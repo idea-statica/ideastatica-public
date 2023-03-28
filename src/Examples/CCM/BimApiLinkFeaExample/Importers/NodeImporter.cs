@@ -1,6 +1,6 @@
 ﻿using BimApiLinkFeaExample.FeaExampleApi;
-using IdeaStatica.BimApiLink.BimApi;
-using IdeaStatica.BimApiLink.Importers;
+using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using System;
 
