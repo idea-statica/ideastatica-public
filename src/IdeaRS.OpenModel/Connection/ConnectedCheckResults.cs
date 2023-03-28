@@ -187,6 +187,12 @@ namespace IdeaRS.OpenModel.Connection
 	public class CheckResBolt
 	{
 		/// <summary>
+		/// Unique Id
+		/// </summary>
+		[DataMember]
+		public int Id { get; set; }
+
+		/// <summary>
 		/// Name
 		/// </summary>
 		[DataMember]
@@ -250,6 +256,11 @@ namespace IdeaRS.OpenModel.Connection
 	[DataContract]
 	public class CheckResPlate
 	{
+		/// <summary>
+		/// Unique Id
+		/// </summary>
+		[DataMember]
+		public int Id { get; set; }
 		/// <summary>
 		/// Name of Plate
 		/// </summary>
