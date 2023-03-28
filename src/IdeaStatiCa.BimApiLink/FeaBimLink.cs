@@ -36,7 +36,7 @@ namespace IdeaStatiCa.BimApiLink
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
 			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, model as IFeaModel);
-			IBimImporter bimImporter = BimImporter.Create(
+			IBimImporter bimImporter = BimImporter.BimImporter.Create(
 				feaModelAdapter,
 				projectAdapter,
 				logger,
