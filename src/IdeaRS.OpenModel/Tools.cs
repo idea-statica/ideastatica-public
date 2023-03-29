@@ -91,8 +91,10 @@ namespace IdeaRS.OpenModel
 		/// <returns>Serialize model in string</returns>
 		public static void SerializeModelToFile<T>(T model, string filePath)
 		{
-			XmlWriter writer = XmlWriter.Create(filePath, GetWriterSettings());
-			SerializeModel(model, writer);
+			using (XmlWriter writer = XmlWriter.Create(filePath, GetWriterSettings()))
+			{
+				SerializeModel(model, writer);
+			}
 		}
 
 		/// <summary>
@@ -140,17 +142,9 @@ namespace IdeaRS.OpenModel
 		/// <returns>Deserialize instance model </returns>
 		public static T DeserializeModelFromFile<T>(string xmlFileName)
 		{
-			using (StreamReader streamReader = new StreamReader(xmlFileName))
-			{
-				// StreamReader doesn't skip encoding preable on its own so we have to do it manually.
-				streamReader.Read();
-				streamReader.BaseStream.Position = streamReader.CurrentEncoding.GetPreamble().Length;
-				streamReader.DiscardBufferedData();
+			var text = File.ReadAllText(xmlFileName);
 
-				XmlReader reader = XmlReader.Create(streamReader, GetReaderSettings());
-
-				return DeserializeModel<T>(reader);
-			}
+			return DeserializeModel<T>(text);
 		}
 
 		/// <summary>
