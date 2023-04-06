@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.BimItems;
+using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using System;
@@ -21,6 +22,7 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
 		private readonly IProgressMessaging _remoteApp;
+		private readonly BimImporterConfiguration _configuration;
 
 		/// <summary>
 		///Creates instance of <see cref="BimImporter"/>.
@@ -57,6 +59,7 @@ namespace IdeaStatiCa.BimImporter
 				project,
 				logger,
 				geometryProvider,
+				configuration,
 				BimObjectImporter.Create(logger, configuration, resultsProvider, remoteApp),
 				remoteApp);
 		}
@@ -66,6 +69,7 @@ namespace IdeaStatiCa.BimImporter
 			IProject project,
 			IPluginLogger logger,
 			IGeometryProvider geometryProvider,
+			BimImporterConfiguration configuration,
 			IBimObjectImporter bimObjectImporter,
 			IProgressMessaging remoteApp = null)
 		{
@@ -73,92 +77,135 @@ namespace IdeaStatiCa.BimImporter
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
+			_configuration = configuration;
 			_bimObjectImporter = bimObjectImporter ?? throw new ArgumentNullException(nameof(bimObjectImporter));
 			_remoteApp = remoteApp;
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportConnections"/>
 		/// <remarks>Nodes are marked as a connection by following rules:<br/>
-		///  - nodes specified in <see cref="IIdeaModel.GetSelection"/> are connections,<br/>
+		///  - nodes specified in <see cref="IIdeaModel.GetSingleSelection"/> are connections,<br/>
 		///  - nodes with two or more connecting member are connections.
 		/// </remarks>
-		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public ModelBIM ImportConnections(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
+			var selection = InitBulkImport();
+			return ProcessSelectedModel(countryCode, selection);
+		}
+
+		private ModelBIM ProcessSelectedModel(CountryCode countryCode, BulkSelection selection)
+		{
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<Connection> connections = new List<Connection>();
 
-			if (connectionPoints != null)
+			bool skipAutoCreationOfConnection = false;
+			if (selection.ConnectionPoints != null)
 			{
-				foreach (var connectionPoint in connectionPoints)
+				foreach (var connectionPoint in selection.ConnectionPoints)
 				{
 					connections.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
 			}
 
-			foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selectedMembers, geometry))
+			if (selection.ConnectionPoints != null && selection.ConnectionPoints.Count > 0 && connections.Count > 0)
 			{
-				if (selectedNodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
+				skipAutoCreationOfConnection = true;
+			}
+
+			if (!skipAutoCreationOfConnection)
+			{
+				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selection.Members, geometry))
 				{
-					connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+					if (selection.Nodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
+					{
+						var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
+
+						if (!connections.Exists(
+							 c =>
+								(newConnection.ReferencedObject as IIdeaConnectionPoint).Node.IsAlmostEqual(
+									 (c.ReferencedObject as IIdeaConnectionPoint).Node, _configuration.GeometryPrecision)
+							))
+						{
+							connections.Add(Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value));
+						}
+					}
 				}
 			}
 
-			IEnumerable<IIdeaObject> objects = selectedNodes
+			IEnumerable<IIdeaObject> objects = selection.Nodes
 				.Cast<IIdeaObject>()
-				.Concat(selectedMembers);
+				.Concat(selection.Members);
+
+			if (selection.Members2D != null)
+			{
+				objects = objects.Concat(selection.Members2D);
+			}
 
 			return CreateModelBIM(objects, connections, countryCode);
 		}
 
+
+		/// <inheritdoc cref="IBimImporter.ImportWholeModel"/>
+		/// <remarks>Nodes are marked as a connection by following rules:<br/>
+		///  - nodes specified in <see cref="IIdeaModel.GetSingleSelection"/> are connections,<br/>
+		///  - nodes with two or more connecting member are connections.
+		/// </remarks>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
+		public ModelBIM ImportWholeModel(CountryCode countryCode)
+		{
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
+			var selection = InitImportOfWholeModel();
+			return ProcessSelectedModel(countryCode, selection);
+		}
+
 		/// <inheritdoc cref="IBimImporter.ImportSingleConnection"/>
-		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public ModelBIM ImportSingleConnection(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint connectionPoint);
+			var selection = InitSingleImport();
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<Connection> connections = new List<Connection>();
 
-			if (connectionPoint != null)
+			if (selection.ConnectionPoint != null)
 			{
-				connections.Add(Connection.FromConnectionPoint(connectionPoint));
+				connections.Add(Connection.FromConnectionPoint(selection.ConnectionPoint));
 			}
 
-			IEnumerable<IIdeaObject> objects = selectedNodes
+			IEnumerable<IIdeaObject> objects = selection.Nodes
 				.Cast<IIdeaObject>()
-				.Concat(selectedMembers);
+				.Concat(selection.Members);
 
 			return CreateModelBIM(objects, connections, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportMember"/>
-		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingMembers);
-			InitImport(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> connectionPoints);
+			var selection = InitBulkImport();
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
 			var adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
-			if (connectionPoints != null)
+			if (selection.ConnectionPoints != null)
 			{
-				foreach (var connectionPoint in connectionPoints)
+				foreach (var connectionPoint in selection.ConnectionPoints)
 				{
 					bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
 			}
 
 			int j = 1;
-			foreach (IIdeaMember1D selectedMember in selectedMembers)
+			foreach (IIdeaMember1D selectedMember in selection.Members)
 			{
-				_remoteApp?.SetStageLocalised(j, selectedMembers.Count, LocalisedMessage.Member);
+				_remoteApp?.SetStageLocalised(j, selection.Members.Count, LocalisedMessage.Member);
 				bimItems.Add(new Member(selectedMember));
 
 				foreach (IIdeaNode node in geometry.GetNodesOnMember(selectedMember))
@@ -173,15 +220,15 @@ namespace IdeaStatiCa.BimImporter
 				bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
 			}
 
-			IEnumerable<IIdeaObject> objects = selectedNodes
+			IEnumerable<IIdeaObject> objects = selection.Nodes
 				.Cast<IIdeaObject>()
-				.Concat(selectedMembers);
+				.Concat(selection.Members);
 
 			return CreateModelBIM(objects, bimItems, countryCode);
 		}
 
 		/// <inheritdoc cref="IBimImporter.ImportSelected"/>
-		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSelection"/> returns null out arguments.</exception>
+		/// <exception cref="InvalidOperationException">Throws if <see cref="IIdeaModel.GetSingleSelection"/> returns null arguments.</exception>
 		public List<ModelBIM> ImportSelected(List<BIMItemsGroup> selected, CountryCode countryCode)
 		{
 			if (selected is null)
@@ -281,44 +328,49 @@ namespace IdeaStatiCa.BimImporter
 			}
 		}
 
-		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		private BulkSelection InitBulkImport()
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out ISet<IIdeaConnectionPoint> selectedConnectionPoints);
+			var selection = _ideaModel.GetBulkSelection();
 
-			if (selectedNodes == null)
-			{
-				throw new InvalidOperationException("Out argument 'nodes' in GetSelection cannot be null.");
-			}
+			CheckNodesAndMembers(selection);
 
-			if (selectedMembers == null)
-			{
-				throw new InvalidOperationException("Out argument 'members' in GetSelection cannot be null.");
-			}
-
-			nodes = selectedNodes;
-			members = selectedMembers;
-			connectionPoints = selectedConnectionPoints;
+			return selection;
 		}
 
-		private void InitImport(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoint)
+		private BulkSelection InitImportOfWholeModel()
 		{
-			_ideaModel.GetSelection(out ISet<IIdeaNode> selectedNodes, out ISet<IIdeaMember1D> selectedMembers, out IIdeaConnectionPoint selectedConnectionPoint);
+			_remoteApp?.InitProgressDialog();
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
+			var selection = _ideaModel.GetWholeModel();
+			CheckNodesAndMembers(selection);
 
-			if (selectedNodes == null)
+			return selection;
+		}
+
+		private static void CheckNodesAndMembers(Selection selection)
+		{
+			if (selection.Nodes == null)
 			{
-				throw new InvalidOperationException("Out argument 'nodes' in GetSelection cannot be null.");
+				throw new InvalidOperationException("Argument 'nodes' in GetSelection cannot be null.");
 			}
 
-			if (selectedMembers == null)
+			if (selection.Members == null)
 			{
-				throw new InvalidOperationException("Out argument 'members' in GetSelection cannot be null.");
+				throw new InvalidOperationException("Argument 'members' in GetSelection cannot be null.");
 			}
+		}
 
-			nodes = selectedNodes;
-			members = selectedMembers;
-			connectionPoint = selectedConnectionPoint;
+		private SingleSelection InitSingleImport()
+		{
+			_remoteApp?.InitProgressDialog();
+			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
+			var selection = _ideaModel.GetSingleSelection();
+
+			CheckNodesAndMembers(selection);
+
+			return selection;
 		}
 
 		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)

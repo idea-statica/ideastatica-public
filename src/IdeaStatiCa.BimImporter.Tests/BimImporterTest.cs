@@ -22,8 +22,8 @@ namespace IdeaStatiCa.BimImporter.Tests
 		private BimImporter CreateBimImporter(IIdeaModel model)
 		{
 			IGeometryProvider geometryProvider = new DefaultGeometryProvider(logger, model);
-
-			return new BimImporter(model, project, logger, geometryProvider, bimObjectImporter);
+			BimImporterConfiguration configuration = new BimImporterConfiguration();
+			return new BimImporter(model, project, logger, geometryProvider, configuration, bimObjectImporter);
 		}
 
 		[SetUp]
@@ -54,12 +54,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(2, "line(1,2)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] }));
 
 			IdeaRS.OpenModel.Connection.ConnectionPoint iomConnectionPoint = new IdeaRS.OpenModel.Connection.ConnectionPoint();
 
@@ -81,7 +79,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 						Enumerable.SequenceEqual(x, new List<IBimItem>() { expectedConnection }, _connectionEqualityComparer)),
 					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
-
+		
 		[Test]
 		public void ImportConnections_ThreeMembersTwoSelected()
 		{
@@ -93,12 +91,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(2,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] }));
 
 			IdeaRS.OpenModel.Connection.ConnectionPoint iomConnectionPoint = new IdeaRS.OpenModel.Connection.ConnectionPoint();
 
@@ -133,13 +129,11 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(4, "line(4,5)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2], builder.Members[3], builder.Members[4] };
-					x[2] = new HashSet<IIdeaConnectionPoint>();
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2], builder.Members[3], builder.Members[4] },
+								new HashSet<IIdeaConnectionPoint>()));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -177,12 +171,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(2,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2], builder.Members[3] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2], builder.Members[3] }));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -221,12 +213,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 
 			// select both the node and the member
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>() { builder.Nodes[1] };
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>() { builder.Nodes[1] },
+								new HashSet<IIdeaMember1D>() { builder.Members[1] }));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -257,12 +247,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(2, "line(2,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>() { builder.Nodes[1], builder.Nodes[2] };
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>() { builder.Nodes[1], builder.Nodes[2] },
+								new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[2] }));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -298,12 +286,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(1, "line(0,1)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1] }));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -340,12 +326,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(1,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1] }));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -384,12 +368,10 @@ namespace IdeaStatiCa.BimImporter.Tests
 				.Member(3, "line(1,3)");
 
 			IIdeaModel model = builder.GetModel();
-			model.When(x => x.GetSelection(out Arg.Any<ISet<IIdeaNode>>(), out Arg.Any<ISet<IIdeaMember1D>>(), out Arg.Any<ISet<IIdeaConnectionPoint>>()))
-				.Do(x =>
-				{
-					x[0] = new HashSet<IIdeaNode>();
-					x[1] = new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[3] };
-				});
+			model.GetBulkSelection()
+					.Returns(new BulkSelection(
+								new HashSet<IIdeaNode>(),
+								new HashSet<IIdeaMember1D>() { builder.Members[1], builder.Members[3] }));
 
 			BimImporter bimImporter = CreateBimImporter(model);
 
@@ -427,7 +409,7 @@ namespace IdeaStatiCa.BimImporter.Tests
 						}, _connectionEqualityComparer)),
 					Arg.Any<IProject>(), IdeaRS.OpenModel.CountryCode.ECEN);
 		}
-
+		
 		[Test]
 		public void ImportSelected_Connection_BimObjectImporterShouldReceiveACallWithConnectionBimItem()
 		{

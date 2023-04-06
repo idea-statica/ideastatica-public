@@ -53,13 +53,12 @@ namespace IdeaRstabPlugin.BimApi
 		/// <summary>
 		/// Invokes selection of members in RSTAB and returns set of selected members.
 		/// </summary>
-		/// <param name="nodes">Always empty</param>
-		/// <param name="members">Set of selected members</param>
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out ISet<IIdeaConnectionPoint> connectionPoints)
+		/// <returns>Nodes: always empty, Members: Set of selected members, ConnectionPoints: null</returns>
+		public BulkSelection GetBulkSelection()
 		{
-			nodes = new HashSet<IIdeaNode>();
-			members = new HashSet<IIdeaMember1D>();
-			connectionPoints = null;
+			var nodes = new HashSet<IIdeaNode>();
+			var members = new HashSet<IIdeaMember1D>();
+
 			using (new LicenceLock(_model))
 			{
 				List<int> selectedMembers = new List<int>();
@@ -118,6 +117,8 @@ namespace IdeaRstabPlugin.BimApi
 					.Select(x => _objectFactory.GetNode(x))
 					.ToHashSet();
 			}
+
+			return new BulkSelection(nodes, members);
 		}
 
 		public void SelectObject(IEnumerable<IIdeaObject> objects)
@@ -153,7 +154,12 @@ namespace IdeaRstabPlugin.BimApi
 			};
 		}
 
-		public void GetSelection(out ISet<IIdeaNode> nodes, out ISet<IIdeaMember1D> members, out IIdeaConnectionPoint connectionPoints)
+		public SingleSelection GetSingleSelection()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public BulkSelection GetWholeModel()
 		{
 			throw new System.NotImplementedException();
 		}

@@ -9,6 +9,8 @@ namespace IdeaStatiCa.Plugin
 		Connections,
 		Substructure,
 		SingleConnection,
+		WholeModel,
+		ConcreteWall
 	}
 
 	/// <summary>

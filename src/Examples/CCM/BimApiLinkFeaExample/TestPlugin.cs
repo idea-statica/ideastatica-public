@@ -2,7 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using BimApiLinkFeaExample.FeaExampleApi;
 using BimApiLinkFeaExample.Importers;
-using IdeaStatica.BimApiLink;
+using IdeaStatiCa.BimApiLink;
 using IdeaStatiCa.Plugin;
 using System;
 using System.IO;
@@ -31,7 +31,7 @@ namespace BimApiLinkFeaExample
 			try
 			{
 				logger.LogInformation($"Project working directory is {workingDirectory}");
-				var link = BimLink.Create("My application name", workingDirectory);
+				var link = FeaBimLink.Create("My application name", workingDirectory);
 
 				var container = BuildContainer(link.InitHostingClient(logger), feaApi);
 

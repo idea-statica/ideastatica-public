@@ -13,6 +13,16 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	{
 		private static readonly PersistenceTokenConverter _tokenConverter = new PersistenceTokenConverter();
 
+		private JsonSerializerSettings GetJsonSerializerSettings()
+		{
+			return new JsonSerializerSettings()
+			{
+				Formatting = Formatting.Indented,
+				Converters = new List<JsonConverter>() { _tokenConverter },
+				TypeNameHandling = TypeNameHandling.All,
+			};
+		}
+
 		/// <summary>
 		/// Occurs when data are loaded.
 		/// </summary>
@@ -30,7 +40,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <param name="reader">TextReader to read saved info from.</param>
 		public void Load(TextReader reader)
 		{
-			StoredData storedData = JsonConvert.DeserializeObject<StoredData>(reader.ReadToEnd(), _tokenConverter);
+			StoredData storedData = JsonConvert.DeserializeObject<StoredData>(reader.ReadToEnd(), GetJsonSerializerSettings());
 
 			Mappings = storedData.Mappings;
 			Tokens = storedData.Tokens;
@@ -62,7 +72,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				Tokens = Tokens
 			};
 
-			writer.Write(JsonConvert.SerializeObject(storedData, Formatting.Indented, _tokenConverter));
+			writer.Write(JsonConvert.SerializeObject(storedData, GetJsonSerializerSettings()));
 		}
 
 		/// <summary>

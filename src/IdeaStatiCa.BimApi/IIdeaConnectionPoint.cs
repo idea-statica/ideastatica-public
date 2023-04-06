@@ -2,6 +2,9 @@
 
 namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent connection point with all connected items
+	/// </summary>
 	public interface IIdeaConnectionPoint : IIdeaObject
 	{
 		IIdeaNode Node { get; }

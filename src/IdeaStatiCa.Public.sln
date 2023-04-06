@@ -101,7 +101,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.CheckbotPlugin.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamplePlugin", "CheckbotPlugins\ExamplePlugin\ExamplePlugin.csproj", "{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatica.BimApiLink", "IdeaStatica.BimApiLink\IdeaStatica.BimApiLink.csproj", "{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.BimApiLink", "IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj", "{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\CCM\BimApiExample\BimApiExample.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
 EndProject

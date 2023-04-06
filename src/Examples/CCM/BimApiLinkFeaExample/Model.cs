@@ -1,7 +1,7 @@
 ﻿using BimApiLinkFeaExample.FeaExampleApi;
 using IdeaRS.OpenModel;
-using IdeaStatica.BimApiLink.Identifiers;
-using IdeaStatica.BimApiLink.Plugin;
+using IdeaStatiCa.BimApiLink.Identifiers;
+using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using System.Collections.Generic;

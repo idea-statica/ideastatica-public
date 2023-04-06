@@ -44,6 +44,13 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public string UnityCheckMessage { get; set; }
+
+		/// <summary>
+		/// Whether the check was calculated or not.
+		/// If <see langword="true"/>, the check was not calculated and <see cref="CheckValue"/> should be ignored, otherwise <see langword="false"/>.
+		/// </summary>
+		[DataMember]
+		public bool Skipped { get; set; }
 	}
 
 	/// <summary>

@@ -25,6 +25,7 @@
 		public const string ConCalculatorCancelEventFormat = "IdeaStatiCa.ConnHiddenCalculatorCancel-{0}";
 		public const string MemHiddenCalcChangedEventFormat = "IdeaStatiCa.MemberHiddenCalculator-{0}";
 		public const string MemHiddenCalcCancelEventFormat = "IdeaStatiCa.MemberHiddenCalculatorCancel-{0}";
+		public const string DetailChangedEventFormat = "IdeaStatiCaDetailChanged{0}";
 
 		#region BIM Plugin default constants
 

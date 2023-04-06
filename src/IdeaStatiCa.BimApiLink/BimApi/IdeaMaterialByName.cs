@@ -1,0 +1,22 @@
+using IdeaStatiCa.BimApiLink.Identifiers;
+using IdeaStatiCa.BimApi;
+
+namespace IdeaStatiCa.BimApiLink.BimApi
+{
+	public class IdeaMaterialByName : AbstractIdeaObject<IIdeaMaterialByName>, IIdeaMaterialByName
+	{
+		public virtual MaterialType MaterialType { get; set; }
+
+		public IdeaMaterialByName(Identifier<IIdeaMaterialByName> identifer)
+			: base(identifer)
+		{ }
+
+		public IdeaMaterialByName(int id)
+			: this(new IntIdentifier<IIdeaMaterialByName>(id))
+		{ }
+
+		public IdeaMaterialByName(string id)
+			: this(new StringIdentifier<IIdeaMaterialByName>(id))
+		{ }
+	}
+}

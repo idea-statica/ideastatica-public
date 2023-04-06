@@ -1,7 +1,7 @@
 ﻿using BimApiLinkFeaExample.BimApi;
 using BimApiLinkFeaExample.FeaExampleApi;
-using IdeaStatica.BimApiLink.BimApi;
-using IdeaStatica.BimApiLink.Importers;
+using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;

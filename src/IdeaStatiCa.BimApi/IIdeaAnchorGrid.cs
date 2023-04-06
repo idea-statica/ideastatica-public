@@ -2,6 +2,9 @@
 
 namespace IdeaStatiCa.BimApi
 {
+	/// <summary>
+	/// Represent anchor grid extend IIdeaBoltGrid
+	/// </summary>
 	public interface IIdeaAnchorGrid : IIdeaBoltGrid
 	{
 		/// <summary>
@@ -18,28 +21,5 @@ namespace IdeaStatiCa.BimApi
 		/// Washer Size
 		/// </summary>
 		double WasherSize { get; }
-	}
-
-	public interface IIdeaConcreteBlock : IIdeaObject
-	{
-		/// <summary>
-		/// Lenght
-		/// </summary>
-		double Lenght { get; }
-
-		/// <summary>
-		/// Width
-		/// </summary>
-		double Width { get; }
-
-		/// <summary>
-		/// Height
-		/// </summary>
-		double Height { get; }
-
-		/// <summary>
-		/// Material of the concrete block.
-		/// </summary>
-		IIdeaMaterial Material { get; }
 	}
 }

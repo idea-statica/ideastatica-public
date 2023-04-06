@@ -22,12 +22,12 @@ namespace IdeaStatiCa.BimApi
 		IIdeaNode Start { get; }
 
 		/// <summary>
-		/// End node of the weld line. Coudl be same as start point
+		/// End node of the weld line. Could be same as start point
 		/// </summary>
 		IIdeaNode End { get; }
 
 		/// <summary>
-		/// Collection of parf witch shoud be welded
+		/// Collection of part witch should be welded
 		/// </summary>
 		IEnumerable<IIdeaObjectConnectable> ConnectedParts { get; }
 

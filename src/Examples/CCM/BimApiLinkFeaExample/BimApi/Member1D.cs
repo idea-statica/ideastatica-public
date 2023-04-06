@@ -1,4 +1,4 @@
-﻿using IdeaStatica.BimApiLink.BimApi;
+﻿using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApi;
 
 namespace BimApiLinkFeaExample.BimApi

@@ -35,6 +35,8 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public bool AutoAddCutByWorkplane { get; set; }
 
+		public bool IsReferenceLineInCenterOfGravity { get; set; }
+
 		public IEnumerable<IIdeaResult> GetResults()
 		{
 			return IdeaMember.GetResults();
