@@ -60,9 +60,14 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 				.WhereNotNull()
 				.ToHashSet();
 
+			var members2D = selection.Members2D
+				.Select(x => _bimApiImporter.Get(x))
+				.WhereNotNull()
+				.ToHashSet();
+
 			var connectionPoints = new HashSet<IIdeaConnectionPoint>();
 
-			return new BulkSelection(nodes, members, connectionPoints);
+			return new BulkSelection(nodes, members, connectionPoints, members2D);
 		}
 
 		public SingleSelection GetSingleSelection()
