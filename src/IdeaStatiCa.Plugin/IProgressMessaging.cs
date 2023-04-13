@@ -32,7 +32,8 @@ namespace IdeaStatiCa.Plugin
 		ProcessingSubstructure,
 		ProcessingConnection,
 		FinishingImport,
-		SciaSDKError
+		SciaSDKError,
+		AwaitingUserSelection
 	}
 
 	public interface IProgressMessaging
@@ -44,7 +45,7 @@ namespace IdeaStatiCa.Plugin
 		void CancelMessage();
 		void InitProgressDialog();
 
-		void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg);
+		void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg, params object[] args);
 		void SetStage(int stage, int stageMax, string name);
 		void SetStageProgress(double percentage);
 
