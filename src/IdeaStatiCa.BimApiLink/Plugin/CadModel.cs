@@ -5,6 +5,7 @@ using IdeaStatiCa.BimApi;
 using Nito.Disposables.Internals;
 using System.Collections.Generic;
 using System.Linq;
+using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
@@ -14,11 +15,15 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly ICadModel _cadModel;
+		private readonly IProgressMessaging _remoteApp;
+		private readonly string _applicationName;
 
-		public CadModelAdapter(IBimApiImporter bimApiImporter, ICadModel cadModel)
+		public CadModelAdapter(IBimApiImporter bimApiImporter, ICadModel cadModel, IProgressMessaging remoteApp, string applicationName)
 		{
 			_bimApiImporter = bimApiImporter;
 			_cadModel = cadModel;
+			_remoteApp = remoteApp;
+			_applicationName = applicationName;
 		}
 
 		public ISet<IIdeaLoading> GetLoads()
@@ -39,6 +44,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public BulkSelection GetBulkSelection()
 		{
+			_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.AwaitingUserSelection, _applicationName);
 			IEnumerable<CadUserSelection> selections = _cadModel.GetUserSelections();
 			return ProcessSelection(selections);
 		}
@@ -90,6 +96,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public SingleSelection GetSingleSelection()
 		{
+			_remoteApp?.SetStageLocalised(1, 0, LocalisedMessage.AwaitingUserSelection, _applicationName);
 			CadUserSelection selection = _cadModel.GetUserSelection();
 			_lastSelection = selection;
 			var nodes = new HashSet<IIdeaNode>();

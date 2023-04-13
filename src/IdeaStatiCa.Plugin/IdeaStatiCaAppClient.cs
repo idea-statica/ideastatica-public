@@ -162,7 +162,7 @@ namespace IdeaStatiCa.Plugin
 			throw new NotImplementedException();
 		}
 
-		public void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg)
+		public void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg, params object[] args)
 		{
 			throw new NotImplementedException();
 		}
