@@ -427,7 +427,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		}
 
 		[Test]
-		public void Import_SectionPositionDoesNotNormalizeDifferenceEqualToPrecision()
+		public void Import_SectionPositionDoesNotNormalizeDifferenceEqualToDoublePrecision()
 		{
 			// Setup
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
@@ -442,7 +442,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 			section1.Position.Returns(0.0);
 
 			IIdeaSection section2 = Substitute.For<IIdeaSection>();
-			double epsilon = ctx.Configuration.ResultSectionPositionPrecision;
+			double epsilon = ctx.Configuration.ResultSectionPositionPrecision * 2.0;
 			section2.Position.Returns(epsilon);
 
 			List<IIdeaSection> sections = new List<IIdeaSection>() { section1, section2 };

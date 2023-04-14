@@ -110,7 +110,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private double GetNormalizedPosition(double sectionPositionPrecision, IIdeaSection section)
 		{
 			double position = section.Position;
-			double precision = sectionPositionPrecision / 2.0;
+			double precision = sectionPositionPrecision * 2.0;
 
 			if (position.AlmostEqual(1.0, precision))
 			{
