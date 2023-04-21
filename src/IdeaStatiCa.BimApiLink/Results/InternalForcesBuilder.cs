@@ -1,8 +1,8 @@
 ﻿using IdeaRS.OpenModel.Result;
-using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApiLink.Results.BimApi;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApi.Results;
+using IdeaStatiCa.BimApiLink.Identifiers;
+using IdeaStatiCa.BimApiLink.Results.BimApi;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,30 +12,31 @@ namespace IdeaStatiCa.BimApiLink.Results
 		where T : IIdeaObjectWithResults
 	{
 		private readonly ResultLocalSystemType _resultLocalSystem;
-		private readonly Dictionary<string, IdeaResult> _results = new Dictionary<string, IdeaResult>();
 		private readonly List<ResultsData<T>> _resultsData = new List<ResultsData<T>>();
+		private readonly Dictionary<(string Obj, string LoadCase), Sections> _sections = new Dictionary<(string, string), Sections>();
 
 		public InternalForcesBuilder(ResultLocalSystemType resultLocalSystem)
 		{
 			_resultLocalSystem = resultLocalSystem;
 		}
 
-		public Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier) 
+		public Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier)
 			=> For(obj, Get(loadCaseIdentifier));
 
-		public Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase) 
+		public Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase)
 			=> For(Get(objIdentifier), loadCase);
 
 		public Sections For(T obj, IIdeaLoadCase loadCase)
 		{
-			if (!_results.TryGetValue(obj.Id, out IdeaResult result))
+			if (!_sections.TryGetValue((obj.Id, loadCase.Id), out Sections sections))
 			{
-				result = new IdeaResult(_resultLocalSystem);
-				_results.Add(obj.Id, result);
+				IdeaResult result = new IdeaResult(_resultLocalSystem);
+				_resultsData.Add(new ResultsData<T>(obj, result));
+
+				sections = new Sections(loadCase, result);
 			}
 
-			_resultsData.Add(new ResultsData<T>(obj, result));
-			return new Sections(loadCase, result);
+			return sections;
 		}
 
 		public IEnumerator<ResultsData<T>> GetEnumerator() => _resultsData.GetEnumerator();
@@ -48,7 +49,6 @@ namespace IdeaStatiCa.BimApiLink.Results
 			private readonly IdeaResult _result;
 
 			private readonly Dictionary<double, IdeaSection> _sections = new Dictionary<double, IdeaSection>();
-
 
 			internal Sections(IIdeaLoadCase loadCase, IdeaResult result)
 			{
