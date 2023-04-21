@@ -85,7 +85,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				foreach (IIdeaSectionResult res in section.Results)
 				{
-					var loading = res.Loading;
+					IIdeaLoading loading = res.Loading;
 
 					if (resultSection.Contains(res.Loading))
 					{
@@ -125,9 +125,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		}
 
 		private static bool IsAlmostEqual(double value, double equalTo, double epsilon)
-		{
-			return value < equalTo + epsilon && value > equalTo - epsilon;
-		}
+			=> value < equalTo + epsilon && value > equalTo - epsilon;
 
 		private SectionResultBase ImportSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
 		{
