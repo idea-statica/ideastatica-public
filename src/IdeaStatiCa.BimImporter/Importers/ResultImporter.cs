@@ -56,6 +56,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result)
 		{
 			double sectionPositionPrecision = ctx.Configuration.ResultSectionPositionPrecision;
+			bool throwOnResultsDuplicate = ctx.Configuration.ThrowOnResultsDuplicate;
 
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
@@ -89,6 +90,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 					if (resultSection.Contains(res.Loading))
 					{
+						if (!throwOnResultsDuplicate)
+						{
+							continue;
+						}
+
 						throw new ConstraintException($"Duplicated load case '{loading.Id}' in result section {position}.");
 					}
 
