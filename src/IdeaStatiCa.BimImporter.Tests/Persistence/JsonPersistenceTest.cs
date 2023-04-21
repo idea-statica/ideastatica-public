@@ -1,5 +1,7 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Persistence;
+using IdeaStatiCa.Plugin;
+using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
@@ -11,11 +13,13 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 	internal class JsonPersistenceTest
 	{
 		private JsonPersistence jsonPersistence;
+		private IPluginLogger logger;
 
 		[SetUp]
 		public void SetUp()
 		{
-			jsonPersistence = new JsonPersistence();
+			logger = Substitute.For<IPluginLogger>();
+			jsonPersistence = new JsonPersistence(logger);
 		}
 
 		private class TestToken : AbstractPersistenceToken
@@ -76,7 +80,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Persistence
 			jsonPersistence.Save(writter);
 
 			// Deserialize data
-			JsonPersistence jsonPersistence2 = new JsonPersistence();
+			JsonPersistence jsonPersistence2 = new JsonPersistence(logger);
 			StringReader reader = new StringReader(writter.ToString());
 			jsonPersistence2.Load(reader);
 
