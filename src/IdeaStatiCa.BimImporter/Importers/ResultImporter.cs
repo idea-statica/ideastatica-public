@@ -5,7 +5,6 @@ using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.BimImporter.Common;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
-using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,20 +109,24 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private double GetNormalizedPosition(double sectionPositionPrecision, IIdeaSection section)
 		{
 			double position = section.Position;
-			double precision = sectionPositionPrecision / 2.0;
 
-			if (position.AlmostEqual(1.0, precision))
+			if (IsAlmostEqual(position, 1.0, sectionPositionPrecision))
 			{
 				_logger.LogTrace($"Normalizing section position from '{position}' to 1.0");
 				position = 1.0;
 			}
-			else if (position.AlmostEqual(0.0, precision))
+			else if (IsAlmostEqual(position, 0.0, sectionPositionPrecision))
 			{
 				_logger.LogTrace($"Normalizing section position from '{position}' to 0.0");
 				position = 0.0;
 			}
 
 			return position;
+		}
+
+		private static bool IsAlmostEqual(double value, double equalTo, double epsilon)
+		{
+			return value < equalTo + epsilon && value > equalTo - epsilon;
 		}
 
 		private SectionResultBase ImportSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
