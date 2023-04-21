@@ -57,6 +57,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			double sectionPositionPrecision = ctx.Configuration.ResultSectionPositionPrecision;
 			bool throwOnResultsDuplicate = ctx.Configuration.ThrowOnResultsDuplicate;
+			bool ignoreOutOfBoundsResultSections = ctx.Configuration.IgnoreOutOfBoundsResultSections;
 
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
@@ -75,6 +76,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 				// so we dont need to include epsilon in the comparison
 				if (position < 0.0 || position > 1.0)
 				{
+					if (ignoreOutOfBoundsResultSections)
+					{
+						continue;
+					}
+
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
 				}
 

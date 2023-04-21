@@ -6,6 +6,7 @@
 		public double ResultSectionPositionPrecision { get; set; }
 		public double LCSPrecision { get; set; }
 		public bool ThrowOnResultsDuplicate { get; set; }
+		public bool IgnoreOutOfBoundsResultSections { get; set; }
 
 		public BimImporterConfiguration()
 		{
@@ -13,6 +14,7 @@
 			ResultSectionPositionPrecision = 1e-6;
 			LCSPrecision = 1e-6;
 			ThrowOnResultsDuplicate = false;
+			IgnoreOutOfBoundsResultSections = true;
 		}
 	}
 }
