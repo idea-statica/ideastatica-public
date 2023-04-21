@@ -46,18 +46,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 				MemberType = resultsData.MemberType
 			};
 
-			return resultsData.Results.Select(x => ImportResult(ctx, x)).Select(x =>
+			return resultsData.Results.Select(x => ImportResult(ctx, x, resultsData.Object)).Select(x =>
 			{
 				x.Member = member;
 				return x;
 			});
 		}
 
-		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result)
+		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result, IIdeaObjectWithResults obj)
 		{
 			double sectionPositionPrecision = ctx.Configuration.ResultSectionPositionPrecision;
 			bool throwOnResultsDuplicate = ctx.Configuration.ThrowOnResultsDuplicate;
 			bool ignoreOutOfBoundsResultSections = ctx.Configuration.IgnoreOutOfBoundsResultSections;
+			string memberId = obj.Id;
 
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
@@ -78,6 +79,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				{
 					if (ignoreOutOfBoundsResultSections)
 					{
+						_logger.LogInformation($"Result section on member {memberId} with position {position} is out of bounds, ignoring.");
 						continue;
 					}
 
@@ -98,6 +100,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 					{
 						if (!throwOnResultsDuplicate)
 						{
+							_logger.LogInformation($"Duplicated result section {position} for load case {loading.Id} on member {memberId}, ignoring.");
 							continue;
 						}
 
