@@ -43,7 +43,7 @@ namespace IdeaRstabPlugin
 			_workingDirectory = workingDirectory;
 			_persistencyStoragePath = Path.Combine(workingDirectory, PersistencyStorage);
 
-			_jsonPersistence = new JsonPersistence();
+			_jsonPersistence = new JsonPersistence(logger);
 			if (File.Exists(_persistencyStoragePath))
 			{
 				using (FileStream fs = new FileStream(_persistencyStoragePath, FileMode.Open, FileAccess.Read, FileShare.Read))

@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 	/// </summary>
 	public class JsonPersistence : AbstractPersistence, IFilePersistence
 	{
+		private readonly IPluginLogger _logger;
+
 		private static readonly PersistenceTokenConverter _tokenConverter = new PersistenceTokenConverter();
 
 		private JsonSerializerSettings GetJsonSerializerSettings()
@@ -33,6 +36,22 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			public HashSet<(int, string)> Mappings { get; set; }
 			public Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; }
 		}
+		
+		/// <summary>
+		/// Disabled default constructor
+		/// </summary>
+		private JsonPersistence()
+		{
+		}
+
+		/// <summary>
+		/// Creates an instance of the JsonPersistence class
+		/// </summary>
+		/// <param name="logger">The logger to be used for diagnostic messages</param>
+		public JsonPersistence(IPluginLogger logger)
+		{
+			_logger= logger;
+		}
 
 		/// <summary>
 		/// Loads saved data from a JSON file.
@@ -40,12 +59,32 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <param name="reader">TextReader to read saved info from.</param>
 		public void Load(TextReader reader)
 		{
-			StoredData storedData = JsonConvert.DeserializeObject<StoredData>(reader.ReadToEnd(), GetJsonSerializerSettings());
+			// load the json string from the provider text reader
+			string jsonStr = reader.ReadToEnd();
 
-			Mappings = storedData.Mappings;
-			Tokens = storedData.Tokens;
+			// log the loaded data for the diagnostics purposes
+			_logger.LogTrace($"Parsing id mappings json '{jsonStr}'.");
 
-			DataLoaded?.Invoke();
+			try
+			{
+				// parse the json
+				StoredData storedData = JsonConvert.DeserializeObject<StoredData>(jsonStr, GetJsonSerializerSettings());
+
+				_logger.LogTrace($"Successfully parsed {storedData.Mappings.Count} mappings and {storedData.Tokens.Count} tokens.");
+
+				Mappings = storedData.Mappings;
+				Tokens = storedData.Tokens;
+
+				DataLoaded?.Invoke();
+			}
+			catch (Exception ex)
+			{
+				// log the exception details
+				_logger.LogInformation($"Parsing of id mappings json '{jsonStr}' failed", ex);
+
+				// rethrow the original exception
+				throw;
+			}
 		}
 
 		/// <summary>
