@@ -5,7 +5,6 @@ using IdeaStatiCa.BimApi.Results;
 using IdeaStatiCa.BimImporter.Common;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
-using MathNet.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,16 +46,19 @@ namespace IdeaStatiCa.BimImporter.Importers
 				MemberType = resultsData.MemberType
 			};
 
-			return resultsData.Results.Select(x => ImportResult(ctx, x)).Select(x =>
+			return resultsData.Results.Select(x => ImportResult(ctx, x, resultsData.Object)).Select(x =>
 			{
 				x.Member = member;
 				return x;
 			});
 		}
 
-		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result)
+		private ResultOnMember ImportResult(IImportContext ctx, IIdeaResult result, IIdeaObjectWithResults obj)
 		{
 			double sectionPositionPrecision = ctx.Configuration.ResultSectionPositionPrecision;
+			bool throwOnResultsDuplicate = ctx.Configuration.ThrowOnResultsDuplicate;
+			bool ignoreOutOfBoundsResultSections = ctx.Configuration.IgnoreOutOfBoundsResultSections;
+			string memberId = obj.Id;
 
 			ResultOnMember resultOnMember = new ResultOnMember
 			{
@@ -75,6 +77,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 				// so we dont need to include epsilon in the comparison
 				if (position < 0.0 || position > 1.0)
 				{
+					if (ignoreOutOfBoundsResultSections)
+					{
+						_logger.LogInformation($"Result section on member {memberId} with position {position} is out of bounds, ignoring.");
+						continue;
+					}
+
 					throw new ConstraintException("The position of a section must be within 0 and 1 (including).");
 				}
 
@@ -86,10 +94,16 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				foreach (IIdeaSectionResult res in section.Results)
 				{
-					var loading = res.Loading;
+					IIdeaLoading loading = res.Loading;
 
 					if (resultSection.Contains(res.Loading))
 					{
+						if (!throwOnResultsDuplicate)
+						{
+							_logger.LogInformation($"Duplicated result section {position} for load case {loading.Id} on member {memberId}, ignoring.");
+							continue;
+						}
+
 						throw new ConstraintException($"Duplicated load case '{loading.Id}' in result section {position}.");
 					}
 
@@ -110,14 +124,13 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private double GetNormalizedPosition(double sectionPositionPrecision, IIdeaSection section)
 		{
 			double position = section.Position;
-			double precision = sectionPositionPrecision / 2.0;
 
-			if (position.AlmostEqual(1.0, precision))
+			if (IsAlmostEqual(position, 1.0, sectionPositionPrecision))
 			{
 				_logger.LogTrace($"Normalizing section position from '{position}' to 1.0");
 				position = 1.0;
 			}
-			else if (position.AlmostEqual(0.0, precision))
+			else if (IsAlmostEqual(position, 0.0, sectionPositionPrecision))
 			{
 				_logger.LogTrace($"Normalizing section position from '{position}' to 0.0");
 				position = 0.0;
@@ -125,6 +138,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			return position;
 		}
+
+		private static bool IsAlmostEqual(double value, double equalTo, double epsilon)
+			=> value < equalTo + epsilon && value > equalTo - epsilon;
 
 		private SectionResultBase ImportSectionResult(IImportContext ctx, IIdeaSectionResult sectionResult)
 		{
