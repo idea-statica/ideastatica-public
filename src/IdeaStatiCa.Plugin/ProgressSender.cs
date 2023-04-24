@@ -11,9 +11,9 @@ namespace IdeaStatiCa.Plugin
 		{
 		}
 
-		public void ExceptionMessage(string function, string message)
+		public void ExceptionMessage(string function, Exception exception)
 		{
-			Service?.ExceptionMessage(function, message);
+			Service?.ExceptionMessage(function, exception);
 		}
 
 		public void ProgressMessage(double percent, string message)
