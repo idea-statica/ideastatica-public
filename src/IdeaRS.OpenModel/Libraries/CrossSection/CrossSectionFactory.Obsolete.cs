@@ -83,5 +83,17 @@ namespace IdeaRS.OpenModel.CrossSection
 		[Obsolete("Use " + nameof(FillWeldedTriangle) + " instead")]
 		public static void FillTriangle(CrossSectionParameter css, double h, double w, double fTh, double webTh, double webD, bool mirrorY = false)
 			=> FillWeldedTriangle(css, h, w, fTh, webTh, webD, mirrorY);
+
+		[Obsolete("Argument 'sh' is ignored")]
+		public static void FillComposedDblLt(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
+			=> FillComposedDblLt(css, h, b, th, dis, shortLegUp, mirrorY);
+
+		[Obsolete("Argument 'sh' is ignored")]
+		public static void FillComposedDblLu(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
+			=> FillComposedDblLu(css, h, b, th, dis, shortLegUp, mirrorY);
+
+		[Obsolete("Arguments 'bb' and 'tr' are ignored")]
+		public static void FillComposedDblUo(CrossSectionParameter css, double bt, double bb, double h, double tb, double tl, double tr, double dis)
+			=> FillComposedDblUo(css, bt, h, tb, tl, dis);
 	}
 }
