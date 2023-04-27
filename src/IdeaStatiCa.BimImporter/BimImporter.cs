@@ -276,6 +276,7 @@ namespace IdeaStatiCa.BimImporter
 
 				List<IIdeaObject> objects = group.Items
 					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null)
 					.ToList();
 
 				IIdeaNode node = objects
@@ -301,10 +302,15 @@ namespace IdeaStatiCa.BimImporter
 				else
 				{
 					IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
-					var con = GetConnections(members, geometry)
-						.First(x => x.Key.Id == node.Id);
 
-					connections.Add(Connection.FromNodeAndMembers(node, con.Value));
+					// get all possible connections from current members
+					Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> allPossibleConnections = GetConnections(members, geometry);
+					if (allPossibleConnections.Count > 0)
+					{
+						// find first connection that matches current node
+						KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> con = allPossibleConnections.First(x => x.Key.Id == node.Id);
+						connections.Add(Connection.FromNodeAndMembers(node, con.Value));
+					}
 				}
 
 				return CreateModelBIM(objects, connections, countryCode);

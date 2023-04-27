@@ -25,6 +25,7 @@ namespace IdeaStatiCa.BimImporter
 
 		/// <summary>
 		/// Returns BimApi object for given IOM <paramref name="id"/>.
+		/// Can returns null, if required object not found in Bim App.
 		/// </summary>
 		/// <param name="id">IOM id</param>
 		/// <returns><see cref="IIdeaObject"/> object</returns>
