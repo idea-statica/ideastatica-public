@@ -66,8 +66,8 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			{
 				IEnumerable<IIdeaObject> tokens = items
 					.Where(x => x.Type != BIMItemType.BIMItemsGroup)
-					.Select(x => _project.GetBimObject(x.Id));
-
+					.Select(x => _project.GetBimObject(x.Id))
+					.Where(x => x != null);
 
 				Select(tokens);
 			}
@@ -75,12 +75,10 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		protected virtual void Select(IEnumerable<IIdeaObject> objects)
 		{
-			throw new NotImplementedException();
 		}
 
 		protected override void Select(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members)
 		{
-			throw new NotImplementedException();
 		}
 	}
 }
