@@ -39,7 +39,7 @@ namespace IdeaStatiCa.Plugin
 	public interface IProgressMessaging
 	{
 		bool GetCancellationFlag(); // @Todo: flags aren't the ideal solution
-		void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg);
+		void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg, string suffix = "");
 		void SendMessage(MessageSeverity severity, string text);
 		int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons);
 		void CancelMessage();

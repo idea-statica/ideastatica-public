@@ -157,7 +157,7 @@ namespace IdeaStatiCa.Plugin
 			throw new NotImplementedException();
 		}
 
-		public void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg)
+		public void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg, string suffix = "")
 		{
 			throw new NotImplementedException();
 		}
