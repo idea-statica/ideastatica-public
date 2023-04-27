@@ -256,11 +256,10 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 			double b = props.BFBot.InchesToMeters();
 			double h = props.Depth.InchesToMeters();
-			double sh = props.WebT.InchesToMeters();
 			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double dis = props.BfTop.InchesToMeters() - props.BFBot.InchesToMeters() * 2;
 
-			CrossSectionFactory.FillComposedDblLt(crossSectionParameter, h, b, th, sh, dis);
+			CrossSectionFactory.FillComposedDblLt(crossSectionParameter, h, b, th, dis);
 		}
 
 		public static void FillShapeDblLu(SteelSectionProperties props, CrossSectionParameter crossSectionParameter)
@@ -273,11 +272,10 @@ namespace IdeaStatiCa.RamToIdea.Utilities
 
 			double b = props.BFBot.InchesToMeters();
 			double h = props.Depth.InchesToMeters();
-			double sh = props.WebT.InchesToMeters();
 			double th = Math.Max(props.TFBot.InchesToMeters(), props.TfTop.InchesToMeters());
 			double dis = props.BfTop.InchesToMeters() - props.BFBot.InchesToMeters() * 2;
 
-			CrossSectionFactory.FillComposedDblLu(crossSectionParameter, h, b, th, sh, dis);
+			CrossSectionFactory.FillComposedDblLu(crossSectionParameter, h, b, th, dis);
 		}
 	}
 }
