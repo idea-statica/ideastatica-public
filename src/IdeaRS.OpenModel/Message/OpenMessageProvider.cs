@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Resources;
 using System.Runtime.Serialization;
-using System.Text;
 using res = IdeaRS.OpenModel.Properties.Resources;
 
 namespace IdeaRS.OpenModel.Message
@@ -218,6 +215,12 @@ namespace IdeaRS.OpenModel.Message
 		/// </summary>
 		[EnumMember]
 		ErrBadWeldMaterialProperty = Error | 0x17,
+
+		/// <summary>
+		/// <include file='../IdeaRS.OpenModel/Properties/Resources.resx' path='root/data[@name="OperationError"]/value/text()/*' />
+		/// </summary>
+		[EnumMember]
+		ErrOperation = Error | 0x18,
 
 		#endregion
 	}

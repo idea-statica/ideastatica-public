@@ -264,4 +264,8 @@
   <data name="ErrBadWeldMaterialProperty" xml:space="preserve">
     <value>Bad weld material property</value>
   </data>
+  <data name="OperationError" xml:space="preserve">
+    <value>Operation error.</value>
+    <comment>DO NOT TRANSLATE!!!</comment>
+  </data>
 </root>
