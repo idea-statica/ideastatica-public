@@ -20,6 +20,7 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		private ResultImporter resultImporter;
 		private IImportContext ctx;
 		private int _nextId;
+		private BimImporterConfiguration config;
 
 		private IIdeaLoadCase CreateLoadCase(out int id)
 		{
@@ -52,10 +53,10 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		[SetUp]
 		public void SetUp()
 		{
-			ctx = Substitute.For<IImportContext>();
+			config = new BimImporterConfiguration();
 
-			BimImporterConfiguration configuration = new BimImporterConfiguration();
-			ctx.Configuration.Returns(configuration);
+			ctx = Substitute.For<IImportContext>();
+			ctx.Configuration.Returns(config);
 
 			resultImporter = new ResultImporter(new NullLogger());
 
@@ -169,6 +170,8 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		public void Import_IfSectionPositionIsGreaterThanOne_ThrowsConstraintException()
 		{
 			// Setup: result with position 2
+			config.IgnoreOutOfBoundsResultSections = false;
+
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
 
 			IIdeaResult result = Substitute.For<IIdeaResult>();
@@ -197,7 +200,9 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		[Test]
 		public void Import_IfSectionPositionIsLessThanZero_ThrowsConstraintException()
 		{
-			// Setup: result with position 2
+			// Setup: result with position -0.2
+			config.IgnoreOutOfBoundsResultSections = false;
+
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
 
 			IIdeaResult result = Substitute.For<IIdeaResult>();
@@ -227,6 +232,8 @@ namespace IdeaStatiCa.BimImporter.Tests.Importers
 		public void Import_IfTwoSectionHaveTheSamePosition_ThrowsConstraintException()
 		{
 			// Setup
+			config.ThrowOnResultsDuplicate = true;
+
 			IIdeaMember1D member = Substitute.For<IIdeaMember1D>();
 
 			IIdeaResult result = Substitute.For<IIdeaResult>();
