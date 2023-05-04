@@ -116,14 +116,48 @@ namespace IdeaStatiCa.BimImporter
 				foreach (ResultsData data in resultsProvider.GetResults(_objectsWithResults.Skip(count)))
 				{
 					ReferenceElement refElm = Import(data.Object);
+
 					IEnumerable<ResultOnMember> results = _resultImporter.Import(this, refElm, data);
-					resultOnMembers.Members.AddRange(results);
+
+					// for all new results we need to know, if they are in the list of already imported results
+					foreach (var resultOnMember in results)
+					{
+						// if results on the given member exists, we will add new data to them, else we will add new member results
+						ResultOnMember existingResultOnMember = resultOnMembers.Members.FirstOrDefault(r => resultOnMember.Member.Id == r.Member.Id);
+						if (existingResultOnMember != null)
+						{
+							MergeResultsOnMember(existingResultOnMember, resultOnMember);
+						}
+						else
+						{
+							resultOnMembers.Members.Add(resultOnMember);
+						}
+					}
 				}
 
 				count = _objectsWithResults.Count;
 			}
 
 			OpenModelResult.ResultOnMembers.Add(resultOnMembers);
+		}
+
+		private static void MergeResultsOnMember(ResultOnMember existingResultOnMember, ResultOnMember resultOnMember)
+		{
+			// we have to pair sections with existing sections
+			foreach (ResultOnSection newResultOnMember in resultOnMember.Results.Cast<ResultOnSection>())
+			{
+				var existingSectionResultOnMember = existingResultOnMember.Results.OfType<ResultOnSection>().FirstOrDefault(x => x.Position == newResultOnMember.Position);
+				if (existingSectionResultOnMember is null)
+				{
+					// add new section with all load cases
+					existingResultOnMember.Results.Add(newResultOnMember);
+				}
+				else
+				{
+					// add new results in all load cases to the existing section
+					existingSectionResultOnMember.Results.AddRange(newResultOnMember.Results);
+				}
+			}
 		}
 
 		private void PrepareToImportResults(IIdeaObject obj)
