@@ -18,6 +18,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaLoadCase> _loadCaseImporter;
 		private readonly IImporter<IIdeaLoadGroup> _loadGroupImporter;
 		private readonly IImporter<IIdeaCombiInput> _combiInputImporter;
+		private readonly IImporter<IIdeaLoadOnLine> _loadOnLineImporter;
+		private readonly IImporter<IIdeaPointLoadOnLine> _pointLoadOnLineImporter;
 		private readonly IImporter<IIdeaTaper> _taperImporter;
 		private readonly IImporter<IIdeaSpan> _spanImporter;
 
@@ -48,6 +50,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_loadCaseImporter = new LoadCaseImporter(logger);
 			_loadGroupImporter = new LoadGroupImporter(logger);
 			_combiInputImporter = new CombiInputImporter(logger);
+			_loadOnLineImporter = new LoadOnLineImporter(logger);
+			_pointLoadOnLineImporter = new PointLoadOnLineImporter(logger);
 			_connectionImporter = new ConnectionImporter(logger);
 			_taperImporter = new TaperImporter(logger);
 			_spanImporter = new SpanImporter(logger);
@@ -102,6 +106,12 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaCombiInput combiInput:
 					return _combiInputImporter.Import(ctx, combiInput);
+
+				case IIdeaLoadOnLine loadOnLine:
+					return _loadOnLineImporter.Import(ctx, loadOnLine);
+
+				case IIdeaPointLoadOnLine pointLoadOnLine:
+					return _pointLoadOnLineImporter.Import(ctx, pointLoadOnLine);
 
 				case IIdeaTaper taper:
 					return _taperImporter.Import(ctx, taper);
