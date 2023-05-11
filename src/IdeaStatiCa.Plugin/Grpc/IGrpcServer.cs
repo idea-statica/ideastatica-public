@@ -2,6 +2,6 @@
 {
 	public interface IGrpcServer : IGrpcCommunicator
 	{
-		Services.GrpcService GrpcService { get; }
+		IGrpcService GrpcService { get; }
 	}
 }

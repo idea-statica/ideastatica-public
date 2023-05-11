@@ -42,6 +42,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		{
 			this.logger = logger;
 			MaxDataLength = maxDataLength;
+			logger.LogInformation("Creating GrpcService");
 		}
 		#endregion
 

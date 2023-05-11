@@ -15,7 +15,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// <param name="blobStorageProvider">Provider of blob storages</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in bytes in grpc message</param>
 		/// <param name="chunkSize">Size of one chunk in bytes for blob storage data transferring</param>
-		public GrpcReflectionServer(object instance, IPluginLogger logger, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE) : base(logger, blobStorageProvider, maxDataLength, chunkSize)
+		public GrpcReflectionServer(object instance, IPluginLogger logger, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE) : base(logger, null, blobStorageProvider, maxDataLength, chunkSize)
 		{
 			logger.LogDebug("GrpcReflectionServer");
 
