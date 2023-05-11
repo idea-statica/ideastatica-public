@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="clr-namespace:ConnectionParametrizationExample.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:ConnectionParametrizationExample.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ConnectionParametrizationExample.ViewModels"
@@ -16,120 +17,26 @@
                                      IsDesignTimeCreatable=True}"
     mc:Ignorable="d">
 
-    <Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="../Styles/Styles.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-
-			<conv:FilePathConverter x:Key="FilePathConverter" />
-			<conv:VisibilityConverter x:Key="VisibilityConverter" />
-			<conv:CheckBoxToListConverter x:Key="CheckBoxToListConverter" />
-		</ResourceDictionary>
-
-
-    </Window.Resources>
-
     <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+        <TabControl BorderThickness="0" SelectedIndex="0">
+            <TabItem Header="Parametrization">
+                <i:Interaction.Triggers>
+                    <i:PropertyChangedTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}, Path=IsSelected}">
+                        <i:InvokeCommandAction Command="{Binding NavigateToParamatrizationCommand}" />
+                    </i:PropertyChangedTrigger>
+                </i:Interaction.Triggers>
+				<ContentControl Content="{Binding Navigation.CurrentView}" />
+            </TabItem>
+			
+            <TabItem Header="Model info">
+                <i:Interaction.Triggers>
+                    <i:PropertyChangedTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}, Path=IsSelected}">
+                        <i:InvokeCommandAction Command="{Binding NavigateToModelInfoCommand}" />
+                    </i:PropertyChangedTrigger>
+                </i:Interaction.Triggers>
+                <ContentControl Content="{Binding Navigation.CurrentView}" />
+            </TabItem>
+        </TabControl>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="Idea Connection location: " />
-            <TextBox
-                Grid.Column="1"
-                Margin="0,2"
-                Text="{Binding IdeaAppLocation, UpdateSourceTrigger=PropertyChanged}" />
-
-            <TextBlock Grid.Row="1" Text="IdeaCon files location: " />
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="1"
-                Text="{Binding IdeaConFilesLocation, UpdateSourceTrigger=PropertyChanged}" />
-        </Grid>
-
-        <Grid Grid.Row="1" Margin="0,10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-			<StackPanel Margin="0 0 0 15">
-				<CheckBox
-					Content="Increase load to any Ut=100%"
-					IsChecked="{Binding ResultChecks, Converter={StaticResource CheckBoxToListConverter}, ConverterParameter='All'}">
-				</CheckBox>
-				<CheckBox
-					Content="Increase load to Limit plastic strain of plates to 5%"
-					IsChecked="{Binding ResultChecks, Converter={StaticResource CheckBoxToListConverter}, ConverterParameter='Plates'}">
-					</CheckBox>
-				<CheckBox
-					Content="Increase load to Bolts Ut=100%"
-					IsChecked="{Binding ResultChecks, Converter={StaticResource CheckBoxToListConverter}, ConverterParameter='Bolts'}">
-				</CheckBox>
-				<CheckBox
-					Content="Increase load to Welds Ut=100%"
-					IsChecked="{Binding ResultChecks, Converter={StaticResource CheckBoxToListConverter}, ConverterParameter='Welds'}">
-				</CheckBox>
-				<CheckBox
-					Content="Increase load to Anchors Ut=100%"
-					IsChecked="{Binding ResultChecks, Converter={StaticResource CheckBoxToListConverter}, ConverterParameter='Anchors'}">
-				</CheckBox>
-				<CheckBox
-					Content="Increase load to Concrete in compression Ut=100%"
-					IsChecked="{Binding ResultChecks, Converter={StaticResource CheckBoxToListConverter}, ConverterParameter='Concrete block'}">
-				</CheckBox>
-			</StackPanel>
-
-			<TextBlock Grid.Row="1" Text="IdeaCon files" />
-
-            <ListBox
-                Grid.Row="2"
-                ItemsSource="{Binding IdeaConFiles}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding ., Converter={StaticResource FilePathConverter}}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-
-        <ProgressBar
-            Grid.Row="2"
-            Width="200"
-            HorizontalAlignment="Left"
-            Visibility="{Binding IsBusy, Converter={StaticResource VisibilityConverter}}"
-            Value="{Binding CurrentProgress, Mode=OneWay}" />
-
-        <TextBlock
-            Grid.Row="2"
-            Width="200"
-            Margin="0,10"
-            HorizontalAlignment="Left"
-            Text="{Binding CurrentProgress, Mode=OneWay, StringFormat={}{0:0}%}"
-            TextAlignment="Center"
-            Visibility="{Binding IsBusy, Converter={StaticResource VisibilityConverter}}" />
-
-        <Button
-            Grid.Row="2"
-            Width="200"
-            Height="30"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Command="{Binding RunCommand}"
-            Content="Run Calculations" />
     </Grid>
 </Window>

@@ -1,8 +1,32 @@
 ﻿<Application x:Class="ConnectionParametrizationExample.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:conv="clr-namespace:ConnectionParametrizationExample.Converters"
+			 xmlns:viewModel="clr-namespace:ConnectionParametrizationExample.ViewModels"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ConnectionParametrizationExample">
+             xmlns:local="clr-namespace:ConnectionParametrizationExample" 
+			 xmlns:view="clr-namespace:ConnectionParametrizationExample.Views">
 	<Application.Resources>
+		
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Styles/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+			<!--Converters-->
+			<conv:FilePathConverter x:Key="FilePathConverter" />
+			<conv:VisibilityConverter x:Key="VisibilityConverter" />
+			<conv:CheckBoxToListConverter x:Key="CheckBoxToListConverter" />
+
+			<!--Bind ViewModels to Views-->
+			<DataTemplate DataType="{x:Type viewModel:ParametrizationViewModel}">
+				<view:ParametrizationView/>
+			</DataTemplate>
+			
+			<DataTemplate DataType="{x:Type viewModel:ModelInfoViewModel}">
+				<view:ModelInfoView/>
+			</DataTemplate>
+			
+		</ResourceDictionary>
 
 	</Application.Resources>
 </Application>

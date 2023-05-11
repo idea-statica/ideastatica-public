@@ -8,10 +8,9 @@ namespace ConnectionParametrizationExample.Views
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow(MainWindowViewModel vm)
+		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = vm;
 		}
 
 		//private void Button_Click(object sender, RoutedEventArgs e)
