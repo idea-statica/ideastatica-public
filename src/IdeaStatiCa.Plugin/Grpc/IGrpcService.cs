@@ -7,5 +7,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 	{
 		bool IsConnected { get; }
 		void RegisterHandler(string handlerId, IGrpcMessageHandler handler);
+		Task ConnectAsync(IAsyncStreamReader<GrpcMessage> requestStream, IServerStreamWriter<GrpcMessage> responseStream, ServerCallContext context);
 	}
 }
