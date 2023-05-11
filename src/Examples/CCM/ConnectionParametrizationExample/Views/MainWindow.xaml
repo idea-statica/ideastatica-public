@@ -17,26 +17,17 @@
     mc:Ignorable="d">
 
     <Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Styles/Styles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
 
-        <Style BasedOn="{StaticResource {x:Type ListBox}}" TargetType="ListBox">
-            <Style.Triggers>
-                <Trigger Property="HasItems" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Border BorderBrush="#FFABADB3" BorderThickness="1">
-                                    <TextBlock Foreground="Red" Text="No IdeaCon files in selected location" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+			<conv:FilePathConverter x:Key="FilePathConverter" />
+			<conv:VisibilityConverter x:Key="VisibilityConverter" />
+			<conv:CheckBoxToListConverter x:Key="CheckBoxToListConverter" />
+		</ResourceDictionary>
 
-        <conv:FilePathConverter x:Key="FilePathConverter" />
-        <conv:VisibilityConverter x:Key="VisibilityConverter" />
-		<conv:CheckBoxToListConverter x:Key="CheckBoxToListConverter" />
+
     </Window.Resources>
 
     <Grid Margin="10">
