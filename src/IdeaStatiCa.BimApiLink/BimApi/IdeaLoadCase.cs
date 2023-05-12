@@ -1,5 +1,6 @@
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApiLink.BimApi
 {
@@ -10,11 +11,15 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 		public virtual IdeaRS.OpenModel.Loading.LoadCaseSubType Type { get; set; }
 		
 		public virtual IdeaRS.OpenModel.Loading.VariableType Variable { get; set; }
-		
-		public virtual IIdeaLoadGroup LoadGroup { get; set; } = null;
-		
-		public virtual string Description { get; set; } = null;
-		
+
+		public virtual IIdeaLoadGroup LoadGroup { get; set; }
+
+		public virtual string Description { get; set; }
+
+		public virtual IList<IIdeaLoadOnLine> LoadsOnLine { get; set; }
+
+		public IList<IIdeaPointLoadOnLine> PointLoadsOnLine { get; set; }
+
 		public IdeaLoadCase(Identifier<IIdeaLoadCase> identifer)
 			: base(identifer)
 		{ }

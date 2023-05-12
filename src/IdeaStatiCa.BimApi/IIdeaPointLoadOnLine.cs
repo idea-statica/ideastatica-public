@@ -5,7 +5,7 @@ namespace IdeaStatiCa.BimApi
 	/// <summary>
 	/// Load in specific point on line
 	/// </summary>
-	public interface IIdeaPointLoadOnLine : IIdeaLoading
+	public interface IIdeaPointLoadOnLine : IIdeaObject
 	{
 		/// <summary>
 		/// Local / global

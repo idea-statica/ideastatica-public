@@ -5,7 +5,7 @@ namespace IdeaStatiCa.BimApi
 	/// <summary>
 	/// Load on line
 	/// </summary>
-	public interface IIdeaLoadOnLine : IIdeaLoading
+	public interface IIdeaLoadOnLine : IIdeaObject
 	{
 		/// <summary>
 		/// Begin position on Segment3D
