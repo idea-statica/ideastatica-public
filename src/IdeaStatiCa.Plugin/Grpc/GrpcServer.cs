@@ -32,16 +32,31 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// grpc service for bi-directional streaming messaging
 		/// </summary>
-		public Services.GrpcService GrpcService { get; }
+		public IGrpcService GrpcService { get; }
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="logger">Logger</param>
+		public GrpcServer(IPluginLogger logger)
+		{
+			this.Logger = logger;
+			this.blobStorageProvider = null;
+			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
+			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
+			Host = "localhost";
+			GrpcService = new Services.GrpcService(Logger, MaxDataLength);
+		}
 
 		/// <summary>
 		/// Initializes the IdeaStatiCa Grpc server.
 		/// </summary>
 		/// <param name="logger">Logger</param>
+		/// <param name="grpcService"></param>
 		/// <param name="blobStorageProvider">Provider of blob storages</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in bytes in grpc message</param>
 		/// <param name="chunkSize">Size of one chunk in bytes for blob storage data transferring</param>
-		public GrpcServer(IPluginLogger logger, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE)
+		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE)
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
@@ -49,7 +64,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			MaxDataLength = maxDataLength;
 			this.chunkSize = chunkSize;
 			Host = "localhost";
-			GrpcService = new Services.GrpcService(Logger, MaxDataLength);
+			GrpcService = grpcService;
 		}
 
 		/// <summary>
@@ -58,11 +73,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		private void Start()
 		{
 			Logger.LogDebug($"GrpcServer.Start listening on port {Host}:{Port}");
+
+			Grpc.GrpcService.GrpcServiceBase grpcServiceBase = (Grpc.GrpcService.GrpcServiceBase)GrpcService;
 			server = new Server(CommunicationTools.GetChannelOptions(MaxDataLength))
 			{
 				Services =
 				{
-					Grpc.GrpcService.BindService(GrpcService),
+					Grpc.GrpcService.BindService(grpcServiceBase),
 					Grpc.GrpcBlobStorageService.BindService(new Services.GrpcBlobStorageService(Logger, blobStorageProvider, chunkSize))
 				},
 				Ports = { new ServerPort(Host, Port, ServerCredentials.Insecure) }
