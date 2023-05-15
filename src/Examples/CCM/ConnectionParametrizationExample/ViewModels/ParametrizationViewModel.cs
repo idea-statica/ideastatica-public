@@ -1,17 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ConnectionParametrizationExample.Models;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConnectionParametrizationExample.ViewModels
 {
-    class ParametrizationViewModel : ViewModel
+	class ParametrizationViewModel : ViewModel
 	{
 		public ParametrizedModel model;
 		public List<string> IdeaConFiles { get; set; } = new List<string>();
@@ -62,7 +60,7 @@ namespace ConnectionParametrizationExample.ViewModels
 			IdeaAppLocation = @"C:\Program Files\IDEA StatiCa\StatiCa 23.0";
 			IdeaAppLocation = @"C:\Users\RadimMach\Repositories\IdeaStatiCa\bin\Debug\net48";
 			IdeaConFilesLocation = @"C:\Users\User\Downloads\models";
-			IdeaConFilesLocation = @"C:\Users\RadimMach\Downloads\models";
+			IdeaConFilesLocation = @"C:\Users\RadimMach\Downloads";
 		}
 
 		private void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -93,6 +91,7 @@ namespace ConnectionParametrizationExample.ViewModels
 			worker.RunWorkerAsync();
 		}
 
+		[SuppressPropertyChangedWarnings]
 		private void OnIdeaConFilesLocationChanged(string value)
 		{
 			if (Directory.Exists(value))

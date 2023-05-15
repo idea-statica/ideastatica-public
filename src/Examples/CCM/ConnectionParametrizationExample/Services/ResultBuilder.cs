@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.Connection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -70,6 +71,26 @@ namespace ConnectionParametrizationExample.Services
 		{
 			string resultFilePath = Path.Combine(path, "Results.csv");
 			File.WriteAllLines(resultFilePath, results);
+		}
+
+		public void WriteDataToCsv(Dictionary<string, List<string>> data, string csvPath)
+		{
+			var csvText = GetDictionaryKeysAsHeaders(data);
+			File.WriteAllLines(csvPath, csvText);
+		}
+
+		private IEnumerable<string> GetDictionaryKeysAsHeaders(Dictionary<string, List<string>> data)
+		{
+			int rowCount = data.Max(pair => pair.Value.Count);
+
+			// Headers
+			yield return string.Join(",", data.Select(pair => pair.Key));
+
+			// Rows
+			for (int r = 0; r < rowCount; ++r)
+			{
+				yield return string.Join(",", data.Select(pair => r < pair.Value.Count ? pair.Value[r] : ""));
+			}
 		}
 	}
 }

@@ -16,6 +16,7 @@
 			<conv:FilePathConverter x:Key="FilePathConverter" />
 			<conv:VisibilityConverter x:Key="VisibilityConverter" />
 			<conv:CheckBoxToListConverter x:Key="CheckBoxToListConverter" />
+			<conv:InvertedBoolConverter x:Key="InvertedBoolConverter" />
 
 			<!--Bind ViewModels to Views-->
 			<DataTemplate DataType="{x:Type viewModel:ParametrizationViewModel}">

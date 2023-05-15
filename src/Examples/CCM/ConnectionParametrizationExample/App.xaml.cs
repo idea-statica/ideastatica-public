@@ -29,6 +29,7 @@ namespace ConnectionParametrizationExample
 					services.AddSingleton<ModelInfoViewModel>();
 
 					services.AddSingleton<INavigatonService, NavigationService>();
+					services.AddSingleton<ConnectionsManagerService>();
 
 					services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 				})
