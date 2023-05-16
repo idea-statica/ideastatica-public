@@ -18,7 +18,7 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 
 		public virtual IList<IIdeaLoadOnLine> LoadsOnLine { get; set; }
 
-		public IList<IIdeaPointLoadOnLine> PointLoadsOnLine { get; set; }
+		public virtual IList<IIdeaPointLoadOnLine> PointLoadsOnLine { get; set; }
 
 		public IdeaLoadCase(Identifier<IIdeaLoadCase> identifer)
 			: base(identifer)
