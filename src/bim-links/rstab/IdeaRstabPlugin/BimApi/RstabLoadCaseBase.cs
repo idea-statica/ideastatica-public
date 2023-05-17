@@ -1,5 +1,6 @@
 ﻿using IdeaRS.OpenModel.Loading;
 using IdeaStatiCa.BimApi;
+using System.Collections.Generic;
 
 namespace IdeaRstabPlugin.BimApi
 {
@@ -18,6 +19,10 @@ namespace IdeaRstabPlugin.BimApi
 		public string Id { get; set; }
 
 		public string Name { get; set; }
+
+		public IList<IIdeaLoadOnLine> LoadsOnLine => throw new System.NotImplementedException(); // todo implement
+
+		public IList<IIdeaPointLoadOnLine> PointLoadsOnLine => throw new System.NotImplementedException(); // todo implement
 
 		protected int GetLoadGroupInx(bool cyclic)
 		{

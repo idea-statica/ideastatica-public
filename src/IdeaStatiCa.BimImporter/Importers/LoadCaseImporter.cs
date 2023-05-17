@@ -2,6 +2,7 @@
 using IdeaRS.OpenModel.Loading;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -20,10 +21,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 				LoadType = lc.LoadType,
 				Type = lc.Type,
 				Variable = lc.Variable,
-
+				LoadGroup = ctx.Import(lc.LoadGroup),
+				LoadsOnLine = lc.LoadsOnLine.Select(l => ctx.Import(l)).ToList(),
+				PointLoadsOnLine = lc.PointLoadsOnLine.Select(l => ctx.Import(l)).ToList()
 			};
-			ReferenceElement refElement = ctx.Import(lc.LoadGroup);
-			lcRet.LoadGroup = refElement;
 
 			return lcRet;
 		}

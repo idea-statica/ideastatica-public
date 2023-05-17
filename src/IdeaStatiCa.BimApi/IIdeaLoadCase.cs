@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.Loading;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApi
 {
@@ -28,5 +29,15 @@ namespace IdeaStatiCa.BimApi
 		/// Additional info
 		/// </summary>
 		string Description { get; }
+
+		/// <summary>
+		/// List of line load impulses in this load case
+		/// </summary>
+		IList<IIdeaLoadOnLine> LoadsOnLine { get; }
+
+		/// <summary>
+		/// List of point load impulses in this load case
+		/// </summary>
+		IList<IIdeaPointLoadOnLine> PointLoadsOnLine { get; }
 	}
 }

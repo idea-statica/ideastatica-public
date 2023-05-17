@@ -3,6 +3,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.RamToIdea.Factories;
 using IdeaStatiCa.RamToIdea.Providers;
 using RAMDATAACCESSLib;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.RamToIdea.BimApi
 {
@@ -37,6 +38,10 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		public string Id { get; }
 
 		public string Name { get; }
+
+		public IList<IIdeaLoadOnLine> LoadsOnLine => throw new System.NotImplementedException(); // todo implement
+
+		public IList<IIdeaPointLoadOnLine> PointLoadsOnLine => throw new System.NotImplementedException(); // todo implement
 
 		private static (LoadCaseType lt, LoadCaseSubType ls) GetLoadCaseType(ELoadCaseType ramLoadType)
 		{
