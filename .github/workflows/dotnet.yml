@@ -23,7 +23,7 @@ jobs:
       uses: NuGet/setup-nuget@v1
       
     - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1
+      uses: darenm/Setup-VSTest@v1.2
 
     - name: Nuget restore dependencies
       run: nuget restore ./src/IdeaStatiCa.Public.sln
