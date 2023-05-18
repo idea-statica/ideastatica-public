@@ -236,9 +236,13 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 			List<PolyLine2D> outlines = GetPolyLineShape(shape, BOUND_TYPE.BT_OUTER);
 			List<PolyLine2D> openings = GetPolyLineShape(shape, BOUND_TYPE.BT_INNER);
-			//filter only valid polyline
-			outlines = outlines.FindAll(p => p.Segments.Count == 4
-			);
+
+			// filter only valid polyline - in connection we don't support complex shape only rectangle
+			outlines = outlines.FindAll(p => p.Segments.Count == 4);
+			if (outlines.Count == 0)
+			{
+				return null;
+			}
 
 			IIdeaCrossSectionByComponents crossSection = new IdeaCrossSectionByComponents()
 			{
@@ -248,12 +252,6 @@ namespace IdeaRstabPlugin.Factories.RstabPluginUtils
 
 			for (int i = 0; i < outlines.Count; i++)
 			{
-				//in connection we don't support complex shape only rectangle
-				if (outlines[i].Segments.Count > 4)
-				{
-					return null;
-				}
-
 				Region2D region = new Region2D
 				{
 					Outline = outlines[i],

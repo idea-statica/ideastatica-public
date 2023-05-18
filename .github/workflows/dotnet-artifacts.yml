@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: main
 
@@ -18,10 +18,10 @@ jobs:
       uses: microsoft/setup-msbuild@v1
 
     - name: Setup nuget.exe
-      uses: NuGet/setup-nuget@v1.0.5
+      uses: NuGet/setup-nuget@v1
       
     - name: Setup VSTest Path
-      uses: darenm/Setup-VSTest@v1
+      uses: darenm/Setup-VSTest@v1.2
 
     - name: Nuget restore dependencies
       run: nuget restore ./src/IdeaStatiCa.Public.sln
@@ -32,21 +32,21 @@ jobs:
       working-directory: main
 
     - name: 'Upload ConnectionHiddenCalculation'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ConnectionHiddenCalculation
         path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
         if-no-files-found: error
 
     - name: 'Upload FEAppExample'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: FEAppExample
         path: ${{ github.workspace }}/main/src/Examples/CCM/FEAppExample_1/bin/Release
         if-no-files-found: error
 
     - name: 'Upload IdeaRstabPlugin'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: IdeaRstabPlugin
         path: ${{ github.workspace }}/main/src/bim-links/rstab/IdeaRstabPlugin/bin/Release
@@ -61,7 +61,7 @@ jobs:
       working-directory: main
 
     - name: 'Upload SAF2IOM'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: SAF2IOM
         path: ${{ github.workspace }}/main/src/Examples/SAF2IOM/bin\Release

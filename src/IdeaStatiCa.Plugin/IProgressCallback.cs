@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -9,9 +10,9 @@ namespace IdeaStatiCa.Plugin
 		/// Method is called when an exception occurs on the server.
 		/// </summary>
 		/// <param name="function">Name of the method.</param>
-		/// <param name="message">Details of the exception</param>
+		/// <param name="exception">Details of the exception</param>
 		[OperationContract(IsOneWay = true)]
-		void ExceptionMessage(string function, string message);
+		void ExceptionMessage(string function, Exception exception);
 
 		/// <summary>
 		/// infomation about progress of event.

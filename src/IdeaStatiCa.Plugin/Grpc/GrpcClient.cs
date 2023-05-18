@@ -263,6 +263,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 				throw new ApplicationException($"Grpc reflection error. Message handler '{message.MessageName}' is not registered!");
 			}
 		}
+
+		public Task ConnectAsync(IAsyncStreamReader<GrpcMessage> requestStream, IServerStreamWriter<GrpcMessage> responseStream, ServerCallContext context)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 }

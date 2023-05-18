@@ -256,23 +256,19 @@
 		/// Fills a double channel steel section. They form an open/front-to-front ][ shape.
 		/// </summary>
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
-		/// <param name="bt">The width of U top flange.</param>
-		/// <param name="bb">The width of U bottom flange.</param>
-		/// <param name="h">The height of U shape.</param>
-		/// <param name="tb">The bottom deck thickness.</param>
-		/// <param name="tl">The left deck thickness.</param>
-		/// <param name="tr">The right deck thickness.</param>
-		/// <param name="dis">Distance between ][</param>
-		public static void FillComposedDblUo(CrossSectionParameter css, double bt, double bb, double h, double tb, double tl, double tr, double dis)
+		/// <param name="b">The width of css</param>
+		/// <param name="h">The height of css</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="th">Flange thickness</param>
+		/// <param name="distance">Distance between ][</param>
+		public static void FillComposedDblUo(CrossSectionParameter css, double b, double h, double tw, double th, double distance)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleUo;
-			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = bt });
-			css.Parameters.Add(new ParameterDouble() { Name = "Bb", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = b });
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
-			css.Parameters.Add(new ParameterDouble() { Name = "Bw", Value = tb });
-			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = tl });
-			css.Parameters.Add(new ParameterDouble() { Name = "Tb", Value = tr });
-			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bw", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
 		}
 
 		/// <summary>
@@ -307,17 +303,15 @@
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="h">The height of css.</param>
 		/// <param name="b">The width of css.</param>
-		/// <param name="th">The bottom flange thisckness.</param>
-		/// <param name="sh">The wall thickness.</param>
-		/// <param name="dis">Distance between _||_</param>
-		public static void FillComposedDblLt(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
+		/// <param name="th">Thickness</param>
+		/// <param name="distance">Distance between _||_</param>
+		public static void FillComposedDblLt(CrossSectionParameter css, double h, double b, double th, double distance, bool shortLegUp = false, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleLt;
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = b });
 			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
-			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
-			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
 			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
@@ -343,17 +337,16 @@
 		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
 		/// <param name="h">The height of css.</param>
 		/// <param name="b">The width of css.</param>
-		/// <param name="th">The bottom flange thisckness.</param>
+		/// <param name="th">Thickness</param>
 		/// <param name="sh">The wall thickness.</param>
-		/// <param name="dis">Distance between _||_</param>
-		public static void FillComposedDblLu(CrossSectionParameter css, double h, double b, double th, double sh, double dis, bool shortLegUp = false, bool mirrorY = false)
+		/// <param name="distance">Distance between _||_</param>
+		public static void FillComposedDblLu(CrossSectionParameter css, double h, double b, double th, double distance, bool shortLegUp = false, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleLu;
 			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
 			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = b });
 			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
-			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
-			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = dis });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
 			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}

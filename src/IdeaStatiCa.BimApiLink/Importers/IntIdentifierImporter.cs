@@ -11,6 +11,12 @@ namespace IdeaStatiCa.BimApiLink.Importers
 			return Create(((IntIdentifier<T>)identifier).Id);
 		}
 
+#if NET6_0_OR_GREATER
+#nullable enable
+		public abstract T? Create(int id);
+#nullable disable
+#else
 		public abstract T Create(int id);
+#endif
 	}
 }

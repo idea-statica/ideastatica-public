@@ -544,6 +544,11 @@ namespace IdeaRS.OpenModel.CrossSection
 		CF2Cpo = 105,
 
 		/// <summary>
+		/// Cold formed -  rectangular hollow section
+		/// </summary>
+		CFRhs = 106,
+
+		/// <summary>
 		/// Unique Name
 		/// </summary>
 		UniqueName = 1001,

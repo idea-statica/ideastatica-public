@@ -30,11 +30,11 @@ namespace IdeaStatiCa.BimApiLink
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
 		{
-			JsonPersistence jsonPersistence = new JsonPersistence();
+			JsonPersistence jsonPersistence = new JsonPersistence(logger);
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			CadModelAdapter cadModelAdapter = new CadModelAdapter(bimApiImporter, feaModel as ICadModel);
+			CadModelAdapter cadModelAdapter = new CadModelAdapter(bimApiImporter, feaModel as ICadModel, remoteApp, ApplicationName);
 			IBimImporter bimImporter = BimImporter.BimImporter.Create(
 				cadModelAdapter,
 				projectAdapter,

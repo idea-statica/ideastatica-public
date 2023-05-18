@@ -1,7 +1,6 @@
 ﻿using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
-using System;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
@@ -22,10 +21,6 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public IIdeaObject GetBimObject(int id)
 		{
 			IIdeaObject obj = _bimApiImporter.Get(_project.GetIdentifier(id));
-			if (obj is null)
-			{
-				throw new InvalidOperationException();
-			}
 
 			return obj;
 		}
