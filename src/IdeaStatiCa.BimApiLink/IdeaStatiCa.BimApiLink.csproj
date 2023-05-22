@@ -4,7 +4,7 @@
 		<TargetFrameworks>net48;net6.0</TargetFrameworks>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<Configurations>Debug;Release</Configurations>
 		<Authors>IDEA StatiCa</Authors>
 		<Company>IDEA StatiCa</Company>
