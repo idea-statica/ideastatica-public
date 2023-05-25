@@ -56,6 +56,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public async Task WriteAsync(string blobStorageId, string contentId, Stream content)
 		{
 			logger.LogDebug($"GrpcBlobStorageClient starts Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
+			content.Seek(0, SeekOrigin.Begin);
 
 			var metadata = new Metadata();
 			metadata.Add(Constants.BlobStorageId, blobStorageId);
