@@ -107,7 +107,7 @@ namespace IdeaStatiCa.BimApiLink
 			return _bimHosting.InitGrpcClient(pluginLogger);
 		}
 
-		public Task Run(IModel model)
+		public virtual Task Run(IModel model)
 		{
 			IPluginLogger pluginLogger = _pluginLogger ?? new NullLogger();
 			IApplicationBIM applicationBIM = CreateApplicationBIM(model, pluginLogger, InitHostingClient(pluginLogger));
