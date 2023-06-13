@@ -18,16 +18,19 @@ namespace IdeaStatiCa.BimApiLink.Persistence
 
 		public void Save()
 		{
-			using (FileStream fs = File.OpenWrite(_path))
-			using (StreamWriter streamWriter = new StreamWriter(fs))
+			if (IsValid())
 			{
-				_filePersistence.Save(streamWriter);
+				using (FileStream fs = File.OpenWrite(_path))
+				using (StreamWriter streamWriter = new StreamWriter(fs))
+				{
+					_filePersistence.Save(streamWriter);
+				}
 			}
 		}
 
 		public void Load()
 		{
-			if (File.Exists(_path))
+			if (IsValid())
 			{
 				using (FileStream fs = File.OpenRead(_path))
 				using (StreamReader streamReader = new StreamReader(fs))
