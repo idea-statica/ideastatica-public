@@ -16,7 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
 		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+		<ProjectReference Include="..\FeaExampleApi\FeaExampleApi.csproj" />
 	</ItemGroup>
 </Project>

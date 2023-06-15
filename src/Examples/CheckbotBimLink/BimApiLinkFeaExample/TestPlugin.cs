@@ -12,7 +12,7 @@ namespace BimApiLinkFeaExample
 {
 	public static class TestPlugin
 	{
-		public static async Task Run(string checkbotLocation, IPluginLogger logger)
+		public static async Task Run(string checkbotLocation, IFeaApi feaApi, IPluginLogger logger)
 		{
 			if (logger is null)
 			{
@@ -26,7 +26,7 @@ namespace BimApiLinkFeaExample
 				Directory.CreateDirectory(workingDirectory);
 			}
 
-			IFeaApi feaApi = new FeaApi();
+			//IFeaApi feaApi = new FeaApi();
 
 			try
 			{
