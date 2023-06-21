@@ -90,7 +90,7 @@ namespace IdeaStatiCa.Plugin
 			string eventName = string.Format("IdeaStatiCaEvent{0}", processId);
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
-				connectionProc.StartInfo = new ProcessStartInfo(applicationExePath, $"-cmd:automation-{processId} {IdeaStatiCa.Plugin.Constants.GrpcPortParam}:{GrpcPort} user-mode 192");
+				connectionProc.StartInfo = new ProcessStartInfo(applicationExePath, $"-cmd:automation-{processId} {IdeaStatiCa.Plugin.Constants.GrpcControlPortParam}:{GrpcPort} user-mode 192");
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 
