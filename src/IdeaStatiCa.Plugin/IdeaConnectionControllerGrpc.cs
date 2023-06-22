@@ -1,168 +1,134 @@
-﻿using IdeaStatiCa.Plugin.Grpc;
-using IdeaStatiCa.Plugin.Utilities;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-
-namespace IdeaStatiCa.Plugin
+﻿namespace IdeaStatiCa.Plugin
 {
-	public class IdeaConnectionControllerGrpc : IDisposable, IConnectionController
-	{
-		private readonly string IdeaInstallDir;
-		private Process IdeaStatiCaProcess { get; set; }
-		private Uri CalculatorUrl { get; set; }
+    [Obsolete("This class will be replaced by IdeaConnectionController controller.")]
+    public class IdeaConnectionControllerGrpc : IdeaConnectionController
+    {
+        private IdeaConnectionControllerGrpc(string ideaInstallDir, IPluginLogger logger) : base(ideaInstallDir, logger)
+        {
+        }
 
-		public event EventHandler ConnectionAppExited;
+        /// <summary>
+        /// Creates connection and starts IDEA StatiCa connection application.
+        /// Call OpenProject after this method to open specific project.
+        /// </summary>
+        /// <param name="ideaInstallDir">IDEA StatiCa installation directory.</param>
+        /// <param name="logger">The logger.</param>
+        /// <returns>A controller object.</returns>
+        public new static IConnectionController Create(string ideaInstallDir, IPluginLogger logger)
+        {
+            IdeaConnectionControllerGrpc connectionController = new IdeaConnectionControllerGrpc(ideaInstallDir, logger);
+            connectionController.OpenConnectionClient();
+            return connectionController;
+        }
 
-		private int GrpcPort { get; set; }
+        public int OpenProject(string fileName)
+        {
+            GrpcClient.MyBIM.OpenProject(fileName);
+            return 1;
+        }
 
-		private IPluginLogger Logger { get; set; }
+        public int CloseProject()
+        {
+            GrpcClient.MyBIM.CloseProject();
+            return 1;
+        }
 
-		protected EventWaitHandle CurrentItemChangedEvent;
+        private void OpenConnectionClient()
+        {
+            OpenConnectionClientGrpc();
+        }
 
-		//protected IdeaStatiCaClient<IAutomation> ConnectionAppClient { get; set; }
+        private void OpenConnectionClientGrpc()
+        {
+            int processId = Process.GetCurrentProcess().Id;
+            GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
+            string connChangedEventName = string.Format(Constants.ConnectionChangedEventFormat, processId);
+            CurrentItemChangedEvent = new EventWaitHandle(false, EventResetMode.AutoReset, connChangedEventName);
 
-		protected AutomationHostingGrpc<IAutomation, IAutomation> GrpcClient { get; set; }
+            string applicationExePath = Path.Combine(IdeaInstallDir, Constants.IdeaConnectionAppName);
 
-		protected virtual uint UserMode { get; } = 0;
+            if (!File.Exists(applicationExePath))
+            {
+                throw new ArgumentException($"IdeaConnectionController.OpenConnectionClient - file '{applicationExePath}' doesn't exist");
+            }
 
-		private string BaseAddress { get; set; }
+            Process connectionProc = new Process();
+            string eventName = string.Format("IdeaStatiCaEvent{0}", processId);
+            using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
+            {
+                connectionProc.StartInfo = new ProcessStartInfo(applicationExePath, $"-cmd:automation-{processId} {IdeaStatiCa.Plugin.Constants.GrpcControlPortParam}:{GrpcPort} user-mode 192");
+                connectionProc.EnableRaisingEvents = true;
+                connectionProc.Start();
 
-		bool IConnectionController.IsConnected => GrpcClient?.IsConnected == true;
+                if (!syncEvent.WaitOne(StartTimeout))
+                {
+                    throw new TimeoutException($"Time out - process '{applicationExePath}' doesn't set the event '{eventName}'");
+                }
+            }
 
-#if DEBUG
-		private int StartTimeout = -1;
-#else
-		int StartTimeout = 1000*20;
-#endif
+            IdeaStatiCaProcess = connectionProc;
+            var grpcClient = new GrpcClient(Logger);
 
-		private IdeaConnectionControllerGrpc(string ideaInstallDir, IPluginLogger logger)
-		{
-			Logger = logger ?? new NullLogger();
-			if (!Directory.Exists(ideaInstallDir))
-			{
-				throw new ArgumentException($"IdeaConnectionController.IdeaConnectionController - directory '{ideaInstallDir}' doesn't exist");
-			}
+            var grpcClientTask = grpcClient.StartAsync(processId.ToString(), GrpcPort);
 
-			IdeaInstallDir = ideaInstallDir;
-		}
+            GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, grpcClient, Logger);
+            GrpcClient.RunAsync(processId.ToString());
 
-		public static IConnectionController Create(string ideaInstallDir, IPluginLogger logger)
-		{
-			IdeaConnectionControllerGrpc connectionController = new IdeaConnectionControllerGrpc(ideaInstallDir, logger);
-			connectionController.OpenConnectionClient();
-			return connectionController;
-		}
+            IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
+        }
 
-		public int OpenProject(string fileName)
-		{
-			GrpcClient.MyBIM.OpenProject(fileName);
-			return 1;
-		}
+        private void CalculatorProcess_Exited(object sender, EventArgs e)
+        {
+            if (IdeaStatiCaProcess == null)
+            {
+                return;
+            }
 
-		public int CloseProject()
-		{
-			GrpcClient.MyBIM.CloseProject();
-			return 1;
-		}
+            IdeaStatiCaProcess.Dispose();
+            IdeaStatiCaProcess = null;
+            CalculatorUrl = null;
+            //ConnectionAppClient = null;
 
-		private void OpenConnectionClient()
-		{
-			OpenConnectionClientGrpc();
-		}
+            if (ConnectionAppExited != null)
+            {
+                ConnectionAppExited(this, e);
+            }
+        }
 
-		private void OpenConnectionClientGrpc()
-		{
-			int processId = Process.GetCurrentProcess().Id;
-			GrpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
-			string connChangedEventName = string.Format(Constants.ConnectionChangedEventFormat, processId);
-			CurrentItemChangedEvent = new EventWaitHandle(false, EventResetMode.AutoReset, connChangedEventName);
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
 
-			string applicationExePath = Path.Combine(IdeaInstallDir, Constants.IdeaConnectionAppName);
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
 
-			if (!File.Exists(applicationExePath))
-			{
-				throw new ArgumentException($"IdeaConnectionController.OpenConnectionClient - file '{applicationExePath}' doesn't exist");
-			}
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
 
-			Process connectionProc = new Process();
-			string eventName = string.Format("IdeaStatiCaEvent{0}", processId);
-			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
-			{
-				connectionProc.StartInfo = new ProcessStartInfo(applicationExePath, $"-cmd:automation-{processId} {IdeaStatiCa.Plugin.Constants.GrpcControlPortParam}:{GrpcPort} user-mode 192");
-				connectionProc.EnableRaisingEvents = true;
-				connectionProc.Start();
+                disposedValue = true;
+            }
+        }
 
-				if (!syncEvent.WaitOne(StartTimeout))
-				{
-					throw new TimeoutException($"Time out - process '{applicationExePath}' doesn't set the event '{eventName}'");
-				}
-			}
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~ConnectionControllerFactory()
+        // {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
 
-			IdeaStatiCaProcess = connectionProc;
-			var grpcClient = new GrpcClient(Logger);
-
-			var grpcClientTask = grpcClient.StartAsync(processId.ToString(), GrpcPort);
-
-			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, grpcClient, Logger);
-			GrpcClient.RunAsync(processId.ToString());
-
-			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
-		}
-
-		private void CalculatorProcess_Exited(object sender, EventArgs e)
-		{
-			if (IdeaStatiCaProcess == null)
-			{
-				return;
-			}
-
-			IdeaStatiCaProcess.Dispose();
-			IdeaStatiCaProcess = null;
-			CalculatorUrl = null;
-			//ConnectionAppClient = null;
-
-			if (ConnectionAppExited != null)
-			{
-				ConnectionAppExited(this, e);
-			}
-		}
-
-		#region IDisposable Support
-		private bool disposedValue = false; // To detect redundant calls
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					// TODO: dispose managed state (managed objects).
-				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
-
-				disposedValue = true;
-			}
-		}
-
-		// TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-		// ~ConnectionControllerFactory()
-		// {
-		//   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-		//   Dispose(false);
-		// }
-
-		// This code added to correctly implement the disposable pattern.
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-			Dispose(true);
-			// TODO: uncomment the following line if the finalizer is overridden above.
-			// GC.SuppressFinalize(this);
-		}
-		#endregion
-	}
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+    }
 }

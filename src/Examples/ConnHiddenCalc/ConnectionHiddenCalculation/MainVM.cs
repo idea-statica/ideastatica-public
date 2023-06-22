@@ -386,7 +386,7 @@ namespace ConnectionHiddenCalculation
 			if (this.ConnectionController == null)
 			{
 				// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
-				this.ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir, Logger);
+				this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir, Logger);
 				this.ConnectionController.ConnectionAppExited += ConnectionController_ConnectionAppExited;
 			}
 			else
