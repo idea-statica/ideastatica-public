@@ -109,14 +109,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.NetFrameworkPor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CheckbotBimLink", "CheckbotBimLink", "{2BF4524E-3515-438F-AAAE-310F0EA228BE}"
 	ProjectSection(SolutionItems) = preProject
-		readme.md = readme.md
+		Examples\CheckbotBimLink\readme.md = Examples\CheckbotBimLink\readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\CheckbotBimLink\BimApiExample\BimApiExample.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiLinkFeaExample", "Examples\CheckbotBimLink\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj", "{E9C9DE5F-D81E-41B8-A40D-37066D824B75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeaExampleApi", "Examples\CheckbotBimLink\FeaExampleApi\FeaExampleApi.csproj", "{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeaExampleApi", "Examples\CheckbotBimLink\FeaExampleApi\FeaExampleApi.csproj", "{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
