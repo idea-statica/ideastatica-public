@@ -1,13 +1,13 @@
-﻿using Grpc.Core;
+﻿using FluentAssertions;
+using Grpc.Core;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Tests.gRPC
 {
@@ -36,7 +36,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
 			var context = Substitute.For<ServerCallContext>();
 
-			var reflexionServer = new GrpcReflectionServer(serviceMock, new NullLogger());
+			var reflexionServer = new GrpcReflectionServer(serviceMock, new NullLogger(), null);
 
 			List<GrpcMessage> handledMessages = new List<GrpcMessage>();
 
@@ -95,7 +95,7 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 
 			await reflexionServer.GrpcService.ConnectAsync(streamReader, streamWriter, context);
 
-	;			// response message should be written
+			;           // response message should be written
 			Assert.NotNull(writtenMessage);
 
 			// data should be exists
