@@ -103,13 +103,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamplePlugin", "CheckbotPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.BimApiLink", "IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj", "{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\CCM\BimApiExample\BimApiExample.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiLinkFeaExample", "Examples\CCM\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj", "{7C20F445-680E-45BF-8088-0AF8E3BDD917}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginsTools.Windows", "IdeaStatiCa.PluginsTools.Windows\IdeaStatiCa.PluginsTools.Windows.csproj", "{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.NetFrameworkPort", "IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj", "{A4DF827B-2374-4906-AC21-AA33697133AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.NetFrameworkPort", "IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj", "{A4DF827B-2374-4906-AC21-AA33697133AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CheckbotBimLink", "CheckbotBimLink", "{2BF4524E-3515-438F-AAAE-310F0EA228BE}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\CheckbotBimLink\readme.md = Examples\CheckbotBimLink\readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiExample", "Examples\CheckbotBimLink\BimApiExample\BimApiExample.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimApiLinkFeaExample", "Examples\CheckbotBimLink\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj", "{E9C9DE5F-D81E-41B8-A40D-37066D824B75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeaExampleApi", "Examples\CheckbotBimLink\FeaExampleApi\FeaExampleApi.csproj", "{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -269,14 +276,6 @@ Global
 		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB37A9E-FFD9-48E6-BD74-B45441B6DF00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C20F445-680E-45BF-8088-0AF8E3BDD917}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1337B2B-E3AA-42B8-8DA1-BC49899CFEE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -285,6 +284,18 @@ Global
 		{A4DF827B-2374-4906-AC21-AA33697133AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DF827B-2374-4906-AC21-AA33697133AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DF827B-2374-4906-AC21-AA33697133AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C9DE5F-D81E-41B8-A40D-37066D824B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C9DE5F-D81E-41B8-A40D-37066D824B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C9DE5F-D81E-41B8-A40D-37066D824B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C9DE5F-D81E-41B8-A40D-37066D824B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -326,8 +337,10 @@ Global
 		{90F6BF43-2CAD-4B53-96CF-8E1591E6FE96} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
 		{FF2EF855-A5E6-4FE7-B1FA-745254D17EA8} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
 		{DCDEE666-9EE3-4AC8-ADEF-59255B5786A7} = {D0A47670-876C-4CDD-9D86-E7EE84EBA0B3}
-		{669835E3-E2A5-48E5-8CF4-752370CB7051} = {E6888704-6043-4027-8A71-0BC948E91EAF}
-		{7C20F445-680E-45BF-8088-0AF8E3BDD917} = {E6888704-6043-4027-8A71-0BC948E91EAF}
+		{2BF4524E-3515-438F-AAAE-310F0EA228BE} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
+		{669835E3-E2A5-48E5-8CF4-752370CB7051} = {2BF4524E-3515-438F-AAAE-310F0EA228BE}
+		{E9C9DE5F-D81E-41B8-A40D-37066D824B75} = {2BF4524E-3515-438F-AAAE-310F0EA228BE}
+		{4E42D0BA-B7B8-46D4-AF25-648BEC64E90B} = {2BF4524E-3515-438F-AAAE-310F0EA228BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}

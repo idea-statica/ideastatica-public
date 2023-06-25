@@ -1,4 +1,5 @@
 ﻿using BimApiLinkFeaExample;
+using BimApiLinkFeaExample.FeaExampleApi;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.IO;
@@ -35,7 +36,11 @@ namespace BimApiExample.ViewModels
 
 		private void OnRunCheckbot()
 		{
-			Task.Run(() => TestPlugin.Run(CheckbotLocation, Logger));
+			//Provides the instance of the Fea Application Api or Model Object.
+			//We have created a simple test api for this example which mocks a typical Api. 
+			IFeaApi feaApi = new FeaApi();
+
+			Task.Run(() => TestPlugin.Run(CheckbotLocation, feaApi, Logger));
 		}
 	}
 }
