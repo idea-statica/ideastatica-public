@@ -5,5 +5,6 @@
 		IBlobStorage GetBlobStorage(string blobStorageName);
 
 		void Commit(string blobStorageName);
+		void CleanBlobStorages();
 	}
 }
