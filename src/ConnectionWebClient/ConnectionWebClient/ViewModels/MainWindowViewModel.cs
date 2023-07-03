@@ -2,7 +2,9 @@
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.ConnectionClient;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,6 +14,8 @@ namespace ConnectionWebClient.ViewModels
 	{
 		public readonly IConnectionClient connectionClient;
 		private bool _isBusy;
+		ObservableCollection<ConnectionViewModel>? connectionsVM;
+		ConnectionViewModel? selectedConnection;
 		private ConProjectInfo? _projectInfo;
 		private CancellationTokenSource cts;
 		
@@ -20,7 +24,11 @@ namespace ConnectionWebClient.ViewModels
 		{
 			this.cts = new CancellationTokenSource();
 			this.connectionClient = connectionClient;
-			OpenProjectCommand = new AsyncRelayCommand(OpenProjectCommandAsync, () => !IsBusy && ProjectInfo == null);
+			UploadProjectCommand = new AsyncRelayCommand(UploadProjectAsync, () => !IsBusy && ProjectInfo == null);
+			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
+			CalculateConnectionCommand = new AsyncRelayCommand(CalculateConnectionAsync);
+			Connections = new ObservableCollection<ConnectionViewModel>();
+			selectedConnection = null;
 		}
 
 		public bool IsBusy
@@ -36,9 +44,31 @@ namespace ConnectionWebClient.ViewModels
 		}
 
 
-		public AsyncRelayCommand OpenProjectCommand { get; }
+		public ObservableCollection<ConnectionViewModel> Connections
+		{
+			get => connectionsVM;
+			set
+			{
+				SetProperty(ref connectionsVM, value);
+			}
+		}
 
-		public async Task OpenProjectCommandAsync()
+		public ConnectionViewModel? SelectedConnection
+		{
+			get => selectedConnection;
+			set
+			{
+				SetProperty(ref selectedConnection, value);
+			}
+		}
+
+		public AsyncRelayCommand UploadProjectCommand { get; }
+
+		public AsyncRelayCommand CloseProjectCommand { get; }
+
+		public AsyncRelayCommand CalculateConnectionCommand { get; }
+
+		private async Task UploadProjectAsync()
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "IdeaConnection | *.ideacon";
@@ -53,7 +83,48 @@ namespace ConnectionWebClient.ViewModels
 				using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
 				{
 					ProjectInfo = await connectionClient.OpenProjectAsync(fs, cts.Token);
+
+					Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 				}
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		private async Task CalculateConnectionAsync()
+		{
+			if (SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var chekRes = await connectionClient.CalculateConnectionAsync(SelectedConnection.Id, cts.Token);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		private async Task CloseProjectAsync()
+		{
+			if(ProjectInfo == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				await connectionClient.CloseProjectAsync(cts.Token);
+				ProjectInfo = null;
+				SelectedConnection = null;
+				Connections = new ObservableCollection<ConnectionViewModel>();
 			}
 			finally
 			{

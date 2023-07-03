@@ -10,5 +10,8 @@ namespace IdeaStatiCa.ConnectionClient
 		Task<ConProjectInfo> OpenProjectAsync(Stream ideaConProject, CancellationToken cancellationToken);
 
 		Task CloseProjectAsync(CancellationToken cancellationToken);
+
+
+		Task<ConnectionCheckRes> CalculateConnectionAsync(int connectionId, CancellationToken cancellationToken);
 	}
 }

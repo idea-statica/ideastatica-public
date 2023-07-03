@@ -26,12 +26,13 @@ namespace IdeaStatiCa.ConnectionClient
 
 		public async Task CloseProjectAsync(CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/project/{Project.OpenProjectId}/close");
+
+			response.EnsureSuccessStatusCode();
 		}
 
 		public async Task<ConProjectInfo> OpenProjectAsync(Stream ideaConProject, CancellationToken cancellationToken)
 		{
-
 			using (MultipartFormDataContent formData = new MultipartFormDataContent())
 			{
 				using (StreamContent streamContent = new StreamContent(ideaConProject))
@@ -51,5 +52,17 @@ namespace IdeaStatiCa.ConnectionClient
 			return Project.ProjectInfo;
 		}
 
+		public async Task<ConnectionCheckRes> CalculateConnectionAsync(int connectionId, CancellationToken cancellationToken)
+		{
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/project/{Project.OpenProjectId}/calculate_connection?connectionId={connectionId}");
+
+			response.EnsureSuccessStatusCode();
+
+			var responseJson = await response.Content.ReadAsStringAsync();
+
+			var res = JsonConvert.DeserializeObject<ConnectionCheckRes>(responseJson);
+			return res;
+
+		}
 	}
 }
