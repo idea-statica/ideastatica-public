@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ConnectionClient", "IdeaStatiCa.ConnectionClient\IdeaStatiCa.ConnectionClient.csproj", "{79B93C90-0094-4E08-8CF1-F86024A90713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionWebClient", "ConnectionWebClient\ConnectionWebClient.csproj", "{B7253F3A-2AF4-47A1-814E-7BD54B402153}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRS.OpenModel", "..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj", "{7577E501-DD46-436D-9BA5-D4E463C28DDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_IdeaStatiCa_Internal|Any CPU = Debug_IdeaStatiCa_Internal|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release_IdeaStatiCa_Internal|Any CPU = Release_IdeaStatiCa_Internal|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B93C90-0094-4E08-8CF1-F86024A90713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7253F3A-2AF4-47A1-814E-7BD54B402153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug_IdeaStatiCa_Internal|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug_IdeaStatiCa_Internal|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release_IdeaStatiCa_Internal|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release_IdeaStatiCa_Internal|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7577E501-DD46-436D-9BA5-D4E463C28DDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D57E4919-7909-4267-BCA2-36C956858D5E}
+	EndGlobalSection
+EndGlobal
