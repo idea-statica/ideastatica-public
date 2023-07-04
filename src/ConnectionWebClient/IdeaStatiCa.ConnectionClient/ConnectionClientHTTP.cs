@@ -54,7 +54,7 @@ namespace IdeaStatiCa.ConnectionClient
 
 		public async Task<ConnectionCheckRes> CalculateConnectionAsync(int connectionId, CancellationToken cancellationToken)
 		{
-			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/project/{Project.OpenProjectId}/calculate_connection?connectionId={connectionId}");
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/calculate");
 
 			response.EnsureSuccessStatusCode();
 
