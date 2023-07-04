@@ -39,6 +39,7 @@
 					</GridView>
 				</ListView.View>
 			</ListView>
+			<TextBox Text="{Binding OutputText, Mode=TwoWay}" Grid.Column="1"></TextBox>
 		</Grid>
 	</DockPanel>
 </Window>

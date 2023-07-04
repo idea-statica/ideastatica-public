@@ -13,14 +13,11 @@ namespace IdeaStatiCa.ConnectionClient
 	{
 		private readonly HttpClient httpClient;
 		public const string ConCalculatorVersionAPI = "1";
-		//private readonly JsonSerializerOptions jsonSerializerOptions;
 
 		private OpenProjectResult Project { get; set; }
 
 		public ConnectionClientHTTP(HttpClient httpClient)
 		{
-			//jsonSerializerOptions = new JsonSerializerOptions();
-			//jsonSerializerOptions.
 			this.httpClient = httpClient;
 		}
 

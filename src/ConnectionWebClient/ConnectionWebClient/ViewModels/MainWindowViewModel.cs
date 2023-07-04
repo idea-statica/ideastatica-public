@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using ConnectionWebClient.Tools;
 using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.ConnectionClient;
 using Microsoft.Win32;
@@ -14,6 +15,7 @@ namespace ConnectionWebClient.ViewModels
 	{
 		public readonly IConnectionClient connectionClient;
 		private bool _isBusy;
+		private string? outputText; 
 		ObservableCollection<ConnectionViewModel>? connectionsVM;
 		ConnectionViewModel? selectedConnection;
 		private ConProjectInfo? _projectInfo;
@@ -62,6 +64,15 @@ namespace ConnectionWebClient.ViewModels
 			}
 		}
 
+		public string? OutputText
+		{
+			get => outputText;
+			set
+			{
+				SetProperty(ref outputText, value);
+			}
+		}
+
 		public AsyncRelayCommand UploadProjectCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
@@ -84,6 +95,7 @@ namespace ConnectionWebClient.ViewModels
 				{
 					ProjectInfo = await connectionClient.OpenProjectAsync(fs, cts.Token);
 
+					OutputText =JsonTools.ToFormatedJson(ProjectInfo);
 					Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 				}
 			}
@@ -104,6 +116,7 @@ namespace ConnectionWebClient.ViewModels
 			try
 			{
 				var chekRes = await connectionClient.CalculateConnectionAsync(SelectedConnection.Id, cts.Token);
+				OutputText = JsonTools.ToFormatedJson(chekRes);
 			}
 			finally
 			{
@@ -125,6 +138,7 @@ namespace ConnectionWebClient.ViewModels
 				ProjectInfo = null;
 				SelectedConnection = null;
 				Connections = new ObservableCollection<ConnectionViewModel>();
+				OutputText = string.Empty;
 			}
 			finally
 			{
