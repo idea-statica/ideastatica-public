@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Security.AccessControl;
 
 namespace ConnectionWebClient.Tools
 {
@@ -13,6 +14,18 @@ namespace ConnectionWebClient.Tools
 
 			string json = JsonConvert.SerializeObject(instance, Formatting.Indented);
 			return json;
+		}
+
+		public static string FormatJson(string json)
+		{
+			object? instance = JsonConvert.DeserializeObject(json);
+			if(instance == null)
+			{
+				return string.Empty;
+			}
+
+			dynamic parsedJson = instance;
+			return JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
 		}
 	}
 }

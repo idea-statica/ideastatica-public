@@ -26,9 +26,10 @@ namespace ConnectionWebClient.ViewModels
 		{
 			this.cts = new CancellationTokenSource();
 			this.connectionClient = connectionClient;
-			UploadProjectCommand = new AsyncRelayCommand(UploadProjectAsync, () => !IsBusy && ProjectInfo == null);
+			UploadProjectCommand = new AsyncRelayCommand(UploadProjectAsync);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
-			CalculateConnectionCommand = new AsyncRelayCommand(CalculateConnectionAsync);
+			GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
+			GetDetailResultsCommand = new AsyncRelayCommand(GetDetailResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -77,7 +78,9 @@ namespace ConnectionWebClient.ViewModels
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
 
-		public AsyncRelayCommand CalculateConnectionCommand { get; }
+		public AsyncRelayCommand GetBriefResultsCommand { get; }
+
+		public AsyncRelayCommand GetDetailResultsCommand { get; }
 
 		private async Task UploadProjectAsync()
 		{
@@ -105,7 +108,7 @@ namespace ConnectionWebClient.ViewModels
 			}
 		}
 
-		private async Task CalculateConnectionAsync()
+		private async Task GetBriefResultsAsync()
 		{
 			if (SelectedConnection == null)
 			{
@@ -115,8 +118,27 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var chekRes = await connectionClient.CalculateConnectionAsync(SelectedConnection.Id, cts.Token);
+				var chekRes = await connectionClient.GetBriefResultsAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.ToFormatedJson(chekRes);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		private async Task GetDetailResultsAsync()
+		{
+			if (SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var res = await connectionClient.GetDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
+				OutputText = JsonTools.FormatJson(res);
 			}
 			finally
 			{

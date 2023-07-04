@@ -49,9 +49,9 @@ namespace IdeaStatiCa.ConnectionClient
 			return Project.ProjectInfo;
 		}
 
-		public async Task<ConnectionCheckRes> CalculateConnectionAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<ConnectionCheckRes> GetBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
 		{
-			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/calculate");
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/brief-results");
 
 			response.EnsureSuccessStatusCode();
 
@@ -59,7 +59,17 @@ namespace IdeaStatiCa.ConnectionClient
 
 			var res = JsonConvert.DeserializeObject<ConnectionCheckRes>(responseJson);
 			return res;
+		}
 
+		public async Task<string> GetDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
+		{
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/detail-results");
+
+			response.EnsureSuccessStatusCode();
+
+			var responseJson = await response.Content.ReadAsStringAsync();
+			
+			return responseJson;
 		}
 	}
 }

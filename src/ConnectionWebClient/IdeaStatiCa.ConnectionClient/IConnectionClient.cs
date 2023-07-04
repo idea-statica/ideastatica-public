@@ -11,7 +11,8 @@ namespace IdeaStatiCa.ConnectionClient
 
 		Task CloseProjectAsync(CancellationToken cancellationToken);
 
+		Task<ConnectionCheckRes> GetBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 
-		Task<ConnectionCheckRes> CalculateConnectionAsync(int connectionId, CancellationToken cancellationToken);
+		Task<string> GetDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
 	}
 }
