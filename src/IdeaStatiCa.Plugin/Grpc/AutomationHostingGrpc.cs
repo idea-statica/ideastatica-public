@@ -168,8 +168,6 @@ namespace IdeaStatiCa.Plugin
 
 			try
 			{
-
-
 				while (!cancellationToken.IsCancellationRequested)
 				{
 					Thread.Sleep(100);
