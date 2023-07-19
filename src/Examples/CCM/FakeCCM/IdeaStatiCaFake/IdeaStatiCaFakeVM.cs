@@ -67,11 +67,11 @@ namespace IdeaStatiCaFake
 					}
 				}
 
-				var grpcArg = startupArgs.FirstOrDefault(a => a.StartsWith(Constants.GrpcPortParam));
+				var grpcArg = startupArgs.FirstOrDefault(a => a.StartsWith(Constants.GrpcControlPortParam));
 				{
 					if (!string.IsNullOrEmpty(grpcArg))
 					{
-						grpcEnabled = int.TryParse(grpcArg.Substring(Constants.GrpcPortParam.Length + 1), out grpcPort);
+						grpcEnabled = int.TryParse(grpcArg.Substring(Constants.GrpcControlPortParam.Length + 1), out grpcPort);
 					}
 				}
 

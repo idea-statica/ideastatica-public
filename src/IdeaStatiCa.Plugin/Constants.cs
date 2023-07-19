@@ -6,7 +6,8 @@
 		public const string IdeaStatiCaVersion = "21.1";
 
 		#region gRPC Constants 
-		public const string GrpcPortParam = "-grpcPort";
+		public const string GrpcControlPortParam = "-grpcPort";
+		public const string GrpcDataPort = "-grpcConnectionPort";
 		public const string GrpcReflectionErrorException = "GrpcReflectionError";
 		public const string BlobStorageId = "blobStorageId";
 		public const string ContentId = "contentId";

@@ -8,10 +8,20 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
+	public interface IGrpcBlobStorageClient
+	{
+		Task DeleteAsync(string blobStorageId, string contentId);
+		void Dispose();
+		Task<bool> ExistAsync(string blobStorageId, string contentId);
+		Task<List<string>> GetEntriesAsync(string blobStorageId);
+		Task<Stream> ReadAsync(string blobStorageId, string contentId);
+		Task WriteAsync(string blobStorageId, string contentId, Stream content);
+	}
+
 	/// <summary>
 	/// Client for gRPC blob storage communication
 	/// </summary>
-	public class GrpcBlobStorageClient : IDisposable
+	public class GrpcBlobStorageClient : IDisposable, IGrpcBlobStorageClient
 	{
 		private readonly GrpcBlobStorageService.GrpcBlobStorageServiceClient client;
 		private readonly Channel channel;
@@ -46,6 +56,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public async Task WriteAsync(string blobStorageId, string contentId, Stream content)
 		{
 			logger.LogDebug($"GrpcBlobStorageClient starts Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
+			content.Seek(0, SeekOrigin.Begin);
 
 			var metadata = new Metadata();
 			metadata.Add(Constants.BlobStorageId, blobStorageId);
@@ -173,7 +184,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			try
 			{
 				logger.LogDebug($"GrpcBlobStorageClient Delete, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
-				
+
 				var contentRequest = new ContentRequest()
 				{
 					BlobStorageId = blobStorageId,

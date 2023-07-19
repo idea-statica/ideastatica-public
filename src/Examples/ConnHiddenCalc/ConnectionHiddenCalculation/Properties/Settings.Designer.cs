@@ -25,7 +25,7 @@ namespace ConnectionHiddenCalculation.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\IDEA StatiCa\\StatiCa 22.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\IDEA StatiCa\\StatiCa 23.0")]
         public string IdeaStatiCaDir {
             get {
                 return ((string)(this["IdeaStatiCaDir"]));
