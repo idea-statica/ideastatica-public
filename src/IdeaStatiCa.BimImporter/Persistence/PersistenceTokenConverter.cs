@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 						jsonSerializer = JsonSerializer.Create(new JsonSerializerSettings
 						{
 							TypeNameHandling = TypeNameHandling.All,
+							TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
 						}
 					)
 				);
@@ -43,7 +44,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			// get the type
 			Type type = Type.GetType(
 				typeStr,
-				AssemblyLoad,
+				null,
 				TypeResolver,
 				false,
 				false);
@@ -70,14 +71,6 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				writer, new JsonConverter[] { this });
 
 			writer.WriteEndObject();
-		}
-
-		private static Assembly AssemblyLoad(AssemblyName assemblyName)
-		{
-			assemblyName.Version = null;
-			assemblyName.KeyPair = null;
-
-			return Assembly.Load(assemblyName);
 		}
 
 		private static Type TypeResolver(Assembly assembly, string name, bool ignoreCase)

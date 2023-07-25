@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace IdeaStatiCa.BimImporter.Persistence
 {
@@ -36,7 +37,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			public HashSet<(int, string)> Mappings { get; set; }
 			public Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; }
 		}
-		
+
 		/// <summary>
 		/// Disabled default constructor
 		/// </summary>
@@ -50,7 +51,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <param name="logger">The logger to be used for diagnostic messages</param>
 		public JsonPersistence(IPluginLogger logger)
 		{
-			_logger= logger;
+			_logger = logger;
 		}
 
 		/// <summary>
@@ -67,6 +68,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 			try
 			{
+				AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
 				// parse the json
 				StoredData storedData = JsonConvert.DeserializeObject<StoredData>(jsonStr, GetJsonSerializerSettings());
 
@@ -85,6 +88,19 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				// rethrow the original exception
 				throw;
 			}
+			finally
+			{
+				AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
+			}
+		}
+
+		private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+		{
+			AssemblyName assemblyName = new AssemblyName(args.Name);
+			// We are backwards compatible as of now
+			// so we can just remove the version identifier
+			assemblyName.Version = null;
+			return Assembly.Load(assemblyName);
 		}
 
 		/// <summary>
