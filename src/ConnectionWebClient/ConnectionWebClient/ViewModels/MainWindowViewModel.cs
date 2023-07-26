@@ -28,10 +28,12 @@ namespace ConnectionWebClient.ViewModels
 			this.connectionClient = connectionClient;
 			UploadProjectCommand = new AsyncRelayCommand(UploadProjectAsync);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
+
 			GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
 			GetDetailResultsCommand = new AsyncRelayCommand(GetDetailResultsAsync);
 
 			GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
+			GetBucklingDetailResultsCommand = new AsyncRelayCommand(GetBucklingDetailResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -86,6 +88,8 @@ namespace ConnectionWebClient.ViewModels
 
 		public AsyncRelayCommand GetBucklingBriefResultsCommand { get; }
 
+		public AsyncRelayCommand GetBucklingDetailResultsCommand { get; }
+
 		private async Task UploadProjectAsync()
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -122,7 +126,7 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var chekRes = await connectionClient.GetBriefResultsAsync(SelectedConnection.Id, cts.Token);
+				var chekRes = await connectionClient.GetPlaticBriefResultsAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.ToFormatedJson(chekRes);
 			}
 			finally
@@ -141,7 +145,7 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var res = await connectionClient.GetDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
+				var res = await connectionClient.GetPlaticDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.FormatJson(res);
 			}
 			finally
@@ -162,6 +166,26 @@ namespace ConnectionWebClient.ViewModels
 			{
 				var chekRes = await connectionClient.GetBucklingBriefResultsAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.ToFormatedJson(chekRes);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+
+		private async Task GetBucklingDetailResultsAsync()
+		{
+			if (SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var json = await connectionClient.GetBucklingDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
+				OutputText = JsonTools.FormatJson(json);
 			}
 			finally
 			{

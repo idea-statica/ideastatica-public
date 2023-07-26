@@ -49,7 +49,7 @@ namespace IdeaStatiCa.ConnectionClient
 			return Project.ProjectInfo;
 		}
 
-		public async Task<ConnectionCheckRes> GetBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<ConnectionCheckRes> GetPlaticBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
 		{
 			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-brief-results");
 
@@ -61,7 +61,7 @@ namespace IdeaStatiCa.ConnectionClient
 			return res;
 		}
 
-		public async Task<string> GetDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<string> GetPlaticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
 		{
 			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-detail-results");
 
@@ -82,6 +82,17 @@ namespace IdeaStatiCa.ConnectionClient
 
 			var res = JsonConvert.DeserializeObject<ConnectionCheckRes>(responseJson);
 			return res;
+		}
+
+		public async Task<string> GetBucklingDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
+		{
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/buckling-detail-results");
+
+			response.EnsureSuccessStatusCode();
+
+			var responseJson = await response.Content.ReadAsStringAsync();
+
+			return responseJson;
 		}
 	}
 }
