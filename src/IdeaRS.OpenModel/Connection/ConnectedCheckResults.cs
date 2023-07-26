@@ -72,6 +72,7 @@ namespace IdeaRS.OpenModel.Connection
 			CheckResBolt = new List<CheckResBolt>();
 			CheckResAnchor = new List<CheckResAnchor>();
 			CheckResConcreteBlock = new List<CheckResConcreteBlock>();
+			Bucklings = new List<BucklingRes>();
 		}
 
 		/// <summary>
@@ -109,6 +110,9 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public List<CheckResConcreteBlock> CheckResConcreteBlock { get; set; }
+
+		[DataMember]
+		public List<BucklingRes> Bucklings { get; set; }
 
 		/// <summary>
 		/// Name of connection
@@ -337,6 +341,28 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public List<int> Items { get; set; }
+	}
+
+	[XmlRootAttribute(ElementName = "BucklingRes", IsNullable = false)]
+	[Serializable]
+	[DataContract]
+	public class BucklingRes
+	{
+		// Id of the loadcase
+		[DataMember]
+		public int LoadCaseId { get; set; }
+
+		/// <summary>
+		/// Shape lc calculated by solver
+		/// </summary>
+		[DataMember]
+		public int Shape { get; set; }
+
+		/// <summary>
+		/// Initial rotational stiffness
+		/// </summary>
+		[DataMember]
+		public double BuckligLoadCoefficient { get; set; }
 	}
 
 	/// <summary>
