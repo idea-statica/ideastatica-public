@@ -87,6 +87,7 @@ namespace ConnectionHiddenCalculation
 			UpdateIOMCmd = new UpdateIOMCommand(this);
 			CloseProjectCmd = new CloseProjectCommand(this);
 			CalculateConnectionCmd = new CalculateConnectionCommand(this);
+			CalculateBucklingConnectionCmd = new CalculateBucklingCommand(this);
 			ApplySimpleTemplateCmd = new ApplySimpleTemplateCommand(this);
 			ConnectionGeometryCmd = new ConnectionGeometryCommand(this);
 			SaveAsProjectCmd = new SaveAsProjectCommand(this);
@@ -124,6 +125,7 @@ namespace ConnectionHiddenCalculation
 		public ICommand UpdateIOMCmd { get; set; }
 		public ICommand CloseProjectCmd { get; set; }
 		public ICommand CalculateConnectionCmd { get; set; }
+		public ICommand CalculateBucklingConnectionCmd { get; set; }
 		public ICommand ConnectionGeometryCmd { get; set; }
 		public ICommand GetAllConnectionDataCmd { get; set; }
 		public ICommand GetConnectionCostCmd { get; set; }
