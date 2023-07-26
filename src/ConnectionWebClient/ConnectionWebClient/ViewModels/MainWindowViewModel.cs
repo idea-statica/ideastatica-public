@@ -30,6 +30,8 @@ namespace ConnectionWebClient.ViewModels
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
 			GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
 			GetDetailResultsCommand = new AsyncRelayCommand(GetDetailResultsAsync);
+
+			GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -81,6 +83,8 @@ namespace ConnectionWebClient.ViewModels
 		public AsyncRelayCommand GetBriefResultsCommand { get; }
 
 		public AsyncRelayCommand GetDetailResultsCommand { get; }
+
+		public AsyncRelayCommand GetBucklingBriefResultsCommand { get; }
 
 		private async Task UploadProjectAsync()
 		{
@@ -139,6 +143,25 @@ namespace ConnectionWebClient.ViewModels
 			{
 				var res = await connectionClient.GetDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.FormatJson(res);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		private async Task GetBucklingBriefResultsAsync()
+		{
+			if (SelectedConnection == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var chekRes = await connectionClient.GetBucklingBriefResultsAsync(SelectedConnection.Id, cts.Token);
+				OutputText = JsonTools.ToFormatedJson(chekRes);
 			}
 			finally
 			{

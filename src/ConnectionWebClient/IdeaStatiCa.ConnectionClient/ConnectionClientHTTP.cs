@@ -51,7 +51,7 @@ namespace IdeaStatiCa.ConnectionClient
 
 		public async Task<ConnectionCheckRes> GetBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
 		{
-			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/brief-results");
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-brief-results");
 
 			response.EnsureSuccessStatusCode();
 
@@ -63,13 +63,25 @@ namespace IdeaStatiCa.ConnectionClient
 
 		public async Task<string> GetDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
 		{
-			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/detail-results");
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-detail-results");
 
 			response.EnsureSuccessStatusCode();
 
 			var responseJson = await response.Content.ReadAsStringAsync();
 			
 			return responseJson;
+		}
+
+		public async Task<ConnectionCheckRes> GetBucklingBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
+		{
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/buckling-brief-results");
+
+			response.EnsureSuccessStatusCode();
+
+			var responseJson = await response.Content.ReadAsStringAsync();
+
+			var res = JsonConvert.DeserializeObject<ConnectionCheckRes>(responseJson);
+			return res;
 		}
 	}
 }

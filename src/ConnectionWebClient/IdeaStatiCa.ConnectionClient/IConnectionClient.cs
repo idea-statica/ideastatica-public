@@ -14,5 +14,7 @@ namespace IdeaStatiCa.ConnectionClient
 		Task<ConnectionCheckRes> GetBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 
 		Task<string> GetDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
+
+		Task<ConnectionCheckRes> GetBucklingBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 	}
 }
