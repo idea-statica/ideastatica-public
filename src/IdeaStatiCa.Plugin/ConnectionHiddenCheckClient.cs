@@ -24,6 +24,11 @@ namespace IdeaStatiCa.Plugin
 			return Service.Calculate(connectionId);
 		}
 
+		public ConnectionResultsData CalculateBuckling(string connectionId)
+		{
+			return Service.CalculateBuckling(connectionId);
+		}
+
 		public void CloseProject()
 		{
 			Service.CloseProject();

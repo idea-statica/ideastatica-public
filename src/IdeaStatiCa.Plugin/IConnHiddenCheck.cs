@@ -84,6 +84,9 @@ namespace IdeaStatiCa.Plugin
 		[OperationContract]
 		ConnectionResultsData Calculate(string connectionId);
 
+		[OperationContract]
+		ConnectionResultsData CalculateBuckling(string connectionId);
+
 		/// <summary>
 		/// Gets connection price given by <paramref name="connectionId"/>
 		/// </summary>
