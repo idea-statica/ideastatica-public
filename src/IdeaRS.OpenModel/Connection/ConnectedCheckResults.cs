@@ -72,7 +72,7 @@ namespace IdeaRS.OpenModel.Connection
 			CheckResBolt = new List<CheckResBolt>();
 			CheckResAnchor = new List<CheckResAnchor>();
 			CheckResConcreteBlock = new List<CheckResConcreteBlock>();
-			Bucklings = new List<BucklingRes>();
+			BucklingResults = new List<BucklingRes>();
 		}
 
 		/// <summary>
@@ -111,8 +111,11 @@ namespace IdeaRS.OpenModel.Connection
 		[DataMember]
 		public List<CheckResConcreteBlock> CheckResConcreteBlock { get; set; }
 
+		/// <summary>
+		/// List of results of buckling analysis
+		/// </summary>
 		[DataMember]
-		public List<BucklingRes> Bucklings { get; set; }
+		public List<BucklingRes> BucklingResults { get; set; }
 
 		/// <summary>
 		/// Name of connection
