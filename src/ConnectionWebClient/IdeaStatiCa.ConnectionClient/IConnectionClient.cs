@@ -11,9 +11,9 @@ namespace IdeaStatiCa.ConnectionClient
 
 		Task CloseProjectAsync(CancellationToken cancellationToken);
 
-		Task<ConnectionCheckRes> GetPlaticBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
+		Task<ConnectionCheckRes> GetPlasticBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 
-		Task<string> GetPlaticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
+		Task<string> GetPlasticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
 
 		Task<ConnectionCheckRes> GetBucklingBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 

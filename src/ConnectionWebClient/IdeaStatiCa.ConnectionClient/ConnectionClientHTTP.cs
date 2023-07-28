@@ -49,7 +49,7 @@ namespace IdeaStatiCa.ConnectionClient
 			return Project.ProjectInfo;
 		}
 
-		public async Task<ConnectionCheckRes> GetPlaticBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<ConnectionCheckRes> GetPlasticBriefResultsAsync(int connectionId, CancellationToken cancellationToken)
 		{
 			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-brief-results");
 
@@ -61,7 +61,7 @@ namespace IdeaStatiCa.ConnectionClient
 			return res;
 		}
 
-		public async Task<string> GetPlaticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<string> GetPlasticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
 		{
 			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-detail-results");
 

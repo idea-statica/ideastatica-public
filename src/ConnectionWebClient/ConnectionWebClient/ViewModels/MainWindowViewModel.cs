@@ -126,7 +126,7 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var chekRes = await connectionClient.GetPlaticBriefResultsAsync(SelectedConnection.Id, cts.Token);
+				var chekRes = await connectionClient.GetPlasticBriefResultsAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.ToFormatedJson(chekRes);
 			}
 			finally
@@ -145,7 +145,7 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var res = await connectionClient.GetPlaticDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
+				var res = await connectionClient.GetPlasticDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.FormatJson(res);
 			}
 			finally
