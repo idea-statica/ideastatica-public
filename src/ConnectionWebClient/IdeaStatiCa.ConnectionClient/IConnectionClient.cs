@@ -13,10 +13,10 @@ namespace IdeaStatiCa.ConnectionClient
 
 		Task<ConnectionCheckRes> GetPlasticBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 
-		Task<string> GetPlasticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
+		Task<string> GetPlasticDetailedResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
 
 		Task<ConnectionCheckRes> GetBucklingBriefResultsAsync(int connectionId, CancellationToken cancellationToken);
 
-		Task<string> GetBucklingDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
+		Task<string> GetBucklingDetailedResultsJsonAsync(int connectionId, CancellationToken cancellationToken);
 	}
 }

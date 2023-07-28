@@ -30,10 +30,10 @@ namespace ConnectionWebClient.ViewModels
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
 
 			GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
-			GetDetailResultsCommand = new AsyncRelayCommand(GetDetailResultsAsync);
+			GetDetailedResultsCommand = new AsyncRelayCommand(GetDetailedResultsAsync);
 
 			GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
-			GetBucklingDetailResultsCommand = new AsyncRelayCommand(GetBucklingDetailResultsAsync);
+			GetBucklingDetailedResultsCommand = new AsyncRelayCommand(GetBucklingDetailedResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -84,11 +84,11 @@ namespace ConnectionWebClient.ViewModels
 
 		public AsyncRelayCommand GetBriefResultsCommand { get; }
 
-		public AsyncRelayCommand GetDetailResultsCommand { get; }
+		public AsyncRelayCommand GetDetailedResultsCommand { get; }
 
 		public AsyncRelayCommand GetBucklingBriefResultsCommand { get; }
 
-		public AsyncRelayCommand GetBucklingDetailResultsCommand { get; }
+		public AsyncRelayCommand GetBucklingDetailedResultsCommand { get; }
 
 		private async Task UploadProjectAsync()
 		{
@@ -135,7 +135,7 @@ namespace ConnectionWebClient.ViewModels
 			}
 		}
 
-		private async Task GetDetailResultsAsync()
+		private async Task GetDetailedResultsAsync()
 		{
 			if (SelectedConnection == null)
 			{
@@ -145,7 +145,7 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var res = await connectionClient.GetPlasticDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
+				var res = await connectionClient.GetPlasticDetailedResultsJsonAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.FormatJson(res);
 			}
 			finally
@@ -174,7 +174,7 @@ namespace ConnectionWebClient.ViewModels
 		}
 
 
-		private async Task GetBucklingDetailResultsAsync()
+		private async Task GetBucklingDetailedResultsAsync()
 		{
 			if (SelectedConnection == null)
 			{
@@ -184,7 +184,7 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				var json = await connectionClient.GetBucklingDetailResultsJsonAsync(SelectedConnection.Id, cts.Token);
+				var json = await connectionClient.GetBucklingDetailedResultsJsonAsync(SelectedConnection.Id, cts.Token);
 				OutputText = JsonTools.FormatJson(json);
 			}
 			finally

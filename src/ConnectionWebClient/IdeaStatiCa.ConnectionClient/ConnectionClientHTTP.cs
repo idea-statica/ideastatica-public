@@ -61,9 +61,9 @@ namespace IdeaStatiCa.ConnectionClient
 			return res;
 		}
 
-		public async Task<string> GetPlasticDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<string> GetPlasticDetailedResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
 		{
-			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-detail-results");
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/plastic-detailed-results");
 
 			response.EnsureSuccessStatusCode();
 
@@ -84,9 +84,9 @@ namespace IdeaStatiCa.ConnectionClient
 			return res;
 		}
 
-		public async Task<string> GetBucklingDetailResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
+		public async Task<string> GetBucklingDetailedResultsJsonAsync(int connectionId, CancellationToken cancellationToken)
 		{
-			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/buckling-detail-results");
+			var response = await httpClient.GetAsync($"api/{ConCalculatorVersionAPI}/connection/{Project.OpenProjectId}/{connectionId}/buckling-detailed-results");
 
 			response.EnsureSuccessStatusCode();
 
