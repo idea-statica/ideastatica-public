@@ -346,6 +346,9 @@ namespace IdeaRS.OpenModel.Connection
 		public List<int> Items { get; set; }
 	}
 
+	/// <summary>
+	/// Results of the buckling analysis
+	/// </summary>
 	[XmlRootAttribute(ElementName = "BucklingRes", IsNullable = false)]
 	[Serializable]
 	[DataContract]
@@ -362,10 +365,10 @@ namespace IdeaRS.OpenModel.Connection
 		public int Shape { get; set; }
 
 		/// <summary>
-		/// Initial rotational stiffness
+		/// Buckling factor
 		/// </summary>
 		[DataMember]
-		public double BuckligLoadCoefficient { get; set; }
+		public double Factor { get; set; }
 	}
 
 	/// <summary>
