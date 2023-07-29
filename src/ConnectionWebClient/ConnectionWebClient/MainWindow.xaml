@@ -12,9 +12,9 @@
 				<Button Command="{Binding UploadProjectCommand, Mode=OneWay}">Upload Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
 				<Button Command="{Binding GetBriefResultsCommand, Mode=OneWay}">Plastic Brief results</Button>
-				<Button Command="{Binding GetDetailResultsCommand, Mode=OneWay}">Platic Detail results</Button>
+				<Button Command="{Binding GetDetailedResultsCommand, Mode=OneWay}">Plastic Detailed results</Button>
 				<Button Command="{Binding GetBucklingBriefResultsCommand, Mode=OneWay}">Buckling Brief results</Button>
-				<Button Command="{Binding GetBucklingDetailResultsCommand, Mode=OneWay}">Buckling Detail results</Button>
+				<Button Command="{Binding GetBucklingDetailedResultsCommand, Mode=OneWay}">Buckling Detailed results</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
