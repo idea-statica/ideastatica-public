@@ -61,7 +61,8 @@
 			</ToolBar>
 
 			<ToolBar Band="4" DockPanel.Dock="Top">
-				<Button Command="{Binding CalculateConnectionCmd}"  CommandParameter="{Binding SelectedConnection}">Calculate</Button>
+				<Button Command="{Binding CalculateConnectionCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Run platic analysis for selected connection">Plastic analysis</Button>
+				<Button Command="{Binding CalculateBucklingConnectionCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Run buckling analysis for selected connection">Buckling analysis</Button>
 				<Button Command="{Binding ConnectionGeometryCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Get the instance of IdeaRS.OpenModel.Connection.ConnectionData for this connection.">Geometry</Button>
 				<Button Command="{Binding GetAllConnectionDataCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Get the instance of IdeaRS.OpenModel.OpenModelContainer for this connection.\nIt includes structural data and corresponding results of FE analysis">All Conn Data</Button>
 				<Button Command="{Binding ConnectionToTemplateCmd}"  CommandParameter="{Binding SelectedConnection}" >To Template</Button>
