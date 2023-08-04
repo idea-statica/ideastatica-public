@@ -23,7 +23,7 @@ namespace IdeaStatiCa.Plugin
 #if DEBUG
 		private int StartTimeout = -1;
 #else
-		int StartTimeout = 1000*20;
+		int StartTimeout = 1000*40;
 #endif
 
 		public ConnHiddenClientFactory(string ideaInstallDir)
@@ -85,6 +85,8 @@ namespace IdeaStatiCa.Plugin
 #else
 				psi.CreateNoWindow = true;
 #endif
+				Stopwatch stopWatch = new Stopwatch();
+				stopWatch.Start();
 
 				pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess starting '{applicationExePath} {cmdParams}'");
 				CalculatorProcess = new Process();
@@ -95,13 +97,20 @@ namespace IdeaStatiCa.Plugin
 				pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess waiting for event '{eventName}'");
 				if (!syncEvent.WaitOne(StartTimeout))
 				{
-					var errMsg = $"Timeout - the process '{applicationExePath}' doesn't set the event '{eventName}'";
+					stopWatch.Stop();
+					var errMsg = $"Timeout the process '{applicationExePath}' doesn't set the event '{eventName}' in {stopWatch.Elapsed.Seconds} s (limit is {StartTimeout} s)";
 					pluginLogger.LogWarning(errMsg);
 					throw new TimeoutException(errMsg);
 				}
+				else
+				{
+					stopWatch.Stop();
+					pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess : processId {CalculatorProcess.Id} running, Starttime : {stopWatch.Elapsed.Seconds} s");
+				}
+
 			}
 
-			pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess : processId {CalculatorProcess.Id} running : ");
+			
 
 			ConnectionHiddenCheckClient.HiddenCalculatorId = CalculatorProcess.Id;
 			CalculatorUrl = new Uri(string.Format(Constants.ConnHiddenCalculatorUrlFormat, CalculatorProcess.Id));
