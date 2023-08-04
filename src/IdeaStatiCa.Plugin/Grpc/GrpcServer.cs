@@ -37,7 +37,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		///// <summary>
 		///// Constructor
 		///// </summary>
-		///// <param name="logger">Logger</param>
+		///// <param name="pluginLogger">Logger</param>
 		public GrpcServer(IPluginLogger logger)
 		{
 			this.Logger = logger;

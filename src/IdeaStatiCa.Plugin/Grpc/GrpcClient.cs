@@ -55,7 +55,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <summary>
 		/// Initializes the IdeaStatiCa Grpc client.
 		/// </summary>
-		/// <param name="logger">The instance of the logger</param>
+		/// <param name="logger">The instance of the pluginLogger</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in grpc message</param>
 		public GrpcClient(IPluginLogger logger, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
 		{

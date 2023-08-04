@@ -54,7 +54,7 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>A controller object.</returns>
 		public static IConnectionController Create(string ideaInstallDir)
 		{
-			return Create(ideaInstallDir, new NullLogger());
+			return Create(ideaInstallDir);
 		}
 
 		/// <summary>
@@ -62,7 +62,7 @@ namespace IdeaStatiCa.Plugin
 		/// Call OpenProject after this method to open specific project.
 		/// </summary>
 		/// <param name="ideaInstallDir">IDEA StatiCa installation directory.</param>
-		/// <param name="logger">The logger.</param>
+		/// <param name="logger">The pluginLogger.</param>
 		/// <returns>A controller object.</returns>
 		public static IConnectionController Create(string ideaInstallDir, IPluginLogger logger)
 		{
