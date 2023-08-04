@@ -11,7 +11,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		/// Creates a grpc reflection service for specified instance.
 		/// </summary>
 		/// <param name="instance">Instance targeted by reflection calls.</param>
-		/// <param name="logger">logger</param>
+		/// <param name="logger">pluginLogger</param>
 		/// <param name="blobStorageProvider">Provider of blob storages</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in bytes in grpc message</param>
 		/// <param name="chunkSize">Size of one chunk in bytes for blob storage data transferring</param>

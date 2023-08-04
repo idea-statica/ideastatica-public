@@ -1,10 +1,11 @@
 ﻿using IdeaStatiCa.ConnectionClient.Model;
+using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.ConnectionClient.Commands
 {
 	public class CloseProjectCommand : ConnHiddenCalcCommandBase
 	{
-		public CloseProjectCommand(IConHiddenCalcModel model) : base(model)
+		public CloseProjectCommand(IConHiddenCalcModel model, IPluginLogger logger = null) : base(model, logger)
 		{
 		}
 
@@ -24,6 +25,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 		/// <param name="param"></param>
 		public override void Execute(object parameter)
 		{
+			Logger.LogInformation("CloseProjectCommand.Execute");
 			Model.CloseConnectionService();
 		}
 	}

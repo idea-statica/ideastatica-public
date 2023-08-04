@@ -51,10 +51,10 @@ namespace IdeaStatiCa.Plugin
 
 
 		/// <summary>
-		/// It initialize error logger for all instances of <see cref="WcfErrorHandler"/>
+		/// It initialize error pluginLogger for all instances of <see cref="WcfErrorHandler"/>
 		/// Only the first initialization is executed
 		/// </summary>
-		/// <param name="logger">The instance of the logger where all wcf errors will be written</param>
+		/// <param name="logger">The instance of the pluginLogger where all wcf errors will be written</param>
 		public static void InitLogger(IPluginLogger logger)
 		{
 			lock(initLock)

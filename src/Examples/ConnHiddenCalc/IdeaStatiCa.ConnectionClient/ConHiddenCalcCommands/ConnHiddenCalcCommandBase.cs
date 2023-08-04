@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.ConnectionClient.Model;
+using IdeaStatiCa.Plugin;
 using System;
 using System.Windows.Input;
 
@@ -6,9 +7,18 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 {
 	public abstract class ConnHiddenCalcCommandBase : ICommand
 	{
-		
-		public ConnHiddenCalcCommandBase(IConHiddenCalcModel model)
+		protected readonly IPluginLogger Logger;
+		public ConnHiddenCalcCommandBase(IConHiddenCalcModel model, IPluginLogger logger = null)
 		{
+			if (logger == null)
+			{
+				Logger = new IdeaStatiCa.Plugin.NullLogger();
+			}
+			else
+			{
+				Logger = logger;
+			}
+
 			Model = model;
 		}
 

@@ -38,9 +38,9 @@ namespace IdeaStatiCa.Plugin
 		}
 
 		/// <summary>
-		/// Constructor for injecting the instance of a logger
+		/// Constructor for injecting the instance of a pluginLogger
 		/// </summary>
-		/// <param name="logger">The wrapper for logger</param>
+		/// <param name="logger">The wrapper for pluginLogger</param>
 		public ApplicationBIM(IPluginLogger logger)
 		{
 			ideaLogger = logger ?? new NullLogger();

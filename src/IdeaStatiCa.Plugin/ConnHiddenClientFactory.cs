@@ -15,6 +15,7 @@ namespace IdeaStatiCa.Plugin
 
 	public class ConnHiddenClientFactory : IDisposable, IConnCalculatorFactory
 	{
+		private readonly IPluginLogger pluginLogger;
 		private readonly string IdeaInstallDir;
 		private Process CalculatorProcess { get; set; }
 		private Uri CalculatorUrl { get; set; }
@@ -22,21 +23,31 @@ namespace IdeaStatiCa.Plugin
 #if DEBUG
 		private int StartTimeout = -1;
 #else
-		int StartTimeout = 1000*20;
+		int StartTimeout = 1000*40;
 #endif
 
 		public ConnHiddenClientFactory(string ideaInstallDir)
 		{
+			this.pluginLogger = new IdeaStatiCa.Plugin.NullLogger();
 			IdeaInstallDir = ideaInstallDir;
+			pluginLogger.LogInformation($"Constructor ConnHiddenClientFactory ideaInstallDir :'{ideaInstallDir}'");
+		}
+
+		public ConnHiddenClientFactory(string ideaInstallDir, IPluginLogger logger)
+		{
+			this.pluginLogger = logger;
+			IdeaInstallDir = ideaInstallDir;
+			pluginLogger.LogInformation($"Constructor ConnHiddenClientFactory ideaInstallDir :'{ideaInstallDir}'");
 		}
 
 		public ConnectionHiddenCheckClient Create()
 		{
+			pluginLogger.LogInformation("ConnHiddenClientFactory.Create");
 			RunCalculatorProcess();
 
 			NetNamedPipeBinding pluginBinding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647, OpenTimeout = TimeSpan.MaxValue, CloseTimeout = TimeSpan.MaxValue, ReceiveTimeout = TimeSpan.MaxValue, SendTimeout = TimeSpan.MaxValue };
 
-			ConnectionHiddenCheckClient calculatorClient = new ConnectionHiddenCheckClient(pluginBinding, new EndpointAddress(CalculatorUrl));
+			ConnectionHiddenCheckClient calculatorClient = new ConnectionHiddenCheckClient(pluginBinding, new EndpointAddress(CalculatorUrl), pluginLogger);
 			calculatorClient.Open();
 
 			return calculatorClient;
@@ -46,6 +57,7 @@ namespace IdeaStatiCa.Plugin
 		{
 			if (CalculatorProcess != null)
 			{
+				pluginLogger.LogDebug($"ConnHiddenClientFactory.RunCalculatorProcess : CalculatorProcess is running processId = {CalculatorProcess.Id} ");
 				return;
 			}
 
@@ -59,6 +71,7 @@ namespace IdeaStatiCa.Plugin
 
 				if(!File.Exists(applicationExePath))
 				{
+					pluginLogger.LogWarning($"ConnHiddenClientFactory.RunCalculatorProcess 'applicationExePath' doesn't exists");
 					throw new ArgumentException($"RunCalculatorProcess - file '{applicationExePath}' doesn't exists");
 				}
 
@@ -72,17 +85,32 @@ namespace IdeaStatiCa.Plugin
 #else
 				psi.CreateNoWindow = true;
 #endif
+				Stopwatch stopWatch = new Stopwatch();
+				stopWatch.Start();
 
+				pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess starting '{applicationExePath} {cmdParams}'");
 				CalculatorProcess = new Process();
 				CalculatorProcess.StartInfo = psi;
 				CalculatorProcess.EnableRaisingEvents = true;
 				CalculatorProcess.Start();
 
+				pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess waiting for event '{eventName}'");
 				if (!syncEvent.WaitOne(StartTimeout))
 				{
-					throw new TimeoutException($"Timeout - the process '{applicationExePath}' doesn't set the event '{eventName}'");
+					stopWatch.Stop();
+					var errMsg = $"Timeout the process '{applicationExePath}' doesn't set the event '{eventName}' in {stopWatch.Elapsed.Seconds} s (limit is {StartTimeout} s)";
+					pluginLogger.LogWarning(errMsg);
+					throw new TimeoutException(errMsg);
 				}
+				else
+				{
+					stopWatch.Stop();
+					pluginLogger.LogInformation($"ConnHiddenClientFactory.RunCalculatorProcess : processId {CalculatorProcess.Id} running, Starttime : {stopWatch.Elapsed.Seconds} s");
+				}
+
 			}
+
+			
 
 			ConnectionHiddenCheckClient.HiddenCalculatorId = CalculatorProcess.Id;
 			CalculatorUrl = new Uri(string.Format(Constants.ConnHiddenCalculatorUrlFormat, CalculatorProcess.Id));
@@ -93,6 +121,7 @@ namespace IdeaStatiCa.Plugin
 		{
 			if (CalculatorProcess == null)
 			{
+				pluginLogger.LogInformation($"ConnHiddenClientFactory.CalculatorProcess_Exited but CalculatorProcess is null");
 				return;
 			}
 
@@ -102,7 +131,7 @@ namespace IdeaStatiCa.Plugin
 			CalculatorUrl = null;
 		}
 
-		#region IDisposable Support
+#region IDisposable Support
 
 		private bool disposedValue = false; // To detect redundant calls
 
@@ -122,8 +151,9 @@ namespace IdeaStatiCa.Plugin
 							CalculatorUrl = null;
 						}
 					}
-					catch
+					catch(Exception e)
 					{
+					pluginLogger.LogWarning("ConnHiddenClientFactory.Dispose failed", e);
 					}
 					// TODO: dispose managed state (managed objects).
 				}
@@ -151,7 +181,7 @@ namespace IdeaStatiCa.Plugin
 			// GC.SuppressFinalize(this);
 		}
 
-		#endregion IDisposable Support
+#endregion IDisposable Support
 	}
 }
 #endif

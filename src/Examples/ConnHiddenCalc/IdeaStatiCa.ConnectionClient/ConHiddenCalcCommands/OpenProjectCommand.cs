@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.ConnectionClient.Model;
+using IdeaStatiCa.Plugin;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
@@ -10,7 +11,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 	/// </summary>
 	public class OpenProjectCommand : ConnHiddenCalcCommandBase
 	{
-		public OpenProjectCommand(IConHiddenCalcModel model) : base(model)
+		public OpenProjectCommand(IConHiddenCalcModel model, IPluginLogger logger = null) : base(model, logger)
 		{
 		}
 
@@ -48,11 +49,9 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 
 			try
 			{
-				Debug.WriteLine("Creating the instance of IdeaRS.ConnectionService.Service.ConnectionSrv");
-
 				var Service = Model.GetConnectionService();
 
-				Debug.WriteLine("Opening the project file '{0}'", connProjectFileName);
+				Logger.LogInformation($"OpenProjectCommand.Execute  project file '{connProjectFileName}'");
 				Service.OpenProject(connProjectFileName);
 
 				var projectInfo = Service.GetProjectInfo();
@@ -61,7 +60,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 			}
 			catch (Exception e)
 			{
-				Debug.Assert(false, e.Message);
+				Logger.LogWarning("OpenProjectCommand failed", e);
 				Model.SetStatusMessage(e.Message);
 				Model.CloseConnectionService();
 			}

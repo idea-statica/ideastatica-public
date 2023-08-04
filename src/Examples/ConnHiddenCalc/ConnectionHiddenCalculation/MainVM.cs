@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Data;
@@ -61,6 +62,7 @@ namespace ConnectionHiddenCalculation
 		/// </summary>
 		public MainVM()
 		{
+			Logger.LogInformation($"'{Assembly.GetEntryAssembly().GetName().Name}' is starting");
 			NewBoltAssemblyName = "M12 4.6";
 			SupportingMember = 1;
 			AttachedMember = 2;
@@ -73,7 +75,7 @@ namespace ConnectionHiddenCalculation
 				{
 					IsIdea = true;
 					StatusMessage = string.Format("IdeaStatiCa installation was found in '{0}'", ideaStatiCaDir);
-					CalcFactory = new ConnHiddenClientFactory(ideaStatiCaDir);
+					CalcFactory = new ConnHiddenClientFactory(ideaStatiCaDir, Logger);
 				}
 			}
 
@@ -82,10 +84,10 @@ namespace ConnectionHiddenCalculation
 				StatusMessage = string.Format("ERROR IdeaStatiCa doesn't exist in '{0}'", ideaStatiCaDir);
 			}
 
-			OpenProjectCmd = new OpenProjectCommand(this);
+			OpenProjectCmd = new OpenProjectCommand(this, Logger);
 			ImportIOMCmd = new ImportIOMCommand(this);
 			UpdateIOMCmd = new UpdateIOMCommand(this);
-			CloseProjectCmd = new CloseProjectCommand(this);
+			CloseProjectCmd = new CloseProjectCommand(this, Logger);
 			CalculateConnectionCmd = new CalculateConnectionCommand(this);
 			CalculateBucklingConnectionCmd = new CalculateBucklingCommand(this);
 			ApplySimpleTemplateCmd = new ApplySimpleTemplateCommand(this);
@@ -234,8 +236,11 @@ namespace ConnectionHiddenCalculation
 		{
 			if (Service != null)
 			{
+				Logger.LogDebug("ConnectionHiddenCalculation.MainVM.GetConnectionService() : returning the existing instance");
 				return Service;
 			}
+
+			Logger.LogDebug("ConnectionHiddenCalculation.MainVM.GetConnectionService() : creating the new instance of ConnectionHiddenCheckClient");
 
 			IdeaConnectionClient = CalcFactory.Create();
 			Service = IdeaConnectionClient;
@@ -244,6 +249,7 @@ namespace ConnectionHiddenCalculation
 
 		public void CloseConnectionService()
 		{
+			Logger.LogInformation("MainVM.CloseConnectionService");
 			if (Service == null)
 			{
 				return;
@@ -406,6 +412,7 @@ namespace ConnectionHiddenCalculation
 		private void ConnectionController_ConnectionAppExited(object sender, EventArgs e)
 		{
 			ConnectionController.ConnectionAppExited -= ConnectionController_ConnectionAppExited;
+			Logger.LogInformation("MainVM.ConnectionController_ConnectionAppExited");
 			IDisposable disp = ConnectionController as IDisposable;
 			if (disp != null)
 			{
