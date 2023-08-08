@@ -1,0 +1,37 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Utils
+  commentId: N:IdeaStatiCa.BimApiLink.Utils
+  id: IdeaStatiCa.BimApiLink.Utils
+  children:
+  - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+  - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
+  - IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.BimApiLink.Utils
+  nameWithType: IdeaStatiCa.BimApiLink.Utils
+  fullName: IdeaStatiCa.BimApiLink.Utils
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+references:
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+  commentId: T:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+  href: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html
+  name: CrossSectionFactoryHelper
+  nameWithType: CrossSectionFactoryHelper
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+- uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
+  commentId: T:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
+  href: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html
+  name: DoubleExtensions
+  nameWithType: DoubleExtensions
+  fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
+- uid: IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper
+  commentId: T:IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper
+  href: IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper.html
+  name: WindowVisibilityHelper
+  nameWithType: WindowVisibilityHelper
+  fullName: IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper
