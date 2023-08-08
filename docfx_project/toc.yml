@@ -1,6 +1,17 @@
-- name: IdeaRS.OpenModel
+- name: Docs
+  href: articles/
+  homepage: articles/intro.md
+- name: IOM
   href: api-iom/
   homepage: api-iom/index.md
-- name: IdeaStatiCa.Plugin
+- name: BIM API
+  items:
+  - name: IdeaStatiCa.BimApiLink
+    href: api-bimapilink/
+    homepage: api-bimapilink/index.md
+  - name: IdeaStaiCa.BimApi
+    href: api-bimapi/
+    homepage: api-bimapi/index.md
+- name: API
   href: api-plugin/
   homepage: api-plugin/index.md  

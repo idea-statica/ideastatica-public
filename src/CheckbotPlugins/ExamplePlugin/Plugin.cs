@@ -24,7 +24,11 @@ namespace ExamplePlugin
 		{
 			if (evt is EventOpenCheckApplication openCheckApplication)
 			{
-				OpenModelContainer iom = await _projectService.GetObjects(new[] { openCheckApplication.ModelObject });
+
+				ModelExportOptions exportOptions = new ModelExportOptions();
+				exportOptions.WithResults = false;
+
+				OpenModelContainer iom = await _projectService.GetObjects(new[] { openCheckApplication.ModelObject }, exportOptions);
 				ConnectionPoint conn = iom.OpenModel.ConnectionPoint[0];
 
 				PrintConnectionInfo(iom, conn);

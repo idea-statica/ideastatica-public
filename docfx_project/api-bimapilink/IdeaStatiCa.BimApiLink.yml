@@ -1,0 +1,107 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink
+  commentId: N:IdeaStatiCa.BimApiLink
+  id: IdeaStatiCa.BimApiLink
+  children:
+  - IdeaStatiCa.BimApiLink.BimApiApplication
+  - IdeaStatiCa.BimApiLink.BimLink
+  - IdeaStatiCa.BimApiLink.BimLinkObject
+  - IdeaStatiCa.BimApiLink.CadBimLink
+  - IdeaStatiCa.BimApiLink.Constants
+  - IdeaStatiCa.BimApiLink.FeaBimLink
+  - IdeaStatiCa.BimApiLink.IBimUserDataSource
+  - IdeaStatiCa.BimApiLink.ImportersConfiguration
+  - IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.BimApiLink
+  nameWithType: IdeaStatiCa.BimApiLink
+  fullName: IdeaStatiCa.BimApiLink
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+references:
+- uid: IdeaStatiCa.BimApiLink.BimLink
+  commentId: T:IdeaStatiCa.BimApiLink.BimLink
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html
+  name: BimLink
+  nameWithType: BimLink
+  fullName: IdeaStatiCa.BimApiLink.BimLink
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject
+  commentId: T:IdeaStatiCa.BimApiLink.BimLinkObject
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html
+  name: BimLinkObject
+  nameWithType: BimLinkObject
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject
+- uid: IdeaStatiCa.BimApiLink.CadBimLink
+  commentId: T:IdeaStatiCa.BimApiLink.CadBimLink
+  href: IdeaStatiCa.BimApiLink.CadBimLink.html
+  name: CadBimLink
+  nameWithType: CadBimLink
+  fullName: IdeaStatiCa.BimApiLink.CadBimLink
+- uid: IdeaStatiCa.BimApiLink.Constants
+  commentId: T:IdeaStatiCa.BimApiLink.Constants
+  href: IdeaStatiCa.BimApiLink.Constants.html
+  name: Constants
+  nameWithType: Constants
+  fullName: IdeaStatiCa.BimApiLink.Constants
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink
+  commentId: T:IdeaStatiCa.BimApiLink.FeaBimLink
+  href: IdeaStatiCa.BimApiLink.FeaBimLink.html
+  name: FeaBimLink
+  nameWithType: FeaBimLink
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink
+- uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+  commentId: T:IdeaStatiCa.BimApiLink.IBimUserDataSource
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.IBimUserDataSource.html
+  name: IBimUserDataSource
+  nameWithType: IBimUserDataSource
+  fullName: IdeaStatiCa.BimApiLink.IBimUserDataSource
+- uid: IdeaStatiCa.BimApiLink.ImportersConfiguration
+  commentId: T:IdeaStatiCa.BimApiLink.ImportersConfiguration
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.ImportersConfiguration.html
+  name: ImportersConfiguration
+  nameWithType: ImportersConfiguration
+  fullName: IdeaStatiCa.BimApiLink.ImportersConfiguration
+- uid: IdeaStatiCa.BimApiLink.BimApiApplication
+  commentId: T:IdeaStatiCa.BimApiLink.BimApiApplication
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimApiApplication.html
+  name: BimApiApplication
+  nameWithType: BimApiApplication
+  fullName: IdeaStatiCa.BimApiLink.BimApiApplication
+- uid: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+  commentId: T:IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration.html
+  name: ResultsImportersConfiguration
+  nameWithType: ResultsImportersConfiguration
+  fullName: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+- uid: IdeaStatiCa.BimApiLink
+  commentId: N:IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink
+  nameWithType: IdeaStatiCa.BimApiLink
+  fullName: IdeaStatiCa.BimApiLink
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
