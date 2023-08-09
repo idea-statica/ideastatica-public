@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using Castle.Core.Internal;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
 using System;
@@ -100,7 +101,25 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			// We are backwards compatible as of now
 			// so we can just remove the version identifier
 			assemblyName.Version = null;
-			return Assembly.Load(assemblyName);
+
+
+
+			AppDomain currentDomain = AppDomain.CurrentDomain;
+			//Provide the current application domain evidence for the assembly.
+
+			//Make an array for the list of assemblies.
+			Assembly[] assems = currentDomain.GetAssemblies();
+
+			var foundAssembly = assems.Find(asem => (asem.ManifestModule.Name == args.Name || asem.ManifestModule.Name == args.Name + ".dll"));
+			//for framework 4.8 app it trying load System.Core assembly and it cause crash. in assembly list its System.Core.dll 
+			if (foundAssembly == null)
+			{
+				return Assembly.Load(assemblyName);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>

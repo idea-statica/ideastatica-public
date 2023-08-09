@@ -24,7 +24,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			foreach (var item in com.CombiItems)
 			{
-				combi.Items.Add(new CombiItem() { Coeff = item.Coeff, LoadCase = ctx.Import(item.LoadCase) });
+				combi.Items.Add(new CombiItem() { Coeff = item.Coeff, LoadCase = ctx.Import(item.LoadCase), Combination= ctx.Import(item.Combination) });
 			}
 			return combi;
 		}
