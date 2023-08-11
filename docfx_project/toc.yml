@@ -1,17 +1,10 @@
-- name: Docs
-  href: articles/
-  homepage: articles/intro.md
+- name: Home
+  href: docs/home/
 - name: IOM
-  href: api-iom/
-  homepage: api-iom/index.md
+  href: docs/iom/
 - name: BIM API
-  items:
-  - name: IdeaStatiCa.BimApiLink
-    href: api-bimapilink/
-    homepage: api-bimapilink/index.md
-  - name: IdeaStaiCa.BimApi
-    href: api-bimapi/
-    homepage: api-bimapi/index.md
+  href: docs/bimapi/
 - name: API
-  href: api-plugin/
-  homepage: api-plugin/index.md  
+  href: docs/api/
+- name: Extensions
+  href: docs/extensions/

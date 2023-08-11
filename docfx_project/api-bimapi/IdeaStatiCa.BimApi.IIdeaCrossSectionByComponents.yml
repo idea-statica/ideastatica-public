@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaCrossSectionByComponents
     path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
@@ -48,7 +48,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Components
     path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs

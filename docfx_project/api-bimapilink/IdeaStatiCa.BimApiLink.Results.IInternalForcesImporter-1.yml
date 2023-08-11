@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/IInternalForcesImporter.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IInternalForcesImporter
     path: ../src/IdeaStatica.BimApiLink/Results/IInternalForcesImporter.cs
@@ -46,7 +46,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/IInternalForcesImporter.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetResults
     path: ../src/IdeaStatica.BimApiLink/Results/IInternalForcesImporter.cs

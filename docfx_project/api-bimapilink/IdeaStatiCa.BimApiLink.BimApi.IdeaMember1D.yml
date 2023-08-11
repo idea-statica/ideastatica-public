@@ -27,7 +27,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaMember1D
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -85,7 +85,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Token
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Type
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -151,7 +151,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Elements
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -166,7 +166,7 @@ items:
 
     The following guarantees are valid for the elements:
 
-    <ul><li>There is always at least one element in each member.</li><li>First element's <see cref="!:IIdeaElement1D.StartNode"></see> is linked to the same node as <see cref="!:StartNode"></see>.</li><li>N-th element's <see cref="!:IIdeaElement1D.EndNode"></see> is linked to the same node as (n+1)-th element's <see cref="!:IIdeaElement1D.StartNode"></see>.</li><li>Last element's <see cref="!:IIdeaElement1D.EndNode"></see> is linked to the same node as <see cref="!:EndNode"></see>.</li></ul></p>
+    <ul><li>There is always at least one element in each member.</li><li>The first <xref href="IdeaRS.OpenModel.Model.Element1D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode" data-throw-if-not-resolved="false"></xref> defines the start node of the member.</li><li>The N-th <xref href="IdeaRS.OpenModel.Model.Element1D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref><xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode" data-throw-if-not-resolved="false"></xref> is linked to the same node as (n+1)-th element's <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode" data-throw-if-not-resolved="false"></xref>.</li><li>The Last <xref href="IdeaRS.OpenModel.Model.Element1D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref><xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode" data-throw-if-not-resolved="false"></xref> defines the end node of the member.</li></ul></p>
   example: []
   syntax:
     content: public virtual List<IIdeaElement1D> Elements { get; set; }
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Taper
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -224,7 +224,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSection
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -257,7 +257,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Alignment
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -290,7 +290,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MirrorY
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -323,7 +323,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MirrorZ
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -356,7 +356,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -388,7 +388,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -420,7 +420,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -452,7 +452,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetResults
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaMember1D.cs
@@ -1562,6 +1562,29 @@ references:
   - name: .
   - uid: IdeaRS.OpenModel.Model
     name: Model
+- uid: IdeaRS.OpenModel.Model.Element1D
+  commentId: T:IdeaRS.OpenModel.Model.Element1D
+  name: Element1D
+  nameWithType: Element1D
+  fullName: IdeaRS.OpenModel.Model.Element1D
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaSegment3D
+  parent: IdeaStatiCa.BimApi
+  name: IIdeaSegment3D
+  nameWithType: IIdeaSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  name: StartNode
+  nameWithType: IIdeaSegment3D.StartNode
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  name: EndNode
+  nameWithType: IIdeaSegment3D.EndNode
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
 - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.Elements*
   commentId: Overload:IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.Elements
   href: IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.html#IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.Elements

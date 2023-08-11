@@ -14,6 +14,9 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		IProjectContentStorage Storage { get; set; }
 		public string ContentId { get; private set; }
 
+		/// <summary>
+		/// Whether the stream is classified as dirty.
+		/// </summary>
 		private bool IsDirty { get; set; }
 
 		/// <summary>
@@ -41,7 +44,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		}
 
 		/// <summary>
-		/// Write data to stream and set <see cref="IsDirty" flag/>
+		/// Write data to stream and set whether the stream 'Is Dirty' flag.
 		/// </summary>
 		/// <param name="buffer"></param>
 		/// <param name="offset"></param>
@@ -53,8 +56,9 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		}
 
 		/// <summary>
-		/// Write data to stream and set <see cref="IsDirty" flag/>
+		/// Write data to stream and sets the stream 'Is Dirty' flag.
 		/// </summary>
+		/// <inheritdoc cref="IsDirty"/>
 		/// <param name="buffer"></param>
 		/// <param name="offset"></param>
 		/// <param name="count"></param>
@@ -67,7 +71,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		}
 
 		/// <summary>
-		/// Write data to stream and set <see cref="IsDirty" flag/>
+		/// Write data to stream and sets the stream 'Is Dirty' flag.
 		/// </summary>
 		/// <param name="value"></param>
 		public override void WriteByte(byte value)
@@ -77,7 +81,7 @@ namespace IdeaStatiCa.Plugin.ProjectContent
 		}
 
 		/// <summary>
-		/// Write data to stream and set <see cref="IsDirty" flag/>
+		/// Write data to stream and sets the stream 'Is Dirty' flag..
 		/// </summary>
 		/// <param name="asyncResult"></param>
 		public override void EndWrite(IAsyncResult asyncResult)

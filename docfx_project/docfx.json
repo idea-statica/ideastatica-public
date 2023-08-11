@@ -60,43 +60,17 @@
       "templates/idea_template"
     ],
     "content": [
-      {
-        "files": [
-          "api-iom/**.yml",
-          "api-iom/index.md"
-        ]
-      },
-      {
-        "files": [
-          "api-bimapi/**.yml",
-          "api-bimapi/index.md"
-        ]
-      },
-      {
-        "files": [
-          "api-bimapilink/**.yml",
-          "api-bimapilink/index.md"
-        ]
-      },
-      {
-        "files": [
-          "api-plugin/**.yml",
-          "api-plugin/index.md"
-        ]
-      },
-      {
-        "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
-        ]
-      }
+      { "files": ["docs/**/*.{md|yml}"]},
+      { "files": ["api-iom/**.yml", "api-iom/index.md"] },
+      { "files": ["api-bimapi/**.yml", "api-bimapi/index.md" ]},
+      { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
+      { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
+      { "files": ["toc.yml", "*.md"]}
     ],
     "resource": [
       {
         "files": [
-          "images/**",
+          "**/images/**",
           "api-iom/Images/**"
         ]
       }

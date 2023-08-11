@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionFactoryHelper
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -224,7 +224,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -282,7 +282,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -290,27 +290,38 @@ items:
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
+  summary: Rolled steel angle
+  example: []
   syntax:
     content: public static void FillRolledAngle(IdeaCrossSectionByParameters css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false, bool mirrorY = false)
     parameters:
     - id: css
       type: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+      description: CrossSectionParameter to fill
     - id: B
       type: System.Double
+      description: Width
     - id: D
       type: System.Double
+      description: Depth
     - id: t
       type: System.Double
+      description: Thickness
     - id: rw
       type: System.Double
+      description: Root radius
     - id: r2
       type: System.Double
+      description: Toe radius
     - id: C
       type: System.Double
+      description: Centroid position
     - id: mirrorZ
       type: System.Boolean
+      description: Z-axis mirror
     - id: mirrorY
       type: System.Boolean
+      description: Y-axis mirror
     content.vb: Public Shared Sub FillRolledAngle(css As IdeaCrossSectionByParameters, B As Double, D As Double, t As Double, rw As Double, r2 As Double, C As Double, mirrorZ As Boolean = False, mirrorY As Boolean = False)
   overload: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledAngle*
   nameWithType.vb: CrossSectionFactoryHelper.FillRolledAngle(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Boolean, Boolean)
@@ -330,7 +341,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -383,7 +394,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCircle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -421,7 +432,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRectangle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -462,7 +473,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZ
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -512,7 +523,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: docfx_configure_testing
+      branch: add_wiki_content_to_docfx
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedC
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
