@@ -1,4 +1,4 @@
-- name: Welcome
-  href: home.md
+- name: Home
+  href: ../../index.md
 - name: Release Notes
   href: releasenotes.md

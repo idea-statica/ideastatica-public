@@ -1,9 +1,3 @@
-# IDEA Connection App Components
-
-Here we will briefly describe components available to work with IDEA StatiCa Connection files in Grasshopper.
-
-![Connection app components](images/grasshopper_connection_app_components.png)
-
 ## The Connection Object
 
 Most components relating to the IDEA Connection App allow the passing around of a ‘Connection’ object. 
@@ -33,9 +27,8 @@ To increase performance, it is encouraged to load as much information when refer
  **Update from IOM** | This allows a user to update an existing connection file with a modified IDEA Open Model file. This would typically work in-conjunction with the Extract IOM Container component.
  **Deconstruct** | The deconstruct component can be used to get general information about the connection object, such as the connection name, file path, and settings etc.
  **Calculate Connection** | Perform calculation of the connection. Results are read and saved into the Connection Object. If the connection is Modified down the line, results will be wiped from the object. To view the results, pass the connection to the Connection Results Component. **The Connection is automatically saved after the calculation has been run.**
- **Connection Results** | Once a connection has been calculated results are stored on the connection object and can be retrieved using the Connection Results component. Results can be filtered by specific keys for different elements.
- **Modify Connection** | Allow you to make changes to connection items. Refer below for further information.
- **Apply Template** | Apply a template to a connection using the available template settings. Refer the section on Templates below.
+ **Modify Connection** | Allow you to make changes to connection items.
+ Apply Template | Apply a template to a connection using the available template settings. Refer the section on Templates below.
  **Get Connection Geometry** | Retrieve the geometry of the connection into Grasshopper. This exports the connection and converts to Open Model objects. The Members and Connection Data are exported separately. **This component is useful for linking directly with CAD software.**
  **Get Connection Costs** | Allows the user to extract detailed fabrication costs of the connection. Each Cost item can be deconstructed into granular cost items using the Deconstruct Cost item component. 
  **Evaluate Expression** | Evaluate Expression allows you to evaluate expressions. Expressions are typically used in the Parameters interface, however, can also be used directly inside the application. The parameter reference guide provides examples of available parameters. Refer to the [Expression Parameters Reference Guide](../../api/api_parameter_reference_guide.md)
@@ -68,6 +61,3 @@ Any component which performs a modification on the connection file provides the 
 
 > [!WARNING]
 > Be careful if you are using a folder to reference all files with a .ideaCon file extension as this can relate in circular referencing if  adding additional files to this folder.
-
-
-
