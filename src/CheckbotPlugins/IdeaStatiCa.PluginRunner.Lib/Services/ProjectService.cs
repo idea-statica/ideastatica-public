@@ -61,12 +61,16 @@ namespace IdeaStatiCa.PluginRunner.Services
 				.ToList();
 		}
 
-		private static Task<OpenModelContainer> GetOpenModelContainer<T>(AsyncServerStreamingCall<T> resp, Func<T, Protos.ModelPacket> converter, CancellationToken cancellationToken = default)
+		private static async Task<OpenModelContainer> GetOpenModelContainer<T>(AsyncServerStreamingCall<T> resp, Func<T, Protos.ModelPacket> converter, CancellationToken cancellationToken = default)
 		{
-			return GetOpenModelContainerFromPackets(
+			OpenModelContainer openModel = await GetOpenModelContainerFromPackets(
 				resp.ResponseStream
 					.ReadAllAsync(cancellationToken)
 					.Select(converter), cancellationToken);
+
+			openModel.OpenModel.ReferenceElementsReconstruction();
+
+			return openModel;
 		}
 
 		private static async Task<OpenModelContainer> GetOpenModelContainerFromPackets(
