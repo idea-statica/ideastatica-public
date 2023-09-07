@@ -54,7 +54,7 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>A controller object.</returns>
 		public static IConnectionController Create(string ideaInstallDir)
 		{
-			return Create(ideaInstallDir);
+			return Create(ideaInstallDir, new NullLogger());
 		}
 
 		/// <summary>
