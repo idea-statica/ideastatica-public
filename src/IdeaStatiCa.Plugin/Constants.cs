@@ -51,7 +51,7 @@
 		#region grpc message handlers
 		public const int MinGrpcPort = 50000;
 		public const int MaxGrpcPort = 50500;
-		public const int GRPC_MAX_MSG_SIZE = 20 * 1024 * 1024; // 20MB max
+		public const int GRPC_MAX_MSG_SIZE = 100 * 1024 * 1024; // 100MB max
 		public const int GRPC_CHUNK_SIZE = 64 * 1024; // 64 KB
 		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
 		public const string GRPC_CHECKBOT_HANDLER_MESSAGE = "Grpc.Handlers.CheckBot";
