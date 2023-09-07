@@ -15,6 +15,7 @@ namespace IdeaRS.OpenModel.Concrete
 		/// </summary>
 		protected CheckSectionExtreme()
 		{
+			Description = string.Empty;
 			Fundamental = null;
 			Accidental = null;
 			Characteristic = null;
@@ -22,6 +23,11 @@ namespace IdeaRS.OpenModel.Concrete
 			Frequent = null;
 			Fatigue = null;
 		}
+
+		/// <summary>
+		/// Description of this extreme
+		/// </summary>
+		public string Description { get; set; }
 
 		/// <summary>
 		/// Fundamental loading
