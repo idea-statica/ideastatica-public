@@ -11,6 +11,7 @@
 			<Button Command="{Binding RunIdeaConnectionCmd, Mode=TwoWay}">Run IdeaConnection</Button>
 			<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
 			<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
+			<Button Command="{Binding GenerateReportCmd, Mode=TwoWay}">Generate report</Button>
 		</ToolBar>
 		<StackPanel DockPanel.Dock="Bottom">
 			<TextBlock Text="{Binding StatusMessage}"></TextBlock>

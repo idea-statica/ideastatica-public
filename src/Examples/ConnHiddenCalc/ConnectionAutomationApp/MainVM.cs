@@ -39,12 +39,14 @@ namespace ConnectionAutomationApp
 			RunIdeaConnectionCmd = new CustomCommand(this.CanRunIdeaConnection, this.RunIdeaConnection);
 			OpenProjectCmd = new CustomCommand(this.CanOpenProject, this.OpenProject);
 			CloseProjectCmd = new CustomCommand(this.CanCloseProject, this.CloseProject);
+			GenerateReportCmd = new CustomCommand(this.CanGenerateReport, this.GenerateReport);
 		}
 
 		#region Commands
 		public CustomCommand RunIdeaConnectionCmd { get; set; }
 		public CustomCommand OpenProjectCmd { get; set; }
 		public CustomCommand CloseProjectCmd { get; set; }
+		public CustomCommand GenerateReportCmd { get; set; }
 		#endregion
 
 		public bool IsIdea
@@ -127,11 +129,19 @@ namespace ConnectionAutomationApp
 			return ((this.ConnectionController != null) && string.IsNullOrEmpty(CurrentProjectFileName));
 		}
 
+		private void GenerateReport(object obj)
+		{
+			var res = ConnectionController.GenerateReport(1);
+			Debug.WriteLine(res);
+		}
+
+		private bool CanGenerateReport(object arg)
+		{
+			return !string.IsNullOrEmpty(CurrentProjectFileName); ;
+		}
+
 		private void RunIdeaConnection(object obj)
 		{
-			// IdeaConnectionControllerGrpc is obsolete controller.
-			// ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir, new NullLogger());
-
 			ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
 		}
 

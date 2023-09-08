@@ -8,10 +8,12 @@ using System.Threading;
 
 namespace IdeaStatiCa.Plugin
 {
+	/// <inheritdoc cref="IConnectionController."/>
 	public class IdeaConnectionController : IDisposable, IConnectionController
 	{
 		private readonly string IdeaInstallDir;
 		private Process IdeaStatiCaProcess { get; set; }
+		private IConnectionAutomation ConnectionAutomation { get; set; }
 
 		/// <inheritdoc cref="IConnectionController.ConnectionAppExited"/>
 		public event EventHandler ConnectionAppExited;
@@ -85,6 +87,11 @@ namespace IdeaStatiCa.Plugin
 			return 1;
 		}
 
+		public string GenerateReport(int conId)
+		{
+			return ConnectionAutomation.GenerateReport(conId);
+		}
+
 		protected void OpenConnectionClient()
 		{
 			OpenConnectionClientGrpc();
@@ -125,6 +132,11 @@ namespace IdeaStatiCa.Plugin
 
 			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, grpcClient, Logger);
 			GrpcClient.RunAsync(processId.ToString());
+
+
+			var grpcConnectionHandler = new Grpc.Reflection.GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE, grpcClient, Logger);
+			ConnectionAutomation = GrpcReflectionServiceFactory.CreateInstance<IConnectionAutomation>(grpcConnectionHandler);
+			grpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE, grpcConnectionHandler);
 
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
 		}
