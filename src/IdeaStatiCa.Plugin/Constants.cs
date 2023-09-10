@@ -56,6 +56,7 @@
 		public const string GRPC_REFLECTION_HANDLER_MESSAGE = "Grpc.Handlers.Reflection";
 		public const string GRPC_CHECKBOT_HANDLER_MESSAGE = "Grpc.Handlers.CheckBot";
 		public const string GRPC_PROJECTCONTENT_HANDLER_MESSAGE = "Grpc.Handlers.ProjContent";
+		public const string GRPC_CONNECTION_HANDLER_MESSAGE = "Grpc.Handlers.Connection";
 		#endregion
 	}
 }
