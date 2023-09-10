@@ -1,6 +1,7 @@
 ﻿
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.Public;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -14,6 +15,8 @@ namespace IdeaStatiCa.Plugin
 		private readonly string IdeaInstallDir;
 		private Process IdeaStatiCaProcess { get; set; }
 		private IConnectionAutomation ConnectionAutomation { get; set; }
+
+		private IGrpcBlobStorageClient grpcBlobStorageClient { get; set; }
 
 		/// <inheritdoc cref="IConnectionController.ConnectionAppExited"/>
 		public event EventHandler ConnectionAppExited;
@@ -87,9 +90,11 @@ namespace IdeaStatiCa.Plugin
 			return 1;
 		}
 
-		public string GenerateReport(int conId)
+		public IBlobStorage GenerateReport(int conId)
 		{
-			return ConnectionAutomation.GenerateReport(conId);
+			var reportId = ConnectionAutomation.GenerateReport(conId);
+			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
+			return blobStorage;
 		}
 
 		protected void OpenConnectionClient()
@@ -133,10 +138,11 @@ namespace IdeaStatiCa.Plugin
 			GrpcClient = new AutomationHostingGrpc<IAutomation, IAutomation>(null, grpcClient, Logger);
 			GrpcClient.RunAsync(processId.ToString());
 
-
 			var grpcConnectionHandler = new Grpc.Reflection.GrpcMethodInvokerHandler(IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE, grpcClient, Logger);
 			ConnectionAutomation = GrpcReflectionServiceFactory.CreateInstance<IConnectionAutomation>(grpcConnectionHandler);
 			grpcClient.RegisterHandler(IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE, grpcConnectionHandler);
+
+			grpcBlobStorageClient = new GrpcBlobStorageClient(Logger, GrpcPort);
 
 			IdeaStatiCaProcess.Exited += CalculatorProcess_Exited;
 		}

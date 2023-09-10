@@ -1,10 +1,12 @@
 ﻿using IdeaStatiCa.ConnectionClient.Commands;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Public;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 
 namespace ConnectionAutomationApp
 {
@@ -131,8 +133,32 @@ namespace ConnectionAutomationApp
 
 		private void GenerateReport(object obj)
 		{
-			var res = ConnectionController.GenerateReport(1);
-			Debug.WriteLine(res);
+			try
+			{
+				
+				var blobStorage = ConnectionController.GenerateReport(1);
+
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+				saveFileDialog.Filter = "zip | *.zip";
+
+				if (saveFileDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				using (var stream = saveFileDialog.OpenFile())
+				{
+					using (BlobStorageInArchive archive = new BlobStorageInArchive(stream))
+					{
+						archive.CopyFrom(blobStorage);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message, "Error");
+			}
 		}
 
 		private bool CanGenerateReport(object arg)

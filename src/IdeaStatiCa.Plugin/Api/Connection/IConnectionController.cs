@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdeaStatiCa.Public;
+using System;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -30,6 +31,11 @@ namespace IdeaStatiCa.Plugin
 		/// <returns></returns>
 		int CloseProject();
 
-		string GenerateReport(int conId);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="conId"></param>
+		/// <returns></returns>
+		IBlobStorage GenerateReport(int conId);
 	}
 }
