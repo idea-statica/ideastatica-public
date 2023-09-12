@@ -91,6 +91,7 @@
 					Eval Expression
 				</Button>
 				<Button Command="{Binding GetConnectionCostCmd}"  CommandParameter="{Binding SelectedConnection}">Get Cost</Button>
+				<Button Command="{Binding GenerateReportCmd}"  CommandParameter="{Binding SelectedConnection}">Generate report</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<StackPanel DockPanel.Dock="Bottom">
