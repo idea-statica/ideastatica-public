@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Beams | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Beams | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_connection_point.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p><strong>Status:</strong> 👷‍♂️ Work In Progress. Have a question relating to the topic? Please add an issue.</p>
+<h2 id="beams">Beams</h2>
+<p>This data extends the properties of Design Members in the Structural Model for the purpose of designing a Connection. You can specify:</p>
+<ul>
+<li>Whether a beam is a Structural Member (loaded) or an Added Member (part of a Connection design, e.g. Cleats used to bolt Structural Members together)</li>
+<li>That a given Beam is Bearing, meaning that supports will be added in the model of the Connection</li>
+<li>Whether a beam is negative, meaning that it is only used to generate cuts and cut-outs on the other Beams</li>
+</ul>
+<h3 id="added-members">Added Members</h3>
+<p>Added Members are additional structural items that relate to a particular connection. Some examples are stiffening members or angle cleats.</p>
+<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/added_members.png" alt="added members"></p>
+<p>Although typically relating to a single connection, added Members are references to Member1D's in the Open Model. Therefore, they need to be defined and added to the OpenModel as a Member1D (I.e by defining start/endpoints, LCS, and cross-section).</p>
+<p>Once defined in the OpenModel, added members can be added to a specific connection ConnectionData as <a href="https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs">Beam Data</a> with the <code>IsAddedMember</code> property set to <code>true. The members should also be added to the ConnectionPoint </code>ConnectedMembers` list as well.</p>
+<p>The example below shows how the set the BeamData of an added member.</p>
+<pre><code class="lang-csharp">public static void Example_AddAddedMember(OpenModel openModel, int openModelMemberId)
+{
+    //Reference Data Connection that has been defined in the OpenModel
+    ConnectionData connectionData = openModel.Connections[0];
+
+    BeamData addedMemberData = new BeamData();
+
+    //Set the beam data as an Added Member
+    addedMemberData.IsAdded = true;
+
+    //Reference previously created Member1D in the openModel
+    addedMemberData.AddedMember = new ReferenceElement(openModel.Member1D.FirstOrDefault(x =&gt; x.Id == openModelMemberId));
+
+    //Set Beam Data Id
+    addedMemberData.Id = connectionData.Beams.Count +  1;
+
+    connectionData.Beams.Add(addedMemberData);
+}
+</code></pre>
+<h2 id="negative-volumes">Negative Volumes</h2>
+<p>WiP</p>
+<h2 id="plates">Plates</h2>
+<p>Plates can now be defined using <a href="https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Geometry/Geometry2D/Region2D.cs"><code>Region2D</code></a> property.</p>
+<p><strong>Defining plates using an SVG string property is now obsolete.</strong></p>
+<h2 id="cuts">Cuts</h2>
+<p>WiP</p>
+<h2 id="welds">Welds</h2>
+<p>WiP</p>
+<h2 id="bolt-grids">Bolt Grids</h2>
+<p>WiP</p>
+<h2 id="anchors">Anchors</h2>
+<p>WiP</p>
+<h2 id="concrete-blocks">Concrete Blocks</h2>
+<p>WiP</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_connection_point.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

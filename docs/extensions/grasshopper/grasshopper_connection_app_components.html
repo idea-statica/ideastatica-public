@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>IDEA Connection App Components | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="IDEA Connection App Components | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_connection_app_components.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="idea-connection-app-components">IDEA Connection App Components</h1>
+
+<p>Here we will briefly describe components available to work with IDEA StatiCa Connection files in Grasshopper.</p>
+<p><img src="images/grasshopper_connection_app_components.png" alt="Connection app components"></p>
+<h2 id="the-connection-object">The Connection Object</h2>
+<p>Most components relating to the IDEA Connection App allow the passing around of a ‘Connection’ object.</p>
+<p><strong>The connection object is a reference to an IDEA Connection file saved on disc.</strong> First, a user will be required to either reference an existing connection that has previously been create or create one from scratch using the Open Model components.</p>
+<p>In Grasshopper each ‘Connection’ object is treated as a single connection object. IDEA Connection project files that have multiple connections in the project are separated in Grasshopper and treated as multiple objects with a referenced file path and name.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>It is encouraged to work with IDEA StatiCa Connection Project files with a single connection.</p>
+</div>
+<p>The connection object can also store and manage a duplication of the available information that is extracted from the program. This should be persistent until the connection is modified – which reduces the calls required to the API.</p>
+<h2 id="connection-object-components">Connection Object Components</h2>
+<p>Below is a list of Components which are available to work with the Connection Object.</p>
+<p>Because users will likely need to work with large amounts of connections at once, components have been added with multiple ways of completing a task which allows us to batch update a single connection at a time rather than by multiple parallel operation. Therefore, there are typically multiple ways to do certain types of tasks.</p>
+<p>To increase performance, it is encouraged to load as much information when referencing the connection and trying to compile as many modifications into one step as possible if performing modifications.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reference Connection</strong></td>
+<td>Reference an existing connection on disc to perform automated operations. When referencing the connection, you can opt to pre-load some of the connection information. This will open the connection and then extract the basic information about the connection. It will likely save you time downstream if you are not performing a lot of modification on the connection object.</td>
+</tr>
+<tr>
+<td><strong>Create from IOM</strong></td>
+<td>Create an IDEA Connection File from the IOM Format. A user can either input a file path to an existing model XML file or directly wire the OpenModel object created from the IOM component library.</td>
+</tr>
+<tr>
+<td><strong>Update from IOM</strong></td>
+<td>This allows a user to update an existing connection file with a modified IDEA Open Model file. This would typically work in-conjunction with the Extract IOM Container component.</td>
+</tr>
+<tr>
+<td><strong>Deconstruct</strong></td>
+<td>The deconstruct component can be used to get general information about the connection object, such as the connection name, file path, and settings etc.</td>
+</tr>
+<tr>
+<td><strong>Calculate Connection</strong></td>
+<td>Perform calculation of the connection. Results are read and saved into the Connection Object. If the connection is Modified down the line, results will be wiped from the object. To view the results, pass the connection to the Connection Results Component. <strong>The Connection is automatically saved after the calculation has been run.</strong></td>
+</tr>
+<tr>
+<td><strong>Connection Results</strong></td>
+<td>Once a connection has been calculated results are stored on the connection object and can be retrieved using the Connection Results component. Results can be filtered by specific keys for different elements.</td>
+</tr>
+<tr>
+<td><strong>Modify Connection</strong></td>
+<td>Allow you to make changes to connection items. Refer below for further information.</td>
+</tr>
+<tr>
+<td><strong>Apply Template</strong></td>
+<td>Apply a template to a connection using the available template settings. Refer the section on Templates below.</td>
+</tr>
+<tr>
+<td><strong>Get Connection Geometry</strong></td>
+<td>Retrieve the geometry of the connection into Grasshopper. This exports the connection and converts to Open Model objects. The Members and Connection Data are exported separately. <strong>This component is useful for linking directly with CAD software.</strong></td>
+</tr>
+<tr>
+<td><strong>Get Connection Costs</strong></td>
+<td>Allows the user to extract detailed fabrication costs of the connection. Each Cost item can be deconstructed into granular cost items using the Deconstruct Cost item component.</td>
+</tr>
+<tr>
+<td><strong>Evaluate Expression</strong></td>
+<td>Evaluate Expression allows you to evaluate expressions. Expressions are typically used in the Parameters interface, however, can also be used directly inside the application. The parameter reference guide provides examples of available parameters. Refer to the <a href="../../api/api_parameter_reference_guide.html">Expression Parameters Reference Guide</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="modifying-a-connection">Modifying a Connection</h2>
+<p>Connection modifications are things which will change the ‘design’ of the connection.</p>
+<p>To reduce the API connection time, we provide a modify connection component which can compile any number of defined modifications and apply them as required in a chronological order. We may separate modification operations in the future when quicker direct linking is possible.</p>
+<p>The Calculate component also has a modification input to allow performing of modifications prior to calculating.</p>
+<p>Connection modifications are collated and performed in a Hierarchical order:</p>
+<ol>
+<li>Update of Library Items*</li>
+<li>Update of Connection Settings</li>
+<li>Update of Connection Member Geometry*</li>
+<li>Update of Connection Operations – By Template (Full)</li>
+<li>Update of Connection Operations – By Template (Partial)</li>
+<li>Update of Connection Loading</li>
+<li>Update of Connection Parameters</li>
+</ol>
+<p>*Update of these items are not currently possible.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Currently operations can only be updated through parameters. No direct access to operations exists.</p>
+</div>
+<h3 id="saving-vs-save-as">Saving vs Save As</h3>
+<p>Any component which performs a modification on the connection file provides the option to either save the connection or save as the connection. To help the user with this process they only need to provide a ‘Save As Suffix’ which will automatically be appended to the existing file in its location. If no suffix is provided the connection will simply be saved with the modification applied.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Be careful if you are using a folder to reference all files with a .ideaCon file extension as this can relate in circular referencing if  adding additional files to this folder.</p>
+</div>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_connection_app_components.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

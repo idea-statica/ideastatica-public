@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Anatomy of a Simple App | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Anatomy of a Simple App | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/api_create_a_simple_app.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>A simple app is defined by creating a 'one-time' IOM export or conversion from a third-party application or file format.</p>
+<p><strong>Examples of Simple Apps:</strong></p>
+<ol>
+<li>Create an IDEA connection file (.ideaCon) file from a node selection in an FEA or BIM software.</li>
+<li>Create an app to allow conversion of one file format into IOM Open Model format.</li>
+<li>Export the entire file or partial file (including results) to an IOM ModelBIM file to import into Checkbot.</li>
+</ol>
+<p><strong>Benefits of simple apps:</strong></p>
+<ul>
+<li>Simple apps can be highly customized based on third-party user interfaces.</li>
+<li>Can be created using Windows form or Console Applications projects.</li>
+<li>Primarily rely on simple IOM OpenModel creation.</li>
+<li>Can use IDEAs cloud service to generate .ideaCon connection files.</li>
+<li>Integrate well with single connection optimization procedures and Template Applications.</li>
+</ul>
+<p><strong>Limitations to simple apps:</strong></p>
+<ul>
+<li>Conversion of project materials and properties needs to be defined within the app and is not persistent.</li>
+<li>No framework for syncing and updating once a connection has been created. If the model is updated the connection will need to be regenerated.</li>
+</ul>
+<h2 id="anatomy-of-a-simple-app">Anatomy of a Simple App</h2>
+<p>The below provides a reference for the information contained below on the anatomy of options for simple app creation.</p>
+<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/simple_app_diagram.png" alt="simple app diagram"></p>
+<h1 id="simple-app-creation">Simple App Creation</h1>
+<h2 id="idea-statica-connection-file-from-third-party-app">IDEA StatiCa Connection File from Third-party App.</h2>
+<p>Probably the most widely used case for a Simple App is to export a single IDEA Connection file from a third-party application.</p>
+<h3 id="1-define-the-project-type-ui-and-features">1. Define the Project Type, UI, and Features</h3>
+<p>It is up to the developer to define what features they want to include in the export. There is a list of case studies below that give insight into available options.</p>
+<h3 id="2-createconvert-to-iom-open-model">2. Create/Convert to IOM Open Model</h3>
+<p>The primary exercise is to convert the base application geometry schema to an IOM Model, which can be read by IDEA StatiCa Connection.</p>
+<p>The <a href="https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM">Steel Frame Example</a> walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure.</p>
+<h4 id="notes-on-the-steel-frame-example">Notes on the Steel Frame Example</h4>
+<ul>
+<li>In the Steel Frame Example only <strong>one</strong> <code>ConnectionPoint</code> is defined within the Open Model output. IDEA StatiCa connection only allows for one connection to be imported through IOM (although the program itself does allow multiple connections). This is worth noting when trying to create multiple IDEA StatiCa connection files using this method. A separate IOM <code>.xml</code> file will need to be created with all relevant data.</li>
+</ul>
+<p>The <a href="https://github.com/idea-statica/ideastatica-public/wiki/IDEA-OpenModel-(IOM)">IOM Wiki page</a> provides some further in-depth documentation on more complex aspects of generating an IOM model.</p>
+<h3 id="3-extract-the-iom-open-model-results-for-fea-apps">3. Extract the IOM Open Model Results (For FEA Apps)</h3>
+<p>For IOM coming from an FEA application, it is important that an IOM OpenModelResult <code>.xml/.xmlR</code> is created. This file provides all the result data required to provide load effects on the connection.</p>
+<p>Again, <a href="https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM">Steel Frame Example</a> provides a brief explanation on how this is generated.</p>
+<h4 id="notes-on-the-steel-frame-example-1">Notes on the Steel Frame Example</h4>
+<ul>
+<li>In contrary to the above, you can reference one single result file for the creation of all connection IOM exports. Result Forces for members not in the connection file will be ignored.</li>
+<li>The Steel Frame Example provides definitions of load groups, load cases, and load combinations. In practice, if the load combined effects for a load combination can be directly provided you can simply provide these results as a load case.</li>
+</ul>
+<p>The IOM Wiki pages below provide some further in-depth documentation on helping to generate IOM Result Files:</p>
+<ul>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/IOM-Coordinate-Systems">IOM Coordinate System</a></li>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/IOM-Member-Force-Result-Data">IOM Member Force Result Data</a></li>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/IOM-Load-Groups,-Cases-and-Combinations">IOM Load Groups, Cases, Combinations</a></li>
+</ul>
+<h3 id="4-create-the-idea-statica-connection-file">4. Create the IDEA StatiCa Connection file</h3>
+<p>Once the IOM OpenModel and IOM OpenResult have been generated using one of the following options to create the <code>.IdeaCon</code> connection file:</p>
+<h4 id="idea-statica-connection-file-using-plugin-api">IDEA StatiCa Connection File using PlugIn (API)</h4>
+<pre><code class="lang-csharp">string iomFileName = &quot;example.xml&quot;;
+
+//If no results then set this string to String.Empty
+string iomResFileName = &quot;example.xmlR&quot;;
+
+//Getting Desktop for this Example
+var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+var fileConnFileNameFromLocal = Path.Combine(desktopDir, &quot;connectionFromIOM-local.ideaCon&quot;);
+
+//Using IdeaStatiCa.Plugin Package
+var calcFactory = new ConnHiddenClientFactory(IdeaInstallDir);
+var client = calcFactory.Create();
+
+try
+{
+     //Creates connection project from IOM. This does not leave the connection open.
+     client.CreateConProjFromIOM(iomFileName, iomResFileName, fileConnFileNameFromLocal);
+}
+catch(Exception e)
+{
+    Console.WriteLine(&quot;Error '{0}'&quot;, e.Message);
+}
+finally
+{
+    if (client != null)
+    {
+	client.Close();
+    }
+}		
+
+</code></pre>
+<h4 id="idea-statica-connection-file-using-online-service">IDEA StatiCa Connection File using Online Service</h4>
+<p>It allows to generate idea connection project without having Idea StatiCa on your PC. IOM and IOM results are sent to webservice which generates and returns Idea Connection project.</p>
+<pre><code class="lang-csharp">public static void CreateOnServer(OpenModel model, OpenModelResult openModelResult, string path)
+{
+    IdeaRS.OpenModel.OpenModelContainer openModelContainer = new OpenModelContainer()
+    {
+	OpenModel = model,
+	OpenModelResult = openModelResult,
+    };
+
+    // serialize IOM to XML
+    var stringwriter = new System.IO.StringWriter();
+    var serializer = new XmlSerializer(typeof(OpenModelContainer));
+    serializer.Serialize(stringwriter, openModelContainer);
+
+    string viewerURL = &quot;https://viewer.ideastatica.com&quot;;
+    var serviceUrl = viewerURL + &quot;/ConnectionViewer/CreateFromIOM&quot;;
+
+    Console.WriteLine(&quot;Posting iom in xml to the service {0}&quot;, serviceUrl);
+    var resultMessage = Helpers.PostXMLData(serviceUrl, stringwriter.ToString());
+
+    ResponseMessage responseMessage = JsonConvert.DeserializeObject&lt;ResponseMessage&gt;(resultMessage);
+    Console.WriteLine(&quot;Service response is : '{0}'&quot;, responseMessage.status);
+    if (responseMessage.status == &quot;OK&quot;)
+    {
+	byte[] dataBuffer = Convert.FromBase64String(responseMessage.fileContent);
+	Console.WriteLine(&quot;Writing {0} bytes to file '{1}'&quot;, dataBuffer.Length, path);
+	if (dataBuffer.Length &gt; 0)
+	{
+	    using (FileStream fileStream = new FileStream(path
+             , FileMode.Create
+	     , FileAccess.Write))
+	    {
+		fileStream.Write(dataBuffer, 0, dataBuffer.Length);
+	    }
+	}
+	else
+	{
+	    Console.WriteLine(&quot;The service returned no data&quot;);
+	}
+    }
+}
+
+</code></pre>
+<h4 id="launching-idea-statica-from-your-app">Launching IDEA StatiCa from your App.</h4>
+<p>Once the .ideaCon file has been created, you can choose to launch the IDEA StatiCa App directly from your application for editing and saving the user from having to open IDEA StatiCa and locate the file.</p>
+<p>The steps to enable this interaction are explained <a href="https://github.com/idea-statica/ideastatica-public/blob/main/docs/connection-app-automation.md">here</a>.</p>
+<p><strong>Note:</strong> This primarily only works for apps creating one connection file.</p>
+<h2 id="allow-simple-checkbot-import-through-modelbim">Allow Simple Checkbot Import through ModelBIM.</h2>
+<p>If you are wanting to use Checkbot for its advanced connection and member management features you can create an <code>XML</code> export of the  <code>IdeaStatiCa.PlugIn.ModelBIM</code> class.</p>
+<p>A user can then import that file to view connections and defined results. More benefits will also be seen as the Checkbot application improves.</p>
+<p>In order to do this, multiple connections should be defined in the IOM Data and then specified in the ModelBIM. Below shows how this can be done.</p>
+<pre><code class="lang-csharp">
+//connections: A list of Connection Ids that .IdeaCon files should be generated when file imported.
+//members: A list of Member Ids that .IdeaMember files should be generated when file imported.
+
+public static ModelBIM generateIOMModelBIM(OpenModel model, OpenModelResult results, List&lt;int&gt; connections, List&lt;int&gt; members)
+{
+    ModelBIM modelBIM = new ModelBIM();
+    modelBIM.Results = results;
+    modelBIM.Model = model;
+
+    //Connection Items
+    List&lt;BIMItemId&gt; items = new List&lt;BIMItemId&gt;();
+    
+    foreach (int ConnectionId in connections)
+	items.Add(new BIMItemId() { Id = ConnectionId, Type = BIMItemType.Node });
+
+    //Member Items
+    List&lt;BIMItemId&gt; memberItems = new List&lt;BIMItemId&gt;();
+
+    foreach (int memberId in members)
+	items.Add(new BIMItemId() { Id = memberId, Type = BIMItemType.Member });
+
+
+    modelBIM.Items = items;
+    modelBIM.Messages = new IdeaRS.OpenModel.Message.OpenMessages();
+
+    return modelBIM;
+}
+
+</code></pre>
+<p>the ModelBIM can then be serialized to an <code>.XML</code> file which can be imported into Checkbot.</p>
+<pre><code class="lang-csharp">
+public static void SaveModelBIM(ModelBIM modelBim, string filePath)
+{
+
+    XmlSerializer xs = new XmlSerializer(typeof(ModelBIM));
+    
+    using(Stream fs = new FileStream(xmlFileName, FileMode.Create))
+    {
+        using(XmlTextWriter writer = new XmlTextWriter(fs, Encoding.Unicode))
+        {
+            writer.Formatting = Formatting.Indented;
+            
+            // Serialize using the XmlTextWriter.
+            xs.Serialize(writer, modelBIM);
+        }
+    }
+}
+
+</code></pre>
+<h1 id="further-resources">Further Resources</h1>
+<h1 id="simple-app-case-studies">Simple App Case Studies</h1>
+<ul>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/Case-Study:-SPACE-GASS-Simple-App">SPACE GASS</a> - A simple FEA Connection App for SpaceGass Structural Analysis Software</li>
+<li><a href="https://github.com/BouwenmetStaal/KarambaIDEA">KarambaIDEA</a> - An OpenSource App which generates IDEA StatiCa Connection files from Rhino and Grasshopper.</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/api_create_a_simple_app.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

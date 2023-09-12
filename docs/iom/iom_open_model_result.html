@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>IOM Open Model Result | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="IOM Open Model Result | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_open_model_result.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="iom-open-model-result">IOM Open Model Result</h1>
+
+<p>The IOM <code>OpenModelResult</code> class provides a way of storing member force results from an FEA analysis that is related to IOM <code>OpenModel</code>.</p>
+<p>The relationships between the IOM and the IOM Results are defined by the ID of objects.</p>
+<p>The <code>OpenModelResult</code> can be serialized to XML and saved as <code>.xml</code> file or <code>.xmlR</code> file (for easier navigation).</p>
+<h2 id="background">Background</h2>
+<p>While the 'OpenModel' class provides the definition of the geometry, load cases, loads, load combinations, etc the <code>OpenModelResult</code> class provides a way of transferring FEA result data.</p>
+<p>The<code> OpenModel</code> and <code>OpenModelResult</code> are considered seperately in order:</p>
+<ul>
+<li>To allow for the possibility for geometry and force extraction to come from alternative sources</li>
+<li>Provide the ability for one result file to relate to multiple IOM Open Model Connection files.</li>
+</ul>
+<h1 id="iom-result-data-structure">IOM Result Data Structure</h1>
+<p>The <code>OpenModelResult</code> structure is designed to store a complete representation of the member force result <strong>diagrams</strong> from an <strong>ENTIRE</strong> structure. These force diagrams are then <em>interpreted (refer below)</em>  by IDEA StatiCa Connection to produce the forces at a connection level.</p>
+<p>Generally speaking, when importing forces through IOM <code>OpenResultClass</code> they should always be in equilibrium when interpreted by IDEA Connection.</p>
+<p>The <code>OpenModelResult</code> is structured in the following XML Format:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+&lt;OpenModelResult xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;ResultOnMembers&gt;
+    &lt;ResultOnMembers&gt;
+      &lt;Members&gt;
+        &lt;ResultOnMember&gt;
+          &lt;Member&gt;
+            &lt;MemberType&gt;Member1D&lt;/MemberType&gt;
+            &lt;Id&gt;1&lt;/Id&gt;
+          &lt;/Member&gt;
+          &lt;ResultType&gt;InternalForces&lt;/ResultType&gt;
+          &lt;Results&gt;
+            &lt;ResultBase xsi:type=&quot;ResultOnSection&quot;&gt;
+              &lt;AbsoluteRelative&gt;Absolute&lt;/AbsoluteRelative&gt;
+              &lt;Position&gt;0&lt;/Position&gt;
+              &lt;Results&gt;
+                &lt;SectionResultBase xsi:type=&quot;ResultOfInternalForces&quot;&gt;
+                  &lt;Loading&gt;
+                    &lt;LoadingType&gt;LoadCase&lt;/LoadingType&gt;
+                    &lt;Id&gt;1&lt;/Id&gt;
+                    &lt;Items&gt;
+                      &lt;ResultOfLoadingItem&gt;
+                        &lt;Coefficient&gt;1&lt;/Coefficient&gt;
+                      &lt;/ResultOfLoadingItem&gt;
+                    &lt;/Items&gt;
+                  &lt;/Loading&gt;
+                  &lt;N&gt;242.96484375&lt;/N&gt;
+                  &lt;Qy&gt;0&lt;/Qy&gt;
+                  &lt;Qz&gt;1176.9375&lt;/Qz&gt;
+                  &lt;Mx&gt;0&lt;/Mx&gt;
+                  &lt;My&gt;-727.5482177734375&lt;/My&gt;
+                  &lt;Mz&gt;0&lt;/Mz&gt;
+                &lt;/SectionResultBase&gt;
+                &lt;SectionResultBase xsi:type=&quot;ResultOfInternalForces&quot;&gt;
+                  &lt;Loading&gt;
+                    &lt;LoadingType&gt;LoadCase&lt;/LoadingType&gt;
+                    &lt;Id&gt;2&lt;/Id&gt;
+                    &lt;Items&gt;
+                      &lt;ResultOfLoadingItem&gt;
+                        &lt;Coefficient&gt;1&lt;/Coefficient&gt;
+                      &lt;/ResultOfLoadingItem&gt;
+                    &lt;/Items&gt;
+                  &lt;/Loading&gt;
+                  &lt;N&gt;20200.224609375&lt;/N&gt;
+                  &lt;Qy&gt;0&lt;/Qy&gt;
+                  &lt;Qz&gt;97851.2109375&lt;/Qz&gt;
+                  &lt;Mx&gt;0&lt;/Mx&gt;
+                  &lt;My&gt;-60488.7421875&lt;/My&gt;
+                  &lt;Mz&gt;0&lt;/Mz&gt;
+                &lt;/SectionResultBase&gt;
+              &lt;/Results&gt;
+            &lt;/ResultBase&gt;
+          &lt;Results&gt;
+        &lt;/ResultOnMember&gt;
+      &lt;Members&gt;
+    &lt;ResultOnMembers&gt;
+  &lt;ResultOnMembers&gt;
+&lt;/OpenModelResult&gt;
+
+</code></pre>
+<p>Below is an example of filling the <code>OpenModelResult</code> object by c# code.</p>
+<p>This example populates Member results by using the MemberType = <code>Element1D</code> method which is explained further below.</p>
+<pre><code class="lang-csharp">
+public static OpenModelResult CreateOpenModelResult(OpenModel openModel)
+{
+    OpenModelResult openModelResult = new OpenModelResult();
+	
+    openModelResult.ResultOnMembers = new List&lt;ResultOnMembers&gt;();
+	
+    ResultOnMembers resIF = new ResultOnMembers();
+	
+    //Generate Results for Each Member1D
+    for (int ib = 0; ib &lt; openModel.Member1D.Count; ib++)
+    {
+	Member1D mb = openModel.Member1D[ib];
+		
+	for (int iel = 0; iel &lt; mb.Elements1D.Count; iel++)
+	{
+	    Element1D elem = openModel.Element1D.First(c =&gt; c.Id == mb.Elements1D[iel].Id);
+	    ResultOnMember resMember = new ResultOnMember(new Member() { Id = elem.Id, MemberType = MemberType.Element1D }, ResultType.InternalForces);
+			
+	    int numPoints = 2;
+			
+	    for (int ip = 0; ip &lt;= numPoints; ip++)
+	    {
+		ResultOnSection resSec = new ResultOnSection();
+		resSec.AbsoluteRelative = AbsoluteRelative.Relative;
+
+		resSec.Position = (double)ip / (double)numPoints;
+		int count = openModel.LoadCase.Count;
+		for (int i = 0; i &lt; count; i++)
+		{
+		    ResultOfInternalForces resLc = new ResultOfInternalForces();
+		    resLc.Loading = new ResultOfLoading() { Id = openModel.LoadCase[i].Id, LoadingType = LoadingType.LoadCase };
+		    resLc.Loading.Items.Add(new ResultOfLoadingItem() { Coefficient = 1.0 });
+		    resLc.N = 5000;
+		    resLc.Qy = 2;
+		    resLc.Qz = 3;
+		    resLc.Mx = 4;
+		    resLc.My = (ip + 1) * 5000;
+		    resLc.Mz = 6;
+		    resSec.Results.Add(resLc);
+		}
+		resMember.Results.Add(resSec);
+	    }
+	    resIF.Members.Add(resMember);
+	}
+    }
+
+    openModelResult.ResultOnMembers.Add(resIF);
+    return openModelResult;
+}
+</code></pre>
+<h1 id="extracting-member-force-results">Extracting Member Force Results</h1>
+<p>In order for connection forces to be interpreted correctly a good understanding of the local coordinate system of members and sign force direction conventions is required. This is explained <a href="">here</a>.</p>
+<p>It is also important to understand the make-up of Element and Member Geometry, which is explained in detail [here]. In short, Elements will go from FEA Node to Node. Members can be continuous through Nodes and encapsulate 1, 2, or more Elements.</p>
+<h2 id="forces-by-membertype-member1d-or-element1d">Forces by MemberType: Member1D or Element1D</h2>
+<p><strong>All forces relate to Members in IDEA Statica</strong>, however, IOM Result Data provides two ways of specifying the Member Result information and IDEA StatiCa provides two ways of interpreting the data in order to translate it to connection member forces.</p>
+<p>This makes it easier for users to generate result data from different applications. Internally, we use both of them, depending on the API of the 3rd party software.</p>
+<p>There are two options when defining a member result to a new <code>ResultOnMember</code>:</p>
+<ol>
+<li>Specifying Result by Element: This relates results to an Element in the IOM Model.</li>
+</ol>
+<p><code>ResultOnMember resMember = new ResultOnMember(new Member() { Id = elem.Id, MemberType = MemberType.Element1D }, ResultType.InternalForces);</code></p>
+<ol start="2">
+<li>Specifying Result by Member: This relates results to a Member in the IOM Model.</li>
+</ol>
+<p><code>ResultOnMember resMember = new ResultOnMember(new Member() { Id = member.Id, MemberType = MemberType.Member1D }, ResultType.InternalForces);</code></p>
+<p>Below shows the difference between creating result data from the two different methods:</p>
+<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/resultdata.png" alt="result data"></p>
+<h4 id="result-data-by-membertype--element1d">Result Data By MemberType = <code>Element1D</code></h4>
+<ul>
+<li>Start and Endpoints can be defined <strong>directly</strong> at the start and endpoints. Therefore, IDEA StatiCa will interpret the end results on either side of the member by the endpoint values of the element.</li>
+<li>Internal results can be defined as a single relative or absolute value along the element to better represent the member force diagrams.</li>
+<li>As a minimum Member Results by Element Type <strong>MUST</strong> provide a <code>SectionResult </code> for the start and endpoint (2 results).</li>
+</ul>
+<h4 id="result-data-by-membertype--member1d">Result Data By MemberType = <code>Member1D</code></h4>
+<ul>
+<li>Start and Endpoints can be defined <strong>directly</strong> at the start and end nodes (of the member).</li>
+<li>For internal member results <strong>at the location of connection nodes</strong> <strong>two</strong> values should be specified, one either side of the point to an absolute or relative position of 1E-6 away from the location of the node. Refer below for further information on this.</li>
+<li>Other internal member results can be defined as a single relative or absolute value along the member to better represent the member force diagrams.</li>
+</ul>
+<h2 id="interpretation-of-resultdata">Interpretation of ResultData</h2>
+<p>It is important to understand how IDEA StatiCa Connection interprets the IOM Result Data to generate the connection members load effects.</p>
+<blockquote>
+<p>Note there was a slight change in how the load effects and their values are set to a connection project from continuous members. Since version 21, we are aligning with a whole structure approach (due to the addition of the Checkbot app). This is to ensure data consistency between both workflows (generating a single connection project &amp; importing a whole structure to Checkbot and generating multiple connections based on that).</p>
+</blockquote>
+<p>To get to the values needed when creating a connection project from the IOM Result Data we currently:</p>
+<p>a) Read it directly (if available), or
+b) <strong>Interpolate</strong> between the two closest defined values in the IOM Result Data.</p>
+<p>For a continuous member, in order to read the &quot;before&quot; and &quot;after&quot; values in a connection point, we look for section results 1e-6 away from the connection point (relatively). This is why it is imperative that <strong>two</strong> result points (one on either side of the connection point) are defined when using the MemberType = Member1D option. It is almost certain that an interpolated value between the start and end node of a member which contains more than one element will yield unbalanced forces.</p>
+<h2 id="local-vs-principle-axis-system">Local vs Principle Axis system</h2>
+<p>To do</p>
+<h2 id="defining-forces-not-in-equilibrium">Defining forces Not in Equilibrium</h2>
+<p>Currently, it is not easy to define simple forces (forces that are not in equilibrium) and it is not recommended. Although, you can set the connection when imported to not require equilibrium of imported forces. This would mean forces on bearing members would not require to be provided.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_open_model_result.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

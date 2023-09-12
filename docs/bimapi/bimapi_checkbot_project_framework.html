@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>General | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="General | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/bimapi/bimapi_checkbot_project_framework.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>IDEA StatiCa provides a flexible framework for third-party developers to implement advanced Links with a wide range of FEA and CAD applications.</p>
+<p>The below briefly explains the typical framework of a Checkbot BIM Link as well as some of the features that are available in the current Project framework.</p>
+<p>The support-center article <a href="https://www.ideastatica.com/support-center/checkbot-bulk-bim-workflows">Checkbot bulk BIM Workflows</a> explains some of these features.</p>
+<h1 id="general">General</h1>
+<p>The typical (and preferred) framework for a BIM Link with Checkbot is to enable execution from the base application. This is typically in the form of a button or command from the application.</p>
+<p>On execution of the command, the Checkbot application will start. A new folder located in the application file directory is created to hold the connection/member files which are generated. If an existing folder already exists, then that project is loaded back into checkbot so the session can continue.</p>
+<p>As a general rule, the folder that is specified should be generated in a folder where user permission is granted.</p>
+<h1 id="object-selection">Object Selection</h1>
+<p>Once Checkbot is opened, the user should select which type of object (nodes or members) they would like to select.</p>
+<p>If a node is selected, the program will collect all the members connected to that node in order to create the connection. If a member is selected, the program will import only the common nodes of the selected members. Once a selection is confirmed the members and connections are created in IDEAStatica checkbot. At that point, a persistence file in JSON format is written to the folder.</p>
+<p>Object selection can therefore be executed again at any time to allow the import of more of the structure. The previous object selection should be retained, and the new items merged with the existing selection. This allows for Checkbot to confirm that duplicate members do not get created when importing additional members or joints into Checkbot.</p>
+<p>To enable object selection, it is required that current selection can be retrieved from the base application. If not, the entire model may need to be sent and selection neglected.</p>
+<h1 id="sync">Sync</h1>
+<p>Syncing of the Structural model allows updates to the base application model to be synced with the Checkbot project. For example, if a member size is changed in the base application syncing allows for the checkbot application model to be updated.</p>
+<p>In BIM applications this also applies to connection items such as bolt placements.</p>
+<h3 id="syncing-limitations">Syncing Limitations</h3>
+<ul>
+<li>The framework does not provide updating of the base model from changes made in Checkbot or the Connection Files.</li>
+</ul>
+<h1 id="import-session-and-persistence">Import Session and Persistence</h1>
+<h1 id="material-and-property-conversion">Material and Property Conversion</h1>
+<p>Checkbot allows for materials and properties (sections, welds, bolt assembly etc.) to be imported from external programs. The developer where possible should decide to create native IOM materials and properties that will be directly created in the Checkbot database. However, in some instances, this is not possible, and the Material or Property can be added ‘By Name’. By default, the IDEA StatiCa library will be searched and if not found will be provided the item to the conversion tab of Checkbot. Refer below for how checkbot manages user-selected conversion.</p>
+<p>Refer to the IOM Material and IOM Section Property Conversion sections for more info.</p>
+<h2 id="conversion-files">Conversion Files</h2>
+<p>//How are conversion files stored and saved?</p>
+<p>Conversion files are persistent across the checkbot program and stored locally on a user's machine. <strong>This is managed by the checkbot application.</strong></p>
+<p>Each code has a separate file.</p>
+<h1 id="logging-and-debugging">Logging and Debugging</h1>
+<p>//To-do</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/bimapi/bimapi_checkbot_project_framework.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

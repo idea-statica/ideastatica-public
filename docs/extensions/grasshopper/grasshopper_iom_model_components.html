@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Model Components | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Model Components | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_iom_model_components.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="model-components">Model Components</h1>
+
+<p>A Model is a compilation of all the single objects that form an entire model with appropriate relative references. An object created by one of the object components is a floating single entity until they are added/assigned to a compiled model. In most instances this relates to an Open Model.</p>
+<p>Sometimes this will be related to a Compiled Object, however this term is interchangeable between Model or Model Result or any other of the compiled object which are described below.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Objects need to be assigned to a compiled object before they can be transferred to and from IDEA StatiCa applications.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p><strong>Any number</strong> of compiled objects can be on the canvas at any one time, making it an extremely flexible way of managing different models and results at the same time.</p>
+</div>
+<h2 id="model-object-components">Model Object Components</h2>
+<p>There are five sub-types of components that relate to Open Model component: These are <strong>Import</strong>, <strong>Convert</strong>, <strong>Create</strong>, <strong>Deconstruct</strong>, <strong>Modify</strong>, <strong>Save</strong>, and <strong>Inspect</strong>.</p>
+<p>Most of these components also relate to other types of compiled object types such as Open Model Result.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Component Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Import (XML)</strong></td>
+<td>This allows you to import an existing saved XML file format of a Compiled Object. You can import the XML definition for several different OpenModel formats. Such as OpenModel, OpenModelResult, OpenModelContainer and ModelBIM.</td>
+</tr>
+<tr>
+<td><strong>Convert</strong></td>
+<td>Convert allow direct conversion of some other CAD or FEA formats to IOM directly inside of Grasshopper.</td>
+</tr>
+<tr>
+<td><strong>Create</strong></td>
+<td>Create a new OpenModel with your desired settings.</td>
+</tr>
+<tr>
+<td><strong>Deconstruct</strong></td>
+<td>Break down a model to see all the assigned objects within it.  For a model this is useful to inspect the Members, Materials, Cross-sections within it.</td>
+</tr>
+<tr>
+<td><strong>Modify</strong></td>
+<td>Modify a Created or Imported OpenModel. This is the primary component used to add or update objects in a created OpenModel. This is explained in further detail below.</td>
+</tr>
+<tr>
+<td><strong>Save</strong></td>
+<td>Save XML allows you to save OpenModel, OpenModelResult, and ModelBIM format to an XML file on disk.</td>
+</tr>
+<tr>
+<td><strong>Inspect</strong></td>
+<td>Open Models can also be inspected for the entire XML output of the constructed model.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model-compilation">Model Compilation</h2>
+<p>Each time the Model Modify component is run the model is re-compiled. When an object is assigned to a model, a duplicate of the original object is created and assigned to the model database. <strong>If the Id and Name of a particular object are not set previously then they are set as required to the copied object.</strong></p>
+<p><strong>Model compilation is done in a recursive manner</strong>, meaning, objects which are required by others are automatically added to the model if they are not already available. For example, if a member is referenced in a connection point, then that member is automatically added to the model, along with the required cross-section and material if it is not already apparent in the model. The image below shows this in practice:</p>
+<p><img src="images/grasshopper_model_compilation.png" alt="model compilation"></p>
+<p>Here only the connection point has been provided to the Modify Model component. A validation occurs and automatically adds the required Members along with the cross-sections and relavant materials.</p>
+<p>Furthermore, if a material is already defined in a Model, then a reference to that object is created. Whenever a model is recompiled, references between different objects are automatically created and the model revalidated.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Using this system allows us to reduce the number of required inputs in the <em>Modify Model</em> component. However, it can cause some issues if not careful.It is very important to keep <strong>Object Names Unique</strong> if they represent different objects.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Objects which are typically added in a recursive manner generally have required Name inputs - such as Materials,  Cross-sections which helps reduce user errors.</p>
+</div>
+<h2 id="modifying-a-model">Modifying a Model</h2>
+<p>The modify component follows typical Grasshopper logic, by first creating a duplicate of the input Model and then updating the duplicate with the provided modifications.</p>
+<p>Each modify component has inputs for the objects which can be explicity added or updated in the provided model. The input first checks whether the provided object exists in the model <strong>(by its Name)</strong> and if so, is replaced with the updated object provided. If the object is not present in the model, it is added to the model.</p>
+<p>The image below demonstrates updating a set of Members and a Connection Point which is already defined in an existing Model.</p>
+<p><img src="images/grasshopper_modify_model.png" alt="Modify a model"></p>
+<p>In this instance there is already a list of Members and Connection Points assigned in the Model. Here we want to update the cross-sections of 4 of the existing Members so we provide the Modified Members to the explicit Add/Update input in the Modify Open Model component. The same goes for the Modify Connection Point, where we add additional Plate and Cut information to the existing Connection Point.</p>
+<p>The same goes for objects assigned to Connection Points (as it is also a compiled object), if an object is already assigned in a connection point, then it will be updated, else it will be added to the connection point. In general, we will likely only want to add things to a connection point.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Currently objects cannot be deleted from a model</p>
+</div>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_iom_model_components.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

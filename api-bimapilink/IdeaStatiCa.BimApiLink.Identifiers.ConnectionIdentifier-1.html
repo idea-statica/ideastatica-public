@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ConnectionIdentifier&lt;T&gt;
+ | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ConnectionIdentifier&lt;T&gt;
+ | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../docs/bimapi/toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1.md&amp;value=---%0Auid%3A%20IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1">
+
+
+
+  <h1 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1" class="text-break">
+    Class ConnectionIdentifier&lt;T&gt;
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IdeaStatiCa.html">IdeaStatiCa</a>.<a class="xref" href="IdeaStatiCa.BimApiLink.html">BimApiLink</a>.<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.html">Identifiers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>IdeaStatiCa.BimApiLink.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ConnectionIdentifier&lt;T&gt; : ImmutableIdentifier&lt;T&gt;, IIdentifier, IIdeaPersistenceToken, IEquatable&lt;IIdentifier&gt; where T : IIdeaObject</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html">Identifier</a>&lt;T&gt;</div>
+      <div><a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;T&gt;</div>
+      <div><span class="xref">ConnectionIdentifier&lt;T&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html">IIdentifier</a></div>
+      <div><a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaPersistenceToken.html">IIdeaPersistenceToken</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html">IIdentifier</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html#IdeaStatiCa_BimApiLink_Identifiers_ImmutableIdentifier_1_GetStringId">ImmutableIdentifier&lt;T&gt;.GetStringId()</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html#IdeaStatiCa_BimApiLink_Identifiers_ImmutableIdentifier_1_GetId">ImmutableIdentifier&lt;T&gt;.GetId()</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html#IdeaStatiCa_BimApiLink_Identifiers_Identifier_1_ObjectType">Identifier&lt;T&gt;.ObjectType</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html#IdeaStatiCa_BimApiLink_Identifiers_Identifier_1_Equals_IdeaStatiCa_BimApiLink_Identifiers_IIdentifier_">Identifier&lt;T&gt;.Equals(IIdentifier)</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html#IdeaStatiCa_BimApiLink_Identifiers_Identifier_1_Equals_System_Object_">Identifier&lt;T&gt;.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html#IdeaStatiCa_BimApiLink_Identifiers_Identifier_1_GetHashCode">Identifier&lt;T&gt;.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1__ctor_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.#ctor*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1__ctor_System_Double_System_Double_System_Double_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.#ctor(System.Double,System.Double,System.Double)">
+  ConnectionIdentifier(double, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionIdentifier(double X, double Y, double Z)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>X</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>Y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>Z</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_AnchorGrids_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.AnchorGrids*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_AnchorGrids" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.AnchorGrids">
+  AnchorGrids
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaAnchorGrid&gt;&gt; AnchorGrids { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaAnchorGrid.html">IIdeaAnchorGrid</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_BoltGrids_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.BoltGrids*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_BoltGrids" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.BoltGrids">
+  BoltGrids
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaBoltGrid&gt;&gt; BoltGrids { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaBoltGrid.html">IIdeaBoltGrid</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_ConnectedMembers_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.ConnectedMembers*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_ConnectedMembers" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.ConnectedMembers">
+  ConnectedMembers
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaConnectedMember&gt;&gt; ConnectedMembers { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectedMember.html">IIdeaConnectedMember</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Cuts_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Cuts*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Cuts" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Cuts">
+  Cuts
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaCut&gt;&gt; Cuts { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaCut.html">IIdeaCut</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_FoldedPlates_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.FoldedPlates*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_FoldedPlates" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.FoldedPlates">
+  FoldedPlates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaFoldedPlate&gt;&gt; FoldedPlates { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaFoldedPlate.html">IIdeaFoldedPlate</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Node_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Node*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Node" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Node">
+  Node
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Identifier&lt;IIdeaNode&gt; Node { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html">Identifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaNode.html">IIdeaNode</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Plates_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Plates*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Plates" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Plates">
+  Plates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaPlate&gt;&gt; Plates { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaPlate.html">IIdeaPlate</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Welds_" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Welds*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Identifiers_ConnectionIdentifier_1_Welds" data-uid="IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1.Welds">
+  Welds
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IList&lt;ImmutableIdentifier&lt;IIdeaWeld&gt;&gt; Welds { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html">ImmutableIdentifier</a>&lt;<a class="xref" href="../api-bimapi/IdeaStatiCa.BimApi.IIdeaWeld.html">IIdeaWeld</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs/#L7" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

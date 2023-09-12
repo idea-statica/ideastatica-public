@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Introduction | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Introduction | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/api_parameters_getting_started.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>Below provides an introduction to the use of parameters in IDEA StatiCa Connection.</p>
+<p>Parameters can be accessed by [enabling the Developer Mode] in the connection application.</p>
+<h2 id="introduction">Introduction</h2>
+<p>IDEA StatiCa Connection v23 provides an improved experience for creating and setting parameters in an IDEA StatiCa Connection Project.</p>
+<p>Parameters can be used to facilitate many functions including:</p>
+<ul>
+<li>Parametric templates.</li>
+<li>Connection sensitivity studies.</li>
+<li>Connection part optimisation.</li>
+<li>Machine learning algorithms and studies.</li>
+</ul>
+<p>Parameters are specific to one item in a connection project. This allows parameters to be exported inside of connection templates which are saved from a connection project item.</p>
+<blockquote>
+<p>It is recommended, although not required, that when using parameters, only one connection item is present in the connection project.</p>
+</blockquote>
+<h3 id="accessing-parameters">Accessing parameters</h3>
+<p>Parameters can be accessed through the <a href="https://github.com/idea-statica/ideastatica-public/wiki/Developer-Tools-in-IDEA-StatiCa-Connection">Developer Tab</a>.</p>
+<h3 id="parameters-vs-api">Parameters vs API</h3>
+<p>Parameters can be seen as a middle ground between API functionally and the classic UI of the program.</p>
+<p>All functionality (input/outputs) of the program should ideally be available through the API, however, <strong>Parameters</strong> allow for certain specific inputs to be linked within a connection project.</p>
+<p>Enabling parameters allows easy access through a high-level call in the API, making it a lot easier for a user to programmatically update specifically targeted inputs without needing to understand the finer details of the API.</p>
+<p>Parameters also allow the passing of these high-level links across Connection projects, which is beneficial for designing similar connection types with different loading and geometry configurations.</p>
+<h2 id="terminology">Terminology</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Parameter</strong></td>
+<td style="text-align: left;">A parameter is a global value that can be used as input to one or more model properties. Parameters are typeless and hold no specific type or unit information. Parameters are validated only once assigned to a model property. See below for more information.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Model property</strong></td>
+<td style="text-align: left;">Model properties are inputs or selections that are available in a project that can be driven by a parameter. Typically, inputs should mimic the input available in the UI of the project. Only one parameter can be linked to any model property.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Model Property Type</strong></td>
+<td style="text-align: left;">Each model property is of a specific type. The model property type provides the requirements for validation. For number-type properties, it also provides the required output unit. Output units are derived from the current unit settings in the project.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Property Item</strong></td>
+<td style="text-align: left;">A property item is a high-level item under which model properties are grouped in the model properties selection table. Property items can be either a project item (material, etc) or specific to a connection item (member, operation etc). Some property items include materials, cross-sections, members, and operations.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Model Property Group</strong></td>
+<td style="text-align: left;">Model properties are grouped to match different sections of the Program to allow staged application of model properties. These groups include libraries (materials and cross-sections), members, and operations.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="parameters">Parameters</h2>
+<p>Parameters are type-less and unit-less. They are either a number or a string. Where a parameter needs to be applied to a model property with a number input property the parameter should be provided as an SI unit to the Model Property. A conversion will take place to convert it to the appropriate model units assigned to the current Project.</p>
+<h3 id="parameter-input">Parameter input</h3>
+<p>All parameters are now evaluated as expressions. We use an expression module called <a href="https://github.com/ncalc/ncalc/wiki">ncalc</a> that provides access to basic math functions and operations. Inputs generally need to be separately identified between strings, decimal numbers, and integers.</p>
+<p>The table below shows how different basic types should be provided in the expression editor.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Basic Input Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strings</strong></td>
+<td>strings should be provided with single quotation marks.</td>
+<td><code>'myString'</code></td>
+</tr>
+<tr>
+<td><strong>Decimal number<sup>1<sup></sup></sup></strong></td>
+<td>decimal numbers should have a 0 or Integer prefix and contain a decimal point.</td>
+<td><code>0.45</code></td>
+</tr>
+<tr>
+<td><strong>Integer</strong></td>
+<td>Integers should be whole numbers without any decimators. Use <code>Round( )</code> where a decimal number is referenced.</td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><strong>Reference</strong></td>
+<td>reference a previous parameter in the list by using square brackets.</td>
+<td><code>[param1]</code></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Currently only decimal point input is allowed when defining parameters. <strong>Decimal commas, based on user PC settings will be supported in future</strong>.</li>
+</ol>
+<h3 id="units">Units</h3>
+<blockquote>
+<p>Currently, all parameter inputs need to be provided in <em>basic</em> SI Units. Please see the link <a href="https://github.com/idea-statica/ideastatica-public/wiki/IOM-Model-Basics">here</a> for reference.</p>
+</blockquote>
+<h3 id="expression-methods">Expression methods</h3>
+<p>Expression methods can be used to perform the transformation of basic type inputs to more complex inputs required by some Model properties. This primarily involves concatenating strings and providing referencing ability to previously defined parameters.</p>
+<p>The below table provides the basic expression functions typically required to enable the use of parameters:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Expression</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example Input</strong></th>
+<th><strong>Example Ouput</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ToString(..)</strong></td>
+<td>Converts a number to a string</td>
+<td>ToString(2.1578)</td>
+<td><code>'2.1578'</code></td>
+</tr>
+<tr>
+<td><strong>ToString(..)</strong></td>
+<td>Concatenates multiple strings into one output</td>
+<td>ToString('M',20,' ','8.8')</td>
+<td><code>'M20 8.8'</code></td>
+</tr>
+<tr>
+<td><strong>ToString(..)</strong></td>
+<td>Each comma delineated input is also separately evaluated. <code>spacing</code> and <code>bolts</code> are previously defined parameters</td>
+<td>ToString([spacing],'*',[bolts]-1)</td>
+<td><code>'.075*3'</code></td>
+</tr>
+<tr>
+<td><strong>RoundNumber(..)</strong></td>
+<td>rounds a decimal number to an Integer</td>
+<td>Round(2.1578, 0)</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><strong>RoundNumber(..)</strong></td>
+<td>rounds a decimal number to a precision three</td>
+<td>Round(2.1578, 3)</td>
+<td><code>2.158</code></td>
+</tr>
+</tbody>
+</table>
+<p>For a further and full explanation of available expression methods refer to the <a href="https://github.com/idea-statica/ideastatica-public/wiki/Reference-Guide-Expression-Parameters">Parameter Reference Guide</a></p>
+<h3 id="advanced-expression-methods">Advanced expression methods</h3>
+<p>There are further advanced Expression methods that can retrieve parameters currently available to be accessed from parts of an existing model using specific evaluation strings. This is currently an advanced feature and will be developed further in the future. Refer to the <a href="https://github.com/idea-statica/ideastatica-public/wiki/Reference-Guide-Expression-Parameters">Parameter Reference Guide</a></p>
+<h2 id="model-properties">Model properties</h2>
+<h3 id="model-property-validation">Model property validation</h3>
+<p>The below table provides basic validation criteria for different model property types.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: left;"><strong>Model Property Type</strong></th>
+<th><strong>Basic Type Validation<sup>1<sup></sup></sup></strong></th>
+<th style="text-align: left;"><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple</strong></td>
+<td style="text-align: left;">String</td>
+<td>string</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Boolean</td>
+<td>string</td>
+<td style="text-align: left;"><code>'true'</code> or <code>'false'</code></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Enum</td>
+<td>string</td>
+<td style="text-align: left;"><code>'Rear'</code> or <code>'Both'</code> or <code>'End'</code></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Integer</td>
+<td>int</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Float</td>
+<td>float, int</td>
+<td style="text-align: left;"><code>3.0</code> or <code>0.12</code></td>
+</tr>
+<tr>
+<td><strong>Complex</strong></td>
+<td style="text-align: left;">Number groups</td>
+<td>string (format varies, ref UI)</td>
+<td style="text-align: left;"><code>'.0075*3'</code> or <code>'0.075; 0.05'</code></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Vector</td>
+<td>string (format 'X Y Z')</td>
+<td style="text-align: left;"><code>'0.0 0.0 1.0'</code></td>
+</tr>
+<tr>
+<td><strong>Library<sup>2<sub></sub></sup></strong></td>
+<td style="text-align: left;">Material</td>
+<td>string</td>
+<td style="text-align: left;"><code>'S 355'</code></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Bolt Assembly</td>
+<td>string</td>
+<td style="text-align: left;"><code>'M20 8.8'</code></td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align: left;">Cross-section</td>
+<td>string</td>
+<td style="text-align: left;"><code>'IPE220'</code></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Model properties are validated by priority, an attempt for validation will be undertaken on the primary input type. If unsuccessful a parsing/casting to the second validation type will be tried.</li>
+<li>Validation of library properties can change depending on the property item that it is assigned to. Refer below.</li>
+</ol>
+<h3 id="library-model-properties">Library model properties</h3>
+<p>Validation of library properties such as Material, Bolt Assembly and Cross-section changes depending on the property item that it is assigned under.</p>
+<p>A library property can be validated in two ways:</p>
+<ul>
+<li><strong>Method 1.</strong> Against the items currently available in the Project database or;</li>
+<li><strong>Method 2.</strong> Against the available possibilities in a user MPRL database</li>
+</ul>
+<p>For a Cross-section or Plate Operation project item, Method 1 is used and the <em>project database</em> is searched and that material is referenced. For a Material project item, Method 2 is used, the user's <em>MPRL</em> is searched by name and if found that material is changed to the found material.</p>
+<p>Therefore, parameters <strong>cannot add</strong> materials to the current Project database. These would need to be added manually or through the API.</p>
+<h2 id="transferring-parameters-between-projects">Transferring parameters between projects</h2>
+<p>Parameters and Model Properties can be exported and used in another project using the developer mode template functionality and available API calls.
+When a template is saved manually from the developer tab, parameters and associated model properties are saved into the template itself.</p>
+<p>When the template is then applied to a clean/naked connection (one without operations), those operations are assigned and parameters and model properties should also be available for editing.</p>
+<p>Note that the developer tab ‘Templates’ functionality is like that provided through the API for saving and applying templates.</p>
+<h2 id="further-information-and-examples">Further information and examples</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=YJ748NLRYIA&amp;t=1067s">Webinar on using parameters for optimization</a></li>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/Reference-Guide-Expression-Parameters">Parameter Expression Reference Guide</a></li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/api_parameters_getting_started.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

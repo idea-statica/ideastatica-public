@@ -1,0 +1,839 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Adding Cross-Section Properties to IOM Open Model | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Adding Cross-Section Properties to IOM Open Model | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_cross_sections.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="adding-cross-section-properties-to-iom-open-model">Adding Cross-Section Properties to IOM Open Model</h1>
+
+<p>This example demonstrates how to add section properties to an IOM model using the <code>IdeaRS.OpenModel.CrossSection.CrossSectionFactory</code> class.</p>
+<p>The <code>CrossSectionFactory</code> class provides a list of methods to populate a <code>CrossSectionParameter</code> with the correct parameters and section types available in IDEAStatiCa.</p>
+<p>Although most, not all cross-section definitions in IOM are defined using the <code>CrossSectionFactory</code>. Refer below for which cross-section types this applies.</p>
+<blockquote>
+<h2 id="current-limitations">Current Limitations</h2>
+<ul>
+<li><p>There is no method in the <code>CrossSectionFactory</code> which allows quick creation of a 'Standard' Section. I.E the manual creation of the 'UniqueValue' parameter needs to be specified.</p>
+</li>
+<li><p>Note that IDEAStatiCa breaks standard sections into plates and therefore does not take into consideration a small radius in sections. Therefore any type of 'standard' section can be represented as a welded plate cross-section.</p>
+</li>
+</ul>
+</blockquote>
+<p>This also includes sections that are to be referenced from the IDEAStatiCa Section library. Use the <code>'UniqueName'</code> parameter to reference.</p>
+<h1 id="library-shapes">Library Shapes</h1>
+<p>Below indicates how should be used to generate sections as per the Rolled Sections tab in IDEAStatiCa Cross-Section Navigator.</p>
+<pre><code class="lang-c#">using IdeaRS;
+using IdeaRS.OpenModel.Material;
+using IdeaRS.OpenModel.CrossSection;
+using IdeaRS.OpenModel.Geometry2D;
+---
+public static void Example_AddLibraryCrossSection(OpenModel openModel)
+{
+    CrossSectionParameter cs = new CrossSectionParameter() { Id = 1, Name = &quot;myLibrarySection&quot; };
+	
+    MatSteel material = openModel.MatSteel.First();
+	cs.Material = new ReferenceElement(material);
+
+	cs.CrossSectionType = CrossSectionType.UniqueName;
+    cs.Parameters.Add(new ParameterString() {Name = &quot;UniqueName&quot;, Value = &quot;HEB200&quot;});
+
+    openModel.AddObject(crossSectionParameter);
+}
+</code></pre>
+<h2 id="section-conversion">Section Conversion</h2>
+<p>To convert a Libary shape in one application to a Libary shape in IDEAStatiCa, you can either:</p>
+<ol>
+<li>Manage conversions through the Checkbot App. (Recommended)</li>
+<li>Create your own conversion table sets within your conversion code.</li>
+</ol>
+<p>The Checkbot App allows you to manage the shapes which were not able to be automatically converted into IDEAStatiCa. You can select an appropriate section for these non-converted shapes through the conversion options which are available after import. To ensure a section is created, provide a 'UniqueName' parameter to the cross-section (similar to the Library example above). On import, IDEAStatiCa will attempt to find the cross-section within the available Libraries. If not found it will be added to the conversion options list.</p>
+<h2 id="managing-not-implemented-sections-in-iom">Managing <em>Not-Implemented</em> Sections in IOM</h2>
+<p>If a shape is not available to be currently defined, a 'UniqueName' section can be generated in order to provide a placeholder for the section. On import, IDEAStatiCa will attempt to find the section within the available Libraries. The Checkbot conversion options can then be used to apply the correct section from within IDEA.</p>
+<h1 id="parametric-shapes">Parametric Shapes</h1>
+<p>Cross-sections that are generated from 'parameters' alone (not regions or lines) are of the <code>CrossSectionParameter</code> class. The <code>CrossSectionParameter</code> object is created and then passed to the CrossSectionFactory to be filled with all the required parameters of a particular shape.</p>
+<p>The example below is for an I section shape cross-section can be generated as below:</p>
+<pre><code class="lang-c#">public static void Example_CreateAndAddCrossSection(OpenModel model)
+{	
+	CrossSectionParameter crossSectionParameter = new CrossSectionParameter() { Id = 1, Name = &quot;myISection&quot; };
+	MatSteel material = model.MatSteel.First();
+	crossSectionParameter.Material = new ReferenceElement(material);
+
+	CrossSectionFactory.FillCssIarc(crossSectionParameter, 0.25, .045, 0.02, 0.03, 0.012, 0, 0.015);
+
+	model.AddObject(crossSectionParameter);
+}
+</code></pre>
+<h2 id="rolled-sections">Rolled Sections</h2>
+<p>Below indicates which <code>CrossSectionFactory</code> method should be used to generate sections as per the Rolled Sections tab in IDEAStatiCa Cross-Section Navigator.</p>
+<blockquote>
+<p>In the IDEAStatiCa connection, rolled cross-sections are broken up into separate plate elements for FEA calculation. Radi and tapers are neglected in this step, hence in many cases rolled sections can also be defined using the Welded/Composed methods.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>IDEA Shape Ref</th>
+<th>Image</th>
+<th>Factory Method  <code>CrossSectionFactory.</code></th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Circular</td>
+<td><img src="images/circle.png" alt="circle_shape"></td>
+<td><code>FillCircle(...)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>General Plate</td>
+<td><img src="images/parametric_general_plate.png" alt="general plate"></td>
+<td><code>FillRectangle(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>I</td>
+<td><img src="images/parametric_I.png" alt="I Section"></td>
+<td><code>FillCssIarc(…)</code></td>
+<td>For asymmetric I-sections the <code>FillWeldedAsymI(…)</code> can be used.</td>
+</tr>
+<tr>
+<td>Channel</td>
+<td><img src="images/parametric_channel.png" alt="Channel"></td>
+<td><code>FillCssSteelChannel(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Angle</td>
+<td><img src="images/parametric_L.png" alt="Angle"></td>
+<td><code>FillCssSteelAngle(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>General Tube</td>
+<td><img src="images/parametric_pipe.png" alt="General Tube"></td>
+<td><code>.FillCHSPar(…)</code> / <code>FillSteelTube(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>T (I Cut)</td>
+<td><img src="images/parametric_T.png" alt="General Tube"></td>
+<td><code>FillSteelTI(…)</code></td>
+<td>This requires the Name of an IDEAStatiCa Library I section.</td>
+</tr>
+<tr>
+<td><strong>Additional</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Square Hollow</td>
+<td><img src="images/parametric_rhs.png" alt="General Tube"></td>
+<td><code>FillCssSteelRectangularHollow(…)</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="welded-composed-cross-sections">Welded, Composed Cross-Sections</h2>
+<p>Below indicates which <code>CrossSectionFactory</code> method should be used to generate sections as per the Rolled Sections tab in IDEAStatiCa Cross-Section Navigator.</p>
+<table>
+<thead>
+<tr>
+<th>IDEA Shape Ref</th>
+<th>Image</th>
+<th>Factory Method  <code>CrossSectionFactory.</code></th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2I</td>
+<td><img src="images/double_I.png" alt="double I"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>2Uo</td>
+<td><img src="images/double_channel.png" alt="2Uo"></td>
+<td><code>FillShapeDbLU(…)</code></td>
+<td>You need to specify section shapes manually for this method.</td>
+</tr>
+<tr>
+<td>2Uc</td>
+<td><img src="images/double_channel_flipped.png" alt="2Uc"></td>
+<td><code>FillWelded2Uc(…)</code></td>
+<td>This method requires the Name of an IDEAStatica Library Channel.</td>
+</tr>
+<tr>
+<td>2Lt</td>
+<td><img src="images/double_L.png" alt="2Lt"></td>
+<td><code>FillWelded2Lt(…)</code></td>
+<td>This method requires the Name of an IDEAStatica Library Angle.</td>
+</tr>
+<tr>
+<td>2Lu</td>
+<td><img src="images/double_L_flipped.png" alt="2Lu"></td>
+<td><code>FillWelded2Lu(…)</code></td>
+<td>This method requires the Name of an IDEAStatica Library Angle</td>
+</tr>
+<tr>
+<td>Iw</td>
+<td><img src="images/welded_I.png" alt="Iw"></td>
+<td><code>FillWeldedI(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Iwn</td>
+<td><img src="images/welded_asymetric_I.png" alt="Iwn"></td>
+<td><code>FillWeldedAsymI(…)</code></td>
+<td>This item can be used to define a asymmetric ‘rolled’ I section.</td>
+</tr>
+<tr>
+<td>Tw</td>
+<td><img src="images/welded_T.png" alt="Tw"></td>
+<td><code>FillWeldedT(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Box FI</td>
+<td><img src="images/welded_box_1.png" alt="Box FI"></td>
+<td><code>FillBox2(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Box Web</td>
+<td><img src="images/welded_box_2.png" alt="Box Web"></td>
+<td><em>Not Implemented</em></td>
+<td>Define this using the <code>CrossSectionComponent</code> class</td>
+</tr>
+<tr>
+<td>Box 2I</td>
+<td><img src="images/welded_box_2I.png" alt="Box 2I"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Box 2U</td>
+<td><img src="images/welded_box_2U.png" alt="Box 2U"></td>
+<td><code>FillWelded2Uc(…)</code></td>
+<td>Set 'distance' parameter to zero.</td>
+</tr>
+<tr>
+<td>Box 2L</td>
+<td><img src="images/welded_box_2L.png" alt="Box 2L"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Box 4L</td>
+<td><img src="images/welded_box_4L.png" alt="Box 4L"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Box Delta</td>
+<td><img src="images/welded_box_delta.png" alt="Box Delta"></td>
+<td><em>Not Implemented</em></td>
+<td>Define this using the <code>CrossSectionComponent</code> class</td>
+</tr>
+<tr>
+<td>Box Triangle</td>
+<td><img src="images/welded_box_triangle.png" alt="Box Delta"></td>
+<td><em>Not Implemented</em></td>
+<td>Define this using the <code>CrossSectionComponent</code> class</td>
+</tr>
+<tr>
+<td>General Steel</td>
+<td><img src="images/welded_general.png" alt="Box Delta"></td>
+<td>Does not use <code>CrossSectionFactory</code></td>
+<td>Define this using the <code>CrossSectionComponent</code> class. An example is show below.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="creating-a-general-welded-cross-section">Creating a General Welded Cross-Section</h2>
+<p>Creating a general steel cross-section, i.e one that is made up of a number of components. (i.e plates or other items) requires the use of the <code>CrossSectionComponent</code> class. This object can store a number of <code>CssComponent</code>'s.</p>
+<blockquote>
+<p>Note: You cannot currently add <code>CrossSectionParam</code> objects to a <code>CrossSectionComponent</code>. Each plate will need to be specified individually and has its own material and phase.</p>
+</blockquote>
+<p>The example below creates a custom T-shape arrangement as shown below.</p>
+<p><img src="images/steel_general_component.png" alt="Custom-T"></p>
+<pre><code class="lang-C#">public static void Example_CreateComponentCrossSection(OpenModel openModel)
+{	
+	CrossSectionComponent componentCrossSection = new CrossSectionComponent() { Id = 1, Name = &quot;myComponentCrossSection&quot; };
+
+	//Component 1
+	CssComponent comp1 = new CssComponent() { Material = new ReferenceElement(openModel.MatSteel.First()), Phase = 0 };
+	Region2D region = new Region2D();
+	PolyLine2D outline = new PolyLine2D();
+
+	outline.StartPoint = new Point2D() { X = 0, Y = 0 };
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0.2, Y = 0 } });
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0.2, Y = -0.015 } });
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0, Y = -0.015 } });
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0, Y = 0 } });
+
+	region.Outline = outline;
+
+	comp1.Geometry = region;
+	componentCrossSection.Components.Add(comp1);
+
+	//Component2
+	CssComponent comp2 = new CssComponent() { Material = new ReferenceElement(openModel.MatSteel.First()), Phase = 0 };
+	region = new Region2D();
+	outline = new PolyLine2D();
+
+	outline.StartPoint = new Point2D() { X = 0.095, Y = -0.015 };
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0.105, Y = -0.015 } });
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0.105, Y = -0.14 } });
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0.095, Y = -0.14 } });
+	outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = 0.095, Y = -0.015 } });
+	region.Outline = outline;
+
+	comp2.Geometry = region;
+	componentCrossSection.Components.Add(comp2);
+
+	openModel.AddObject(componentCrossSection);
+}
+
+</code></pre>
+<h2 id="cold-formed-crosssections">Cold Formed CrossSections</h2>
+<p>Below indicates which <code>CrossSectionFactory</code> method should be used to generate sections as per the Cold-formed sections tab in IDEAStatiCa Cross-Section Navigator.</p>
+<table>
+<thead>
+<tr>
+<th>IDEA Shape Ref</th>
+<th>Image</th>
+<th>Factory Method  <code>CrossSectionFactory.</code></th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CF Omega</td>
+<td><img src="images/cf_Omega.png" alt="CF Omega"></td>
+<td><code>.FillColdFormedOmega(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF C</td>
+<td><img src="images/cf_C.png" alt="CF C"></td>
+<td><code>.FillColdFormedC(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF C+</td>
+<td><img src="images/cf_Cplus.png" alt="CF Cplus"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>CF L</td>
+<td><img src="images/cf_L.png" alt="CF L"></td>
+<td><code>.FillColdFormedL (…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF Lgen</td>
+<td><img src="images/cf_Lgen.png" alt="CF Lgen"></td>
+<td><code>.FillColdFormedLgen(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF Z</td>
+<td><img src="images/cf_regular_polygon.png" alt="CF Z"></td>
+<td><code>.FillColdFormedZ(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF Regular Polygon</td>
+<td><img src="images/cf_Z.png" alt="CF reg poly"></td>
+<td><code>.FillColdFormedRegularPolygon(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF Sigma</td>
+<td><img src="images/cf_Sigma.png" alt="CF Sigma"></td>
+<td><code>.FillColdFormedSigma(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF U</td>
+<td><img src="images/cf_U.png" alt="CF U"></td>
+<td><code>.FillColdFormedChannel(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF ZED</td>
+<td><img src="images/cf_ZED.png" alt="CF ZED"></td>
+<td><code>.FillColdFormedZed(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF RHS</td>
+<td><img src="images/cf_RHS.png" alt="CF RHS"></td>
+<td><code>.FillColdFormedRHS(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>General Tube</td>
+<td><img src="images/cf_tube.png" alt="CF Tube"></td>
+<td><code>.FillSteelTube(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>CF 2Co</td>
+<td><img src="images/cf_2Co.png" alt="CF 2Co"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>CF 2C+o</td>
+<td><img src="images/cf_2Coplus.png" alt="CF 2C+o"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>CF General Shape</td>
+<td><img src="images/cf_general.png" alt="CF General Shape"></td>
+<td><code>.FillColdFormedGeneral(…)</code></td>
+<td>The general cold-formed section is not a parametric section and therefore has its own class, <code>CrossSectionGeneralColdFormed</code> to store the polyline which defines its shape. Refer below for an example.</td>
+</tr>
+</tbody>
+</table>
+<p>The example below show how to generate a General cold-formed section.</p>
+<pre><code class="lang-C#">public static void Example_CreateAndAddColdFormedGeneralCrossSection(OpenModel openModel)
+{
+	CrossSectionGeneralColdFormed coldFormedSection = new CrossSectionGeneralColdFormed() { Id = 1, Name = &quot;myColdFormedSection&quot; };
+
+	MatSteel material = openModel.MatSteel.First();
+	coldFormedSection.Material = new ReferenceElement(material);
+
+	Region2D region = new Region2D();
+	PolyLine2D outline = new PolyLine2D();
+
+	outline.StartPoint = new Point2D() { X = 0, Y = 0 };
+
+	LineSegment2D seg = new LineSegment2D();
+	seg.EndPoint = new Point2D() { X = 0.050, Y = 0.050 };
+	outline.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D() { X = 0.1, Y = 0.050 };
+	outline.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D() { X = 0.15, Y = 0.000 };
+	outline.Segments.Add(seg);
+
+	region.Outline = outline;
+
+	double thickness = 0.003;
+	double innerRadius = 0.005;
+
+	CrossSectionFactory.FillColdFormedGeneral(coldFormedSection, region, thickness, innerRadius);
+
+	openModel.AddObject(coldFormedSection);
+}
+</code></pre>
+<h2 id="timber-sections">Timber Sections</h2>
+<p>Timber shapes are currently not implemented in IOM.</p>
+<h2 id="concrete-sections">Concrete Sections</h2>
+<p>Below indicates which <code>CrossSectionFactory</code> method should be used to generate concrete sections as per the IDEAStatiCa Cross-Section Navigator.</p>
+<table>
+<thead>
+<tr>
+<th>IDEA Shape Ref</th>
+<th>Image</th>
+<th>Factory Method  <code>CrossSectionFactory.</code></th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rectangular</td>
+<td><img src="images/Rectangle.png" alt="Rectangular"></td>
+<td><code>FillRectangle(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Circular</td>
+<td><img src="images/Circle.png" alt="Circular"></td>
+<td><code>FillCircle(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>I Shape</td>
+<td><img src="images/IShape.png" alt="I Shape"></td>
+<td><code>FillShapeI(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>T Shape</td>
+<td><img src="images/TShape.png" alt="T Shape"></td>
+<td><code>FillShapeT(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>T Shape Reverse</td>
+<td><img src="images/TrevShape.png" alt="T Shape"></td>
+<td><code>.FillShapeTrev(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>L Shape</td>
+<td><img src="images/LrShape.png" alt="L Shape"></td>
+<td><code>FillShapeL(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>L Shape Mirror</td>
+<td><img src="images/LlShape.png" alt="L Shape Mirror"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>S Shape</td>
+<td><img src="images/SShape.png" alt="S Shape"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Z Shape</td>
+<td><img src="images/ZShape.png" alt="Z Shape"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>U Shape</td>
+<td><img src="images/UShape.png" alt="U Shape"></td>
+<td><code>FillShapeU(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>U Shape Reverse</td>
+<td><img src="images/BeamShapeRevU.png" alt="U Shape Reverse"></td>
+<td><em>Not Implemented</em></td>
+<td>Use <code>FillShapeU(...)</code> and flip the LCS</td>
+</tr>
+<tr>
+<td>Rectangular Hollow</td>
+<td><img src="images/RectShapeHollow.png" alt="Rect Hollow"></td>
+<td><code>FillCssRectangleHollow(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Circular Hollow</td>
+<td><img src="images/OShapeHollow.png" alt="Circular Hollow"></td>
+<td><code>FillOHollow(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Oval Shape</td>
+<td><img src="images/OvalShape.png" alt="Oval Shape"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>I Shape with Haunched Flanges</td>
+<td><img src="images/IShapeGeneral.png" alt="I Shape Haunched"></td>
+<td><code>FillShapeIBase(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>T Shape with Champfer</td>
+<td><img src="images/TShapeChamfer1.png" alt="T Shape Haunched"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>T Shape with Haunched Wall and Chamfer</td>
+<td><img src="images/TShapeChamfer2.png" alt="T Shape Haunched Wall"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Trapezoidal Shape</td>
+<td><img src="images/TrapezoidShape.png" alt="Trapezoidal Shape"></td>
+<td><code>FillShapeTrapezoid1(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>T Shape with Haunched Flanges</td>
+<td><img src="images/TShapeHaunchFlange.png" alt="T Shape Haunched"></td>
+<td><em>Not Implemented</em></td>
+<td>Use <code>FillShapeTrev1(...)</code> and flip LCS.</td>
+</tr>
+<tr>
+<td>T Shape with Haunched Wall</td>
+<td><img src="images/TShapeHaunchWall.png" alt="T Shape Haunched Wall"></td>
+<td><code>FillShapeTwh(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Inverted T Shape with Haunched Flanges</td>
+<td><img src="images/TrevShapeHaunchFlange.png" alt="Inverted T Shape Haunched"></td>
+<td><code>.FillShapeTrev1(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Inverted T Shape with Haunched Wall</td>
+<td><img src="images/TrevShapeHaunchWall.png" alt="Inverted T Shape Haunched Wall"></td>
+<td><em>Not Implemented</em></td>
+<td>Use <code>FillShapeTwh(…)</code> and flip LCS.</td>
+</tr>
+<tr>
+<td>Double T Shape</td>
+<td><img src="images/TTShape.png" alt="Double T"></td>
+<td><code>.FillShapeTT(…)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Double T Shape with Chamfers</td>
+<td><img src="images/TTShapeGeneral.png" alt="Double T w Chamfer"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Hollow Cross Section 1</td>
+<td><img src="images/BeamShapeBox.png" alt="Hollow Section 1"></td>
+<td><em>Not Implemented</em></td>
+<td>Use method for General Concrete Section</td>
+</tr>
+<tr>
+<td>Hollow Cross Section 2</td>
+<td><img src="images/BeamShapeBox1.png" alt="Hollow Section 2"></td>
+<td><em>Not Implemented</em></td>
+<td>Use method for General Concrete Section</td>
+</tr>
+<tr>
+<td>Asymetrical I Shaped</td>
+<td><img src="images/ShapeIHaunchChamferAssym.png" alt="Asymetrical I Shaped"></td>
+<td><em>Not Implemented</em></td>
+<td>Use method for General Concrete Section</td>
+</tr>
+<tr>
+<td>Slab on Trapezoidal Sheet</td>
+<td><img src="images/RectOnTrapezoidSheet.png" alt="Slab on Sheet"></td>
+<td><em>Not Implemented</em></td>
+<td></td>
+</tr>
+<tr>
+<td>Slab on Trapezoidal Sheet Negative</td>
+<td><img src="images/RectOnTrapezoidSheetNeg.png" alt="Slab on Sheet Negative"></td>
+<td><code>.*Not Implemented* | General Concrete Section |  Does not use </code>CrossSectionFactory<code>| Define this using the</code>CrossSectionComponent` class. An example is shown below.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The example below shows how to generate a General concrete section with an opening.</p>
+<pre><code class="lang-C#">public static void Example_CreateConcreteComponentCrossSection(OpenModel openModel)
+{	
+	//Concrete material
+	MatConcreteEc2 mat = new MatConcreteEc2();
+	//...
+	openModel.AddObject(mat);
+
+	//Cross-section without the bars
+	//One component square 0.8x0.8m
+	IdeaRS.OpenModel.CrossSection.CrossSectionComponent css = new IdeaRS.OpenModel.CrossSection.CrossSectionComponent();
+	css.Name = &quot;CSS1&quot;;
+
+	//Component of cross-section
+	CssComponent comp = new CssComponent();
+	comp.Material = new ReferenceElement(mat);
+	comp.Phase = 0;
+
+	//Geometry of component 0.8x0.8
+	Region2D region = new Region2D();
+	PolyLine2D outline = new PolyLine2D();
+	outline.StartPoint = new Point2D();
+	outline.StartPoint.X = -0.04;
+	outline.StartPoint.Y = -0.04;
+	LineSegment2D seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = 0.04;
+	seg.EndPoint.Y = -0.04;
+	outline.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = 0.04;
+	seg.EndPoint.Y = 0.04;
+	outline.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = -0.04;
+	seg.EndPoint.Y = 0.04;
+	outline.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = -0.04;
+	seg.EndPoint.Y = -0.04;
+	outline.Segments.Add(seg);
+	region.Outline = outline;
+
+	//Optional - setting openning in this component 0,2x0,2
+	PolyLine2D openning = new PolyLine2D();
+	openning.StartPoint = new Point2D();
+	openning.StartPoint.X = -0.01;
+	openning.StartPoint.Y = -0.01;
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = -0.01;
+	seg.EndPoint.Y = 0.01;
+	openning.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = 0.01;
+	seg.EndPoint.Y = 0.01;
+	openning.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = 0.01;
+	seg.EndPoint.Y = -0.01;
+	openning.Segments.Add(seg);
+	seg = new LineSegment2D();
+	seg.EndPoint = new Point2D();
+	seg.EndPoint.X = -0.01;
+	seg.EndPoint.Y = -0.01;
+	openning.Segments.Add(seg);
+	region.Openings.Add(openning);
+
+	comp.Geometry = region;
+	css.Components.Add(comp);
+	
+	openModel.AddObject(css);
+}
+
+</code></pre>
+<h2 id="non-symetrical-cross-sections">Non-symetrical Cross-sections.</h2>
+<p>A simple explanation of the IOM Co-ordinate system can be found <a href="iom_coordinate_systems.html">here</a>. Here we will the preferred method of dealing with non-symmetrical section shapes.</p>
+<p><strong>Asymmetrical</strong> cross-sections are those with one axis of symmetry. (i.e I beam with different flange widths). These have <strong>two</strong> possible orientations.</p>
+<p><strong>Unsymmetrical</strong> cross-sections are those with no axis of symmetry. (i.e Angle section). These of which have <strong>four</strong> possible orientations.</p>
+<blockquote>
+<p>Note: The below applies primarily to <strong>Steel</strong> cross-sections. Some <strong>Concrete</strong> sections do have <code>CrossSectionFactory</code> methods which can directly generate the inverted/reverse version without requiring resetting of the member LCS.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Option A</th>
+<th>Option B</th>
+<th>Option C</th>
+<th>Option D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/angle_base.png" alt="angle base"></td>
+<td><img src="images/angle_mirrored.png" alt="angle_mirrored"></td>
+<td><img src="images/angle_base_rotated.png" alt="angle_base_rotated"></td>
+<td><img src="images/angle_mirrored_rotated.png" alt="angle_mirror_rotated"></td>
+</tr>
+<tr>
+<td>Base shape</td>
+<td>Base shape <em>mirrored</em> (using mirrored param in <code>CrossSectionFactory</code> method)</td>
+<td>Base shape with <strong>Local Co-ordinate system of Member reversed when setting</strong></td>
+<td>Base shape <em>mirrored</em> and <strong>Local Co-ordinate system of Member reversed when setting</strong>.</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_cross_sections.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

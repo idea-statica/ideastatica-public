@@ -1,0 +1,674 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CrossSectionFactoryHelper
+ | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CrossSectionFactoryHelper
+ | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../docs/bimapi/toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper.md&amp;value=---%0Auid%3A%20IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper">
+
+
+
+  <h1 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper" class="text-break">
+    Class CrossSectionFactoryHelper
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IdeaStatiCa.html">IdeaStatiCa</a>.<a class="xref" href="IdeaStatiCa.BimApiLink.html">BimApiLink</a>.<a class="xref" href="IdeaStatiCa.BimApiLink.Utils.html">Utils</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>IdeaStatiCa.BimApiLink.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>CrossSectionFactoryHelper</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class CrossSectionFactoryHelper</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CrossSectionFactoryHelper</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillCircle_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillCircle*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillCircle_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillCircle(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double)">
+  FillCircle(IdeaCrossSectionByParameters, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Circular shape - for steel or concrete shape</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillCircle(IdeaCrossSectionByParameters css, double d)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>Parameters of CrossSectionParameter will be filled</p>
+</dd>
+    <dt><code>d</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Diametrer of the shape</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillColdFormedC_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedC*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillColdFormedC_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Boolean_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedC(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+  FillColdFormedC(IdeaCrossSectionByParameters, double, double, double, double, double, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L201"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fill parameters for cold formed C section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillColdFormedC(IdeaCrossSectionByParameters css, double Width, double Height, double Thickness, double Radius, double lip, bool mirrorZ = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>Parameters of CrossSectionParameter will be filled</p>
+</dd>
+    <dt><code>Width</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Css width</p>
+</dd>
+    <dt><code>Height</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Height of cross-section</p>
+</dd>
+    <dt><code>Thickness</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Thickness</p>
+</dd>
+    <dt><code>Radius</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Inside radius</p>
+</dd>
+    <dt><code>lip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Lip length</p>
+</dd>
+    <dt><code>mirrorZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillColdFormedZ_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedZ*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillColdFormedZ_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Boolean_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedZ(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+  FillColdFormedZ(IdeaCrossSectionByParameters, double, double, double, double, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fill parameters for cold formed Z section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillColdFormedZ(IdeaCrossSectionByParameters css, double width, double height, double thickness, double radius, bool mirrorZ)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>Parameters of CrossSectionParameter will be filled</p>
+</dd>
+    <dt><code>width</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Css width</p>
+</dd>
+    <dt><code>height</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Height of cross-section</p>
+</dd>
+    <dt><code>thickness</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Thickness</p>
+</dd>
+    <dt><code>radius</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Inside radius</p>
+</dd>
+    <dt><code>mirrorZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Mirrored shape</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRectangle_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRectangle*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRectangle_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRectangle(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double)">
+  FillRectangle(IdeaCrossSectionByParameters, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Rectangle shape - massive concrete shape</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRectangle(IdeaCrossSectionByParameters css, double width, double height)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>Parameters of CrossSectionParameter will be filled</p>
+</dd>
+    <dt><code>width</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Width of the rectangle</p>
+</dd>
+    <dt><code>height</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Height of the rectangle</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledAngle_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledAngle*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledAngle_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Boolean_System_Boolean_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledAngle(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean,System.Boolean)">
+  FillRolledAngle(IdeaCrossSectionByParameters, double, double, double, double, double, double, bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Rolled steel angle</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRolledAngle(IdeaCrossSectionByParameters css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false, bool mirrorY = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>CrossSectionParameter to fill</p>
+</dd>
+    <dt><code>B</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Width</p>
+</dd>
+    <dt><code>D</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Depth</p>
+</dd>
+    <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Thickness</p>
+</dd>
+    <dt><code>rw</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Root radius</p>
+</dd>
+    <dt><code>r2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Toe radius</p>
+</dd>
+    <dt><code>C</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Centroid position</p>
+</dd>
+    <dt><code>mirrorZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Z-axis mirror</p>
+</dd>
+    <dt><code>mirrorY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Y-axis mirror</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledCHS_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledCHS*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledCHS_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledCHS(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double)">
+  FillRolledCHS(IdeaCrossSectionByParameters, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Steel circular hollow section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRolledCHS(IdeaCrossSectionByParameters css, double r, double t)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>CrossSectionParameter to fill</p>
+</dd>
+    <dt><code>r</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Radius</p>
+</dd>
+    <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Thickness</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledChannel_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledChannel*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledChannel_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Boolean_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledChannel(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+  FillRolledChannel(IdeaCrossSectionByParameters, double, double, double, double, double, double, double, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Rolled steel channel</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRolledChannel(IdeaCrossSectionByParameters css, double B, double D, double tw, double tf, double rw, double rf, double taperF, bool mirrorZ = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>CrossSectionParameter to fill</p>
+</dd>
+    <dt><code>B</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Width</p>
+</dd>
+    <dt><code>D</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Depth</p>
+</dd>
+    <dt><code>tw</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Web thickness</p>
+</dd>
+    <dt><code>tf</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange thickness</p>
+</dd>
+    <dt><code>rw</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Root radius</p>
+</dd>
+    <dt><code>rf</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange edge radius</p>
+</dd>
+    <dt><code>taperF</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange taper</p>
+</dd>
+    <dt><code>mirrorZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledI_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledI*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledI_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+  FillRolledI(IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Rolled steel I section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRolledI(IdeaCrossSectionByParameters css, double b, double h, double s, double t, double r2, double tapperF, double r1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>IdeaCrossSectionByParameters to fill</p>
+</dd>
+    <dt><code>b</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Width</p>
+</dd>
+    <dt><code>h</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Height</p>
+</dd>
+    <dt><code>s</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Web thickness</p>
+</dd>
+    <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange thickness</p>
+</dd>
+    <dt><code>r2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Inside radius</p>
+</dd>
+    <dt><code>tapperF</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange tapper</p>
+</dd>
+    <dt><code>r1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange edge rounding radius</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledRHS_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledRHS*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledRHS_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledRHS(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+  FillRolledRHS(IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Steel rectangular hollow section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRolledRHS(IdeaCrossSectionByParameters css, double D, double B, double t, double r1, double r2, double d)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>CrossSectionParameter to fill</p>
+</dd>
+    <dt><code>D</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>depth</p>
+</dd>
+    <dt><code>B</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>width</p>
+</dd>
+    <dt><code>t</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>thickness</p>
+</dd>
+    <dt><code>r1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>inner radius</p>
+</dd>
+    <dt><code>r2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>outer radius</p>
+</dd>
+    <dt><code>d</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>web buckling depth</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledT_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledT*"></a>
+
+  <h3 id="IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillRolledT_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Boolean_" data-uid="IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledT(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+  FillRolledT(IdeaCrossSectionByParameters, double, double, double, double, double, double, double, double, double, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Rolled steel T section</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void FillRolledT(IdeaCrossSectionByParameters css, double B, double H, double Tw, double Tf, double R, double R1, double R2, double tapperF, double tapperW, bool mirrorY = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>css</code> <a class="xref" href="IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html">IdeaCrossSectionByParameters</a></dt>
+    <dd><p>CrossSectionParameter to fill</p>
+</dd>
+    <dt><code>B</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Width</p>
+</dd>
+    <dt><code>H</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Height</p>
+</dd>
+    <dt><code>Tw</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Web thickness</p>
+</dd>
+    <dt><code>Tf</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange thickness</p>
+</dd>
+    <dt><code>R</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Inside radius</p>
+</dd>
+    <dt><code>R1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange edge rounding radius</p>
+</dd>
+    <dt><code>R2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Web edge rounding radius</p>
+</dd>
+    <dt><code>tapperF</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Flange tapper</p>
+</dd>
+    <dt><code>tapperW</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd><p>Web tapper</p>
+</dd>
+    <dt><code>mirrorY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Y-axis mirror</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs/#L9" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Step 1: Install Anaconda | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Step 1: Install Anaconda | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/python/api_install_python_and_jupyterlab_using_anaconda.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>The below provides instructions on how to install Python and JupyterLab/Notebook using Anaconda.</p>
+<h2 id="step-1-install-anaconda">Step 1: Install Anaconda</h2>
+<p>Anaconda automatically installs Python and most of the packages used in python programming.</p>
+<ol>
+<li>Go to the <a href="https://www.anaconda.com/products/distribution">Anaconda website</a> and install Anaconda</li>
+<li>Follow all the recommended installation options.</li>
+</ol>
+<h2 id="step-2-install-python-net-on-anaconda-environment">Step 2: Install python .NET on Anaconda Environment</h2>
+<p>As the IDEA IOM and API are provided as .NET modules we will need to install python .Net within our python environment.</p>
+<ol>
+<li>Open Anaconda Navigator Application and then open the anaconda shell. Copy and paste the below to Add.</li>
+</ol>
+<pre><code>conda install -c conda-forge pythonnet
+</code></pre>
+<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/anaconda_install_python_net.png" alt="Open Anaconda Shell"></p>
+<ol>
+<li>ENURE that python .Net Version 3 or greater is installed.</li>
+<li>Wait for confirmation python .Net has been installed and then close the Powershell window.</li>
+</ol>
+<p></p>
+<h2 id="step-3-launch-jupyterlab-from-anaconda-navigator-and-test-ideastaticaplugin">Step 3: Launch JupyterLab from Anaconda Navigator and Test IdeaStatiCa.PlugIn</h2>
+<p>We can now open JupyterLab directly from the Anaconda Navigator</p>
+<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/anaconda_open_juypterlab.png" alt="Open Jupyter from Anaconda Navigator"></p>
+<ol>
+<li>Start a new notebook and use the following code to test</li>
+</ol>
+<pre><code class="lang-python">
+import clr
+import sys
+import json
+import math
+import os
+
+idea_path = &quot;C:\Program Files\IDEA StatiCa\StatiCa 22.1&quot;
+sys.path.append(idea_path);
+
+clr.AddReference('IdeaStatiCa.Plugin')
+from IdeaStatiCa.Plugin import ConnHiddenClientFactory
+
+factory = ConnHiddenClientFactory(idea_path)
+client = factory.Create()
+
+client.OpenProject('MyConnectionProject.ideaCon')
+
+## Do Something with the Opened Project.
+
+client.CloseProject()
+client.Close()
+
+</code></pre>
+<blockquote>
+<p>If an error occurs, try to restart the kernel and re-run from top to bottom.</p>
+</blockquote>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/python/api_install_python_and_jupyterlab_using_anaconda.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

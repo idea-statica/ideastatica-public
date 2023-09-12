@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Software Requirements: | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Software Requirements: | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/python/api_python_create_python_stubs.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>The following explains how to enable auto-completion of code in Visual Studio Code (VSC).</p>
+<p>In order to get auto-completion working for imported IDEA Modules in Visual Studio Code when using Python, you need to create a Python 'stubs' folder for IDEA StatiCa modules. Stubs folders contain the skeleton information of a module that can be read by VSC to provide auto-completion.</p>
+<h3 id="software-requirements">Software Requirements:</h3>
+<ul>
+<li>Visual Studio</li>
+<li>GitHub Desktop (Optional)</li>
+</ul>
+<h1 id="create-python-stubs-files">Create Python Stubs Files</h1>
+<p>There are a number of tools that can create stub files for a .Net assembly: A good opensource tool we have found is developed by McNeel called PyStubler. This is used by McNeel to generate the stubs for their own .Net assemblies. We will use it here, to generate stubs for <code>IdeaStatiCa.Plugin</code> and <code>IdeaRS.OpenModel</code>.</p>
+<ol>
+<li>Clone the repository of <a href="https://github.com/mcneel/pythonstubs">pythonstubs</a> to your computer. If you are a Github beginner, we recommend downloading Github desktop.</li>
+<li>Open the pythonstubs Repository folder and open the <strong>PyStublerNet.sln</strong> solution which is located in the 'builder' folder.</li>
+<li>When open, go the the PyStubbler projects properties. Replace the command line arguments with the location of the Idea .dlls you want to create stubs for.
+<img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/pythonstubs_setlinks.png" alt="properties"></li>
+</ol>
+<pre><code>--dest=&quot;.\Idea&quot; --search=&quot;C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1&quot; &quot;C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1\\IdeaStatiCa.Plugin.dll&quot; &quot;C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1\\IdeaRS.OpenModel.dll&quot;
+</code></pre>
+<ol start="4">
+<li>Build and then Run the PyStubbler project.</li>
+<li>The following folders will be generated in the project bin folder.
+<img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/folders.png" alt="stubs folders"></li>
+<li>Copy and paste these folders into the folder you are setting as the system path directory for the Reference Assemblies. In the case of Python, this is likely the IDEA StatiCa Programs Files directory.</li>
+<li>Restart Visual Studio Code to ensure the auto-completion takes effect.
+<img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/VSCautocomplete.png" alt="VSC auto-complete"></li>
+</ol>
+<blockquote>
+<p>Note: For each update of the API or program the stubs should be updated to avoid conflicts or not provide auto-complete for new updates!</p>
+</blockquote>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/python/api_python_create_python_stubs.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

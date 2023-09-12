@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Open Model Result Components | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Open Model Result Components | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_iom_model_result_components.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="open-model-result-components">Open Model Result Components</h1>
+
+<p>Open Model Results are used for the storing of analysis results for related analytical members. Using Grasshopper, results in the Open Model Result format can easily be created using the avaliable components. This allows a very flexible way of linking Physical model with analytical FEA model results.</p>
+<p><img src="images/grasshopper_result_components.png" alt="Member result components"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Refer to documenation on the Open Model Result for internal force designations and explanations on how to create correct Open Model Result files.</p>
+</div>
+<h2 id="creating-open-model-result">Creating Open Model Result</h2>
+<p>Creating Open Model Results works in a similar way to other compiled object types. First, the high level object should be created with desired settings, then it can be modified by adding or updating existing entities.</p>
+<p><img src="images/grasshopper_create_member_result.png" alt="Creating open model result"></p>
+<p>The <em>Create Member Loading Result</em> Component can be used to create loading results for a specific member and load case. The Member and Load Case inputs are item inputs which relate to a list of position and internal force results. Typically a mimnimum of two position (begin and end) and force values are to be provided for each member loading result.</p>
+<p>The output of this component is a list of results were each relates to a member and a result for a particular load case. It has been set up this way to reduce complexitiy in creating results.</p>
+<p>When the list of these results in passed to the <em>Modify Open Result</em> component these are compiled into combined Memmber 1D results, which are Member results storing all the combined load case data.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Open Model Results can be saved by using the Save XML component.</p>
+</div>
+<h2 id="using-a-reference-model">Using a Reference Model</h2>
+<p>Currently the Open Model Result uses Id values to reference between Members in the Open Model and Open Member results.</p>
+<p>By providing an optional reference model we can extend this functionality by enabling referencing by further options - such as Name or direct object input.</p>
+<h2 id="member-and-load-case-references">Member and Load Case References</h2>
+<p>When creating Member Loading Results we can take advantage of the <em>Reference Element</em> Component to choose how we want to find related references that are within the Open Model. In the image below the result data references the member and load case by name.</p>
+<p>We can then set the identifier type to 'Name', which will ensure that the model is searched for a member and load case of that name and ensure the correct referencing.</p>
+<p><img src="images/grasshopper_member_referencing.png" alt="member and load case references"></p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_iom_model_result_components.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

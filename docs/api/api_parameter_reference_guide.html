@@ -1,0 +1,567 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Expression Parameter Reference | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Expression Parameter Reference | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/api_parameter_reference_guide.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="expression-parameter-reference">Expression Parameter Reference</h1>
+
+<p>The below provides further information on using expressions in IDEA StatiCa Connection. More general information on using parameters can be found <a href="api_parameters_getting_started.html">here</a>.</p>
+<h2 id="introduction">Introduction</h2>
+<p>We use a third-party expression module called NCalc to enable the evaluation of expressions both in the Parameters functionality (developer tab) and special evaluation calls available in the Connection API.</p>
+<blockquote>
+<p>The below is an extension to the <a href="https://github.com/ncalc/ncalc/wiki">ncalc documentation</a> where all standard math, logical operators and functions are explained.</p>
+</blockquote>
+<p>On top of the out-of-the-box functions that are provided, several additional expressions functions are available within the Connection App to extend functionally specific to the IDEA StatiCa connection. These include providing functions that can reference existing geometric properties in a given connection, which can allow the driving of other specific connection detailing parameters.</p>
+<h2 id="simple-functions">Simple Functions</h2>
+<p>The below table provides the basic expression functions typically required to enable the use of parameters:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Expression</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example Input</strong></th>
+<th><strong>Example Ouput</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ToString(..)</strong></td>
+<td>Converts a number to a string</td>
+<td>ToString(2.1578)</td>
+<td><code>'2.1578'</code></td>
+</tr>
+<tr>
+<td><strong>ToString(..)</strong></td>
+<td>Concatenates multiple strings into one output</td>
+<td>ToString('M',20,' ','8.8')</td>
+<td><code>'M20 8.8'</code></td>
+</tr>
+<tr>
+<td><strong>ToString(..)</strong></td>
+<td>Each comma delineated input is also separately evaluated. <code>spacing</code> and <code>bolts</code> are previously defined parameters</td>
+<td>ToString([spacing],'*',[bolts]-1)</td>
+<td><code>'.075*3'</code></td>
+</tr>
+<tr>
+<td><strong>Round(..)</strong></td>
+<td>rounds a decimal number to an Integer</td>
+<td>Round(2.1578, 0)</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><strong>Round(..)</strong></td>
+<td>rounds a decimal number to a precision three</td>
+<td>Round(2.1578, 3)</td>
+<td><code>2.158</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="model-property-reference-functions">Model Property Reference Functions</h2>
+<p>Model property functions are an advanced feature, and should be limited where possible. Further enhancement of these will be made in the future.</p>
+<h3 id="member-property-functions">Member Property Functions</h3>
+<p>The <code>GetValue()</code> Function can be used to extract model properties from the connection model. This enables the extraction of member information such as cross-section information, member geometry, etc.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Expression</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Example Input</strong></th>
+<th><strong>Example Ouput</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GetValue(..)</strong></td>
+<td>Gets a property associated with a member in the model, where B is the Member Name</td>
+<td>GetValue('B', 'cssWidth')</td>
+<td><code>89</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>In all examples below 'B' represents the Name of the referenced member in the Connection Project</p>
+</blockquote>
+<h4 id="member-cross-section-bounds">Member Cross Section Bounds</h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Expression</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Height</td>
+<td><code>GetValue('B', 'CrossSection.Bounds.Height')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Width</td>
+<td><code>GetValue('B', 'CrossSection.Bounds.Width')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Bottom</td>
+<td><code>GetValue('B', 'CrossSection.Bounds.Bottom')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Left</td>
+<td><code>GetValue('B', 'CrossSection.Bounds.Left')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Right</td>
+<td><code>GetValue('B', 'CrossSection.Bounds.Right')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Top</td>
+<td><code>GetValue('B', 'CrossSection.Bounds.Top')</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="direct-access-member-properties">Direct Access Member Properties</h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Expression</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flange Thickness</td>
+<td><code>GetValue('B', 'FlangeThickness')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Web Thickness</td>
+<td><code>GetValue('B', 'WebThickness')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>InsertPointOnRefLine</td>
+<td><code>GetValue('B', 'InsertPointOnRefLine.X')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DirVectX</td>
+<td><code>GetValue('B', 'DirVectX')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DirVectY</td>
+<td><code>GetValue('B', 'DirVectY')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DirVectZ</td>
+<td><code>GetValue('B', 'DirVectZ')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Length</td>
+<td><code>GetValue('B', 'Length')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Support Code</td>
+<td><code>GetValue('B', 'SupportCode')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Material Name</td>
+<td><code>GetValue('B','MaterialName')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Angle Alpha</td>
+<td><code>GetValue('B', 'AngleAlpha')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Angel Beta</td>
+<td><code>GetValue('B','AngleBeta')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Theoretical Length Y</td>
+<td><code>GetValue('B', 'TheoreticalLengthY')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Theoretical Length Z</td>
+<td><code>GetValue('B', 'TheoreticalLengthZ')</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="further-member-properties">Further Member Properties</h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Expression</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is Bearing Member</td>
+<td><code>GetValue('B','IsBearingMember')</code></td>
+<td>Gets the flag of bearing member</td>
+</tr>
+<tr>
+<td>Connection Point - X</td>
+<td><code>GetValue('B', 'ConnectionPoint.X')</code></td>
+<td>Gets the point of connection of this segment to the joint</td>
+</tr>
+<tr>
+<td>Connection Point - Y</td>
+<td><code>GetValue('B', 'ConnectionPoint.Y')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Connection Point - Z</td>
+<td><code>GetValue('B', 'ConnectionPoint.Z')</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Position On Ref Line</td>
+<td><code>GetValue('B', 'PositionOnRefLine')</code></td>
+<td>Gets the relative position of the ConnectionPoint on the ReferenceLine</td>
+</tr>
+<tr>
+<td>Calculated Pin Position</td>
+<td><code>GetValue('B', 'CalculatedPinPosition')</code></td>
+<td>Gets the position of the calculated pinned connection. The position is measured on the local X-axis of the beam. The calculation is done according to the sizes and positions of bolts on this member</td>
+</tr>
+<tr>
+<td>Bounding Box in LCS - Height</td>
+<td><code>GetValue('B', 'BoundingBoxInLcs.Height')</code></td>
+<td>Gets bounding box in the local coordinate system of the beam</td>
+</tr>
+<tr>
+<td>Bounding Box in LCS - Width</td>
+<td><code>GetValue('B', 'BoundingBoxInLcs.Width)</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Bounding Box in LCS - Length</td>
+<td><code>GetValue('B', 'BoundingBoxInLcs.Length)</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="beam-relating-section-properties">Beam Relating Section Properties</h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Expression</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Area</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.A')</code></td>
+<td>Area of Cross Section</td>
+</tr>
+<tr>
+<td>Av1</td>
+<td><code>GetValue('B','CrossSection.CssCharact.Av1')</code></td>
+<td>Shear area Av1 (major principal axis)</td>
+</tr>
+<tr>
+<td>Av2</td>
+<td><code>GetValue('B','CrossSection.CssCharact.Av2')</code></td>
+<td>Shear area Av2 (minor principal axis)</td>
+</tr>
+<tr>
+<td>Sx</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Sx')</code></td>
+<td>The first moment of area related to the X axis</td>
+</tr>
+<tr>
+<td>Sy</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Sy')</code></td>
+<td>The first moment of area related to the Y axis</td>
+</tr>
+<tr>
+<td>Ix</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Ix')</code></td>
+<td>The second moment of area related to the X axis</td>
+</tr>
+<tr>
+<td>Iy</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Iy')</code></td>
+<td>The second moment of area related to the Y axis</td>
+</tr>
+<tr>
+<td>I1</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.I1')</code></td>
+<td>The principal second moment of area related to the first principal axis</td>
+</tr>
+<tr>
+<td>I2</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.I2')</code></td>
+<td>The principal second moment of area related to the second principal axis</td>
+</tr>
+<tr>
+<td>Alpha</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Alpha')</code></td>
+<td>Gets the angle, in radians, between system and principal axes</td>
+</tr>
+<tr>
+<td>It</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.It')</code></td>
+<td>Sant Vennant torsional constant</td>
+</tr>
+<tr>
+<td>Ixy</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Ixy')</code></td>
+<td>The product moment of area</td>
+</tr>
+<tr>
+<td>Cgx</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Cgx')</code></td>
+<td>Gets the centre of gravity related to the X axis</td>
+</tr>
+<tr>
+<td>Cgy</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Cgy')</code></td>
+<td>Gets the centre of gravity related to the Y axis</td>
+</tr>
+<tr>
+<td>Painting Surface</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.PaintingSurface')</code></td>
+<td>Painting surface as surface of 1m long part of beam with that cros section</td>
+</tr>
+<tr>
+<td>Wpl1</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Wpl1')</code></td>
+<td>Plastic modulus related to major principal axis</td>
+</tr>
+<tr>
+<td>Wpl2</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Wpl2')</code></td>
+<td>Plastic modulus related to minor principal axis</td>
+</tr>
+<tr>
+<td>Wel1</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Wel1')</code></td>
+<td>Section modulus related to major principal axis</td>
+</tr>
+<tr>
+<td>Wel2</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Wel2')</code></td>
+<td>Section modulus related to minor principal axis</td>
+</tr>
+<tr>
+<td>Iw</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Iw')</code></td>
+<td>Warping Constant</td>
+</tr>
+<tr>
+<td>C</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.C')</code></td>
+<td>Torsion Constant</td>
+</tr>
+<tr>
+<td>Rgx</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Rgx')</code></td>
+<td>Gets the radius of gyration related to the X axis</td>
+</tr>
+<tr>
+<td>Rgy</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Rgy')</code></td>
+<td>Gets the radius of gyration related to the Y axis</td>
+</tr>
+<tr>
+<td>Rg1</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Rg1')</code></td>
+<td>Gets the radius of gyration related to the first principal axis</td>
+</tr>
+<tr>
+<td>Rg2</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.Rg2')</code></td>
+<td>Gets the radius of gyration related to the second principal axis</td>
+</tr>
+<tr>
+<td>x0</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.x0')</code></td>
+<td>Shear centre distance from centroidal point in X direction</td>
+</tr>
+<tr>
+<td>y0</td>
+<td><code>GetValue('B', 'CrossSection.CssCharact.y0')</code></td>
+<td>Shear centre distance from centroidal point in Y direction</td>
+</tr>
+</tbody>
+</table>
+<h4 id="beam-relating-section-material">Beam Relating Section Material</h4>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Expression</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td><code>GetValue('B', 'Material.E')</code></td>
+<td>Young's modulus</td>
+</tr>
+<tr>
+<td>G</td>
+<td><code>GetValue('B', 'Material.G')</code></td>
+<td>Shear modulus</td>
+</tr>
+<tr>
+<td>Poisson</td>
+<td><code>GetValue('B', 'Material.Poissons')</code></td>
+<td>Poisson's ratio</td>
+</tr>
+<tr>
+<td>Unit Mass</td>
+<td><code>GetValue('B', 'Material.UnitMass')</code></td>
+<td>UnitMass</td>
+</tr>
+<tr>
+<td>Specific Heat</td>
+<td><code>GetValue('B', 'Material.SpecificHeat')</code></td>
+<td>Specific heat capacity</td>
+</tr>
+<tr>
+<td>Thermal Expansion</td>
+<td><code>GetValue('B', 'Material.ThermalExpansion')</code></td>
+<td>Thermal Expansion</td>
+</tr>
+<tr>
+<td>Thermal Conductivity</td>
+<td><code>GetValue('B', 'Material.ThermalConductivity')</code></td>
+<td>Thermal Conductivity</td>
+</tr>
+<tr>
+<td>Is Default Materail</td>
+<td><code>GetValue('B', 'Material.IsDefaultMaterial')</code></td>
+<td>True if material is default material from the code</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operation-reference-functions">Operation Reference Functions</h3>
+<blockquote>
+<p>Currently operation reference functions only exist for internal use. Please let us know what model information you require to retrieve from operations and so we can add appropriate public functions.</p>
+</blockquote>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/api_parameter_reference_guide.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Library Materials | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Library Materials | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_materials.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>All materials in IOM derive from the <code>Material</code> base class. Materials are then defined by a Type Class (Steel, Concrete, Reinforcement) and then by country (EC, US, AUS).</p>
+<p>All materials in an OpenModel <strong>MUST</strong> reference the same Country Code. To ensure this it is best to pass the IOM Open Model Settings Model Country Code on the creation of materials.</p>
+<h1 id="library-materials">Library Materials</h1>
+<p>IDEA StatiCa has a library of materials that can be searched for without the requirement to specify all material information in the code.</p>
+<ul>
+<li>Make sure the name exactly matches that of the material name in IDEA StatiCa.</li>
+<li>The material type and material code also need to be created correctly.</li>
+</ul>
+<p>If the material is not found in the IDEA Database the name will be created with default properties provided.</p>
+<pre><code class="lang-csharp">public static void Example_AddLibraryMaterialSteel(OpenModel openModel, CountryCode code)
+{
+    if (code == CountryCode.American)
+    {
+	//Define Name as an American Steel to Reference
+	//Set Load From Library
+	MatSteelAISC steelAISC = new MatSteelAISC() { Name = &quot;A36&quot;, LoadFromLibrary = true };
+
+	openModel.AddObject(steelAISC);
+    }
+
+    //Switch between other codes as required.
+}
+</code></pre>
+<h1 id="materials">Materials</h1>
+<h2 id="steel-materials">Steel Materials</h2>
+<p>Steel Materials for different codes have differing parameters for creation. Although, still a lot share common parameters as well.</p>
+<p>The below shows how to create a Eurocode Steel Material.</p>
+<pre><code class="lang-csharp">public static void Example_UserMaterialSteelECEN(OpenModel openModel, CountryCode code)
+{
+    if (code == CountryCode.ECEN)
+    {
+        MatSteelEc2 matS = new MatSteelEc2();
+        matS.Name = &quot;S275&quot;;
+        matS.UnitMass = 7850.0;
+        matS.E = 200e9;
+        matS.Poisson = 0.2;
+        matS.G = 83.333e9;
+        matS.SpecificHeat = 0.6;
+        matS.ThermalExpansion = 0.00001;
+        matS.ThermalConductivity = 45;
+	matS.fy = 235e6;
+	matS.fu = 360e6;
+	matS.fy40 = 215e6;
+	matS.fu40 = 340e6;
+
+	matS.StateOfThermalConductivity = ThermalConductivityState.Code;
+	matS.StateOfThermalExpansion = ThermalExpansionState.Code;
+	matS.StateOfThermalSpecificHeat = ThermalSpecificHeatState.Code;
+	matS.StateOfThermalStressStrain = ThermalStressStrainState.Code;
+
+	matS.DiagramType = SteelDiagramType.Bilinear;
+    }
+    openModel.AddObject(matS);
+}
+</code></pre>
+<h2 id="concrete-materials">Concrete Materials</h2>
+<p>The below shows an example of how to create a Eurocode Concrete Material.</p>
+<pre><code class="lang-csharp">public static void Example_CreateAndAddUserMaterialConcreteWithDiagram(OpenModel openModel, CountryCode code)
+{
+    if (code == CountryCode.ECEN)
+    {
+	MatConcreteEc2 mat = new MatConcreteEc2();
+	mat.Name = &quot;Concrete1&quot;;
+	mat.UnitMass = 2500.0;
+	mat.E = 32.8e9;
+	mat.G = 13.667e9;
+	mat.Poisson = 0.2;
+	mat.SpecificHeat = 0.6;
+	mat.ThermalExpansion = 0.00001;
+	mat.ThermalConductivity = 45;
+	mat.Fck = 25.5e6;
+	mat.CalculateDependentValues = true;
+
+	//Set s-s diagram as a default parabolic
+	mat.DiagramType = ConcDiagramType.Parabolic;
+
+	//Set s-s diagram as an user defined
+	mat.DiagramType = ConcDiagramType.DefinedByUser;
+	var userDiagram = new Polygon2D();
+	mat.UserDiagram = userDiagram;
+	userDiagram.Points.Add(new Point2D() { X = -0.021, Y = 0 });
+	userDiagram.Points.Add(new Point2D() { X = -0.02, Y = 0 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0025, Y = -80000000 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0024, Y = -79868660.43 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0023, Y = -79461961.9 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0022, Y = -78762709.44 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0021, Y = -77756658.69 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0019, Y = -74785483.74 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0017, Y = -70514061.33 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0015, Y = -64981949.46 });
+	userDiagram.Points.Add(new Point2D() { X = -0.001, Y = -46511627.91 });
+	userDiagram.Points.Add(new Point2D() { X = -0.0005, Y = -23904382.47 });
+	userDiagram.Points.Add(new Point2D() { X = 0, Y = 0 });
+	userDiagram.Points.Add(new Point2D() { X = 0.001, Y = 0 });
+
+	//Setting thermal characteristcs of material (in this case by the code)
+	mat.StateOfThermalConductivity = ThermalConductivityState.Code;
+	mat.StateOfThermalExpansion = ThermalExpansionState.Code;
+	mat.StateOfThermalSpecificHeat = ThermalSpecificHeatState.Code;
+	mat.StateOfThermalStressStrain = ThermalStressStrainState.Code;
+
+	openModel.AddObject(mat);
+    }
+}
+</code></pre>
+<h2 id="timber-materials">Timber Materials</h2>
+<p>**Timber materials cannot currently be defined through the IOM. **</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/iom/iom_materials.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

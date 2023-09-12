@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Installing Python (Desktop Environment) | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Installing Python (Desktop Environment) | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/python/api_using_python_with_idea_packages.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>Python is a simple and powerful programing language that continues to grow in popularity in the AEC industry.</p>
+<p>All IDEA StatiCa packages are developed on the .NET platform. Using <a href="http://pythonnet.github.io/">Python.NET</a> the libraries can be accessed and used by Python programmers.</p>
+<h1 id="installing-python-desktop-environment">Installing Python (Desktop Environment)</h1>
+<p>One of the simplest ways to install Python is using Anaconda. Anaconda automatically installs Python and most of the packages that are used in python programming. It also automatically manages package versions for you! To install Anaconda please follow the instructions here:</p>
+<ul>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/Install-Python-and-JupyterLab-using-Anaconda">Installing Python and JupyterLab using Anaconda</a></li>
+</ul>
+<p>For those using other Python installs, typical prerequisites for using Python on a desktop environment:</p>
+<ul>
+<li>Install <a href="https://www.python.org/downloads/">Python v37</a></li>
+<li>Install <a href="http://pythonnet.github.io/">Python.NET</a> as it is described on <a href="https://github.com/pythonnet/pythonnet/wiki/Installation">here</a>. Latest versions are strongly recommened (Greater than python .NET 3.0).</li>
+</ul>
+<h2 id="code-editors">Code Editors</h2>
+<h3 id="visual-studio-code">Visual Studio Code</h3>
+<p><a href="https://code.visualstudio.com/">Visual Studio Code</a> is a free lightweight code editor that is popular for python developments and provides a range of extensions and tools for developing in Python.</p>
+<p><a href="https://github.com/idea-statica/ideastatica-public/wiki/Guide-Creating-Python-Stubs-for-VSC">Auto-completion in Visual Studio Code</a> - Provides a guide on how to create python stub files for IDEA StatiCa modules to enable auto-completion.</p>
+<h3 id="jupyter-lab">Jupyter Lab</h3>
+<p><a href="https://jupyter.org/">Jupyter Lab</a> is a tool used by many data scientists and engineers to create documents that can run code in modulated steps. Combined with <a href="https://pandas.pydata.org/">Pandas</a> data frames and other powerful python visualization modules such as <a href="https://matplotlib.org/">matplotlib</a> this can be an extremely powerful tool.</p>
+<h3 id="notepad">Notepad++</h3>
+<p><a href="https://notepad-plus-plus.org/downloads/">Notepad++</a> Can also be used to write simple Python code in addition to its many other benefits for text manipulation.</p>
+<h3 id="ghpython">GhPython</h3>
+<p>Python code can be run directly in the visual programming tool Grasshopper using the GhPython component.</p>
+<ul>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/Guide-Using-API-in-Grasshopper">Guide to Getting started with GhPython</a></li>
+</ul>
+<h2 id="referencing-the-idea-libraries">Referencing the IDEA Libraries</h2>
+<p>Typically required references when working with the IDEA Packages in Python:</p>
+<pre><code class="lang-python"># Typical Python References
+import clr
+import sys
+import json
+import math
+import os
+</code></pre>
+<p>Add the path location of the DLLs to the system path. Typically this may be from the IdeaStatiCa installation directory:</p>
+<pre><code class="lang-python">idea_path = &quot;C:\Program Files\IDEA StatiCa\StatiCa 21.1&quot;
+sys.path.append(idea_path);
+</code></pre>
+<p>.Net libraries can then be referenced using the common language runtime (CLR).</p>
+<pre><code class="lang-python">clr.AddReference('IdeaStatiCa.Plugin')
+clr.AddReference('IdeaRS.OpenModel')
+</code></pre>
+<p>Import required libraries or classes from the modules.</p>
+<pre><code class="lang-python">from IdeaStatiCa.Plugin import ConnHiddenClientFactory
+from IdeaRS.OpenModel import OpenModel
+</code></pre>
+<h2 id="examples">Examples</h2>
+<ul>
+<li><a href="https://github.com/idea-statica/ideastatica-public/wiki/Example-Creating-IOM-with-Python-Steel-Frame">Create IOM with Python Steel Frame</a></li>
+</ul>
+<h2 id="further-resources">Further Resources</h2>
+<ul>
+<li>Steven Verner has created a Python project to simplify the use of the IDEA StatiCa Plugin API for the optimization of Steel connections. Link to the <a href="https://github.com/stevenverwer/ideastaticapy">GitHub repository</a> and instructions on installing.</li>
+<li><a href="https://www.viktor.ai/">VIKTOR</a> provides a web-based application that allows integration with IDEA StatiCa online apps through a python based environment.</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/api/python/api_using_python_with_idea_packages.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

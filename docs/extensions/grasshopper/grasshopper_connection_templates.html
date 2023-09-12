@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Connection Template Components | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Connection Template Components | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_connection_templates.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../../public/main.js'
+    import { init } from './../../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="connection-template-components">Connection Template Components</h1>
+
+<p>Connection templates are files which store complex operation data that can be passed between connections of similar topology. Templates also store any defined connection parameters and other information about the base connection, such as member geometry and sections type. In grasshopper we provide some components which allow the application and deconstruction of IDEA StatiCa template files.</p>
+<p><img src="images/grasshopper_connection_template_components.png" alt="Template components"></p>
+<h2 id="connection-template-object">Connection Template Object</h2>
+<p>In grasshopper you can reference any number of previously defined templates. Currently only templates saved to disk (as ‘.ideatemp’) are importable in Grasshopper.</p>
+<p>When a template is imported, we can extract the available parameters that are stored in it. This allows us to understand what parameters will be available in the connection file once the template has been assigned.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Templates can be exported from base connections using the developer mode in IDEA StatiCa connection.</p>
+</div>
+<h2 id="connection-template-components-1">Connection Template Components</h2>
+<p>Below are the components which relate to Connection Templates.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Import Template</strong></td>
+<td>References an existing ‘.ideatemp’ connection template file which is saved on disc.</td>
+</tr>
+<tr>
+<td><strong>Deconstruct Template</strong></td>
+<td>Deconstruct template allows us to deconstruct information that is stored in the template file. Here, it is mainly used to extract the list of parameters that is stored in the template.</td>
+</tr>
+<tr>
+<td><strong>Full Template Assign</strong></td>
+<td>Defined a connection template assignment for a template that will be applied to all members in the connection. Here we can provide the template, associated template settings and any modifications to the parameters we would like to apply to the connection once the template has been applied.</td>
+</tr>
+<tr>
+<td><strong>Partial Template Assign</strong></td>
+<td>Defined a connection template assignment for a template that will be applied two or more members in the connection. The supporting member plus a list of connection elements.</td>
+</tr>
+<tr>
+<td><strong>Template Settings</strong></td>
+<td>Template settings allow for default connection settings to be specified with a template assignment.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="assigning-a-template">Assigning a Template</h2>
+<p>The apply template component can be used to assign one or more templates to a connection.</p>
+<p>Only one full connection template assign should be applied at a time, whereas multiple partials can be applied in succession. Full templates always get set before partial templates.</p>
+<p>Using template assignments allows us to provide multiple template applications at once using different assign settings.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>To save time, a Template object can also be directly wired into a Template Assign input. When this is done, a <strong>full template assign</strong> is generated with default settings.</p>
+</div>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/extensions/grasshopper/grasshopper_connection_templates.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

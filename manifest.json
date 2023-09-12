@@ -1,0 +1,3670 @@
+{
+  "homepages": [],
+  "source_base_path": "/home/runner/work/ideastatica-public/ideastatica-public/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.BulkSelection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.BulkSelection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaAnchorGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaAnchorGrid.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaArcSegment3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaArcSegment3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaBend.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaBend.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaBoltAssembly.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaBoltAssembly.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaBoltGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaBoltGrid.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCombiInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCombiInput.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCombiItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCombiItem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConcreteBlock.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConcreteBlock.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectedMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectedMember.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectionModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectionModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectionPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaConnectionPoint.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByName.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByName.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByParameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionByParameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCut.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaCut.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaElement1D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaElement1D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaElement2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaElement2D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaFoldedPlate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaFoldedPlate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLineSegment3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLineSegment3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLoadCase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLoadCase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLoadGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLoadGroup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLoading.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaLoading.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterial.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterial.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialByName.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialByName.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialConcrete.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialConcrete.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialLibrary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialLibrary.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialSteel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialSteel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialTendon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMaterialTendon.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMember1D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMember1D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMember2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaMember2D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaNegativePlate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaNegativePlate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaNode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaObjectConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaObjectConnectable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaObjectWithResults.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaObjectWithResults.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPersistenceToken.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPersistenceToken.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPersistentObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPersistentObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPlate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPlate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPolyLine3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaPolyLine3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaRegion3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaRegion3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaSegment3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaSegment3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaSpan.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaSpan.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaTaper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaTaper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaWeld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaWeld.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaWorkPlane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IIdeaWorkPlane.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaBeamSegmentEndFlags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaBeamSegmentEndFlags.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaConnectedMemberType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaConnectedMemberType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaForcesIn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaForcesIn.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaGeometricalType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaGeometricalType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaVector3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.IdeaVector3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.MaterialType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.MaterialType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaResultData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaResultData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaSection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaSection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaSectionResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.IIdeaSectionResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.InternalForcesData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.InternalForcesData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Results.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.Selection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.Selection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.SingleSelection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.SingleSelection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapi/IdeaStatiCa.BimApi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/IdeaStatiCa.BimApi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api-bimapi/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapi/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaBend.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaBend.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCut.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaCut.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaNode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaPlate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaPlate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaSpan.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaSpan.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaTaper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaTaper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaWeld.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaWeld.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApiApplication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimApiApplication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimLink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimLink.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimLinkObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.BimLinkObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.CadBimLink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.CadBimLink.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Constants.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.FeaBimLink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.FeaBimLink.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.IImporterHook.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.IImporterHook.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.IPluginHook.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.IScopeHook.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Hooks.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.IBimUserDataSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.IBimUserDataSource.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.ConnectedMemberIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.ConnectedMemberIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.IntIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.IntIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.StringIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.StringIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Identifiers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.AbstractImporter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.AbstractImporter-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IImporter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IImporter-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IImporter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IImporter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IImporterProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IImporterProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.ImporterConnectedMemberIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.ImporterConnectedMemberIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.ImporterConnectionIdentifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.ImporterConnectionIdentifier-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IntIdentifierImporter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.IntIdentifierImporter-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.StringIdentifierImporter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.StringIdentifierImporter-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Importers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.ImportersConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.ImportersConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Persistence.IProjectStorage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Persistence.IProjectStorage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Persistence.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Persistence.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.BimConnectionsImportEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.BimConnectionsImportEvent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.BimConnectionsSynchronizeEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.BimConnectionsSynchronizeEvent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.BimPluginCommandEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.BimPluginCommandEvent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.CadApplication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.CadApplication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.CadUserSelection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.CadUserSelection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.FeaApplication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.FeaApplication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.ICadModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.ICadModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.IFeaModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.IFeaModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.IModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.IModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Plugin.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.IdeaResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.IdeaResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.IdeaSection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.IdeaSection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.IdeaSectionResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.IdeaSectionResult.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.BimApi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.IInternalForcesImporter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.IInternalForcesImporter-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.Sections.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.Sections.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.ResultsData-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.ResultsData-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Results.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.ResultsImportersConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.ResultsImportersConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.IScope.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.IScope.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Scoping.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api-bimapilink/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api-bimapilink/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFCo.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFCo.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFL.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFL.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFLgen.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFLgen.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFOmega.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFOmega.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFRHS.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFRHS.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFRegP.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFRegP.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFSigma.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFSigma.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFU.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFU.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFZ.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFZ.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/CFZed.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/CFZed.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/IArc.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/IArc.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/IAsym.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/IAsym.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/InternalForcesConvention.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/InternalForcesConvention.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/WeldedC.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/WeldedC.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/WeldedI.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/WeldedI.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/WeldedL.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/WeldedL.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/WeldedLsym.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/WeldedLsym.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "api-iom/Images/WeldedT.png",
+      "output": {
+        "resource": {
+          "relative_path": "api-iom/Images/WeldedT.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api-iom/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api-iom/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api-plugin/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api-plugin/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/api_create_a_simple_app.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/api_create_a_simple_app.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/api_iom_vs_api.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/api_iom_vs_api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/api_overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/api_overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/api_parameter_reference_guide.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/api_parameter_reference_guide.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/api_parameters_getting_started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/api_parameters_getting_started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/dotnet/api_dotnet_getting_started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/dotnet/api_dotnet_getting_started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/api/dotnet/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/dotnet/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/api/dotnet/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/python/api_install_python_and_jupyterlab_using_anaconda.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/python/api_install_python_and_jupyterlab_using_anaconda.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/python/api_python_create_python_stubs.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/python/api_python_create_python_stubs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/python/api_python_getting_started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/python/api_python_getting_started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/python/api_using_api_in_grasshopper.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/python/api_using_api_in_grasshopper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/api/python/api_using_python_with_idea_packages.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/python/api_using_python_with_idea_packages.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/api/python/images/first_member.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/api/python/images/first_member.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/api/python/images/nodes.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/api/python/images/nodes.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/bimapi/bimapi_checkbot_link.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/bimapi/bimapi_checkbot_link.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/bimapi/bimapi_checkbot_project_framework.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/bimapi/bimapi_checkbot_project_framework.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/bimapi/bimapi_diagnostics_in_checkbot.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/bimapi/bimapi_diagnostics_in_checkbot.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/bimapi/bimapi_linking_an_application_with_checkbot.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/bimapi/bimapi_linking_an_application_with_checkbot.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/bimapi/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/bimapi/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/bimapi/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_connection_app_components.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_connection_app_components.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_connection_item_components.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_connection_item_components.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_connection_object_components.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_connection_object_components.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_connection_templates.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_connection_templates.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_examples.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_examples.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_getting_started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_getting_started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_iom_components_overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_iom_components_overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_iom_model_components.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_iom_model_components.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_iom_model_result_components.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_iom_model_result_components.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_iom_object_components.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_iom_object_components.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/extensions/grasshopper/grasshopper_overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/grasshopper/grasshopper_overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_connection_app_components.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_connection_app_components.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_connection_save_suffix.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_connection_save_suffix.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_connection_template_components.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_connection_template_components.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_create_member_result.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_create_member_result.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_installation.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_installation.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_iom_api_components.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_iom_api_components.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_iom_object_components.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_iom_object_components.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_member_referencing.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_member_referencing.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_model_compilation.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_model_compilation.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_modify_load_effect.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_modify_load_effect.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_modify_model.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_modify_model.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_modify_parameters.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_modify_parameters.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_result_components.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_result_components.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_unassigned_object.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_unassigned_object.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/extensions/grasshopper/images/grasshopper_welcome.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "docs/extensions/grasshopper/images/grasshopper_welcome.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/extensions/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/extensions/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/extensions/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/home/releasenotes.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/home/releasenotes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/home/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/home/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/home/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/examples/steel_frame_example_python/images/first_member.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/examples/steel_frame_example_python/images/first_member.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/examples/steel_frame_example_python/images/nodes.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/examples/steel_frame_example_python/images/nodes.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/examples/steel_frame_example_python/iom_steel_frame_example_python.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/examples/steel_frame_example_python/iom_steel_frame_example_python.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/BeamShapeBox.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/BeamShapeBox.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/BeamShapeBox1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/BeamShapeBox1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/BeamShapeRevU.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/BeamShapeRevU.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/IShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/IShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/IShapeGeneral.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/IShapeGeneral.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/LlShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/LlShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/LrShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/LrShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/OShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/OShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/OShapeHollow.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/OShapeHollow.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/OvalShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/OvalShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/RectOnTrapezoidSheet.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/RectOnTrapezoidSheet.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/RectOnTrapezoidSheetNeg.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/RectOnTrapezoidSheetNeg.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/RectShapeHollow.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/RectShapeHollow.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/Rectangle.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/Rectangle.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/SShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/SShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/ShapeIHaunchChamferAssym.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/ShapeIHaunchChamferAssym.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TShapeChamfer1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TShapeChamfer1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TShapeChamfer2.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TShapeChamfer2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TShapeHaunchFlange.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TShapeHaunchFlange.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TShapeHaunchWall.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TShapeHaunchWall.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TTShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TTShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TTShapeGeneral.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TTShapeGeneral.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TrapezoidShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TrapezoidShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TrevShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TrevShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TrevShapeHaunchFlange.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TrevShapeHaunchFlange.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/TrevShapeHaunchWall.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/TrevShapeHaunchWall.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/UShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/UShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/ZShape.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/ZShape.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/added_members.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/added_members.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/angle_base.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/angle_base.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/angle_base_rotated.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/angle_base_rotated.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/angle_mirrored.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/angle_mirrored.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/angle_mirrored_rotated.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/angle_mirrored_rotated.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_2Co.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_2Co.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_2Coplus.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_2Coplus.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_C.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_C.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_Cplus.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_Cplus.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_L.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_L.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_Lgen.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_Lgen.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_Omega.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_Omega.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_RHS.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_RHS.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_U.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_U.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_Z.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_Z.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_ZED.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_ZED.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_general.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_general.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_regular_polygon.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_regular_polygon.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_sigma.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_sigma.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/cf_tube.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/cf_tube.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/circle.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/circle.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/connection-n2.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/connection-n2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/connection_loading.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/connection_loading.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_conn_force.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_conn_force.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_conn_moment.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_conn_moment.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_connection.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_connection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_deformed.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_deformed.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_diag_mx.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_diag_mx.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_diag_my.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_diag_my.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_diag_mz.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_diag_mz.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_diag_n.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_diag_n.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_diag_vy.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_diag_vy.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_diag_vz.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_diag_vz.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_effect_mx.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_effect_mx.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_effect_my.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_effect_my.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_effect_mz.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_effect_mz.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_effect_n.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_effect_n.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_effect_vy.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_effect_vy.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_effect_vz.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_effect_vz.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_load_mx.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_load_mx.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_load_x.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_load_x.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_load_y.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_load_y.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/conv_load_z.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/conv_load_z.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/double_I.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/double_I.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/double_L.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/double_L.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/double_L_flipped.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/double_L_flipped.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/double_channel.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/double_channel.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/double_channel_flipped.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/double_channel_flipped.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/forces.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/forces.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/gcs.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/gcs.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/geom_connection.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/geom_connection.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/geom_elements.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/geom_elements.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/geom_members.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/geom_members.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/geom_points.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/geom_points.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/geom_result.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/geom_result.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/geom_segments.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/geom_segments.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_I.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_I.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_L.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_L.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_T.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_T.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_channel.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_channel.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_general_plate.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_general_plate.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_pipe.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_pipe.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/parametric_rhs.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/parametric_rhs.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/steel_general_component.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/steel_general_component.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_I.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_I.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_T.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_T.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_asymetric_I.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_asymetric_I.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_2.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_2I.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_2I.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_2L.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_2L.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_2U.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_2U.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_4L.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_4L.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_delta.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_delta.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_box_triangle.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_box_triangle.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/welded_general.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/welded_general.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_connection_materials_and_products.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_connection_materials_and_products.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_connection_point.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_connection_point.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_coordinate_systems.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_coordinate_systems.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_cross_sections.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_cross_sections.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_geometry.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_geometry.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_getting_started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_getting_started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_loading.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_loading.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_materials.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_materials.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_model_settings.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_model_settings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_open_model_result.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_open_model_result.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/iom/iom_units.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/iom_units.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/iom/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/iom/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logodark.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/logodark.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

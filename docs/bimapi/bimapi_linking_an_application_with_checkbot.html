@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Controlling Checkbot from a Third-Party Application | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Controlling Checkbot from a Third-Party Application | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/bimapi/bimapi_linking_an_application_with_checkbot.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>Below are the seen possible ways of interacting with Checkbot:</p>
+<h1 id="controlling-checkbot-from-a-third-party-application">Controlling Checkbot from a Third-Party Application</h1>
+<p>The most direct method for a user to interact with Checkbot is to allow execution of the Checkbot app from inside a third-party application. Typically, this is achieved by creating a plug-in application that can be installed as a part of the base application.</p>
+<p><strong>Limitation to this type of interaction:</strong></p>
+<ul>
+<li>The base application must allow for plug-in Apps to be installed.</li>
+<li>Being able to retrieve a selection of elements, nodes and connections are generally required also.</li>
+</ul>
+<h2 id="before-you-start">Before you Start</h2>
+<h3 id="understand-application-interaction">Understand Application Interaction</h3>
+<p>In most cases, someone close to the development of the third-party application will be undertaking the task of creating the BIM Link however, it is important to understand how the application allows for interaction and how this may limit or change the way interaction with Checkbot is to occur:</p>
+<ul>
+<li><strong>Does the program allow for third-party plug-ins?</strong> - The workflow that is explained through this page relies on the ability for a third-party plug-in to be able to be installed within the application.</li>
+<li><strong>Is there an API? If, so what are the known limitations?</strong> - Advanced links Typically rely on a third-party API to interact with the software. If an API is not present a text file conversion to IOM will be required, which is likely to be a one-time export.</li>
+<li><strong>Is element/node selection available through the API?</strong> - Typically the selection of certain parts of the structure is the preferred workflow, but can be worked around.</li>
+</ul>
+<p>Other questions should include:</p>
+<ul>
+<li>Does the API use Interfaces or are values extracted as Arrays or Lists?</li>
+<li>Does the program have multiple applications which need to be closed and opened during the different processes?</li>
+<li>How does the application manage the persistence of objects?</li>
+<li>Are results available and how are they provided?</li>
+<li>What is the database Unit's system and can this be changed?</li>
+</ul>
+<h1 id="opening-a-third-party-application-from-checkbot">Opening a Third-Party Application from Checkbot</h1>
+<p>The addition of external plug-ins to the Checkbot UI (started from the IDEAStatiCa App) is currently limited to IDEA-developed links only, however, we are looking at enabling a public UI interface in the future. Therefore, it is recommended that an App be created in the manner above so that Checkbot is launched and controlled from within the base application UI.</p>
+<p>If this type of implementation is in line with a direct import outlined below, a much simpler project framework can be utilized, as syncing is typically neglected for a direct import. The <a href="https://github.com/idea-statica/ideastatica-public/tree/main/src/bim-links/bentley-ram">Ram Link project</a> follows this methodology.</p>
+<blockquote>
+<p>Currently this</p>
+</blockquote>
+<h1 id="other-ways-to-linkimport-a-model-into-checkbot">Other ways to link/import a Model into Checkbot</h1>
+<p>The Checkbot application can be opened from the main IDEAStatiCa App and currently allows the import of a select few model file types including IOM and the SAF (Structural Analysis format) file types. As per above, additional import options cannot be added by third-party developers currently.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/docfx_project/docs/bimapi/bimapi_linking_an_application_with_checkbot.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
