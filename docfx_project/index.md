@@ -22,4 +22,4 @@ Extensions are plugins and programs which are built on-top of the IDEA Open Mode
 
 Our current extension are:
 
-* [Plugin for Rhino/Grasshopper](doc)
+* [Plugin for Rhino/Grasshopper](/docs/extensions/grasshopper/grasshopper_overview.md)
