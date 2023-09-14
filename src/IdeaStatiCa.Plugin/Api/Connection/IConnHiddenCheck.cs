@@ -276,5 +276,8 @@ namespace IdeaStatiCa.Plugin
 
 		[OperationContract]
 		ReportResponse GenerateReport(string connectionId);
+
+		[OperationContract]
+		void OpenConnectionInApp(string connectionId);
 	}
 }

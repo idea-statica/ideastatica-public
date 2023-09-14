@@ -232,6 +232,12 @@ namespace IdeaStatiCa.Plugin
 			return Service.GenerateReport(connectionId);
 		}
 
+		public void OpenConnectionInApp(string connectionId)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenConnectionInApp connectionId = '{connectionId}'");
+			Service.OpenConnectionInApp(connectionId);
+		}
+
 		protected IConnHiddenCheck Service => base.Channel;
 	}
 }
