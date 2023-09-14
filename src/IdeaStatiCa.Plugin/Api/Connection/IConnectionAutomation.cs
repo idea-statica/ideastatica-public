@@ -16,10 +16,10 @@ namespace IdeaStatiCa.Plugin
 		ConProjectInfo GetProjectInfo();
 
 		/// <summary>
-		/// 
+		/// Generate report of <paramref name="conId"/>
 		/// </summary>
-		/// <param name="conId"></param>
-		/// <returns></returns>
+		/// <param name="conId">Id of the required connection</param>
+		/// <returns>The id of the report</returns>
 		string GenerateReport(int conId);
 	}
 }

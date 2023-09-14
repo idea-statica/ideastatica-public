@@ -1,5 +1,9 @@
 ﻿using IdeaStatiCa.ConnectionClient.Model;
+using IdeaStatiCa.Plugin.Grpc;
+using IdeaStatiCa.Public;
+using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionClient.Commands
@@ -28,7 +32,34 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 					var connection = (IConnectionId)parameter;
 					var service = Model.GetConnectionService();
 
-					var resData = service.Calculate(connection.ConnectionId);
+					// generate report for connection
+					var resData = service.GenerateReport(connection.ConnectionId);
+
+					// get storage with generated report
+					GrpcBlobStorageClient grpcBlobStorageClient = new GrpcBlobStorageClient(Logger, resData.Port);
+					var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, resData.ReportId);
+
+					try
+					{
+						SaveFileDialog saveFileDialog = new SaveFileDialog();
+						saveFileDialog.Filter = "zip | *.zip";
+
+						if (saveFileDialog.ShowDialog() == true)
+						{
+							using (var stream = saveFileDialog.OpenFile())
+							{
+								// copy html content to zip file
+								using (BlobStorageInArchive archive = new BlobStorageInArchive(stream))
+								{
+									archive.CopyFrom(blobStorage);
+								}
+							}
+						}
+					}
+					finally
+					{
+						grpcBlobStorageClient.Dispose();
+					}
 
 					Model.SetResults(resData);
 				}

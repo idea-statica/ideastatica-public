@@ -1,6 +1,7 @@
 ﻿#if NET48
 
 using IdeaRS.OpenModel.Connection;
+using IdeaRS.OpenModel.CrossSection;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -223,6 +224,12 @@ namespace IdeaStatiCa.Plugin
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.SetMemberCrossSection connectionId = '{connectionId}' memberId = {memberId} crossSectionId = {crossSectionId}");
 			Service.SetMemberCrossSection(connectionId, memberId, crossSectionId);
+		}
+
+		public ReportResponse GenerateReport(string connectionId)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
+			return Service.GenerateReport(connectionId);
 		}
 
 		protected IConnHiddenCheck Service => base.Channel;

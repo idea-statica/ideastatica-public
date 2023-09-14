@@ -1,9 +1,19 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace IdeaStatiCa.Plugin
 {
+	[DataContract]
+	public class ReportResponse
+	{
+		[DataMember]
+		public int Port { get; set; }
+		[DataMember]
+		public string ReportId { get; set; }
+	}
+
 	/// <summary>
 	/// Provides seamlessly data about connections or allows to run hidden calculation of a connection
 	/// </summary>
@@ -263,5 +273,8 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="crossSectionId">Id of the cross-section</param>
 		[OperationContract]
 		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
+
+		[OperationContract]
+		ReportResponse GenerateReport(string connectionId);
 	}
 }
