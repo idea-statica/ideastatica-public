@@ -18,7 +18,6 @@ namespace BimApiLinkCadExample.Importers
 
 		public override IIdeaConnectedMember Create(ConnectedMemberIdentifier<IIdeaConnectedMember> id)
 		{
-			//TODO see if there is a better way to do this.
 			IntIdentifier<IIdeaMember1D> intIdentifier = new IntIdentifier<IIdeaMember1D>(int.Parse(id.IdeaMember.GetId().ToString()));
 
 			var ideaMember = GetMaybe<IIdeaMember1D>(intIdentifier);
