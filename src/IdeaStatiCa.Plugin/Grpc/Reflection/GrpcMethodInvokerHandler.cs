@@ -174,8 +174,9 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 						Logger.LogWarning("GrpcMethodInvokerHandler.InvokeMethod - can not write arguments to log", ex);
 					}
 
+					var deserializeException = JsonConvert.DeserializeObject<Exception>(response.Data);
 
-					throw new ArgumentException(response.Data);
+					throw new ArgumentException(deserializeException.Message, deserializeException);
 				}
 
 				var responseData = JsonConvert.DeserializeObject(response.Data, returnType);

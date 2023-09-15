@@ -1,10 +1,12 @@
 ﻿using IdeaStatiCa.ConnectionClient.Commands;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Public;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 
 namespace ConnectionAutomationApp
 {
@@ -39,12 +41,14 @@ namespace ConnectionAutomationApp
 			RunIdeaConnectionCmd = new CustomCommand(this.CanRunIdeaConnection, this.RunIdeaConnection);
 			OpenProjectCmd = new CustomCommand(this.CanOpenProject, this.OpenProject);
 			CloseProjectCmd = new CustomCommand(this.CanCloseProject, this.CloseProject);
+			GenerateReportCmd = new CustomCommand(this.CanGenerateReport, this.GenerateReport);
 		}
 
 		#region Commands
 		public CustomCommand RunIdeaConnectionCmd { get; set; }
 		public CustomCommand OpenProjectCmd { get; set; }
 		public CustomCommand CloseProjectCmd { get; set; }
+		public CustomCommand GenerateReportCmd { get; set; }
 		#endregion
 
 		public bool IsIdea
@@ -127,11 +131,43 @@ namespace ConnectionAutomationApp
 			return ((this.ConnectionController != null) && string.IsNullOrEmpty(CurrentProjectFileName));
 		}
 
+		private void GenerateReport(object obj)
+		{
+			try
+			{
+				
+				var blobStorage = ConnectionController.GenerateReport(1);
+
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+				saveFileDialog.Filter = "zip | *.zip";
+
+				if (saveFileDialog.ShowDialog() != true)
+				{
+					return;
+				}
+
+				using (var stream = saveFileDialog.OpenFile())
+				{
+					using (BlobStorageInArchive archive = new BlobStorageInArchive(stream))
+					{
+						archive.CopyFrom(blobStorage);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message, "Error");
+			}
+		}
+
+		private bool CanGenerateReport(object arg)
+		{
+			return !string.IsNullOrEmpty(CurrentProjectFileName); ;
+		}
+
 		private void RunIdeaConnection(object obj)
 		{
-			// IdeaConnectionControllerGrpc is obsolete controller.
-			// ConnectionController = IdeaConnectionControllerGrpc.Create(ideaStatiCaDir, new NullLogger());
-
 			ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir);
 		}
 

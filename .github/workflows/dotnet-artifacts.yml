@@ -38,6 +38,13 @@ jobs:
         path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
         if-no-files-found: error
 
+    - name: 'Upload ConnectionAutomationApp'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ConnectionAutomationApp
+        path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionAutomationApp/bin/Release/net48
+        if-no-files-found: error
+
     - name: 'Upload FEAppExample'
       uses: actions/upload-artifact@v3
       with:

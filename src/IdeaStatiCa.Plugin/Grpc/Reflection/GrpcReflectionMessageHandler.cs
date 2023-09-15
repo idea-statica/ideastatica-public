@@ -70,7 +70,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 					OperationId = message.OperationId,
 					MessageType = GrpcMessage.Types.MessageType.Response,
 					MessageName = message.MessageName,
-					Data = e?.InnerException != null ? e.InnerException.Message : e.Message,
+					Data = e?.InnerException != null ? JsonConvert.SerializeObject(e.InnerException) : JsonConvert.SerializeObject(e),
 					DataType = typeof(Exception).Name
 				};
 
