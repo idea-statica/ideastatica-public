@@ -17,15 +17,13 @@ namespace IdeaStatiCa.BimImporter.Importers
 		protected override object ImportInternal(IImportContext ctx, IIdeaPlate plate, ConnectionData connectionData)
 		{
 			//for negative plate check duplicity
-			if (plate is IIdeaNegativePlate)
+			
+			if (connectionData.Plates != null)
 			{
-				if (connectionData.Plates != null)
+				var foundPlate = connectionData.Plates.Find(p => p.OriginalModelId == plate.Id);
+				if (foundPlate != null)
 				{
-					var foundPlate = connectionData.Plates.Find(p => p.OriginalModelId == plate.Id);
-					if (foundPlate != null)
-					{
-						return foundPlate;
-					}
+					return foundPlate;
 				}
 			}
 
