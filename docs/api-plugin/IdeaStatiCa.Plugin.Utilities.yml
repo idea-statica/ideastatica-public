@@ -1,0 +1,37 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Utilities
+  commentId: N:IdeaStatiCa.Plugin.Utilities
+  id: IdeaStatiCa.Plugin.Utilities
+  children:
+  - IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools
+  - IdeaStatiCa.Plugin.Utilities.PortFinder
+  - IdeaStatiCa.Plugin.Utilities.ReflectionHelper
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.Plugin.Utilities
+  nameWithType: IdeaStatiCa.Plugin.Utilities
+  fullName: IdeaStatiCa.Plugin.Utilities
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.Plugin
+references:
+- uid: IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools
+  commentId: T:IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools
+  href: IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools.html
+  name: IdeaStatiCaSetupTools
+  nameWithType: IdeaStatiCaSetupTools
+  fullName: IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools
+- uid: IdeaStatiCa.Plugin.Utilities.PortFinder
+  commentId: T:IdeaStatiCa.Plugin.Utilities.PortFinder
+  href: IdeaStatiCa.Plugin.Utilities.PortFinder.html
+  name: PortFinder
+  nameWithType: PortFinder
+  fullName: IdeaStatiCa.Plugin.Utilities.PortFinder
+- uid: IdeaStatiCa.Plugin.Utilities.ReflectionHelper
+  commentId: T:IdeaStatiCa.Plugin.Utilities.ReflectionHelper
+  href: IdeaStatiCa.Plugin.Utilities.ReflectionHelper.html
+  name: ReflectionHelper
+  nameWithType: ReflectionHelper
+  fullName: IdeaStatiCa.Plugin.Utilities.ReflectionHelper

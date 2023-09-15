@@ -1,0 +1,524 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse
+  commentId: T:IdeaRS.OpenModel.Loading.StrainImpulse
+  id: StrainImpulse
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+  - IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+  - IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ
+  - IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+  - IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+  - IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+  langs:
+  - csharp
+  - vb
+  name: StrainImpulse
+  nameWithType: StrainImpulse
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse
+  type: Struct
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StrainImpulse
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 104
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Generalized strain load impulse.
+  example: []
+  syntax:
+    content: public struct StrainImpulse
+    content.vb: Public Structure StrainImpulse
+  inheritedMembers:
+  - System.ValueType.Equals(System.Object)
+  - System.ValueType.GetHashCode
+  - System.ValueType.ToString
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+  commentId: P:IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+  id: EpsX
+  parent: IdeaRS.OpenModel.Loading.StrainImpulse
+  langs:
+  - csharp
+  - vb
+  name: EpsX
+  nameWithType: StrainImpulse.EpsX
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EpsX
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 109
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: The normal strain.
+  example: []
+  syntax:
+    content: public double EpsX { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property EpsX As Double
+  overload: IdeaRS.OpenModel.Loading.StrainImpulse.EpsX*
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+  commentId: P:IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+  id: PhiX
+  parent: IdeaRS.OpenModel.Loading.StrainImpulse
+  langs:
+  - csharp
+  - vb
+  name: PhiX
+  nameWithType: StrainImpulse.PhiX
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PhiX
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 114
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: The torsion slope around x axis.
+  example: []
+  syntax:
+    content: public double PhiX { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property PhiX As Double
+  overload: IdeaRS.OpenModel.Loading.StrainImpulse.PhiX*
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+  commentId: P:IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+  id: PhiY
+  parent: IdeaRS.OpenModel.Loading.StrainImpulse
+  langs:
+  - csharp
+  - vb
+  name: PhiY
+  nameWithType: StrainImpulse.PhiY
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PhiY
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 119
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: The curvature around z axis.
+  example: []
+  syntax:
+    content: public double PhiY { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property PhiY As Double
+  overload: IdeaRS.OpenModel.Loading.StrainImpulse.PhiY*
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+  commentId: P:IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+  id: PhiZ
+  parent: IdeaRS.OpenModel.Loading.StrainImpulse
+  langs:
+  - csharp
+  - vb
+  name: PhiZ
+  nameWithType: StrainImpulse.PhiZ
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PhiZ
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 124
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: The curvature around y axis.
+  example: []
+  syntax:
+    content: public double PhiZ { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property PhiZ As Double
+  overload: IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ*
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+  commentId: P:IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+  id: GammaXY
+  parent: IdeaRS.OpenModel.Loading.StrainImpulse
+  langs:
+  - csharp
+  - vb
+  name: GammaXY
+  nameWithType: StrainImpulse.GammaXY
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GammaXY
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 129
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: The shear strain.
+  example: []
+  syntax:
+    content: public double GammaXY { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property GammaXY As Double
+  overload: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY*
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ
+  commentId: P:IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ
+  id: GammaXZ
+  parent: IdeaRS.OpenModel.Loading.StrainImpulse
+  langs:
+  - csharp
+  - vb
+  name: GammaXZ
+  nameWithType: StrainImpulse.GammaXZ
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GammaXZ
+    path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
+    startLine: 134
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: The shear strain.
+  example: []
+  syntax:
+    content: public double GammaXZ { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property GammaXZ As Double
+  overload: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ*
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.EpsX*
+  commentId: Overload:IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+  href: IdeaRS.OpenModel.Loading.StrainImpulse.html#IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+  name: EpsX
+  nameWithType: StrainImpulse.EpsX
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.EpsX
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.PhiX*
+  commentId: Overload:IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+  href: IdeaRS.OpenModel.Loading.StrainImpulse.html#IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+  name: PhiX
+  nameWithType: StrainImpulse.PhiX
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.PhiX
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.PhiY*
+  commentId: Overload:IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+  href: IdeaRS.OpenModel.Loading.StrainImpulse.html#IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+  name: PhiY
+  nameWithType: StrainImpulse.PhiY
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.PhiY
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ*
+  commentId: Overload:IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+  href: IdeaRS.OpenModel.Loading.StrainImpulse.html#IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+  name: PhiZ
+  nameWithType: StrainImpulse.PhiZ
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.PhiZ
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY*
+  commentId: Overload:IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+  href: IdeaRS.OpenModel.Loading.StrainImpulse.html#IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+  name: GammaXY
+  nameWithType: StrainImpulse.GammaXY
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXY
+- uid: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ*
+  commentId: Overload:IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ
+  href: IdeaRS.OpenModel.Loading.StrainImpulse.html#IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ
+  name: GammaXZ
+  nameWithType: StrainImpulse.GammaXZ
+  fullName: IdeaRS.OpenModel.Loading.StrainImpulse.GammaXZ

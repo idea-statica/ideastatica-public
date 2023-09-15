@@ -1,0 +1,184 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.CutMethod
+  commentId: T:IdeaRS.OpenModel.Connection.CutMethod
+  id: CutMethod
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.CutMethod.BoundingBox
+  - IdeaRS.OpenModel.Connection.CutMethod.Mitre
+  - IdeaRS.OpenModel.Connection.CutMethod.Surface
+  - IdeaRS.OpenModel.Connection.CutMethod.SurfaceAll
+  langs:
+  - csharp
+  - vb
+  name: CutMethod
+  nameWithType: CutMethod
+  fullName: IdeaRS.OpenModel.Connection.CutMethod
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CutMethod
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 763
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Cut method
+  example: []
+  syntax:
+    content: public enum CutMethod
+    content.vb: Public Enum CutMethod
+- uid: IdeaRS.OpenModel.Connection.CutMethod.BoundingBox
+  commentId: F:IdeaRS.OpenModel.Connection.CutMethod.BoundingBox
+  id: BoundingBox
+  parent: IdeaRS.OpenModel.Connection.CutMethod
+  langs:
+  - csharp
+  - vb
+  name: BoundingBox
+  nameWithType: CutMethod.BoundingBox
+  fullName: IdeaRS.OpenModel.Connection.CutMethod.BoundingBox
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoundingBox
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 768
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: BoundingBox
+  example: []
+  syntax:
+    content: BoundingBox = 0
+    return:
+      type: IdeaRS.OpenModel.Connection.CutMethod
+- uid: IdeaRS.OpenModel.Connection.CutMethod.Surface
+  commentId: F:IdeaRS.OpenModel.Connection.CutMethod.Surface
+  id: Surface
+  parent: IdeaRS.OpenModel.Connection.CutMethod
+  langs:
+  - csharp
+  - vb
+  name: Surface
+  nameWithType: CutMethod.Surface
+  fullName: IdeaRS.OpenModel.Connection.CutMethod.Surface
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Surface
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 772
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Surface
+  example: []
+  syntax:
+    content: Surface = 1
+    return:
+      type: IdeaRS.OpenModel.Connection.CutMethod
+- uid: IdeaRS.OpenModel.Connection.CutMethod.Mitre
+  commentId: F:IdeaRS.OpenModel.Connection.CutMethod.Mitre
+  id: Mitre
+  parent: IdeaRS.OpenModel.Connection.CutMethod
+  langs:
+  - csharp
+  - vb
+  name: Mitre
+  nameWithType: CutMethod.Mitre
+  fullName: IdeaRS.OpenModel.Connection.CutMethod.Mitre
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Mitre
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 776
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Mitre
+  example: []
+  syntax:
+    content: Mitre = 2
+    return:
+      type: IdeaRS.OpenModel.Connection.CutMethod
+- uid: IdeaRS.OpenModel.Connection.CutMethod.SurfaceAll
+  commentId: F:IdeaRS.OpenModel.Connection.CutMethod.SurfaceAll
+  id: SurfaceAll
+  parent: IdeaRS.OpenModel.Connection.CutMethod
+  langs:
+  - csharp
+  - vb
+  name: SurfaceAll
+  nameWithType: CutMethod.SurfaceAll
+  fullName: IdeaRS.OpenModel.Connection.CutMethod.SurfaceAll
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SurfaceAll
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 780
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: SurfaceAll
+  example: []
+  syntax:
+    content: SurfaceAll = 3
+    return:
+      type: IdeaRS.OpenModel.Connection.CutMethod
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: IdeaRS.OpenModel.Connection.CutMethod
+  commentId: T:IdeaRS.OpenModel.Connection.CutMethod
+  parent: IdeaRS.OpenModel.Connection
+  href: IdeaRS.OpenModel.Connection.CutMethod.html
+  name: CutMethod
+  nameWithType: CutMethod
+  fullName: IdeaRS.OpenModel.Connection.CutMethod

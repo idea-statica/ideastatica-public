@@ -1,0 +1,112 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.AppStatus
+  commentId: T:IdeaStatiCa.Plugin.AppStatus
+  id: AppStatus
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.AppStatus.Finished
+  - IdeaStatiCa.Plugin.AppStatus.Started
+  langs:
+  - csharp
+  - vb
+  name: AppStatus
+  nameWithType: AppStatus
+  fullName: IdeaStatiCa.Plugin.AppStatus
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ISEvent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AppStatus
+    path: ../src/IdeaStatiCa.Plugin/ISEvent.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public enum AppStatus
+    content.vb: Public Enum AppStatus
+- uid: IdeaStatiCa.Plugin.AppStatus.Started
+  commentId: F:IdeaStatiCa.Plugin.AppStatus.Started
+  id: Started
+  parent: IdeaStatiCa.Plugin.AppStatus
+  langs:
+  - csharp
+  - vb
+  name: Started
+  nameWithType: AppStatus.Started
+  fullName: IdeaStatiCa.Plugin.AppStatus.Started
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ISEvent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Started
+    path: ../src/IdeaStatiCa.Plugin/ISEvent.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Started = 0
+    return:
+      type: IdeaStatiCa.Plugin.AppStatus
+- uid: IdeaStatiCa.Plugin.AppStatus.Finished
+  commentId: F:IdeaStatiCa.Plugin.AppStatus.Finished
+  id: Finished
+  parent: IdeaStatiCa.Plugin.AppStatus
+  langs:
+  - csharp
+  - vb
+  name: Finished
+  nameWithType: AppStatus.Finished
+  fullName: IdeaStatiCa.Plugin.AppStatus.Finished
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ISEvent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Finished
+    path: ../src/IdeaStatiCa.Plugin/ISEvent.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Finished = 1
+    return:
+      type: IdeaStatiCa.Plugin.AppStatus
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.AppStatus
+  commentId: T:IdeaStatiCa.Plugin.AppStatus
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.AppStatus.html
+  name: AppStatus
+  nameWithType: AppStatus
+  fullName: IdeaStatiCa.Plugin.AppStatus

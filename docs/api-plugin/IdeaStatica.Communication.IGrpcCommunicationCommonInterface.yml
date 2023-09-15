@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  commentId: T:IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  id: IGrpcCommunicationCommonInterface
+  parent: IdeaStatica.Communication
+  children:
+  - IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync(System.String)
+  langs:
+  - csharp
+  - vb
+  name: IGrpcCommunicationCommonInterface
+  nameWithType: IGrpcCommunicationCommonInterface
+  fullName: IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/IGrpcCommunicationCommonInterface.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IGrpcCommunicationCommonInterface
+    path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcCommunicationCommonInterface.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatica.Communication
+  syntax:
+    content: public interface IGrpcCommunicationCommonInterface
+    content.vb: Public Interface IGrpcCommunicationCommonInterface
+- uid: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync(System.String)
+  commentId: M:IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync(System.String)
+  id: RunAsync(System.String)
+  parent: IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  langs:
+  - csharp
+  - vb
+  name: RunAsync(string)
+  nameWithType: IGrpcCommunicationCommonInterface.RunAsync(string)
+  fullName: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/IGrpcCommunicationCommonInterface.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RunAsync
+    path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcCommunicationCommonInterface.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatica.Communication
+  syntax:
+    content: Task RunAsync(string id)
+    parameters:
+    - id: id
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function RunAsync(id As String) As Task
+  overload: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync*
+  nameWithType.vb: IGrpcCommunicationCommonInterface.RunAsync(String)
+  fullName.vb: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync(String)
+  name.vb: RunAsync(String)
+references:
+- uid: IdeaStatica.Communication
+  commentId: N:IdeaStatica.Communication
+  href: IdeaStatica.html
+  name: IdeaStatica.Communication
+  nameWithType: IdeaStatica.Communication
+  fullName: IdeaStatica.Communication
+  spec.csharp:
+  - uid: IdeaStatica
+    name: IdeaStatica
+    href: IdeaStatica.html
+  - name: .
+  - uid: IdeaStatica.Communication
+    name: Communication
+    href: IdeaStatica.Communication.html
+  spec.vb:
+  - uid: IdeaStatica
+    name: IdeaStatica
+    href: IdeaStatica.html
+  - name: .
+  - uid: IdeaStatica.Communication
+    name: Communication
+    href: IdeaStatica.Communication.html
+- uid: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync*
+  commentId: Overload:IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync
+  href: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.html#IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync(System.String)
+  name: RunAsync
+  nameWithType: IGrpcCommunicationCommonInterface.RunAsync
+  fullName: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.RunAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

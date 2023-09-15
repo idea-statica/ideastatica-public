@@ -1,0 +1,134 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  id: PrestressInputType
+  parent: IdeaRS.OpenModel.Concrete.Load
+  children:
+  - IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterLongTermLosses
+  - IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterTransfer
+  langs:
+  - csharp
+  - vb
+  name: PrestressInputType
+  nameWithType: PrestressInputType
+  fullName: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PrestressInputType
+    path: ../src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+    startLine: 23
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.Load
+  summary: Type of input of prestressing
+  example: []
+  syntax:
+    content: public enum PrestressInputType
+    content.vb: Public Enum PrestressInputType
+- uid: IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterTransfer
+  commentId: F:IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterTransfer
+  id: AfterTransfer
+  parent: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  langs:
+  - csharp
+  - vb
+  name: AfterTransfer
+  nameWithType: PrestressInputType.AfterTransfer
+  fullName: IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterTransfer
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AfterTransfer
+    path: ../src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.Load
+  summary: stress after transfer - long term losses will be calculated
+  example: []
+  syntax:
+    content: AfterTransfer = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+- uid: IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterLongTermLosses
+  commentId: F:IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterLongTermLosses
+  id: AfterLongTermLosses
+  parent: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  langs:
+  - csharp
+  - vb
+  name: AfterLongTermLosses
+  nameWithType: PrestressInputType.AfterLongTermLosses
+  fullName: IdeaRS.OpenModel.Concrete.Load.PrestressInputType.AfterLongTermLosses
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AfterLongTermLosses
+    path: ../src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.Load
+  summary: stress after long term losses is added to tendon
+  example: []
+  syntax:
+    content: AfterLongTermLosses = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+references:
+- uid: IdeaRS.OpenModel.Concrete.Load
+  commentId: N:IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.Load
+  nameWithType: IdeaRS.OpenModel.Concrete.Load
+  fullName: IdeaRS.OpenModel.Concrete.Load
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.Load
+    name: Load
+    href: IdeaRS.OpenModel.Concrete.Load.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.Load
+    name: Load
+    href: IdeaRS.OpenModel.Concrete.Load.html
+- uid: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.PrestressInputType.html
+  name: PrestressInputType
+  nameWithType: PrestressInputType
+  fullName: IdeaRS.OpenModel.Concrete.Load.PrestressInputType

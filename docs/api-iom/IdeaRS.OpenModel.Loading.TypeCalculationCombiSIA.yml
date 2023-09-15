@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  commentId: T:IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  id: TypeCalculationCombiSIA
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Code
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Envelope
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Linear
+  langs:
+  - csharp
+  - vb
+  name: TypeCalculationCombiSIA
+  nameWithType: TypeCalculationCombiSIA
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeCalculationCombiSIA
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 32
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Type of combination
+  example: []
+  syntax:
+    content: public enum TypeCalculationCombiSIA
+    content.vb: Public Enum TypeCalculationCombiSIA
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Linear
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Linear
+  id: Linear
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  langs:
+  - csharp
+  - vb
+  name: Linear
+  nameWithType: TypeCalculationCombiSIA.Linear
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Linear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Linear
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 37
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Linear combination
+  example: []
+  syntax:
+    content: Linear = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Envelope
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Envelope
+  id: Envelope
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  langs:
+  - csharp
+  - vb
+  name: Envelope
+  nameWithType: TypeCalculationCombiSIA.Envelope
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Envelope
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Envelope
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 42
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Envelope combination
+  example: []
+  syntax:
+    content: Envelope = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Code
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Code
+  id: Code
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  langs:
+  - csharp
+  - vb
+  name: Code
+  nameWithType: TypeCalculationCombiSIA.Code
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.Code
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Code
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 47
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Combination according to code
+  example: []
+  syntax:
+    content: Code = 2
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  commentId: T:IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.html
+  name: TypeCalculationCombiSIA
+  nameWithType: TypeCalculationCombiSIA
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA

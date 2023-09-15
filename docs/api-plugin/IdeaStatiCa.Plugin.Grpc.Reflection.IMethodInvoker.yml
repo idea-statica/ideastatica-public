@@ -1,0 +1,180 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  id: IMethodInvoker
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection
+  children:
+  - IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod``1(System.String,System.Type,System.Object[])
+  langs:
+  - csharp
+  - vb
+  name: IMethodInvoker
+  nameWithType: IMethodInvoker
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/IMethodInvoker.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IMethodInvoker
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/IMethodInvoker.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc.Reflection
+  syntax:
+    content: public interface IMethodInvoker
+    content.vb: Public Interface IMethodInvoker
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod``1(System.String,System.Type,System.Object[])
+  commentId: M:IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod``1(System.String,System.Type,System.Object[])
+  id: InvokeMethod``1(System.String,System.Type,System.Object[])
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  langs:
+  - csharp
+  - vb
+  name: InvokeMethod<T>(string, Type, params object[])
+  nameWithType: IMethodInvoker.InvokeMethod<T>(string, Type, params object[])
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod<T>(string, System.Type, params object[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/IMethodInvoker.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InvokeMethod
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/IMethodInvoker.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc.Reflection
+  summary: Invokes remote method over Grpc via reflection.
+  example: []
+  syntax:
+    content: T InvokeMethod<T>(string methodName, Type returnType, params object[] arguments)
+    parameters:
+    - id: methodName
+      type: System.String
+      description: Name of the method to invoke.
+    - id: returnType
+      type: System.Type
+      description: Type of the value which is return by the method
+    - id: arguments
+      type: System.Object[]
+      description: Arguments with which the method will be called.
+    typeParameters:
+    - id: T
+      description: Type to which the result will be converted.
+    return:
+      type: '{T}'
+      description: ''
+    content.vb: Function InvokeMethod(Of T)(methodName As String, returnType As Type, ParamArray arguments As Object()) As T
+  overload: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod*
+  nameWithType.vb: IMethodInvoker.InvokeMethod(Of T)(String, Type, ParamArray Object())
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod(Of T)(String, System.Type, ParamArray Object())
+  name.vb: InvokeMethod(Of T)(String, Type, ParamArray Object())
+references:
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection
+  commentId: N:IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc.Reflection
+  nameWithType: IdeaStatiCa.Plugin.Grpc.Reflection
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.html#IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod``1(System.String,System.Type,System.Object[])
+  name: InvokeMethod
+  nameWithType: IMethodInvoker.InvokeMethod
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.InvokeMethod
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T

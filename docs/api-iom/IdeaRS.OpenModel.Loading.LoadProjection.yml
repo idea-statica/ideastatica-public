@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.LoadProjection
+  commentId: T:IdeaRS.OpenModel.Loading.LoadProjection
+  id: LoadProjection
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.LoadProjection.Length
+  - IdeaRS.OpenModel.Loading.LoadProjection.Projection
+  langs:
+  - csharp
+  - vb
+  name: LoadProjection
+  nameWithType: LoadProjection
+  fullName: IdeaRS.OpenModel.Loading.LoadProjection
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadProjection
+    path: ../src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+    startLine: 161
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Type of load projection
+  example: []
+  syntax:
+    content: public enum LoadProjection
+    content.vb: Public Enum LoadProjection
+- uid: IdeaRS.OpenModel.Loading.LoadProjection.Length
+  commentId: F:IdeaRS.OpenModel.Loading.LoadProjection.Length
+  id: Length
+  parent: IdeaRS.OpenModel.Loading.LoadProjection
+  langs:
+  - csharp
+  - vb
+  name: Length
+  nameWithType: LoadProjection.Length
+  fullName: IdeaRS.OpenModel.Loading.LoadProjection.Length
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Length
+    path: ../src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+    startLine: 166
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Impuls on member length
+  example: []
+  syntax:
+    content: Length = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadProjection
+- uid: IdeaRS.OpenModel.Loading.LoadProjection.Projection
+  commentId: F:IdeaRS.OpenModel.Loading.LoadProjection.Projection
+  id: Projection
+  parent: IdeaRS.OpenModel.Loading.LoadProjection
+  langs:
+  - csharp
+  - vb
+  name: Projection
+  nameWithType: LoadProjection.Projection
+  fullName: IdeaRS.OpenModel.Loading.LoadProjection.Projection
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Projection
+    path: ../src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+    startLine: 171
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Impuls on member projection
+  example: []
+  syntax:
+    content: Projection = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadProjection
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.LoadProjection
+  commentId: T:IdeaRS.OpenModel.Loading.LoadProjection
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.LoadProjection.html
+  name: LoadProjection
+  nameWithType: LoadProjection
+  fullName: IdeaRS.OpenModel.Loading.LoadProjection

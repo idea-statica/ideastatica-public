@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ProductionType
+  commentId: T:IdeaRS.OpenModel.Material.ProductionType
+  id: ProductionType
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ProductionType.ColdDrawn
+  - IdeaRS.OpenModel.Material.ProductionType.HotRolledAndProcessed
+  - IdeaRS.OpenModel.Material.ProductionType.LowRelaxation
+  - IdeaRS.OpenModel.Material.ProductionType.Patented
+  - IdeaRS.OpenModel.Material.ProductionType.StressRelieved
+  langs:
+  - csharp
+  - vb
+  name: ProductionType
+  nameWithType: ProductionType
+  fullName: IdeaRS.OpenModel.Material.ProductionType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProductionType
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+    startLine: 69
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Production type
+  example: []
+  syntax:
+    content: public enum ProductionType
+    content.vb: Public Enum ProductionType
+- uid: IdeaRS.OpenModel.Material.ProductionType.HotRolledAndProcessed
+  commentId: F:IdeaRS.OpenModel.Material.ProductionType.HotRolledAndProcessed
+  id: HotRolledAndProcessed
+  parent: IdeaRS.OpenModel.Material.ProductionType
+  langs:
+  - csharp
+  - vb
+  name: HotRolledAndProcessed
+  nameWithType: ProductionType.HotRolledAndProcessed
+  fullName: IdeaRS.OpenModel.Material.ProductionType.HotRolledAndProcessed
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HotRolledAndProcessed
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+    startLine: 74
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Hot rolled and processed
+  example: []
+  syntax:
+    content: HotRolledAndProcessed = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ProductionType
+- uid: IdeaRS.OpenModel.Material.ProductionType.Patented
+  commentId: F:IdeaRS.OpenModel.Material.ProductionType.Patented
+  id: Patented
+  parent: IdeaRS.OpenModel.Material.ProductionType
+  langs:
+  - csharp
+  - vb
+  name: Patented
+  nameWithType: ProductionType.Patented
+  fullName: IdeaRS.OpenModel.Material.ProductionType.Patented
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Patented
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+    startLine: 79
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Patented
+  example: []
+  syntax:
+    content: Patented = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ProductionType
+- uid: IdeaRS.OpenModel.Material.ProductionType.ColdDrawn
+  commentId: F:IdeaRS.OpenModel.Material.ProductionType.ColdDrawn
+  id: ColdDrawn
+  parent: IdeaRS.OpenModel.Material.ProductionType
+  langs:
+  - csharp
+  - vb
+  name: ColdDrawn
+  nameWithType: ProductionType.ColdDrawn
+  fullName: IdeaRS.OpenModel.Material.ProductionType.ColdDrawn
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ColdDrawn
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+    startLine: 84
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Cold drawn
+  example: []
+  syntax:
+    content: ColdDrawn = 2
+    return:
+      type: IdeaRS.OpenModel.Material.ProductionType
+- uid: IdeaRS.OpenModel.Material.ProductionType.StressRelieved
+  commentId: F:IdeaRS.OpenModel.Material.ProductionType.StressRelieved
+  id: StressRelieved
+  parent: IdeaRS.OpenModel.Material.ProductionType
+  langs:
+  - csharp
+  - vb
+  name: StressRelieved
+  nameWithType: ProductionType.StressRelieved
+  fullName: IdeaRS.OpenModel.Material.ProductionType.StressRelieved
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StressRelieved
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+    startLine: 89
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Stress relieved
+  example: []
+  syntax:
+    content: StressRelieved = 3
+    return:
+      type: IdeaRS.OpenModel.Material.ProductionType
+- uid: IdeaRS.OpenModel.Material.ProductionType.LowRelaxation
+  commentId: F:IdeaRS.OpenModel.Material.ProductionType.LowRelaxation
+  id: LowRelaxation
+  parent: IdeaRS.OpenModel.Material.ProductionType
+  langs:
+  - csharp
+  - vb
+  name: LowRelaxation
+  nameWithType: ProductionType.LowRelaxation
+  fullName: IdeaRS.OpenModel.Material.ProductionType.LowRelaxation
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LowRelaxation
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
+    startLine: 94
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Low relaxation
+  example: []
+  syntax:
+    content: LowRelaxation = 4
+    return:
+      type: IdeaRS.OpenModel.Material.ProductionType
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ProductionType
+  commentId: T:IdeaRS.OpenModel.Material.ProductionType
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ProductionType.html
+  name: ProductionType
+  nameWithType: ProductionType
+  fullName: IdeaRS.OpenModel.Material.ProductionType

@@ -1,0 +1,679 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.LocalisedMessage
+  commentId: T:IdeaStatiCa.Plugin.LocalisedMessage
+  id: LocalisedMessage
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.LocalisedMessage.AwaitingUserSelection
+  - IdeaStatiCa.Plugin.LocalisedMessage.CancellingImport
+  - IdeaStatiCa.Plugin.LocalisedMessage.ConvertingModelFromXML
+  - IdeaStatiCa.Plugin.LocalisedMessage.CreatingConnection
+  - IdeaStatiCa.Plugin.LocalisedMessage.FinishingImport
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportFailed
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportStarted
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportingConnections
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportingGroups
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportingIOMObject
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportingMembers
+  - IdeaStatiCa.Plugin.LocalisedMessage.ImportingStructuralModel
+  - IdeaStatiCa.Plugin.LocalisedMessage.InternalImport
+  - IdeaStatiCa.Plugin.LocalisedMessage.InternalSync
+  - IdeaStatiCa.Plugin.LocalisedMessage.Member
+  - IdeaStatiCa.Plugin.LocalisedMessage.ModelImport
+  - IdeaStatiCa.Plugin.LocalisedMessage.ModelPostProcess
+  - IdeaStatiCa.Plugin.LocalisedMessage.ProcessingConnection
+  - IdeaStatiCa.Plugin.LocalisedMessage.ProcessingSubstructure
+  - IdeaStatiCa.Plugin.LocalisedMessage.SavingData
+  - IdeaStatiCa.Plugin.LocalisedMessage.SavingProject
+  - IdeaStatiCa.Plugin.LocalisedMessage.SciaSDKError
+  - IdeaStatiCa.Plugin.LocalisedMessage.SyncingModel
+  langs:
+  - csharp
+  - vb
+  name: LocalisedMessage
+  nameWithType: LocalisedMessage
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LocalisedMessage
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public enum LocalisedMessage
+    content.vb: Public Enum LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportingGroups
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportingGroups
+  id: ImportingGroups
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportingGroups
+  nameWithType: LocalisedMessage.ImportingGroups
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportingGroups
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportingGroups
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportingGroups = 0
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportingMembers
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportingMembers
+  id: ImportingMembers
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportingMembers
+  nameWithType: LocalisedMessage.ImportingMembers
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportingMembers
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportingMembers
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportingMembers = 1
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportingConnections
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportingConnections
+  id: ImportingConnections
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportingConnections
+  nameWithType: LocalisedMessage.ImportingConnections
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportingConnections
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportingConnections
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportingConnections = 2
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.InternalSync
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.InternalSync
+  id: InternalSync
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: InternalSync
+  nameWithType: LocalisedMessage.InternalSync
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.InternalSync
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InternalSync
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: InternalSync = 3
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.SyncingModel
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.SyncingModel
+  id: SyncingModel
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: SyncingModel
+  nameWithType: LocalisedMessage.SyncingModel
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.SyncingModel
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SyncingModel
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: SyncingModel = 4
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.SavingProject
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.SavingProject
+  id: SavingProject
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: SavingProject
+  nameWithType: LocalisedMessage.SavingProject
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.SavingProject
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SavingProject
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: SavingProject = 5
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ModelImport
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ModelImport
+  id: ModelImport
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ModelImport
+  nameWithType: LocalisedMessage.ModelImport
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ModelImport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ModelImport
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 19
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ModelImport = 6
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.CancellingImport
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.CancellingImport
+  id: CancellingImport
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: CancellingImport
+  nameWithType: LocalisedMessage.CancellingImport
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.CancellingImport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CancellingImport
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 20
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: CancellingImport = 7
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.CreatingConnection
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.CreatingConnection
+  id: CreatingConnection
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: CreatingConnection
+  nameWithType: LocalisedMessage.CreatingConnection
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.CreatingConnection
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CreatingConnection
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: CreatingConnection = 8
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportingIOMObject
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportingIOMObject
+  id: ImportingIOMObject
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportingIOMObject
+  nameWithType: LocalisedMessage.ImportingIOMObject
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportingIOMObject
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportingIOMObject
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 22
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportingIOMObject = 9
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportingStructuralModel
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportingStructuralModel
+  id: ImportingStructuralModel
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportingStructuralModel
+  nameWithType: LocalisedMessage.ImportingStructuralModel
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportingStructuralModel
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportingStructuralModel
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportingStructuralModel = 10
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportStarted
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportStarted
+  id: ImportStarted
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportStarted
+  nameWithType: LocalisedMessage.ImportStarted
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportStarted
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportStarted
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportStarted = 11
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ImportFailed
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ImportFailed
+  id: ImportFailed
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ImportFailed
+  nameWithType: LocalisedMessage.ImportFailed
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ImportFailed
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportFailed
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 25
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ImportFailed = 12
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ModelPostProcess
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ModelPostProcess
+  id: ModelPostProcess
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ModelPostProcess
+  nameWithType: LocalisedMessage.ModelPostProcess
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ModelPostProcess
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ModelPostProcess
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 26
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ModelPostProcess = 13
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.InternalImport
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.InternalImport
+  id: InternalImport
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: InternalImport
+  nameWithType: LocalisedMessage.InternalImport
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.InternalImport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InternalImport
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 27
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: InternalImport = 14
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.Member
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.Member
+  id: Member
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: Member
+  nameWithType: LocalisedMessage.Member
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.Member
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Member
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Member = 15
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.SavingData
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.SavingData
+  id: SavingData
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: SavingData
+  nameWithType: LocalisedMessage.SavingData
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.SavingData
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SavingData
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 29
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: SavingData = 16
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ConvertingModelFromXML
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ConvertingModelFromXML
+  id: ConvertingModelFromXML
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ConvertingModelFromXML
+  nameWithType: LocalisedMessage.ConvertingModelFromXML
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ConvertingModelFromXML
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConvertingModelFromXML
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 30
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ConvertingModelFromXML = 17
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ProcessingSubstructure
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ProcessingSubstructure
+  id: ProcessingSubstructure
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ProcessingSubstructure
+  nameWithType: LocalisedMessage.ProcessingSubstructure
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ProcessingSubstructure
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProcessingSubstructure
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 31
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ProcessingSubstructure = 18
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.ProcessingConnection
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.ProcessingConnection
+  id: ProcessingConnection
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: ProcessingConnection
+  nameWithType: LocalisedMessage.ProcessingConnection
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.ProcessingConnection
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProcessingConnection
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 32
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ProcessingConnection = 19
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.FinishingImport
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.FinishingImport
+  id: FinishingImport
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: FinishingImport
+  nameWithType: LocalisedMessage.FinishingImport
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.FinishingImport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FinishingImport
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 33
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: FinishingImport = 20
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.SciaSDKError
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.SciaSDKError
+  id: SciaSDKError
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: SciaSDKError
+  nameWithType: LocalisedMessage.SciaSDKError
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.SciaSDKError
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SciaSDKError
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 34
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: SciaSDKError = 21
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.LocalisedMessage.AwaitingUserSelection
+  commentId: F:IdeaStatiCa.Plugin.LocalisedMessage.AwaitingUserSelection
+  id: AwaitingUserSelection
+  parent: IdeaStatiCa.Plugin.LocalisedMessage
+  langs:
+  - csharp
+  - vb
+  name: AwaitingUserSelection
+  nameWithType: LocalisedMessage.AwaitingUserSelection
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage.AwaitingUserSelection
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AwaitingUserSelection
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 35
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: AwaitingUserSelection = 22
+    return:
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.LocalisedMessage
+  commentId: T:IdeaStatiCa.Plugin.LocalisedMessage
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  name: LocalisedMessage
+  nameWithType: LocalisedMessage
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage

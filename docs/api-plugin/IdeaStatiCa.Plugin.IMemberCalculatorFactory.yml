@@ -1,0 +1,93 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IMemberCalculatorFactory
+  commentId: T:IdeaStatiCa.Plugin.IMemberCalculatorFactory
+  id: IMemberCalculatorFactory
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create
+  langs:
+  - csharp
+  - vb
+  name: IMemberCalculatorFactory
+  nameWithType: IMemberCalculatorFactory
+  fullName: IdeaStatiCa.Plugin.IMemberCalculatorFactory
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IMemberCalculatorFactory
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public interface IMemberCalculatorFactory
+    content.vb: Public Interface IMemberCalculatorFactory
+- uid: IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create
+  commentId: M:IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create
+  id: Create
+  parent: IdeaStatiCa.Plugin.IMemberCalculatorFactory
+  langs:
+  - csharp
+  - vb
+  name: Create()
+  nameWithType: IMemberCalculatorFactory.Create()
+  fullName: IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: MemberHiddenCheckClient Create()
+    return:
+      type: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+    content.vb: Function Create() As MemberHiddenCheckClient
+  overload: IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create*
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create*
+  commentId: Overload:IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create
+  href: IdeaStatiCa.Plugin.IMemberCalculatorFactory.html#IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create
+  name: Create
+  nameWithType: IMemberCalculatorFactory.Create
+  fullName: IdeaStatiCa.Plugin.IMemberCalculatorFactory.Create
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  commentId: T:IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html
+  name: MemberHiddenCheckClient
+  nameWithType: MemberHiddenCheckClient
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient

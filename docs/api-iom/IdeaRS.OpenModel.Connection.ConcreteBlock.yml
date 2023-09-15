@@ -1,0 +1,482 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock
+  commentId: T:IdeaRS.OpenModel.Connection.ConcreteBlock
+  id: ConcreteBlock
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+  - IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+  - IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+  - IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+  langs:
+  - csharp
+  - vb
+  name: ConcreteBlock
+  nameWithType: ConcreteBlock
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConcreteBlock
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 276
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Data of concrete block
+  example: []
+  syntax:
+    content: public class ConcreteBlock
+    content.vb: Public Class ConcreteBlock
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+  commentId: P:IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+  id: Lenght
+  parent: IdeaRS.OpenModel.Connection.ConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Lenght
+  nameWithType: ConcreteBlock.Lenght
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Lenght
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 281
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Lenght of ConcreteBlock
+  example: []
+  syntax:
+    content: public double Lenght { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Lenght As Double
+  overload: IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght*
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+  commentId: P:IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+  id: Width
+  parent: IdeaRS.OpenModel.Connection.ConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Width
+  nameWithType: ConcreteBlock.Width
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Width
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 286
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Width of ConcreteBlock
+  example: []
+  syntax:
+    content: public double Width { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Width As Double
+  overload: IdeaRS.OpenModel.Connection.ConcreteBlock.Width*
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+  commentId: P:IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+  id: Height
+  parent: IdeaRS.OpenModel.Connection.ConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Height
+  nameWithType: ConcreteBlock.Height
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Height
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 291
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Height of ConcreteBlock
+  example: []
+  syntax:
+    content: public double Height { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Height As Double
+  overload: IdeaRS.OpenModel.Connection.ConcreteBlock.Height*
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+  commentId: P:IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+  id: Material
+  parent: IdeaRS.OpenModel.Connection.ConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: ConcreteBlock.Material
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 296
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Material of ConcreteBlock
+  example: []
+  syntax:
+    content: public string Material { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Material As String
+  overload: IdeaRS.OpenModel.Connection.ConcreteBlock.Material*
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+  href: IdeaRS.OpenModel.Connection.ConcreteBlock.html#IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+  name: Lenght
+  nameWithType: ConcreteBlock.Lenght
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Lenght
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Width*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+  href: IdeaRS.OpenModel.Connection.ConcreteBlock.html#IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+  name: Width
+  nameWithType: ConcreteBlock.Width
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Width
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Height*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+  href: IdeaRS.OpenModel.Connection.ConcreteBlock.html#IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+  name: Height
+  nameWithType: ConcreteBlock.Height
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Height
+- uid: IdeaRS.OpenModel.Connection.ConcreteBlock.Material*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+  href: IdeaRS.OpenModel.Connection.ConcreteBlock.html#IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+  name: Material
+  nameWithType: ConcreteBlock.Material
+  fullName: IdeaRS.OpenModel.Connection.ConcreteBlock.Material
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

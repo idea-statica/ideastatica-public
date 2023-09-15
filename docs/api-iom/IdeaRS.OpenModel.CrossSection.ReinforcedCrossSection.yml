@@ -1,0 +1,1085 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  commentId: T:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  id: ReinforcedCrossSection
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+  - IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+  langs:
+  - csharp
+  - vb
+  name: ReinforcedCrossSection
+  nameWithType: ReinforcedCrossSection
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinforcedCrossSection
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 134
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Reinforced cross-section
+  example:
+  - >-
+    This sample shows how to create reinforced cross-section.
+
+    <pre><code class="lang-csharp">//Creating the model
+
+    OpenModel openModel = new OpenModel();
+
+
+    //Cocrete material
+
+    MatConcreteEc2 mat = new MatConcreteEc2();
+
+    //...
+
+    openModel.AddObject(mat);
+
+
+    //Reinforcement material
+
+    MatReinforcementEc2 matR = new MatReinforcementEc2();
+
+    //...
+
+    openModel.AddObject(matR);
+
+
+    //Cross-section without the bars
+
+    //One component square 0.8x0.8m
+
+    IdeaRS.OpenModel.CrossSection.CrossSectionComponent css = new IdeaRS.OpenModel.CrossSection.CrossSectionComponent();
+
+    css.Name = "CSS1";
+
+
+    //Component of cross-section
+
+    CssComponent comp = new CssComponent();
+
+    comp.Material = new ReferenceElement(mat);
+
+    comp.Phase = 0;
+
+
+    //Geometry of component 0.8x0.8
+
+    Region2D region = new Region2D();
+
+    PolyLine2D outline = new PolyLine2D();
+
+    outline.StartPoint = new Point2D();
+
+    outline.StartPoint.X = -0.04;
+
+    outline.StartPoint.Y = -0.04;
+
+    LineSegment2D seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = 0.04;
+
+    seg.EndPoint.Y = -0.04;
+
+    outline.Segments.Add(seg);
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = 0.04;
+
+    seg.EndPoint.Y = 0.04;
+
+    outline.Segments.Add(seg);
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = -0.04;
+
+    seg.EndPoint.Y = 0.04;
+
+    outline.Segments.Add(seg);
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = -0.04;
+
+    seg.EndPoint.Y = -0.04;
+
+    outline.Segments.Add(seg);
+
+    region.Outline = outline;
+
+
+    //Optional - setting openning in this component 0,2x0,2
+
+    PolyLine2D openning = new PolyLine2D();
+
+    openning.StartPoint = new Point2D();
+
+    openning.StartPoint.X = -0.01;
+
+    openning.StartPoint.Y = -0.01;
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = -0.01;
+
+    seg.EndPoint.Y = 0.01;
+
+    openning.Segments.Add(seg);
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = 0.01;
+
+    seg.EndPoint.Y = 0.01;
+
+    openning.Segments.Add(seg);
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = 0.01;
+
+    seg.EndPoint.Y = -0.01;
+
+    openning.Segments.Add(seg);
+
+    seg = new LineSegment2D();
+
+    seg.EndPoint = new Point2D();
+
+    seg.EndPoint.X = -0.01;
+
+    seg.EndPoint.Y = -0.01;
+
+    openning.Segments.Add(seg);
+
+    region.Openings.Add(openning);
+
+
+    comp.Geometry = region;
+
+    css.Components.Add(comp);
+
+    openModel.AddObject(css);
+
+
+    //Reinforced cross-section (references cross-section and adds the bars)
+
+    //bar 8mm in each corner
+
+    ReinforcedCrossSection rcs = new ReinforcedCrossSection();
+
+    rcs.Name = "RCSS1";
+
+    rcs.CrossSection = new ReferenceElement(css);
+
+
+    //One bar in the corner
+
+    ReinforcedBar bar = new ReinforcedBar();
+
+    bar.Diameter = 0.008;
+
+    bar.Material = new ReferenceElement(matR);
+
+    bar.Point = new Point2D();
+
+    bar.Point.X = -0.025;
+
+    bar.Point.Y = -0.025;
+
+    rcs.Bars.Add(bar);
+
+
+    bar = new ReinforcedBar();
+
+    bar.Diameter = 0.008;
+
+    bar.Material = new ReferenceElement(matR);
+
+    bar.Point = new Point2D();
+
+    bar.Point.X = 0.025;
+
+    bar.Point.Y = -0.025;
+
+    rcs.Bars.Add(bar);
+
+
+    bar = new ReinforcedBar();
+
+    bar.Diameter = 0.008;
+
+    bar.Material = new ReferenceElement(matR);
+
+    bar.Point = new Point2D();
+
+    bar.Point.X = 0.025;
+
+    bar.Point.Y = 0.025;
+
+    rcs.Bars.Add(bar);
+
+
+    bar = new ReinforcedBar();
+
+    bar.Diameter = 0.008;
+
+    bar.Material = new ReferenceElement(matR);
+
+    bar.Point = new Point2D();
+
+    bar.Point.X = -0.025;
+
+    bar.Point.Y = 0.025;
+
+    rcs.Bars.Add(bar);
+
+
+    openModel.AddObject(rcs);</code></pre>
+  syntax:
+    content: >-
+      [OpenModelClass("CI.Services.Concrete.ReinforcedSection.ReinfSection,CI.ReinforcedSection", "CI.Services.Concrete.ReinforcedSection.IReinforcedSection,CI.ServiceTypes")]
+
+      public class ReinforcedCrossSection : OpenElementId
+    content.vb: >-
+      <OpenModelClass("CI.Services.Concrete.ReinforcedSection.ReinfSection,CI.ReinforcedSection", "CI.Services.Concrete.ReinforcedSection.IReinforcedSection,CI.ServiceTypes")>
+
+      Public Class ReinforcedCrossSection Inherits OpenElementId
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String,System.String)
+    arguments:
+    - type: System.String
+      value: CI.Services.Concrete.ReinforcedSection.ReinfSection,CI.ReinforcedSection
+    - type: System.String
+      value: CI.Services.Concrete.ReinforcedSection.IReinforcedSection,CI.ServiceTypes
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor
+  commentId: M:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: ReinforcedCrossSection()
+  nameWithType: ReinforcedCrossSection.ReinforcedCrossSection()
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.ReinforcedCrossSection()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 140
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Constructor
+  example: []
+  syntax:
+    content: public ReinforcedCrossSection()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor*
+  nameWithType.vb: ReinforcedCrossSection.New()
+  fullName.vb: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+  commentId: P:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+  id: Name
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: ReinforcedCrossSection.Name
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Name
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 151
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Name of cross-section
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name*
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+  commentId: P:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+  id: CrossSection
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: CrossSection
+  nameWithType: ReinforcedCrossSection.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrossSection
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 156
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Cross-section
+  example: []
+  syntax:
+    content: public ReferenceElement CrossSection { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property CrossSection As ReferenceElement
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection*
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+  commentId: P:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+  id: Bars
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: Bars
+  nameWithType: ReinforcedCrossSection.Bars
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bars
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 161
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Reinforced bars
+  example: []
+  syntax:
+    content: public List<ReinforcedBar> Bars { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.ReinforcedBar}
+    content.vb: Public Property Bars As List(Of ReinforcedBar)
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars*
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+  commentId: P:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+  id: Stirrups
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: Stirrups
+  nameWithType: ReinforcedCrossSection.Stirrups
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Stirrups
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 166
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Stirrups
+  example: []
+  syntax:
+    content: public List<Stirrup> Stirrups { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.Stirrup}
+    content.vb: Public Property Stirrups As List(Of Stirrup)
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups*
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+  commentId: P:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+  id: TendonBars
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: TendonBars
+  nameWithType: ReinforcedCrossSection.TendonBars
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TendonBars
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 171
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon bars
+  example: []
+  syntax:
+    content: public List<TendonBar> TendonBars { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.TendonBar}
+    content.vb: Public Property TendonBars As List(Of TendonBar)
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars*
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+  commentId: P:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+  id: TendonDucts
+  parent: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+  langs:
+  - csharp
+  - vb
+  name: TendonDucts
+  nameWithType: ReinforcedCrossSection.TendonDucts
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TendonDucts
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
+    startLine: 176
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon ducts
+  example: []
+  syntax:
+    content: public List<TendonDuct> TendonDucts { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.TendonDuct}
+    content.vb: Public Property TendonDucts As List(Of TendonDuct)
+  overload: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts*
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.#ctor
+  name: ReinforcedCrossSection
+  nameWithType: ReinforcedCrossSection.ReinforcedCrossSection
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.ReinforcedCrossSection
+  nameWithType.vb: ReinforcedCrossSection.New
+  fullName.vb: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+  name: Name
+  nameWithType: ReinforcedCrossSection.Name
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+  name: CrossSection
+  nameWithType: ReinforcedCrossSection.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.CrossSection
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+  name: Bars
+  nameWithType: ReinforcedCrossSection.Bars
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Bars
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.ReinforcedBar}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.ReinforcedBar}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ReinforcedBar>
+  nameWithType: List<ReinforcedBar>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.CrossSection.ReinforcedBar>
+  nameWithType.vb: List(Of ReinforcedBar)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.CrossSection.ReinforcedBar)
+  name.vb: List(Of ReinforcedBar)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.CrossSection.ReinforcedBar
+    name: ReinforcedBar
+    href: IdeaRS.OpenModel.CrossSection.ReinforcedBar.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.CrossSection.ReinforcedBar
+    name: ReinforcedBar
+    href: IdeaRS.OpenModel.CrossSection.ReinforcedBar.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+  name: Stirrups
+  nameWithType: ReinforcedCrossSection.Stirrups
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.Stirrups
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.Stirrup}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.Stirrup}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Stirrup>
+  nameWithType: List<Stirrup>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.CrossSection.Stirrup>
+  nameWithType.vb: List(Of Stirrup)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.CrossSection.Stirrup)
+  name.vb: List(Of Stirrup)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.CrossSection.Stirrup
+    name: Stirrup
+    href: IdeaRS.OpenModel.CrossSection.Stirrup.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.CrossSection.Stirrup
+    name: Stirrup
+    href: IdeaRS.OpenModel.CrossSection.Stirrup.html
+  - name: )
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+  name: TendonBars
+  nameWithType: ReinforcedCrossSection.TendonBars
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonBars
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.TendonBar}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.TendonBar}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<TendonBar>
+  nameWithType: List<TendonBar>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.CrossSection.TendonBar>
+  nameWithType.vb: List(Of TendonBar)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.CrossSection.TendonBar)
+  name.vb: List(Of TendonBar)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.CrossSection.TendonBar
+    name: TendonBar
+    href: IdeaRS.OpenModel.CrossSection.TendonBar.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.CrossSection.TendonBar
+    name: TendonBar
+    href: IdeaRS.OpenModel.CrossSection.TendonBar.html
+  - name: )
+- uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+  href: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.html#IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+  name: TendonDucts
+  nameWithType: ReinforcedCrossSection.TendonDucts
+  fullName: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection.TendonDucts
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.TendonDuct}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.TendonDuct}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<TendonDuct>
+  nameWithType: List<TendonDuct>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.CrossSection.TendonDuct>
+  nameWithType.vb: List(Of TendonDuct)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.CrossSection.TendonDuct)
+  name.vb: List(Of TendonDuct)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.CrossSection.TendonDuct
+    name: TendonDuct
+    href: IdeaRS.OpenModel.CrossSection.TendonDuct.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.CrossSection.TendonDuct
+    name: TendonDuct
+    href: IdeaRS.OpenModel.CrossSection.TendonDuct.html
+  - name: )

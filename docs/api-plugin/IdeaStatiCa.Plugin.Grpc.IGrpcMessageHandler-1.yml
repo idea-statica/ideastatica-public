@@ -1,0 +1,270 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1
+  id: IGrpcMessageHandler`1
+  parent: IdeaStatiCa.Plugin.Grpc
+  children:
+  - IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  langs:
+  - csharp
+  - vb
+  name: IGrpcMessageHandler<T>
+  nameWithType: IGrpcMessageHandler<T>
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler<T>
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IGrpcMessageHandler
+    path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Handles communication over Grpc.
+  example: []
+  syntax:
+    content: 'public interface IGrpcMessageHandler<T> : IGrpcMessageHandler where T : class'
+    typeParameters:
+    - id: T
+    content.vb: Public Interface IGrpcMessageHandler(Of T As Class) Inherits IGrpcMessageHandler
+  nameWithType.vb: IGrpcMessageHandler(Of T)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler(Of T)
+  name.vb: IGrpcMessageHandler(Of T)
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  id: HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1
+  langs:
+  - csharp
+  - vb
+  name: HandleServerMessage(GrpcMessage, IGrpcSender)
+  nameWithType: IGrpcMessageHandler<T>.HandleServerMessage(GrpcMessage, IGrpcSender)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler<T>.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage, IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HandleServerMessage
+    path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Handles request incoming from the client.
+  example: []
+  syntax:
+    content: Task<T> HandleServerMessage(GrpcMessage message, IGrpcSender server)
+    parameters:
+    - id: message
+      type: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+      description: Message sent by client.
+    - id: server
+      type: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    return:
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    content.vb: Function HandleServerMessage(message As GrpcMessage, server As IGrpcSender) As Task(Of T)
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage*
+  nameWithType.vb: IGrpcMessageHandler(Of T).HandleServerMessage(GrpcMessage, IGrpcSender)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler(Of T).HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage, IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  id: HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1
+  langs:
+  - csharp
+  - vb
+  name: HandleClientMessage(GrpcMessage, IGrpcSender)
+  nameWithType: IGrpcMessageHandler<T>.HandleClientMessage(GrpcMessage, IGrpcSender)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler<T>.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage, IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HandleClientMessage
+    path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Handles response incoming from the server.
+  example: []
+  syntax:
+    content: Task<T> HandleClientMessage(GrpcMessage message, IGrpcSender client)
+    parameters:
+    - id: message
+      type: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+      description: Message sent by server.
+    - id: client
+      type: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    return:
+      type: System.Threading.Tasks.Task{{T}}
+      description: ''
+    content.vb: Function HandleClientMessage(message As GrpcMessage, client As IGrpcSender) As Task(Of T)
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage*
+  nameWithType.vb: IGrpcMessageHandler(Of T).HandleClientMessage(GrpcMessage, IGrpcSender)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler(Of T).HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage, IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+references:
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler-1.html#IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  name: HandleServerMessage
+  nameWithType: IGrpcMessageHandler<T>.HandleServerMessage
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler<T>.HandleServerMessage
+  nameWithType.vb: IGrpcMessageHandler(Of T).HandleServerMessage
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler(Of T).HandleServerMessage
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GrpcMessage
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  name: GrpcMessage
+  nameWithType: GrpcMessage
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  name: IGrpcSender
+  nameWithType: IGrpcSender
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+- uid: System.Threading.Tasks.Task{{T}}
+  commentId: T:System.Threading.Tasks.Task{`0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<T>
+  nameWithType: Task<T>
+  fullName: System.Threading.Tasks.Task<T>
+  nameWithType.vb: Task(Of T)
+  fullName.vb: System.Threading.Tasks.Task(Of T)
+  name.vb: Task(Of T)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler-1.html#IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  name: HandleClientMessage
+  nameWithType: IGrpcMessageHandler<T>.HandleClientMessage
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler<T>.HandleClientMessage
+  nameWithType.vb: IGrpcMessageHandler(Of T).HandleClientMessage
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler(Of T).HandleClientMessage

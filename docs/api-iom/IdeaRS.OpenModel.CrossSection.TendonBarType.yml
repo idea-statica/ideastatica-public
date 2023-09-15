@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.TendonBarType
+  commentId: T:IdeaRS.OpenModel.CrossSection.TendonBarType
+  id: TendonBarType
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.TendonBarType.Posttensioned
+  - IdeaRS.OpenModel.CrossSection.TendonBarType.Pretensioned
+  langs:
+  - csharp
+  - vb
+  name: TendonBarType
+  nameWithType: TendonBarType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBarType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TendonBarType
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon bar type
+  example: []
+  syntax:
+    content: public enum TendonBarType
+    content.vb: Public Enum TendonBarType
+- uid: IdeaRS.OpenModel.CrossSection.TendonBarType.Posttensioned
+  commentId: F:IdeaRS.OpenModel.CrossSection.TendonBarType.Posttensioned
+  id: Posttensioned
+  parent: IdeaRS.OpenModel.CrossSection.TendonBarType
+  langs:
+  - csharp
+  - vb
+  name: Posttensioned
+  nameWithType: TendonBarType.Posttensioned
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBarType.Posttensioned
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Posttensioned
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 48
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Post-tensioned
+  example: []
+  syntax:
+    content: Posttensioned = 0
+    return:
+      type: IdeaRS.OpenModel.CrossSection.TendonBarType
+- uid: IdeaRS.OpenModel.CrossSection.TendonBarType.Pretensioned
+  commentId: F:IdeaRS.OpenModel.CrossSection.TendonBarType.Pretensioned
+  id: Pretensioned
+  parent: IdeaRS.OpenModel.CrossSection.TendonBarType
+  langs:
+  - csharp
+  - vb
+  name: Pretensioned
+  nameWithType: TendonBarType.Pretensioned
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBarType.Pretensioned
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Pretensioned
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 53
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Pre-tensioned
+  example: []
+  syntax:
+    content: Pretensioned = 1
+    return:
+      type: IdeaRS.OpenModel.CrossSection.TendonBarType
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: IdeaRS.OpenModel.CrossSection.TendonBarType
+  commentId: T:IdeaRS.OpenModel.CrossSection.TendonBarType
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.TendonBarType.html
+  name: TendonBarType
+  nameWithType: TendonBarType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBarType

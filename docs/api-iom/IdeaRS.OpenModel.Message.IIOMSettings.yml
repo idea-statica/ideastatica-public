@@ -1,0 +1,233 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Message.IIOMSettings
+  commentId: T:IdeaRS.OpenModel.Message.IIOMSettings
+  id: IIOMSettings
+  parent: IdeaRS.OpenModel.Message
+  children:
+  - IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+  - IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+  - IdeaRS.OpenModel.Message.IIOMSettings.FileName
+  langs:
+  - csharp
+  - vb
+  name: IIOMSettings
+  nameWithType: IIOMSettings
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIOMSettings
+    path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: interface IIOMSettings
+  example: []
+  syntax:
+    content: public interface IIOMSettings
+    content.vb: Public Interface IIOMSettings
+- uid: IdeaRS.OpenModel.Message.IIOMSettings.FileName
+  commentId: P:IdeaRS.OpenModel.Message.IIOMSettings.FileName
+  id: FileName
+  parent: IdeaRS.OpenModel.Message.IIOMSettings
+  langs:
+  - csharp
+  - vb
+  name: FileName
+  nameWithType: IIOMSettings.FileName
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings.FileName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FileName
+    path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: File name
+  example: []
+  syntax:
+    content: string FileName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Property FileName As String
+  overload: IdeaRS.OpenModel.Message.IIOMSettings.FileName*
+- uid: IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+  commentId: P:IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+  id: CreatedSuccessfully
+  parent: IdeaRS.OpenModel.Message.IIOMSettings
+  langs:
+  - csharp
+  - vb
+  name: CreatedSuccessfully
+  nameWithType: IIOMSettings.CreatedSuccessfully
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CreatedSuccessfully
+    path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: IOM was generated Successfully
+  example: []
+  syntax:
+    content: bool CreatedSuccessfully { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Property CreatedSuccessfully As Boolean
+  overload: IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully*
+- uid: IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+  commentId: P:IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+  id: CountryCode
+  parent: IdeaRS.OpenModel.Message.IIOMSettings
+  langs:
+  - csharp
+  - vb
+  name: CountryCode
+  nameWithType: IIOMSettings.CountryCode
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CountryCode
+    path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: CountryCode
+  example: []
+  syntax:
+    content: CountryCode CountryCode { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CountryCode
+    content.vb: Property CountryCode As CountryCode
+  overload: IdeaRS.OpenModel.Message.IIOMSettings.CountryCode*
+references:
+- uid: IdeaRS.OpenModel.Message
+  commentId: N:IdeaRS.OpenModel.Message
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Message
+  nameWithType: IdeaRS.OpenModel.Message
+  fullName: IdeaRS.OpenModel.Message
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+    href: IdeaRS.OpenModel.Message.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+    href: IdeaRS.OpenModel.Message.html
+- uid: IdeaRS.OpenModel.Message.IIOMSettings.FileName*
+  commentId: Overload:IdeaRS.OpenModel.Message.IIOMSettings.FileName
+  href: IdeaRS.OpenModel.Message.IIOMSettings.html#IdeaRS.OpenModel.Message.IIOMSettings.FileName
+  name: FileName
+  nameWithType: IIOMSettings.FileName
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings.FileName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully*
+  commentId: Overload:IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+  href: IdeaRS.OpenModel.Message.IIOMSettings.html#IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+  name: CreatedSuccessfully
+  nameWithType: IIOMSettings.CreatedSuccessfully
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings.CreatedSuccessfully
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Message.IIOMSettings.CountryCode*
+  commentId: Overload:IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+  href: IdeaRS.OpenModel.Message.IIOMSettings.html#IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+  name: CountryCode
+  nameWithType: IIOMSettings.CountryCode
+  fullName: IdeaRS.OpenModel.Message.IIOMSettings.CountryCode
+- uid: IdeaRS.OpenModel.CountryCode
+  commentId: T:IdeaRS.OpenModel.CountryCode
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.CountryCode.html
+  name: CountryCode
+  nameWithType: CountryCode
+  fullName: IdeaRS.OpenModel.CountryCode
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html

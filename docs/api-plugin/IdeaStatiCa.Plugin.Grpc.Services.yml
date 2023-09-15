@@ -1,0 +1,30 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.Services
+  commentId: N:IdeaStatiCa.Plugin.Grpc.Services
+  id: IdeaStatiCa.Plugin.Grpc.Services
+  children:
+  - IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService
+  - IdeaStatiCa.Plugin.Grpc.Services.GrpcService
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.Plugin.Grpc.Services
+  nameWithType: IdeaStatiCa.Plugin.Grpc.Services
+  fullName: IdeaStatiCa.Plugin.Grpc.Services
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.Plugin
+references:
+- uid: IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService
+  href: IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService.html
+  name: GrpcBlobStorageService
+  nameWithType: GrpcBlobStorageService
+  fullName: IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService
+- uid: IdeaStatiCa.Plugin.Grpc.Services.GrpcService
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Services.GrpcService
+  href: IdeaStatiCa.Plugin.Grpc.Services.GrpcService.html
+  name: GrpcService
+  nameWithType: GrpcService
+  fullName: IdeaStatiCa.Plugin.Grpc.Services.GrpcService

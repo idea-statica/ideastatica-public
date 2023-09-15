@@ -1,0 +1,2005 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck
+  commentId: T:IdeaStatiCa.Plugin.IConnHiddenCheck
+  id: IConnHiddenCheck
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(System.String,System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(System.String,System.String,System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String,System.String,System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String,System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.Save
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial(System.Int32,System.Int32)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection(System.String,System.Int32,System.Int32)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON(System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM(System.String,System.String)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: IConnHiddenCheck
+  nameWithType: IConnHiddenCheck
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IConnHiddenCheck
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Provides seamlessly data about connections or allows to run hidden calculation of a connection
+  example: []
+  syntax:
+    content: >-
+      [ServiceContract]
+
+      public interface IConnHiddenCheck
+    content.vb: >-
+      <ServiceContract>
+
+      Public Interface IConnHiddenCheck
+  attributes:
+  - type: System.ServiceModel.ServiceContractAttribute
+    ctor: System.ServiceModel.ServiceContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)
+  id: OpenProject(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: OpenProject(string)
+  nameWithType: IConnHiddenCheck.OpenProject(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenProject
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Open idea project in the service
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void OpenProject(string ideaConProject)
+    parameters:
+    - id: ideaConProject
+      type: System.String
+      description: Idea Connection project.
+    content.vb: >-
+      <OperationContract>
+
+      Sub OpenProject(ideaConProject As String)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.OpenProject(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(String)
+  name.vb: OpenProject(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(System.String)
+  id: SaveAsProject(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: SaveAsProject(string)
+  nameWithType: IConnHiddenCheck.SaveAsProject(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SaveAsProject
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Save the current data in file <code class="paramref">newProjectFileName</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void SaveAsProject(string newProjectFileName)
+    parameters:
+    - id: newProjectFileName
+      type: System.String
+      description: File name of the new idea connection project
+    content.vb: >-
+      <OperationContract>
+
+      Sub SaveAsProject(newProjectFileName As String)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.SaveAsProject(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(String)
+  name.vb: SaveAsProject(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.Save
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.Save
+  id: Save
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: Save()
+  nameWithType: IConnHiddenCheck.Save()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.Save()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Save
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 29
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Saves the current data
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void Save()
+    content.vb: >-
+      <OperationContract>
+
+      Sub Save()
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.Save*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  id: ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: ApplyTemplate(string, string, ApplyConnTemplateSetting)
+  nameWithType: IConnHiddenCheck.ApplyTemplate(string, string, ApplyConnTemplateSetting)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(string, string, IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ApplyTemplate
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 39
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Apply the selected template in file <code class="paramref">conTemplateFileName</code> on connection <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Identifier of the connection in the project, empty guid means the first connection in the project
+    - id: conTemplateFileName
+      type: System.String
+      description: contemp filename including connection template
+    - id: connTemplateSetting
+      type: IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting
+      description: Additional setting for application of the template.
+    return:
+      type: System.String
+      description: returns 'OK' if success otherwise an error message
+    content.vb: >-
+      <OperationContract>
+
+      Function ApplyTemplate(connectionId As String, conTemplateFileName As String, connTemplateSetting As ApplyConnTemplateSetting) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.ApplyTemplate(String, String, ApplyConnTemplateSetting)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(String, String, IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  name.vb: ApplyTemplate(String, String, ApplyConnTemplateSetting)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})
+  id: ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: ApplySimpleTemplate(string, string, ApplyConnTemplateSetting, int, List<int>)
+  nameWithType: IConnHiddenCheck.ApplySimpleTemplate(string, string, ApplyConnTemplateSetting, int, List<int>)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(string, string, IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting, int, System.Collections.Generic.List<int>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ApplySimpleTemplate
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 51
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Apply the simple connectionsimple template from file <code class="paramref">templateFilePath</code> on connection <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: The id of the connection on which templete will be applied
+    - id: templateFilePath
+      type: System.String
+      description: The path to the connection teplate
+    - id: connTemplateSetting
+      type: IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting
+      description: The additional settings - e.g. default bolts
+    - id: mainMember
+      type: System.Int32
+      description: Main (supporting member)
+    - id: attachedMembers
+      type: System.Collections.Generic.List{System.Int32}
+      description: The list of members which are supported by <code class="paramref">mainMember</code>
+    return:
+      type: System.String
+      description: Returns 'Ok' in case of the success otherwise 'Fail'
+    content.vb: >-
+      <OperationContract>
+
+      Function ApplySimpleTemplate(connectionId As String, templateFilePath As String, connTemplateSetting As ApplyConnTemplateSetting, mainMember As Integer, attachedMembers As List(Of Integer)) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.ApplySimpleTemplate(String, String, ApplyConnTemplateSetting, Integer, List(Of Integer))
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(String, String, IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting, Integer, System.Collections.Generic.List(Of Integer))
+  name.vb: ApplySimpleTemplate(String, String, ApplyConnTemplateSetting, Integer, List(Of Integer))
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(System.String)
+  id: GetConnectionModelXML(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetConnectionModelXML(string)
+  nameWithType: IConnHiddenCheck.GetConnectionModelXML(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetConnectionModelXML
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 59
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get the geometry of the <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetConnectionModelXML(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Identifier of the required connection
+    return:
+      type: System.String
+      description: Geometry of the connection in the Xml format
+    content.vb: >-
+      <OperationContract>
+
+      Function GetConnectionModelXML(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetConnectionModelXML(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(String)
+  name.vb: GetConnectionModelXML(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String,System.String)
+  id: ExportToTemplate(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: ExportToTemplate(string, string)
+  nameWithType: IConnHiddenCheck.ExportToTemplate(string, string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExportToTemplate
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 68
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Export the manufacture sequence of <code class="paramref">connectionId</code> as a template and save it in <code class="paramref">conTemplateFileName</code> (.contemp file)
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string ExportToTemplate(string connectionId, string conTemplateFileName)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: '>Identifier of the connection in the project, empty guid means the first connection in the project'
+    - id: conTemplateFileName
+      type: System.String
+      description: The file name of the output file
+    return:
+      type: System.String
+      description: returns 'OK' if success otherwise an error message
+    content.vb: >-
+      <OperationContract>
+
+      Function ExportToTemplate(connectionId As String, conTemplateFileName As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.ExportToTemplate(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(String, String)
+  name.vb: ExportToTemplate(String, String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
+  id: GetProjectInfo
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetProjectInfo()
+  nameWithType: IConnHiddenCheck.GetProjectInfo()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetProjectInfo
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 75
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Gets details about the open project and its connections
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      ConProjectInfo GetProjectInfo()
+    return:
+      type: IdeaRS.OpenModel.Connection.ConProjectInfo
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function GetProjectInfo() As ConProjectInfo
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(System.String)
+  id: Calculate(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: Calculate(string)
+  nameWithType: IConnHiddenCheck.Calculate(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Calculate
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 83
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Cakculate connection given by <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      ConnectionResultsData Calculate(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: The identifier of the required connection
+    return:
+      type: IdeaRS.OpenModel.Connection.ConnectionResultsData
+      description: Connection check results
+    content.vb: >-
+      <OperationContract>
+
+      Function Calculate(connectionId As String) As ConnectionResultsData
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.Calculate(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(String)
+  name.vb: Calculate(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling(System.String)
+  id: CalculateBuckling(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: CalculateBuckling(string)
+  nameWithType: IConnHiddenCheck.CalculateBuckling(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CalculateBuckling
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 86
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [OperationContract]
+
+      ConnectionResultsData CalculateBuckling(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+    return:
+      type: IdeaRS.OpenModel.Connection.ConnectionResultsData
+    content.vb: >-
+      <OperationContract>
+
+      Function CalculateBuckling(connectionId As String) As ConnectionResultsData
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.CalculateBuckling(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling(String)
+  name.vb: CalculateBuckling(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost(System.String)
+  id: GetConnectionCost(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetConnectionCost(string)
+  nameWithType: IConnHiddenCheck.GetConnectionCost(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetConnectionCost
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 94
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Gets connection price given by <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetConnectionCost(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: The identifier of the required connection
+    return:
+      type: System.String
+      description: Connection price results
+    content.vb: >-
+      <OperationContract>
+
+      Function GetConnectionCost(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetConnectionCost(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost(String)
+  name.vb: GetConnectionCost(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(System.String)
+  id: GetConnectionModel(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetConnectionModel(string)
+  nameWithType: IConnHiddenCheck.GetConnectionModel(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetConnectionModel
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 101
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get the geometry of the <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      ConnectionData GetConnectionModel(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Identifier of the required connection
+    return:
+      type: IdeaRS.OpenModel.Connection.ConnectionData
+      description: Geometry of the connection in the IOM format
+    content.vb: >-
+      <OperationContract>
+
+      Function GetConnectionModel(connectionId As String) As ConnectionData
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetConnectionModel(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(String)
+  name.vb: GetConnectionModel(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)
+  id: GetAllConnectionData(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetAllConnectionData(string)
+  nameWithType: IConnHiddenCheck.GetAllConnectionData(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetAllConnectionData
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 109
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get structural data and corresponding results of FE analysi for <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetAllConnectionData(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Identifier of the required connection
+    return:
+      type: System.String
+      description: XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)
+    content.vb: >-
+      <OperationContract>
+
+      Function GetAllConnectionData(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetAllConnectionData(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(String)
+  name.vb: GetAllConnectionData(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String,System.String,System.String)
+  id: EvaluateExpression(System.String,System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: EvaluateExpression(string, string, string)
+  nameWithType: IConnHiddenCheck.EvaluateExpression(string, string, string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EvaluateExpression
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 119
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Evaluate expression on connection model <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string EvaluateExpression(string connectionId, string expression, string arumentsJSON)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the connection in the open idea connection project
+    - id: expression
+      type: System.String
+      description: User expression to be evaluated
+    - id: arumentsJSON
+      type: System.String
+      description: Optional agruments in json format (not used now)
+    return:
+      type: System.String
+      description: In case of a success it is the JSON string representing the result of the query. String 'null' if nothing is found. String 'error' in case of any other unspecified error.
+    content.vb: >-
+      <OperationContract>
+
+      Function EvaluateExpression(connectionId As String, expression As String, arumentsJSON As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.EvaluateExpression(String, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(String, String, String)
+  name.vb: EvaluateExpression(String, String, String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM(System.String,System.String)
+  id: UpdateConProjFromIOM(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: UpdateConProjFromIOM(string, string)
+  nameWithType: IConnHiddenCheck.UpdateConProjFromIOM(string, string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UpdateConProjFromIOM
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 127
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Update opened Idea connection project from given <code class="paramref">iomXmlFileName</code>, <code class="paramref">iomResXmlFileName</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName)
+    parameters:
+    - id: iomXmlFileName
+      type: System.String
+      description: Filename of a given IOM xml file
+    - id: iomResXmlFileName
+      type: System.String
+      description: Filename of a given IOM Result xml file
+    content.vb: >-
+      <OperationContract>
+
+      Sub UpdateConProjFromIOM(iomXmlFileName As String, iomResXmlFileName As String)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.UpdateConProjFromIOM(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM(String, String)
+  name.vb: UpdateConProjFromIOM(String, String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(System.String,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(System.String,System.String,System.String)
+  id: CreateConProjFromIOM(System.String,System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: CreateConProjFromIOM(string, string, string)
+  nameWithType: IConnHiddenCheck.CreateConProjFromIOM(string, string, string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CreateConProjFromIOM
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 136
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Creates Idea connection project from given <code class="paramref">iomXmlFileName</code>, <code class="paramref">iomResXmlFileName</code> and projects saves into the <code class="paramref">newIdeaConFileName</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName)
+    parameters:
+    - id: iomXmlFileName
+      type: System.String
+      description: Filename of a given IOM xml file
+    - id: iomResXmlFileName
+      type: System.String
+      description: Filename of a given IOM Result xml file
+    - id: newIdeaConFileName
+      type: System.String
+      description: File name of idea connection project where generated project will be saved
+    content.vb: >-
+      <OperationContract>
+
+      Sub CreateConProjFromIOM(iomXmlFileName As String, iomResXmlFileName As String, newIdeaConFileName As String)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.CreateConProjFromIOM(String, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(String, String, String)
+  name.vb: CreateConProjFromIOM(String, String, String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject
+  id: CloseProject
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: CloseProject()
+  nameWithType: IConnHiddenCheck.CloseProject()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CloseProject
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 142
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Close project which is open in the service
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void CloseProject()
+    content.vb: >-
+      <OperationContract>
+
+      Sub CloseProject()
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel
+  id: Cancel
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: Cancel()
+  nameWithType: IConnHiddenCheck.Cancel()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Cancel
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 148
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Cancel current calcullation
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void Cancel()
+    content.vb: >-
+      <OperationContract>
+
+      Sub Cancel()
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject
+  id: GetMaterialsInProject
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetMaterialsInProject()
+  nameWithType: IConnHiddenCheck.GetMaterialsInProject()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetMaterialsInProject
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 155
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all materials in the currently open project
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      List<ProjectItem> GetMaterialsInProject()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+      description: Materials in the project
+    content.vb: >-
+      <OperationContract>
+
+      Function GetMaterialsInProject() As List(Of ProjectItem)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject
+  id: GetCrossSectionsInProject
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetCrossSectionsInProject()
+  nameWithType: IConnHiddenCheck.GetCrossSectionsInProject()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCrossSectionsInProject
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 162
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all cross-sections in the currently open project
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      List<ProjectItem> GetCrossSectionsInProject()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+      description: Cross-sections in the project
+    content.vb: >-
+      <OperationContract>
+
+      Function GetCrossSectionsInProject() As List(Of ProjectItem)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
+  id: GetBoltAssembliesInProject
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetBoltAssembliesInProject()
+  nameWithType: IConnHiddenCheck.GetBoltAssembliesInProject()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetBoltAssembliesInProject
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 169
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all bolt assemblies in the currently open project
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      List<ProjectItem> GetBoltAssembliesInProject()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+      description: Bolt assemblies in the project
+    content.vb: >-
+      <OperationContract>
+
+      Function GetBoltAssembliesInProject() As List(Of ProjectItem)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(System.String)
+  id: AddBoltAssembly(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: AddBoltAssembly(string)
+  nameWithType: IConnHiddenCheck.AddBoltAssembly(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AddBoltAssembly
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 177
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Add the new bolt assembly. Its type is defined by its name (e.g. 'M12 4.6')
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      int AddBoltAssembly(string boltAssemblyName)
+    parameters:
+    - id: boltAssemblyName
+      type: System.String
+      description: ''
+    return:
+      type: System.Int32
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function AddBoltAssembly(boltAssemblyName As String) As Integer
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.AddBoltAssembly(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(String)
+  name.vb: AddBoltAssembly(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(System.String)
+  id: GetParametersJSON(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetParametersJSON(string)
+  nameWithType: IConnHiddenCheck.GetParametersJSON(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetParametersJSON
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 186
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: >-
+    Get list of parameters in JSON format for <code class="paramref">connectionId</code>
+
+    <a href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</a>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetParametersJSON(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the parameter
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function GetParametersJSON(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetParametersJSON(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(String)
+  name.vb: GetParametersJSON(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON
+  id: GetCodeSetupJSON
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetCodeSetupJSON()
+  nameWithType: IConnHiddenCheck.GetCodeSetupJSON()
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCodeSetupJSON
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 194
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: >-
+    Get code setup in JSON format 
+
+    <a href="https://idea-statica.github.io/iom/iom-api/latest/html/Properties_T_IdeaRS_OpenModel_ConnectionSetup.htm">IOM connection setup</a>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetCodeSetupJSON()
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function GetCodeSetupJSON() As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(System.String,System.String)
+  id: ApplyParameters(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: ApplyParameters(string, string)
+  nameWithType: IConnHiddenCheck.ApplyParameters(string, string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ApplyParameters
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 204
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: >-
+    Apply <code class="paramref">parametersJSON</code> on connection<code class="paramref">connectionId</code>
+
+    <a href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</a>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string ApplyParameters(string connectionId, string parametersJSON)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the parameter
+    - id: parametersJSON
+      type: System.String
+      description: JSON string including parameters
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function ApplyParameters(connectionId As String, parametersJSON As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.ApplyParameters(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(String, String)
+  name.vb: ApplyParameters(String, String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(System.String)
+  id: GetConnectionLoadingJSON(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetConnectionLoadingJSON(string)
+  nameWithType: IConnHiddenCheck.GetConnectionLoadingJSON(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetConnectionLoadingJSON
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 212
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get loading for connection <code class="paramref">connectionId</code> (List of CalcCaseData)
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetConnectionLoadingJSON(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the parameter
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function GetConnectionLoadingJSON(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetConnectionLoadingJSON(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(String)
+  name.vb: GetConnectionLoadingJSON(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(System.String,System.String)
+  id: UpdateLoadingFromJson(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: UpdateLoadingFromJson(string, string)
+  nameWithType: IConnHiddenCheck.UpdateLoadingFromJson(string, string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UpdateLoadingFromJson
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 221
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Set loading for the connection
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string UpdateLoadingFromJson(string connectionId, string loadingJSON)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the connection
+    - id: loadingJSON
+      type: System.String
+      description: JSON including list of CalcCaseData
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function UpdateLoadingFromJson(connectionId As String, loadingJSON As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.UpdateLoadingFromJson(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(String, String)
+  name.vb: UpdateLoadingFromJson(String, String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON(System.String)
+  id: UpdateCodeSetupJSON(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: UpdateCodeSetupJSON(string)
+  nameWithType: IConnHiddenCheck.UpdateCodeSetupJSON(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UpdateCodeSetupJSON
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 230
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Set codesetup for the connection
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string UpdateCodeSetupJSON(string connectionSetupJSON)
+    parameters:
+    - id: connectionSetupJSON
+      type: System.String
+      description: connection setup in JSON format
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <OperationContract>
+
+      Function UpdateCodeSetupJSON(connectionSetupJSON As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.UpdateCodeSetupJSON(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON(String)
+  name.vb: UpdateCodeSetupJSON(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)
+  id: GetCheckResultsJSON(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GetCheckResultsJSON(string)
+  nameWithType: IConnHiddenCheck.GetCheckResultsJSON(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCheckResultsJSON
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 238
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get the details results of the connection <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetCheckResultsJSON(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the connection
+    return:
+      type: System.String
+      description: Json which represents
+    content.vb: >-
+      <OperationContract>
+
+      Function GetCheckResultsJSON(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GetCheckResultsJSON(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(String)
+  name.vb: GetCheckResultsJSON(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations(System.String)
+  id: DeleteAllOperations(System.String)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: DeleteAllOperations(string)
+  nameWithType: IConnHiddenCheck.DeleteAllOperations(string)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeleteAllOperations
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 246
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Delete all manufacturing operations in <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string DeleteAllOperations(string connectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the connection
+    return:
+      type: System.String
+      description: Returns 'Ok' in case of the success otherwise 'Fail'
+    content.vb: >-
+      <OperationContract>
+
+      Function DeleteAllOperations(connectionId As String) As String
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.DeleteAllOperations(String)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations(String)
+  name.vb: DeleteAllOperations(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial(System.Int32,System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial(System.Int32,System.Int32)
+  id: SetCrossSectionMaterial(System.Int32,System.Int32)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: SetCrossSectionMaterial(int, int)
+  nameWithType: IConnHiddenCheck.SetCrossSectionMaterial(int, int)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial(int, int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetCrossSectionMaterial
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 254
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Change the material of a cross-section currently available in the Project
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void SetCrossSectionMaterial(int crossSectionId, int materialId)
+    parameters:
+    - id: crossSectionId
+      type: System.Int32
+      description: Id of the cross-section
+    - id: materialId
+      type: System.Int32
+      description: Id of the material
+    content.vb: >-
+      <OperationContract>
+
+      Sub SetCrossSectionMaterial(crossSectionId As Integer, materialId As Integer)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.SetCrossSectionMaterial(Integer, Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial(Integer, Integer)
+  name.vb: SetCrossSectionMaterial(Integer, Integer)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection(System.String,System.Int32,System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection(System.String,System.Int32,System.Int32)
+  id: SetMemberCrossSection(System.String,System.Int32,System.Int32)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: SetMemberCrossSection(string, int, int)
+  nameWithType: IConnHiddenCheck.SetMemberCrossSection(string, int, int)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection(string, int, int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetMemberCrossSection
+    path: ../src/IdeaStatiCa.Plugin/IConnHiddenCheck.cs
+    startLine: 263
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Change the cross-section of a member in a connection in the Project through
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: Id of the connection
+    - id: memberId
+      type: System.Int32
+      description: Id of the member
+    - id: crossSectionId
+      type: System.Int32
+      description: Id of the cross-section
+    content.vb: >-
+      <OperationContract>
+
+      Sub SetMemberCrossSection(connectionId As String, memberId As Integer, crossSectionId As Integer)
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.SetMemberCrossSection(String, Integer, Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection(String, Integer, Integer)
+  name.vb: SetMemberCrossSection(String, Integer, Integer)
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)
+  name: OpenProject
+  nameWithType: IConnHiddenCheck.OpenProject
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject(System.String)
+  name: SaveAsProject
+  nameWithType: IConnHiddenCheck.SaveAsProject
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.SaveAsProject
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.Save*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.Save
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.Save
+  name: Save
+  nameWithType: IConnHiddenCheck.Save
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.Save
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)
+  name: ApplyTemplate
+  nameWithType: IConnHiddenCheck.ApplyTemplate
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyTemplate
+- uid: IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting
+  commentId: T:IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting
+  parent: IdeaRS.OpenModel.Connection
+  name: ApplyConnTemplateSetting
+  nameWithType: ApplyConnTemplateSetting
+  fullName: IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})
+  name: ApplySimpleTemplate
+  nameWithType: IConnHiddenCheck.ApplySimpleTemplate
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplySimpleTemplate
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Collections.Generic.List{System.Int32}
+  commentId: T:System.Collections.Generic.List{System.Int32}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<int>
+  nameWithType: List<int>
+  fullName: System.Collections.Generic.List<int>
+  nameWithType.vb: List(Of Integer)
+  fullName.vb: System.Collections.Generic.List(Of Integer)
+  name.vb: List(Of Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML(System.String)
+  name: GetConnectionModelXML
+  nameWithType: IConnHiddenCheck.GetConnectionModelXML
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModelXML
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String,System.String)
+  name: ExportToTemplate
+  nameWithType: IConnHiddenCheck.ExportToTemplate
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
+  name: GetProjectInfo
+  nameWithType: IConnHiddenCheck.GetProjectInfo
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
+- uid: IdeaRS.OpenModel.Connection.ConProjectInfo
+  commentId: T:IdeaRS.OpenModel.Connection.ConProjectInfo
+  parent: IdeaRS.OpenModel.Connection
+  name: ConProjectInfo
+  nameWithType: ConProjectInfo
+  fullName: IdeaRS.OpenModel.Connection.ConProjectInfo
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate(System.String)
+  name: Calculate
+  nameWithType: IConnHiddenCheck.Calculate
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.Calculate
+- uid: IdeaRS.OpenModel.Connection.ConnectionResultsData
+  commentId: T:IdeaRS.OpenModel.Connection.ConnectionResultsData
+  parent: IdeaRS.OpenModel.Connection
+  name: ConnectionResultsData
+  nameWithType: ConnectionResultsData
+  fullName: IdeaRS.OpenModel.Connection.ConnectionResultsData
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling(System.String)
+  name: CalculateBuckling
+  nameWithType: IConnHiddenCheck.CalculateBuckling
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.CalculateBuckling
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost(System.String)
+  name: GetConnectionCost
+  nameWithType: IConnHiddenCheck.GetConnectionCost
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionCost
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel(System.String)
+  name: GetConnectionModel
+  nameWithType: IConnHiddenCheck.GetConnectionModel
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionModel
+- uid: IdeaRS.OpenModel.Connection.ConnectionData
+  commentId: T:IdeaRS.OpenModel.Connection.ConnectionData
+  parent: IdeaRS.OpenModel.Connection
+  name: ConnectionData
+  nameWithType: ConnectionData
+  fullName: IdeaRS.OpenModel.Connection.ConnectionData
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)
+  name: GetAllConnectionData
+  nameWithType: IConnHiddenCheck.GetAllConnectionData
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String,System.String,System.String)
+  name: EvaluateExpression
+  nameWithType: IConnHiddenCheck.EvaluateExpression
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM(System.String,System.String)
+  name: UpdateConProjFromIOM
+  nameWithType: IConnHiddenCheck.UpdateConProjFromIOM
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateConProjFromIOM
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM(System.String,System.String,System.String)
+  name: CreateConProjFromIOM
+  nameWithType: IConnHiddenCheck.CreateConProjFromIOM
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.CreateConProjFromIOM
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject
+  name: CloseProject
+  nameWithType: IConnHiddenCheck.CloseProject
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.CloseProject
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel
+  name: Cancel
+  nameWithType: IConnHiddenCheck.Cancel
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.Cancel
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject
+  name: GetMaterialsInProject
+  nameWithType: IConnHiddenCheck.GetMaterialsInProject
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetMaterialsInProject
+- uid: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ProjectItem>
+  nameWithType: List<ProjectItem>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Plugin.ProjectItem>
+  nameWithType.vb: List(Of ProjectItem)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Plugin.ProjectItem)
+  name.vb: List(Of ProjectItem)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.ProjectItem
+    name: ProjectItem
+    href: IdeaStatiCa.Plugin.ProjectItem.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.ProjectItem
+    name: ProjectItem
+    href: IdeaStatiCa.Plugin.ProjectItem.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject
+  name: GetCrossSectionsInProject
+  nameWithType: IConnHiddenCheck.GetCrossSectionsInProject
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCrossSectionsInProject
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
+  name: GetBoltAssembliesInProject
+  nameWithType: IConnHiddenCheck.GetBoltAssembliesInProject
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly(System.String)
+  name: AddBoltAssembly
+  nameWithType: IConnHiddenCheck.AddBoltAssembly
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.AddBoltAssembly
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON(System.String)
+  name: GetParametersJSON
+  nameWithType: IConnHiddenCheck.GetParametersJSON
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetParametersJSON
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON
+  name: GetCodeSetupJSON
+  nameWithType: IConnHiddenCheck.GetCodeSetupJSON
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCodeSetupJSON
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters(System.String,System.String)
+  name: ApplyParameters
+  nameWithType: IConnHiddenCheck.ApplyParameters
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ApplyParameters
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON(System.String)
+  name: GetConnectionLoadingJSON
+  nameWithType: IConnHiddenCheck.GetConnectionLoadingJSON
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetConnectionLoadingJSON
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson(System.String,System.String)
+  name: UpdateLoadingFromJson
+  nameWithType: IConnHiddenCheck.UpdateLoadingFromJson
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON(System.String)
+  name: UpdateCodeSetupJSON
+  nameWithType: IConnHiddenCheck.UpdateCodeSetupJSON
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateCodeSetupJSON
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)
+  name: GetCheckResultsJSON
+  nameWithType: IConnHiddenCheck.GetCheckResultsJSON
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations(System.String)
+  name: DeleteAllOperations
+  nameWithType: IConnHiddenCheck.DeleteAllOperations
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.DeleteAllOperations
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial(System.Int32,System.Int32)
+  name: SetCrossSectionMaterial
+  nameWithType: IConnHiddenCheck.SetCrossSectionMaterial
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.SetCrossSectionMaterial
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection(System.String,System.Int32,System.Int32)
+  name: SetMemberCrossSection
+  nameWithType: IConnHiddenCheck.SetMemberCrossSection
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.SetMemberCrossSection

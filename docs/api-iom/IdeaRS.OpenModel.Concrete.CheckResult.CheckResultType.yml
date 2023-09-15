@@ -1,0 +1,395 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  id: CheckResultType
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  children:
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Capacity
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.CrackWidth
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Deflection
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Detailing
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Fatigue
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Interaction
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Response
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Shear
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Stiffness
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.StressLimitation
+  - IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Torsion
+  langs:
+  - csharp
+  - vb
+  name: CheckResultType
+  nameWithType: CheckResultType
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResultType
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: Check result type
+  example: []
+  syntax:
+    content: public enum CheckResultType
+    content.vb: Public Enum CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Capacity
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Capacity
+  id: Capacity
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Capacity
+  nameWithType: CheckResultType.Capacity
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Capacity
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Capacity
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: calculation of capacity by the interaction diagram
+  example: []
+  syntax:
+    content: Capacity = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Response
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Response
+  id: Response
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Response
+  nameWithType: CheckResultType.Response
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Response
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Response
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: calculation plane of deformation
+  example: []
+  syntax:
+    content: Response = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Shear
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Shear
+  id: Shear
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Shear
+  nameWithType: CheckResultType.Shear
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Shear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Shear
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: shear check
+  example: []
+  syntax:
+    content: Shear = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Torsion
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Torsion
+  id: Torsion
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Torsion
+  nameWithType: CheckResultType.Torsion
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Torsion
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Torsion
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: torsion check
+  example: []
+  syntax:
+    content: Torsion = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Interaction
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Interaction
+  id: Interaction
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Interaction
+  nameWithType: CheckResultType.Interaction
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Interaction
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Interaction
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 32
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: interaction shear+torsion
+  example: []
+  syntax:
+    content: Interaction = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Fatigue
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Fatigue
+  id: Fatigue
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Fatigue
+  nameWithType: CheckResultType.Fatigue
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Fatigue
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Fatigue
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 37
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: calculation - response for fatigue
+  example: []
+  syntax:
+    content: Fatigue = 5
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.StressLimitation
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.StressLimitation
+  id: StressLimitation
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: StressLimitation
+  nameWithType: CheckResultType.StressLimitation
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.StressLimitation
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StressLimitation
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 42
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: stress limitation check
+  example: []
+  syntax:
+    content: StressLimitation = 6
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.CrackWidth
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.CrackWidth
+  id: CrackWidth
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: CrackWidth
+  nameWithType: CheckResultType.CrackWidth
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.CrackWidth
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrackWidth
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 47
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: crack width check
+  example: []
+  syntax:
+    content: CrackWidth = 7
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Detailing
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Detailing
+  id: Detailing
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Detailing
+  nameWithType: CheckResultType.Detailing
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Detailing
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Detailing
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 52
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: detailing check
+  example: []
+  syntax:
+    content: Detailing = 8
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Stiffness
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Stiffness
+  id: Stiffness
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Stiffness
+  nameWithType: CheckResultType.Stiffness
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Stiffness
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Stiffness
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 57
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: stiffness
+  example: []
+  syntax:
+    content: Stiffness = 9
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Deflection
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Deflection
+  id: Deflection
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  langs:
+  - csharp
+  - vb
+  name: Deflection
+  nameWithType: CheckResultType.Deflection
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.Deflection
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Deflection
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
+    startLine: 62
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: deflection
+  example: []
+  syntax:
+    content: Deflection = 10
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+references:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult
+  commentId: N:IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.CheckResult
+  nameWithType: IdeaRS.OpenModel.Concrete.CheckResult
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType.html
+  name: CheckResultType
+  nameWithType: CheckResultType
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType

@@ -1,0 +1,496 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Result.Member
+  commentId: T:IdeaRS.OpenModel.Result.Member
+  id: Member
+  parent: IdeaRS.OpenModel.Result
+  children:
+  - IdeaRS.OpenModel.Result.Member.#ctor
+  - IdeaRS.OpenModel.Result.Member.#ctor(IdeaRS.OpenModel.Result.MemberType,System.Int32)
+  - IdeaRS.OpenModel.Result.Member.Id
+  - IdeaRS.OpenModel.Result.Member.MemberType
+  langs:
+  - csharp
+  - vb
+  name: Member
+  nameWithType: Member
+  fullName: IdeaRS.OpenModel.Result.Member
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/Member.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Member
+    path: ../src/IdeaRS.OpenModel/Result/Member.cs
+    startLine: 24
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Member identification
+  example: []
+  syntax:
+    content: >-
+      [Obfuscation(Feature = "renaming")]
+
+      public class Member
+    content.vb: >-
+      <Obfuscation(Feature:="renaming")>
+
+      Public Class Member
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.Reflection.ObfuscationAttribute
+    ctor: System.Reflection.ObfuscationAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Feature
+      type: System.String
+      value: renaming
+- uid: IdeaRS.OpenModel.Result.Member.#ctor
+  commentId: M:IdeaRS.OpenModel.Result.Member.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Result.Member
+  langs:
+  - csharp
+  - vb
+  name: Member()
+  nameWithType: Member.Member()
+  fullName: IdeaRS.OpenModel.Result.Member.Member()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/Member.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Result/Member.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Constructor
+  example: []
+  syntax:
+    content: public Member()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Result.Member.#ctor*
+  nameWithType.vb: Member.New()
+  fullName.vb: IdeaRS.OpenModel.Result.Member.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Result.Member.#ctor(IdeaRS.OpenModel.Result.MemberType,System.Int32)
+  commentId: M:IdeaRS.OpenModel.Result.Member.#ctor(IdeaRS.OpenModel.Result.MemberType,System.Int32)
+  id: '#ctor(IdeaRS.OpenModel.Result.MemberType,System.Int32)'
+  parent: IdeaRS.OpenModel.Result.Member
+  langs:
+  - csharp
+  - vb
+  name: Member(MemberType, int)
+  nameWithType: Member.Member(MemberType, int)
+  fullName: IdeaRS.OpenModel.Result.Member.Member(IdeaRS.OpenModel.Result.MemberType, int)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/Member.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Result/Member.cs
+    startLine: 41
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Constructor
+  example: []
+  syntax:
+    content: public Member(MemberType memberType, int id)
+    parameters:
+    - id: memberType
+      type: IdeaRS.OpenModel.Result.MemberType
+      description: Type of member
+    - id: id
+      type: System.Int32
+      description: Id of member
+    content.vb: Public Sub New(memberType As MemberType, id As Integer)
+  overload: IdeaRS.OpenModel.Result.Member.#ctor*
+  nameWithType.vb: Member.New(MemberType, Integer)
+  fullName.vb: IdeaRS.OpenModel.Result.Member.New(IdeaRS.OpenModel.Result.MemberType, Integer)
+  name.vb: New(MemberType, Integer)
+- uid: IdeaRS.OpenModel.Result.Member.MemberType
+  commentId: P:IdeaRS.OpenModel.Result.Member.MemberType
+  id: MemberType
+  parent: IdeaRS.OpenModel.Result.Member
+  langs:
+  - csharp
+  - vb
+  name: MemberType
+  nameWithType: Member.MemberType
+  fullName: IdeaRS.OpenModel.Result.Member.MemberType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/Member.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MemberType
+    path: ../src/IdeaRS.OpenModel/Result/Member.cs
+    startLine: 50
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Type of member
+  example: []
+  syntax:
+    content: public MemberType MemberType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Result.MemberType
+    content.vb: Public Property MemberType As MemberType
+  overload: IdeaRS.OpenModel.Result.Member.MemberType*
+- uid: IdeaRS.OpenModel.Result.Member.Id
+  commentId: P:IdeaRS.OpenModel.Result.Member.Id
+  id: Id
+  parent: IdeaRS.OpenModel.Result.Member
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: Member.Id
+  fullName: IdeaRS.OpenModel.Result.Member.Id
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/Member.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Id
+    path: ../src/IdeaRS.OpenModel/Result/Member.cs
+    startLine: 55
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Id of member
+  example: []
+  syntax:
+    content: public int Id { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Id As Integer
+  overload: IdeaRS.OpenModel.Result.Member.Id*
+references:
+- uid: IdeaRS.OpenModel.Result
+  commentId: N:IdeaRS.OpenModel.Result
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Result
+  nameWithType: IdeaRS.OpenModel.Result
+  fullName: IdeaRS.OpenModel.Result
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+    href: IdeaRS.OpenModel.Result.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+    href: IdeaRS.OpenModel.Result.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Result.Member.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Result.Member.#ctor
+  href: IdeaRS.OpenModel.Result.Member.html#IdeaRS.OpenModel.Result.Member.#ctor
+  name: Member
+  nameWithType: Member.Member
+  fullName: IdeaRS.OpenModel.Result.Member.Member
+  nameWithType.vb: Member.New
+  fullName.vb: IdeaRS.OpenModel.Result.Member.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Result.MemberType
+  commentId: T:IdeaRS.OpenModel.Result.MemberType
+  parent: IdeaRS.OpenModel.Result
+  href: IdeaRS.OpenModel.Result.MemberType.html
+  name: MemberType
+  nameWithType: MemberType
+  fullName: IdeaRS.OpenModel.Result.MemberType
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Result.Member.MemberType*
+  commentId: Overload:IdeaRS.OpenModel.Result.Member.MemberType
+  href: IdeaRS.OpenModel.Result.Member.html#IdeaRS.OpenModel.Result.Member.MemberType
+  name: MemberType
+  nameWithType: Member.MemberType
+  fullName: IdeaRS.OpenModel.Result.Member.MemberType
+- uid: IdeaRS.OpenModel.Result.Member.Id*
+  commentId: Overload:IdeaRS.OpenModel.Result.Member.Id
+  href: IdeaRS.OpenModel.Result.Member.html#IdeaRS.OpenModel.Result.Member.Id
+  name: Id
+  nameWithType: Member.Id
+  fullName: IdeaRS.OpenModel.Result.Member.Id

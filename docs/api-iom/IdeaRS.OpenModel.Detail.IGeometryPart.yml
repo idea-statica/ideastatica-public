@@ -1,0 +1,197 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.IGeometryPart
+  commentId: T:IdeaRS.OpenModel.Detail.IGeometryPart
+  id: IGeometryPart
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+  langs:
+  - csharp
+  - vb
+  name: IGeometryPart
+  nameWithType: IGeometryPart
+  fullName: IdeaRS.OpenModel.Detail.IGeometryPart
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IGeometryPart
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Geotery interface
+  example: []
+  syntax:
+    content: public interface IGeometryPart
+    content.vb: Public Interface IGeometryPart
+- uid: IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+  commentId: P:IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+  id: Edges
+  parent: IdeaRS.OpenModel.Detail.IGeometryPart
+  langs:
+  - csharp
+  - vb
+  name: Edges
+  nameWithType: IGeometryPart.Edges
+  fullName: IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Edges
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Lines of input edges on wall or beam
+  example: []
+  syntax:
+    content: List<ReferenceElement> Edges { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.ReferenceElement}
+    content.vb: Property Edges As List(Of ReferenceElement)
+  overload: IdeaRS.OpenModel.Detail.IGeometryPart.Edges*
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: IdeaRS.OpenModel.Detail.IGeometryPart.Edges*
+  commentId: Overload:IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+  href: IdeaRS.OpenModel.Detail.IGeometryPart.html#IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+  name: Edges
+  nameWithType: IGeometryPart.Edges
+  fullName: IdeaRS.OpenModel.Detail.IGeometryPart.Edges
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.ReferenceElement}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.ReferenceElement}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ReferenceElement>
+  nameWithType: List<ReferenceElement>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.ReferenceElement>
+  nameWithType.vb: List(Of ReferenceElement)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.ReferenceElement)
+  name.vb: List(Of ReferenceElement)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.ReferenceElement
+    name: ReferenceElement
+    href: IdeaRS.OpenModel.ReferenceElement.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.ReferenceElement
+    name: ReferenceElement
+    href: IdeaRS.OpenModel.ReferenceElement.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

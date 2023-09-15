@@ -1,0 +1,734 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.Opening
+  commentId: T:IdeaRS.OpenModel.Detail.Opening
+  id: Opening
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.Opening.#ctor
+  - IdeaRS.OpenModel.Detail.Opening.GeomId
+  - IdeaRS.OpenModel.Detail.Opening.InsertPoint
+  - IdeaRS.OpenModel.Detail.Opening.MasterComponent
+  - IdeaRS.OpenModel.Detail.Opening.MasterPoint
+  - IdeaRS.OpenModel.Detail.Opening.Name
+  - IdeaRS.OpenModel.Detail.Opening.Outline
+  - IdeaRS.OpenModel.Detail.Opening.Position
+  langs:
+  - csharp
+  - vb
+  name: Opening
+  nameWithType: Opening
+  fullName: IdeaRS.OpenModel.Detail.Opening
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Opening
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Representation of opening in IDEA StatiCa Detail
+  example: []
+  syntax:
+    content: 'public class Opening : OpenElementId'
+    content.vb: Public Class Opening Inherits OpenElementId
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  derivedClasses:
+  - IdeaRS.OpenModel.Detail.OpeningCirc
+  - IdeaRS.OpenModel.Detail.OpeningRect
+  - IdeaRS.OpenModel.Detail.OpeningRectOffsets
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Detail.Opening.#ctor
+  commentId: M:IdeaRS.OpenModel.Detail.Opening.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: Opening()
+  nameWithType: Opening.Opening()
+  fullName: IdeaRS.OpenModel.Detail.Opening.Opening()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Constructor
+  example: []
+  syntax:
+    content: public Opening()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Detail.Opening.#ctor*
+  nameWithType.vb: Opening.New()
+  fullName.vb: IdeaRS.OpenModel.Detail.Opening.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Detail.Opening.Name
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.Name
+  id: Name
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: Opening.Name
+  fullName: IdeaRS.OpenModel.Detail.Opening.Name
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Name
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Name
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: IdeaRS.OpenModel.Detail.Opening.Name*
+- uid: IdeaRS.OpenModel.Detail.Opening.GeomId
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.GeomId
+  id: GeomId
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: GeomId
+  nameWithType: Opening.GeomId
+  fullName: IdeaRS.OpenModel.Detail.Opening.GeomId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GeomId
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Id representing geometrical parts of Detail
+  example: []
+  syntax:
+    content: public int GeomId { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property GeomId As Integer
+  overload: IdeaRS.OpenModel.Detail.Opening.GeomId*
+- uid: IdeaRS.OpenModel.Detail.Opening.MasterComponent
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.MasterComponent
+  id: MasterComponent
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: MasterComponent
+  nameWithType: Opening.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.Opening.MasterComponent
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterComponent
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 32
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master component
+  example: []
+  syntax:
+    content: public ReferenceElement MasterComponent { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property MasterComponent As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.Opening.MasterComponent*
+- uid: IdeaRS.OpenModel.Detail.Opening.MasterPoint
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.MasterPoint
+  id: MasterPoint
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: MasterPoint
+  nameWithType: Opening.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.Opening.MasterPoint
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterPoint
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 37
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master point 0 - 9
+  example: []
+  syntax:
+    content: public int MasterPoint { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MasterPoint As Integer
+  overload: IdeaRS.OpenModel.Detail.Opening.MasterPoint*
+- uid: IdeaRS.OpenModel.Detail.Opening.InsertPoint
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.InsertPoint
+  id: InsertPoint
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: InsertPoint
+  nameWithType: Opening.InsertPoint
+  fullName: IdeaRS.OpenModel.Detail.Opening.InsertPoint
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InsertPoint
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 42
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Insert point 0 - 9
+  example: []
+  syntax:
+    content: public int InsertPoint { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property InsertPoint As Integer
+  overload: IdeaRS.OpenModel.Detail.Opening.InsertPoint*
+- uid: IdeaRS.OpenModel.Detail.Opening.Outline
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.Outline
+  id: Outline
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: Outline
+  nameWithType: Opening.Outline
+  fullName: IdeaRS.OpenModel.Detail.Opening.Outline
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Outline
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 47
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Outline of Oopening
+  example: []
+  syntax:
+    content: public ReferenceElement Outline { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property Outline As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.Opening.Outline*
+- uid: IdeaRS.OpenModel.Detail.Opening.Position
+  commentId: P:IdeaRS.OpenModel.Detail.Opening.Position
+  id: Position
+  parent: IdeaRS.OpenModel.Detail.Opening
+  langs:
+  - csharp
+  - vb
+  name: Position
+  nameWithType: Opening.Position
+  fullName: IdeaRS.OpenModel.Detail.Opening.Position
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Position
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/Opening.cs
+    startLine: 58
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: >-
+    Offset between MasterPoint and InsertPoint
+
+    If MasterPoint is null, position is from origin of coordinate system
+  example: []
+  syntax:
+    content: public Vector3D Position { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.Vector3D
+    content.vb: Public Property Position As Vector3D
+  overload: IdeaRS.OpenModel.Detail.Opening.Position*
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Detail.Opening.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.#ctor
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.#ctor
+  name: Opening
+  nameWithType: Opening.Opening
+  fullName: IdeaRS.OpenModel.Detail.Opening.Opening
+  nameWithType.vb: Opening.New
+  fullName.vb: IdeaRS.OpenModel.Detail.Opening.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Detail.Opening.Name*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.Name
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.Name
+  name: Name
+  nameWithType: Opening.Name
+  fullName: IdeaRS.OpenModel.Detail.Opening.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Detail.Opening.GeomId*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.GeomId
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.GeomId
+  name: GeomId
+  nameWithType: Opening.GeomId
+  fullName: IdeaRS.OpenModel.Detail.Opening.GeomId
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Detail.Opening.MasterComponent*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.MasterComponent
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.MasterComponent
+  name: MasterComponent
+  nameWithType: Opening.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.Opening.MasterComponent
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.Detail.Opening.MasterPoint*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.MasterPoint
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.MasterPoint
+  name: MasterPoint
+  nameWithType: Opening.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.Opening.MasterPoint
+- uid: IdeaRS.OpenModel.Detail.Opening.InsertPoint*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.InsertPoint
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.InsertPoint
+  name: InsertPoint
+  nameWithType: Opening.InsertPoint
+  fullName: IdeaRS.OpenModel.Detail.Opening.InsertPoint
+- uid: IdeaRS.OpenModel.Detail.Opening.Outline*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.Outline
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.Outline
+  name: Outline
+  nameWithType: Opening.Outline
+  fullName: IdeaRS.OpenModel.Detail.Opening.Outline
+- uid: IdeaRS.OpenModel.Detail.Opening.Position*
+  commentId: Overload:IdeaRS.OpenModel.Detail.Opening.Position
+  href: IdeaRS.OpenModel.Detail.Opening.html#IdeaRS.OpenModel.Detail.Opening.Position
+  name: Position
+  nameWithType: Opening.Position
+  fullName: IdeaRS.OpenModel.Detail.Opening.Position
+- uid: IdeaRS.OpenModel.Geometry3D.Vector3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.Vector3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.OpenModel.Geometry3D.Vector3D.html
+  name: Vector3D
+  nameWithType: Vector3D
+  fullName: IdeaRS.OpenModel.Geometry3D.Vector3D
+- uid: IdeaRS.OpenModel.Geometry3D
+  commentId: N:IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry3D
+  nameWithType: IdeaRS.OpenModel.Geometry3D
+  fullName: IdeaRS.OpenModel.Geometry3D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
