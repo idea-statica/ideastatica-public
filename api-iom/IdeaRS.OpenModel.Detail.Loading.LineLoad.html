@@ -1,0 +1,953 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class LineLoad
+ | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class LineLoad
+ | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../docs/iom/toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaRS_OpenModel_Detail_Loading_LineLoad.md&amp;value=---%0Auid%3A%20IdeaRS.OpenModel.Detail.Loading.LineLoad%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad">
+
+
+
+  <h1 id="IdeaRS_OpenModel_Detail_Loading_LineLoad" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad" class="text-break">
+    Class LineLoad
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IdeaRS.html">IdeaRS</a>.<a class="xref" href="IdeaRS.OpenModel.html">OpenModel</a>.<a class="xref" href="IdeaRS.OpenModel.Detail.html">Detail</a>.<a class="xref" href="IdeaRS.OpenModel.Detail.Loading.html">Loading</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>IdeaRS.OpenModel.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Line load</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class LineLoad : LoadBase</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="IdeaRS.OpenModel.OpenObject.html">OpenObject</a></div>
+      <div><a class="xref" href="IdeaRS.OpenModel.Detail.Loading.LoadBase.html">LoadBase</a></div>
+      <div><span class="xref">LineLoad</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="IdeaRS.OpenModel.Detail.Loading.LoadBase.html#IdeaRS_OpenModel_Detail_Loading_LoadBase_Id">LoadBase.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad__ctor_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.#ctor*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad__ctor" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.#ctor">
+  LineLoad()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LineLoad()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_Angle_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.Angle*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_Angle" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.Angle">
+  Angle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>angle of load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Angle { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegFx_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegFx*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegFx" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegFx">
+  BegFx
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>force in X at biginning</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BegFx { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegFy_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegFy*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegFy" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegFy">
+  BegFy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>force in Y at beginning</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BegFy { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegPositionX_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegPositionX*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegPositionX" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegPositionX">
+  BegPositionX
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L133"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>point support position X</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BegPositionX { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegPositionY_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegPositionY*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_BegPositionY" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.BegPositionY">
+  BegPositionY
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>point support position Y</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BegPositionY { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_Direction_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.Direction*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_Direction" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.Direction">
+  Direction
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>local / global</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LoadDirection Direction { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Detail.LoadDirection.html">LoadDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_DirectionType_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.DirectionType*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_DirectionType" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.DirectionType">
+  DirectionType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L153"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>direction type of load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DirectionType DirectionType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Detail.Loading.DirectionType.html">DirectionType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EdgePositionType_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EdgePositionType*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EdgePositionType" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EdgePositionType">
+  EdgePositionType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L188"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>edge position type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EdgeOrientationType EdgePositionType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Detail.EdgeOrientationType.html">EdgeOrientationType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndFx_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndFx*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndFx" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndFx">
+  EndFx
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>force in X at end</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double EndFx { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndFy_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndFy*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndFy" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndFy">
+  EndFy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>force in Y at end</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double EndFy { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndPositionX_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndPositionX*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndPositionX" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndPositionX">
+  EndPositionX
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>point support position X</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double EndPositionX { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndPositionY_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndPositionY*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_EndPositionY" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.EndPositionY">
+  EndPositionY
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>point support position Y</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double EndPositionY { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_GeneralLine_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.GeneralLine*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_GeneralLine" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.GeneralLine">
+  GeneralLine
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L203"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>general shape</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PolyLine2D GeneralLine { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Geometry2D.PolyLine2D.html">PolyLine2D</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_GeometryPointsPath_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.GeometryPointsPath*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_GeometryPointsPath" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.GeometryPointsPath">
+  GeometryPointsPath
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>list of line load points</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Polygon2D GeometryPointsPath { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Geometry2D.Polygon2D.html">Polygon2D</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_LengthOnEdge_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.LengthOnEdge*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_LengthOnEdge" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.LengthOnEdge">
+  LengthOnEdge
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>length of load</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double LengthOnEdge { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_MasterComponent_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.MasterComponent*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_MasterComponent" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.MasterComponent">
+  MasterComponent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the master component</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReferenceElement MasterComponent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.ReferenceElement.html">ReferenceElement</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_MasterEdge_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.MasterEdge*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_MasterEdge" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.MasterEdge">
+  MasterEdge
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>master component edge</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MasterEdge { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_MasterPoint_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.MasterPoint*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_MasterPoint" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.MasterPoint">
+  MasterPoint
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>master point</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MasterPoint { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_Name_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.Name*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_Name" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or set the name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_PositionOnEdge_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.PositionOnEdge*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_PositionOnEdge" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.PositionOnEdge">
+  PositionOnEdge
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>position od edge</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double PositionOnEdge { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_ResultantForces_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.ResultantForces*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_ResultantForces" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.ResultantForces">
+  ResultantForces
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>forces value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ResultantForces { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_TypeEdgePosition_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.TypeEdgePosition*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_TypeEdgePosition" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.TypeEdgePosition">
+  TypeEdgePosition
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L183"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>edge position type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TypeEdgePosition TypeEdgePosition { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Detail.TypeEdgePosition.html">TypeEdgePosition</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaRS_OpenModel_Detail_Loading_LineLoad_TypeLinePosition_" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.TypeLinePosition*"></a>
+
+  <h3 id="IdeaRS_OpenModel_Detail_Loading_LineLoad_TypeLinePosition" data-uid="IdeaRS.OpenModel.Detail.Loading.LineLoad.TypeLinePosition">
+  TypeLinePosition
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L163"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>type of position</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TypeLinePosition TypeLinePosition { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.html">TypeLinePosition</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs/#L65" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

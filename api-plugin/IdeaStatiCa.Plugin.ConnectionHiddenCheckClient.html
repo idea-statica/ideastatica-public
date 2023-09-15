@@ -1,0 +1,1557 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ConnectionHiddenCheckClient
+ | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ConnectionHiddenCheckClient
+ | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../docs/api/toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaStatiCa_Plugin_ConnectionHiddenCheckClient.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.ConnectionHiddenCheckClient%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient">
+
+
+
+  <h1 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient" class="text-break">
+    Class ConnectionHiddenCheckClient
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IdeaStatiCa.html">IdeaStatiCa</a>.<a class="xref" href="IdeaStatiCa.Plugin.html">Plugin</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>IdeaStatiCa.Plugin.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ConnectionHiddenCheckClient : ClientBase&lt;IConnHiddenCheck&gt;, ICommunicationObject, IDisposable, IConnHiddenCheck</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1">ClientBase</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.IConnHiddenCheck.html">IConnHiddenCheck</a>&gt;</div>
+      <div><span class="xref">ConnectionHiddenCheckClient</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.icommunicationobject">ICommunicationObject</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+      <div><a class="xref" href="IdeaStatiCa.Plugin.IConnHiddenCheck.html">IConnHiddenCheck</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization">ClientBase&lt;IConnHiddenCheck&gt;.GetDefaultValueForInitialization&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open">ClientBase&lt;IConnHiddenCheck&gt;.Open()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort">ClientBase&lt;IConnHiddenCheck&gt;.Abort()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close">ClientBase&lt;IConnHiddenCheck&gt;.Close()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui">ClientBase&lt;IConnHiddenCheck&gt;.DisplayInitializationUI()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel">ClientBase&lt;IConnHiddenCheck&gt;.CreateChannel()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync">ClientBase&lt;IConnHiddenCheck&gt;.InvokeAsync(ClientBase&lt;IConnHiddenCheck&gt;.BeginOperationDelegate, object[], ClientBase&lt;IConnHiddenCheck&gt;.EndOperationDelegate, SendOrPostCallback, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channel">ClientBase&lt;IConnHiddenCheck&gt;.Channel</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.cachesetting">ClientBase&lt;IConnHiddenCheck&gt;.CacheSetting</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channelfactory">ClientBase&lt;IConnHiddenCheck&gt;.ChannelFactory</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.clientcredentials">ClientBase&lt;IConnHiddenCheck&gt;.ClientCredentials</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.state">ClientBase&lt;IConnHiddenCheck&gt;.State</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.innerchannel">ClientBase&lt;IConnHiddenCheck&gt;.InnerChannel</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endpoint">ClientBase&lt;IConnHiddenCheck&gt;.Endpoint</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient__ctor_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.#ctor*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient__ctor_System_ServiceModel_Channels_Binding_System_ServiceModel_EndpointAddress_IdeaStatiCa_Plugin_IPluginLogger_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.#ctor(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress,IdeaStatiCa.Plugin.IPluginLogger)">
+  ConnectionHiddenCheckClient(Binding, EndpointAddress, IPluginLogger)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionHiddenCheckClient(Binding binding, EndpointAddress remoteAddress, IPluginLogger logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>binding</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.channels.binding">Binding</a></dt>
+    <dd></dd>
+    <dt><code>remoteAddress</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.servicemodel.endpointaddress">EndpointAddress</a></dt>
+    <dd></dd>
+    <dt><code>logger</code> <span class="xref">IPluginLogger</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Logger" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Logger">
+  Logger
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly IPluginLogger Logger</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IPluginLogger</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_HiddenCalculatorId_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.HiddenCalculatorId*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_HiddenCalculatorId" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.HiddenCalculatorId">
+  HiddenCalculatorId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int HiddenCalculatorId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Service_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Service*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Service" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Service">
+  Service
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L228"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IConnHiddenCheck Service { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaStatiCa.Plugin.IConnHiddenCheck.html">IConnHiddenCheck</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_AddBoltAssembly_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.AddBoltAssembly*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_AddBoltAssembly_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.AddBoltAssembly(System.String)">
+  AddBoltAssembly(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Add the new bolt assembly. Its type is defined by its name (e.g. 'M12 4.6')</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AddBoltAssembly(string boltAssemblyName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>boltAssemblyName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ApplyParameters_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ApplyParameters*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ApplyParameters_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ApplyParameters(System.String,System.String)">
+  ApplyParameters(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Apply <code class="paramref">parametersJSON</code> on connection<code class="paramref">connectionId</code><a href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ApplyParameters(string connectionId, string parametersJSON)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the parameter</p>
+</dd>
+    <dt><code>parametersJSON</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>JSON string including parameters</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ApplySimpleTemplate_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ApplySimpleTemplate*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ApplySimpleTemplate_System_String_System_String_IdeaRS_OpenModel_Connection_ApplyConnTemplateSetting_System_Int32_System_Collections_Generic_List_System_Int32__" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ApplySimpleTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting,System.Int32,System.Collections.Generic.List{System.Int32})">
+  ApplySimpleTemplate(string, string, ApplyConnTemplateSetting, int, List&lt;int&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Apply the simple connectionsimple template from file <code class="paramref">templateFilePath</code> on connection <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List&lt;int&gt; attachedMembers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The id of the connection on which templete will be applied</p>
+</dd>
+    <dt><code>templateFilePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The path to the connection teplate</p>
+</dd>
+    <dt><code>connTemplateSetting</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting.html">ApplyConnTemplateSetting</a></dt>
+    <dd><p>The additional settings - e.g. default bolts</p>
+</dd>
+    <dt><code>mainMember</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Main (supporting member)</p>
+</dd>
+    <dt><code>attachedMembers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>The list of members which are supported by <code class="paramref">mainMember</code></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Returns 'Ok' in case of the success otherwise 'Fail'</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ApplyTemplate_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ApplyTemplate*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ApplyTemplate_System_String_System_String_IdeaRS_OpenModel_Connection_ApplyConnTemplateSetting_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ApplyTemplate(System.String,System.String,IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting)">
+  ApplyTemplate(string, string, ApplyConnTemplateSetting)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Apply the selected template in file <code class="paramref">conTemplateFileName</code> on connection <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identifier of the connection in the project, empty guid means the first connection in the project</p>
+</dd>
+    <dt><code>conTemplateFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>contemp filename including connection template</p>
+</dd>
+    <dt><code>connTemplateSetting</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting.html">ApplyConnTemplateSetting</a></dt>
+    <dd><p>Additional setting for application of the template.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>returns 'OK' if success otherwise an error message</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Calculate_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Calculate*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Calculate_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Calculate(System.String)">
+  Calculate(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cakculate connection given by <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionResultsData Calculate(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The identifier of the required connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConnectionResultsData.html">ConnectionResultsData</a></dt>
+    <dd><p>Connection check results</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_CalculateBuckling_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.CalculateBuckling*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_CalculateBuckling_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.CalculateBuckling(System.String)">
+  CalculateBuckling(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionResultsData CalculateBuckling(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConnectionResultsData.html">ConnectionResultsData</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Cancel_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Cancel*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Cancel" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Cancel">
+  Cancel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cancel current calcullation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Cancel()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_CloseProject_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.CloseProject*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_CloseProject" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.CloseProject">
+  CloseProject()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Close project which is open in the service</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CloseProject()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_CreateConProjFromIOM_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.CreateConProjFromIOM*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_CreateConProjFromIOM_System_String_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.CreateConProjFromIOM(System.String,System.String,System.String)">
+  CreateConProjFromIOM(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates Idea connection project from given <code class="paramref">iomXmlFileName</code>, <code class="paramref">iomResXmlFileName</code> and projects saves into the <code class="paramref">newIdeaConFileName</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>iomXmlFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filename of a given IOM xml file</p>
+</dd>
+    <dt><code>iomResXmlFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filename of a given IOM Result xml file</p>
+</dd>
+    <dt><code>newIdeaConFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>File name of idea connection project where generated project will be saved</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_DeleteAllOperations_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.DeleteAllOperations*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_DeleteAllOperations_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.DeleteAllOperations(System.String)">
+  DeleteAllOperations(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Delete all manufacturing operations in <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DeleteAllOperations(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Returns 'Ok' in case of the success otherwise 'Fail'</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_EvaluateExpression_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.EvaluateExpression*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_EvaluateExpression_System_String_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.EvaluateExpression(System.String,System.String,System.String)">
+  EvaluateExpression(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L192"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Evaluate expression on connection model <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string EvaluateExpression(string connectionId, string expression, string arumentsJSON)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the connection in the open idea connection project</p>
+</dd>
+    <dt><code>expression</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>User expression to be evaluated</p>
+</dd>
+    <dt><code>arumentsJSON</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Optional agruments in json format (not used now)</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>In case of a success it is the JSON string representing the result of the query. String 'null' if nothing is found. String 'error' in case of any other unspecified error.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ExportToTemplate_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ExportToTemplate*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_ExportToTemplate_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ExportToTemplate(System.String,System.String)">
+  ExportToTemplate(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Export the manufacture sequence of <code class="paramref">connectionId</code> as a template and save it in <code class="paramref">conTemplateFileName</code> (.contemp file)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ExportToTemplate(string connectionId, string conTemplateFileName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><blockquote>
+<p>Identifier of the connection in the project, empty guid means the first connection in the project</p>
+</blockquote>
+</dd>
+    <dt><code>conTemplateFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The file name of the output file</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>returns 'OK' if success otherwise an error message</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetAllConnectionData_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetAllConnectionData*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetAllConnectionData_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetAllConnectionData(System.String)">
+  GetAllConnectionData(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get structural data and corresponding results of FE analysi for <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetAllConnectionData(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identifier of the required connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetBoltAssembliesInProject_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetBoltAssembliesInProject*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetBoltAssembliesInProject" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetBoltAssembliesInProject">
+  GetBoltAssembliesInProject()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get all bolt assemblies in the currently open project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;ProjectItem&gt; GetBoltAssembliesInProject()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</dt>
+    <dd><p>Bolt assemblies in the project</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetCheckResultsJSON_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetCheckResultsJSON*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetCheckResultsJSON_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetCheckResultsJSON(System.String)">
+  GetCheckResultsJSON(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the details results of the connection <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetCheckResultsJSON(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Json which represents</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetCodeSetupJSON_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetCodeSetupJSON*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetCodeSetupJSON" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetCodeSetupJSON">
+  GetCodeSetupJSON()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get code setup in JSON format
+<a href="https://idea-statica.github.io/iom/iom-api/latest/html/Properties_T_IdeaRS_OpenModel_ConnectionSetup.htm">IOM connection setup</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetCodeSetupJSON()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionCost_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionCost*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionCost_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionCost(System.String)">
+  GetConnectionCost(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets connection price given by <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetConnectionCost(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The identifier of the required connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Connection price results</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionLoadingJSON_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionLoadingJSON*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionLoadingJSON_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionLoadingJSON(System.String)">
+  GetConnectionLoadingJSON(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get loading for connection <code class="paramref">connectionId</code> (List of CalcCaseData)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetConnectionLoadingJSON(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the parameter</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionModel_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionModel*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionModel_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionModel(System.String)">
+  GetConnectionModel(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the geometry of the <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConnectionData GetConnectionModel(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identifier of the required connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConnectionData.html">ConnectionData</a></dt>
+    <dd><p>Geometry of the connection in the IOM format</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionModelXML_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionModelXML*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetConnectionModelXML_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetConnectionModelXML(System.String)">
+  GetConnectionModelXML(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the geometry of the <code class="paramref">connectionId</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetConnectionModelXML(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identifier of the required connection</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Geometry of the connection in the Xml format</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetCrossSectionsInProject_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetCrossSectionsInProject*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetCrossSectionsInProject" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetCrossSectionsInProject">
+  GetCrossSectionsInProject()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get all cross-sections in the currently open project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;ProjectItem&gt; GetCrossSectionsInProject()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</dt>
+    <dd><p>Cross-sections in the project</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetMaterialsInProject_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetMaterialsInProject*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetMaterialsInProject" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetMaterialsInProject">
+  GetMaterialsInProject()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get all materials in the currently open project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;ProjectItem&gt; GetMaterialsInProject()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</dt>
+    <dd><p>Materials in the project</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetParametersJSON_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetParametersJSON*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetParametersJSON_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetParametersJSON(System.String)">
+  GetParametersJSON(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L162"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get list of parameters in JSON format for <code class="paramref">connectionId</code><a href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetParametersJSON(string connectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the parameter</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetProjectInfo_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetProjectInfo*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetProjectInfo" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetProjectInfo">
+  GetProjectInfo()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets details about the open project and its connections</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConProjectInfo GetProjectInfo()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="../api-iom/IdeaRS.OpenModel.Connection.ConProjectInfo.html">ConProjectInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_OpenProject_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenProject*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_OpenProject_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenProject(System.String)">
+  OpenProject(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Open idea project in the service</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OpenProject(string ideaConFileName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ideaConFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Save_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Save*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_Save" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Save">
+  Save()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Saves the current data</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Save()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_SaveAsProject_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.SaveAsProject*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_SaveAsProject_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.SaveAsProject(System.String)">
+  SaveAsProject(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Save the current data in file <code class="paramref">newProjectFileName</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SaveAsProject(string newProjectFileName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newProjectFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>File name of the new idea connection project</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_SetCrossSectionMaterial_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.SetCrossSectionMaterial*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_SetCrossSectionMaterial_System_Int32_System_Int32_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.SetCrossSectionMaterial(System.Int32,System.Int32)">
+  SetCrossSectionMaterial(int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L216"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Change the material of a cross-section currently available in the Project</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetCrossSectionMaterial(int crossSectionId, int materialId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>crossSectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Id of the cross-section</p>
+</dd>
+    <dt><code>materialId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Id of the material</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_SetMemberCrossSection_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.SetMemberCrossSection*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_SetMemberCrossSection_System_String_System_Int32_System_Int32_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.SetMemberCrossSection(System.String,System.Int32,System.Int32)">
+  SetMemberCrossSection(string, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L222"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Change the cross-section of a member in a connection in the Project through</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the connection</p>
+</dd>
+    <dt><code>memberId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Id of the member</p>
+</dd>
+    <dt><code>crossSectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Id of the cross-section</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_UpdateCodeSetupJSON_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.UpdateCodeSetupJSON*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_UpdateCodeSetupJSON_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.UpdateCodeSetupJSON(System.String)">
+  UpdateCodeSetupJSON(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set codesetup for the connection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string UpdateCodeSetupJSON(string connectionSetupJSON)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionSetupJSON</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>connection setup in JSON format</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_UpdateConProjFromIOM_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.UpdateConProjFromIOM*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_UpdateConProjFromIOM_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.UpdateConProjFromIOM(System.String,System.String)">
+  UpdateConProjFromIOM(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Update opened Idea connection project from given <code class="paramref">iomXmlFileName</code>, <code class="paramref">iomResXmlFileName</code></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>iomXmlFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filename of a given IOM xml file</p>
+</dd>
+    <dt><code>iomResXmlFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filename of a given IOM Result xml file</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_UpdateLoadingFromJson_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.UpdateLoadingFromJson*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_UpdateLoadingFromJson_System_String_System_String_" data-uid="IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.UpdateLoadingFromJson(System.String,System.String)">
+  UpdateLoadingFromJson(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Set loading for the connection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string UpdateLoadingFromJson(string connectionId, string loadingJSON)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>connectionId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Id of the connection</p>
+</dd>
+    <dt><code>loadingJSON</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>JSON including list of CalcCaseData</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConnectionHiddenCheckClient.cs/#L9" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

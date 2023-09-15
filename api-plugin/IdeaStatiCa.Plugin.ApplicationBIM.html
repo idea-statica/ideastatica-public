@@ -1,0 +1,888 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ApplicationBIM
+ | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ApplicationBIM
+ | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../docs/api/toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaStatiCa_Plugin_ApplicationBIM.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.ApplicationBIM%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="IdeaStatiCa.Plugin.ApplicationBIM">
+
+
+
+  <h1 id="IdeaStatiCa_Plugin_ApplicationBIM" data-uid="IdeaStatiCa.Plugin.ApplicationBIM" class="text-break">
+    Class ApplicationBIM
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IdeaStatiCa.html">IdeaStatiCa</a>.<a class="xref" href="IdeaStatiCa.Plugin.html">Plugin</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>IdeaStatiCa.Plugin.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ErrorHandler(typeof(WcfErrorHandler))]
+public abstract class ApplicationBIM : IApplicationBIM</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ApplicationBIM</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="IdeaStatiCa.Plugin.IApplicationBIM.html">IApplicationBIM</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="../api-bimapilink/IdeaStatiCa.BimApiLink.BimApiApplication.html">BimApiApplication</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM__ctor_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.#ctor*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM__ctor" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.#ctor">
+  ApplicationBIM()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default contructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ApplicationBIM()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM__ctor_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.#ctor*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM__ctor_IdeaStatiCa_Plugin_IPluginLogger_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.#ctor(IdeaStatiCa.Plugin.IPluginLogger)">
+  ApplicationBIM(IPluginLogger)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor for injecting the instance of a pluginLogger</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ApplicationBIM(IPluginLogger logger)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>logger</code> <span class="xref">IPluginLogger</span></dt>
+    <dd><p>The wrapper for pluginLogger</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_ApplicationName_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ApplicationName*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_ApplicationName" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ApplicationName">
+  ApplicationName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract string ApplicationName { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_Id_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.Id*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_Id" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.Id">
+  Id
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Id { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_IdeaStaticaApp_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.IdeaStaticaApp*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_IdeaStaticaApp" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.IdeaStaticaApp">
+  IdeaStaticaApp
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>communication canal for sending message to the checkbot</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IIdeaStaticaApp IdeaStaticaApp { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaStatiCa.Plugin.IIdeaStaticaApp.html">IIdeaStaticaApp</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_Progress_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.Progress*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_Progress" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.Progress">
+  Progress
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>communication canal for sending progress messages</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IProgressMessaging Progress { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaStatiCa.Plugin.IProgressMessaging.html">IProgressMessaging</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_ActivateInBIM_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ActivateInBIM*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_ActivateInBIM_System_Collections_Generic_List_IdeaStatiCa_Plugin_BIMItemId__" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ActivateInBIM(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})">
+  ActivateInBIM(List&lt;BIMItemId&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void ActivateInBIM(List&lt;BIMItemId&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemId.html">BIMItemId</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelection_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelection*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelection" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelection">
+  GetActiveSelection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual List&lt;BIMItemId&gt; GetActiveSelection()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemId.html">BIMItemId</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelectionModel_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelectionModel*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelectionModel_IdeaRS_OpenModel_CountryCode_IdeaStatiCa_Plugin_RequestedItemsType_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelectionModel(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)">
+  GetActiveSelectionModel(CountryCode, RequestedItemsType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModelBIM GetActiveSelectionModel(CountryCode countryCode, RequestedItemsType requestedType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>requestedType</code> <a class="xref" href="IdeaStatiCa.Plugin.RequestedItemsType.html">RequestedItemsType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaStatiCa.Plugin.ModelBIM.html">ModelBIM</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelectionModelXML_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelectionModelXML*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelectionModelXML_IdeaRS_OpenModel_CountryCode_IdeaStatiCa_Plugin_RequestedItemsType_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)">
+  GetActiveSelectionModelXML(CountryCode, RequestedItemsType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetActiveSelectionModelXML(CountryCode countryCode, RequestedItemsType requestedType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>requestedType</code> <a class="xref" href="IdeaStatiCa.Plugin.RequestedItemsType.html">RequestedItemsType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelectionModelXMLAsync_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelectionModelXMLAsync*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetActiveSelectionModelXMLAsync_IdeaRS_OpenModel_CountryCode_IdeaStatiCa_Plugin_RequestedItemsType_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)">
+  GetActiveSelectionModelXMLAsync(CountryCode, RequestedItemsType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetActiveSelectionModelXMLAsync(CountryCode countryCode, RequestedItemsType requestedType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>requestedType</code> <a class="xref" href="IdeaStatiCa.Plugin.RequestedItemsType.html">RequestedItemsType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetApplicationName_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetApplicationName*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetApplicationName" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetApplicationName">
+  GetApplicationName()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetApplicationName()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetModelForSelection_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetModelForSelection*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetModelForSelection_IdeaRS_OpenModel_CountryCode_System_Collections_Generic_List_IdeaStatiCa_Plugin_BIMItemsGroup__" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetModelForSelection(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})">
+  GetModelForSelection(CountryCode, List&lt;BIMItemsGroup&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;ModelBIM&gt; GetModelForSelection(CountryCode countryCode, List&lt;BIMItemsGroup&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemsGroup.html">BIMItemsGroup</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ModelBIM.html">ModelBIM</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetModelForSelectionXML_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetModelForSelectionXML*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetModelForSelectionXML_IdeaRS_OpenModel_CountryCode_System_Collections_Generic_List_IdeaStatiCa_Plugin_BIMItemsGroup__" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})">
+  GetModelForSelectionXML(CountryCode, List&lt;BIMItemsGroup&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a xml string representing a list of BIM models for requested sequence of given <code class="paramref">items</code> - groups.
+Each group in the list of <code class="paramref">items</code> represents designed item such as connection or member and is defined by the id, type and items belonging to the group.
+The item can also has id = -1, which means, that items (members or nodes typically) in this group doesn't belong to any design item (connection or member).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetModelForSelectionXML(CountryCode countryCode, List&lt;BIMItemsGroup&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd><p>The standard that will match the imported models.</p>
+</dd>
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemsGroup.html">BIMItemsGroup</a>&gt;</dt>
+    <dd><p>The sequence of items, for which the BIM model is required.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A xml string representing a list of BIM models for requested <code class="paramref">items</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_GetModelForSelectionXMLAsync_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetModelForSelectionXMLAsync*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_GetModelForSelectionXMLAsync_IdeaRS_OpenModel_CountryCode_System_Collections_Generic_List_IdeaStatiCa_Plugin_BIMItemsGroup__" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})">
+  GetModelForSelectionXMLAsync(CountryCode, List&lt;BIMItemsGroup&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; GetModelForSelectionXMLAsync(CountryCode countryCode, List&lt;BIMItemsGroup&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemsGroup.html">BIMItemsGroup</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_ImportActive_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ImportActive*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_ImportActive_IdeaRS_OpenModel_CountryCode_IdeaStatiCa_Plugin_RequestedItemsType_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ImportActive(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)">
+  ImportActive(CountryCode, RequestedItemsType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract ModelBIM ImportActive(CountryCode countryCode, RequestedItemsType requestedType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>requestedType</code> <a class="xref" href="IdeaStatiCa.Plugin.RequestedItemsType.html">RequestedItemsType</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="IdeaStatiCa.Plugin.ModelBIM.html">ModelBIM</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_ImportSelection_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ImportSelection*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_ImportSelection_IdeaRS_OpenModel_CountryCode_System_Collections_Generic_List_IdeaStatiCa_Plugin_BIMItemsGroup__" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.ImportSelection(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})">
+  ImportSelection(CountryCode, List&lt;BIMItemsGroup&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract List&lt;ModelBIM&gt; ImportSelection(CountryCode countryCode, List&lt;BIMItemsGroup&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>countryCode</code> <a class="xref" href="../api-iom/IdeaRS.OpenModel.CountryCode.html">CountryCode</a></dt>
+    <dd></dd>
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemsGroup.html">BIMItemsGroup</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ModelBIM.html">ModelBIM</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_IsCAD_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.IsCAD*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_IsCAD" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.IsCAD">
+  IsCAD()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsCAD()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_IsDataUpToDate_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.IsDataUpToDate*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_IsDataUpToDate" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.IsDataUpToDate">
+  IsDataUpToDate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsDataUpToDate()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ApplicationBIM_SelectAsync_" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.SelectAsync*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ApplicationBIM_SelectAsync_System_Collections_Generic_List_IdeaStatiCa_Plugin_BIMItemId__" data-uid="IdeaStatiCa.Plugin.ApplicationBIM.SelectAsync(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})">
+  SelectAsync(List&lt;BIMItemId&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task SelectAsync(List&lt;BIMItemId&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.BIMItemId.html">BIMItemId</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ApplicationBIM.cs/#L9" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

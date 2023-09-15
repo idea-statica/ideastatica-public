@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ConversionDictionary&lt;TKey&gt;
+ | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ConversionDictionary&lt;TKey&gt;
+ | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../docs/api/toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaStatiCa_Plugin_ConversionDictionary_1.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.ConversionDictionary%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1">
+
+
+
+  <h1 id="IdeaStatiCa_Plugin_ConversionDictionary_1" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1" class="text-break">
+    Class ConversionDictionary&lt;TKey&gt;
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="IdeaStatiCa.html">IdeaStatiCa</a>.<a class="xref" href="IdeaStatiCa.Plugin.html">Plugin</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>IdeaStatiCa.Plugin.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ConversionDictionary&lt;TKey&gt; : SerializableDictionary&lt;TKey, int&gt;, IDictionary&lt;TKey, int&gt;, ICollection&lt;KeyValuePair&lt;TKey, int&gt;&gt;, IDictionary, ICollection, IReadOnlyDictionary&lt;TKey, int&gt;, IReadOnlyCollection&lt;KeyValuePair&lt;TKey, int&gt;&gt;, IEnumerable&lt;KeyValuePair&lt;TKey, int&gt;&gt;, IEnumerable, IDeserializationCallback, IXmlSerializable, ISerializable</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TKey</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</div>
+      <div><a class="xref" href="IdeaStatiCa.Plugin.SerializableDictionary-2.html">SerializableDictionary</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</div>
+      <div><span class="xref">ConversionDictionary&lt;TKey&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.idictionary">IDictionary</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.icollection">ICollection</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;TKey, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.ideserializationcallback">IDeserializationCallback</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.xml.serialization.ixmlserializable">IXmlSerializable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.iserializable">ISerializable</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="IdeaStatiCa.Plugin.ConversionDictionaryInt.html">ConversionDictionaryInt</a></div>
+      <div><a class="xref" href="IdeaStatiCa.Plugin.ConversionDictionaryString.html">ConversionDictionaryString</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="IdeaStatiCa.Plugin.SerializableDictionary-2.html#IdeaStatiCa_Plugin_SerializableDictionary_2_ValueSerializer">SerializableDictionary&lt;TKey, int&gt;.ValueSerializer</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.add">Dictionary&lt;TKey, int&gt;.Add(TKey, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.clear">Dictionary&lt;TKey, int&gt;.Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.containskey">Dictionary&lt;TKey, int&gt;.ContainsKey(TKey)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.containsvalue">Dictionary&lt;TKey, int&gt;.ContainsValue(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.getenumerator">Dictionary&lt;TKey, int&gt;.GetEnumerator()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.getobjectdata">Dictionary&lt;TKey, int&gt;.GetObjectData(SerializationInfo, StreamingContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.ondeserialization">Dictionary&lt;TKey, int&gt;.OnDeserialization(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.remove">Dictionary&lt;TKey, int&gt;.Remove(TKey)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.trygetvalue">Dictionary&lt;TKey, int&gt;.TryGetValue(TKey, out int)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.comparer">Dictionary&lt;TKey, int&gt;.Comparer</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.count">Dictionary&lt;TKey, int&gt;.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.keys">Dictionary&lt;TKey, int&gt;.Keys</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.values">Dictionary&lt;TKey, int&gt;.Values</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2.item">Dictionary&lt;TKey, int&gt;.this[TKey]</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetExEntityId_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetExEntityId*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetExEntityId__0_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetExEntityId(`0)">
+  GetExEntityId(TKey)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetExEntityId(TKey name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <span class="xref">TKey</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetKey_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetKey*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetKey_System_Int32_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetKey(System.Int32)">
+  GetKey(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TKey GetKey(int id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TKey</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetKey_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetKey*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetKey_System_String_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetKey(System.String)">
+  GetKey(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TKey GetKey(string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TKey</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetSaveKey_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetSaveKey*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_GetSaveKey_System_Int32_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.GetSaveKey(System.Int32)">
+  GetSaveKey(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract TKey GetSaveKey(int Id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TKey</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_InitMerge_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.InitMerge*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_InitMerge_System_Collections_Generic_IList_IdeaStatiCa_Plugin_ProjectItem__" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.InitMerge(System.Collections.Generic.IList{IdeaStatiCa.Plugin.ProjectItem})">
+  InitMerge(IList&lt;ProjectItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InitMerge(IList&lt;ProjectItem&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_MapId_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.MapId*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_MapId__0_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.MapId(`0)">
+  MapId(TKey)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MapId(TKey key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <span class="xref">TKey</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="IdeaStatiCa_Plugin_ConversionDictionary_1_Merge_" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.Merge*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_ConversionDictionary_1_Merge_System_Collections_Generic_IList_IdeaStatiCa_Plugin_ProjectItem__" data-uid="IdeaStatiCa.Plugin.ConversionDictionary`1.Merge(System.Collections.Generic.IList{IdeaStatiCa.Plugin.ProjectItem})">
+  Merge(IList&lt;ProjectItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Merge(IList&lt;ProjectItem&gt; source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="IdeaStatiCa.Plugin.ProjectItem.html">ProjectItem</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/ConversionDictionary.cs/#L11" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
