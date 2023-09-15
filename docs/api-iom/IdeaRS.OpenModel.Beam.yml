@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Beam
+  commentId: N:IdeaRS.OpenModel.Beam
+  id: IdeaRS.OpenModel.Beam
+  children:
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: IdeaRS.OpenModel.Beam
+  nameWithType: IdeaRS.OpenModel.Beam
+  fullName: IdeaRS.OpenModel.Beam
+  type: Namespace
+  assemblies:
+  - IdeaRS.OpenModel
+references:
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  commentId: T:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html
+  name: IdeaBeamImportSettings
+  nameWithType: IdeaBeamImportSettings
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings

@@ -1,0 +1,101 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+  id: IScopeProvider
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  children:
+  - IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope
+  langs:
+  - csharp
+  - vb
+  name: IScopeProvider
+  nameWithType: IScopeProvider
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/IScopeProvider.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IScopeProvider
+    path: ../src/IdeaStatica.BimApiLink/Scoping/IScopeProvider.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: public interface IScopeProvider
+    content.vb: Public Interface IScopeProvider
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope
+  commentId: M:IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope
+  id: GetScope
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+  langs:
+  - csharp
+  - vb
+  name: GetScope()
+  nameWithType: IScopeProvider.GetScope()
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/IScopeProvider.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetScope
+    path: ../src/IdeaStatica.BimApiLink/Scoping/IScopeProvider.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: IScope GetScope()
+    return:
+      type: IdeaStatiCa.BimApiLink.Scoping.IScope
+    content.vb: Function GetScope() As IScope
+  overload: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope*
+references:
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  commentId: N:IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Scoping
+  nameWithType: IdeaStatiCa.BimApiLink.Scoping
+  fullName: IdeaStatiCa.BimApiLink.Scoping
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope
+  href: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.html#IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope
+  name: GetScope
+  nameWithType: IScopeProvider.GetScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.GetScope
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.IScope
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html
+  name: IScope
+  nameWithType: IScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope

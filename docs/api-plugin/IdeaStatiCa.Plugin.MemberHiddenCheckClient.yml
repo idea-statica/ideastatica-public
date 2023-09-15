@@ -1,0 +1,1482 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  commentId: T:IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  id: MemberHiddenCheckClient
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress)
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate(System.Int32)
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject(System.String)
+  - IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service
+  langs:
+  - csharp
+  - vb
+  name: MemberHiddenCheckClient
+  nameWithType: MemberHiddenCheckClient
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MemberHiddenCheckClient
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: 'public class MemberHiddenCheckClient : ClientBase<IMemberHiddenCheck>, ICommunicationObject, IDisposable, IMemberHiddenCheck'
+    content.vb: Public Class MemberHiddenCheckClient Inherits ClientBase(Of IMemberHiddenCheck) Implements ICommunicationObject, IDisposable, IMemberHiddenCheck
+  inheritance:
+  - System.Object
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  implements:
+  - System.ServiceModel.ICommunicationObject
+  - System.IDisposable
+  - IdeaStatiCa.Plugin.IMemberHiddenCheck
+  inheritedMembers:
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.GetDefaultValueForInitialization``1
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Open
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Abort
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Close
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.DisplayInitializationUI
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CreateChannel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Channel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CacheSetting
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.ChannelFactory
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.ClientCredentials
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.State
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InnerChannel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Endpoint
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+  commentId: P:IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+  id: HiddenCalculatorId
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: HiddenCalculatorId
+  nameWithType: MemberHiddenCheckClient.HiddenCalculatorId
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HiddenCalculatorId
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public static int HiddenCalculatorId { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Shared Property HiddenCalculatorId As Integer
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId*
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress)
+  commentId: M:IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress)
+  id: '#ctor(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress)'
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: MemberHiddenCheckClient(Binding, EndpointAddress)
+  nameWithType: MemberHiddenCheckClient.MemberHiddenCheckClient(Binding, EndpointAddress)
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.MemberHiddenCheckClient(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public MemberHiddenCheckClient(Binding binding, EndpointAddress remoteAddress)
+    parameters:
+    - id: binding
+      type: System.ServiceModel.Channels.Binding
+    - id: remoteAddress
+      type: System.ServiceModel.EndpointAddress
+    content.vb: Public Sub New(binding As Binding, remoteAddress As EndpointAddress)
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor*
+  nameWithType.vb: MemberHiddenCheckClient.New(Binding, EndpointAddress)
+  fullName.vb: IdeaStatiCa.Plugin.MemberHiddenCheckClient.New(System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress)
+  name.vb: New(Binding, EndpointAddress)
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject(System.String)
+  commentId: M:IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject(System.String)
+  id: OpenProject(System.String)
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: OpenProject(string)
+  nameWithType: MemberHiddenCheckClient.OpenProject(string)
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenProject
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 19
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Open idea project in the service
+  example: []
+  syntax:
+    content: public void OpenProject(string projectLocation)
+    parameters:
+    - id: projectLocation
+      type: System.String
+    content.vb: Public Sub OpenProject(projectLocation As String)
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject*
+  implements:
+  - IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+  nameWithType.vb: MemberHiddenCheckClient.OpenProject(String)
+  fullName.vb: IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject(String)
+  name.vb: OpenProject(String)
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject
+  commentId: M:IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject
+  id: CloseProject
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: CloseProject()
+  nameWithType: MemberHiddenCheckClient.CloseProject()
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CloseProject
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Close project which is open in the service
+  example: []
+  syntax:
+    content: public void CloseProject()
+    content.vb: Public Sub CloseProject()
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject*
+  implements:
+  - IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate(System.Int32)
+  id: Calculate(System.Int32)
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: Calculate(int)
+  nameWithType: MemberHiddenCheckClient.Calculate(int)
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate(int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Calculate
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 29
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public string Calculate(int subStructureId)
+    parameters:
+    - id: subStructureId
+      type: System.Int32
+    return:
+      type: System.String
+    content.vb: Public Function Calculate(subStructureId As Integer) As String
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate*
+  implements:
+  - IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+  nameWithType.vb: MemberHiddenCheckClient.Calculate(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate(Integer)
+  name.vb: Calculate(Integer)
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel
+  commentId: M:IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel
+  id: Cancel
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: Cancel()
+  nameWithType: MemberHiddenCheckClient.Cancel()
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Cancel
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 34
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Cancel current calcullation
+  example: []
+  syntax:
+    content: public void Cancel()
+    content.vb: Public Sub Cancel()
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel*
+  implements:
+  - IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service
+  commentId: P:IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service
+  id: Service
+  parent: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: MemberHiddenCheckClient.Service
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Service
+    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    startLine: 50
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: protected IMemberHiddenCheck Service { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.Plugin.IMemberHiddenCheck
+    content.vb: Protected ReadOnly Property Service As IMemberHiddenCheck
+  overload: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service*
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  commentId: T:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  parent: System.ServiceModel
+  definition: System.ServiceModel.ClientBase`1
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  name: ClientBase<IMemberHiddenCheck>
+  nameWithType: ClientBase<IMemberHiddenCheck>
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck)
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck)
+  name.vb: ClientBase(Of IMemberHiddenCheck)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck
+    name: IMemberHiddenCheck
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html
+  - name: '>'
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck
+    name: IMemberHiddenCheck
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html
+  - name: )
+- uid: System.ServiceModel.ICommunicationObject
+  commentId: T:System.ServiceModel.ICommunicationObject
+  parent: System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.icommunicationobject
+  name: ICommunicationObject
+  nameWithType: ICommunicationObject
+  fullName: System.ServiceModel.ICommunicationObject
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck
+  commentId: T:IdeaStatiCa.Plugin.IMemberHiddenCheck
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html
+  name: IMemberHiddenCheck
+  nameWithType: IMemberHiddenCheck
+  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.GetDefaultValueForInitialization``1
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.GetDefaultValueForInitialization``1
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-getdefaultvalueforinitialization-1
+  name: GetDefaultValueForInitialization<T>()
+  nameWithType: ClientBase<IMemberHiddenCheck>.GetDefaultValueForInitialization<T>()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.GetDefaultValueForInitialization<T>()
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).GetDefaultValueForInitialization(Of T)()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).GetDefaultValueForInitialization(Of T)()
+  name.vb: GetDefaultValueForInitialization(Of T)()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-getdefaultvalueforinitialization-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-getdefaultvalueforinitialization-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Open
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Open
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.Open
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.open#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-open
+  name: Open()
+  nameWithType: ClientBase<IMemberHiddenCheck>.Open()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.Open()
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).Open()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).Open()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.open#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-open
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.open#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-open
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Abort
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Abort
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.Abort
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.abort#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-abort
+  name: Abort()
+  nameWithType: ClientBase<IMemberHiddenCheck>.Abort()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.Abort()
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).Abort()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).Abort()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.abort#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-abort
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.abort#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-abort
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Close
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Close
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.Close
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.close#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-close
+  name: Close()
+  nameWithType: ClientBase<IMemberHiddenCheck>.Close()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.Close()
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).Close()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).Close()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.close#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-close
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.close#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-close
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.DisplayInitializationUI
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.DisplayInitializationUI
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-displayinitializationui
+  name: DisplayInitializationUI()
+  nameWithType: ClientBase<IMemberHiddenCheck>.DisplayInitializationUI()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.DisplayInitializationUI()
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).DisplayInitializationUI()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).DisplayInitializationUI()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-displayinitializationui
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-displayinitializationui
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CreateChannel
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CreateChannel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.CreateChannel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-createchannel
+  name: CreateChannel()
+  nameWithType: ClientBase<IMemberHiddenCheck>.CreateChannel()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.CreateChannel()
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).CreateChannel()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).CreateChannel()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-createchannel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-createchannel
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  name: InvokeAsync(BeginOperationDelegate, object[], EndOperationDelegate, SendOrPostCallback, object)
+  nameWithType: ClientBase<IMemberHiddenCheck>.InvokeAsync(ClientBase<IMemberHiddenCheck>.BeginOperationDelegate, object[], ClientBase<IMemberHiddenCheck>.EndOperationDelegate, SendOrPostCallback, object)
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.InvokeAsync(System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.BeginOperationDelegate, object[], System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.EndOperationDelegate, System.Threading.SendOrPostCallback, object)
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).InvokeAsync(ClientBase(Of IMemberHiddenCheck).BeginOperationDelegate, Object(), ClientBase(Of IMemberHiddenCheck).EndOperationDelegate, SendOrPostCallback, Object)
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).InvokeAsync(System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).BeginOperationDelegate, Object(), System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).EndOperationDelegate, System.Threading.SendOrPostCallback, Object)
+  name.vb: InvokeAsync(BeginOperationDelegate, Object(), EndOperationDelegate, SendOrPostCallback, Object)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  - name: (
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.imemberhiddencheck}.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.imemberhiddencheck}.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-imemberhiddencheck))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  - name: (
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.imemberhiddencheck}.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.imemberhiddencheck}.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Channel
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Channel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.Channel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.channel
+  name: Channel
+  nameWithType: ClientBase<IMemberHiddenCheck>.Channel
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.Channel
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).Channel
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).Channel
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CacheSetting
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.CacheSetting
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.CacheSetting
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.cachesetting
+  name: CacheSetting
+  nameWithType: ClientBase<IMemberHiddenCheck>.CacheSetting
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.CacheSetting
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).CacheSetting
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).CacheSetting
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.ChannelFactory
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.ChannelFactory
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.ChannelFactory
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.channelfactory
+  name: ChannelFactory
+  nameWithType: ClientBase<IMemberHiddenCheck>.ChannelFactory
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.ChannelFactory
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).ChannelFactory
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).ChannelFactory
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.ClientCredentials
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.ClientCredentials
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.ClientCredentials
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.clientcredentials
+  name: ClientCredentials
+  nameWithType: ClientBase<IMemberHiddenCheck>.ClientCredentials
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.ClientCredentials
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).ClientCredentials
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).ClientCredentials
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.State
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.State
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.State
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.state
+  name: State
+  nameWithType: ClientBase<IMemberHiddenCheck>.State
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.State
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).State
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).State
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InnerChannel
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.InnerChannel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.InnerChannel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.innerchannel
+  name: InnerChannel
+  nameWithType: ClientBase<IMemberHiddenCheck>.InnerChannel
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.InnerChannel
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).InnerChannel
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).InnerChannel
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Endpoint
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}.Endpoint
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IMemberHiddenCheck}
+  definition: System.ServiceModel.ClientBase`1.Endpoint
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.imemberhiddencheck-.endpoint
+  name: Endpoint
+  nameWithType: ClientBase<IMemberHiddenCheck>.Endpoint
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IMemberHiddenCheck>.Endpoint
+  nameWithType.vb: ClientBase(Of IMemberHiddenCheck).Endpoint
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IMemberHiddenCheck).Endpoint
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ServiceModel.ClientBase`1
+  commentId: T:System.ServiceModel.ClientBase`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  name: ClientBase<TChannel>
+  nameWithType: ClientBase<TChannel>
+  fullName: System.ServiceModel.ClientBase<TChannel>
+  nameWithType.vb: ClientBase(Of TChannel)
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel)
+  name.vb: ClientBase(Of TChannel)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: <
+  - name: TChannel
+  - name: '>'
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChannel
+  - name: )
+- uid: System.ServiceModel
+  commentId: N:System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ServiceModel
+  nameWithType: System.ServiceModel
+  fullName: System.ServiceModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+- uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  commentId: M:System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  name: GetDefaultValueForInitialization<T>()
+  nameWithType: ClientBase<TChannel>.GetDefaultValueForInitialization<T>()
+  fullName: System.ServiceModel.ClientBase<TChannel>.GetDefaultValueForInitialization<T>()
+  nameWithType.vb: ClientBase(Of TChannel).GetDefaultValueForInitialization(Of T)()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).GetDefaultValueForInitialization(Of T)()
+  name.vb: GetDefaultValueForInitialization(Of T)()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Open
+  commentId: M:System.ServiceModel.ClientBase`1.Open
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  name: Open()
+  nameWithType: ClientBase<TChannel>.Open()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Open()
+  nameWithType.vb: ClientBase(Of TChannel).Open()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Open()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Abort
+  commentId: M:System.ServiceModel.ClientBase`1.Abort
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  name: Abort()
+  nameWithType: ClientBase<TChannel>.Abort()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Abort()
+  nameWithType.vb: ClientBase(Of TChannel).Abort()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Abort()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Close
+  commentId: M:System.ServiceModel.ClientBase`1.Close
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  name: Close()
+  nameWithType: ClientBase<TChannel>.Close()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Close()
+  nameWithType.vb: ClientBase(Of TChannel).Close()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Close()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  commentId: M:System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  name: DisplayInitializationUI()
+  nameWithType: ClientBase<TChannel>.DisplayInitializationUI()
+  fullName: System.ServiceModel.ClientBase<TChannel>.DisplayInitializationUI()
+  nameWithType.vb: ClientBase(Of TChannel).DisplayInitializationUI()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).DisplayInitializationUI()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.CreateChannel
+  commentId: M:System.ServiceModel.ClientBase`1.CreateChannel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  name: CreateChannel()
+  nameWithType: ClientBase<TChannel>.CreateChannel()
+  fullName: System.ServiceModel.ClientBase<TChannel>.CreateChannel()
+  nameWithType.vb: ClientBase(Of TChannel).CreateChannel()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).CreateChannel()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  commentId: M:System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  name: InvokeAsync(BeginOperationDelegate, object[], EndOperationDelegate, SendOrPostCallback, object)
+  nameWithType: ClientBase<TChannel>.InvokeAsync(ClientBase<TChannel>.BeginOperationDelegate, object[], ClientBase<TChannel>.EndOperationDelegate, SendOrPostCallback, object)
+  fullName: System.ServiceModel.ClientBase<TChannel>.InvokeAsync(System.ServiceModel.ClientBase<TChannel>.BeginOperationDelegate, object[], System.ServiceModel.ClientBase<TChannel>.EndOperationDelegate, System.Threading.SendOrPostCallback, object)
+  nameWithType.vb: ClientBase(Of TChannel).InvokeAsync(ClientBase(Of TChannel).BeginOperationDelegate, Object(), ClientBase(Of TChannel).EndOperationDelegate, SendOrPostCallback, Object)
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).InvokeAsync(System.ServiceModel.ClientBase(Of TChannel).BeginOperationDelegate, Object(), System.ServiceModel.ClientBase(Of TChannel).EndOperationDelegate, System.Threading.SendOrPostCallback, Object)
+  name.vb: InvokeAsync(BeginOperationDelegate, Object(), EndOperationDelegate, SendOrPostCallback, Object)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  - name: (
+  - uid: System.ServiceModel.ClientBase`1.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase`1.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  - name: (
+  - uid: System.ServiceModel.ClientBase`1.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase`1.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Channel
+  commentId: P:System.ServiceModel.ClientBase`1.Channel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channel
+  name: Channel
+  nameWithType: ClientBase<TChannel>.Channel
+  fullName: System.ServiceModel.ClientBase<TChannel>.Channel
+  nameWithType.vb: ClientBase(Of TChannel).Channel
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Channel
+- uid: System.ServiceModel.ClientBase`1.CacheSetting
+  commentId: P:System.ServiceModel.ClientBase`1.CacheSetting
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.cachesetting
+  name: CacheSetting
+  nameWithType: ClientBase<TChannel>.CacheSetting
+  fullName: System.ServiceModel.ClientBase<TChannel>.CacheSetting
+  nameWithType.vb: ClientBase(Of TChannel).CacheSetting
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).CacheSetting
+- uid: System.ServiceModel.ClientBase`1.ChannelFactory
+  commentId: P:System.ServiceModel.ClientBase`1.ChannelFactory
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channelfactory
+  name: ChannelFactory
+  nameWithType: ClientBase<TChannel>.ChannelFactory
+  fullName: System.ServiceModel.ClientBase<TChannel>.ChannelFactory
+  nameWithType.vb: ClientBase(Of TChannel).ChannelFactory
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).ChannelFactory
+- uid: System.ServiceModel.ClientBase`1.ClientCredentials
+  commentId: P:System.ServiceModel.ClientBase`1.ClientCredentials
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.clientcredentials
+  name: ClientCredentials
+  nameWithType: ClientBase<TChannel>.ClientCredentials
+  fullName: System.ServiceModel.ClientBase<TChannel>.ClientCredentials
+  nameWithType.vb: ClientBase(Of TChannel).ClientCredentials
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).ClientCredentials
+- uid: System.ServiceModel.ClientBase`1.State
+  commentId: P:System.ServiceModel.ClientBase`1.State
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.state
+  name: State
+  nameWithType: ClientBase<TChannel>.State
+  fullName: System.ServiceModel.ClientBase<TChannel>.State
+  nameWithType.vb: ClientBase(Of TChannel).State
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).State
+- uid: System.ServiceModel.ClientBase`1.InnerChannel
+  commentId: P:System.ServiceModel.ClientBase`1.InnerChannel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.innerchannel
+  name: InnerChannel
+  nameWithType: ClientBase<TChannel>.InnerChannel
+  fullName: System.ServiceModel.ClientBase<TChannel>.InnerChannel
+  nameWithType.vb: ClientBase(Of TChannel).InnerChannel
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).InnerChannel
+- uid: System.ServiceModel.ClientBase`1.Endpoint
+  commentId: P:System.ServiceModel.ClientBase`1.Endpoint
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endpoint
+  name: Endpoint
+  nameWithType: ClientBase<TChannel>.Endpoint
+  fullName: System.ServiceModel.ClientBase<TChannel>.Endpoint
+  nameWithType.vb: ClientBase(Of TChannel).Endpoint
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Endpoint
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+  name: HiddenCalculatorId
+  nameWithType: MemberHiddenCheckClient.HiddenCalculatorId
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.HiddenCalculatorId
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.#ctor(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress)
+  name: MemberHiddenCheckClient
+  nameWithType: MemberHiddenCheckClient.MemberHiddenCheckClient
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.MemberHiddenCheckClient
+  nameWithType.vb: MemberHiddenCheckClient.New
+  fullName.vb: IdeaStatiCa.Plugin.MemberHiddenCheckClient.New
+  name.vb: New
+- uid: System.ServiceModel.Channels.Binding
+  commentId: T:System.ServiceModel.Channels.Binding
+  parent: System.ServiceModel.Channels
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.channels.binding
+  name: Binding
+  nameWithType: Binding
+  fullName: System.ServiceModel.Channels.Binding
+- uid: System.ServiceModel.EndpointAddress
+  commentId: T:System.ServiceModel.EndpointAddress
+  parent: System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.endpointaddress
+  name: EndpointAddress
+  nameWithType: EndpointAddress
+  fullName: System.ServiceModel.EndpointAddress
+- uid: System.ServiceModel.Channels
+  commentId: N:System.ServiceModel.Channels
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ServiceModel.Channels
+  nameWithType: System.ServiceModel.Channels
+  fullName: System.ServiceModel.Channels
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+  - name: .
+  - uid: System.ServiceModel.Channels
+    name: Channels
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.channels
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+  - name: .
+  - uid: System.ServiceModel.Channels
+    name: Channels
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.channels
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject(System.String)
+  name: OpenProject
+  nameWithType: MemberHiddenCheckClient.OpenProject
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.OpenProject
+- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+  parent: IdeaStatiCa.Plugin.IMemberHiddenCheck
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+  name: OpenProject(string)
+  nameWithType: IMemberHiddenCheck.OpenProject(string)
+  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(string)
+  nameWithType.vb: IMemberHiddenCheck.OpenProject(String)
+  fullName.vb: IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(String)
+  name.vb: OpenProject(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+    name: OpenProject
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+    name: OpenProject
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.OpenProject(System.String)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject
+  name: CloseProject
+  nameWithType: MemberHiddenCheckClient.CloseProject
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.CloseProject
+- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+  commentId: M:IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+  parent: IdeaStatiCa.Plugin.IMemberHiddenCheck
+  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+  name: CloseProject()
+  nameWithType: IMemberHiddenCheck.CloseProject()
+  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+    name: CloseProject
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+    name: CloseProject
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.CloseProject
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate(System.Int32)
+  name: Calculate
+  nameWithType: MemberHiddenCheckClient.Calculate
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Calculate
+- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+  parent: IdeaStatiCa.Plugin.IMemberHiddenCheck
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+  name: Calculate(int)
+  nameWithType: IMemberHiddenCheck.Calculate(int)
+  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(int)
+  nameWithType.vb: IMemberHiddenCheck.Calculate(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(Integer)
+  name.vb: Calculate(Integer)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+    name: Calculate
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+    name: Calculate
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.Calculate(System.Int32)
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel
+  name: Cancel
+  nameWithType: MemberHiddenCheckClient.Cancel
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Cancel
+- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+  commentId: M:IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+  parent: IdeaStatiCa.Plugin.IMemberHiddenCheck
+  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+  name: Cancel()
+  nameWithType: IMemberHiddenCheck.Cancel()
+  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+    name: Cancel
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+    name: Cancel
+    href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html#IdeaStatiCa.Plugin.IMemberHiddenCheck.Cancel
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service*
+  commentId: Overload:IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html#IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service
+  name: Service
+  nameWithType: MemberHiddenCheckClient.Service
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient.Service

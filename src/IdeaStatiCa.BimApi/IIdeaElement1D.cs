@@ -41,7 +41,6 @@ namespace IdeaStatiCa.BimApi
 		/// <summary>
 		/// Returns the segment object that should implement either <see cref="IIdeaLineSegment3D"/> or <see cref="IIdeaArcSegment3D"/>. Must not return null.
 		/// <para>Hint: use is-operator to determine the segment type.</para>
-		/// <para>Segments's <see cref="IIdeaSegment3D.StartNode"/> is connected to <see cref="StartNode"/> and segments's <see cref="IIdeaSegment3D.EndNode"/> is connected to <see cref="EndNode"/></para>
 		/// </summary>
 		IIdeaSegment3D Segment { get; }
 	}

@@ -1,0 +1,1484 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  commentId: T:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  id: ProjectContentClientHandler
+  parent: IdeaStatiCa.Plugin.ProjectContent
+  children:
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor(IdeaStatiCa.Plugin.Grpc.IGrpcSender,IdeaStatiCa.Plugin.IPluginLogger)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create(System.String)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete(System.String)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist(System.String)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get(System.String)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData(System.String,System.IO.Stream)
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData(System.String,System.IO.Stream)
+  langs:
+  - csharp
+  - vb
+  name: ProjectContentClientHandler
+  nameWithType: ProjectContentClientHandler
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProjectContentClientHandler
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 39
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Implementation of <xref href="IdeaStatiCa.Public.IProjectContent" data-throw-if-not-resolved="false"></xref> for accessing project data of using grpc
+  example: []
+  syntax:
+    content: 'public class ProjectContentClientHandler : GrpcMethodInvokerHandler, IMethodInvoker, IGrpcMessageHandler, IProjectContent, IProjectContentStorage'
+    content.vb: Public Class ProjectContentClientHandler Inherits GrpcMethodInvokerHandler Implements IMethodInvoker, IGrpcMessageHandler, IProjectContent, IProjectContentStorage
+  inheritance:
+  - System.Object
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  implements:
+  - IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  - IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+  - IdeaStatiCa.Public.IProjectContent
+  - IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  inheritedMembers:
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandlerName
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.GrpcSender
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor(IdeaStatiCa.Plugin.Grpc.IGrpcSender,IdeaStatiCa.Plugin.IPluginLogger)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor(IdeaStatiCa.Plugin.Grpc.IGrpcSender,IdeaStatiCa.Plugin.IPluginLogger)
+  id: '#ctor(IdeaStatiCa.Plugin.Grpc.IGrpcSender,IdeaStatiCa.Plugin.IPluginLogger)'
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: ProjectContentClientHandler(IGrpcSender, IPluginLogger)
+  nameWithType: ProjectContentClientHandler.ProjectContentClientHandler(IGrpcSender, IPluginLogger)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ProjectContentClientHandler(IdeaStatiCa.Plugin.Grpc.IGrpcSender, IdeaStatiCa.Plugin.IPluginLogger)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 47
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Constructor
+  example: []
+  syntax:
+    content: public ProjectContentClientHandler(IGrpcSender client, IPluginLogger logger)
+    parameters:
+    - id: client
+      type: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+      description: Grpc client
+    - id: logger
+      type: IdeaStatiCa.Plugin.IPluginLogger
+    content.vb: Public Sub New(client As IGrpcSender, logger As IPluginLogger)
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor*
+  nameWithType.vb: ProjectContentClientHandler.New(IGrpcSender, IPluginLogger)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.New(IdeaStatiCa.Plugin.Grpc.IGrpcSender, IdeaStatiCa.Plugin.IPluginLogger)
+  name.vb: New(IGrpcSender, IPluginLogger)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  id: CopyContent(IdeaStatiCa.Public.IProjectContent)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: CopyContent(IProjectContent)
+  nameWithType: ProjectContentClientHandler.CopyContent(IProjectContent)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CopyContent
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 56
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Not implemented
+  example: []
+  syntax:
+    content: public void CopyContent(IProjectContent sourceContent)
+    parameters:
+    - id: sourceContent
+      type: IdeaStatiCa.Public.IProjectContent
+      description: ''
+    content.vb: Public Sub CopyContent(sourceContent As IProjectContent)
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent*
+  implements:
+  - IdeaStatiCa.Public.IProjectContent.CopyContent(IdeaStatiCa.Public.IProjectContent)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create(System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create(System.String)
+  id: Create(System.String)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: Create(string)
+  nameWithType: ProjectContentClientHandler.Create(string)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 66
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Not implemented
+  example: []
+  syntax:
+    content: public Stream Create(string contentId)
+    parameters:
+    - id: contentId
+      type: System.String
+      description: ''
+    return:
+      type: System.IO.Stream
+      description: ''
+    content.vb: Public Function Create(contentId As String) As Stream
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create*
+  implements:
+  - IdeaStatiCa.Public.IProjectContent.Create(System.String)
+  nameWithType.vb: ProjectContentClientHandler.Create(String)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create(String)
+  name.vb: Create(String)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete(System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete(System.String)
+  id: Delete(System.String)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: Delete(string)
+  nameWithType: ProjectContentClientHandler.Delete(string)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Delete
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 75
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Invoke method 'Delete' remotely
+  example: []
+  syntax:
+    content: public void Delete(string contentId)
+    parameters:
+    - id: contentId
+      type: System.String
+      description: Id of the item to delete
+    content.vb: Public Sub Delete(contentId As String)
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete*
+  implements:
+  - IdeaStatiCa.Public.IProjectContent.Delete(System.String)
+  nameWithType.vb: ProjectContentClientHandler.Delete(String)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete(String)
+  name.vb: Delete(String)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist(System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist(System.String)
+  id: Exist(System.String)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: Exist(string)
+  nameWithType: ProjectContentClientHandler.Exist(string)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Exist
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 102
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Invoke method 'Exist' remotely
+  example: []
+  syntax:
+    content: public bool Exist(string contentId)
+    parameters:
+    - id: contentId
+      type: System.String
+      description: Id of the project item
+    return:
+      type: System.Boolean
+      description: OK
+    content.vb: Public Function Exist(contentId As String) As Boolean
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist*
+  implements:
+  - IdeaStatiCa.Public.IProjectContent.Exist(System.String)
+  nameWithType.vb: ProjectContentClientHandler.Exist(String)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist(String)
+  name.vb: Exist(String)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get(System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get(System.String)
+  id: Get(System.String)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: Get(string)
+  nameWithType: ProjectContentClientHandler.Get(string)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Get
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 129
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: ''
+  example: []
+  syntax:
+    content: public Stream Get(string contentId)
+    parameters:
+    - id: contentId
+      type: System.String
+      description: ''
+    return:
+      type: System.IO.Stream
+      description: ''
+    content.vb: Public Function [Get](contentId As String) As Stream
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get*
+  implements:
+  - IdeaStatiCa.Public.IProjectContent.Get(System.String)
+  nameWithType.vb: ProjectContentClientHandler.Get(String)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get(String)
+  name.vb: Get(String)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent
+  id: GetContent
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: GetContent()
+  nameWithType: ProjectContentClientHandler.GetContent()
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetContent
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 138
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Get project content by invoging remote method 'GetContent' using GrpcClient
+  example: []
+  syntax:
+    content: public List<ProjectDataItem> GetContent()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Public.ProjectDataItem}
+      description: List of all project items
+    content.vb: Public Function GetContent() As List(Of ProjectDataItem)
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent*
+  implements:
+  - IdeaStatiCa.Public.IProjectContent.GetContent
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData(System.String,System.IO.Stream)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData(System.String,System.IO.Stream)
+  id: ReadData(System.String,System.IO.Stream)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: ReadData(string, Stream)
+  nameWithType: ProjectContentClientHandler.ReadData(string, Stream)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData(string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReadData
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 168
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Get requested <code class="paramref">contentId</code> by invoking remote method 'Read' by GrpcClient and write them to <code class="paramref">outputStream</code>
+  example: []
+  syntax:
+    content: public int ReadData(string contentId, Stream outputStream)
+    parameters:
+    - id: contentId
+      type: System.String
+      description: valid Id of the requested project content.
+    - id: outputStream
+      type: System.IO.Stream
+      description: Open Stream for witing to store result.
+    return:
+      type: System.Int32
+      description: Always 1
+    content.vb: Public Function ReadData(contentId As String, outputStream As Stream) As Integer
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData*
+  exceptions:
+  - type: System.Exception
+    commentId: T:System.Exception
+    description: Exception is thrown if the operation fails
+  implements:
+  - IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+  nameWithType.vb: ProjectContentClientHandler.ReadData(String, Stream)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData(String, System.IO.Stream)
+  name.vb: ReadData(String, Stream)
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData(System.String,System.IO.Stream)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData(System.String,System.IO.Stream)
+  id: WriteData(System.String,System.IO.Stream)
+  parent: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  langs:
+  - csharp
+  - vb
+  name: WriteData(string, Stream)
+  nameWithType: ProjectContentClientHandler.WriteData(string, Stream)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData(string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WriteData
+    path: ../src/IdeaStatiCa.Plugin/ProjectContent/ProjectContentClientHandler.cs
+    startLine: 198
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.ProjectContent
+  summary: Invoke remote method 'Write' which writes data remotely.
+  example: []
+  syntax:
+    content: public int WriteData(string contentId, Stream inputStream)
+    parameters:
+    - id: contentId
+      type: System.String
+      description: Name of the project item
+    - id: inputStream
+      type: System.IO.Stream
+    return:
+      type: System.Int32
+      description: Always 1
+    content.vb: Public Function WriteData(contentId As String, inputStream As Stream) As Integer
+  overload: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData*
+  exceptions:
+  - type: System.Exception
+    commentId: T:System.Exception
+    description: Exception is thrown if the operation fails
+  implements:
+  - IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+  nameWithType.vb: ProjectContentClientHandler.WriteData(String, Stream)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData(String, System.IO.Stream)
+  name.vb: WriteData(String, Stream)
+references:
+- uid: IdeaStatiCa.Public.IProjectContent
+  commentId: T:IdeaStatiCa.Public.IProjectContent
+  parent: IdeaStatiCa.Public
+  name: IProjectContent
+  nameWithType: IProjectContent
+  fullName: IdeaStatiCa.Public.IProjectContent
+- uid: IdeaStatiCa.Plugin.ProjectContent
+  commentId: N:IdeaStatiCa.Plugin.ProjectContent
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.ProjectContent
+  nameWithType: IdeaStatiCa.Plugin.ProjectContent
+  fullName: IdeaStatiCa.Plugin.ProjectContent
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.ProjectContent
+    name: ProjectContent
+    href: IdeaStatiCa.Plugin.ProjectContent.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.ProjectContent
+    name: ProjectContent
+    href: IdeaStatiCa.Plugin.ProjectContent.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html
+  name: GrpcMethodInvokerHandler
+  nameWithType: GrpcMethodInvokerHandler
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.html
+  name: IMethodInvoker
+  nameWithType: IMethodInvoker
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler.html
+  name: IGrpcMessageHandler
+  nameWithType: IGrpcMessageHandler
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+- uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  commentId: T:IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  parent: IdeaStatiCa.Plugin.ProjectContent
+  href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html
+  name: IProjectContentStorage
+  nameWithType: IProjectContentStorage
+  fullName: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandlerName
+  commentId: F:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandlerName
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandlerName
+  name: HandlerName
+  nameWithType: GrpcMethodInvokerHandler.HandlerName
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandlerName
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.GrpcSender
+  commentId: P:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.GrpcSender
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.GrpcSender
+  name: GrpcSender
+  nameWithType: GrpcMethodInvokerHandler.GrpcSender
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.GrpcSender
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+  commentId: M:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  isExternal: true
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+  name: InvokeMethod<T>(string, Type, params object[])
+  nameWithType: GrpcMethodInvokerHandler.InvokeMethod<T>(string, Type, params object[])
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod<T>(string, System.Type, params object[])
+  nameWithType.vb: GrpcMethodInvokerHandler.InvokeMethod(Of T)(String, Type, ParamArray Object())
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod(Of T)(String, System.Type, ParamArray Object())
+  name.vb: InvokeMethod(Of T)(String, Type, ParamArray Object())
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+    name: InvokeMethod
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+    name: InvokeMethod
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.InvokeMethod``1(System.String,System.Type,System.Object[])
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  name: SendMessageDataSync(GrpcMessage)
+  nameWithType: GrpcMethodInvokerHandler.SendMessageDataSync(GrpcMessage)
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+    name: SendMessageDataSync
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+    name: SendMessageDataSync
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.SendMessageDataSync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  name: HandleServerMessage(GrpcMessage, IGrpcSender)
+  nameWithType: GrpcMethodInvokerHandler.HandleServerMessage(GrpcMessage, IGrpcSender)
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage, IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+    name: HandleServerMessage
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    name: IGrpcSender
+    href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+    name: HandleServerMessage
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleServerMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    name: IGrpcSender
+    href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  name: HandleClientMessage(GrpcMessage, IGrpcSender)
+  nameWithType: GrpcMethodInvokerHandler.HandleClientMessage(GrpcMessage, IGrpcSender)
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage, IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+    name: HandleClientMessage
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    name: IGrpcSender
+    href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+    name: HandleClientMessage
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler.HandleClientMessage(IdeaStatiCa.Plugin.Grpc.GrpcMessage,IdeaStatiCa.Plugin.Grpc.IGrpcSender)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    name: IGrpcSender
+    href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Public
+  commentId: N:IdeaStatiCa.Public
+  name: IdeaStatiCa.Public
+  nameWithType: IdeaStatiCa.Public
+  fullName: IdeaStatiCa.Public
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection
+  commentId: N:IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc.Reflection
+  nameWithType: IdeaStatiCa.Plugin.Grpc.Reflection
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.#ctor(IdeaStatiCa.Plugin.Grpc.IGrpcSender,IdeaStatiCa.Plugin.IPluginLogger)
+  name: ProjectContentClientHandler
+  nameWithType: ProjectContentClientHandler.ProjectContentClientHandler
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ProjectContentClientHandler
+  nameWithType.vb: ProjectContentClientHandler.New
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.New
+  name.vb: New
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  name: IGrpcSender
+  nameWithType: IGrpcSender
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+- uid: IdeaStatiCa.Plugin.IPluginLogger
+  commentId: T:IdeaStatiCa.Plugin.IPluginLogger
+  parent: IdeaStatiCa.Plugin
+  name: IPluginLogger
+  nameWithType: IPluginLogger
+  fullName: IdeaStatiCa.Plugin.IPluginLogger
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  name: CopyContent
+  nameWithType: ProjectContentClientHandler.CopyContent
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.CopyContent
+- uid: IdeaStatiCa.Public.IProjectContent.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  commentId: M:IdeaStatiCa.Public.IProjectContent.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  parent: IdeaStatiCa.Public.IProjectContent
+  name: CopyContent(IProjectContent)
+  nameWithType: IProjectContent.CopyContent(IProjectContent)
+  fullName: IdeaStatiCa.Public.IProjectContent.CopyContent(IdeaStatiCa.Public.IProjectContent)
+  spec.csharp:
+  - uid: IdeaStatiCa.Public.IProjectContent.CopyContent(IdeaStatiCa.Public.IProjectContent)
+    name: CopyContent
+  - name: (
+  - uid: IdeaStatiCa.Public.IProjectContent
+    name: IProjectContent
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Public.IProjectContent.CopyContent(IdeaStatiCa.Public.IProjectContent)
+    name: CopyContent
+  - name: (
+  - uid: IdeaStatiCa.Public.IProjectContent
+    name: IProjectContent
+  - name: )
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create(System.String)
+  name: Create
+  nameWithType: ProjectContentClientHandler.Create
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Create
+- uid: IdeaStatiCa.Public.IProjectContent.Create(System.String)
+  commentId: M:IdeaStatiCa.Public.IProjectContent.Create(System.String)
+  parent: IdeaStatiCa.Public.IProjectContent
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: Create(string)
+  nameWithType: IProjectContent.Create(string)
+  fullName: IdeaStatiCa.Public.IProjectContent.Create(string)
+  nameWithType.vb: IProjectContent.Create(String)
+  fullName.vb: IdeaStatiCa.Public.IProjectContent.Create(String)
+  name.vb: Create(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Public.IProjectContent.Create(System.String)
+    name: Create
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Public.IProjectContent.Create(System.String)
+    name: Create
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete(System.String)
+  name: Delete
+  nameWithType: ProjectContentClientHandler.Delete
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Delete
+- uid: IdeaStatiCa.Public.IProjectContent.Delete(System.String)
+  commentId: M:IdeaStatiCa.Public.IProjectContent.Delete(System.String)
+  parent: IdeaStatiCa.Public.IProjectContent
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: Delete(string)
+  nameWithType: IProjectContent.Delete(string)
+  fullName: IdeaStatiCa.Public.IProjectContent.Delete(string)
+  nameWithType.vb: IProjectContent.Delete(String)
+  fullName.vb: IdeaStatiCa.Public.IProjectContent.Delete(String)
+  name.vb: Delete(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Public.IProjectContent.Delete(System.String)
+    name: Delete
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Public.IProjectContent.Delete(System.String)
+    name: Delete
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist(System.String)
+  name: Exist
+  nameWithType: ProjectContentClientHandler.Exist
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Exist
+- uid: IdeaStatiCa.Public.IProjectContent.Exist(System.String)
+  commentId: M:IdeaStatiCa.Public.IProjectContent.Exist(System.String)
+  parent: IdeaStatiCa.Public.IProjectContent
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: Exist(string)
+  nameWithType: IProjectContent.Exist(string)
+  fullName: IdeaStatiCa.Public.IProjectContent.Exist(string)
+  nameWithType.vb: IProjectContent.Exist(String)
+  fullName.vb: IdeaStatiCa.Public.IProjectContent.Exist(String)
+  name.vb: Exist(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Public.IProjectContent.Exist(System.String)
+    name: Exist
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Public.IProjectContent.Exist(System.String)
+    name: Exist
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get(System.String)
+  name: Get
+  nameWithType: ProjectContentClientHandler.Get
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.Get
+- uid: IdeaStatiCa.Public.IProjectContent.Get(System.String)
+  commentId: M:IdeaStatiCa.Public.IProjectContent.Get(System.String)
+  parent: IdeaStatiCa.Public.IProjectContent
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: Get(string)
+  nameWithType: IProjectContent.Get(string)
+  fullName: IdeaStatiCa.Public.IProjectContent.Get(string)
+  nameWithType.vb: IProjectContent.Get(String)
+  fullName.vb: IdeaStatiCa.Public.IProjectContent.Get(String)
+  name.vb: Get(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Public.IProjectContent.Get(System.String)
+    name: Get
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Public.IProjectContent.Get(System.String)
+    name: Get
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent
+  name: GetContent
+  nameWithType: ProjectContentClientHandler.GetContent
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.GetContent
+- uid: IdeaStatiCa.Public.IProjectContent.GetContent
+  commentId: M:IdeaStatiCa.Public.IProjectContent.GetContent
+  parent: IdeaStatiCa.Public.IProjectContent
+  name: GetContent()
+  nameWithType: IProjectContent.GetContent()
+  fullName: IdeaStatiCa.Public.IProjectContent.GetContent()
+  spec.csharp:
+  - uid: IdeaStatiCa.Public.IProjectContent.GetContent
+    name: GetContent
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Public.IProjectContent.GetContent
+    name: GetContent
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.List{IdeaStatiCa.Public.ProjectDataItem}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Public.ProjectDataItem}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ProjectDataItem>
+  nameWithType: List<ProjectDataItem>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Public.ProjectDataItem>
+  nameWithType.vb: List(Of ProjectDataItem)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Public.ProjectDataItem)
+  name.vb: List(Of ProjectDataItem)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Public.ProjectDataItem
+    name: ProjectDataItem
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Public.ProjectDataItem
+    name: ProjectDataItem
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData(System.String,System.IO.Stream)
+  name: ReadData
+  nameWithType: ProjectContentClientHandler.ReadData
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.ReadData
+- uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+  parent: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  isExternal: true
+  href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html#IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+  name: ReadData(string, Stream)
+  nameWithType: IProjectContentStorage.ReadData(string, Stream)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(string, System.IO.Stream)
+  nameWithType.vb: IProjectContentStorage.ReadData(String, Stream)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(String, System.IO.Stream)
+  name.vb: ReadData(String, Stream)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+    name: ReadData
+    href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html#IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.IO.Stream
+    name: Stream
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+    name: ReadData
+    href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html#IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.ReadData(System.String,System.IO.Stream)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.IO.Stream
+    name: Stream
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  - name: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData*
+  commentId: Overload:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html#IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData(System.String,System.IO.Stream)
+  name: WriteData
+  nameWithType: ProjectContentClientHandler.WriteData
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.WriteData
+- uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+  commentId: M:IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+  parent: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  isExternal: true
+  href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html#IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+  name: WriteData(string, Stream)
+  nameWithType: IProjectContentStorage.WriteData(string, Stream)
+  fullName: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(string, System.IO.Stream)
+  nameWithType.vb: IProjectContentStorage.WriteData(String, Stream)
+  fullName.vb: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(String, System.IO.Stream)
+  name.vb: WriteData(String, Stream)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+    name: WriteData
+    href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html#IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.IO.Stream
+    name: Stream
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+    name: WriteData
+    href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html#IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.WriteData(System.String,System.IO.Stream)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.IO.Stream
+    name: Stream
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  - name: )

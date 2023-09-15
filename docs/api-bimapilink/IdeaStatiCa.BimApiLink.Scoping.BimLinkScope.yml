@@ -1,0 +1,666 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  id: BimLinkScope
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  children:
+  - IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaRS.OpenModel.CountryCode,System.Object)
+  - IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+  - IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+  - IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose
+  - IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+  langs:
+  - csharp
+  - vb
+  name: BimLinkScope
+  nameWithType: BimLinkScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BimLinkScope
+    path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: 'public class BimLinkScope : IScope, IDisposable'
+    content.vb: Public Class BimLinkScope Implements IScope, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - IdeaStatiCa.BimApiLink.Scoping.IScope
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+  id: BimApiImporter
+  parent: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  langs:
+  - csharp
+  - vb
+  name: BimApiImporter
+  nameWithType: BimLinkScope.BimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BimApiImporter
+    path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  example: []
+  syntax:
+    content: public IBimApiImporter BimApiImporter { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    content.vb: Public ReadOnly Property BimApiImporter As IBimApiImporter
+  overload: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter*
+  implements:
+  - IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+  id: CountryCode
+  parent: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  langs:
+  - csharp
+  - vb
+  name: CountryCode
+  nameWithType: BimLinkScope.CountryCode
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CountryCode
+    path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  example: []
+  syntax:
+    content: public CountryCode CountryCode { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CountryCode
+    content.vb: Public ReadOnly Property CountryCode As CountryCode
+  overload: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode*
+  implements:
+  - IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+  id: UserData
+  parent: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  langs:
+  - csharp
+  - vb
+  name: UserData
+  nameWithType: BimLinkScope.UserData
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserData
+    path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  example: []
+  syntax:
+    content: public object UserData { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public ReadOnly Property UserData As Object
+  overload: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData*
+  implements:
+  - IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaRS.OpenModel.CountryCode,System.Object)
+  commentId: M:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaRS.OpenModel.CountryCode,System.Object)
+  id: '#ctor(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaRS.OpenModel.CountryCode,System.Object)'
+  parent: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  langs:
+  - csharp
+  - vb
+  name: BimLinkScope(IBimApiImporter, IScopeHook, CountryCode, object)
+  nameWithType: BimLinkScope.BimLinkScope(IBimApiImporter, IScopeHook, CountryCode, object)
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimLinkScope(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter, IdeaStatiCa.BimApiLink.Hooks.IScopeHook, IdeaRS.OpenModel.CountryCode, object)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+    startLine: 22
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: public BimLinkScope(IBimApiImporter bimApiImporter, IScopeHook scopeHook, CountryCode countryCode, object userData)
+    parameters:
+    - id: bimApiImporter
+      type: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    - id: scopeHook
+      type: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+    - id: userData
+      type: System.Object
+    content.vb: Public Sub New(bimApiImporter As IBimApiImporter, scopeHook As IScopeHook, countryCode As CountryCode, userData As Object)
+  overload: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor*
+  nameWithType.vb: BimLinkScope.New(IBimApiImporter, IScopeHook, CountryCode, Object)
+  fullName.vb: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.New(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter, IdeaStatiCa.BimApiLink.Hooks.IScopeHook, IdeaRS.OpenModel.CountryCode, Object)
+  name.vb: New(IBimApiImporter, IScopeHook, CountryCode, Object)
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose
+  commentId: M:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose
+  id: Dispose
+  parent: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: BimLinkScope.Dispose()
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dispose
+    path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
+    startLine: 32
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose()
+  overload: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+references:
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  commentId: N:IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Scoping
+  nameWithType: IdeaStatiCa.BimApiLink.Scoping
+  fullName: IdeaStatiCa.BimApiLink.Scoping
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.IScope
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html
+  name: IScope
+  nameWithType: IScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+  href: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.html#IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+  name: BimApiImporter
+  nameWithType: BimLinkScope.BimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimApiImporter
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScope
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html#IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  name: BimApiImporter
+  nameWithType: IScope.BimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+- uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+  commentId: T:IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+  parent: IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.html
+  name: IBimApiImporter
+  nameWithType: IBimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+- uid: IdeaStatiCa.BimApiLink.Importers
+  commentId: N:IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Importers
+  nameWithType: IdeaStatiCa.BimApiLink.Importers
+  fullName: IdeaStatiCa.BimApiLink.Importers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+  href: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.html#IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+  name: CountryCode
+  nameWithType: BimLinkScope.CountryCode
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.CountryCode
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScope
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html#IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  name: CountryCode
+  nameWithType: IScope.CountryCode
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+- uid: IdeaRS.OpenModel.CountryCode
+  commentId: T:IdeaRS.OpenModel.CountryCode
+  parent: IdeaRS.OpenModel
+  name: CountryCode
+  nameWithType: CountryCode
+  fullName: IdeaRS.OpenModel.CountryCode
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+  href: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.html#IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+  name: UserData
+  nameWithType: BimLinkScope.UserData
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.UserData
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScope
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html#IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  name: UserData
+  nameWithType: IScope.UserData
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor
+  href: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.html#IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.#ctor(IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaRS.OpenModel.CountryCode,System.Object)
+  name: BimLinkScope
+  nameWithType: BimLinkScope.BimLinkScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.BimLinkScope
+  nameWithType.vb: BimLinkScope.New
+  fullName.vb: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.New
+  name.vb: New
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  name: IScopeHook
+  nameWithType: IScopeHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  commentId: N:IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Hooks
+  nameWithType: IdeaStatiCa.BimApiLink.Hooks
+  fullName: IdeaStatiCa.BimApiLink.Hooks
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+- uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose
+  href: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.html#IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose
+  name: Dispose
+  nameWithType: BimLinkScope.Dispose
+  fullName: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope.Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )

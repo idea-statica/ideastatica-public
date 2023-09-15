@@ -1,0 +1,278 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IProgressCallback
+  commentId: T:IdeaStatiCa.Plugin.IProgressCallback
+  id: IProgressCallback
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  - IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  - IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  langs:
+  - csharp
+  - vb
+  name: IProgressCallback
+  nameWithType: IProgressCallback
+  fullName: IdeaStatiCa.Plugin.IProgressCallback
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressCallback.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IProgressCallback
+    path: ../src/IdeaStatiCa.Plugin/IProgressCallback.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [ServiceContract]
+
+      public interface IProgressCallback
+    content.vb: >-
+      <ServiceContract>
+
+      Public Interface IProgressCallback
+  attributes:
+  - type: System.ServiceModel.ServiceContractAttribute
+    ctor: System.ServiceModel.ServiceContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  commentId: M:IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  id: ExceptionMessage(System.String,System.Exception)
+  parent: IdeaStatiCa.Plugin.IProgressCallback
+  langs:
+  - csharp
+  - vb
+  name: ExceptionMessage(string, Exception)
+  nameWithType: IProgressCallback.ExceptionMessage(string, Exception)
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(string, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressCallback.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExceptionMessage
+    path: ../src/IdeaStatiCa.Plugin/IProgressCallback.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Method is called when an exception occurs on the server.
+  example: []
+  syntax:
+    content: >-
+      [OperationContract(IsOneWay = true)]
+
+      void ExceptionMessage(string function, Exception exception)
+    parameters:
+    - id: function
+      type: System.String
+      description: Name of the method.
+    - id: exception
+      type: System.Exception
+      description: Details of the exception
+    content.vb: >-
+      <OperationContract(IsOneWay:=True)>
+
+      Sub ExceptionMessage([function] As String, exception As Exception)
+  overload: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: IsOneWay
+      type: System.Boolean
+      value: true
+  nameWithType.vb: IProgressCallback.ExceptionMessage(String, Exception)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(String, System.Exception)
+  name.vb: ExceptionMessage(String, Exception)
+- uid: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  id: ProgressMessage(System.Double,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressCallback
+  langs:
+  - csharp
+  - vb
+  name: ProgressMessage(double, string)
+  nameWithType: IProgressCallback.ProgressMessage(double, string)
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(double, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressCallback.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProgressMessage
+    path: ../src/IdeaStatiCa.Plugin/IProgressCallback.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: infomation about progress of event.
+  example: []
+  syntax:
+    content: >-
+      [OperationContract(IsOneWay = true)]
+
+      void ProgressMessage(double percent, string message)
+    parameters:
+    - id: percent
+      type: System.Double
+      description: percentage of event status
+    - id: message
+      type: System.String
+      description: message
+    content.vb: >-
+      <OperationContract(IsOneWay:=True)>
+
+      Sub ProgressMessage(percent As Double, message As String)
+  overload: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: IsOneWay
+      type: System.Boolean
+      value: true
+  nameWithType.vb: IProgressCallback.ProgressMessage(Double, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(Double, String)
+  name.vb: ProgressMessage(Double, String)
+- uid: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  id: IterationMessage(System.Double,System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressCallback
+  langs:
+  - csharp
+  - vb
+  name: IterationMessage(double, string, string)
+  nameWithType: IProgressCallback.IterationMessage(double, string, string)
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(double, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressCallback.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IterationMessage
+    path: ../src/IdeaStatiCa.Plugin/IProgressCallback.cs
+    startLine: 30
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: infomation about progress of event.
+  example: []
+  syntax:
+    content: >-
+      [OperationContract(IsOneWay = true)]
+
+      void IterationMessage(double percent, string message, string iteration)
+    parameters:
+    - id: percent
+      type: System.Double
+      description: percentage of event status
+    - id: message
+      type: System.String
+      description: message
+    - id: iteration
+      type: System.String
+      description: Number of the iteration (FEM solver steps)
+    content.vb: >-
+      <OperationContract(IsOneWay:=True)>
+
+      Sub IterationMessage(percent As Double, message As String, iteration As String)
+  overload: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: IsOneWay
+      type: System.Boolean
+      value: true
+  nameWithType.vb: IProgressCallback.IterationMessage(Double, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(Double, String, String)
+  name.vb: IterationMessage(Double, String, String)
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage
+  href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  name: ExceptionMessage
+  nameWithType: IProgressCallback.ExceptionMessage
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage
+  href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  name: ProgressMessage
+  nameWithType: IProgressCallback.ProgressMessage
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressCallback.IterationMessage
+  href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  name: IterationMessage
+  nameWithType: IProgressCallback.IterationMessage
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage

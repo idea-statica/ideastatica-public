@@ -1,0 +1,737 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.WallRect
+  commentId: T:IdeaRS.OpenModel.Detail.WallRect
+  id: WallRect
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.WallRect.#ctor
+  - IdeaRS.OpenModel.Detail.WallRect.Height
+  - IdeaRS.OpenModel.Detail.WallRect.Offset1
+  - IdeaRS.OpenModel.Detail.WallRect.Offset2
+  - IdeaRS.OpenModel.Detail.WallRect.Width
+  langs:
+  - csharp
+  - vb
+  name: WallRect
+  nameWithType: WallRect
+  fullName: IdeaRS.OpenModel.Detail.WallRect
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WallRect
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Representation of rectangular element2D in IDEA StatiCa Detail
+  example: []
+  syntax:
+    content: >-
+      [OpenModelClass(typeof(Wall))]
+
+      public class WallRect : Wall, IGeometryPart
+    content.vb: >-
+      <OpenModelClass(GetType(Wall))>
+
+      Public Class WallRect Inherits Wall Implements IGeometryPart
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  - IdeaRS.OpenModel.Model.Element2D
+  - IdeaRS.OpenModel.Detail.Wall
+  implements:
+  - IdeaRS.OpenModel.Detail.IGeometryPart
+  inheritedMembers:
+  - IdeaRS.OpenModel.Detail.Wall.GeomId
+  - IdeaRS.OpenModel.Detail.Wall.MasterComponent
+  - IdeaRS.OpenModel.Detail.Wall.MasterPoint
+  - IdeaRS.OpenModel.Detail.Wall.InsertPoint
+  - IdeaRS.OpenModel.Detail.Wall.Edges
+  - IdeaRS.OpenModel.Detail.Wall.Position
+  - IdeaRS.OpenModel.Model.Element2D.Name
+  - IdeaRS.OpenModel.Model.Element2D.Material
+  - IdeaRS.OpenModel.Model.Element2D.GeometricRegion
+  - IdeaRS.OpenModel.Model.Element2D.Thickness
+  - IdeaRS.OpenModel.Model.Element2D.EccentricityZ
+  - IdeaRS.OpenModel.Model.Element2D.InnerLines
+  - IdeaRS.OpenModel.Model.Element2D.InnerPoints
+  - IdeaRS.OpenModel.Model.Element2D.ElementType
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.Type)
+    arguments:
+    - type: System.Type
+      value: IdeaRS.OpenModel.Detail.Wall
+- uid: IdeaRS.OpenModel.Detail.WallRect.#ctor
+  commentId: M:IdeaRS.OpenModel.Detail.WallRect.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Detail.WallRect
+  langs:
+  - csharp
+  - vb
+  name: WallRect()
+  nameWithType: WallRect.WallRect()
+  fullName: IdeaRS.OpenModel.Detail.WallRect.WallRect()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Coonstructor
+  example: []
+  syntax:
+    content: public WallRect()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Detail.WallRect.#ctor*
+  nameWithType.vb: WallRect.New()
+  fullName.vb: IdeaRS.OpenModel.Detail.WallRect.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Detail.WallRect.Width
+  commentId: P:IdeaRS.OpenModel.Detail.WallRect.Width
+  id: Width
+  parent: IdeaRS.OpenModel.Detail.WallRect
+  langs:
+  - csharp
+  - vb
+  name: Width
+  nameWithType: WallRect.Width
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Width
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Width
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+    startLine: 19
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Width of wall
+  example: []
+  syntax:
+    content: public double Width { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Width As Double
+  overload: IdeaRS.OpenModel.Detail.WallRect.Width*
+- uid: IdeaRS.OpenModel.Detail.WallRect.Height
+  commentId: P:IdeaRS.OpenModel.Detail.WallRect.Height
+  id: Height
+  parent: IdeaRS.OpenModel.Detail.WallRect
+  langs:
+  - csharp
+  - vb
+  name: Height
+  nameWithType: WallRect.Height
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Height
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Height
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+    startLine: 24
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Height of wall
+  example: []
+  syntax:
+    content: public double Height { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Height As Double
+  overload: IdeaRS.OpenModel.Detail.WallRect.Height*
+- uid: IdeaRS.OpenModel.Detail.WallRect.Offset1
+  commentId: P:IdeaRS.OpenModel.Detail.WallRect.Offset1
+  id: Offset1
+  parent: IdeaRS.OpenModel.Detail.WallRect
+  langs:
+  - csharp
+  - vb
+  name: Offset1
+  nameWithType: WallRect.Offset1
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Offset1
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Offset1
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+    startLine: 29
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Offset horizontal top left
+  example: []
+  syntax:
+    content: public double Offset1 { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Offset1 As Double
+  overload: IdeaRS.OpenModel.Detail.WallRect.Offset1*
+- uid: IdeaRS.OpenModel.Detail.WallRect.Offset2
+  commentId: P:IdeaRS.OpenModel.Detail.WallRect.Offset2
+  id: Offset2
+  parent: IdeaRS.OpenModel.Detail.WallRect
+  langs:
+  - csharp
+  - vb
+  name: Offset2
+  nameWithType: WallRect.Offset2
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Offset2
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Offset2
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/WallRect.cs
+    startLine: 34
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Offset horizontal top left
+  example: []
+  syntax:
+    content: public double Offset2 { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Offset2 As Double
+  overload: IdeaRS.OpenModel.Detail.WallRect.Offset2*
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.Model.Element2D
+  commentId: T:IdeaRS.OpenModel.Model.Element2D
+  parent: IdeaRS.OpenModel.Model
+  href: IdeaRS.OpenModel.Model.Element2D.html
+  name: Element2D
+  nameWithType: Element2D
+  fullName: IdeaRS.OpenModel.Model.Element2D
+- uid: IdeaRS.OpenModel.Detail.Wall
+  commentId: T:IdeaRS.OpenModel.Detail.Wall
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.Wall.html
+  name: Wall
+  nameWithType: Wall
+  fullName: IdeaRS.OpenModel.Detail.Wall
+- uid: IdeaRS.OpenModel.Detail.IGeometryPart
+  commentId: T:IdeaRS.OpenModel.Detail.IGeometryPart
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.IGeometryPart.html
+  name: IGeometryPart
+  nameWithType: IGeometryPart
+  fullName: IdeaRS.OpenModel.Detail.IGeometryPart
+- uid: IdeaRS.OpenModel.Detail.Wall.GeomId
+  commentId: P:IdeaRS.OpenModel.Detail.Wall.GeomId
+  parent: IdeaRS.OpenModel.Detail.Wall
+  href: IdeaRS.OpenModel.Detail.Wall.html#IdeaRS.OpenModel.Detail.Wall.GeomId
+  name: GeomId
+  nameWithType: Wall.GeomId
+  fullName: IdeaRS.OpenModel.Detail.Wall.GeomId
+- uid: IdeaRS.OpenModel.Detail.Wall.MasterComponent
+  commentId: P:IdeaRS.OpenModel.Detail.Wall.MasterComponent
+  parent: IdeaRS.OpenModel.Detail.Wall
+  href: IdeaRS.OpenModel.Detail.Wall.html#IdeaRS.OpenModel.Detail.Wall.MasterComponent
+  name: MasterComponent
+  nameWithType: Wall.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.Wall.MasterComponent
+- uid: IdeaRS.OpenModel.Detail.Wall.MasterPoint
+  commentId: P:IdeaRS.OpenModel.Detail.Wall.MasterPoint
+  parent: IdeaRS.OpenModel.Detail.Wall
+  href: IdeaRS.OpenModel.Detail.Wall.html#IdeaRS.OpenModel.Detail.Wall.MasterPoint
+  name: MasterPoint
+  nameWithType: Wall.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.Wall.MasterPoint
+- uid: IdeaRS.OpenModel.Detail.Wall.InsertPoint
+  commentId: P:IdeaRS.OpenModel.Detail.Wall.InsertPoint
+  parent: IdeaRS.OpenModel.Detail.Wall
+  href: IdeaRS.OpenModel.Detail.Wall.html#IdeaRS.OpenModel.Detail.Wall.InsertPoint
+  name: InsertPoint
+  nameWithType: Wall.InsertPoint
+  fullName: IdeaRS.OpenModel.Detail.Wall.InsertPoint
+- uid: IdeaRS.OpenModel.Detail.Wall.Edges
+  commentId: P:IdeaRS.OpenModel.Detail.Wall.Edges
+  parent: IdeaRS.OpenModel.Detail.Wall
+  href: IdeaRS.OpenModel.Detail.Wall.html#IdeaRS.OpenModel.Detail.Wall.Edges
+  name: Edges
+  nameWithType: Wall.Edges
+  fullName: IdeaRS.OpenModel.Detail.Wall.Edges
+- uid: IdeaRS.OpenModel.Detail.Wall.Position
+  commentId: P:IdeaRS.OpenModel.Detail.Wall.Position
+  parent: IdeaRS.OpenModel.Detail.Wall
+  href: IdeaRS.OpenModel.Detail.Wall.html#IdeaRS.OpenModel.Detail.Wall.Position
+  name: Position
+  nameWithType: Wall.Position
+  fullName: IdeaRS.OpenModel.Detail.Wall.Position
+- uid: IdeaRS.OpenModel.Model.Element2D.Name
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.Name
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.Name
+  name: Name
+  nameWithType: Element2D.Name
+  fullName: IdeaRS.OpenModel.Model.Element2D.Name
+- uid: IdeaRS.OpenModel.Model.Element2D.Material
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.Material
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.Material
+  name: Material
+  nameWithType: Element2D.Material
+  fullName: IdeaRS.OpenModel.Model.Element2D.Material
+- uid: IdeaRS.OpenModel.Model.Element2D.GeometricRegion
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.GeometricRegion
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.GeometricRegion
+  name: GeometricRegion
+  nameWithType: Element2D.GeometricRegion
+  fullName: IdeaRS.OpenModel.Model.Element2D.GeometricRegion
+- uid: IdeaRS.OpenModel.Model.Element2D.Thickness
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.Thickness
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.Thickness
+  name: Thickness
+  nameWithType: Element2D.Thickness
+  fullName: IdeaRS.OpenModel.Model.Element2D.Thickness
+- uid: IdeaRS.OpenModel.Model.Element2D.EccentricityZ
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.EccentricityZ
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.EccentricityZ
+  name: EccentricityZ
+  nameWithType: Element2D.EccentricityZ
+  fullName: IdeaRS.OpenModel.Model.Element2D.EccentricityZ
+- uid: IdeaRS.OpenModel.Model.Element2D.InnerLines
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.InnerLines
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.InnerLines
+  name: InnerLines
+  nameWithType: Element2D.InnerLines
+  fullName: IdeaRS.OpenModel.Model.Element2D.InnerLines
+- uid: IdeaRS.OpenModel.Model.Element2D.InnerPoints
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.InnerPoints
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.InnerPoints
+  name: InnerPoints
+  nameWithType: Element2D.InnerPoints
+  fullName: IdeaRS.OpenModel.Model.Element2D.InnerPoints
+- uid: IdeaRS.OpenModel.Model.Element2D.ElementType
+  commentId: P:IdeaRS.OpenModel.Model.Element2D.ElementType
+  parent: IdeaRS.OpenModel.Model.Element2D
+  href: IdeaRS.OpenModel.Model.Element2D.html#IdeaRS.OpenModel.Model.Element2D.ElementType
+  name: ElementType
+  nameWithType: Element2D.ElementType
+  fullName: IdeaRS.OpenModel.Model.Element2D.ElementType
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Model
+  commentId: N:IdeaRS.OpenModel.Model
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Model
+  nameWithType: IdeaRS.OpenModel.Model
+  fullName: IdeaRS.OpenModel.Model
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+    href: IdeaRS.OpenModel.Model.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+    href: IdeaRS.OpenModel.Model.html
+- uid: IdeaRS.OpenModel.Detail.WallRect.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Detail.WallRect.#ctor
+  href: IdeaRS.OpenModel.Detail.WallRect.html#IdeaRS.OpenModel.Detail.WallRect.#ctor
+  name: WallRect
+  nameWithType: WallRect.WallRect
+  fullName: IdeaRS.OpenModel.Detail.WallRect.WallRect
+  nameWithType.vb: WallRect.New
+  fullName.vb: IdeaRS.OpenModel.Detail.WallRect.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Detail.WallRect.Width*
+  commentId: Overload:IdeaRS.OpenModel.Detail.WallRect.Width
+  href: IdeaRS.OpenModel.Detail.WallRect.html#IdeaRS.OpenModel.Detail.WallRect.Width
+  name: Width
+  nameWithType: WallRect.Width
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Width
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Detail.WallRect.Height*
+  commentId: Overload:IdeaRS.OpenModel.Detail.WallRect.Height
+  href: IdeaRS.OpenModel.Detail.WallRect.html#IdeaRS.OpenModel.Detail.WallRect.Height
+  name: Height
+  nameWithType: WallRect.Height
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Height
+- uid: IdeaRS.OpenModel.Detail.WallRect.Offset1*
+  commentId: Overload:IdeaRS.OpenModel.Detail.WallRect.Offset1
+  href: IdeaRS.OpenModel.Detail.WallRect.html#IdeaRS.OpenModel.Detail.WallRect.Offset1
+  name: Offset1
+  nameWithType: WallRect.Offset1
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Offset1
+- uid: IdeaRS.OpenModel.Detail.WallRect.Offset2*
+  commentId: Overload:IdeaRS.OpenModel.Detail.WallRect.Offset2
+  href: IdeaRS.OpenModel.Detail.WallRect.html#IdeaRS.OpenModel.Detail.WallRect.Offset2
+  name: Offset2
+  nameWithType: WallRect.Offset2
+  fullName: IdeaRS.OpenModel.Detail.WallRect.Offset2

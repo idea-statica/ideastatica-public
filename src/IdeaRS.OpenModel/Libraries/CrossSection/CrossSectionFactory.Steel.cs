@@ -75,7 +75,7 @@
 		/// <param name="t">Thickness</param>
 		/// <param name="rw">Root radius</param>
 		/// <param name="r2">Toe radius</param>
-		/// <param name="C">Centroid position</param
+		/// <param name="C">Centroid position</param>
 		/// <param name="mirrorZ">Z-axis mirror</param>
 		/// <param name="mirrorY">Y-axis mirror</param>
 		public static void FillRolledAngle(CrossSectionParameter css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false, bool mirrorY = false)

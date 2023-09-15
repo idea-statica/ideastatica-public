@@ -1,0 +1,235 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting
+  commentId: T:IdeaStatiCa.Plugin.IBIMPluginHosting
+  id: IBIMPluginHosting
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  - IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  - IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  langs:
+  - csharp
+  - vb
+  name: IBIMPluginHosting
+  nameWithType: IBIMPluginHosting
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IBIMPluginHosting
+    path: ../src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public interface IBIMPluginHosting
+    content.vb: Public Interface IBIMPluginHosting
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  id: RunAsync(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IBIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: RunAsync(string, string)
+  nameWithType: IBIMPluginHosting.RunAsync(string, string)
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RunAsync
+    path: ../src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Task RunAsync(string id, string workingDirectory)
+    parameters:
+    - id: id
+      type: System.String
+    - id: workingDirectory
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function RunAsync(id As String, workingDirectory As String) As Task
+  overload: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync*
+  nameWithType.vb: IBIMPluginHosting.RunAsync(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(String, String)
+  name.vb: RunAsync(String, String)
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  commentId: E:IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  id: AppStatusChanged
+  parent: IdeaStatiCa.Plugin.IBIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: AppStatusChanged
+  nameWithType: IBIMPluginHosting.AppStatusChanged
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  type: Event
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AppStatusChanged
+    path: ../src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: event ISEventHandler AppStatusChanged
+    return:
+      type: IdeaStatiCa.Plugin.ISEventHandler
+    content.vb: Event AppStatusChanged As ISEventHandler
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  commentId: P:IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  id: Service
+  parent: IdeaStatiCa.Plugin.IBIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: IBIMPluginHosting.Service
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Service
+    path: ../src/IdeaStatiCa.Plugin/IBIMPluginFactory.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: IApplicationBIM Service { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.Plugin.IApplicationBIM
+    content.vb: ReadOnly Property Service As IApplicationBIM
+  overload: IdeaStatiCa.Plugin.IBIMPluginHosting.Service*
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync
+  href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  name: RunAsync
+  nameWithType: IBIMPluginHosting.RunAsync
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.ISEventHandler
+  commentId: T:IdeaStatiCa.Plugin.ISEventHandler
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ISEventHandler.html
+  name: ISEventHandler
+  nameWithType: ISEventHandler
+  fullName: IdeaStatiCa.Plugin.ISEventHandler
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.Service*
+  commentId: Overload:IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  name: Service
+  nameWithType: IBIMPluginHosting.Service
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+- uid: IdeaStatiCa.Plugin.IApplicationBIM
+  commentId: T:IdeaStatiCa.Plugin.IApplicationBIM
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html
+  name: IApplicationBIM
+  nameWithType: IApplicationBIM
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM

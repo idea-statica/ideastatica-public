@@ -1,0 +1,163 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  id: TypeLinePosition
+  parent: IdeaRS.OpenModel.Detail.Loading
+  children:
+  - IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.OnWallEdge
+  - IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Point
+  - IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Polyline
+  langs:
+  - csharp
+  - vb
+  name: TypeLinePosition
+  nameWithType: TypeLinePosition
+  fullName: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeLinePosition
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: type position line support
+  example: []
+  syntax:
+    content: public enum TypeLinePosition
+    content.vb: Public Enum TypeLinePosition
+- uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Point
+  commentId: F:IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Point
+  id: Point
+  parent: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  langs:
+  - csharp
+  - vb
+  name: Point
+  nameWithType: TypeLinePosition.Point
+  fullName: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Point
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Point
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: on point (0, 0) or selected point
+  example: []
+  syntax:
+    content: Point = 0
+    return:
+      type: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+- uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.OnWallEdge
+  commentId: F:IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.OnWallEdge
+  id: OnWallEdge
+  parent: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  langs:
+  - csharp
+  - vb
+  name: OnWallEdge
+  nameWithType: TypeLinePosition.OnWallEdge
+  fullName: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.OnWallEdge
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OnWallEdge
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: on wall edge
+  example: []
+  syntax:
+    content: OnWallEdge = 1
+    return:
+      type: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+- uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Polyline
+  commentId: F:IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Polyline
+  id: Polyline
+  parent: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  langs:
+  - csharp
+  - vb
+  name: Polyline
+  nameWithType: TypeLinePosition.Polyline
+  fullName: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.Polyline
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Polyline
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: polyline
+  example: []
+  syntax:
+    content: Polyline = 2
+    return:
+      type: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+references:
+- uid: IdeaRS.OpenModel.Detail.Loading
+  commentId: N:IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail.Loading
+  nameWithType: IdeaRS.OpenModel.Detail.Loading
+  fullName: IdeaRS.OpenModel.Detail.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Detail.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Detail.Loading.html
+- uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.html
+  name: TypeLinePosition
+  nameWithType: TypeLinePosition
+  fullName: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition

@@ -1,0 +1,82 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.Results
+  commentId: N:IdeaStatiCa.BimApi.Results
+  id: IdeaStatiCa.BimApi.Results
+  children:
+  - IdeaStatiCa.BimApi.Results.IIdeaResult
+  - IdeaStatiCa.BimApi.Results.IIdeaResultData
+  - IdeaStatiCa.BimApi.Results.IIdeaSection
+  - IdeaStatiCa.BimApi.Results.IIdeaSectionResult
+  - IdeaStatiCa.BimApi.Results.InternalForcesData
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.BimApi.Results
+  nameWithType: IdeaStatiCa.BimApi.Results
+  fullName: IdeaStatiCa.BimApi.Results
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.BimApi
+references:
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResult
+  commentId: T:IdeaStatiCa.BimApi.Results.IIdeaResult
+  href: IdeaStatiCa.BimApi.Results.IIdeaResult.html
+  name: IIdeaResult
+  nameWithType: IIdeaResult
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResult
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResultData
+  commentId: T:IdeaStatiCa.BimApi.Results.IIdeaResultData
+  parent: IdeaStatiCa.BimApi.Results
+  href: IdeaStatiCa.BimApi.Results.IIdeaResultData.html
+  name: IIdeaResultData
+  nameWithType: IIdeaResultData
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResultData
+- uid: IdeaStatiCa.BimApi.Results.IIdeaSection
+  commentId: T:IdeaStatiCa.BimApi.Results.IIdeaSection
+  href: IdeaStatiCa.BimApi.Results.IIdeaSection.html
+  name: IIdeaSection
+  nameWithType: IIdeaSection
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaSection
+- uid: IdeaStatiCa.BimApi.Results.IIdeaSectionResult
+  commentId: T:IdeaStatiCa.BimApi.Results.IIdeaSectionResult
+  href: IdeaStatiCa.BimApi.Results.IIdeaSectionResult.html
+  name: IIdeaSectionResult
+  nameWithType: IIdeaSectionResult
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaSectionResult
+- uid: IdeaStatiCa.BimApi.Results.InternalForcesData
+  commentId: T:IdeaStatiCa.BimApi.Results.InternalForcesData
+  href: IdeaStatiCa.BimApi.Results.InternalForcesData.html
+  name: InternalForcesData
+  nameWithType: InternalForcesData
+  fullName: IdeaStatiCa.BimApi.Results.InternalForcesData
+- uid: IdeaStatiCa.BimApi.Results
+  commentId: N:IdeaStatiCa.BimApi.Results
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi.Results
+  nameWithType: IdeaStatiCa.BimApi.Results
+  fullName: IdeaStatiCa.BimApi.Results
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi.Results
+    name: Results
+    href: IdeaStatiCa.BimApi.Results.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi.Results
+    name: Results
+    href: IdeaStatiCa.BimApi.Results.html

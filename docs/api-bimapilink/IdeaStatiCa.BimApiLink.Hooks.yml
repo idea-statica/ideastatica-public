@@ -1,0 +1,70 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  commentId: N:IdeaStatiCa.BimApiLink.Hooks
+  id: IdeaStatiCa.BimApiLink.Hooks
+  children:
+  - IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  - IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+  - IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.BimApiLink.Hooks
+  nameWithType: IdeaStatiCa.BimApiLink.Hooks
+  fullName: IdeaStatiCa.BimApiLink.Hooks
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+references:
+- uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.html
+  name: IImporterHook
+  nameWithType: IImporterHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+- uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html
+  name: IPluginHook
+  nameWithType: IPluginHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  name: IScopeHook
+  nameWithType: IScopeHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  commentId: N:IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Hooks
+  nameWithType: IdeaStatiCa.BimApiLink.Hooks
+  fullName: IdeaStatiCa.BimApiLink.Hooks
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html

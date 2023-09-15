@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.InputValue
+  commentId: T:IdeaRS.OpenModel.Concrete.InputValue
+  id: InputValue
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.InputValue.Calculated
+  - IdeaRS.OpenModel.Concrete.InputValue.CalculatedFEM
+  - IdeaRS.OpenModel.Concrete.InputValue.UserInput
+  langs:
+  - csharp
+  - vb
+  name: InputValue
+  nameWithType: InputValue
+  fullName: IdeaRS.OpenModel.Concrete.InputValue
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InputValue
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Input value type
+  example: []
+  syntax:
+    content: public enum InputValue
+    content.vb: Public Enum InputValue
+- uid: IdeaRS.OpenModel.Concrete.InputValue.Calculated
+  commentId: F:IdeaRS.OpenModel.Concrete.InputValue.Calculated
+  id: Calculated
+  parent: IdeaRS.OpenModel.Concrete.InputValue
+  langs:
+  - csharp
+  - vb
+  name: Calculated
+  nameWithType: InputValue.Calculated
+  fullName: IdeaRS.OpenModel.Concrete.InputValue.Calculated
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Calculated
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value is calculated
+  example: []
+  syntax:
+    content: Calculated = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.InputValue
+- uid: IdeaRS.OpenModel.Concrete.InputValue.UserInput
+  commentId: F:IdeaRS.OpenModel.Concrete.InputValue.UserInput
+  id: UserInput
+  parent: IdeaRS.OpenModel.Concrete.InputValue
+  langs:
+  - csharp
+  - vb
+  name: UserInput
+  nameWithType: InputValue.UserInput
+  fullName: IdeaRS.OpenModel.Concrete.InputValue.UserInput
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserInput
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value is inputed by user
+  example: []
+  syntax:
+    content: UserInput = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.InputValue
+- uid: IdeaRS.OpenModel.Concrete.InputValue.CalculatedFEM
+  commentId: F:IdeaRS.OpenModel.Concrete.InputValue.CalculatedFEM
+  id: CalculatedFEM
+  parent: IdeaRS.OpenModel.Concrete.InputValue
+  langs:
+  - csharp
+  - vb
+  name: CalculatedFEM
+  nameWithType: InputValue.CalculatedFEM
+  fullName: IdeaRS.OpenModel.Concrete.InputValue.CalculatedFEM
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CalculatedFEM
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: values are calculated in FEM
+  example: []
+  syntax:
+    content: CalculatedFEM = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.InputValue
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.InputValue
+  commentId: T:IdeaRS.OpenModel.Concrete.InputValue
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.InputValue.html
+  name: InputValue
+  nameWithType: InputValue
+  fullName: IdeaRS.OpenModel.Concrete.InputValue

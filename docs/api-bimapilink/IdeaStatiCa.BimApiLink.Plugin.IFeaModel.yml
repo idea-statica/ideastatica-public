@@ -1,0 +1,149 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+  id: IFeaModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  children:
+  - IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+  langs:
+  - csharp
+  - vb
+  name: IFeaModel
+  nameWithType: IFeaModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IFeaModel
+    path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  syntax:
+    content: 'public interface IFeaModel : IModel'
+    content.vb: Public Interface IFeaModel Inherits IModel
+  inheritedMembers:
+  - IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+- uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+  id: GetUserSelection
+  parent: IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetUserSelection()
+  nameWithType: IFeaModel.GetUserSelection()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetUserSelection
+    path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  syntax:
+    content: FeaUserSelection GetUserSelection()
+    return:
+      type: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection
+    content.vb: Function GetUserSelection() As FeaUserSelection
+  overload: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection*
+references:
+- uid: IdeaStatiCa.BimApiLink.Plugin
+  commentId: N:IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Plugin
+  nameWithType: IdeaStatiCa.BimApiLink.Plugin
+  fullName: IdeaStatiCa.BimApiLink.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  parent: IdeaStatiCa.BimApiLink.Plugin.IModel
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  name: GetAllMembers()
+  nameWithType: IModel.GetAllMembers()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+    name: GetAllMembers
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+    name: GetAllMembers
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  parent: IdeaStatiCa.BimApiLink.Plugin.IModel
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  name: GetOriginSettings()
+  nameWithType: IModel.GetOriginSettings()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+    name: GetOriginSettings
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+    name: GetOriginSettings
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.IModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  name: IModel
+  nameWithType: IModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel
+- uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+  href: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.html#IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+  name: GetUserSelection
+  nameWithType: IFeaModel.GetUserSelection
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+- uid: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection.html
+  name: FeaUserSelection
+  nameWithType: FeaUserSelection
+  fullName: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection

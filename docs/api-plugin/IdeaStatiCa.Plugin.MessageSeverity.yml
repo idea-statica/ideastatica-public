@@ -1,0 +1,139 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.MessageSeverity
+  commentId: T:IdeaStatiCa.Plugin.MessageSeverity
+  id: MessageSeverity
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.MessageSeverity.Error
+  - IdeaStatiCa.Plugin.MessageSeverity.Info
+  - IdeaStatiCa.Plugin.MessageSeverity.Warning
+  langs:
+  - csharp
+  - vb
+  name: MessageSeverity
+  nameWithType: MessageSeverity
+  fullName: IdeaStatiCa.Plugin.MessageSeverity
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MessageSeverity
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public enum MessageSeverity
+    content.vb: Public Enum MessageSeverity
+- uid: IdeaStatiCa.Plugin.MessageSeverity.Info
+  commentId: F:IdeaStatiCa.Plugin.MessageSeverity.Info
+  id: Info
+  parent: IdeaStatiCa.Plugin.MessageSeverity
+  langs:
+  - csharp
+  - vb
+  name: Info
+  nameWithType: MessageSeverity.Info
+  fullName: IdeaStatiCa.Plugin.MessageSeverity.Info
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Info
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Info = 0
+    return:
+      type: IdeaStatiCa.Plugin.MessageSeverity
+- uid: IdeaStatiCa.Plugin.MessageSeverity.Warning
+  commentId: F:IdeaStatiCa.Plugin.MessageSeverity.Warning
+  id: Warning
+  parent: IdeaStatiCa.Plugin.MessageSeverity
+  langs:
+  - csharp
+  - vb
+  name: Warning
+  nameWithType: MessageSeverity.Warning
+  fullName: IdeaStatiCa.Plugin.MessageSeverity.Warning
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Warning
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Warning = 1
+    return:
+      type: IdeaStatiCa.Plugin.MessageSeverity
+- uid: IdeaStatiCa.Plugin.MessageSeverity.Error
+  commentId: F:IdeaStatiCa.Plugin.MessageSeverity.Error
+  id: Error
+  parent: IdeaStatiCa.Plugin.MessageSeverity
+  langs:
+  - csharp
+  - vb
+  name: Error
+  nameWithType: MessageSeverity.Error
+  fullName: IdeaStatiCa.Plugin.MessageSeverity.Error
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Error
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Error = 2
+    return:
+      type: IdeaStatiCa.Plugin.MessageSeverity
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.MessageSeverity
+  commentId: T:IdeaStatiCa.Plugin.MessageSeverity
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.MessageSeverity.html
+  name: MessageSeverity
+  nameWithType: MessageSeverity
+  fullName: IdeaStatiCa.Plugin.MessageSeverity

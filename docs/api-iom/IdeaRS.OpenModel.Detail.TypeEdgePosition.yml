@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  commentId: T:IdeaRS.OpenModel.Detail.TypeEdgePosition
+  id: TypeEdgePosition
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdge
+  - IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeFromEnd
+  - IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToEndEdge
+  - IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToSegment
+  - IdeaRS.OpenModel.Detail.TypeEdgePosition.WholeLength
+  langs:
+  - csharp
+  - vb
+  name: TypeEdgePosition
+  nameWithType: TypeEdgePosition
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeEdgePosition
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Type edge position
+  example: []
+  syntax:
+    content: public enum TypeEdgePosition
+    content.vb: Public Enum TypeEdgePosition
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition.WholeLength
+  commentId: F:IdeaRS.OpenModel.Detail.TypeEdgePosition.WholeLength
+  id: WholeLength
+  parent: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  langs:
+  - csharp
+  - vb
+  name: WholeLength
+  nameWithType: TypeEdgePosition.WholeLength
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition.WholeLength
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WholeLength
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: whole length
+  example: []
+  syntax:
+    content: WholeLength = 0
+    return:
+      type: IdeaRS.OpenModel.Detail.TypeEdgePosition
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdge
+  commentId: F:IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdge
+  id: PartEdge
+  parent: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  langs:
+  - csharp
+  - vb
+  name: PartEdge
+  nameWithType: TypeEdgePosition.PartEdge
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdge
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PartEdge
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: part of the edge, mereno od pocatku hrany nebo podle zadani v jinem properties
+  example: []
+  syntax:
+    content: PartEdge = 1
+    return:
+      type: IdeaRS.OpenModel.Detail.TypeEdgePosition
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToEndEdge
+  commentId: F:IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToEndEdge
+  id: PartEdgeToEndEdge
+  parent: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  langs:
+  - csharp
+  - vb
+  name: PartEdgeToEndEdge
+  nameWithType: TypeEdgePosition.PartEdgeToEndEdge
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToEndEdge
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PartEdgeToEndEdge
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: parts of the edge to end edge - pouze na vybranem vlasniku - napriklad u linioveho zatizeni na hrane
+  example: []
+  syntax:
+    content: PartEdgeToEndEdge = 2
+    return:
+      type: IdeaRS.OpenModel.Detail.TypeEdgePosition
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToSegment
+  commentId: F:IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToSegment
+  id: PartEdgeToSegment
+  parent: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  langs:
+  - csharp
+  - vb
+  name: PartEdgeToSegment
+  nameWithType: TypeEdgePosition.PartEdgeToSegment
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeToSegment
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PartEdgeToSegment
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: parts on edge, protazene az k segmentu nebo k poslenimu pruseciku s vnejsim obrysem - napriklad u vyztuze
+  example: []
+  syntax:
+    content: PartEdgeToSegment = 3
+    return:
+      type: IdeaRS.OpenModel.Detail.TypeEdgePosition
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeFromEnd
+  commentId: F:IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeFromEnd
+  id: PartEdgeFromEnd
+  parent: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  langs:
+  - csharp
+  - vb
+  name: PartEdgeFromEnd
+  nameWithType: TypeEdgePosition.PartEdgeFromEnd
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition.PartEdgeFromEnd
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PartEdgeFromEnd
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
+    startLine: 32
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: on part of edge measured from end of the edge
+  example: []
+  syntax:
+    content: PartEdgeFromEnd = 4
+    return:
+      type: IdeaRS.OpenModel.Detail.TypeEdgePosition
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: IdeaRS.OpenModel.Detail.TypeEdgePosition
+  commentId: T:IdeaRS.OpenModel.Detail.TypeEdgePosition
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.TypeEdgePosition.html
+  name: TypeEdgePosition
+  nameWithType: TypeEdgePosition
+  fullName: IdeaRS.OpenModel.Detail.TypeEdgePosition

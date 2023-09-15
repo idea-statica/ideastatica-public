@@ -1,0 +1,923 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  commentId: T:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  id: ReinfBarOnMoreEdges
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+  - IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+  langs:
+  - csharp
+  - vb
+  name: ReinfBarOnMoreEdges
+  nameWithType: ReinfBarOnMoreEdges
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinfBarOnMoreEdges
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Representing reinforcement bar input on more edges in IDEA StatiCa Detail
+  example: []
+  syntax:
+    content: >-
+      [OpenModelClass(typeof(Reinforcement))]
+
+      public class ReinfBarOnMoreEdges : ReinforcementGroup
+    content.vb: >-
+      <OpenModelClass(GetType(Reinforcement))>
+
+      Public Class ReinfBarOnMoreEdges Inherits ReinforcementGroup
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  - IdeaRS.OpenModel.Detail.Reinforcement
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup
+  inheritedMembers:
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  - IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  - IdeaRS.OpenModel.Detail.Reinforcement.Material
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.Type)
+    arguments:
+    - type: System.Type
+      value: IdeaRS.OpenModel.Detail.Reinforcement
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor
+  commentId: M:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: ReinfBarOnMoreEdges()
+  nameWithType: ReinfBarOnMoreEdges.ReinfBarOnMoreEdges()
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.ReinfBarOnMoreEdges()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 11
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Constructor
+  example: []
+  syntax:
+    content: public ReinfBarOnMoreEdges()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor*
+  nameWithType.vb: ReinfBarOnMoreEdges.New()
+  fullName.vb: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+  id: MasterComponent
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: MasterComponent
+  nameWithType: ReinfBarOnMoreEdges.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterComponent
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 20
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master component of reinforcement
+  example: []
+  syntax:
+    content: public ReferenceElement MasterComponent { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property MasterComponent As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+  id: MasterEdges
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: MasterEdges
+  nameWithType: ReinfBarOnMoreEdges.MasterEdges
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterEdges
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master Edges
+  example: []
+  syntax:
+    content: public List<ReferenceElement> MasterEdges { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.ReferenceElement}
+    content.vb: Public Property MasterEdges As List(Of ReferenceElement)
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+  id: Covers
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: Covers
+  nameWithType: ReinfBarOnMoreEdges.Covers
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Covers
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Covers
+  example: []
+  syntax:
+    content: public List<double> Covers { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.Double}
+    content.vb: Public Property Covers As List(Of Double)
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+  id: WholeFirstEdge
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: WholeFirstEdge
+  nameWithType: ReinfBarOnMoreEdges.WholeFirstEdge
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WholeFirstEdge
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 35
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Bar is on whole length of first edge
+  example: []
+  syntax:
+    content: public bool WholeFirstEdge { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property WholeFirstEdge As Boolean
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  id: LengthFromFirstIntersection
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: LengthFromFirstIntersection
+  nameWithType: ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LengthFromFirstIntersection
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 40
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Length of bar from first intersection in the direction of edge
+  example: []
+  syntax:
+    content: public double LengthFromFirstIntersection { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property LengthFromFirstIntersection As Double
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+  id: WholeLastEdge
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: WholeLastEdge
+  nameWithType: ReinfBarOnMoreEdges.WholeLastEdge
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WholeLastEdge
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Bar is on whole length of last edge
+  example: []
+  syntax:
+    content: public bool WholeLastEdge { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property WholeLastEdge As Boolean
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection
+  id: LengthFromLastIntersection
+  parent: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+  langs:
+  - csharp
+  - vb
+  name: LengthFromLastIntersection
+  nameWithType: ReinfBarOnMoreEdges.LengthFromLastIntersection
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LengthFromLastIntersection
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarOnMoreEdges.cs
+    startLine: 50
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Length of bar from last intersection in the direction of edge
+  example: []
+  syntax:
+    content: public double LengthFromLastIntersection { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property LengthFromLastIntersection As Double
+  overload: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection*
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.Detail.Reinforcement
+  commentId: T:IdeaRS.OpenModel.Detail.Reinforcement
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.Reinforcement.html
+  name: Reinforcement
+  nameWithType: Reinforcement
+  fullName: IdeaRS.OpenModel.Detail.Reinforcement
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  commentId: T:IdeaRS.OpenModel.Detail.ReinforcementGroup
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html
+  name: ReinforcementGroup
+  nameWithType: ReinforcementGroup
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  name: Diameter
+  nameWithType: ReinforcementGroup.Diameter
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  name: NumOfBarsInLayer
+  nameWithType: ReinforcementGroup.NumOfBarsInLayer
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  name: CoverFromSetting
+  nameWithType: ReinforcementGroup.CoverFromSetting
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  name: Cover
+  nameWithType: ReinforcementGroup.Cover
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  name: EndsTypeBeg
+  nameWithType: ReinforcementGroup.EndsTypeBeg
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  name: EndsTypeEnd
+  nameWithType: ReinforcementGroup.EndsTypeEnd
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  name: DiameterOfMandrel
+  nameWithType: ReinforcementGroup.DiameterOfMandrel
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+- uid: IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  commentId: P:IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  parent: IdeaRS.OpenModel.Detail.Reinforcement
+  href: IdeaRS.OpenModel.Detail.Reinforcement.html#IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  name: ReinfId
+  nameWithType: Reinforcement.ReinfId
+  fullName: IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+- uid: IdeaRS.OpenModel.Detail.Reinforcement.Material
+  commentId: P:IdeaRS.OpenModel.Detail.Reinforcement.Material
+  parent: IdeaRS.OpenModel.Detail.Reinforcement
+  href: IdeaRS.OpenModel.Detail.Reinforcement.html#IdeaRS.OpenModel.Detail.Reinforcement.Material
+  name: Material
+  nameWithType: Reinforcement.Material
+  fullName: IdeaRS.OpenModel.Detail.Reinforcement.Material
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.#ctor
+  name: ReinfBarOnMoreEdges
+  nameWithType: ReinfBarOnMoreEdges.ReinfBarOnMoreEdges
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.ReinfBarOnMoreEdges
+  nameWithType.vb: ReinfBarOnMoreEdges.New
+  fullName.vb: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+  name: MasterComponent
+  nameWithType: ReinfBarOnMoreEdges.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterComponent
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+  name: MasterEdges
+  nameWithType: ReinfBarOnMoreEdges.MasterEdges
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.MasterEdges
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.ReferenceElement}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.ReferenceElement}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ReferenceElement>
+  nameWithType: List<ReferenceElement>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.ReferenceElement>
+  nameWithType.vb: List(Of ReferenceElement)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.ReferenceElement)
+  name.vb: List(Of ReferenceElement)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.ReferenceElement
+    name: ReferenceElement
+    href: IdeaRS.OpenModel.ReferenceElement.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.ReferenceElement
+    name: ReferenceElement
+    href: IdeaRS.OpenModel.ReferenceElement.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+  name: Covers
+  nameWithType: ReinfBarOnMoreEdges.Covers
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.Covers
+- uid: System.Collections.Generic.List{System.Double}
+  commentId: T:System.Collections.Generic.List{System.Double}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<double>
+  nameWithType: List<double>
+  fullName: System.Collections.Generic.List<double>
+  nameWithType.vb: List(Of Double)
+  fullName.vb: System.Collections.Generic.List(Of Double)
+  name.vb: List(Of Double)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+  name: WholeFirstEdge
+  nameWithType: ReinfBarOnMoreEdges.WholeFirstEdge
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeFirstEdge
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  name: LengthFromFirstIntersection
+  nameWithType: ReinfBarOnMoreEdges.LengthFromFirstIntersection
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromFirstIntersection
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+  name: WholeLastEdge
+  nameWithType: ReinfBarOnMoreEdges.WholeLastEdge
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.WholeLastEdge
+- uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection
+  href: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.html#IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection
+  name: LengthFromLastIntersection
+  nameWithType: ReinfBarOnMoreEdges.LengthFromLastIntersection
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges.LengthFromLastIntersection

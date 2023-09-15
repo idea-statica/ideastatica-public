@@ -1,0 +1,260 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.IModel
+  id: IModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  children:
+  - IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  langs:
+  - csharp
+  - vb
+  name: IModel
+  nameWithType: IModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/IModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IModel
+    path: ../src/IdeaStatica.BimApiLink/Plugin/IModel.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  syntax:
+    content: public interface IModel
+    content.vb: Public Interface IModel
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  id: GetAllMembers
+  parent: IdeaStatiCa.BimApiLink.Plugin.IModel
+  langs:
+  - csharp
+  - vb
+  name: GetAllMembers()
+  nameWithType: IModel.GetAllMembers()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/IModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetAllMembers
+    path: ../src/IdeaStatica.BimApiLink/Plugin/IModel.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  syntax:
+    content: IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers()
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}}
+    content.vb: Function GetAllMembers() As IEnumerable(Of Identifier(Of IIdeaMember1D))
+  overload: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers*
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  id: GetOriginSettings
+  parent: IdeaStatiCa.BimApiLink.Plugin.IModel
+  langs:
+  - csharp
+  - vb
+  name: GetOriginSettings()
+  nameWithType: IModel.GetOriginSettings()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/IModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetOriginSettings
+    path: ../src/IdeaStatica.BimApiLink/Plugin/IModel.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  syntax:
+    content: OriginSettings GetOriginSettings()
+    return:
+      type: IdeaRS.OpenModel.OriginSettings
+    content.vb: Function GetOriginSettings() As OriginSettings
+  overload: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings*
+references:
+- uid: IdeaStatiCa.BimApiLink.Plugin
+  commentId: N:IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Plugin
+  nameWithType: IdeaStatiCa.BimApiLink.Plugin
+  fullName: IdeaStatiCa.BimApiLink.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  name: GetAllMembers
+  nameWithType: IModel.GetAllMembers
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<Identifier<IIdeaMember1D>>
+  nameWithType: IEnumerable<Identifier<IIdeaMember1D>>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaMember1D>>
+  nameWithType.vb: IEnumerable(Of Identifier(Of IIdeaMember1D))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaMember1D))
+  name.vb: IEnumerable(Of Identifier(Of IIdeaMember1D))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  name: GetOriginSettings
+  nameWithType: IModel.GetOriginSettings
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+- uid: IdeaRS.OpenModel.OriginSettings
+  commentId: T:IdeaRS.OpenModel.OriginSettings
+  parent: IdeaRS.OpenModel
+  name: OriginSettings
+  nameWithType: OriginSettings
+  fullName: IdeaRS.OpenModel.OriginSettings
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel

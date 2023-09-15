@@ -1,0 +1,875 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  id: GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  parent: IdeaStatiCa.Plugin.Grpc
+  children:
+  - IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  - IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  - IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries(IdeaStatiCa.Plugin.Grpc.GetEntriesRequest,Grpc.Core.ServerCallContext)
+  - IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  - IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  langs:
+  - csharp
+  - vb
+  name: GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GrpcBlobStorageServiceBase
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 244
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Base class for server-side implementations of GrpcBlobStorageService
+  example: []
+  syntax:
+    content: >-
+      [BindServiceMethod(typeof(GrpcBlobStorageService), "BindService")]
+
+      public abstract class GrpcBlobStorageService.GrpcBlobStorageServiceBase
+    content.vb: >-
+      <BindServiceMethod(GetType(GrpcBlobStorageService), "BindService")>
+
+      Public MustInherit Class GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  attributes:
+  - type: Grpc.Core.BindServiceMethodAttribute
+    ctor: Grpc.Core.BindServiceMethodAttribute.#ctor(System.Type,System.String)
+    arguments:
+    - type: System.Type
+      value: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService
+    - type: System.String
+      value: BindService
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  id: Write(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  langs:
+  - csharp
+  - vb
+  name: Write(IAsyncStreamReader<ContentData>, ServerCallContext)
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(IAsyncStreamReader<ContentData>, ServerCallContext)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader<IdeaStatiCa.Plugin.Grpc.ContentData>, Grpc.Core.ServerCallContext)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Write
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 253
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: blobStorageId and contentId are in metadata
+  example: []
+  syntax:
+    content: public virtual Task<VoidResponse> Write(IAsyncStreamReader<ContentData> requestStream, ServerCallContext context)
+    parameters:
+    - id: requestStream
+      type: Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData}
+      description: Used for reading requests from the client.
+    - id: context
+      type: Grpc.Core.ServerCallContext
+      description: The context of the server-side call handler being invoked.
+    return:
+      type: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.VoidResponse}
+      description: The response to send back to the client (wrapped by a task).
+    content.vb: Public Overridable Function Write(requestStream As IAsyncStreamReader(Of ContentData), context As ServerCallContext) As Task(Of VoidResponse)
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write*
+  nameWithType.vb: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(IAsyncStreamReader(Of ContentData), ServerCallContext)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader(Of IdeaStatiCa.Plugin.Grpc.ContentData), Grpc.Core.ServerCallContext)
+  name.vb: Write(IAsyncStreamReader(Of ContentData), ServerCallContext)
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  id: Read(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  langs:
+  - csharp
+  - vb
+  name: Read(ContentRequest, IServerStreamWriter<ContentData>, ServerCallContext)
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(ContentRequest, IServerStreamWriter<ContentData>, ServerCallContext)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(IdeaStatiCa.Plugin.Grpc.ContentRequest, Grpc.Core.IServerStreamWriter<IdeaStatiCa.Plugin.Grpc.ContentData>, Grpc.Core.ServerCallContext)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Read
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 259
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public virtual Task Read(ContentRequest request, IServerStreamWriter<ContentData> responseStream, ServerCallContext context)
+    parameters:
+    - id: request
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    - id: responseStream
+      type: Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData}
+    - id: context
+      type: Grpc.Core.ServerCallContext
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Overridable Function Read(request As ContentRequest, responseStream As IServerStreamWriter(Of ContentData), context As ServerCallContext) As Task
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read*
+  nameWithType.vb: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(ContentRequest, IServerStreamWriter(Of ContentData), ServerCallContext)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(IdeaStatiCa.Plugin.Grpc.ContentRequest, Grpc.Core.IServerStreamWriter(Of IdeaStatiCa.Plugin.Grpc.ContentData), Grpc.Core.ServerCallContext)
+  name.vb: Read(ContentRequest, IServerStreamWriter(Of ContentData), ServerCallContext)
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  id: Exist(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  langs:
+  - csharp
+  - vb
+  name: Exist(ContentRequest, ServerCallContext)
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist(ContentRequest, ServerCallContext)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist(IdeaStatiCa.Plugin.Grpc.ContentRequest, Grpc.Core.ServerCallContext)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Exist
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 265
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public virtual Task<ExistResponse> Exist(ContentRequest request, ServerCallContext context)
+    parameters:
+    - id: request
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    - id: context
+      type: Grpc.Core.ServerCallContext
+    return:
+      type: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.ExistResponse}
+    content.vb: Public Overridable Function Exist(request As ContentRequest, context As ServerCallContext) As Task(Of ExistResponse)
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist*
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  id: Delete(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  langs:
+  - csharp
+  - vb
+  name: Delete(ContentRequest, ServerCallContext)
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete(ContentRequest, ServerCallContext)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete(IdeaStatiCa.Plugin.Grpc.ContentRequest, Grpc.Core.ServerCallContext)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Delete
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 271
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public virtual Task<VoidResponse> Delete(ContentRequest request, ServerCallContext context)
+    parameters:
+    - id: request
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    - id: context
+      type: Grpc.Core.ServerCallContext
+    return:
+      type: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.VoidResponse}
+    content.vb: Public Overridable Function Delete(request As ContentRequest, context As ServerCallContext) As Task(Of VoidResponse)
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete*
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries(IdeaStatiCa.Plugin.Grpc.GetEntriesRequest,Grpc.Core.ServerCallContext)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries(IdeaStatiCa.Plugin.Grpc.GetEntriesRequest,Grpc.Core.ServerCallContext)
+  id: GetEntries(IdeaStatiCa.Plugin.Grpc.GetEntriesRequest,Grpc.Core.ServerCallContext)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  langs:
+  - csharp
+  - vb
+  name: GetEntries(GetEntriesRequest, ServerCallContext)
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries(GetEntriesRequest, ServerCallContext)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries(IdeaStatiCa.Plugin.Grpc.GetEntriesRequest, Grpc.Core.ServerCallContext)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetEntries
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 277
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public virtual Task<GetEntriesResponse> GetEntries(GetEntriesRequest request, ServerCallContext context)
+    parameters:
+    - id: request
+      type: IdeaStatiCa.Plugin.Grpc.GetEntriesRequest
+    - id: context
+      type: Grpc.Core.ServerCallContext
+    return:
+      type: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.GetEntriesResponse}
+    content.vb: Public Overridable Function GetEntries(request As GetEntriesRequest, context As ServerCallContext) As Task(Of GetEntriesResponse)
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries*
+references:
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write
+  href: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.html#IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  name: Write
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write
+- uid: Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData}
+  commentId: T:Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData}
+  parent: Grpc.Core
+  definition: Grpc.Core.IAsyncStreamReader`1
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  name: IAsyncStreamReader<ContentData>
+  nameWithType: IAsyncStreamReader<ContentData>
+  fullName: Grpc.Core.IAsyncStreamReader<IdeaStatiCa.Plugin.Grpc.ContentData>
+  nameWithType.vb: IAsyncStreamReader(Of ContentData)
+  fullName.vb: Grpc.Core.IAsyncStreamReader(Of IdeaStatiCa.Plugin.Grpc.ContentData)
+  name.vb: IAsyncStreamReader(Of ContentData)
+  spec.csharp:
+  - uid: Grpc.Core.IAsyncStreamReader`1
+    name: IAsyncStreamReader
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentData
+    name: ContentData
+    href: IdeaStatiCa.Plugin.Grpc.ContentData.html
+  - name: '>'
+  spec.vb:
+  - uid: Grpc.Core.IAsyncStreamReader`1
+    name: IAsyncStreamReader
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentData
+    name: ContentData
+    href: IdeaStatiCa.Plugin.Grpc.ContentData.html
+  - name: )
+- uid: Grpc.Core.ServerCallContext
+  commentId: T:Grpc.Core.ServerCallContext
+  parent: Grpc.Core
+  isExternal: true
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/ServerCallContext.cs
+  name: ServerCallContext
+  nameWithType: ServerCallContext
+  fullName: Grpc.Core.ServerCallContext
+- uid: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.VoidResponse}
+  commentId: T:System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.VoidResponse}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<VoidResponse>
+  nameWithType: Task<VoidResponse>
+  fullName: System.Threading.Tasks.Task<IdeaStatiCa.Plugin.Grpc.VoidResponse>
+  nameWithType.vb: Task(Of VoidResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of IdeaStatiCa.Plugin.Grpc.VoidResponse)
+  name.vb: Task(Of VoidResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.VoidResponse
+    name: VoidResponse
+    href: IdeaStatiCa.Plugin.Grpc.VoidResponse.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.VoidResponse
+    name: VoidResponse
+    href: IdeaStatiCa.Plugin.Grpc.VoidResponse.html
+  - name: )
+- uid: Grpc.Core.IAsyncStreamReader`1
+  commentId: T:Grpc.Core.IAsyncStreamReader`1
+  isExternal: true
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  name: IAsyncStreamReader<T>
+  nameWithType: IAsyncStreamReader<T>
+  fullName: Grpc.Core.IAsyncStreamReader<T>
+  nameWithType.vb: IAsyncStreamReader(Of T)
+  fullName.vb: Grpc.Core.IAsyncStreamReader(Of T)
+  name.vb: IAsyncStreamReader(Of T)
+  spec.csharp:
+  - uid: Grpc.Core.IAsyncStreamReader`1
+    name: IAsyncStreamReader
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Grpc.Core.IAsyncStreamReader`1
+    name: IAsyncStreamReader
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Grpc.Core
+  commentId: N:Grpc.Core
+  isExternal: true
+  name: Grpc.Core
+  nameWithType: Grpc.Core
+  fullName: Grpc.Core
+  spec.csharp:
+  - uid: Grpc
+    name: Grpc
+    isExternal: true
+  - name: .
+  - uid: Grpc.Core
+    name: Core
+    isExternal: true
+  spec.vb:
+  - uid: Grpc
+    name: Grpc
+    isExternal: true
+  - name: .
+  - uid: Grpc.Core
+    name: Core
+    isExternal: true
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read
+  href: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.html#IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
+  name: Read
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Read
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  commentId: T:IdeaStatiCa.Plugin.Grpc.ContentRequest
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  name: ContentRequest
+  nameWithType: ContentRequest
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest
+- uid: Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData}
+  commentId: T:Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.ContentData}
+  parent: Grpc.Core
+  definition: Grpc.Core.IServerStreamWriter`1
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  name: IServerStreamWriter<ContentData>
+  nameWithType: IServerStreamWriter<ContentData>
+  fullName: Grpc.Core.IServerStreamWriter<IdeaStatiCa.Plugin.Grpc.ContentData>
+  nameWithType.vb: IServerStreamWriter(Of ContentData)
+  fullName.vb: Grpc.Core.IServerStreamWriter(Of IdeaStatiCa.Plugin.Grpc.ContentData)
+  name.vb: IServerStreamWriter(Of ContentData)
+  spec.csharp:
+  - uid: Grpc.Core.IServerStreamWriter`1
+    name: IServerStreamWriter
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentData
+    name: ContentData
+    href: IdeaStatiCa.Plugin.Grpc.ContentData.html
+  - name: '>'
+  spec.vb:
+  - uid: Grpc.Core.IServerStreamWriter`1
+    name: IServerStreamWriter
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentData
+    name: ContentData
+    href: IdeaStatiCa.Plugin.Grpc.ContentData.html
+  - name: )
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: Grpc.Core.IServerStreamWriter`1
+  commentId: T:Grpc.Core.IServerStreamWriter`1
+  isExternal: true
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  name: IServerStreamWriter<T>
+  nameWithType: IServerStreamWriter<T>
+  fullName: Grpc.Core.IServerStreamWriter<T>
+  nameWithType.vb: IServerStreamWriter(Of T)
+  fullName.vb: Grpc.Core.IServerStreamWriter(Of T)
+  name.vb: IServerStreamWriter(Of T)
+  spec.csharp:
+  - uid: Grpc.Core.IServerStreamWriter`1
+    name: IServerStreamWriter
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Grpc.Core.IServerStreamWriter`1
+    name: IServerStreamWriter
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist
+  href: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.html#IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  name: Exist
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Exist
+- uid: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.ExistResponse}
+  commentId: T:System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.ExistResponse}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<ExistResponse>
+  nameWithType: Task<ExistResponse>
+  fullName: System.Threading.Tasks.Task<IdeaStatiCa.Plugin.Grpc.ExistResponse>
+  nameWithType.vb: Task(Of ExistResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of IdeaStatiCa.Plugin.Grpc.ExistResponse)
+  name.vb: Task(Of ExistResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ExistResponse
+    name: ExistResponse
+    href: IdeaStatiCa.Plugin.Grpc.ExistResponse.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ExistResponse
+    name: ExistResponse
+    href: IdeaStatiCa.Plugin.Grpc.ExistResponse.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete
+  href: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.html#IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete(IdeaStatiCa.Plugin.Grpc.ContentRequest,Grpc.Core.ServerCallContext)
+  name: Delete
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Delete
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries
+  href: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.html#IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries(IdeaStatiCa.Plugin.Grpc.GetEntriesRequest,Grpc.Core.ServerCallContext)
+  name: GetEntries
+  nameWithType: GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.GetEntries
+- uid: IdeaStatiCa.Plugin.Grpc.GetEntriesRequest
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GetEntriesRequest
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.GetEntriesRequest.html
+  name: GetEntriesRequest
+  nameWithType: GetEntriesRequest
+  fullName: IdeaStatiCa.Plugin.Grpc.GetEntriesRequest
+- uid: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.GetEntriesResponse}
+  commentId: T:System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.GetEntriesResponse}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<GetEntriesResponse>
+  nameWithType: Task<GetEntriesResponse>
+  fullName: System.Threading.Tasks.Task<IdeaStatiCa.Plugin.Grpc.GetEntriesResponse>
+  nameWithType.vb: Task(Of GetEntriesResponse)
+  fullName.vb: System.Threading.Tasks.Task(Of IdeaStatiCa.Plugin.Grpc.GetEntriesResponse)
+  name.vb: Task(Of GetEntriesResponse)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.GetEntriesResponse
+    name: GetEntriesResponse
+    href: IdeaStatiCa.Plugin.Grpc.GetEntriesResponse.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.GetEntriesResponse
+    name: GetEntriesResponse
+    href: IdeaStatiCa.Plugin.Grpc.GetEntriesResponse.html
+  - name: )

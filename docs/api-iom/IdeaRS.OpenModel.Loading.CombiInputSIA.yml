@@ -1,0 +1,557 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA
+  commentId: T:IdeaRS.OpenModel.Loading.CombiInputSIA
+  id: CombiInputSIA
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor
+  - IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+  - IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+  langs:
+  - csharp
+  - vb
+  name: CombiInputSIA
+  nameWithType: CombiInputSIA
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CombiInputSIA
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Combination according to SIA in the model
+  example: []
+  syntax:
+    content: >-
+      [OpenModelClass("CI.StructModel.Loading.CombiInputEC,CI.Loading", "CI.StructModel.Loading.ICombiInput,CI.BasicTypes", typeof(CombiInput))]
+
+      public class CombiInputSIA : CombiInput
+    content.vb: >-
+      <OpenModelClass("CI.StructModel.Loading.CombiInputEC,CI.Loading", "CI.StructModel.Loading.ICombiInput,CI.BasicTypes", GetType(CombiInput))>
+
+      Public Class CombiInputSIA Inherits CombiInput
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  - IdeaRS.OpenModel.Loading.CombiInput
+  inheritedMembers:
+  - IdeaRS.OpenModel.Loading.CombiInput.Name
+  - IdeaRS.OpenModel.Loading.CombiInput.Items
+  - IdeaRS.OpenModel.Loading.CombiInput.Description
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String,System.String,System.Type)
+    arguments:
+    - type: System.String
+      value: CI.StructModel.Loading.CombiInputEC,CI.Loading
+    - type: System.String
+      value: CI.StructModel.Loading.ICombiInput,CI.BasicTypes
+    - type: System.Type
+      value: IdeaRS.OpenModel.Loading.CombiInput
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor
+  commentId: M:IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Loading.CombiInputSIA
+  langs:
+  - csharp
+  - vb
+  name: CombiInputSIA()
+  nameWithType: CombiInputSIA.CombiInputSIA()
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA.CombiInputSIA()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 11
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Constructor
+  example: []
+  syntax:
+    content: public CombiInputSIA()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor*
+  nameWithType.vb: CombiInputSIA.New()
+  fullName.vb: IdeaRS.OpenModel.Loading.CombiInputSIA.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+  commentId: P:IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+  id: TypeCombiSIA
+  parent: IdeaRS.OpenModel.Loading.CombiInputSIA
+  langs:
+  - csharp
+  - vb
+  name: TypeCombiSIA
+  nameWithType: CombiInputSIA.TypeCombiSIA
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeCombiSIA
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 19
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Type of EC combination
+  example: []
+  syntax:
+    content: >-
+      [OpenModelProperty("TypeCombiEC")]
+
+      public TypeOfCombiSIA TypeCombiSIA { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeOfCombiSIA
+    content.vb: >-
+      <OpenModelProperty("TypeCombiEC")>
+
+      Public Property TypeCombiSIA As TypeOfCombiSIA
+  overload: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA*
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelPropertyAttribute
+    ctor: IdeaRS.OpenModel.OpenModelPropertyAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: TypeCombiEC
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+  commentId: P:IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+  id: TypeCalculationCombi
+  parent: IdeaRS.OpenModel.Loading.CombiInputSIA
+  langs:
+  - csharp
+  - vb
+  name: TypeCalculationCombi
+  nameWithType: CombiInputSIA.TypeCalculationCombi
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeCalculationCombi
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Type of combination
+  example: []
+  syntax:
+    content: >-
+      [OpenModelProperty("TypeLinear_Envelope")]
+
+      public TypeCalculationCombiSIA TypeCalculationCombi { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+    content.vb: >-
+      <OpenModelProperty("TypeLinear_Envelope")>
+
+      Public Property TypeCalculationCombi As TypeCalculationCombiSIA
+  overload: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi*
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelPropertyAttribute
+    ctor: IdeaRS.OpenModel.OpenModelPropertyAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: TypeLinear_Envelope
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.Loading.CombiInput
+  commentId: T:IdeaRS.OpenModel.Loading.CombiInput
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.CombiInput.html
+  name: CombiInput
+  nameWithType: CombiInput
+  fullName: IdeaRS.OpenModel.Loading.CombiInput
+- uid: IdeaRS.OpenModel.Loading.CombiInput.Name
+  commentId: P:IdeaRS.OpenModel.Loading.CombiInput.Name
+  parent: IdeaRS.OpenModel.Loading.CombiInput
+  href: IdeaRS.OpenModel.Loading.CombiInput.html#IdeaRS.OpenModel.Loading.CombiInput.Name
+  name: Name
+  nameWithType: CombiInput.Name
+  fullName: IdeaRS.OpenModel.Loading.CombiInput.Name
+- uid: IdeaRS.OpenModel.Loading.CombiInput.Items
+  commentId: P:IdeaRS.OpenModel.Loading.CombiInput.Items
+  parent: IdeaRS.OpenModel.Loading.CombiInput
+  href: IdeaRS.OpenModel.Loading.CombiInput.html#IdeaRS.OpenModel.Loading.CombiInput.Items
+  name: Items
+  nameWithType: CombiInput.Items
+  fullName: IdeaRS.OpenModel.Loading.CombiInput.Items
+- uid: IdeaRS.OpenModel.Loading.CombiInput.Description
+  commentId: P:IdeaRS.OpenModel.Loading.CombiInput.Description
+  parent: IdeaRS.OpenModel.Loading.CombiInput
+  href: IdeaRS.OpenModel.Loading.CombiInput.html#IdeaRS.OpenModel.Loading.CombiInput.Description
+  name: Description
+  nameWithType: CombiInput.Description
+  fullName: IdeaRS.OpenModel.Loading.CombiInput.Description
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor
+  href: IdeaRS.OpenModel.Loading.CombiInputSIA.html#IdeaRS.OpenModel.Loading.CombiInputSIA.#ctor
+  name: CombiInputSIA
+  nameWithType: CombiInputSIA.CombiInputSIA
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA.CombiInputSIA
+  nameWithType.vb: CombiInputSIA.New
+  fullName.vb: IdeaRS.OpenModel.Loading.CombiInputSIA.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA*
+  commentId: Overload:IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+  href: IdeaRS.OpenModel.Loading.CombiInputSIA.html#IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+  name: TypeCombiSIA
+  nameWithType: CombiInputSIA.TypeCombiSIA
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCombiSIA
+- uid: IdeaRS.OpenModel.Loading.TypeOfCombiSIA
+  commentId: T:IdeaRS.OpenModel.Loading.TypeOfCombiSIA
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.TypeOfCombiSIA.html
+  name: TypeOfCombiSIA
+  nameWithType: TypeOfCombiSIA
+  fullName: IdeaRS.OpenModel.Loading.TypeOfCombiSIA
+- uid: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi*
+  commentId: Overload:IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+  href: IdeaRS.OpenModel.Loading.CombiInputSIA.html#IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+  name: TypeCalculationCombi
+  nameWithType: CombiInputSIA.TypeCalculationCombi
+  fullName: IdeaRS.OpenModel.Loading.CombiInputSIA.TypeCalculationCombi
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  commentId: T:IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA.html
+  name: TypeCalculationCombiSIA
+  nameWithType: TypeCalculationCombiSIA
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA

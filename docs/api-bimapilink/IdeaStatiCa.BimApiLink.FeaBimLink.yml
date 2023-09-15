@@ -1,0 +1,1244 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink
+  commentId: T:IdeaStatiCa.BimApiLink.FeaBimLink
+  id: FeaBimLink
+  parent: IdeaStatiCa.BimApiLink
+  children:
+  - IdeaStatiCa.BimApiLink.FeaBimLink.#ctor(System.String,System.String)
+  - IdeaStatiCa.BimApiLink.FeaBimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  - IdeaStatiCa.BimApiLink.FeaBimLink.Create(System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: FeaBimLink
+  nameWithType: FeaBimLink
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/FeaBimLink.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FeaBimLink
+    path: ../src/IdeaStatica.BimApiLink/FeaBimLink.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink
+  syntax:
+    content: 'public class FeaBimLink : BimLink'
+    content.vb: Public Class FeaBimLink Inherits BimLink
+  inheritance:
+  - System.Object
+  - IdeaStatiCa.BimApiLink.BimLink
+  inheritedMembers:
+  - IdeaStatiCa.BimApiLink.BimLink.ApplicationName
+  - IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+  - IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  - IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+  - IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+  - IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  - IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  - IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  - IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  - IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  - IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  - IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  - IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink.#ctor(System.String,System.String)
+  commentId: M:IdeaStatiCa.BimApiLink.FeaBimLink.#ctor(System.String,System.String)
+  id: '#ctor(System.String,System.String)'
+  parent: IdeaStatiCa.BimApiLink.FeaBimLink
+  langs:
+  - csharp
+  - vb
+  name: FeaBimLink(string, string)
+  nameWithType: FeaBimLink.FeaBimLink(string, string)
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink.FeaBimLink(string, string)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/FeaBimLink.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/FeaBimLink.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink
+  syntax:
+    content: public FeaBimLink(string applicationName, string projectPath)
+    parameters:
+    - id: applicationName
+      type: System.String
+    - id: projectPath
+      type: System.String
+    content.vb: Public Sub New(applicationName As String, projectPath As String)
+  overload: IdeaStatiCa.BimApiLink.FeaBimLink.#ctor*
+  nameWithType.vb: FeaBimLink.New(String, String)
+  fullName.vb: IdeaStatiCa.BimApiLink.FeaBimLink.New(String, String)
+  name.vb: New(String, String)
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink.Create(System.String,System.String)
+  commentId: M:IdeaStatiCa.BimApiLink.FeaBimLink.Create(System.String,System.String)
+  id: Create(System.String,System.String)
+  parent: IdeaStatiCa.BimApiLink.FeaBimLink
+  langs:
+  - csharp
+  - vb
+  name: Create(string, string)
+  nameWithType: FeaBimLink.Create(string, string)
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink.Create(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/FeaBimLink.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaStatica.BimApiLink/FeaBimLink.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink
+  syntax:
+    content: public static BimLink Create(string applicationName, string checkbotProjectPath)
+    parameters:
+    - id: applicationName
+      type: System.String
+    - id: checkbotProjectPath
+      type: System.String
+    return:
+      type: IdeaStatiCa.BimApiLink.BimLink
+    content.vb: Public Shared Function Create(applicationName As String, checkbotProjectPath As String) As BimLink
+  overload: IdeaStatiCa.BimApiLink.FeaBimLink.Create*
+  nameWithType.vb: FeaBimLink.Create(String, String)
+  fullName.vb: IdeaStatiCa.BimApiLink.FeaBimLink.Create(String, String)
+  name.vb: Create(String, String)
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  commentId: M:IdeaStatiCa.BimApiLink.FeaBimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  id: Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  parent: IdeaStatiCa.BimApiLink.FeaBimLink
+  langs:
+  - csharp
+  - vb
+  name: Create(IPluginLogger, IBimApiImporter, string, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  nameWithType: FeaBimLink.Create(IPluginLogger, IBimApiImporter, string, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink.Create(IdeaStatiCa.Plugin.IPluginLogger, IdeaStatiCa.BimApiLink.Importers.IBimApiImporter, string, IdeaStatiCa.BimImporter.BimImporterConfiguration, IdeaStatiCa.Plugin.IProgressMessaging, IdeaStatiCa.BimImporter.Results.IBimResultsProvider, IdeaStatiCa.BimApiLink.Hooks.IPluginHook, IdeaStatiCa.BimApiLink.Hooks.IScopeHook, IdeaStatiCa.BimApiLink.Plugin.IModel, IdeaStatiCa.BimApiLink.IBimUserDataSource, System.Threading.Tasks.TaskScheduler)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/FeaBimLink.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaStatica.BimApiLink/FeaBimLink.cs
+    startLine: 20
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink
+  example: []
+  syntax:
+    content: protected override IApplicationBIM Create(IPluginLogger logger, IBimApiImporter bimApiImporter, string projectPath, BimImporterConfiguration bimImporterConfiguration, IProgressMessaging remoteApp, IBimResultsProvider resultsProvider, IPluginHook pluginHook, IScopeHook scopeHook, IModel model, IBimUserDataSource userDataSource, TaskScheduler taskScheduler)
+    parameters:
+    - id: logger
+      type: IdeaStatiCa.Plugin.IPluginLogger
+    - id: bimApiImporter
+      type: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    - id: projectPath
+      type: System.String
+    - id: bimImporterConfiguration
+      type: IdeaStatiCa.BimImporter.BimImporterConfiguration
+    - id: remoteApp
+      type: IdeaStatiCa.Plugin.IProgressMessaging
+    - id: resultsProvider
+      type: IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+    - id: pluginHook
+      type: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+    - id: scopeHook
+      type: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    - id: model
+      type: IdeaStatiCa.BimApiLink.Plugin.IModel
+    - id: userDataSource
+      type: IdeaStatiCa.BimApiLink.IBimUserDataSource
+    - id: taskScheduler
+      type: System.Threading.Tasks.TaskScheduler
+    return:
+      type: IdeaStatiCa.Plugin.IApplicationBIM
+    content.vb: Protected Overrides Function Create(logger As IPluginLogger, bimApiImporter As IBimApiImporter, projectPath As String, bimImporterConfiguration As BimImporterConfiguration, remoteApp As IProgressMessaging, resultsProvider As IBimResultsProvider, pluginHook As IPluginHook, scopeHook As IScopeHook, model As IModel, userDataSource As IBimUserDataSource, taskScheduler As TaskScheduler) As IApplicationBIM
+  overridden: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  overload: IdeaStatiCa.BimApiLink.FeaBimLink.Create*
+  nameWithType.vb: FeaBimLink.Create(IPluginLogger, IBimApiImporter, String, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  fullName.vb: IdeaStatiCa.BimApiLink.FeaBimLink.Create(IdeaStatiCa.Plugin.IPluginLogger, IdeaStatiCa.BimApiLink.Importers.IBimApiImporter, String, IdeaStatiCa.BimImporter.BimImporterConfiguration, IdeaStatiCa.Plugin.IProgressMessaging, IdeaStatiCa.BimImporter.Results.IBimResultsProvider, IdeaStatiCa.BimApiLink.Hooks.IPluginHook, IdeaStatiCa.BimApiLink.Hooks.IScopeHook, IdeaStatiCa.BimApiLink.Plugin.IModel, IdeaStatiCa.BimApiLink.IBimUserDataSource, System.Threading.Tasks.TaskScheduler)
+  name.vb: Create(IPluginLogger, IBimApiImporter, String, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+references:
+- uid: IdeaStatiCa.BimApiLink
+  commentId: N:IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink
+  nameWithType: IdeaStatiCa.BimApiLink
+  fullName: IdeaStatiCa.BimApiLink
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.BimApiLink.BimLink
+  commentId: T:IdeaStatiCa.BimApiLink.BimLink
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html
+  name: BimLink
+  nameWithType: BimLink
+  fullName: IdeaStatiCa.BimApiLink.BimLink
+- uid: IdeaStatiCa.BimApiLink.BimLink.ApplicationName
+  commentId: P:IdeaStatiCa.BimApiLink.BimLink.ApplicationName
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.ApplicationName
+  name: ApplicationName
+  nameWithType: BimLink.ApplicationName
+  fullName: IdeaStatiCa.BimApiLink.BimLink.ApplicationName
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+  name: WithIdeaStatiCa(string)
+  nameWithType: BimLink.WithIdeaStatiCa(string)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(string)
+  nameWithType.vb: BimLink.WithIdeaStatiCa(String)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(String)
+  name.vb: WithIdeaStatiCa(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+    name: WithIdeaStatiCa
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+    name: WithIdeaStatiCa
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  name: WithLogger(IPluginLogger)
+  nameWithType: BimLink.WithLogger(IPluginLogger)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+    name: WithLogger
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+    name: WithLogger
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+  name: WithImporters(Action<ImportersConfiguration>)
+  nameWithType: BimLink.WithImporters(Action<ImportersConfiguration>)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action<IdeaStatiCa.BimApiLink.ImportersConfiguration>)
+  nameWithType.vb: BimLink.WithImporters(Action(Of ImportersConfiguration))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action(Of IdeaStatiCa.BimApiLink.ImportersConfiguration))
+  name.vb: WithImporters(Action(Of ImportersConfiguration))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+    name: WithImporters
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+  - name: (
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.ImportersConfiguration
+    name: ImportersConfiguration
+    href: IdeaStatiCa.BimApiLink.ImportersConfiguration.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+    name: WithImporters
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
+  - name: (
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.ImportersConfiguration
+    name: ImportersConfiguration
+    href: IdeaStatiCa.BimApiLink.ImportersConfiguration.html
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+  name: WithResultsImporters(Action<ResultsImportersConfiguration>)
+  nameWithType: BimLink.WithResultsImporters(Action<ResultsImportersConfiguration>)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action<IdeaStatiCa.BimApiLink.ResultsImportersConfiguration>)
+  nameWithType.vb: BimLink.WithResultsImporters(Action(Of ResultsImportersConfiguration))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action(Of IdeaStatiCa.BimApiLink.ResultsImportersConfiguration))
+  name.vb: WithResultsImporters(Action(Of ResultsImportersConfiguration))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+    name: WithResultsImporters
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+  - name: (
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+    name: ResultsImportersConfiguration
+    href: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+    name: WithResultsImporters
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
+  - name: (
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+    name: ResultsImportersConfiguration
+    href: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration.html
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  name: WithBimImporterConfiguration(BimImporterConfiguration)
+  nameWithType: BimLink.WithBimImporterConfiguration(BimImporterConfiguration)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+    name: WithBimImporterConfiguration
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  - name: (
+  - uid: IdeaStatiCa.BimImporter.BimImporterConfiguration
+    name: BimImporterConfiguration
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+    name: WithBimImporterConfiguration
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
+  - name: (
+  - uid: IdeaStatiCa.BimImporter.BimImporterConfiguration
+    name: BimImporterConfiguration
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  name: WithImporterHook(IImporterHook)
+  nameWithType: BimLink.WithImporterHook(IImporterHook)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+    name: WithImporterHook
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+    name: IImporterHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+    name: WithImporterHook
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+    name: IImporterHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  name: WithPluginHook(IPluginHook)
+  nameWithType: BimLink.WithPluginHook(IPluginHook)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+    name: WithPluginHook
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+    name: IPluginHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+    name: WithPluginHook
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+    name: IPluginHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  name: WithScopeHook(IScopeHook)
+  nameWithType: BimLink.WithScopeHook(IScopeHook)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+    name: WithScopeHook
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    name: IScopeHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+    name: WithScopeHook
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    name: IScopeHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  name: WithUserDataSource(IBimUserDataSource)
+  nameWithType: BimLink.WithUserDataSource(IBimUserDataSource)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+    name: WithUserDataSource
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+    name: IBimUserDataSource
+    href: IdeaStatiCa.BimApiLink.IBimUserDataSource.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+    name: WithUserDataSource
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithUserDataSource(IdeaStatiCa.BimApiLink.IBimUserDataSource)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+    name: IBimUserDataSource
+    href: IdeaStatiCa.BimApiLink.IBimUserDataSource.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  name: WithTaskScheduler(TaskScheduler)
+  nameWithType: BimLink.WithTaskScheduler(TaskScheduler)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+    name: WithTaskScheduler
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  - name: (
+  - uid: System.Threading.Tasks.TaskScheduler
+    name: TaskScheduler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskscheduler
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+    name: WithTaskScheduler
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
+  - name: (
+  - uid: System.Threading.Tasks.TaskScheduler
+    name: TaskScheduler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskscheduler
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  name: InitHostingClient(IPluginLogger)
+  nameWithType: BimLink.InitHostingClient(IPluginLogger)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+    name: InitHostingClient
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+    name: InitHostingClient
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  name: Run(IModel)
+  nameWithType: BimLink.Run(IModel)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+    name: Run
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+    name: Run
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+  name: CreateApplicationBIM(IModel, IPluginLogger, IProgressMessaging)
+  nameWithType: BimLink.CreateApplicationBIM(IModel, IPluginLogger, IProgressMessaging)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel, IdeaStatiCa.Plugin.IPluginLogger, IdeaStatiCa.Plugin.IProgressMessaging)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+    name: CreateApplicationBIM
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging
+    name: IProgressMessaging
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+    name: CreateApplicationBIM
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging
+    name: IProgressMessaging
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink.#ctor*
+  commentId: Overload:IdeaStatiCa.BimApiLink.FeaBimLink.#ctor
+  href: IdeaStatiCa.BimApiLink.FeaBimLink.html#IdeaStatiCa.BimApiLink.FeaBimLink.#ctor(System.String,System.String)
+  name: FeaBimLink
+  nameWithType: FeaBimLink.FeaBimLink
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink.FeaBimLink
+  nameWithType.vb: FeaBimLink.New
+  fullName.vb: IdeaStatiCa.BimApiLink.FeaBimLink.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.BimApiLink.FeaBimLink.Create*
+  commentId: Overload:IdeaStatiCa.BimApiLink.FeaBimLink.Create
+  href: IdeaStatiCa.BimApiLink.FeaBimLink.html#IdeaStatiCa.BimApiLink.FeaBimLink.Create(System.String,System.String)
+  name: Create
+  nameWithType: FeaBimLink.Create
+  fullName: IdeaStatiCa.BimApiLink.FeaBimLink.Create
+- uid: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  name: Create(IPluginLogger, IBimApiImporter, string, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  nameWithType: BimLink.Create(IPluginLogger, IBimApiImporter, string, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger, IdeaStatiCa.BimApiLink.Importers.IBimApiImporter, string, IdeaStatiCa.BimImporter.BimImporterConfiguration, IdeaStatiCa.Plugin.IProgressMessaging, IdeaStatiCa.BimImporter.Results.IBimResultsProvider, IdeaStatiCa.BimApiLink.Hooks.IPluginHook, IdeaStatiCa.BimApiLink.Hooks.IScopeHook, IdeaStatiCa.BimApiLink.Plugin.IModel, IdeaStatiCa.BimApiLink.IBimUserDataSource, System.Threading.Tasks.TaskScheduler)
+  nameWithType.vb: BimLink.Create(IPluginLogger, IBimApiImporter, String, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger, IdeaStatiCa.BimApiLink.Importers.IBimApiImporter, String, IdeaStatiCa.BimImporter.BimImporterConfiguration, IdeaStatiCa.Plugin.IProgressMessaging, IdeaStatiCa.BimImporter.Results.IBimResultsProvider, IdeaStatiCa.BimApiLink.Hooks.IPluginHook, IdeaStatiCa.BimApiLink.Hooks.IScopeHook, IdeaStatiCa.BimApiLink.Plugin.IModel, IdeaStatiCa.BimApiLink.IBimUserDataSource, System.Threading.Tasks.TaskScheduler)
+  name.vb: Create(IPluginLogger, IBimApiImporter, String, BimImporterConfiguration, IProgressMessaging, IBimResultsProvider, IPluginHook, IScopeHook, IModel, IBimUserDataSource, TaskScheduler)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+    name: Create
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    name: IBimApiImporter
+    href: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimImporter.BimImporterConfiguration
+    name: BimImporterConfiguration
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging
+    name: IProgressMessaging
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+    name: IBimResultsProvider
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+    name: IPluginHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    name: IScopeHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+    name: IBimUserDataSource
+    href: IdeaStatiCa.BimApiLink.IBimUserDataSource.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.TaskScheduler
+    name: TaskScheduler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskscheduler
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+    name: Create
+    href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.IPluginLogger
+    name: IPluginLogger
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    name: IBimApiImporter
+    href: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimImporter.BimImporterConfiguration
+    name: BimImporterConfiguration
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging
+    name: IProgressMessaging
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+    name: IBimResultsProvider
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+    name: IPluginHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    name: IScopeHook
+    href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+    name: IBimUserDataSource
+    href: IdeaStatiCa.BimApiLink.IBimUserDataSource.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.TaskScheduler
+    name: TaskScheduler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskscheduler
+  - name: )
+- uid: IdeaStatiCa.Plugin.IPluginLogger
+  commentId: T:IdeaStatiCa.Plugin.IPluginLogger
+  parent: IdeaStatiCa.Plugin
+  name: IPluginLogger
+  nameWithType: IPluginLogger
+  fullName: IdeaStatiCa.Plugin.IPluginLogger
+- uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+  commentId: T:IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+  parent: IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.html
+  name: IBimApiImporter
+  nameWithType: IBimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+- uid: IdeaStatiCa.BimImporter.BimImporterConfiguration
+  commentId: T:IdeaStatiCa.BimImporter.BimImporterConfiguration
+  parent: IdeaStatiCa.BimImporter
+  name: BimImporterConfiguration
+  nameWithType: BimImporterConfiguration
+  fullName: IdeaStatiCa.BimImporter.BimImporterConfiguration
+- uid: IdeaStatiCa.Plugin.IProgressMessaging
+  commentId: T:IdeaStatiCa.Plugin.IProgressMessaging
+  parent: IdeaStatiCa.Plugin
+  name: IProgressMessaging
+  nameWithType: IProgressMessaging
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging
+- uid: IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+  commentId: T:IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+  parent: IdeaStatiCa.BimImporter.Results
+  name: IBimResultsProvider
+  nameWithType: IBimResultsProvider
+  fullName: IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+- uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.BimApiLink.Hooks.IPluginHook.html
+  name: IPluginHook
+  nameWithType: IPluginHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html
+  name: IScopeHook
+  nameWithType: IScopeHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.IModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  name: IModel
+  nameWithType: IModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel
+- uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+  commentId: T:IdeaStatiCa.BimApiLink.IBimUserDataSource
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.IBimUserDataSource.html
+  name: IBimUserDataSource
+  nameWithType: IBimUserDataSource
+  fullName: IdeaStatiCa.BimApiLink.IBimUserDataSource
+- uid: System.Threading.Tasks.TaskScheduler
+  commentId: T:System.Threading.Tasks.TaskScheduler
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.taskscheduler
+  name: TaskScheduler
+  nameWithType: TaskScheduler
+  fullName: System.Threading.Tasks.TaskScheduler
+- uid: IdeaStatiCa.Plugin.IApplicationBIM
+  commentId: T:IdeaStatiCa.Plugin.IApplicationBIM
+  parent: IdeaStatiCa.Plugin
+  name: IApplicationBIM
+  nameWithType: IApplicationBIM
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+- uid: IdeaStatiCa.BimApiLink.Importers
+  commentId: N:IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Importers
+  nameWithType: IdeaStatiCa.BimApiLink.Importers
+  fullName: IdeaStatiCa.BimApiLink.Importers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+- uid: IdeaStatiCa.BimImporter
+  commentId: N:IdeaStatiCa.BimImporter
+  name: IdeaStatiCa.BimImporter
+  nameWithType: IdeaStatiCa.BimImporter
+  fullName: IdeaStatiCa.BimImporter
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimImporter
+    name: BimImporter
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimImporter
+    name: BimImporter
+- uid: IdeaStatiCa.BimImporter.Results
+  commentId: N:IdeaStatiCa.BimImporter.Results
+  name: IdeaStatiCa.BimImporter.Results
+  nameWithType: IdeaStatiCa.BimImporter.Results
+  fullName: IdeaStatiCa.BimImporter.Results
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimImporter
+    name: BimImporter
+  - name: .
+  - uid: IdeaStatiCa.BimImporter.Results
+    name: Results
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimImporter
+    name: BimImporter
+  - name: .
+  - uid: IdeaStatiCa.BimImporter.Results
+    name: Results
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  commentId: N:IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Hooks
+  nameWithType: IdeaStatiCa.BimApiLink.Hooks
+  fullName: IdeaStatiCa.BimApiLink.Hooks
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+- uid: IdeaStatiCa.BimApiLink.Plugin
+  commentId: N:IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Plugin
+  nameWithType: IdeaStatiCa.BimApiLink.Plugin
+  fullName: IdeaStatiCa.BimApiLink.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType
+  commentId: T:IdeaRS.OpenModel.Parameters.BoltShearType
+  id: BoltShearType
+  parent: IdeaRS.OpenModel.Parameters
+  children:
+  - IdeaRS.OpenModel.Parameters.BoltShearType.Bearing
+  - IdeaRS.OpenModel.Parameters.BoltShearType.Friction
+  - IdeaRS.OpenModel.Parameters.BoltShearType.Interaction
+  langs:
+  - csharp
+  - vb
+  name: BoltShearType
+  nameWithType: BoltShearType
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltShearType
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 111
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Defines a transfer of shear force in bolts.
+  example: []
+  syntax:
+    content: public enum BoltShearType
+    content.vb: Public Enum BoltShearType
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType.Bearing
+  commentId: F:IdeaRS.OpenModel.Parameters.BoltShearType.Bearing
+  id: Bearing
+  parent: IdeaRS.OpenModel.Parameters.BoltShearType
+  langs:
+  - csharp
+  - vb
+  name: Bearing
+  nameWithType: BoltShearType.Bearing
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType.Bearing
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bearing
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 116
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Not used. Recomendation use value Interaction
+  example: []
+  syntax:
+    content: Bearing = 0
+    return:
+      type: IdeaRS.OpenModel.Parameters.BoltShearType
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType.Interaction
+  commentId: F:IdeaRS.OpenModel.Parameters.BoltShearType.Interaction
+  id: Interaction
+  parent: IdeaRS.OpenModel.Parameters.BoltShearType
+  langs:
+  - csharp
+  - vb
+  name: Interaction
+  nameWithType: BoltShearType.Interaction
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType.Interaction
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Interaction
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 121
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: TODO DRA 2
+  example: []
+  syntax:
+    content: Interaction = 1
+    return:
+      type: IdeaRS.OpenModel.Parameters.BoltShearType
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType.Friction
+  commentId: F:IdeaRS.OpenModel.Parameters.BoltShearType.Friction
+  id: Friction
+  parent: IdeaRS.OpenModel.Parameters.BoltShearType
+  langs:
+  - csharp
+  - vb
+  name: Friction
+  nameWithType: BoltShearType.Friction
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType.Friction
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Friction
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 126
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: TODO DRA 3
+  example: []
+  syntax:
+    content: Friction = 2
+    return:
+      type: IdeaRS.OpenModel.Parameters.BoltShearType
+references:
+- uid: IdeaRS.OpenModel.Parameters
+  commentId: N:IdeaRS.OpenModel.Parameters
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Parameters
+  nameWithType: IdeaRS.OpenModel.Parameters
+  fullName: IdeaRS.OpenModel.Parameters
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType
+  commentId: T:IdeaRS.OpenModel.Parameters.BoltShearType
+  parent: IdeaRS.OpenModel.Parameters
+  href: IdeaRS.OpenModel.Parameters.BoltShearType.html
+  name: BoltShearType
+  nameWithType: BoltShearType
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType

@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Model.RebarGeneralType
+  commentId: T:IdeaRS.OpenModel.Model.RebarGeneralType
+  id: RebarGeneralType
+  parent: IdeaRS.OpenModel.Model
+  children:
+  - IdeaRS.OpenModel.Model.RebarGeneralType.NotDefined
+  - IdeaRS.OpenModel.Model.RebarGeneralType.Single
+  - IdeaRS.OpenModel.Model.RebarGeneralType.Stirrup
+  langs:
+  - csharp
+  - vb
+  name: RebarGeneralType
+  nameWithType: RebarGeneralType
+  fullName: IdeaRS.OpenModel.Model.RebarGeneralType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RebarGeneralType
+    path: ../src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Model
+  summary: Determine type of rebar General
+  example: []
+  syntax:
+    content: public enum RebarGeneralType
+    content.vb: Public Enum RebarGeneralType
+- uid: IdeaRS.OpenModel.Model.RebarGeneralType.NotDefined
+  commentId: F:IdeaRS.OpenModel.Model.RebarGeneralType.NotDefined
+  id: NotDefined
+  parent: IdeaRS.OpenModel.Model.RebarGeneralType
+  langs:
+  - csharp
+  - vb
+  name: NotDefined
+  nameWithType: RebarGeneralType.NotDefined
+  fullName: IdeaRS.OpenModel.Model.RebarGeneralType.NotDefined
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NotDefined
+    path: ../src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Model
+  summary: Not defined type
+  example: []
+  syntax:
+    content: NotDefined = 0
+    return:
+      type: IdeaRS.OpenModel.Model.RebarGeneralType
+- uid: IdeaRS.OpenModel.Model.RebarGeneralType.Single
+  commentId: F:IdeaRS.OpenModel.Model.RebarGeneralType.Single
+  id: Single
+  parent: IdeaRS.OpenModel.Model.RebarGeneralType
+  langs:
+  - csharp
+  - vb
+  name: Single
+  nameWithType: RebarGeneralType.Single
+  fullName: IdeaRS.OpenModel.Model.RebarGeneralType.Single
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Single
+    path: ../src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Model
+  summary: Rebar Single
+  example: []
+  syntax:
+    content: Single = 1
+    return:
+      type: IdeaRS.OpenModel.Model.RebarGeneralType
+- uid: IdeaRS.OpenModel.Model.RebarGeneralType.Stirrup
+  commentId: F:IdeaRS.OpenModel.Model.RebarGeneralType.Stirrup
+  id: Stirrup
+  parent: IdeaRS.OpenModel.Model.RebarGeneralType
+  langs:
+  - csharp
+  - vb
+  name: Stirrup
+  nameWithType: RebarGeneralType.Stirrup
+  fullName: IdeaRS.OpenModel.Model.RebarGeneralType.Stirrup
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Stirrup
+    path: ../src/IdeaRS.OpenModel/Model/RebarGeneral.cs
+    startLine: 20
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Model
+  summary: Rebar Stirrup
+  example: []
+  syntax:
+    content: Stirrup = 2
+    return:
+      type: IdeaRS.OpenModel.Model.RebarGeneralType
+references:
+- uid: IdeaRS.OpenModel.Model
+  commentId: N:IdeaRS.OpenModel.Model
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Model
+  nameWithType: IdeaRS.OpenModel.Model
+  fullName: IdeaRS.OpenModel.Model
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+    href: IdeaRS.OpenModel.Model.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+    href: IdeaRS.OpenModel.Model.html
+- uid: IdeaRS.OpenModel.Model.RebarGeneralType
+  commentId: T:IdeaRS.OpenModel.Model.RebarGeneralType
+  parent: IdeaRS.OpenModel.Model
+  href: IdeaRS.OpenModel.Model.RebarGeneralType.html
+  name: RebarGeneralType
+  nameWithType: RebarGeneralType
+  fullName: IdeaRS.OpenModel.Model.RebarGeneralType

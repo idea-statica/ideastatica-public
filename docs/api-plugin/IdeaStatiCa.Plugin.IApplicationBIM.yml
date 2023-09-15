@@ -1,0 +1,778 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IApplicationBIM
+  commentId: T:IdeaStatiCa.Plugin.IApplicationBIM
+  id: IApplicationBIM
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection
+  - IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  - IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  - IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName
+  - IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  - IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  - IdeaStatiCa.Plugin.IApplicationBIM.IsCAD
+  - IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate
+  - IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})
+  langs:
+  - csharp
+  - vb
+  name: IApplicationBIM
+  nameWithType: IApplicationBIM
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IApplicationBIM
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Abstraction of a FE application which provides data to Idea StatiCa
+  example: []
+  syntax:
+    content: >-
+      [ServiceContract]
+
+      public interface IApplicationBIM
+    content.vb: >-
+      <ServiceContract>
+
+      Public Interface IApplicationBIM
+  attributes:
+  - type: System.ServiceModel.ServiceContractAttribute
+    ctor: System.ServiceModel.ServiceContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection
+  id: GetActiveSelection
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: GetActiveSelection()
+  nameWithType: IApplicationBIM.GetActiveSelection()
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetActiveSelection
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [OperationContract]
+
+      List<BIMItemId> GetActiveSelection()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId}
+    content.vb: >-
+      <OperationContract>
+
+      Function GetActiveSelection() As List(Of BIMItemId)
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  id: GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: GetActiveSelectionModelXML(CountryCode, RequestedItemsType)
+  nameWithType: IApplicationBIM.GetActiveSelectionModelXML(CountryCode, RequestedItemsType)
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode, IdeaStatiCa.Plugin.RequestedItemsType)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetActiveSelectionModelXML
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetActiveSelectionModelXML(CountryCode countryCode, RequestedItemsType requestedType)
+    parameters:
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+    - id: requestedType
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+    return:
+      type: System.String
+    content.vb: >-
+      <OperationContract>
+
+      Function GetActiveSelectionModelXML(countryCode As CountryCode, requestedType As RequestedItemsType) As String
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  id: GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: GetActiveSelectionModelXMLAsync(CountryCode, RequestedItemsType)
+  nameWithType: IApplicationBIM.GetActiveSelectionModelXMLAsync(CountryCode, RequestedItemsType)
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode, IdeaStatiCa.Plugin.RequestedItemsType)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetActiveSelectionModelXMLAsync
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 26
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Task<string> GetActiveSelectionModelXMLAsync(CountryCode countryCode, RequestedItemsType requestedType)
+    parameters:
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+    - id: requestedType
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+    return:
+      type: System.Threading.Tasks.Task{System.String}
+    content.vb: Function GetActiveSelectionModelXMLAsync(countryCode As CountryCode, requestedType As RequestedItemsType) As Task(Of String)
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync*
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName
+  id: GetApplicationName
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: GetApplicationName()
+  nameWithType: IApplicationBIM.GetApplicationName()
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetApplicationName
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetApplicationName()
+    return:
+      type: System.String
+    content.vb: >-
+      <OperationContract>
+
+      Function GetApplicationName() As String
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  id: GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: GetModelForSelectionXML(CountryCode, List<BIMItemsGroup>)
+  nameWithType: IApplicationBIM.GetModelForSelectionXML(CountryCode, List<BIMItemsGroup>)
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode, System.Collections.Generic.List<IdeaStatiCa.Plugin.BIMItemsGroup>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetModelForSelectionXML
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 39
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: >-
+    Returns a xml string representing a list of BIM models for requested sequence of given <code class="paramref">items</code> - groups.
+
+    Each group in the list of <code class="paramref">items</code> represents designed item such as connection or member and is defined by the id, type and items belonging to the group.
+
+    The item can also has id = -1, which means, that items (members or nodes typically) in this group doesn't belong to any design item (connection or member).
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      string GetModelForSelectionXML(CountryCode countryCode, List<BIMItemsGroup> items)
+    parameters:
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+      description: The standard that will match the imported models.
+    - id: items
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup}
+      description: The sequence of items, for which the BIM model is required.
+    return:
+      type: System.String
+      description: A xml string representing a list of BIM models for requested <code class="paramref">items</code>.
+    content.vb: >-
+      <OperationContract>
+
+      Function GetModelForSelectionXML(countryCode As CountryCode, items As List(Of BIMItemsGroup)) As String
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IApplicationBIM.GetModelForSelectionXML(CountryCode, List(Of BIMItemsGroup))
+  fullName.vb: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode, System.Collections.Generic.List(Of IdeaStatiCa.Plugin.BIMItemsGroup))
+  name.vb: GetModelForSelectionXML(CountryCode, List(Of BIMItemsGroup))
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  id: GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: GetModelForSelectionXMLAsync(CountryCode, List<BIMItemsGroup>)
+  nameWithType: IApplicationBIM.GetModelForSelectionXMLAsync(CountryCode, List<BIMItemsGroup>)
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode, System.Collections.Generic.List<IdeaStatiCa.Plugin.BIMItemsGroup>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetModelForSelectionXMLAsync
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 42
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Task<string> GetModelForSelectionXMLAsync(CountryCode countryCode, List<BIMItemsGroup> items)
+    parameters:
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+    - id: items
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup}
+    return:
+      type: System.Threading.Tasks.Task{System.String}
+    content.vb: Function GetModelForSelectionXMLAsync(countryCode As CountryCode, items As List(Of BIMItemsGroup)) As Task(Of String)
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync*
+  nameWithType.vb: IApplicationBIM.GetModelForSelectionXMLAsync(CountryCode, List(Of BIMItemsGroup))
+  fullName.vb: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode, System.Collections.Generic.List(Of IdeaStatiCa.Plugin.BIMItemsGroup))
+  name.vb: GetModelForSelectionXMLAsync(CountryCode, List(Of BIMItemsGroup))
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.IsCAD
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.IsCAD
+  id: IsCAD
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: IsCAD()
+  nameWithType: IApplicationBIM.IsCAD()
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.IsCAD()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsCAD
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 44
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [OperationContract]
+
+      bool IsCAD()
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <OperationContract>
+
+      Function IsCAD() As Boolean
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.IsCAD*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})
+  id: SelectAsync(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: SelectAsync(List<BIMItemId>)
+  nameWithType: IApplicationBIM.SelectAsync(List<BIMItemId>)
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync(System.Collections.Generic.List<IdeaStatiCa.Plugin.BIMItemId>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SelectAsync
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 47
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [OperationContract]
+
+      Task SelectAsync(List<BIMItemId> items)
+    parameters:
+    - id: items
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId}
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <OperationContract>
+
+      Function SelectAsync(items As List(Of BIMItemId)) As Task
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IApplicationBIM.SelectAsync(List(Of BIMItemId))
+  fullName.vb: IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync(System.Collections.Generic.List(Of IdeaStatiCa.Plugin.BIMItemId))
+  name.vb: SelectAsync(List(Of BIMItemId))
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate
+  commentId: M:IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate
+  id: IsDataUpToDate
+  parent: IdeaStatiCa.Plugin.IApplicationBIM
+  langs:
+  - csharp
+  - vb
+  name: IsDataUpToDate()
+  nameWithType: IApplicationBIM.IsDataUpToDate()
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsDataUpToDate
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 49
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: bool IsDataUpToDate()
+    return:
+      type: System.Boolean
+    content.vb: Function IsDataUpToDate() As Boolean
+  overload: IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate*
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection
+  name: GetActiveSelection
+  nameWithType: IApplicationBIM.GetActiveSelection
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelection
+- uid: System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<BIMItemId>
+  nameWithType: List<BIMItemId>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Plugin.BIMItemId>
+  nameWithType.vb: List(Of BIMItemId)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Plugin.BIMItemId)
+  name.vb: List(Of BIMItemId)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.BIMItemId
+    name: BIMItemId
+    href: IdeaStatiCa.Plugin.BIMItemId.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.BIMItemId
+    name: BIMItemId
+    href: IdeaStatiCa.Plugin.BIMItemId.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  name: GetActiveSelectionModelXML
+  nameWithType: IApplicationBIM.GetActiveSelectionModelXML
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXML
+- uid: IdeaRS.OpenModel.CountryCode
+  commentId: T:IdeaRS.OpenModel.CountryCode
+  parent: IdeaRS.OpenModel
+  name: CountryCode
+  nameWithType: CountryCode
+  fullName: IdeaRS.OpenModel.CountryCode
+- uid: IdeaStatiCa.Plugin.RequestedItemsType
+  commentId: T:IdeaStatiCa.Plugin.RequestedItemsType
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.RequestedItemsType.html
+  name: RequestedItemsType
+  nameWithType: RequestedItemsType
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync(IdeaRS.OpenModel.CountryCode,IdeaStatiCa.Plugin.RequestedItemsType)
+  name: GetActiveSelectionModelXMLAsync
+  nameWithType: IApplicationBIM.GetActiveSelectionModelXMLAsync
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetActiveSelectionModelXMLAsync
+- uid: System.Threading.Tasks.Task{System.String}
+  commentId: T:System.Threading.Tasks.Task{System.String}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<string>
+  nameWithType: Task<string>
+  fullName: System.Threading.Tasks.Task<string>
+  nameWithType.vb: Task(Of String)
+  fullName.vb: System.Threading.Tasks.Task(Of String)
+  name.vb: Task(Of String)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName
+  name: GetApplicationName
+  nameWithType: IApplicationBIM.GetApplicationName
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetApplicationName
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  name: GetModelForSelectionXML
+  nameWithType: IApplicationBIM.GetModelForSelectionXML
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXML
+- uid: System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<BIMItemsGroup>
+  nameWithType: List<BIMItemsGroup>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Plugin.BIMItemsGroup>
+  nameWithType.vb: List(Of BIMItemsGroup)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Plugin.BIMItemsGroup)
+  name.vb: List(Of BIMItemsGroup)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.BIMItemsGroup
+    name: BIMItemsGroup
+    href: IdeaStatiCa.Plugin.BIMItemsGroup.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.BIMItemsGroup
+    name: BIMItemsGroup
+    href: IdeaStatiCa.Plugin.BIMItemsGroup.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync(IdeaRS.OpenModel.CountryCode,System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemsGroup})
+  name: GetModelForSelectionXMLAsync
+  nameWithType: IApplicationBIM.GetModelForSelectionXMLAsync
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.GetModelForSelectionXMLAsync
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.IsCAD*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.IsCAD
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.IsCAD
+  name: IsCAD
+  nameWithType: IApplicationBIM.IsCAD
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.IsCAD
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync(System.Collections.Generic.List{IdeaStatiCa.Plugin.BIMItemId})
+  name: SelectAsync
+  nameWithType: IApplicationBIM.SelectAsync
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.SelectAsync
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate*
+  commentId: Overload:IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html#IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate
+  name: IsDataUpToDate
+  nameWithType: IApplicationBIM.IsDataUpToDate
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM.IsDataUpToDate

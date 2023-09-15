@@ -6,7 +6,7 @@
 	public interface IIdeaUserEvent
 	{
 		/// <summary>
-		/// Event category for the 'ec' Google Analytics parameter. Use one of the predefined categories in <see cref="EventCategories"/>. Must not be null.
+		/// Event category for the 'ec' Google Analytics parameter. Use one of the predefined categories. Must not be null.
 		/// </summary>
 		string EventCategory { get; }
 

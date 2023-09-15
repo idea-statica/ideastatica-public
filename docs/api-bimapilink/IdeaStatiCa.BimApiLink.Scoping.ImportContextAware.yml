@@ -1,0 +1,428 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+  id: ImportContextAware
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  children:
+  - IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor
+  - IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)
+  - IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+  langs:
+  - csharp
+  - vb
+  name: ImportContextAware
+  nameWithType: ImportContextAware
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImportContextAware
+    path: ../src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: public abstract class ImportContextAware
+    content.vb: Public MustInherit Class ImportContextAware
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+  id: Scope
+  parent: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+  langs:
+  - csharp
+  - vb
+  name: Scope
+  nameWithType: ImportContextAware.Scope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Scope
+    path: ../src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: protected IScope Scope { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApiLink.Scoping.IScope
+    content.vb: Protected ReadOnly Property Scope As IScope
+  overload: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope*
+- uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)
+  commentId: M:IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)
+  id: '#ctor(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)'
+  parent: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+  langs:
+  - csharp
+  - vb
+  name: ImportContextAware(IScopeProvider)
+  nameWithType: ImportContextAware.ImportContextAware(IScopeProvider)
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.ImportContextAware(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: protected ImportContextAware(IScopeProvider scopeProvider)
+    parameters:
+    - id: scopeProvider
+      type: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+    content.vb: Protected Sub New(scopeProvider As IScopeProvider)
+  overload: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor*
+  nameWithType.vb: ImportContextAware.New(IScopeProvider)
+  fullName.vb: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.New(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)
+  name.vb: New(IScopeProvider)
+- uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor
+  commentId: M:IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor
+  id: '#ctor'
+  parent: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+  langs:
+  - csharp
+  - vb
+  name: ImportContextAware()
+  nameWithType: ImportContextAware.ImportContextAware()
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.ImportContextAware()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/Scoping/ImportContextAware.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: protected ImportContextAware()
+    content.vb: Protected Sub New()
+  overload: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor*
+  nameWithType.vb: ImportContextAware.New()
+  fullName.vb: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.New()
+  name.vb: New()
+references:
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  commentId: N:IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Scoping
+  nameWithType: IdeaStatiCa.BimApiLink.Scoping
+  fullName: IdeaStatiCa.BimApiLink.Scoping
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+  href: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.html#IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+  name: Scope
+  nameWithType: ImportContextAware.Scope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.Scope
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.IScope
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html
+  name: IScope
+  nameWithType: IScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope
+- uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor
+  href: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.html#IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.#ctor(IdeaStatiCa.BimApiLink.Scoping.IScopeProvider)
+  name: ImportContextAware
+  nameWithType: ImportContextAware.ImportContextAware
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.ImportContextAware
+  nameWithType.vb: ImportContextAware.New
+  fullName.vb: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware.New
+  name.vb: New
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider.html
+  name: IScopeProvider
+  nameWithType: IScopeProvider
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider

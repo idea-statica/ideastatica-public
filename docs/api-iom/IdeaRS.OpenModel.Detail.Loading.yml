@@ -1,0 +1,108 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.Loading
+  commentId: N:IdeaRS.OpenModel.Detail.Loading
+  id: IdeaRS.OpenModel.Detail.Loading
+  children:
+  - IdeaRS.OpenModel.Detail.Loading.CalculationCase
+  - IdeaRS.OpenModel.Detail.Loading.DirectionType
+  - IdeaRS.OpenModel.Detail.Loading.LineLoad
+  - IdeaRS.OpenModel.Detail.Loading.LoadBase
+  - IdeaRS.OpenModel.Detail.Loading.LoadCase
+  - IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  - IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  langs:
+  - csharp
+  - vb
+  name: IdeaRS.OpenModel.Detail.Loading
+  nameWithType: IdeaRS.OpenModel.Detail.Loading
+  fullName: IdeaRS.OpenModel.Detail.Loading
+  type: Namespace
+  assemblies:
+  - IdeaRS.OpenModel
+references:
+- uid: IdeaRS.OpenModel.Detail.Loading.CalculationCase
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.CalculationCase
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.CalculationCase.html
+  name: CalculationCase
+  nameWithType: CalculationCase
+  fullName: IdeaRS.OpenModel.Detail.Loading.CalculationCase
+- uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition.html
+  name: TypeLinePosition
+  nameWithType: TypeLinePosition
+  fullName: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+- uid: IdeaRS.OpenModel.Detail.Loading.DirectionType
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.DirectionType
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.DirectionType.html
+  name: DirectionType
+  nameWithType: DirectionType
+  fullName: IdeaRS.OpenModel.Detail.Loading.DirectionType
+- uid: IdeaRS.OpenModel.Detail.Loading.LineLoad
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.LineLoad
+  href: IdeaRS.OpenModel.Detail.Loading.LineLoad.html
+  name: LineLoad
+  nameWithType: LineLoad
+  fullName: IdeaRS.OpenModel.Detail.Loading.LineLoad
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadBase
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.LoadBase
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.LoadBase.html
+  name: LoadBase
+  nameWithType: LoadBase
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadBase
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.LoadCaseType.html
+  name: LoadCaseType
+  nameWithType: LoadCaseType
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadCase
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.LoadCase
+  href: IdeaRS.OpenModel.Detail.Loading.LoadCase.html
+  name: LoadCase
+  nameWithType: LoadCase
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadCase
+- uid: IdeaRS.OpenModel.Detail.Loading
+  commentId: N:IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail.Loading
+  nameWithType: IdeaRS.OpenModel.Detail.Loading
+  fullName: IdeaRS.OpenModel.Detail.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Detail.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Detail.Loading.html

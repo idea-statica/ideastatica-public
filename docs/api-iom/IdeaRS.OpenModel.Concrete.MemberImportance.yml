@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.MemberImportance
+  commentId: T:IdeaRS.OpenModel.Concrete.MemberImportance
+  id: MemberImportance
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.MemberImportance.Major
+  - IdeaRS.OpenModel.Concrete.MemberImportance.Minor
+  langs:
+  - csharp
+  - vb
+  name: MemberImportance
+  nameWithType: MemberImportance
+  fullName: IdeaRS.OpenModel.Concrete.MemberImportance
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MemberImportance
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Member importance
+  example: []
+  syntax:
+    content: public enum MemberImportance
+    content.vb: Public Enum MemberImportance
+- uid: IdeaRS.OpenModel.Concrete.MemberImportance.Major
+  commentId: F:IdeaRS.OpenModel.Concrete.MemberImportance.Major
+  id: Major
+  parent: IdeaRS.OpenModel.Concrete.MemberImportance
+  langs:
+  - csharp
+  - vb
+  name: Major
+  nameWithType: MemberImportance.Major
+  fullName: IdeaRS.OpenModel.Concrete.MemberImportance.Major
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Major
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Major
+  example: []
+  syntax:
+    content: Major = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.MemberImportance
+- uid: IdeaRS.OpenModel.Concrete.MemberImportance.Minor
+  commentId: F:IdeaRS.OpenModel.Concrete.MemberImportance.Minor
+  id: Minor
+  parent: IdeaRS.OpenModel.Concrete.MemberImportance
+  langs:
+  - csharp
+  - vb
+  name: Minor
+  nameWithType: MemberImportance.Minor
+  fullName: IdeaRS.OpenModel.Concrete.MemberImportance.Minor
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Minor
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Minor
+  example: []
+  syntax:
+    content: Minor = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.MemberImportance
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.MemberImportance
+  commentId: T:IdeaRS.OpenModel.Concrete.MemberImportance
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.MemberImportance.html
+  name: MemberImportance
+  nameWithType: MemberImportance
+  fullName: IdeaRS.OpenModel.Concrete.MemberImportance

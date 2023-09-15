@@ -1,0 +1,452 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Geometry3D.ArcSegment3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.ArcSegment3D
+  id: ArcSegment3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  children:
+  - IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+  langs:
+  - csharp
+  - vb
+  name: ArcSegment3D
+  nameWithType: ArcSegment3D
+  fullName: IdeaRS.OpenModel.Geometry3D.ArcSegment3D
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Geometry/Geometry3D/ArcSegment3D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ArcSegment3D
+    path: ../src/IdeaRS.OpenModel/Geometry/Geometry3D/ArcSegment3D.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Geometry3D
+  summary: Represents an arc segment in three-dimensional space.
+  example: []
+  syntax:
+    content: >-
+      [OpenModelClass("CI.Geometry3D.ArcSegment3D,CI.Geometry3D", "CI.Geometry3D.IArcSegment3D,CI.BasicTypes")]
+
+      public class ArcSegment3D : Segment3D
+    content.vb: >-
+      <OpenModelClass("CI.Geometry3D.ArcSegment3D,CI.Geometry3D", "CI.Geometry3D.IArcSegment3D,CI.BasicTypes")>
+
+      Public Class ArcSegment3D Inherits Segment3D
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  - IdeaRS.OpenModel.Geometry3D.Segment3D
+  inheritedMembers:
+  - IdeaRS.OpenModel.Geometry3D.Segment3D.StartPoint
+  - IdeaRS.OpenModel.Geometry3D.Segment3D.EndPoint
+  - IdeaRS.OpenModel.Geometry3D.Segment3D.LocalCoordinateSystem
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String,System.String)
+    arguments:
+    - type: System.String
+      value: CI.Geometry3D.ArcSegment3D,CI.Geometry3D
+    - type: System.String
+      value: CI.Geometry3D.IArcSegment3D,CI.BasicTypes
+- uid: IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+  commentId: P:IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+  id: Point
+  parent: IdeaRS.OpenModel.Geometry3D.ArcSegment3D
+  langs:
+  - csharp
+  - vb
+  name: Point
+  nameWithType: ArcSegment3D.Point
+  fullName: IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Geometry/Geometry3D/ArcSegment3D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Point
+    path: ../src/IdeaRS.OpenModel/Geometry/Geometry3D/ArcSegment3D.cs
+    startLine: 11
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Geometry3D
+  summary: Gets or sets the reference to <xref href="IdeaRS.OpenModel.Geometry3D.Point3D" data-throw-if-not-resolved="false"></xref> of circular arc somewhere between start and end point.
+  example: []
+  syntax:
+    content: public ReferenceElement Point { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property Point As ReferenceElement
+  overload: IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point*
+references:
+- uid: IdeaRS.OpenModel.Geometry3D
+  commentId: N:IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry3D
+  nameWithType: IdeaRS.OpenModel.Geometry3D
+  fullName: IdeaRS.OpenModel.Geometry3D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.Geometry3D.Segment3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.Segment3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.OpenModel.Geometry3D.Segment3D.html
+  name: Segment3D
+  nameWithType: Segment3D
+  fullName: IdeaRS.OpenModel.Geometry3D.Segment3D
+- uid: IdeaRS.OpenModel.Geometry3D.Segment3D.StartPoint
+  commentId: P:IdeaRS.OpenModel.Geometry3D.Segment3D.StartPoint
+  parent: IdeaRS.OpenModel.Geometry3D.Segment3D
+  href: IdeaRS.OpenModel.Geometry3D.Segment3D.html#IdeaRS.OpenModel.Geometry3D.Segment3D.StartPoint
+  name: StartPoint
+  nameWithType: Segment3D.StartPoint
+  fullName: IdeaRS.OpenModel.Geometry3D.Segment3D.StartPoint
+- uid: IdeaRS.OpenModel.Geometry3D.Segment3D.EndPoint
+  commentId: P:IdeaRS.OpenModel.Geometry3D.Segment3D.EndPoint
+  parent: IdeaRS.OpenModel.Geometry3D.Segment3D
+  href: IdeaRS.OpenModel.Geometry3D.Segment3D.html#IdeaRS.OpenModel.Geometry3D.Segment3D.EndPoint
+  name: EndPoint
+  nameWithType: Segment3D.EndPoint
+  fullName: IdeaRS.OpenModel.Geometry3D.Segment3D.EndPoint
+- uid: IdeaRS.OpenModel.Geometry3D.Segment3D.LocalCoordinateSystem
+  commentId: P:IdeaRS.OpenModel.Geometry3D.Segment3D.LocalCoordinateSystem
+  parent: IdeaRS.OpenModel.Geometry3D.Segment3D
+  href: IdeaRS.OpenModel.Geometry3D.Segment3D.html#IdeaRS.OpenModel.Geometry3D.Segment3D.LocalCoordinateSystem
+  name: LocalCoordinateSystem
+  nameWithType: Segment3D.LocalCoordinateSystem
+  fullName: IdeaRS.OpenModel.Geometry3D.Segment3D.LocalCoordinateSystem
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Geometry3D.Point3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.Point3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.OpenModel.Geometry3D.Point3D.html
+  name: Point3D
+  nameWithType: Point3D
+  fullName: IdeaRS.OpenModel.Geometry3D.Point3D
+- uid: IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point*
+  commentId: Overload:IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+  href: IdeaRS.OpenModel.Geometry3D.ArcSegment3D.html#IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+  name: Point
+  nameWithType: ArcSegment3D.Point
+  fullName: IdeaRS.OpenModel.Geometry3D.ArcSegment3D.Point
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement

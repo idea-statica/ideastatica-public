@@ -1,0 +1,216 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  commentId: T:IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  id: ImperfectionDirection
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.ImperfectionDirection.BiggerSlenderner
+  - IdeaRS.OpenModel.Concrete.ImperfectionDirection.Both
+  - IdeaRS.OpenModel.Concrete.ImperfectionDirection.BothDirections
+  - IdeaRS.OpenModel.Concrete.ImperfectionDirection.FromSetup
+  - IdeaRS.OpenModel.Concrete.ImperfectionDirection.MomentResultant
+  langs:
+  - csharp
+  - vb
+  name: ImperfectionDirection
+  nameWithType: ImperfectionDirection
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ImperfectionDirection
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 75
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: direction of imperfection
+  example: []
+  syntax:
+    content: public enum ImperfectionDirection
+    content.vb: Public Enum ImperfectionDirection
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection.BothDirections
+  commentId: F:IdeaRS.OpenModel.Concrete.ImperfectionDirection.BothDirections
+  id: BothDirections
+  parent: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  langs:
+  - csharp
+  - vb
+  name: BothDirections
+  nameWithType: ImperfectionDirection.BothDirections
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection.BothDirections
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BothDirections
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 80
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Imperfections are separately added to both directions, y and z.
+  example: []
+  syntax:
+    content: BothDirections = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection.BiggerSlenderner
+  commentId: F:IdeaRS.OpenModel.Concrete.ImperfectionDirection.BiggerSlenderner
+  id: BiggerSlenderner
+  parent: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  langs:
+  - csharp
+  - vb
+  name: BiggerSlenderner
+  nameWithType: ImperfectionDirection.BiggerSlenderner
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection.BiggerSlenderner
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BiggerSlenderner
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 85
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: bigger slenderness direction
+  example: []
+  syntax:
+    content: BiggerSlenderner = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection.MomentResultant
+  commentId: F:IdeaRS.OpenModel.Concrete.ImperfectionDirection.MomentResultant
+  id: MomentResultant
+  parent: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  langs:
+  - csharp
+  - vb
+  name: MomentResultant
+  nameWithType: ImperfectionDirection.MomentResultant
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection.MomentResultant
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MomentResultant
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 90
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: resultant of moments
+  example: []
+  syntax:
+    content: MomentResultant = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection.Both
+  commentId: F:IdeaRS.OpenModel.Concrete.ImperfectionDirection.Both
+  id: Both
+  parent: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  langs:
+  - csharp
+  - vb
+  name: Both
+  nameWithType: ImperfectionDirection.Both
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection.Both
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Both
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 95
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: both
+  example: []
+  syntax:
+    content: Both = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection.FromSetup
+  commentId: F:IdeaRS.OpenModel.Concrete.ImperfectionDirection.FromSetup
+  id: FromSetup
+  parent: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  langs:
+  - csharp
+  - vb
+  name: FromSetup
+  nameWithType: ImperfectionDirection.FromSetup
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection.FromSetup
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FromSetup
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 101
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: >-
+    Takes imperfection direction from global code setup.
+
+    This value must not be used in code setup!
+  example: []
+  syntax:
+    content: FromSetup = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  commentId: T:IdeaRS.OpenModel.Concrete.ImperfectionDirection
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.ImperfectionDirection.html
+  name: ImperfectionDirection
+  nameWithType: ImperfectionDirection
+  fullName: IdeaRS.OpenModel.Concrete.ImperfectionDirection

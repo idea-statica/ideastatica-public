@@ -1,0 +1,299 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResult
+  commentId: T:IdeaStatiCa.BimApi.Results.IIdeaResult
+  id: IIdeaResult
+  parent: IdeaStatiCa.BimApi.Results
+  children:
+  - IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+  - IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+  langs:
+  - csharp
+  - vb
+  name: IIdeaResult
+  nameWithType: IIdeaResult
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResult
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/Results/IIdeaResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaResult
+    path: ../src/IdeaStatiCa.BimApi/Results/IIdeaResult.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi.Results
+  summary: Result on <xref href="IdeaStatiCa.BimApi.IIdeaMember1D" data-throw-if-not-resolved="false"></xref> or <xref href="IdeaStatiCa.BimApi.IIdeaElement1D" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public interface IIdeaResult
+    content.vb: Public Interface IIdeaResult
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+  commentId: P:IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+  id: CoordinateSystemType
+  parent: IdeaStatiCa.BimApi.Results.IIdeaResult
+  langs:
+  - csharp
+  - vb
+  name: CoordinateSystemType
+  nameWithType: IIdeaResult.CoordinateSystemType
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/Results/IIdeaResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CoordinateSystemType
+    path: ../src/IdeaStatiCa.BimApi/Results/IIdeaResult.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi.Results
+  summary: Type of the coordinate system the results are defined in.
+  example: []
+  syntax:
+    content: ResultLocalSystemType CoordinateSystemType { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Result.ResultLocalSystemType
+    content.vb: ReadOnly Property CoordinateSystemType As ResultLocalSystemType
+  overload: IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType*
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+  commentId: P:IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+  id: Sections
+  parent: IdeaStatiCa.BimApi.Results.IIdeaResult
+  langs:
+  - csharp
+  - vb
+  name: Sections
+  nameWithType: IIdeaResult.Sections
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/Results/IIdeaResult.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Sections
+    path: ../src/IdeaStatiCa.BimApi/Results/IIdeaResult.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi.Results
+  summary: Sections with results.
+  example: []
+  syntax:
+    content: IEnumerable<IIdeaSection> Sections { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.Results.IIdeaSection}
+    content.vb: ReadOnly Property Sections As IEnumerable(Of IIdeaSection)
+  overload: IdeaStatiCa.BimApi.Results.IIdeaResult.Sections*
+references:
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMember1D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html
+  name: IIdeaMember1D
+  nameWithType: IIdeaMember1D
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaElement1D
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html
+  name: IIdeaElement1D
+  nameWithType: IIdeaElement1D
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D
+- uid: IdeaStatiCa.BimApi.Results
+  commentId: N:IdeaStatiCa.BimApi.Results
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi.Results
+  nameWithType: IdeaStatiCa.BimApi.Results
+  fullName: IdeaStatiCa.BimApi.Results
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi.Results
+    name: Results
+    href: IdeaStatiCa.BimApi.Results.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi.Results
+    name: Results
+    href: IdeaStatiCa.BimApi.Results.html
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType*
+  commentId: Overload:IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+  href: IdeaStatiCa.BimApi.Results.IIdeaResult.html#IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+  name: CoordinateSystemType
+  nameWithType: IIdeaResult.CoordinateSystemType
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResult.CoordinateSystemType
+- uid: IdeaRS.OpenModel.Result.ResultLocalSystemType
+  commentId: T:IdeaRS.OpenModel.Result.ResultLocalSystemType
+  parent: IdeaRS.OpenModel.Result
+  name: ResultLocalSystemType
+  nameWithType: ResultLocalSystemType
+  fullName: IdeaRS.OpenModel.Result.ResultLocalSystemType
+- uid: IdeaRS.OpenModel.Result
+  commentId: N:IdeaRS.OpenModel.Result
+  name: IdeaRS.OpenModel.Result
+  nameWithType: IdeaRS.OpenModel.Result
+  fullName: IdeaRS.OpenModel.Result
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResult.Sections*
+  commentId: Overload:IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+  href: IdeaStatiCa.BimApi.Results.IIdeaResult.html#IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+  name: Sections
+  nameWithType: IIdeaResult.Sections
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResult.Sections
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.Results.IIdeaSection}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.Results.IIdeaSection}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IIdeaSection>
+  nameWithType: IEnumerable<IIdeaSection>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApi.Results.IIdeaSection>
+  nameWithType.vb: IEnumerable(Of IIdeaSection)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApi.Results.IIdeaSection)
+  name.vb: IEnumerable(Of IIdeaSection)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.Results.IIdeaSection
+    name: IIdeaSection
+    href: IdeaStatiCa.BimApi.Results.IIdeaSection.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.Results.IIdeaSection
+    name: IIdeaSection
+    href: IdeaStatiCa.BimApi.Results.IIdeaSection.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

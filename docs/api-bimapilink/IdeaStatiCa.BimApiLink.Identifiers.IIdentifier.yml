@@ -1,0 +1,320 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  id: IIdentifier
+  parent: IdeaStatiCa.BimApiLink.Identifiers
+  children:
+  - IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId
+  - IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId
+  - IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+  langs:
+  - csharp
+  - vb
+  name: IIdentifier
+  nameWithType: IIdentifier
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdentifier
+    path: ../src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Identifiers
+  syntax:
+    content: 'public interface IIdentifier : IIdeaPersistenceToken, IEquatable<IIdentifier>'
+    content.vb: Public Interface IIdentifier Inherits IIdeaPersistenceToken, IEquatable(Of IIdentifier)
+  inheritedMembers:
+  - System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}.Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+  commentId: P:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+  id: ObjectType
+  parent: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  langs:
+  - csharp
+  - vb
+  name: ObjectType
+  nameWithType: IIdentifier.ObjectType
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ObjectType
+    path: ../src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Identifiers
+  syntax:
+    content: Type ObjectType { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: ReadOnly Property ObjectType As Type
+  overload: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType*
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId
+  commentId: M:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId
+  id: GetStringId
+  parent: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  langs:
+  - csharp
+  - vb
+  name: GetStringId()
+  nameWithType: IIdentifier.GetStringId()
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetStringId
+    path: ../src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Identifiers
+  syntax:
+    content: string GetStringId()
+    return:
+      type: System.String
+    content.vb: Function GetStringId() As String
+  overload: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId*
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId
+  commentId: M:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId
+  id: GetId
+  parent: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  langs:
+  - csharp
+  - vb
+  name: GetId()
+  nameWithType: IIdentifier.GetId()
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetId
+    path: ../src/IdeaStatica.BimApiLink/Identifiers/IIdentifer.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Identifiers
+  syntax:
+    content: object GetId()
+    return:
+      type: System.Object
+    content.vb: Function GetId() As Object
+  overload: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId*
+references:
+- uid: IdeaStatiCa.BimApiLink.Identifiers
+  commentId: N:IdeaStatiCa.BimApiLink.Identifiers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Identifiers
+  nameWithType: IdeaStatiCa.BimApiLink.Identifiers
+  fullName: IdeaStatiCa.BimApiLink.Identifiers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+- uid: System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}.Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  commentId: M:System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}.Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  parent: System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-ideastatica.bimapilink.identifiers.iidentifier-.equals#system-iequatable((ideastatica-bimapilink-identifiers-iidentifier))-equals(ideastatica-bimapilink-identifiers-iidentifier)
+  name: Equals(IIdentifier)
+  nameWithType: IEquatable<IIdentifier>.Equals(IIdentifier)
+  fullName: System.IEquatable<IdeaStatiCa.BimApiLink.Identifiers.IIdentifier>.Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  nameWithType.vb: IEquatable(Of IIdentifier).Equals(IIdentifier)
+  fullName.vb: System.IEquatable(Of IdeaStatiCa.BimApiLink.Identifiers.IIdentifier).Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  spec.csharp:
+  - uid: System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}.Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-ideastatica.bimapilink.identifiers.iidentifier-.equals#system-iequatable((ideastatica-bimapilink-identifiers-iidentifier))-equals(ideastatica-bimapilink-identifiers-iidentifier)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}.Equals(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-ideastatica.bimapilink.identifiers.iidentifier-.equals#system-iequatable((ideastatica-bimapilink-identifiers-iidentifier))-equals(ideastatica-bimapilink-identifiers-iidentifier)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}
+  commentId: T:System.IEquatable{IdeaStatiCa.BimApiLink.Identifiers.IIdentifier}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IIdentifier>
+  nameWithType: IEquatable<IIdentifier>
+  fullName: System.IEquatable<IdeaStatiCa.BimApiLink.Identifiers.IIdentifier>
+  nameWithType.vb: IEquatable(Of IIdentifier)
+  fullName.vb: System.IEquatable(Of IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  name.vb: IEquatable(Of IIdentifier)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  - name: )
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+  href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html#IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+  name: ObjectType
+  nameWithType: IIdentifier.ObjectType
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.ObjectType
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId
+  href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html#IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId
+  name: GetStringId
+  nameWithType: IIdentifier.GetStringId
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetStringId
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId
+  href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html#IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId
+  name: GetId
+  nameWithType: IIdentifier.GetId
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.GetId
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object

@@ -1,0 +1,100 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "**IdeaRS.OpenModel.csproj"
+          ],
+          "src": "..\\src"
+        }
+      ],
+      "dest": "api-iom",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    },
+    {
+      "src": [
+        {
+          "files": [
+            "**IdeaStatiCa.BimApi.csproj"
+          ],
+          "src": "..\\src"
+        }
+      ],
+      "dest": "api-bimapi",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    },
+    {
+      "src": [
+        {
+          "files": [
+            "**IdeaStatiCa.BimApiLink.csproj"
+          ],
+          "src": "..\\src"
+        }
+      ],
+      "dest": "api-bimapilink",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    },
+    {
+      "src": [
+        {
+          "files": [
+            "**IdeaStatiCa.Plugin.csproj"
+          ],
+          "src": "..\\src"
+        }
+      ],
+      "dest": "api-plugin",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "template": [
+      "default",
+      "modern",
+      "templates/idea_template"
+    ],
+    "content": [
+      { "files": ["docs/**/*.{md|yml}"]},
+      { "files": ["api-iom/**.yml", "api-iom/index.md"] },
+      { "files": ["api-bimapi/**.yml", "api-bimapi/index.md" ]},
+      { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
+      { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
+      { "files": ["toc.yml", "*.md"]}
+    ],
+    "resource": [
+      {
+        "files": [
+          "**/images/**",
+          "api-iom/Images/**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+          "apidoc/**.md"
+        ],
+        "exclude": [
+          "obj/**",
+          "_site/**"
+        ]
+      }
+    ],
+    "globalMetadata": {
+      "_appTitle": "IDEA StatiCa API"
+    },
+    "dest": "_site",
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

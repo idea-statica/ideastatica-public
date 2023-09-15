@@ -1,0 +1,75 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.ProjectContent
+  commentId: N:IdeaStatiCa.Plugin.ProjectContent
+  id: IdeaStatiCa.Plugin.ProjectContent
+  children:
+  - IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler
+  - IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.Plugin.ProjectContent
+  nameWithType: IdeaStatiCa.Plugin.ProjectContent
+  fullName: IdeaStatiCa.Plugin.ProjectContent
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.Plugin
+references:
+- uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  commentId: T:IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+  parent: IdeaStatiCa.Plugin.ProjectContent
+  href: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage.html
+  name: IProjectContentStorage
+  nameWithType: IProjectContentStorage
+  fullName: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  commentId: T:IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler.html
+  name: ProjectContentClientHandler
+  nameWithType: ProjectContentClientHandler
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+- uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler
+  commentId: T:IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler
+  href: IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler.html
+  name: ProjectContentServerHandler
+  nameWithType: ProjectContentServerHandler
+  fullName: IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler
+- uid: IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream
+  commentId: T:IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream
+  href: IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream.html
+  name: RemoteDataStream
+  nameWithType: RemoteDataStream
+  fullName: IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream
+- uid: IdeaStatiCa.Plugin.ProjectContent
+  commentId: N:IdeaStatiCa.Plugin.ProjectContent
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.ProjectContent
+  nameWithType: IdeaStatiCa.Plugin.ProjectContent
+  fullName: IdeaStatiCa.Plugin.ProjectContent
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.ProjectContent
+    name: ProjectContent
+    href: IdeaStatiCa.Plugin.ProjectContent.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.ProjectContent
+    name: ProjectContent
+    href: IdeaStatiCa.Plugin.ProjectContent.html

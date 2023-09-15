@@ -1,0 +1,139 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  commentId: T:IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  id: IdeaConnectedMemberType
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IdeaConnectedMemberType.Negative
+  - IdeaStatiCa.BimApi.IdeaConnectedMemberType.Stiffening
+  - IdeaStatiCa.BimApi.IdeaConnectedMemberType.Structural
+  langs:
+  - csharp
+  - vb
+  name: IdeaConnectedMemberType
+  nameWithType: IdeaConnectedMemberType
+  fullName: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaConnectedMemberType
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: public enum IdeaConnectedMemberType
+    content.vb: Public Enum IdeaConnectedMemberType
+- uid: IdeaStatiCa.BimApi.IdeaConnectedMemberType.Structural
+  commentId: F:IdeaStatiCa.BimApi.IdeaConnectedMemberType.Structural
+  id: Structural
+  parent: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  langs:
+  - csharp
+  - vb
+  name: Structural
+  nameWithType: IdeaConnectedMemberType.Structural
+  fullName: IdeaStatiCa.BimApi.IdeaConnectedMemberType.Structural
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Structural
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: Structural = 0
+    return:
+      type: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+- uid: IdeaStatiCa.BimApi.IdeaConnectedMemberType.Stiffening
+  commentId: F:IdeaStatiCa.BimApi.IdeaConnectedMemberType.Stiffening
+  id: Stiffening
+  parent: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  langs:
+  - csharp
+  - vb
+  name: Stiffening
+  nameWithType: IdeaConnectedMemberType.Stiffening
+  fullName: IdeaStatiCa.BimApi.IdeaConnectedMemberType.Stiffening
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Stiffening
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: Stiffening = 1
+    return:
+      type: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+- uid: IdeaStatiCa.BimApi.IdeaConnectedMemberType.Negative
+  commentId: F:IdeaStatiCa.BimApi.IdeaConnectedMemberType.Negative
+  id: Negative
+  parent: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  langs:
+  - csharp
+  - vb
+  name: Negative
+  nameWithType: IdeaConnectedMemberType.Negative
+  fullName: IdeaStatiCa.BimApi.IdeaConnectedMemberType.Negative
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Negative
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: Negative = 2
+    return:
+      type: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  commentId: T:IdeaStatiCa.BimApi.IdeaConnectedMemberType
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IdeaConnectedMemberType.html
+  name: IdeaConnectedMemberType
+  nameWithType: IdeaConnectedMemberType
+  fullName: IdeaStatiCa.BimApi.IdeaConnectedMemberType

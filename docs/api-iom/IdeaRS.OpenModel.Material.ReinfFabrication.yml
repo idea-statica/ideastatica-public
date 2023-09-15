@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ReinfFabrication
+  commentId: T:IdeaRS.OpenModel.Material.ReinfFabrication
+  id: ReinfFabrication
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ReinfFabrication.ColdWorked
+  - IdeaRS.OpenModel.Material.ReinfFabrication.HotRolled
+  langs:
+  - csharp
+  - vb
+  name: ReinfFabrication
+  nameWithType: ReinfFabrication
+  fullName: IdeaRS.OpenModel.Material.ReinfFabrication
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinfFabrication
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 54
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Reinforcement fabrication
+  example: []
+  syntax:
+    content: public enum ReinfFabrication
+    content.vb: Public Enum ReinfFabrication
+- uid: IdeaRS.OpenModel.Material.ReinfFabrication.HotRolled
+  commentId: F:IdeaRS.OpenModel.Material.ReinfFabrication.HotRolled
+  id: HotRolled
+  parent: IdeaRS.OpenModel.Material.ReinfFabrication
+  langs:
+  - csharp
+  - vb
+  name: HotRolled
+  nameWithType: ReinfFabrication.HotRolled
+  fullName: IdeaRS.OpenModel.Material.ReinfFabrication.HotRolled
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HotRolled
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 59
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Hot rolled
+  example: []
+  syntax:
+    content: HotRolled = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfFabrication
+- uid: IdeaRS.OpenModel.Material.ReinfFabrication.ColdWorked
+  commentId: F:IdeaRS.OpenModel.Material.ReinfFabrication.ColdWorked
+  id: ColdWorked
+  parent: IdeaRS.OpenModel.Material.ReinfFabrication
+  langs:
+  - csharp
+  - vb
+  name: ColdWorked
+  nameWithType: ReinfFabrication.ColdWorked
+  fullName: IdeaRS.OpenModel.Material.ReinfFabrication.ColdWorked
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ColdWorked
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 64
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Cold worked
+  example: []
+  syntax:
+    content: ColdWorked = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfFabrication
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ReinfFabrication
+  commentId: T:IdeaRS.OpenModel.Material.ReinfFabrication
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ReinfFabrication.html
+  name: ReinfFabrication
+  nameWithType: ReinfFabrication
+  fullName: IdeaRS.OpenModel.Material.ReinfFabrication

@@ -1,0 +1,462 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme
+  commentId: T:IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme
+  id: StagedCheckSectionExtreme
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor
+  - IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+  langs:
+  - csharp
+  - vb
+  name: StagedCheckSectionExtreme
+  nameWithType: StagedCheckSectionExtreme
+  fullName: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/StagedCheckSectionExtreme.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StagedCheckSectionExtreme
+    path: ../src/IdeaRS.OpenModel/Concrete/StagedCheckSectionExtreme.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Standard check section extreme
+  example: []
+  syntax:
+    content: 'public class StagedCheckSectionExtreme : CheckSectionExtreme'
+    content.vb: Public Class StagedCheckSectionExtreme Inherits CheckSectionExtreme
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  inheritedMembers:
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Description
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fundamental
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Accidental
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Characteristic
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.QuasiPermanent
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Frequent
+  - IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fatigue
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor
+  commentId: M:IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme
+  langs:
+  - csharp
+  - vb
+  name: StagedCheckSectionExtreme()
+  nameWithType: StagedCheckSectionExtreme.StagedCheckSectionExtreme()
+  fullName: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.StagedCheckSectionExtreme()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/StagedCheckSectionExtreme.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Concrete/StagedCheckSectionExtreme.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Constructor
+  example: []
+  syntax:
+    content: public StagedCheckSectionExtreme()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor*
+  nameWithType.vb: StagedCheckSectionExtreme.New()
+  fullName.vb: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+  commentId: P:IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+  id: Time
+  parent: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme
+  langs:
+  - csharp
+  - vb
+  name: Time
+  nameWithType: StagedCheckSectionExtreme.Time
+  fullName: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/StagedCheckSectionExtreme.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Time
+    path: ../src/IdeaRS.OpenModel/Concrete/StagedCheckSectionExtreme.cs
+    startLine: 19
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Time
+  example: []
+  syntax:
+    content: public double Time { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Time As Double
+  overload: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time*
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html
+  name: CheckSectionExtreme
+  nameWithType: CheckSectionExtreme
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Description
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Description
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Description
+  name: Description
+  nameWithType: CheckSectionExtreme.Description
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Description
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fundamental
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fundamental
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fundamental
+  name: Fundamental
+  nameWithType: CheckSectionExtreme.Fundamental
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fundamental
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Accidental
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Accidental
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Accidental
+  name: Accidental
+  nameWithType: CheckSectionExtreme.Accidental
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Accidental
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Characteristic
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Characteristic
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Characteristic
+  name: Characteristic
+  nameWithType: CheckSectionExtreme.Characteristic
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Characteristic
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.QuasiPermanent
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.QuasiPermanent
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.QuasiPermanent
+  name: QuasiPermanent
+  nameWithType: CheckSectionExtreme.QuasiPermanent
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.QuasiPermanent
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Frequent
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Frequent
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Frequent
+  name: Frequent
+  nameWithType: CheckSectionExtreme.Frequent
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Frequent
+- uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fatigue
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fatigue
+  parent: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+  href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fatigue
+  name: Fatigue
+  nameWithType: CheckSectionExtreme.Fatigue
+  fullName: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.Fatigue
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor
+  href: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.#ctor
+  name: StagedCheckSectionExtreme
+  nameWithType: StagedCheckSectionExtreme.StagedCheckSectionExtreme
+  fullName: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.StagedCheckSectionExtreme
+  nameWithType.vb: StagedCheckSectionExtreme.New
+  fullName.vb: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+  href: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.html#IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+  name: Time
+  nameWithType: StagedCheckSectionExtreme.Time
+  fullName: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme.Time
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double

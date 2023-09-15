@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.InputValueType
+  commentId: T:IdeaRS.OpenModel.CrossSection.InputValueType
+  id: InputValueType
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.InputValueType.Calculate
+  - IdeaRS.OpenModel.CrossSection.InputValueType.UserInput
+  langs:
+  - csharp
+  - vb
+  name: InputValueType
+  nameWithType: InputValueType
+  fullName: IdeaRS.OpenModel.CrossSection.InputValueType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InputValueType
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+    startLine: 47
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Input value type
+  example: []
+  syntax:
+    content: public enum InputValueType
+    content.vb: Public Enum InputValueType
+- uid: IdeaRS.OpenModel.CrossSection.InputValueType.Calculate
+  commentId: F:IdeaRS.OpenModel.CrossSection.InputValueType.Calculate
+  id: Calculate
+  parent: IdeaRS.OpenModel.CrossSection.InputValueType
+  langs:
+  - csharp
+  - vb
+  name: Calculate
+  nameWithType: InputValueType.Calculate
+  fullName: IdeaRS.OpenModel.CrossSection.InputValueType.Calculate
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Calculate
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+    startLine: 52
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Calculate by the code
+  example: []
+  syntax:
+    content: Calculate = 0
+    return:
+      type: IdeaRS.OpenModel.CrossSection.InputValueType
+- uid: IdeaRS.OpenModel.CrossSection.InputValueType.UserInput
+  commentId: F:IdeaRS.OpenModel.CrossSection.InputValueType.UserInput
+  id: UserInput
+  parent: IdeaRS.OpenModel.CrossSection.InputValueType
+  langs:
+  - csharp
+  - vb
+  name: UserInput
+  nameWithType: InputValueType.UserInput
+  fullName: IdeaRS.OpenModel.CrossSection.InputValueType.UserInput
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserInput
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+    startLine: 57
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: User input
+  example: []
+  syntax:
+    content: UserInput = 1
+    return:
+      type: IdeaRS.OpenModel.CrossSection.InputValueType
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: IdeaRS.OpenModel.CrossSection.InputValueType
+  commentId: T:IdeaRS.OpenModel.CrossSection.InputValueType
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.InputValueType.html
+  name: InputValueType
+  nameWithType: InputValueType
+  fullName: IdeaRS.OpenModel.CrossSection.InputValueType

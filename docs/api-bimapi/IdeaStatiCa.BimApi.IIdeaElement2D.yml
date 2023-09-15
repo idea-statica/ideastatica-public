@@ -1,0 +1,535 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaElement2D
+  id: IIdeaElement2D
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+  - IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+  - IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+  - IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+  - IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+  - IdeaStatiCa.BimApi.IIdeaElement2D.Material
+  - IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+  langs:
+  - csharp
+  - vb
+  name: IIdeaElement2D
+  nameWithType: IIdeaElement2D
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaElement2D
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Representation of element2D
+  example: []
+  syntax:
+    content: 'public interface IIdeaElement2D : IIdeaObject'
+    content.vb: Public Interface IIdeaElement2D Inherits IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.Material
+  id: Material
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IIdeaElement2D.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Material
+  example: []
+  syntax:
+    content: IIdeaMaterial Material { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaMaterial
+    content.vb: ReadOnly Property Material As IIdeaMaterial
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.Material*
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+  id: GeometricRegion
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: GeometricRegion
+  nameWithType: IIdeaElement2D.GeometricRegion
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GeometricRegion
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Geometry region of element2D
+  example: []
+  syntax:
+    content: IIdeaRegion3D GeometricRegion { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaRegion3D
+    content.vb: ReadOnly Property GeometricRegion As IIdeaRegion3D
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion*
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+  id: Thickness
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: Thickness
+  nameWithType: IIdeaElement2D.Thickness
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Thickness
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Thicknes of Element2D
+  example: []
+  syntax:
+    content: double Thickness { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Thickness As Double
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.Thickness*
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+  id: EccentricityZ
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: EccentricityZ
+  nameWithType: IIdeaElement2D.EccentricityZ
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EccentricityZ
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Displacement in local axis Z
+  example: []
+  syntax:
+    content: double EccentricityZ { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property EccentricityZ As Double
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ*
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+  id: InnerLines
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: InnerLines
+  nameWithType: IIdeaElement2D.InnerLines
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InnerLines
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 33
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Inner lines of this region
+  example: []
+  syntax:
+    content: List<IIdeaPolyLine3D> InnerLines { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaPolyLine3D}
+    content.vb: ReadOnly Property InnerLines As List(Of IIdeaPolyLine3D)
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines*
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+  id: InnerPoints
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: InnerPoints
+  nameWithType: IIdeaElement2D.InnerPoints
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InnerPoints
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 38
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Inner points of this region
+  example: []
+  syntax:
+    content: List<IIdeaNode> InnerPoints { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaNode}
+    content.vb: ReadOnly Property InnerPoints As List(Of IIdeaNode)
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints*
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+  id: ElementType
+  parent: IdeaStatiCa.BimApi.IIdeaElement2D
+  langs:
+  - csharp
+  - vb
+  name: ElementType
+  nameWithType: IIdeaElement2D.ElementType
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ElementType
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement2D.cs
+    startLine: 43
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Analysis type - shell, plate, wall
+  example: []
+  syntax:
+    content: Element2DType ElementType { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Model.Element2DType
+    content.vb: ReadOnly Property ElementType As Element2DType
+  overload: IdeaStatiCa.BimApi.IIdeaElement2D.ElementType*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.Material*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.Material
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.Material
+  name: Material
+  nameWithType: IIdeaElement2D.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.Material
+- uid: IdeaStatiCa.BimApi.IIdeaMaterial
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterial
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaMaterial.html
+  name: IIdeaMaterial
+  nameWithType: IIdeaMaterial
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterial
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+  name: GeometricRegion
+  nameWithType: IIdeaElement2D.GeometricRegion
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.GeometricRegion
+- uid: IdeaStatiCa.BimApi.IIdeaRegion3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaRegion3D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaRegion3D.html
+  name: IIdeaRegion3D
+  nameWithType: IIdeaRegion3D
+  fullName: IdeaStatiCa.BimApi.IIdeaRegion3D
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.Thickness*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+  name: Thickness
+  nameWithType: IIdeaElement2D.Thickness
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.Thickness
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+  name: EccentricityZ
+  nameWithType: IIdeaElement2D.EccentricityZ
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.EccentricityZ
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+  name: InnerLines
+  nameWithType: IIdeaElement2D.InnerLines
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.InnerLines
+- uid: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaPolyLine3D}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaPolyLine3D}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<IIdeaPolyLine3D>
+  nameWithType: List<IIdeaPolyLine3D>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.BimApi.IIdeaPolyLine3D>
+  nameWithType.vb: List(Of IIdeaPolyLine3D)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.BimApi.IIdeaPolyLine3D)
+  name.vb: List(Of IIdeaPolyLine3D)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaPolyLine3D
+    name: IIdeaPolyLine3D
+    href: IdeaStatiCa.BimApi.IIdeaPolyLine3D.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaPolyLine3D
+    name: IIdeaPolyLine3D
+    href: IdeaStatiCa.BimApi.IIdeaPolyLine3D.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+  name: InnerPoints
+  nameWithType: IIdeaElement2D.InnerPoints
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.InnerPoints
+- uid: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaNode}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaNode}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<IIdeaNode>
+  nameWithType: List<IIdeaNode>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.BimApi.IIdeaNode>
+  nameWithType.vb: List(Of IIdeaNode)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.BimApi.IIdeaNode)
+  name.vb: List(Of IIdeaNode)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+    href: IdeaStatiCa.BimApi.IIdeaNode.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+    href: IdeaStatiCa.BimApi.IIdeaNode.html
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaElement2D.ElementType*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+  href: IdeaStatiCa.BimApi.IIdeaElement2D.html#IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+  name: ElementType
+  nameWithType: IIdeaElement2D.ElementType
+  fullName: IdeaStatiCa.BimApi.IIdeaElement2D.ElementType
+- uid: IdeaRS.OpenModel.Model.Element2DType
+  commentId: T:IdeaRS.OpenModel.Model.Element2DType
+  parent: IdeaRS.OpenModel.Model
+  name: Element2DType
+  nameWithType: Element2DType
+  fullName: IdeaRS.OpenModel.Model.Element2DType
+- uid: IdeaRS.OpenModel.Model
+  commentId: N:IdeaRS.OpenModel.Model
+  name: IdeaRS.OpenModel.Model
+  nameWithType: IdeaRS.OpenModel.Model
+  fullName: IdeaRS.OpenModel.Model
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model

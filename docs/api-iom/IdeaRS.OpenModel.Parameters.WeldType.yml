@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Parameters.WeldType
+  commentId: T:IdeaRS.OpenModel.Parameters.WeldType
+  id: WeldType
+  parent: IdeaRS.OpenModel.Parameters
+  children:
+  - IdeaRS.OpenModel.Parameters.WeldType.Bevel
+  - IdeaRS.OpenModel.Parameters.WeldType.DoubleFillet
+  - IdeaRS.OpenModel.Parameters.WeldType.LeftFillet
+  - IdeaRS.OpenModel.Parameters.WeldType.None
+  - IdeaRS.OpenModel.Parameters.WeldType.RightFillet
+  langs:
+  - csharp
+  - vb
+  name: WeldType
+  nameWithType: WeldType
+  fullName: IdeaRS.OpenModel.Parameters.WeldType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WeldType
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Represents the code of the position
+  example: []
+  syntax:
+    content: public enum WeldType
+    content.vb: Public Enum WeldType
+- uid: IdeaRS.OpenModel.Parameters.WeldType.None
+  commentId: F:IdeaRS.OpenModel.Parameters.WeldType.None
+  id: None
+  parent: IdeaRS.OpenModel.Parameters.WeldType
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: WeldType.None
+  fullName: IdeaRS.OpenModel.Parameters.WeldType.None
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: None
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: No weld
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: IdeaRS.OpenModel.Parameters.WeldType
+- uid: IdeaRS.OpenModel.Parameters.WeldType.LeftFillet
+  commentId: F:IdeaRS.OpenModel.Parameters.WeldType.LeftFillet
+  id: LeftFillet
+  parent: IdeaRS.OpenModel.Parameters.WeldType
+  langs:
+  - csharp
+  - vb
+  name: LeftFillet
+  nameWithType: WeldType.LeftFillet
+  fullName: IdeaRS.OpenModel.Parameters.WeldType.LeftFillet
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LeftFillet
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+    startLine: 22
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Fillet weld is on the left side
+  example: []
+  syntax:
+    content: LeftFillet = 1
+    return:
+      type: IdeaRS.OpenModel.Parameters.WeldType
+- uid: IdeaRS.OpenModel.Parameters.WeldType.RightFillet
+  commentId: F:IdeaRS.OpenModel.Parameters.WeldType.RightFillet
+  id: RightFillet
+  parent: IdeaRS.OpenModel.Parameters.WeldType
+  langs:
+  - csharp
+  - vb
+  name: RightFillet
+  nameWithType: WeldType.RightFillet
+  fullName: IdeaRS.OpenModel.Parameters.WeldType.RightFillet
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RightFillet
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Fillet weld on the right side
+  example: []
+  syntax:
+    content: RightFillet = 2
+    return:
+      type: IdeaRS.OpenModel.Parameters.WeldType
+- uid: IdeaRS.OpenModel.Parameters.WeldType.DoubleFillet
+  commentId: F:IdeaRS.OpenModel.Parameters.WeldType.DoubleFillet
+  id: DoubleFillet
+  parent: IdeaRS.OpenModel.Parameters.WeldType
+  langs:
+  - csharp
+  - vb
+  name: DoubleFillet
+  nameWithType: WeldType.DoubleFillet
+  fullName: IdeaRS.OpenModel.Parameters.WeldType.DoubleFillet
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DoubleFillet
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+    startLine: 32
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Fillet weld on both sides (double fillet)
+  example: []
+  syntax:
+    content: DoubleFillet = 3
+    return:
+      type: IdeaRS.OpenModel.Parameters.WeldType
+- uid: IdeaRS.OpenModel.Parameters.WeldType.Bevel
+  commentId: F:IdeaRS.OpenModel.Parameters.WeldType.Bevel
+  id: Bevel
+  parent: IdeaRS.OpenModel.Parameters.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Bevel
+  nameWithType: WeldType.Bevel
+  fullName: IdeaRS.OpenModel.Parameters.WeldType.Bevel
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bevel
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
+    startLine: 37
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Bevel weld
+  example: []
+  syntax:
+    content: Bevel = 4
+    return:
+      type: IdeaRS.OpenModel.Parameters.WeldType
+references:
+- uid: IdeaRS.OpenModel.Parameters
+  commentId: N:IdeaRS.OpenModel.Parameters
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Parameters
+  nameWithType: IdeaRS.OpenModel.Parameters
+  fullName: IdeaRS.OpenModel.Parameters
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+- uid: IdeaRS.OpenModel.Parameters.WeldType
+  commentId: T:IdeaRS.OpenModel.Parameters.WeldType
+  parent: IdeaRS.OpenModel.Parameters
+  href: IdeaRS.OpenModel.Parameters.WeldType.html
+  name: WeldType
+  nameWithType: WeldType
+  fullName: IdeaRS.OpenModel.Parameters.WeldType

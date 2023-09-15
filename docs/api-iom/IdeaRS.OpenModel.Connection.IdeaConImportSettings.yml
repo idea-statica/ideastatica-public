@@ -1,0 +1,1082 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  commentId: T:IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  id: IdeaConImportSettings
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+  - IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+  langs:
+  - csharp
+  - vb
+  name: IdeaConImportSettings
+  nameWithType: IdeaConImportSettings
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaConImportSettings
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Represents settings of improt options into Idea Connections
+  example: []
+  syntax:
+    content: public class IdeaConImportSettings
+    content.vb: Public Class IdeaConImportSettings
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - IdeaRS.OpenModel.Connection.IdeaSMemberImportSettings
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor
+  commentId: M:IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: IdeaConImportSettings()
+  nameWithType: IdeaConImportSettings.IdeaConImportSettings()
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.IdeaConImportSettings()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 13
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Constructor - it sets default values
+  example: []
+  syntax:
+    content: public IdeaConImportSettings()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor*
+  nameWithType.vb: IdeaConImportSettings.New()
+  fullName.vb: IdeaRS.OpenModel.Connection.IdeaConImportSettings.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+  id: UseWizard
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: UseWizard
+  nameWithType: IdeaConImportSettings.UseWizard
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UseWizard
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 34
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Open import wizard window
+  example: []
+  syntax:
+    content: public bool UseWizard { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property UseWizard As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+  id: OrderMembersById
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: OrderMembersById
+  nameWithType: IdeaConImportSettings.OrderMembersById
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OrderMembersById
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 40
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: >-
+    If true, connected members in connection are ordered acoording to topological rules
+
+    othewise by their IDs.
+  example: []
+  syntax:
+    content: public bool OrderMembersById { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property OrderMembersById As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+  id: DefaultBoltAssembly
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: DefaultBoltAssembly
+  nameWithType: IdeaConImportSettings.DefaultBoltAssembly
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DefaultBoltAssembly
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Gets or sets the name of the default bolt assembly
+  example: []
+  syntax:
+    content: public string DefaultBoltAssembly { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DefaultBoltAssembly As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+  id: DefaultSteelMaterial
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: DefaultSteelMaterial
+  nameWithType: IdeaConImportSettings.DefaultSteelMaterial
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DefaultSteelMaterial
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 50
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Gets or sets the name of the default material of plates which are added from the template
+  example: []
+  syntax:
+    content: public string DefaultSteelMaterial { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DefaultSteelMaterial As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+  id: ExportAllLinearCombination
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: ExportAllLinearCombination
+  nameWithType: IdeaConImportSettings.ExportAllLinearCombination
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExportAllLinearCombination
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 55
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: All linear combination will be exported to IDEA connection
+  example: []
+  syntax:
+    content: public bool ExportAllLinearCombination { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property ExportAllLinearCombination As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+  id: OnePageWizard
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: OnePageWizard
+  nameWithType: IdeaConImportSettings.OnePageWizard
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OnePageWizard
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 60
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: One page wizard
+  example: []
+  syntax:
+    content: public bool OnePageWizard { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property OnePageWizard As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+  id: ConnectionFileName
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: ConnectionFileName
+  nameWithType: IdeaConImportSettings.ConnectionFileName
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectionFileName
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 65
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Gets or sets the name of the Connection project
+  example: []
+  syntax:
+    content: public string ConnectionFileName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ConnectionFileName As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+  id: WaitForExit
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: WaitForExit
+  nameWithType: IdeaConImportSettings.WaitForExit
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WaitForExit
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 70
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: WaitForExit
+  example: []
+  syntax:
+    content: public bool WaitForExit { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property WaitForExit As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+  id: CanChangeDesignCodeInWizard
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: CanChangeDesignCodeInWizard
+  nameWithType: IdeaConImportSettings.CanChangeDesignCodeInWizard
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CanChangeDesignCodeInWizard
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 75
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Can change design code in Wizard
+  example: []
+  syntax:
+    content: public bool CanChangeDesignCodeInWizard { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CanChangeDesignCodeInWizard As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+  id: UserWizardBrand
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: UserWizardBrand
+  nameWithType: IdeaConImportSettings.UserWizardBrand
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserWizardBrand
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 80
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Set user Wizard Brand
+  example: []
+  syntax:
+    content: public string UserWizardBrand { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UserWizardBrand As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+  id: RunningApplication
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: RunningApplication
+  nameWithType: IdeaConImportSettings.RunningApplication
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RunningApplication
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 85
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Running application
+  example: []
+  syntax:
+    content: public string RunningApplication { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property RunningApplication As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+  id: DesignCode
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: DesignCode
+  nameWithType: IdeaConImportSettings.DesignCode
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DesignCode
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 95
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: >-
+    Gets or sets the Design Code
+
+    There can be :
+
+    ECEN
+
+    AISC
+
+    CISC
+
+    RUS
+  example: []
+  syntax:
+    content: public string DesignCode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DesignCode As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+  id: AmericanSubcode
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: AmericanSubcode
+  nameWithType: IdeaConImportSettings.AmericanSubcode
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AmericanSubcode
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 106
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: >-
+    Gets or sets the American Sub code
+
+    None
+
+    LRFD 
+
+    ASD,
+
+    LRFD10,
+
+    ASD10
+  example: []
+  syntax:
+    content: public string AmericanSubcode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property AmericanSubcode As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+  id: DefaultWeldMaterial
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: DefaultWeldMaterial
+  nameWithType: IdeaConImportSettings.DefaultWeldMaterial
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DefaultWeldMaterial
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 111
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Gets or sets the name of the default weld material
+  example: []
+  syntax:
+    content: public string DefaultWeldMaterial { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DefaultWeldMaterial As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+  id: StartIdeaStaticaApp
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: StartIdeaStaticaApp
+  nameWithType: IdeaConImportSettings.StartIdeaStaticaApp
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StartIdeaStaticaApp
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 116
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: StartIdeaStaticaApp
+  example: []
+  syntax:
+    content: public bool StartIdeaStaticaApp { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property StartIdeaStaticaApp As Boolean
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+  id: ProjectName
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: ProjectName
+  nameWithType: IdeaConImportSettings.ProjectName
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProjectName
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 121
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Name of the project
+  example: []
+  syntax:
+    content: public string ProjectName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ProjectName As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+  id: ProjectDescription
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: ProjectDescription
+  nameWithType: IdeaConImportSettings.ProjectDescription
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProjectDescription
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 126
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Description of the idea con project
+  example: []
+  syntax:
+    content: public string ProjectDescription { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ProjectDescription As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription*
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode
+  commentId: P:IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode
+  id: BimAppCode
+  parent: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+  langs:
+  - csharp
+  - vb
+  name: BimAppCode
+  nameWithType: IdeaConImportSettings.BimAppCode
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BimAppCode
+    path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
+    startLine: 131
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The code which defines the source BIM application (the origin of the model)
+  example: []
+  syntax:
+    content: public string BimAppCode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property BimAppCode As String
+  overload: IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode*
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.#ctor
+  name: IdeaConImportSettings
+  nameWithType: IdeaConImportSettings.IdeaConImportSettings
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.IdeaConImportSettings
+  nameWithType.vb: IdeaConImportSettings.New
+  fullName.vb: IdeaRS.OpenModel.Connection.IdeaConImportSettings.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+  name: UseWizard
+  nameWithType: IdeaConImportSettings.UseWizard
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UseWizard
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+  name: OrderMembersById
+  nameWithType: IdeaConImportSettings.OrderMembersById
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OrderMembersById
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+  name: DefaultBoltAssembly
+  nameWithType: IdeaConImportSettings.DefaultBoltAssembly
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultBoltAssembly
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+  name: DefaultSteelMaterial
+  nameWithType: IdeaConImportSettings.DefaultSteelMaterial
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultSteelMaterial
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+  name: ExportAllLinearCombination
+  nameWithType: IdeaConImportSettings.ExportAllLinearCombination
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ExportAllLinearCombination
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+  name: OnePageWizard
+  nameWithType: IdeaConImportSettings.OnePageWizard
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.OnePageWizard
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+  name: ConnectionFileName
+  nameWithType: IdeaConImportSettings.ConnectionFileName
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ConnectionFileName
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+  name: WaitForExit
+  nameWithType: IdeaConImportSettings.WaitForExit
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.WaitForExit
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+  name: CanChangeDesignCodeInWizard
+  nameWithType: IdeaConImportSettings.CanChangeDesignCodeInWizard
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.CanChangeDesignCodeInWizard
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+  name: UserWizardBrand
+  nameWithType: IdeaConImportSettings.UserWizardBrand
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.UserWizardBrand
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+  name: RunningApplication
+  nameWithType: IdeaConImportSettings.RunningApplication
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.RunningApplication
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+  name: DesignCode
+  nameWithType: IdeaConImportSettings.DesignCode
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DesignCode
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+  name: AmericanSubcode
+  nameWithType: IdeaConImportSettings.AmericanSubcode
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.AmericanSubcode
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+  name: DefaultWeldMaterial
+  nameWithType: IdeaConImportSettings.DefaultWeldMaterial
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.DefaultWeldMaterial
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+  name: StartIdeaStaticaApp
+  nameWithType: IdeaConImportSettings.StartIdeaStaticaApp
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.StartIdeaStaticaApp
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+  name: ProjectName
+  nameWithType: IdeaConImportSettings.ProjectName
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectName
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+  name: ProjectDescription
+  nameWithType: IdeaConImportSettings.ProjectDescription
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.ProjectDescription
+- uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode*
+  commentId: Overload:IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode
+  href: IdeaRS.OpenModel.Connection.IdeaConImportSettings.html#IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode
+  name: BimAppCode
+  nameWithType: IdeaConImportSettings.BimAppCode
+  fullName: IdeaRS.OpenModel.Connection.IdeaConImportSettings.BimAppCode

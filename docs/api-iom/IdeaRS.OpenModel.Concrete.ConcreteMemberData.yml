@@ -1,0 +1,577 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  commentId: T:IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  id: ConcreteMemberData
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor
+  - IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+  - IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+  - IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+  - IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+  langs:
+  - csharp
+  - vb
+  name: ConcreteMemberData
+  nameWithType: ConcreteMemberData
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConcreteMemberData
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 84
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Concrete member data base
+  example: []
+  syntax:
+    content: 'public abstract class ConcreteMemberData : OpenAttribute'
+    content.vb: Public MustInherit Class ConcreteMemberData Inherits OpenAttribute
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenAttribute
+  derivedClasses:
+  - IdeaRS.OpenModel.Concrete.ConcreteMemberDataEc2
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenAttribute.Element
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor
+  commentId: M:IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  langs:
+  - csharp
+  - vb
+  name: ConcreteMemberData()
+  nameWithType: ConcreteMemberData.ConcreteMemberData()
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.ConcreteMemberData()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 90
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Constructor
+  example: []
+  syntax:
+    content: public ConcreteMemberData()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor*
+  nameWithType.vb: ConcreteMemberData.New()
+  fullName.vb: IdeaRS.OpenModel.Concrete.ConcreteMemberData.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+  commentId: P:IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+  id: MemberType
+  parent: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  langs:
+  - csharp
+  - vb
+  name: MemberType
+  nameWithType: ConcreteMemberData.MemberType
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MemberType
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 100
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Gets or sets the structural type of member.
+  example: []
+  syntax:
+    content: public ConcreteMemberType MemberType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.ConcreteMemberType
+    content.vb: Public Property MemberType As ConcreteMemberType
+  overload: IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType*
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+  commentId: P:IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+  id: TwoWaySlabType
+  parent: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  langs:
+  - csharp
+  - vb
+  name: TwoWaySlabType
+  nameWithType: ConcreteMemberData.TwoWaySlabType
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TwoWaySlabType
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 105
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: two way slab type
+  example: []
+  syntax:
+    content: public TwoWaySlabType TwoWaySlabType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+    content.vb: Public Property TwoWaySlabType As TwoWaySlabType
+  overload: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType*
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+  commentId: P:IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+  id: TimeAxis
+  parent: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  langs:
+  - csharp
+  - vb
+  name: TimeAxis
+  nameWithType: ConcreteMemberData.TimeAxis
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TimeAxis
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 110
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Time axis
+  example: []
+  syntax:
+    content: public TimeAxis TimeAxis { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.TimeAxis
+    content.vb: Public Property TimeAxis As TimeAxis
+  overload: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis*
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+  commentId: P:IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+  id: CalculationSetup
+  parent: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+  langs:
+  - csharp
+  - vb
+  name: CalculationSetup
+  nameWithType: ConcreteMemberData.CalculationSetup
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CalculationSetup
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 115
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Calculation setup
+  example: []
+  syntax:
+    content: public CalculationSetup CalculationSetup { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.CalculationSetup
+    content.vb: Public Property CalculationSetup As CalculationSetup
+  overload: IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup*
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenAttribute
+  commentId: T:IdeaRS.OpenModel.OpenAttribute
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenAttribute.html
+  name: OpenAttribute
+  nameWithType: OpenAttribute
+  fullName: IdeaRS.OpenModel.OpenAttribute
+- uid: IdeaRS.OpenModel.OpenAttribute.Element
+  commentId: P:IdeaRS.OpenModel.OpenAttribute.Element
+  parent: IdeaRS.OpenModel.OpenAttribute
+  href: IdeaRS.OpenModel.OpenAttribute.html#IdeaRS.OpenModel.OpenAttribute.Element
+  name: Element
+  nameWithType: OpenAttribute.Element
+  fullName: IdeaRS.OpenModel.OpenAttribute.Element
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor
+  href: IdeaRS.OpenModel.Concrete.ConcreteMemberData.html#IdeaRS.OpenModel.Concrete.ConcreteMemberData.#ctor
+  name: ConcreteMemberData
+  nameWithType: ConcreteMemberData.ConcreteMemberData
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.ConcreteMemberData
+  nameWithType.vb: ConcreteMemberData.New
+  fullName.vb: IdeaRS.OpenModel.Concrete.ConcreteMemberData.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+  href: IdeaRS.OpenModel.Concrete.ConcreteMemberData.html#IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+  name: MemberType
+  nameWithType: ConcreteMemberData.MemberType
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.MemberType
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberType
+  commentId: T:IdeaRS.OpenModel.Concrete.ConcreteMemberType
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.ConcreteMemberType.html
+  name: ConcreteMemberType
+  nameWithType: ConcreteMemberType
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberType
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+  href: IdeaRS.OpenModel.Concrete.ConcreteMemberData.html#IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+  name: TwoWaySlabType
+  nameWithType: ConcreteMemberData.TwoWaySlabType
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  commentId: T:IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TwoWaySlabType.html
+  name: TwoWaySlabType
+  nameWithType: TwoWaySlabType
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+  href: IdeaRS.OpenModel.Concrete.ConcreteMemberData.html#IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+  name: TimeAxis
+  nameWithType: ConcreteMemberData.TimeAxis
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.TimeAxis
+- uid: IdeaRS.OpenModel.Concrete.TimeAxis
+  commentId: T:IdeaRS.OpenModel.Concrete.TimeAxis
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TimeAxis.html
+  name: TimeAxis
+  nameWithType: TimeAxis
+  fullName: IdeaRS.OpenModel.Concrete.TimeAxis
+- uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+  href: IdeaRS.OpenModel.Concrete.ConcreteMemberData.html#IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+  name: CalculationSetup
+  nameWithType: ConcreteMemberData.CalculationSetup
+  fullName: IdeaRS.OpenModel.Concrete.ConcreteMemberData.CalculationSetup
+- uid: IdeaRS.OpenModel.Concrete.CalculationSetup
+  commentId: T:IdeaRS.OpenModel.Concrete.CalculationSetup
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.CalculationSetup.html
+  name: CalculationSetup
+  nameWithType: CalculationSetup
+  fullName: IdeaRS.OpenModel.Concrete.CalculationSetup
