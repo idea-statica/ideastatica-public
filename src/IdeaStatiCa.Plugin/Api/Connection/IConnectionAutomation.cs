@@ -15,11 +15,13 @@ namespace IdeaStatiCa.Plugin
 		/// <returns></returns>
 		ConProjectInfo GetProjectInfo();
 
+
 		/// <summary>
-		/// Generate report of <paramref name="conId"/>
+		/// Generate a report of the connection <paramref name="conId"/>
 		/// </summary>
 		/// <param name="conId">Id of the required connection</param>
-		/// <returns>The id of the report</returns>
-		string GenerateReport(int conId);
+		/// <param name="settings">Report settings</param>
+		/// <returns>The identifier of a generated report</returns>
+		string GenerateReport(int conId, ReportSettings settings);
 	}
 }

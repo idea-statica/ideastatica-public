@@ -226,12 +226,14 @@ namespace IdeaStatiCa.Plugin
 			Service.SetMemberCrossSection(connectionId, memberId, crossSectionId);
 		}
 
-		public ReportResponse GenerateReport(string connectionId)
+		/// <inheritdoc cref="IConnHiddenCheck.GenerateReport(string, ReportSettings)"/>
+		public ReportResponse GenerateReport(string connectionId, ReportSettings settings)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
-			return Service.GenerateReport(connectionId);
+			return Service.GenerateReport(connectionId, settings);
 		}
 
+		/// <inheritdoc cref="IConnHiddenCheck.OpenConnectionInApp(string)"/>
 		public void OpenConnectionInApp(string connectionId)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenConnectionInApp connectionId = '{connectionId}'");

@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.ConnectionClient.Commands;
+﻿using IdeaRS.OpenModel.Connection;
+using IdeaStatiCa.ConnectionClient.Commands;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Public;
 using Microsoft.Win32;
@@ -136,7 +137,7 @@ namespace ConnectionAutomationApp
 			try
 			{
 				
-				var blobStorage = ConnectionController.GenerateReport(1);
+				var blobStorage = ConnectionController.GenerateReport(1, new ReportSettings());
 
 				SaveFileDialog saveFileDialog = new SaveFileDialog();
 

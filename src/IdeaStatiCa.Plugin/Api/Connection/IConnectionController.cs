@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Public;
+﻿using IdeaRS.OpenModel.Connection;
+using IdeaStatiCa.Public;
 using System;
 
 namespace IdeaStatiCa.Plugin
@@ -32,10 +33,11 @@ namespace IdeaStatiCa.Plugin
 		int CloseProject();
 
 		/// <summary>
-		/// 
+		/// Send a request to generate a connection report and return a blobstorage with its data 
 		/// </summary>
-		/// <param name="conId"></param>
-		/// <returns></returns>
-		IBlobStorage GenerateReport(int conId);
+		/// <param name="conId">Id of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>The instance of the blobstorage</returns>
+		IBlobStorage GenerateReport(int conId, ReportSettings settings);
 	}
 }
