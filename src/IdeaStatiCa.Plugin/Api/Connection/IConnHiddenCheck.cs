@@ -1,9 +1,29 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace IdeaStatiCa.Plugin
 {
+	/// <summary>
+	/// The identifier of the generated report
+	/// </summary>
+	[DataContract]
+	public class ReportResponse
+	{
+		/// <summary>
+		/// Port of grpc server which can provide a report
+		/// </summary>
+		[DataMember]
+		public int Port { get; set; }
+
+		/// <summary>
+		/// Unique report identifier
+		/// </summary>
+		[DataMember]
+		public string ReportId { get; set; }
+	}
+
 	/// <summary>
 	/// Provides seamlessly data about connections or allows to run hidden calculation of a connection
 	/// </summary>
@@ -263,5 +283,21 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="crossSectionId">Id of the cross-section</param>
 		[OperationContract]
 		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
+
+		/// <summary>
+		/// Generate a report for connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
+		[OperationContract]
+		ReportResponse GenerateReport(string connectionId, ReportSettings settings);
+
+		/// <summary>
+		/// Open and select the connection <paramref name="connectionId"/> in an application
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		[OperationContract]
+		void OpenConnectionInApp(string connectionId);
 	}
 }

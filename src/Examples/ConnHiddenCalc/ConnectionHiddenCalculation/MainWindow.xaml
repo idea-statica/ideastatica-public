@@ -38,7 +38,7 @@
 
 			<ToolBar Band="2" DockPanel.Dock="Top">
 				<Label Content="{Binding SelectedConnection.Name}" FontWeight="Bold" MinWidth="80"></Label>
-				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" ToolTip="Open the selected connection in the application">Open connection</Button>
+				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" CommandParameter="{Binding SelectedConnection}" ToolTip="Open the selected connection in the application">Open connection</Button>
 			</ToolBar>
 
 			<ToolBar Band="3" DockPanel.Dock="Top">
@@ -91,6 +91,7 @@
 					Eval Expression
 				</Button>
 				<Button Command="{Binding GetConnectionCostCmd}"  CommandParameter="{Binding SelectedConnection}">Get Cost</Button>
+				<Button Command="{Binding GenerateReportCmd}"  CommandParameter="{Binding SelectedConnection}">Generate report</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<StackPanel DockPanel.Dock="Bottom">

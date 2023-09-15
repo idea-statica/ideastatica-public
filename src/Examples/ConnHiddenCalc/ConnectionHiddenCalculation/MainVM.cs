@@ -97,6 +97,7 @@ namespace ConnectionHiddenCalculation
 			ConnectionToTemplateCmd = new ConnectionToTemplateCommand(this);
 			ApplyTemplateCmd = new ApplyTemplateCommand(this);
 			DeleteOperationsCmd = new DeleteAllOperationsCommand(this);
+			GenerateReportCmd = new GenerateReportCommand(this);
 
 			GetConnectionCostCmd = new GetConnectionCostCommand(this);
 			GetMaterialsCmd = new GetMaterialsCommand(this);
@@ -109,7 +110,7 @@ namespace ConnectionHiddenCalculation
 			GetConnCheckResultsCmd = new GetConnCheckResults(this);
 			GetAllConnectionDataCmd = new GetAllConnDataCommand(this);
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
-			OpenTempProjectCmd = new CustomCommand(CanRunIdeaConnection, RunIdeaConnection);
+			OpenTempProjectCmd =new OpenConnectionInAppCommand(this);
 
 			ShowConHiddenCalcLogFileCmd = new ShowConHiddenCalcLogFileCommand();
 
@@ -148,6 +149,7 @@ namespace ConnectionHiddenCalculation
 		public ICommand GetConnCheckResultsCmd { get; set; }
 		public ICommand OpenTempProjectCmd { get; set; }
 		public ICommand DeleteOperationsCmd { get;set; }
+		public ICommand GenerateReportCmd { get; set; }
 
 		#endregion
 
@@ -393,22 +395,22 @@ namespace ConnectionHiddenCalculation
 
 		private void RunIdeaConnection(object obj)
 		{
-			if (this.ConnectionController == null)
-			{
-				// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
-				this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir, Logger);
-				this.ConnectionController.ConnectionAppExited += ConnectionController_ConnectionAppExited;
-			}
-			else
-			{
-				this.ConnectionController.CloseProject();
-				DeleteTempProjectFile();
-			}
+			//if (this.ConnectionController == null)
+			//{
+			//	// it starts the new process of IdeaConnection.exe which is located in the directory ideaStatiCaDir
+			//	this.ConnectionController = IdeaConnectionController.Create(ideaStatiCaDir, Logger);
+			//	this.ConnectionController.ConnectionAppExited += ConnectionController_ConnectionAppExited;
+			//}
+			//else
+			//{
+			//	this.ConnectionController.CloseProject();
+			//	DeleteTempProjectFile();
+			//}
 
-			IdeaConTempFileName = Path.ChangeExtension(Path.GetTempFileName(), ".ideacon");
-			SaveAsProjectCmd.Execute(IdeaConTempFileName);
+			//IdeaConTempFileName = Path.ChangeExtension(Path.GetTempFileName(), ".ideacon");
+			//SaveAsProjectCmd.Execute(IdeaConTempFileName);
 
-			ConnectionController.OpenProject(IdeaConTempFileName);
+			//ConnectionController.OpenProject(IdeaConTempFileName);
 		}
 
 		private void ConnectionController_ConnectionAppExited(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿
+using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Utilities;
 using IdeaStatiCa.Public;
@@ -90,9 +91,10 @@ namespace IdeaStatiCa.Plugin
 			return 1;
 		}
 
-		public IBlobStorage GenerateReport(int conId)
+		/// <inheritdoc cref="IConnectionController.GenerateReport(int, ReportSettings)"/>
+		public IBlobStorage GenerateReport(int conId, ReportSettings settings)
 		{
-			var reportId = ConnectionAutomation.GenerateReport(conId);
+			var reportId = ConnectionAutomation.GenerateReport(conId, settings);
 			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
 			return blobStorage;
 		}
