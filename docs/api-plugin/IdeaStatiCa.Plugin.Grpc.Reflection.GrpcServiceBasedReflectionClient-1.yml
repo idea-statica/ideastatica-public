@@ -1,0 +1,784 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1
+  id: GrpcServiceBasedReflectionClient`1
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection
+  children:
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor(IdeaStatiCa.Plugin.IPluginLogger)
+  - IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service
+  langs:
+  - csharp
+  - vb
+  name: GrpcServiceBasedReflectionClient<IReflectionService>
+  nameWithType: GrpcServiceBasedReflectionClient<IReflectionService>
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient<IReflectionService>
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcServiceBasedReflectionClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GrpcServiceBasedReflectionClient
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcServiceBasedReflectionClient.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc.Reflection
+  summary: WCF-like implementation of the GrpcReflectionClient that uses interceptors to proxy calls to server.
+  example: []
+  syntax:
+    content: 'public class GrpcServiceBasedReflectionClient<IReflectionService> : GrpcClient, IGrpcClient, IGrpcCommunicator, IGrpcService, IGrpcSender where IReflectionService : class'
+    typeParameters:
+    - id: IReflectionService
+      description: ''
+    content.vb: Public Class GrpcServiceBasedReflectionClient(Of IReflectionService As Class) Inherits GrpcClient Implements IGrpcClient, IGrpcCommunicator, IGrpcService, IGrpcSender
+  inheritance:
+  - System.Object
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient
+  implements:
+  - IdeaStatiCa.Plugin.Grpc.IGrpcClient
+  - IdeaStatiCa.Plugin.Grpc.IGrpcCommunicator
+  - IdeaStatiCa.Plugin.Grpc.IGrpcService
+  - IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  inheritedMembers:
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.Logger
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientConnected
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientDisconnected
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientID
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.Port
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.Host
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.IsConnected
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  - IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  nameWithType.vb: GrpcServiceBasedReflectionClient(Of IReflectionService)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient(Of IReflectionService)
+  name.vb: GrpcServiceBasedReflectionClient(Of IReflectionService)
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service
+  commentId: P:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service
+  id: Service
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: GrpcServiceBasedReflectionClient<IReflectionService>.Service
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient<IReflectionService>.Service
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcServiceBasedReflectionClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Service
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcServiceBasedReflectionClient.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc.Reflection
+  summary: Service used to call server methods.
+  example: []
+  syntax:
+    content: public IReflectionService Service { get; }
+    parameters: []
+    return:
+      type: '{IReflectionService}'
+    content.vb: Public Property Service As IReflectionService
+  overload: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service*
+  nameWithType.vb: GrpcServiceBasedReflectionClient(Of IReflectionService).Service
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient(Of IReflectionService).Service
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor(IdeaStatiCa.Plugin.IPluginLogger)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor(IdeaStatiCa.Plugin.IPluginLogger)
+  id: '#ctor(IdeaStatiCa.Plugin.IPluginLogger)'
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1
+  langs:
+  - csharp
+  - vb
+  name: GrpcServiceBasedReflectionClient(IPluginLogger)
+  nameWithType: GrpcServiceBasedReflectionClient<IReflectionService>.GrpcServiceBasedReflectionClient(IPluginLogger)
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient<IReflectionService>.GrpcServiceBasedReflectionClient(IdeaStatiCa.Plugin.IPluginLogger)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcServiceBasedReflectionClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcServiceBasedReflectionClient.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc.Reflection
+  syntax:
+    content: public GrpcServiceBasedReflectionClient(IPluginLogger logger)
+    parameters:
+    - id: logger
+      type: IdeaStatiCa.Plugin.IPluginLogger
+    content.vb: Public Sub New(logger As IPluginLogger)
+  overload: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor*
+  nameWithType.vb: GrpcServiceBasedReflectionClient(Of IReflectionService).New(IPluginLogger)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient(Of IReflectionService).New(IdeaStatiCa.Plugin.IPluginLogger)
+  name.vb: New(IPluginLogger)
+references:
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection
+  commentId: N:IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc.Reflection
+  nameWithType: IdeaStatiCa.Plugin.Grpc.Reflection
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GrpcClient
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html
+  name: GrpcClient
+  nameWithType: GrpcClient
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcClient
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcClient
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcClient.html
+  name: IGrpcClient
+  nameWithType: IGrpcClient
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcClient
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcCommunicator
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcCommunicator
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcCommunicator.html
+  name: IGrpcCommunicator
+  nameWithType: IGrpcCommunicator
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcCommunicator
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcService
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcService
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcService.html
+  name: IGrpcService
+  nameWithType: IGrpcService
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcService
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcSender
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcSender.html
+  name: IGrpcSender
+  nameWithType: IGrpcSender
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.Logger
+  commentId: F:IdeaStatiCa.Plugin.Grpc.GrpcClient.Logger
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.Logger
+  name: Logger
+  nameWithType: GrpcClient.Logger
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.Logger
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientConnected
+  commentId: E:IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientConnected
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientConnected
+  name: ClientConnected
+  nameWithType: GrpcClient.ClientConnected
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientConnected
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientDisconnected
+  commentId: E:IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientDisconnected
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientDisconnected
+  name: ClientDisconnected
+  nameWithType: GrpcClient.ClientDisconnected
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientDisconnected
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientID
+  commentId: P:IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientID
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientID
+  name: ClientID
+  nameWithType: GrpcClient.ClientID
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.ClientID
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.Port
+  commentId: P:IdeaStatiCa.Plugin.Grpc.GrpcClient.Port
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.Port
+  name: Port
+  nameWithType: GrpcClient.Port
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.Port
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.Host
+  commentId: P:IdeaStatiCa.Plugin.Grpc.GrpcClient.Host
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.Host
+  name: Host
+  nameWithType: GrpcClient.Host
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.Host
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.IsConnected
+  commentId: P:IdeaStatiCa.Plugin.Grpc.GrpcClient.IsConnected
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.IsConnected
+  name: IsConnected
+  nameWithType: GrpcClient.IsConnected
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.IsConnected
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  isExternal: true
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  name: RegisterHandler(string, IGrpcMessageHandler)
+  nameWithType: GrpcClient.RegisterHandler(string, IGrpcMessageHandler)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(string, IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  nameWithType.vb: GrpcClient.RegisterHandler(String, IGrpcMessageHandler)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(String, IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  name.vb: RegisterHandler(String, IGrpcMessageHandler)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+    name: RegisterHandler
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+    name: IGrpcMessageHandler
+    href: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+    name: RegisterHandler
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.RegisterHandler(System.String,IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+    name: IGrpcMessageHandler
+    href: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  isExternal: true
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+  name: StartAsync(string, int)
+  nameWithType: GrpcClient.StartAsync(string, int)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(string, int)
+  nameWithType.vb: GrpcClient.StartAsync(String, Integer)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(String, Integer)
+  name.vb: StartAsync(String, Integer)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+    name: StartAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+    name: StartAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.StartAsync(System.String,System.Int32)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+  name: StopAsync()
+  nameWithType: GrpcClient.StopAsync()
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+    name: StopAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+    name: StopAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.StopAsync
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  name: SendMessageAsync(GrpcMessage)
+  nameWithType: GrpcClient.SendMessageAsync(GrpcMessage)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+    name: SendMessageAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+    name: SendMessageAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.SendMessageAsync(IdeaStatiCa.Plugin.Grpc.GrpcMessage)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcClient
+  isExternal: true
+  href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+  name: ConnectAsync(IAsyncStreamReader<GrpcMessage>, IServerStreamWriter<GrpcMessage>, ServerCallContext)
+  nameWithType: GrpcClient.ConnectAsync(IAsyncStreamReader<GrpcMessage>, IServerStreamWriter<GrpcMessage>, ServerCallContext)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader<IdeaStatiCa.Plugin.Grpc.GrpcMessage>, Grpc.Core.IServerStreamWriter<IdeaStatiCa.Plugin.Grpc.GrpcMessage>, Grpc.Core.ServerCallContext)
+  nameWithType.vb: GrpcClient.ConnectAsync(IAsyncStreamReader(Of GrpcMessage), IServerStreamWriter(Of GrpcMessage), ServerCallContext)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader(Of IdeaStatiCa.Plugin.Grpc.GrpcMessage), Grpc.Core.IServerStreamWriter(Of IdeaStatiCa.Plugin.Grpc.GrpcMessage), Grpc.Core.ServerCallContext)
+  name.vb: ConnectAsync(IAsyncStreamReader(Of GrpcMessage), IServerStreamWriter(Of GrpcMessage), ServerCallContext)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+    name: ConnectAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+  - name: (
+  - uid: Grpc.Core.IAsyncStreamReader`1
+    name: IAsyncStreamReader
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: Grpc.Core.IServerStreamWriter`1
+    name: IServerStreamWriter
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: Grpc.Core.ServerCallContext
+    name: ServerCallContext
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/ServerCallContext.cs
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+    name: ConnectAsync
+    href: IdeaStatiCa.Plugin.Grpc.GrpcClient.html#IdeaStatiCa.Plugin.Grpc.GrpcClient.ConnectAsync(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.IServerStreamWriter{IdeaStatiCa.Plugin.Grpc.GrpcMessage},Grpc.Core.ServerCallContext)
+  - name: (
+  - uid: Grpc.Core.IAsyncStreamReader`1
+    name: IAsyncStreamReader
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IAsyncStreamReader.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: Grpc.Core.IServerStreamWriter`1
+    name: IServerStreamWriter
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/IServerStreamWriter.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+    href: IdeaStatiCa.Plugin.Grpc.GrpcMessage.html
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: Grpc.Core.ServerCallContext
+    name: ServerCallContext
+    isExternal: true
+    href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/ServerCallContext.cs
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient-1.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.Service
+  name: Service
+  nameWithType: GrpcServiceBasedReflectionClient<IReflectionService>.Service
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient<IReflectionService>.Service
+  nameWithType.vb: GrpcServiceBasedReflectionClient(Of IReflectionService).Service
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient(Of IReflectionService).Service
+- uid: '{IReflectionService}'
+  commentId: '!:IReflectionService'
+  definition: IReflectionService
+  name: IReflectionService
+  nameWithType: IReflectionService
+  fullName: IReflectionService
+- uid: IReflectionService
+  commentId: '!:IReflectionService'
+  name: IReflectionService
+  nameWithType: IReflectionService
+  fullName: IReflectionService
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient-1.html#IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1.#ctor(IdeaStatiCa.Plugin.IPluginLogger)
+  name: GrpcServiceBasedReflectionClient
+  nameWithType: GrpcServiceBasedReflectionClient<IReflectionService>.GrpcServiceBasedReflectionClient
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient<IReflectionService>.GrpcServiceBasedReflectionClient
+  nameWithType.vb: GrpcServiceBasedReflectionClient(Of IReflectionService).New
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient(Of IReflectionService).New
+  name.vb: New
+- uid: IdeaStatiCa.Plugin.IPluginLogger
+  commentId: T:IdeaStatiCa.Plugin.IPluginLogger
+  parent: IdeaStatiCa.Plugin
+  name: IPluginLogger
+  nameWithType: IPluginLogger
+  fullName: IdeaStatiCa.Plugin.IPluginLogger
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html

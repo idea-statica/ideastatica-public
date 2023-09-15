@@ -1,0 +1,619 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  id: ConcreteULSCheckResultShearEc2
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  children:
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+  langs:
+  - csharp
+  - vb
+  name: ConcreteULSCheckResultShearEc2
+  nameWithType: ConcreteULSCheckResultShearEc2
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConcreteULSCheckResultShearEc2
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 51
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: ULS Check Shear Ec2
+  example: []
+  syntax:
+    content: 'public class ConcreteULSCheckResultShearEc2 : ConcreteULSCheckResultShear'
+    content.vb: Public Class ConcreteULSCheckResultShearEc2 Inherits ConcreteULSCheckResultShear
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShear
+  inheritedMembers:
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.NonConformities
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Result
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.CheckValue
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.LimitCheckValue
+  - IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Check
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+  id: Ved
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  langs:
+  - csharp
+  - vb
+  name: Ved
+  nameWithType: ConcreteULSCheckResultShearEc2.Ved
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Ved
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 166
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: shear force
+  example: []
+  syntax:
+    content: public double Ved { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Ved As Double
+  overload: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved*
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+  id: Vrdc
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  langs:
+  - csharp
+  - vb
+  name: Vrdc
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrdc
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Vrdc
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 171
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: shear resistance of concrete
+  example: []
+  syntax:
+    content: public double Vrdc { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Vrdc As Double
+  overload: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc*
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+  id: Vrdr
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  langs:
+  - csharp
+  - vb
+  name: Vrdr
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrdr
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Vrdr
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 176
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: shear resistance
+  example: []
+  syntax:
+    content: public double Vrdr { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Vrdr As Double
+  overload: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr*
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+  id: Vrdmax
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  langs:
+  - csharp
+  - vb
+  name: Vrdmax
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrdmax
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Vrdmax
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 181
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: shear resistance of compression strut
+  example: []
+  syntax:
+    content: public double Vrdmax { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Vrdmax As Double
+  overload: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax*
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+  id: Vrds
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  langs:
+  - csharp
+  - vb
+  name: Vrds
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrds
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Vrds
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 186
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: shear resistance of shear reinforcement
+  example: []
+  syntax:
+    content: public double Vrds { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Vrds As Double
+  overload: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds*
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd
+  id: Vrd
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+  langs:
+  - csharp
+  - vb
+  name: Vrd
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrd
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Vrd
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 191
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: decisive shear resistance
+  example: []
+  syntax:
+    content: public double Vrd { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Vrd As Double
+  overload: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd*
+references:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult
+  commentId: N:IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.CheckResult
+  nameWithType: IdeaRS.OpenModel.Concrete.CheckResult
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html
+  name: ConcreteCheckResultBase
+  nameWithType: ConcreteCheckResultBase
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShear
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShear
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShear.html
+  name: ConcreteULSCheckResultShear
+  nameWithType: ConcreteULSCheckResultShear
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShear
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
+  name: InternalFores
+  nameWithType: ConcreteCheckResultBase.InternalFores
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.InternalFores
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.NonConformities
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.NonConformities
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.NonConformities
+  name: NonConformities
+  nameWithType: ConcreteCheckResultBase.NonConformities
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.NonConformities
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Result
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Result
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Result
+  name: Result
+  nameWithType: ConcreteCheckResultBase.Result
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Result
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.CheckValue
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.CheckValue
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.CheckValue
+  name: CheckValue
+  nameWithType: ConcreteCheckResultBase.CheckValue
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.CheckValue
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.LimitCheckValue
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.LimitCheckValue
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.LimitCheckValue
+  name: LimitCheckValue
+  nameWithType: ConcreteCheckResultBase.LimitCheckValue
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.LimitCheckValue
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Check
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Check
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Check
+  name: Check
+  nameWithType: ConcreteCheckResultBase.Check
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase.Check
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+  name: Ved
+  nameWithType: ConcreteULSCheckResultShearEc2.Ved
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Ved
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+  name: Vrdc
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrdc
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdc
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+  name: Vrdr
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrdr
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdr
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+  name: Vrdmax
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrdmax
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrdmax
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+  name: Vrds
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrds
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrds
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.html#IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd
+  name: Vrd
+  nameWithType: ConcreteULSCheckResultShearEc2.Vrd
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2.Vrd

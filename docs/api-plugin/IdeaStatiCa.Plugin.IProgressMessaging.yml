@@ -1,0 +1,627 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IProgressMessaging
+  commentId: T:IdeaStatiCa.Plugin.IProgressMessaging
+  id: IProgressMessaging
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  - IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  - IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  - IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  - IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  - IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  - IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  - IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  - IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  - IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  - IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  langs:
+  - csharp
+  - vb
+  name: IProgressMessaging
+  nameWithType: IProgressMessaging
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IProgressMessaging
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 38
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public interface IProgressMessaging
+    content.vb: Public Interface IProgressMessaging
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  id: GetCancellationFlag
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: GetCancellationFlag()
+  nameWithType: IProgressMessaging.GetCancellationFlag()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCancellationFlag
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 40
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: bool GetCancellationFlag()
+    return:
+      type: System.Boolean
+    content.vb: Function GetCancellationFlag() As Boolean
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag*
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  id: SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: SendMessageLocalised(MessageSeverity, LocalisedMessage, string)
+  nameWithType: IProgressMessaging.SendMessageLocalised(MessageSeverity, LocalisedMessage, string)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessageLocalised
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 41
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg, string suffix = "")
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    - id: suffix
+      type: System.String
+    content.vb: Sub SendMessageLocalised(severity As MessageSeverity, msg As LocalisedMessage, suffix As String = "")
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised*
+  nameWithType.vb: IProgressMessaging.SendMessageLocalised(MessageSeverity, LocalisedMessage, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage, String)
+  name.vb: SendMessageLocalised(MessageSeverity, LocalisedMessage, String)
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  id: SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: SendMessage(MessageSeverity, string)
+  nameWithType: IProgressMessaging.SendMessage(MessageSeverity, string)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessage
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 42
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void SendMessage(MessageSeverity severity, string text)
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: text
+      type: System.String
+    content.vb: Sub SendMessage(severity As MessageSeverity, text As String)
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage*
+  nameWithType.vb: IProgressMessaging.SendMessage(MessageSeverity, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, String)
+  name.vb: SendMessage(MessageSeverity, String)
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  id: SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: SendMessageInteractive(MessageSeverity, string, string[])
+  nameWithType: IProgressMessaging.SendMessageInteractive(MessageSeverity, string, string[])
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity, string, string[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessageInteractive
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 43
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons)
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: text
+      type: System.String
+    - id: buttons
+      type: System.String[]
+    return:
+      type: System.Int32
+    content.vb: Function SendMessageInteractive(severity As MessageSeverity, text As String, buttons As String()) As Integer
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive*
+  nameWithType.vb: IProgressMessaging.SendMessageInteractive(MessageSeverity, String, String())
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity, String, String())
+  name.vb: SendMessageInteractive(MessageSeverity, String, String())
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  id: CancelMessage
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: CancelMessage()
+  nameWithType: IProgressMessaging.CancelMessage()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CancelMessage
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 44
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void CancelMessage()
+    content.vb: Sub CancelMessage()
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage*
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  id: InitProgressDialog
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: InitProgressDialog()
+  nameWithType: IProgressMessaging.InitProgressDialog()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InitProgressDialog
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 45
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void InitProgressDialog()
+    content.vb: Sub InitProgressDialog()
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog*
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  id: SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: SetStageLocalised(int, int, LocalisedMessage, params object[])
+  nameWithType: IProgressMessaging.SetStageLocalised(int, int, LocalisedMessage, params object[])
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(int, int, IdeaStatiCa.Plugin.LocalisedMessage, params object[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStageLocalised
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 47
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg, params object[] args)
+    parameters:
+    - id: stage
+      type: System.Int32
+    - id: stageMax
+      type: System.Int32
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    - id: args
+      type: System.Object[]
+    content.vb: Sub SetStageLocalised(stage As Integer, stageMax As Integer, msg As LocalisedMessage, ParamArray args As Object())
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised*
+  nameWithType.vb: IProgressMessaging.SetStageLocalised(Integer, Integer, LocalisedMessage, ParamArray Object())
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(Integer, Integer, IdeaStatiCa.Plugin.LocalisedMessage, ParamArray Object())
+  name.vb: SetStageLocalised(Integer, Integer, LocalisedMessage, ParamArray Object())
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  id: SetStage(System.Int32,System.Int32,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: SetStage(int, int, string)
+  nameWithType: IProgressMessaging.SetStage(int, int, string)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(int, int, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStage
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 48
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void SetStage(int stage, int stageMax, string name)
+    parameters:
+    - id: stage
+      type: System.Int32
+    - id: stageMax
+      type: System.Int32
+    - id: name
+      type: System.String
+    content.vb: Sub SetStage(stage As Integer, stageMax As Integer, name As String)
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.SetStage*
+  nameWithType.vb: IProgressMessaging.SetStage(Integer, Integer, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(Integer, Integer, String)
+  name.vb: SetStage(Integer, Integer, String)
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  id: SetStageProgress(System.Double)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: SetStageProgress(double)
+  nameWithType: IProgressMessaging.SetStageProgress(double)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStageProgress
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 49
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: void SetStageProgress(double percentage)
+    parameters:
+    - id: percentage
+      type: System.Double
+    content.vb: Sub SetStageProgress(percentage As Double)
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress*
+  nameWithType.vb: IProgressMessaging.SetStageProgress(Double)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(Double)
+  name.vb: SetStageProgress(Double)
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  id: GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: GetLocalizedText(LocalisedMessage)
+  nameWithType: IProgressMessaging.GetLocalizedText(LocalisedMessage)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetLocalizedText
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 51
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: string GetLocalizedText(LocalisedMessage msg)
+    parameters:
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    return:
+      type: System.String
+    content.vb: Function GetLocalizedText(msg As LocalisedMessage) As String
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText*
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  id: GetCurrentCulture
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentCulture()
+  nameWithType: IProgressMessaging.GetCurrentCulture()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCurrentCulture
+    path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
+    startLine: 52
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: CultureInfo GetCurrentCulture()
+    return:
+      type: System.Globalization.CultureInfo
+    content.vb: Function GetCurrentCulture() As CultureInfo
+  overload: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture*
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  name: GetCancellationFlag
+  nameWithType: IProgressMessaging.GetCancellationFlag
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  name: SendMessageLocalised
+  nameWithType: IProgressMessaging.SendMessageLocalised
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised
+- uid: IdeaStatiCa.Plugin.MessageSeverity
+  commentId: T:IdeaStatiCa.Plugin.MessageSeverity
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.MessageSeverity.html
+  name: MessageSeverity
+  nameWithType: MessageSeverity
+  fullName: IdeaStatiCa.Plugin.MessageSeverity
+- uid: IdeaStatiCa.Plugin.LocalisedMessage
+  commentId: T:IdeaStatiCa.Plugin.LocalisedMessage
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  name: LocalisedMessage
+  nameWithType: LocalisedMessage
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.SendMessage
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  name: SendMessage
+  nameWithType: IProgressMessaging.SendMessage
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  name: SendMessageInteractive
+  nameWithType: IProgressMessaging.SendMessageInteractive
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  name: CancelMessage
+  nameWithType: IProgressMessaging.CancelMessage
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  name: InitProgressDialog
+  nameWithType: IProgressMessaging.InitProgressDialog
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  name: SetStageLocalised
+  nameWithType: IProgressMessaging.SetStageLocalised
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStage*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.SetStage
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  name: SetStage
+  nameWithType: IProgressMessaging.SetStage
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStage
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  name: SetStageProgress
+  nameWithType: IProgressMessaging.SetStageProgress
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  name: GetLocalizedText
+  nameWithType: IProgressMessaging.GetLocalizedText
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture*
+  commentId: Overload:IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  name: GetCurrentCulture
+  nameWithType: IProgressMessaging.GetCurrentCulture
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+- uid: System.Globalization.CultureInfo
+  commentId: T:System.Globalization.CultureInfo
+  parent: System.Globalization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  name: CultureInfo
+  nameWithType: CultureInfo
+  fullName: System.Globalization.CultureInfo
+- uid: System.Globalization
+  commentId: N:System.Globalization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Globalization
+  nameWithType: System.Globalization
+  fullName: System.Globalization
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Globalization
+    name: Globalization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Globalization
+    name: Globalization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization

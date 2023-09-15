@@ -1,0 +1,621 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  commentId: T:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  id: BeamLoadsImportMappingData
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor
+  - IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+  - IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+  - IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X
+  - IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+  - IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+  langs:
+  - csharp
+  - vb
+  name: BeamLoadsImportMappingData
+  nameWithType: BeamLoadsImportMappingData
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BeamLoadsImportMappingData
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 396
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: BeamLoadsImportMappingData
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      public class BeamLoadsImportMappingData
+    content.vb: >-
+      <Serializable>
+
+      Public Class BeamLoadsImportMappingData
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor
+  commentId: M:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  langs:
+  - csharp
+  - vb
+  name: BeamLoadsImportMappingData()
+  nameWithType: BeamLoadsImportMappingData.BeamLoadsImportMappingData()
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamLoadsImportMappingData()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 403
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Constructor
+  example: []
+  syntax:
+    content: public BeamLoadsImportMappingData()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor*
+  nameWithType.vb: BeamLoadsImportMappingData.New()
+  fullName.vb: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+  commentId: P:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+  id: BeamID
+  parent: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  langs:
+  - csharp
+  - vb
+  name: BeamID
+  nameWithType: BeamLoadsImportMappingData.BeamID
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BeamID
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 415
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: BeamID
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public int BeamID { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: >-
+      <DataMember>
+
+      Public Property BeamID As Integer
+  overload: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+  commentId: P:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+  id: CADBeamID
+  parent: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  langs:
+  - csharp
+  - vb
+  name: CADBeamID
+  nameWithType: BeamLoadsImportMappingData.CADBeamID
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CADBeamID
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 421
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: CADBeamID
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public int CADBeamID { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: >-
+      <DataMember>
+
+      Public Property CADBeamID As Integer
+  overload: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+  commentId: P:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+  id: CoeffVM_Y
+  parent: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  langs:
+  - csharp
+  - vb
+  name: CoeffVM_Y
+  nameWithType: BeamLoadsImportMappingData.CoeffVM_Y
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CoeffVM_Y
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 427
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: CoeffVM_Y
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public double CoeffVM_Y { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: >-
+      <DataMember>
+
+      Public Property CoeffVM_Y As Double
+  overload: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+  commentId: P:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+  id: CoeffVM_Z
+  parent: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  langs:
+  - csharp
+  - vb
+  name: CoeffVM_Z
+  nameWithType: BeamLoadsImportMappingData.CoeffVM_Z
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CoeffVM_Z
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 433
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: CoeffVM_Z
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public double CoeffVM_Z { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: >-
+      <DataMember>
+
+      Public Property CoeffVM_Z As Double
+  overload: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X
+  commentId: P:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X
+  id: CoeffVM_X
+  parent: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+  langs:
+  - csharp
+  - vb
+  name: CoeffVM_X
+  nameWithType: BeamLoadsImportMappingData.CoeffVM_X
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CoeffVM_X
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 439
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: CoeffVM_X
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public double CoeffVM_X { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: >-
+      <DataMember>
+
+      Public Property CoeffVM_X As Double
+  overload: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor
+  href: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.html#IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.#ctor
+  name: BeamLoadsImportMappingData
+  nameWithType: BeamLoadsImportMappingData.BeamLoadsImportMappingData
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamLoadsImportMappingData
+  nameWithType.vb: BeamLoadsImportMappingData.New
+  fullName.vb: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+  href: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.html#IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+  name: BeamID
+  nameWithType: BeamLoadsImportMappingData.BeamID
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.BeamID
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+  href: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.html#IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+  name: CADBeamID
+  nameWithType: BeamLoadsImportMappingData.CADBeamID
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CADBeamID
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+  href: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.html#IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+  name: CoeffVM_Y
+  nameWithType: BeamLoadsImportMappingData.CoeffVM_Y
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Y
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+  href: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.html#IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+  name: CoeffVM_Z
+  nameWithType: BeamLoadsImportMappingData.CoeffVM_Z
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_Z
+- uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X
+  href: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.html#IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X
+  name: CoeffVM_X
+  nameWithType: BeamLoadsImportMappingData.CoeffVM_X
+  fullName: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData.CoeffVM_X

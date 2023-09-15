@@ -1,0 +1,329 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType
+  commentId: T:IdeaRS.OpenModel.Detail.LongReinfEndType
+  id: LongReinfEndType
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.Bend
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBar
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBarOutside
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.Hook
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.Hook180DegreeACI
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.Hook90DegreeACI
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.Loop
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.None
+  - IdeaRS.OpenModel.Detail.LongReinfEndType.WeldedTransverseBar
+  langs:
+  - csharp
+  - vb
+  name: LongReinfEndType
+  nameWithType: LongReinfEndType
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LongReinfEndType
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: End type of longitudional reinforcement
+  example: []
+  syntax:
+    content: public enum LongReinfEndType
+    content.vb: Public Enum LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.None
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.None
+  id: None
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: LongReinfEndType.None
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.None
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: None
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: None
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.Bend
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.Bend
+  id: Bend
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: Bend
+  nameWithType: LongReinfEndType.Bend
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.Bend
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bend
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Bend
+  example: []
+  syntax:
+    content: Bend = 1
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.Hook
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.Hook
+  id: Hook
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: Hook
+  nameWithType: LongReinfEndType.Hook
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.Hook
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Hook
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 20
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Hook
+  example: []
+  syntax:
+    content: Hook = 2
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.Loop
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.Loop
+  id: Loop
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: Loop
+  nameWithType: LongReinfEndType.Loop
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.Loop
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Loop
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Loop
+  example: []
+  syntax:
+    content: Loop = 3
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.WeldedTransverseBar
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.WeldedTransverseBar
+  id: WeldedTransverseBar
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: WeldedTransverseBar
+  nameWithType: LongReinfEndType.WeldedTransverseBar
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.WeldedTransverseBar
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WeldedTransverseBar
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: WeldedTransverseBar
+  example: []
+  syntax:
+    content: WeldedTransverseBar = 4
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBar
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBar
+  id: ContinuousBar
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: ContinuousBar
+  nameWithType: LongReinfEndType.ContinuousBar
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBar
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContinuousBar
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 35
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Continuous bar - full anchorage
+  example: []
+  syntax:
+    content: ContinuousBar = 5
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBarOutside
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBarOutside
+  id: ContinuousBarOutside
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: ContinuousBarOutside
+  nameWithType: LongReinfEndType.ContinuousBarOutside
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.ContinuousBarOutside
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContinuousBarOutside
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 40
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Continuous bar outside - no anchorage
+  example: []
+  syntax:
+    content: ContinuousBarOutside = 6
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.Hook90DegreeACI
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.Hook90DegreeACI
+  id: Hook90DegreeACI
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: Hook90DegreeACI
+  nameWithType: LongReinfEndType.Hook90DegreeACI
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.Hook90DegreeACI
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Hook90DegreeACI
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: 90 degree hook for ACI
+  example: []
+  syntax:
+    content: Hook90DegreeACI = 7
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType.Hook180DegreeACI
+  commentId: F:IdeaRS.OpenModel.Detail.LongReinfEndType.Hook180DegreeACI
+  id: Hook180DegreeACI
+  parent: IdeaRS.OpenModel.Detail.LongReinfEndType
+  langs:
+  - csharp
+  - vb
+  name: Hook180DegreeACI
+  nameWithType: LongReinfEndType.Hook180DegreeACI
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType.Hook180DegreeACI
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Hook180DegreeACI
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
+    startLine: 50
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: 180 degree hook for ACI
+  example: []
+  syntax:
+    content: Hook180DegreeACI = 8
+    return:
+      type: IdeaRS.OpenModel.Detail.LongReinfEndType
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: IdeaRS.OpenModel.Detail.LongReinfEndType
+  commentId: T:IdeaRS.OpenModel.Detail.LongReinfEndType
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.LongReinfEndType.html
+  name: LongReinfEndType
+  nameWithType: LongReinfEndType
+  fullName: IdeaRS.OpenModel.Detail.LongReinfEndType

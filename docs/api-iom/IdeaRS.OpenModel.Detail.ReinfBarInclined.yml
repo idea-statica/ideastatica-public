@@ -1,0 +1,873 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  commentId: T:IdeaRS.OpenModel.Detail.ReinfBarInclined
+  id: ReinfBarInclined
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+  - IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+  langs:
+  - csharp
+  - vb
+  name: ReinfBarInclined
+  nameWithType: ReinfBarInclined
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinfBarInclined
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 21
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Representing reinforcement inclined bar in IDEA StatiCa Detail
+  example: []
+  syntax:
+    content: >-
+      [OpenModelClass(typeof(Reinforcement))]
+
+      public class ReinfBarInclined : ReinforcementGroup
+    content.vb: >-
+      <OpenModelClass(GetType(Reinforcement))>
+
+      Public Class ReinfBarInclined Inherits ReinforcementGroup
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  - IdeaRS.OpenModel.Detail.Reinforcement
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup
+  inheritedMembers:
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  - IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  - IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  - IdeaRS.OpenModel.Detail.Reinforcement.Material
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.Type)
+    arguments:
+    - type: System.Type
+      value: IdeaRS.OpenModel.Detail.Reinforcement
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor
+  commentId: M:IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: ReinfBarInclined()
+  nameWithType: ReinfBarInclined.ReinfBarInclined()
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.ReinfBarInclined()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Constructor
+  example: []
+  syntax:
+    content: public ReinfBarInclined()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor*
+  nameWithType.vb: ReinfBarInclined.New()
+  fullName.vb: IdeaRS.OpenModel.Detail.ReinfBarInclined.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+  id: MasterComponent
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: MasterComponent
+  nameWithType: ReinfBarInclined.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterComponent
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 34
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master component of reinforcement
+  example: []
+  syntax:
+    content: public ReferenceElement MasterComponent { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property MasterComponent As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+  id: MasterPoint
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: MasterPoint
+  nameWithType: ReinfBarInclined.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterPoint
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 39
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master point of reinforcement
+  example: []
+  syntax:
+    content: public ReferenceElement MasterPoint { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property MasterPoint As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+  id: MasterEdge
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: MasterEdge
+  nameWithType: ReinfBarInclined.MasterEdge
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterEdge
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 44
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master edge of reinforcement - edge from which is measured angle
+  example: []
+  syntax:
+    content: public ReferenceElement MasterEdge { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property MasterEdge As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+  id: InclinedReinfBarType
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: InclinedReinfBarType
+  nameWithType: ReinfBarInclined.InclinedReinfBarType
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InclinedReinfBarType
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 49
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Type of inclined reinf bar
+  example: []
+  syntax:
+    content: public InclinedReinfBarType InclinedReinfBarType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Detail.InclinedReinfBarType
+    content.vb: Public Property InclinedReinfBarType As InclinedReinfBarType
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+  id: Angle
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: Angle
+  nameWithType: ReinfBarInclined.Angle
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Angle
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 54
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Angle between bar and master edge
+  example: []
+  syntax:
+    content: public double Angle { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Angle As Double
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+  id: AddBarOnTop
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: AddBarOnTop
+  nameWithType: ReinfBarInclined.AddBarOnTop
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AddBarOnTop
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 59
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Add bar on top - possible only for FullLength
+  example: []
+  syntax:
+    content: public bool AddBarOnTop { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property AddBarOnTop As Boolean
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+  id: TopLength
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: TopLength
+  nameWithType: ReinfBarInclined.TopLength
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TopLength
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 64
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Length of additional bar on the top
+  example: []
+  syntax:
+    content: public double TopLength { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property TopLength As Double
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+  id: AddBarOnBottom
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: AddBarOnBottom
+  nameWithType: ReinfBarInclined.AddBarOnBottom
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AddBarOnBottom
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 69
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Add bar on Bottom - possible only for FullLength
+  example: []
+  syntax:
+    content: public bool AddBarOnBottom { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property AddBarOnBottom As Boolean
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom*
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength
+  commentId: P:IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength
+  id: BottomLength
+  parent: IdeaRS.OpenModel.Detail.ReinfBarInclined
+  langs:
+  - csharp
+  - vb
+  name: BottomLength
+  nameWithType: ReinfBarInclined.BottomLength
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BottomLength
+    path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
+    startLine: 74
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Length of additional bar on the bottom
+  example: []
+  syntax:
+    content: public double BottomLength { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property BottomLength As Double
+  overload: IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength*
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.Detail.Reinforcement
+  commentId: T:IdeaRS.OpenModel.Detail.Reinforcement
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.Reinforcement.html
+  name: Reinforcement
+  nameWithType: Reinforcement
+  fullName: IdeaRS.OpenModel.Detail.Reinforcement
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  commentId: T:IdeaRS.OpenModel.Detail.ReinforcementGroup
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html
+  name: ReinforcementGroup
+  nameWithType: ReinforcementGroup
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+  name: Diameter
+  nameWithType: ReinforcementGroup.Diameter
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.Diameter
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+  name: NumOfBarsInLayer
+  nameWithType: ReinforcementGroup.NumOfBarsInLayer
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.NumOfBarsInLayer
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+  name: CoverFromSetting
+  nameWithType: ReinforcementGroup.CoverFromSetting
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.CoverFromSetting
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+  name: Cover
+  nameWithType: ReinforcementGroup.Cover
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.Cover
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+  name: EndsTypeBeg
+  nameWithType: ReinforcementGroup.EndsTypeBeg
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeBeg
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+  name: EndsTypeEnd
+  nameWithType: ReinforcementGroup.EndsTypeEnd
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.EndsTypeEnd
+- uid: IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  commentId: P:IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  parent: IdeaRS.OpenModel.Detail.ReinforcementGroup
+  href: IdeaRS.OpenModel.Detail.ReinforcementGroup.html#IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+  name: DiameterOfMandrel
+  nameWithType: ReinforcementGroup.DiameterOfMandrel
+  fullName: IdeaRS.OpenModel.Detail.ReinforcementGroup.DiameterOfMandrel
+- uid: IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  commentId: P:IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  parent: IdeaRS.OpenModel.Detail.Reinforcement
+  href: IdeaRS.OpenModel.Detail.Reinforcement.html#IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+  name: ReinfId
+  nameWithType: Reinforcement.ReinfId
+  fullName: IdeaRS.OpenModel.Detail.Reinforcement.ReinfId
+- uid: IdeaRS.OpenModel.Detail.Reinforcement.Material
+  commentId: P:IdeaRS.OpenModel.Detail.Reinforcement.Material
+  parent: IdeaRS.OpenModel.Detail.Reinforcement
+  href: IdeaRS.OpenModel.Detail.Reinforcement.html#IdeaRS.OpenModel.Detail.Reinforcement.Material
+  name: Material
+  nameWithType: Reinforcement.Material
+  fullName: IdeaRS.OpenModel.Detail.Reinforcement.Material
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.#ctor
+  name: ReinfBarInclined
+  nameWithType: ReinfBarInclined.ReinfBarInclined
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.ReinfBarInclined
+  nameWithType.vb: ReinfBarInclined.New
+  fullName.vb: IdeaRS.OpenModel.Detail.ReinfBarInclined.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+  name: MasterComponent
+  nameWithType: ReinfBarInclined.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterComponent
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+  name: MasterPoint
+  nameWithType: ReinfBarInclined.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterPoint
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+  name: MasterEdge
+  nameWithType: ReinfBarInclined.MasterEdge
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.MasterEdge
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+  name: InclinedReinfBarType
+  nameWithType: ReinfBarInclined.InclinedReinfBarType
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.InclinedReinfBarType
+- uid: IdeaRS.OpenModel.Detail.InclinedReinfBarType
+  commentId: T:IdeaRS.OpenModel.Detail.InclinedReinfBarType
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.InclinedReinfBarType.html
+  name: InclinedReinfBarType
+  nameWithType: InclinedReinfBarType
+  fullName: IdeaRS.OpenModel.Detail.InclinedReinfBarType
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+  name: Angle
+  nameWithType: ReinfBarInclined.Angle
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.Angle
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+  name: AddBarOnTop
+  nameWithType: ReinfBarInclined.AddBarOnTop
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnTop
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+  name: TopLength
+  nameWithType: ReinfBarInclined.TopLength
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.TopLength
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+  name: AddBarOnBottom
+  nameWithType: ReinfBarInclined.AddBarOnBottom
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.AddBarOnBottom
+- uid: IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength*
+  commentId: Overload:IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength
+  href: IdeaRS.OpenModel.Detail.ReinfBarInclined.html#IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength
+  name: BottomLength
+  nameWithType: ReinfBarInclined.BottomLength
+  fullName: IdeaRS.OpenModel.Detail.ReinfBarInclined.BottomLength

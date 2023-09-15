@@ -1,0 +1,524 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GrpcService
+  id: GrpcService
+  parent: IdeaStatiCa.Plugin.Grpc
+  children:
+  - IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(Grpc.Core.ServiceBinderBase,IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  - IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  - IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+  langs:
+  - csharp
+  - vb
+  name: GrpcService
+  nameWithType: GrpcService
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GrpcService
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: general grpc service for bi-directional streaming messaging
+  example: []
+  syntax:
+    content: public static class GrpcService
+    content.vb: Public Module GrpcService
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+  commentId: P:IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+  id: Descriptor
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcService
+  langs:
+  - csharp
+  - vb
+  name: Descriptor
+  nameWithType: GrpcService.Descriptor
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Descriptor
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 62
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Service descriptor
+  example: []
+  syntax:
+    content: public static ServiceDescriptor Descriptor { get; }
+    parameters: []
+    return:
+      type: Google.Protobuf.Reflection.ServiceDescriptor
+    content.vb: Public Shared ReadOnly Property Descriptor As ServiceDescriptor
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor*
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  id: BindService(IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcService
+  langs:
+  - csharp
+  - vb
+  name: BindService(GrpcServiceBase)
+  nameWithType: GrpcService.BindService(GrpcService.GrpcServiceBase)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BindService
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 126
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Creates service definition that can be registered with a server
+  example: []
+  syntax:
+    content: public static ServerServiceDefinition BindService(GrpcService.GrpcServiceBase serviceImpl)
+    parameters:
+    - id: serviceImpl
+      type: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+      description: An object implementing the server-side handling logic.
+    return:
+      type: Grpc.Core.ServerServiceDefinition
+    content.vb: Public Shared Function BindService(serviceImpl As GrpcService.GrpcServiceBase) As ServerServiceDefinition
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService*
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(Grpc.Core.ServiceBinderBase,IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(Grpc.Core.ServiceBinderBase,IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  id: BindService(Grpc.Core.ServiceBinderBase,IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcService
+  langs:
+  - csharp
+  - vb
+  name: BindService(ServiceBinderBase, GrpcServiceBase)
+  nameWithType: GrpcService.BindService(ServiceBinderBase, GrpcService.GrpcServiceBase)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(Grpc.Core.ServiceBinderBase, IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BindService
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContractGrpc.cs
+    startLine: 137
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: >-
+    Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
+        Note: this method is part of an experimental API that can change or be removed without any prior notice.
+  example: []
+  syntax:
+    content: public static void BindService(ServiceBinderBase serviceBinder, GrpcService.GrpcServiceBase serviceImpl)
+    parameters:
+    - id: serviceBinder
+      type: Grpc.Core.ServiceBinderBase
+      description: Service methods will be bound by calling <code>AddMethod</code> on this object.
+    - id: serviceImpl
+      type: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+      description: An object implementing the server-side handling logic.
+    content.vb: Public Shared Sub BindService(serviceBinder As ServiceBinderBase, serviceImpl As GrpcService.GrpcServiceBase)
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService*
+references:
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+  href: IdeaStatiCa.Plugin.Grpc.GrpcService.html#IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+  name: Descriptor
+  nameWithType: GrpcService.Descriptor
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService.Descriptor
+- uid: Google.Protobuf.Reflection.ServiceDescriptor
+  commentId: T:Google.Protobuf.Reflection.ServiceDescriptor
+  parent: Google.Protobuf.Reflection
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/Reflection/ServiceDescriptor.cs
+  name: ServiceDescriptor
+  nameWithType: ServiceDescriptor
+  fullName: Google.Protobuf.Reflection.ServiceDescriptor
+- uid: Google.Protobuf.Reflection
+  commentId: N:Google.Protobuf.Reflection
+  isExternal: true
+  name: Google.Protobuf.Reflection
+  nameWithType: Google.Protobuf.Reflection
+  fullName: Google.Protobuf.Reflection
+  spec.csharp:
+  - uid: Google
+    name: Google
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf
+    name: Protobuf
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf.Reflection
+    name: Reflection
+    isExternal: true
+  spec.vb:
+  - uid: Google
+    name: Google
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf
+    name: Protobuf
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf.Reflection
+    name: Reflection
+    isExternal: true
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcService.BindService
+  href: IdeaStatiCa.Plugin.Grpc.GrpcService.html#IdeaStatiCa.Plugin.Grpc.GrpcService.BindService(IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase)
+  name: BindService
+  nameWithType: GrpcService.BindService
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService.BindService
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.GrpcService.html
+  name: GrpcService.GrpcServiceBase
+  nameWithType: GrpcService.GrpcServiceBase
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService
+    name: GrpcService
+    href: IdeaStatiCa.Plugin.Grpc.GrpcService.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+    name: GrpcServiceBase
+    href: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase.html
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService
+    name: GrpcService
+    href: IdeaStatiCa.Plugin.Grpc.GrpcService.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+    name: GrpcServiceBase
+    href: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase.html
+- uid: Grpc.Core.ServerServiceDefinition
+  commentId: T:Grpc.Core.ServerServiceDefinition
+  parent: Grpc.Core
+  isExternal: true
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/ServerServiceDefinition.cs
+  name: ServerServiceDefinition
+  nameWithType: ServerServiceDefinition
+  fullName: Grpc.Core.ServerServiceDefinition
+- uid: Grpc.Core
+  commentId: N:Grpc.Core
+  isExternal: true
+  name: Grpc.Core
+  nameWithType: Grpc.Core
+  fullName: Grpc.Core
+  spec.csharp:
+  - uid: Grpc
+    name: Grpc
+    isExternal: true
+  - name: .
+  - uid: Grpc.Core
+    name: Core
+    isExternal: true
+  spec.vb:
+  - uid: Grpc
+    name: Grpc
+    isExternal: true
+  - name: .
+  - uid: Grpc.Core
+    name: Core
+    isExternal: true
+- uid: Grpc.Core.ServiceBinderBase
+  commentId: T:Grpc.Core.ServiceBinderBase
+  parent: Grpc.Core
+  isExternal: true
+  href: https://github.com/grpc/grpc/blob/53d69cc581c5b7305708587f4f1939278477c28a/src/csharp/Grpc.Core.Api/ServiceBinderBase.cs
+  name: ServiceBinderBase
+  nameWithType: ServiceBinderBase
+  fullName: Grpc.Core.ServiceBinderBase

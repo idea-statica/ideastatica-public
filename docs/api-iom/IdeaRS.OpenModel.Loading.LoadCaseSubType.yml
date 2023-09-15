@@ -1,0 +1,387 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  commentId: T:IdeaRS.OpenModel.Loading.LoadCaseSubType
+  id: LoadCaseSubType
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestress
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPretensioned
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPrimary
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrimaryEffect
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentRheologic
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweight
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweightLocal
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentStandard
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableDynamic
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.VariablePrimaryEffect
+  - IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableStatic
+  langs:
+  - csharp
+  - vb
+  name: LoadCaseSubType
+  nameWithType: LoadCaseSubType
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadCaseSubType
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Load case sub type
+  example: []
+  syntax:
+    content: public enum LoadCaseSubType
+    content.vb: Public Enum LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweight
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweight
+  id: PermanentSelfweight
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentSelfweight
+  nameWithType: LoadCaseSubType.PermanentSelfweight
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweight
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentSelfweight
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 48
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - self weight
+  example: []
+  syntax:
+    content: PermanentSelfweight = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentStandard
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentStandard
+  id: PermanentStandard
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentStandard
+  nameWithType: LoadCaseSubType.PermanentStandard
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentStandard
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentStandard
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 53
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - standard
+  example: []
+  syntax:
+    content: PermanentStandard = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestress
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestress
+  id: PermanentPrestress
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentPrestress
+  nameWithType: LoadCaseSubType.PermanentPrestress
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestress
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentPrestress
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 58
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - prestress (posttensioned)
+  example: []
+  syntax:
+    content: PermanentPrestress = 2
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentRheologic
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentRheologic
+  id: PermanentRheologic
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentRheologic
+  nameWithType: LoadCaseSubType.PermanentRheologic
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentRheologic
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentRheologic
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 63
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - Rheologic
+  example: []
+  syntax:
+    content: PermanentRheologic = 3
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrimaryEffect
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrimaryEffect
+  id: PermanentPrimaryEffect
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentPrimaryEffect
+  nameWithType: LoadCaseSubType.PermanentPrimaryEffect
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrimaryEffect
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentPrimaryEffect
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 68
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - primary effect
+  example: []
+  syntax:
+    content: PermanentPrimaryEffect = 7
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableStatic
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableStatic
+  id: VariableStatic
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: VariableStatic
+  nameWithType: LoadCaseSubType.VariableStatic
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableStatic
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: VariableStatic
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 73
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Variable - static
+  example: []
+  syntax:
+    content: VariableStatic = 9
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableDynamic
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableDynamic
+  id: VariableDynamic
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: VariableDynamic
+  nameWithType: LoadCaseSubType.VariableDynamic
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.VariableDynamic
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: VariableDynamic
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 78
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Variable - dynamic
+  example: []
+  syntax:
+    content: VariableDynamic = 10
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.VariablePrimaryEffect
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.VariablePrimaryEffect
+  id: VariablePrimaryEffect
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: VariablePrimaryEffect
+  nameWithType: LoadCaseSubType.VariablePrimaryEffect
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.VariablePrimaryEffect
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: VariablePrimaryEffect
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 83
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Variable - primary effect
+  example: []
+  syntax:
+    content: VariablePrimaryEffect = 11
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPretensioned
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPretensioned
+  id: PermanentPrestressPretensioned
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentPrestressPretensioned
+  nameWithType: LoadCaseSubType.PermanentPrestressPretensioned
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPretensioned
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentPrestressPretensioned
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 88
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - prestress (posttensioned)
+  example: []
+  syntax:
+    content: PermanentPrestressPretensioned = 15
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPrimary
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPrimary
+  id: PermanentPrestressPrimary
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentPrestressPrimary
+  nameWithType: LoadCaseSubType.PermanentPrestressPrimary
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentPrestressPrimary
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentPrestressPrimary
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 93
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - prestress primary effect
+  example: []
+  syntax:
+    content: PermanentPrestressPrimary = 16
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweightLocal
+  commentId: F:IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweightLocal
+  id: PermanentSelfweightLocal
+  parent: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  langs:
+  - csharp
+  - vb
+  name: PermanentSelfweightLocal
+  nameWithType: LoadCaseSubType.PermanentSelfweightLocal
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType.PermanentSelfweightLocal
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PermanentSelfweightLocal
+    path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
+    startLine: 98
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Permanent - self weight - local
+  example: []
+  syntax:
+    content: PermanentSelfweightLocal = 17
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadCaseSubType
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.LoadCaseSubType
+  commentId: T:IdeaRS.OpenModel.Loading.LoadCaseSubType
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.LoadCaseSubType.html
+  name: LoadCaseSubType
+  nameWithType: LoadCaseSubType
+  fullName: IdeaRS.OpenModel.Loading.LoadCaseSubType

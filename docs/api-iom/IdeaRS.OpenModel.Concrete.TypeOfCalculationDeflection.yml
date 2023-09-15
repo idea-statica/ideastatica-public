@@ -1,0 +1,184 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  id: TypeOfCalculationDeflection
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.BothOfThem
+  - IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlenderness
+  - IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlendernessContinueDirectCalculation
+  - IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.DirectCalculation
+  langs:
+  - csharp
+  - vb
+  name: TypeOfCalculationDeflection
+  nameWithType: TypeOfCalculationDeflection
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeOfCalculationDeflection
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Define type of support conditions
+  example: []
+  syntax:
+    content: public enum TypeOfCalculationDeflection
+    content.vb: Public Enum TypeOfCalculationDeflection
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlenderness
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlenderness
+  id: CheckSlenderness
+  parent: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  langs:
+  - csharp
+  - vb
+  name: CheckSlenderness
+  nameWithType: TypeOfCalculationDeflection.CheckSlenderness
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlenderness
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckSlenderness
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: check slenderness calculation, if rules are full filed no other calculation is done
+  example: []
+  syntax:
+    content: CheckSlenderness = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlendernessContinueDirectCalculation
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlendernessContinueDirectCalculation
+  id: CheckSlendernessContinueDirectCalculation
+  parent: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  langs:
+  - csharp
+  - vb
+  name: CheckSlendernessContinueDirectCalculation
+  nameWithType: TypeOfCalculationDeflection.CheckSlendernessContinueDirectCalculation
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.CheckSlendernessContinueDirectCalculation
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckSlendernessContinueDirectCalculation
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: if check of slenderness is not ok then, directly calculation of deflection is done
+  example: []
+  syntax:
+    content: CheckSlendernessContinueDirectCalculation = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.DirectCalculation
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.DirectCalculation
+  id: DirectCalculation
+  parent: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  langs:
+  - csharp
+  - vb
+  name: DirectCalculation
+  nameWithType: TypeOfCalculationDeflection.DirectCalculation
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.DirectCalculation
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DirectCalculation
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 20
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: check of slenderness is not taken into account, directly calculation of deflection is done
+  example: []
+  syntax:
+    content: DirectCalculation = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.BothOfThem
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.BothOfThem
+  id: BothOfThem
+  parent: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  langs:
+  - csharp
+  - vb
+  name: BothOfThem
+  nameWithType: TypeOfCalculationDeflection.BothOfThem
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.BothOfThem
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BothOfThem
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: both calculation is done, it is for comparative results
+  example: []
+  syntax:
+    content: BothOfThem = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.html
+  name: TypeOfCalculationDeflection
+  nameWithType: TypeOfCalculationDeflection
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection

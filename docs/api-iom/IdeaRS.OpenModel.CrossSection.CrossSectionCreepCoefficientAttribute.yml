@@ -1,0 +1,570 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute
+  commentId: T:IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute
+  id: CrossSectionCreepCoefficientAttribute
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor
+  - IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+  langs:
+  - csharp
+  - vb
+  name: CrossSectionCreepCoefficientAttribute
+  nameWithType: CrossSectionCreepCoefficientAttribute
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrossSectionCreepCoefficientAttribute
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Cross-section creep coefficient attribute
+  example:
+  - >-
+    This sample shows how to create attributes for creep calculation.
+
+    <pre><code class="lang-csharp">//Creating the model
+
+    OpenModel openModel = new OpenModel();
+
+
+    //Set creep definition - on component 0, creep and notional size are calculated, humidity 60%
+
+    CrossSectionCreepCoefficientAttribute creepAttr = new CrossSectionCreepCoefficientAttribute();
+
+    creepAttr.Element = new ReferenceElement(css);
+
+    CrossSectionCreepCoefficientData creepComp = new CrossSectionCreepCoefficientData();
+
+    creepComp.CreepInput = InputValueType.Calculate;
+
+    creepComp.ComponentIndex = new List&lt;int&gt;() { 0 };
+
+    creepComp.Humidity = 0.6;
+
+    creepComp.NotionalSizeInput = InputValueType.Calculate;
+
+    creepAttr.Components.Add(creepComp);
+
+    openModel.AddObject(creepAttr);</code></pre>
+  syntax:
+    content: >-
+      [OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentsCreepCoefficientAttribute,CI.CrossSection")]
+
+      public class CrossSectionCreepCoefficientAttribute : OpenAttribute
+    content.vb: >-
+      <OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentsCreepCoefficientAttribute,CI.CrossSection")>
+
+      Public Class CrossSectionCreepCoefficientAttribute Inherits OpenAttribute
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenAttribute
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenAttribute.Element
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: CI.StructModel.Libraries.CrossSection.ComponentsCreepCoefficientAttribute,CI.CrossSection
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor
+  commentId: M:IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute
+  langs:
+  - csharp
+  - vb
+  name: CrossSectionCreepCoefficientAttribute()
+  nameWithType: CrossSectionCreepCoefficientAttribute.CrossSectionCreepCoefficientAttribute()
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.CrossSectionCreepCoefficientAttribute()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Constructor
+  example: []
+  syntax:
+    content: public CrossSectionCreepCoefficientAttribute()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor*
+  nameWithType.vb: CrossSectionCreepCoefficientAttribute.New()
+  fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+  commentId: P:IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+  id: Components
+  parent: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute
+  langs:
+  - csharp
+  - vb
+  name: Components
+  nameWithType: CrossSectionCreepCoefficientAttribute.Components
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Components
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
+    startLine: 41
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: List of components
+  example: []
+  syntax:
+    content: public List<CrossSectionCreepCoefficientData> Components { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData}
+    content.vb: Public Property Components As List(Of CrossSectionCreepCoefficientData)
+  overload: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components*
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenAttribute
+  commentId: T:IdeaRS.OpenModel.OpenAttribute
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenAttribute.html
+  name: OpenAttribute
+  nameWithType: OpenAttribute
+  fullName: IdeaRS.OpenModel.OpenAttribute
+- uid: IdeaRS.OpenModel.OpenAttribute.Element
+  commentId: P:IdeaRS.OpenModel.OpenAttribute.Element
+  parent: IdeaRS.OpenModel.OpenAttribute
+  href: IdeaRS.OpenModel.OpenAttribute.html#IdeaRS.OpenModel.OpenAttribute.Element
+  name: Element
+  nameWithType: OpenAttribute.Element
+  fullName: IdeaRS.OpenModel.OpenAttribute.Element
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor
+  href: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.html#IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.#ctor
+  name: CrossSectionCreepCoefficientAttribute
+  nameWithType: CrossSectionCreepCoefficientAttribute.CrossSectionCreepCoefficientAttribute
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.CrossSectionCreepCoefficientAttribute
+  nameWithType.vb: CrossSectionCreepCoefficientAttribute.New
+  fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+  href: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.html#IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+  name: Components
+  nameWithType: CrossSectionCreepCoefficientAttribute.Components
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute.Components
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CrossSectionCreepCoefficientData>
+  nameWithType: List<CrossSectionCreepCoefficientData>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData>
+  nameWithType.vb: List(Of CrossSectionCreepCoefficientData)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData)
+  name.vb: List(Of CrossSectionCreepCoefficientData)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData
+    name: CrossSectionCreepCoefficientData
+    href: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData
+    name: CrossSectionCreepCoefficientData
+    href: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

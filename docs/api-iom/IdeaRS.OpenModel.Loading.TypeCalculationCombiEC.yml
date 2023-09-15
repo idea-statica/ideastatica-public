@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  commentId: T:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  id: TypeCalculationCombiEC
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610ab
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Envelope
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Linear
+  - IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.NonLinear
+  langs:
+  - csharp
+  - vb
+  name: TypeCalculationCombiEC
+  nameWithType: TypeCalculationCombiEC
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeCalculationCombiEC
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+    startLine: 31
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Type of combination
+  example: []
+  syntax:
+    content: public enum TypeCalculationCombiEC
+    content.vb: Public Enum TypeCalculationCombiEC
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Linear
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Linear
+  id: Linear
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  langs:
+  - csharp
+  - vb
+  name: Linear
+  nameWithType: TypeCalculationCombiEC.Linear
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Linear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Linear
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+    startLine: 36
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Linear combination
+  example: []
+  syntax:
+    content: Linear = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Envelope
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Envelope
+  id: Envelope
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  langs:
+  - csharp
+  - vb
+  name: Envelope
+  nameWithType: TypeCalculationCombiEC.Envelope
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Envelope
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Envelope
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+    startLine: 41
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Envelope combination
+  example: []
+  syntax:
+    content: Envelope = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610
+  id: Code610
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  langs:
+  - csharp
+  - vb
+  name: Code610
+  nameWithType: TypeCalculationCombiEC.Code610
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Code610
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+    startLine: 46
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Combination according to 6.10
+  example: []
+  syntax:
+    content: Code610 = 2
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610ab
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610ab
+  id: Code610ab
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  langs:
+  - csharp
+  - vb
+  name: Code610ab
+  nameWithType: TypeCalculationCombiEC.Code610ab
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.Code610ab
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Code610ab
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+    startLine: 51
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Combination according to 6.10ab
+  example: []
+  syntax:
+    content: Code610ab = 3
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.NonLinear
+  commentId: F:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.NonLinear
+  id: NonLinear
+  parent: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  langs:
+  - csharp
+  - vb
+  name: NonLinear
+  nameWithType: TypeCalculationCombiEC.NonLinear
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.NonLinear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NonLinear
+    path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
+    startLine: 56
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Nonlinear combination
+  example: []
+  syntax:
+    content: NonLinear = 4
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  commentId: T:IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC.html
+  name: TypeCalculationCombiEC
+  nameWithType: TypeCalculationCombiEC
+  fullName: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC

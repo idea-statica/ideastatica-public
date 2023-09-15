@@ -1,0 +1,536 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  commentId: T:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  id: Conversion
+  parent: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  children:
+  - IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor(System.String)
+  - IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert(System.String)
+  - IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch(System.String)
+  - IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+  langs:
+  - csharp
+  - vb
+  name: Conversion
+  nameWithType: Conversion
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Conversion
+    path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  syntax:
+    content: public abstract class Conversion
+    content.vb: Public MustInherit Class Conversion
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - IdeaStatiCa.PluginsTools.CrossSectionConversions.CustomConversion
+  - IdeaStatiCa.PluginsTools.CrossSectionConversions.RegexReplace
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor(System.String)
+  commentId: M:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  langs:
+  - csharp
+  - vb
+  name: Conversion(string)
+  nameWithType: Conversion.Conversion(string)
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Conversion(string)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  syntax:
+    content: protected Conversion(string pattern)
+    parameters:
+    - id: pattern
+      type: System.String
+    content.vb: Protected Sub New(pattern As String)
+  overload: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor*
+  nameWithType.vb: Conversion.New(String)
+  fullName.vb: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.New(String)
+  name.vb: New(String)
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+  commentId: P:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+  id: MatchRegex
+  parent: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  langs:
+  - csharp
+  - vb
+  name: MatchRegex
+  nameWithType: Conversion.MatchRegex
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MatchRegex
+    path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+    startLine: 19
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  syntax:
+    content: protected Regex MatchRegex { get; }
+    parameters: []
+    return:
+      type: System.Text.RegularExpressions.Regex
+    content.vb: Protected ReadOnly Property MatchRegex As Regex
+  overload: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex*
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch(System.String)
+  commentId: M:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch(System.String)
+  id: IsMatch(System.String)
+  parent: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  langs:
+  - csharp
+  - vb
+  name: IsMatch(string)
+  nameWithType: Conversion.IsMatch(string)
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsMatch
+    path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  syntax:
+    content: public bool IsMatch(string txt)
+    parameters:
+    - id: txt
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function IsMatch(txt As String) As Boolean
+  overload: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch*
+  nameWithType.vb: Conversion.IsMatch(String)
+  fullName.vb: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch(String)
+  name.vb: IsMatch(String)
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert(System.String)
+  commentId: M:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert(System.String)
+  id: Convert(System.String)
+  parent: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+  langs:
+  - csharp
+  - vb
+  name: Convert(string)
+  nameWithType: Conversion.Convert(string)
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Convert
+    path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/Conversion.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  syntax:
+    content: public abstract string Convert(string text)
+    parameters:
+    - id: text
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public MustOverride Function Convert(text As String) As String
+  overload: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert*
+  nameWithType.vb: Conversion.Convert(String)
+  fullName.vb: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert(String)
+  name.vb: Convert(String)
+references:
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  commentId: N:IdeaStatiCa.PluginsTools.CrossSectionConversions
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  nameWithType: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.PluginsTools
+    name: PluginsTools
+    href: IdeaStatiCa.PluginsTools.html
+  - name: .
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions
+    name: CrossSectionConversions
+    href: IdeaStatiCa.PluginsTools.CrossSectionConversions.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.PluginsTools
+    name: PluginsTools
+    href: IdeaStatiCa.PluginsTools.html
+  - name: .
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions
+    name: CrossSectionConversions
+    href: IdeaStatiCa.PluginsTools.CrossSectionConversions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor*
+  commentId: Overload:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor
+  href: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.html#IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.#ctor(System.String)
+  name: Conversion
+  nameWithType: Conversion.Conversion
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Conversion
+  nameWithType.vb: Conversion.New
+  fullName.vb: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex*
+  commentId: Overload:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+  href: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.html#IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+  name: MatchRegex
+  nameWithType: Conversion.MatchRegex
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.MatchRegex
+- uid: System.Text.RegularExpressions.Regex
+  commentId: T:System.Text.RegularExpressions.Regex
+  parent: System.Text.RegularExpressions
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.regularexpressions.regex
+  name: Regex
+  nameWithType: Regex
+  fullName: System.Text.RegularExpressions.Regex
+- uid: System.Text.RegularExpressions
+  commentId: N:System.Text.RegularExpressions
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text.RegularExpressions
+  nameWithType: System.Text.RegularExpressions
+  fullName: System.Text.RegularExpressions
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.RegularExpressions
+    name: RegularExpressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.regularexpressions
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.RegularExpressions
+    name: RegularExpressions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.regularexpressions
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch*
+  commentId: Overload:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch
+  href: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.html#IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch(System.String)
+  name: IsMatch
+  nameWithType: Conversion.IsMatch
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.IsMatch
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert*
+  commentId: Overload:IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert
+  href: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.html#IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert(System.String)
+  name: Convert
+  nameWithType: Conversion.Convert
+  fullName: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion.Convert

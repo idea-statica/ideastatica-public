@@ -1,0 +1,134 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  commentId: T:IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  id: SecondOrderEffectMethodEc2
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalCurvature
+  - IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalStiffness
+  langs:
+  - csharp
+  - vb
+  name: SecondOrderEffectMethodEc2
+  nameWithType: SecondOrderEffectMethodEc2
+  fullName: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SecondOrderEffectMethodEc2
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 23
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: The type of method for calculation second order effect.
+  example: []
+  syntax:
+    content: public enum SecondOrderEffectMethodEc2
+    content.vb: Public Enum SecondOrderEffectMethodEc2
+- uid: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalStiffness
+  commentId: F:IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalStiffness
+  id: NominalStiffness
+  parent: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  langs:
+  - csharp
+  - vb
+  name: NominalStiffness
+  nameWithType: SecondOrderEffectMethodEc2.NominalStiffness
+  fullName: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalStiffness
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NominalStiffness
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 29
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: >-
+    The following model may be used to estimate the nominal stiffness of slender compression
+
+    members with arbitrary cross section.
+  example: []
+  syntax:
+    content: NominalStiffness = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+- uid: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalCurvature
+  commentId: F:IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalCurvature
+  id: NominalCurvature
+  parent: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  langs:
+  - csharp
+  - vb
+  name: NominalCurvature
+  nameWithType: SecondOrderEffectMethodEc2.NominalCurvature
+  fullName: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.NominalCurvature
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NominalCurvature
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 36
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: >-
+    The method based on nominal curvature.
+
+    This method is primarily suitable for isolated members with constant
+
+    normal force and a defined effective length.
+  example: []
+  syntax:
+    content: NominalCurvature = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  commentId: T:IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2.html
+  name: SecondOrderEffectMethodEc2
+  nameWithType: SecondOrderEffectMethodEc2
+  fullName: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2

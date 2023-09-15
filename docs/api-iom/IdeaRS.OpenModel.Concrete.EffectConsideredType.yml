@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.EffectConsideredType
+  commentId: T:IdeaRS.OpenModel.Concrete.EffectConsideredType
+  id: EffectConsideredType
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.EffectConsideredType.BracingSystem
+  - IdeaRS.OpenModel.Concrete.EffectConsideredType.IsolatedMember
+  langs:
+  - csharp
+  - vb
+  name: EffectConsideredType
+  nameWithType: EffectConsideredType
+  fullName: IdeaRS.OpenModel.Concrete.EffectConsideredType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EffectConsideredType
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Effect concidered types
+  example: []
+  syntax:
+    content: public enum EffectConsideredType
+    content.vb: Public Enum EffectConsideredType
+- uid: IdeaRS.OpenModel.Concrete.EffectConsideredType.IsolatedMember
+  commentId: F:IdeaRS.OpenModel.Concrete.EffectConsideredType.IsolatedMember
+  id: IsolatedMember
+  parent: IdeaRS.OpenModel.Concrete.EffectConsideredType
+  langs:
+  - csharp
+  - vb
+  name: IsolatedMember
+  nameWithType: EffectConsideredType.IsolatedMember
+  fullName: IdeaRS.OpenModel.Concrete.EffectConsideredType.IsolatedMember
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsolatedMember
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Isolated system
+  example: []
+  syntax:
+    content: IsolatedMember = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.EffectConsideredType
+- uid: IdeaRS.OpenModel.Concrete.EffectConsideredType.BracingSystem
+  commentId: F:IdeaRS.OpenModel.Concrete.EffectConsideredType.BracingSystem
+  id: BracingSystem
+  parent: IdeaRS.OpenModel.Concrete.EffectConsideredType
+  langs:
+  - csharp
+  - vb
+  name: BracingSystem
+  nameWithType: EffectConsideredType.BracingSystem
+  fullName: IdeaRS.OpenModel.Concrete.EffectConsideredType.BracingSystem
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BracingSystem
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Bracing system
+  example: []
+  syntax:
+    content: BracingSystem = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.EffectConsideredType
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.EffectConsideredType
+  commentId: T:IdeaRS.OpenModel.Concrete.EffectConsideredType
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.EffectConsideredType.html
+  name: EffectConsideredType
+  nameWithType: EffectConsideredType
+  fullName: IdeaRS.OpenModel.Concrete.EffectConsideredType

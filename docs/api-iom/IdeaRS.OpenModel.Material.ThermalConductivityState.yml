@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ThermalConductivityState
+  commentId: T:IdeaRS.OpenModel.Material.ThermalConductivityState
+  id: ThermalConductivityState
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ThermalConductivityState.Code
+  - IdeaRS.OpenModel.Material.ThermalConductivityState.None
+  - IdeaRS.OpenModel.Material.ThermalConductivityState.User
+  langs:
+  - csharp
+  - vb
+  name: ThermalConductivityState
+  nameWithType: ThermalConductivityState
+  fullName: IdeaRS.OpenModel.Material.ThermalConductivityState
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ThermalConductivityState
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 28
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Type of curvature - thermal conductivity
+  example: []
+  syntax:
+    content: public enum ThermalConductivityState
+    content.vb: Public Enum ThermalConductivityState
+- uid: IdeaRS.OpenModel.Material.ThermalConductivityState.None
+  commentId: F:IdeaRS.OpenModel.Material.ThermalConductivityState.None
+  id: None
+  parent: IdeaRS.OpenModel.Material.ThermalConductivityState
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ThermalConductivityState.None
+  fullName: IdeaRS.OpenModel.Material.ThermalConductivityState.None
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: None
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: The curvature is not defined
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ThermalConductivityState
+- uid: IdeaRS.OpenModel.Material.ThermalConductivityState.Code
+  commentId: F:IdeaRS.OpenModel.Material.ThermalConductivityState.Code
+  id: Code
+  parent: IdeaRS.OpenModel.Material.ThermalConductivityState
+  langs:
+  - csharp
+  - vb
+  name: Code
+  nameWithType: ThermalConductivityState.Code
+  fullName: IdeaRS.OpenModel.Material.ThermalConductivityState.Code
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Code
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 38
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: The curvatire is defined by the code
+  example: []
+  syntax:
+    content: Code = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ThermalConductivityState
+- uid: IdeaRS.OpenModel.Material.ThermalConductivityState.User
+  commentId: F:IdeaRS.OpenModel.Material.ThermalConductivityState.User
+  id: User
+  parent: IdeaRS.OpenModel.Material.ThermalConductivityState
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: ThermalConductivityState.User
+  fullName: IdeaRS.OpenModel.Material.ThermalConductivityState.User
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: User
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: The curvature is input by the user
+  example: []
+  syntax:
+    content: User = 5
+    return:
+      type: IdeaRS.OpenModel.Material.ThermalConductivityState
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ThermalConductivityState
+  commentId: T:IdeaRS.OpenModel.Material.ThermalConductivityState
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ThermalConductivityState.html
+  name: ThermalConductivityState
+  nameWithType: ThermalConductivityState
+  fullName: IdeaRS.OpenModel.Material.ThermalConductivityState

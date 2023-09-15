@@ -1,0 +1,387 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass
+  commentId: T:IdeaRS.OpenModel.Loading.TypeResultsClass
+  id: TypeResultsClass
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassBridgeLoadRating
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassFireResistance
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.FatigueResultsClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.SLSCharacteristicsCheckClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.SLSDeflectionResultsClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.SLSFrequentCheckClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.SLSQuasiPermanentCheckClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.SLSResultsClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.ULSAccidentalResultsClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.ULSCheckClass
+  - IdeaRS.OpenModel.Loading.TypeResultsClass.ULSResultsClass
+  langs:
+  - csharp
+  - vb
+  name: TypeResultsClass
+  nameWithType: TypeResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeResultsClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 79
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: TypeResultsClass
+  example: []
+  syntax:
+    content: public enum TypeResultsClass
+    content.vb: Public Enum TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.ULSResultsClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.ULSResultsClass
+  id: ULSResultsClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: ULSResultsClass
+  nameWithType: TypeResultsClass.ULSResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.ULSResultsClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ULSResultsClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 84
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: ULSResultsClass
+  example: []
+  syntax:
+    content: ULSResultsClass = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSResultsClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.SLSResultsClass
+  id: SLSResultsClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: SLSResultsClass
+  nameWithType: TypeResultsClass.SLSResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSResultsClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SLSResultsClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 89
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: SLSResultsClass
+  example: []
+  syntax:
+    content: SLSResultsClass = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.ULSCheckClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.ULSCheckClass
+  id: ULSCheckClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: ULSCheckClass
+  nameWithType: TypeResultsClass.ULSCheckClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.ULSCheckClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ULSCheckClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 94
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: ULSCheckClass
+  example: []
+  syntax:
+    content: ULSCheckClass = 2
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSFrequentCheckClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.SLSFrequentCheckClass
+  id: SLSFrequentCheckClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: SLSFrequentCheckClass
+  nameWithType: TypeResultsClass.SLSFrequentCheckClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSFrequentCheckClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SLSFrequentCheckClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 99
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: SLSFrequentCheckClass
+  example: []
+  syntax:
+    content: SLSFrequentCheckClass = 3
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSQuasiPermanentCheckClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.SLSQuasiPermanentCheckClass
+  id: SLSQuasiPermanentCheckClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: SLSQuasiPermanentCheckClass
+  nameWithType: TypeResultsClass.SLSQuasiPermanentCheckClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSQuasiPermanentCheckClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SLSQuasiPermanentCheckClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 104
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: SLSQuasiPermanentCheckClass
+  example: []
+  syntax:
+    content: SLSQuasiPermanentCheckClass = 4
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSCharacteristicsCheckClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.SLSCharacteristicsCheckClass
+  id: SLSCharacteristicsCheckClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: SLSCharacteristicsCheckClass
+  nameWithType: TypeResultsClass.SLSCharacteristicsCheckClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSCharacteristicsCheckClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SLSCharacteristicsCheckClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 109
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: SLSCharacteristicsCheckClass
+  example: []
+  syntax:
+    content: SLSCharacteristicsCheckClass = 5
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSDeflectionResultsClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.SLSDeflectionResultsClass
+  id: SLSDeflectionResultsClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: SLSDeflectionResultsClass
+  nameWithType: TypeResultsClass.SLSDeflectionResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.SLSDeflectionResultsClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SLSDeflectionResultsClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 114
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: SLSDeflectionResultsClass
+  example: []
+  syntax:
+    content: SLSDeflectionResultsClass = 6
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.ULSAccidentalResultsClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.ULSAccidentalResultsClass
+  id: ULSAccidentalResultsClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: ULSAccidentalResultsClass
+  nameWithType: TypeResultsClass.ULSAccidentalResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.ULSAccidentalResultsClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ULSAccidentalResultsClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 119
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: ULSAccidentalResultsClass
+  example: []
+  syntax:
+    content: ULSAccidentalResultsClass = 7
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.FatigueResultsClass
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.FatigueResultsClass
+  id: FatigueResultsClass
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: FatigueResultsClass
+  nameWithType: TypeResultsClass.FatigueResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.FatigueResultsClass
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FatigueResultsClass
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 124
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: FatigueResultsClass
+  example: []
+  syntax:
+    content: FatigueResultsClass = 8
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassFireResistance
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassFireResistance
+  id: CheckClassFireResistance
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: CheckClassFireResistance
+  nameWithType: TypeResultsClass.CheckClassFireResistance
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassFireResistance
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckClassFireResistance
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 129
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: CheckClassFireResistance
+  example: []
+  syntax:
+    content: CheckClassFireResistance = 9
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassBridgeLoadRating
+  commentId: F:IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassBridgeLoadRating
+  id: CheckClassBridgeLoadRating
+  parent: IdeaRS.OpenModel.Loading.TypeResultsClass
+  langs:
+  - csharp
+  - vb
+  name: CheckClassBridgeLoadRating
+  nameWithType: TypeResultsClass.CheckClassBridgeLoadRating
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass.CheckClassBridgeLoadRating
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckClassBridgeLoadRating
+    path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
+    startLine: 134
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: CheckClassBridgeLoadRating
+  example: []
+  syntax:
+    content: CheckClassBridgeLoadRating = 10
+    return:
+      type: IdeaRS.OpenModel.Loading.TypeResultsClass
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.TypeResultsClass
+  commentId: T:IdeaRS.OpenModel.Loading.TypeResultsClass
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.TypeResultsClass.html
+  name: TypeResultsClass
+  nameWithType: TypeResultsClass
+  fullName: IdeaRS.OpenModel.Loading.TypeResultsClass

@@ -1,0 +1,568 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute
+  commentId: T:IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute
+  id: CrossSectionThermalAttribute
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor
+  - IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+  langs:
+  - csharp
+  - vb
+  name: CrossSectionThermalAttribute
+  nameWithType: CrossSectionThermalAttribute
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionThermalAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrossSectionThermalAttribute
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionThermalAttribute.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Cross-section thermal attribute
+  example:
+  - >-
+    This sample shows how to create thermal attributes on cross-section.
+
+    <pre><code class="lang-csharp">//Creating the model
+
+    OpenModel openModel = new OpenModel();
+
+
+    Set thermal definition - on component 0, 
+
+    CrossSectionThermalAttribute thermalAttr = new CrossSectionThermalAttribute();
+
+    thermalAttr.Element = new ReferenceElement(css);
+
+    CrossSectionComponentThermalData thermalComp = new CrossSectionComponentThermalData();
+
+    thermalComp.MoistureContent = 0.015;
+
+    thermalComp.ThermalConductivityLimit = ThermalConductivityLimit.Lower;
+
+    thermalComp.ComponentIndex = 0;
+
+    thermalAttr.Components.Add(thermalComp);
+
+    openModel.AddObject(thermalAttr);</code></pre>
+  syntax:
+    content: >-
+      [OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentsThermalAttribute,CI.CrossSection")]
+
+      public class CrossSectionThermalAttribute : OpenAttribute
+    content.vb: >-
+      <OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentsThermalAttribute,CI.CrossSection")>
+
+      Public Class CrossSectionThermalAttribute Inherits OpenAttribute
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenAttribute
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenAttribute.Element
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: CI.StructModel.Libraries.CrossSection.ComponentsThermalAttribute,CI.CrossSection
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor
+  commentId: M:IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute
+  langs:
+  - csharp
+  - vb
+  name: CrossSectionThermalAttribute()
+  nameWithType: CrossSectionThermalAttribute.CrossSectionThermalAttribute()
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.CrossSectionThermalAttribute()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionThermalAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionThermalAttribute.cs
+    startLine: 49
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Constructor
+  example: []
+  syntax:
+    content: public CrossSectionThermalAttribute()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor*
+  nameWithType.vb: CrossSectionThermalAttribute.New()
+  fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+  commentId: P:IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+  id: Components
+  parent: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute
+  langs:
+  - csharp
+  - vb
+  name: Components
+  nameWithType: CrossSectionThermalAttribute.Components
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionThermalAttribute.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Components
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionThermalAttribute.cs
+    startLine: 57
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: List of components
+  example: []
+  syntax:
+    content: public List<CrossSectionComponentThermalData> Components { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData}
+    content.vb: Public Property Components As List(Of CrossSectionComponentThermalData)
+  overload: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components*
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenAttribute
+  commentId: T:IdeaRS.OpenModel.OpenAttribute
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenAttribute.html
+  name: OpenAttribute
+  nameWithType: OpenAttribute
+  fullName: IdeaRS.OpenModel.OpenAttribute
+- uid: IdeaRS.OpenModel.OpenAttribute.Element
+  commentId: P:IdeaRS.OpenModel.OpenAttribute.Element
+  parent: IdeaRS.OpenModel.OpenAttribute
+  href: IdeaRS.OpenModel.OpenAttribute.html#IdeaRS.OpenModel.OpenAttribute.Element
+  name: Element
+  nameWithType: OpenAttribute.Element
+  fullName: IdeaRS.OpenModel.OpenAttribute.Element
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor
+  href: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.html#IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.#ctor
+  name: CrossSectionThermalAttribute
+  nameWithType: CrossSectionThermalAttribute.CrossSectionThermalAttribute
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.CrossSectionThermalAttribute
+  nameWithType.vb: CrossSectionThermalAttribute.New
+  fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+  href: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.html#IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+  name: Components
+  nameWithType: CrossSectionThermalAttribute.Components
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute.Components
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CrossSectionComponentThermalData>
+  nameWithType: List<CrossSectionComponentThermalData>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData>
+  nameWithType.vb: List(Of CrossSectionComponentThermalData)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData)
+  name.vb: List(Of CrossSectionComponentThermalData)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData
+    name: CrossSectionComponentThermalData
+    href: IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData
+    name: CrossSectionComponentThermalData
+    href: IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

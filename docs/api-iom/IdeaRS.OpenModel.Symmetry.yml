@@ -1,0 +1,147 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Symmetry
+  commentId: T:IdeaRS.OpenModel.Symmetry
+  id: Symmetry
+  parent: IdeaRS.OpenModel
+  children:
+  - IdeaRS.OpenModel.Symmetry.Asymmetrical
+  - IdeaRS.OpenModel.Symmetry.NotAvailable
+  - IdeaRS.OpenModel.Symmetry.Symmetrical
+  langs:
+  - csharp
+  - vb
+  name: Symmetry
+  nameWithType: Symmetry
+  fullName: IdeaRS.OpenModel.Symmetry
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Symmetry
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 27
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: The symmetry type.
+  example: []
+  syntax:
+    content: public enum Symmetry
+    content.vb: Public Enum Symmetry
+- uid: IdeaRS.OpenModel.Symmetry.NotAvailable
+  commentId: F:IdeaRS.OpenModel.Symmetry.NotAvailable
+  id: NotAvailable
+  parent: IdeaRS.OpenModel.Symmetry
+  langs:
+  - csharp
+  - vb
+  name: NotAvailable
+  nameWithType: Symmetry.NotAvailable
+  fullName: IdeaRS.OpenModel.Symmetry.NotAvailable
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NotAvailable
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 32
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Symmetry is not available to input.
+  example: []
+  syntax:
+    content: NotAvailable = 0
+    return:
+      type: IdeaRS.OpenModel.Symmetry
+- uid: IdeaRS.OpenModel.Symmetry.Symmetrical
+  commentId: F:IdeaRS.OpenModel.Symmetry.Symmetrical
+  id: Symmetrical
+  parent: IdeaRS.OpenModel.Symmetry
+  langs:
+  - csharp
+  - vb
+  name: Symmetrical
+  nameWithType: Symmetry.Symmetrical
+  fullName: IdeaRS.OpenModel.Symmetry.Symmetrical
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Symmetrical
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 37
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Symmetrical input.
+  example: []
+  syntax:
+    content: Symmetrical = 1
+    return:
+      type: IdeaRS.OpenModel.Symmetry
+- uid: IdeaRS.OpenModel.Symmetry.Asymmetrical
+  commentId: F:IdeaRS.OpenModel.Symmetry.Asymmetrical
+  id: Asymmetrical
+  parent: IdeaRS.OpenModel.Symmetry
+  langs:
+  - csharp
+  - vb
+  name: Asymmetrical
+  nameWithType: Symmetry.Asymmetrical
+  fullName: IdeaRS.OpenModel.Symmetry.Asymmetrical
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Asymmetrical
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 42
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Non-symmetrical input.
+  example: []
+  syntax:
+    content: Asymmetrical = 2
+    return:
+      type: IdeaRS.OpenModel.Symmetry
+references:
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Symmetry
+  commentId: T:IdeaRS.OpenModel.Symmetry
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.Symmetry.html
+  name: Symmetry
+  nameWithType: Symmetry
+  fullName: IdeaRS.OpenModel.Symmetry
