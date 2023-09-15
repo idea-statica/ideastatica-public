@@ -2,9 +2,11 @@
 
 ## Intro
 
-Here we provied a simple example on how to create a link with IDEA StatiCa Checkbot and a FEA Application using our BimApiLink Framework. 
+Here we provied two simple examples on how to create a link with IDEA StatiCa Checkbot and either a FEA or CAD Application using our BimApiLink Framework. 
 
-There are typically some requirements to ensure a connection can be completed successfully with Checkbot. You can read more about this [here](https://github.com/idea-statica/ideastatica-public/wiki/Linking-an-Application-with-Checkbot).
+There are typically some requirements to ensure a connection can be completed successfully with Checkbot. In these examples we provide Fake/Mock/Simulation API's for both the CAD and FEA applications, which should be replaced by your application API.
+
+You can read more about this [here](https://github.com/idea-statica/ideastatica-public/wiki/Linking-an-Application-with-Checkbot).
 
 Before creating your own link we always encourage you to get in-touch with us to discuss co-operation. 
 
@@ -16,7 +18,9 @@ Before creating your own link we always encourage you to get in-touch with us to
 
 ### Architecture
 
-There are three projects in the example:
+The Below relates to the FEA example, however the CAD example follows the exact same logic.
+
+There are two main projects in each example:
 
 1. **BimApiLinkFEAExample** - The primary Class Library project which provides linking and conversion with the Checkbot application.  
 
@@ -30,7 +34,14 @@ Our BimLinkFramework relys on automatic dependency injection. We use [Autofac](h
 
 </details>
 
-2. **BimApiExample*** - Simple windows form app for running and testing the *BimApiLinkFEAExample*. Implements the Run() command provided from the TestPlugin.
+2. **FeaExampleApi*** - A class library project which provides some dumby structural geometry and other inputs to the *BimApiLinkFEAExample*. It emulates a typical API of an FEA software and provides some dumby structural information. 
+
+> *When creating your own link only the *BimApiLinkExample* would be required. The *BimApiExample* should be replaced by a command interface or other small app which allows your program to host and run the link. *FeaExampleApi* should be replaced with the third party API object.
+
+
+3. **BimLinkExampleRunner*** - Simple windows form app for running and testing the *BimApiLinkFEAExample* or *BimApiLineCadExample*. Implements the Run() command provided from the TestPlugin.
+
+> *This is only used for demonstrating in the test enviroment. This will be replaced by on the third-party developers side with either another simple app runner or a command interface.
 
 <details>
   <summary>Look First</summary>
@@ -39,22 +50,19 @@ Our BimLinkFramework relys on automatic dependency injection. We use [Autofac](h
 
 </details>
 
-3. **FeaExampleApi*** - A class library project which provides some dumby structural geometry and other inputs to the *BimApiLinkFEAExample*. It emulates a typical API of an FEA software. 
-
-> *When creating your own link only the *BimApiLinkExample* would be required. The *BimApiExample* should be replaced by a command interface or other small app which allows your program to host and run the link. *FeaExampleApi* should be replaced with the third party API object.
 
 ### Building the example
 
 1. Clone the [idea-statica/public](https://github.com/idea-statica/ideastatica-public) repository. Some typical instructions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=desktop).
 2. In windows explorer navigate to the repository location `/src` folder and open the solution *IdeaStatiCa.Public.sln* in visual studio.
 3. Build the entire solution, which may take a minute or two. There should be no errors. 
-4. Navigate to the example location and right click on the *BimApiExample* and select set as start-up project.
+4. Navigate to the example location and right click on the *BimLinkExampleRunner* and select set as start-up project.
 
 ### Running the example
 
 This simple example will run Checkbot and allow you to import some simple Member and Node objects which we have defined in the *FakeFEAApi*.
 
-1. Run the *BimApiExample* project. A form should appear. 
+1. Run the *BimLinkExampleRunner* project. A form should appear. 
 2. We need to provide the link to the Checkbot executable. This allows you to select which version of IDEA StatiCa you would like to run. For example:
 
 ```text
@@ -73,11 +81,11 @@ C:\Program Files\IDEA StatiCa\StatiCa 23.0\IdeaCheckbot.exe
 
 ### Copying the example to create a new Link 
 
-To start work on a link of your own, you can copy the BimApiLinkFEAExample project and rename it. You will need to bulk rename the namespace in the example. A typical naming structure is [AppName]Link. 
+To start work on a link of your own, you can copy the BimApiLinkFeaExample or BimApiLinkCadExample project and rename it. You will need to bulk rename the namespace in the example. A typical naming structure is [AppName]Link. 
 
 You can use the BimApiExample to test your duplicated plugin by changing the project reference from the *BimApiLinkFEAExample* to your created project.
 
-> When creating your own link only the BimApiLinkExample would be required, BimApiExample should be replaced by a command interface or other small app which allows your program to host and run the link. FeaExampleApi should be replaced with the third party API object.
+> When creating your own link only the BimApiLinkExample would be required, BimLinkExampleRunner should be replaced by a command interface or other small app which allows your program to host and run the link. FeaExampleApi should be replaced with the third party API Model object.
 
 #### References
 
@@ -101,7 +109,8 @@ You should also remove the current reference to the FeaExampleApi and inject you
 #### Further Information
 
 In a fully functioning link, there are typically a number of different importers and further conversion utilities which are outside the scope of this example. We will continue to improve on this example where required. 
-Please comment in the discussion forums if you require further clarification or information.
+
+Please comment in the [discussion forums](https://github.com/idea-statica/ideastatica-public/discussions/categories/bim-api-link-disscusion) if you require further clarification or information.
 
 
 
