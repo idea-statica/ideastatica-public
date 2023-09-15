@@ -1,0 +1,326 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.ICadModel
+  id: ICadModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  children:
+  - IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel
+  - IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection
+  - IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections
+  langs:
+  - csharp
+  - vb
+  name: ICadModel
+  nameWithType: ICadModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ICadModel
+    path: ../src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  syntax:
+    content: 'public interface ICadModel : IModel'
+    content.vb: Public Interface ICadModel Inherits IModel
+  inheritedMembers:
+  - IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection
+  id: GetUserSelection
+  parent: IdeaStatiCa.BimApiLink.Plugin.ICadModel
+  langs:
+  - csharp
+  - vb
+  name: GetUserSelection()
+  nameWithType: ICadModel.GetUserSelection()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetUserSelection
+    path: ../src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Get selection represent single connection
+  example: []
+  syntax:
+    content: CadUserSelection GetUserSelection()
+    return:
+      type: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+      description: ''
+    content.vb: Function GetUserSelection() As CadUserSelection
+  overload: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection*
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections
+  id: GetUserSelections
+  parent: IdeaStatiCa.BimApiLink.Plugin.ICadModel
+  langs:
+  - csharp
+  - vb
+  name: GetUserSelections()
+  nameWithType: ICadModel.GetUserSelections()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetUserSelections
+    path: ../src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Get bulk selection represent multiple connections
+  example: []
+  syntax:
+    content: IEnumerable<CadUserSelection> GetUserSelections()
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Plugin.CadUserSelection}
+      description: ''
+    content.vb: Function GetUserSelections() As IEnumerable(Of CadUserSelection)
+  overload: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections*
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel
+  id: GetSelectionOfWholeModel
+  parent: IdeaStatiCa.BimApiLink.Plugin.ICadModel
+  langs:
+  - csharp
+  - vb
+  name: GetSelectionOfWholeModel()
+  nameWithType: ICadModel.GetSelectionOfWholeModel()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetSelectionOfWholeModel
+    path: ../src/IdeaStatica.BimApiLink/Plugin/ICadModel.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Get selection represent bulk selection of all entities in model
+  example: []
+  syntax:
+    content: IEnumerable<CadUserSelection> GetSelectionOfWholeModel()
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Plugin.CadUserSelection}
+      description: ''
+    content.vb: Function GetSelectionOfWholeModel() As IEnumerable(Of CadUserSelection)
+  overload: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel*
+references:
+- uid: IdeaStatiCa.BimApiLink.Plugin
+  commentId: N:IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Plugin
+  nameWithType: IdeaStatiCa.BimApiLink.Plugin
+  fullName: IdeaStatiCa.BimApiLink.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  parent: IdeaStatiCa.BimApiLink.Plugin.IModel
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  name: GetAllMembers()
+  nameWithType: IModel.GetAllMembers()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+    name: GetAllMembers
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+    name: GetAllMembers
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetAllMembers
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  parent: IdeaStatiCa.BimApiLink.Plugin.IModel
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  name: GetOriginSettings()
+  nameWithType: IModel.GetOriginSettings()
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+    name: GetOriginSettings
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+    name: GetOriginSettings
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html#IdeaStatiCa.BimApiLink.Plugin.IModel.GetOriginSettings
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.IModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  name: IModel
+  nameWithType: IModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IModel
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection
+  href: IdeaStatiCa.BimApiLink.Plugin.ICadModel.html#IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection
+  name: GetUserSelection
+  nameWithType: ICadModel.GetUserSelection
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelection
+- uid: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection.html
+  name: CadUserSelection
+  nameWithType: CadUserSelection
+  fullName: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections
+  href: IdeaStatiCa.BimApiLink.Plugin.ICadModel.html#IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections
+  name: GetUserSelections
+  nameWithType: ICadModel.GetUserSelections
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetUserSelections
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Plugin.CadUserSelection}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Plugin.CadUserSelection}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<CadUserSelection>
+  nameWithType: IEnumerable<CadUserSelection>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Plugin.CadUserSelection>
+  nameWithType.vb: IEnumerable(Of CadUserSelection)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Plugin.CadUserSelection)
+  name.vb: IEnumerable(Of CadUserSelection)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+    name: CadUserSelection
+    href: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+    name: CadUserSelection
+    href: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel
+  href: IdeaStatiCa.BimApiLink.Plugin.ICadModel.html#IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel
+  name: GetSelectionOfWholeModel
+  nameWithType: ICadModel.GetSelectionOfWholeModel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel.GetSelectionOfWholeModel

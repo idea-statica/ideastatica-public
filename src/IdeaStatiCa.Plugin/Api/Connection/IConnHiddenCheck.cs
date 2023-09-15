@@ -199,7 +199,7 @@ namespace IdeaStatiCa.Plugin
 
 		/// <summary>
 		/// Get code setup in JSON format 
-		/// <see href=https://idea-statica.github.io/iom/iom-api/latest/html/Properties_T_IdeaRS_OpenModel_ConnectionSetup.htm">IOM connection setup</see>
+		/// <see href="https://idea-statica.github.io/iom/iom-api/latest/html/Properties_T_IdeaRS_OpenModel_ConnectionSetup.htm">IOM connection setup</see>
 		/// </summary>
 		/// <returns></returns>
 		[OperationContract]

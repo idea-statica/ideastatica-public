@@ -1,0 +1,1025 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  commentId: T:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  id: InternalForcesBuilder`1
+  parent: IdeaStatiCa.BimApiLink.Results
+  children:
+  - IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor(IdeaRS.OpenModel.Result.ResultLocalSystemType)
+  - IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0},IdeaStatiCa.BimApi.IIdeaLoadCase)
+  - IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApi.IIdeaLoadCase)
+  - IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase})
+  - IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator
+  langs:
+  - csharp
+  - vb
+  name: InternalForcesBuilder<T>
+  nameWithType: InternalForcesBuilder<T>
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InternalForcesBuilder
+    path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Results
+  syntax:
+    content: 'public sealed class InternalForcesBuilder<T> : BimLinkObject, IEnumerable<ResultsData<T>>, IEnumerable where T : IIdeaObjectWithResults'
+    typeParameters:
+    - id: T
+    content.vb: Public NotInheritable Class InternalForcesBuilder(Of T As IIdeaObjectWithResults) Inherits BimLinkObject Implements IEnumerable(Of ResultsData(Of T)), IEnumerable
+  inheritance:
+  - System.Object
+  - IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  - IdeaStatiCa.BimApiLink.BimLinkObject
+  implements:
+  - System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}
+  - System.Collections.IEnumerable
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  nameWithType.vb: InternalForcesBuilder(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T)
+  name.vb: InternalForcesBuilder(Of T)
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor(IdeaRS.OpenModel.Result.ResultLocalSystemType)
+  commentId: M:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor(IdeaRS.OpenModel.Result.ResultLocalSystemType)
+  id: '#ctor(IdeaRS.OpenModel.Result.ResultLocalSystemType)'
+  parent: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  langs:
+  - csharp
+  - vb
+  name: InternalForcesBuilder(ResultLocalSystemType)
+  nameWithType: InternalForcesBuilder<T>.InternalForcesBuilder(ResultLocalSystemType)
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.InternalForcesBuilder(IdeaRS.OpenModel.Result.ResultLocalSystemType)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Results
+  syntax:
+    content: public InternalForcesBuilder(ResultLocalSystemType resultLocalSystem)
+    parameters:
+    - id: resultLocalSystem
+      type: IdeaRS.OpenModel.Result.ResultLocalSystemType
+    content.vb: Public Sub New(resultLocalSystem As ResultLocalSystemType)
+  overload: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor*
+  nameWithType.vb: InternalForcesBuilder(Of T).New(ResultLocalSystemType)
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).New(IdeaRS.OpenModel.Result.ResultLocalSystemType)
+  name.vb: New(ResultLocalSystemType)
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase})
+  commentId: M:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase})
+  id: For(`0,IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase})
+  parent: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  langs:
+  - csharp
+  - vb
+  name: For(T, Identifier<IIdeaLoadCase>)
+  nameWithType: InternalForcesBuilder<T>.For(T, Identifier<IIdeaLoadCase>)
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.For(T, IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaLoadCase>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: For
+    path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+    startLine: 22
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Results
+  syntax:
+    content: public InternalForcesBuilder<T>.Sections For(T obj, Identifier<IIdeaLoadCase> loadCaseIdentifier)
+    parameters:
+    - id: obj
+      type: '{T}'
+    - id: loadCaseIdentifier
+      type: IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase}
+    return:
+      type: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+    content.vb: Public Function [For](obj As T, loadCaseIdentifier As Identifier(Of IIdeaLoadCase)) As InternalForcesBuilder(Of T).Sections
+  overload: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For*
+  nameWithType.vb: InternalForcesBuilder(Of T).For(T, Identifier(Of IIdeaLoadCase))
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).For(T, IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaLoadCase))
+  name.vb: For(T, Identifier(Of IIdeaLoadCase))
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0},IdeaStatiCa.BimApi.IIdeaLoadCase)
+  commentId: M:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0},IdeaStatiCa.BimApi.IIdeaLoadCase)
+  id: For(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0},IdeaStatiCa.BimApi.IIdeaLoadCase)
+  parent: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  langs:
+  - csharp
+  - vb
+  name: For(Identifier<T>, IIdeaLoadCase)
+  nameWithType: InternalForcesBuilder<T>.For(Identifier<T>, IIdeaLoadCase)
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.For(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>, IdeaStatiCa.BimApi.IIdeaLoadCase)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: For
+    path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+    startLine: 25
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Results
+  syntax:
+    content: public InternalForcesBuilder<T>.Sections For(Identifier<T> objIdentifier, IIdeaLoadCase loadCase)
+    parameters:
+    - id: objIdentifier
+      type: IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}}
+    - id: loadCase
+      type: IdeaStatiCa.BimApi.IIdeaLoadCase
+    return:
+      type: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+    content.vb: Public Function [For](objIdentifier As Identifier(Of T), loadCase As IIdeaLoadCase) As InternalForcesBuilder(Of T).Sections
+  overload: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For*
+  nameWithType.vb: InternalForcesBuilder(Of T).For(Identifier(Of T), IIdeaLoadCase)
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).For(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T), IdeaStatiCa.BimApi.IIdeaLoadCase)
+  name.vb: For(Identifier(Of T), IIdeaLoadCase)
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApi.IIdeaLoadCase)
+  commentId: M:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApi.IIdeaLoadCase)
+  id: For(`0,IdeaStatiCa.BimApi.IIdeaLoadCase)
+  parent: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  langs:
+  - csharp
+  - vb
+  name: For(T, IIdeaLoadCase)
+  nameWithType: InternalForcesBuilder<T>.For(T, IIdeaLoadCase)
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.For(T, IdeaStatiCa.BimApi.IIdeaLoadCase)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: For
+    path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Results
+  syntax:
+    content: public InternalForcesBuilder<T>.Sections For(T obj, IIdeaLoadCase loadCase)
+    parameters:
+    - id: obj
+      type: '{T}'
+    - id: loadCase
+      type: IdeaStatiCa.BimApi.IIdeaLoadCase
+    return:
+      type: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+    content.vb: Public Function [For](obj As T, loadCase As IIdeaLoadCase) As InternalForcesBuilder(Of T).Sections
+  overload: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For*
+  nameWithType.vb: InternalForcesBuilder(Of T).For(T, IIdeaLoadCase)
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).For(T, IdeaStatiCa.BimApi.IIdeaLoadCase)
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator
+  commentId: M:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator
+  id: GetEnumerator
+  parent: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: InternalForcesBuilder<T>.GetEnumerator()
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetEnumerator
+    path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
+    startLine: 41
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Results
+  summary: Returns an enumerator that iterates through the collection.
+  example: []
+  syntax:
+    content: public IEnumerator<ResultsData<T>> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}
+      description: An enumerator that can be used to iterate through the collection.
+    content.vb: Public Function GetEnumerator() As IEnumerator(Of ResultsData(Of T))
+  overload: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}.GetEnumerator
+  nameWithType.vb: InternalForcesBuilder(Of T).GetEnumerator()
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).GetEnumerator()
+references:
+- uid: IdeaStatiCa.BimApiLink.Results
+  commentId: N:IdeaStatiCa.BimApiLink.Results
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Results
+  nameWithType: IdeaStatiCa.BimApiLink.Results
+  fullName: IdeaStatiCa.BimApiLink.Results
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Results
+    name: Results
+    href: IdeaStatiCa.BimApiLink.Results.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Results
+    name: Results
+    href: IdeaStatiCa.BimApiLink.Results.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.html
+  name: ScopeAwareObject
+  nameWithType: ScopeAwareObject
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject
+  commentId: T:IdeaStatiCa.BimApiLink.BimLinkObject
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html
+  name: BimLinkObject
+  nameWithType: BimLinkObject
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<ResultsData<T>>
+  nameWithType: IEnumerable<ResultsData<T>>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Results.ResultsData<T>>
+  nameWithType.vb: IEnumerable(Of ResultsData(Of T))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Results.ResultsData(Of T))
+  name.vb: IEnumerable(Of ResultsData(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Results.ResultsData`1
+    name: ResultsData
+    href: IdeaStatiCa.BimApiLink.Results.ResultsData-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Results.ResultsData`1
+    name: ResultsData
+    href: IdeaStatiCa.BimApiLink.Results.ResultsData-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  commentId: N:IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Scoping
+  nameWithType: IdeaStatiCa.BimApiLink.Scoping
+  fullName: IdeaStatiCa.BimApiLink.Scoping
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+- uid: IdeaStatiCa.BimApiLink
+  commentId: N:IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink
+  nameWithType: IdeaStatiCa.BimApiLink
+  fullName: IdeaStatiCa.BimApiLink
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor
+  href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html#IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.#ctor(IdeaRS.OpenModel.Result.ResultLocalSystemType)
+  name: InternalForcesBuilder
+  nameWithType: InternalForcesBuilder<T>.InternalForcesBuilder
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.InternalForcesBuilder
+  nameWithType.vb: InternalForcesBuilder(Of T).New
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Result.ResultLocalSystemType
+  commentId: T:IdeaRS.OpenModel.Result.ResultLocalSystemType
+  parent: IdeaRS.OpenModel.Result
+  name: ResultLocalSystemType
+  nameWithType: ResultLocalSystemType
+  fullName: IdeaRS.OpenModel.Result.ResultLocalSystemType
+- uid: IdeaRS.OpenModel.Result
+  commentId: N:IdeaRS.OpenModel.Result
+  name: IdeaRS.OpenModel.Result
+  nameWithType: IdeaRS.OpenModel.Result
+  fullName: IdeaRS.OpenModel.Result
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For
+  href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html#IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.For(`0,IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase})
+  name: For
+  nameWithType: InternalForcesBuilder<T>.For
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.For
+  nameWithType.vb: InternalForcesBuilder(Of T).For
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).For
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase}
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaLoadCase}
+  parent: IdeaStatiCa.BimApiLink.Identifiers
+  definition: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<IIdeaLoadCase>
+  nameWithType: Identifier<IIdeaLoadCase>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaLoadCase>
+  nameWithType.vb: Identifier(Of IIdeaLoadCase)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaLoadCase)
+  name.vb: Identifier(Of IIdeaLoadCase)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaLoadCase
+    name: IIdeaLoadCase
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaLoadCase
+    name: IIdeaLoadCase
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+  commentId: T:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+  parent: IdeaStatiCa.BimApiLink.Results
+  href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html
+  name: InternalForcesBuilder<T>.Sections
+  nameWithType: InternalForcesBuilder<T>.Sections
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.Sections
+  nameWithType.vb: InternalForcesBuilder(Of T).Sections
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).Sections
+  name.vb: InternalForcesBuilder(Of T).Sections
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+    name: InternalForcesBuilder
+    href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+    name: Sections
+    href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.Sections.html
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+    name: InternalForcesBuilder
+    href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+    name: Sections
+    href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.Sections.html
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<T>
+  nameWithType: Identifier<T>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>
+  nameWithType.vb: Identifier(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T)
+  name.vb: Identifier(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Identifiers
+  commentId: N:IdeaStatiCa.BimApiLink.Identifiers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Identifiers
+  nameWithType: IdeaStatiCa.BimApiLink.Identifiers
+  fullName: IdeaStatiCa.BimApiLink.Identifiers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}}
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0}
+  parent: IdeaStatiCa.BimApiLink.Identifiers
+  definition: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<T>
+  nameWithType: Identifier<T>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>
+  nameWithType.vb: Identifier(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T)
+  name.vb: Identifier(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaLoadCase
+  commentId: T:IdeaStatiCa.BimApi.IIdeaLoadCase
+  parent: IdeaStatiCa.BimApi
+  name: IIdeaLoadCase
+  nameWithType: IIdeaLoadCase
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadCase
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+- uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator
+  href: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder-1.html#IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.GetEnumerator
+  name: GetEnumerator
+  nameWithType: InternalForcesBuilder<T>.GetEnumerator
+  fullName: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder<T>.GetEnumerator
+  nameWithType.vb: InternalForcesBuilder(Of T).GetEnumerator
+  fullName.vb: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder(Of T).GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{`0}}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-ideastatica.bimapilink.results.resultsdata--0--.getenumerator#system-collections-generic-ienumerable((ideastatica-bimapilink-results-resultsdata((-0))))-getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<ResultsData<T>>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Results.ResultsData<T>>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of ResultsData(Of T)).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Results.ResultsData(Of T)).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{`0}}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-ideastatica.bimapilink.results.resultsdata--0--.getenumerator#system-collections-generic-ienumerable((ideastatica-bimapilink-results-resultsdata((-0))))-getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Results.ResultsData{`0}}.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-ideastatica.bimapilink.results.resultsdata--0--.getenumerator#system-collections-generic-ienumerable((ideastatica-bimapilink-results-resultsdata((-0))))-getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator{IdeaStatiCa.BimApiLink.Results.ResultsData{{T}}}
+  commentId: T:System.Collections.Generic.IEnumerator{IdeaStatiCa.BimApiLink.Results.ResultsData{`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<ResultsData<T>>
+  nameWithType: IEnumerator<ResultsData<T>>
+  fullName: System.Collections.Generic.IEnumerator<IdeaStatiCa.BimApiLink.Results.ResultsData<T>>
+  nameWithType.vb: IEnumerator(Of ResultsData(Of T))
+  fullName.vb: System.Collections.Generic.IEnumerator(Of IdeaStatiCa.BimApiLink.Results.ResultsData(Of T))
+  name.vb: IEnumerator(Of ResultsData(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Results.ResultsData`1
+    name: ResultsData
+    href: IdeaStatiCa.BimApiLink.Results.ResultsData-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Results.ResultsData`1
+    name: ResultsData
+    href: IdeaStatiCa.BimApiLink.Results.ResultsData-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1.getenumerator
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )

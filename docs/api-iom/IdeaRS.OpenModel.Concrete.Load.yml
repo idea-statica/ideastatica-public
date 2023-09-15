@@ -1,0 +1,166 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.Load
+  commentId: N:IdeaRS.OpenModel.Concrete.Load
+  id: IdeaRS.OpenModel.Concrete.Load
+  children:
+  - IdeaRS.OpenModel.Concrete.Load.CssComponentLoading
+  - IdeaRS.OpenModel.Concrete.Load.CssComponentTimeLoading
+  - IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  - IdeaRS.OpenModel.Concrete.Load.FatigueLoading
+  - IdeaRS.OpenModel.Concrete.Load.LoadingSLS
+  - IdeaRS.OpenModel.Concrete.Load.LoadingULS
+  - IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  - IdeaRS.OpenModel.Concrete.Load.PrestressLoading
+  - IdeaRS.OpenModel.Concrete.Load.StageLoading
+  - IdeaRS.OpenModel.Concrete.Load.StagesLoading
+  - IdeaRS.OpenModel.Concrete.Load.TendonComponentLoading
+  - IdeaRS.OpenModel.Concrete.Load.TendonLoading
+  - IdeaRS.OpenModel.Concrete.Load.TendonLossesLoading
+  - IdeaRS.OpenModel.Concrete.Load.TendonStressLoading
+  - IdeaRS.OpenModel.Concrete.Load.TendonTimeStressLoading
+  langs:
+  - csharp
+  - vb
+  name: IdeaRS.OpenModel.Concrete.Load
+  nameWithType: IdeaRS.OpenModel.Concrete.Load
+  fullName: IdeaRS.OpenModel.Concrete.Load
+  type: Namespace
+  assemblies:
+  - IdeaRS.OpenModel
+references:
+- uid: IdeaRS.OpenModel.Concrete.Load.CssComponentLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.CssComponentLoading
+  href: IdeaRS.OpenModel.Concrete.Load.CssComponentLoading.html
+  name: CssComponentLoading
+  nameWithType: CssComponentLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssComponentLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.CssComponentTimeLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.CssComponentTimeLoading
+  href: IdeaRS.OpenModel.Concrete.Load.CssComponentTimeLoading.html
+  name: CssComponentTimeLoading
+  nameWithType: CssComponentTimeLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssComponentTimeLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.FatigueLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.FatigueLoading
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.FatigueLoading.html
+  name: FatigueLoading
+  nameWithType: FatigueLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.FatigueLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.LoadingSLS
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.LoadingSLS
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.LoadingSLS.html
+  name: LoadingSLS
+  nameWithType: LoadingSLS
+  fullName: IdeaRS.OpenModel.Concrete.Load.LoadingSLS
+- uid: IdeaRS.OpenModel.Concrete.Load.LoadingULS
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.LoadingULS
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.LoadingULS.html
+  name: LoadingULS
+  nameWithType: LoadingULS
+  fullName: IdeaRS.OpenModel.Concrete.Load.LoadingULS
+- uid: IdeaRS.OpenModel.Concrete.Load.PrestressLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.PrestressLoading
+  href: IdeaRS.OpenModel.Concrete.Load.PrestressLoading.html
+  name: PrestressLoading
+  nameWithType: PrestressLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.PrestressLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.StageLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.StageLoading
+  href: IdeaRS.OpenModel.Concrete.Load.StageLoading.html
+  name: StageLoading
+  nameWithType: StageLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.StageLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.CssEffectType.html
+  name: CssEffectType
+  nameWithType: CssEffectType
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+- uid: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.PrestressInputType.html
+  name: PrestressInputType
+  nameWithType: PrestressInputType
+  fullName: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+- uid: IdeaRS.OpenModel.Concrete.Load.StagesLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.StagesLoading
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.StagesLoading.html
+  name: StagesLoading
+  nameWithType: StagesLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.StagesLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.TendonComponentLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.TendonComponentLoading
+  href: IdeaRS.OpenModel.Concrete.Load.TendonComponentLoading.html
+  name: TendonComponentLoading
+  nameWithType: TendonComponentLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.TendonComponentLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.TendonLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.TendonLoading
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.TendonLoading.html
+  name: TendonLoading
+  nameWithType: TendonLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.TendonLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.TendonStressLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.TendonStressLoading
+  href: IdeaRS.OpenModel.Concrete.Load.TendonStressLoading.html
+  name: TendonStressLoading
+  nameWithType: TendonStressLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.TendonStressLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.TendonTimeStressLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.TendonTimeStressLoading
+  href: IdeaRS.OpenModel.Concrete.Load.TendonTimeStressLoading.html
+  name: TendonTimeStressLoading
+  nameWithType: TendonTimeStressLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.TendonTimeStressLoading
+- uid: IdeaRS.OpenModel.Concrete.Load.TendonLossesLoading
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.TendonLossesLoading
+  href: IdeaRS.OpenModel.Concrete.Load.TendonLossesLoading.html
+  name: TendonLossesLoading
+  nameWithType: TendonLossesLoading
+  fullName: IdeaRS.OpenModel.Concrete.Load.TendonLossesLoading
+- uid: IdeaRS.OpenModel.Concrete.Load
+  commentId: N:IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.Load
+  nameWithType: IdeaRS.OpenModel.Concrete.Load
+  fullName: IdeaRS.OpenModel.Concrete.Load
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.Load
+    name: Load
+    href: IdeaRS.OpenModel.Concrete.Load.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.Load
+    name: Load
+    href: IdeaRS.OpenModel.Concrete.Load.html

@@ -1,0 +1,308 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  id: IntDiagCheckMethod
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  children:
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNMuMu
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMM
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMuMu
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyPlanarCheck
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyUlsForce1
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_0deg
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_90deg
+  - IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlaneInfoRequest
+  langs:
+  - csharp
+  - vb
+  name: IntDiagCheckMethod
+  nameWithType: IntDiagCheckMethod
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IntDiagCheckMethod
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: Flags controlling the method of the check by a interaction diagram
+  example: []
+  syntax:
+    content: public enum IntDiagCheckMethod
+    content.vb: Public Enum IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMuMu
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMuMu
+  id: IDCheckTypeNuMuMu
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDCheckTypeNuMuMu
+  nameWithType: IntDiagCheckMethod.IDCheckTypeNuMuMu
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMuMu
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDCheckTypeNuMuMu
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: known Ned,Med; calculate Nrd,Mrd as intersection of ID and line=[0,0];[Ned,Med]
+  example: []
+  syntax:
+    content: IDCheckTypeNuMuMu = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMM
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMM
+  id: IDCheckTypeNuMM
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDCheckTypeNuMM
+  nameWithType: IntDiagCheckMethod.IDCheckTypeNuMM
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNuMM
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDCheckTypeNuMM
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: know Med; calculate +-Nrd
+  example: []
+  syntax:
+    content: IDCheckTypeNuMM = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNMuMu
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNMuMu
+  id: IDCheckTypeNMuMu
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDCheckTypeNMuMu
+  nameWithType: IntDiagCheckMethod.IDCheckTypeNMuMu
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDCheckTypeNMuMu
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDCheckTypeNMuMu
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 20
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: know Ned; calculate +-Mrd
+  example: []
+  syntax:
+    content: IDCheckTypeNMuMu = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyUlsForce1
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyUlsForce1
+  id: IDOnlyUlsForce1
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDOnlyUlsForce1
+  nameWithType: IntDiagCheckMethod.IDOnlyUlsForce1
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyUlsForce1
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDOnlyUlsForce1
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: Find intersection only in the direction of the Fd
+  example: []
+  syntax:
+    content: IDOnlyUlsForce1 = 8
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyPlanarCheck
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyPlanarCheck
+  id: IDOnlyPlanarCheck
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDOnlyPlanarCheck
+  nameWithType: IntDiagCheckMethod.IDOnlyPlanarCheck
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDOnlyPlanarCheck
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDOnlyPlanarCheck
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: Only planar check is required
+  example: []
+  syntax:
+    content: IDOnlyPlanarCheck = 16
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlaneInfoRequest
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlaneInfoRequest
+  id: IDPlaneInfoRequest
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDPlaneInfoRequest
+  nameWithType: IntDiagCheckMethod.IDPlaneInfoRequest
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlaneInfoRequest
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDPlaneInfoRequest
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 35
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: Information about plane of deformation is required
+  example: []
+  syntax:
+    content: IDPlaneInfoRequest = 32
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_0deg
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_0deg
+  id: IDPlanar_0deg
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDPlanar_0deg
+  nameWithType: IntDiagCheckMethod.IDPlanar_0deg
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_0deg
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDPlanar_0deg
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 40
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: used by CheckForceQuick
+  example: []
+  syntax:
+    content: IDPlanar_0deg = 64
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_90deg
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_90deg
+  id: IDPlanar_90deg
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  langs:
+  - csharp
+  - vb
+  name: IDPlanar_90deg
+  nameWithType: IntDiagCheckMethod.IDPlanar_90deg
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.IDPlanar_90deg
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IDPlanar_90deg
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: used by CheckForceQuick
+  example: []
+  syntax:
+    content: IDPlanar_90deg = 128
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+references:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult
+  commentId: N:IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.CheckResult
+  nameWithType: IdeaRS.OpenModel.Concrete.CheckResult
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod.html
+  name: IntDiagCheckMethod
+  nameWithType: IntDiagCheckMethod
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod

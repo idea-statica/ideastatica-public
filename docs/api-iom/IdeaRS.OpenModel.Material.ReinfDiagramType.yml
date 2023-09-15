@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ReinfDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.ReinfDiagramType
+  id: ReinfDiagramType
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithAnInclinedTopBranch
+  - IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithOutAnInclinedTopBranch
+  - IdeaRS.OpenModel.Material.ReinfDiagramType.DefinedByUser
+  langs:
+  - csharp
+  - vb
+  name: ReinfDiagramType
+  nameWithType: ReinfDiagramType
+  fullName: IdeaRS.OpenModel.Material.ReinfDiagramType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinfDiagramType
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+    startLine: 23
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Reinforcement stress-strain diagram
+  example: []
+  syntax:
+    content: public enum ReinfDiagramType
+    content.vb: Public Enum ReinfDiagramType
+- uid: IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithAnInclinedTopBranch
+  commentId: F:IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithAnInclinedTopBranch
+  id: BilinerWithAnInclinedTopBranch
+  parent: IdeaRS.OpenModel.Material.ReinfDiagramType
+  langs:
+  - csharp
+  - vb
+  name: BilinerWithAnInclinedTopBranch
+  nameWithType: ReinfDiagramType.BilinerWithAnInclinedTopBranch
+  fullName: IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithAnInclinedTopBranch
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BilinerWithAnInclinedTopBranch
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+    startLine: 28
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Billinear with an inclined top branch
+  example: []
+  syntax:
+    content: BilinerWithAnInclinedTopBranch = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfDiagramType
+- uid: IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithOutAnInclinedTopBranch
+  commentId: F:IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithOutAnInclinedTopBranch
+  id: BilinerWithOutAnInclinedTopBranch
+  parent: IdeaRS.OpenModel.Material.ReinfDiagramType
+  langs:
+  - csharp
+  - vb
+  name: BilinerWithOutAnInclinedTopBranch
+  nameWithType: ReinfDiagramType.BilinerWithOutAnInclinedTopBranch
+  fullName: IdeaRS.OpenModel.Material.ReinfDiagramType.BilinerWithOutAnInclinedTopBranch
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BilinerWithOutAnInclinedTopBranch
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Billinear without an inclined top branch
+  example: []
+  syntax:
+    content: BilinerWithOutAnInclinedTopBranch = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfDiagramType
+- uid: IdeaRS.OpenModel.Material.ReinfDiagramType.DefinedByUser
+  commentId: F:IdeaRS.OpenModel.Material.ReinfDiagramType.DefinedByUser
+  id: DefinedByUser
+  parent: IdeaRS.OpenModel.Material.ReinfDiagramType
+  langs:
+  - csharp
+  - vb
+  name: DefinedByUser
+  nameWithType: ReinfDiagramType.DefinedByUser
+  fullName: IdeaRS.OpenModel.Material.ReinfDiagramType.DefinedByUser
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DefinedByUser
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcement.cs
+    startLine: 38
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Defined by user
+  example: []
+  syntax:
+    content: DefinedByUser = 2
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfDiagramType
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ReinfDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.ReinfDiagramType
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ReinfDiagramType.html
+  name: ReinfDiagramType
+  nameWithType: ReinfDiagramType
+  fullName: IdeaRS.OpenModel.Material.ReinfDiagramType

@@ -1,0 +1,134 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  id: CssEffectType
+  parent: IdeaRS.OpenModel.Concrete.Load
+  children:
+  - IdeaRS.OpenModel.Concrete.Load.CssEffectType.DeformationPlane
+  - IdeaRS.OpenModel.Concrete.Load.CssEffectType.InternalForce
+  langs:
+  - csharp
+  - vb
+  name: CssEffectType
+  nameWithType: CssEffectType
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CssEffectType
+    path: ../src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.Load
+  summary: Type of effects in cross-section component
+  example: []
+  syntax:
+    content: public enum CssEffectType
+    content.vb: Public Enum CssEffectType
+- uid: IdeaRS.OpenModel.Concrete.Load.CssEffectType.InternalForce
+  commentId: F:IdeaRS.OpenModel.Concrete.Load.CssEffectType.InternalForce
+  id: InternalForce
+  parent: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  langs:
+  - csharp
+  - vb
+  name: InternalForce
+  nameWithType: CssEffectType.InternalForce
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssEffectType.InternalForce
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InternalForce
+    path: ../src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.Load
+  summary: internal forces
+  example: []
+  syntax:
+    content: InternalForce = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+- uid: IdeaRS.OpenModel.Concrete.Load.CssEffectType.DeformationPlane
+  commentId: F:IdeaRS.OpenModel.Concrete.Load.CssEffectType.DeformationPlane
+  id: DeformationPlane
+  parent: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  langs:
+  - csharp
+  - vb
+  name: DeformationPlane
+  nameWithType: CssEffectType.DeformationPlane
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssEffectType.DeformationPlane
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeformationPlane
+    path: ../src/IdeaRS.OpenModel/Concrete/Load/StagesLoading.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.Load
+  summary: deformation plane
+  example: []
+  syntax:
+    content: DeformationPlane = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+references:
+- uid: IdeaRS.OpenModel.Concrete.Load
+  commentId: N:IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.Load
+  nameWithType: IdeaRS.OpenModel.Concrete.Load
+  fullName: IdeaRS.OpenModel.Concrete.Load
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.Load
+    name: Load
+    href: IdeaRS.OpenModel.Concrete.Load.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.Load
+    name: Load
+    href: IdeaRS.OpenModel.Concrete.Load.html
+- uid: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  commentId: T:IdeaRS.OpenModel.Concrete.Load.CssEffectType
+  parent: IdeaRS.OpenModel.Concrete.Load
+  href: IdeaRS.OpenModel.Concrete.Load.CssEffectType.html
+  name: CssEffectType
+  nameWithType: CssEffectType
+  fullName: IdeaRS.OpenModel.Concrete.Load.CssEffectType

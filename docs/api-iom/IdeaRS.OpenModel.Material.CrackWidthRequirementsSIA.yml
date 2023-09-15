@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  commentId: T:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  id: CrackWidthRequirementsSIA
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.A
+  - IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.B
+  - IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.C
+  - IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.NotNecessary
+  - IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.Value
+  langs:
+  - csharp
+  - vb
+  name: CrackWidthRequirementsSIA
+  nameWithType: CrackWidthRequirementsSIA
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrackWidthRequirementsSIA
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 49
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: crack width requirement
+  example: []
+  syntax:
+    content: public enum CrackWidthRequirementsSIA
+    content.vb: Public Enum CrackWidthRequirementsSIA
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.NotNecessary
+  commentId: F:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.NotNecessary
+  id: NotNecessary
+  parent: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  langs:
+  - csharp
+  - vb
+  name: NotNecessary
+  nameWithType: CrackWidthRequirementsSIA.NotNecessary
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.NotNecessary
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NotNecessary
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 54
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: calculation is nod defined it means not necessary
+  example: []
+  syntax:
+    content: NotNecessary = 0
+    return:
+      type: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.A
+  commentId: F:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.A
+  id: A
+  parent: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  langs:
+  - csharp
+  - vb
+  name: A
+  nameWithType: CrackWidthRequirementsSIA.A
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.A
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: A
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 59
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: type A
+  example: []
+  syntax:
+    content: A = 1
+    return:
+      type: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.B
+  commentId: F:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.B
+  id: B
+  parent: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  langs:
+  - csharp
+  - vb
+  name: B
+  nameWithType: CrackWidthRequirementsSIA.B
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.B
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: B
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 64
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: type B
+  example: []
+  syntax:
+    content: B = 2
+    return:
+      type: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.C
+  commentId: F:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.C
+  id: C
+  parent: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  langs:
+  - csharp
+  - vb
+  name: C
+  nameWithType: CrackWidthRequirementsSIA.C
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.C
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: C
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 69
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: type C
+  example: []
+  syntax:
+    content: C = 3
+    return:
+      type: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.Value
+  commentId: F:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.Value
+  id: Value
+  parent: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  langs:
+  - csharp
+  - vb
+  name: Value
+  nameWithType: CrackWidthRequirementsSIA.Value
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.Value
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Value
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 74
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: value is define as fsd-value
+  example: []
+  syntax:
+    content: Value = 4
+    return:
+      type: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  commentId: T:IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA.html
+  name: CrackWidthRequirementsSIA
+  nameWithType: CrackWidthRequirementsSIA
+  fullName: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA

@@ -1,0 +1,136 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  id: IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  langs:
+  - csharp
+  - vb
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPersistentObject.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaPersistentObject
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPersistentObject.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: An object that can be recreated at any point by its persistence <xref href="IdeaStatiCa.BimApi.IIdeaPersistentObject.Token" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: 'public interface IIdeaPersistentObject : IIdeaObject'
+    content.vb: Public Interface IIdeaPersistentObject Inherits IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  id: Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  langs:
+  - csharp
+  - vb
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPersistentObject.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Token
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPersistentObject.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Persistence token. Holds data neccessery to recreated the object in future.
+  example: []
+  syntax:
+    content: IIdeaPersistenceToken Token { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaPersistenceToken
+    content.vb: ReadOnly Property Token As IIdeaPersistenceToken
+  overload: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token*
+references:
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi.IIdeaPersistenceToken
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistenceToken
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistenceToken.html
+  name: IIdeaPersistenceToken
+  nameWithType: IIdeaPersistenceToken
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistenceToken

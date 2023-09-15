@@ -1,0 +1,139 @@
+### YamlMime:TableOfContent
+items:
+- uid: IdeaStatiCa.BimApi
+  name: IdeaStatiCa.BimApi
+  items:
+  - uid: IdeaStatiCa.BimApi.BulkSelection
+    name: BulkSelection
+  - uid: IdeaStatiCa.BimApi.IdeaBeamSegmentEndFlags
+    name: IdeaBeamSegmentEndFlags
+  - uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+    name: IdeaBeamSegmentModelType
+  - uid: IdeaStatiCa.BimApi.IdeaConnectedMemberType
+    name: IdeaConnectedMemberType
+  - uid: IdeaStatiCa.BimApi.IdeaForcesIn
+    name: IdeaForcesIn
+  - uid: IdeaStatiCa.BimApi.IdeaGeometricalType
+    name: IdeaGeometricalType
+  - uid: IdeaStatiCa.BimApi.IdeaVector3D
+    name: IdeaVector3D
+  - uid: IdeaStatiCa.BimApi.IIdeaAnchorGrid
+    name: IIdeaAnchorGrid
+  - uid: IdeaStatiCa.BimApi.IIdeaArcSegment3D
+    name: IIdeaArcSegment3D
+  - uid: IdeaStatiCa.BimApi.IIdeaBend
+    name: IIdeaBend
+  - uid: IdeaStatiCa.BimApi.IIdeaBoltAssembly
+    name: IIdeaBoltAssembly
+  - uid: IdeaStatiCa.BimApi.IIdeaBoltGrid
+    name: IIdeaBoltGrid
+  - uid: IdeaStatiCa.BimApi.IIdeaCombiInput
+    name: IIdeaCombiInput
+  - uid: IdeaStatiCa.BimApi.IIdeaCombiItem
+    name: IIdeaCombiItem
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - uid: IdeaStatiCa.BimApi.IIdeaConnectedMember
+    name: IIdeaConnectedMember
+  - uid: IdeaStatiCa.BimApi.IIdeaConnectionModel
+    name: IIdeaConnectionModel
+  - uid: IdeaStatiCa.BimApi.IIdeaConnectionPoint
+    name: IIdeaConnectionPoint
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSection
+    name: IIdeaCrossSection
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+    name: IIdeaCrossSectionByCenterLine
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+    name: IIdeaCrossSectionByComponents
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByName
+    name: IIdeaCrossSectionByName
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByParameters
+    name: IIdeaCrossSectionByParameters
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+    name: IIdeaCrossSectionComponent
+  - uid: IdeaStatiCa.BimApi.IIdeaCut
+    name: IIdeaCut
+  - uid: IdeaStatiCa.BimApi.IIdeaElement1D
+    name: IIdeaElement1D
+  - uid: IdeaStatiCa.BimApi.IIdeaElement2D
+    name: IIdeaElement2D
+  - uid: IdeaStatiCa.BimApi.IIdeaFoldedPlate
+    name: IIdeaFoldedPlate
+  - uid: IdeaStatiCa.BimApi.IIdeaLineSegment3D
+    name: IIdeaLineSegment3D
+  - uid: IdeaStatiCa.BimApi.IIdeaLoadCase
+    name: IIdeaLoadCase
+  - uid: IdeaStatiCa.BimApi.IIdeaLoadGroup
+    name: IIdeaLoadGroup
+  - uid: IdeaStatiCa.BimApi.IIdeaLoading
+    name: IIdeaLoading
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterial
+    name: IIdeaMaterial
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterialByName
+    name: IIdeaMaterialByName
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterialConcrete
+    name: IIdeaMaterialConcrete
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterialLibrary
+    name: IIdeaMaterialLibrary
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement
+    name: IIdeaMaterialReinforcement
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterialSteel
+    name: IIdeaMaterialSteel
+  - uid: IdeaStatiCa.BimApi.IIdeaMaterialTendon
+    name: IIdeaMaterialTendon
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+  - uid: IdeaStatiCa.BimApi.IIdeaMember2D
+    name: IIdeaMember2D
+  - uid: IdeaStatiCa.BimApi.IIdeaModel
+    name: IIdeaModel
+  - uid: IdeaStatiCa.BimApi.IIdeaNegativePlate
+    name: IIdeaNegativePlate
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+  - uid: IdeaStatiCa.BimApi.IIdeaObject
+    name: IIdeaObject
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectConnectable
+    name: IIdeaObjectConnectable
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+    name: IIdeaObjectWithResults
+  - uid: IdeaStatiCa.BimApi.IIdeaPersistenceToken
+    name: IIdeaPersistenceToken
+  - uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+    name: IIdeaPersistentObject
+  - uid: IdeaStatiCa.BimApi.IIdeaPlate
+    name: IIdeaPlate
+  - uid: IdeaStatiCa.BimApi.IIdeaPolyLine3D
+    name: IIdeaPolyLine3D
+  - uid: IdeaStatiCa.BimApi.IIdeaRegion3D
+    name: IIdeaRegion3D
+  - uid: IdeaStatiCa.BimApi.IIdeaSegment3D
+    name: IIdeaSegment3D
+  - uid: IdeaStatiCa.BimApi.IIdeaSpan
+    name: IIdeaSpan
+  - uid: IdeaStatiCa.BimApi.IIdeaTaper
+    name: IIdeaTaper
+  - uid: IdeaStatiCa.BimApi.IIdeaWeld
+    name: IIdeaWeld
+  - uid: IdeaStatiCa.BimApi.IIdeaWorkPlane
+    name: IIdeaWorkPlane
+  - uid: IdeaStatiCa.BimApi.MaterialType
+    name: MaterialType
+  - uid: IdeaStatiCa.BimApi.Selection
+    name: Selection
+  - uid: IdeaStatiCa.BimApi.SingleSelection
+    name: SingleSelection
+- uid: IdeaStatiCa.BimApi.Results
+  name: IdeaStatiCa.BimApi.Results
+  items:
+  - uid: IdeaStatiCa.BimApi.Results.IIdeaResult
+    name: IIdeaResult
+  - uid: IdeaStatiCa.BimApi.Results.IIdeaResultData
+    name: IIdeaResultData
+  - uid: IdeaStatiCa.BimApi.Results.IIdeaSection
+    name: IIdeaSection
+  - uid: IdeaStatiCa.BimApi.Results.IIdeaSectionResult
+    name: IIdeaSectionResult
+  - uid: IdeaStatiCa.BimApi.Results.InternalForcesData
+    name: InternalForcesData
+memberLayout: SamePage

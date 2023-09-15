@@ -1,0 +1,115 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaLineSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaLineSegment3D
+  id: IIdeaLineSegment3D
+  parent: IdeaStatiCa.BimApi
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: IIdeaLineSegment3D
+  nameWithType: IIdeaLineSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaLineSegment3D
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLineSegment3D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaLineSegment3D
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLineSegment3D.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Represents the line segment of the element.
+
+    <p>
+
+    Line segment is defined by two points returned by the <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode" data-throw-if-not-resolved="false"></xref> and <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode" data-throw-if-not-resolved="false"></xref> of the base class <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref>.
+
+    </p>
+  example: []
+  syntax:
+    content: 'public interface IIdeaLineSegment3D : IIdeaSegment3D, IIdeaObject'
+    content.vb: Public Interface IIdeaLineSegment3D Inherits IIdeaSegment3D, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  - IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  - IdeaStatiCa.BimApi.IIdeaSegment3D.LocalCoordinateSystem
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+references:
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html#IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  name: StartNode
+  nameWithType: IIdeaSegment3D.StartNode
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html#IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  name: EndNode
+  nameWithType: IIdeaSegment3D.EndNode
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaSegment3D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html
+  name: IIdeaSegment3D
+  nameWithType: IIdeaSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.LocalCoordinateSystem
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.LocalCoordinateSystem
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html#IdeaStatiCa.BimApi.IIdeaSegment3D.LocalCoordinateSystem
+  name: LocalCoordinateSystem
+  nameWithType: IIdeaSegment3D.LocalCoordinateSystem
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.LocalCoordinateSystem
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject

@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  id: TypeOfSupportConditions
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Bearing
+  - IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Cantilever
+  - IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Continuous
+  - IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.FullyRestrained
+  - IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.NonContinuous
+  langs:
+  - csharp
+  - vb
+  name: TypeOfSupportConditions
+  nameWithType: TypeOfSupportConditions
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeOfSupportConditions
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 31
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Define type of support conditions
+  example: []
+  syntax:
+    content: public enum TypeOfSupportConditions
+    content.vb: Public Enum TypeOfSupportConditions
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.NonContinuous
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.NonContinuous
+  id: NonContinuous
+  parent: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  langs:
+  - csharp
+  - vb
+  name: NonContinuous
+  nameWithType: TypeOfSupportConditions.NonContinuous
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.NonContinuous
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NonContinuous
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 36
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Non-continuous members
+  example: []
+  syntax:
+    content: NonContinuous = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Continuous
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Continuous
+  id: Continuous
+  parent: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  langs:
+  - csharp
+  - vb
+  name: Continuous
+  nameWithType: TypeOfSupportConditions.Continuous
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Continuous
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Continuous
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 41
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Continuous members
+  example: []
+  syntax:
+    content: Continuous = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.FullyRestrained
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.FullyRestrained
+  id: FullyRestrained
+  parent: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  langs:
+  - csharp
+  - vb
+  name: FullyRestrained
+  nameWithType: TypeOfSupportConditions.FullyRestrained
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.FullyRestrained
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FullyRestrained
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 46
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Supports considered fully restrained
+  example: []
+  syntax:
+    content: FullyRestrained = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Bearing
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Bearing
+  id: Bearing
+  parent: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  langs:
+  - csharp
+  - vb
+  name: Bearing
+  nameWithType: TypeOfSupportConditions.Bearing
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Bearing
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bearing
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 51
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Bearing provided
+  example: []
+  syntax:
+    content: Bearing = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Cantilever
+  commentId: F:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Cantilever
+  id: Cantilever
+  parent: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  langs:
+  - csharp
+  - vb
+  name: Cantilever
+  nameWithType: TypeOfSupportConditions.Cantilever
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.Cantilever
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Cantilever
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 56
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Cantilever
+  example: []
+  syntax:
+    content: Cantilever = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.html
+  name: TypeOfSupportConditions
+  nameWithType: TypeOfSupportConditions
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions

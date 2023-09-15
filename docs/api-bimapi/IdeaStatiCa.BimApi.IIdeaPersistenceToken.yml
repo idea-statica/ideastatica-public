@@ -1,0 +1,63 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaPersistenceToken
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistenceToken
+  id: IIdeaPersistenceToken
+  parent: IdeaStatiCa.BimApi
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: IIdeaPersistenceToken
+  nameWithType: IIdeaPersistenceToken
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistenceToken
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPersistenceToken.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaPersistenceToken
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPersistenceToken.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Describes an <xref href="IdeaStatiCa.BimApi.IIdeaPersistentObject" data-throw-if-not-resolved="false"></xref> object and hold all information necessary for restoration of the object.
+
+    All implementations must be serializable.
+  example: []
+  syntax:
+    content: public interface IIdeaPersistenceToken
+    content.vb: Public Interface IIdeaPersistenceToken
+references:
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html

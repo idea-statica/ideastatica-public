@@ -1,0 +1,118 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CoordinateSystemMethod
+  commentId: T:IdeaRS.OpenModel.CoordinateSystemMethod
+  id: CoordinateSystemMethod
+  parent: IdeaRS.OpenModel
+  children:
+  - IdeaRS.OpenModel.CoordinateSystemMethod.Cartesian
+  - IdeaRS.OpenModel.CoordinateSystemMethod.Polar
+  langs:
+  - csharp
+  - vb
+  name: CoordinateSystemMethod
+  nameWithType: CoordinateSystemMethod
+  fullName: IdeaRS.OpenModel.CoordinateSystemMethod
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CoordinateSystemMethod
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 11
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: A system which uses one or more numbers, or coordinates, to uniquely determine the position of a point or other geometric element.
+  example: []
+  syntax:
+    content: public enum CoordinateSystemMethod
+    content.vb: Public Enum CoordinateSystemMethod
+- uid: IdeaRS.OpenModel.CoordinateSystemMethod.Cartesian
+  commentId: F:IdeaRS.OpenModel.CoordinateSystemMethod.Cartesian
+  id: Cartesian
+  parent: IdeaRS.OpenModel.CoordinateSystemMethod
+  langs:
+  - csharp
+  - vb
+  name: Cartesian
+  nameWithType: CoordinateSystemMethod.Cartesian
+  fullName: IdeaRS.OpenModel.CoordinateSystemMethod.Cartesian
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Cartesian
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 16
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: The Cartesian coordinate system.
+  example: []
+  syntax:
+    content: Cartesian = 0
+    return:
+      type: IdeaRS.OpenModel.CoordinateSystemMethod
+- uid: IdeaRS.OpenModel.CoordinateSystemMethod.Polar
+  commentId: F:IdeaRS.OpenModel.CoordinateSystemMethod.Polar
+  id: Polar
+  parent: IdeaRS.OpenModel.CoordinateSystemMethod
+  langs:
+  - csharp
+  - vb
+  name: Polar
+  nameWithType: CoordinateSystemMethod.Polar
+  fullName: IdeaRS.OpenModel.CoordinateSystemMethod.Polar
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Enums.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Polar
+    path: ../src/IdeaRS.OpenModel/Enums.cs
+    startLine: 21
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: The polar coordinate system.
+  example: []
+  syntax:
+    content: Polar = 1
+    return:
+      type: IdeaRS.OpenModel.CoordinateSystemMethod
+references:
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.CoordinateSystemMethod
+  commentId: T:IdeaRS.OpenModel.CoordinateSystemMethod
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.CoordinateSystemMethod.html
+  name: CoordinateSystemMethod
+  nameWithType: CoordinateSystemMethod
+  fullName: IdeaRS.OpenModel.CoordinateSystemMethod

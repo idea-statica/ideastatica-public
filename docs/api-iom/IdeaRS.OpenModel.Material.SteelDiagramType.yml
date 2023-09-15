@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.SteelDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.SteelDiagramType
+  id: SteelDiagramType
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.SteelDiagramType.Bilinear
+  - IdeaRS.OpenModel.Material.SteelDiagramType.DefinedByUser
+  langs:
+  - csharp
+  - vb
+  name: SteelDiagramType
+  nameWithType: SteelDiagramType
+  fullName: IdeaRS.OpenModel.Material.SteelDiagramType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SteelDiagramType
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Steel stress-strain diagram
+  example: []
+  syntax:
+    content: public enum SteelDiagramType
+    content.vb: Public Enum SteelDiagramType
+- uid: IdeaRS.OpenModel.Material.SteelDiagramType.Bilinear
+  commentId: F:IdeaRS.OpenModel.Material.SteelDiagramType.Bilinear
+  id: Bilinear
+  parent: IdeaRS.OpenModel.Material.SteelDiagramType
+  langs:
+  - csharp
+  - vb
+  name: Bilinear
+  nameWithType: SteelDiagramType.Bilinear
+  fullName: IdeaRS.OpenModel.Material.SteelDiagramType.Bilinear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bilinear
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Billinear
+  example: []
+  syntax:
+    content: Bilinear = 0
+    return:
+      type: IdeaRS.OpenModel.Material.SteelDiagramType
+- uid: IdeaRS.OpenModel.Material.SteelDiagramType.DefinedByUser
+  commentId: F:IdeaRS.OpenModel.Material.SteelDiagramType.DefinedByUser
+  id: DefinedByUser
+  parent: IdeaRS.OpenModel.Material.SteelDiagramType
+  langs:
+  - csharp
+  - vb
+  name: DefinedByUser
+  nameWithType: SteelDiagramType.DefinedByUser
+  fullName: IdeaRS.OpenModel.Material.SteelDiagramType.DefinedByUser
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DefinedByUser
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Defined by user
+  example: []
+  syntax:
+    content: DefinedByUser = 5
+    return:
+      type: IdeaRS.OpenModel.Material.SteelDiagramType
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.SteelDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.SteelDiagramType
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.SteelDiagramType.html
+  name: SteelDiagramType
+  nameWithType: SteelDiagramType
+  fullName: IdeaRS.OpenModel.Material.SteelDiagramType

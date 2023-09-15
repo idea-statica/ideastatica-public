@@ -1,0 +1,793 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.ReportSettings
+  commentId: T:IdeaRS.OpenModel.Connection.ReportSettings
+  id: ReportSettings
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+  - IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+  - IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+  - IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+  - IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+  - IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+  - IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+  - IdeaRS.OpenModel.Connection.ReportSettings.Unit
+  - IdeaRS.OpenModel.Connection.ReportSettings.Views
+  langs:
+  - csharp
+  - vb
+  name: ReportSettings
+  nameWithType: ReportSettings
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReportSettings
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 60
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Report settings for IDEA connections.
+  example: []
+  syntax:
+    content: >-
+      [DataContract]
+
+      public class ReportSettings
+    content.vb: >-
+      <DataContract>
+
+      Public Class ReportSettings
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+  id: ReportType
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: ReportType
+  nameWithType: ReportSettings.ReportType
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReportType
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 66
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Gets or sets the type of report.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public ReportType ReportType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Connection.ReportType
+    content.vb: >-
+      <DataMember>
+
+      Public Property ReportType As ReportType
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.ReportType*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.Views
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.Views
+  id: Views
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: Views
+  nameWithType: ReportSettings.Views
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.Views
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Views
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 72
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates, whether generate views (XY, XZ, YZ) into report.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public bool Views { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <DataMember>
+
+      Public Property Views As Boolean
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.Views*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+  id: ResultsPictures
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: ResultsPictures
+  nameWithType: ReportSettings.ResultsPictures
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ResultsPictures
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 78
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates, whether generate pictures of results.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public bool ResultsPictures { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <DataMember>
+
+      Public Property ResultsPictures As Boolean
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+  id: SymbolExplanations
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: SymbolExplanations
+  nameWithType: ReportSettings.SymbolExplanations
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SymbolExplanations
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 84
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates, whether generate explanations to report.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public bool SymbolExplanations { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <DataMember>
+
+      Public Property SymbolExplanations As Boolean
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+  id: PlatesDrawings
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: PlatesDrawings
+  nameWithType: ReportSettings.PlatesDrawings
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PlatesDrawings
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 90
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates, whether generate drawing of plates.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public bool PlatesDrawings { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <DataMember>
+
+      Public Property PlatesDrawings As Boolean
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+  id: TheoreticalBackground
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: TheoreticalBackground
+  nameWithType: ReportSettings.TheoreticalBackground
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TheoreticalBackground
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 96
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates, whether generate theoretical background.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public bool TheoreticalBackground { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <DataMember>
+
+      Public Property TheoreticalBackground As Boolean
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+  id: CultureName
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: CultureName
+  nameWithType: ReportSettings.CultureName
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CultureName
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 102
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The name of the required culture of the report
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public string CultureName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <DataMember>
+
+      Public Property CultureName As String
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.CultureName*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.Unit
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.Unit
+  id: Unit
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: Unit
+  nameWithType: ReportSettings.Unit
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.Unit
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Unit
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 108
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The name of the required culture of the report
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public UnitType Unit { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Connection.UnitType
+    content.vb: >-
+      <DataMember>
+
+      Public Property Unit As UnitType
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.Unit*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+  commentId: P:IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+  id: Formulas
+  parent: IdeaRS.OpenModel.Connection.ReportSettings
+  langs:
+  - csharp
+  - vb
+  name: Formulas
+  nameWithType: ReportSettings.Formulas
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Formulas
+    path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
+    startLine: 114
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates if formulas are in report
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public FormulasType Formulas { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Connection.FormulasType
+    content.vb: >-
+      <DataMember>
+
+      Public Property Formulas As FormulasType
+  overload: IdeaRS.OpenModel.Connection.ReportSettings.Formulas*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.ReportType*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+  name: ReportType
+  nameWithType: ReportSettings.ReportType
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.ReportType
+- uid: IdeaRS.OpenModel.Connection.ReportType
+  commentId: T:IdeaRS.OpenModel.Connection.ReportType
+  parent: IdeaRS.OpenModel.Connection
+  href: IdeaRS.OpenModel.Connection.ReportType.html
+  name: ReportType
+  nameWithType: ReportType
+  fullName: IdeaRS.OpenModel.Connection.ReportType
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.Views*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.Views
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.Views
+  name: Views
+  nameWithType: ReportSettings.Views
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.Views
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+  name: ResultsPictures
+  nameWithType: ReportSettings.ResultsPictures
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.ResultsPictures
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+  name: SymbolExplanations
+  nameWithType: ReportSettings.SymbolExplanations
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.SymbolExplanations
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+  name: PlatesDrawings
+  nameWithType: ReportSettings.PlatesDrawings
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.PlatesDrawings
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+  name: TheoreticalBackground
+  nameWithType: ReportSettings.TheoreticalBackground
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.TheoreticalBackground
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.CultureName*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+  name: CultureName
+  nameWithType: ReportSettings.CultureName
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.CultureName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.Unit*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.Unit
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.Unit
+  name: Unit
+  nameWithType: ReportSettings.Unit
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.Unit
+- uid: IdeaRS.OpenModel.Connection.UnitType
+  commentId: T:IdeaRS.OpenModel.Connection.UnitType
+  parent: IdeaRS.OpenModel.Connection
+  href: IdeaRS.OpenModel.Connection.UnitType.html
+  name: UnitType
+  nameWithType: UnitType
+  fullName: IdeaRS.OpenModel.Connection.UnitType
+- uid: IdeaRS.OpenModel.Connection.ReportSettings.Formulas*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+  href: IdeaRS.OpenModel.Connection.ReportSettings.html#IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+  name: Formulas
+  nameWithType: ReportSettings.Formulas
+  fullName: IdeaRS.OpenModel.Connection.ReportSettings.Formulas
+- uid: IdeaRS.OpenModel.Connection.FormulasType
+  commentId: T:IdeaRS.OpenModel.Connection.FormulasType
+  parent: IdeaRS.OpenModel.Connection
+  href: IdeaRS.OpenModel.Connection.FormulasType.html
+  name: FormulasType
+  nameWithType: FormulasType
+  fullName: IdeaRS.OpenModel.Connection.FormulasType

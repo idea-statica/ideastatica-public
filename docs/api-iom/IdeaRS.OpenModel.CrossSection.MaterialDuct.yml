@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.MaterialDuct
+  commentId: T:IdeaRS.OpenModel.CrossSection.MaterialDuct
+  id: MaterialDuct
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.MaterialDuct.Metal
+  - IdeaRS.OpenModel.CrossSection.MaterialDuct.Plastic
+  langs:
+  - csharp
+  - vb
+  name: MaterialDuct
+  nameWithType: MaterialDuct
+  fullName: IdeaRS.OpenModel.CrossSection.MaterialDuct
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonDuct.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MaterialDuct
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonDuct.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon ducts material type
+  example: []
+  syntax:
+    content: public enum MaterialDuct
+    content.vb: Public Enum MaterialDuct
+- uid: IdeaRS.OpenModel.CrossSection.MaterialDuct.Metal
+  commentId: F:IdeaRS.OpenModel.CrossSection.MaterialDuct.Metal
+  id: Metal
+  parent: IdeaRS.OpenModel.CrossSection.MaterialDuct
+  langs:
+  - csharp
+  - vb
+  name: Metal
+  nameWithType: MaterialDuct.Metal
+  fullName: IdeaRS.OpenModel.CrossSection.MaterialDuct.Metal
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonDuct.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Metal
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonDuct.cs
+    startLine: 12
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Metal
+  example: []
+  syntax:
+    content: Metal = 0
+    return:
+      type: IdeaRS.OpenModel.CrossSection.MaterialDuct
+- uid: IdeaRS.OpenModel.CrossSection.MaterialDuct.Plastic
+  commentId: F:IdeaRS.OpenModel.CrossSection.MaterialDuct.Plastic
+  id: Plastic
+  parent: IdeaRS.OpenModel.CrossSection.MaterialDuct
+  langs:
+  - csharp
+  - vb
+  name: Plastic
+  nameWithType: MaterialDuct.Plastic
+  fullName: IdeaRS.OpenModel.CrossSection.MaterialDuct.Plastic
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonDuct.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Plastic
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonDuct.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Plastic
+  example: []
+  syntax:
+    content: Plastic = 1
+    return:
+      type: IdeaRS.OpenModel.CrossSection.MaterialDuct
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: IdeaRS.OpenModel.CrossSection.MaterialDuct
+  commentId: T:IdeaRS.OpenModel.CrossSection.MaterialDuct
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.MaterialDuct.html
+  name: MaterialDuct
+  nameWithType: MaterialDuct
+  fullName: IdeaRS.OpenModel.CrossSection.MaterialDuct

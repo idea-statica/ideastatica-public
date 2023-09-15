@@ -1,0 +1,1198 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  commentId: T:IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  id: ConnectionCheckRes
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+  - IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+  langs:
+  - csharp
+  - vb
+  name: ConnectionCheckRes
+  nameWithType: ConnectionCheckRes
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectionCheckRes
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 58
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Results for connection in project
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      [DataContract]
+
+      public class ConnectionCheckRes
+    content.vb: >-
+      <Serializable>
+
+      <DataContract>
+
+      Public Class ConnectionCheckRes
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor
+  commentId: M:IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: ConnectionCheckRes()
+  nameWithType: ConnectionCheckRes.ConnectionCheckRes()
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionCheckRes()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 66
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: ''
+  example: []
+  syntax:
+    content: public ConnectionCheckRes()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor*
+  nameWithType.vb: ConnectionCheckRes.New()
+  fullName.vb: IdeaRS.OpenModel.Connection.ConnectionCheckRes.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+  id: CheckResSummary
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: CheckResSummary
+  nameWithType: ConnectionCheckRes.CheckResSummary
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResSummary
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 80
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of CheckResSummary
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<CheckResSummary> CheckResSummary { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResSummary}
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckResSummary As List(Of CheckResSummary)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+  id: CheckResPlate
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: CheckResPlate
+  nameWithType: ConnectionCheckRes.CheckResPlate
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResPlate
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 86
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of check results for plates
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<CheckResPlate> CheckResPlate { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResPlate}
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckResPlate As List(Of CheckResPlate)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+  id: CheckResWeld
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: CheckResWeld
+  nameWithType: ConnectionCheckRes.CheckResWeld
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResWeld
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 92
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of check results for welds
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<CheckResWeld> CheckResWeld { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResWeld}
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckResWeld As List(Of CheckResWeld)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+  id: CheckResBolt
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: CheckResBolt
+  nameWithType: ConnectionCheckRes.CheckResBolt
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResBolt
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 98
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of check results for bolts
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<CheckResBolt> CheckResBolt { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResBolt}
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckResBolt As List(Of CheckResBolt)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+  id: CheckResAnchor
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: CheckResAnchor
+  nameWithType: ConnectionCheckRes.CheckResAnchor
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResAnchor
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 104
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of check results for anchors
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<CheckResAnchor> CheckResAnchor { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResAnchor}
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckResAnchor As List(Of CheckResAnchor)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+  id: CheckResConcreteBlock
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: CheckResConcreteBlock
+  nameWithType: ConnectionCheckRes.CheckResConcreteBlock
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResConcreteBlock
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 110
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of check results for concrete blocks
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<CheckResConcreteBlock> CheckResConcreteBlock { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResConcreteBlock}
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckResConcreteBlock As List(Of CheckResConcreteBlock)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+  id: BucklingResults
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: BucklingResults
+  nameWithType: ConnectionCheckRes.BucklingResults
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BucklingResults
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 116
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: List of results of buckling analysis
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<BucklingRes> BucklingResults { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.BucklingRes}
+    content.vb: >-
+      <DataMember>
+
+      Public Property BucklingResults As List(Of BucklingRes)
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+  id: Name
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: ConnectionCheckRes.Name
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Name
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 122
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Name of connection
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <DataMember>
+
+      Public Property Name As String
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+  id: ConnectionID
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: ConnectionID
+  nameWithType: ConnectionCheckRes.ConnectionID
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectionID
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 128
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Guid of connection
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public Guid ConnectionID { get; set; }
+    parameters: []
+    return:
+      type: System.Guid
+    content.vb: >-
+      <DataMember>
+
+      Public Property ConnectionID As Guid
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+  commentId: P:IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+  id: Messages
+  parent: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+  langs:
+  - csharp
+  - vb
+  name: Messages
+  nameWithType: ConnectionCheckRes.Messages
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Messages
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 134
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Gets or sets the list of errors, that apears during validation and/or calculation.
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public OpenMessages Messages { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Message.OpenMessages
+    content.vb: >-
+      <DataMember>
+
+      Public Property Messages As OpenMessages
+  overload: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.#ctor
+  name: ConnectionCheckRes
+  nameWithType: ConnectionCheckRes.ConnectionCheckRes
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionCheckRes
+  nameWithType.vb: ConnectionCheckRes.New
+  fullName.vb: IdeaRS.OpenModel.Connection.ConnectionCheckRes.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+  name: CheckResSummary
+  nameWithType: ConnectionCheckRes.CheckResSummary
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResSummary
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResSummary}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResSummary}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckResSummary>
+  nameWithType: List<CheckResSummary>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.CheckResSummary>
+  nameWithType.vb: List(Of CheckResSummary)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.CheckResSummary)
+  name.vb: List(Of CheckResSummary)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.CheckResSummary
+    name: CheckResSummary
+    href: IdeaRS.OpenModel.Connection.CheckResSummary.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.CheckResSummary
+    name: CheckResSummary
+    href: IdeaRS.OpenModel.Connection.CheckResSummary.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+  name: CheckResPlate
+  nameWithType: ConnectionCheckRes.CheckResPlate
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResPlate
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResPlate}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResPlate}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckResPlate>
+  nameWithType: List<CheckResPlate>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.CheckResPlate>
+  nameWithType.vb: List(Of CheckResPlate)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.CheckResPlate)
+  name.vb: List(Of CheckResPlate)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.CheckResPlate
+    name: CheckResPlate
+    href: IdeaRS.OpenModel.Connection.CheckResPlate.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.CheckResPlate
+    name: CheckResPlate
+    href: IdeaRS.OpenModel.Connection.CheckResPlate.html
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+  name: CheckResWeld
+  nameWithType: ConnectionCheckRes.CheckResWeld
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResWeld
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResWeld}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResWeld}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckResWeld>
+  nameWithType: List<CheckResWeld>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.CheckResWeld>
+  nameWithType.vb: List(Of CheckResWeld)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.CheckResWeld)
+  name.vb: List(Of CheckResWeld)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.CheckResWeld
+    name: CheckResWeld
+    href: IdeaRS.OpenModel.Connection.CheckResWeld.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.CheckResWeld
+    name: CheckResWeld
+    href: IdeaRS.OpenModel.Connection.CheckResWeld.html
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+  name: CheckResBolt
+  nameWithType: ConnectionCheckRes.CheckResBolt
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResBolt
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResBolt}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResBolt}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckResBolt>
+  nameWithType: List<CheckResBolt>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.CheckResBolt>
+  nameWithType.vb: List(Of CheckResBolt)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.CheckResBolt)
+  name.vb: List(Of CheckResBolt)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.CheckResBolt
+    name: CheckResBolt
+    href: IdeaRS.OpenModel.Connection.CheckResBolt.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.CheckResBolt
+    name: CheckResBolt
+    href: IdeaRS.OpenModel.Connection.CheckResBolt.html
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+  name: CheckResAnchor
+  nameWithType: ConnectionCheckRes.CheckResAnchor
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResAnchor
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResAnchor}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResAnchor}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckResAnchor>
+  nameWithType: List<CheckResAnchor>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.CheckResAnchor>
+  nameWithType.vb: List(Of CheckResAnchor)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.CheckResAnchor)
+  name.vb: List(Of CheckResAnchor)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.CheckResAnchor
+    name: CheckResAnchor
+    href: IdeaRS.OpenModel.Connection.CheckResAnchor.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.CheckResAnchor
+    name: CheckResAnchor
+    href: IdeaRS.OpenModel.Connection.CheckResAnchor.html
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+  name: CheckResConcreteBlock
+  nameWithType: ConnectionCheckRes.CheckResConcreteBlock
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.CheckResConcreteBlock
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResConcreteBlock}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.CheckResConcreteBlock}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckResConcreteBlock>
+  nameWithType: List<CheckResConcreteBlock>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.CheckResConcreteBlock>
+  nameWithType.vb: List(Of CheckResConcreteBlock)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.CheckResConcreteBlock)
+  name.vb: List(Of CheckResConcreteBlock)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.CheckResConcreteBlock
+    name: CheckResConcreteBlock
+    href: IdeaRS.OpenModel.Connection.CheckResConcreteBlock.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.CheckResConcreteBlock
+    name: CheckResConcreteBlock
+    href: IdeaRS.OpenModel.Connection.CheckResConcreteBlock.html
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+  name: BucklingResults
+  nameWithType: ConnectionCheckRes.BucklingResults
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.BucklingResults
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Connection.BucklingRes}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Connection.BucklingRes}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<BucklingRes>
+  nameWithType: List<BucklingRes>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Connection.BucklingRes>
+  nameWithType.vb: List(Of BucklingRes)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Connection.BucklingRes)
+  name.vb: List(Of BucklingRes)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Connection.BucklingRes
+    name: BucklingRes
+    href: IdeaRS.OpenModel.Connection.BucklingRes.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Connection.BucklingRes
+    name: BucklingRes
+    href: IdeaRS.OpenModel.Connection.BucklingRes.html
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+  name: Name
+  nameWithType: ConnectionCheckRes.Name
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+  name: ConnectionID
+  nameWithType: ConnectionCheckRes.ConnectionID
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.ConnectionID
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages*
+  commentId: Overload:IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+  href: IdeaRS.OpenModel.Connection.ConnectionCheckRes.html#IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+  name: Messages
+  nameWithType: ConnectionCheckRes.Messages
+  fullName: IdeaRS.OpenModel.Connection.ConnectionCheckRes.Messages
+- uid: IdeaRS.OpenModel.Message.OpenMessages
+  commentId: T:IdeaRS.OpenModel.Message.OpenMessages
+  parent: IdeaRS.OpenModel.Message
+  href: IdeaRS.OpenModel.Message.OpenMessages.html
+  name: OpenMessages
+  nameWithType: OpenMessages
+  fullName: IdeaRS.OpenModel.Message.OpenMessages
+- uid: IdeaRS.OpenModel.Message
+  commentId: N:IdeaRS.OpenModel.Message
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Message
+  nameWithType: IdeaRS.OpenModel.Message
+  fullName: IdeaRS.OpenModel.Message
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+    href: IdeaRS.OpenModel.Message.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+    href: IdeaRS.OpenModel.Message.html

@@ -1,0 +1,404 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaElement1D
+  id: IIdeaElement1D
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+  - IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+  - IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+  - IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+  - IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  - IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+  langs:
+  - csharp
+  - vb
+  name: IIdeaElement1D
+  nameWithType: IIdeaElement1D
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaElement1D
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    An element is a part of a member. Every member is comprised of one or more elements.
+
+    It's geometry is defined by a <xref href="IdeaStatiCa.BimApi.IIdeaElement1D.Segment" data-throw-if-not-resolved="false"></xref> that can be either a line or an arc. It must specify
+
+    cross-sections at both ends.
+  example: []
+  syntax:
+    content: 'public interface IIdeaElement1D : IIdeaObjectWithResults, IIdeaObject'
+    content.vb: Public Interface IIdeaElement1D Inherits IIdeaObjectWithResults, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+  id: StartCrossSection
+  parent: IdeaStatiCa.BimApi.IIdeaElement1D
+  langs:
+  - csharp
+  - vb
+  name: StartCrossSection
+  nameWithType: IIdeaElement1D.StartCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StartCrossSection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Cross-section at the start of the element.
+  example: []
+  syntax:
+    content: IIdeaCrossSection StartCrossSection { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaCrossSection
+    content.vb: ReadOnly Property StartCrossSection As IIdeaCrossSection
+  overload: IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection*
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+  id: EndCrossSection
+  parent: IdeaStatiCa.BimApi.IIdeaElement1D
+  langs:
+  - csharp
+  - vb
+  name: EndCrossSection
+  nameWithType: IIdeaElement1D.EndCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EndCrossSection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Cross-section at the and of the element.
+  example: []
+  syntax:
+    content: IIdeaCrossSection EndCrossSection { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaCrossSection
+    content.vb: ReadOnly Property EndCrossSection As IIdeaCrossSection
+  overload: IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection*
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+  id: EccentricityBegin
+  parent: IdeaStatiCa.BimApi.IIdeaElement1D
+  langs:
+  - csharp
+  - vb
+  name: EccentricityBegin
+  nameWithType: IIdeaElement1D.EccentricityBegin
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EccentricityBegin
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 27
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Eccentricity (offset) at the start of the element.
+
+    It is defined in the global coordinate system.
+  example: []
+  syntax:
+    content: IdeaVector3D EccentricityBegin { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IdeaVector3D
+    content.vb: ReadOnly Property EccentricityBegin As IdeaVector3D
+  overload: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin*
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+  id: EccentricityEnd
+  parent: IdeaStatiCa.BimApi.IIdeaElement1D
+  langs:
+  - csharp
+  - vb
+  name: EccentricityEnd
+  nameWithType: IIdeaElement1D.EccentricityEnd
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EccentricityEnd
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 33
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Eccentricity (offset) at the end of the element.
+
+    It is defined in the global coordinate system.
+  example: []
+  syntax:
+    content: IdeaVector3D EccentricityEnd { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IdeaVector3D
+    content.vb: ReadOnly Property EccentricityEnd As IdeaVector3D
+  overload: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd*
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+  id: RotationRx
+  parent: IdeaStatiCa.BimApi.IIdeaElement1D
+  langs:
+  - csharp
+  - vb
+  name: RotationRx
+  nameWithType: IIdeaElement1D.RotationRx
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RotationRx
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 38
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Rotation of the element around the x-axis of the <xref href="IdeaStatiCa.BimApi.IIdeaElement1D.Segment" data-throw-if-not-resolved="false"></xref>'s LCS.
+  example: []
+  syntax:
+    content: double RotationRx { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property RotationRx As Double
+  overload: IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx*
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  id: Segment
+  parent: IdeaStatiCa.BimApi.IIdeaElement1D
+  langs:
+  - csharp
+  - vb
+  name: Segment
+  nameWithType: IIdeaElement1D.Segment
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Segment
+    path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
+    startLine: 44
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Returns the segment object that should implement either <xref href="IdeaStatiCa.BimApi.IIdeaLineSegment3D" data-throw-if-not-resolved="false"></xref> or <xref href="IdeaStatiCa.BimApi.IIdeaArcSegment3D" data-throw-if-not-resolved="false"></xref>. Must not return null.
+
+    <p>Hint: use is-operator to determine the segment type.</p>
+  example: []
+  syntax:
+    content: IIdeaSegment3D Segment { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaSegment3D
+    content.vb: ReadOnly Property Segment As IIdeaSegment3D
+  overload: IdeaStatiCa.BimApi.IIdeaElement1D.Segment*
+references:
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  commentId: P:IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  name: Segment
+  nameWithType: IIdeaElement1D.Segment
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  commentId: M:IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  parent: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+  href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html#IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  name: GetResults()
+  nameWithType: IIdeaObjectWithResults.GetResults()
+  fullName: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+    name: GetResults
+    href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html#IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+    name: GetResults
+    href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html#IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObjectWithResults
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html
+  name: IIdeaObjectWithResults
+  nameWithType: IIdeaObjectWithResults
+  fullName: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+  name: StartCrossSection
+  nameWithType: IIdeaElement1D.StartCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.StartCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html
+  name: IIdeaCrossSection
+  nameWithType: IIdeaCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+  name: EndCrossSection
+  nameWithType: IIdeaElement1D.EndCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.EndCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+  name: EccentricityBegin
+  nameWithType: IIdeaElement1D.EccentricityBegin
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityBegin
+- uid: IdeaStatiCa.BimApi.IdeaVector3D
+  commentId: T:IdeaStatiCa.BimApi.IdeaVector3D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IdeaVector3D.html
+  name: IdeaVector3D
+  nameWithType: IdeaVector3D
+  fullName: IdeaStatiCa.BimApi.IdeaVector3D
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+  name: EccentricityEnd
+  nameWithType: IIdeaElement1D.EccentricityEnd
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.EccentricityEnd
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+  name: RotationRx
+  nameWithType: IIdeaElement1D.RotationRx
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.RotationRx
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaLineSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaLineSegment3D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaLineSegment3D.html
+  name: IIdeaLineSegment3D
+  nameWithType: IIdeaLineSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaLineSegment3D
+- uid: IdeaStatiCa.BimApi.IIdeaArcSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaArcSegment3D
+  href: IdeaStatiCa.BimApi.IIdeaArcSegment3D.html
+  name: IIdeaArcSegment3D
+  nameWithType: IIdeaArcSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaArcSegment3D
+- uid: IdeaStatiCa.BimApi.IIdeaElement1D.Segment*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  href: IdeaStatiCa.BimApi.IIdeaElement1D.html#IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+  name: Segment
+  nameWithType: IIdeaElement1D.Segment
+  fullName: IdeaStatiCa.BimApi.IIdeaElement1D.Segment
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaSegment3D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html
+  name: IIdeaSegment3D
+  nameWithType: IIdeaSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D

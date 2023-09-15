@@ -1,0 +1,308 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  id: ShearMethod
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  children:
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodJoints
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcCracked
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcGeneralHcs
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPlain
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPrestress
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcSimpleHcs
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrds
+  - IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.NoDefined
+  langs:
+  - csharp
+  - vb
+  name: ShearMethod
+  nameWithType: ShearMethod
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ShearMethod
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: Method of shear calculation
+  example: []
+  syntax:
+    content: public enum ShearMethod
+    content.vb: Public Enum ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.NoDefined
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.NoDefined
+  id: NoDefined
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: NoDefined
+  nameWithType: ShearMethod.NoDefined
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.NoDefined
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NoDefined
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: not defined
+  example: []
+  syntax:
+    content: NoDefined = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcCracked
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcCracked
+  id: MethodVrdcCracked
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodVrdcCracked
+  nameWithType: ShearMethod.MethodVrdcCracked
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcCracked
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodVrdcCracked
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according 6.2.2.1
+  example: []
+  syntax:
+    content: MethodVrdcCracked = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPrestress
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPrestress
+  id: MethodVrdcPrestress
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodVrdcPrestress
+  nameWithType: ShearMethod.MethodVrdcPrestress
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPrestress
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodVrdcPrestress
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 20
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according 6.2.2.2
+  example: []
+  syntax:
+    content: MethodVrdcPrestress = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcSimpleHcs
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcSimpleHcs
+  id: MethodVrdcSimpleHcs
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodVrdcSimpleHcs
+  nameWithType: ShearMethod.MethodVrdcSimpleHcs
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcSimpleHcs
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodVrdcSimpleHcs
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according 6.2.2.2
+  example: []
+  syntax:
+    content: MethodVrdcSimpleHcs = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcGeneralHcs
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcGeneralHcs
+  id: MethodVrdcGeneralHcs
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodVrdcGeneralHcs
+  nameWithType: ShearMethod.MethodVrdcGeneralHcs
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcGeneralHcs
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodVrdcGeneralHcs
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according EN1168
+  example: []
+  syntax:
+    content: MethodVrdcGeneralHcs = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPlain
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPlain
+  id: MethodVrdcPlain
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodVrdcPlain
+  nameWithType: ShearMethod.MethodVrdcPlain
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrdcPlain
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodVrdcPlain
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 35
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according 12.6.3
+  example: []
+  syntax:
+    content: MethodVrdcPlain = 5
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrds
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrds
+  id: MethodVrds
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodVrds
+  nameWithType: ShearMethod.MethodVrds
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodVrds
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodVrds
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 40
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according 6.2.3.3
+  example: []
+  syntax:
+    content: MethodVrds = 6
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodJoints
+  commentId: F:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodJoints
+  id: MethodJoints
+  parent: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  langs:
+  - csharp
+  - vb
+  name: MethodJoints
+  nameWithType: ShearMethod.MethodJoints
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.MethodJoints
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MethodJoints
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete.CheckResult
+  summary: method according 6.2.5(1)
+  example: []
+  syntax:
+    content: MethodJoints = 7
+    return:
+      type: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+references:
+- uid: IdeaRS.OpenModel.Concrete.CheckResult
+  commentId: N:IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete.CheckResult
+  nameWithType: IdeaRS.OpenModel.Concrete.CheckResult
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult
+    name: CheckResult
+    href: IdeaRS.OpenModel.Concrete.CheckResult.html
+- uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+  parent: IdeaRS.OpenModel.Concrete.CheckResult
+  href: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod.html
+  name: ShearMethod
+  nameWithType: ShearMethod
+  fullName: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod

@@ -1,0 +1,144 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterialReinforcement
+  id: IIdeaMaterialReinforcement
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+  langs:
+  - csharp
+  - vb
+  name: IIdeaMaterialReinforcement
+  nameWithType: IIdeaMaterialReinforcement
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMaterialReinforcement.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaMaterialReinforcement
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMaterialReinforcement.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Material of a reinforcement.
+  example: []
+  syntax:
+    content: 'public interface IIdeaMaterialReinforcement : IIdeaMaterial, IIdeaObject'
+    content.vb: Public Interface IIdeaMaterialReinforcement Inherits IIdeaMaterial, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+  id: Material
+  parent: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IIdeaMaterialReinforcement.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMaterialReinforcement.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMaterialReinforcement.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Material
+  example: []
+  syntax:
+    content: MatReinforcement Material { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Material.MatReinforcement
+    content.vb: ReadOnly Property Material As MatReinforcement
+  overload: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+  href: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.html#IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+  name: Material
+  nameWithType: IIdeaMaterialReinforcement.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterialReinforcement.Material
+- uid: IdeaRS.OpenModel.Material.MatReinforcement
+  commentId: T:IdeaRS.OpenModel.Material.MatReinforcement
+  parent: IdeaRS.OpenModel.Material
+  name: MatReinforcement
+  nameWithType: MatReinforcement
+  fullName: IdeaRS.OpenModel.Material.MatReinforcement
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material

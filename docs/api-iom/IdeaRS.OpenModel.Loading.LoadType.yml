@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.LoadType
+  commentId: T:IdeaRS.OpenModel.Loading.LoadType
+  id: LoadType
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.LoadType.LoadForce
+  - IdeaRS.OpenModel.Loading.LoadType.LoadMoment
+  langs:
+  - csharp
+  - vb
+  name: LoadType
+  nameWithType: LoadType
+  fullName: IdeaRS.OpenModel.Loading.LoadType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadType
+    path: ../src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+    startLine: 177
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Type of load impuls
+  example: []
+  syntax:
+    content: public enum LoadType
+    content.vb: Public Enum LoadType
+- uid: IdeaRS.OpenModel.Loading.LoadType.LoadForce
+  commentId: F:IdeaRS.OpenModel.Loading.LoadType.LoadForce
+  id: LoadForce
+  parent: IdeaRS.OpenModel.Loading.LoadType
+  langs:
+  - csharp
+  - vb
+  name: LoadForce
+  nameWithType: LoadType.LoadForce
+  fullName: IdeaRS.OpenModel.Loading.LoadType.LoadForce
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadForce
+    path: ../src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+    startLine: 182
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Force load impuls
+  example: []
+  syntax:
+    content: LoadForce = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadType
+- uid: IdeaRS.OpenModel.Loading.LoadType.LoadMoment
+  commentId: F:IdeaRS.OpenModel.Loading.LoadType.LoadMoment
+  id: LoadMoment
+  parent: IdeaRS.OpenModel.Loading.LoadType
+  langs:
+  - csharp
+  - vb
+  name: LoadMoment
+  nameWithType: LoadType.LoadMoment
+  fullName: IdeaRS.OpenModel.Loading.LoadType.LoadMoment
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadMoment
+    path: ../src/IdeaRS.OpenModel/Loading/LoadOnLine.cs
+    startLine: 187
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Moment load impuls
+  example: []
+  syntax:
+    content: LoadMoment = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadType
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.LoadType
+  commentId: T:IdeaRS.OpenModel.Loading.LoadType
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.LoadType.html
+  name: LoadType
+  nameWithType: LoadType
+  fullName: IdeaRS.OpenModel.Loading.LoadType

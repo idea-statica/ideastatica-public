@@ -1,0 +1,358 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.WeldType
+  commentId: T:IdeaRS.OpenModel.Connection.WeldType
+  id: WeldType
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.WeldType.Bevel
+  - IdeaRS.OpenModel.Connection.WeldType.Contact
+  - IdeaRS.OpenModel.Connection.WeldType.DoubleFillet
+  - IdeaRS.OpenModel.Connection.WeldType.Fillet
+  - IdeaRS.OpenModel.Connection.WeldType.FilletRear
+  - IdeaRS.OpenModel.Connection.WeldType.Intermittent
+  - IdeaRS.OpenModel.Connection.WeldType.LengthAtHaunch
+  - IdeaRS.OpenModel.Connection.WeldType.NotSpecified
+  - IdeaRS.OpenModel.Connection.WeldType.Plug
+  - IdeaRS.OpenModel.Connection.WeldType.Square
+  langs:
+  - csharp
+  - vb
+  name: WeldType
+  nameWithType: WeldType
+  fullName: IdeaRS.OpenModel.Connection.WeldType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WeldType
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 394
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: enum of weld types
+  example: []
+  syntax:
+    content: public enum WeldType
+    content.vb: Public Enum WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.NotSpecified
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.NotSpecified
+  id: NotSpecified
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: NotSpecified
+  nameWithType: WeldType.NotSpecified
+  fullName: IdeaRS.OpenModel.Connection.WeldType.NotSpecified
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NotSpecified
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 399
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: NotSpecified
+  example: []
+  syntax:
+    content: NotSpecified = 0
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.Fillet
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.Fillet
+  id: Fillet
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Fillet
+  nameWithType: WeldType.Fillet
+  fullName: IdeaRS.OpenModel.Connection.WeldType.Fillet
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Fillet
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 404
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Fillet
+  example: []
+  syntax:
+    content: Fillet = 1
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.DoubleFillet
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.DoubleFillet
+  id: DoubleFillet
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: DoubleFillet
+  nameWithType: WeldType.DoubleFillet
+  fullName: IdeaRS.OpenModel.Connection.WeldType.DoubleFillet
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DoubleFillet
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 409
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: DoubleFillet
+  example: []
+  syntax:
+    content: DoubleFillet = 2
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.Bevel
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.Bevel
+  id: Bevel
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Bevel
+  nameWithType: WeldType.Bevel
+  fullName: IdeaRS.OpenModel.Connection.WeldType.Bevel
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bevel
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 414
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Bevel
+  example: []
+  syntax:
+    content: Bevel = 4
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.Square
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.Square
+  id: Square
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Square
+  nameWithType: WeldType.Square
+  fullName: IdeaRS.OpenModel.Connection.WeldType.Square
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Square
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 419
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Square
+  example: []
+  syntax:
+    content: Square = 8
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.Plug
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.Plug
+  id: Plug
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Plug
+  nameWithType: WeldType.Plug
+  fullName: IdeaRS.OpenModel.Connection.WeldType.Plug
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Plug
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 424
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Plug
+  example: []
+  syntax:
+    content: Plug = 16
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.LengthAtHaunch
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.LengthAtHaunch
+  id: LengthAtHaunch
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: LengthAtHaunch
+  nameWithType: WeldType.LengthAtHaunch
+  fullName: IdeaRS.OpenModel.Connection.WeldType.LengthAtHaunch
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LengthAtHaunch
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 429
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: LengthAtHaunch
+  example: []
+  syntax:
+    content: LengthAtHaunch = 32
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.FilletRear
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.FilletRear
+  id: FilletRear
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: FilletRear
+  nameWithType: WeldType.FilletRear
+  fullName: IdeaRS.OpenModel.Connection.WeldType.FilletRear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FilletRear
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 434
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: FilletRear
+  example: []
+  syntax:
+    content: FilletRear = 64
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.Contact
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.Contact
+  id: Contact
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Contact
+  nameWithType: WeldType.Contact
+  fullName: IdeaRS.OpenModel.Connection.WeldType.Contact
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Contact
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 439
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Contact
+  example: []
+  syntax:
+    content: Contact = 128
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+- uid: IdeaRS.OpenModel.Connection.WeldType.Intermittent
+  commentId: F:IdeaRS.OpenModel.Connection.WeldType.Intermittent
+  id: Intermittent
+  parent: IdeaRS.OpenModel.Connection.WeldType
+  langs:
+  - csharp
+  - vb
+  name: Intermittent
+  nameWithType: WeldType.Intermittent
+  fullName: IdeaRS.OpenModel.Connection.WeldType.Intermittent
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Intermittent
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 444
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Intermittent
+  example: []
+  syntax:
+    content: Intermittent = 256
+    return:
+      type: IdeaRS.OpenModel.Connection.WeldType
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: IdeaRS.OpenModel.Connection.WeldType
+  commentId: T:IdeaRS.OpenModel.Connection.WeldType
+  parent: IdeaRS.OpenModel.Connection
+  href: IdeaRS.OpenModel.Connection.WeldType.html
+  name: WeldType
+  nameWithType: WeldType
+  fullName: IdeaRS.OpenModel.Connection.WeldType

@@ -1,6 +1,4 @@
-﻿using Serilog.Configuration;
-using Serilog.Core;
-using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.PluginLogger
 {

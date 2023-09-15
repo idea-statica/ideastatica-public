@@ -1,0 +1,19 @@
+- name: Get Started 
+- name: BimApi Checkbot Link
+  href: bimapi_checkbot_link.md
+- name: Docs
+- name: Linking and application with Checkbot
+  href: bimapi_linking_an_application_with_checkbot.md
+- name: Checkbot framework capabilities
+  href: bimapi_checkbot_project_framework.md
+- name: Diagnostics
+  href: bimapi_diagnostics_in_checkbot.md
+- name: Examples
+  href: examples/toc.yml
+- name: API Reference
+- name: IdeaStatiCa.BimApiLink
+  href: ../../api-bimapilink/toc.yml
+  homepage: ../../api-bimapilink/index.md
+- name: IdeaStaiCa.BimApi
+  href: ../../api-bimapi/toc.yml
+  homepage: ../../api-bimapi/index.md

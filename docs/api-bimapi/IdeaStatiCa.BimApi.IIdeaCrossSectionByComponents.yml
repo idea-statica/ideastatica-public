@@ -1,0 +1,236 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+  id: IIdeaCrossSectionByComponents
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+  langs:
+  - csharp
+  - vb
+  name: IIdeaCrossSectionByComponents
+  nameWithType: IIdeaCrossSectionByComponents
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaCrossSectionByComponents
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: A generic cross-sectíons defined by its components.
+  example: []
+  syntax:
+    content: 'public interface IIdeaCrossSectionByComponents : IIdeaCrossSection, IIdeaObject'
+    content.vb: Public Interface IIdeaCrossSectionByComponents Inherits IIdeaCrossSection, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  - IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+  id: Components
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+  langs:
+  - csharp
+  - vb
+  name: Components
+  nameWithType: IIdeaCrossSectionByComponents.Components
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Components
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByComponents.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Set of components.
+  example: []
+  syntax:
+    content: HashSet<IIdeaCrossSectionComponent> Components { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.HashSet{IdeaStatiCa.BimApi.IIdeaCrossSectionComponent}
+    content.vb: ReadOnly Property Components As HashSet(Of IIdeaCrossSectionComponent)
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html#IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  name: Rotation
+  nameWithType: IIdeaCrossSection.Rotation
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html#IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  name: IsInPrincipal
+  nameWithType: IIdeaCrossSection.IsInPrincipal
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html
+  name: IIdeaCrossSection
+  nameWithType: IIdeaCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.html#IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+  name: Components
+  nameWithType: IIdeaCrossSectionByComponents.Components
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.Components
+- uid: System.Collections.Generic.HashSet{IdeaStatiCa.BimApi.IIdeaCrossSectionComponent}
+  commentId: T:System.Collections.Generic.HashSet{IdeaStatiCa.BimApi.IIdeaCrossSectionComponent}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.HashSet`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
+  name: HashSet<IIdeaCrossSectionComponent>
+  nameWithType: HashSet<IIdeaCrossSectionComponent>
+  fullName: System.Collections.Generic.HashSet<IdeaStatiCa.BimApi.IIdeaCrossSectionComponent>
+  nameWithType.vb: HashSet(Of IIdeaCrossSectionComponent)
+  fullName.vb: System.Collections.Generic.HashSet(Of IdeaStatiCa.BimApi.IIdeaCrossSectionComponent)
+  name.vb: HashSet(Of IIdeaCrossSectionComponent)
+  spec.csharp:
+  - uid: System.Collections.Generic.HashSet`1
+    name: HashSet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+    name: IIdeaCrossSectionComponent
+    href: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.HashSet`1
+    name: HashSet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+    name: IIdeaCrossSectionComponent
+    href: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.html
+  - name: )
+- uid: System.Collections.Generic.HashSet`1
+  commentId: T:System.Collections.Generic.HashSet`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
+  name: HashSet<T>
+  nameWithType: HashSet<T>
+  fullName: System.Collections.Generic.HashSet<T>
+  nameWithType.vb: HashSet(Of T)
+  fullName.vb: System.Collections.Generic.HashSet(Of T)
+  name.vb: HashSet(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.HashSet`1
+    name: HashSet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.HashSet`1
+    name: HashSet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

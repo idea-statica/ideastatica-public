@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec
+  commentId: T:IdeaRS.OpenModel.Concrete.ValueTypec
+  id: ValueTypec
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.ValueTypec.ConstantCurvatureDistribution
+  - IdeaRS.OpenModel.Concrete.ValueTypec.SinusoidalCurvatureDistribution
+  - IdeaRS.OpenModel.Concrete.ValueTypec.UserDefined
+  langs:
+  - csharp
+  - vb
+  name: ValueTypec
+  nameWithType: ValueTypec
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ValueTypec
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 68
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Define type of c value
+  example: []
+  syntax:
+    content: public enum ValueTypec
+    content.vb: Public Enum ValueTypec
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec.UserDefined
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec.UserDefined
+  id: UserDefined
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec
+  langs:
+  - csharp
+  - vb
+  name: UserDefined
+  nameWithType: ValueTypec.UserDefined
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec.UserDefined
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserDefined
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 73
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value is inputed by user
+  example: []
+  syntax:
+    content: UserDefined = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec.ConstantCurvatureDistribution
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec.ConstantCurvatureDistribution
+  id: ConstantCurvatureDistribution
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec
+  langs:
+  - csharp
+  - vb
+  name: ConstantCurvatureDistribution
+  nameWithType: ValueTypec.ConstantCurvatureDistribution
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec.ConstantCurvatureDistribution
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConstantCurvatureDistribution
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 78
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value depends on constant curvature distributio
+  example: []
+  syntax:
+    content: ConstantCurvatureDistribution = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec.SinusoidalCurvatureDistribution
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec.SinusoidalCurvatureDistribution
+  id: SinusoidalCurvatureDistribution
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec
+  langs:
+  - csharp
+  - vb
+  name: SinusoidalCurvatureDistribution
+  nameWithType: ValueTypec.SinusoidalCurvatureDistribution
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec.SinusoidalCurvatureDistribution
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SinusoidalCurvatureDistribution
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 83
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value depends on sinusoidal curvature distribution
+  example: []
+  syntax:
+    content: SinusoidalCurvatureDistribution = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec
+  commentId: T:IdeaRS.OpenModel.Concrete.ValueTypec
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.ValueTypec.html
+  name: ValueTypec
+  nameWithType: ValueTypec
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec

@@ -1,0 +1,312 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.BimApi
+  commentId: N:IdeaStatiCa.BimApiLink.BimApi
+  id: IdeaStatiCa.BimApiLink.BimApi
+  children:
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaBend
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaCut
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaModel
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaNode
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaPlate
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaSpan
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaTaper
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaWeld
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCa.BimApiLink.BimApi
+  nameWithType: IdeaStatiCa.BimApiLink.BimApi
+  fullName: IdeaStatiCa.BimApiLink.BimApi
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+references:
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+  parent: IdeaStatiCa.BimApiLink.BimApi
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  name: AbstractIdeaObject<T>
+  nameWithType: AbstractIdeaObject<T>
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>
+  nameWithType.vb: AbstractIdeaObject(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T)
+  name.vb: AbstractIdeaObject(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid.html
+  name: IdeaAnchorGrid
+  nameWithType: IdeaAnchorGrid
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaBend
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaBend
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaBend.html
+  name: IdeaBend
+  nameWithType: IdeaBend
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaBend
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly.html
+  name: IdeaBoltAssembly
+  nameWithType: IdeaBoltAssembly
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid.html
+  name: IdeaBoltGrid
+  nameWithType: IdeaBoltGrid
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput.html
+  name: IdeaCombiInput
+  nameWithType: IdeaCombiInput
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem.html
+  name: IdeaCombiItem
+  nameWithType: IdeaCombiItem
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html
+  name: IdeaConcreteBlock
+  nameWithType: IdeaConcreteBlock
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember.html
+  name: IdeaConnectedMember
+  nameWithType: IdeaConnectedMember
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint.html
+  name: IdeaConnectionPoint
+  nameWithType: IdeaConnectionPoint
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents.html
+  name: IdeaCrossSectionByComponents
+  nameWithType: IdeaCrossSectionByComponents
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName.html
+  name: IdeaCrossSectionByName
+  nameWithType: IdeaCrossSectionByName
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+  parent: IdeaStatiCa.BimApiLink.BimApi
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters.html
+  name: IdeaCrossSectionByParameters
+  nameWithType: IdeaCrossSectionByParameters
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCut
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaCut
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaCut.html
+  name: IdeaCut
+  nameWithType: IdeaCut
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaCut
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D.html
+  name: IdeaElement1D
+  nameWithType: IdeaElement1D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D.html
+  name: IdeaElement2D
+  nameWithType: IdeaElement2D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate.html
+  name: IdeaFoldedPlate
+  nameWithType: IdeaFoldedPlate
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D.html
+  name: IdeaLineSegment3D
+  nameWithType: IdeaLineSegment3D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase.html
+  name: IdeaLoadCase
+  nameWithType: IdeaLoadCase
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup.html
+  name: IdeaLoadGroup
+  nameWithType: IdeaLoadGroup
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName.html
+  name: IdeaMaterialByName
+  nameWithType: IdeaMaterialByName
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete.html
+  name: IdeaMaterialConcrete
+  nameWithType: IdeaMaterialConcrete
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel.html
+  name: IdeaMaterialSteel
+  nameWithType: IdeaMaterialSteel
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D.html
+  name: IdeaMember1D
+  nameWithType: IdeaMember1D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D.html
+  name: IdeaMember2D
+  nameWithType: IdeaMember2D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaModel
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaModel
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaModel.html
+  name: IdeaModel
+  nameWithType: IdeaModel
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaModel
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate.html
+  name: IdeaNegativePlate
+  nameWithType: IdeaNegativePlate
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaNode
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaNode
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaNode.html
+  name: IdeaNode
+  nameWithType: IdeaNode
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaNode
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaPlate
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaPlate
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaPlate.html
+  name: IdeaPlate
+  nameWithType: IdeaPlate
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaPlate
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D.html
+  name: IdeaPolyLine3D
+  nameWithType: IdeaPolyLine3D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D.html
+  name: IdeaRegion3D
+  nameWithType: IdeaRegion3D
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaSpan
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaSpan
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaSpan.html
+  name: IdeaSpan
+  nameWithType: IdeaSpan
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaSpan
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaTaper
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaTaper
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaTaper.html
+  name: IdeaTaper
+  nameWithType: IdeaTaper
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaTaper
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaWeld
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaWeld
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaWeld.html
+  name: IdeaWeld
+  nameWithType: IdeaWeld
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaWeld
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane.html
+  name: IdeaWorkPlane
+  nameWithType: IdeaWorkPlane
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane
+- uid: IdeaStatiCa.BimApiLink.BimApi
+  commentId: N:IdeaStatiCa.BimApiLink.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.BimApi
+  nameWithType: IdeaStatiCa.BimApiLink.BimApi
+  fullName: IdeaStatiCa.BimApiLink.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApiLink.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApiLink.BimApi.html

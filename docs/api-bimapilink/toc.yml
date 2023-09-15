@@ -1,0 +1,216 @@
+### YamlMime:TableOfContent
+items:
+- uid: IdeaStatiCa.BimApiLink
+  name: IdeaStatiCa.BimApiLink
+  items:
+  - uid: IdeaStatiCa.BimApiLink.BimApiApplication
+    name: BimApiApplication
+  - uid: IdeaStatiCa.BimApiLink.BimLink
+    name: BimLink
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject
+    name: BimLinkObject
+  - uid: IdeaStatiCa.BimApiLink.CadBimLink
+    name: CadBimLink
+  - uid: IdeaStatiCa.BimApiLink.Constants
+    name: Constants
+  - uid: IdeaStatiCa.BimApiLink.FeaBimLink
+    name: FeaBimLink
+  - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
+    name: IBimUserDataSource
+  - uid: IdeaStatiCa.BimApiLink.ImportersConfiguration
+    name: ImportersConfiguration
+  - uid: IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
+    name: ResultsImportersConfiguration
+- uid: IdeaStatiCa.BimApiLink.BimApi
+  name: IdeaStatiCa.BimApiLink.BimApi
+  items:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject<T>
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaAnchorGrid
+    name: IdeaAnchorGrid
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaBend
+    name: IdeaBend
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltAssembly
+    name: IdeaBoltAssembly
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaBoltGrid
+    name: IdeaBoltGrid
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiInput
+    name: IdeaCombiInput
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCombiItem
+    name: IdeaCombiItem
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+    name: IdeaConcreteBlock
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectedMember
+    name: IdeaConnectedMember
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConnectionPoint
+    name: IdeaConnectionPoint
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByComponents
+    name: IdeaCrossSectionByComponents
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByName
+    name: IdeaCrossSectionByName
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+    name: IdeaCrossSectionByParameters
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaCut
+    name: IdeaCut
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaElement1D
+    name: IdeaElement1D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaElement2D
+    name: IdeaElement2D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaFoldedPlate
+    name: IdeaFoldedPlate
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaLineSegment3D
+    name: IdeaLineSegment3D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadCase
+    name: IdeaLoadCase
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaLoadGroup
+    name: IdeaLoadGroup
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialByName
+    name: IdeaMaterialByName
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialConcrete
+    name: IdeaMaterialConcrete
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMaterialSteel
+    name: IdeaMaterialSteel
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMember1D
+    name: IdeaMember1D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaMember2D
+    name: IdeaMember2D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaModel
+    name: IdeaModel
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaNegativePlate
+    name: IdeaNegativePlate
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaNode
+    name: IdeaNode
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaPlate
+    name: IdeaPlate
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaPolyLine3D
+    name: IdeaPolyLine3D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaRegion3D
+    name: IdeaRegion3D
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaSpan
+    name: IdeaSpan
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaTaper
+    name: IdeaTaper
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaWeld
+    name: IdeaWeld
+  - uid: IdeaStatiCa.BimApiLink.BimApi.IdeaWorkPlane
+    name: IdeaWorkPlane
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  name: IdeaStatiCa.BimApiLink.Hooks
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+    name: IImporterHook
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IPluginHook
+    name: IPluginHook
+  - uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+    name: IScopeHook
+- uid: IdeaStatiCa.BimApiLink.Identifiers
+  name: IdeaStatiCa.BimApiLink.Identifiers
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.ConnectedMemberIdentifier`1
+    name: ConnectedMemberIdentifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.ConnectionIdentifier`1
+    name: ConnectionIdentifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.ImmutableIdentifier`1
+    name: ImmutableIdentifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IntIdentifier`1
+    name: IntIdentifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.StringIdentifier`1
+    name: StringIdentifier<T>
+- uid: IdeaStatiCa.BimApiLink.Importers
+  name: IdeaStatiCa.BimApiLink.Importers
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Importers.AbstractImporter`1
+    name: AbstractImporter<T>
+  - uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    name: IBimApiImporter
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter
+    name: IImporter
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter`1
+    name: IImporter<T>
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporterProvider
+    name: IImporterProvider
+  - uid: IdeaStatiCa.BimApiLink.Importers.ImporterConnectedMemberIdentifier`1
+    name: ImporterConnectedMemberIdentifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Importers.ImporterConnectionIdentifier`1
+    name: ImporterConnectionIdentifier<T>
+  - uid: IdeaStatiCa.BimApiLink.Importers.IntIdentifierImporter`1
+    name: IntIdentifierImporter<T>
+  - uid: IdeaStatiCa.BimApiLink.Importers.StringIdentifierImporter`1
+    name: StringIdentifierImporter<T>
+- uid: IdeaStatiCa.BimApiLink.Persistence
+  name: IdeaStatiCa.BimApiLink.Persistence
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Persistence.IProjectStorage
+    name: IProjectStorage
+- uid: IdeaStatiCa.BimApiLink.Plugin
+  name: IdeaStatiCa.BimApiLink.Plugin
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Plugin.BimConnectionsImportEvent
+    name: BimConnectionsImportEvent
+  - uid: IdeaStatiCa.BimApiLink.Plugin.BimConnectionsSynchronizeEvent
+    name: BimConnectionsSynchronizeEvent
+  - uid: IdeaStatiCa.BimApiLink.Plugin.BimPluginCommandEvent
+    name: BimPluginCommandEvent
+  - uid: IdeaStatiCa.BimApiLink.Plugin.CadApplication
+    name: CadApplication
+  - uid: IdeaStatiCa.BimApiLink.Plugin.CadUserSelection
+    name: CadUserSelection
+  - uid: IdeaStatiCa.BimApiLink.Plugin.FeaApplication
+    name: FeaApplication
+  - uid: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection
+    name: FeaUserSelection
+  - uid: IdeaStatiCa.BimApiLink.Plugin.ICadModel
+    name: ICadModel
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+    name: IdeaUserEventImplementation
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+    name: IFeaModel
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+- uid: IdeaStatiCa.BimApiLink.Results
+  name: IdeaStatiCa.BimApiLink.Results
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Results.IInternalForcesImporter`1
+    name: IInternalForcesImporter<T>
+  - uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1
+    name: InternalForcesBuilder<T>
+  - uid: IdeaStatiCa.BimApiLink.Results.InternalForcesBuilder`1.Sections
+    name: InternalForcesBuilder<T>.Sections
+  - uid: IdeaStatiCa.BimApiLink.Results.ResultsData`1
+    name: ResultsData<T>
+- uid: IdeaStatiCa.BimApiLink.Results.BimApi
+  name: IdeaStatiCa.BimApiLink.Results.BimApi
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Results.BimApi.IdeaResult
+    name: IdeaResult
+  - uid: IdeaStatiCa.BimApiLink.Results.BimApi.IdeaSection
+    name: IdeaSection
+  - uid: IdeaStatiCa.BimApiLink.Results.BimApi.IdeaSectionResult
+    name: IdeaSectionResult
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  name: IdeaStatiCa.BimApiLink.Scoping
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Scoping.BimLinkScope
+    name: BimLinkScope
+  - uid: IdeaStatiCa.BimApiLink.Scoping.ImportContextAware
+    name: ImportContextAware
+  - uid: IdeaStatiCa.BimApiLink.Scoping.IScope
+    name: IScope
+  - uid: IdeaStatiCa.BimApiLink.Scoping.IScopeProvider
+    name: IScopeProvider
+  - uid: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+    name: ScopeAwareObject
+- uid: IdeaStatiCa.BimApiLink.Utils
+  name: IdeaStatiCa.BimApiLink.Utils
+  items:
+  - uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+    name: CrossSectionFactoryHelper
+  - uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
+    name: DoubleExtensions
+  - uid: IdeaStatiCa.BimApiLink.Utils.WindowVisibilityHelper
+    name: WindowVisibilityHelper
+memberLayout: SamePage

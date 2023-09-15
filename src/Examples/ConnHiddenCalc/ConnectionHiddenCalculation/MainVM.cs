@@ -96,6 +96,7 @@ namespace ConnectionHiddenCalculation
 			SaveProjectCmd = new SaveProjectCommand(this);
 			ConnectionToTemplateCmd = new ConnectionToTemplateCommand(this);
 			ApplyTemplateCmd = new ApplyTemplateCommand(this);
+			DeleteOperationsCmd = new DeleteAllOperationsCommand(this);
 			GenerateReportCmd = new GenerateReportCommand(this);
 
 			GetConnectionCostCmd = new GetConnectionCostCommand(this);
@@ -147,6 +148,7 @@ namespace ConnectionHiddenCalculation
 		public ICommand GetLoadingCmd { get; set; }
 		public ICommand GetConnCheckResultsCmd { get; set; }
 		public ICommand OpenTempProjectCmd { get; set; }
+		public ICommand DeleteOperationsCmd { get;set; }
 		public ICommand GenerateReportCmd { get; set; }
 
 		#endregion

@@ -30,6 +30,12 @@ namespace IdeaStatiCa.BimApiLink.Utils
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static double MetersToInches(this double val)
+		{
+			return val / 0.0254;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double KipsToNewtons(this double val)
 		{
 			return val * 4448.2216;

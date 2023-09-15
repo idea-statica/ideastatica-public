@@ -1,0 +1,487 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaModel
+  commentId: T:IdeaStatiCa.BimApi.IIdeaModel
+  id: IIdeaModel
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection
+  - IdeaStatiCa.BimApi.IIdeaModel.GetLoads
+  - IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  - IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings
+  - IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection
+  - IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel
+  langs:
+  - csharp
+  - vb
+  name: IIdeaModel
+  nameWithType: IIdeaModel
+  fullName: IdeaStatiCa.BimApi.IIdeaModel
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaModel
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Model for project to import.
+  example: []
+  syntax:
+    content: public interface IIdeaModel
+    content.vb: Public Interface IIdeaModel
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  id: GetMembers
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetMembers()
+  nameWithType: IIdeaModel.GetMembers()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetMembers()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetMembers
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Returns a set of all members in the model.
+  example: []
+  syntax:
+    content: ISet<IIdeaMember1D> GetMembers()
+    return:
+      type: System.Collections.Generic.ISet{IdeaStatiCa.BimApi.IIdeaMember1D}
+      description: Set of all members in the model.
+    content.vb: Function GetMembers() As ISet(Of IIdeaMember1D)
+  overload: IdeaStatiCa.BimApi.IIdeaModel.GetMembers*
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel
+  id: GetWholeModel
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetWholeModel()
+  nameWithType: IIdeaModel.GetWholeModel()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetWholeModel
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Returns nodes and/or members from whole model. At least one of the sets must be non-empty
+
+    unless the user did not select anything. Set of returned members must be a
+
+    subset of <xref href="IdeaStatiCa.BimApi.IIdeaModel.GetMembers" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: BulkSelection GetWholeModel()
+    return:
+      type: IdeaStatiCa.BimApi.BulkSelection
+    content.vb: Function GetWholeModel() As BulkSelection
+  overload: IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel*
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection
+  id: GetBulkSelection
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetBulkSelection()
+  nameWithType: IIdeaModel.GetBulkSelection()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetBulkSelection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Returns currently selected nodes and/or members. At least one of the sets must be non-empty
+
+    unless the user did not select anything. Set of returned members must be a
+
+    subset of <xref href="IdeaStatiCa.BimApi.IIdeaModel.GetMembers" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: BulkSelection GetBulkSelection()
+    return:
+      type: IdeaStatiCa.BimApi.BulkSelection
+    content.vb: Function GetBulkSelection() As BulkSelection
+  overload: IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection*
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection
+  id: GetSingleSelection
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetSingleSelection()
+  nameWithType: IIdeaModel.GetSingleSelection()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetSingleSelection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 35
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Returns currently selected node and/or member. At least one of the sets must be non-empty
+
+    unless the user did not select anything.Set of returned members must be a
+
+    subset of <xref href="IdeaStatiCa.BimApi.IIdeaModel.GetMembers" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: SingleSelection GetSingleSelection()
+    return:
+      type: IdeaStatiCa.BimApi.SingleSelection
+    content.vb: Function GetSingleSelection() As SingleSelection
+  overload: IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection*
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings
+  id: GetOriginSettings
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetOriginSettings()
+  nameWithType: IIdeaModel.GetOriginSettings()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetOriginSettings
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 41
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Returns information from the original application about the project this class refers to.
+  example: []
+  syntax:
+    content: OriginSettings GetOriginSettings()
+    return:
+      type: IdeaRS.OpenModel.OriginSettings
+      description: Project information
+    content.vb: Function GetOriginSettings() As OriginSettings
+  overload: IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings*
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetLoads
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetLoads
+  id: GetLoads
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  langs:
+  - csharp
+  - vb
+  name: GetLoads()
+  nameWithType: IIdeaModel.GetLoads()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetLoads()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaModel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetLoads
+    path: ../src/IdeaStatiCa.BimApi/IIdeaModel.cs
+    startLine: 47
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Returns a set of all loads in the model.
+  example: []
+  syntax:
+    content: ISet<IIdeaLoading> GetLoads()
+    return:
+      type: System.Collections.Generic.ISet{IdeaStatiCa.BimApi.IIdeaLoading}
+      description: Set of all loads in the model.
+    content.vb: Function GetLoads() As ISet(Of IIdeaLoading)
+  overload: IdeaStatiCa.BimApi.IIdeaModel.GetLoads*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetMembers*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  name: GetMembers
+  nameWithType: IIdeaModel.GetMembers
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+- uid: System.Collections.Generic.ISet{IdeaStatiCa.BimApi.IIdeaMember1D}
+  commentId: T:System.Collections.Generic.ISet{IdeaStatiCa.BimApi.IIdeaMember1D}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.ISet`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  name: ISet<IIdeaMember1D>
+  nameWithType: ISet<IIdeaMember1D>
+  fullName: System.Collections.Generic.ISet<IdeaStatiCa.BimApi.IIdeaMember1D>
+  nameWithType.vb: ISet(Of IIdeaMember1D)
+  fullName.vb: System.Collections.Generic.ISet(Of IdeaStatiCa.BimApi.IIdeaMember1D)
+  name.vb: ISet(Of IIdeaMember1D)
+  spec.csharp:
+  - uid: System.Collections.Generic.ISet`1
+    name: ISet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+    href: IdeaStatiCa.BimApi.IIdeaMember1D.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ISet`1
+    name: ISet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+    href: IdeaStatiCa.BimApi.IIdeaMember1D.html
+  - name: )
+- uid: System.Collections.Generic.ISet`1
+  commentId: T:System.Collections.Generic.ISet`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  name: ISet<T>
+  nameWithType: ISet<T>
+  fullName: System.Collections.Generic.ISet<T>
+  nameWithType.vb: ISet(Of T)
+  fullName.vb: System.Collections.Generic.ISet(Of T)
+  name.vb: ISet(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.ISet`1
+    name: ISet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ISet`1
+    name: ISet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  commentId: M:IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  parent: IdeaStatiCa.BimApi.IIdeaModel
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  name: GetMembers()
+  nameWithType: IIdeaModel.GetMembers()
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetMembers()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+    name: GetMembers
+    href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+    name: GetMembers
+    href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetMembers
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel
+  name: GetWholeModel
+  nameWithType: IIdeaModel.GetWholeModel
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetWholeModel
+- uid: IdeaStatiCa.BimApi.BulkSelection
+  commentId: T:IdeaStatiCa.BimApi.BulkSelection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.BulkSelection.html
+  name: BulkSelection
+  nameWithType: BulkSelection
+  fullName: IdeaStatiCa.BimApi.BulkSelection
+- uid: IdeaStatiCa.BimApi.IIdeaModel
+  commentId: T:IdeaStatiCa.BimApi.IIdeaModel
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaModel.html
+  name: IIdeaModel
+  nameWithType: IIdeaModel
+  fullName: IdeaStatiCa.BimApi.IIdeaModel
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection
+  name: GetBulkSelection
+  nameWithType: IIdeaModel.GetBulkSelection
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetBulkSelection
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection
+  name: GetSingleSelection
+  nameWithType: IIdeaModel.GetSingleSelection
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetSingleSelection
+- uid: IdeaStatiCa.BimApi.SingleSelection
+  commentId: T:IdeaStatiCa.BimApi.SingleSelection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.SingleSelection.html
+  name: SingleSelection
+  nameWithType: SingleSelection
+  fullName: IdeaStatiCa.BimApi.SingleSelection
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings
+  name: GetOriginSettings
+  nameWithType: IIdeaModel.GetOriginSettings
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetOriginSettings
+- uid: IdeaRS.OpenModel.OriginSettings
+  commentId: T:IdeaRS.OpenModel.OriginSettings
+  parent: IdeaRS.OpenModel
+  name: OriginSettings
+  nameWithType: OriginSettings
+  fullName: IdeaRS.OpenModel.OriginSettings
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: IdeaStatiCa.BimApi.IIdeaModel.GetLoads*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaModel.GetLoads
+  href: IdeaStatiCa.BimApi.IIdeaModel.html#IdeaStatiCa.BimApi.IIdeaModel.GetLoads
+  name: GetLoads
+  nameWithType: IIdeaModel.GetLoads
+  fullName: IdeaStatiCa.BimApi.IIdeaModel.GetLoads
+- uid: System.Collections.Generic.ISet{IdeaStatiCa.BimApi.IIdeaLoading}
+  commentId: T:System.Collections.Generic.ISet{IdeaStatiCa.BimApi.IIdeaLoading}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.ISet`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  name: ISet<IIdeaLoading>
+  nameWithType: ISet<IIdeaLoading>
+  fullName: System.Collections.Generic.ISet<IdeaStatiCa.BimApi.IIdeaLoading>
+  nameWithType.vb: ISet(Of IIdeaLoading)
+  fullName.vb: System.Collections.Generic.ISet(Of IdeaStatiCa.BimApi.IIdeaLoading)
+  name.vb: ISet(Of IIdeaLoading)
+  spec.csharp:
+  - uid: System.Collections.Generic.ISet`1
+    name: ISet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaLoading
+    name: IIdeaLoading
+    href: IdeaStatiCa.BimApi.IIdeaLoading.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.ISet`1
+    name: ISet
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.iset-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaLoading
+    name: IIdeaLoading
+    href: IdeaStatiCa.BimApi.IIdeaLoading.html
+  - name: )

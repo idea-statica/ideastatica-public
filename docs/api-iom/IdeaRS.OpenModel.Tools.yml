@@ -1,0 +1,900 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Tools
+  commentId: T:IdeaRS.OpenModel.Tools
+  id: Tools
+  parent: IdeaRS.OpenModel
+  children:
+  - IdeaRS.OpenModel.Tools.ConnectionDataFromXml(System.String)
+  - IdeaRS.OpenModel.Tools.ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData)
+  - IdeaRS.OpenModel.Tools.DeserializeModelFromFile``1(System.String)
+  - IdeaRS.OpenModel.Tools.DeserializeModelFromStream``1(System.IO.Stream)
+  - IdeaRS.OpenModel.Tools.DeserializeModel``1(System.String)
+  - IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(System.String)
+  - IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(System.String)
+  - IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer,System.String)
+  - IdeaRS.OpenModel.Tools.OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer)
+  - IdeaRS.OpenModel.Tools.SerializeModelToFile``1(``0,System.String)
+  - IdeaRS.OpenModel.Tools.SerializeModel``1(``0)
+  langs:
+  - csharp
+  - vb
+  name: Tools
+  nameWithType: Tools
+  fullName: IdeaRS.OpenModel.Tools
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Tools
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 8
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  syntax:
+    content: public static class Tools
+    content.vb: Public Module Tools
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer)
+  commentId: M:IdeaRS.OpenModel.Tools.OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer)
+  id: OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: OpenModelContainerToXml(OpenModelContainer)
+  nameWithType: Tools.OpenModelContainerToXml(OpenModelContainer)
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenModelContainerToXml
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Serialize OpenModelContainer to Xml
+  example: []
+  syntax:
+    content: public static string OpenModelContainerToXml(OpenModelContainer model)
+    parameters:
+    - id: model
+      type: IdeaRS.OpenModel.OpenModelContainer
+      description: ''
+    return:
+      type: System.String
+      description: ''
+    content.vb: Public Shared Function OpenModelContainerToXml(model As OpenModelContainer) As String
+  overload: IdeaRS.OpenModel.Tools.OpenModelContainerToXml*
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(System.String)
+  id: OpenModelContainerFromXml(System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: OpenModelContainerFromXml(string)
+  nameWithType: Tools.OpenModelContainerFromXml(string)
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenModelContainerFromXml
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Deserialize OpenModelContainer from Xml
+  example: []
+  syntax:
+    content: public static OpenModelContainer OpenModelContainerFromXml(string xml)
+    parameters:
+    - id: xml
+      type: System.String
+      description: ''
+    return:
+      type: IdeaRS.OpenModel.OpenModelContainer
+      description: ''
+    content.vb: Public Shared Function OpenModelContainerFromXml(xml As String) As OpenModelContainer
+  overload: IdeaRS.OpenModel.Tools.OpenModelContainerFromXml*
+  nameWithType.vb: Tools.OpenModelContainerFromXml(String)
+  fullName.vb: IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(String)
+  name.vb: OpenModelContainerFromXml(String)
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer,System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer,System.String)
+  id: OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer,System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: OpenModelContainerToFile(OpenModelContainer, string)
+  nameWithType: Tools.OpenModelContainerToFile(OpenModelContainer, string)
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenModelContainerToFile
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 42
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Serialize OpenModelContainer to File
+  example: []
+  syntax:
+    content: public static void OpenModelContainerToFile(OpenModelContainer model, string filePath)
+    parameters:
+    - id: model
+      type: IdeaRS.OpenModel.OpenModelContainer
+      description: ''
+    - id: filePath
+      type: System.String
+    content.vb: Public Shared Sub OpenModelContainerToFile(model As OpenModelContainer, filePath As String)
+  overload: IdeaRS.OpenModel.Tools.OpenModelContainerToFile*
+  nameWithType.vb: Tools.OpenModelContainerToFile(OpenModelContainer, String)
+  fullName.vb: IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer, String)
+  name.vb: OpenModelContainerToFile(OpenModelContainer, String)
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(System.String)
+  id: OpenModelContainerFromFile(System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: OpenModelContainerFromFile(string)
+  nameWithType: Tools.OpenModelContainerFromFile(string)
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenModelContainerFromFile
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 52
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Deserialize OpenModelContainer from file
+  example: []
+  syntax:
+    content: public static OpenModelContainer OpenModelContainerFromFile(string filePath)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: ''
+    return:
+      type: IdeaRS.OpenModel.OpenModelContainer
+      description: ''
+    content.vb: Public Shared Function OpenModelContainerFromFile(filePath As String) As OpenModelContainer
+  overload: IdeaRS.OpenModel.Tools.OpenModelContainerFromFile*
+  nameWithType.vb: Tools.OpenModelContainerFromFile(String)
+  fullName.vb: IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(String)
+  name.vb: OpenModelContainerFromFile(String)
+- uid: IdeaRS.OpenModel.Tools.ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData)
+  commentId: M:IdeaRS.OpenModel.Tools.ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData)
+  id: ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: ConnectionDataToXml(ConnectionData)
+  nameWithType: Tools.ConnectionDataToXml(ConnectionData)
+  fullName: IdeaRS.OpenModel.Tools.ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectionDataToXml
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 69
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Serialize ConnectionData to xml
+  example: []
+  syntax:
+    content: public static string ConnectionDataToXml(ConnectionData model)
+    parameters:
+    - id: model
+      type: IdeaRS.OpenModel.Connection.ConnectionData
+      description: ''
+    return:
+      type: System.String
+      description: ''
+    content.vb: Public Shared Function ConnectionDataToXml(model As ConnectionData) As String
+  overload: IdeaRS.OpenModel.Tools.ConnectionDataToXml*
+- uid: IdeaRS.OpenModel.Tools.ConnectionDataFromXml(System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.ConnectionDataFromXml(System.String)
+  id: ConnectionDataFromXml(System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: ConnectionDataFromXml(string)
+  nameWithType: Tools.ConnectionDataFromXml(string)
+  fullName: IdeaRS.OpenModel.Tools.ConnectionDataFromXml(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectionDataFromXml
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 79
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Deserialize ConnectionData from xml
+  example: []
+  syntax:
+    content: public static ConnectionData ConnectionDataFromXml(string xml)
+    parameters:
+    - id: xml
+      type: System.String
+      description: ''
+    return:
+      type: IdeaRS.OpenModel.Connection.ConnectionData
+      description: ''
+    content.vb: Public Shared Function ConnectionDataFromXml(xml As String) As ConnectionData
+  overload: IdeaRS.OpenModel.Tools.ConnectionDataFromXml*
+  nameWithType.vb: Tools.ConnectionDataFromXml(String)
+  fullName.vb: IdeaRS.OpenModel.Tools.ConnectionDataFromXml(String)
+  name.vb: ConnectionDataFromXml(String)
+- uid: IdeaRS.OpenModel.Tools.SerializeModelToFile``1(``0,System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.SerializeModelToFile``1(``0,System.String)
+  id: SerializeModelToFile``1(``0,System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: SerializeModelToFile<T>(T, string)
+  nameWithType: Tools.SerializeModelToFile<T>(T, string)
+  fullName: IdeaRS.OpenModel.Tools.SerializeModelToFile<T>(T, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SerializeModelToFile
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 91
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Serialize Model
+  example: []
+  syntax:
+    content: public static void SerializeModelToFile<T>(T model, string filePath)
+    parameters:
+    - id: model
+      type: '{T}'
+      description: instance of model
+    - id: filePath
+      type: System.String
+      description: File path
+    typeParameters:
+    - id: T
+      description: Type of model
+    content.vb: Public Shared Sub SerializeModelToFile(Of T)(model As T, filePath As String)
+  overload: IdeaRS.OpenModel.Tools.SerializeModelToFile*
+  nameWithType.vb: Tools.SerializeModelToFile(Of T)(T, String)
+  fullName.vb: IdeaRS.OpenModel.Tools.SerializeModelToFile(Of T)(T, String)
+  name.vb: SerializeModelToFile(Of T)(T, String)
+- uid: IdeaRS.OpenModel.Tools.SerializeModel``1(``0)
+  commentId: M:IdeaRS.OpenModel.Tools.SerializeModel``1(``0)
+  id: SerializeModel``1(``0)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: SerializeModel<T>(T)
+  nameWithType: Tools.SerializeModel<T>(T)
+  fullName: IdeaRS.OpenModel.Tools.SerializeModel<T>(T)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SerializeModel
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 105
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Serialize Model
+  example: []
+  syntax:
+    content: public static string SerializeModel<T>(T model)
+    parameters:
+    - id: model
+      type: '{T}'
+      description: instance of model
+    typeParameters:
+    - id: T
+      description: Type of model
+    return:
+      type: System.String
+      description: Serialize model in string
+    content.vb: Public Shared Function SerializeModel(Of T)(model As T) As String
+  overload: IdeaRS.OpenModel.Tools.SerializeModel*
+  nameWithType.vb: Tools.SerializeModel(Of T)(T)
+  fullName.vb: IdeaRS.OpenModel.Tools.SerializeModel(Of T)(T)
+  name.vb: SerializeModel(Of T)(T)
+- uid: IdeaRS.OpenModel.Tools.DeserializeModel``1(System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.DeserializeModel``1(System.String)
+  id: DeserializeModel``1(System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: DeserializeModel<T>(string)
+  nameWithType: Tools.DeserializeModel<T>(string)
+  fullName: IdeaRS.OpenModel.Tools.DeserializeModel<T>(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeserializeModel
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 120
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Deserialize Model
+  example: []
+  syntax:
+    content: public static T DeserializeModel<T>(string xml)
+    parameters:
+    - id: xml
+      type: System.String
+      description: Serialize model in string
+    typeParameters:
+    - id: T
+      description: Type of model
+    return:
+      type: '{T}'
+      description: Deserialize instance model
+    content.vb: Public Shared Function DeserializeModel(Of T)(xml As String) As T
+  overload: IdeaRS.OpenModel.Tools.DeserializeModel*
+  nameWithType.vb: Tools.DeserializeModel(Of T)(String)
+  fullName.vb: IdeaRS.OpenModel.Tools.DeserializeModel(Of T)(String)
+  name.vb: DeserializeModel(Of T)(String)
+- uid: IdeaRS.OpenModel.Tools.DeserializeModelFromFile``1(System.String)
+  commentId: M:IdeaRS.OpenModel.Tools.DeserializeModelFromFile``1(System.String)
+  id: DeserializeModelFromFile``1(System.String)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: DeserializeModelFromFile<T>(string)
+  nameWithType: Tools.DeserializeModelFromFile<T>(string)
+  fullName: IdeaRS.OpenModel.Tools.DeserializeModelFromFile<T>(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeserializeModelFromFile
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 142
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Creates the instance from the XML file
+  example: []
+  syntax:
+    content: public static T DeserializeModelFromFile<T>(string xmlFileName)
+    parameters:
+    - id: xmlFileName
+      type: System.String
+      description: XML file name
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+      description: Deserialize instance model
+    content.vb: Public Shared Function DeserializeModelFromFile(Of T)(xmlFileName As String) As T
+  overload: IdeaRS.OpenModel.Tools.DeserializeModelFromFile*
+  nameWithType.vb: Tools.DeserializeModelFromFile(Of T)(String)
+  fullName.vb: IdeaRS.OpenModel.Tools.DeserializeModelFromFile(Of T)(String)
+  name.vb: DeserializeModelFromFile(Of T)(String)
+- uid: IdeaRS.OpenModel.Tools.DeserializeModelFromStream``1(System.IO.Stream)
+  commentId: M:IdeaRS.OpenModel.Tools.DeserializeModelFromStream``1(System.IO.Stream)
+  id: DeserializeModelFromStream``1(System.IO.Stream)
+  parent: IdeaRS.OpenModel.Tools
+  langs:
+  - csharp
+  - vb
+  name: DeserializeModelFromStream<T>(Stream)
+  nameWithType: Tools.DeserializeModelFromStream<T>(Stream)
+  fullName: IdeaRS.OpenModel.Tools.DeserializeModelFromStream<T>(System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Tools.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeserializeModelFromStream
+    path: ../src/IdeaRS.OpenModel/Tools.cs
+    startLine: 155
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Deserialize Model from stream
+  example: []
+  syntax:
+    content: public static T DeserializeModelFromStream<T>(Stream stream)
+    parameters:
+    - id: stream
+      type: System.IO.Stream
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: '{T}'
+      description: '>Deserialize instance model'
+    content.vb: Public Shared Function DeserializeModelFromStream(Of T)(stream As Stream) As T
+  overload: IdeaRS.OpenModel.Tools.DeserializeModelFromStream*
+  nameWithType.vb: Tools.DeserializeModelFromStream(Of T)(Stream)
+  fullName.vb: IdeaRS.OpenModel.Tools.DeserializeModelFromStream(Of T)(System.IO.Stream)
+  name.vb: DeserializeModelFromStream(Of T)(Stream)
+references:
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerToXml*
+  commentId: Overload:IdeaRS.OpenModel.Tools.OpenModelContainerToXml
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.OpenModelContainerToXml(IdeaRS.OpenModel.OpenModelContainer)
+  name: OpenModelContainerToXml
+  nameWithType: Tools.OpenModelContainerToXml
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerToXml
+- uid: IdeaRS.OpenModel.OpenModelContainer
+  commentId: T:IdeaRS.OpenModel.OpenModelContainer
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenModelContainer.html
+  name: OpenModelContainer
+  nameWithType: OpenModelContainer
+  fullName: IdeaRS.OpenModel.OpenModelContainer
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerFromXml*
+  commentId: Overload:IdeaRS.OpenModel.Tools.OpenModelContainerFromXml
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.OpenModelContainerFromXml(System.String)
+  name: OpenModelContainerFromXml
+  nameWithType: Tools.OpenModelContainerFromXml
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerFromXml
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerToFile*
+  commentId: Overload:IdeaRS.OpenModel.Tools.OpenModelContainerToFile
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.OpenModelContainerToFile(IdeaRS.OpenModel.OpenModelContainer,System.String)
+  name: OpenModelContainerToFile
+  nameWithType: Tools.OpenModelContainerToFile
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerToFile
+- uid: IdeaRS.OpenModel.Tools.OpenModelContainerFromFile*
+  commentId: Overload:IdeaRS.OpenModel.Tools.OpenModelContainerFromFile
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(System.String)
+  name: OpenModelContainerFromFile
+  nameWithType: Tools.OpenModelContainerFromFile
+  fullName: IdeaRS.OpenModel.Tools.OpenModelContainerFromFile
+- uid: IdeaRS.OpenModel.Tools.ConnectionDataToXml*
+  commentId: Overload:IdeaRS.OpenModel.Tools.ConnectionDataToXml
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.ConnectionDataToXml(IdeaRS.OpenModel.Connection.ConnectionData)
+  name: ConnectionDataToXml
+  nameWithType: Tools.ConnectionDataToXml
+  fullName: IdeaRS.OpenModel.Tools.ConnectionDataToXml
+- uid: IdeaRS.OpenModel.Connection.ConnectionData
+  commentId: T:IdeaRS.OpenModel.Connection.ConnectionData
+  parent: IdeaRS.OpenModel.Connection
+  href: IdeaRS.OpenModel.Connection.ConnectionData.html
+  name: ConnectionData
+  nameWithType: ConnectionData
+  fullName: IdeaRS.OpenModel.Connection.ConnectionData
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: IdeaRS.OpenModel.Tools.ConnectionDataFromXml*
+  commentId: Overload:IdeaRS.OpenModel.Tools.ConnectionDataFromXml
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.ConnectionDataFromXml(System.String)
+  name: ConnectionDataFromXml
+  nameWithType: Tools.ConnectionDataFromXml
+  fullName: IdeaRS.OpenModel.Tools.ConnectionDataFromXml
+- uid: IdeaRS.OpenModel.Tools.SerializeModelToFile*
+  commentId: Overload:IdeaRS.OpenModel.Tools.SerializeModelToFile
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.SerializeModelToFile``1(``0,System.String)
+  name: SerializeModelToFile
+  nameWithType: Tools.SerializeModelToFile
+  fullName: IdeaRS.OpenModel.Tools.SerializeModelToFile
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: IdeaRS.OpenModel.Tools.SerializeModel*
+  commentId: Overload:IdeaRS.OpenModel.Tools.SerializeModel
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.SerializeModel``1(``0)
+  name: SerializeModel
+  nameWithType: Tools.SerializeModel
+  fullName: IdeaRS.OpenModel.Tools.SerializeModel
+- uid: IdeaRS.OpenModel.Tools.DeserializeModel*
+  commentId: Overload:IdeaRS.OpenModel.Tools.DeserializeModel
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.DeserializeModel``1(System.String)
+  name: DeserializeModel
+  nameWithType: Tools.DeserializeModel
+  fullName: IdeaRS.OpenModel.Tools.DeserializeModel
+- uid: IdeaRS.OpenModel.Tools.DeserializeModelFromFile*
+  commentId: Overload:IdeaRS.OpenModel.Tools.DeserializeModelFromFile
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.DeserializeModelFromFile``1(System.String)
+  name: DeserializeModelFromFile
+  nameWithType: Tools.DeserializeModelFromFile
+  fullName: IdeaRS.OpenModel.Tools.DeserializeModelFromFile
+- uid: IdeaRS.OpenModel.Tools.DeserializeModelFromStream*
+  commentId: Overload:IdeaRS.OpenModel.Tools.DeserializeModelFromStream
+  href: IdeaRS.OpenModel.Tools.html#IdeaRS.OpenModel.Tools.DeserializeModelFromStream``1(System.IO.Stream)
+  name: DeserializeModelFromStream
+  nameWithType: Tools.DeserializeModelFromStream
+  fullName: IdeaRS.OpenModel.Tools.DeserializeModelFromStream
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io

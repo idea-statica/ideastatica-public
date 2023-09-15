@@ -1,0 +1,599 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  commentId: T:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  id: IdeaUserEventImplementation
+  parent: IdeaStatiCa.BimApiLink.Plugin
+  children:
+  - IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+  - IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+  - IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+  - IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+  - IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+  langs:
+  - csharp
+  - vb
+  name: IdeaUserEventImplementation
+  nameWithType: IdeaUserEventImplementation
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaUserEventImplementation
+    path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Implementation class. Don't use directly, but call from the derived classes
+  example: []
+  syntax:
+    content: 'public abstract class IdeaUserEventImplementation : IIdeaUserEvent'
+    content.vb: Public MustInherit Class IdeaUserEventImplementation Implements IIdeaUserEvent
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - IdeaStatiCa.BimApiLink.Plugin.BimConnectionsImportEvent
+  - IdeaStatiCa.BimApiLink.Plugin.BimConnectionsSynchronizeEvent
+  - IdeaStatiCa.BimApiLink.Plugin.BimPluginCommandEvent
+  implements:
+  - IdeaStatiCa.Public.IIdeaUserEvent
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+  commentId: P:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+  id: EventCategory
+  parent: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  langs:
+  - csharp
+  - vb
+  name: EventCategory
+  nameWithType: IdeaUserEventImplementation.EventCategory
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EventCategory
+    path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Event category for the 'ec' Google Analytics parameter. Use one of the predefined categories. Must not be null.
+  example: []
+  syntax:
+    content: public string EventCategory { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property EventCategory As String
+  overload: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory*
+  implements:
+  - IdeaStatiCa.Public.IIdeaUserEvent.EventCategory
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+  commentId: P:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+  id: EventName
+  parent: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  langs:
+  - csharp
+  - vb
+  name: EventName
+  nameWithType: IdeaUserEventImplementation.EventName
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EventName
+    path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Unique event type identifier, lower case, underscore-seprated string. For example "navigation_click", "cb_publish", etc.
+  remarks: Used for cross platform correlation of the event data in the Google Analuytics 4
+  example: []
+  syntax:
+    content: public string EventName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property EventName As String
+  overload: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName*
+  implements:
+  - IdeaStatiCa.Public.IIdeaUserEvent.EventName
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+  commentId: P:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+  id: EventAction
+  parent: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  langs:
+  - csharp
+  - vb
+  name: EventAction
+  nameWithType: IdeaUserEventImplementation.EventAction
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EventAction
+    path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: >-
+    Event action for the 'ea' Google Analytics parameter. Use the verb form, for example "Started application", "application started", 
+
+    "clicked ribbon tab Design", "clicked ribbon command Calculate", "opened connection project", etc.
+  example: []
+  syntax:
+    content: public string EventAction { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property EventAction As String
+  overload: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction*
+  implements:
+  - IdeaStatiCa.Public.IIdeaUserEvent.EventAction
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+  commentId: P:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+  id: EventLabel
+  parent: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  langs:
+  - csharp
+  - vb
+  name: EventLabel
+  nameWithType: IdeaUserEventImplementation.EventLabel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EventLabel
+    path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: >-
+    Event label for the 'el' Google Analytics parameter that specifies the additional event dimension. Can contain name of button, type of project, 
+
+    etc. Can be null.
+  example: []
+  syntax:
+    content: public string EventLabel { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property EventLabel As String
+  overload: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel*
+  implements:
+  - IdeaStatiCa.Public.IIdeaUserEvent.EventLabel
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+  commentId: P:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+  id: EventValue
+  parent: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation
+  langs:
+  - csharp
+  - vb
+  name: EventValue
+  nameWithType: IdeaUserEventImplementation.EventValue
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EventValue
+    path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: >-
+    Event value for the 'ev' Google Analytics parameter that specifies the numeric value of the event. Can contain the projects or connections count
+
+    or anything else that might be interesting to aggregate in the reports. Can be 0, means no value.
+  example: []
+  syntax:
+    content: public int EventValue { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property EventValue As Integer
+  overload: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue*
+  implements:
+  - IdeaStatiCa.Public.IIdeaUserEvent.EventValue
+references:
+- uid: IdeaStatiCa.BimApiLink.Plugin
+  commentId: N:IdeaStatiCa.BimApiLink.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Plugin
+  nameWithType: IdeaStatiCa.BimApiLink.Plugin
+  fullName: IdeaStatiCa.BimApiLink.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Plugin
+    name: Plugin
+    href: IdeaStatiCa.BimApiLink.Plugin.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.Public.IIdeaUserEvent
+  commentId: T:IdeaStatiCa.Public.IIdeaUserEvent
+  parent: IdeaStatiCa.Public
+  name: IIdeaUserEvent
+  nameWithType: IIdeaUserEvent
+  fullName: IdeaStatiCa.Public.IIdeaUserEvent
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Public
+  commentId: N:IdeaStatiCa.Public
+  name: IdeaStatiCa.Public
+  nameWithType: IdeaStatiCa.Public
+  fullName: IdeaStatiCa.Public
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+  href: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.html#IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+  name: EventCategory
+  nameWithType: IdeaUserEventImplementation.EventCategory
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventCategory
+- uid: IdeaStatiCa.Public.IIdeaUserEvent.EventCategory
+  commentId: P:IdeaStatiCa.Public.IIdeaUserEvent.EventCategory
+  parent: IdeaStatiCa.Public.IIdeaUserEvent
+  name: EventCategory
+  nameWithType: IIdeaUserEvent.EventCategory
+  fullName: IdeaStatiCa.Public.IIdeaUserEvent.EventCategory
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+  href: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.html#IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+  name: EventName
+  nameWithType: IdeaUserEventImplementation.EventName
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventName
+- uid: IdeaStatiCa.Public.IIdeaUserEvent.EventName
+  commentId: P:IdeaStatiCa.Public.IIdeaUserEvent.EventName
+  parent: IdeaStatiCa.Public.IIdeaUserEvent
+  name: EventName
+  nameWithType: IIdeaUserEvent.EventName
+  fullName: IdeaStatiCa.Public.IIdeaUserEvent.EventName
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+  href: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.html#IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+  name: EventAction
+  nameWithType: IdeaUserEventImplementation.EventAction
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventAction
+- uid: IdeaStatiCa.Public.IIdeaUserEvent.EventAction
+  commentId: P:IdeaStatiCa.Public.IIdeaUserEvent.EventAction
+  parent: IdeaStatiCa.Public.IIdeaUserEvent
+  name: EventAction
+  nameWithType: IIdeaUserEvent.EventAction
+  fullName: IdeaStatiCa.Public.IIdeaUserEvent.EventAction
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+  href: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.html#IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+  name: EventLabel
+  nameWithType: IdeaUserEventImplementation.EventLabel
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventLabel
+- uid: IdeaStatiCa.Public.IIdeaUserEvent.EventLabel
+  commentId: P:IdeaStatiCa.Public.IIdeaUserEvent.EventLabel
+  parent: IdeaStatiCa.Public.IIdeaUserEvent
+  name: EventLabel
+  nameWithType: IIdeaUserEvent.EventLabel
+  fullName: IdeaStatiCa.Public.IIdeaUserEvent.EventLabel
+- uid: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+  href: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.html#IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+  name: EventValue
+  nameWithType: IdeaUserEventImplementation.EventValue
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IdeaUserEventImplementation.EventValue
+- uid: IdeaStatiCa.Public.IIdeaUserEvent.EventValue
+  commentId: P:IdeaStatiCa.Public.IIdeaUserEvent.EventValue
+  parent: IdeaStatiCa.Public.IIdeaUserEvent
+  name: EventValue
+  nameWithType: IIdeaUserEvent.EventValue
+  fullName: IdeaStatiCa.Public.IIdeaUserEvent.EventValue
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

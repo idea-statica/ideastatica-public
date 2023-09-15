@@ -1,0 +1,193 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  id: IImporterHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  children:
+  - IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  - IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier,IdeaStatiCa.BimApi.IIdeaObject)
+  langs:
+  - csharp
+  - vb
+  name: IImporterHook
+  nameWithType: IImporterHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IImporterHook
+    path: ../src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Hooks
+  syntax:
+    content: public interface IImporterHook
+    content.vb: Public Interface IImporterHook
+- uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  commentId: M:IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  id: EnterCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  parent: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  langs:
+  - csharp
+  - vb
+  name: EnterCreate(IIdentifier)
+  nameWithType: IImporterHook.EnterCreate(IIdentifier)
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EnterCreate
+    path: ../src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Hooks
+  syntax:
+    content: void EnterCreate(IIdentifier identifier)
+    parameters:
+    - id: identifier
+      type: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    content.vb: Sub EnterCreate(identifier As IIdentifier)
+  overload: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate*
+- uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier,IdeaStatiCa.BimApi.IIdeaObject)
+  commentId: M:IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier,IdeaStatiCa.BimApi.IIdeaObject)
+  id: ExitCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier,IdeaStatiCa.BimApi.IIdeaObject)
+  parent: IdeaStatiCa.BimApiLink.Hooks.IImporterHook
+  langs:
+  - csharp
+  - vb
+  name: ExitCreate(IIdentifier, IIdeaObject)
+  nameWithType: IImporterHook.ExitCreate(IIdentifier, IIdeaObject)
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier, IdeaStatiCa.BimApi.IIdeaObject)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExitCreate
+    path: ../src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Hooks
+  syntax:
+    content: void ExitCreate(IIdentifier identifier, IIdeaObject ideaObject)
+    parameters:
+    - id: identifier
+      type: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    - id: ideaObject
+      type: IdeaStatiCa.BimApi.IIdeaObject
+    content.vb: Sub ExitCreate(identifier As IIdentifier, ideaObject As IIdeaObject)
+  overload: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate*
+references:
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  commentId: N:IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Hooks
+  nameWithType: IdeaStatiCa.BimApiLink.Hooks
+  fullName: IdeaStatiCa.BimApiLink.Hooks
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+- uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate
+  href: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.html#IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  name: EnterCreate
+  nameWithType: IImporterHook.EnterCreate
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.EnterCreate
+- uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+  parent: IdeaStatiCa.BimApiLink.Identifiers
+  href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  name: IIdentifier
+  nameWithType: IIdentifier
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+- uid: IdeaStatiCa.BimApiLink.Identifiers
+  commentId: N:IdeaStatiCa.BimApiLink.Identifiers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Identifiers
+  nameWithType: IdeaStatiCa.BimApiLink.Identifiers
+  fullName: IdeaStatiCa.BimApiLink.Identifiers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+- uid: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate
+  href: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.html#IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier,IdeaStatiCa.BimApi.IIdeaObject)
+  name: ExitCreate
+  nameWithType: IImporterHook.ExitCreate
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IImporterHook.ExitCreate
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi

@@ -1,0 +1,245 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.IScope
+  id: IScope
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  children:
+  - IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  - IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  - IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  langs:
+  - csharp
+  - vb
+  name: IScope
+  nameWithType: IScope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IScope
+    path: ../src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: public interface IScope
+    content.vb: Public Interface IScope
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  id: BimApiImporter
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScope
+  langs:
+  - csharp
+  - vb
+  name: BimApiImporter
+  nameWithType: IScope.BimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BimApiImporter
+    path: ../src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: IBimApiImporter BimApiImporter { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+    content.vb: ReadOnly Property BimApiImporter As IBimApiImporter
+  overload: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter*
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  id: CountryCode
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScope
+  langs:
+  - csharp
+  - vb
+  name: CountryCode
+  nameWithType: IScope.CountryCode
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CountryCode
+    path: ../src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: CountryCode CountryCode { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CountryCode
+    content.vb: ReadOnly Property CountryCode As CountryCode
+  overload: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode*
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  id: UserData
+  parent: IdeaStatiCa.BimApiLink.Scoping.IScope
+  langs:
+  - csharp
+  - vb
+  name: UserData
+  nameWithType: IScope.UserData
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserData
+    path: ../src/IdeaStatica.BimApiLink/Scoping/IScope.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Scoping
+  syntax:
+    content: object UserData { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: ReadOnly Property UserData As Object
+  overload: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData*
+references:
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  commentId: N:IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Scoping
+  nameWithType: IdeaStatiCa.BimApiLink.Scoping
+  fullName: IdeaStatiCa.BimApiLink.Scoping
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html#IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+  name: BimApiImporter
+  nameWithType: IScope.BimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.BimApiImporter
+- uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+  commentId: T:IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+  parent: IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter.html
+  name: IBimApiImporter
+  nameWithType: IBimApiImporter
+  fullName: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
+- uid: IdeaStatiCa.BimApiLink.Importers
+  commentId: N:IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Importers
+  nameWithType: IdeaStatiCa.BimApiLink.Importers
+  fullName: IdeaStatiCa.BimApiLink.Importers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html#IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+  name: CountryCode
+  nameWithType: IScope.CountryCode
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.CountryCode
+- uid: IdeaRS.OpenModel.CountryCode
+  commentId: T:IdeaRS.OpenModel.CountryCode
+  parent: IdeaRS.OpenModel
+  name: CountryCode
+  nameWithType: CountryCode
+  fullName: IdeaRS.OpenModel.CountryCode
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  href: IdeaStatiCa.BimApiLink.Scoping.IScope.html#IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+  name: UserData
+  nameWithType: IScope.UserData
+  fullName: IdeaStatiCa.BimApiLink.Scoping.IScope.UserData
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

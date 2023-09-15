@@ -1,0 +1,234 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable
+  commentId: T:IdeaRS.OpenModel.CrossSectionConversionTable
+  id: CrossSectionConversionTable
+  parent: IdeaRS.OpenModel
+  children:
+  - IdeaRS.OpenModel.CrossSectionConversionTable.AdvanceDesign
+  - IdeaRS.OpenModel.CrossSectionConversionTable.Autodesk
+  - IdeaRS.OpenModel.CrossSectionConversionTable.NoUsed
+  - IdeaRS.OpenModel.CrossSectionConversionTable.SAP2000
+  - IdeaRS.OpenModel.CrossSectionConversionTable.SCIA
+  - IdeaRS.OpenModel.CrossSectionConversionTable.StaadPro
+  langs:
+  - csharp
+  - vb
+  name: CrossSectionConversionTable
+  nameWithType: CrossSectionConversionTable
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrossSectionConversionTable
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 64
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table of cross-section
+  example: []
+  syntax:
+    content: public enum CrossSectionConversionTable
+    content.vb: Public Enum CrossSectionConversionTable
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable.NoUsed
+  commentId: F:IdeaRS.OpenModel.CrossSectionConversionTable.NoUsed
+  id: NoUsed
+  parent: IdeaRS.OpenModel.CrossSectionConversionTable
+  langs:
+  - csharp
+  - vb
+  name: NoUsed
+  nameWithType: CrossSectionConversionTable.NoUsed
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable.NoUsed
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NoUsed
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 69
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table will be not used
+  example: []
+  syntax:
+    content: NoUsed = 0
+    return:
+      type: IdeaRS.OpenModel.CrossSectionConversionTable
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable.SCIA
+  commentId: F:IdeaRS.OpenModel.CrossSectionConversionTable.SCIA
+  id: SCIA
+  parent: IdeaRS.OpenModel.CrossSectionConversionTable
+  langs:
+  - csharp
+  - vb
+  name: SCIA
+  nameWithType: CrossSectionConversionTable.SCIA
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable.SCIA
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SCIA
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 74
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table of SCIA CSS will be used
+  example: []
+  syntax:
+    content: SCIA = 1
+    return:
+      type: IdeaRS.OpenModel.CrossSectionConversionTable
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable.Autodesk
+  commentId: F:IdeaRS.OpenModel.CrossSectionConversionTable.Autodesk
+  id: Autodesk
+  parent: IdeaRS.OpenModel.CrossSectionConversionTable
+  langs:
+  - csharp
+  - vb
+  name: Autodesk
+  nameWithType: CrossSectionConversionTable.Autodesk
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable.Autodesk
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Autodesk
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 79
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table of Autodesk CSS will be used, it is useable for Robot, Revit, ...
+  example: []
+  syntax:
+    content: Autodesk = 2
+    return:
+      type: IdeaRS.OpenModel.CrossSectionConversionTable
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable.SAP2000
+  commentId: F:IdeaRS.OpenModel.CrossSectionConversionTable.SAP2000
+  id: SAP2000
+  parent: IdeaRS.OpenModel.CrossSectionConversionTable
+  langs:
+  - csharp
+  - vb
+  name: SAP2000
+  nameWithType: CrossSectionConversionTable.SAP2000
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable.SAP2000
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SAP2000
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 84
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table of SAP2000 will be used, it is useable for SAP2000 ...
+  example: []
+  syntax:
+    content: SAP2000 = 3
+    return:
+      type: IdeaRS.OpenModel.CrossSectionConversionTable
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable.StaadPro
+  commentId: F:IdeaRS.OpenModel.CrossSectionConversionTable.StaadPro
+  id: StaadPro
+  parent: IdeaRS.OpenModel.CrossSectionConversionTable
+  langs:
+  - csharp
+  - vb
+  name: StaadPro
+  nameWithType: CrossSectionConversionTable.StaadPro
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable.StaadPro
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StaadPro
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 89
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table of StaadPro CSS will be used, it is useable for StaadPro, ...
+  example: []
+  syntax:
+    content: StaadPro = 4
+    return:
+      type: IdeaRS.OpenModel.CrossSectionConversionTable
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable.AdvanceDesign
+  commentId: F:IdeaRS.OpenModel.CrossSectionConversionTable.AdvanceDesign
+  id: AdvanceDesign
+  parent: IdeaRS.OpenModel.CrossSectionConversionTable
+  langs:
+  - csharp
+  - vb
+  name: AdvanceDesign
+  nameWithType: CrossSectionConversionTable.AdvanceDesign
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable.AdvanceDesign
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OriginSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AdvanceDesign
+    path: ../src/IdeaRS.OpenModel/OriginSettings.cs
+    startLine: 94
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: Conversion table of AdvanceDesign CSS will be used, it is useable for AdvanceDesign, ...
+  example: []
+  syntax:
+    content: AdvanceDesign = 5
+    return:
+      type: IdeaRS.OpenModel.CrossSectionConversionTable
+references:
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.CrossSectionConversionTable
+  commentId: T:IdeaRS.OpenModel.CrossSectionConversionTable
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.CrossSectionConversionTable.html
+  name: CrossSectionConversionTable
+  nameWithType: CrossSectionConversionTable
+  fullName: IdeaRS.OpenModel.CrossSectionConversionTable

@@ -1,0 +1,1423 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.ProgressSender
+  commentId: T:IdeaStatiCa.Plugin.ProgressSender
+  id: ProgressSender
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.ProgressSender.#ctor(System.String)
+  - IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage(System.String,System.Exception)
+  - IdeaStatiCa.Plugin.ProgressSender.IterationMessage(System.Double,System.String,System.String)
+  - IdeaStatiCa.Plugin.ProgressSender.ProgressMessage(System.Double,System.String)
+  - IdeaStatiCa.Plugin.ProgressSender.Service
+  langs:
+  - csharp
+  - vb
+  name: ProgressSender
+  nameWithType: ProgressSender
+  fullName: IdeaStatiCa.Plugin.ProgressSender
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProgressSender.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProgressSender
+    path: ../src/IdeaStatiCa.Plugin/ProgressSender.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: 'public class ProgressSender : ClientBase<IProgressCallback>, ICommunicationObject, IDisposable, IProgressCallback'
+    content.vb: Public Class ProgressSender Inherits ClientBase(Of IProgressCallback) Implements ICommunicationObject, IDisposable, IProgressCallback
+  inheritance:
+  - System.Object
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  implements:
+  - System.ServiceModel.ICommunicationObject
+  - System.IDisposable
+  - IdeaStatiCa.Plugin.IProgressCallback
+  inheritedMembers:
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.GetDefaultValueForInitialization``1
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Open
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Abort
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Close
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.DisplayInitializationUI
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CreateChannel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Channel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CacheSetting
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.ChannelFactory
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.ClientCredentials
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.State
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InnerChannel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Endpoint
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.ProgressSender.#ctor(System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProgressSender.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: IdeaStatiCa.Plugin.ProgressSender
+  langs:
+  - csharp
+  - vb
+  name: ProgressSender(string)
+  nameWithType: ProgressSender.ProgressSender(string)
+  fullName: IdeaStatiCa.Plugin.ProgressSender.ProgressSender(string)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProgressSender.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/ProgressSender.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public ProgressSender(string id)
+    parameters:
+    - id: id
+      type: System.String
+    content.vb: Public Sub New(id As String)
+  overload: IdeaStatiCa.Plugin.ProgressSender.#ctor*
+  nameWithType.vb: ProgressSender.New(String)
+  fullName.vb: IdeaStatiCa.Plugin.ProgressSender.New(String)
+  name.vb: New(String)
+- uid: IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage(System.String,System.Exception)
+  commentId: M:IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage(System.String,System.Exception)
+  id: ExceptionMessage(System.String,System.Exception)
+  parent: IdeaStatiCa.Plugin.ProgressSender
+  langs:
+  - csharp
+  - vb
+  name: ExceptionMessage(string, Exception)
+  nameWithType: ProgressSender.ExceptionMessage(string, Exception)
+  fullName: IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage(string, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProgressSender.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExceptionMessage
+    path: ../src/IdeaStatiCa.Plugin/ProgressSender.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Method is called when an exception occurs on the server.
+  example: []
+  syntax:
+    content: public void ExceptionMessage(string function, Exception exception)
+    parameters:
+    - id: function
+      type: System.String
+      description: Name of the method.
+    - id: exception
+      type: System.Exception
+      description: Details of the exception
+    content.vb: Public Sub ExceptionMessage([function] As String, exception As Exception)
+  overload: IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  nameWithType.vb: ProgressSender.ExceptionMessage(String, Exception)
+  fullName.vb: IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage(String, System.Exception)
+  name.vb: ExceptionMessage(String, Exception)
+- uid: IdeaStatiCa.Plugin.ProgressSender.ProgressMessage(System.Double,System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProgressSender.ProgressMessage(System.Double,System.String)
+  id: ProgressMessage(System.Double,System.String)
+  parent: IdeaStatiCa.Plugin.ProgressSender
+  langs:
+  - csharp
+  - vb
+  name: ProgressMessage(double, string)
+  nameWithType: ProgressSender.ProgressMessage(double, string)
+  fullName: IdeaStatiCa.Plugin.ProgressSender.ProgressMessage(double, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProgressSender.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProgressMessage
+    path: ../src/IdeaStatiCa.Plugin/ProgressSender.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: infomation about progress of event.
+  example: []
+  syntax:
+    content: public void ProgressMessage(double percent, string message)
+    parameters:
+    - id: percent
+      type: System.Double
+      description: percentage of event status
+    - id: message
+      type: System.String
+      description: message
+    content.vb: Public Sub ProgressMessage(percent As Double, message As String)
+  overload: IdeaStatiCa.Plugin.ProgressSender.ProgressMessage*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  nameWithType.vb: ProgressSender.ProgressMessage(Double, String)
+  fullName.vb: IdeaStatiCa.Plugin.ProgressSender.ProgressMessage(Double, String)
+  name.vb: ProgressMessage(Double, String)
+- uid: IdeaStatiCa.Plugin.ProgressSender.IterationMessage(System.Double,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.ProgressSender.IterationMessage(System.Double,System.String,System.String)
+  id: IterationMessage(System.Double,System.String,System.String)
+  parent: IdeaStatiCa.Plugin.ProgressSender
+  langs:
+  - csharp
+  - vb
+  name: IterationMessage(double, string, string)
+  nameWithType: ProgressSender.IterationMessage(double, string, string)
+  fullName: IdeaStatiCa.Plugin.ProgressSender.IterationMessage(double, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProgressSender.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IterationMessage
+    path: ../src/IdeaStatiCa.Plugin/ProgressSender.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: infomation about progress of event.
+  example: []
+  syntax:
+    content: public void IterationMessage(double percent, string message, string iteration)
+    parameters:
+    - id: percent
+      type: System.Double
+      description: percentage of event status
+    - id: message
+      type: System.String
+      description: message
+    - id: iteration
+      type: System.String
+      description: Number of the iteration (FEM solver steps)
+    content.vb: Public Sub IterationMessage(percent As Double, message As String, iteration As String)
+  overload: IdeaStatiCa.Plugin.ProgressSender.IterationMessage*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  nameWithType.vb: ProgressSender.IterationMessage(Double, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.ProgressSender.IterationMessage(Double, String, String)
+  name.vb: IterationMessage(Double, String, String)
+- uid: IdeaStatiCa.Plugin.ProgressSender.Service
+  commentId: P:IdeaStatiCa.Plugin.ProgressSender.Service
+  id: Service
+  parent: IdeaStatiCa.Plugin.ProgressSender
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: ProgressSender.Service
+  fullName: IdeaStatiCa.Plugin.ProgressSender.Service
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/ProgressSender.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Service
+    path: ../src/IdeaStatiCa.Plugin/ProgressSender.cs
+    startLine: 40
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: protected IProgressCallback Service { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.Plugin.IProgressCallback
+    content.vb: Protected ReadOnly Property Service As IProgressCallback
+  overload: IdeaStatiCa.Plugin.ProgressSender.Service*
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  commentId: T:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  parent: System.ServiceModel
+  definition: System.ServiceModel.ClientBase`1
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  name: ClientBase<IProgressCallback>
+  nameWithType: ClientBase<IProgressCallback>
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>
+  nameWithType.vb: ClientBase(Of IProgressCallback)
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback)
+  name.vb: ClientBase(Of IProgressCallback)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.IProgressCallback
+    name: IProgressCallback
+    href: IdeaStatiCa.Plugin.IProgressCallback.html
+  - name: '>'
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IProgressCallback
+    name: IProgressCallback
+    href: IdeaStatiCa.Plugin.IProgressCallback.html
+  - name: )
+- uid: System.ServiceModel.ICommunicationObject
+  commentId: T:System.ServiceModel.ICommunicationObject
+  parent: System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.icommunicationobject
+  name: ICommunicationObject
+  nameWithType: ICommunicationObject
+  fullName: System.ServiceModel.ICommunicationObject
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: IdeaStatiCa.Plugin.IProgressCallback
+  commentId: T:IdeaStatiCa.Plugin.IProgressCallback
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IProgressCallback.html
+  name: IProgressCallback
+  nameWithType: IProgressCallback
+  fullName: IdeaStatiCa.Plugin.IProgressCallback
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.GetDefaultValueForInitialization``1
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.GetDefaultValueForInitialization``1
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-getdefaultvalueforinitialization-1
+  name: GetDefaultValueForInitialization<T>()
+  nameWithType: ClientBase<IProgressCallback>.GetDefaultValueForInitialization<T>()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.GetDefaultValueForInitialization<T>()
+  nameWithType.vb: ClientBase(Of IProgressCallback).GetDefaultValueForInitialization(Of T)()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).GetDefaultValueForInitialization(Of T)()
+  name.vb: GetDefaultValueForInitialization(Of T)()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-getdefaultvalueforinitialization-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-getdefaultvalueforinitialization-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Open
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Open
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.Open
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.open#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-open
+  name: Open()
+  nameWithType: ClientBase<IProgressCallback>.Open()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.Open()
+  nameWithType.vb: ClientBase(Of IProgressCallback).Open()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).Open()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.open#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-open
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.open#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-open
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Abort
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Abort
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.Abort
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.abort#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-abort
+  name: Abort()
+  nameWithType: ClientBase<IProgressCallback>.Abort()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.Abort()
+  nameWithType.vb: ClientBase(Of IProgressCallback).Abort()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).Abort()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.abort#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-abort
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.abort#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-abort
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Close
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Close
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.Close
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.close#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-close
+  name: Close()
+  nameWithType: ClientBase<IProgressCallback>.Close()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.Close()
+  nameWithType.vb: ClientBase(Of IProgressCallback).Close()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).Close()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.close#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-close
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.close#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-close
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.DisplayInitializationUI
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.DisplayInitializationUI
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-displayinitializationui
+  name: DisplayInitializationUI()
+  nameWithType: ClientBase<IProgressCallback>.DisplayInitializationUI()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.DisplayInitializationUI()
+  nameWithType.vb: ClientBase(Of IProgressCallback).DisplayInitializationUI()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).DisplayInitializationUI()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-displayinitializationui
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-displayinitializationui
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CreateChannel
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CreateChannel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.CreateChannel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-createchannel
+  name: CreateChannel()
+  nameWithType: ClientBase<IProgressCallback>.CreateChannel()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.CreateChannel()
+  nameWithType.vb: ClientBase(Of IProgressCallback).CreateChannel()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).CreateChannel()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-createchannel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-createchannel
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  name: InvokeAsync(BeginOperationDelegate, object[], EndOperationDelegate, SendOrPostCallback, object)
+  nameWithType: ClientBase<IProgressCallback>.InvokeAsync(ClientBase<IProgressCallback>.BeginOperationDelegate, object[], ClientBase<IProgressCallback>.EndOperationDelegate, SendOrPostCallback, object)
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.InvokeAsync(System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.BeginOperationDelegate, object[], System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.EndOperationDelegate, System.Threading.SendOrPostCallback, object)
+  nameWithType.vb: ClientBase(Of IProgressCallback).InvokeAsync(ClientBase(Of IProgressCallback).BeginOperationDelegate, Object(), ClientBase(Of IProgressCallback).EndOperationDelegate, SendOrPostCallback, Object)
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).InvokeAsync(System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).BeginOperationDelegate, Object(), System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).EndOperationDelegate, System.Threading.SendOrPostCallback, Object)
+  name.vb: InvokeAsync(BeginOperationDelegate, Object(), EndOperationDelegate, SendOrPostCallback, Object)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  - name: (
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iprogresscallback}.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iprogresscallback}.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-iprogresscallback))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  - name: (
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iprogresscallback}.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iprogresscallback}.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Channel
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Channel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.Channel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.channel
+  name: Channel
+  nameWithType: ClientBase<IProgressCallback>.Channel
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.Channel
+  nameWithType.vb: ClientBase(Of IProgressCallback).Channel
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).Channel
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CacheSetting
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.CacheSetting
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.CacheSetting
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.cachesetting
+  name: CacheSetting
+  nameWithType: ClientBase<IProgressCallback>.CacheSetting
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.CacheSetting
+  nameWithType.vb: ClientBase(Of IProgressCallback).CacheSetting
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).CacheSetting
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.ChannelFactory
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.ChannelFactory
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.ChannelFactory
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.channelfactory
+  name: ChannelFactory
+  nameWithType: ClientBase<IProgressCallback>.ChannelFactory
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.ChannelFactory
+  nameWithType.vb: ClientBase(Of IProgressCallback).ChannelFactory
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).ChannelFactory
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.ClientCredentials
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.ClientCredentials
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.ClientCredentials
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.clientcredentials
+  name: ClientCredentials
+  nameWithType: ClientBase<IProgressCallback>.ClientCredentials
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.ClientCredentials
+  nameWithType.vb: ClientBase(Of IProgressCallback).ClientCredentials
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).ClientCredentials
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.State
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.State
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.State
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.state
+  name: State
+  nameWithType: ClientBase<IProgressCallback>.State
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.State
+  nameWithType.vb: ClientBase(Of IProgressCallback).State
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).State
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InnerChannel
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.InnerChannel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.InnerChannel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.innerchannel
+  name: InnerChannel
+  nameWithType: ClientBase<IProgressCallback>.InnerChannel
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.InnerChannel
+  nameWithType.vb: ClientBase(Of IProgressCallback).InnerChannel
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).InnerChannel
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Endpoint
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}.Endpoint
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IProgressCallback}
+  definition: System.ServiceModel.ClientBase`1.Endpoint
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iprogresscallback-.endpoint
+  name: Endpoint
+  nameWithType: ClientBase<IProgressCallback>.Endpoint
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IProgressCallback>.Endpoint
+  nameWithType.vb: ClientBase(Of IProgressCallback).Endpoint
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IProgressCallback).Endpoint
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ServiceModel.ClientBase`1
+  commentId: T:System.ServiceModel.ClientBase`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  name: ClientBase<TChannel>
+  nameWithType: ClientBase<TChannel>
+  fullName: System.ServiceModel.ClientBase<TChannel>
+  nameWithType.vb: ClientBase(Of TChannel)
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel)
+  name.vb: ClientBase(Of TChannel)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: <
+  - name: TChannel
+  - name: '>'
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChannel
+  - name: )
+- uid: System.ServiceModel
+  commentId: N:System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ServiceModel
+  nameWithType: System.ServiceModel
+  fullName: System.ServiceModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+- uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  commentId: M:System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  name: GetDefaultValueForInitialization<T>()
+  nameWithType: ClientBase<TChannel>.GetDefaultValueForInitialization<T>()
+  fullName: System.ServiceModel.ClientBase<TChannel>.GetDefaultValueForInitialization<T>()
+  nameWithType.vb: ClientBase(Of TChannel).GetDefaultValueForInitialization(Of T)()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).GetDefaultValueForInitialization(Of T)()
+  name.vb: GetDefaultValueForInitialization(Of T)()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Open
+  commentId: M:System.ServiceModel.ClientBase`1.Open
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  name: Open()
+  nameWithType: ClientBase<TChannel>.Open()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Open()
+  nameWithType.vb: ClientBase(Of TChannel).Open()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Open()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Abort
+  commentId: M:System.ServiceModel.ClientBase`1.Abort
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  name: Abort()
+  nameWithType: ClientBase<TChannel>.Abort()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Abort()
+  nameWithType.vb: ClientBase(Of TChannel).Abort()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Abort()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Close
+  commentId: M:System.ServiceModel.ClientBase`1.Close
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  name: Close()
+  nameWithType: ClientBase<TChannel>.Close()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Close()
+  nameWithType.vb: ClientBase(Of TChannel).Close()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Close()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  commentId: M:System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  name: DisplayInitializationUI()
+  nameWithType: ClientBase<TChannel>.DisplayInitializationUI()
+  fullName: System.ServiceModel.ClientBase<TChannel>.DisplayInitializationUI()
+  nameWithType.vb: ClientBase(Of TChannel).DisplayInitializationUI()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).DisplayInitializationUI()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.CreateChannel
+  commentId: M:System.ServiceModel.ClientBase`1.CreateChannel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  name: CreateChannel()
+  nameWithType: ClientBase<TChannel>.CreateChannel()
+  fullName: System.ServiceModel.ClientBase<TChannel>.CreateChannel()
+  nameWithType.vb: ClientBase(Of TChannel).CreateChannel()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).CreateChannel()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  commentId: M:System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  name: InvokeAsync(BeginOperationDelegate, object[], EndOperationDelegate, SendOrPostCallback, object)
+  nameWithType: ClientBase<TChannel>.InvokeAsync(ClientBase<TChannel>.BeginOperationDelegate, object[], ClientBase<TChannel>.EndOperationDelegate, SendOrPostCallback, object)
+  fullName: System.ServiceModel.ClientBase<TChannel>.InvokeAsync(System.ServiceModel.ClientBase<TChannel>.BeginOperationDelegate, object[], System.ServiceModel.ClientBase<TChannel>.EndOperationDelegate, System.Threading.SendOrPostCallback, object)
+  nameWithType.vb: ClientBase(Of TChannel).InvokeAsync(ClientBase(Of TChannel).BeginOperationDelegate, Object(), ClientBase(Of TChannel).EndOperationDelegate, SendOrPostCallback, Object)
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).InvokeAsync(System.ServiceModel.ClientBase(Of TChannel).BeginOperationDelegate, Object(), System.ServiceModel.ClientBase(Of TChannel).EndOperationDelegate, System.Threading.SendOrPostCallback, Object)
+  name.vb: InvokeAsync(BeginOperationDelegate, Object(), EndOperationDelegate, SendOrPostCallback, Object)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  - name: (
+  - uid: System.ServiceModel.ClientBase`1.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase`1.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  - name: (
+  - uid: System.ServiceModel.ClientBase`1.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase`1.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Channel
+  commentId: P:System.ServiceModel.ClientBase`1.Channel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channel
+  name: Channel
+  nameWithType: ClientBase<TChannel>.Channel
+  fullName: System.ServiceModel.ClientBase<TChannel>.Channel
+  nameWithType.vb: ClientBase(Of TChannel).Channel
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Channel
+- uid: System.ServiceModel.ClientBase`1.CacheSetting
+  commentId: P:System.ServiceModel.ClientBase`1.CacheSetting
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.cachesetting
+  name: CacheSetting
+  nameWithType: ClientBase<TChannel>.CacheSetting
+  fullName: System.ServiceModel.ClientBase<TChannel>.CacheSetting
+  nameWithType.vb: ClientBase(Of TChannel).CacheSetting
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).CacheSetting
+- uid: System.ServiceModel.ClientBase`1.ChannelFactory
+  commentId: P:System.ServiceModel.ClientBase`1.ChannelFactory
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channelfactory
+  name: ChannelFactory
+  nameWithType: ClientBase<TChannel>.ChannelFactory
+  fullName: System.ServiceModel.ClientBase<TChannel>.ChannelFactory
+  nameWithType.vb: ClientBase(Of TChannel).ChannelFactory
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).ChannelFactory
+- uid: System.ServiceModel.ClientBase`1.ClientCredentials
+  commentId: P:System.ServiceModel.ClientBase`1.ClientCredentials
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.clientcredentials
+  name: ClientCredentials
+  nameWithType: ClientBase<TChannel>.ClientCredentials
+  fullName: System.ServiceModel.ClientBase<TChannel>.ClientCredentials
+  nameWithType.vb: ClientBase(Of TChannel).ClientCredentials
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).ClientCredentials
+- uid: System.ServiceModel.ClientBase`1.State
+  commentId: P:System.ServiceModel.ClientBase`1.State
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.state
+  name: State
+  nameWithType: ClientBase<TChannel>.State
+  fullName: System.ServiceModel.ClientBase<TChannel>.State
+  nameWithType.vb: ClientBase(Of TChannel).State
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).State
+- uid: System.ServiceModel.ClientBase`1.InnerChannel
+  commentId: P:System.ServiceModel.ClientBase`1.InnerChannel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.innerchannel
+  name: InnerChannel
+  nameWithType: ClientBase<TChannel>.InnerChannel
+  fullName: System.ServiceModel.ClientBase<TChannel>.InnerChannel
+  nameWithType.vb: ClientBase(Of TChannel).InnerChannel
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).InnerChannel
+- uid: System.ServiceModel.ClientBase`1.Endpoint
+  commentId: P:System.ServiceModel.ClientBase`1.Endpoint
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endpoint
+  name: Endpoint
+  nameWithType: ClientBase<TChannel>.Endpoint
+  fullName: System.ServiceModel.ClientBase<TChannel>.Endpoint
+  nameWithType.vb: ClientBase(Of TChannel).Endpoint
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Endpoint
+- uid: IdeaStatiCa.Plugin.ProgressSender.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.ProgressSender.#ctor
+  href: IdeaStatiCa.Plugin.ProgressSender.html#IdeaStatiCa.Plugin.ProgressSender.#ctor(System.String)
+  name: ProgressSender
+  nameWithType: ProgressSender.ProgressSender
+  fullName: IdeaStatiCa.Plugin.ProgressSender.ProgressSender
+  nameWithType.vb: ProgressSender.New
+  fullName.vb: IdeaStatiCa.Plugin.ProgressSender.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage
+  href: IdeaStatiCa.Plugin.ProgressSender.html#IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage(System.String,System.Exception)
+  name: ExceptionMessage
+  nameWithType: ProgressSender.ExceptionMessage
+  fullName: IdeaStatiCa.Plugin.ProgressSender.ExceptionMessage
+- uid: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  commentId: M:IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  parent: IdeaStatiCa.Plugin.IProgressCallback
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  name: ExceptionMessage(string, Exception)
+  nameWithType: IProgressCallback.ExceptionMessage(string, Exception)
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(string, System.Exception)
+  nameWithType.vb: IProgressCallback.ExceptionMessage(String, Exception)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(String, System.Exception)
+  name.vb: ExceptionMessage(String, Exception)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+    name: ExceptionMessage
+    href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+    name: ExceptionMessage
+    href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ExceptionMessage(System.String,System.Exception)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: IdeaStatiCa.Plugin.ProgressSender.ProgressMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.ProgressSender.ProgressMessage
+  href: IdeaStatiCa.Plugin.ProgressSender.html#IdeaStatiCa.Plugin.ProgressSender.ProgressMessage(System.Double,System.String)
+  name: ProgressMessage
+  nameWithType: ProgressSender.ProgressMessage
+  fullName: IdeaStatiCa.Plugin.ProgressSender.ProgressMessage
+- uid: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressCallback
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  name: ProgressMessage(double, string)
+  nameWithType: IProgressCallback.ProgressMessage(double, string)
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(double, string)
+  nameWithType.vb: IProgressCallback.ProgressMessage(Double, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(Double, String)
+  name.vb: ProgressMessage(Double, String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+    name: ProgressMessage
+    href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  - name: (
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+    name: ProgressMessage
+    href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.ProgressMessage(System.Double,System.String)
+  - name: (
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaStatiCa.Plugin.ProgressSender.IterationMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.ProgressSender.IterationMessage
+  href: IdeaStatiCa.Plugin.ProgressSender.html#IdeaStatiCa.Plugin.ProgressSender.IterationMessage(System.Double,System.String,System.String)
+  name: IterationMessage
+  nameWithType: ProgressSender.IterationMessage
+  fullName: IdeaStatiCa.Plugin.ProgressSender.IterationMessage
+- uid: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressCallback
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  name: IterationMessage(double, string, string)
+  nameWithType: IProgressCallback.IterationMessage(double, string, string)
+  fullName: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(double, string, string)
+  nameWithType.vb: IProgressCallback.IterationMessage(Double, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(Double, String, String)
+  name.vb: IterationMessage(Double, String, String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+    name: IterationMessage
+    href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  - name: (
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+    name: IterationMessage
+    href: IdeaStatiCa.Plugin.IProgressCallback.html#IdeaStatiCa.Plugin.IProgressCallback.IterationMessage(System.Double,System.String,System.String)
+  - name: (
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.Plugin.ProgressSender.Service*
+  commentId: Overload:IdeaStatiCa.Plugin.ProgressSender.Service
+  href: IdeaStatiCa.Plugin.ProgressSender.html#IdeaStatiCa.Plugin.ProgressSender.Service
+  name: Service
+  nameWithType: ProgressSender.Service
+  fullName: IdeaStatiCa.Plugin.ProgressSender.Service

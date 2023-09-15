@@ -1,0 +1,184 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec0
+  commentId: T:IdeaRS.OpenModel.Concrete.ValueTypec0
+  id: ValueTypec0
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.ValueTypec0.ConstantDistributionMoment
+  - IdeaRS.OpenModel.Concrete.ValueTypec0.ParabolicDistributionMoment
+  - IdeaRS.OpenModel.Concrete.ValueTypec0.TriangularDistributionMoment
+  - IdeaRS.OpenModel.Concrete.ValueTypec0.UserDefined
+  langs:
+  - csharp
+  - vb
+  name: ValueTypec0
+  nameWithType: ValueTypec0
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec0
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ValueTypec0
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 42
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Define type of c0 value
+  example: []
+  syntax:
+    content: public enum ValueTypec0
+    content.vb: Public Enum ValueTypec0
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec0.UserDefined
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec0.UserDefined
+  id: UserDefined
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec0
+  langs:
+  - csharp
+  - vb
+  name: UserDefined
+  nameWithType: ValueTypec0.UserDefined
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec0.UserDefined
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserDefined
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 47
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value is inputed by user
+  example: []
+  syntax:
+    content: UserDefined = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec0
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec0.ConstantDistributionMoment
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec0.ConstantDistributionMoment
+  id: ConstantDistributionMoment
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec0
+  langs:
+  - csharp
+  - vb
+  name: ConstantDistributionMoment
+  nameWithType: ValueTypec0.ConstantDistributionMoment
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec0.ConstantDistributionMoment
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConstantDistributionMoment
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 52
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value depends on constant distribution of moment
+  example: []
+  syntax:
+    content: ConstantDistributionMoment = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec0
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec0.ParabolicDistributionMoment
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec0.ParabolicDistributionMoment
+  id: ParabolicDistributionMoment
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec0
+  langs:
+  - csharp
+  - vb
+  name: ParabolicDistributionMoment
+  nameWithType: ValueTypec0.ParabolicDistributionMoment
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec0.ParabolicDistributionMoment
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ParabolicDistributionMoment
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 57
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value depends on parabolic distribution of moment
+  example: []
+  syntax:
+    content: ParabolicDistributionMoment = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec0
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec0.TriangularDistributionMoment
+  commentId: F:IdeaRS.OpenModel.Concrete.ValueTypec0.TriangularDistributionMoment
+  id: TriangularDistributionMoment
+  parent: IdeaRS.OpenModel.Concrete.ValueTypec0
+  langs:
+  - csharp
+  - vb
+  name: TriangularDistributionMoment
+  nameWithType: ValueTypec0.TriangularDistributionMoment
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec0.TriangularDistributionMoment
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TriangularDistributionMoment
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
+    startLine: 62
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Value depends on triangular distribution of moment
+  example: []
+  syntax:
+    content: TriangularDistributionMoment = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.ValueTypec0
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.ValueTypec0
+  commentId: T:IdeaRS.OpenModel.Concrete.ValueTypec0
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.ValueTypec0.html
+  name: ValueTypec0
+  nameWithType: ValueTypec0
+  fullName: IdeaRS.OpenModel.Concrete.ValueTypec0

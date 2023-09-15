@@ -1,0 +1,628 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  commentId: T:IdeaRS.OpenModel.Result.ResultOfInternalForces
+  id: ResultOfInternalForces
+  parent: IdeaRS.OpenModel.Result
+  children:
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+  - IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+  langs:
+  - csharp
+  - vb
+  name: ResultOfInternalForces
+  nameWithType: ResultOfInternalForces
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ResultOfInternalForces
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 17
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Result of internal forces in the one position
+  remarks: >-
+    Convention of internal forces on 1D members <br />
+        <img src="Images\InternalForcesConvention.png" /> <br />
+        Internal forces on 1D members perform following actions:<br />
+        •	positive bending moment My causes tension in cross-section fibers with negative z-coordinate<br />
+        •	positive bending moment Mz causes tension in fibers with negative y-coordinate<br />
+        •	positive torsional moment Mx acts about x-axis of 1D member<br />
+        •	positive axial force N acts in direction of x-axis of member and causes tension in cross-section fibers<br />
+        •	positive shear force Qz acts in direction of z-axis of cross-section<br />
+        •	positive shear force Qy acts in direction of y-axis of cross-section<br />
+  example: []
+  syntax:
+    content: >-
+      [Obfuscation(Feature = "renaming")]
+
+      public class ResultOfInternalForces : SectionResultBase
+    content.vb: >-
+      <Obfuscation(Feature:="renaming")>
+
+      Public Class ResultOfInternalForces Inherits SectionResultBase
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.Result.SectionResultBase
+  inheritedMembers:
+  - IdeaRS.OpenModel.Result.SectionResultBase.Loading
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.Reflection.ObfuscationAttribute
+    ctor: System.Reflection.ObfuscationAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Feature
+      type: System.String
+      value: renaming
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor
+  commentId: M:IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: ResultOfInternalForces()
+  nameWithType: ResultOfInternalForces.ResultOfInternalForces()
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.ResultOfInternalForces()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 23
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Constructor
+  example: []
+  syntax:
+    content: public ResultOfInternalForces()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor*
+  nameWithType.vb: ResultOfInternalForces.New()
+  fullName.vb: IdeaRS.OpenModel.Result.ResultOfInternalForces.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+  commentId: P:IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+  id: N
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: N
+  nameWithType: ResultOfInternalForces.N
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: N
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 36
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Normal force
+  example: []
+  syntax:
+    content: public double N { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property N As Double
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.N*
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+  commentId: P:IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+  id: Qy
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: Qy
+  nameWithType: ResultOfInternalForces.Qy
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Qy
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 41
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Shear force in y dirrection
+  example: []
+  syntax:
+    content: public double Qy { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Qy As Double
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy*
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+  commentId: P:IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+  id: Qz
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: Qz
+  nameWithType: ResultOfInternalForces.Qz
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Qz
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 46
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Shear force in z dirrection
+  example: []
+  syntax:
+    content: public double Qz { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Qz As Double
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz*
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+  commentId: P:IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+  id: Mx
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: Mx
+  nameWithType: ResultOfInternalForces.Mx
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Mx
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 51
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Bending moment around x-axis
+  example: []
+  syntax:
+    content: public double Mx { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Mx As Double
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx*
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+  commentId: P:IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+  id: My
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: My
+  nameWithType: ResultOfInternalForces.My
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: My
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 56
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Bending moment around y-axis
+  example: []
+  syntax:
+    content: public double My { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property My As Double
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.My*
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz
+  commentId: P:IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz
+  id: Mz
+  parent: IdeaRS.OpenModel.Result.ResultOfInternalForces
+  langs:
+  - csharp
+  - vb
+  name: Mz
+  nameWithType: ResultOfInternalForces.Mz
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Mz
+    path: ../src/IdeaRS.OpenModel/Result/ResultOfInternalForces.cs
+    startLine: 61
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Bending moment around z-axis
+  example: []
+  syntax:
+    content: public double Mz { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Mz As Double
+  overload: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz*
+references:
+- uid: IdeaRS.OpenModel.Result
+  commentId: N:IdeaRS.OpenModel.Result
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Result
+  nameWithType: IdeaRS.OpenModel.Result
+  fullName: IdeaRS.OpenModel.Result
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+    href: IdeaRS.OpenModel.Result.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+    href: IdeaRS.OpenModel.Result.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.Result.SectionResultBase
+  commentId: T:IdeaRS.OpenModel.Result.SectionResultBase
+  parent: IdeaRS.OpenModel.Result
+  href: IdeaRS.OpenModel.Result.SectionResultBase.html
+  name: SectionResultBase
+  nameWithType: SectionResultBase
+  fullName: IdeaRS.OpenModel.Result.SectionResultBase
+- uid: IdeaRS.OpenModel.Result.SectionResultBase.Loading
+  commentId: P:IdeaRS.OpenModel.Result.SectionResultBase.Loading
+  parent: IdeaRS.OpenModel.Result.SectionResultBase
+  href: IdeaRS.OpenModel.Result.SectionResultBase.html#IdeaRS.OpenModel.Result.SectionResultBase.Loading
+  name: Loading
+  nameWithType: SectionResultBase.Loading
+  fullName: IdeaRS.OpenModel.Result.SectionResultBase.Loading
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.#ctor
+  name: ResultOfInternalForces
+  nameWithType: ResultOfInternalForces.ResultOfInternalForces
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.ResultOfInternalForces
+  nameWithType.vb: ResultOfInternalForces.New
+  fullName.vb: IdeaRS.OpenModel.Result.ResultOfInternalForces.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.N*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+  name: N
+  nameWithType: ResultOfInternalForces.N
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.N
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+  name: Qy
+  nameWithType: ResultOfInternalForces.Qy
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qy
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+  name: Qz
+  nameWithType: ResultOfInternalForces.Qz
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Qz
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+  name: Mx
+  nameWithType: ResultOfInternalForces.Mx
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mx
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.My*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+  name: My
+  nameWithType: ResultOfInternalForces.My
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.My
+- uid: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz*
+  commentId: Overload:IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz
+  href: IdeaRS.OpenModel.Result.ResultOfInternalForces.html#IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz
+  name: Mz
+  nameWithType: ResultOfInternalForces.Mz
+  fullName: IdeaRS.OpenModel.Result.ResultOfInternalForces.Mz

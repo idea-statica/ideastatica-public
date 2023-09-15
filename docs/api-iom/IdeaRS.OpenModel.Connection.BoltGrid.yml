@@ -1,0 +1,1513 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.BoltGrid
+  commentId: T:IdeaRS.OpenModel.Connection.BoltGrid
+  id: BoltGrid
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+  - IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+  - IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+  - IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+  - IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+  - IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+  - IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+  - IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+  - IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+  - IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+  - IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+  - IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+  - IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+  - IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+  - IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+  - IdeaRS.OpenModel.Connection.BoltGrid.Id
+  - IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+  - IdeaRS.OpenModel.Connection.BoltGrid.Material
+  - IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+  - IdeaRS.OpenModel.Connection.BoltGrid.Origin
+  - IdeaRS.OpenModel.Connection.BoltGrid.Positions
+  - IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+  - IdeaRS.OpenModel.Connection.BoltGrid.Standard
+  - IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+  langs:
+  - csharp
+  - vb
+  name: BoltGrid
+  nameWithType: BoltGrid
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltGrid
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 130
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Data of the bolt grid
+  example: []
+  syntax:
+    content: public class BoltGrid
+    content.vb: Public Class BoltGrid
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - IdeaRS.OpenModel.Connection.AnchorGrid
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+  id: BoltAssemblyRef
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: BoltAssemblyRef
+  nameWithType: BoltGrid.BoltAssemblyRef
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltAssemblyRef
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 133
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  syntax:
+    content: public string BoltAssemblyRef { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property BoltAssemblyRef As String
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Id
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.Id
+  id: Id
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: BoltGrid.Id
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Id
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Id
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 137
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Unique Id of the bolt grid
+  example: []
+  syntax:
+    content: public int Id { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Id As Integer
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.Id*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+  id: IsAnchor
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: IsAnchor
+  nameWithType: BoltGrid.IsAnchor
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsAnchor
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 142
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Is Anchor
+  example: []
+  syntax:
+    content: public bool IsAnchor { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsAnchor As Boolean
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+  id: AnchorLen
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: AnchorLen
+  nameWithType: BoltGrid.AnchorLen
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AnchorLen
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 147
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Anchor lenght
+  example: []
+  syntax:
+    content: public double AnchorLen { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property AnchorLen As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+  id: HoleDiameter
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: HoleDiameter
+  nameWithType: BoltGrid.HoleDiameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HoleDiameter
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 152
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The diameter of the hole
+  example: []
+  syntax:
+    content: public double HoleDiameter { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property HoleDiameter As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+  id: Diameter
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Diameter
+  nameWithType: BoltGrid.Diameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Diameter
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 157
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The diameter of bolt
+  example: []
+  syntax:
+    content: public double Diameter { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Diameter As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.Diameter*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+  id: HeadDiameter
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: HeadDiameter
+  nameWithType: BoltGrid.HeadDiameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HeadDiameter
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 162
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The head diameter of bolt
+  example: []
+  syntax:
+    content: public double HeadDiameter { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property HeadDiameter As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+  id: DiagonalHeadDiameter
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: DiagonalHeadDiameter
+  nameWithType: BoltGrid.DiagonalHeadDiameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DiagonalHeadDiameter
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 167
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The Diagonal Head Diameter of bolt
+  example: []
+  syntax:
+    content: public double DiagonalHeadDiameter { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property DiagonalHeadDiameter As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+  id: HeadHeight
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: HeadHeight
+  nameWithType: BoltGrid.HeadHeight
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HeadHeight
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 172
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The Head Height of bolt
+  example: []
+  syntax:
+    content: public double HeadHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property HeadHeight As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+  id: BoreHole
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: BoreHole
+  nameWithType: BoltGrid.BoreHole
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoreHole
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 177
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The BoreHole of bolt
+  example: []
+  syntax:
+    content: public double BoreHole { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property BoreHole As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.BoreHole*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+  id: TensileStressArea
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: TensileStressArea
+  nameWithType: BoltGrid.TensileStressArea
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TensileStressArea
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 182
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The Tensile Stress Area of bolt
+  example: []
+  syntax:
+    content: public double TensileStressArea { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property TensileStressArea As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+  id: NutThickness
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: NutThickness
+  nameWithType: BoltGrid.NutThickness
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NutThickness
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 187
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The Nut Thickness of bolt
+  example: []
+  syntax:
+    content: public double NutThickness { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property NutThickness As Double
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.NutThickness*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+  id: BoltAssemblyName
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: BoltAssemblyName
+  nameWithType: BoltGrid.BoltAssemblyName
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltAssemblyName
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 192
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The description of the bolt assembly
+  example: []
+  syntax:
+    content: public string BoltAssemblyName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property BoltAssemblyName As String
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Standard
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.Standard
+  id: Standard
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Standard
+  nameWithType: BoltGrid.Standard
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Standard
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Standard
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 197
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The standard of the bolt assembly
+  example: []
+  syntax:
+    content: public string Standard { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Standard As String
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.Standard*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Material
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.Material
+  id: Material
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: BoltGrid.Material
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 202
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: The material of the bolt assembly
+  example: []
+  syntax:
+    content: public string Material { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Material As String
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.Material*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Origin
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.Origin
+  id: Origin
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Origin
+  nameWithType: BoltGrid.Origin
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Origin
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Origin
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 207
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Origin of the bolt grid LCS
+  example: []
+  syntax:
+    content: public Point3D Origin { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.Point3D
+    content.vb: Public Property Origin As Point3D
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.Origin*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+  id: AxisX
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: AxisX
+  nameWithType: BoltGrid.AxisX
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AxisX
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 212
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Bolt grid LCS - Axis X
+  example: []
+  syntax:
+    content: public Vector3D AxisX { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.Vector3D
+    content.vb: Public Property AxisX As Vector3D
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.AxisX*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+  id: AxisY
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: AxisY
+  nameWithType: BoltGrid.AxisY
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AxisY
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 217
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Bolt grid LCS - Axis Y
+  example: []
+  syntax:
+    content: public Vector3D AxisY { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.Vector3D
+    content.vb: Public Property AxisY As Vector3D
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.AxisY*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+  id: AxisZ
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: AxisZ
+  nameWithType: BoltGrid.AxisZ
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AxisZ
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 222
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Bolt grid LCS - Axis Z
+  example: []
+  syntax:
+    content: public Vector3D AxisZ { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.Vector3D
+    content.vb: Public Property AxisZ As Vector3D
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.AxisZ*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Positions
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.Positions
+  id: Positions
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Positions
+  nameWithType: BoltGrid.Positions
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Positions
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Positions
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 227
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Positions of holes in the local coodinate system of the bolt grid
+  example: []
+  syntax:
+    content: public List<Point3D> Positions { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Geometry3D.Point3D}
+    content.vb: Public Property Positions As List(Of Point3D)
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.Positions*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+  id: ConnectedPlates
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: ConnectedPlates
+  nameWithType: BoltGrid.ConnectedPlates
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectedPlates
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 232
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Identifiers of the connected plates
+  example: []
+  syntax:
+    content: public List<int> ConnectedPlates { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.Int32}
+    content.vb: Public Property ConnectedPlates As List(Of Integer)
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+  id: ConnectedPartIds
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: ConnectedPartIds
+  nameWithType: BoltGrid.ConnectedPartIds
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectedPartIds
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 237
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Id of the weld
+  example: []
+  syntax:
+    content: public List<string> ConnectedPartIds { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property ConnectedPartIds As List(Of String)
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+  id: ShearInThread
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: ShearInThread
+  nameWithType: BoltGrid.ShearInThread
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ShearInThread
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 242
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates, whether a shear plane is in the thread of a bolt.
+  example: []
+  syntax:
+    content: public bool ShearInThread { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property ShearInThread As Boolean
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread*
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+  commentId: P:IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+  id: BoltInteraction
+  parent: IdeaRS.OpenModel.Connection.BoltGrid
+  langs:
+  - csharp
+  - vb
+  name: BoltInteraction
+  nameWithType: BoltGrid.BoltInteraction
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltInteraction
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 247
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Indicates type of shear transfer
+  example: []
+  syntax:
+    content: public BoltShearType BoltInteraction { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Parameters.BoltShearType
+    content.vb: Public Property BoltInteraction As BoltShearType
+  overload: IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction*
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+  name: BoltAssemblyRef
+  nameWithType: BoltGrid.BoltAssemblyRef
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyRef
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Id*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.Id
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.Id
+  name: Id
+  nameWithType: BoltGrid.Id
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Id
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+  name: IsAnchor
+  nameWithType: BoltGrid.IsAnchor
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.IsAnchor
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+  name: AnchorLen
+  nameWithType: BoltGrid.AnchorLen
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AnchorLen
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+  name: HoleDiameter
+  nameWithType: BoltGrid.HoleDiameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.HoleDiameter
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Diameter*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+  name: Diameter
+  nameWithType: BoltGrid.Diameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Diameter
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+  name: HeadDiameter
+  nameWithType: BoltGrid.HeadDiameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.HeadDiameter
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+  name: DiagonalHeadDiameter
+  nameWithType: BoltGrid.DiagonalHeadDiameter
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.DiagonalHeadDiameter
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+  name: HeadHeight
+  nameWithType: BoltGrid.HeadHeight
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.HeadHeight
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoreHole*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+  name: BoreHole
+  nameWithType: BoltGrid.BoreHole
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoreHole
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+  name: TensileStressArea
+  nameWithType: BoltGrid.TensileStressArea
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.TensileStressArea
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.NutThickness*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+  name: NutThickness
+  nameWithType: BoltGrid.NutThickness
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.NutThickness
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+  name: BoltAssemblyName
+  nameWithType: BoltGrid.BoltAssemblyName
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoltAssemblyName
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Standard*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.Standard
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.Standard
+  name: Standard
+  nameWithType: BoltGrid.Standard
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Standard
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Material*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.Material
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.Material
+  name: Material
+  nameWithType: BoltGrid.Material
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Material
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Origin*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.Origin
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.Origin
+  name: Origin
+  nameWithType: BoltGrid.Origin
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Origin
+- uid: IdeaRS.OpenModel.Geometry3D.Point3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.Point3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.OpenModel.Geometry3D.Point3D.html
+  name: Point3D
+  nameWithType: Point3D
+  fullName: IdeaRS.OpenModel.Geometry3D.Point3D
+- uid: IdeaRS.OpenModel.Geometry3D
+  commentId: N:IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry3D
+  nameWithType: IdeaRS.OpenModel.Geometry3D
+  fullName: IdeaRS.OpenModel.Geometry3D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AxisX*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+  name: AxisX
+  nameWithType: BoltGrid.AxisX
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AxisX
+- uid: IdeaRS.OpenModel.Geometry3D.Vector3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.Vector3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.OpenModel.Geometry3D.Vector3D.html
+  name: Vector3D
+  nameWithType: Vector3D
+  fullName: IdeaRS.OpenModel.Geometry3D.Vector3D
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AxisY*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+  name: AxisY
+  nameWithType: BoltGrid.AxisY
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AxisY
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.AxisZ*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+  name: AxisZ
+  nameWithType: BoltGrid.AxisZ
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.AxisZ
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.Positions*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.Positions
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.Positions
+  name: Positions
+  nameWithType: BoltGrid.Positions
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.Positions
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Geometry3D.Point3D}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Geometry3D.Point3D}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Point3D>
+  nameWithType: List<Point3D>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Geometry3D.Point3D>
+  nameWithType.vb: List(Of Point3D)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Geometry3D.Point3D)
+  name.vb: List(Of Point3D)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Geometry3D.Point3D
+    name: Point3D
+    href: IdeaRS.OpenModel.Geometry3D.Point3D.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Geometry3D.Point3D
+    name: Point3D
+    href: IdeaRS.OpenModel.Geometry3D.Point3D.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+  name: ConnectedPlates
+  nameWithType: BoltGrid.ConnectedPlates
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPlates
+- uid: System.Collections.Generic.List{System.Int32}
+  commentId: T:System.Collections.Generic.List{System.Int32}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<int>
+  nameWithType: List<int>
+  fullName: System.Collections.Generic.List<int>
+  nameWithType.vb: List(Of Integer)
+  fullName.vb: System.Collections.Generic.List(Of Integer)
+  name.vb: List(Of Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+  name: ConnectedPartIds
+  nameWithType: BoltGrid.ConnectedPartIds
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.ConnectedPartIds
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+  name: ShearInThread
+  nameWithType: BoltGrid.ShearInThread
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.ShearInThread
+- uid: IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction*
+  commentId: Overload:IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+  href: IdeaRS.OpenModel.Connection.BoltGrid.html#IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+  name: BoltInteraction
+  nameWithType: BoltGrid.BoltInteraction
+  fullName: IdeaRS.OpenModel.Connection.BoltGrid.BoltInteraction
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType
+  commentId: T:IdeaRS.OpenModel.Parameters.BoltShearType
+  parent: IdeaRS.OpenModel.Parameters
+  href: IdeaRS.OpenModel.Parameters.BoltShearType.html
+  name: BoltShearType
+  nameWithType: BoltShearType
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType
+- uid: IdeaRS.OpenModel.Parameters
+  commentId: N:IdeaRS.OpenModel.Parameters
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Parameters
+  nameWithType: IdeaRS.OpenModel.Parameters
+  fullName: IdeaRS.OpenModel.Parameters
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html

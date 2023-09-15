@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ConcDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.ConcDiagramType
+  id: ConcDiagramType
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ConcDiagramType.Bilinear
+  - IdeaRS.OpenModel.Material.ConcDiagramType.DefinedByUser
+  - IdeaRS.OpenModel.Material.ConcDiagramType.Parabolic
+  langs:
+  - csharp
+  - vb
+  name: ConcDiagramType
+  nameWithType: ConcDiagramType
+  fullName: IdeaRS.OpenModel.Material.ConcDiagramType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConcDiagramType
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+    startLine: 70
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Concrete stress-strain diagram
+  example: []
+  syntax:
+    content: public enum ConcDiagramType
+    content.vb: Public Enum ConcDiagramType
+- uid: IdeaRS.OpenModel.Material.ConcDiagramType.Bilinear
+  commentId: F:IdeaRS.OpenModel.Material.ConcDiagramType.Bilinear
+  id: Bilinear
+  parent: IdeaRS.OpenModel.Material.ConcDiagramType
+  langs:
+  - csharp
+  - vb
+  name: Bilinear
+  nameWithType: ConcDiagramType.Bilinear
+  fullName: IdeaRS.OpenModel.Material.ConcDiagramType.Bilinear
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bilinear
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+    startLine: 75
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Bilinear type
+  example: []
+  syntax:
+    content: Bilinear = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ConcDiagramType
+- uid: IdeaRS.OpenModel.Material.ConcDiagramType.Parabolic
+  commentId: F:IdeaRS.OpenModel.Material.ConcDiagramType.Parabolic
+  id: Parabolic
+  parent: IdeaRS.OpenModel.Material.ConcDiagramType
+  langs:
+  - csharp
+  - vb
+  name: Parabolic
+  nameWithType: ConcDiagramType.Parabolic
+  fullName: IdeaRS.OpenModel.Material.ConcDiagramType.Parabolic
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Parabolic
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+    startLine: 80
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Parabolic type
+  example: []
+  syntax:
+    content: Parabolic = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ConcDiagramType
+- uid: IdeaRS.OpenModel.Material.ConcDiagramType.DefinedByUser
+  commentId: F:IdeaRS.OpenModel.Material.ConcDiagramType.DefinedByUser
+  id: DefinedByUser
+  parent: IdeaRS.OpenModel.Material.ConcDiagramType
+  langs:
+  - csharp
+  - vb
+  name: DefinedByUser
+  nameWithType: ConcDiagramType.DefinedByUser
+  fullName: IdeaRS.OpenModel.Material.ConcDiagramType.DefinedByUser
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DefinedByUser
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
+    startLine: 85
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Defined by user
+  example: []
+  syntax:
+    content: DefinedByUser = 2
+    return:
+      type: IdeaRS.OpenModel.Material.ConcDiagramType
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ConcDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.ConcDiagramType
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ConcDiagramType.html
+  name: ConcDiagramType
+  nameWithType: ConcDiagramType
+  fullName: IdeaRS.OpenModel.Material.ConcDiagramType
