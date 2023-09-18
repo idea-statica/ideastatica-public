@@ -38,6 +38,6 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="conId">Id of the requested connection</param>
 		/// <param name="settings">Report settings</param>
 		/// <returns>The instance of the blobstorage</returns>
-		IBlobStorage GenerateReport(int conId, ReportSettings settings);
+		IBlobStorage GenerateReport(int conId, ConnReportSettings settings);
 	}
 }

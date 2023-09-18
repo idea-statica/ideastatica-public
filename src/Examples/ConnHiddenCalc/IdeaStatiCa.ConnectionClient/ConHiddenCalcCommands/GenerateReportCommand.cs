@@ -1,10 +1,9 @@
-﻿using IdeaRS.OpenModel.Connection;
-using IdeaStatiCa.ConnectionClient.Model;
+﻿using IdeaStatiCa.ConnectionClient.Model;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Public;
 using Microsoft.Win32;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionClient.Commands
@@ -34,7 +33,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 					var service = Model.GetConnectionService();
 
 					// generate report for connection
-					var settings = new ReportSettings();
+					var settings = new ConnReportSettings();
 					var resData = service.GenerateReport(connection.ConnectionId, settings);
 
 					// get storage with generated report

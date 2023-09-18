@@ -92,7 +92,7 @@ namespace IdeaStatiCa.Plugin
 		}
 
 		/// <inheritdoc cref="IConnectionController.GenerateReport(int, ReportSettings)"/>
-		public IBlobStorage GenerateReport(int conId, ReportSettings settings)
+		public IBlobStorage GenerateReport(int conId, ConnReportSettings settings)
 		{
 			var reportId = ConnectionAutomation.GenerateReport(conId, settings);
 			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);

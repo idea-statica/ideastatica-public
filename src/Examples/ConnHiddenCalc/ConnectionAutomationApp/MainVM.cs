@@ -137,7 +137,7 @@ namespace ConnectionAutomationApp
 			try
 			{
 				
-				var blobStorage = ConnectionController.GenerateReport(1, new ReportSettings());
+				var blobStorage = ConnectionController.GenerateReport(1, new ConnReportSettings());
 
 				SaveFileDialog saveFileDialog = new SaveFileDialog();
 
