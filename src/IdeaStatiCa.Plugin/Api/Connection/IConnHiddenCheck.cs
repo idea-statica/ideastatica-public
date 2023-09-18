@@ -291,7 +291,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="settings">Report settings</param>
 		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
 		[OperationContract]
-		ReportResponse GenerateReport(string connectionId, ReportSettings settings);
+		ReportResponse GenerateReport(string connectionId, ConnReportSettings settings);
 
 		/// <summary>
 		/// Open and select the connection <paramref name="connectionId"/> in an application

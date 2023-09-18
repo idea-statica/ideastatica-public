@@ -22,6 +22,6 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="conId">Id of the required connection</param>
 		/// <param name="settings">Report settings</param>
 		/// <returns>The identifier of a generated report</returns>
-		string GenerateReport(int conId, ReportSettings settings);
+		string GenerateReport(int conId, ConnReportSettings settings);
 	}
 }
