@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net50</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyTitle>IOM.SteelFrame</AssemblyTitle>
+    <Product>IOM.SteelFrame</Product>
+    <Copyright>Copyright ©  2019</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NuGet|AnyCPU'">
+    <DebugType>full</DebugType>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NuGet|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+	<ProjectReference Include="..\IOM.GeneratorExample\IOM.GeneratorExample.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+	<PackageReference Include="IdeaStatiCa.OpenModel" Version="23.0.4.1320" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+	<ProjectReference Include="..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+  </ItemGroup>
+</Project>

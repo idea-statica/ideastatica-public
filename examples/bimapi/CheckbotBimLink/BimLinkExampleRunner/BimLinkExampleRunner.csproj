@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net6.0-windows;net48</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+		<ProjectGuid>{669835E3-E2A5-48E5-8CF4-752370CB7051}</ProjectGuid>
+		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_NuGet|net6.0-windows|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_NuGet|net48|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_NuGet|net6.0-windows|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_NuGet|net48|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.0.4" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\CadExample\BimApiLinkCadExample\BimApiLinkCadExample.csproj" />
+	</ItemGroup>
+		
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+		<PackageReference Include="IdeaStatiCa.Plugin" Version="23.0.4.1320" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+</Project>
