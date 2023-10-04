@@ -35,14 +35,14 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ConnectionHiddenCalculation
-        path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/bin/Release/net48
+        path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/bin/Release/net48
         if-no-files-found: error
 
     - name: 'Upload ConnectionAutomationApp'
       uses: actions/upload-artifact@v3
       with:
         name: ConnectionAutomationApp
-        path: ${{ github.workspace }}/main/src/Examples/ConnHiddenCalc/ConnectionAutomationApp/bin/Release/net48
+        path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionAutomationApp/bin/Release/net48
         if-no-files-found: error
 
     - name: 'Upload FEAppExample'
@@ -60,16 +60,16 @@ jobs:
         if-no-files-found: error
 
     - name: Nuget restore dependencies
-      run: nuget restore ./src/Examples/SAF2IOM/SAF2IOM.sln
+      run: nuget restore ./examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.sln
       working-directory: main
 
     - name: Build
-      run: msbuild ./src\Examples/SAF2IOM/SAF2IOM.sln /p:Configuration=Release
+      run: msbuild ./examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.sln /p:Configuration=Release
       working-directory: main
 
     - name: 'Upload SAF2IOM'
       uses: actions/upload-artifact@v3
       with:
         name: SAF2IOM
-        path: ${{ github.workspace }}/main/src/Examples/SAF2IOM/bin\Release
+        path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-Winform-Tester/SAF2IOM/bin/Release
         if-no-files-found: error
