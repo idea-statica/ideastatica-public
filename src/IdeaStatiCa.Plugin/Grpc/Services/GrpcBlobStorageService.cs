@@ -32,7 +32,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		}
 
 		/// <summary>
-		/// Writes data with content id to the specified blob storage. Blob storage id and content id have to be in header metadata.
+		/// Writes data with content id to the specified blob storage. Blob storage id, content id & data are all present in the requestStream.
 		/// </summary>
 		/// <param name="requestStream">Streamed data received from client and to be written to the blob storage</param>
 		/// <param name="context">Call context of gRPC communication</param>
@@ -41,20 +41,9 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		{
 			try
 			{
-				var metadata = context.RequestHeaders;
-				var blobStorageId = metadata.GetValue(Constants.BlobStorageId);
-				var contentId = metadata.GetValue(Constants.ContentId);
-
-				logger.LogDebug($"GrpcBlobStorageService begins Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
-
-				if (blobStorageId == null)
-				{
-					throw new ArgumentException($"'{Constants.BlobStorageId}' is not defined in header metadata.");
-				}
-				if (contentId == null)
-				{
-					throw new ArgumentException($"'{Constants.ContentId}' is not defined in header metadata.");
-				}
+				logger.LogDebug($"GrpcBlobStorageService begins Write");
+				string blobStorageId = null;
+				string contentId = null;
 
 				using (var content = new MemoryStream())
 				{
@@ -62,13 +51,24 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 					while (await requestStream.MoveNext())
 					{
 						currentData = requestStream.Current.Data;
+						blobStorageId = requestStream.Current.BlobStorageId;
+						contentId = requestStream.Current.ContentId;
+
 						currentData.WriteTo(content);
 						logger.LogTrace($"GrpcBlobStorageService Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}' received {currentData.Length} bytes");
 					}
 					content.Seek(0, SeekOrigin.Begin);
+					if (blobStorageId == null)
+					{
+						throw new ArgumentException($"'{Constants.BlobStorageId}' is not defined in {nameof(ContentData)} object.");
+					}
+					if (contentId == null)
+					{
+						throw new ArgumentException($"'{Constants.ContentId}' is not defined in {nameof(ContentData)} object.");
+					}
 
-					logger.LogDebug($"GrpcBlobStorageService ends Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
 					blobStorageProvider.GetBlobStorage(blobStorageId).Write(content, contentId);
+					logger.LogDebug($"GrpcBlobStorageService ends Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
 				}
 
 				return new VoidResponse();
@@ -111,7 +111,9 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 
 						await responseStream.WriteAsync(new ContentData()
 						{
-							Data = ByteString.CopyFrom(buffer)
+							Data = ByteString.CopyFrom(buffer),
+							BlobStorageId = request.BlobStorageId,
+							ContentId = request.ContentId,
 						});
 
 						logger.LogTrace($"GrpcBlobStorageService Read, blobStorageId: '{request.BlobStorageId}', contentId: '{request.ContentId}' sent {buffer.Length} bytes");
