@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Identifier
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
@@ -65,7 +65,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ObjectType
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetStringId
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
@@ -132,7 +132,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetId
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
@@ -165,7 +165,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
@@ -204,7 +204,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
@@ -243,7 +243,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetHashCode
     path: ../src/IdeaStatica.BimApiLink/Identifiers/Identifier.cs

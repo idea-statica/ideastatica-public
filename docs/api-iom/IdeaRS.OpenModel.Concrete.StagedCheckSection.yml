@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/StagedCheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StagedCheckSection
     path: ../src/IdeaRS.OpenModel/Concrete/StagedCheckSection.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/StagedCheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/StagedCheckSection.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/StagedCheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StagesLoading
     path: ../src/IdeaRS.OpenModel/Concrete/StagedCheckSection.cs

@@ -13,7 +13,6 @@ Our diagnostics uses a rolling file sink. If the size of a log file exceeds a li
 
 The diagnostics log files can also be opened directly from our [example application](https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/CCM/FEAppExample_1) - see the button **Show CCM Log**.
 
-![CCM Diagnostics](https://github.com/idea-statica/ideastatica-public/blob/main/Images/ccm-diagnostics.png)
 ## Setting of the severity of messages in the log file ##
 The severity level of messages which are written into a log file can be configured in the file **_IdeaDiagnostics.config_** which can be found in the IdeaStatiCa temp folder:
 

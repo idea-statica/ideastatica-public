@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatReinforcementEc2
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -161,7 +161,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fyk
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -192,7 +192,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffFtkByFyk
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -223,7 +223,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epsuk
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -254,7 +254,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Ftk
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -285,7 +285,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Class
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -316,7 +316,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Type
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -347,7 +347,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fabrication
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -378,7 +378,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagramType
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
@@ -409,7 +409,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserDiagram
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs

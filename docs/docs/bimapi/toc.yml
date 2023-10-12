@@ -1,7 +1,6 @@
-- name: Get Started 
+- name: Docs
 - name: BimApi Checkbot Link
   href: bimapi_checkbot_link.md
-- name: Docs
 - name: Linking and application with Checkbot
   href: bimapi_linking_an_application_with_checkbot.md
 - name: Checkbot framework capabilities
@@ -9,7 +8,10 @@
 - name: Diagnostics
   href: bimapi_diagnostics_in_checkbot.md
 - name: Examples
-  href: examples/toc.yml
+- name: FEA App BIM Link Example
+  href: https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink
+- name: CAD App BIM Link Example
+  href: https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink
 - name: API Reference
 - name: IdeaStatiCa.BimApiLink
   href: ../../api-bimapilink/toc.yml

@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SectionStiffnesses
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Alfa
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -94,7 +94,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EAx
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -125,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EccX
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EccY
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -187,7 +187,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EccZ
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -218,7 +218,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EIy
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -249,7 +249,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EIz
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -280,7 +280,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EDyz
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -311,7 +311,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GAy
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -342,7 +342,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GAz
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
@@ -373,7 +373,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GIx
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStiffness.cs

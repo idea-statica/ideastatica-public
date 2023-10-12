@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IProgressMessaging
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -51,7 +51,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCancellationFlag
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageLocalised
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -115,7 +115,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessage
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageInteractive
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -187,7 +187,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CancelMessage
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -213,7 +213,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InitProgressDialog
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -239,7 +239,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStageLocalised
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStage
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -313,7 +313,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStageProgress
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -345,7 +345,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetLocalizedText
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -376,7 +376,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCurrentCulture
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs

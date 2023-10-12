@@ -48,7 +48,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MessageNumber
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -92,7 +92,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Unspecified
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Information
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -170,7 +170,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Warning
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -209,7 +209,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Error
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -248,7 +248,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Reserved
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -287,7 +287,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WarnNoPropertyInData
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -326,7 +326,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WarnValueOutOfRange
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -365,7 +365,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WarnCurveCount
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -404,7 +404,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WarnReinforcementBarsCollision
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -443,7 +443,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrNoOpenObject
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -482,7 +482,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrDataObjectNotCreated
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -521,7 +521,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrNoObjectInOpenModel
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -560,7 +560,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrNoReferenceObjectInOpenModel
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -599,7 +599,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrNoEquivalentObjectInDataModel
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -638,7 +638,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrNoCrossSectionParameter
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -677,7 +677,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrBoltsTooClose
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -716,7 +716,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrBoltsTooCloseEdge
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -755,7 +755,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrContactsAngle
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -794,7 +794,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrIncorrentMaterialE
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -833,7 +833,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrIncorrectMaterialEGP
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -872,7 +872,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrPreloadedBoltGrade
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -911,7 +911,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrValueOutOfRange
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -950,7 +950,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrCurveZeroPoint
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -989,7 +989,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrCurveFunction
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1028,7 +1028,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrCurveDecreaseFunction
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1067,7 +1067,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrCurveDerivation
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1106,7 +1106,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrCurveNotSet
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1145,7 +1145,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrValidPolyline
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1184,7 +1184,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrWarningLoad
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1223,7 +1223,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrTimeout
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1262,7 +1262,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrNoInLibrary
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1301,7 +1301,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrBadWeldMaterialProperty
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
@@ -1340,7 +1340,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrOperation
     path: ../src/IdeaRS.OpenModel/Message/OpenMessageProvider.cs

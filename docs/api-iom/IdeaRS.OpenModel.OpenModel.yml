@@ -87,7 +87,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -124,7 +124,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Version
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -186,7 +186,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OriginSettings
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -217,7 +217,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Point3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -248,7 +248,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LineSegment3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -279,7 +279,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ArcSegment3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -310,7 +310,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PolyLine3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -341,7 +341,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Region3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -372,7 +372,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatConcrete
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -403,7 +403,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatReinforcement
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -434,7 +434,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatSteel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -465,7 +465,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatPrestressSteel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -496,7 +496,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSection
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -527,7 +527,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinforcedCrossSection
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -558,7 +558,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HingeElement1D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -589,7 +589,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Opening
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -620,7 +620,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DappedEnd
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -651,7 +651,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PatchDevice
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -682,7 +682,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Element1D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -713,7 +713,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Beam
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -744,7 +744,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Member1D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -775,7 +775,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Element2D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -806,7 +806,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Wall
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -837,7 +837,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Member2D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -868,7 +868,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RigidLink
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -899,7 +899,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointOnLine3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -930,7 +930,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointSupportNode
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -961,7 +961,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LineSupportSegment
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -992,7 +992,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsInPoint
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1023,7 +1023,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1054,7 +1054,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StrainLoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1085,7 +1085,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointLoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1116,7 +1116,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsOnSurface
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1147,7 +1147,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Settlements
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1178,7 +1178,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TemperatureLoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1209,7 +1209,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadGroup
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1240,7 +1240,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadCase
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1271,7 +1271,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CombiInput
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1302,7 +1302,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Attribute
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1333,7 +1333,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionPoint
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1364,7 +1364,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Connections
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1395,7 +1395,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Reinforcement
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1426,7 +1426,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ISDModel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1457,7 +1457,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InitialImperfectionOfPoint
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1488,7 +1488,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Tendon
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1519,7 +1519,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultClass
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1550,7 +1550,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignMember
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1581,7 +1581,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SubStructure
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1612,7 +1612,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionSetup
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1643,7 +1643,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectData
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1674,7 +1674,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckMember
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1705,7 +1705,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteCheckSection
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1736,7 +1736,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteSetup
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1767,7 +1767,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectDataConcrete
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1798,7 +1798,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarShape
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1829,7 +1829,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarGeneral
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1860,7 +1860,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarSingle
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1891,7 +1891,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarStirrups
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1922,7 +1922,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Taper
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1951,7 +1951,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Span
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -1980,7 +1980,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaxId
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2018,7 +2018,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaxId
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2053,7 +2053,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaxId
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2088,7 +2088,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2124,7 +2124,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2160,7 +2160,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetExistingObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2196,7 +2196,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SaveToXmlFile
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2234,7 +2234,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromXmlFile
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2272,7 +2272,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromStream
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2307,7 +2307,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromString
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2345,7 +2345,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -2380,7 +2380,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReferenceElementsReconstruction
     path: ../src/IdeaRS.OpenModel/OpenModel.cs

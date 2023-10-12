@@ -16,6 +16,7 @@ items:
   - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToKgPerCm2(System.Double)
   - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToMPascal(System.Double)
   - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons(System.Double)
+  - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(System.Double)
   - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToMilimeters(System.Double)
   - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MilimetersToMeters(System.Double)
   - IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.PrecentageToRadians(System.Double)
@@ -30,7 +31,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoubleExtensions
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -66,7 +67,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PrecentageToRadians
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -101,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MetersToMilimeters
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -136,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MilimetersToMeters
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -171,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InchesToMeters
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -191,6 +192,41 @@ items:
   nameWithType.vb: DoubleExtensions.InchesToMeters(Double)
   fullName.vb: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.InchesToMeters(Double)
   name.vb: InchesToMeters(Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(System.Double)
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(System.Double)
+  id: MetersToInches(System.Double)
+  isExtensionMethod: true
+  parent: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
+  langs:
+  - csharp
+  - vb
+  name: MetersToInches(double)
+  nameWithType: DoubleExtensions.MetersToInches(double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MetersToInches
+    path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
+    startLine: 31
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Utils
+  syntax:
+    content: public static double MetersToInches(this double val)
+    parameters:
+    - id: val
+      type: System.Double
+    return:
+      type: System.Double
+    content.vb: Public Shared Function MetersToInches(val As Double) As Double
+  overload: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches*
+  nameWithType.vb: DoubleExtensions.MetersToInches(Double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(Double)
+  name.vb: MetersToInches(Double)
 - uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons(System.Double)
   commentId: M:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons(System.Double)
   id: KipsToNewtons(System.Double)
@@ -206,11 +242,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: KipsToNewtons
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 31
+    startLine: 37
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -241,11 +277,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: KipsToMPascal
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 37
+    startLine: 43
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -276,11 +312,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: KipsToKgPerCm2
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 43
+    startLine: 49
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -311,11 +347,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DegreesToRadians
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 49
+    startLine: 55
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -346,11 +382,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RadiansToDegrees
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 55
+    startLine: 61
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -381,11 +417,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsGreater
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 68
+    startLine: 74
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -426,11 +462,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsGreaterOrEqual
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 81
+    startLine: 87
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -471,11 +507,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsLesser
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 100
+    startLine: 106
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -516,11 +552,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsLesserOrEqual
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 113
+    startLine: 119
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -561,11 +597,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsZero
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 131
+    startLine: 137
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -603,11 +639,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsEqual
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-    startLine: 143
+    startLine: 149
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -936,6 +972,12 @@ references:
   name: InchesToMeters
   nameWithType: DoubleExtensions.InchesToMeters
   fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.InchesToMeters
+- uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches
+  href: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html#IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(System.Double)
+  name: MetersToInches
+  nameWithType: DoubleExtensions.MetersToInches
+  fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches
 - uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons*
   commentId: Overload:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons
   href: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html#IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons(System.Double)

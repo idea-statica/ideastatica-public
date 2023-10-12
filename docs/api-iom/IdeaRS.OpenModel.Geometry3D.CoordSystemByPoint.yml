@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoordSystemByPoint
     path: ../src/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs
@@ -68,7 +68,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Point
     path: ../src/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InPlane
     path: ../src/IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs

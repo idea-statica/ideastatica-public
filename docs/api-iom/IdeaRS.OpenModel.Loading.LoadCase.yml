@@ -29,7 +29,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadCase
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -129,7 +129,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -160,7 +160,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadType
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -222,7 +222,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Type
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -253,7 +253,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Variable
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -284,7 +284,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadGroup
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -315,7 +315,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -346,7 +346,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsInPoint
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -377,7 +377,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsOnLine
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -408,7 +408,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StrainLoadsOnLine
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -439,7 +439,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointLoadsOnLine
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -470,7 +470,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsOnSurface
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -501,7 +501,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Settlements
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -532,7 +532,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TemperatureLoadsOnLine
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs

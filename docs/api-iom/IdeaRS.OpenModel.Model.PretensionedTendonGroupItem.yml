@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/PretensionedTendonGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PretensionedTendonGroupItem
     path: ../src/IdeaRS.OpenModel/Model/PretensionedTendonGroup.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/PretensionedTendonGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Model/PretensionedTendonGroup.cs

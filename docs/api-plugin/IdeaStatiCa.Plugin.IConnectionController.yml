@@ -7,6 +7,7 @@ items:
   children:
   - IdeaStatiCa.Plugin.IConnectionController.CloseProject
   - IdeaStatiCa.Plugin.IConnectionController.ConnectionAppExited
+  - IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
   - IdeaStatiCa.Plugin.IConnectionController.IsConnected
   - IdeaStatiCa.Plugin.IConnectionController.OpenProject(System.String)
   langs:
@@ -18,16 +19,16 @@ items:
   type: Interface
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IConnectionController
-    path: ../src/IdeaStatiCa.Plugin/IConnectionController.cs
-    startLine: 7
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+    startLine: 9
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Provides opening of project with UI (opens IDEA StatiCa Connection application).
+  summary: Automation of IdeaConnection app
   example: []
   syntax:
     content: public interface IConnectionController
@@ -45,16 +46,16 @@ items:
   type: Event
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionAppExited
-    path: ../src/IdeaStatiCa.Plugin/IConnectionController.cs
-    startLine: 12
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+    startLine: 14
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Fires when connection application exited.
+  summary: Fires when IdeaConnection app exited.
   example: []
   syntax:
     content: event EventHandler ConnectionAppExited
@@ -74,16 +75,16 @@ items:
   type: Property
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsConnected
-    path: ../src/IdeaStatiCa.Plugin/IConnectionController.cs
-    startLine: 17
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+    startLine: 19
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Indicates whether communication (open/close project) is alive.
+  summary: Indicates whether communication with IdeaConnection.exe is alive.
   example: []
   syntax:
     content: bool IsConnected { get; }
@@ -105,16 +106,16 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProject
-    path: ../src/IdeaStatiCa.Plugin/IConnectionController.cs
-    startLine: 24
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+    startLine: 26
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Opens connection file project, provided service is connected.
+  summary: Open idea con project in IdeaConnection
   example: []
   syntax:
     content: int OpenProject(string fileName)
@@ -143,16 +144,16 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CloseProject
-    path: ../src/IdeaStatiCa.Plugin/IConnectionController.cs
-    startLine: 30
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+    startLine: 32
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Close connection file project, provided service is connected and connection file is opened.
+  summary: Close the open project
   example: []
   syntax:
     content: int CloseProject()
@@ -161,6 +162,47 @@ items:
       description: ''
     content.vb: Function CloseProject() As Integer
   overload: IdeaStatiCa.Plugin.IConnectionController.CloseProject*
+- uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnectionController
+  langs:
+  - csharp
+  - vb
+  name: GenerateReport(int, ConnReportSettings)
+  nameWithType: IConnectionController.GenerateReport(int, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GenerateReport
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs
+    startLine: 40
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Send a request to generate a connection report and return a blobstorage with its data
+  example: []
+  syntax:
+    content: IBlobStorage GenerateReport(int conId, ConnReportSettings settings)
+    parameters:
+    - id: conId
+      type: System.Int32
+      description: Id of the requested connection
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+      description: Report settings
+    return:
+      type: IdeaStatiCa.Public.IBlobStorage
+      description: The instance of the blobstorage
+    content.vb: Function GenerateReport(conId As Integer, settings As ConnReportSettings) As IBlobStorage
+  overload: IdeaStatiCa.Plugin.IConnectionController.GenerateReport*
+  nameWithType.vb: IConnectionController.GenerateReport(Integer, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
 references:
 - uid: IdeaStatiCa.Plugin
   commentId: N:IdeaStatiCa.Plugin
@@ -250,3 +292,39 @@ references:
   name: CloseProject
   nameWithType: IConnectionController.CloseProject
   fullName: IdeaStatiCa.Plugin.IConnectionController.CloseProject
+- uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionController.GenerateReport
+  href: IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport
+  nameWithType: IConnectionController.GenerateReport
+  fullName: IdeaStatiCa.Plugin.IConnectionController.GenerateReport
+- uid: IdeaStatiCa.Plugin.ConnReportSettings
+  commentId: T:IdeaStatiCa.Plugin.ConnReportSettings
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ConnReportSettings.html
+  name: ConnReportSettings
+  nameWithType: ConnReportSettings
+  fullName: IdeaStatiCa.Plugin.ConnReportSettings
+- uid: IdeaStatiCa.Public.IBlobStorage
+  commentId: T:IdeaStatiCa.Public.IBlobStorage
+  parent: IdeaStatiCa.Public
+  name: IBlobStorage
+  nameWithType: IBlobStorage
+  fullName: IdeaStatiCa.Public.IBlobStorage
+- uid: IdeaStatiCa.Public
+  commentId: N:IdeaStatiCa.Public
+  name: IdeaStatiCa.Public
+  nameWithType: IdeaStatiCa.Public
+  fullName: IdeaStatiCa.Public
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public

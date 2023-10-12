@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeCalculationCombiSIA
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
@@ -45,7 +45,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Linear
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
@@ -73,7 +73,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Envelope
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Code
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputSIA.cs

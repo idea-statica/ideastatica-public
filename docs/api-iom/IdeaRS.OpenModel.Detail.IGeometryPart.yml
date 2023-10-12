@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IGeometryPart
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
@@ -43,7 +43,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Edges
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/IGeometryPart.cs

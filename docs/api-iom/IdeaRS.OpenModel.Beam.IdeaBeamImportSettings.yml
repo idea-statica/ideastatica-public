@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaBeamImportSettings
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UseWizard
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -121,7 +121,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExportAllLinearCombination
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserWizardBrand
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignCode
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -214,7 +214,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CanChangeDesignCodeInWizard
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
@@ -245,7 +245,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamFileName
     path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs

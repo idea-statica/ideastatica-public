@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportType
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -60,7 +60,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoSupport
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -88,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Hinge
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -116,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Rigid
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HingeNoSupport
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -173,7 +173,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HingeHinge
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -201,7 +201,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RigidNoSupport
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -230,7 +230,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RigidHinge
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -259,7 +259,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RigidRigid
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs

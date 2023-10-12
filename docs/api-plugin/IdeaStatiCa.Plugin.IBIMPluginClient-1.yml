@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IBIMPluginClient
     path: ../src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MyBIM
     path: ../src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
@@ -86,7 +86,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
@@ -117,7 +117,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunAsync
     path: ../src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stop
     path: ../src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
@@ -185,7 +185,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IBIMPluginClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Status
     path: ../src/IdeaStatiCa.Plugin/IBIMPluginClient.cs

@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteMemberType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -50,7 +50,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoDefined
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Beam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -106,7 +106,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Column
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -134,7 +134,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -162,7 +162,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HollowCoreSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -190,7 +190,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TwoWaySlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -218,7 +218,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Plate
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -246,7 +246,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Wall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs

@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stirrup
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -106,7 +106,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Diameter
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -168,7 +168,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -199,7 +199,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorageLenght
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -230,7 +230,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiameterOfMandrel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -261,7 +261,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsClosed
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -292,7 +292,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Distance
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -323,7 +323,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ShearCheck
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
@@ -354,7 +354,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TorsionCheck
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/Stirrup.cs

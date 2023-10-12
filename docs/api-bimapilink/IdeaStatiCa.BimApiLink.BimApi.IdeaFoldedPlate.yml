@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaFoldedPlate
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Token
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
@@ -111,7 +111,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Plates
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bends
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
@@ -177,7 +177,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
@@ -209,7 +209,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
@@ -241,7 +241,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaFoldedPlate.cs

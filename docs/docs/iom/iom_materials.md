@@ -1,9 +1,10 @@
+# Materials
 
 All materials in IOM derive from the `Material` base class. Materials are then defined by a Type Class (Steel, Concrete, Reinforcement) and then by country (EC, US, AUS).
 
 All materials in an OpenModel **MUST** reference the same Country Code. To ensure this it is best to pass the IOM Open Model Settings Model Country Code on the creation of materials.  
 
-# Library Materials
+## Library Materials
 
 IDEA StatiCa has a library of materials that can be searched for without the requirement to specify all material information in the code. 
 
@@ -28,7 +29,6 @@ public static void Example_AddLibraryMaterialSteel(OpenModel openModel, CountryC
 }
 ```
 
-# Materials
 
 ## Steel Materials
 
@@ -121,6 +121,6 @@ public static void Example_CreateAndAddUserMaterialConcreteWithDiagram(OpenModel
 ```
 ## Timber Materials
 
-**Timber materials cannot currently be defined through the IOM. **
+> Timber materials cannot currently be defined through the IOM.
 
 

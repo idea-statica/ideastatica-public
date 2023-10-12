@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TimePoint
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -94,7 +94,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -125,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Time
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -187,7 +187,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stage
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -218,7 +218,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Age
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -249,7 +249,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Prestressing
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -280,7 +280,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LastConstructionStage
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -311,7 +311,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AllowCheckInAgeLess3Days
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
@@ -342,7 +342,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/TimeAxis.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fix2DRotation
     path: ../src/IdeaRS.OpenModel/Concrete/TimeAxis.cs

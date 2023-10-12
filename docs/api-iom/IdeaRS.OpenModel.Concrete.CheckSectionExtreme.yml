@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckSectionExtreme
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -94,7 +94,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -125,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fundamental
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Accidental
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -187,7 +187,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Characteristic
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -218,7 +218,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: QuasiPermanent
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -249,7 +249,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Frequent
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
@@ -280,7 +280,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fatigue
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSectionExtreme.cs

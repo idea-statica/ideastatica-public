@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WcfErrorHandler
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Logger
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -87,7 +87,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InitLogger
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -122,7 +122,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProvideFault
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -165,7 +165,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleError
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs

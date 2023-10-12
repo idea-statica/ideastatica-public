@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReportSettings
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReportType
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -112,7 +112,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Views
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -153,7 +153,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultsPictures
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -194,7 +194,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SymbolExplanations
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -235,7 +235,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PlatesDrawings
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -276,7 +276,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TheoreticalBackground
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -317,7 +317,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CultureName
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -358,7 +358,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Unit
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs
@@ -399,7 +399,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ReportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Formulas
     path: ../src/IdeaRS.OpenModel/Connection/ReportSettings.cs

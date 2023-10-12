@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaCrossSectionByParameters
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Rotation
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -112,7 +112,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -145,7 +145,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Type
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -178,7 +178,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Parameters
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -214,7 +214,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsInPrincipal
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -247,7 +247,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -279,7 +279,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
@@ -311,7 +311,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaCrossSectionByParameters.cs

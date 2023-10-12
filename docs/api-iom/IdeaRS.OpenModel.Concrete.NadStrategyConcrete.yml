@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/NadStrategyConcrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NadStrategyConcrete
     path: ../src/IdeaRS.OpenModel/Concrete/NadStrategyConcrete.cs
@@ -54,7 +54,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/NadStrategyConcrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/NadStrategyConcrete.cs
@@ -85,7 +85,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/NadStrategyConcrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetupValues
     path: ../src/IdeaRS.OpenModel/Concrete/NadStrategyConcrete.cs

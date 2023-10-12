@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorType
     path: ../src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
@@ -45,7 +45,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Straight
     path: ../src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
@@ -73,7 +73,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WasherPlateCircular
     path: ../src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WasherPlateRectangular
     path: ../src/IdeaRS.OpenModel/Parameters/Values/AnchorParam.cs

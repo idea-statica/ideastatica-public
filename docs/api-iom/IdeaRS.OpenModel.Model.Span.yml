@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Span.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Span
     path: ../src/IdeaRS.OpenModel/Model/Span.cs
@@ -77,7 +77,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Span.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StartCrossSection
     path: ../src/IdeaRS.OpenModel/Model/Span.cs
@@ -108,7 +108,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Span.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndCrossSection
     path: ../src/IdeaRS.OpenModel/Model/Span.cs
@@ -139,7 +139,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Span.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StartPosition
     path: ../src/IdeaRS.OpenModel/Model/Span.cs
@@ -170,7 +170,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Span.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndPosition
     path: ../src/IdeaRS.OpenModel/Model/Span.cs

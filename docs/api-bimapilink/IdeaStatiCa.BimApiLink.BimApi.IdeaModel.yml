@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaModel
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -70,7 +70,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetLoads
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMembers
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -136,7 +136,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetOriginSettings
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -169,7 +169,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetSelection
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -203,7 +203,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetBulkSelection
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -240,7 +240,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetSingleSelection
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetWholeModel
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaModel.cs

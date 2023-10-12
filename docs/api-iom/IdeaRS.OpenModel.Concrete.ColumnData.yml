@@ -32,7 +32,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ColumnData
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImperfectionsInput
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -133,7 +133,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SecondOrderEffectInput
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -164,7 +164,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateY
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -195,7 +195,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateZ
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -226,7 +226,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: L
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -257,7 +257,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EffectiveLength
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -288,7 +288,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: L0Y
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -322,7 +322,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: L0Z
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -353,7 +353,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FemLenghtFromFlexibleSupport
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -384,7 +384,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FemL0Y
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -415,7 +415,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FemL0Z
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -446,7 +446,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTopY
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -477,7 +477,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTopZ
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -508,7 +508,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportBottomY
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -539,7 +539,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportBottomZ
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
@@ -570,7 +570,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImperfectionDirection
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs

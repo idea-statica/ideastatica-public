@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HangingType
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StraightAnchorStraightBranches
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StraightAnchorLShapedBranches
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AngleAnchorStraightBranches
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AngleAnchorLShapedBranches
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StraightAnchorSingleBar
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/Hanging.cs

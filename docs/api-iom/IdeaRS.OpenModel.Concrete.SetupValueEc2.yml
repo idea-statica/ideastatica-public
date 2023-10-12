@@ -225,7 +225,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetupValueEc2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -252,7 +252,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitCheckValue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -280,7 +280,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxDisplayCheckValue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -311,7 +311,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaC
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -339,7 +339,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaS
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -367,7 +367,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaSP
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -395,7 +395,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_CoeffEpsudByEpsuk
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -423,7 +423,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_CoeffEpsudByEpsuk_p
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -451,7 +451,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IterationPrecission
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -479,7 +479,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IterationSteps
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -507,7 +507,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InteractionDiagramCheckType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -535,7 +535,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_1_Wmax_Ec2_1_1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -563,7 +563,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_2_K1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -594,7 +594,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_2_K2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -625,7 +625,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_2_K3
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -656,7 +656,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_2_K4
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -687,7 +687,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_2_K5
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -718,7 +718,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_4_K3
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -746,7 +746,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_4_K4
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -774,7 +774,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_LoadDuration
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -802,7 +802,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Alphacc_92_1_1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -830,7 +830,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Alphact_92_1_1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -858,7 +858,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Alphaccpl_92_1_1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -886,7 +886,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Alphactpl_92_1_1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -914,7 +914,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Alphacc_92_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -942,7 +942,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Alphact_92_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -970,7 +970,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Theta
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -998,7 +998,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ThetaMin
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1026,7 +1026,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ThetaMax
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1054,7 +1054,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffCrdc
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1082,7 +1082,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffK1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1110,7 +1110,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffVmin
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1138,7 +1138,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffNi1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1166,7 +1166,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AlphaCw
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1194,7 +1194,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffKp
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1222,7 +1222,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinLongReinfPercBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1253,7 +1253,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxLongReinfPercBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1281,7 +1281,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinLongReinfDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1309,7 +1309,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxLongReinfDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1337,7 +1337,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinShearReinfPercBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1365,7 +1365,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxShearReinfPercBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1393,7 +1393,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxShearReinfDistBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1421,7 +1421,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxShearReinfTransDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1449,7 +1449,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinLongReinfPercColumn
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1480,7 +1480,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxLongReinfPercColumn
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1508,7 +1508,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinLongReinfDiamColumn
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1536,7 +1536,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinNoBarCircColumn
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1564,7 +1564,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxShearReinfDistColumn
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1592,7 +1592,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinShearReinfDiamColumn
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1620,7 +1620,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StressLimit_TypeFctm
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1648,7 +1648,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffKl
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1676,7 +1676,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Theta_t
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1704,7 +1704,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Theta_c
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1732,7 +1732,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Theta_min_t
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1760,7 +1760,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Theta_min_c
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1788,7 +1788,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Theta_max_f
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1816,7 +1816,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_2_5_Theta0
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1844,7 +1844,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_8_6_3_GammaCe
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1872,7 +1872,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_k_p
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1900,7 +1900,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeakenedByBars
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1928,7 +1928,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeakenedByTendons
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1956,7 +1956,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeakenedByDucts
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -1984,7 +1984,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModulusType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2012,7 +2012,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_9_r_sup_pre
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2047,7 +2047,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_9_r_inf_pre
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2082,7 +2082,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_9_r_sup_post
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2117,7 +2117,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_9_r_inf_post
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2152,7 +2152,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_2_4_2_2_Gamma_p_fav
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2185,7 +2185,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_2_4_2_2_Gamma_p_unfav
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2218,7 +2218,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_1_DecompressionDistance
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2255,7 +2255,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PlaneDiagramCount
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2283,7 +2283,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DivisionStrain
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2311,7 +2311,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndOfCuring
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2339,7 +2339,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UseGammalt
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2370,7 +2370,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_1_Wmax_Ec2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2398,7 +2398,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckCrackedCss
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2426,7 +2426,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserValuesForShear
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2454,7 +2454,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Table74N
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2482,7 +2482,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DecompressionLimit
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2510,7 +2510,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DecompressionLimit_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2538,7 +2538,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinVertReinfPercWall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2566,7 +2566,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxVertReinfPercWall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2594,7 +2594,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxVertReinfDistWall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2622,7 +2622,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinHorReinfPercWall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2650,7 +2650,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxHorReinfDistWall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2678,7 +2678,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinReinfPercDeepBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2706,7 +2706,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxReinfDistDeepBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2734,7 +2734,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinMainReinfPercSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2762,7 +2762,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxMainReinfPercSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2790,7 +2790,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinTransReinfPercSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2818,7 +2818,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxMainReinfDistSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2846,7 +2846,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxTransReinfDistSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2874,7 +2874,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_LimitQuasiPermanent
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2902,7 +2902,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_LimitCharacteristic
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2930,7 +2930,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_LimitInfrequent
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2958,7 +2958,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinTendonVertDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -2986,7 +2986,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinTendonHorDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3014,7 +3014,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinDuctVertDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3042,7 +3042,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinDuctHorDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3070,7 +3070,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_2_1_1_K1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3098,7 +3098,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_2_1_1_K2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3126,7 +3126,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_3_2_K7
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3154,7 +3154,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_10_3_2_K8
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3182,7 +3182,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckCrossSectionCrackedIfOneCracked_7_2_Chapter
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3210,7 +3210,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_8_3_2_MinDiameterOfMandrel
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3238,7 +3238,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffNi
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3266,7 +3266,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitDeflectionNormal
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3294,7 +3294,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitDeflectionAdvanced
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3322,7 +3322,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxLengthOfZone
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3350,7 +3350,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitDeflectionValue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3378,7 +3378,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LinearStiffnessForDeflection
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3406,7 +3406,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImperfectionDirection
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3434,7 +3434,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InterpolationCurve
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3462,7 +3462,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InteractionDiagramDivision
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3490,7 +3490,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_6_5_2_3_Ni
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3518,7 +3518,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_6_5_4_4_K1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3546,7 +3546,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_6_5_4_4_K2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3574,7 +3574,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_6_5_4_4_K3
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3602,7 +3602,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_J_3_2_K1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3630,7 +3630,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_J_3_3_K2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3658,7 +3658,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SaTMethodType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3686,7 +3686,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DetailingBracketMethodType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3714,7 +3714,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinAnchLenShear
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3742,7 +3742,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorageDetailType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3770,7 +3770,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaFfat
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3801,7 +3801,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaCfat
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3829,7 +3829,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaSfat
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3857,7 +3857,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaSPfat
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3885,7 +3885,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_TableFatigue63N
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3916,7 +3916,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_TableFatigue64N
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3947,7 +3947,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_TableFatigue6101N
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -3975,7 +3975,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_NCyclesFatigue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4006,7 +4006,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_K1Fatigue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4034,7 +4034,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetupTable45n1991_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4062,7 +4062,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FatigueMethod
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4090,7 +4090,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionCrackedPlate
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4118,7 +4118,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateSrMaxAccUserSettings
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4146,7 +4146,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TableJointParameters
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4174,7 +4174,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModulusTypeLongTermEffects
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4202,7 +4202,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: JointShearStressType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4230,7 +4230,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SubintervalsPerDecade
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4258,7 +4258,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4286,7 +4286,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4314,7 +4314,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K3
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4342,7 +4342,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K4
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4370,7 +4370,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K5
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4399,7 +4399,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K6
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4427,7 +4427,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InteractionDiagramExportType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4455,7 +4455,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsSetPrecissionForNullForces
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4483,7 +4483,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoResistanceOfConcreteInTension1D
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4511,7 +4511,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NeglectRedistributionOfMoments
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4539,7 +4539,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_1_Wmax_Ec2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4567,7 +4567,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NonlinearCreep
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4595,7 +4595,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AllowCheckInAgeLess3Days
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4623,7 +4623,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfInitialstateOfCSS
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4651,7 +4651,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BentUpBarsReduction
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4679,7 +4679,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StrutAngleOptimalization
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4707,7 +4707,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsSetMrForULSMNKappaDiagram
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4735,7 +4735,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_EN1992_3_7_3_1_112_x_min
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4763,7 +4763,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_EN1992_3_CrackWidth
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4791,7 +4791,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CracksPassThrough
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4819,7 +4819,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CracWidthNationalAnnex
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4847,7 +4847,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: VestigalResistance
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4875,7 +4875,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoTendonExclusion
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4903,7 +4903,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HighStrengthConcrete
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4931,7 +4931,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InnerPerimeter
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4959,7 +4959,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitLeverArm
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -4987,7 +4987,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_K2Fatigue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5022,7 +5022,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DecompressionLimit_3
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5055,7 +5055,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_TableFatigue63N_1992_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5086,7 +5086,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_TableFatigue64N_1992_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5117,7 +5117,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IncreaseJointResistance
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5145,7 +5145,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equation629
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5173,7 +5173,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equation631
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5201,7 +5201,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Table7_101DE_1992_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5229,7 +5229,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Table7_102DE_1992_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5257,7 +5257,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FatigueJointCohesion
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5285,7 +5285,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Table74N_1992_1_1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5313,7 +5313,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_Table7_103DE_1992_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5341,7 +5341,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxBentUpReinfDist
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5369,7 +5369,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinShearReinfPercSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5397,7 +5397,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxShearReinfDistSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5425,7 +5425,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxShearReinfTransDistSlab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5453,7 +5453,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinShearReinfDiamColumn_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5481,7 +5481,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffNi1_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5509,7 +5509,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinLongReinfPercBeam_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5537,7 +5537,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxLongReinfPercBeam_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5565,7 +5565,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxMainReinfDistSlab_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5593,7 +5593,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxTransReinfDistSlab_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5621,7 +5621,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxHorReinfDistWall_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5649,7 +5649,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinReinfPercDeepBeam_EN2_2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5677,7 +5677,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K5_fck_BiggerThan_50MPa
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5706,7 +5706,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_5_5_K6_fck_BiggerThan_50MPa
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5735,7 +5735,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_4_K1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5763,7 +5763,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_7_3_4_K2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5791,7 +5791,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_NN_112_Gamma_sd
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5819,7 +5819,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoefficientOfTensionConcrete
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5847,7 +5847,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FindOnly2DPlaneDeformation
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5875,7 +5875,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SimplifiedCssModel
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5903,7 +5903,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaC_BLR
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5931,7 +5931,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaS_BLR
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5959,7 +5959,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_GammaSP_BLR
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -5987,7 +5987,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BLRPRecisionCheckValue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6015,7 +6015,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeSLSCalculation
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6050,7 +6050,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoResistanceOfConcreteInTension2D
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6078,7 +6078,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumberPartsOfDM
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6106,7 +6106,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateShrinkage
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6134,7 +6134,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NA_EN1992_3_CrackWidth_XA2_XA3_XF2_XF3_XF4
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6162,7 +6162,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculationOfStressLimitationK1
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6190,7 +6190,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculationOfStressLimitationK2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -6218,7 +6218,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculationOfStressLimitationK3
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs

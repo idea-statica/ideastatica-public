@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelBIM
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs
@@ -66,7 +66,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Project
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RequestedItems
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Items
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Model
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs
@@ -222,7 +222,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Results
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs
@@ -261,7 +261,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ModelBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Messages
     path: ../src/IdeaStatiCa.Plugin/ModelBIM.cs

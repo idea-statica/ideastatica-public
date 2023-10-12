@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SteelSetupCISC
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Structural_Fi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
@@ -89,7 +89,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bolt_Fib
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
@@ -120,7 +120,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Weld_Fiw
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
@@ -151,7 +151,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Anchor_Fiar
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupCISC.cs

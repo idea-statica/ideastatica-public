@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteMemberData
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -124,7 +124,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TwoWaySlabType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TimeAxis
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -186,7 +186,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculationSetup
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs

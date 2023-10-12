@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinforcedCrossSection
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -309,7 +309,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -340,7 +340,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -371,7 +371,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSection
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -402,7 +402,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bars
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -433,7 +433,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stirrups
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -464,7 +464,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TendonBars
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
@@ -495,7 +495,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TendonDucts
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/ReinforcedCrossSection.cs

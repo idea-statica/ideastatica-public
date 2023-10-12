@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SteelSetupRUS
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Structural_Fi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bolt_Fib
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -124,7 +124,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bolt_Fip
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Weld_Fiw
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -186,7 +186,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Anchor_Fiar
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -217,7 +217,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrtBearing
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -248,7 +248,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldingTypeSNIP
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -279,7 +279,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PreloadedBoltsLoadType
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -310,7 +310,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FrictionCoefficientPboltDefault
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs

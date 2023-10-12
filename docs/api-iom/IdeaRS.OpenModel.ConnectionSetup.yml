@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionSetup
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -111,7 +111,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -142,7 +142,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InitByCode
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -170,7 +170,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SteelSetup
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -201,7 +201,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteSetup
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -242,7 +242,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StopAtLimitStrain
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -273,7 +273,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldEvaluationData
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -304,7 +304,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckDetailing
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -335,7 +335,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyConeBreakoutCheck
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -366,7 +366,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PretensionForceFpc
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -397,7 +397,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaInst
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -428,7 +428,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaC
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -459,7 +459,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaM3
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -490,7 +490,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorLengthForStiffness
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -521,7 +521,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: JointBetaFactor
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -552,7 +552,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EffectiveAreaStressCoeff
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -583,7 +583,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EffectiveAreaStressCoeffAISC
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -614,7 +614,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FrictionCoefficient
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -645,7 +645,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitPlasticStrain
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -676,7 +676,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitDeformation
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -707,7 +707,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitDeformationCheck
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -738,7 +738,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnalysisGNL
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -769,7 +769,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnalysisAllGNL
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -800,7 +800,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WarnPlasticStrain
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -831,7 +831,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WarnCheckLevel
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -862,7 +862,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OptimalCheckLevel
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -893,7 +893,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceBetweenBolts
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -924,7 +924,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceDiameterBetweenBP
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -955,7 +955,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceBetweenBoltsEdge
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -986,7 +986,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BearingAngle
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1017,7 +1017,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DecreasingFtrd
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1048,7 +1048,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BracedSystem
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1079,7 +1079,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BearingCheck
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1110,7 +1110,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyBetapInfluence
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1141,7 +1141,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberLengthRatio
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1172,7 +1172,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DivisionOfSurfaceOfCHS
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1203,7 +1203,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DivisionOfArcsOfRHS
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1234,7 +1234,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumElement
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1265,7 +1265,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumberIterations
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1296,7 +1296,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mdiv
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1327,7 +1327,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MinSize
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1358,7 +1358,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaxSize
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1389,7 +1389,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumElementRhs
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1420,7 +1420,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumElementPlate
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1451,7 +1451,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RigidBP
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1482,7 +1482,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AlphaCC
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1513,7 +1513,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrackedConcrete
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1544,7 +1544,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DevelopedFillers
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1575,7 +1575,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DeformationBoltHole
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1606,7 +1606,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExtensionLengthRationOpenSections
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1637,7 +1637,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExtensionLengthRationCloseSections
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1668,7 +1668,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FactorPreloadBolt
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1699,7 +1699,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BaseMetalCapacity
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1730,7 +1730,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyBearingCheck
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1761,7 +1761,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FrictionCoefficientPbolt
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1792,7 +1792,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrtCompCheckIS
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1823,7 +1823,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltMaxGripLengthCoeff
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1854,7 +1854,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FatigueSectionOffset
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1885,7 +1885,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CondensedElementLengthFactor
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
@@ -1916,7 +1916,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaMu
     path: ../src/IdeaRS.OpenModel/Setups/ConnectionSetup.cs

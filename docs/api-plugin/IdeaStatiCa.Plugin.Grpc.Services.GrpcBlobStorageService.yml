@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcBlobStorageService
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
@@ -100,7 +100,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Write
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
@@ -108,20 +108,15 @@ items:
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Services
-  summary: Writes data with content id to the specified blob storage. Blob storage id and content id have to be in header metadata.
-  example: []
   syntax:
     content: public override Task<VoidResponse> Write(IAsyncStreamReader<ContentData> requestStream, ServerCallContext context)
     parameters:
     - id: requestStream
       type: Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData}
-      description: Streamed data received from client and to be written to the blob storage
     - id: context
       type: Grpc.Core.ServerCallContext
-      description: Call context of gRPC communication
     return:
       type: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Grpc.VoidResponse}
-      description: ''
     content.vb: Public Overrides Function Write(requestStream As IAsyncStreamReader(Of ContentData), context As ServerCallContext) As Task(Of VoidResponse)
   overridden: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase.Write(Grpc.Core.IAsyncStreamReader{IdeaStatiCa.Plugin.Grpc.ContentData},Grpc.Core.ServerCallContext)
   overload: IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService.Write*
@@ -142,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Read
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
@@ -187,11 +182,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Exist
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-    startLine: 135
+    startLine: 137
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Services
@@ -226,11 +221,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Delete
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-    startLine: 161
+    startLine: 163
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Services
@@ -265,11 +260,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetEntries
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcBlobStorageService.cs
-    startLine: 184
+    startLine: 186
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Services

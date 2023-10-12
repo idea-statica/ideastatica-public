@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Importers/IImporterProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IImporterProvider
     path: ../src/IdeaStatica.BimApiLink/Importers/IImporterProvider.cs
@@ -41,7 +41,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Importers/IImporterProvider.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetProvider
     path: ../src/IdeaStatica.BimApiLink/Importers/IImporterProvider.cs

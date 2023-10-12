@@ -27,7 +27,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatPrestressSteelEc2
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -110,7 +110,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -141,7 +141,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fm
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -172,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fp01
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -203,7 +203,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Agt
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -234,7 +234,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fr
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -265,7 +265,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fpk
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -296,7 +296,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fp01k
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -327,7 +327,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epsuk
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -358,7 +358,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Type
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -389,7 +389,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SurfaceCharacteristic
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -420,7 +420,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Production
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -451,7 +451,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagramType
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs

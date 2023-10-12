@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteULSCheckResultShearEc2
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
@@ -66,7 +66,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Ved
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
@@ -97,7 +97,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Vrdc
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
@@ -128,7 +128,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Vrdr
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Vrdmax
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
@@ -190,7 +190,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Vrds
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
@@ -221,7 +221,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Vrd
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultShearEc2.cs

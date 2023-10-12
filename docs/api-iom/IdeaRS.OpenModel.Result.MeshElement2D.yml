@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/SectionResultOnPoints.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MeshElement2D
     path: ../src/IdeaRS.OpenModel/Result/SectionResultOnPoints.cs
@@ -68,7 +68,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/SectionResultOnPoints.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Result/SectionResultOnPoints.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/SectionResultOnPoints.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Points
     path: ../src/IdeaRS.OpenModel/Result/SectionResultOnPoints.cs

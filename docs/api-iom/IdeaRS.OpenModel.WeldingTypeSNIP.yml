@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldingTypeSNIP
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -46,7 +46,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Manual
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ManualSmallRodDiam
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AutomaticAndMachine
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Automatic
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs

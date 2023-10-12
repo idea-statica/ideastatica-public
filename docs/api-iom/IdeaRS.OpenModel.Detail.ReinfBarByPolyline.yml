@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinfBarByPolyline
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -86,7 +86,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -117,7 +117,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -148,7 +148,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterPoint
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -179,7 +179,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BarShape
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -210,7 +210,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BarDistance
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -241,7 +241,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumOfLayers
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -272,7 +272,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Distance
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
@@ -303,7 +303,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Position
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarByPolyline.cs

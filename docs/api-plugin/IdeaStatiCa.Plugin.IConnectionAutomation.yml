@@ -1,0 +1,214 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation
+  commentId: T:IdeaStatiCa.Plugin.IConnectionAutomation
+  id: IConnectionAutomation
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  - IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  langs:
+  - csharp
+  - vb
+  name: IConnectionAutomation
+  nameWithType: IConnectionAutomation
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IConnectionAutomation
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: ''
+  example: []
+  syntax:
+    content: >-
+      [ServiceContract]
+
+      public interface IConnectionAutomation
+    content.vb: >-
+      <ServiceContract>
+
+      Public Interface IConnectionAutomation
+  attributes:
+  - type: System.ServiceModel.ServiceContractAttribute
+    ctor: System.ServiceModel.ServiceContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  commentId: M:IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  id: GetProjectInfo
+  parent: IdeaStatiCa.Plugin.IConnectionAutomation
+  langs:
+  - csharp
+  - vb
+  name: GetProjectInfo()
+  nameWithType: IConnectionAutomation.GetProjectInfo()
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetProjectInfo
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: ''
+  example: []
+  syntax:
+    content: ConProjectInfo GetProjectInfo()
+    return:
+      type: IdeaRS.OpenModel.Connection.ConProjectInfo
+      description: ''
+    content.vb: Function GetProjectInfo() As ConProjectInfo
+  overload: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo*
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnectionAutomation
+  langs:
+  - csharp
+  - vb
+  name: GenerateReport(int, ConnReportSettings)
+  nameWithType: IConnectionAutomation.GenerateReport(int, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GenerateReport
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Generate a report of the connection <code class="paramref">conId</code>
+  example: []
+  syntax:
+    content: string GenerateReport(int conId, ConnReportSettings settings)
+    parameters:
+    - id: conId
+      type: System.Int32
+      description: Id of the required connection
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+      description: Report settings
+    return:
+      type: System.String
+      description: The identifier of a generated report
+    content.vb: Function GenerateReport(conId As Integer, settings As ConnReportSettings) As String
+  overload: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport*
+  nameWithType.vb: IConnectionAutomation.GenerateReport(Integer, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  href: IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  name: GetProjectInfo
+  nameWithType: IConnectionAutomation.GetProjectInfo
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+- uid: IdeaRS.OpenModel.Connection.ConProjectInfo
+  commentId: T:IdeaRS.OpenModel.Connection.ConProjectInfo
+  parent: IdeaRS.OpenModel.Connection
+  name: ConProjectInfo
+  nameWithType: ConProjectInfo
+  fullName: IdeaRS.OpenModel.Connection.ConProjectInfo
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport
+  href: IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport
+  nameWithType: IConnectionAutomation.GenerateReport
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.ConnReportSettings
+  commentId: T:IdeaStatiCa.Plugin.ConnReportSettings
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ConnReportSettings.html
+  name: ConnReportSettings
+  nameWithType: ConnReportSettings
+  fullName: IdeaStatiCa.Plugin.ConnReportSettings
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

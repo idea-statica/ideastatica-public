@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/IGrpcSender.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IGrpcSender
     path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcSender.cs
@@ -41,7 +41,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/IGrpcSender.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcSender.cs

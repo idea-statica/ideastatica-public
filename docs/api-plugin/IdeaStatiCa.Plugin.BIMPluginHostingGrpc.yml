@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BIMPluginHostingGrpc
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -65,7 +65,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcServer
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -94,7 +94,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AppStatusChanged
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -125,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaStaticaApp
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Service
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -189,7 +189,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventName
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -220,7 +220,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -258,7 +258,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -297,7 +297,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stop
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -325,7 +325,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
@@ -359,7 +359,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/BIMPluginHostingGrpc.cs
