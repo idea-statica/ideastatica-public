@@ -1,0 +1,587 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  commentId: T:IdeaStatiCa.BimApi.IIdeaBoltGrid
+  id: IIdeaBoltGrid
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+  - IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+  langs:
+  - csharp
+  - vb
+  name: IIdeaBoltGrid
+  nameWithType: IIdeaBoltGrid
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaBoltGrid
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Represent bolt grid
+  example: []
+  syntax:
+    content: 'public interface IIdeaBoltGrid : IIdeaPersistentObject, IIdeaObject'
+    content.vb: Public Interface IIdeaBoltGrid Inherits IIdeaPersistentObject, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+  id: Origin
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Origin
+  nameWithType: IIdeaBoltGrid.Origin
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Origin
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Origin node of the bolt grid.
+  example: []
+  syntax:
+    content: IIdeaNode Origin { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaNode
+    content.vb: ReadOnly Property Origin As IIdeaNode
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin*
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+  id: LocalCoordinateSystem
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: LocalCoordinateSystem
+  nameWithType: IIdeaBoltGrid.LocalCoordinateSystem
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LocalCoordinateSystem
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 19
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Local Coordinate System (LCS) of the bolt grid. Only vector definition of the LCS is supported, so the instance of <xref href="IdeaRS.OpenModel.Geometry3D.CoordSystemByVector" data-throw-if-not-resolved="false"></xref> must be returned.
+
+    LCS only effects rotation of the segment, it does not modify on nodes' position.
+  example: []
+  syntax:
+    content: CoordSystem LocalCoordinateSystem { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.CoordSystem
+    content.vb: ReadOnly Property LocalCoordinateSystem As CoordSystem
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem*
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+  id: Positions
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: Positions
+  nameWithType: IIdeaBoltGrid.Positions
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Positions
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Collection of nodes specific position of the bolt
+  example: []
+  syntax:
+    content: IEnumerable<IIdeaNode> Positions { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaNode}
+    content.vb: ReadOnly Property Positions As IEnumerable(Of IIdeaNode)
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions*
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+  id: ConnectedParts
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: ConnectedParts
+  nameWithType: IIdeaBoltGrid.ConnectedParts
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConnectedParts
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 29
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Collection of parf witch shoud be bolted
+  example: []
+  syntax:
+    content: IEnumerable<IIdeaObjectConnectable> ConnectedParts { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaObjectConnectable}
+    content.vb: ReadOnly Property ConnectedParts As IEnumerable(Of IIdeaObjectConnectable)
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts*
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+  id: ShearInThread
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: ShearInThread
+  nameWithType: IIdeaBoltGrid.ShearInThread
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ShearInThread
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 34
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Shear in thread
+  example: []
+  syntax:
+    content: bool ShearInThread { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property ShearInThread As Boolean
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread*
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+  id: BoltShearType
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: BoltShearType
+  nameWithType: IIdeaBoltGrid.BoltShearType
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltShearType
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 39
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Defines a transfer of shear force in bolts.
+  example: []
+  syntax:
+    content: BoltShearType BoltShearType { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Parameters.BoltShearType
+    content.vb: ReadOnly Property BoltShearType As BoltShearType
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType*
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+  commentId: P:IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+  id: BoltAssembly
+  parent: IdeaStatiCa.BimApi.IIdeaBoltGrid
+  langs:
+  - csharp
+  - vb
+  name: BoltAssembly
+  nameWithType: IIdeaBoltGrid.BoltAssembly
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoltAssembly
+    path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
+    startLine: 44
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Bolt Assembly
+  example: []
+  syntax:
+    content: IIdeaBoltAssembly BoltAssembly { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaBoltAssembly
+    content.vb: ReadOnly Property BoltAssembly As IIdeaBoltAssembly
+  overload: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+  name: Origin
+  nameWithType: IIdeaBoltGrid.Origin
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.Origin
+- uid: IdeaStatiCa.BimApi.IIdeaNode
+  commentId: T:IdeaStatiCa.BimApi.IIdeaNode
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaNode.html
+  name: IIdeaNode
+  nameWithType: IIdeaNode
+  fullName: IdeaStatiCa.BimApi.IIdeaNode
+- uid: IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+  commentId: T:IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+  name: CoordSystemByVector
+  nameWithType: CoordSystemByVector
+  fullName: IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+  name: LocalCoordinateSystem
+  nameWithType: IIdeaBoltGrid.LocalCoordinateSystem
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.LocalCoordinateSystem
+- uid: IdeaRS.OpenModel.Geometry3D.CoordSystem
+  commentId: T:IdeaRS.OpenModel.Geometry3D.CoordSystem
+  parent: IdeaRS.OpenModel.Geometry3D
+  name: CoordSystem
+  nameWithType: CoordSystem
+  fullName: IdeaRS.OpenModel.Geometry3D.CoordSystem
+- uid: IdeaRS.OpenModel.Geometry3D
+  commentId: N:IdeaRS.OpenModel.Geometry3D
+  name: IdeaRS.OpenModel.Geometry3D
+  nameWithType: IdeaRS.OpenModel.Geometry3D
+  fullName: IdeaRS.OpenModel.Geometry3D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+  name: Positions
+  nameWithType: IIdeaBoltGrid.Positions
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.Positions
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaNode}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaNode}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IIdeaNode>
+  nameWithType: IEnumerable<IIdeaNode>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApi.IIdeaNode>
+  nameWithType.vb: IEnumerable(Of IIdeaNode)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApi.IIdeaNode)
+  name.vb: IEnumerable(Of IIdeaNode)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+    href: IdeaStatiCa.BimApi.IIdeaNode.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+    href: IdeaStatiCa.BimApi.IIdeaNode.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+  name: ConnectedParts
+  nameWithType: IIdeaBoltGrid.ConnectedParts
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.ConnectedParts
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaObjectConnectable}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaObjectConnectable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IIdeaObjectConnectable>
+  nameWithType: IEnumerable<IIdeaObjectConnectable>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApi.IIdeaObjectConnectable>
+  nameWithType.vb: IEnumerable(Of IIdeaObjectConnectable)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApi.IIdeaObjectConnectable)
+  name.vb: IEnumerable(Of IIdeaObjectConnectable)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectConnectable
+    name: IIdeaObjectConnectable
+    href: IdeaStatiCa.BimApi.IIdeaObjectConnectable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectConnectable
+    name: IIdeaObjectConnectable
+    href: IdeaStatiCa.BimApi.IIdeaObjectConnectable.html
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+  name: ShearInThread
+  nameWithType: IIdeaBoltGrid.ShearInThread
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.ShearInThread
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+  name: BoltShearType
+  nameWithType: IIdeaBoltGrid.BoltShearType
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltShearType
+- uid: IdeaRS.OpenModel.Parameters.BoltShearType
+  commentId: T:IdeaRS.OpenModel.Parameters.BoltShearType
+  parent: IdeaRS.OpenModel.Parameters
+  name: BoltShearType
+  nameWithType: BoltShearType
+  fullName: IdeaRS.OpenModel.Parameters.BoltShearType
+- uid: IdeaRS.OpenModel.Parameters
+  commentId: N:IdeaRS.OpenModel.Parameters
+  name: IdeaRS.OpenModel.Parameters
+  nameWithType: IdeaRS.OpenModel.Parameters
+  fullName: IdeaRS.OpenModel.Parameters
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+- uid: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+  href: IdeaStatiCa.BimApi.IIdeaBoltGrid.html#IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+  name: BoltAssembly
+  nameWithType: IIdeaBoltGrid.BoltAssembly
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltGrid.BoltAssembly
+- uid: IdeaStatiCa.BimApi.IIdeaBoltAssembly
+  commentId: T:IdeaStatiCa.BimApi.IIdeaBoltAssembly
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaBoltAssembly.html
+  name: IIdeaBoltAssembly
+  nameWithType: IIdeaBoltAssembly
+  fullName: IdeaStatiCa.BimApi.IIdeaBoltAssembly

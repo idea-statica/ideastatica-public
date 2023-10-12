@@ -35,6 +35,8 @@ message VoidResponse {}
 
 message ContentData {
     bytes data = 1;
+    string blobStorageId = 2;
+    string contentId = 3;
 }
 
 message ContentRequest {

@@ -1,0 +1,258 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaSpan
+  commentId: T:IdeaStatiCa.BimApi.IIdeaSpan
+  id: IIdeaSpan
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+  - IdeaStatiCa.BimApi.IIdeaSpan.EndPosition
+  - IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+  - IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+  langs:
+  - csharp
+  - vb
+  name: IIdeaSpan
+  nameWithType: IIdeaSpan
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaSpan
+    path: ../src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Span allows specifying haunched member.
+
+
+    Both cross-sect
+  example: []
+  syntax:
+    content: 'public interface IIdeaSpan : IIdeaObject'
+    content.vb: Public Interface IIdeaSpan Inherits IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+  id: StartCrossSection
+  parent: IdeaStatiCa.BimApi.IIdeaSpan
+  langs:
+  - csharp
+  - vb
+  name: StartCrossSection
+  nameWithType: IIdeaSpan.StartCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StartCrossSection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: <xref href="IdeaStatiCa.BimApi.IIdeaCrossSection?text=Cross-section" data-throw-if-not-resolved="false"></xref> at the start position of the span. Must not be null.
+  example: []
+  syntax:
+    content: IIdeaCrossSection StartCrossSection { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaCrossSection
+    content.vb: ReadOnly Property StartCrossSection As IIdeaCrossSection
+  overload: IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection*
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+  id: EndCrossSection
+  parent: IdeaStatiCa.BimApi.IIdeaSpan
+  langs:
+  - csharp
+  - vb
+  name: EndCrossSection
+  nameWithType: IIdeaSpan.EndCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EndCrossSection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: <xref href="IdeaStatiCa.BimApi.IIdeaCrossSection?text=Cross-section" data-throw-if-not-resolved="false"></xref> at the end position of the span.
+  example: []
+  syntax:
+    content: IIdeaCrossSection EndCrossSection { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaCrossSection
+    content.vb: ReadOnly Property EndCrossSection As IIdeaCrossSection
+  overload: IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection*
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+  id: StartPosition
+  parent: IdeaStatiCa.BimApi.IIdeaSpan
+  langs:
+  - csharp
+  - vb
+  name: StartPosition
+  nameWithType: IIdeaSpan.StartPosition
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: StartPosition
+    path: ../src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+    startLine: 22
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Relative position on the member where the span starts.
+  example: []
+  syntax:
+    content: double StartPosition { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property StartPosition As Double
+  overload: IdeaStatiCa.BimApi.IIdeaSpan.StartPosition*
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.EndPosition
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSpan.EndPosition
+  id: EndPosition
+  parent: IdeaStatiCa.BimApi.IIdeaSpan
+  langs:
+  - csharp
+  - vb
+  name: EndPosition
+  nameWithType: IIdeaSpan.EndPosition
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.EndPosition
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: EndPosition
+    path: ../src/IdeaStatiCa.BimApi/IIdeaSpan.cs
+    startLine: 27
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Relative position on the member where the span ends.
+  example: []
+  syntax:
+    content: double EndPosition { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property EndPosition As Double
+  overload: IdeaStatiCa.BimApi.IIdeaSpan.EndPosition*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html
+  name: IIdeaCrossSection
+  nameWithType: IIdeaCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaSpan.html#IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+  name: StartCrossSection
+  nameWithType: IIdeaSpan.StartCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.StartCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaSpan.html#IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+  name: EndCrossSection
+  nameWithType: IIdeaSpan.EndCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.EndCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.StartPosition*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+  href: IdeaStatiCa.BimApi.IIdeaSpan.html#IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+  name: StartPosition
+  nameWithType: IIdeaSpan.StartPosition
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.StartPosition
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaSpan.EndPosition*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaSpan.EndPosition
+  href: IdeaStatiCa.BimApi.IIdeaSpan.html#IdeaStatiCa.BimApi.IIdeaSpan.EndPosition
+  name: EndPosition
+  nameWithType: IIdeaSpan.EndPosition
+  fullName: IdeaStatiCa.BimApi.IIdeaSpan.EndPosition

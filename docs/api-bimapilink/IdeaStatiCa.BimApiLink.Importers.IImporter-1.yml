@@ -1,0 +1,322 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter`1
+  commentId: T:IdeaStatiCa.BimApiLink.Importers.IImporter`1
+  id: IImporter`1
+  parent: IdeaStatiCa.BimApiLink.Importers
+  children:
+  - IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0})
+  langs:
+  - csharp
+  - vb
+  name: IImporter<T>
+  nameWithType: IImporter<T>
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter<T>
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Importers/IImporter.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IImporter
+    path: ../src/IdeaStatica.BimApiLink/Importers/IImporter.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Importers
+  syntax:
+    content: 'public interface IImporter<T> : IImporter where T : IIdeaObject'
+    typeParameters:
+    - id: T
+    content.vb: Public Interface IImporter(Of T As IIdeaObject) Inherits IImporter
+  inheritedMembers:
+  - IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}})
+  - IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  nameWithType.vb: IImporter(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Importers.IImporter(Of T)
+  name.vb: IImporter(Of T)
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0})
+  commentId: M:IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0})
+  id: Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0})
+  parent: IdeaStatiCa.BimApiLink.Importers.IImporter`1
+  langs:
+  - csharp
+  - vb
+  name: Create(Identifier<T>)
+  nameWithType: IImporter<T>.Create(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter<T>.Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Importers/IImporter.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaStatica.BimApiLink/Importers/IImporter.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Importers
+  syntax:
+    content: T Create(Identifier<T> identifier)
+    parameters:
+    - id: identifier
+      type: IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}}
+    return:
+      type: '{T}'
+    content.vb: Function Create(identifier As Identifier(Of T)) As T
+  overload: IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create*
+  nameWithType.vb: IImporter(Of T).Create(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.Importers.IImporter(Of T).Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: Create(Identifier(Of T))
+references:
+- uid: IdeaStatiCa.BimApiLink.Importers
+  commentId: N:IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Importers
+  nameWithType: IdeaStatiCa.BimApiLink.Importers
+  fullName: IdeaStatiCa.BimApiLink.Importers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Importers
+    name: Importers
+    href: IdeaStatiCa.BimApiLink.Importers.html
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}})
+  commentId: M:IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  parent: IdeaStatiCa.BimApiLink.Importers.IImporter
+  definition: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  name: Create<T>(Identifier<T>)
+  nameWithType: IImporter.Create<T>(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter.Create<T>(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  nameWithType.vb: IImporter.Create(Of T)(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.Importers.IImporter.Create(Of T)(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: Create(Of T)(Identifier(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Create
+    href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Create
+    href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  commentId: M:IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  parent: IdeaStatiCa.BimApiLink.Importers.IImporter
+  href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  name: Create(IIdentifier)
+  nameWithType: IImporter.Create(IIdentifier)
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+    name: Create
+    href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+    name: Create
+    href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create(IdeaStatiCa.BimApiLink.Identifiers.IIdentifier)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier
+    name: IIdentifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.IIdentifier.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  commentId: M:IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  name: Create<T>(Identifier<T>)
+  nameWithType: IImporter.Create<T>(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter.Create<T>(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  nameWithType.vb: IImporter.Create(Of T)(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.Importers.IImporter.Create(Of T)(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: Create(Of T)(Identifier(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Create
+    href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Create
+    href: IdeaStatiCa.BimApiLink.Importers.IImporter.html#IdeaStatiCa.BimApiLink.Importers.IImporter.Create``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter
+  commentId: T:IdeaStatiCa.BimApiLink.Importers.IImporter
+  parent: IdeaStatiCa.BimApiLink.Importers
+  href: IdeaStatiCa.BimApiLink.Importers.IImporter.html
+  name: IImporter
+  nameWithType: IImporter
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter
+- uid: IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create
+  href: IdeaStatiCa.BimApiLink.Importers.IImporter-1.html#IdeaStatiCa.BimApiLink.Importers.IImporter`1.Create(IdeaStatiCa.BimApiLink.Identifiers.Identifier{`0})
+  name: Create
+  nameWithType: IImporter<T>.Create
+  fullName: IdeaStatiCa.BimApiLink.Importers.IImporter<T>.Create
+  nameWithType.vb: IImporter(Of T).Create
+  fullName.vb: IdeaStatiCa.BimApiLink.Importers.IImporter(Of T).Create
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}}
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0}
+  parent: IdeaStatiCa.BimApiLink.Identifiers
+  definition: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<T>
+  nameWithType: Identifier<T>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>
+  nameWithType.vb: Identifier(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T)
+  name.vb: Identifier(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<T>
+  nameWithType: Identifier<T>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>
+  nameWithType.vb: Identifier(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T)
+  name.vb: Identifier(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Identifiers
+  commentId: N:IdeaStatiCa.BimApiLink.Identifiers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Identifiers
+  nameWithType: IdeaStatiCa.BimApiLink.Identifiers
+  fullName: IdeaStatiCa.BimApiLink.Identifiers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T

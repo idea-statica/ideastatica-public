@@ -1,0 +1,848 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.DappedEnd
+  commentId: T:IdeaRS.OpenModel.Detail.DappedEnd
+  id: DappedEnd
+  parent: IdeaRS.OpenModel.Detail
+  children:
+  - IdeaRS.OpenModel.Detail.DappedEnd.#ctor
+  - IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+  - IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+  - IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+  - IdeaRS.OpenModel.Detail.DappedEnd.Height
+  - IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+  - IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+  - IdeaRS.OpenModel.Detail.DappedEnd.Outline
+  - IdeaRS.OpenModel.Detail.DappedEnd.Position
+  - IdeaRS.OpenModel.Detail.DappedEnd.Rotation
+  - IdeaRS.OpenModel.Detail.DappedEnd.Width
+  langs:
+  - csharp
+  - vb
+  name: DappedEnd
+  nameWithType: DappedEnd
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DappedEnd
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 31
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Representation of dapped end in IDEA StatiCa Detail
+  example: []
+  syntax:
+    content: 'public class DappedEnd : OpenElementId'
+    content.vb: Public Class DappedEnd Inherits OpenElementId
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.#ctor
+  commentId: M:IdeaRS.OpenModel.Detail.DappedEnd.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: DappedEnd()
+  nameWithType: DappedEnd.DappedEnd()
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.DappedEnd()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 36
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Constructor
+  example: []
+  syntax:
+    content: public DappedEnd()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.#ctor*
+  nameWithType.vb: DappedEnd.New()
+  fullName.vb: IdeaRS.OpenModel.Detail.DappedEnd.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+  id: GeomId
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: GeomId
+  nameWithType: DappedEnd.GeomId
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GeomId
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Id representing geometrical parts of Detail
+  example: []
+  syntax:
+    content: public int GeomId { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property GeomId As Integer
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.GeomId*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Width
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.Width
+  id: Width
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: Width
+  nameWithType: DappedEnd.Width
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Width
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Width
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 48
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Width of dapped end
+  example: []
+  syntax:
+    content: public double Width { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Width As Double
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.Width*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Height
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.Height
+  id: Height
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: Height
+  nameWithType: DappedEnd.Height
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Height
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Height
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 53
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Height of dapped end
+  example: []
+  syntax:
+    content: public double Height { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Height As Double
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.Height*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+  id: MasterComponent
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: MasterComponent
+  nameWithType: DappedEnd.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterComponent
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 58
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Master component
+  example: []
+  syntax:
+    content: public ReferenceElement MasterComponent { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property MasterComponent As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+  id: MasterPoint
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: MasterPoint
+  nameWithType: DappedEnd.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MasterPoint
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 63
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Insert point 0 - 1
+  example: []
+  syntax:
+    content: public int MasterPoint { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MasterPoint As Integer
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Outline
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.Outline
+  id: Outline
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: Outline
+  nameWithType: DappedEnd.Outline
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Outline
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Outline
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 68
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Outline of dapped end
+  example: []
+  syntax:
+    content: public ReferenceElement Outline { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property Outline As ReferenceElement
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.Outline*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Position
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.Position
+  id: Position
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: Position
+  nameWithType: DappedEnd.Position
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Position
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Position
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 73
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Offset between MasterPoint and InsertPoint
+  example: []
+  syntax:
+    content: public Vector3D Position { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.Vector3D
+    content.vb: Public Property Position As Vector3D
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.Position*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+  id: DappedEndHaunch
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: DappedEndHaunch
+  nameWithType: DappedEnd.DappedEndHaunch
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DappedEndHaunch
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 78
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Type of haunch on dapped end
+  example: []
+  syntax:
+    content: public DappedEndHaunchType DappedEndHaunch { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Detail.DappedEndHaunchType
+    content.vb: Public Property DappedEndHaunch As DappedEndHaunchType
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+  id: Haunch
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: Haunch
+  nameWithType: DappedEnd.Haunch
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Haunch
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 83
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Haunch size of dapped end
+  example: []
+  syntax:
+    content: public double Haunch { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Haunch As Double
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.Haunch*
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Rotation
+  commentId: P:IdeaRS.OpenModel.Detail.DappedEnd.Rotation
+  id: Rotation
+  parent: IdeaRS.OpenModel.Detail.DappedEnd
+  langs:
+  - csharp
+  - vb
+  name: Rotation
+  nameWithType: DappedEnd.Rotation
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Rotation
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Rotation
+    path: ../src/IdeaRS.OpenModel/Detail/Geometry/DappedEnd.cs
+    startLine: 88
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail
+  summary: Rotation of dapped end
+  example: []
+  syntax:
+    content: public double Rotation { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Rotation As Double
+  overload: IdeaRS.OpenModel.Detail.DappedEnd.Rotation*
+references:
+- uid: IdeaRS.OpenModel.Detail
+  commentId: N:IdeaRS.OpenModel.Detail
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail
+  nameWithType: IdeaRS.OpenModel.Detail
+  fullName: IdeaRS.OpenModel.Detail
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.#ctor
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.#ctor
+  name: DappedEnd
+  nameWithType: DappedEnd.DappedEnd
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.DappedEnd
+  nameWithType.vb: DappedEnd.New
+  fullName.vb: IdeaRS.OpenModel.Detail.DappedEnd.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.GeomId*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+  name: GeomId
+  nameWithType: DappedEnd.GeomId
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.GeomId
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Width*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.Width
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.Width
+  name: Width
+  nameWithType: DappedEnd.Width
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Width
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Height*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.Height
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.Height
+  name: Height
+  nameWithType: DappedEnd.Height
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Height
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+  name: MasterComponent
+  nameWithType: DappedEnd.MasterComponent
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.MasterComponent
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+  name: MasterPoint
+  nameWithType: DappedEnd.MasterPoint
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.MasterPoint
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Outline*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.Outline
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.Outline
+  name: Outline
+  nameWithType: DappedEnd.Outline
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Outline
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Position*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.Position
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.Position
+  name: Position
+  nameWithType: DappedEnd.Position
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Position
+- uid: IdeaRS.OpenModel.Geometry3D.Vector3D
+  commentId: T:IdeaRS.OpenModel.Geometry3D.Vector3D
+  parent: IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.OpenModel.Geometry3D.Vector3D.html
+  name: Vector3D
+  nameWithType: Vector3D
+  fullName: IdeaRS.OpenModel.Geometry3D.Vector3D
+- uid: IdeaRS.OpenModel.Geometry3D
+  commentId: N:IdeaRS.OpenModel.Geometry3D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry3D
+  nameWithType: IdeaRS.OpenModel.Geometry3D
+  fullName: IdeaRS.OpenModel.Geometry3D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+    href: IdeaRS.OpenModel.Geometry3D.html
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+  name: DappedEndHaunch
+  nameWithType: DappedEnd.DappedEndHaunch
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.DappedEndHaunch
+- uid: IdeaRS.OpenModel.Detail.DappedEndHaunchType
+  commentId: T:IdeaRS.OpenModel.Detail.DappedEndHaunchType
+  parent: IdeaRS.OpenModel.Detail
+  href: IdeaRS.OpenModel.Detail.DappedEndHaunchType.html
+  name: DappedEndHaunchType
+  nameWithType: DappedEndHaunchType
+  fullName: IdeaRS.OpenModel.Detail.DappedEndHaunchType
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Haunch*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+  name: Haunch
+  nameWithType: DappedEnd.Haunch
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Haunch
+- uid: IdeaRS.OpenModel.Detail.DappedEnd.Rotation*
+  commentId: Overload:IdeaRS.OpenModel.Detail.DappedEnd.Rotation
+  href: IdeaRS.OpenModel.Detail.DappedEnd.html#IdeaRS.OpenModel.Detail.DappedEnd.Rotation
+  name: Rotation
+  nameWithType: DappedEnd.Rotation
+  fullName: IdeaRS.OpenModel.Detail.DappedEnd.Rotation

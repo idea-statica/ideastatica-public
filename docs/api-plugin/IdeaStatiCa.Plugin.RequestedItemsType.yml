@@ -1,0 +1,193 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.RequestedItemsType
+  commentId: T:IdeaStatiCa.Plugin.RequestedItemsType
+  id: RequestedItemsType
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.RequestedItemsType.ConcreteWall
+  - IdeaStatiCa.Plugin.RequestedItemsType.Connections
+  - IdeaStatiCa.Plugin.RequestedItemsType.SingleConnection
+  - IdeaStatiCa.Plugin.RequestedItemsType.Substructure
+  - IdeaStatiCa.Plugin.RequestedItemsType.WholeModel
+  langs:
+  - csharp
+  - vb
+  name: RequestedItemsType
+  nameWithType: RequestedItemsType
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RequestedItemsType
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public enum RequestedItemsType
+    content.vb: Public Enum RequestedItemsType
+- uid: IdeaStatiCa.Plugin.RequestedItemsType.Connections
+  commentId: F:IdeaStatiCa.Plugin.RequestedItemsType.Connections
+  id: Connections
+  parent: IdeaStatiCa.Plugin.RequestedItemsType
+  langs:
+  - csharp
+  - vb
+  name: Connections
+  nameWithType: RequestedItemsType.Connections
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType.Connections
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Connections
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Connections = 0
+    return:
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+- uid: IdeaStatiCa.Plugin.RequestedItemsType.Substructure
+  commentId: F:IdeaStatiCa.Plugin.RequestedItemsType.Substructure
+  id: Substructure
+  parent: IdeaStatiCa.Plugin.RequestedItemsType
+  langs:
+  - csharp
+  - vb
+  name: Substructure
+  nameWithType: RequestedItemsType.Substructure
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType.Substructure
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Substructure
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Substructure = 1
+    return:
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+- uid: IdeaStatiCa.Plugin.RequestedItemsType.SingleConnection
+  commentId: F:IdeaStatiCa.Plugin.RequestedItemsType.SingleConnection
+  id: SingleConnection
+  parent: IdeaStatiCa.Plugin.RequestedItemsType
+  langs:
+  - csharp
+  - vb
+  name: SingleConnection
+  nameWithType: RequestedItemsType.SingleConnection
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType.SingleConnection
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SingleConnection
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: SingleConnection = 2
+    return:
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+- uid: IdeaStatiCa.Plugin.RequestedItemsType.WholeModel
+  commentId: F:IdeaStatiCa.Plugin.RequestedItemsType.WholeModel
+  id: WholeModel
+  parent: IdeaStatiCa.Plugin.RequestedItemsType
+  langs:
+  - csharp
+  - vb
+  name: WholeModel
+  nameWithType: RequestedItemsType.WholeModel
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType.WholeModel
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WholeModel
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: WholeModel = 3
+    return:
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+- uid: IdeaStatiCa.Plugin.RequestedItemsType.ConcreteWall
+  commentId: F:IdeaStatiCa.Plugin.RequestedItemsType.ConcreteWall
+  id: ConcreteWall
+  parent: IdeaStatiCa.Plugin.RequestedItemsType
+  langs:
+  - csharp
+  - vb
+  name: ConcreteWall
+  nameWithType: RequestedItemsType.ConcreteWall
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType.ConcreteWall
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConcreteWall
+    path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: ConcreteWall = 4
+    return:
+      type: IdeaStatiCa.Plugin.RequestedItemsType
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.RequestedItemsType
+  commentId: T:IdeaStatiCa.Plugin.RequestedItemsType
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.RequestedItemsType.html
+  name: RequestedItemsType
+  nameWithType: RequestedItemsType
+  fullName: IdeaStatiCa.Plugin.RequestedItemsType

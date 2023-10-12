@@ -1,0 +1,599 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  commentId: T:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  id: IdeaBeamImportSettings
+  parent: IdeaRS.OpenModel.Beam
+  children:
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+  - IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+  langs:
+  - csharp
+  - vb
+  name: IdeaBeamImportSettings
+  nameWithType: IdeaBeamImportSettings
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaBeamImportSettings
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 7
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Represents settings of improt options into Idea Connections
+  example: []
+  syntax:
+    content: public class IdeaBeamImportSettings
+    content.vb: Public Class IdeaBeamImportSettings
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor
+  commentId: M:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: IdeaBeamImportSettings()
+  nameWithType: IdeaBeamImportSettings.IdeaBeamImportSettings()
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.IdeaBeamImportSettings()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 13
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Constructor - it sets default values
+  example: []
+  syntax:
+    content: public IdeaBeamImportSettings()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor*
+  nameWithType.vb: IdeaBeamImportSettings.New()
+  fullName.vb: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+  commentId: P:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+  id: UseWizard
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: UseWizard
+  nameWithType: IdeaBeamImportSettings.UseWizard
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UseWizard
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Open import wizard window
+  example: []
+  syntax:
+    content: public bool UseWizard { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property UseWizard As Boolean
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard*
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+  commentId: P:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+  id: ExportAllLinearCombination
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: ExportAllLinearCombination
+  nameWithType: IdeaBeamImportSettings.ExportAllLinearCombination
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExportAllLinearCombination
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: All linear combination will be exported to IDEA connection
+  example: []
+  syntax:
+    content: public bool ExportAllLinearCombination { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property ExportAllLinearCombination As Boolean
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination*
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+  commentId: P:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+  id: UserWizardBrand
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: UserWizardBrand
+  nameWithType: IdeaBeamImportSettings.UserWizardBrand
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserWizardBrand
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 35
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Set user Wizard Brand
+  example: []
+  syntax:
+    content: public string UserWizardBrand { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UserWizardBrand As String
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand*
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+  commentId: P:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+  id: DesignCode
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: DesignCode
+  nameWithType: IdeaBeamImportSettings.DesignCode
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DesignCode
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 40
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Gets or sets the Design Code
+  example: []
+  syntax:
+    content: public string DesignCode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DesignCode As String
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode*
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  commentId: P:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  id: CanChangeDesignCodeInWizard
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: CanChangeDesignCodeInWizard
+  nameWithType: IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CanChangeDesignCodeInWizard
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Can change design code in Wizard
+  example: []
+  syntax:
+    content: public bool CanChangeDesignCodeInWizard { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CanChangeDesignCodeInWizard As Boolean
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard*
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName
+  commentId: P:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName
+  id: BeamFileName
+  parent: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+  langs:
+  - csharp
+  - vb
+  name: BeamFileName
+  nameWithType: IdeaBeamImportSettings.BeamFileName
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BeamFileName
+    path: ../src/IdeaRS.OpenModel/Beam/IdeaBeamImportSettings.cs
+    startLine: 50
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Beam
+  summary: Gets or sets the name of the Beam project
+  example: []
+  syntax:
+    content: public string BeamFileName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property BeamFileName As String
+  overload: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName*
+references:
+- uid: IdeaRS.OpenModel.Beam
+  commentId: N:IdeaRS.OpenModel.Beam
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Beam
+  nameWithType: IdeaRS.OpenModel.Beam
+  fullName: IdeaRS.OpenModel.Beam
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Beam
+    name: Beam
+    href: IdeaRS.OpenModel.Beam.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Beam
+    name: Beam
+    href: IdeaRS.OpenModel.Beam.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.#ctor
+  name: IdeaBeamImportSettings
+  nameWithType: IdeaBeamImportSettings.IdeaBeamImportSettings
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.IdeaBeamImportSettings
+  nameWithType.vb: IdeaBeamImportSettings.New
+  fullName.vb: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+  name: UseWizard
+  nameWithType: IdeaBeamImportSettings.UseWizard
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UseWizard
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+  name: ExportAllLinearCombination
+  nameWithType: IdeaBeamImportSettings.ExportAllLinearCombination
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.ExportAllLinearCombination
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+  name: UserWizardBrand
+  nameWithType: IdeaBeamImportSettings.UserWizardBrand
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.UserWizardBrand
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+  name: DesignCode
+  nameWithType: IdeaBeamImportSettings.DesignCode
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.DesignCode
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  name: CanChangeDesignCodeInWizard
+  nameWithType: IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.CanChangeDesignCodeInWizard
+- uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName*
+  commentId: Overload:IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName
+  href: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.html#IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName
+  name: BeamFileName
+  nameWithType: IdeaBeamImportSettings.BeamFileName
+  fullName: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings.BeamFileName

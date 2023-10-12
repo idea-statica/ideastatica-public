@@ -1,0 +1,757 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate
+  commentId: T:IdeaRS.OpenModel.Connection.CheckResPlate
+  id: CheckResPlate
+  parent: IdeaRS.OpenModel.Connection
+  children:
+  - IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+  - IdeaRS.OpenModel.Connection.CheckResPlate.Items
+  - IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+  - IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+  - IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+  - IdeaRS.OpenModel.Connection.CheckResPlate.Name
+  langs:
+  - csharp
+  - vb
+  name: CheckResPlate
+  nameWithType: CheckResPlate
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckResPlate
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 261
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Check value for Plate
+  example: []
+  syntax:
+    content: >-
+      [Serializable]
+
+      [DataContract]
+
+      public class CheckResPlate
+    content.vb: >-
+      <Serializable>
+
+      <DataContract>
+
+      Public Class CheckResPlate
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.SerializableAttribute
+    ctor: System.SerializableAttribute.#ctor
+    arguments: []
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.Name
+  commentId: P:IdeaRS.OpenModel.Connection.CheckResPlate.Name
+  id: Name
+  parent: IdeaRS.OpenModel.Connection.CheckResPlate
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: CheckResPlate.Name
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.Name
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Name
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 269
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Name of Plate
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <DataMember>
+
+      Public Property Name As String
+  overload: IdeaRS.OpenModel.Connection.CheckResPlate.Name*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+  commentId: P:IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+  id: CheckStatus
+  parent: IdeaRS.OpenModel.Connection.CheckResPlate
+  langs:
+  - csharp
+  - vb
+  name: CheckStatus
+  nameWithType: CheckResPlate.CheckStatus
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckStatus
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 275
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Status of the Check
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public bool CheckStatus { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <DataMember>
+
+      Public Property CheckStatus As Boolean
+  overload: IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+  commentId: P:IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+  id: LoadCaseId
+  parent: IdeaRS.OpenModel.Connection.CheckResPlate
+  langs:
+  - csharp
+  - vb
+  name: LoadCaseId
+  nameWithType: CheckResPlate.LoadCaseId
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadCaseId
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 281
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Id of Load Case
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public int LoadCaseId { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: >-
+      <DataMember>
+
+      Public Property LoadCaseId As Integer
+  overload: IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+  commentId: P:IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+  id: MaxStrain
+  parent: IdeaRS.OpenModel.Connection.CheckResPlate
+  langs:
+  - csharp
+  - vb
+  name: MaxStrain
+  nameWithType: CheckResPlate.MaxStrain
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MaxStrain
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 287
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Max Strain
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public double MaxStrain { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: >-
+      <DataMember>
+
+      Public Property MaxStrain As Double
+  overload: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+  commentId: P:IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+  id: MaxStress
+  parent: IdeaRS.OpenModel.Connection.CheckResPlate
+  langs:
+  - csharp
+  - vb
+  name: MaxStress
+  nameWithType: CheckResPlate.MaxStress
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MaxStress
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 293
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Max Stress
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public double MaxStress { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: >-
+      <DataMember>
+
+      Public Property MaxStress As Double
+  overload: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.Items
+  commentId: P:IdeaRS.OpenModel.Connection.CheckResPlate.Items
+  id: Items
+  parent: IdeaRS.OpenModel.Connection.CheckResPlate
+  langs:
+  - csharp
+  - vb
+  name: Items
+  nameWithType: CheckResPlate.Items
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.Items
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Items
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
+    startLine: 299
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: In case of presentation of groups plates (uncoiled beams)
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public List<int> Items { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.Int32}
+    content.vb: >-
+      <DataMember>
+
+      Public Property Items As List(Of Integer)
+  overload: IdeaRS.OpenModel.Connection.CheckResPlate.Items*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+references:
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+    href: IdeaRS.OpenModel.Connection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.Name*
+  commentId: Overload:IdeaRS.OpenModel.Connection.CheckResPlate.Name
+  href: IdeaRS.OpenModel.Connection.CheckResPlate.html#IdeaRS.OpenModel.Connection.CheckResPlate.Name
+  name: Name
+  nameWithType: CheckResPlate.Name
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus*
+  commentId: Overload:IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+  href: IdeaRS.OpenModel.Connection.CheckResPlate.html#IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+  name: CheckStatus
+  nameWithType: CheckResPlate.CheckStatus
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.CheckStatus
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId*
+  commentId: Overload:IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+  href: IdeaRS.OpenModel.Connection.CheckResPlate.html#IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+  name: LoadCaseId
+  nameWithType: CheckResPlate.LoadCaseId
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.LoadCaseId
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain*
+  commentId: Overload:IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+  href: IdeaRS.OpenModel.Connection.CheckResPlate.html#IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+  name: MaxStrain
+  nameWithType: CheckResPlate.MaxStrain
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStrain
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress*
+  commentId: Overload:IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+  href: IdeaRS.OpenModel.Connection.CheckResPlate.html#IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+  name: MaxStress
+  nameWithType: CheckResPlate.MaxStress
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.MaxStress
+- uid: IdeaRS.OpenModel.Connection.CheckResPlate.Items*
+  commentId: Overload:IdeaRS.OpenModel.Connection.CheckResPlate.Items
+  href: IdeaRS.OpenModel.Connection.CheckResPlate.html#IdeaRS.OpenModel.Connection.CheckResPlate.Items
+  name: Items
+  nameWithType: CheckResPlate.Items
+  fullName: IdeaRS.OpenModel.Connection.CheckResPlate.Items
+- uid: System.Collections.Generic.List{System.Int32}
+  commentId: T:System.Collections.Generic.List{System.Int32}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<int>
+  nameWithType: List<int>
+  fullName: System.Collections.Generic.List<int>
+  nameWithType.vb: List(Of Integer)
+  fullName.vb: System.Collections.Generic.List(Of Integer)
+  name.vb: List(Of Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

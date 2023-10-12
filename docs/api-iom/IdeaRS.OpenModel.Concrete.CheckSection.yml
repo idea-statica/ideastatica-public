@@ -1,0 +1,666 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.CheckSection
+  commentId: T:IdeaRS.OpenModel.Concrete.CheckSection
+  id: CheckSection
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.CheckSection.#ctor
+  - IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+  - IdeaRS.OpenModel.Concrete.CheckSection.Description
+  - IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+  - IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+  langs:
+  - csharp
+  - vb
+  name: CheckSection
+  nameWithType: CheckSection
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckSection
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+    startLine: 8
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Check section base class
+  example: []
+  syntax:
+    content: 'public abstract class CheckSection : OpenElementId'
+    content.vb: Public MustInherit Class CheckSection Inherits OpenElementId
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  derivedClasses:
+  - IdeaRS.OpenModel.Concrete.StagedCheckSection
+  - IdeaRS.OpenModel.Concrete.StandardCheckSection
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.#ctor
+  commentId: M:IdeaRS.OpenModel.Concrete.CheckSection.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Concrete.CheckSection
+  langs:
+  - csharp
+  - vb
+  name: CheckSection()
+  nameWithType: CheckSection.CheckSection()
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.CheckSection()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Constructor
+  example: []
+  syntax:
+    content: protected CheckSection()
+    content.vb: Protected Sub New()
+  overload: IdeaRS.OpenModel.Concrete.CheckSection.#ctor*
+  nameWithType.vb: CheckSection.New()
+  fullName.vb: IdeaRS.OpenModel.Concrete.CheckSection.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.Description
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSection.Description
+  id: Description
+  parent: IdeaRS.OpenModel.Concrete.CheckSection
+  langs:
+  - csharp
+  - vb
+  name: Description
+  nameWithType: CheckSection.Description
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.Description
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Description
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+    startLine: 25
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Description of this section
+  example: []
+  syntax:
+    content: public string Description { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Description As String
+  overload: IdeaRS.OpenModel.Concrete.CheckSection.Description*
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+  id: CheckMember
+  parent: IdeaRS.OpenModel.Concrete.CheckSection
+  langs:
+  - csharp
+  - vb
+  name: CheckMember
+  nameWithType: CheckSection.CheckMember
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckMember
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+    startLine: 30
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: CheckMember
+  example: []
+  syntax:
+    content: public ReferenceElement CheckMember { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property CheckMember As ReferenceElement
+  overload: IdeaRS.OpenModel.Concrete.CheckSection.CheckMember*
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+  id: ReinfSection
+  parent: IdeaRS.OpenModel.Concrete.CheckSection
+  langs:
+  - csharp
+  - vb
+  name: ReinfSection
+  nameWithType: CheckSection.ReinfSection
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinfSection
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+    startLine: 45
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Reinforcement of cross-section
+  example: []
+  syntax:
+    content: public ReferenceElement ReinfSection { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property ReinfSection As ReferenceElement
+  overload: IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection*
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+  commentId: P:IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+  id: Extremes
+  parent: IdeaRS.OpenModel.Concrete.CheckSection
+  langs:
+  - csharp
+  - vb
+  name: Extremes
+  nameWithType: CheckSection.Extremes
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Extremes
+    path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
+    startLine: 55
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Section extremes
+  example: []
+  syntax:
+    content: public List<CheckSectionExtreme> Extremes { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Concrete.CheckSectionExtreme}
+    content.vb: Public Property Extremes As List(Of CheckSectionExtreme)
+  overload: IdeaRS.OpenModel.Concrete.CheckSection.Extremes*
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckSection.#ctor
+  href: IdeaRS.OpenModel.Concrete.CheckSection.html#IdeaRS.OpenModel.Concrete.CheckSection.#ctor
+  name: CheckSection
+  nameWithType: CheckSection.CheckSection
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.CheckSection
+  nameWithType.vb: CheckSection.New
+  fullName.vb: IdeaRS.OpenModel.Concrete.CheckSection.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.Description*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckSection.Description
+  href: IdeaRS.OpenModel.Concrete.CheckSection.html#IdeaRS.OpenModel.Concrete.CheckSection.Description
+  name: Description
+  nameWithType: CheckSection.Description
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.Description
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.CheckMember*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+  href: IdeaRS.OpenModel.Concrete.CheckSection.html#IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+  name: CheckMember
+  nameWithType: CheckSection.CheckMember
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.CheckMember
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+  href: IdeaRS.OpenModel.Concrete.CheckSection.html#IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+  name: ReinfSection
+  nameWithType: CheckSection.ReinfSection
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.ReinfSection
+- uid: IdeaRS.OpenModel.Concrete.CheckSection.Extremes*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+  href: IdeaRS.OpenModel.Concrete.CheckSection.html#IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+  name: Extremes
+  nameWithType: CheckSection.Extremes
+  fullName: IdeaRS.OpenModel.Concrete.CheckSection.Extremes
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Concrete.CheckSectionExtreme}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Concrete.CheckSectionExtreme}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CheckSectionExtreme>
+  nameWithType: List<CheckSectionExtreme>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Concrete.CheckSectionExtreme>
+  nameWithType.vb: List(Of CheckSectionExtreme)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Concrete.CheckSectionExtreme)
+  name.vb: List(Of CheckSectionExtreme)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+    name: CheckSectionExtreme
+    href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+    name: CheckSectionExtreme
+    href: IdeaRS.OpenModel.Concrete.CheckSectionExtreme.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

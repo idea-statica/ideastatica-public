@@ -118,15 +118,17 @@ namespace IdeaStatiCa.Plugin
 
 		protected virtual void RunServer(string id, System.Threading.CancellationToken cancellationToken)
 		{
-			ideaLogger.LogInformation($"Starting sever processId = {id}");
+			ideaLogger.LogInformation($"Starting server processId = '{id}'");
 			try
 			{
-				bool isBimRunning = false;
+				// if the process id to connect was provided
 				if (!string.IsNullOrEmpty(id))
 				{
 					// try to attach to the service which is hosted in a BIM application
 					try
 					{
+						ideaLogger.LogDebug($"RunServer - Connecting process '{id}'");
+
 						myAutomatingProcessId = int.Parse(id);
 
 						bimProcess = Process.GetProcessById(myAutomatingProcessId);
@@ -166,7 +168,6 @@ namespace IdeaStatiCa.Plugin
 						}
 
 						Status |= AutomationStatus.IsClient;
-						isBimRunning = true;
 					}
 					catch (Exception e)
 					{
@@ -174,9 +175,10 @@ namespace IdeaStatiCa.Plugin
 						throw;
 					}
 				}
-
-				if (!isBimRunning)
+				else
 				{
+					ideaLogger.LogDebug($"RunServer - Initializing wihtout the process id");
+
 					bimProcess = null;
 					myAutomatingProcessId = -1;
 					if (automation != null)
@@ -299,7 +301,8 @@ namespace IdeaStatiCa.Plugin
 			}
 			finally
 			{
-				ideaLogger.LogDebug("Setting for the server stopped event.");
+				// set the server stopped event at before the exit to indicate the server is not running anymore
+				ideaLogger.LogDebug("Setting the server stopped event.");
 				serverStoppedEvent.Set();
 
 				ideaLogger.LogInformation("Server stopped.");
@@ -333,6 +336,8 @@ namespace IdeaStatiCa.Plugin
 
 		private void BimProcess_Exited(object sender, EventArgs e)
 		{
+			ideaLogger.LogDebug($"Connected BIM process with id {myAutomatingProcessId} has exited");
+
 			bimProcess.Exited -= new EventHandler(BimProcess_Exited);
 			Status &= ~AutomationStatus.IsClient;
 			bimProcess.Dispose();

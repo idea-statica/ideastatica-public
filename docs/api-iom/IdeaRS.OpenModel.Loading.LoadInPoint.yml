@@ -1,0 +1,832 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint
+  commentId: T:IdeaRS.OpenModel.Loading.LoadInPoint
+  id: LoadInPoint
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.LoadInPoint.#ctor
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+  - IdeaRS.OpenModel.Loading.LoadInPoint.My
+  - IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+  langs:
+  - csharp
+  - vb
+  name: LoadInPoint
+  nameWithType: LoadInPoint
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadInPoint
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 76
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Concentrated load
+  example:
+  - >-
+    This sample shows how to create a load in the point.
+
+    <pre><code class="lang-csharp">//Creating the model
+
+    OpenModel openModel = new OpenModel();
+
+
+    //Create nodes
+
+    Point3D pointA = new Point3D();
+
+    pointA.X = 0;
+
+    pointA.Y = 0;
+
+    pointA.Z = 0;
+
+    openModel.AddObject(pointA);
+
+
+    Point3D pointB = new Point3D();
+
+    pointB.X = 0;
+
+    pointB.Y = 0;
+
+    pointB.Z = 1.2;
+
+    openModel.AddObject(pointB);
+
+
+    Point3D pointC = new Point3D();
+
+    pointC.X = 0;
+
+    pointC.Y = 0;
+
+    pointC.Z = 2.4;
+
+    openModel.AddObject(pointC);
+
+
+    //Line between nodes
+
+    LineSegment3D line1 = new LineSegment3D();
+
+    line1.StartPoint = new ReferenceElement(pointA);
+
+    line1.EndPoint = new ReferenceElement(pointB);
+
+    //LCS of line
+
+    line1.LocalCoordinateSystem = new CoordSystemByZup();
+
+    openModel.AddObject(line1);
+
+
+    //Line between nodes
+
+    LineSegment3D line2 = new LineSegment3D();
+
+    line2.StartPoint = new ReferenceElement(pointB);
+
+    line2.EndPoint = new ReferenceElement(pointC);
+
+    //LCS of line
+
+    line2.LocalCoordinateSystem = new CoordSystemByZup();
+
+    openModel.AddObject(line2);
+
+
+    //Load case
+
+    LoadCase loadCase = new LoadCase();
+
+    //...
+
+    openModel.AddObject(loadCase);
+
+
+    //Point loading impulse in the node - int rthe LCS of node = GCS
+
+    LoadInPoint loadPoint = new LoadInPoint();
+
+    loadPoint.Geometry = new ReferenceElement(pointB);
+
+    loadPoint.Fx = -5e3; //in the global X direction
+
+
+    openModel.AddObject(loadPoint);
+
+    loadCase.LoadsInPoint.Add(new ReferenceElement(loadPoint));</code></pre>
+  syntax:
+    content: >-
+      [OpenModelClass("CI.StructModel.Loading.LoadInPoint,CI.Loading", "CI.StructModel.Loading.ILoadInPoint,CI.BasicTypes")]
+
+      public class LoadInPoint : OpenElementId
+    content.vb: >-
+      <OpenModelClass("CI.StructModel.Loading.LoadInPoint,CI.Loading", "CI.StructModel.Loading.ILoadInPoint,CI.BasicTypes")>
+
+      Public Class LoadInPoint Inherits OpenElementId
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  inheritedMembers:
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String,System.String)
+    arguments:
+    - type: System.String
+      value: CI.StructModel.Loading.LoadInPoint,CI.Loading
+    - type: System.String
+      value: CI.StructModel.Loading.ILoadInPoint,CI.BasicTypes
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.#ctor
+  commentId: M:IdeaRS.OpenModel.Loading.LoadInPoint.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: LoadInPoint()
+  nameWithType: LoadInPoint.LoadInPoint()
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.LoadInPoint()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 82
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Constructor
+  example: []
+  syntax:
+    content: public LoadInPoint()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.#ctor*
+  nameWithType.vb: LoadInPoint.New()
+  fullName.vb: IdeaRS.OpenModel.Loading.LoadInPoint.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+  id: Fx
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Fx
+  nameWithType: LoadInPoint.Fx
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Fx
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 89
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Force in X direction
+  example: []
+  syntax:
+    content: public double Fx { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Fx As Double
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Fx*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+  id: Fy
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Fy
+  nameWithType: LoadInPoint.Fy
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Fy
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 94
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Force in Y direction
+  example: []
+  syntax:
+    content: public double Fy { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Fy As Double
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Fy*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+  id: Fz
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Fz
+  nameWithType: LoadInPoint.Fz
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Fz
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 99
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Force in Z direction
+  example: []
+  syntax:
+    content: public double Fz { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Fz As Double
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Fz*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+  id: Mx
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Mx
+  nameWithType: LoadInPoint.Mx
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Mx
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 104
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Moment about the x-axis
+  example: []
+  syntax:
+    content: public double Mx { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Mx As Double
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Mx*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.My
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.My
+  id: My
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: My
+  nameWithType: LoadInPoint.My
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.My
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: My
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 109
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Moment about the y-axis
+  example: []
+  syntax:
+    content: public double My { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property My As Double
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.My*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+  id: Mz
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Mz
+  nameWithType: LoadInPoint.Mz
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Mz
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 114
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Moment about the z-axis
+  example: []
+  syntax:
+    content: public double Mz { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Mz As Double
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Mz*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+  id: Geometry
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Geometry
+  nameWithType: LoadInPoint.Geometry
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Geometry
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 119
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Gets, sets geometry
+  example: []
+  syntax:
+    content: public ReferenceElement Geometry { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property Geometry As ReferenceElement
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Geometry*
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+  commentId: P:IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+  id: Direction
+  parent: IdeaRS.OpenModel.Loading.LoadInPoint
+  langs:
+  - csharp
+  - vb
+  name: Direction
+  nameWithType: LoadInPoint.Direction
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Direction
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 124
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Local / global
+  example: []
+  syntax:
+    content: public LoadDirection Direction { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadDirection
+    content.vb: Public Property Direction As LoadDirection
+  overload: IdeaRS.OpenModel.Loading.LoadInPoint.Direction*
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.#ctor
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.#ctor
+  name: LoadInPoint
+  nameWithType: LoadInPoint.LoadInPoint
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.LoadInPoint
+  nameWithType.vb: LoadInPoint.New
+  fullName.vb: IdeaRS.OpenModel.Loading.LoadInPoint.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Fx*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+  name: Fx
+  nameWithType: LoadInPoint.Fx
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Fx
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Fy*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+  name: Fy
+  nameWithType: LoadInPoint.Fy
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Fy
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Fz*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+  name: Fz
+  nameWithType: LoadInPoint.Fz
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Fz
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Mx*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+  name: Mx
+  nameWithType: LoadInPoint.Mx
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Mx
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.My*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.My
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.My
+  name: My
+  nameWithType: LoadInPoint.My
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.My
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Mz*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+  name: Mz
+  nameWithType: LoadInPoint.Mz
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Mz
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Geometry*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+  name: Geometry
+  nameWithType: LoadInPoint.Geometry
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Geometry
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.Loading.LoadInPoint.Direction*
+  commentId: Overload:IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+  href: IdeaRS.OpenModel.Loading.LoadInPoint.html#IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+  name: Direction
+  nameWithType: LoadInPoint.Direction
+  fullName: IdeaRS.OpenModel.Loading.LoadInPoint.Direction
+- uid: IdeaRS.OpenModel.Loading.LoadDirection
+  commentId: T:IdeaRS.OpenModel.Loading.LoadDirection
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.LoadDirection.html
+  name: LoadDirection
+  nameWithType: LoadDirection
+  fullName: IdeaRS.OpenModel.Loading.LoadDirection

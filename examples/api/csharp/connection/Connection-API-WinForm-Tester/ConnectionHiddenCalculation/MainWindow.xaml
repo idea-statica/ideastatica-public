@@ -1,0 +1,146 @@
+﻿<Window x:Class="ConnectionHiddenCalculation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConnectionHiddenCalculation"
+        mc:Ignorable="d"
+        Title="IdeaConnection - hidden calculation" Height="500" Width="1000" Closed="Window_Closed">
+
+	<Window.Resources>
+		<local:Converter x:Key="Converter" />
+
+		<Style TargetType="{x:Type TextBox}" x:Key="DisableNoIfConnection">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding SelectedConnection}" Value="{x:Null}">
+					<Setter Property="IsEnabled" Value="False"/>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+	</Window.Resources>
+
+	<DockPanel LastChildFill="True">
+		<ToolBarTray DockPanel.Dock="Top">
+			<ToolBar Band="1" DockPanel.Dock="Top">
+				<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
+				<Button Command="{Binding ImportIOMCmd, Mode=TwoWay}">Import from IOM</Button>
+				<Button Command="{Binding UpdateIOMCmd, Mode=TwoWay}">Update from IOM</Button>
+				<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
+				<Button Command="{Binding SaveProjectCmd, Mode=TwoWay}">Save Project</Button>
+				<Button Command="{Binding SaveAsProjectCmd, Mode=TwoWay}">Save Project As...</Button>
+				<Button Command="{Binding GetMaterialsCmd, Mode=TwoWay}" ToolTip="Get all materials in the open Idea Connection project">Get materials</Button>
+				<Button Command="{Binding GetCrossSectionsCmd, Mode=TwoWay}" ToolTip="Get all cross-sections in the open Idea Connection project">Get CSS</Button>
+				<Button Command="{Binding GetBoltAssembliesCmd, Mode=TwoWay}" ToolTip="Get all bolt assemblies in the open Idea Connection project">Get Bolts</Button>
+				<Button Command="{Binding CreateBoltAssemblyCmd, Mode=TwoWay}" CommandParameter="{Binding NewBoltAssemblyName, Mode=OneWay}" ToolTip="Create a new bolt assembly in the open Idea Connection project">Create bolt</Button>
+				<TextBox Text="{Binding NewBoltAssemblyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80"></TextBox>
+				<Button Command="{Binding ShowConHiddenCalcLogFileCmd, Mode=TwoWay}" ToolTip="Show hidden calculator log file (from version IS v20.1.2)">Show Idea Log File</Button>
+			</ToolBar>
+
+			<ToolBar Band="2" DockPanel.Dock="Top">
+				<Label Content="{Binding SelectedConnection.Name}" FontWeight="Bold" MinWidth="80"></Label>
+				<Button Command="{Binding OpenTempProjectCmd, Mode=TwoWay}" CommandParameter="{Binding SelectedConnection}" ToolTip="Open the selected connection in the application">Open connection</Button>
+			</ToolBar>
+
+			<ToolBar Band="3" DockPanel.Dock="Top">
+				<Label>Supporting member</Label>
+				<TextBox x:Name="SupportingMember" Text="{Binding SupportingMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a supporting member for application a simple template e.g. a column" Style="{StaticResource DisableNoIfConnection}"></TextBox>
+				<Label>Attached member</Label>
+				<TextBox x:Name="AttachedMember" Text="{Binding AttachedMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" ToolTip="The definition a attached member for application a simple template e.g. a beam" Style="{StaticResource DisableNoIfConnection}">
+					<!--<TextBox.Style>
+						<Style TargetType="{x:Type TextBox}">
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding SelectedConnection}" Value="{x:Null}">
+									<Setter Property="IsEnabled" Value="False"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</TextBox.Style>-->
+				</TextBox>
+				<Label>Expression</Label>
+				<TextBox x:Name="Expression" Text="{Binding Expression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="80" Style="{StaticResource DisableNoIfConnection}"></TextBox>
+			</ToolBar>
+
+			<ToolBar Band="4" DockPanel.Dock="Top">
+				<Button Command="{Binding CalculateConnectionCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Run platic analysis for selected connection">Plastic analysis</Button>
+				<Button Command="{Binding CalculateBucklingConnectionCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Run buckling analysis for selected connection">Buckling analysis</Button>
+				<Button Command="{Binding ConnectionGeometryCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Get the instance of IdeaRS.OpenModel.Connection.ConnectionData for this connection.">Geometry</Button>
+				<Button Command="{Binding GetAllConnectionDataCmd}"  CommandParameter="{Binding SelectedConnection}" ToolTip="Get the instance of IdeaRS.OpenModel.OpenModelContainer for this connection.\nIt includes structural data and corresponding results of FE analysis">All Conn Data</Button>
+				<Button Command="{Binding ConnectionToTemplateCmd}"  CommandParameter="{Binding SelectedConnection}" >To Template</Button>
+				<Button Command="{Binding ApplyTemplateCmd}"  CommandParameter="{Binding SelectedConnection}" >Apply Template</Button>
+				<Button Command="{Binding ApplySimpleTemplateCmd}" >
+					<Button.CommandParameter>
+						<MultiBinding Converter="{StaticResource Converter}">
+							<Binding Path="SelectedConnection"></Binding>
+							<Binding ElementName="SupportingMember" Path="Text"/>
+							<Binding ElementName="AttachedMember" Path="Text"/>
+						</MultiBinding>
+					</Button.CommandParameter>
+					Apply Simple Template
+				</Button>
+				<Button  Command="{Binding DeleteOperationsCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Delete all manufacturing operations in the connection">Delete operations</Button>
+				<Button Command="{Binding GetParametersCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get parameters which are defined for the connection">Parameters</Button>
+				<Button Command="{Binding GetLoadingCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get loading in the connection">Loading</Button>
+				<Button Command="{Binding GetConnCheckResultsCmd}" CommandParameter="{Binding SelectedConnection}" ToolTip="Get detailed results of the chech of connection.">Results</Button>
+				<Button Command="{Binding EvaluateExpessionCmd}">
+					<Button.CommandParameter>
+						<MultiBinding Converter="{StaticResource Converter}">
+							<Binding Path="SelectedConnection"></Binding>
+							<Binding ElementName="Expression" Path="Text"/>
+						</MultiBinding>
+					</Button.CommandParameter>
+					Eval Expression
+				</Button>
+				<Button Command="{Binding GetConnectionCostCmd}"  CommandParameter="{Binding SelectedConnection}">Get Cost</Button>
+				<Button Command="{Binding GenerateReportCmd}"  CommandParameter="{Binding SelectedConnection}">Generate report</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<StackPanel DockPanel.Dock="Bottom">
+			<TextBlock Text="{Binding StatusMessage}"></TextBlock>
+		</StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="350"></ColumnDefinition>
+				<ColumnDefinition Width="5" />
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0" Name="templateSettingBox">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="57*"/>
+					<ColumnDefinition Width="285*"/>
+					<ColumnDefinition Width="8*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="5"></RowDefinition>
+					<RowDefinition Height="150"></RowDefinition>
+				</Grid.RowDefinitions>
+				<ListView  Grid.Row="0" ItemsSource="{Binding Connections}" SelectedItem="{Binding SelectedConnection, Mode=TwoWay}" Grid.ColumnSpan="3" >
+					<ListView.ItemContainerStyle>
+						<Style TargetType="ListViewItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						</Style>
+					</ListView.ItemContainerStyle>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="Connection name">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<StackPanel>
+											<TextBlock Text="{Binding Name}"></TextBlock>
+										</StackPanel>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+				<GridSplitter Grid.Row="1" Height="5" ResizeDirection="Rows" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" />
+				<TextBox Grid.Row="2" Text="{Binding TemplateSettingString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3"/>
+			</Grid>
+			<GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" HorizontalAlignment="Stretch" />
+			<ScrollViewer Grid.Column="2">
+				<TextBox Text="{Binding Results}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
+			</ScrollViewer>
+		</Grid>
+	</DockPanel>
+</Window>

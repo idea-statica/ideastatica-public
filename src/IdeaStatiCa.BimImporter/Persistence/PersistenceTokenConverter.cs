@@ -1,8 +1,8 @@
 ﻿using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Reflection;
 
 namespace IdeaStatiCa.BimImporter.Persistence
 {
@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 						jsonSerializer = JsonSerializer.Create(new JsonSerializerSettings
 						{
 							TypeNameHandling = TypeNameHandling.All,
+							TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
 						}
 					)
 				);
@@ -41,7 +42,12 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			string typeStr = obj.GetValue(TypeName).Value<string>();
 
 			// get the type
-			Type type = Type.GetType(typeStr);
+			Type type = Type.GetType(
+				typeStr,
+				null,
+				TypeResolver,
+				false,
+				false);
 
 			// check that the type was successfully created from the loaded json object
 			if (type is null)
@@ -65,6 +71,16 @@ namespace IdeaStatiCa.BimImporter.Persistence
 				writer, new JsonConverter[] { this });
 
 			writer.WriteEndObject();
+		}
+
+		private static Type TypeResolver(Assembly assembly, string name, bool ignoreCase)
+		{
+			if (name.StartsWith("IdeaStatica.", StringComparison.OrdinalIgnoreCase))
+			{
+				return assembly.GetType(name, false, true);
+			}
+
+			return assembly.GetType(name, false, ignoreCase);
 		}
 	}
 }

@@ -1,0 +1,227 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+  id: IIdeaCrossSectionComponent
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+  langs:
+  - csharp
+  - vb
+  name: IIdeaCrossSectionComponent
+  nameWithType: IIdeaCrossSectionComponent
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaCrossSectionComponent
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: A component of a <xref href="IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public interface IIdeaCrossSectionComponent
+    content.vb: Public Interface IIdeaCrossSectionComponent
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+  id: Material
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IIdeaCrossSectionComponent.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Material of the component.
+  example: []
+  syntax:
+    content: IIdeaMaterial Material { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaMaterial
+    content.vb: ReadOnly Property Material As IIdeaMaterial
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material*
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+  id: Geometry
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+  langs:
+  - csharp
+  - vb
+  name: Geometry
+  nameWithType: IIdeaCrossSectionComponent.Geometry
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Geometry
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Geometry of the component.
+  example: []
+  syntax:
+    content: Region2D Geometry { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry2D.Region2D
+    content.vb: ReadOnly Property Geometry As Region2D
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry*
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+  id: Phase
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent
+  langs:
+  - csharp
+  - vb
+  name: Phase
+  nameWithType: IIdeaCrossSectionComponent.Phase
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Phase
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionComponent.cs
+    startLine: 22
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Phase
+  example: []
+  syntax:
+    content: int Phase { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: ReadOnly Property Phase As Integer
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase*
+references:
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents.html
+  name: IIdeaCrossSectionByComponents
+  nameWithType: IIdeaCrossSectionByComponents
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByComponents
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.html#IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+  name: Material
+  nameWithType: IIdeaCrossSectionComponent.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Material
+- uid: IdeaStatiCa.BimApi.IIdeaMaterial
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterial
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaMaterial.html
+  name: IIdeaMaterial
+  nameWithType: IIdeaMaterial
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterial
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.html#IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+  name: Geometry
+  nameWithType: IIdeaCrossSectionComponent.Geometry
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Geometry
+- uid: IdeaRS.OpenModel.Geometry2D.Region2D
+  commentId: T:IdeaRS.OpenModel.Geometry2D.Region2D
+  parent: IdeaRS.OpenModel.Geometry2D
+  name: Region2D
+  nameWithType: Region2D
+  fullName: IdeaRS.OpenModel.Geometry2D.Region2D
+- uid: IdeaRS.OpenModel.Geometry2D
+  commentId: N:IdeaRS.OpenModel.Geometry2D
+  name: IdeaRS.OpenModel.Geometry2D
+  nameWithType: IdeaRS.OpenModel.Geometry2D
+  fullName: IdeaRS.OpenModel.Geometry2D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.html#IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+  name: Phase
+  nameWithType: IIdeaCrossSectionComponent.Phase
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionComponent.Phase
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

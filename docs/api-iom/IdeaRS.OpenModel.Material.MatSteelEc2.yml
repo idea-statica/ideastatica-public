@@ -1,0 +1,933 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2
+  commentId: T:IdeaRS.OpenModel.Material.MatSteelEc2
+  id: MatSteelEc2
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+  - IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+  - IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+  - IdeaRS.OpenModel.Material.MatSteelEc2.fu
+  - IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+  - IdeaRS.OpenModel.Material.MatSteelEc2.fy
+  - IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+  langs:
+  - csharp
+  - vb
+  name: MatSteelEc2
+  nameWithType: MatSteelEc2
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MatSteelEc2
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 54
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Material steel Ec2
+  example:
+  - >-
+    This sample shows how to create steel material.
+
+    <pre><code class="lang-csharp">//Creating the model
+
+    OpenModel openModel = new OpenModel();
+
+
+    //Steel material
+
+    MatSteelEc2 matS = new MatSteelEc2();
+
+    matS.Name = "S275";
+
+    matS.UnitMass = 7850.0;
+
+    matS.E = 200e9;
+
+    matS.Poisson = 0.2;
+
+    matS.G = 83.333e9;
+
+    matS.SpecificHeat = 0.6;
+
+    matS.ThermalExpansion = 0.00001;
+
+    matS.ThermalConductivity = 45;
+
+    matS.fy = 235e6;
+
+    matS.fu = 360e6;
+
+    matS.fy40 = 215e6;
+
+    matS.fu40 = 340e6;
+
+
+    //Setting thermal characteristcs of material (in this case by the code)
+
+    matS.StateOfThermalConductivity = ThermalConductivityState.Code;
+
+    matS.StateOfThermalExpansion = ThermalExpansionState.Code;
+
+    matS.StateOfThermalSpecificHeat = ThermalSpecificHeatState.Code;
+
+    matS.StateOfThermalStressStrain = ThermalStressStrainState.Code;
+
+
+    matS.DiagramType = SteelDiagramType.Bilinear;
+
+    openModel.AddObject(matS);</code></pre>
+  syntax:
+    content: >-
+      [OpenModelClass("CI.StructModel.Libraries.Material.ECEN.MatSteelECEN,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatSteel))]
+
+      public class MatSteelEc2 : MatSteel
+    content.vb: >-
+      <OpenModelClass("CI.StructModel.Libraries.Material.ECEN.MatSteelECEN,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", GetType(MatSteel))>
+
+      Public Class MatSteelEc2 Inherits MatSteel
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  - IdeaRS.OpenModel.OpenElementId
+  - IdeaRS.OpenModel.Material.Material
+  - IdeaRS.OpenModel.Material.MatSteel
+  inheritedMembers:
+  - IdeaRS.OpenModel.Material.Material.Name
+  - IdeaRS.OpenModel.Material.Material.LoadFromLibrary
+  - IdeaRS.OpenModel.Material.Material.E
+  - IdeaRS.OpenModel.Material.Material.G
+  - IdeaRS.OpenModel.Material.Material.Poisson
+  - IdeaRS.OpenModel.Material.Material.UnitMass
+  - IdeaRS.OpenModel.Material.Material.SpecificHeat
+  - IdeaRS.OpenModel.Material.Material.ThermalExpansion
+  - IdeaRS.OpenModel.Material.Material.ThermalConductivity
+  - IdeaRS.OpenModel.Material.Material.IsDefaultMaterial
+  - IdeaRS.OpenModel.Material.Material.OrderInCode
+  - IdeaRS.OpenModel.Material.Material.StateOfThermalExpansion
+  - IdeaRS.OpenModel.Material.Material.StateOfThermalConductivity
+  - IdeaRS.OpenModel.Material.Material.StateOfThermalSpecificHeat
+  - IdeaRS.OpenModel.Material.Material.StateOfThermalStressStrain
+  - IdeaRS.OpenModel.Material.Material.StateOfThermalStrain
+  - IdeaRS.OpenModel.Material.Material.UserThermalSpecificHeatCurvature
+  - IdeaRS.OpenModel.Material.Material.UserThermalConductivityCurvature
+  - IdeaRS.OpenModel.Material.Material.UserThermalExpansionCurvature
+  - IdeaRS.OpenModel.Material.Material.UserThermalStrainCurvature
+  - IdeaRS.OpenModel.Material.Material.UserThermalStressStrainCurvature
+  - IdeaRS.OpenModel.OpenElementId.Id
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String,System.String,System.Type)
+    arguments:
+    - type: System.String
+      value: CI.StructModel.Libraries.Material.ECEN.MatSteelECEN,CI.Material
+    - type: System.String
+      value: CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes
+    - type: System.Type
+      value: IdeaRS.OpenModel.Material.MatSteel
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fy
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.fy
+  id: fy
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: fy
+  nameWithType: MatSteelEc2.fy
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fy
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: fy
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 60
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Yield strength for nominal thickness of the element &lt;= 40mm - f<sub>y</sub>
+  example: []
+  syntax:
+    content: public double fy { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property fy As Double
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.fy*
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fu
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.fu
+  id: fu
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: fu
+  nameWithType: MatSteelEc2.fu
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fu
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: fu
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 65
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Ultimate strength  for nominal thickness of the element &lt;= 40mm - f<sub>u</sub>
+  example: []
+  syntax:
+    content: public double fu { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property fu As Double
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.fu*
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+  id: fy40
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: fy40
+  nameWithType: MatSteelEc2.fy40
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: fy40
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 70
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Yield strength for nominal thickness of the element &gt; 40mm and &lt;= 100mm - f<sub>y,(&gt;40)</sub>
+  example: []
+  syntax:
+    content: public double fy40 { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property fy40 As Double
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.fy40*
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+  id: fu40
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: fu40
+  nameWithType: MatSteelEc2.fu40
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: fu40
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 75
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Ultimate strength for nominal thickness of the element &gt; 40mm and &lt;= 100mm - f<sub>u,(&gt;40)</sub>
+  example: []
+  syntax:
+    content: public double fu40 { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property fu40 As Double
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.fu40*
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+  id: DiagramType
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: DiagramType
+  nameWithType: MatSteelEc2.DiagramType
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DiagramType
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 80
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Type of material diagram
+  example: []
+  syntax:
+    content: public SteelDiagramType DiagramType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Material.SteelDiagramType
+    content.vb: Public Property DiagramType As SteelDiagramType
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType*
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+  id: UserDiagram
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: UserDiagram
+  nameWithType: MatSteelEc2.UserDiagram
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserDiagram
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 85
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Stress-strain diagram defined by user
+  example: []
+  syntax:
+    content: public Polygon2D UserDiagram { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry2D.Polygon2D
+    content.vb: Public Property UserDiagram As Polygon2D
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram*
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+  commentId: P:IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+  id: MaterialStrength
+  parent: IdeaRS.OpenModel.Material.MatSteelEc2
+  langs:
+  - csharp
+  - vb
+  name: MaterialStrength
+  nameWithType: MatSteelEc2.MaterialStrength
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MaterialStrength
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelEc2.cs
+    startLine: 90
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Material strength for specific thickness of plate
+  example: []
+  syntax:
+    content: public MaterialStrengthProperty MaterialStrength { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Material.MaterialStrengthProperty
+    content.vb: Public Property MaterialStrength As MaterialStrengthProperty
+  overload: IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength*
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: IdeaRS.OpenModel.OpenElementId
+  commentId: T:IdeaRS.OpenModel.OpenElementId
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenElementId.html
+  name: OpenElementId
+  nameWithType: OpenElementId
+  fullName: IdeaRS.OpenModel.OpenElementId
+- uid: IdeaRS.OpenModel.Material.Material
+  commentId: T:IdeaRS.OpenModel.Material.Material
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.Material.html
+  name: Material
+  nameWithType: Material
+  fullName: IdeaRS.OpenModel.Material.Material
+- uid: IdeaRS.OpenModel.Material.MatSteel
+  commentId: T:IdeaRS.OpenModel.Material.MatSteel
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.MatSteel.html
+  name: MatSteel
+  nameWithType: MatSteel
+  fullName: IdeaRS.OpenModel.Material.MatSteel
+- uid: IdeaRS.OpenModel.Material.Material.Name
+  commentId: P:IdeaRS.OpenModel.Material.Material.Name
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.Name
+  name: Name
+  nameWithType: Material.Name
+  fullName: IdeaRS.OpenModel.Material.Material.Name
+- uid: IdeaRS.OpenModel.Material.Material.LoadFromLibrary
+  commentId: P:IdeaRS.OpenModel.Material.Material.LoadFromLibrary
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.LoadFromLibrary
+  name: LoadFromLibrary
+  nameWithType: Material.LoadFromLibrary
+  fullName: IdeaRS.OpenModel.Material.Material.LoadFromLibrary
+- uid: IdeaRS.OpenModel.Material.Material.E
+  commentId: P:IdeaRS.OpenModel.Material.Material.E
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.E
+  name: E
+  nameWithType: Material.E
+  fullName: IdeaRS.OpenModel.Material.Material.E
+- uid: IdeaRS.OpenModel.Material.Material.G
+  commentId: P:IdeaRS.OpenModel.Material.Material.G
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.G
+  name: G
+  nameWithType: Material.G
+  fullName: IdeaRS.OpenModel.Material.Material.G
+- uid: IdeaRS.OpenModel.Material.Material.Poisson
+  commentId: P:IdeaRS.OpenModel.Material.Material.Poisson
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.Poisson
+  name: Poisson
+  nameWithType: Material.Poisson
+  fullName: IdeaRS.OpenModel.Material.Material.Poisson
+- uid: IdeaRS.OpenModel.Material.Material.UnitMass
+  commentId: P:IdeaRS.OpenModel.Material.Material.UnitMass
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.UnitMass
+  name: UnitMass
+  nameWithType: Material.UnitMass
+  fullName: IdeaRS.OpenModel.Material.Material.UnitMass
+- uid: IdeaRS.OpenModel.Material.Material.SpecificHeat
+  commentId: P:IdeaRS.OpenModel.Material.Material.SpecificHeat
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.SpecificHeat
+  name: SpecificHeat
+  nameWithType: Material.SpecificHeat
+  fullName: IdeaRS.OpenModel.Material.Material.SpecificHeat
+- uid: IdeaRS.OpenModel.Material.Material.ThermalExpansion
+  commentId: P:IdeaRS.OpenModel.Material.Material.ThermalExpansion
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.ThermalExpansion
+  name: ThermalExpansion
+  nameWithType: Material.ThermalExpansion
+  fullName: IdeaRS.OpenModel.Material.Material.ThermalExpansion
+- uid: IdeaRS.OpenModel.Material.Material.ThermalConductivity
+  commentId: P:IdeaRS.OpenModel.Material.Material.ThermalConductivity
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.ThermalConductivity
+  name: ThermalConductivity
+  nameWithType: Material.ThermalConductivity
+  fullName: IdeaRS.OpenModel.Material.Material.ThermalConductivity
+- uid: IdeaRS.OpenModel.Material.Material.IsDefaultMaterial
+  commentId: P:IdeaRS.OpenModel.Material.Material.IsDefaultMaterial
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.IsDefaultMaterial
+  name: IsDefaultMaterial
+  nameWithType: Material.IsDefaultMaterial
+  fullName: IdeaRS.OpenModel.Material.Material.IsDefaultMaterial
+- uid: IdeaRS.OpenModel.Material.Material.OrderInCode
+  commentId: P:IdeaRS.OpenModel.Material.Material.OrderInCode
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.OrderInCode
+  name: OrderInCode
+  nameWithType: Material.OrderInCode
+  fullName: IdeaRS.OpenModel.Material.Material.OrderInCode
+- uid: IdeaRS.OpenModel.Material.Material.StateOfThermalExpansion
+  commentId: P:IdeaRS.OpenModel.Material.Material.StateOfThermalExpansion
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.StateOfThermalExpansion
+  name: StateOfThermalExpansion
+  nameWithType: Material.StateOfThermalExpansion
+  fullName: IdeaRS.OpenModel.Material.Material.StateOfThermalExpansion
+- uid: IdeaRS.OpenModel.Material.Material.StateOfThermalConductivity
+  commentId: P:IdeaRS.OpenModel.Material.Material.StateOfThermalConductivity
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.StateOfThermalConductivity
+  name: StateOfThermalConductivity
+  nameWithType: Material.StateOfThermalConductivity
+  fullName: IdeaRS.OpenModel.Material.Material.StateOfThermalConductivity
+- uid: IdeaRS.OpenModel.Material.Material.StateOfThermalSpecificHeat
+  commentId: P:IdeaRS.OpenModel.Material.Material.StateOfThermalSpecificHeat
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.StateOfThermalSpecificHeat
+  name: StateOfThermalSpecificHeat
+  nameWithType: Material.StateOfThermalSpecificHeat
+  fullName: IdeaRS.OpenModel.Material.Material.StateOfThermalSpecificHeat
+- uid: IdeaRS.OpenModel.Material.Material.StateOfThermalStressStrain
+  commentId: P:IdeaRS.OpenModel.Material.Material.StateOfThermalStressStrain
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.StateOfThermalStressStrain
+  name: StateOfThermalStressStrain
+  nameWithType: Material.StateOfThermalStressStrain
+  fullName: IdeaRS.OpenModel.Material.Material.StateOfThermalStressStrain
+- uid: IdeaRS.OpenModel.Material.Material.StateOfThermalStrain
+  commentId: P:IdeaRS.OpenModel.Material.Material.StateOfThermalStrain
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.StateOfThermalStrain
+  name: StateOfThermalStrain
+  nameWithType: Material.StateOfThermalStrain
+  fullName: IdeaRS.OpenModel.Material.Material.StateOfThermalStrain
+- uid: IdeaRS.OpenModel.Material.Material.UserThermalSpecificHeatCurvature
+  commentId: P:IdeaRS.OpenModel.Material.Material.UserThermalSpecificHeatCurvature
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.UserThermalSpecificHeatCurvature
+  name: UserThermalSpecificHeatCurvature
+  nameWithType: Material.UserThermalSpecificHeatCurvature
+  fullName: IdeaRS.OpenModel.Material.Material.UserThermalSpecificHeatCurvature
+- uid: IdeaRS.OpenModel.Material.Material.UserThermalConductivityCurvature
+  commentId: P:IdeaRS.OpenModel.Material.Material.UserThermalConductivityCurvature
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.UserThermalConductivityCurvature
+  name: UserThermalConductivityCurvature
+  nameWithType: Material.UserThermalConductivityCurvature
+  fullName: IdeaRS.OpenModel.Material.Material.UserThermalConductivityCurvature
+- uid: IdeaRS.OpenModel.Material.Material.UserThermalExpansionCurvature
+  commentId: P:IdeaRS.OpenModel.Material.Material.UserThermalExpansionCurvature
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.UserThermalExpansionCurvature
+  name: UserThermalExpansionCurvature
+  nameWithType: Material.UserThermalExpansionCurvature
+  fullName: IdeaRS.OpenModel.Material.Material.UserThermalExpansionCurvature
+- uid: IdeaRS.OpenModel.Material.Material.UserThermalStrainCurvature
+  commentId: P:IdeaRS.OpenModel.Material.Material.UserThermalStrainCurvature
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.UserThermalStrainCurvature
+  name: UserThermalStrainCurvature
+  nameWithType: Material.UserThermalStrainCurvature
+  fullName: IdeaRS.OpenModel.Material.Material.UserThermalStrainCurvature
+- uid: IdeaRS.OpenModel.Material.Material.UserThermalStressStrainCurvature
+  commentId: P:IdeaRS.OpenModel.Material.Material.UserThermalStressStrainCurvature
+  parent: IdeaRS.OpenModel.Material.Material
+  href: IdeaRS.OpenModel.Material.Material.html#IdeaRS.OpenModel.Material.Material.UserThermalStressStrainCurvature
+  name: UserThermalStressStrainCurvature
+  nameWithType: Material.UserThermalStressStrainCurvature
+  fullName: IdeaRS.OpenModel.Material.Material.UserThermalStressStrainCurvature
+- uid: IdeaRS.OpenModel.OpenElementId.Id
+  commentId: P:IdeaRS.OpenModel.OpenElementId.Id
+  parent: IdeaRS.OpenModel.OpenElementId
+  href: IdeaRS.OpenModel.OpenElementId.html#IdeaRS.OpenModel.OpenElementId.Id
+  name: Id
+  nameWithType: OpenElementId.Id
+  fullName: IdeaRS.OpenModel.OpenElementId.Id
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fy*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.fy
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.fy
+  name: fy
+  nameWithType: MatSteelEc2.fy
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fy
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fu*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.fu
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.fu
+  name: fu
+  nameWithType: MatSteelEc2.fu
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fu
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fy40*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+  name: fy40
+  nameWithType: MatSteelEc2.fy40
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fy40
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.fu40*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+  name: fu40
+  nameWithType: MatSteelEc2.fu40
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.fu40
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+  name: DiagramType
+  nameWithType: MatSteelEc2.DiagramType
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.DiagramType
+- uid: IdeaRS.OpenModel.Material.SteelDiagramType
+  commentId: T:IdeaRS.OpenModel.Material.SteelDiagramType
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.SteelDiagramType.html
+  name: SteelDiagramType
+  nameWithType: SteelDiagramType
+  fullName: IdeaRS.OpenModel.Material.SteelDiagramType
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+  name: UserDiagram
+  nameWithType: MatSteelEc2.UserDiagram
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.UserDiagram
+- uid: IdeaRS.OpenModel.Geometry2D.Polygon2D
+  commentId: T:IdeaRS.OpenModel.Geometry2D.Polygon2D
+  parent: IdeaRS.OpenModel.Geometry2D
+  href: IdeaRS.OpenModel.Geometry2D.Polygon2D.html
+  name: Polygon2D
+  nameWithType: Polygon2D
+  fullName: IdeaRS.OpenModel.Geometry2D.Polygon2D
+- uid: IdeaRS.OpenModel.Geometry2D
+  commentId: N:IdeaRS.OpenModel.Geometry2D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry2D
+  nameWithType: IdeaRS.OpenModel.Geometry2D
+  fullName: IdeaRS.OpenModel.Geometry2D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+    href: IdeaRS.OpenModel.Geometry2D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+    href: IdeaRS.OpenModel.Geometry2D.html
+- uid: IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength*
+  commentId: Overload:IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+  href: IdeaRS.OpenModel.Material.MatSteelEc2.html#IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+  name: MaterialStrength
+  nameWithType: MatSteelEc2.MaterialStrength
+  fullName: IdeaRS.OpenModel.Material.MatSteelEc2.MaterialStrength
+- uid: IdeaRS.OpenModel.Material.MaterialStrengthProperty
+  commentId: T:IdeaRS.OpenModel.Material.MaterialStrengthProperty
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.MaterialStrengthProperty.html
+  name: MaterialStrengthProperty
+  nameWithType: MaterialStrengthProperty
+  fullName: IdeaRS.OpenModel.Material.MaterialStrengthProperty

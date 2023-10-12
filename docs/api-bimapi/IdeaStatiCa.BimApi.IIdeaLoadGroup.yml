@@ -1,0 +1,470 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  commentId: T:IdeaStatiCa.BimApi.IIdeaLoadGroup
+  id: IIdeaLoadGroup
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2
+  - IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+  langs:
+  - csharp
+  - vb
+  name: IIdeaLoadGroup
+  nameWithType: IIdeaLoadGroup
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaLoadGroup
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: 'public interface IIdeaLoadGroup : IIdeaObject'
+    content.vb: Public Interface IIdeaLoadGroup Inherits IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+  id: Relation
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: Relation
+  nameWithType: IIdeaLoadGroup.Relation
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Relation
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Relation
+  example: []
+  syntax:
+    content: Relation Relation { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Loading.Relation
+    content.vb: ReadOnly Property Relation As Relation
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+  id: GroupType
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: GroupType
+  nameWithType: IIdeaLoadGroup.GroupType
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GroupType
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Group type
+  example: []
+  syntax:
+    content: LoadGroupType GroupType { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadGroupType
+    content.vb: ReadOnly Property GroupType As LoadGroupType
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+  id: GammaQ
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: GammaQ
+  nameWithType: IIdeaLoadGroup.GammaQ
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GammaQ
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 19
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: γ <sub>Q</sub>
+  example: []
+  syntax:
+    content: double GammaQ { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property GammaQ As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+  id: Dzeta
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: Dzeta
+  nameWithType: IIdeaLoadGroup.Dzeta
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dzeta
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: ζ
+  example: []
+  syntax:
+    content: double Dzeta { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Dzeta As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+  id: GammaGInf
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: GammaGInf
+  nameWithType: IIdeaLoadGroup.GammaGInf
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GammaGInf
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 29
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: γ <sub>G,Inf</sub>
+  example: []
+  syntax:
+    content: double GammaGInf { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property GammaGInf As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+  id: GammaGSup
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: GammaGSup
+  nameWithType: IIdeaLoadGroup.GammaGSup
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GammaGSup
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 34
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: γ <sub>G,Sup</sub>
+  example: []
+  syntax:
+    content: double GammaGSup { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property GammaGSup As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+  id: Psi0
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: Psi0
+  nameWithType: IIdeaLoadGroup.Psi0
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Psi0
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 39
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: ψ <sub>0</sub>
+  example: []
+  syntax:
+    content: double Psi0 { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Psi0 As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+  id: Psi1
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: Psi1
+  nameWithType: IIdeaLoadGroup.Psi1
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Psi1
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 44
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: ψ <sub>1</sub>
+  example: []
+  syntax:
+    content: double Psi1 { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Psi1 As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1*
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2
+  commentId: P:IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2
+  id: Psi2
+  parent: IdeaStatiCa.BimApi.IIdeaLoadGroup
+  langs:
+  - csharp
+  - vb
+  name: Psi2
+  nameWithType: IIdeaLoadGroup.Psi2
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Psi2
+    path: ../src/IdeaStatiCa.BimApi/IIdeaLoadGroup.cs
+    startLine: 49
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: ψ <sub>2</sub>
+  example: []
+  syntax:
+    content: double Psi2 { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Psi2 As Double
+  overload: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+  name: Relation
+  nameWithType: IIdeaLoadGroup.Relation
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Relation
+- uid: IdeaRS.OpenModel.Loading.Relation
+  commentId: T:IdeaRS.OpenModel.Loading.Relation
+  parent: IdeaRS.OpenModel.Loading
+  name: Relation
+  nameWithType: Relation
+  fullName: IdeaRS.OpenModel.Loading.Relation
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+  name: GroupType
+  nameWithType: IIdeaLoadGroup.GroupType
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GroupType
+- uid: IdeaRS.OpenModel.Loading.LoadGroupType
+  commentId: T:IdeaRS.OpenModel.Loading.LoadGroupType
+  parent: IdeaRS.OpenModel.Loading
+  name: LoadGroupType
+  nameWithType: LoadGroupType
+  fullName: IdeaRS.OpenModel.Loading.LoadGroupType
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+  name: GammaQ
+  nameWithType: IIdeaLoadGroup.GammaQ
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaQ
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+  name: Dzeta
+  nameWithType: IIdeaLoadGroup.Dzeta
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Dzeta
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+  name: GammaGInf
+  nameWithType: IIdeaLoadGroup.GammaGInf
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGInf
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+  name: GammaGSup
+  nameWithType: IIdeaLoadGroup.GammaGSup
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.GammaGSup
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+  name: Psi0
+  nameWithType: IIdeaLoadGroup.Psi0
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi0
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+  name: Psi1
+  nameWithType: IIdeaLoadGroup.Psi1
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi1
+- uid: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2
+  href: IdeaStatiCa.BimApi.IIdeaLoadGroup.html#IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2
+  name: Psi2
+  nameWithType: IIdeaLoadGroup.Psi2
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadGroup.Psi2

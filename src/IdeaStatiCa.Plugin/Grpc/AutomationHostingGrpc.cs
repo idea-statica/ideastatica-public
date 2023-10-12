@@ -22,7 +22,7 @@ namespace IdeaStatiCa.Plugin
 		private int myAutomatingProcessId;
 		protected string EventName { get; set; }
 		private readonly IPluginLogger ideaLogger = null;
-		private readonly IGrpcClient GrpcClient = null;
+		public IGrpcClient GrpcClient { get; private set; }
 
 		/// <summary>
 		/// My BIM object.
@@ -168,8 +168,6 @@ namespace IdeaStatiCa.Plugin
 
 			try
 			{
-
-
 				while (!cancellationToken.IsCancellationRequested)
 				{
 					Thread.Sleep(100);

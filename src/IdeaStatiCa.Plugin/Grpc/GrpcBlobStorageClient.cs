@@ -8,10 +8,20 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc
 {
+	public interface IGrpcBlobStorageClient
+	{
+		Task DeleteAsync(string blobStorageId, string contentId);
+		void Dispose();
+		Task<bool> ExistAsync(string blobStorageId, string contentId);
+		Task<List<string>> GetEntriesAsync(string blobStorageId);
+		Task<Stream> ReadAsync(string blobStorageId, string contentId);
+		Task WriteAsync(string blobStorageId, string contentId, Stream content);
+	}
+
 	/// <summary>
 	/// Client for gRPC blob storage communication
 	/// </summary>
-	public class GrpcBlobStorageClient : IDisposable
+	public class GrpcBlobStorageClient : IDisposable, IGrpcBlobStorageClient
 	{
 		private readonly GrpcBlobStorageService.GrpcBlobStorageServiceClient client;
 		private readonly Channel channel;
@@ -46,14 +56,11 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public async Task WriteAsync(string blobStorageId, string contentId, Stream content)
 		{
 			logger.LogDebug($"GrpcBlobStorageClient starts Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}', content length in bytes: {content.Length}");
-
-			var metadata = new Metadata();
-			metadata.Add(Constants.BlobStorageId, blobStorageId);
-			metadata.Add(Constants.ContentId, contentId);
+			content.Seek(0, SeekOrigin.Begin);
 
 			try
 			{
-				using (var call = client.Write(metadata))
+				using (var call = client.Write())
 				{
 					var requestStream = call.RequestStream;
 					var buffer = new byte[chunkSize];
@@ -71,7 +78,9 @@ namespace IdeaStatiCa.Plugin.Grpc
 
 						await requestStream.WriteAsync(new ContentData()
 						{
-							Data = ByteString.CopyFrom(buffer)
+							Data = ByteString.CopyFrom(buffer),
+							BlobStorageId = blobStorageId,
+							ContentId = contentId
 						});
 
 						logger.LogTrace($"GrpcBlobStorageClient Write, blobStorageId: '{blobStorageId}', contentId: '{contentId}' sent {buffer.Length} bytes");
@@ -173,7 +182,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 			try
 			{
 				logger.LogDebug($"GrpcBlobStorageClient Delete, blobStorageId: '{blobStorageId}', contentId: '{contentId}'");
-				
+
 				var contentRequest = new ContentRequest()
 				{
 					BlobStorageId = blobStorageId,

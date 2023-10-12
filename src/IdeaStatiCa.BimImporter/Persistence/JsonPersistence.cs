@@ -1,9 +1,11 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using Castle.Core.Internal;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace IdeaStatiCa.BimImporter.Persistence
 {
@@ -36,7 +38,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 			public HashSet<(int, string)> Mappings { get; set; }
 			public Dictionary<string, IIdeaPersistenceToken> Tokens { get; set; }
 		}
-		
+
 		/// <summary>
 		/// Disabled default constructor
 		/// </summary>
@@ -50,7 +52,7 @@ namespace IdeaStatiCa.BimImporter.Persistence
 		/// <param name="logger">The logger to be used for diagnostic messages</param>
 		public JsonPersistence(IPluginLogger logger)
 		{
-			_logger= logger;
+			_logger = logger;
 		}
 
 		/// <summary>
@@ -67,6 +69,8 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 			try
 			{
+				AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
 				// parse the json
 				StoredData storedData = JsonConvert.DeserializeObject<StoredData>(jsonStr, GetJsonSerializerSettings());
 
@@ -84,6 +88,37 @@ namespace IdeaStatiCa.BimImporter.Persistence
 
 				// rethrow the original exception
 				throw;
+			}
+			finally
+			{
+				AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
+			}
+		}
+
+		private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+		{
+			AssemblyName assemblyName = new AssemblyName(args.Name);
+			// We are backwards compatible as of now
+			// so we can just remove the version identifier
+			assemblyName.Version = null;
+
+
+
+			AppDomain currentDomain = AppDomain.CurrentDomain;
+			//Provide the current application domain evidence for the assembly.
+
+			//Make an array for the list of assemblies.
+			Assembly[] assems = currentDomain.GetAssemblies();
+
+			var foundAssembly = assems.Find(asem => (asem.ManifestModule.Name == args.Name || asem.ManifestModule.Name == args.Name + ".dll"));
+			//for framework 4.8 app it trying load System.Core assembly and it cause crash. in assembly list its System.Core.dll 
+			if (foundAssembly == null)
+			{
+				return Assembly.Load(assemblyName);
+			}
+			else
+			{
+				return null;
 			}
 		}
 

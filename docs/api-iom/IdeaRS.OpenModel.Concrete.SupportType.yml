@@ -1,0 +1,313 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.SupportType
+  commentId: T:IdeaRS.OpenModel.Concrete.SupportType
+  id: SupportType
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.SupportType.Hinge
+  - IdeaRS.OpenModel.Concrete.SupportType.HingeHinge
+  - IdeaRS.OpenModel.Concrete.SupportType.HingeNoSupport
+  - IdeaRS.OpenModel.Concrete.SupportType.NoSupport
+  - IdeaRS.OpenModel.Concrete.SupportType.Rigid
+  - IdeaRS.OpenModel.Concrete.SupportType.RigidHinge
+  - IdeaRS.OpenModel.Concrete.SupportType.RigidNoSupport
+  - IdeaRS.OpenModel.Concrete.SupportType.RigidRigid
+  langs:
+  - csharp
+  - vb
+  name: SupportType
+  nameWithType: SupportType
+  fullName: IdeaRS.OpenModel.Concrete.SupportType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SupportType
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 28
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Types of support
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum SupportType
+    content.vb: >-
+      <Flags>
+
+      Public Enum SupportType
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: IdeaRS.OpenModel.Concrete.SupportType.NoSupport
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.NoSupport
+  id: NoSupport
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: NoSupport
+  nameWithType: SupportType.NoSupport
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.NoSupport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NoSupport
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 34
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Without support
+  example: []
+  syntax:
+    content: NoSupport = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+- uid: IdeaRS.OpenModel.Concrete.SupportType.Hinge
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.Hinge
+  id: Hinge
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: Hinge
+  nameWithType: SupportType.Hinge
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.Hinge
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Hinge
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 39
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Hinge type
+  example: []
+  syntax:
+    content: Hinge = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+- uid: IdeaRS.OpenModel.Concrete.SupportType.Rigid
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.Rigid
+  id: Rigid
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: Rigid
+  nameWithType: SupportType.Rigid
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.Rigid
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Rigid
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 44
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Rigid type
+  example: []
+  syntax:
+    content: Rigid = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+- uid: IdeaRS.OpenModel.Concrete.SupportType.HingeNoSupport
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.HingeNoSupport
+  id: HingeNoSupport
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: HingeNoSupport
+  nameWithType: SupportType.HingeNoSupport
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.HingeNoSupport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HingeNoSupport
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 49
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Combination of hinge and nosupport
+  example: []
+  syntax:
+    content: HingeNoSupport = NoSupport | Hinge
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+    content.vb: HingeNoSupport = NoSupport Or Hinge
+- uid: IdeaRS.OpenModel.Concrete.SupportType.HingeHinge
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.HingeHinge
+  id: HingeHinge
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: HingeHinge
+  nameWithType: SupportType.HingeHinge
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.HingeHinge
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HingeHinge
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 54
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Combination of hinge and hinge
+  example: []
+  syntax:
+    content: HingeHinge = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+- uid: IdeaRS.OpenModel.Concrete.SupportType.RigidNoSupport
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.RigidNoSupport
+  id: RigidNoSupport
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: RigidNoSupport
+  nameWithType: SupportType.RigidNoSupport
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.RigidNoSupport
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RigidNoSupport
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 59
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Combination of rigid and nosupport
+  example: []
+  syntax:
+    content: RigidNoSupport = NoSupport | Rigid
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+    content.vb: RigidNoSupport = NoSupport Or Rigid
+- uid: IdeaRS.OpenModel.Concrete.SupportType.RigidHinge
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.RigidHinge
+  id: RigidHinge
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: RigidHinge
+  nameWithType: SupportType.RigidHinge
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.RigidHinge
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RigidHinge
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 64
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Combination of rigid and hinge
+  example: []
+  syntax:
+    content: RigidHinge = Hinge | Rigid
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+    content.vb: RigidHinge = Hinge Or Rigid
+- uid: IdeaRS.OpenModel.Concrete.SupportType.RigidRigid
+  commentId: F:IdeaRS.OpenModel.Concrete.SupportType.RigidRigid
+  id: RigidRigid
+  parent: IdeaRS.OpenModel.Concrete.SupportType
+  langs:
+  - csharp
+  - vb
+  name: RigidRigid
+  nameWithType: SupportType.RigidRigid
+  fullName: IdeaRS.OpenModel.Concrete.SupportType.RigidRigid
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RigidRigid
+    path: ../src/IdeaRS.OpenModel/Concrete/ColumnData.cs
+    startLine: 69
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Combination of rigid and rigid
+  example: []
+  syntax:
+    content: RigidRigid = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.SupportType
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.SupportType
+  commentId: T:IdeaRS.OpenModel.Concrete.SupportType
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.SupportType.html
+  name: SupportType
+  nameWithType: SupportType
+  fullName: IdeaRS.OpenModel.Concrete.SupportType

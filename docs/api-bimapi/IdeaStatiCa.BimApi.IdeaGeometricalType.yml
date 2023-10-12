@@ -1,0 +1,112 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IdeaGeometricalType
+  commentId: T:IdeaStatiCa.BimApi.IdeaGeometricalType
+  id: IdeaGeometricalType
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IdeaGeometricalType.Continuous
+  - IdeaStatiCa.BimApi.IdeaGeometricalType.Ended
+  langs:
+  - csharp
+  - vb
+  name: IdeaGeometricalType
+  nameWithType: IdeaGeometricalType
+  fullName: IdeaStatiCa.BimApi.IdeaGeometricalType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaGeometricalType
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: public enum IdeaGeometricalType
+    content.vb: Public Enum IdeaGeometricalType
+- uid: IdeaStatiCa.BimApi.IdeaGeometricalType.Continuous
+  commentId: F:IdeaStatiCa.BimApi.IdeaGeometricalType.Continuous
+  id: Continuous
+  parent: IdeaStatiCa.BimApi.IdeaGeometricalType
+  langs:
+  - csharp
+  - vb
+  name: Continuous
+  nameWithType: IdeaGeometricalType.Continuous
+  fullName: IdeaStatiCa.BimApi.IdeaGeometricalType.Continuous
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Continuous
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: Continuous = 0
+    return:
+      type: IdeaStatiCa.BimApi.IdeaGeometricalType
+- uid: IdeaStatiCa.BimApi.IdeaGeometricalType.Ended
+  commentId: F:IdeaStatiCa.BimApi.IdeaGeometricalType.Ended
+  id: Ended
+  parent: IdeaStatiCa.BimApi.IdeaGeometricalType
+  langs:
+  - csharp
+  - vb
+  name: Ended
+  nameWithType: IdeaGeometricalType.Ended
+  fullName: IdeaStatiCa.BimApi.IdeaGeometricalType.Ended
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Ended
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: Ended = 1
+    return:
+      type: IdeaStatiCa.BimApi.IdeaGeometricalType
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IdeaGeometricalType
+  commentId: T:IdeaStatiCa.BimApi.IdeaGeometricalType
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IdeaGeometricalType.html
+  name: IdeaGeometricalType
+  nameWithType: IdeaGeometricalType
+  fullName: IdeaStatiCa.BimApi.IdeaGeometricalType

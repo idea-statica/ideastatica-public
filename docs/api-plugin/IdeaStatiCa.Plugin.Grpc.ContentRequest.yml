@@ -1,0 +1,1531 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  commentId: T:IdeaStatiCa.Plugin.Grpc.ContentRequest
+  id: ContentRequest
+  parent: IdeaStatiCa.Plugin.Grpc
+  children:
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageIdFieldNumber
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentIdFieldNumber
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(System.Object)
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(Google.Protobuf.CodedInputStream)
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString
+  - IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo(Google.Protobuf.CodedOutputStream)
+  langs:
+  - csharp
+  - vb
+  name: ContentRequest
+  nameWithType: ContentRequest
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContentRequest
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 863
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: 'public sealed class ContentRequest : IMessage<ContentRequest>, IEquatable<ContentRequest>, IDeepCloneable<ContentRequest>, IBufferMessage, IMessage'
+    content.vb: Public NotInheritable Class ContentRequest Implements IMessage(Of ContentRequest), IEquatable(Of ContentRequest), IDeepCloneable(Of ContentRequest), IBufferMessage, IMessage
+  inheritance:
+  - System.Object
+  implements:
+  - Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  - System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  - Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  - Google.Protobuf.IBufferMessage
+  - Google.Protobuf.IMessage
+  inheritedMembers:
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetType
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+  id: Parser
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: Parser
+  nameWithType: ContentRequest.Parser
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Parser
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 870
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public static MessageParser<ContentRequest> Parser { get; }
+    parameters: []
+    return:
+      type: Google.Protobuf.MessageParser{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+    content.vb: Public Shared ReadOnly Property Parser As MessageParser(Of ContentRequest)
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+  id: Descriptor
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: Descriptor
+  nameWithType: ContentRequest.Descriptor
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Descriptor
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 874
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public static MessageDescriptor Descriptor { get; }
+    parameters: []
+    return:
+      type: Google.Protobuf.Reflection.MessageDescriptor
+    content.vb: Public Shared ReadOnly Property Descriptor As MessageDescriptor
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor
+  id: '#ctor'
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: ContentRequest()
+  nameWithType: ContentRequest.ContentRequest()
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentRequest()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 886
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public ContentRequest()
+    content.vb: Public Sub New()
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor*
+  nameWithType.vb: ContentRequest.New()
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.ContentRequest.New()
+  name.vb: New()
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  id: '#ctor(IdeaStatiCa.Plugin.Grpc.ContentRequest)'
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: ContentRequest(ContentRequest)
+  nameWithType: ContentRequest.ContentRequest(ContentRequest)
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentRequest(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 894
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public ContentRequest(ContentRequest other)
+    parameters:
+    - id: other
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    content.vb: Public Sub New(other As ContentRequest)
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor*
+  nameWithType.vb: ContentRequest.New(ContentRequest)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.ContentRequest.New(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  name.vb: New(ContentRequest)
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone
+  id: Clone
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: Clone()
+  nameWithType: ContentRequest.Clone()
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Clone
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 902
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Creates a deep clone of this object.
+  example: []
+  syntax:
+    content: public ContentRequest Clone()
+    return:
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+      description: A deep clone of this object.
+    content.vb: Public Function Clone() As ContentRequest
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone*
+  implements:
+  - Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Clone
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageIdFieldNumber
+  commentId: F:IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageIdFieldNumber
+  id: BlobStorageIdFieldNumber
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: BlobStorageIdFieldNumber
+  nameWithType: ContentRequest.BlobStorageIdFieldNumber
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageIdFieldNumber
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BlobStorageIdFieldNumber
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 909
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Field number for the "blobStorageId" field.
+  example: []
+  syntax:
+    content: public const int BlobStorageIdFieldNumber = 1
+    return:
+      type: System.Int32
+    content.vb: Public Const BlobStorageIdFieldNumber As Integer = 1
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+  id: BlobStorageId
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: BlobStorageId
+  nameWithType: ContentRequest.BlobStorageId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BlobStorageId
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 911
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public string BlobStorageId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property BlobStorageId As String
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentIdFieldNumber
+  commentId: F:IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentIdFieldNumber
+  id: ContentIdFieldNumber
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: ContentIdFieldNumber
+  nameWithType: ContentRequest.ContentIdFieldNumber
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentIdFieldNumber
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContentIdFieldNumber
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 921
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Field number for the "contentId" field.
+  example: []
+  syntax:
+    content: public const int ContentIdFieldNumber = 2
+    return:
+      type: System.Int32
+    content.vb: Public Const ContentIdFieldNumber As Integer = 2
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+  id: ContentId
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: ContentId
+  nameWithType: ContentRequest.ContentId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContentId
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 923
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public string ContentId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ContentId As String
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(System.Object)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: Equals(object)
+  nameWithType: ContentRequest.Equals(object)
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(object)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Equals
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 932
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Determines whether the specified object is equal to the current object.
+  example: []
+  syntax:
+    content: public override bool Equals(object other)
+    parameters:
+    - id: other
+      type: System.Object
+    return:
+      type: System.Boolean
+      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the specified object  is equal to the current object; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
+    content.vb: Public Overrides Function Equals(other As Object) As Boolean
+  overridden: System.Object.Equals(System.Object)
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals*
+  nameWithType.vb: ContentRequest.Equals(Object)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(Object)
+  name.vb: Equals(Object)
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  id: Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: Equals(ContentRequest)
+  nameWithType: ContentRequest.Equals(ContentRequest)
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Equals
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 938
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Indicates whether the current object is equal to another object of the same type.
+  example: []
+  syntax:
+    content: public bool Equals(ContentRequest other)
+    parameters:
+    - id: other
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+      description: An object to compare with this object.
+    return:
+      type: System.Boolean
+      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current object is equal to the <code class="paramref">other</code> parameter; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
+    content.vb: Public Function Equals(other As ContentRequest) As Boolean
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals*
+  implements:
+  - System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode
+  id: GetHashCode
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: ContentRequest.GetHashCode()
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetHashCode
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 952
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Serves as the default hash function.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: A hash code for the current object.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.Object.GetHashCode
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString
+  id: ToString
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: ContentRequest.ToString()
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ToString
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 964
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Returns a string that represents the current object.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+      description: A string that represents the current object.
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo(Google.Protobuf.CodedOutputStream)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo(Google.Protobuf.CodedOutputStream)
+  id: WriteTo(Google.Protobuf.CodedOutputStream)
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: WriteTo(CodedOutputStream)
+  nameWithType: ContentRequest.WriteTo(CodedOutputStream)
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo(Google.Protobuf.CodedOutputStream)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WriteTo
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 970
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Writes the data to the given coded output stream.
+  example: []
+  syntax:
+    content: public void WriteTo(CodedOutputStream output)
+    parameters:
+    - id: output
+      type: Google.Protobuf.CodedOutputStream
+      description: Coded output stream to write the data to. Must not be null.
+    content.vb: Public Sub WriteTo(output As CodedOutputStream)
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo*
+  implements:
+  - Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize
+  id: CalculateSize
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: CalculateSize()
+  nameWithType: ContentRequest.CalculateSize()
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CalculateSize
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 1008
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Calculates the size of this message in Protocol Buffer wire format, in bytes.
+  example: []
+  syntax:
+    content: public int CalculateSize()
+    return:
+      type: System.Int32
+      description: >-
+        The number of bytes required to write this message
+                    to a coded output stream.
+    content.vb: Public Function CalculateSize() As Integer
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize*
+  implements:
+  - Google.Protobuf.IMessage.CalculateSize
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  id: MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: MergeFrom(ContentRequest)
+  nameWithType: ContentRequest.MergeFrom(ContentRequest)
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MergeFrom
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 1024
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Merges the given message into this one.
+  remarks: See the user guide for precise merge semantics.
+  example: []
+  syntax:
+    content: public void MergeFrom(ContentRequest other)
+    parameters:
+    - id: other
+      type: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    content.vb: Public Sub MergeFrom(other As ContentRequest)
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom*
+  implements:
+  - Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(Google.Protobuf.CodedInputStream)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(Google.Protobuf.CodedInputStream)
+  id: MergeFrom(Google.Protobuf.CodedInputStream)
+  parent: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  langs:
+  - csharp
+  - vb
+  name: MergeFrom(CodedInputStream)
+  nameWithType: ContentRequest.MergeFrom(CodedInputStream)
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(Google.Protobuf.CodedInputStream)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MergeFrom
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 1039
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Merges the data from the specified coded input stream with the current message.
+  remarks: See the user guide for precise merge semantics.
+  example: []
+  syntax:
+    content: public void MergeFrom(CodedInputStream input)
+    parameters:
+    - id: input
+      type: Google.Protobuf.CodedInputStream
+      description: ''
+    content.vb: Public Sub MergeFrom(input As CodedInputStream)
+  overload: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom*
+  implements:
+  - Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)
+references:
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  commentId: T:Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  parent: Google.Protobuf
+  definition: Google.Protobuf.IMessage`1
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: IMessage<ContentRequest>
+  nameWithType: IMessage<ContentRequest>
+  fullName: Google.Protobuf.IMessage<IdeaStatiCa.Plugin.Grpc.ContentRequest>
+  nameWithType.vb: IMessage(Of ContentRequest)
+  fullName.vb: Google.Protobuf.IMessage(Of IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  name.vb: IMessage(Of ContentRequest)
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage`1
+    name: IMessage
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: '>'
+  spec.vb:
+  - uid: Google.Protobuf.IMessage`1
+    name: IMessage
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+- uid: System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  commentId: T:System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ContentRequest>
+  nameWithType: IEquatable<ContentRequest>
+  fullName: System.IEquatable<IdeaStatiCa.Plugin.Grpc.ContentRequest>
+  nameWithType.vb: IEquatable(Of ContentRequest)
+  fullName.vb: System.IEquatable(Of IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  name.vb: IEquatable(Of ContentRequest)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+- uid: Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  commentId: T:Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  parent: Google.Protobuf
+  definition: Google.Protobuf.IDeepCloneable`1
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  name: IDeepCloneable<ContentRequest>
+  nameWithType: IDeepCloneable<ContentRequest>
+  fullName: Google.Protobuf.IDeepCloneable<IdeaStatiCa.Plugin.Grpc.ContentRequest>
+  nameWithType.vb: IDeepCloneable(Of ContentRequest)
+  fullName.vb: Google.Protobuf.IDeepCloneable(Of IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  name.vb: IDeepCloneable(Of ContentRequest)
+  spec.csharp:
+  - uid: Google.Protobuf.IDeepCloneable`1
+    name: IDeepCloneable
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: '>'
+  spec.vb:
+  - uid: Google.Protobuf.IDeepCloneable`1
+    name: IDeepCloneable
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+- uid: Google.Protobuf.IBufferMessage
+  commentId: T:Google.Protobuf.IBufferMessage
+  parent: Google.Protobuf
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IBufferMessage.cs
+  name: IBufferMessage
+  nameWithType: IBufferMessage
+  fullName: Google.Protobuf.IBufferMessage
+- uid: Google.Protobuf.IMessage
+  commentId: T:Google.Protobuf.IMessage
+  parent: Google.Protobuf
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: IMessage
+  nameWithType: IMessage
+  fullName: Google.Protobuf.IMessage
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Google.Protobuf.IMessage`1
+  commentId: T:Google.Protobuf.IMessage`1
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: IMessage<T>
+  nameWithType: IMessage<T>
+  fullName: Google.Protobuf.IMessage<T>
+  nameWithType.vb: IMessage(Of T)
+  fullName.vb: Google.Protobuf.IMessage(Of T)
+  name.vb: IMessage(Of T)
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage`1
+    name: IMessage
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Google.Protobuf.IMessage`1
+    name: IMessage
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Google.Protobuf
+  commentId: N:Google.Protobuf
+  isExternal: true
+  name: Google.Protobuf
+  nameWithType: Google.Protobuf
+  fullName: Google.Protobuf
+  spec.csharp:
+  - uid: Google
+    name: Google
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf
+    name: Protobuf
+    isExternal: true
+  spec.vb:
+  - uid: Google
+    name: Google
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf
+    name: Protobuf
+    isExternal: true
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Google.Protobuf.IDeepCloneable`1
+  commentId: T:Google.Protobuf.IDeepCloneable`1
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  name: IDeepCloneable<T>
+  nameWithType: IDeepCloneable<T>
+  fullName: Google.Protobuf.IDeepCloneable<T>
+  nameWithType.vb: IDeepCloneable(Of T)
+  fullName.vb: Google.Protobuf.IDeepCloneable(Of T)
+  name.vb: IDeepCloneable(Of T)
+  spec.csharp:
+  - uid: Google.Protobuf.IDeepCloneable`1
+    name: IDeepCloneable
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Google.Protobuf.IDeepCloneable`1
+    name: IDeepCloneable
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+  name: Parser
+  nameWithType: ContentRequest.Parser
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Parser
+- uid: Google.Protobuf.MessageParser{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  commentId: T:Google.Protobuf.MessageParser{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  parent: Google.Protobuf
+  definition: Google.Protobuf.MessageParser`1
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/MessageParser.cs
+  name: MessageParser<ContentRequest>
+  nameWithType: MessageParser<ContentRequest>
+  fullName: Google.Protobuf.MessageParser<IdeaStatiCa.Plugin.Grpc.ContentRequest>
+  nameWithType.vb: MessageParser(Of ContentRequest)
+  fullName.vb: Google.Protobuf.MessageParser(Of IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  name.vb: MessageParser(Of ContentRequest)
+  spec.csharp:
+  - uid: Google.Protobuf.MessageParser`1
+    name: MessageParser
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/MessageParser.cs
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: '>'
+  spec.vb:
+  - uid: Google.Protobuf.MessageParser`1
+    name: MessageParser
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/MessageParser.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+- uid: Google.Protobuf.MessageParser`1
+  commentId: T:Google.Protobuf.MessageParser`1
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/MessageParser.cs
+  name: MessageParser<T>
+  nameWithType: MessageParser<T>
+  fullName: Google.Protobuf.MessageParser<T>
+  nameWithType.vb: MessageParser(Of T)
+  fullName.vb: Google.Protobuf.MessageParser(Of T)
+  name.vb: MessageParser(Of T)
+  spec.csharp:
+  - uid: Google.Protobuf.MessageParser`1
+    name: MessageParser
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/MessageParser.cs
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Google.Protobuf.MessageParser`1
+    name: MessageParser
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/MessageParser.cs
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+  name: Descriptor
+  nameWithType: ContentRequest.Descriptor
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Descriptor
+- uid: Google.Protobuf.Reflection.MessageDescriptor
+  commentId: T:Google.Protobuf.Reflection.MessageDescriptor
+  parent: Google.Protobuf.Reflection
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/Reflection/MessageDescriptor.cs
+  name: MessageDescriptor
+  nameWithType: MessageDescriptor
+  fullName: Google.Protobuf.Reflection.MessageDescriptor
+- uid: Google.Protobuf.Reflection
+  commentId: N:Google.Protobuf.Reflection
+  isExternal: true
+  name: Google.Protobuf.Reflection
+  nameWithType: Google.Protobuf.Reflection
+  fullName: Google.Protobuf.Reflection
+  spec.csharp:
+  - uid: Google
+    name: Google
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf
+    name: Protobuf
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf.Reflection
+    name: Reflection
+    isExternal: true
+  spec.vb:
+  - uid: Google
+    name: Google
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf
+    name: Protobuf
+    isExternal: true
+  - name: .
+  - uid: Google.Protobuf.Reflection
+    name: Reflection
+    isExternal: true
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.#ctor
+  name: ContentRequest
+  nameWithType: ContentRequest.ContentRequest
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentRequest
+  nameWithType.vb: ContentRequest.New
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.ContentRequest.New
+  name.vb: New
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+  commentId: T:IdeaStatiCa.Plugin.Grpc.ContentRequest
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  name: ContentRequest
+  nameWithType: ContentRequest
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone
+  name: Clone
+  nameWithType: ContentRequest.Clone
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Clone
+- uid: Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Clone
+  commentId: M:Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Clone
+  parent: Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  definition: Google.Protobuf.IDeepCloneable`1.Clone
+  name: Clone()
+  nameWithType: IDeepCloneable<ContentRequest>.Clone()
+  fullName: Google.Protobuf.IDeepCloneable<IdeaStatiCa.Plugin.Grpc.ContentRequest>.Clone()
+  nameWithType.vb: IDeepCloneable(Of ContentRequest).Clone()
+  fullName.vb: Google.Protobuf.IDeepCloneable(Of IdeaStatiCa.Plugin.Grpc.ContentRequest).Clone()
+  spec.csharp:
+  - uid: Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Clone
+    name: Clone
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IDeepCloneable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Clone
+    name: Clone
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Google.Protobuf.IDeepCloneable`1.Clone
+  commentId: M:Google.Protobuf.IDeepCloneable`1.Clone
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  name: Clone()
+  nameWithType: IDeepCloneable<T>.Clone()
+  fullName: Google.Protobuf.IDeepCloneable<T>.Clone()
+  nameWithType.vb: IDeepCloneable(Of T).Clone()
+  fullName.vb: Google.Protobuf.IDeepCloneable(Of T).Clone()
+  spec.csharp:
+  - uid: Google.Protobuf.IDeepCloneable`1.Clone
+    name: Clone
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IDeepCloneable`1.Clone
+    name: Clone
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IDeepCloneable.cs
+  - name: (
+  - name: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+  name: BlobStorageId
+  nameWithType: ContentRequest.BlobStorageId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.BlobStorageId
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+  name: ContentId
+  nameWithType: ContentRequest.ContentId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ContentId
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals(System.Object)
+  name: Equals
+  nameWithType: ContentRequest.Equals
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.Equals
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  commentId: M:System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  parent: System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-ideastatica.plugin.grpc.contentrequest-.equals#system-iequatable((ideastatica-plugin-grpc-contentrequest))-equals(ideastatica-plugin-grpc-contentrequest)
+  name: Equals(ContentRequest)
+  nameWithType: IEquatable<ContentRequest>.Equals(ContentRequest)
+  fullName: System.IEquatable<IdeaStatiCa.Plugin.Grpc.ContentRequest>.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  nameWithType.vb: IEquatable(Of ContentRequest).Equals(ContentRequest)
+  fullName.vb: System.IEquatable(Of IdeaStatiCa.Plugin.Grpc.ContentRequest).Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  spec.csharp:
+  - uid: System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-ideastatica.plugin.grpc.contentrequest-.equals#system-iequatable((ideastatica-plugin-grpc-contentrequest))-equals(ideastatica-plugin-grpc-contentrequest)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{IdeaStatiCa.Plugin.Grpc.ContentRequest}.Equals(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-ideastatica.plugin.grpc.contentrequest-.equals#system-iequatable((ideastatica-plugin-grpc-contentrequest))-equals(ideastatica-plugin-grpc-contentrequest)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode
+  name: GetHashCode
+  nameWithType: ContentRequest.GetHashCode
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.GetHashCode
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString
+  name: ToString
+  nameWithType: ContentRequest.ToString
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.ToString
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo(Google.Protobuf.CodedOutputStream)
+  name: WriteTo
+  nameWithType: ContentRequest.WriteTo
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.WriteTo
+- uid: Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)
+  commentId: M:Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)
+  parent: Google.Protobuf.IMessage
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: WriteTo(CodedOutputStream)
+  nameWithType: IMessage.WriteTo(CodedOutputStream)
+  fullName: Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)
+    name: WriteTo
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - uid: Google.Protobuf.CodedOutputStream
+    name: CodedOutputStream
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/CodedOutputStream.ComputeSize.cs
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)
+    name: WriteTo
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - uid: Google.Protobuf.CodedOutputStream
+    name: CodedOutputStream
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/CodedOutputStream.ComputeSize.cs
+  - name: )
+- uid: Google.Protobuf.CodedOutputStream
+  commentId: T:Google.Protobuf.CodedOutputStream
+  parent: Google.Protobuf
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/CodedOutputStream.ComputeSize.cs
+  name: CodedOutputStream
+  nameWithType: CodedOutputStream
+  fullName: Google.Protobuf.CodedOutputStream
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize
+  name: CalculateSize
+  nameWithType: ContentRequest.CalculateSize
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.CalculateSize
+- uid: Google.Protobuf.IMessage.CalculateSize
+  commentId: M:Google.Protobuf.IMessage.CalculateSize
+  parent: Google.Protobuf.IMessage
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: CalculateSize()
+  nameWithType: IMessage.CalculateSize()
+  fullName: Google.Protobuf.IMessage.CalculateSize()
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage.CalculateSize
+    name: CalculateSize
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IMessage.CalculateSize
+    name: CalculateSize
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html#IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  name: MergeFrom
+  nameWithType: ContentRequest.MergeFrom
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentRequest.MergeFrom
+- uid: Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  commentId: M:Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  parent: Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}
+  definition: Google.Protobuf.IMessage`1.MergeFrom(`0)
+  href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  name: MergeFrom(ContentRequest)
+  nameWithType: IMessage<ContentRequest>.MergeFrom(ContentRequest)
+  fullName: Google.Protobuf.IMessage<IdeaStatiCa.Plugin.Grpc.ContentRequest>.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  nameWithType.vb: IMessage(Of ContentRequest).MergeFrom(ContentRequest)
+  fullName.vb: Google.Protobuf.IMessage(Of IdeaStatiCa.Plugin.Grpc.ContentRequest).MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+    name: MergeFrom
+    isExternal: true
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IMessage{IdeaStatiCa.Plugin.Grpc.ContentRequest}.MergeFrom(IdeaStatiCa.Plugin.Grpc.ContentRequest)
+    name: MergeFrom
+    isExternal: true
+  - name: (
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+    href: IdeaStatiCa.Plugin.Grpc.ContentRequest.html
+  - name: )
+- uid: Google.Protobuf.IMessage`1.MergeFrom(`0)
+  commentId: M:Google.Protobuf.IMessage`1.MergeFrom(`0)
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: MergeFrom(T)
+  nameWithType: IMessage<T>.MergeFrom(T)
+  fullName: Google.Protobuf.IMessage<T>.MergeFrom(T)
+  nameWithType.vb: IMessage(Of T).MergeFrom(T)
+  fullName.vb: Google.Protobuf.IMessage(Of T).MergeFrom(T)
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage`1.MergeFrom(`0)
+    name: MergeFrom
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IMessage`1.MergeFrom(`0)
+    name: MergeFrom
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - name: T
+  - name: )
+- uid: Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)
+  commentId: M:Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)
+  parent: Google.Protobuf.IMessage
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  name: MergeFrom(CodedInputStream)
+  nameWithType: IMessage.MergeFrom(CodedInputStream)
+  fullName: Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)
+  spec.csharp:
+  - uid: Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)
+    name: MergeFrom
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - uid: Google.Protobuf.CodedInputStream
+    name: CodedInputStream
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/CodedInputStream.cs
+  - name: )
+  spec.vb:
+  - uid: Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)
+    name: MergeFrom
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/IMessage.cs
+  - name: (
+  - uid: Google.Protobuf.CodedInputStream
+    name: CodedInputStream
+    isExternal: true
+    href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/CodedInputStream.cs
+  - name: )
+- uid: Google.Protobuf.CodedInputStream
+  commentId: T:Google.Protobuf.CodedInputStream
+  parent: Google.Protobuf
+  isExternal: true
+  href: https://github.com/protocolbuffers/protobuf/blob/4d2d935f6cd41d3d3cfcab600feb6abfc3a05feb/csharp/src/Google.Protobuf/CodedInputStream.cs
+  name: CodedInputStream
+  nameWithType: CodedInputStream
+  fullName: Google.Protobuf.CodedInputStream

@@ -1,0 +1,153 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  commentId: T:IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  id: BoxDeltaAligment
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Center
+  - IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Left
+  - IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Right
+  langs:
+  - csharp
+  - vb
+  name: BoxDeltaAligment
+  nameWithType: BoxDeltaAligment
+  fullName: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BoxDeltaAligment
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+    startLine: 556
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  syntax:
+    content: public enum BoxDeltaAligment
+    content.vb: Public Enum BoxDeltaAligment
+- uid: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Center
+  commentId: F:IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Center
+  id: Center
+  parent: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  langs:
+  - csharp
+  - vb
+  name: Center
+  nameWithType: BoxDeltaAligment.Center
+  fullName: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Center
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Center
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+    startLine: 561
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Center
+  example: []
+  syntax:
+    content: Center = 0
+    return:
+      type: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+- uid: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Left
+  commentId: F:IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Left
+  id: Left
+  parent: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  langs:
+  - csharp
+  - vb
+  name: Left
+  nameWithType: BoxDeltaAligment.Left
+  fullName: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Left
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Left
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+    startLine: 566
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Left
+  example: []
+  syntax:
+    content: Left = 1
+    return:
+      type: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+- uid: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Right
+  commentId: F:IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Right
+  id: Right
+  parent: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  langs:
+  - csharp
+  - vb
+  name: Right
+  nameWithType: BoxDeltaAligment.Right
+  fullName: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.Right
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Right
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionParameter.cs
+    startLine: 571
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Right
+  example: []
+  syntax:
+    content: Right = 2
+    return:
+      type: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  commentId: T:IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment.html
+  name: BoxDeltaAligment
+  nameWithType: BoxDeltaAligment
+  fullName: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment

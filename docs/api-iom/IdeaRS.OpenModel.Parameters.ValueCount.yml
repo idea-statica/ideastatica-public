@@ -1,0 +1,475 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Parameters.ValueCount
+  commentId: T:IdeaRS.OpenModel.Parameters.ValueCount
+  id: ValueCount
+  parent: IdeaRS.OpenModel.Parameters
+  children:
+  - IdeaRS.OpenModel.Parameters.ValueCount.Count
+  - IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double)
+  - IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double,System.Int32)
+  - IdeaRS.OpenModel.Parameters.ValueCount.Value
+  langs:
+  - csharp
+  - vb
+  name: ValueCount
+  nameWithType: ValueCount
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ValueCount
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 132
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Specifies pair of value and their count.
+  example: []
+  syntax:
+    content: public sealed class ValueCount
+    content.vb: Public NotInheritable Class ValueCount
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Value
+  commentId: P:IdeaRS.OpenModel.Parameters.ValueCount.Value
+  id: Value
+  parent: IdeaRS.OpenModel.Parameters.ValueCount
+  langs:
+  - csharp
+  - vb
+  name: Value
+  nameWithType: ValueCount.Value
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Value
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Value
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 138
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Gets or sets the value.
+  example: []
+  syntax:
+    content: public double Value { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Value As Double
+  overload: IdeaRS.OpenModel.Parameters.ValueCount.Value*
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Count
+  commentId: P:IdeaRS.OpenModel.Parameters.ValueCount.Count
+  id: Count
+  parent: IdeaRS.OpenModel.Parameters.ValueCount
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: ValueCount.Count
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Count
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Count
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 143
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Gets or sets the repeating of value.
+  example: []
+  syntax:
+    content: public int Count { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Count As Integer
+  overload: IdeaRS.OpenModel.Parameters.ValueCount.Count*
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double)
+  commentId: M:IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double)
+  id: Create(System.Double)
+  parent: IdeaRS.OpenModel.Parameters.ValueCount
+  langs:
+  - csharp
+  - vb
+  name: Create(double)
+  nameWithType: ValueCount.Create(double)
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Create(double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 150
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Creates a new instance with specified value.
+  example: []
+  syntax:
+    content: public static ValueCount Create(double value)
+    parameters:
+    - id: value
+      type: System.Double
+      description: The value to set.
+    return:
+      type: IdeaRS.OpenModel.Parameters.ValueCount
+      description: A new instance of ValueCount.
+    content.vb: Public Shared Function Create(value As Double) As ValueCount
+  overload: IdeaRS.OpenModel.Parameters.ValueCount.Create*
+  nameWithType.vb: ValueCount.Create(Double)
+  fullName.vb: IdeaRS.OpenModel.Parameters.ValueCount.Create(Double)
+  name.vb: Create(Double)
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double,System.Int32)
+  commentId: M:IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double,System.Int32)
+  id: Create(System.Double,System.Int32)
+  parent: IdeaRS.OpenModel.Parameters.ValueCount
+  langs:
+  - csharp
+  - vb
+  name: Create(double, int)
+  nameWithType: ValueCount.Create(double, int)
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Create(double, int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
+    path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
+    startLine: 161
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Parameters
+  summary: Creates a new instance with value and their repeating.
+  example: []
+  syntax:
+    content: public static ValueCount Create(double value, int count)
+    parameters:
+    - id: value
+      type: System.Double
+      description: The value to set.
+    - id: count
+      type: System.Int32
+      description: The number of repeating.
+    return:
+      type: IdeaRS.OpenModel.Parameters.ValueCount
+      description: A new instance of ValueCount.
+    content.vb: Public Shared Function Create(value As Double, count As Integer) As ValueCount
+  overload: IdeaRS.OpenModel.Parameters.ValueCount.Create*
+  nameWithType.vb: ValueCount.Create(Double, Integer)
+  fullName.vb: IdeaRS.OpenModel.Parameters.ValueCount.Create(Double, Integer)
+  name.vb: Create(Double, Integer)
+references:
+- uid: IdeaRS.OpenModel.Parameters
+  commentId: N:IdeaRS.OpenModel.Parameters
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Parameters
+  nameWithType: IdeaRS.OpenModel.Parameters
+  fullName: IdeaRS.OpenModel.Parameters
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Parameters
+    name: Parameters
+    href: IdeaRS.OpenModel.Parameters.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Value*
+  commentId: Overload:IdeaRS.OpenModel.Parameters.ValueCount.Value
+  href: IdeaRS.OpenModel.Parameters.ValueCount.html#IdeaRS.OpenModel.Parameters.ValueCount.Value
+  name: Value
+  nameWithType: ValueCount.Value
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Value
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Count*
+  commentId: Overload:IdeaRS.OpenModel.Parameters.ValueCount.Count
+  href: IdeaRS.OpenModel.Parameters.ValueCount.html#IdeaRS.OpenModel.Parameters.ValueCount.Count
+  name: Count
+  nameWithType: ValueCount.Count
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Count
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Parameters.ValueCount.Create*
+  commentId: Overload:IdeaRS.OpenModel.Parameters.ValueCount.Create
+  href: IdeaRS.OpenModel.Parameters.ValueCount.html#IdeaRS.OpenModel.Parameters.ValueCount.Create(System.Double)
+  name: Create
+  nameWithType: ValueCount.Create
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount.Create
+- uid: IdeaRS.OpenModel.Parameters.ValueCount
+  commentId: T:IdeaRS.OpenModel.Parameters.ValueCount
+  parent: IdeaRS.OpenModel.Parameters
+  href: IdeaRS.OpenModel.Parameters.ValueCount.html
+  name: ValueCount
+  nameWithType: ValueCount
+  fullName: IdeaRS.OpenModel.Parameters.ValueCount

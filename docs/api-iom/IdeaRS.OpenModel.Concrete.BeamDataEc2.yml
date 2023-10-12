@@ -1,0 +1,1000 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  commentId: T:IdeaRS.OpenModel.Concrete.BeamDataEc2
+  id: BeamDataEc2
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+  - IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+  langs:
+  - csharp
+  - vb
+  name: BeamDataEc2
+  nameWithType: BeamDataEc2
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BeamDataEc2
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 123
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Beam data Ec2
+  example: []
+  syntax:
+    content: public class BeamDataEc2
+    content.vb: Public Class BeamDataEc2
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor
+  commentId: M:IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: BeamDataEc2()
+  nameWithType: BeamDataEc2.BeamDataEc2()
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamDataEc2()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 128
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: constructor
+  example: []
+  syntax:
+    content: public BeamDataEc2()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor*
+  nameWithType.vb: BeamDataEc2.New()
+  fullName.vb: IdeaRS.OpenModel.Concrete.BeamDataEc2.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+  id: TypeOfCalculation
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: TypeOfCalculation
+  nameWithType: BeamDataEc2.TypeOfCalculation
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeOfCalculation
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 151
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: there are several types of calculation
+  example: []
+  syntax:
+    content: public TypeOfCalculationDeflection TypeOfCalculation { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+    content.vb: Public Property TypeOfCalculation As TypeOfCalculationDeflection
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+  id: Ln
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: Ln
+  nameWithType: BeamDataEc2.Ln
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Ln
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 156
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Length of beam
+  example: []
+  syntax:
+    content: public double Ln { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Ln As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+  id: BeamSpanLength
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: BeamSpanLength
+  nameWithType: BeamDataEc2.BeamSpanLength
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BeamSpanLength
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 161
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: beam span lengrh - theoretical support distance
+  example: []
+  syntax:
+    content: public double BeamSpanLength { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property BeamSpanLength As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+  id: TypeOfSupportLeft
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: TypeOfSupportLeft
+  nameWithType: BeamDataEc2.TypeOfSupportLeft
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeOfSupportLeft
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 166
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Type of support on the left side
+  example: []
+  syntax:
+    content: public TypeOfSupportConditions TypeOfSupportLeft { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+    content.vb: Public Property TypeOfSupportLeft As TypeOfSupportConditions
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+  id: TypeOfSupportRight
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: TypeOfSupportRight
+  nameWithType: BeamDataEc2.TypeOfSupportRight
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeOfSupportRight
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 171
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Type of support on the right side
+  example: []
+  syntax:
+    content: public TypeOfSupportConditions TypeOfSupportRight { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+    content.vb: Public Property TypeOfSupportRight As TypeOfSupportConditions
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+  id: WidthOfSupportLeft
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: WidthOfSupportLeft
+  nameWithType: BeamDataEc2.WidthOfSupportLeft
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WidthOfSupportLeft
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 176
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Width of support on the left side
+  example: []
+  syntax:
+    content: public double WidthOfSupportLeft { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property WidthOfSupportLeft As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+  id: WidthOfSupportRight
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: WidthOfSupportRight
+  nameWithType: BeamDataEc2.WidthOfSupportRight
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WidthOfSupportRight
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 181
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Width of support on the right side
+  example: []
+  syntax:
+    content: public double WidthOfSupportRight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property WidthOfSupportRight As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+  id: DeflectionSheme
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: DeflectionSheme
+  nameWithType: BeamDataEc2.DeflectionSheme
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeflectionSheme
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 186
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: type of span loads
+  example: []
+  syntax:
+    content: public TypeDeflectionSheme DeflectionSheme { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Concrete.TypeDeflectionSheme
+    content.vb: Public Property DeflectionSheme As TypeDeflectionSheme
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+  id: CheckLimitDeflection
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: CheckLimitDeflection
+  nameWithType: BeamDataEc2.CheckLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckLimitDeflection
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 191
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: indicator for check of limit deflection for beam span
+  example: []
+  syntax:
+    content: public bool CheckLimitDeflection { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CheckLimitDeflection As Boolean
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+  id: IsUserLimitDeflection
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: IsUserLimitDeflection
+  nameWithType: BeamDataEc2.IsUserLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsUserLimitDeflection
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 196
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: true for user value of limit deflection (both - total + rheological)
+  example: []
+  syntax:
+    content: public bool IsUserLimitDeflection { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsUserLimitDeflection As Boolean
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+  id: UserLimitDeflection
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: UserLimitDeflection
+  nameWithType: BeamDataEc2.UserLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserLimitDeflection
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 201
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: user value of limit deflection - denominator - 1 / value
+  example: []
+  syntax:
+    content: public double UserLimitDeflection { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property UserLimitDeflection As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+  id: CheckLimitDeflRheoEffects
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: CheckLimitDeflRheoEffects
+  nameWithType: BeamDataEc2.CheckLimitDeflRheoEffects
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckLimitDeflRheoEffects
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 206
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: true for check of limit deflection for beam span from rheological effects of variable loads
+  example: []
+  syntax:
+    content: public bool CheckLimitDeflRheoEffects { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CheckLimitDeflRheoEffects As Boolean
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+  id: UserLimitDeflRheoEffects
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: UserLimitDeflRheoEffects
+  nameWithType: BeamDataEc2.UserLimitDeflRheoEffects
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: UserLimitDeflRheoEffects
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 211
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: user value of limit deflection from rheological effects of variable loads - denominator - 1 / value
+  example: []
+  syntax:
+    content: public double UserLimitDeflRheoEffects { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property UserLimitDeflRheoEffects As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+  id: IsAbsValueLimitDeflection
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: IsAbsValueLimitDeflection
+  nameWithType: BeamDataEc2.IsAbsValueLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsAbsValueLimitDeflection
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 216
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: true for absolute user value of limit deflection (both - total + rheological)
+  example: []
+  syntax:
+    content: public bool IsAbsValueLimitDeflection { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsAbsValueLimitDeflection As Boolean
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+  id: RequiredCamber
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: RequiredCamber
+  nameWithType: BeamDataEc2.RequiredCamber
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RequiredCamber
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 221
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: required camber
+  example: []
+  syntax:
+    content: public double RequiredCamber { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property RequiredCamber As Double
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber*
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData
+  commentId: P:IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData
+  id: IsYDirectionData
+  parent: IdeaRS.OpenModel.Concrete.BeamDataEc2
+  langs:
+  - csharp
+  - vb
+  name: IsYDirectionData
+  nameWithType: BeamDataEc2.IsYDirectionData
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsYDirectionData
+    path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
+    startLine: 226
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: true for deflection data in Y direction
+  example: []
+  syntax:
+    content: public bool IsYDirectionData { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsYDirectionData As Boolean
+  overload: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData*
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.#ctor
+  name: BeamDataEc2
+  nameWithType: BeamDataEc2.BeamDataEc2
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamDataEc2
+  nameWithType.vb: BeamDataEc2.New
+  fullName.vb: IdeaRS.OpenModel.Concrete.BeamDataEc2.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+  name: TypeOfCalculation
+  nameWithType: BeamDataEc2.TypeOfCalculation
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfCalculation
+- uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection.html
+  name: TypeOfCalculationDeflection
+  nameWithType: TypeOfCalculationDeflection
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+  name: Ln
+  nameWithType: BeamDataEc2.Ln
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.Ln
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+  name: BeamSpanLength
+  nameWithType: BeamDataEc2.BeamSpanLength
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.BeamSpanLength
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+  name: TypeOfSupportLeft
+  nameWithType: BeamDataEc2.TypeOfSupportLeft
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportLeft
+- uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions.html
+  name: TypeOfSupportConditions
+  nameWithType: TypeOfSupportConditions
+  fullName: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+  name: TypeOfSupportRight
+  nameWithType: BeamDataEc2.TypeOfSupportRight
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.TypeOfSupportRight
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+  name: WidthOfSupportLeft
+  nameWithType: BeamDataEc2.WidthOfSupportLeft
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportLeft
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+  name: WidthOfSupportRight
+  nameWithType: BeamDataEc2.WidthOfSupportRight
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.WidthOfSupportRight
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+  name: DeflectionSheme
+  nameWithType: BeamDataEc2.DeflectionSheme
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.DeflectionSheme
+- uid: IdeaRS.OpenModel.Concrete.TypeDeflectionSheme
+  commentId: T:IdeaRS.OpenModel.Concrete.TypeDeflectionSheme
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TypeDeflectionSheme.html
+  name: TypeDeflectionSheme
+  nameWithType: TypeDeflectionSheme
+  fullName: IdeaRS.OpenModel.Concrete.TypeDeflectionSheme
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+  name: CheckLimitDeflection
+  nameWithType: BeamDataEc2.CheckLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflection
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+  name: IsUserLimitDeflection
+  nameWithType: BeamDataEc2.IsUserLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsUserLimitDeflection
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+  name: UserLimitDeflection
+  nameWithType: BeamDataEc2.UserLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflection
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+  name: CheckLimitDeflRheoEffects
+  nameWithType: BeamDataEc2.CheckLimitDeflRheoEffects
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.CheckLimitDeflRheoEffects
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+  name: UserLimitDeflRheoEffects
+  nameWithType: BeamDataEc2.UserLimitDeflRheoEffects
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.UserLimitDeflRheoEffects
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+  name: IsAbsValueLimitDeflection
+  nameWithType: BeamDataEc2.IsAbsValueLimitDeflection
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsAbsValueLimitDeflection
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+  name: RequiredCamber
+  nameWithType: BeamDataEc2.RequiredCamber
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.RequiredCamber
+- uid: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData*
+  commentId: Overload:IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData
+  href: IdeaRS.OpenModel.Concrete.BeamDataEc2.html#IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData
+  name: IsYDirectionData
+  nameWithType: BeamDataEc2.IsYDirectionData
+  fullName: IdeaRS.OpenModel.Concrete.BeamDataEc2.IsYDirectionData

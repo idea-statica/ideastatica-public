@@ -1,0 +1,835 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting
+  commentId: T:IdeaStatiCa.Plugin.BIMPluginHosting
+  id: BIMPluginHosting
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.BIMPluginHosting.#ctor(IdeaStatiCa.Plugin.IBIMPluginFactory,IdeaStatiCa.Plugin.IPluginLogger,System.String,System.String)
+  - IdeaStatiCa.Plugin.BIMPluginHosting.AppStatusChanged
+  - IdeaStatiCa.Plugin.BIMPluginHosting.Dispose
+  - IdeaStatiCa.Plugin.BIMPluginHosting.Dispose(System.Boolean)
+  - IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+  - IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged(IdeaStatiCa.Plugin.AppStatus)
+  - IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync(System.String,System.String)
+  - IdeaStatiCa.Plugin.BIMPluginHosting.Service
+  - IdeaStatiCa.Plugin.BIMPluginHosting.Stop
+  langs:
+  - csharp
+  - vb
+  name: BIMPluginHosting
+  nameWithType: BIMPluginHosting
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BIMPluginHosting
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: 'public class BIMPluginHosting : IBIMPluginHosting, IDisposable'
+    content.vb: Public Class BIMPluginHosting Implements IBIMPluginHosting, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - IdeaStatiCa.Plugin.IBIMPluginHosting
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.#ctor(IdeaStatiCa.Plugin.IBIMPluginFactory,IdeaStatiCa.Plugin.IPluginLogger,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.BIMPluginHosting.#ctor(IdeaStatiCa.Plugin.IBIMPluginFactory,IdeaStatiCa.Plugin.IPluginLogger,System.String,System.String)
+  id: '#ctor(IdeaStatiCa.Plugin.IBIMPluginFactory,IdeaStatiCa.Plugin.IPluginLogger,System.String,System.String)'
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: BIMPluginHosting(IBIMPluginFactory, IPluginLogger, string, string)
+  nameWithType: BIMPluginHosting.BIMPluginHosting(IBIMPluginFactory, IPluginLogger, string, string)
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.BIMPluginHosting(IdeaStatiCa.Plugin.IBIMPluginFactory, IdeaStatiCa.Plugin.IPluginLogger, string, string)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 35
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public BIMPluginHosting(IBIMPluginFactory factory, IPluginLogger logger = null, string eventName = "IdeaStatiCaBIMPluginEvent", string pluginUrlFormat = "net.pipe://localhost/IdeaBIMPlugin{0}")
+    parameters:
+    - id: factory
+      type: IdeaStatiCa.Plugin.IBIMPluginFactory
+    - id: logger
+      type: IdeaStatiCa.Plugin.IPluginLogger
+    - id: eventName
+      type: System.String
+    - id: pluginUrlFormat
+      type: System.String
+    content.vb: Public Sub New(factory As IBIMPluginFactory, logger As IPluginLogger = Nothing, eventName As String = "IdeaStatiCaBIMPluginEvent", pluginUrlFormat As String = "net.pipe://localhost/IdeaBIMPlugin{0}")
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.#ctor*
+  nameWithType.vb: BIMPluginHosting.New(IBIMPluginFactory, IPluginLogger, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.BIMPluginHosting.New(IdeaStatiCa.Plugin.IBIMPluginFactory, IdeaStatiCa.Plugin.IPluginLogger, String, String)
+  name.vb: New(IBIMPluginFactory, IPluginLogger, String, String)
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.AppStatusChanged
+  commentId: E:IdeaStatiCa.Plugin.BIMPluginHosting.AppStatusChanged
+  id: AppStatusChanged
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: AppStatusChanged
+  nameWithType: BIMPluginHosting.AppStatusChanged
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.AppStatusChanged
+  type: Event
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AppStatusChanged
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 45
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public event ISEventHandler AppStatusChanged
+    return:
+      type: IdeaStatiCa.Plugin.ISEventHandler
+    content.vb: Public Event AppStatusChanged As ISEventHandler
+  implements:
+  - IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync(System.String,System.String)
+  id: RunAsync(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: RunAsync(string, string)
+  nameWithType: BIMPluginHosting.RunAsync(string, string)
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RunAsync
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 47
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public Task RunAsync(string id, string workingDirectory)
+    parameters:
+    - id: id
+      type: System.String
+    - id: workingDirectory
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function RunAsync(id As String, workingDirectory As String) As Task
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync*
+  implements:
+  - IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  nameWithType.vb: BIMPluginHosting.RunAsync(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync(String, String)
+  name.vb: RunAsync(String, String)
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Stop
+  commentId: M:IdeaStatiCa.Plugin.BIMPluginHosting.Stop
+  id: Stop
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: Stop()
+  nameWithType: BIMPluginHosting.Stop()
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Stop()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Stop
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 70
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public void Stop()
+    content.vb: Public Sub [Stop]()
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.Stop*
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged(IdeaStatiCa.Plugin.AppStatus)
+  commentId: M:IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged(IdeaStatiCa.Plugin.AppStatus)
+  id: NotifyAppStatusChanged(IdeaStatiCa.Plugin.AppStatus)
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: NotifyAppStatusChanged(AppStatus)
+  nameWithType: BIMPluginHosting.NotifyAppStatusChanged(AppStatus)
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged(IdeaStatiCa.Plugin.AppStatus)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NotifyAppStatusChanged
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 214
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: protected void NotifyAppStatusChanged(AppStatus newStatus)
+    parameters:
+    - id: newStatus
+      type: IdeaStatiCa.Plugin.AppStatus
+    content.vb: Protected Sub NotifyAppStatusChanged(newStatus As AppStatus)
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged*
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+  commentId: P:IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+  id: HostingTask
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: HostingTask
+  nameWithType: BIMPluginHosting.HostingTask
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: HostingTask
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 225
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public Task HostingTask { get; set; }
+    parameters: []
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Property HostingTask As Task
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask*
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Service
+  commentId: P:IdeaStatiCa.Plugin.BIMPluginHosting.Service
+  id: Service
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: BIMPluginHosting.Service
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Service
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Service
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 226
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public IApplicationBIM Service { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.Plugin.IApplicationBIM
+    content.vb: Public ReadOnly Property Service As IApplicationBIM
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.Service*
+  implements:
+  - IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose(System.Boolean)
+  commentId: M:IdeaStatiCa.Plugin.BIMPluginHosting.Dispose(System.Boolean)
+  id: Dispose(System.Boolean)
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: Dispose(bool)
+  nameWithType: BIMPluginHosting.Dispose(bool)
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose(bool)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dispose
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 265
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: protected virtual void Dispose(bool disposing)
+    parameters:
+    - id: disposing
+      type: System.Boolean
+    content.vb: Protected Overridable Sub Dispose(disposing As Boolean)
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose*
+  nameWithType.vb: BIMPluginHosting.Dispose(Boolean)
+  fullName.vb: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose(Boolean)
+  name.vb: Dispose(Boolean)
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose
+  commentId: M:IdeaStatiCa.Plugin.BIMPluginHosting.Dispose
+  id: Dispose
+  parent: IdeaStatiCa.Plugin.BIMPluginHosting
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: BIMPluginHosting.Dispose()
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dispose
+    path: ../src/IdeaStatiCa.Plugin/BIMPluginHosting.cs
+    startLine: 299
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose()
+  overload: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting
+  commentId: T:IdeaStatiCa.Plugin.IBIMPluginHosting
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IBIMPluginHosting.html
+  name: IBIMPluginHosting
+  nameWithType: IBIMPluginHosting
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.#ctor
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.#ctor(IdeaStatiCa.Plugin.IBIMPluginFactory,IdeaStatiCa.Plugin.IPluginLogger,System.String,System.String)
+  name: BIMPluginHosting
+  nameWithType: BIMPluginHosting.BIMPluginHosting
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.BIMPluginHosting
+  nameWithType.vb: BIMPluginHosting.New
+  fullName.vb: IdeaStatiCa.Plugin.BIMPluginHosting.New
+  name.vb: New
+- uid: IdeaStatiCa.Plugin.IBIMPluginFactory
+  commentId: T:IdeaStatiCa.Plugin.IBIMPluginFactory
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IBIMPluginFactory.html
+  name: IBIMPluginFactory
+  nameWithType: IBIMPluginFactory
+  fullName: IdeaStatiCa.Plugin.IBIMPluginFactory
+- uid: IdeaStatiCa.Plugin.IPluginLogger
+  commentId: T:IdeaStatiCa.Plugin.IPluginLogger
+  parent: IdeaStatiCa.Plugin
+  name: IPluginLogger
+  nameWithType: IPluginLogger
+  fullName: IdeaStatiCa.Plugin.IPluginLogger
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  commentId: E:IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  parent: IdeaStatiCa.Plugin.IBIMPluginHosting
+  href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+  name: AppStatusChanged
+  nameWithType: IBIMPluginHosting.AppStatusChanged
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.AppStatusChanged
+- uid: IdeaStatiCa.Plugin.ISEventHandler
+  commentId: T:IdeaStatiCa.Plugin.ISEventHandler
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ISEventHandler.html
+  name: ISEventHandler
+  nameWithType: ISEventHandler
+  fullName: IdeaStatiCa.Plugin.ISEventHandler
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync(System.String,System.String)
+  name: RunAsync
+  nameWithType: BIMPluginHosting.RunAsync
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.RunAsync
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.IBIMPluginHosting
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  name: RunAsync(string, string)
+  nameWithType: IBIMPluginHosting.RunAsync(string, string)
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(string, string)
+  nameWithType.vb: IBIMPluginHosting.RunAsync(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(String, String)
+  name.vb: RunAsync(String, String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+    name: RunAsync
+    href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+    name: RunAsync
+    href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.RunAsync(System.String,System.String)
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Stop*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.Stop
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.Stop
+  name: Stop
+  nameWithType: BIMPluginHosting.Stop
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Stop
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged(IdeaStatiCa.Plugin.AppStatus)
+  name: NotifyAppStatusChanged
+  nameWithType: BIMPluginHosting.NotifyAppStatusChanged
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.NotifyAppStatusChanged
+- uid: IdeaStatiCa.Plugin.AppStatus
+  commentId: T:IdeaStatiCa.Plugin.AppStatus
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.AppStatus.html
+  name: AppStatus
+  nameWithType: AppStatus
+  fullName: IdeaStatiCa.Plugin.AppStatus
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+  name: HostingTask
+  nameWithType: BIMPluginHosting.HostingTask
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.HostingTask
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Service*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.Service
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.Service
+  name: Service
+  nameWithType: BIMPluginHosting.Service
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Service
+- uid: IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  commentId: P:IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  parent: IdeaStatiCa.Plugin.IBIMPluginHosting
+  href: IdeaStatiCa.Plugin.IBIMPluginHosting.html#IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+  name: Service
+  nameWithType: IBIMPluginHosting.Service
+  fullName: IdeaStatiCa.Plugin.IBIMPluginHosting.Service
+- uid: IdeaStatiCa.Plugin.IApplicationBIM
+  commentId: T:IdeaStatiCa.Plugin.IApplicationBIM
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IApplicationBIM.html
+  name: IApplicationBIM
+  nameWithType: IApplicationBIM
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM
+- uid: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose*
+  commentId: Overload:IdeaStatiCa.Plugin.BIMPluginHosting.Dispose
+  href: IdeaStatiCa.Plugin.BIMPluginHosting.html#IdeaStatiCa.Plugin.BIMPluginHosting.Dispose(System.Boolean)
+  name: Dispose
+  nameWithType: BIMPluginHosting.Dispose
+  fullName: IdeaStatiCa.Plugin.BIMPluginHosting.Dispose
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )

@@ -1,0 +1,22 @@
+
+- name: Docs
+- name: Open Model vs API
+  href: api_iom_vs_api.md
+- name: Creating a simple app
+  href: api_create_a_simple_app.md
+- name: Using Parameters
+  href: api_parameters_getting_started.md
+- name: Expression Parameter Reference Guide
+  href: api_parameter_reference_guide.md
+- name: Python API
+- name: Python References
+  href: python/toc.yml
+- name: Python Examples
+  href: python/examples/toc.yml
+- name: .Net API
+- name: .Net Examples
+  href: dotnet/examples/toc.yml
+- name: API Reference
+- name: IdeaStatiCa.PlugIn
+  href: ../../api-plugin/toc.yml
+  homepage: ../../api-plugin/index.md

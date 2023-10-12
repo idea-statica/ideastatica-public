@@ -34,10 +34,10 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		public IGrpcService GrpcService { get; }
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="logger">Logger</param>
+		///// <summary>
+		///// Constructor
+		///// </summary>
+		///// <param name="pluginLogger">Logger</param>
 		public GrpcServer(IPluginLogger logger)
 		{
 			this.Logger = logger;
@@ -56,7 +56,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// <param name="blobStorageProvider">Provider of blob storages</param>
 		/// <param name="maxDataLength">The maximal size of GrpcMessage.data in bytes in grpc message</param>
 		/// <param name="chunkSize">Size of one chunk in bytes for blob storage data transferring</param>
-		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider = null, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE)
+		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE, int chunkSize = Constants.GRPC_CHUNK_SIZE)
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;

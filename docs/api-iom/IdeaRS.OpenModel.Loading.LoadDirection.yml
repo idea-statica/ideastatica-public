@@ -1,0 +1,126 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Loading.LoadDirection
+  commentId: T:IdeaRS.OpenModel.Loading.LoadDirection
+  id: LoadDirection
+  parent: IdeaRS.OpenModel.Loading
+  children:
+  - IdeaRS.OpenModel.Loading.LoadDirection.InGcs
+  - IdeaRS.OpenModel.Loading.LoadDirection.InLcs
+  langs:
+  - csharp
+  - vb
+  name: LoadDirection
+  nameWithType: LoadDirection
+  fullName: IdeaRS.OpenModel.Loading.LoadDirection
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadDirection
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Direction of load
+  example: []
+  syntax:
+    content: public enum LoadDirection
+    content.vb: Public Enum LoadDirection
+- uid: IdeaRS.OpenModel.Loading.LoadDirection.InLcs
+  commentId: F:IdeaRS.OpenModel.Loading.LoadDirection.InLcs
+  id: InLcs
+  parent: IdeaRS.OpenModel.Loading.LoadDirection
+  langs:
+  - csharp
+  - vb
+  name: InLcs
+  nameWithType: LoadDirection.InLcs
+  fullName: IdeaRS.OpenModel.Loading.LoadDirection.InLcs
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InLcs
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 10
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Direction in Local coordinate system
+  example: []
+  syntax:
+    content: InLcs = 0
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadDirection
+- uid: IdeaRS.OpenModel.Loading.LoadDirection.InGcs
+  commentId: F:IdeaRS.OpenModel.Loading.LoadDirection.InGcs
+  id: InGcs
+  parent: IdeaRS.OpenModel.Loading.LoadDirection
+  langs:
+  - csharp
+  - vb
+  name: InGcs
+  nameWithType: LoadDirection.InGcs
+  fullName: IdeaRS.OpenModel.Loading.LoadDirection.InGcs
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InGcs
+    path: ../src/IdeaRS.OpenModel/Loading/LoadInPoint.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Loading
+  summary: Direction in global coordinate system
+  example: []
+  syntax:
+    content: InGcs = 1
+    return:
+      type: IdeaRS.OpenModel.Loading.LoadDirection
+references:
+- uid: IdeaRS.OpenModel.Loading
+  commentId: N:IdeaRS.OpenModel.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Loading
+  nameWithType: IdeaRS.OpenModel.Loading
+  fullName: IdeaRS.OpenModel.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Loading.html
+- uid: IdeaRS.OpenModel.Loading.LoadDirection
+  commentId: T:IdeaRS.OpenModel.Loading.LoadDirection
+  parent: IdeaRS.OpenModel.Loading
+  href: IdeaRS.OpenModel.Loading.LoadDirection.html
+  name: LoadDirection
+  nameWithType: LoadDirection
+  fullName: IdeaRS.OpenModel.Loading.LoadDirection

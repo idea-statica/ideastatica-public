@@ -1,0 +1,574 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Result.PointResults
+  commentId: T:IdeaRS.OpenModel.Result.PointResults
+  id: PointResults
+  parent: IdeaRS.OpenModel.Result
+  children:
+  - IdeaRS.OpenModel.Result.PointResults.#ctor
+  - IdeaRS.OpenModel.Result.PointResults.Point
+  - IdeaRS.OpenModel.Result.PointResults.Results
+  langs:
+  - csharp
+  - vb
+  name: PointResults
+  nameWithType: PointResults
+  fullName: IdeaRS.OpenModel.Result.PointResults
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/PointResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PointResults
+    path: ../src/IdeaRS.OpenModel/Result/PointResults.cs
+    startLine: 9
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Point results
+  example: []
+  syntax:
+    content: >-
+      [Obfuscation(Feature = "renaming")]
+
+      public class PointResults
+    content.vb: >-
+      <Obfuscation(Feature:="renaming")>
+
+      Public Class PointResults
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: System.Reflection.ObfuscationAttribute
+    ctor: System.Reflection.ObfuscationAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: Feature
+      type: System.String
+      value: renaming
+- uid: IdeaRS.OpenModel.Result.PointResults.#ctor
+  commentId: M:IdeaRS.OpenModel.Result.PointResults.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Result.PointResults
+  langs:
+  - csharp
+  - vb
+  name: PointResults()
+  nameWithType: PointResults.PointResults()
+  fullName: IdeaRS.OpenModel.Result.PointResults.PointResults()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/PointResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Result/PointResults.cs
+    startLine: 15
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Constructor
+  example: []
+  syntax:
+    content: public PointResults()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Result.PointResults.#ctor*
+  nameWithType.vb: PointResults.New()
+  fullName.vb: IdeaRS.OpenModel.Result.PointResults.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Result.PointResults.Point
+  commentId: P:IdeaRS.OpenModel.Result.PointResults.Point
+  id: Point
+  parent: IdeaRS.OpenModel.Result.PointResults
+  langs:
+  - csharp
+  - vb
+  name: Point
+  nameWithType: PointResults.Point
+  fullName: IdeaRS.OpenModel.Result.PointResults.Point
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/PointResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Point
+    path: ../src/IdeaRS.OpenModel/Result/PointResults.cs
+    startLine: 23
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: Point
+  example: []
+  syntax:
+    content: public Point2D Point { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry2D.Point2D
+    content.vb: Public Property Point As Point2D
+  overload: IdeaRS.OpenModel.Result.PointResults.Point*
+- uid: IdeaRS.OpenModel.Result.PointResults.Results
+  commentId: P:IdeaRS.OpenModel.Result.PointResults.Results
+  id: Results
+  parent: IdeaRS.OpenModel.Result.PointResults
+  langs:
+  - csharp
+  - vb
+  name: Results
+  nameWithType: PointResults.Results
+  fullName: IdeaRS.OpenModel.Result.PointResults.Results
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Result/PointResults.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Results
+    path: ../src/IdeaRS.OpenModel/Result/PointResults.cs
+    startLine: 28
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Result
+  summary: List of results in the point
+  example: []
+  syntax:
+    content: public List<PointResultBase> Results { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Result.PointResultBase}
+    content.vb: Public Property Results As List(Of PointResultBase)
+  overload: IdeaRS.OpenModel.Result.PointResults.Results*
+references:
+- uid: IdeaRS.OpenModel.Result
+  commentId: N:IdeaRS.OpenModel.Result
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Result
+  nameWithType: IdeaRS.OpenModel.Result
+  fullName: IdeaRS.OpenModel.Result
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+    href: IdeaRS.OpenModel.Result.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Result
+    name: Result
+    href: IdeaRS.OpenModel.Result.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Result.PointResults.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Result.PointResults.#ctor
+  href: IdeaRS.OpenModel.Result.PointResults.html#IdeaRS.OpenModel.Result.PointResults.#ctor
+  name: PointResults
+  nameWithType: PointResults.PointResults
+  fullName: IdeaRS.OpenModel.Result.PointResults.PointResults
+  nameWithType.vb: PointResults.New
+  fullName.vb: IdeaRS.OpenModel.Result.PointResults.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Result.PointResults.Point*
+  commentId: Overload:IdeaRS.OpenModel.Result.PointResults.Point
+  href: IdeaRS.OpenModel.Result.PointResults.html#IdeaRS.OpenModel.Result.PointResults.Point
+  name: Point
+  nameWithType: PointResults.Point
+  fullName: IdeaRS.OpenModel.Result.PointResults.Point
+- uid: IdeaRS.OpenModel.Geometry2D.Point2D
+  commentId: T:IdeaRS.OpenModel.Geometry2D.Point2D
+  parent: IdeaRS.OpenModel.Geometry2D
+  href: IdeaRS.OpenModel.Geometry2D.Point2D.html
+  name: Point2D
+  nameWithType: Point2D
+  fullName: IdeaRS.OpenModel.Geometry2D.Point2D
+- uid: IdeaRS.OpenModel.Geometry2D
+  commentId: N:IdeaRS.OpenModel.Geometry2D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry2D
+  nameWithType: IdeaRS.OpenModel.Geometry2D
+  fullName: IdeaRS.OpenModel.Geometry2D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+    href: IdeaRS.OpenModel.Geometry2D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+    href: IdeaRS.OpenModel.Geometry2D.html
+- uid: IdeaRS.OpenModel.Result.PointResults.Results*
+  commentId: Overload:IdeaRS.OpenModel.Result.PointResults.Results
+  href: IdeaRS.OpenModel.Result.PointResults.html#IdeaRS.OpenModel.Result.PointResults.Results
+  name: Results
+  nameWithType: PointResults.Results
+  fullName: IdeaRS.OpenModel.Result.PointResults.Results
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Result.PointResultBase}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Result.PointResultBase}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<PointResultBase>
+  nameWithType: List<PointResultBase>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Result.PointResultBase>
+  nameWithType.vb: List(Of PointResultBase)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Result.PointResultBase)
+  name.vb: List(Of PointResultBase)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Result.PointResultBase
+    name: PointResultBase
+    href: IdeaRS.OpenModel.Result.PointResultBase.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Result.PointResultBase
+    name: PointResultBase
+    href: IdeaRS.OpenModel.Result.PointResultBase.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

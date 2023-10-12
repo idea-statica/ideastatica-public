@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatica.Communication
+  commentId: N:IdeaStatica.Communication
+  id: IdeaStatica.Communication
+  children:
+  - IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatica.Communication
+  nameWithType: IdeaStatica.Communication
+  fullName: IdeaStatica.Communication
+  type: Namespace
+  assemblies:
+  - IdeaStatiCa.Plugin
+references:
+- uid: IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  commentId: T:IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+  parent: IdeaStatica.Communication
+  href: IdeaStatica.Communication.IGrpcCommunicationCommonInterface.html
+  name: IGrpcCommunicationCommonInterface
+  nameWithType: IGrpcCommunicationCommonInterface
+  fullName: IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+- uid: IdeaStatica.Communication
+  commentId: N:IdeaStatica.Communication
+  href: IdeaStatica.html
+  name: IdeaStatica.Communication
+  nameWithType: IdeaStatica.Communication
+  fullName: IdeaStatica.Communication
+  spec.csharp:
+  - uid: IdeaStatica
+    name: IdeaStatica
+    href: IdeaStatica.html
+  - name: .
+  - uid: IdeaStatica.Communication
+    name: Communication
+    href: IdeaStatica.Communication.html
+  spec.vb:
+  - uid: IdeaStatica
+    name: IdeaStatica
+    href: IdeaStatica.html
+  - name: .
+  - uid: IdeaStatica.Communication
+    name: Communication
+    href: IdeaStatica.Communication.html

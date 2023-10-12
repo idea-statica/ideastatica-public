@@ -1,0 +1,1018 @@
+### YamlMime:TableOfContent
+items:
+- uid: IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  items:
+  - uid: IdeaRS.OpenModel.ConeBreakoutCheckType
+    name: ConeBreakoutCheckType
+  - uid: IdeaRS.OpenModel.ConnectionSetup
+    name: ConnectionSetup
+  - uid: IdeaRS.OpenModel.CoordinateSystemMethod
+    name: CoordinateSystemMethod
+  - uid: IdeaRS.OpenModel.CountryCode
+    name: CountryCode
+  - uid: IdeaRS.OpenModel.CrossSectionConversionTable
+    name: CrossSectionConversionTable
+  - uid: IdeaRS.OpenModel.CrtCompCheckIS
+    name: CrtCompCheckIS
+  - uid: IdeaRS.OpenModel.OpenAttribute
+    name: OpenAttribute
+  - uid: IdeaRS.OpenModel.OpenElementId
+    name: OpenElementId
+  - uid: IdeaRS.OpenModel.OpenModel
+    name: OpenModel
+  - uid: IdeaRS.OpenModel.OpenModelContainer
+    name: OpenModelContainer
+  - uid: IdeaRS.OpenModel.OpenObject
+    name: OpenObject
+  - uid: IdeaRS.OpenModel.OriginSettings
+    name: OriginSettings
+  - uid: IdeaRS.OpenModel.PreloadedBoltsLoadType
+    name: PreloadedBoltsLoadType
+  - uid: IdeaRS.OpenModel.ProjectData
+    name: ProjectData
+  - uid: IdeaRS.OpenModel.ProjectDataEc
+    name: ProjectDataEc
+  - uid: IdeaRS.OpenModel.ReferenceElement
+    name: ReferenceElement
+  - uid: IdeaRS.OpenModel.SteelSetup
+    name: SteelSetup
+  - uid: IdeaRS.OpenModel.SteelSetupAISC
+    name: SteelSetupAISC
+  - uid: IdeaRS.OpenModel.SteelSetupAUS
+    name: SteelSetupAUS
+  - uid: IdeaRS.OpenModel.SteelSetupCISC
+    name: SteelSetupCISC
+  - uid: IdeaRS.OpenModel.SteelSetupECEN
+    name: SteelSetupECEN
+  - uid: IdeaRS.OpenModel.SteelSetupHKG
+    name: SteelSetupHKG
+  - uid: IdeaRS.OpenModel.SteelSetupIND
+    name: SteelSetupIND
+  - uid: IdeaRS.OpenModel.SteelSetupRUS
+    name: SteelSetupRUS
+  - uid: IdeaRS.OpenModel.Symmetry
+    name: Symmetry
+  - uid: IdeaRS.OpenModel.Tools
+    name: Tools
+  - uid: IdeaRS.OpenModel.WeldEvaluation
+    name: WeldEvaluation
+  - uid: IdeaRS.OpenModel.WeldingTypeSNIP
+    name: WeldingTypeSNIP
+- uid: IdeaRS.OpenModel.Beam
+  name: IdeaRS.OpenModel.Beam
+  items:
+  - uid: IdeaRS.OpenModel.Beam.IdeaBeamImportSettings
+    name: IdeaBeamImportSettings
+- uid: IdeaRS.OpenModel.Concrete
+  name: IdeaRS.OpenModel.Concrete
+  items:
+  - uid: IdeaRS.OpenModel.Concrete.BeamDataEc2
+    name: BeamDataEc2
+  - uid: IdeaRS.OpenModel.Concrete.CalculationSetup
+    name: CalculationSetup
+  - uid: IdeaRS.OpenModel.Concrete.CheckSection
+    name: CheckSection
+  - uid: IdeaRS.OpenModel.Concrete.CheckSectionExtreme
+    name: CheckSectionExtreme
+  - uid: IdeaRS.OpenModel.Concrete.ColumnData
+    name: ColumnData
+  - uid: IdeaRS.OpenModel.Concrete.ColumnDataEc2
+    name: ColumnDataEc2
+  - uid: IdeaRS.OpenModel.Concrete.ConcreteMemberData
+    name: ConcreteMemberData
+  - uid: IdeaRS.OpenModel.Concrete.ConcreteMemberDataEc2
+    name: ConcreteMemberDataEc2
+  - uid: IdeaRS.OpenModel.Concrete.ConcreteMemberType
+    name: ConcreteMemberType
+  - uid: IdeaRS.OpenModel.Concrete.ConcreteSetup
+    name: ConcreteSetup
+  - uid: IdeaRS.OpenModel.Concrete.ConcreteSetupEc2
+    name: ConcreteSetupEc2
+  - uid: IdeaRS.OpenModel.Concrete.DeflectionRequirementEc2
+    name: DeflectionRequirementEc2
+  - uid: IdeaRS.OpenModel.Concrete.EffectConsideredType
+    name: EffectConsideredType
+  - uid: IdeaRS.OpenModel.Concrete.ExposureClassEc2
+    name: ExposureClassEc2
+  - uid: IdeaRS.OpenModel.Concrete.ExposureClassesDataEc2
+    name: ExposureClassesDataEc2
+  - uid: IdeaRS.OpenModel.Concrete.ImperfectionDirection
+    name: ImperfectionDirection
+  - uid: IdeaRS.OpenModel.Concrete.InputValue
+    name: InputValue
+  - uid: IdeaRS.OpenModel.Concrete.MemberImportance
+    name: MemberImportance
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValue
+    name: NadSetupValue
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValueBool
+    name: NadSetupValueBool
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValueDouble
+    name: NadSetupValueDouble
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValueFloat
+    name: NadSetupValueFloat
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValueInt
+    name: NadSetupValueInt
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValueLong
+    name: NadSetupValueLong
+  - uid: IdeaRS.OpenModel.Concrete.NadSetupValueShort
+    name: NadSetupValueShort
+  - uid: IdeaRS.OpenModel.Concrete.NadStrategyConcrete
+    name: NadStrategyConcrete
+  - uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+    name: NationalAnnexCode
+  - uid: IdeaRS.OpenModel.Concrete.ProjectDataConcrete
+    name: ProjectDataConcrete
+  - uid: IdeaRS.OpenModel.Concrete.ProjectDataConcreteEc2
+    name: ProjectDataConcreteEc2
+  - uid: IdeaRS.OpenModel.Concrete.SecondOrderEffectMethodEc2
+    name: SecondOrderEffectMethodEc2
+  - uid: IdeaRS.OpenModel.Concrete.SetupValue
+    name: SetupValue
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueBool
+    name: SetupValueBool
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueDouble
+    name: SetupValueDouble
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueEc2
+    name: SetupValueEc2
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueFloat
+    name: SetupValueFloat
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueInt
+    name: SetupValueInt
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueLong
+    name: SetupValueLong
+  - uid: IdeaRS.OpenModel.Concrete.SetupValueShort
+    name: SetupValueShort
+  - uid: IdeaRS.OpenModel.Concrete.StagedCheckSection
+    name: StagedCheckSection
+  - uid: IdeaRS.OpenModel.Concrete.StagedCheckSectionExtreme
+    name: StagedCheckSectionExtreme
+  - uid: IdeaRS.OpenModel.Concrete.StandardCheckSection
+    name: StandardCheckSection
+  - uid: IdeaRS.OpenModel.Concrete.StandardCheckSectionExtreme
+    name: StandardCheckSectionExtreme
+  - uid: IdeaRS.OpenModel.Concrete.SupportType
+    name: SupportType
+  - uid: IdeaRS.OpenModel.Concrete.TimeAxis
+    name: TimeAxis
+  - uid: IdeaRS.OpenModel.Concrete.TimePoint
+    name: TimePoint
+  - uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+    name: TwoWaySlabType
+  - uid: IdeaRS.OpenModel.Concrete.TypeDeflectionSheme
+    name: TypeDeflectionSheme
+  - uid: IdeaRS.OpenModel.Concrete.TypeOfCalculationDeflection
+    name: TypeOfCalculationDeflection
+  - uid: IdeaRS.OpenModel.Concrete.TypeOfSupportConditions
+    name: TypeOfSupportConditions
+  - uid: IdeaRS.OpenModel.Concrete.ValueTypec
+    name: ValueTypec
+  - uid: IdeaRS.OpenModel.Concrete.ValueTypec0
+    name: ValueTypec0
+- uid: IdeaRS.OpenModel.Concrete.CheckResult
+  name: IdeaRS.OpenModel.Concrete.CheckResult
+  items:
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.CalculationType
+    name: CalculationType
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResult
+    name: CheckResult
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.CheckResultType
+    name: CheckResultType
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckDetailing
+    name: ConcreteCheckDetailing
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckDetailingEc2
+    name: ConcreteCheckDetailingEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResult
+    name: ConcreteCheckResult
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultBase
+    name: ConcreteCheckResultBase
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultOverall
+    name: ConcreteCheckResultOverall
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResultOverallItem
+    name: ConcreteCheckResultOverallItem
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteCheckResults
+    name: ConcreteCheckResults
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteSLSCheckResultCrackWidth
+    name: ConcreteSLSCheckResultCrackWidth
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteSLSCheckResultCrackWidthEc2
+    name: ConcreteSLSCheckResultCrackWidthEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteSLSCheckResultStiffness
+    name: ConcreteSLSCheckResultStiffness
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteSLSCheckResultStiffnessEc2
+    name: ConcreteSLSCheckResultStiffnessEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteSLSCheckResultStressLimitation
+    name: ConcreteSLSCheckResultStressLimitation
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteSLSCheckResultStressLimitationEc2
+    name: ConcreteSLSCheckResultStressLimitationEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultDiagramCapacity
+    name: ConcreteULSCheckResultDiagramCapacity
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultDiagramCapacityEc2
+    name: ConcreteULSCheckResultDiagramCapacityEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultFatigue
+    name: ConcreteULSCheckResultFatigue
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultFatigueEc2
+    name: ConcreteULSCheckResultFatigueEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultInteraction
+    name: ConcreteULSCheckResultInteraction
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultInteractionEc2
+    name: ConcreteULSCheckResultInteractionEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultResponse
+    name: ConcreteULSCheckResultResponse
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultResponseEc2
+    name: ConcreteULSCheckResultResponseEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShear
+    name: ConcreteULSCheckResultShear
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultShearEc2
+    name: ConcreteULSCheckResultShearEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultTorsion
+    name: ConcreteULSCheckResultTorsion
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ConcreteULSCheckResultTorsionEc2
+    name: ConcreteULSCheckResultTorsionEc2
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.FatigueMethod
+    name: FatigueMethod
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.IntDiagCheckMethod
+    name: IntDiagCheckMethod
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult
+    name: SectionConcreteCheckResult
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.SectionStiffnesses
+    name: SectionStiffnesses
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.ShearMethod
+    name: ShearMethod
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.TypeSLSLimitStressCheck
+    name: TypeSLSLimitStressCheck
+- uid: IdeaRS.OpenModel.Concrete.Load
+  name: IdeaRS.OpenModel.Concrete.Load
+  items:
+  - uid: IdeaRS.OpenModel.Concrete.Load.CssComponentLoading
+    name: CssComponentLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.CssComponentTimeLoading
+    name: CssComponentTimeLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.CssEffectType
+    name: CssEffectType
+  - uid: IdeaRS.OpenModel.Concrete.Load.FatigueLoading
+    name: FatigueLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.LoadingSLS
+    name: LoadingSLS
+  - uid: IdeaRS.OpenModel.Concrete.Load.LoadingULS
+    name: LoadingULS
+  - uid: IdeaRS.OpenModel.Concrete.Load.PrestressInputType
+    name: PrestressInputType
+  - uid: IdeaRS.OpenModel.Concrete.Load.PrestressLoading
+    name: PrestressLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.StageLoading
+    name: StageLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.StagesLoading
+    name: StagesLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.TendonComponentLoading
+    name: TendonComponentLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.TendonLoading
+    name: TendonLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.TendonLossesLoading
+    name: TendonLossesLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.TendonStressLoading
+    name: TendonStressLoading
+  - uid: IdeaRS.OpenModel.Concrete.Load.TendonTimeStressLoading
+    name: TendonTimeStressLoading
+- uid: IdeaRS.OpenModel.Connection
+  name: IdeaRS.OpenModel.Connection
+  items:
+  - uid: IdeaRS.OpenModel.Connection.AnchorGrid
+    name: AnchorGrid
+  - uid: IdeaRS.OpenModel.Connection.ApplyConnTemplateSetting
+    name: ApplyConnTemplateSetting
+  - uid: IdeaRS.OpenModel.Connection.BeamData
+    name: BeamData
+  - uid: IdeaRS.OpenModel.Connection.BeamLoadsImportMappingData
+    name: BeamLoadsImportMappingData
+  - uid: IdeaRS.OpenModel.Connection.BendData
+    name: BendData
+  - uid: IdeaRS.OpenModel.Connection.BoltGrid
+    name: BoltGrid
+  - uid: IdeaRS.OpenModel.Connection.BucklingRes
+    name: BucklingRes
+  - uid: IdeaRS.OpenModel.Connection.CheckResAnchor
+    name: CheckResAnchor
+  - uid: IdeaRS.OpenModel.Connection.CheckResBolt
+    name: CheckResBolt
+  - uid: IdeaRS.OpenModel.Connection.CheckResConcreteBlock
+    name: CheckResConcreteBlock
+  - uid: IdeaRS.OpenModel.Connection.CheckResPlate
+    name: CheckResPlate
+  - uid: IdeaRS.OpenModel.Connection.CheckResSummary
+    name: CheckResSummary
+  - uid: IdeaRS.OpenModel.Connection.CheckResWeld
+    name: CheckResWeld
+  - uid: IdeaRS.OpenModel.Connection.ConcreteBlock
+    name: ConcreteBlock
+  - uid: IdeaRS.OpenModel.Connection.ConcreteBlockData
+    name: ConcreteBlockData
+  - uid: IdeaRS.OpenModel.Connection.ConnectedMember
+    name: ConnectedMember
+  - uid: IdeaRS.OpenModel.Connection.ConnectionCheckRes
+    name: ConnectionCheckRes
+  - uid: IdeaRS.OpenModel.Connection.ConnectionData
+    name: ConnectionData
+  - uid: IdeaRS.OpenModel.Connection.ConnectionInfo
+    name: ConnectionInfo
+  - uid: IdeaRS.OpenModel.Connection.ConnectionLoadInfo
+    name: ConnectionLoadInfo
+  - uid: IdeaRS.OpenModel.Connection.ConnectionPoint
+    name: ConnectionPoint
+  - uid: IdeaRS.OpenModel.Connection.ConnectionResultsData
+    name: ConnectionResultsData
+  - uid: IdeaRS.OpenModel.Connection.ConProjectInfo
+    name: ConProjectInfo
+  - uid: IdeaRS.OpenModel.Connection.CutBeamByBeamData
+    name: CutBeamByBeamData
+  - uid: IdeaRS.OpenModel.Connection.CutData
+    name: CutData
+  - uid: IdeaRS.OpenModel.Connection.CutMethod
+    name: CutMethod
+  - uid: IdeaRS.OpenModel.Connection.CutOrientation
+    name: CutOrientation
+  - uid: IdeaRS.OpenModel.Connection.CutPart
+    name: CutPart
+  - uid: IdeaRS.OpenModel.Connection.DistanceComparison
+    name: DistanceComparison
+  - uid: IdeaRS.OpenModel.Connection.FoldedPlateData
+    name: FoldedPlateData
+  - uid: IdeaRS.OpenModel.Connection.FormulasType
+    name: FormulasType
+  - uid: IdeaRS.OpenModel.Connection.IdeaConImportSettings
+    name: IdeaConImportSettings
+  - uid: IdeaRS.OpenModel.Connection.IdeaSMemberImportSettings
+    name: IdeaSMemberImportSettings
+  - uid: IdeaRS.OpenModel.Connection.OpenProjectResult
+    name: OpenProjectResult
+  - uid: IdeaRS.OpenModel.Connection.PlateData
+    name: PlateData
+  - uid: IdeaRS.OpenModel.Connection.ReportSettings
+    name: ReportSettings
+  - uid: IdeaRS.OpenModel.Connection.ReportType
+    name: ReportType
+  - uid: IdeaRS.OpenModel.Connection.UnitType
+    name: UnitType
+  - uid: IdeaRS.OpenModel.Connection.WeldData
+    name: WeldData
+  - uid: IdeaRS.OpenModel.Connection.WeldType
+    name: WeldType
+- uid: IdeaRS.OpenModel.CrossSection
+  name: IdeaRS.OpenModel.CrossSection
+  items:
+  - uid: IdeaRS.OpenModel.CrossSection.BoxDeltaAligment
+    name: BoxDeltaAligment
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSection
+    name: CrossSection
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionComponent
+    name: CrossSectionComponent
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionComponentThermalData
+    name: CrossSectionComponentThermalData
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientAttribute
+    name: CrossSectionCreepCoefficientAttribute
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionCreepCoefficientData
+    name: CrossSectionCreepCoefficientData
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory
+    name: CrossSectionFactory
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionGeneralColdFormed
+    name: CrossSectionGeneralColdFormed
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionParameter
+    name: CrossSectionParameter
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionThermalAttribute
+    name: CrossSectionThermalAttribute
+  - uid: IdeaRS.OpenModel.CrossSection.CrossSectionType
+    name: CrossSectionType
+  - uid: IdeaRS.OpenModel.CrossSection.CssComponent
+    name: CssComponent
+  - uid: IdeaRS.OpenModel.CrossSection.FatigueTypeOfPrestressingSteel
+    name: FatigueTypeOfPrestressingSteel
+  - uid: IdeaRS.OpenModel.CrossSection.InputValueType
+    name: InputValueType
+  - uid: IdeaRS.OpenModel.CrossSection.MaterialDuct
+    name: MaterialDuct
+  - uid: IdeaRS.OpenModel.CrossSection.Parameter
+    name: Parameter
+  - uid: IdeaRS.OpenModel.CrossSection.ParameterBool
+    name: ParameterBool
+  - uid: IdeaRS.OpenModel.CrossSection.ParameterDouble
+    name: ParameterDouble
+  - uid: IdeaRS.OpenModel.CrossSection.ParameterInt
+    name: ParameterInt
+  - uid: IdeaRS.OpenModel.CrossSection.ParameterReferenceElement
+    name: ParameterReferenceElement
+  - uid: IdeaRS.OpenModel.CrossSection.ParameterString
+    name: ParameterString
+  - uid: IdeaRS.OpenModel.CrossSection.ReinforcedBar
+    name: ReinforcedBar
+  - uid: IdeaRS.OpenModel.CrossSection.ReinforcedCrossSection
+    name: ReinforcedCrossSection
+  - uid: IdeaRS.OpenModel.CrossSection.Stirrup
+    name: Stirrup
+  - uid: IdeaRS.OpenModel.CrossSection.TendonBar
+    name: TendonBar
+  - uid: IdeaRS.OpenModel.CrossSection.TendonBarType
+    name: TendonBarType
+  - uid: IdeaRS.OpenModel.CrossSection.TendonDuct
+    name: TendonDuct
+  - uid: IdeaRS.OpenModel.CrossSection.ThermalConductivityLimit
+    name: ThermalConductivityLimit
+- uid: IdeaRS.OpenModel.Detail
+  name: IdeaRS.OpenModel.Detail
+  items:
+  - uid: IdeaRS.OpenModel.Detail.BarEndExtendType
+    name: BarEndExtendType
+  - uid: IdeaRS.OpenModel.Detail.Beam
+    name: Beam
+  - uid: IdeaRS.OpenModel.Detail.BentUpBar
+    name: BentUpBar
+  - uid: IdeaRS.OpenModel.Detail.DappedEnd
+    name: DappedEnd
+  - uid: IdeaRS.OpenModel.Detail.DappedEndHaunchType
+    name: DappedEndHaunchType
+  - uid: IdeaRS.OpenModel.Detail.EdgeOrientationType
+    name: EdgeOrientationType
+  - uid: IdeaRS.OpenModel.Detail.EdgePositionType
+    name: EdgePositionType
+  - uid: IdeaRS.OpenModel.Detail.Hanging
+    name: Hanging
+  - uid: IdeaRS.OpenModel.Detail.HangingAroundPatch
+    name: HangingAroundPatch
+  - uid: IdeaRS.OpenModel.Detail.HangingType
+    name: HangingType
+  - uid: IdeaRS.OpenModel.Detail.IGeometryPart
+    name: IGeometryPart
+  - uid: IdeaRS.OpenModel.Detail.InclinedReinfBarType
+    name: InclinedReinfBarType
+  - uid: IdeaRS.OpenModel.Detail.ISDImportSettings
+    name: ISDImportSettings
+  - uid: IdeaRS.OpenModel.Detail.ISDModel
+    name: ISDModel
+  - uid: IdeaRS.OpenModel.Detail.ISDSetting
+    name: ISDSetting
+  - uid: IdeaRS.OpenModel.Detail.ISDType
+    name: ISDType
+  - uid: IdeaRS.OpenModel.Detail.LineSupport
+    name: LineSupport
+  - uid: IdeaRS.OpenModel.Detail.LoadDirection
+    name: LoadDirection
+  - uid: IdeaRS.OpenModel.Detail.LongReinfEndType
+    name: LongReinfEndType
+  - uid: IdeaRS.OpenModel.Detail.Opening
+    name: Opening
+  - uid: IdeaRS.OpenModel.Detail.OpeningCirc
+    name: OpeningCirc
+  - uid: IdeaRS.OpenModel.Detail.OpeningRect
+    name: OpeningRect
+  - uid: IdeaRS.OpenModel.Detail.OpeningRectOffsets
+    name: OpeningRectOffsets
+  - uid: IdeaRS.OpenModel.Detail.PatchDevice
+    name: PatchDevice
+  - uid: IdeaRS.OpenModel.Detail.PatchLoad
+    name: PatchLoad
+  - uid: IdeaRS.OpenModel.Detail.PatchSupport
+    name: PatchSupport
+  - uid: IdeaRS.OpenModel.Detail.ReinfAroundOpening
+    name: ReinfAroundOpening
+  - uid: IdeaRS.OpenModel.Detail.ReinfBarByPolyline
+    name: ReinfBarByPolyline
+  - uid: IdeaRS.OpenModel.Detail.ReinfBarByTwoPoints
+    name: ReinfBarByTwoPoints
+  - uid: IdeaRS.OpenModel.Detail.ReinfBarInclined
+    name: ReinfBarInclined
+  - uid: IdeaRS.OpenModel.Detail.ReinfBarOnEdge
+    name: ReinfBarOnEdge
+  - uid: IdeaRS.OpenModel.Detail.ReinfBarOnMoreEdges
+    name: ReinfBarOnMoreEdges
+  - uid: IdeaRS.OpenModel.Detail.ReinfFabric
+    name: ReinfFabric
+  - uid: IdeaRS.OpenModel.Detail.Reinforcement
+    name: Reinforcement
+  - uid: IdeaRS.OpenModel.Detail.ReinforcementGroup
+    name: ReinforcementGroup
+  - uid: IdeaRS.OpenModel.Detail.TypeEdgePosition
+    name: TypeEdgePosition
+  - uid: IdeaRS.OpenModel.Detail.Wall
+    name: Wall
+  - uid: IdeaRS.OpenModel.Detail.WallRect
+    name: WallRect
+- uid: IdeaRS.OpenModel.Detail.Loading
+  name: IdeaRS.OpenModel.Detail.Loading
+  items:
+  - uid: IdeaRS.OpenModel.Detail.Loading.CalculationCase
+    name: CalculationCase
+  - uid: IdeaRS.OpenModel.Detail.Loading.DirectionType
+    name: DirectionType
+  - uid: IdeaRS.OpenModel.Detail.Loading.LineLoad
+    name: LineLoad
+  - uid: IdeaRS.OpenModel.Detail.Loading.LoadBase
+    name: LoadBase
+  - uid: IdeaRS.OpenModel.Detail.Loading.LoadCase
+    name: LoadCase
+  - uid: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+    name: LoadCaseType
+  - uid: IdeaRS.OpenModel.Detail.Loading.TypeLinePosition
+    name: TypeLinePosition
+- uid: IdeaRS.OpenModel.Geometry2D
+  name: IdeaRS.OpenModel.Geometry2D
+  items:
+  - uid: IdeaRS.OpenModel.Geometry2D.ArcSegment2D
+    name: ArcSegment2D
+  - uid: IdeaRS.OpenModel.Geometry2D.LineSegment2D
+    name: LineSegment2D
+  - uid: IdeaRS.OpenModel.Geometry2D.Point
+    name: Point
+  - uid: IdeaRS.OpenModel.Geometry2D.Point2D
+    name: Point2D
+  - uid: IdeaRS.OpenModel.Geometry2D.Polygon2D
+    name: Polygon2D
+  - uid: IdeaRS.OpenModel.Geometry2D.PolyLine2D
+    name: PolyLine2D
+  - uid: IdeaRS.OpenModel.Geometry2D.Region2D
+    name: Region2D
+  - uid: IdeaRS.OpenModel.Geometry2D.SectionCharacteristics
+    name: SectionCharacteristics
+  - uid: IdeaRS.OpenModel.Geometry2D.Segment2D
+    name: Segment2D
+  - uid: IdeaRS.OpenModel.Geometry2D.TemperatureCurve2D
+    name: TemperatureCurve2D
+  - uid: IdeaRS.OpenModel.Geometry2D.Vector2D
+    name: Vector2D
+- uid: IdeaRS.OpenModel.Geometry3D
+  name: IdeaRS.OpenModel.Geometry3D
+  items:
+  - uid: IdeaRS.OpenModel.Geometry3D.ArcSegment3D
+    name: ArcSegment3D
+  - uid: IdeaRS.OpenModel.Geometry3D.CoordSystem
+    name: CoordSystem
+  - uid: IdeaRS.OpenModel.Geometry3D.CoordSystemByPoint
+    name: CoordSystemByPoint
+  - uid: IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+    name: CoordSystemByVector
+  - uid: IdeaRS.OpenModel.Geometry3D.CoordSystemByZup
+    name: CoordSystemByZup
+  - uid: IdeaRS.OpenModel.Geometry3D.LineSegment3D
+    name: LineSegment3D
+  - uid: IdeaRS.OpenModel.Geometry3D.Plane
+    name: Plane
+  - uid: IdeaRS.OpenModel.Geometry3D.Point3D
+    name: Point3D
+  - uid: IdeaRS.OpenModel.Geometry3D.PointOnLine3D
+    name: PointOnLine3D
+  - uid: IdeaRS.OpenModel.Geometry3D.Polygon3D
+    name: Polygon3D
+  - uid: IdeaRS.OpenModel.Geometry3D.PolyLine3D
+    name: PolyLine3D
+  - uid: IdeaRS.OpenModel.Geometry3D.Region3D
+    name: Region3D
+  - uid: IdeaRS.OpenModel.Geometry3D.Segment3D
+    name: Segment3D
+  - uid: IdeaRS.OpenModel.Geometry3D.Vector3D
+    name: Vector3D
+- uid: IdeaRS.OpenModel.Loading
+  name: IdeaRS.OpenModel.Loading
+  items:
+  - uid: IdeaRS.OpenModel.Loading.CombiInput
+    name: CombiInput
+  - uid: IdeaRS.OpenModel.Loading.CombiInputEC
+    name: CombiInputEC
+  - uid: IdeaRS.OpenModel.Loading.CombiInputSIA
+    name: CombiInputSIA
+  - uid: IdeaRS.OpenModel.Loading.CombiItem
+    name: CombiItem
+  - uid: IdeaRS.OpenModel.Loading.CrossSectionComponentEdges
+    name: CrossSectionComponentEdges
+  - uid: IdeaRS.OpenModel.Loading.LoadCase
+    name: LoadCase
+  - uid: IdeaRS.OpenModel.Loading.LoadCaseSubType
+    name: LoadCaseSubType
+  - uid: IdeaRS.OpenModel.Loading.LoadCaseType
+    name: LoadCaseType
+  - uid: IdeaRS.OpenModel.Loading.LoadDirection
+    name: LoadDirection
+  - uid: IdeaRS.OpenModel.Loading.LoadGroup
+    name: LoadGroup
+  - uid: IdeaRS.OpenModel.Loading.LoadGroupEC
+    name: LoadGroupEC
+  - uid: IdeaRS.OpenModel.Loading.LoadGroupSIA
+    name: LoadGroupSIA
+  - uid: IdeaRS.OpenModel.Loading.LoadGroupType
+    name: LoadGroupType
+  - uid: IdeaRS.OpenModel.Loading.LoadImpulse
+    name: LoadImpulse
+  - uid: IdeaRS.OpenModel.Loading.LoadInPoint
+    name: LoadInPoint
+  - uid: IdeaRS.OpenModel.Loading.LoadOnLine
+    name: LoadOnLine
+  - uid: IdeaRS.OpenModel.Loading.LoadOnSurface
+    name: LoadOnSurface
+  - uid: IdeaRS.OpenModel.Loading.LoadProjection
+    name: LoadProjection
+  - uid: IdeaRS.OpenModel.Loading.LoadType
+    name: LoadType
+  - uid: IdeaRS.OpenModel.Loading.PointLoadOnLine
+    name: PointLoadOnLine
+  - uid: IdeaRS.OpenModel.Loading.Relation
+    name: Relation
+  - uid: IdeaRS.OpenModel.Loading.ResultClass
+    name: ResultClass
+  - uid: IdeaRS.OpenModel.Loading.SelectionItemForResults
+    name: SelectionItemForResults
+  - uid: IdeaRS.OpenModel.Loading.Settlement
+    name: Settlement
+  - uid: IdeaRS.OpenModel.Loading.StrainImpulse
+    name: StrainImpulse
+  - uid: IdeaRS.OpenModel.Loading.StrainLoadOnLine
+    name: StrainLoadOnLine
+  - uid: IdeaRS.OpenModel.Loading.TemperatureDirection
+    name: TemperatureDirection
+  - uid: IdeaRS.OpenModel.Loading.TemperatureLoadOnLine
+    name: TemperatureLoadOnLine
+  - uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiEC
+    name: TypeCalculationCombiEC
+  - uid: IdeaRS.OpenModel.Loading.TypeCalculationCombiSIA
+    name: TypeCalculationCombiSIA
+  - uid: IdeaRS.OpenModel.Loading.TypeClassEvaluation
+    name: TypeClassEvaluation
+  - uid: IdeaRS.OpenModel.Loading.TypeDuration
+    name: TypeDuration
+  - uid: IdeaRS.OpenModel.Loading.TypeOfCombiEC
+    name: TypeOfCombiEC
+  - uid: IdeaRS.OpenModel.Loading.TypeOfCombiSIA
+    name: TypeOfCombiSIA
+  - uid: IdeaRS.OpenModel.Loading.TypeResultsClass
+    name: TypeResultsClass
+  - uid: IdeaRS.OpenModel.Loading.TypeUpdateResultClass
+    name: TypeUpdateResultClass
+  - uid: IdeaRS.OpenModel.Loading.VariableType
+    name: VariableType
+- uid: IdeaRS.OpenModel.Material
+  name: IdeaRS.OpenModel.Material
+  items:
+  - uid: IdeaRS.OpenModel.Material.BoltAssembly
+    name: BoltAssembly
+  - uid: IdeaRS.OpenModel.Material.ConcAggregateType
+    name: ConcAggregateType
+  - uid: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+    name: ConcAggregateTypeSIA
+  - uid: IdeaRS.OpenModel.Material.ConcCementClass
+    name: ConcCementClass
+  - uid: IdeaRS.OpenModel.Material.ConcCementClassSIA
+    name: ConcCementClassSIA
+  - uid: IdeaRS.OpenModel.Material.ConcDiagramType
+    name: ConcDiagramType
+  - uid: IdeaRS.OpenModel.Material.ConcFireDiagramType
+    name: ConcFireDiagramType
+  - uid: IdeaRS.OpenModel.Material.CrackWidthRequirementsSIA
+    name: CrackWidthRequirementsSIA
+  - uid: IdeaRS.OpenModel.Material.MatAnchorProperties
+    name: MatAnchorProperties
+  - uid: IdeaRS.OpenModel.Material.MatConcrete
+    name: MatConcrete
+  - uid: IdeaRS.OpenModel.Material.MatConcreteACI
+    name: MatConcreteACI
+  - uid: IdeaRS.OpenModel.Material.MatConcreteAUS
+    name: MatConcreteAUS
+  - uid: IdeaRS.OpenModel.Material.MatConcreteCAN
+    name: MatConcreteCAN
+  - uid: IdeaRS.OpenModel.Material.MatConcreteCHN
+    name: MatConcreteCHN
+  - uid: IdeaRS.OpenModel.Material.MatConcreteEc2
+    name: MatConcreteEc2
+  - uid: IdeaRS.OpenModel.Material.MatConcreteHKG
+    name: MatConcreteHKG
+  - uid: IdeaRS.OpenModel.Material.MatConcreteIND
+    name: MatConcreteIND
+  - uid: IdeaRS.OpenModel.Material.MatConcreteRUS
+    name: MatConcreteRUS
+  - uid: IdeaRS.OpenModel.Material.MatConcreteSIA
+    name: MatConcreteSIA
+  - uid: IdeaRS.OpenModel.Material.Material
+    name: Material
+  - uid: IdeaRS.OpenModel.Material.MaterialBoltGrade
+    name: MaterialBoltGrade
+  - uid: IdeaRS.OpenModel.Material.MaterialBoltGradeHKG
+    name: MaterialBoltGradeHKG
+  - uid: IdeaRS.OpenModel.Material.MaterialStrength
+    name: MaterialStrength
+  - uid: IdeaRS.OpenModel.Material.MaterialStrengthProperty
+    name: MaterialStrengthProperty
+  - uid: IdeaRS.OpenModel.Material.MatPrestressSteel
+    name: MatPrestressSteel
+  - uid: IdeaRS.OpenModel.Material.MatPrestressSteelEc2
+    name: MatPrestressSteelEc2
+  - uid: IdeaRS.OpenModel.Material.MatPrestressSteelSIA
+    name: MatPrestressSteelSIA
+  - uid: IdeaRS.OpenModel.Material.MatReinforcement
+    name: MatReinforcement
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementACI
+    name: MatReinforcementACI
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementAUS
+    name: MatReinforcementAUS
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementCAN
+    name: MatReinforcementCAN
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementCHN
+    name: MatReinforcementCHN
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementEc2
+    name: MatReinforcementEc2
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementHKG
+    name: MatReinforcementHKG
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementIND
+    name: MatReinforcementIND
+  - uid: IdeaRS.OpenModel.Material.MatReinforcementRUS
+    name: MatReinforcementRUS
+  - uid: IdeaRS.OpenModel.Material.MatSteel
+    name: MatSteel
+  - uid: IdeaRS.OpenModel.Material.MatSteelAISC
+    name: MatSteelAISC
+  - uid: IdeaRS.OpenModel.Material.MatSteelAUS
+    name: MatSteelAUS
+  - uid: IdeaRS.OpenModel.Material.MatSteelCHN
+    name: MatSteelCHN
+  - uid: IdeaRS.OpenModel.Material.MatSteelCISC
+    name: MatSteelCISC
+  - uid: IdeaRS.OpenModel.Material.MatSteelEc2
+    name: MatSteelEc2
+  - uid: IdeaRS.OpenModel.Material.MatSteelHKG
+    name: MatSteelHKG
+  - uid: IdeaRS.OpenModel.Material.MatSteelIND
+    name: MatSteelIND
+  - uid: IdeaRS.OpenModel.Material.MatSteelRUS
+    name: MatSteelRUS
+  - uid: IdeaRS.OpenModel.Material.PrestressSteelType
+    name: PrestressSteelType
+  - uid: IdeaRS.OpenModel.Material.PrestressSteelTypeSIA
+    name: PrestressSteelTypeSIA
+  - uid: IdeaRS.OpenModel.Material.ProductionType
+    name: ProductionType
+  - uid: IdeaRS.OpenModel.Material.ReinfBarSurface
+    name: ReinfBarSurface
+  - uid: IdeaRS.OpenModel.Material.ReinfClass
+    name: ReinfClass
+  - uid: IdeaRS.OpenModel.Material.ReinfDiagramType
+    name: ReinfDiagramType
+  - uid: IdeaRS.OpenModel.Material.ReinfFabrication
+    name: ReinfFabrication
+  - uid: IdeaRS.OpenModel.Material.ReinfFireDiagramType
+    name: ReinfFireDiagramType
+  - uid: IdeaRS.OpenModel.Material.ReinfType
+    name: ReinfType
+  - uid: IdeaRS.OpenModel.Material.SteelDiagramType
+    name: SteelDiagramType
+  - uid: IdeaRS.OpenModel.Material.SurfaceCharacteristicType
+    name: SurfaceCharacteristicType
+  - uid: IdeaRS.OpenModel.Material.SurfaceCharacteristicTypeSIA
+    name: SurfaceCharacteristicTypeSIA
+  - uid: IdeaRS.OpenModel.Material.ThermalConductivityState
+    name: ThermalConductivityState
+  - uid: IdeaRS.OpenModel.Material.ThermalExpansionState
+    name: ThermalExpansionState
+  - uid: IdeaRS.OpenModel.Material.ThermalSpecificHeatState
+    name: ThermalSpecificHeatState
+  - uid: IdeaRS.OpenModel.Material.ThermalStrainState
+    name: ThermalStrainState
+  - uid: IdeaRS.OpenModel.Material.ThermalStressStrainState
+    name: ThermalStressStrainState
+- uid: IdeaRS.OpenModel.Message
+  name: IdeaRS.OpenModel.Message
+  items:
+  - uid: IdeaRS.OpenModel.Message.ErrorMessage
+    name: ErrorMessage
+  - uid: IdeaRS.OpenModel.Message.IDEAProgress
+    name: IDEAProgress
+  - uid: IdeaRS.OpenModel.Message.IDEAProgressReport
+    name: IDEAProgressReport
+  - uid: IdeaRS.OpenModel.Message.IIOMSettings
+    name: IIOMSettings
+  - uid: IdeaRS.OpenModel.Message.InformationMessage
+    name: InformationMessage
+  - uid: IdeaRS.OpenModel.Message.IOMSettings
+    name: IOMSettings
+  - uid: IdeaRS.OpenModel.Message.MessageNumber
+    name: MessageNumber
+  - uid: IdeaRS.OpenModel.Message.NonConformity
+    name: NonConformity
+  - uid: IdeaRS.OpenModel.Message.NonConformityIssue
+    name: NonConformityIssue
+  - uid: IdeaRS.OpenModel.Message.NonConformitySeverity
+    name: NonConformitySeverity
+  - uid: IdeaRS.OpenModel.Message.OpenMessage
+    name: OpenMessage
+  - uid: IdeaRS.OpenModel.Message.OpenMessages
+    name: OpenMessages
+  - uid: IdeaRS.OpenModel.Message.WarningMessage
+    name: WarningMessage
+- uid: IdeaRS.OpenModel.Model
+  name: IdeaRS.OpenModel.Model
+  items:
+  - uid: IdeaRS.OpenModel.Model.Alignment
+    name: Alignment
+  - uid: IdeaRS.OpenModel.Model.BondedTendon
+    name: BondedTendon
+  - uid: IdeaRS.OpenModel.Model.CheckMember
+    name: CheckMember
+  - uid: IdeaRS.OpenModel.Model.CheckMember1D
+    name: CheckMember1D
+  - uid: IdeaRS.OpenModel.Model.DesignMember
+    name: DesignMember
+  - uid: IdeaRS.OpenModel.Model.DesignMemberInSubStructure
+    name: DesignMemberInSubStructure
+  - uid: IdeaRS.OpenModel.Model.Element1D
+    name: Element1D
+  - uid: IdeaRS.OpenModel.Model.Element2D
+    name: Element2D
+  - uid: IdeaRS.OpenModel.Model.Element2DType
+    name: Element2DType
+  - uid: IdeaRS.OpenModel.Model.HingeElement1D
+    name: HingeElement1D
+  - uid: IdeaRS.OpenModel.Model.HingeTypeInDirrection
+    name: HingeTypeInDirrection
+  - uid: IdeaRS.OpenModel.Model.InitialImperfectionOfPoint
+    name: InitialImperfectionOfPoint
+  - uid: IdeaRS.OpenModel.Model.LineSupportSegment
+    name: LineSupportSegment
+  - uid: IdeaRS.OpenModel.Model.Member1D
+    name: Member1D
+  - uid: IdeaRS.OpenModel.Model.Member1DType
+    name: Member1DType
+  - uid: IdeaRS.OpenModel.Model.Member2D
+    name: Member2D
+  - uid: IdeaRS.OpenModel.Model.PointSupportNode
+    name: PointSupportNode
+  - uid: IdeaRS.OpenModel.Model.PretensionedTendonGroup
+    name: PretensionedTendonGroup
+  - uid: IdeaRS.OpenModel.Model.PretensionedTendonGroupItem
+    name: PretensionedTendonGroupItem
+  - uid: IdeaRS.OpenModel.Model.RebarBase
+    name: RebarBase
+  - uid: IdeaRS.OpenModel.Model.RebarGeneral
+    name: RebarGeneral
+  - uid: IdeaRS.OpenModel.Model.RebarGeneralType
+    name: RebarGeneralType
+  - uid: IdeaRS.OpenModel.Model.RebarHookBase
+    name: RebarHookBase
+  - uid: IdeaRS.OpenModel.Model.RebarHookBend
+    name: RebarHookBend
+  - uid: IdeaRS.OpenModel.Model.RebarPatternBase
+    name: RebarPatternBase
+  - uid: IdeaRS.OpenModel.Model.RebarPoint3D
+    name: RebarPoint3D
+  - uid: IdeaRS.OpenModel.Model.RebarPolyLine3D
+    name: RebarPolyLine3D
+  - uid: IdeaRS.OpenModel.Model.RebarSegment3DArc3Pts
+    name: RebarSegment3DArc3Pts
+  - uid: IdeaRS.OpenModel.Model.RebarSegment3DBase
+    name: RebarSegment3DBase
+  - uid: IdeaRS.OpenModel.Model.RebarSegment3DLine
+    name: RebarSegment3DLine
+  - uid: IdeaRS.OpenModel.Model.RebarShape
+    name: RebarShape
+  - uid: IdeaRS.OpenModel.Model.RebarSingle
+    name: RebarSingle
+  - uid: IdeaRS.OpenModel.Model.RebarStirrupPattern
+    name: RebarStirrupPattern
+  - uid: IdeaRS.OpenModel.Model.RebarStirrups
+    name: RebarStirrups
+  - uid: IdeaRS.OpenModel.Model.RigidLink
+    name: RigidLink
+  - uid: IdeaRS.OpenModel.Model.Span
+    name: Span
+  - uid: IdeaRS.OpenModel.Model.SubStructure
+    name: SubStructure
+  - uid: IdeaRS.OpenModel.Model.SubStructureGeometry
+    name: SubStructureGeometry
+  - uid: IdeaRS.OpenModel.Model.SubStructureLoading
+    name: SubStructureLoading
+  - uid: IdeaRS.OpenModel.Model.SupportTypeInDirrection
+    name: SupportTypeInDirrection
+  - uid: IdeaRS.OpenModel.Model.Taper
+    name: Taper
+  - uid: IdeaRS.OpenModel.Model.Tendon
+    name: Tendon
+- uid: IdeaRS.OpenModel.Parameters
+  name: IdeaRS.OpenModel.Parameters
+  items:
+  - uid: IdeaRS.OpenModel.Parameters.AnchorParam
+    name: AnchorParam
+  - uid: IdeaRS.OpenModel.Parameters.AnchorType
+    name: AnchorType
+  - uid: IdeaRS.OpenModel.Parameters.BoltParam
+    name: BoltParam
+  - uid: IdeaRS.OpenModel.Parameters.BoltShearType
+    name: BoltShearType
+  - uid: IdeaRS.OpenModel.Parameters.ConnectorGridType
+    name: ConnectorGridType
+  - uid: IdeaRS.OpenModel.Parameters.CrossSectionParam
+    name: CrossSectionParam
+  - uid: IdeaRS.OpenModel.Parameters.MaterialParam
+    name: MaterialParam
+  - uid: IdeaRS.OpenModel.Parameters.MprlRecord
+    name: MprlRecord
+  - uid: IdeaRS.OpenModel.Parameters.NumberGroups
+    name: NumberGroups
+  - uid: IdeaRS.OpenModel.Parameters.PolarInputType
+    name: PolarInputType
+  - uid: IdeaRS.OpenModel.Parameters.PositionRelatedTo
+    name: PositionRelatedTo
+  - uid: IdeaRS.OpenModel.Parameters.ValueCount
+    name: ValueCount
+  - uid: IdeaRS.OpenModel.Parameters.WeldParam
+    name: WeldParam
+  - uid: IdeaRS.OpenModel.Parameters.WeldType
+    name: WeldType
+- uid: IdeaRS.OpenModel.Result
+  name: IdeaRS.OpenModel.Result
+  items:
+  - uid: IdeaRS.OpenModel.Result.AbsoluteRelative
+    name: AbsoluteRelative
+  - uid: IdeaRS.OpenModel.Result.FemElement
+    name: FemElement
+  - uid: IdeaRS.OpenModel.Result.ListOfResultOfMember
+    name: ListOfResultOfMember
+  - uid: IdeaRS.OpenModel.Result.Loading
+    name: Loading
+  - uid: IdeaRS.OpenModel.Result.LoadingType
+    name: LoadingType
+  - uid: IdeaRS.OpenModel.Result.Member
+    name: Member
+  - uid: IdeaRS.OpenModel.Result.MemberType
+    name: MemberType
+  - uid: IdeaRS.OpenModel.Result.MeshElement2D
+    name: MeshElement2D
+  - uid: IdeaRS.OpenModel.Result.OpenModelResult
+    name: OpenModelResult
+  - uid: IdeaRS.OpenModel.Result.PlateElements
+    name: PlateElements
+  - uid: IdeaRS.OpenModel.Result.PointOfID
+    name: PointOfID
+  - uid: IdeaRS.OpenModel.Result.PointResultBase
+    name: PointResultBase
+  - uid: IdeaRS.OpenModel.Result.PointResultOfNLA
+    name: PointResultOfNLA
+  - uid: IdeaRS.OpenModel.Result.PointResultOfTA
+    name: PointResultOfTA
+  - uid: IdeaRS.OpenModel.Result.PointResults
+    name: PointResults
+  - uid: IdeaRS.OpenModel.Result.PolygonPointID
+    name: PolygonPointID
+  - uid: IdeaRS.OpenModel.Result.ResultBase
+    name: ResultBase
+  - uid: IdeaRS.OpenModel.Result.ResultInSection
+    name: ResultInSection
+  - uid: IdeaRS.OpenModel.Result.ResultLocalSystemType
+    name: ResultLocalSystemType
+  - uid: IdeaRS.OpenModel.Result.ResultOfDeformation
+    name: ResultOfDeformation
+  - uid: IdeaRS.OpenModel.Result.ResultOfDeformation2
+    name: ResultOfDeformation2
+  - uid: IdeaRS.OpenModel.Result.ResultOfIncrement
+    name: ResultOfIncrement
+  - uid: IdeaRS.OpenModel.Result.ResultOfIncrement2
+    name: ResultOfIncrement2
+  - uid: IdeaRS.OpenModel.Result.ResultOfInteractionDiagramPlane
+    name: ResultOfInteractionDiagramPlane
+  - uid: IdeaRS.OpenModel.Result.ResultOfInternalForces
+    name: ResultOfInternalForces
+  - uid: IdeaRS.OpenModel.Result.ResultOfInternalForces2
+    name: ResultOfInternalForces2
+  - uid: IdeaRS.OpenModel.Result.ResultOfLoading
+    name: ResultOfLoading
+  - uid: IdeaRS.OpenModel.Result.ResultOfLoading2
+    name: ResultOfLoading2
+  - uid: IdeaRS.OpenModel.Result.ResultOfLoadingItem
+    name: ResultOfLoadingItem
+  - uid: IdeaRS.OpenModel.Result.ResultOfMember2
+    name: ResultOfMember2
+  - uid: IdeaRS.OpenModel.Result.ResultOfNLA
+    name: ResultOfNLA
+  - uid: IdeaRS.OpenModel.Result.ResultOfNLA2
+    name: ResultOfNLA2
+  - uid: IdeaRS.OpenModel.Result.ResultOfNLAPoint
+    name: ResultOfNLAPoint
+  - uid: IdeaRS.OpenModel.Result.ResultOfNLAPoint2
+    name: ResultOfNLAPoint2
+  - uid: IdeaRS.OpenModel.Result.ResultOfNLASection
+    name: ResultOfNLASection
+  - uid: IdeaRS.OpenModel.Result.ResultOnMember
+    name: ResultOnMember
+  - uid: IdeaRS.OpenModel.Result.ResultOnMembers
+    name: ResultOnMembers
+  - uid: IdeaRS.OpenModel.Result.ResultOnMembers2
+    name: ResultOnMembers2
+  - uid: IdeaRS.OpenModel.Result.ResultOnMesh
+    name: ResultOnMesh
+  - uid: IdeaRS.OpenModel.Result.ResultOnMeshType
+    name: ResultOnMeshType
+  - uid: IdeaRS.OpenModel.Result.ResultOnSection
+    name: ResultOnSection
+  - uid: IdeaRS.OpenModel.Result.ResultPoint
+    name: ResultPoint
+  - uid: IdeaRS.OpenModel.Result.ResultType
+    name: ResultType
+  - uid: IdeaRS.OpenModel.Result.SectionResultBase
+    name: SectionResultBase
+  - uid: IdeaRS.OpenModel.Result.SectionResultMesh
+    name: SectionResultMesh
+  - uid: IdeaRS.OpenModel.Result.SectionResultOnPoints
+    name: SectionResultOnPoints
+  - uid: IdeaRS.OpenModel.Result.StructuralPlateType
+    name: StructuralPlateType
+memberLayout: SamePage

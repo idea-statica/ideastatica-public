@@ -1,0 +1,213 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  commentId: T:IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  id: TwoWaySlabType
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.TwoWaySlabType.DeepBeam
+  - IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsPlate
+  - IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsWall
+  - IdeaRS.OpenModel.Concrete.TwoWaySlabType.Slab
+  - IdeaRS.OpenModel.Concrete.TwoWaySlabType.Wall
+  langs:
+  - csharp
+  - vb
+  name: TwoWaySlabType
+  nameWithType: TwoWaySlabType
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TwoWaySlabType
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 53
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Two way slab types
+  example: []
+  syntax:
+    content: public enum TwoWaySlabType
+    content.vb: Public Enum TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType.Slab
+  commentId: F:IdeaRS.OpenModel.Concrete.TwoWaySlabType.Slab
+  id: Slab
+  parent: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  langs:
+  - csharp
+  - vb
+  name: Slab
+  nameWithType: TwoWaySlabType.Slab
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType.Slab
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Slab
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 58
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: slab model - only bending forces + shell
+  example: []
+  syntax:
+    content: Slab = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType.Wall
+  commentId: F:IdeaRS.OpenModel.Concrete.TwoWaySlabType.Wall
+  id: Wall
+  parent: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  langs:
+  - csharp
+  - vb
+  name: Wall
+  nameWithType: TwoWaySlabType.Wall
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType.Wall
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Wall
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 63
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: wall model - only membrane forces
+  example: []
+  syntax:
+    content: Wall = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType.DeepBeam
+  commentId: F:IdeaRS.OpenModel.Concrete.TwoWaySlabType.DeepBeam
+  id: DeepBeam
+  parent: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  langs:
+  - csharp
+  - vb
+  name: DeepBeam
+  nameWithType: TwoWaySlabType.DeepBeam
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType.DeepBeam
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeepBeam
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 68
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: wall model - only membrane forces - detailing for deep beam
+  example: []
+  syntax:
+    content: DeepBeam = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsPlate
+  commentId: F:IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsPlate
+  id: ShellAsPlate
+  parent: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  langs:
+  - csharp
+  - vb
+  name: ShellAsPlate
+  nameWithType: TwoWaySlabType.ShellAsPlate
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsPlate
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ShellAsPlate
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 73
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: shell model - all forces - detailing for slab
+  example: []
+  syntax:
+    content: ShellAsPlate = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsWall
+  commentId: F:IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsWall
+  id: ShellAsWall
+  parent: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  langs:
+  - csharp
+  - vb
+  name: ShellAsWall
+  nameWithType: TwoWaySlabType.ShellAsWall
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType.ShellAsWall
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ShellAsWall
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
+    startLine: 78
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: shell model - all forces - detailing for wall
+  example: []
+  syntax:
+    content: ShellAsWall = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  commentId: T:IdeaRS.OpenModel.Concrete.TwoWaySlabType
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.TwoWaySlabType.html
+  name: TwoWaySlabType
+  nameWithType: TwoWaySlabType
+  fullName: IdeaRS.OpenModel.Concrete.TwoWaySlabType

@@ -1,0 +1,228 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaMember2D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMember2D
+  id: IIdeaMember2D
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+  langs:
+  - csharp
+  - vb
+  name: IIdeaMember2D
+  nameWithType: IIdeaMember2D
+  fullName: IdeaStatiCa.BimApi.IIdeaMember2D
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaMember2D
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember2D.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Representation of member2D
+  example: []
+  syntax:
+    content: 'public interface IIdeaMember2D : IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObject'
+    content.vb: Public Interface IIdeaMember2D Inherits IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+  id: Elements2D
+  parent: IdeaStatiCa.BimApi.IIdeaMember2D
+  langs:
+  - csharp
+  - vb
+  name: Elements2D
+  nameWithType: IIdeaMember2D.Elements2D
+  fullName: IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember2D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Elements2D
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember2D.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: List of Element2D
+  example: []
+  syntax:
+    content: List<IIdeaElement2D> Elements2D { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaElement2D}
+    content.vb: ReadOnly Property Elements2D As List(Of IIdeaElement2D)
+  overload: IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+  href: IdeaStatiCa.BimApi.IIdeaMember2D.html#IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+  name: Elements2D
+  nameWithType: IIdeaMember2D.Elements2D
+  fullName: IdeaStatiCa.BimApi.IIdeaMember2D.Elements2D
+- uid: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaElement2D}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaElement2D}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<IIdeaElement2D>
+  nameWithType: List<IIdeaElement2D>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.BimApi.IIdeaElement2D>
+  nameWithType.vb: List(Of IIdeaElement2D)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.BimApi.IIdeaElement2D)
+  name.vb: List(Of IIdeaElement2D)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaElement2D
+    name: IIdeaElement2D
+    href: IdeaStatiCa.BimApi.IIdeaElement2D.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaElement2D
+    name: IIdeaElement2D
+    href: IdeaStatiCa.BimApi.IIdeaElement2D.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

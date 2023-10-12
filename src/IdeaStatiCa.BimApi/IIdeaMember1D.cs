@@ -24,9 +24,9 @@ namespace IdeaStatiCa.BimApi
 		/// The following guarantees are valid for the elements:
 		/// <list type="bullet">
 		///		<item>There is always at least one element in each member.</item>
-		///		<item>First element's <see cref="IIdeaElement1D.StartNode"/> is linked to the same node as <see cref="StartNode"/>.</item>
-		///		<item>N-th element's <see cref="IIdeaElement1D.EndNode"/> is linked to the same node as (n+1)-th element's <see cref="IIdeaElement1D.StartNode"/>.</item>
-		///		<item>Last element's <see cref="IIdeaElement1D.EndNode"/> is linked to the same node as <see cref="EndNode"/>.</item>
+		///		<item>The first <see cref="Element1D"/>'s <see cref="IIdeaSegment3D"/>'s <see cref="IIdeaSegment3D.StartNode"/> defines the start node of the member.</item>
+		///		<item>The N-th <see cref="Element1D"/>'s <see cref="IIdeaSegment3D"/> <see cref="IIdeaSegment3D.EndNode"/> is linked to the same node as (n+1)-th element's <see cref="IIdeaSegment3D.StartNode"/>.</item>
+		///		<item>The Last <see cref="Element1D"/>'s <see cref="IIdeaSegment3D"/> <see cref="IIdeaSegment3D.EndNode"/> defines the end node of the member.</item>
 		/// </list>
 		/// </para>
 		/// </summary>

@@ -1,0 +1,406 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory
+  commentId: T:IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory
+  id: GrpcReflectionServiceFactory
+  parent: IdeaStatiCa.Plugin.Grpc
+  children:
+  - IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance``1(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  langs:
+  - csharp
+  - vb
+  name: GrpcReflectionServiceFactory
+  nameWithType: GrpcReflectionServiceFactory
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionServiceFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GrpcReflectionServiceFactory
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionServiceFactory.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Creates a dynamic instance of the interface implemented on server to proxy the calls from grpc client service to grpc server.
+  example: []
+  syntax:
+    content: public class GrpcReflectionServiceFactory
+    content.vb: Public Class GrpcReflectionServiceFactory
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance``1(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance``1(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  id: CreateInstance``1(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  parent: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateInstance<T>(IMethodInvoker)
+  nameWithType: GrpcReflectionServiceFactory.CreateInstance<T>(IMethodInvoker)
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance<T>(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionServiceFactory.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CreateInstance
+    path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionServiceFactory.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: 'public static T CreateInstance<T>(IMethodInvoker methodInvoker) where T : class'
+    parameters:
+    - id: methodInvoker
+      type: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function CreateInstance(Of T As Class)(methodInvoker As IMethodInvoker) As T
+  overload: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance*
+  nameWithType.vb: GrpcReflectionServiceFactory.CreateInstance(Of T)(IMethodInvoker)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance(Of T)(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  name.vb: CreateInstance(Of T)(IMethodInvoker)
+references:
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance
+  href: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.html#IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance``1(IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker)
+  name: CreateInstance
+  nameWithType: GrpcReflectionServiceFactory.CreateInstance
+  fullName: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory.CreateInstance
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  commentId: T:IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+  parent: IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker.html
+  name: IMethodInvoker
+  nameWithType: IMethodInvoker
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection
+  commentId: N:IdeaStatiCa.Plugin.Grpc.Reflection
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc.Reflection
+  nameWithType: IdeaStatiCa.Plugin.Grpc.Reflection
+  fullName: IdeaStatiCa.Plugin.Grpc.Reflection
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection
+    name: Reflection
+    href: IdeaStatiCa.Plugin.Grpc.Reflection.html
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T

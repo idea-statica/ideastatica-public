@@ -1,0 +1,452 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.CrossSectionProjectItem
+  commentId: T:IdeaStatiCa.Plugin.CrossSectionProjectItem
+  id: CrossSectionProjectItem
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+  - IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+  langs:
+  - csharp
+  - vb
+  name: CrossSectionProjectItem
+  nameWithType: CrossSectionProjectItem
+  fullName: IdeaStatiCa.Plugin.CrossSectionProjectItem
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrossSectionProjectItem
+    path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
+    startLine: 48
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Identification of an crossection item in the Idea project
+  example: []
+  syntax:
+    content: >-
+      [DataContract]
+
+      public class CrossSectionProjectItem : ProjectItem
+    content.vb: >-
+      <DataContract>
+
+      Public Class CrossSectionProjectItem Inherits ProjectItem
+  inheritance:
+  - System.Object
+  - IdeaStatiCa.Plugin.ProjectItem
+  inheritedMembers:
+  - IdeaStatiCa.Plugin.ProjectItem.Identifier
+  - IdeaStatiCa.Plugin.ProjectItem.Name
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  attributes:
+  - type: System.Runtime.Serialization.DataContractAttribute
+    ctor: System.Runtime.Serialization.DataContractAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+  commentId: P:IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+  id: MaterialIdentifier
+  parent: IdeaStatiCa.Plugin.CrossSectionProjectItem
+  langs:
+  - csharp
+  - vb
+  name: MaterialIdentifier
+  nameWithType: CrossSectionProjectItem.MaterialIdentifier
+  fullName: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MaterialIdentifier
+    path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
+    startLine: 54
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Id of the material item in the idea project
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public int MaterialIdentifier { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: >-
+      <DataMember>
+
+      Public Property MaterialIdentifier As Integer
+  overload: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+  commentId: P:IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+  id: MaterialName
+  parent: IdeaStatiCa.Plugin.CrossSectionProjectItem
+  langs:
+  - csharp
+  - vb
+  name: MaterialName
+  nameWithType: CrossSectionProjectItem.MaterialName
+  fullName: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MaterialName
+    path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
+    startLine: 60
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Name of the material item in the idea project
+  example: []
+  syntax:
+    content: >-
+      [DataMember]
+
+      public string MaterialName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <DataMember>
+
+      Public Property MaterialName As String
+  overload: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName*
+  attributes:
+  - type: System.Runtime.Serialization.DataMemberAttribute
+    ctor: System.Runtime.Serialization.DataMemberAttribute.#ctor
+    arguments: []
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.Plugin.ProjectItem
+  commentId: T:IdeaStatiCa.Plugin.ProjectItem
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ProjectItem.html
+  name: ProjectItem
+  nameWithType: ProjectItem
+  fullName: IdeaStatiCa.Plugin.ProjectItem
+- uid: IdeaStatiCa.Plugin.ProjectItem.Identifier
+  commentId: P:IdeaStatiCa.Plugin.ProjectItem.Identifier
+  parent: IdeaStatiCa.Plugin.ProjectItem
+  href: IdeaStatiCa.Plugin.ProjectItem.html#IdeaStatiCa.Plugin.ProjectItem.Identifier
+  name: Identifier
+  nameWithType: ProjectItem.Identifier
+  fullName: IdeaStatiCa.Plugin.ProjectItem.Identifier
+- uid: IdeaStatiCa.Plugin.ProjectItem.Name
+  commentId: P:IdeaStatiCa.Plugin.ProjectItem.Name
+  parent: IdeaStatiCa.Plugin.ProjectItem
+  href: IdeaStatiCa.Plugin.ProjectItem.html#IdeaStatiCa.Plugin.ProjectItem.Name
+  name: Name
+  nameWithType: ProjectItem.Name
+  fullName: IdeaStatiCa.Plugin.ProjectItem.Name
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier*
+  commentId: Overload:IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+  href: IdeaStatiCa.Plugin.CrossSectionProjectItem.html#IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+  name: MaterialIdentifier
+  nameWithType: CrossSectionProjectItem.MaterialIdentifier
+  fullName: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialIdentifier
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName*
+  commentId: Overload:IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+  href: IdeaStatiCa.Plugin.CrossSectionProjectItem.html#IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+  name: MaterialName
+  nameWithType: CrossSectionProjectItem.MaterialName
+  fullName: IdeaStatiCa.Plugin.CrossSectionProjectItem.MaterialName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String

@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ThermalStressStrainState
+  commentId: T:IdeaRS.OpenModel.Material.ThermalStressStrainState
+  id: ThermalStressStrainState
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ThermalStressStrainState.Code
+  - IdeaRS.OpenModel.Material.ThermalStressStrainState.None
+  - IdeaRS.OpenModel.Material.ThermalStressStrainState.User
+  langs:
+  - csharp
+  - vb
+  name: ThermalStressStrainState
+  nameWithType: ThermalStressStrainState
+  fullName: IdeaRS.OpenModel.Material.ThermalStressStrainState
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ThermalStressStrainState
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 70
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Type of curvature - thermal stress-strain curvature
+  example: []
+  syntax:
+    content: public enum ThermalStressStrainState
+    content.vb: Public Enum ThermalStressStrainState
+- uid: IdeaRS.OpenModel.Material.ThermalStressStrainState.None
+  commentId: F:IdeaRS.OpenModel.Material.ThermalStressStrainState.None
+  id: None
+  parent: IdeaRS.OpenModel.Material.ThermalStressStrainState
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ThermalStressStrainState.None
+  fullName: IdeaRS.OpenModel.Material.ThermalStressStrainState.None
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: None
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 75
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: The curvature is not defined
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ThermalStressStrainState
+- uid: IdeaRS.OpenModel.Material.ThermalStressStrainState.Code
+  commentId: F:IdeaRS.OpenModel.Material.ThermalStressStrainState.Code
+  id: Code
+  parent: IdeaRS.OpenModel.Material.ThermalStressStrainState
+  langs:
+  - csharp
+  - vb
+  name: Code
+  nameWithType: ThermalStressStrainState.Code
+  fullName: IdeaRS.OpenModel.Material.ThermalStressStrainState.Code
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Code
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 80
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: The curvatire is defined by the code
+  example: []
+  syntax:
+    content: Code = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ThermalStressStrainState
+- uid: IdeaRS.OpenModel.Material.ThermalStressStrainState.User
+  commentId: F:IdeaRS.OpenModel.Material.ThermalStressStrainState.User
+  id: User
+  parent: IdeaRS.OpenModel.Material.ThermalStressStrainState
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: ThermalStressStrainState.User
+  fullName: IdeaRS.OpenModel.Material.ThermalStressStrainState.User
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: User
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
+    startLine: 85
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: The curvature is input by the user
+  example: []
+  syntax:
+    content: User = 5
+    return:
+      type: IdeaRS.OpenModel.Material.ThermalStressStrainState
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ThermalStressStrainState
+  commentId: T:IdeaRS.OpenModel.Material.ThermalStressStrainState
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ThermalStressStrainState.html
+  name: ThermalStressStrainState
+  nameWithType: ThermalStressStrainState
+  fullName: IdeaRS.OpenModel.Material.ThermalStressStrainState

@@ -1,0 +1,144 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaMaterialSteel
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterialSteel
+  id: IIdeaMaterialSteel
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+  langs:
+  - csharp
+  - vb
+  name: IIdeaMaterialSteel
+  nameWithType: IIdeaMaterialSteel
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterialSteel
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMaterialSteel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaMaterialSteel
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMaterialSteel.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: A steal material.
+  example: []
+  syntax:
+    content: 'public interface IIdeaMaterialSteel : IIdeaMaterial, IIdeaObject'
+    content.vb: Public Interface IIdeaMaterialSteel Inherits IIdeaMaterial, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+  id: Material
+  parent: IdeaStatiCa.BimApi.IIdeaMaterialSteel
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IIdeaMaterialSteel.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMaterialSteel.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMaterialSteel.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Parameters of the material.
+  example: []
+  syntax:
+    content: MatSteel Material { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Material.MatSteel
+    content.vb: ReadOnly Property Material As MatSteel
+  overload: IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+  href: IdeaStatiCa.BimApi.IIdeaMaterialSteel.html#IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+  name: Material
+  nameWithType: IIdeaMaterialSteel.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterialSteel.Material
+- uid: IdeaRS.OpenModel.Material.MatSteel
+  commentId: T:IdeaRS.OpenModel.Material.MatSteel
+  parent: IdeaRS.OpenModel.Material
+  name: MatSteel
+  nameWithType: MatSteel
+  fullName: IdeaRS.OpenModel.Material.MatSteel
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material

@@ -1,0 +1,489 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue
+  commentId: T:IdeaRS.OpenModel.Message.NonConformityIssue
+  id: NonConformityIssue
+  parent: IdeaRS.OpenModel.Message
+  children:
+  - IdeaRS.OpenModel.Message.NonConformityIssue.#ctor
+  - IdeaRS.OpenModel.Message.NonConformityIssue.Description
+  - IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+  - IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+  langs:
+  - csharp
+  - vb
+  name: NonConformityIssue
+  nameWithType: NonConformityIssue
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NonConformityIssue
+    path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: Non-conformity issue
+  example: []
+  syntax:
+    content: public class NonConformityIssue
+    content.vb: Public Class NonConformityIssue
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.#ctor
+  commentId: M:IdeaRS.OpenModel.Message.NonConformityIssue.#ctor
+  id: '#ctor'
+  parent: IdeaRS.OpenModel.Message.NonConformityIssue
+  langs:
+  - csharp
+  - vb
+  name: NonConformityIssue()
+  nameWithType: NonConformityIssue.NonConformityIssue()
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.NonConformityIssue()
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+    startLine: 38
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: Constructor
+  example: []
+  syntax:
+    content: public NonConformityIssue()
+    content.vb: Public Sub New()
+  overload: IdeaRS.OpenModel.Message.NonConformityIssue.#ctor*
+  nameWithType.vb: NonConformityIssue.New()
+  fullName.vb: IdeaRS.OpenModel.Message.NonConformityIssue.New()
+  name.vb: New()
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+  commentId: P:IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+  id: Guid
+  parent: IdeaRS.OpenModel.Message.NonConformityIssue
+  langs:
+  - csharp
+  - vb
+  name: Guid
+  nameWithType: NonConformityIssue.Guid
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Guid
+    path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+    startLine: 48
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: Description of the nonconformity
+  example: []
+  syntax:
+    content: public Guid Guid { get; set; }
+    parameters: []
+    return:
+      type: System.Guid
+    content.vb: Public Property Guid As Guid
+  overload: IdeaRS.OpenModel.Message.NonConformityIssue.Guid*
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.Description
+  commentId: P:IdeaRS.OpenModel.Message.NonConformityIssue.Description
+  id: Description
+  parent: IdeaRS.OpenModel.Message.NonConformityIssue
+  langs:
+  - csharp
+  - vb
+  name: Description
+  nameWithType: NonConformityIssue.Description
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.Description
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Description
+    path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+    startLine: 53
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: Description of the nonconformity
+  example: []
+  syntax:
+    content: public string Description { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Description As String
+  overload: IdeaRS.OpenModel.Message.NonConformityIssue.Description*
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+  commentId: P:IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+  id: Severity
+  parent: IdeaRS.OpenModel.Message.NonConformityIssue
+  langs:
+  - csharp
+  - vb
+  name: Severity
+  nameWithType: NonConformityIssue.Severity
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Severity
+    path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
+    startLine: 58
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Message
+  summary: severity of this nonconformity
+  example: []
+  syntax:
+    content: public NonConformitySeverity Severity { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Message.NonConformitySeverity
+    content.vb: Public Property Severity As NonConformitySeverity
+  overload: IdeaRS.OpenModel.Message.NonConformityIssue.Severity*
+references:
+- uid: IdeaRS.OpenModel.Message
+  commentId: N:IdeaRS.OpenModel.Message
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Message
+  nameWithType: IdeaRS.OpenModel.Message
+  fullName: IdeaRS.OpenModel.Message
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+    href: IdeaRS.OpenModel.Message.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+    href: IdeaRS.OpenModel.Message.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.#ctor*
+  commentId: Overload:IdeaRS.OpenModel.Message.NonConformityIssue.#ctor
+  href: IdeaRS.OpenModel.Message.NonConformityIssue.html#IdeaRS.OpenModel.Message.NonConformityIssue.#ctor
+  name: NonConformityIssue
+  nameWithType: NonConformityIssue.NonConformityIssue
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.NonConformityIssue
+  nameWithType.vb: NonConformityIssue.New
+  fullName.vb: IdeaRS.OpenModel.Message.NonConformityIssue.New
+  name.vb: New
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.Guid*
+  commentId: Overload:IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+  href: IdeaRS.OpenModel.Message.NonConformityIssue.html#IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+  name: Guid
+  nameWithType: NonConformityIssue.Guid
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.Guid
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.Description*
+  commentId: Overload:IdeaRS.OpenModel.Message.NonConformityIssue.Description
+  href: IdeaRS.OpenModel.Message.NonConformityIssue.html#IdeaRS.OpenModel.Message.NonConformityIssue.Description
+  name: Description
+  nameWithType: NonConformityIssue.Description
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.Description
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaRS.OpenModel.Message.NonConformityIssue.Severity*
+  commentId: Overload:IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+  href: IdeaRS.OpenModel.Message.NonConformityIssue.html#IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+  name: Severity
+  nameWithType: NonConformityIssue.Severity
+  fullName: IdeaRS.OpenModel.Message.NonConformityIssue.Severity
+- uid: IdeaRS.OpenModel.Message.NonConformitySeverity
+  commentId: T:IdeaRS.OpenModel.Message.NonConformitySeverity
+  parent: IdeaRS.OpenModel.Message
+  href: IdeaRS.OpenModel.Message.NonConformitySeverity.html
+  name: NonConformitySeverity
+  nameWithType: NonConformitySeverity
+  fullName: IdeaRS.OpenModel.Message.NonConformitySeverity

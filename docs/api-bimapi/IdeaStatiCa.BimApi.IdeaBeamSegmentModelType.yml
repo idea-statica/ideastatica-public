@@ -1,0 +1,232 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  commentId: T:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  id: IdeaBeamSegmentModelType
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInX
+  - IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXY
+  - IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ
+  - IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ_NoBending
+  - IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXZ
+  - IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.Rod
+  langs:
+  - csharp
+  - vb
+  name: IdeaBeamSegmentModelType
+  nameWithType: IdeaBeamSegmentModelType
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaBeamSegmentModelType
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: public enum IdeaBeamSegmentModelType
+    content.vb: Public Enum IdeaBeamSegmentModelType
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ
+  commentId: F:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ
+  id: LoadedInXYZ
+  parent: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  langs:
+  - csharp
+  - vb
+  name: LoadedInXYZ
+  nameWithType: IdeaBeamSegmentModelType.LoadedInXYZ
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadedInXYZ
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 26
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: N-Vy-Vz-Mx-My-Mz
+  example: []
+  syntax:
+    content: LoadedInXYZ = 0
+    return:
+      type: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXY
+  commentId: F:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXY
+  id: LoadedInXY
+  parent: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  langs:
+  - csharp
+  - vb
+  name: LoadedInXY
+  nameWithType: IdeaBeamSegmentModelType.LoadedInXY
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXY
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadedInXY
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 31
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: N-Vy-Mz
+  example: []
+  syntax:
+    content: LoadedInXY = 4
+    return:
+      type: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXZ
+  commentId: F:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXZ
+  id: LoadedInXZ
+  parent: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  langs:
+  - csharp
+  - vb
+  name: LoadedInXZ
+  nameWithType: IdeaBeamSegmentModelType.LoadedInXZ
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXZ
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadedInXZ
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 36
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: N-Vz-My
+  example: []
+  syntax:
+    content: LoadedInXZ = 2
+    return:
+      type: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInX
+  commentId: F:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInX
+  id: LoadedInX
+  parent: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  langs:
+  - csharp
+  - vb
+  name: LoadedInX
+  nameWithType: IdeaBeamSegmentModelType.LoadedInX
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInX
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadedInX
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 41
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: N
+  example: []
+  syntax:
+    content: LoadedInX = 6
+    return:
+      type: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.Rod
+  commentId: F:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.Rod
+  id: Rod
+  parent: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  langs:
+  - csharp
+  - vb
+  name: Rod
+  nameWithType: IdeaBeamSegmentModelType.Rod
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.Rod
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Rod
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 46
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Rod
+  example: []
+  syntax:
+    content: Rod = 18
+    return:
+      type: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ_NoBending
+  commentId: F:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ_NoBending
+  id: LoadedInXYZ_NoBending
+  parent: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  langs:
+  - csharp
+  - vb
+  name: LoadedInXYZ_NoBending
+  nameWithType: IdeaBeamSegmentModelType.LoadedInXYZ_NoBending
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.LoadedInXYZ_NoBending
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadedInXYZ_NoBending
+    path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
+    startLine: 51
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: N + Vz
+  example: []
+  syntax:
+    content: LoadedInXYZ_NoBending = 32
+    return:
+      type: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  commentId: T:IdeaStatiCa.BimApi.IdeaBeamSegmentModelType
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType.html
+  name: IdeaBeamSegmentModelType
+  nameWithType: IdeaBeamSegmentModelType
+  fullName: IdeaStatiCa.BimApi.IdeaBeamSegmentModelType

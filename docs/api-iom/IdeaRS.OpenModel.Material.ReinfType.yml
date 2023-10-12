@@ -1,0 +1,184 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ReinfType
+  commentId: T:IdeaRS.OpenModel.Material.ReinfType
+  id: ReinfType
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ReinfType.Bars
+  - IdeaRS.OpenModel.Material.ReinfType.DecoiledRods
+  - IdeaRS.OpenModel.Material.ReinfType.LatticeGirders
+  - IdeaRS.OpenModel.Material.ReinfType.WireFabrics
+  langs:
+  - csharp
+  - vb
+  name: ReinfType
+  nameWithType: ReinfType
+  fullName: IdeaRS.OpenModel.Material.ReinfType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReinfType
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 28
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Type of reinforcement
+  example: []
+  syntax:
+    content: public enum ReinfType
+    content.vb: Public Enum ReinfType
+- uid: IdeaRS.OpenModel.Material.ReinfType.Bars
+  commentId: F:IdeaRS.OpenModel.Material.ReinfType.Bars
+  id: Bars
+  parent: IdeaRS.OpenModel.Material.ReinfType
+  langs:
+  - csharp
+  - vb
+  name: Bars
+  nameWithType: ReinfType.Bars
+  fullName: IdeaRS.OpenModel.Material.ReinfType.Bars
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bars
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Bars
+  example: []
+  syntax:
+    content: Bars = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfType
+- uid: IdeaRS.OpenModel.Material.ReinfType.DecoiledRods
+  commentId: F:IdeaRS.OpenModel.Material.ReinfType.DecoiledRods
+  id: DecoiledRods
+  parent: IdeaRS.OpenModel.Material.ReinfType
+  langs:
+  - csharp
+  - vb
+  name: DecoiledRods
+  nameWithType: ReinfType.DecoiledRods
+  fullName: IdeaRS.OpenModel.Material.ReinfType.DecoiledRods
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DecoiledRods
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 38
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Decoiled rods
+  example: []
+  syntax:
+    content: DecoiledRods = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfType
+- uid: IdeaRS.OpenModel.Material.ReinfType.WireFabrics
+  commentId: F:IdeaRS.OpenModel.Material.ReinfType.WireFabrics
+  id: WireFabrics
+  parent: IdeaRS.OpenModel.Material.ReinfType
+  langs:
+  - csharp
+  - vb
+  name: WireFabrics
+  nameWithType: ReinfType.WireFabrics
+  fullName: IdeaRS.OpenModel.Material.ReinfType.WireFabrics
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WireFabrics
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Wire fabrics
+  example: []
+  syntax:
+    content: WireFabrics = 2
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfType
+- uid: IdeaRS.OpenModel.Material.ReinfType.LatticeGirders
+  commentId: F:IdeaRS.OpenModel.Material.ReinfType.LatticeGirders
+  id: LatticeGirders
+  parent: IdeaRS.OpenModel.Material.ReinfType
+  langs:
+  - csharp
+  - vb
+  name: LatticeGirders
+  nameWithType: ReinfType.LatticeGirders
+  fullName: IdeaRS.OpenModel.Material.ReinfType.LatticeGirders
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LatticeGirders
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatReinforcementEc2.cs
+    startLine: 48
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Lattice girders
+  example: []
+  syntax:
+    content: LatticeGirders = 3
+    return:
+      type: IdeaRS.OpenModel.Material.ReinfType
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ReinfType
+  commentId: T:IdeaRS.OpenModel.Material.ReinfType
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ReinfType.html
+  name: ReinfType
+  nameWithType: ReinfType
+  fullName: IdeaRS.OpenModel.Material.ReinfType

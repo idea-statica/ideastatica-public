@@ -1,0 +1,2895 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  commentId: T:IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  id: IdeaStatiCaAppClient
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor(System.String)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData(System.Int32)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel(System.Int32)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,System.String)
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  - IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress(System.Double)
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCaAppClient
+  nameWithType: IdeaStatiCaAppClient
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaStatiCaAppClient
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: 'public class IdeaStatiCaAppClient : ClientBase<IIdeaStaticaApp>, ICommunicationObject, IDisposable, IIdeaStaticaApp, IProgressMessaging'
+    content.vb: Public Class IdeaStatiCaAppClient Inherits ClientBase(Of IIdeaStaticaApp) Implements ICommunicationObject, IDisposable, IIdeaStaticaApp, IProgressMessaging
+  inheritance:
+  - System.Object
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  implements:
+  - System.ServiceModel.ICommunicationObject
+  - System.IDisposable
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp
+  - IdeaStatiCa.Plugin.IProgressMessaging
+  inheritedMembers:
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.GetDefaultValueForInitialization``1
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Open
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Abort
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Close
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.DisplayInitializationUI
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CreateChannel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Channel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CacheSetting
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.ChannelFactory
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.ClientCredentials
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.State
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InnerChannel
+  - System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Endpoint
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor(System.String)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: IdeaStatiCaAppClient(string)
+  nameWithType: IdeaStatiCaAppClient.IdeaStatiCaAppClient(string)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.IdeaStatiCaAppClient(string)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public IdeaStatiCaAppClient(string id)
+    parameters:
+    - id: id
+      type: System.String
+    content.vb: Public Sub New(id As String)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor*
+  nameWithType.vb: IdeaStatiCaAppClient.New(String)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.New(String)
+  name.vb: New(String)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  id: GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetCssInMPRL(CountryCode)
+  nameWithType: IdeaStatiCaAppClient.GetCssInMPRL(CountryCode)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCssInMPRL
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 34
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all cross-sections from IDEA StatiCa MPRL (material and product range library) which belongs to <code class="paramref">countryCode</code>
+  example: []
+  syntax:
+    content: public List<LibraryItem> GetCssInMPRL(CountryCode countryCode)
+    parameters:
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+      description: Country code filter
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.LibraryItem}
+      description: Cross-sections in the MPRL
+    content.vb: Public Function GetCssInMPRL(countryCode As CountryCode) As List(Of LibraryItem)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL*
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject
+  id: GetCssInProject
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetCssInProject()
+  nameWithType: IdeaStatiCaAppClient.GetCssInProject()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCssInProject
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 42
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all cross-sections in the currently open project
+  example: []
+  syntax:
+    content: public List<ProjectItem> GetCssInProject()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+      description: Cross-sections in the project
+    content.vb: Public Function GetCssInProject() As List(Of ProjectItem)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject*
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2
+  id: GetCssInProjectV2
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetCssInProjectV2()
+  nameWithType: IdeaStatiCaAppClient.GetCssInProjectV2()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCssInProjectV2
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 50
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all cross-sections in the currently open project
+  example: []
+  syntax:
+    content: public List<CrossSectionProjectItem> GetCssInProjectV2()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.CrossSectionProjectItem}
+      description: Cross-sections with assigned material in the project
+    content.vb: Public Function GetCssInProjectV2() As List(Of CrossSectionProjectItem)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2*
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  id: GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetMaterialsInMPRL(CountryCode)
+  nameWithType: IdeaStatiCaAppClient.GetMaterialsInMPRL(CountryCode)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetMaterialsInMPRL
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 59
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all materials from IDEA StatiCa MPRL (material and product range library) which belongs to <code class="paramref">countryCode</code>
+  example: []
+  syntax:
+    content: public List<LibraryItem> GetMaterialsInMPRL(CountryCode countryCode)
+    parameters:
+    - id: countryCode
+      type: IdeaRS.OpenModel.CountryCode
+      description: Country code filter
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.LibraryItem}
+      description: Materials in the MPRL
+    content.vb: Public Function GetMaterialsInMPRL(countryCode As CountryCode) As List(Of LibraryItem)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL*
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject
+  id: GetMaterialsInProject
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetMaterialsInProject()
+  nameWithType: IdeaStatiCaAppClient.GetMaterialsInProject()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetMaterialsInProject
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 68
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get all materials in the currently open project
+  example: []
+  syntax:
+    content: public List<ProjectItem> GetMaterialsInProject()
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+      description: Materials in the project
+    content.vb: Public Function GetMaterialsInProject() As List(Of ProjectItem)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject*
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel(System.Int32)
+  id: GetConnectionModel(System.Int32)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetConnectionModel(int)
+  nameWithType: IdeaStatiCaAppClient.GetConnectionModel(int)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel(int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetConnectionModel
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 74
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get connection model in IOM format
+  example: []
+  syntax:
+    content: public ConnectionData GetConnectionModel(int connectionId)
+    parameters:
+    - id: connectionId
+      type: System.Int32
+      description: The ID of the connection in the project
+    return:
+      type: IdeaRS.OpenModel.Connection.ConnectionData
+      description: Connection model
+    content.vb: Public Function GetConnectionModel(connectionId As Integer) As ConnectionData
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel*
+  exceptions:
+  - type: System.Exception
+    commentId: T:System.Exception
+    description: Exception is thrown if operation fails or no data are provided by the service
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+  nameWithType.vb: IdeaStatiCaAppClient.GetConnectionModel(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel(Integer)
+  name.vb: GetConnectionModel(Integer)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData(System.Int32)
+  id: GetAllConnectionData(System.Int32)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetAllConnectionData(int)
+  nameWithType: IdeaStatiCaAppClient.GetAllConnectionData(int)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData(int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetAllConnectionData
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 96
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Get structural data and corresponding results of FE analysis for <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: public string GetAllConnectionData(int connectionId)
+    parameters:
+    - id: connectionId
+      type: System.Int32
+      description: Identifier of the required connection
+    return:
+      type: System.String
+      description: XML string which prepresents the instance of of IdeaRS.OpenModel.OpenModelContainer (stuctural data and results of FE analysis)
+    content.vb: Public Function GetAllConnectionData(connectionId As Integer) As String
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData*
+  exceptions:
+  - type: System.Exception
+    commentId: T:System.Exception
+    description: Exception is thrown if operation fails or no data are provided by the service
+  implements:
+  - IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+  nameWithType.vb: IdeaStatiCaAppClient.GetAllConnectionData(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData(Integer)
+  name.vb: GetAllConnectionData(Integer)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  id: SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SendMessage(MessageSeverity, string)
+  nameWithType: IdeaStatiCaAppClient.SendMessage(MessageSeverity, string)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessage
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 101
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void SendMessage(MessageSeverity severity, string text)
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: text
+      type: System.String
+    content.vb: Public Sub SendMessage(severity As MessageSeverity, text As String)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  nameWithType.vb: IdeaStatiCaAppClient.SendMessage(MessageSeverity, String)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, String)
+  name.vb: SendMessage(MessageSeverity, String)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,System.String)
+  id: SetStage(System.Int32,System.Int32,System.String)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SetStage(int, int, string)
+  nameWithType: IdeaStatiCaAppClient.SetStage(int, int, string)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(int, int, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStage
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 107
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void SetStage(int stage, int stageMax, string name)
+    parameters:
+    - id: stage
+      type: System.Int32
+    - id: stageMax
+      type: System.Int32
+    - id: name
+      type: System.String
+    content.vb: Public Sub SetStage(stage As Integer, stageMax As Integer, name As String)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  nameWithType.vb: IdeaStatiCaAppClient.SetStage(Integer, Integer, String)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(Integer, Integer, String)
+  name.vb: SetStage(Integer, Integer, String)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress(System.Double)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress(System.Double)
+  id: SetStageProgress(System.Double)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SetStageProgress(double)
+  nameWithType: IdeaStatiCaAppClient.SetStageProgress(double)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress(double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStageProgress
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 112
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void SetStageProgress(double percentage)
+    parameters:
+    - id: percentage
+      type: System.Double
+    content.vb: Public Sub SetStageProgress(percentage As Double)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  nameWithType.vb: IdeaStatiCaAppClient.SetStageProgress(Double)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress(Double)
+  name.vb: SetStageProgress(Double)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  id: GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetLocalizedText(LocalisedMessage)
+  nameWithType: IdeaStatiCaAppClient.GetLocalizedText(LocalisedMessage)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetLocalizedText
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 117
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public string GetLocalizedText(LocalisedMessage msg)
+    parameters:
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    return:
+      type: System.String
+    content.vb: Public Function GetLocalizedText(msg As LocalisedMessage) As String
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture
+  id: GetCurrentCulture
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentCulture()
+  nameWithType: IdeaStatiCaAppClient.GetCurrentCulture()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCurrentCulture
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 122
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public CultureInfo GetCurrentCulture()
+    return:
+      type: System.Globalization.CultureInfo
+    content.vb: Public Function GetCurrentCulture() As CultureInfo
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  id: SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SendMessageInteractive(MessageSeverity, string, string[])
+  nameWithType: IdeaStatiCaAppClient.SendMessageInteractive(MessageSeverity, string, string[])
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity, string, string[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessageInteractive
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 127
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public int SendMessageInteractive(MessageSeverity severity, string text, string[] buttons)
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: text
+      type: System.String
+    - id: buttons
+      type: System.String[]
+    return:
+      type: System.Int32
+    content.vb: Public Function SendMessageInteractive(severity As MessageSeverity, text As String, buttons As String()) As Integer
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  nameWithType.vb: IdeaStatiCaAppClient.SendMessageInteractive(MessageSeverity, String, String())
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity, String, String())
+  name.vb: SendMessageInteractive(MessageSeverity, String, String())
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage
+  id: CancelMessage
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: CancelMessage()
+  nameWithType: IdeaStatiCaAppClient.CancelMessage()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CancelMessage
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 132
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void CancelMessage()
+    content.vb: Public Sub CancelMessage()
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+  commentId: P:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+  id: Service
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: IdeaStatiCaAppClient.Service
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Service
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 137
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: protected IIdeaStaticaApp Service { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.Plugin.IIdeaStaticaApp
+    content.vb: Protected ReadOnly Property Service As IIdeaStaticaApp
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service*
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag
+  id: GetCancellationFlag
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: GetCancellationFlag()
+  nameWithType: IdeaStatiCaAppClient.GetCancellationFlag()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCancellationFlag
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 139
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public bool GetCancellationFlag()
+    return:
+      type: System.Boolean
+    content.vb: Public Function GetCancellationFlag() As Boolean
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog
+  id: InitProgressDialog
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: InitProgressDialog()
+  nameWithType: IdeaStatiCaAppClient.InitProgressDialog()
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: InitProgressDialog
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 144
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void InitProgressDialog()
+    content.vb: Public Sub InitProgressDialog()
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage)
+  id: SendMessage(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SendMessage(MessageSeverity, LocalisedMessage)
+  nameWithType: IdeaStatiCaAppClient.SendMessage(MessageSeverity, LocalisedMessage)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessage
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 149
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public void SendMessage(MessageSeverity severity, LocalisedMessage msg)
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    content.vb: Public Sub SendMessage(severity As MessageSeverity, msg As LocalisedMessage)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage*
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage)
+  id: SetStage(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SetStage(int, int, LocalisedMessage)
+  nameWithType: IdeaStatiCaAppClient.SetStage(int, int, LocalisedMessage)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(int, int, IdeaStatiCa.Plugin.LocalisedMessage)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStage
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 154
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public void SetStage(int stage, int stageMax, LocalisedMessage msg)
+    parameters:
+    - id: stage
+      type: System.Int32
+    - id: stageMax
+      type: System.Int32
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    content.vb: Public Sub SetStage(stage As Integer, stageMax As Integer, msg As LocalisedMessage)
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage*
+  nameWithType.vb: IdeaStatiCaAppClient.SetStage(Integer, Integer, LocalisedMessage)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(Integer, Integer, IdeaStatiCa.Plugin.LocalisedMessage)
+  name.vb: SetStage(Integer, Integer, LocalisedMessage)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  id: SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SendMessageLocalised(MessageSeverity, LocalisedMessage, string)
+  nameWithType: IdeaStatiCaAppClient.SendMessageLocalised(MessageSeverity, LocalisedMessage, string)
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SendMessageLocalised
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 159
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void SendMessageLocalised(MessageSeverity severity, LocalisedMessage msg, string suffix = "")
+    parameters:
+    - id: severity
+      type: IdeaStatiCa.Plugin.MessageSeverity
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    - id: suffix
+      type: System.String
+    content.vb: Public Sub SendMessageLocalised(severity As MessageSeverity, msg As LocalisedMessage, suffix As String = "")
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  nameWithType.vb: IdeaStatiCaAppClient.SendMessageLocalised(MessageSeverity, LocalisedMessage, String)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage, String)
+  name.vb: SendMessageLocalised(MessageSeverity, LocalisedMessage, String)
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  commentId: M:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  id: SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  parent: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+  langs:
+  - csharp
+  - vb
+  name: SetStageLocalised(int, int, LocalisedMessage, params object[])
+  nameWithType: IdeaStatiCaAppClient.SetStageLocalised(int, int, LocalisedMessage, params object[])
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised(int, int, IdeaStatiCa.Plugin.LocalisedMessage, params object[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SetStageLocalised
+    path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
+    startLine: 164
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public void SetStageLocalised(int stage, int stageMax, LocalisedMessage msg, params object[] args)
+    parameters:
+    - id: stage
+      type: System.Int32
+    - id: stageMax
+      type: System.Int32
+    - id: msg
+      type: IdeaStatiCa.Plugin.LocalisedMessage
+    - id: args
+      type: System.Object[]
+    content.vb: Public Sub SetStageLocalised(stage As Integer, stageMax As Integer, msg As LocalisedMessage, ParamArray args As Object())
+  overload: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised*
+  implements:
+  - IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  nameWithType.vb: IdeaStatiCaAppClient.SetStageLocalised(Integer, Integer, LocalisedMessage, ParamArray Object())
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised(Integer, Integer, IdeaStatiCa.Plugin.LocalisedMessage, ParamArray Object())
+  name.vb: SetStageLocalised(Integer, Integer, LocalisedMessage, ParamArray Object())
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  commentId: T:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  parent: System.ServiceModel
+  definition: System.ServiceModel.ClientBase`1
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  name: ClientBase<IIdeaStaticaApp>
+  nameWithType: ClientBase<IIdeaStaticaApp>
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp)
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp)
+  name.vb: ClientBase(Of IIdeaStaticaApp)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp
+    name: IIdeaStaticaApp
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html
+  - name: '>'
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp
+    name: IIdeaStaticaApp
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html
+  - name: )
+- uid: System.ServiceModel.ICommunicationObject
+  commentId: T:System.ServiceModel.ICommunicationObject
+  parent: System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.icommunicationobject
+  name: ICommunicationObject
+  nameWithType: ICommunicationObject
+  fullName: System.ServiceModel.ICommunicationObject
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  commentId: T:IdeaStatiCa.Plugin.IIdeaStaticaApp
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html
+  name: IIdeaStaticaApp
+  nameWithType: IIdeaStaticaApp
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp
+- uid: IdeaStatiCa.Plugin.IProgressMessaging
+  commentId: T:IdeaStatiCa.Plugin.IProgressMessaging
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html
+  name: IProgressMessaging
+  nameWithType: IProgressMessaging
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.GetDefaultValueForInitialization``1
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.GetDefaultValueForInitialization``1
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-getdefaultvalueforinitialization-1
+  name: GetDefaultValueForInitialization<T>()
+  nameWithType: ClientBase<IIdeaStaticaApp>.GetDefaultValueForInitialization<T>()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.GetDefaultValueForInitialization<T>()
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).GetDefaultValueForInitialization(Of T)()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).GetDefaultValueForInitialization(Of T)()
+  name.vb: GetDefaultValueForInitialization(Of T)()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-getdefaultvalueforinitialization-1
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.getdefaultvalueforinitialization#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-getdefaultvalueforinitialization-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Open
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Open
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.Open
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.open#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-open
+  name: Open()
+  nameWithType: ClientBase<IIdeaStaticaApp>.Open()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.Open()
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).Open()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).Open()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.open#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-open
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.open#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-open
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Abort
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Abort
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.Abort
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.abort#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-abort
+  name: Abort()
+  nameWithType: ClientBase<IIdeaStaticaApp>.Abort()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.Abort()
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).Abort()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).Abort()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.abort#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-abort
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.abort#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-abort
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Close
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Close
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.Close
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.close#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-close
+  name: Close()
+  nameWithType: ClientBase<IIdeaStaticaApp>.Close()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.Close()
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).Close()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).Close()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.close#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-close
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.close#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-close
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.DisplayInitializationUI
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.DisplayInitializationUI
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-displayinitializationui
+  name: DisplayInitializationUI()
+  nameWithType: ClientBase<IIdeaStaticaApp>.DisplayInitializationUI()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.DisplayInitializationUI()
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).DisplayInitializationUI()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).DisplayInitializationUI()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-displayinitializationui
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.displayinitializationui#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-displayinitializationui
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CreateChannel
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CreateChannel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.CreateChannel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-createchannel
+  name: CreateChannel()
+  nameWithType: ClientBase<IIdeaStaticaApp>.CreateChannel()
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.CreateChannel()
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).CreateChannel()
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).CreateChannel()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-createchannel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.createchannel#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-createchannel
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  commentId: M:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  name: InvokeAsync(BeginOperationDelegate, object[], EndOperationDelegate, SendOrPostCallback, object)
+  nameWithType: ClientBase<IIdeaStaticaApp>.InvokeAsync(ClientBase<IIdeaStaticaApp>.BeginOperationDelegate, object[], ClientBase<IIdeaStaticaApp>.EndOperationDelegate, SendOrPostCallback, object)
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.InvokeAsync(System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.BeginOperationDelegate, object[], System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.EndOperationDelegate, System.Threading.SendOrPostCallback, object)
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).InvokeAsync(ClientBase(Of IIdeaStaticaApp).BeginOperationDelegate, Object(), ClientBase(Of IIdeaStaticaApp).EndOperationDelegate, SendOrPostCallback, Object)
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).InvokeAsync(System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).BeginOperationDelegate, Object(), System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).EndOperationDelegate, System.Threading.SendOrPostCallback, Object)
+  name.vb: InvokeAsync(BeginOperationDelegate, Object(), EndOperationDelegate, SendOrPostCallback, Object)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  - name: (
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iideastaticaapp}.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iideastaticaapp}.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InvokeAsync(System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.invokeasync#system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-invokeasync(system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-beginoperationdelegate-system-object()-system-servicemodel-clientbase((ideastatica-plugin-iideastaticaapp))-endoperationdelegate-system-threading-sendorpostcallback-system-object)
+  - name: (
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iideastaticaapp}.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase{ideastatica.plugin.iideastaticaapp}.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Channel
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Channel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.Channel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.channel
+  name: Channel
+  nameWithType: ClientBase<IIdeaStaticaApp>.Channel
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.Channel
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).Channel
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).Channel
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CacheSetting
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.CacheSetting
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.CacheSetting
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.cachesetting
+  name: CacheSetting
+  nameWithType: ClientBase<IIdeaStaticaApp>.CacheSetting
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.CacheSetting
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).CacheSetting
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).CacheSetting
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.ChannelFactory
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.ChannelFactory
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.ChannelFactory
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.channelfactory
+  name: ChannelFactory
+  nameWithType: ClientBase<IIdeaStaticaApp>.ChannelFactory
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.ChannelFactory
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).ChannelFactory
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).ChannelFactory
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.ClientCredentials
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.ClientCredentials
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.ClientCredentials
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.clientcredentials
+  name: ClientCredentials
+  nameWithType: ClientBase<IIdeaStaticaApp>.ClientCredentials
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.ClientCredentials
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).ClientCredentials
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).ClientCredentials
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.State
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.State
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.State
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.state
+  name: State
+  nameWithType: ClientBase<IIdeaStaticaApp>.State
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.State
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).State
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).State
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InnerChannel
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.InnerChannel
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.InnerChannel
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.innerchannel
+  name: InnerChannel
+  nameWithType: ClientBase<IIdeaStaticaApp>.InnerChannel
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.InnerChannel
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).InnerChannel
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).InnerChannel
+- uid: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Endpoint
+  commentId: P:System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}.Endpoint
+  parent: System.ServiceModel.ClientBase{IdeaStatiCa.Plugin.IIdeaStaticaApp}
+  definition: System.ServiceModel.ClientBase`1.Endpoint
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-ideastatica.plugin.iideastaticaapp-.endpoint
+  name: Endpoint
+  nameWithType: ClientBase<IIdeaStaticaApp>.Endpoint
+  fullName: System.ServiceModel.ClientBase<IdeaStatiCa.Plugin.IIdeaStaticaApp>.Endpoint
+  nameWithType.vb: ClientBase(Of IIdeaStaticaApp).Endpoint
+  fullName.vb: System.ServiceModel.ClientBase(Of IdeaStatiCa.Plugin.IIdeaStaticaApp).Endpoint
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ServiceModel.ClientBase`1
+  commentId: T:System.ServiceModel.ClientBase`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  name: ClientBase<TChannel>
+  nameWithType: ClientBase<TChannel>
+  fullName: System.ServiceModel.ClientBase<TChannel>
+  nameWithType.vb: ClientBase(Of TChannel)
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel)
+  name.vb: ClientBase(Of TChannel)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: <
+  - name: TChannel
+  - name: '>'
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1
+    name: ClientBase
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TChannel
+  - name: )
+- uid: System.ServiceModel
+  commentId: N:System.ServiceModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ServiceModel
+  nameWithType: System.ServiceModel
+  fullName: System.ServiceModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ServiceModel
+    name: ServiceModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel
+- uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  commentId: M:System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  name: GetDefaultValueForInitialization<T>()
+  nameWithType: ClientBase<TChannel>.GetDefaultValueForInitialization<T>()
+  fullName: System.ServiceModel.ClientBase<TChannel>.GetDefaultValueForInitialization<T>()
+  nameWithType.vb: ClientBase(Of TChannel).GetDefaultValueForInitialization(Of T)()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).GetDefaultValueForInitialization(Of T)()
+  name.vb: GetDefaultValueForInitialization(Of T)()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.GetDefaultValueForInitialization``1
+    name: GetDefaultValueForInitialization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.getdefaultvalueforinitialization
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Open
+  commentId: M:System.ServiceModel.ClientBase`1.Open
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  name: Open()
+  nameWithType: ClientBase<TChannel>.Open()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Open()
+  nameWithType.vb: ClientBase(Of TChannel).Open()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Open()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Open
+    name: Open
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.open
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Abort
+  commentId: M:System.ServiceModel.ClientBase`1.Abort
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  name: Abort()
+  nameWithType: ClientBase<TChannel>.Abort()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Abort()
+  nameWithType.vb: ClientBase(Of TChannel).Abort()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Abort()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Abort
+    name: Abort
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.abort
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Close
+  commentId: M:System.ServiceModel.ClientBase`1.Close
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  name: Close()
+  nameWithType: ClientBase<TChannel>.Close()
+  fullName: System.ServiceModel.ClientBase<TChannel>.Close()
+  nameWithType.vb: ClientBase(Of TChannel).Close()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Close()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.Close
+    name: Close
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.close
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  commentId: M:System.ServiceModel.ClientBase`1.DisplayInitializationUI
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  name: DisplayInitializationUI()
+  nameWithType: ClientBase<TChannel>.DisplayInitializationUI()
+  fullName: System.ServiceModel.ClientBase<TChannel>.DisplayInitializationUI()
+  nameWithType.vb: ClientBase(Of TChannel).DisplayInitializationUI()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).DisplayInitializationUI()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.DisplayInitializationUI
+    name: DisplayInitializationUI
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.displayinitializationui
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.CreateChannel
+  commentId: M:System.ServiceModel.ClientBase`1.CreateChannel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  name: CreateChannel()
+  nameWithType: ClientBase<TChannel>.CreateChannel()
+  fullName: System.ServiceModel.ClientBase<TChannel>.CreateChannel()
+  nameWithType.vb: ClientBase(Of TChannel).CreateChannel()
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).CreateChannel()
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.CreateChannel
+    name: CreateChannel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.createchannel
+  - name: (
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  commentId: M:System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  name: InvokeAsync(BeginOperationDelegate, object[], EndOperationDelegate, SendOrPostCallback, object)
+  nameWithType: ClientBase<TChannel>.InvokeAsync(ClientBase<TChannel>.BeginOperationDelegate, object[], ClientBase<TChannel>.EndOperationDelegate, SendOrPostCallback, object)
+  fullName: System.ServiceModel.ClientBase<TChannel>.InvokeAsync(System.ServiceModel.ClientBase<TChannel>.BeginOperationDelegate, object[], System.ServiceModel.ClientBase<TChannel>.EndOperationDelegate, System.Threading.SendOrPostCallback, object)
+  nameWithType.vb: ClientBase(Of TChannel).InvokeAsync(ClientBase(Of TChannel).BeginOperationDelegate, Object(), ClientBase(Of TChannel).EndOperationDelegate, SendOrPostCallback, Object)
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).InvokeAsync(System.ServiceModel.ClientBase(Of TChannel).BeginOperationDelegate, Object(), System.ServiceModel.ClientBase(Of TChannel).EndOperationDelegate, System.Threading.SendOrPostCallback, Object)
+  name.vb: InvokeAsync(BeginOperationDelegate, Object(), EndOperationDelegate, SendOrPostCallback, Object)
+  spec.csharp:
+  - uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  - name: (
+  - uid: System.ServiceModel.ClientBase`1.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase`1.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ServiceModel.ClientBase`1.InvokeAsync(System.ServiceModel.ClientBase{`0}.BeginOperationDelegate,System.Object[],System.ServiceModel.ClientBase{`0}.EndOperationDelegate,System.Threading.SendOrPostCallback,System.Object)
+    name: InvokeAsync
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.invokeasync
+  - name: (
+  - uid: System.ServiceModel.ClientBase`1.BeginOperationDelegate
+    name: BeginOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.beginoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.ServiceModel.ClientBase`1.EndOperationDelegate
+    name: EndOperationDelegate
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endoperationdelegate
+  - name: ','
+  - name: " "
+  - uid: System.Threading.SendOrPostCallback
+    name: SendOrPostCallback
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.sendorpostcallback
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ServiceModel.ClientBase`1.Channel
+  commentId: P:System.ServiceModel.ClientBase`1.Channel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channel
+  name: Channel
+  nameWithType: ClientBase<TChannel>.Channel
+  fullName: System.ServiceModel.ClientBase<TChannel>.Channel
+  nameWithType.vb: ClientBase(Of TChannel).Channel
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Channel
+- uid: System.ServiceModel.ClientBase`1.CacheSetting
+  commentId: P:System.ServiceModel.ClientBase`1.CacheSetting
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.cachesetting
+  name: CacheSetting
+  nameWithType: ClientBase<TChannel>.CacheSetting
+  fullName: System.ServiceModel.ClientBase<TChannel>.CacheSetting
+  nameWithType.vb: ClientBase(Of TChannel).CacheSetting
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).CacheSetting
+- uid: System.ServiceModel.ClientBase`1.ChannelFactory
+  commentId: P:System.ServiceModel.ClientBase`1.ChannelFactory
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.channelfactory
+  name: ChannelFactory
+  nameWithType: ClientBase<TChannel>.ChannelFactory
+  fullName: System.ServiceModel.ClientBase<TChannel>.ChannelFactory
+  nameWithType.vb: ClientBase(Of TChannel).ChannelFactory
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).ChannelFactory
+- uid: System.ServiceModel.ClientBase`1.ClientCredentials
+  commentId: P:System.ServiceModel.ClientBase`1.ClientCredentials
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.clientcredentials
+  name: ClientCredentials
+  nameWithType: ClientBase<TChannel>.ClientCredentials
+  fullName: System.ServiceModel.ClientBase<TChannel>.ClientCredentials
+  nameWithType.vb: ClientBase(Of TChannel).ClientCredentials
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).ClientCredentials
+- uid: System.ServiceModel.ClientBase`1.State
+  commentId: P:System.ServiceModel.ClientBase`1.State
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.state
+  name: State
+  nameWithType: ClientBase<TChannel>.State
+  fullName: System.ServiceModel.ClientBase<TChannel>.State
+  nameWithType.vb: ClientBase(Of TChannel).State
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).State
+- uid: System.ServiceModel.ClientBase`1.InnerChannel
+  commentId: P:System.ServiceModel.ClientBase`1.InnerChannel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.innerchannel
+  name: InnerChannel
+  nameWithType: ClientBase<TChannel>.InnerChannel
+  fullName: System.ServiceModel.ClientBase<TChannel>.InnerChannel
+  nameWithType.vb: ClientBase(Of TChannel).InnerChannel
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).InnerChannel
+- uid: System.ServiceModel.ClientBase`1.Endpoint
+  commentId: P:System.ServiceModel.ClientBase`1.Endpoint
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.servicemodel.clientbase-1.endpoint
+  name: Endpoint
+  nameWithType: ClientBase<TChannel>.Endpoint
+  fullName: System.ServiceModel.ClientBase<TChannel>.Endpoint
+  nameWithType.vb: ClientBase(Of TChannel).Endpoint
+  fullName.vb: System.ServiceModel.ClientBase(Of TChannel).Endpoint
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.#ctor(System.String)
+  name: IdeaStatiCaAppClient
+  nameWithType: IdeaStatiCaAppClient.IdeaStatiCaAppClient
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.IdeaStatiCaAppClient
+  nameWithType.vb: IdeaStatiCaAppClient.New
+  fullName.vb: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  name: GetCssInMPRL
+  nameWithType: IdeaStatiCaAppClient.GetCssInMPRL
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInMPRL
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  name: GetCssInMPRL(CountryCode)
+  nameWithType: IIdeaStaticaApp.GetCssInMPRL(CountryCode)
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+    name: GetCssInMPRL
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  - name: (
+  - uid: IdeaRS.OpenModel.CountryCode
+    name: CountryCode
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+    name: GetCssInMPRL
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInMPRL(IdeaRS.OpenModel.CountryCode)
+  - name: (
+  - uid: IdeaRS.OpenModel.CountryCode
+    name: CountryCode
+  - name: )
+- uid: IdeaRS.OpenModel.CountryCode
+  commentId: T:IdeaRS.OpenModel.CountryCode
+  parent: IdeaRS.OpenModel
+  name: CountryCode
+  nameWithType: CountryCode
+  fullName: IdeaRS.OpenModel.CountryCode
+- uid: System.Collections.Generic.List{IdeaStatiCa.Plugin.LibraryItem}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Plugin.LibraryItem}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<LibraryItem>
+  nameWithType: List<LibraryItem>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Plugin.LibraryItem>
+  nameWithType.vb: List(Of LibraryItem)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Plugin.LibraryItem)
+  name.vb: List(Of LibraryItem)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.LibraryItem
+    name: LibraryItem
+    href: IdeaStatiCa.Plugin.LibraryItem.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.LibraryItem
+    name: LibraryItem
+    href: IdeaStatiCa.Plugin.LibraryItem.html
+  - name: )
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject
+  name: GetCssInProject
+  nameWithType: IdeaStatiCaAppClient.GetCssInProject
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProject
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+  name: GetCssInProject()
+  nameWithType: IIdeaStaticaApp.GetCssInProject()
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+    name: GetCssInProject
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+    name: GetCssInProject
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProject
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Plugin.ProjectItem}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ProjectItem>
+  nameWithType: List<ProjectItem>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Plugin.ProjectItem>
+  nameWithType.vb: List(Of ProjectItem)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Plugin.ProjectItem)
+  name.vb: List(Of ProjectItem)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.ProjectItem
+    name: ProjectItem
+    href: IdeaStatiCa.Plugin.ProjectItem.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.ProjectItem
+    name: ProjectItem
+    href: IdeaStatiCa.Plugin.ProjectItem.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2
+  name: GetCssInProjectV2
+  nameWithType: IdeaStatiCaAppClient.GetCssInProjectV2
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCssInProjectV2
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+  name: GetCssInProjectV2()
+  nameWithType: IIdeaStaticaApp.GetCssInProjectV2()
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+    name: GetCssInProjectV2
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+    name: GetCssInProjectV2
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetCssInProjectV2
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.List{IdeaStatiCa.Plugin.CrossSectionProjectItem}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.Plugin.CrossSectionProjectItem}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CrossSectionProjectItem>
+  nameWithType: List<CrossSectionProjectItem>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.Plugin.CrossSectionProjectItem>
+  nameWithType.vb: List(Of CrossSectionProjectItem)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.Plugin.CrossSectionProjectItem)
+  name.vb: List(Of CrossSectionProjectItem)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.CrossSectionProjectItem
+    name: CrossSectionProjectItem
+    href: IdeaStatiCa.Plugin.CrossSectionProjectItem.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.CrossSectionProjectItem
+    name: CrossSectionProjectItem
+    href: IdeaStatiCa.Plugin.CrossSectionProjectItem.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  name: GetMaterialsInMPRL
+  nameWithType: IdeaStatiCaAppClient.GetMaterialsInMPRL
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInMPRL
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  name: GetMaterialsInMPRL(CountryCode)
+  nameWithType: IIdeaStaticaApp.GetMaterialsInMPRL(CountryCode)
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+    name: GetMaterialsInMPRL
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  - name: (
+  - uid: IdeaRS.OpenModel.CountryCode
+    name: CountryCode
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+    name: GetMaterialsInMPRL
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInMPRL(IdeaRS.OpenModel.CountryCode)
+  - name: (
+  - uid: IdeaRS.OpenModel.CountryCode
+    name: CountryCode
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject
+  name: GetMaterialsInProject
+  nameWithType: IdeaStatiCaAppClient.GetMaterialsInProject
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetMaterialsInProject
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+  name: GetMaterialsInProject()
+  nameWithType: IIdeaStaticaApp.GetMaterialsInProject()
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+    name: GetMaterialsInProject
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+    name: GetMaterialsInProject
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetMaterialsInProject
+  - name: (
+  - name: )
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel(System.Int32)
+  name: GetConnectionModel
+  nameWithType: IdeaStatiCaAppClient.GetConnectionModel
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetConnectionModel
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+  name: GetConnectionModel(int)
+  nameWithType: IIdeaStaticaApp.GetConnectionModel(int)
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(int)
+  nameWithType.vb: IIdeaStaticaApp.GetConnectionModel(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(Integer)
+  name.vb: GetConnectionModel(Integer)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+    name: GetConnectionModel
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+    name: GetConnectionModel
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetConnectionModel(System.Int32)
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.Connection.ConnectionData
+  commentId: T:IdeaRS.OpenModel.Connection.ConnectionData
+  parent: IdeaRS.OpenModel.Connection
+  name: ConnectionData
+  nameWithType: ConnectionData
+  fullName: IdeaRS.OpenModel.Connection.ConnectionData
+- uid: IdeaRS.OpenModel.Connection
+  commentId: N:IdeaRS.OpenModel.Connection
+  name: IdeaRS.OpenModel.Connection
+  nameWithType: IdeaRS.OpenModel.Connection
+  fullName: IdeaRS.OpenModel.Connection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Connection
+    name: Connection
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData(System.Int32)
+  name: GetAllConnectionData
+  nameWithType: IdeaStatiCaAppClient.GetAllConnectionData
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetAllConnectionData
+- uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+  parent: IdeaStatiCa.Plugin.IIdeaStaticaApp
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+  name: GetAllConnectionData(int)
+  nameWithType: IIdeaStaticaApp.GetAllConnectionData(int)
+  fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(int)
+  nameWithType.vb: IIdeaStaticaApp.GetAllConnectionData(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(Integer)
+  name.vb: GetAllConnectionData(Integer)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+    name: GetAllConnectionData
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+    name: GetAllConnectionData
+    href: IdeaStatiCa.Plugin.IIdeaStaticaApp.html#IdeaStatiCa.Plugin.IIdeaStaticaApp.GetAllConnectionData(System.Int32)
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  name: SendMessage
+  nameWithType: IdeaStatiCaAppClient.SendMessage
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessage
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  name: SendMessage(MessageSeverity, string)
+  nameWithType: IProgressMessaging.SendMessage(MessageSeverity, string)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, string)
+  nameWithType.vb: IProgressMessaging.SendMessage(MessageSeverity, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity, String)
+  name.vb: SendMessage(MessageSeverity, String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+    name: SendMessage
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+    href: IdeaStatiCa.Plugin.MessageSeverity.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+    name: SendMessage
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessage(IdeaStatiCa.Plugin.MessageSeverity,System.String)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+    href: IdeaStatiCa.Plugin.MessageSeverity.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.Plugin.MessageSeverity
+  commentId: T:IdeaStatiCa.Plugin.MessageSeverity
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.MessageSeverity.html
+  name: MessageSeverity
+  nameWithType: MessageSeverity
+  fullName: IdeaStatiCa.Plugin.MessageSeverity
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage(System.Int32,System.Int32,System.String)
+  name: SetStage
+  nameWithType: IdeaStatiCaAppClient.SetStage
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStage
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  name: SetStage(int, int, string)
+  nameWithType: IProgressMessaging.SetStage(int, int, string)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(int, int, string)
+  nameWithType.vb: IProgressMessaging.SetStage(Integer, Integer, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(Integer, Integer, String)
+  name.vb: SetStage(Integer, Integer, String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+    name: SetStage
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+    name: SetStage
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStage(System.Int32,System.Int32,System.String)
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress(System.Double)
+  name: SetStageProgress
+  nameWithType: IdeaStatiCaAppClient.SetStageProgress
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageProgress
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  name: SetStageProgress(double)
+  nameWithType: IProgressMessaging.SetStageProgress(double)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(double)
+  nameWithType.vb: IProgressMessaging.SetStageProgress(Double)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(Double)
+  name.vb: SetStageProgress(Double)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+    name: SetStageProgress
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  - name: (
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+    name: SetStageProgress
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageProgress(System.Double)
+  - name: (
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  name: GetLocalizedText
+  nameWithType: IdeaStatiCaAppClient.GetLocalizedText
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetLocalizedText
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  name: GetLocalizedText(LocalisedMessage)
+  nameWithType: IProgressMessaging.GetLocalizedText(LocalisedMessage)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+    name: GetLocalizedText
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+    href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+    name: GetLocalizedText
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetLocalizedText(IdeaStatiCa.Plugin.LocalisedMessage)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+    href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.LocalisedMessage
+  commentId: T:IdeaStatiCa.Plugin.LocalisedMessage
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  name: LocalisedMessage
+  nameWithType: LocalisedMessage
+  fullName: IdeaStatiCa.Plugin.LocalisedMessage
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture
+  name: GetCurrentCulture
+  nameWithType: IdeaStatiCaAppClient.GetCurrentCulture
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCurrentCulture
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  name: GetCurrentCulture()
+  nameWithType: IProgressMessaging.GetCurrentCulture()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+    name: GetCurrentCulture
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+    name: GetCurrentCulture
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCurrentCulture
+  - name: (
+  - name: )
+- uid: System.Globalization.CultureInfo
+  commentId: T:System.Globalization.CultureInfo
+  parent: System.Globalization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  name: CultureInfo
+  nameWithType: CultureInfo
+  fullName: System.Globalization.CultureInfo
+- uid: System.Globalization
+  commentId: N:System.Globalization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Globalization
+  nameWithType: System.Globalization
+  fullName: System.Globalization
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Globalization
+    name: Globalization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Globalization
+    name: Globalization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  name: SendMessageInteractive
+  nameWithType: IdeaStatiCaAppClient.SendMessageInteractive
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageInteractive
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  name: SendMessageInteractive(MessageSeverity, string, string[])
+  nameWithType: IProgressMessaging.SendMessageInteractive(MessageSeverity, string, string[])
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity, string, string[])
+  nameWithType.vb: IProgressMessaging.SendMessageInteractive(MessageSeverity, String, String())
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity, String, String())
+  name.vb: SendMessageInteractive(MessageSeverity, String, String())
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+    name: SendMessageInteractive
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  - name: (
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+    href: IdeaStatiCa.Plugin.MessageSeverity.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+    name: SendMessageInteractive
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageInteractive(IdeaStatiCa.Plugin.MessageSeverity,System.String,System.String[])
+  - name: (
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+    href: IdeaStatiCa.Plugin.MessageSeverity.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+  - name: )
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage
+  name: CancelMessage
+  nameWithType: IdeaStatiCaAppClient.CancelMessage
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.CancelMessage
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  name: CancelMessage()
+  nameWithType: IProgressMessaging.CancelMessage()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+    name: CancelMessage
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+    name: CancelMessage
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.CancelMessage
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+  name: Service
+  nameWithType: IdeaStatiCaAppClient.Service
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.Service
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag
+  name: GetCancellationFlag
+  nameWithType: IdeaStatiCaAppClient.GetCancellationFlag
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.GetCancellationFlag
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  name: GetCancellationFlag()
+  nameWithType: IProgressMessaging.GetCancellationFlag()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+    name: GetCancellationFlag
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+    name: GetCancellationFlag
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.GetCancellationFlag
+  - name: (
+  - name: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog
+  name: InitProgressDialog
+  nameWithType: IdeaStatiCaAppClient.InitProgressDialog
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.InitProgressDialog
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  name: InitProgressDialog()
+  nameWithType: IProgressMessaging.InitProgressDialog()
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog()
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+    name: InitProgressDialog
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+    name: InitProgressDialog
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.InitProgressDialog
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  name: SendMessageLocalised
+  nameWithType: IdeaStatiCaAppClient.SendMessageLocalised
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SendMessageLocalised
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  name: SendMessageLocalised(MessageSeverity, LocalisedMessage, string)
+  nameWithType: IProgressMessaging.SendMessageLocalised(MessageSeverity, LocalisedMessage, string)
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage, string)
+  nameWithType.vb: IProgressMessaging.SendMessageLocalised(MessageSeverity, LocalisedMessage, String)
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity, IdeaStatiCa.Plugin.LocalisedMessage, String)
+  name.vb: SendMessageLocalised(MessageSeverity, LocalisedMessage, String)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+    name: SendMessageLocalised
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+    href: IdeaStatiCa.Plugin.MessageSeverity.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+    href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+    name: SendMessageLocalised
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SendMessageLocalised(IdeaStatiCa.Plugin.MessageSeverity,IdeaStatiCa.Plugin.LocalisedMessage,System.String)
+  - name: (
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+    href: IdeaStatiCa.Plugin.MessageSeverity.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+    href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised
+  href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html#IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  name: SetStageLocalised
+  nameWithType: IdeaStatiCaAppClient.SetStageLocalised
+  fullName: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.SetStageLocalised
+- uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  commentId: M:IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  parent: IdeaStatiCa.Plugin.IProgressMessaging
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  name: SetStageLocalised(int, int, LocalisedMessage, params object[])
+  nameWithType: IProgressMessaging.SetStageLocalised(int, int, LocalisedMessage, params object[])
+  fullName: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(int, int, IdeaStatiCa.Plugin.LocalisedMessage, params object[])
+  nameWithType.vb: IProgressMessaging.SetStageLocalised(Integer, Integer, LocalisedMessage, ParamArray Object())
+  fullName.vb: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(Integer, Integer, IdeaStatiCa.Plugin.LocalisedMessage, ParamArray Object())
+  name.vb: SetStageLocalised(Integer, Integer, LocalisedMessage, ParamArray Object())
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+    name: SetStageLocalised
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+    href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+    name: SetStageLocalised
+    href: IdeaStatiCa.Plugin.IProgressMessaging.html#IdeaStatiCa.Plugin.IProgressMessaging.SetStageLocalised(System.Int32,System.Int32,IdeaStatiCa.Plugin.LocalisedMessage,System.Object[])
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+    href: IdeaStatiCa.Plugin.LocalisedMessage.html
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )

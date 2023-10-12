@@ -1,0 +1,155 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  commentId: T:IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  id: ConcAggregateTypeSIA
+  parent: IdeaRS.OpenModel.Material
+  children:
+  - IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.AlluvialGravel
+  - IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.CrushedLimestone
+  - IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.Micaceous
+  langs:
+  - csharp
+  - vb
+  name: ConcAggregateTypeSIA
+  nameWithType: ConcAggregateTypeSIA
+  fullName: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ConcAggregateTypeSIA
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 28
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Concrete aggreage type
+  example: []
+  syntax:
+    content: public enum ConcAggregateTypeSIA
+    content.vb: Public Enum ConcAggregateTypeSIA
+- uid: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.AlluvialGravel
+  commentId: F:IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.AlluvialGravel
+  id: AlluvialGravel
+  parent: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  langs:
+  - csharp
+  - vb
+  name: AlluvialGravel
+  nameWithType: ConcAggregateTypeSIA.AlluvialGravel
+  fullName: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.AlluvialGravel
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AlluvialGravel
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 33
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Alluvial gravel
+  example: []
+  syntax:
+    content: AlluvialGravel = 0
+    return:
+      type: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+- uid: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.CrushedLimestone
+  commentId: F:IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.CrushedLimestone
+  id: CrushedLimestone
+  parent: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  langs:
+  - csharp
+  - vb
+  name: CrushedLimestone
+  nameWithType: ConcAggregateTypeSIA.CrushedLimestone
+  fullName: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.CrushedLimestone
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrushedLimestone
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 38
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Crushed limestone
+  example: []
+  syntax:
+    content: CrushedLimestone = 1
+    return:
+      type: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+- uid: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.Micaceous
+  commentId: F:IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.Micaceous
+  id: Micaceous
+  parent: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  langs:
+  - csharp
+  - vb
+  name: Micaceous
+  nameWithType: ConcAggregateTypeSIA.Micaceous
+  fullName: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.Micaceous
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Micaceous
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteSIA.cs
+    startLine: 43
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Material
+  summary: Micaceous
+  example: []
+  syntax:
+    content: Micaceous = 2
+    return:
+      type: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+references:
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+- uid: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  commentId: T:IdeaRS.OpenModel.Material.ConcAggregateTypeSIA
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA.html
+  name: ConcAggregateTypeSIA
+  nameWithType: ConcAggregateTypeSIA
+  fullName: IdeaRS.OpenModel.Material.ConcAggregateTypeSIA

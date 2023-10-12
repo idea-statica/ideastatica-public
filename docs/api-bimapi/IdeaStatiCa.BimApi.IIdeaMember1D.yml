@@ -1,0 +1,596 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMember1D
+  id: IIdeaMember1D
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+  - IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+  - IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+  - IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+  - IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ
+  - IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+  - IdeaStatiCa.BimApi.IIdeaMember1D.Type
+  langs:
+  - csharp
+  - vb
+  name: IIdeaMember1D
+  nameWithType: IIdeaMember1D
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaMember1D
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Represents named and identifiable generic member of that connects to up to two end nodes and might go through other nodes.
+
+    <p>
+
+    Member is used to represent beam, column, truss, rib or beamslab
+
+    </p>
+
+    <p>
+
+    Members consist from one or more elements, each defining cros-section and materials.</p>
+  example: []
+  syntax:
+    content: 'public interface IIdeaMember1D : IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObjectWithResults, IIdeaObject'
+    content.vb: Public Interface IIdeaMember1D Inherits IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObjectWithResults, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  - IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Type
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.Type
+  id: Type
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: Type
+  nameWithType: IIdeaMember1D.Type
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Type
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Type
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: 'Type of member: beam, column, truss, rib or beamslab.'
+  example: []
+  syntax:
+    content: Member1DType Type { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Model.Member1DType
+    content.vb: ReadOnly Property Type As Member1DType
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.Type*
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+  id: Elements
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: Elements
+  nameWithType: IIdeaMember1D.Elements
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Elements
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 32
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Elements this member consists of. Always returns a valid list with at least one element.
+
+    <p>
+
+    The following guarantees are valid for the elements:
+
+    <ul><li>There is always at least one element in each member.</li><li>The first <xref href="IdeaRS.OpenModel.Model.Element1D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode" data-throw-if-not-resolved="false"></xref> defines the start node of the member.</li><li>The N-th <xref href="IdeaRS.OpenModel.Model.Element1D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref> <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode" data-throw-if-not-resolved="false"></xref> is linked to the same node as (n+1)-th element's <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode" data-throw-if-not-resolved="false"></xref>.</li><li>The Last <xref href="IdeaRS.OpenModel.Model.Element1D" data-throw-if-not-resolved="false"></xref>'s <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D" data-throw-if-not-resolved="false"></xref> <xref href="IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode" data-throw-if-not-resolved="false"></xref> defines the end node of the member.</li></ul>
+
+    </p>
+  example: []
+  syntax:
+    content: List<IIdeaElement1D> Elements { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaElement1D}
+    content.vb: ReadOnly Property Elements As List(Of IIdeaElement1D)
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.Elements*
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+  id: Taper
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: Taper
+  nameWithType: IIdeaMember1D.Taper
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Taper
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 37
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Taper for specifying haunched member.
+  example: []
+  syntax:
+    content: IIdeaTaper Taper { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaTaper
+    content.vb: ReadOnly Property Taper As IIdeaTaper
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.Taper*
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+  id: CrossSection
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: CrossSection
+  nameWithType: IIdeaMember1D.CrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CrossSection
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 42
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Cross-section of the member.
+  example: []
+  syntax:
+    content: IIdeaCrossSection CrossSection { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaCrossSection
+    content.vb: ReadOnly Property CrossSection As IIdeaCrossSection
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection*
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+  id: Alignment
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: Alignment
+  nameWithType: IIdeaMember1D.Alignment
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Alignment
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 47
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Alignment of the member's cross-section. Eccentricities are added up to the alignment.
+  example: []
+  syntax:
+    content: Alignment Alignment { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Model.Alignment
+    content.vb: ReadOnly Property Alignment As Alignment
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.Alignment*
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+  id: MirrorY
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: MirrorY
+  nameWithType: IIdeaMember1D.MirrorY
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MirrorY
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 52
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Mirrors the cross-section of this member on the Y-axis.
+  example: []
+  syntax:
+    content: bool MirrorY { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property MirrorY As Boolean
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY*
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ
+  commentId: P:IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ
+  id: MirrorZ
+  parent: IdeaStatiCa.BimApi.IIdeaMember1D
+  langs:
+  - csharp
+  - vb
+  name: MirrorZ
+  nameWithType: IIdeaMember1D.MirrorZ
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MirrorZ
+    path: ../src/IdeaStatiCa.BimApi/IIdeaMember1D.cs
+    startLine: 57
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Mirrors the cross-section of this member on the Z-axis.
+  example: []
+  syntax:
+    content: bool MirrorZ { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: ReadOnly Property MirrorZ As Boolean
+  overload: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  commentId: M:IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  parent: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+  href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html#IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  name: GetResults()
+  nameWithType: IIdeaObjectWithResults.GetResults()
+  fullName: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+    name: GetResults
+    href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html#IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+    name: GetResults
+    href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html#IdeaStatiCa.BimApi.IIdeaObjectWithResults.GetResults
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObjectWithResults
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObjectWithResults.html
+  name: IIdeaObjectWithResults
+  nameWithType: IIdeaObjectWithResults
+  fullName: IdeaStatiCa.BimApi.IIdeaObjectWithResults
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Type*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.Type
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.Type
+  name: Type
+  nameWithType: IIdeaMember1D.Type
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Type
+- uid: IdeaRS.OpenModel.Model.Member1DType
+  commentId: T:IdeaRS.OpenModel.Model.Member1DType
+  parent: IdeaRS.OpenModel.Model
+  name: Member1DType
+  nameWithType: Member1DType
+  fullName: IdeaRS.OpenModel.Model.Member1DType
+- uid: IdeaRS.OpenModel.Model
+  commentId: N:IdeaRS.OpenModel.Model
+  name: IdeaRS.OpenModel.Model
+  nameWithType: IdeaRS.OpenModel.Model
+  fullName: IdeaRS.OpenModel.Model
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Model
+    name: Model
+- uid: IdeaRS.OpenModel.Model.Element1D
+  commentId: T:IdeaRS.OpenModel.Model.Element1D
+  name: Element1D
+  nameWithType: Element1D
+  fullName: IdeaRS.OpenModel.Model.Element1D
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D
+  commentId: T:IdeaStatiCa.BimApi.IIdeaSegment3D
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html
+  name: IIdeaSegment3D
+  nameWithType: IIdeaSegment3D
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html#IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+  name: StartNode
+  nameWithType: IIdeaSegment3D.StartNode
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.StartNode
+- uid: IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  commentId: P:IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  parent: IdeaStatiCa.BimApi.IIdeaSegment3D
+  href: IdeaStatiCa.BimApi.IIdeaSegment3D.html#IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+  name: EndNode
+  nameWithType: IIdeaSegment3D.EndNode
+  fullName: IdeaStatiCa.BimApi.IIdeaSegment3D.EndNode
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Elements*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+  name: Elements
+  nameWithType: IIdeaMember1D.Elements
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Elements
+- uid: System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaElement1D}
+  commentId: T:System.Collections.Generic.List{IdeaStatiCa.BimApi.IIdeaElement1D}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<IIdeaElement1D>
+  nameWithType: List<IIdeaElement1D>
+  fullName: System.Collections.Generic.List<IdeaStatiCa.BimApi.IIdeaElement1D>
+  nameWithType.vb: List(Of IIdeaElement1D)
+  fullName.vb: System.Collections.Generic.List(Of IdeaStatiCa.BimApi.IIdeaElement1D)
+  name.vb: List(Of IIdeaElement1D)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaElement1D
+    name: IIdeaElement1D
+    href: IdeaStatiCa.BimApi.IIdeaElement1D.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaElement1D
+    name: IIdeaElement1D
+    href: IdeaStatiCa.BimApi.IIdeaElement1D.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Taper*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+  name: Taper
+  nameWithType: IIdeaMember1D.Taper
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Taper
+- uid: IdeaStatiCa.BimApi.IIdeaTaper
+  commentId: T:IdeaStatiCa.BimApi.IIdeaTaper
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaTaper.html
+  name: IIdeaTaper
+  nameWithType: IIdeaTaper
+  fullName: IdeaStatiCa.BimApi.IIdeaTaper
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+  name: CrossSection
+  nameWithType: IIdeaMember1D.CrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.CrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html
+  name: IIdeaCrossSection
+  nameWithType: IIdeaCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.Alignment*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+  name: Alignment
+  nameWithType: IIdeaMember1D.Alignment
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.Alignment
+- uid: IdeaRS.OpenModel.Model.Alignment
+  commentId: T:IdeaRS.OpenModel.Model.Alignment
+  parent: IdeaRS.OpenModel.Model
+  name: Alignment
+  nameWithType: Alignment
+  fullName: IdeaRS.OpenModel.Model.Alignment
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+  name: MirrorY
+  nameWithType: IIdeaMember1D.MirrorY
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorY
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ
+  href: IdeaStatiCa.BimApi.IIdeaMember1D.html#IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ
+  name: MirrorZ
+  nameWithType: IIdeaMember1D.MirrorZ
+  fullName: IdeaStatiCa.BimApi.IIdeaMember1D.MirrorZ

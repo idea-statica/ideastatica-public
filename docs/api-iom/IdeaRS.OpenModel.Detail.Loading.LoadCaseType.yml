@@ -1,0 +1,134 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  id: LoadCaseType
+  parent: IdeaRS.OpenModel.Detail.Loading
+  children:
+  - IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Permanent
+  - IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Variable
+  langs:
+  - csharp
+  - vb
+  name: LoadCaseType
+  nameWithType: LoadCaseType
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadCaseType
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LoadCase.cs
+    startLine: 11
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: Type of load case
+  example: []
+  syntax:
+    content: public enum LoadCaseType
+    content.vb: Public Enum LoadCaseType
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Permanent
+  commentId: F:IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Permanent
+  id: Permanent
+  parent: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  langs:
+  - csharp
+  - vb
+  name: Permanent
+  nameWithType: LoadCaseType.Permanent
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Permanent
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Permanent
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LoadCase.cs
+    startLine: 16
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: Permanent
+  example: []
+  syntax:
+    content: Permanent = 0
+    return:
+      type: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Variable
+  commentId: F:IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Variable
+  id: Variable
+  parent: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  langs:
+  - csharp
+  - vb
+  name: Variable
+  nameWithType: LoadCaseType.Variable
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadCaseType.Variable
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Detail/Loading/LoadCase.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Variable
+    path: ../src/IdeaRS.OpenModel/Detail/Loading/LoadCase.cs
+    startLine: 21
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Detail.Loading
+  summary: Variable
+  example: []
+  syntax:
+    content: Variable = 1
+    return:
+      type: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+references:
+- uid: IdeaRS.OpenModel.Detail.Loading
+  commentId: N:IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Detail.Loading
+  nameWithType: IdeaRS.OpenModel.Detail.Loading
+  fullName: IdeaRS.OpenModel.Detail.Loading
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Detail.Loading.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail
+    name: Detail
+    href: IdeaRS.OpenModel.Detail.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Detail.Loading
+    name: Loading
+    href: IdeaRS.OpenModel.Detail.Loading.html
+- uid: IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  commentId: T:IdeaRS.OpenModel.Detail.Loading.LoadCaseType
+  parent: IdeaRS.OpenModel.Detail.Loading
+  href: IdeaRS.OpenModel.Detail.Loading.LoadCaseType.html
+  name: LoadCaseType
+  nameWithType: LoadCaseType
+  fullName: IdeaRS.OpenModel.Detail.Loading.LoadCaseType

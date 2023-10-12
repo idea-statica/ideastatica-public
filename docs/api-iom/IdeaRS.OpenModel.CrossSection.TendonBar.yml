@@ -1,0 +1,780 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar
+  commentId: T:IdeaRS.OpenModel.CrossSection.TendonBar
+  id: TendonBar
+  parent: IdeaRS.OpenModel.CrossSection
+  children:
+  - IdeaRS.OpenModel.CrossSection.TendonBar.Id
+  - IdeaRS.OpenModel.CrossSection.TendonBar.Material
+  - IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+  - IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+  - IdeaRS.OpenModel.CrossSection.TendonBar.Point
+  - IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+  - IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+  - IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+  - IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+  langs:
+  - csharp
+  - vb
+  name: TendonBar
+  nameWithType: TendonBar
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar
+  type: Class
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TendonBar
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 59
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon bar
+  example: []
+  syntax:
+    content: >-
+      [OpenModelClass("CI.Services.Concrete.ReinforcedSection.TendonBar,CI.ReinforcedSection")]
+
+      public class TendonBar : OpenObject
+    content.vb: >-
+      <OpenModelClass("CI.Services.Concrete.ReinforcedSection.TendonBar,CI.ReinforcedSection")>
+
+      Public Class TendonBar Inherits OpenObject
+  inheritance:
+  - System.Object
+  - IdeaRS.OpenModel.OpenObject
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelClassAttribute
+    ctor: IdeaRS.OpenModel.OpenModelClassAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: CI.Services.Concrete.ReinforcedSection.TendonBar,CI.ReinforcedSection
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Id
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.Id
+  id: Id
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: TendonBar.Id
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Id
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Id
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 65
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon Id
+  example: []
+  syntax:
+    content: public int Id { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Id As Integer
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.Id*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+  id: TendonType
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: TendonType
+  nameWithType: TendonBar.TendonType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TendonType
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 70
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon type
+  example: []
+  syntax:
+    content: public TendonBarType TendonType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CrossSection.TendonBarType
+    content.vb: Public Property TendonType As TendonBarType
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.TendonType*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Point
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.Point
+  id: Point
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: Point
+  nameWithType: TendonBar.Point
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Point
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Point
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 75
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Position of bar
+  example: []
+  syntax:
+    content: >-
+      [OpenModelProperty("CentrePoint")]
+
+      public Point2D Point { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry2D.Point2D
+    content.vb: >-
+      <OpenModelProperty("CentrePoint")>
+
+      Public Property Point As Point2D
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.Point*
+  attributes:
+  - type: IdeaRS.OpenModel.OpenModelPropertyAttribute
+    ctor: IdeaRS.OpenModel.OpenModelPropertyAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: CentrePoint
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Material
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.Material
+  id: Material
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: TendonBar.Material
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 81
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Material
+  example: []
+  syntax:
+    content: public ReferenceElement Material { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.ReferenceElement
+    content.vb: Public Property Material As ReferenceElement
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.Material*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+  id: PrestressingOrder
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: PrestressingOrder
+  nameWithType: TendonBar.PrestressingOrder
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PrestressingOrder
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 86
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: order of tendon prestessing
+  example: []
+  syntax:
+    content: public int PrestressingOrder { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property PrestressingOrder As Integer
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+  id: NumStrandsInTendon
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: NumStrandsInTendon
+  nameWithType: TendonBar.NumStrandsInTendon
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NumStrandsInTendon
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 91
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: number of ropes in tendon
+  example: []
+  syntax:
+    content: public int NumStrandsInTendon { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property NumStrandsInTendon As Integer
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+  id: PrestressReinforcementType
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: PrestressReinforcementType
+  nameWithType: TendonBar.PrestressReinforcementType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PrestressReinforcementType
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 96
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: set of prestress reinforcement type
+  example: []
+  syntax:
+    content: public FatigueTypeOfPrestressingSteel PrestressReinforcementType { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CrossSection.FatigueTypeOfPrestressingSteel
+    content.vb: Public Property PrestressReinforcementType As FatigueTypeOfPrestressingSteel
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+  id: Phase
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: Phase
+  nameWithType: TendonBar.Phase
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Phase
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 101
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Phase
+  example: []
+  syntax:
+    content: public int Phase { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Phase As Integer
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.Phase*
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+  commentId: P:IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+  id: TendonDuct
+  parent: IdeaRS.OpenModel.CrossSection.TendonBar
+  langs:
+  - csharp
+  - vb
+  name: TendonDuct
+  nameWithType: TendonBar.TendonDuct
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TendonDuct
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
+    startLine: 106
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Tendon duct
+  example: []
+  syntax:
+    content: public TendonDuct TendonDuct { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CrossSection.TendonDuct
+    content.vb: Public Property TendonDuct As TendonDuct
+  overload: IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct*
+references:
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+    href: IdeaRS.OpenModel.CrossSection.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaRS.OpenModel.OpenObject
+  commentId: T:IdeaRS.OpenModel.OpenObject
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.OpenObject.html
+  name: OpenObject
+  nameWithType: OpenObject
+  fullName: IdeaRS.OpenModel.OpenObject
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Id*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.Id
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.Id
+  name: Id
+  nameWithType: TendonBar.Id
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Id
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.TendonType*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+  name: TendonType
+  nameWithType: TendonBar.TendonType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.TendonType
+- uid: IdeaRS.OpenModel.CrossSection.TendonBarType
+  commentId: T:IdeaRS.OpenModel.CrossSection.TendonBarType
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.TendonBarType.html
+  name: TendonBarType
+  nameWithType: TendonBarType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBarType
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Point*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.Point
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.Point
+  name: Point
+  nameWithType: TendonBar.Point
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Point
+- uid: IdeaRS.OpenModel.Geometry2D.Point2D
+  commentId: T:IdeaRS.OpenModel.Geometry2D.Point2D
+  parent: IdeaRS.OpenModel.Geometry2D
+  href: IdeaRS.OpenModel.Geometry2D.Point2D.html
+  name: Point2D
+  nameWithType: Point2D
+  fullName: IdeaRS.OpenModel.Geometry2D.Point2D
+- uid: IdeaRS.OpenModel.Geometry2D
+  commentId: N:IdeaRS.OpenModel.Geometry2D
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Geometry2D
+  nameWithType: IdeaRS.OpenModel.Geometry2D
+  fullName: IdeaRS.OpenModel.Geometry2D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+    href: IdeaRS.OpenModel.Geometry2D.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+    href: IdeaRS.OpenModel.Geometry2D.html
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Material*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.Material
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.Material
+  name: Material
+  nameWithType: TendonBar.Material
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Material
+- uid: IdeaRS.OpenModel.ReferenceElement
+  commentId: T:IdeaRS.OpenModel.ReferenceElement
+  parent: IdeaRS.OpenModel
+  href: IdeaRS.OpenModel.ReferenceElement.html
+  name: ReferenceElement
+  nameWithType: ReferenceElement
+  fullName: IdeaRS.OpenModel.ReferenceElement
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+  name: PrestressingOrder
+  nameWithType: TendonBar.PrestressingOrder
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressingOrder
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+  name: NumStrandsInTendon
+  nameWithType: TendonBar.NumStrandsInTendon
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.NumStrandsInTendon
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+  name: PrestressReinforcementType
+  nameWithType: TendonBar.PrestressReinforcementType
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.PrestressReinforcementType
+- uid: IdeaRS.OpenModel.CrossSection.FatigueTypeOfPrestressingSteel
+  commentId: T:IdeaRS.OpenModel.CrossSection.FatigueTypeOfPrestressingSteel
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.FatigueTypeOfPrestressingSteel.html
+  name: FatigueTypeOfPrestressingSteel
+  nameWithType: FatigueTypeOfPrestressingSteel
+  fullName: IdeaRS.OpenModel.CrossSection.FatigueTypeOfPrestressingSteel
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.Phase*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+  name: Phase
+  nameWithType: TendonBar.Phase
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.Phase
+- uid: IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+  href: IdeaRS.OpenModel.CrossSection.TendonBar.html#IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+  name: TendonDuct
+  nameWithType: TendonBar.TendonDuct
+  fullName: IdeaRS.OpenModel.CrossSection.TendonBar.TendonDuct
+- uid: IdeaRS.OpenModel.CrossSection.TendonDuct
+  commentId: T:IdeaRS.OpenModel.CrossSection.TendonDuct
+  parent: IdeaRS.OpenModel.CrossSection
+  href: IdeaRS.OpenModel.CrossSection.TendonDuct.html
+  name: TendonDuct
+  nameWithType: TendonDuct
+  fullName: IdeaRS.OpenModel.CrossSection.TendonDuct

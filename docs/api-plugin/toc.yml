@@ -1,0 +1,251 @@
+### YamlMime:TableOfContent
+items:
+- uid: IdeaStatica.Communication
+  name: IdeaStatica.Communication
+  items:
+  - uid: IdeaStatica.Communication.IGrpcCommunicationCommonInterface
+    name: IGrpcCommunicationCommonInterface
+- uid: IdeaStatiCa.Plugin
+  name: IdeaStatiCa.Plugin
+  items:
+  - uid: IdeaStatiCa.Plugin.ApplicationBIM
+    name: ApplicationBIM
+  - uid: IdeaStatiCa.Plugin.AppStatus
+    name: AppStatus
+  - uid: IdeaStatiCa.Plugin.AutomationHosting`2
+    name: AutomationHosting<MyInterface, ClientInterface>
+  - uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2
+    name: AutomationHostingGrpc<MyInterface, ClientInterface>
+  - uid: IdeaStatiCa.Plugin.AutomationService`1
+    name: AutomationService<ClientInterface>
+  - uid: IdeaStatiCa.Plugin.AutomationStatus
+    name: AutomationStatus
+  - uid: IdeaStatiCa.Plugin.BIMItemId
+    name: BIMItemId
+  - uid: IdeaStatiCa.Plugin.BIMItemsGroup
+    name: BIMItemsGroup
+  - uid: IdeaStatiCa.Plugin.BIMItemType
+    name: BIMItemType
+  - uid: IdeaStatiCa.Plugin.BIMPluginHosting
+    name: BIMPluginHosting
+  - uid: IdeaStatiCa.Plugin.BIMPluginHostingGrpc
+    name: BIMPluginHostingGrpc
+  - uid: IdeaStatiCa.Plugin.BIMProject
+    name: BIMProject
+  - uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
+    name: ConnectionHiddenCheckClient
+  - uid: IdeaStatiCa.Plugin.ConnHiddenClientFactory
+    name: ConnHiddenClientFactory
+  - uid: IdeaStatiCa.Plugin.Constants
+    name: Constants
+  - uid: IdeaStatiCa.Plugin.ConversionDictionary`1
+    name: ConversionDictionary<TKey>
+  - uid: IdeaStatiCa.Plugin.ConversionDictionaryInt
+    name: ConversionDictionaryInt
+  - uid: IdeaStatiCa.Plugin.ConversionDictionaryString
+    name: ConversionDictionaryString
+  - uid: IdeaStatiCa.Plugin.CrossSectionProjectItem
+    name: CrossSectionProjectItem
+  - uid: IdeaStatiCa.Plugin.ErrorHandlerAttribute
+    name: ErrorHandlerAttribute
+  - uid: IdeaStatiCa.Plugin.GrpcBimHostingFactory
+    name: GrpcBimHostingFactory
+  - uid: IdeaStatiCa.Plugin.IApplicationBIM
+    name: IApplicationBIM
+  - uid: IdeaStatiCa.Plugin.IAutomation
+    name: IAutomation
+  - uid: IdeaStatiCa.Plugin.IBimHostingFactory
+    name: IBimHostingFactory
+  - uid: IdeaStatiCa.Plugin.IBIMPluginClient`1
+    name: IBIMPluginClient<T>
+  - uid: IdeaStatiCa.Plugin.IBIMPluginFactory
+    name: IBIMPluginFactory
+  - uid: IdeaStatiCa.Plugin.IBIMPluginHosting
+    name: IBIMPluginHosting
+  - uid: IdeaStatiCa.Plugin.IClientBIM`1
+    name: IClientBIM<B>
+  - uid: IdeaStatiCa.Plugin.IConnCalculatorFactory
+    name: IConnCalculatorFactory
+  - uid: IdeaStatiCa.Plugin.IConnectionController
+    name: IConnectionController
+  - uid: IdeaStatiCa.Plugin.IConnHiddenCheck
+    name: IConnHiddenCheck
+  - uid: IdeaStatiCa.Plugin.IdeaConnectionController
+    name: IdeaConnectionController
+  - uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
+    name: IdeaStatiCaAppClient
+  - uid: IdeaStatiCa.Plugin.IdeaStatiCaClient`1
+    name: IdeaStatiCaClient<T>
+  - uid: IdeaStatiCa.Plugin.IIdeaStaticaApp
+    name: IIdeaStaticaApp
+  - uid: IdeaStatiCa.Plugin.IMemberCalculatorFactory
+    name: IMemberCalculatorFactory
+  - uid: IdeaStatiCa.Plugin.IMemberHiddenCheck
+    name: IMemberHiddenCheck
+  - uid: IdeaStatiCa.Plugin.IProgressCallback
+    name: IProgressCallback
+  - uid: IdeaStatiCa.Plugin.IProgressMessaging
+    name: IProgressMessaging
+  - uid: IdeaStatiCa.Plugin.ISEventArgs
+    name: ISEventArgs
+  - uid: IdeaStatiCa.Plugin.ISEventHandler
+    name: ISEventHandler
+  - uid: IdeaStatiCa.Plugin.LibraryItem
+    name: LibraryItem
+  - uid: IdeaStatiCa.Plugin.LocalisedMessage
+    name: LocalisedMessage
+  - uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+    name: MemberHiddenCheckClient
+  - uid: IdeaStatiCa.Plugin.MemberHiddenClientFactory
+    name: MemberHiddenClientFactory
+  - uid: IdeaStatiCa.Plugin.MessageSeverity
+    name: MessageSeverity
+  - uid: IdeaStatiCa.Plugin.ModelBIM
+    name: ModelBIM
+  - uid: IdeaStatiCa.Plugin.ProgressSender
+    name: ProgressSender
+  - uid: IdeaStatiCa.Plugin.ProjectItem
+    name: ProjectItem
+  - uid: IdeaStatiCa.Plugin.RequestedItemsType
+    name: RequestedItemsType
+  - uid: IdeaStatiCa.Plugin.SerializableDictionary`2
+    name: SerializableDictionary<TKey, TVal>
+  - uid: IdeaStatiCa.Plugin.Tools
+    name: Tools
+  - uid: IdeaStatiCa.Plugin.WcfErrorHandler
+    name: WcfErrorHandler
+- uid: IdeaStatiCa.Plugin.Grpc
+  name: IdeaStatiCa.Plugin.Grpc
+  items:
+  - uid: IdeaStatiCa.Plugin.Grpc.BlobStorageGrpc
+    name: BlobStorageGrpc
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentData
+    name: ContentData
+  - uid: IdeaStatiCa.Plugin.Grpc.ContentRequest
+    name: ContentRequest
+  - uid: IdeaStatiCa.Plugin.Grpc.ExistResponse
+    name: ExistResponse
+  - uid: IdeaStatiCa.Plugin.Grpc.GetEntriesRequest
+    name: GetEntriesRequest
+  - uid: IdeaStatiCa.Plugin.Grpc.GetEntriesResponse
+    name: GetEntriesResponse
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient
+    name: GrpcBlobStorageClient
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService
+    name: GrpcBlobStorageService
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceBase
+    name: GrpcBlobStorageService.GrpcBlobStorageServiceBase
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageService.GrpcBlobStorageServiceClient
+    name: GrpcBlobStorageService.GrpcBlobStorageServiceClient
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcClient
+    name: GrpcClient
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage
+    name: GrpcMessage
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage.Types
+    name: GrpcMessage.Types
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcMessage.Types.MessageType
+    name: GrpcMessage.Types.MessageType
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceContractReflection
+    name: GrpcReflectionServiceContractReflection
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcReflectionServiceFactory
+    name: GrpcReflectionServiceFactory
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcServer
+    name: GrpcServer
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService
+    name: GrpcService
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceBase
+    name: GrpcService.GrpcServiceBase
+  - uid: IdeaStatiCa.Plugin.Grpc.GrpcService.GrpcServiceClient
+    name: GrpcService.GrpcServiceClient
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+    name: IGrpcBlobStorageClient
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcClient
+    name: IGrpcClient
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcCommunicator
+    name: IGrpcCommunicator
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
+    name: IGrpcMessageHandler
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler`1
+    name: IGrpcMessageHandler<T>
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcSender
+    name: IGrpcSender
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcServer
+    name: IGrpcServer
+  - uid: IdeaStatiCa.Plugin.Grpc.IGrpcService
+    name: IGrpcService
+  - uid: IdeaStatiCa.Plugin.Grpc.VoidResponse
+    name: VoidResponse
+- uid: IdeaStatiCa.Plugin.Grpc.Reflection
+  name: IdeaStatiCa.Plugin.Grpc.Reflection
+  items:
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.Extensions
+    name: Extensions
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcMethodInvokerHandler
+    name: GrpcMethodInvokerHandler
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionArgument
+    name: GrpcReflectionArgument
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionCallbackData
+    name: GrpcReflectionCallbackData
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionInvokeData
+    name: GrpcReflectionInvokeData
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionMessageHandler
+    name: GrpcReflectionMessageHandler
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionMethodAttribute
+    name: GrpcReflectionMethodAttribute
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionServer
+    name: GrpcReflectionServer
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcReflectionServiceAttribute
+    name: GrpcReflectionServiceAttribute
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceBasedReflectionClient`1
+    name: GrpcServiceBasedReflectionClient<IReflectionService>
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.GrpcServiceClient`1
+    name: GrpcServiceClient<ServiceType>
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
+    name: IMethodInvoker
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.IMethodTask
+    name: IMethodTask
+  - uid: IdeaStatiCa.Plugin.Grpc.Reflection.MethodTask
+    name: MethodTask
+- uid: IdeaStatiCa.Plugin.Grpc.Services
+  name: IdeaStatiCa.Plugin.Grpc.Services
+  items:
+  - uid: IdeaStatiCa.Plugin.Grpc.Services.GrpcBlobStorageService
+    name: GrpcBlobStorageService
+  - uid: IdeaStatiCa.Plugin.Grpc.Services.GrpcService
+    name: GrpcService
+- uid: IdeaStatiCa.Plugin.ProjectContent
+  name: IdeaStatiCa.Plugin.ProjectContent
+  items:
+  - uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
+    name: IProjectContentStorage
+  - uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
+    name: ProjectContentClientHandler
+  - uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler
+    name: ProjectContentServerHandler
+  - uid: IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream
+    name: RemoteDataStream
+- uid: IdeaStatiCa.Plugin.Utilities
+  name: IdeaStatiCa.Plugin.Utilities
+  items:
+  - uid: IdeaStatiCa.Plugin.Utilities.IdeaStatiCaSetupTools
+    name: IdeaStatiCaSetupTools
+  - uid: IdeaStatiCa.Plugin.Utilities.PortFinder
+    name: PortFinder
+  - uid: IdeaStatiCa.Plugin.Utilities.ReflectionHelper
+    name: ReflectionHelper
+- uid: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  name: IdeaStatiCa.PluginsTools.CrossSectionConversions
+  items:
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.Conversion
+    name: Conversion
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.CssConversionBuilder
+    name: CssConversionBuilder
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.CssConversions
+    name: CssConversions
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.CustomConversion
+    name: CustomConversion
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.ICssConvertor
+    name: ICssConvertor
+  - uid: IdeaStatiCa.PluginsTools.CrossSectionConversions.RegexReplace
+    name: RegexReplace
+memberLayout: SamePage

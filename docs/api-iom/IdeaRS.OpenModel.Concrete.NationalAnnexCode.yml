@@ -1,0 +1,387 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  commentId: T:IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  id: NationalAnnexCode
+  parent: IdeaRS.OpenModel.Concrete
+  children:
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Austrian
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Belgian
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.British
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Czech
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Dutch
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.French
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.German
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.NoAnnex
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Polish
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Singapore
+  - IdeaRS.OpenModel.Concrete.NationalAnnexCode.Slovak
+  langs:
+  - csharp
+  - vb
+  name: NationalAnnexCode
+  nameWithType: NationalAnnexCode
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NationalAnnexCode
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1110
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Annex code
+  example: []
+  syntax:
+    content: public enum NationalAnnexCode
+    content.vb: Public Enum NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.NoAnnex
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.NoAnnex
+  id: NoAnnex
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: NoAnnex
+  nameWithType: NationalAnnexCode.NoAnnex
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.NoAnnex
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: NoAnnex
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1115
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: No national annex defined
+  example: []
+  syntax:
+    content: NoAnnex = 0
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Czech
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Czech
+  id: Czech
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Czech
+  nameWithType: NationalAnnexCode.Czech
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Czech
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Czech
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1120
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Czech national annex
+  example: []
+  syntax:
+    content: Czech = 1
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Slovak
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Slovak
+  id: Slovak
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Slovak
+  nameWithType: NationalAnnexCode.Slovak
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Slovak
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Slovak
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1125
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Slovak national annex
+  example: []
+  syntax:
+    content: Slovak = 2
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Austrian
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Austrian
+  id: Austrian
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Austrian
+  nameWithType: NationalAnnexCode.Austrian
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Austrian
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Austrian
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1130
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Austria national annex
+  example: []
+  syntax:
+    content: Austrian = 3
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.German
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.German
+  id: German
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: German
+  nameWithType: NationalAnnexCode.German
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.German
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: German
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1135
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Germany national annex
+  example: []
+  syntax:
+    content: German = 4
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Dutch
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Dutch
+  id: Dutch
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Dutch
+  nameWithType: NationalAnnexCode.Dutch
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Dutch
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dutch
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1140
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Dutch national annex
+  example: []
+  syntax:
+    content: Dutch = 5
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Belgian
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Belgian
+  id: Belgian
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Belgian
+  nameWithType: NationalAnnexCode.Belgian
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Belgian
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Belgian
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1145
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Belgian national annex
+  example: []
+  syntax:
+    content: Belgian = 6
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.French
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.French
+  id: French
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: French
+  nameWithType: NationalAnnexCode.French
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.French
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: French
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1150
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: France national annex
+  example: []
+  syntax:
+    content: French = 7
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.British
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.British
+  id: British
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: British
+  nameWithType: NationalAnnexCode.British
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.British
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: British
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1155
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: British national annex
+  example: []
+  syntax:
+    content: British = 8
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Singapore
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Singapore
+  id: Singapore
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Singapore
+  nameWithType: NationalAnnexCode.Singapore
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Singapore
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Singapore
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1160
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Singapore national annex
+  example: []
+  syntax:
+    content: Singapore = 9
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Polish
+  commentId: F:IdeaRS.OpenModel.Concrete.NationalAnnexCode.Polish
+  id: Polish
+  parent: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  langs:
+  - csharp
+  - vb
+  name: Polish
+  nameWithType: NationalAnnexCode.Polish
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode.Polish
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Polish
+    path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
+    startLine: 1165
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Concrete
+  summary: Polish national annex
+  example: []
+  syntax:
+    content: Polish = 10
+    return:
+      type: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+references:
+- uid: IdeaRS.OpenModel.Concrete
+  commentId: N:IdeaRS.OpenModel.Concrete
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Concrete
+  nameWithType: IdeaRS.OpenModel.Concrete
+  fullName: IdeaRS.OpenModel.Concrete
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Concrete
+    name: Concrete
+    href: IdeaRS.OpenModel.Concrete.html
+- uid: IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  commentId: T:IdeaRS.OpenModel.Concrete.NationalAnnexCode
+  parent: IdeaRS.OpenModel.Concrete
+  href: IdeaRS.OpenModel.Concrete.NationalAnnexCode.html
+  name: NationalAnnexCode
+  nameWithType: NationalAnnexCode
+  fullName: IdeaRS.OpenModel.Concrete.NationalAnnexCode

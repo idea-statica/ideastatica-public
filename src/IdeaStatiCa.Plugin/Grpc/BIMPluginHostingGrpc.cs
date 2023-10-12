@@ -190,7 +190,7 @@ namespace IdeaStatiCa.Plugin
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				// disable only recent files
-				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\" {Constants.GrpcPortParam}:{GrpcCommunicator.Port}");
+				connectionProc.StartInfo = new ProcessStartInfo(exePath, $"{Constants.AutomationParam}:{id} {Constants.ProjectParam}:\"{workingDirectory}\" {Constants.GrpcControlPortParam}:{GrpcCommunicator.Port}");
 				connectionProc.EnableRaisingEvents = true;
 				connectionProc.Start();
 

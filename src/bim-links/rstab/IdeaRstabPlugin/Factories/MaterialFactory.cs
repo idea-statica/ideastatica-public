@@ -43,11 +43,18 @@ namespace IdeaRstabPlugin.Factories
 			{
 				if (isConcrete)
 				{
-					return new RstabMaterialConcrete(importSession.CountryCode, source);
+					RstabMaterialConcrete matConcrete = new RstabMaterialConcrete(importSession.CountryCode, source);
+					// check that we can create the material
+					// sometimes the material database doesnt want to return some properties
+					_ = matConcrete.Material;
+					return matConcrete;
 				}
 				else
 				{
-					return new RstabMaterialSteel(importSession.CountryCode, source);
+					RstabMaterialSteel matSteel = new RstabMaterialSteel(importSession.CountryCode, source);
+					// same as above
+					_ = matSteel.Material;
+					return matSteel;
 				}
 			}
 			catch (Exception e)

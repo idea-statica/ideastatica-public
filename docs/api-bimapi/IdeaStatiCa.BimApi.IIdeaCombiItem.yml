@@ -1,0 +1,219 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCombiItem
+  id: IIdeaCombiItem
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+  - IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+  - IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+  langs:
+  - csharp
+  - vb
+  name: IIdeaCombiItem
+  nameWithType: IIdeaCombiItem
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaCombiItem
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: 'public interface IIdeaCombiItem : IIdeaObject'
+    content.vb: Public Interface IIdeaCombiItem Inherits IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+  id: LoadCase
+  parent: IdeaStatiCa.BimApi.IIdeaCombiItem
+  langs:
+  - csharp
+  - vb
+  name: LoadCase
+  nameWithType: IIdeaCombiItem.LoadCase
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LoadCase
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: IIdeaLoadCase LoadCase { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaLoadCase
+    content.vb: ReadOnly Property LoadCase As IIdeaLoadCase
+  overload: IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase*
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+  id: Coeff
+  parent: IdeaStatiCa.BimApi.IIdeaCombiItem
+  langs:
+  - csharp
+  - vb
+  name: Coeff
+  nameWithType: IIdeaCombiItem.Coeff
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Coeff
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Coefficient
+  example: []
+  syntax:
+    content: double Coeff { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Coeff As Double
+  overload: IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff*
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+  id: Combination
+  parent: IdeaStatiCa.BimApi.IIdeaCombiItem
+  langs:
+  - csharp
+  - vb
+  name: Combination
+  nameWithType: IIdeaCombiItem.Combination
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Combination
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCombiItem.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Inserted another combination
+  example: []
+  syntax:
+    content: IIdeaCombiInput Combination { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaCombiInput
+    content.vb: ReadOnly Property Combination As IIdeaCombiInput
+  overload: IdeaStatiCa.BimApi.IIdeaCombiItem.Combination*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+  href: IdeaStatiCa.BimApi.IIdeaCombiItem.html#IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+  name: LoadCase
+  nameWithType: IIdeaCombiItem.LoadCase
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem.LoadCase
+- uid: IdeaStatiCa.BimApi.IIdeaLoadCase
+  commentId: T:IdeaStatiCa.BimApi.IIdeaLoadCase
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaLoadCase.html
+  name: IIdeaLoadCase
+  nameWithType: IIdeaLoadCase
+  fullName: IdeaStatiCa.BimApi.IIdeaLoadCase
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+  href: IdeaStatiCa.BimApi.IIdeaCombiItem.html#IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+  name: Coeff
+  nameWithType: IIdeaCombiItem.Coeff
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem.Coeff
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaCombiItem.Combination*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+  href: IdeaStatiCa.BimApi.IIdeaCombiItem.html#IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+  name: Combination
+  nameWithType: IIdeaCombiItem.Combination
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiItem.Combination
+- uid: IdeaStatiCa.BimApi.IIdeaCombiInput
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCombiInput
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaCombiInput.html
+  name: IIdeaCombiInput
+  nameWithType: IIdeaCombiInput
+  fullName: IdeaStatiCa.BimApi.IIdeaCombiInput

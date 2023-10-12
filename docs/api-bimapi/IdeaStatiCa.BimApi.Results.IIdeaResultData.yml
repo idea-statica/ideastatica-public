@@ -1,0 +1,61 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.Results.IIdeaResultData
+  commentId: T:IdeaStatiCa.BimApi.Results.IIdeaResultData
+  id: IIdeaResultData
+  parent: IdeaStatiCa.BimApi.Results
+  children: []
+  langs:
+  - csharp
+  - vb
+  name: IIdeaResultData
+  nameWithType: IIdeaResultData
+  fullName: IdeaStatiCa.BimApi.Results.IIdeaResultData
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/Results/IIdeaResultData.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaResultData
+    path: ../src/IdeaStatiCa.BimApi/Results/IIdeaResultData.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi.Results
+  summary: Data and values of the result.
+  example: []
+  syntax:
+    content: public interface IIdeaResultData
+    content.vb: Public Interface IIdeaResultData
+references:
+- uid: IdeaStatiCa.BimApi.Results
+  commentId: N:IdeaStatiCa.BimApi.Results
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi.Results
+  nameWithType: IdeaStatiCa.BimApi.Results
+  fullName: IdeaStatiCa.BimApi.Results
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi.Results
+    name: Results
+    href: IdeaStatiCa.BimApi.Results.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi.Results
+    name: Results
+    href: IdeaStatiCa.BimApi.Results.html

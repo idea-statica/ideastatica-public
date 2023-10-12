@@ -1,0 +1,299 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaFoldedPlate
+  commentId: T:IdeaStatiCa.BimApi.IIdeaFoldedPlate
+  id: IIdeaFoldedPlate
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+  - IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+  langs:
+  - csharp
+  - vb
+  name: IIdeaFoldedPlate
+  nameWithType: IIdeaFoldedPlate
+  fullName: IdeaStatiCa.BimApi.IIdeaFoldedPlate
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaFoldedPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaFoldedPlate
+    path: ../src/IdeaStatiCa.BimApi/IIdeaFoldedPlate.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Represent folded plate - connect IIdeaPlate and IIdeaBend in to one piece
+  example: []
+  syntax:
+    content: 'public interface IIdeaFoldedPlate : IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObject'
+    content.vb: Public Interface IIdeaFoldedPlate Inherits IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+  commentId: P:IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+  id: Plates
+  parent: IdeaStatiCa.BimApi.IIdeaFoldedPlate
+  langs:
+  - csharp
+  - vb
+  name: Plates
+  nameWithType: IIdeaFoldedPlate.Plates
+  fullName: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaFoldedPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Plates
+    path: ../src/IdeaStatiCa.BimApi/IIdeaFoldedPlate.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Collection of plates
+  example: []
+  syntax:
+    content: IEnumerable<IIdeaPlate> Plates { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaPlate}
+    content.vb: ReadOnly Property Plates As IEnumerable(Of IIdeaPlate)
+  overload: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates*
+- uid: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+  commentId: P:IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+  id: Bends
+  parent: IdeaStatiCa.BimApi.IIdeaFoldedPlate
+  langs:
+  - csharp
+  - vb
+  name: Bends
+  nameWithType: IIdeaFoldedPlate.Bends
+  fullName: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaFoldedPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Bends
+    path: ../src/IdeaStatiCa.BimApi/IIdeaFoldedPlate.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Collection of plates
+  example: []
+  syntax:
+    content: IEnumerable<IIdeaBend> Bends { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaBend}
+    content.vb: ReadOnly Property Bends As IEnumerable(Of IIdeaBend)
+  overload: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+  href: IdeaStatiCa.BimApi.IIdeaFoldedPlate.html#IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+  name: Plates
+  nameWithType: IIdeaFoldedPlate.Plates
+  fullName: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Plates
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaPlate}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaPlate}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IIdeaPlate>
+  nameWithType: IEnumerable<IIdeaPlate>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApi.IIdeaPlate>
+  nameWithType.vb: IEnumerable(Of IIdeaPlate)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApi.IIdeaPlate)
+  name.vb: IEnumerable(Of IIdeaPlate)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaPlate
+    name: IIdeaPlate
+    href: IdeaStatiCa.BimApi.IIdeaPlate.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaPlate
+    name: IIdeaPlate
+    href: IdeaStatiCa.BimApi.IIdeaPlate.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+  href: IdeaStatiCa.BimApi.IIdeaFoldedPlate.html#IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+  name: Bends
+  nameWithType: IIdeaFoldedPlate.Bends
+  fullName: IdeaStatiCa.BimApi.IIdeaFoldedPlate.Bends
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaBend}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApi.IIdeaBend}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IIdeaBend>
+  nameWithType: IEnumerable<IIdeaBend>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApi.IIdeaBend>
+  nameWithType.vb: IEnumerable(Of IIdeaBend)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApi.IIdeaBend)
+  name.vb: IEnumerable(Of IIdeaBend)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaBend
+    name: IIdeaBend
+    href: IdeaStatiCa.BimApi.IIdeaBend.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaBend
+    name: IIdeaBend
+    href: IdeaStatiCa.BimApi.IIdeaBend.html
+  - name: )

@@ -1,0 +1,122 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.AutomationStatus
+  commentId: T:IdeaStatiCa.Plugin.AutomationStatus
+  id: AutomationStatus
+  parent: IdeaStatiCa.Plugin
+  children:
+  - IdeaStatiCa.Plugin.AutomationStatus.IsClient
+  - IdeaStatiCa.Plugin.AutomationStatus.Unknown
+  langs:
+  - csharp
+  - vb
+  name: AutomationStatus
+  nameWithType: AutomationStatus
+  fullName: IdeaStatiCa.Plugin.AutomationStatus
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IAutomation.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: AutomationStatus
+    path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum AutomationStatus
+    content.vb: >-
+      <Flags>
+
+      Public Enum AutomationStatus
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: IdeaStatiCa.Plugin.AutomationStatus.Unknown
+  commentId: F:IdeaStatiCa.Plugin.AutomationStatus.Unknown
+  id: Unknown
+  parent: IdeaStatiCa.Plugin.AutomationStatus
+  langs:
+  - csharp
+  - vb
+  name: Unknown
+  nameWithType: AutomationStatus.Unknown
+  fullName: IdeaStatiCa.Plugin.AutomationStatus.Unknown
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IAutomation.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Unknown
+    path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: Unknown = 0
+    return:
+      type: IdeaStatiCa.Plugin.AutomationStatus
+- uid: IdeaStatiCa.Plugin.AutomationStatus.IsClient
+  commentId: F:IdeaStatiCa.Plugin.AutomationStatus.IsClient
+  id: IsClient
+  parent: IdeaStatiCa.Plugin.AutomationStatus
+  langs:
+  - csharp
+  - vb
+  name: IsClient
+  nameWithType: AutomationStatus.IsClient
+  fullName: IdeaStatiCa.Plugin.AutomationStatus.IsClient
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/IAutomation.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IsClient
+    path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: IsClient = 1
+    return:
+      type: IdeaStatiCa.Plugin.AutomationStatus
+references:
+- uid: IdeaStatiCa.Plugin
+  commentId: N:IdeaStatiCa.Plugin
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin
+  nameWithType: IdeaStatiCa.Plugin
+  fullName: IdeaStatiCa.Plugin
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+- uid: IdeaStatiCa.Plugin.AutomationStatus
+  commentId: T:IdeaStatiCa.Plugin.AutomationStatus
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.AutomationStatus.html
+  name: AutomationStatus
+  nameWithType: AutomationStatus
+  fullName: IdeaStatiCa.Plugin.AutomationStatus

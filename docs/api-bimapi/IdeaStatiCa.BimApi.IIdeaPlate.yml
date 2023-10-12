@@ -1,0 +1,378 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaPlate
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPlate
+  id: IIdeaPlate
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+  - IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+  - IdeaStatiCa.BimApi.IIdeaPlate.Material
+  - IdeaStatiCa.BimApi.IIdeaPlate.Origin
+  - IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+  langs:
+  - csharp
+  - vb
+  name: IIdeaPlate
+  nameWithType: IIdeaPlate
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaPlate
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: An plate is a part of a connection.
+  example: []
+  syntax:
+    content: 'public interface IIdeaPlate : IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObject'
+    content.vb: Public Interface IIdeaPlate Inherits IIdeaObjectConnectable, IIdeaPersistentObject, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+  id: Thickness
+  parent: IdeaStatiCa.BimApi.IIdeaPlate
+  langs:
+  - csharp
+  - vb
+  name: Thickness
+  nameWithType: IIdeaPlate.Thickness
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Thickness
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  syntax:
+    content: double Thickness { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Property Thickness As Double
+  overload: IdeaStatiCa.BimApi.IIdeaPlate.Thickness*
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPlate.Material
+  id: Material
+  parent: IdeaStatiCa.BimApi.IIdeaPlate
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IIdeaPlate.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Material of the plate.
+  example: []
+  syntax:
+    content: IIdeaMaterial Material { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaMaterial
+    content.vb: ReadOnly Property Material As IIdeaMaterial
+  overload: IdeaStatiCa.BimApi.IIdeaPlate.Material*
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Origin
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPlate.Origin
+  id: Origin
+  parent: IdeaStatiCa.BimApi.IIdeaPlate
+  langs:
+  - csharp
+  - vb
+  name: Origin
+  nameWithType: IIdeaPlate.Origin
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Origin
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Origin
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Origin node of the plate.
+  example: []
+  syntax:
+    content: IIdeaNode Origin { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaNode
+    content.vb: ReadOnly Property Origin As IIdeaNode
+  overload: IdeaStatiCa.BimApi.IIdeaPlate.Origin*
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+  id: LocalCoordinateSystem
+  parent: IdeaStatiCa.BimApi.IIdeaPlate
+  langs:
+  - csharp
+  - vb
+  name: LocalCoordinateSystem
+  nameWithType: IIdeaPlate.LocalCoordinateSystem
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: LocalCoordinateSystem
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: >-
+    Local Coordinate System (LCS) of the plate. Only vector definition of the LCS is supported, so the instance of <xref href="IdeaRS.OpenModel.Geometry3D.CoordSystemByVector" data-throw-if-not-resolved="false"></xref> must be returned.
+
+    LCS only effects rotation of the segment, it does not modify on nodes' position.
+  example: []
+  syntax:
+    content: CoordSystem LocalCoordinateSystem { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry3D.CoordSystem
+    content.vb: ReadOnly Property LocalCoordinateSystem As CoordSystem
+  overload: IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem*
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+  id: Geometry
+  parent: IdeaStatiCa.BimApi.IIdeaPlate
+  langs:
+  - csharp
+  - vb
+  name: Geometry
+  nameWithType: IIdeaPlate.Geometry
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Geometry
+    path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Geometry of the component.
+  example: []
+  syntax:
+    content: Region2D Geometry { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry2D.Region2D
+    content.vb: ReadOnly Property Geometry As Region2D
+  overload: IdeaStatiCa.BimApi.IIdeaPlate.Geometry*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  commentId: P:IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  parent: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html#IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+  name: Token
+  nameWithType: IIdeaPersistentObject.Token
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject.Token
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaPersistentObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaPersistentObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaPersistentObject.html
+  name: IIdeaPersistentObject
+  nameWithType: IIdeaPersistentObject
+  fullName: IdeaStatiCa.BimApi.IIdeaPersistentObject
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Thickness*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+  href: IdeaStatiCa.BimApi.IIdeaPlate.html#IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+  name: Thickness
+  nameWithType: IIdeaPlate.Thickness
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Thickness
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Material*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaPlate.Material
+  href: IdeaStatiCa.BimApi.IIdeaPlate.html#IdeaStatiCa.BimApi.IIdeaPlate.Material
+  name: Material
+  nameWithType: IIdeaPlate.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Material
+- uid: IdeaStatiCa.BimApi.IIdeaMaterial
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterial
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaMaterial.html
+  name: IIdeaMaterial
+  nameWithType: IIdeaMaterial
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterial
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Origin*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaPlate.Origin
+  href: IdeaStatiCa.BimApi.IIdeaPlate.html#IdeaStatiCa.BimApi.IIdeaPlate.Origin
+  name: Origin
+  nameWithType: IIdeaPlate.Origin
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Origin
+- uid: IdeaStatiCa.BimApi.IIdeaNode
+  commentId: T:IdeaStatiCa.BimApi.IIdeaNode
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaNode.html
+  name: IIdeaNode
+  nameWithType: IIdeaNode
+  fullName: IdeaStatiCa.BimApi.IIdeaNode
+- uid: IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+  commentId: T:IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+  name: CoordSystemByVector
+  nameWithType: CoordSystemByVector
+  fullName: IdeaRS.OpenModel.Geometry3D.CoordSystemByVector
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+  href: IdeaStatiCa.BimApi.IIdeaPlate.html#IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+  name: LocalCoordinateSystem
+  nameWithType: IIdeaPlate.LocalCoordinateSystem
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.LocalCoordinateSystem
+- uid: IdeaRS.OpenModel.Geometry3D.CoordSystem
+  commentId: T:IdeaRS.OpenModel.Geometry3D.CoordSystem
+  parent: IdeaRS.OpenModel.Geometry3D
+  name: CoordSystem
+  nameWithType: CoordSystem
+  fullName: IdeaRS.OpenModel.Geometry3D.CoordSystem
+- uid: IdeaRS.OpenModel.Geometry3D
+  commentId: N:IdeaRS.OpenModel.Geometry3D
+  name: IdeaRS.OpenModel.Geometry3D
+  nameWithType: IdeaRS.OpenModel.Geometry3D
+  fullName: IdeaRS.OpenModel.Geometry3D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry3D
+    name: Geometry3D
+- uid: IdeaStatiCa.BimApi.IIdeaPlate.Geometry*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+  href: IdeaStatiCa.BimApi.IIdeaPlate.html#IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+  name: Geometry
+  nameWithType: IIdeaPlate.Geometry
+  fullName: IdeaStatiCa.BimApi.IIdeaPlate.Geometry
+- uid: IdeaRS.OpenModel.Geometry2D.Region2D
+  commentId: T:IdeaRS.OpenModel.Geometry2D.Region2D
+  parent: IdeaRS.OpenModel.Geometry2D
+  name: Region2D
+  nameWithType: Region2D
+  fullName: IdeaRS.OpenModel.Geometry2D.Region2D
+- uid: IdeaRS.OpenModel.Geometry2D
+  commentId: N:IdeaRS.OpenModel.Geometry2D
+  name: IdeaRS.OpenModel.Geometry2D
+  nameWithType: IdeaRS.OpenModel.Geometry2D
+  fullName: IdeaRS.OpenModel.Geometry2D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D

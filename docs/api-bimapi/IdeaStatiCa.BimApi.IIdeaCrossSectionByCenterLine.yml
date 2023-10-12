@@ -1,0 +1,373 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  id: IIdeaCrossSectionByCenterLine
+  parent: IdeaStatiCa.BimApi
+  children:
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness
+  - IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+  langs:
+  - csharp
+  - vb
+  name: IIdeaCrossSectionByCenterLine
+  nameWithType: IIdeaCrossSectionByCenterLine
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IIdeaCrossSectionByCenterLine
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: A cross-section of a general cold formed profile defined by it's center line.
+  example: []
+  syntax:
+    content: 'public interface IIdeaCrossSectionByCenterLine : IIdeaCrossSection, IIdeaObject'
+    content.vb: Public Interface IIdeaCrossSectionByCenterLine Inherits IIdeaCrossSection, IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  - IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  - IdeaStatiCa.BimApi.IIdeaObject.Id
+  - IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+  id: Material
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IIdeaCrossSectionByCenterLine.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Material of the cross-section.
+  example: []
+  syntax:
+    content: IIdeaMaterial Material { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaMaterial
+    content.vb: ReadOnly Property Material As IIdeaMaterial
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material*
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+  id: Type
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  langs:
+  - csharp
+  - vb
+  name: Type
+  nameWithType: IIdeaCrossSectionByCenterLine.Type
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Type
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Type of the cross-section.
+  example: []
+  syntax:
+    content: CrossSectionType Type { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.CrossSection.CrossSectionType
+    content.vb: ReadOnly Property Type As CrossSectionType
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type*
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+  id: CenterLine
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  langs:
+  - csharp
+  - vb
+  name: CenterLine
+  nameWithType: IIdeaCrossSectionByCenterLine.CenterLine
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CenterLine
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Center line
+  example: []
+  syntax:
+    content: PolyLine2D CenterLine { get; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Geometry2D.PolyLine2D
+    content.vb: ReadOnly Property CenterLine As PolyLine2D
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine*
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+  id: Radius
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  langs:
+  - csharp
+  - vb
+  name: Radius
+  nameWithType: IIdeaCrossSectionByCenterLine.Radius
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Radius
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+    startLine: 28
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Radius
+  example: []
+  syntax:
+    content: double Radius { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Radius As Double
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius*
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness
+  id: Thickness
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine
+  langs:
+  - csharp
+  - vb
+  name: Thickness
+  nameWithType: IIdeaCrossSectionByCenterLine.Thickness
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Thickness
+    path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByCenterLine.cs
+    startLine: 33
+  assemblies:
+  - IdeaStatiCa.BimApi
+  namespace: IdeaStatiCa.BimApi
+  summary: Thickness
+  example: []
+  syntax:
+    content: double Thickness { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: ReadOnly Property Thickness As Double
+  overload: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness*
+references:
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApi.html
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html#IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+  name: Rotation
+  nameWithType: IIdeaCrossSection.Rotation
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection.Rotation
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  commentId: P:IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  parent: IdeaStatiCa.BimApi.IIdeaCrossSection
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html#IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+  name: IsInPrincipal
+  nameWithType: IIdeaCrossSection.IsInPrincipal
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection.IsInPrincipal
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Id
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Id
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Id
+  name: Id
+  nameWithType: IIdeaObject.Id
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Id
+- uid: IdeaStatiCa.BimApi.IIdeaObject.Name
+  commentId: P:IdeaStatiCa.BimApi.IIdeaObject.Name
+  parent: IdeaStatiCa.BimApi.IIdeaObject
+  href: IdeaStatiCa.BimApi.IIdeaObject.html#IdeaStatiCa.BimApi.IIdeaObject.Name
+  name: Name
+  nameWithType: IIdeaObject.Name
+  fullName: IdeaStatiCa.BimApi.IIdeaObject.Name
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSection
+  commentId: T:IdeaStatiCa.BimApi.IIdeaCrossSection
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaCrossSection.html
+  name: IIdeaCrossSection
+  nameWithType: IIdeaCrossSection
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaObject.html
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.html#IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+  name: Material
+  nameWithType: IIdeaCrossSectionByCenterLine.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Material
+- uid: IdeaStatiCa.BimApi.IIdeaMaterial
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterial
+  parent: IdeaStatiCa.BimApi
+  href: IdeaStatiCa.BimApi.IIdeaMaterial.html
+  name: IIdeaMaterial
+  nameWithType: IIdeaMaterial
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterial
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.html#IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+  name: Type
+  nameWithType: IIdeaCrossSectionByCenterLine.Type
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Type
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionType
+  commentId: T:IdeaRS.OpenModel.CrossSection.CrossSectionType
+  parent: IdeaRS.OpenModel.CrossSection
+  name: CrossSectionType
+  nameWithType: CrossSectionType
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionType
+- uid: IdeaRS.OpenModel.CrossSection
+  commentId: N:IdeaRS.OpenModel.CrossSection
+  name: IdeaRS.OpenModel.CrossSection
+  nameWithType: IdeaRS.OpenModel.CrossSection
+  fullName: IdeaRS.OpenModel.CrossSection
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.CrossSection
+    name: CrossSection
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.html#IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+  name: CenterLine
+  nameWithType: IIdeaCrossSectionByCenterLine.CenterLine
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.CenterLine
+- uid: IdeaRS.OpenModel.Geometry2D.PolyLine2D
+  commentId: T:IdeaRS.OpenModel.Geometry2D.PolyLine2D
+  parent: IdeaRS.OpenModel.Geometry2D
+  name: PolyLine2D
+  nameWithType: PolyLine2D
+  fullName: IdeaRS.OpenModel.Geometry2D.PolyLine2D
+- uid: IdeaRS.OpenModel.Geometry2D
+  commentId: N:IdeaRS.OpenModel.Geometry2D
+  name: IdeaRS.OpenModel.Geometry2D
+  nameWithType: IdeaRS.OpenModel.Geometry2D
+  fullName: IdeaRS.OpenModel.Geometry2D
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Geometry2D
+    name: Geometry2D
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.html#IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+  name: Radius
+  nameWithType: IIdeaCrossSectionByCenterLine.Radius
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Radius
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness*
+  commentId: Overload:IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness
+  href: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.html#IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness
+  name: Thickness
+  nameWithType: IIdeaCrossSectionByCenterLine.Thickness
+  fullName: IdeaStatiCa.BimApi.IIdeaCrossSectionByCenterLine.Thickness

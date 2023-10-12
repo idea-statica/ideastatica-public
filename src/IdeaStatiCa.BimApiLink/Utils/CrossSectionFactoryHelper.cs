@@ -1,6 +1,5 @@
 ﻿using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.BimApiLink.BimApi;
-
 namespace IdeaStatiCa.BimApiLink.Utils
 {
 	/// <summary>
@@ -109,7 +108,7 @@ namespace IdeaStatiCa.BimApiLink.Utils
 		/// <param name="t">Thickness</param>
 		/// <param name="rw">Root radius</param>
 		/// <param name="r2">Toe radius</param>
-		/// <param name="C">Centroid position</param
+		/// <param name="C">Centroid position</param>
 		/// <param name="mirrorZ">Z-axis mirror</param>
 		/// <param name="mirrorY">Y-axis mirror</param>
 		public static void FillRolledAngle(IdeaCrossSectionByParameters css, double B, double D, double t, double rw, double r2, double C, bool mirrorZ = false, bool mirrorY = false)
@@ -207,6 +206,104 @@ namespace IdeaStatiCa.BimApiLink.Utils
 			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = Radius });
 			css.Parameters.Add(new ParameterDouble() { Name = "Lip", Value = lip });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
+		}
+
+		/// <summary>
+		/// Welded I asymetrical - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="bu">Width of upper flange</param>
+		/// <param name="bb">Width of bottom flange</param>
+		/// <param name="hw">Height of web</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="tfu">Upper flange thickness</param>
+		/// <param name="tfb">Bottom flange thickness</param>
+		/// <remarks>Dimension of assymetrical I section<br/>
+		/// <img src="Images\Iasym.png" /> <br/>
+		/// </remarks>
+		/// <example> 
+		/// This sample shows how to call this method./>
+		/// <code lang = "C#">
+		/// CrossSectionParameter css = new CrossSectionParameter();
+		/// css.Id = 4;
+		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());
+		/// double bu = 0.150;
+		/// double bb = 0.180;
+		/// double hw = 0.320;
+		/// double tw = 0.016;
+		/// double tfu = 0.014;
+		/// double tfb = 0.018;
+		/// CrossSectionFactory.FillWeldedAsymI(css, bu, bb, hw, tw, tfu, tfb);
+		/// openStructModel.AddObject(css);
+		/// </code>
+		/// </example>
+		public static void FillWeldedAsymI(IdeaCrossSectionByParameters css, System.Double bu, System.Double bb, System.Double hw, System.Double tw, System.Double tfu, System.Double tfb)
+		{
+			css.Type = IdeaRS.OpenModel.CrossSection.CrossSectionType.Iwn;
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
+		}
+
+		/// <summary>
+		/// Box 2 - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="bu">Width of upper flange</param>
+		/// <param name="bb">Width of bottom flange</param>
+		/// <param name="hw">Height of web</param>
+		/// <param name="b1">Web distance</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="tfu">Upper flange thickness</param>
+		/// <param name="tfb">Bottom flange thickness</param>
+		public static void FillBox2(IdeaCrossSectionByParameters css, System.Double bu, System.Double bb, System.Double hw, System.Double b1, System.Double tw, System.Double tfu, System.Double tfb)
+		{
+			css.Type = IdeaRS.OpenModel.CrossSection.CrossSectionType.BoxFl;
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebDistance", Value = b1 });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
+		}
+
+		/// <summary>
+		/// Fill steel section of welded I
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="bu">Width of flange</param>
+		/// <param name="hw">Height of web</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="tf">Flange thickness</param>
+		/// <remarks>Dimension of welded I section<br/>
+		/// <img src="Images\WeldedI.png" /> <br/>
+		/// </remarks>
+		/// <example> 
+		/// This sample shows how to call this method./>
+		/// <code lang = "C#">
+		/// CrossSectionParameter css = new CrossSectionParameter();
+		/// css.Id = 1;
+		/// css.Material = new ReferenceElement(openStructModel.MatSteel.First());  // I have only one material, I take the first one
+		/// double bu = 0.2;
+		/// double hw = 0.4;
+		/// double tw = 0.025;
+		/// double tf = 0.02;
+		/// CrossSectionFactory.FillWeldedI(css, bu, hw, tw, tf);
+		/// openStructModel.AddObject(css);
+		/// </code>
+		/// </example>
+
+		public static void FillWeldedI(IdeaCrossSectionByParameters css, System.Double bu, System.Double hw, System.Double tw, System.Double tf)
+		{
+			css.Type = IdeaRS.OpenModel.CrossSection.CrossSectionType.Iw;
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeWidth", Value = bu });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = tf });
 		}
 	}
 }

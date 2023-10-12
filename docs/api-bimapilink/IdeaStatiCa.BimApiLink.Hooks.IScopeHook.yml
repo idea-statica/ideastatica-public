@@ -1,0 +1,125 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  commentId: T:IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  id: IScopeHook
+  parent: IdeaStatiCa.BimApiLink.Hooks
+  children:
+  - IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope
+  - IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope
+  langs:
+  - csharp
+  - vb
+  name: IScopeHook
+  nameWithType: IScopeHook
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Hooks/IScopeHook.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IScopeHook
+    path: ../src/IdeaStatica.BimApiLink/Hooks/IScopeHook.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Hooks
+  syntax:
+    content: public interface IScopeHook
+    content.vb: Public Interface IScopeHook
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope
+  commentId: M:IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope
+  id: PreScope
+  parent: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  langs:
+  - csharp
+  - vb
+  name: PreScope()
+  nameWithType: IScopeHook.PreScope()
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Hooks/IScopeHook.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PreScope
+    path: ../src/IdeaStatica.BimApiLink/Hooks/IScopeHook.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Hooks
+  syntax:
+    content: void PreScope()
+    content.vb: Sub PreScope()
+  overload: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope*
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope
+  commentId: M:IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope
+  id: PostScope
+  parent: IdeaStatiCa.BimApiLink.Hooks.IScopeHook
+  langs:
+  - csharp
+  - vb
+  name: PostScope()
+  nameWithType: IScopeHook.PostScope()
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Hooks/IScopeHook.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: PostScope
+    path: ../src/IdeaStatica.BimApiLink/Hooks/IScopeHook.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Hooks
+  syntax:
+    content: void PostScope()
+    content.vb: Sub PostScope()
+  overload: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope*
+references:
+- uid: IdeaStatiCa.BimApiLink.Hooks
+  commentId: N:IdeaStatiCa.BimApiLink.Hooks
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Hooks
+  nameWithType: IdeaStatiCa.BimApiLink.Hooks
+  fullName: IdeaStatiCa.BimApiLink.Hooks
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Hooks
+    name: Hooks
+    href: IdeaStatiCa.BimApiLink.Hooks.html
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope
+  href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html#IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope
+  name: PreScope
+  nameWithType: IScopeHook.PreScope
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PreScope
+- uid: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope
+  href: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.html#IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope
+  name: PostScope
+  nameWithType: IScopeHook.PostScope
+  fullName: IdeaStatiCa.BimApiLink.Hooks.IScopeHook.PostScope

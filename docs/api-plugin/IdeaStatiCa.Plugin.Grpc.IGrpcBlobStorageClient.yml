@@ -1,0 +1,552 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  id: IGrpcBlobStorageClient
+  parent: IdeaStatiCa.Plugin.Grpc
+  children:
+  - IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync(System.String,System.String)
+  - IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose
+  - IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync(System.String,System.String)
+  - IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync(System.String)
+  - IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync(System.String,System.String)
+  - IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync(System.String,System.String,System.IO.Stream)
+  langs:
+  - csharp
+  - vb
+  name: IGrpcBlobStorageClient
+  nameWithType: IGrpcBlobStorageClient
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IGrpcBlobStorageClient
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public interface IGrpcBlobStorageClient
+    content.vb: Public Interface IGrpcBlobStorageClient
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync(System.String,System.String)
+  id: DeleteAsync(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  langs:
+  - csharp
+  - vb
+  name: DeleteAsync(string, string)
+  nameWithType: IGrpcBlobStorageClient.DeleteAsync(string, string)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DeleteAsync
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: Task DeleteAsync(string blobStorageId, string contentId)
+    parameters:
+    - id: blobStorageId
+      type: System.String
+    - id: contentId
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function DeleteAsync(blobStorageId As String, contentId As String) As Task
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync*
+  nameWithType.vb: IGrpcBlobStorageClient.DeleteAsync(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync(String, String)
+  name.vb: DeleteAsync(String, String)
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose
+  id: Dispose
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: IGrpcBlobStorageClient.Dispose()
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dispose
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: void Dispose()
+    content.vb: Sub Dispose()
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose*
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync(System.String,System.String)
+  id: ExistAsync(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  langs:
+  - csharp
+  - vb
+  name: ExistAsync(string, string)
+  nameWithType: IGrpcBlobStorageClient.ExistAsync(string, string)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ExistAsync
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: Task<bool> ExistAsync(string blobStorageId, string contentId)
+    parameters:
+    - id: blobStorageId
+      type: System.String
+    - id: contentId
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Function ExistAsync(blobStorageId As String, contentId As String) As Task(Of Boolean)
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync*
+  nameWithType.vb: IGrpcBlobStorageClient.ExistAsync(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync(String, String)
+  name.vb: ExistAsync(String, String)
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync(System.String)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync(System.String)
+  id: GetEntriesAsync(System.String)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  langs:
+  - csharp
+  - vb
+  name: GetEntriesAsync(string)
+  nameWithType: IGrpcBlobStorageClient.GetEntriesAsync(string)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetEntriesAsync
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: Task<List<string>> GetEntriesAsync(string blobStorageId)
+    parameters:
+    - id: blobStorageId
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{System.String}}
+    content.vb: Function GetEntriesAsync(blobStorageId As String) As Task(Of List(Of String))
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync*
+  nameWithType.vb: IGrpcBlobStorageClient.GetEntriesAsync(String)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync(String)
+  name.vb: GetEntriesAsync(String)
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync(System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync(System.String,System.String)
+  id: ReadAsync(System.String,System.String)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  langs:
+  - csharp
+  - vb
+  name: ReadAsync(string, string)
+  nameWithType: IGrpcBlobStorageClient.ReadAsync(string, string)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ReadAsync
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: Task<Stream> ReadAsync(string blobStorageId, string contentId)
+    parameters:
+    - id: blobStorageId
+      type: System.String
+    - id: contentId
+      type: System.String
+    return:
+      type: System.Threading.Tasks.Task{System.IO.Stream}
+    content.vb: Function ReadAsync(blobStorageId As String, contentId As String) As Task(Of Stream)
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync*
+  nameWithType.vb: IGrpcBlobStorageClient.ReadAsync(String, String)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync(String, String)
+  name.vb: ReadAsync(String, String)
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync(System.String,System.String,System.IO.Stream)
+  commentId: M:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync(System.String,System.String,System.IO.Stream)
+  id: WriteAsync(System.String,System.String,System.IO.Stream)
+  parent: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient
+  langs:
+  - csharp
+  - vb
+  name: WriteAsync(string, string, Stream)
+  nameWithType: IGrpcBlobStorageClient.WriteAsync(string, string, Stream)
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync(string, string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WriteAsync
+    path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: Task WriteAsync(string blobStorageId, string contentId, Stream content)
+    parameters:
+    - id: blobStorageId
+      type: System.String
+    - id: contentId
+      type: System.String
+    - id: content
+      type: System.IO.Stream
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function WriteAsync(blobStorageId As String, contentId As String, content As Stream) As Task
+  overload: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync*
+  nameWithType.vb: IGrpcBlobStorageClient.WriteAsync(String, String, Stream)
+  fullName.vb: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync(String, String, System.IO.Stream)
+  name.vb: WriteAsync(String, String, Stream)
+references:
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.html#IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync(System.String,System.String)
+  name: DeleteAsync
+  nameWithType: IGrpcBlobStorageClient.DeleteAsync
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.DeleteAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.html#IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose
+  name: Dispose
+  nameWithType: IGrpcBlobStorageClient.Dispose
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.Dispose
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.html#IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync(System.String,System.String)
+  name: ExistAsync
+  nameWithType: IGrpcBlobStorageClient.ExistAsync
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ExistAsync
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<bool>
+  nameWithType: Task<bool>
+  fullName: System.Threading.Tasks.Task<bool>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.html#IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync(System.String)
+  name: GetEntriesAsync
+  nameWithType: IGrpcBlobStorageClient.GetEntriesAsync
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.GetEntriesAsync
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{System.String}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.List{System.String}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<List<string>>
+  nameWithType: Task<List<string>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<string>>
+  nameWithType.vb: Task(Of List(Of String))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of String))
+  name.vb: Task(Of List(Of String))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.html#IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync(System.String,System.String)
+  name: ReadAsync
+  nameWithType: IGrpcBlobStorageClient.ReadAsync
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.ReadAsync
+- uid: System.Threading.Tasks.Task{System.IO.Stream}
+  commentId: T:System.Threading.Tasks.Task{System.IO.Stream}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Stream>
+  nameWithType: Task<Stream>
+  fullName: System.Threading.Tasks.Task<System.IO.Stream>
+  nameWithType.vb: Task(Of Stream)
+  fullName.vb: System.Threading.Tasks.Task(Of System.IO.Stream)
+  name.vb: Task(Of Stream)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.IO.Stream
+    name: Stream
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.IO.Stream
+    name: Stream
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  - name: )
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.html#IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync(System.String,System.String,System.IO.Stream)
+  name: WriteAsync
+  nameWithType: IGrpcBlobStorageClient.WriteAsync
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcBlobStorageClient.WriteAsync
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io

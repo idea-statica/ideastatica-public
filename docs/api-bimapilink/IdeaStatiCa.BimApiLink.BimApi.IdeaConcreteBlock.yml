@@ -1,0 +1,1445 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  id: IdeaConcreteBlock
+  parent: IdeaStatiCa.BimApiLink.BimApi
+  children:
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(System.String)
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+  - IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+  langs:
+  - csharp
+  - vb
+  name: IdeaConcreteBlock
+  nameWithType: IdeaConcreteBlock
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IdeaConcreteBlock
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  syntax:
+    content: 'public class IdeaConcreteBlock : AbstractIdeaObject<IIdeaConcreteBlock>, IEquatable<AbstractIdeaObject<IIdeaConcreteBlock>>, IIdeaConcreteBlock, IIdeaObject'
+    content.vb: Public Class IdeaConcreteBlock Inherits AbstractIdeaObject(Of IIdeaConcreteBlock) Implements IEquatable(Of AbstractIdeaObject(Of IIdeaConcreteBlock)), IIdeaConcreteBlock, IIdeaObject
+  inheritance:
+  - System.Object
+  - IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  - IdeaStatiCa.BimApiLink.BimLinkObject
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  implements:
+  - System.IEquatable{IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}}
+  - IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  - IdeaStatiCa.BimApi.IIdeaObject
+  inheritedMembers:
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Id
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Name
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Identifier
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+  - IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  - IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}})
+  - IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+  - IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+  - IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}})
+  - IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+  - IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+  - IdeaStatiCa.BimApiLink.BimLinkObject.CountryCode
+  - IdeaStatiCa.BimApiLink.BimLinkObject.UserData
+  - IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.Scope
+  - System.Object.ToString
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  id: '#ctor(IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock})'
+  parent: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: IdeaConcreteBlock(Identifier<IIdeaConcreteBlock>)
+  nameWithType: IdeaConcreteBlock.IdeaConcreteBlock(Identifier<IIdeaConcreteBlock>)
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.IdeaConcreteBlock(IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaConcreteBlock>)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  syntax:
+    content: public IdeaConcreteBlock(Identifier<IIdeaConcreteBlock> identifier)
+    parameters:
+    - id: identifier
+      type: IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+    content.vb: Public Sub New(identifier As Identifier(Of IIdeaConcreteBlock))
+  overload: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor*
+  nameWithType.vb: IdeaConcreteBlock.New(Identifier(Of IIdeaConcreteBlock))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.New(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock))
+  name.vb: New(Identifier(Of IIdeaConcreteBlock))
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(System.String)
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: IdeaConcreteBlock(string)
+  nameWithType: IdeaConcreteBlock.IdeaConcreteBlock(string)
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.IdeaConcreteBlock(string)
+  type: Constructor
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: .ctor
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  syntax:
+    content: public IdeaConcreteBlock(string id)
+    parameters:
+    - id: id
+      type: System.String
+    content.vb: Public Sub New(id As String)
+  overload: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor*
+  nameWithType.vb: IdeaConcreteBlock.New(String)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.New(String)
+  name.vb: New(String)
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+  id: Lenght
+  parent: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Lenght
+  nameWithType: IdeaConcreteBlock.Lenght
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Lenght
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  summary: Lenght
+  example: []
+  syntax:
+    content: public double Lenght { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Lenght As Double
+  overload: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght*
+  implements:
+  - IdeaStatiCa.BimApi.IIdeaConcreteBlock.Lenght
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+  id: Width
+  parent: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Width
+  nameWithType: IdeaConcreteBlock.Width
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Width
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  summary: Width
+  example: []
+  syntax:
+    content: public double Width { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Width As Double
+  overload: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width*
+  implements:
+  - IdeaStatiCa.BimApi.IIdeaConcreteBlock.Width
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+  id: Height
+  parent: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Height
+  nameWithType: IdeaConcreteBlock.Height
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Height
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  summary: Height
+  example: []
+  syntax:
+    content: public double Height { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Height As Double
+  overload: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height*
+  implements:
+  - IdeaStatiCa.BimApi.IIdeaConcreteBlock.Height
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+  id: Material
+  parent: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock
+  langs:
+  - csharp
+  - vb
+  name: Material
+  nameWithType: IdeaConcreteBlock.Material
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+      branch: add_wiki_content_to_docfx
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Material
+    path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaConcreteBlock.cs
+    startLine: 19
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.BimApi
+  summary: Material of the concrete block.
+  example: []
+  syntax:
+    content: public virtual IIdeaMaterial Material { get; set; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.BimApi.IIdeaMaterial
+    content.vb: Public Overridable Property Material As IIdeaMaterial
+  overload: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material*
+  implements:
+  - IdeaStatiCa.BimApi.IIdeaConcreteBlock.Material
+references:
+- uid: IdeaStatiCa.BimApiLink.BimApi
+  commentId: N:IdeaStatiCa.BimApiLink.BimApi
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.BimApi
+  nameWithType: IdeaStatiCa.BimApiLink.BimApi
+  fullName: IdeaStatiCa.BimApiLink.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApiLink.BimApi.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.BimApi
+    name: BimApi
+    href: IdeaStatiCa.BimApiLink.BimApi.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  commentId: T:IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  parent: IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.html
+  name: ScopeAwareObject
+  nameWithType: ScopeAwareObject
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject
+  commentId: T:IdeaStatiCa.BimApiLink.BimLinkObject
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html
+  name: BimLinkObject
+  nameWithType: BimLinkObject
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  parent: IdeaStatiCa.BimApiLink.BimApi
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  name: AbstractIdeaObject<IIdeaConcreteBlock>
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock)
+  name.vb: AbstractIdeaObject(Of IIdeaConcreteBlock)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: )
+- uid: System.IEquatable{IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}}
+  commentId: T:System.IEquatable{IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<AbstractIdeaObject<IIdeaConcreteBlock>>
+  nameWithType: IEquatable<AbstractIdeaObject<IIdeaConcreteBlock>>
+  fullName: System.IEquatable<IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>>
+  nameWithType.vb: IEquatable(Of AbstractIdeaObject(Of IIdeaConcreteBlock))
+  fullName.vb: System.IEquatable(Of IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock))
+  name.vb: IEquatable(Of AbstractIdeaObject(Of IIdeaConcreteBlock))
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  commentId: T:IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  parent: IdeaStatiCa.BimApi
+  name: IIdeaConcreteBlock
+  nameWithType: IIdeaConcreteBlock
+  fullName: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+- uid: IdeaStatiCa.BimApi.IIdeaObject
+  commentId: T:IdeaStatiCa.BimApi.IIdeaObject
+  parent: IdeaStatiCa.BimApi
+  name: IIdeaObject
+  nameWithType: IIdeaObject
+  fullName: IdeaStatiCa.BimApi.IIdeaObject
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Id
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Id
+  parent: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Id
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Id
+  name: Id
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>.Id
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>.Id
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock).Id
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock).Id
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Name
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Name
+  parent: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Name
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Name
+  name: Name
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>.Name
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>.Name
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock).Name
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock).Name
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Identifier
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Identifier
+  parent: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Identifier
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Identifier
+  name: Identifier
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>.Identifier
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>.Identifier
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock).Identifier
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock).Identifier
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+  parent: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+  name: GetHashCode()
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>.GetHashCode()
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>.GetHashCode()
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock).GetHashCode()
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock).GetHashCode()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+    name: GetHashCode
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+    name: GetHashCode
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.GetHashCode
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+  parent: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+  name: Equals(object)
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>.Equals(object)
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>.Equals(object)
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock).Equals(Object)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock).Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(System.Object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  parent: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  definition: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  name: Equals(AbstractIdeaObject<IIdeaConcreteBlock>)
+  nameWithType: AbstractIdeaObject<IIdeaConcreteBlock>.Equals(AbstractIdeaObject<IIdeaConcreteBlock>)
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<IdeaStatiCa.BimApi.IIdeaConcreteBlock>)
+  nameWithType.vb: AbstractIdeaObject(Of IIdeaConcreteBlock).Equals(AbstractIdeaObject(Of IIdeaConcreteBlock))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock).Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock))
+  name.vb: Equals(AbstractIdeaObject(Of IIdeaConcreteBlock))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock}.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}})
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  definition: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  name: Get<T>(Identifier<T>)
+  nameWithType: BimLinkObject.Get<T>(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.Get<T>(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  nameWithType.vb: BimLinkObject.Get(Of T)(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.Get(Of T)(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: Get(Of T)(Identifier(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+  name: Get<T>(int)
+  nameWithType: BimLinkObject.Get<T>(int)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.Get<T>(int)
+  nameWithType.vb: BimLinkObject.Get(Of T)(Integer)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.Get(Of T)(Integer)
+  name.vb: Get(Of T)(Integer)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.Int32)
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+  name: Get<T>(string)
+  nameWithType: BimLinkObject.Get<T>(string)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.Get<T>(string)
+  nameWithType.vb: BimLinkObject.Get(Of T)(String)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.Get(Of T)(String)
+  name.vb: Get(Of T)(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(System.String)
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{{T}})
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  definition: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  name: GetMaybe<T>(Identifier<T>)
+  nameWithType: BimLinkObject.GetMaybe<T>(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe<T>(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  nameWithType.vb: BimLinkObject.GetMaybe(Of T)(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe(Of T)(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: GetMaybe(Of T)(Identifier(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+  name: GetMaybe<T>(int)
+  nameWithType: BimLinkObject.GetMaybe<T>(int)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe<T>(int)
+  nameWithType.vb: BimLinkObject.GetMaybe(Of T)(Integer)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe(Of T)(Integer)
+  name.vb: GetMaybe(Of T)(Integer)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.Int32)
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+  name: GetMaybe<T>(string)
+  nameWithType: BimLinkObject.GetMaybe<T>(string)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe<T>(string)
+  nameWithType.vb: BimLinkObject.GetMaybe(Of T)(String)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe(Of T)(String)
+  name.vb: GetMaybe(Of T)(String)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(System.String)
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.CountryCode
+  commentId: P:IdeaStatiCa.BimApiLink.BimLinkObject.CountryCode
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.CountryCode
+  name: CountryCode
+  nameWithType: BimLinkObject.CountryCode
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.CountryCode
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.UserData
+  commentId: P:IdeaStatiCa.BimApiLink.BimLinkObject.UserData
+  parent: IdeaStatiCa.BimApiLink.BimLinkObject
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.UserData
+  name: UserData
+  nameWithType: BimLinkObject.UserData
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.UserData
+- uid: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.Scope
+  commentId: P:IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.Scope
+  parent: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject
+  href: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.html#IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.Scope
+  name: Scope
+  nameWithType: ScopeAwareObject.Scope
+  fullName: IdeaStatiCa.BimApiLink.Scoping.ScopeAwareObject.Scope
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.BimApiLink.Scoping
+  commentId: N:IdeaStatiCa.BimApiLink.Scoping
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Scoping
+  nameWithType: IdeaStatiCa.BimApiLink.Scoping
+  fullName: IdeaStatiCa.BimApiLink.Scoping
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Scoping
+    name: Scoping
+    href: IdeaStatiCa.BimApiLink.Scoping.html
+- uid: IdeaStatiCa.BimApiLink
+  commentId: N:IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink
+  nameWithType: IdeaStatiCa.BimApiLink
+  fullName: IdeaStatiCa.BimApiLink
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+  commentId: T:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+  parent: IdeaStatiCa.BimApiLink.BimApi
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  name: AbstractIdeaObject<T>
+  nameWithType: AbstractIdeaObject<T>
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>
+  nameWithType.vb: AbstractIdeaObject(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T)
+  name.vb: AbstractIdeaObject(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.BimApi
+  commentId: N:IdeaStatiCa.BimApi
+  name: IdeaStatiCa.BimApi
+  nameWithType: IdeaStatiCa.BimApi
+  fullName: IdeaStatiCa.BimApi
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.BimApi
+    name: BimApi
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Id
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Id
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Id
+  name: Id
+  nameWithType: AbstractIdeaObject<T>.Id
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>.Id
+  nameWithType.vb: AbstractIdeaObject(Of T).Id
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T).Id
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Name
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Name
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Name
+  name: Name
+  nameWithType: AbstractIdeaObject<T>.Name
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>.Name
+  nameWithType.vb: AbstractIdeaObject(Of T).Name
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T).Name
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Identifier
+  commentId: P:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Identifier
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Identifier
+  name: Identifier
+  nameWithType: AbstractIdeaObject<T>.Identifier
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>.Identifier
+  nameWithType.vb: AbstractIdeaObject(Of T).Identifier
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T).Identifier
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+  name: GetHashCode()
+  nameWithType: AbstractIdeaObject<T>.GetHashCode()
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>.GetHashCode()
+  nameWithType.vb: AbstractIdeaObject(Of T).GetHashCode()
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T).GetHashCode()
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+    name: GetHashCode
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+    name: GetHashCode
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.GetHashCode
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+  isExternal: true
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+  name: Equals(object)
+  nameWithType: AbstractIdeaObject<T>.Equals(object)
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>.Equals(object)
+  nameWithType.vb: AbstractIdeaObject(Of T).Equals(Object)
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T).Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(System.Object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+  commentId: M:IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+  href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+  name: Equals(AbstractIdeaObject<T>)
+  nameWithType: AbstractIdeaObject<T>.Equals(AbstractIdeaObject<T>)
+  fullName: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject<T>)
+  nameWithType.vb: AbstractIdeaObject(Of T).Equals(AbstractIdeaObject(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T).Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject(Of T))
+  name.vb: Equals(AbstractIdeaObject(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+    name: Equals
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html#IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1.Equals(IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject{`0})
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject`1
+    name: AbstractIdeaObject
+    href: IdeaStatiCa.BimApiLink.BimApi.AbstractIdeaObject-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  name: Get<T>(Identifier<T>)
+  nameWithType: BimLinkObject.Get<T>(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.Get<T>(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  nameWithType.vb: BimLinkObject.Get(Of T)(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.Get(Of T)(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: Get(Of T)(Identifier(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: Get
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.Get``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  name: GetMaybe<T>(Identifier<T>)
+  nameWithType: BimLinkObject.GetMaybe<T>(Identifier<T>)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe<T>(IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>)
+  nameWithType.vb: BimLinkObject.GetMaybe(Of T)(Identifier(Of T))
+  fullName.vb: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe(Of T)(IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T))
+  name.vb: GetMaybe(Of T)(Identifier(Of T))
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+    name: GetMaybe
+    href: IdeaStatiCa.BimApiLink.BimLinkObject.html#IdeaStatiCa.BimApiLink.BimLinkObject.GetMaybe``1(IdeaStatiCa.BimApiLink.Identifiers.Identifier{``0})
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html#IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.#ctor(IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock})
+  name: IdeaConcreteBlock
+  nameWithType: IdeaConcreteBlock.IdeaConcreteBlock
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.IdeaConcreteBlock
+  nameWithType.vb: IdeaConcreteBlock.New
+  fullName.vb: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.New
+  name.vb: New
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaConcreteBlock}
+  parent: IdeaStatiCa.BimApiLink.Identifiers
+  definition: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<IIdeaConcreteBlock>
+  nameWithType: Identifier<IIdeaConcreteBlock>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaConcreteBlock>
+  nameWithType.vb: Identifier(Of IIdeaConcreteBlock)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaConcreteBlock)
+  name.vb: Identifier(Of IIdeaConcreteBlock)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+    name: IIdeaConcreteBlock
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  commentId: T:IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+  href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  name: Identifier<T>
+  nameWithType: Identifier<T>
+  fullName: IdeaStatiCa.BimApiLink.Identifiers.Identifier<T>
+  nameWithType.vb: Identifier(Of T)
+  fullName.vb: IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of T)
+  name.vb: Identifier(Of T)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.Identifiers
+  commentId: N:IdeaStatiCa.BimApiLink.Identifiers
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.BimApiLink.Identifiers
+  nameWithType: IdeaStatiCa.BimApiLink.Identifiers
+  fullName: IdeaStatiCa.BimApiLink.Identifiers
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink
+    name: BimApiLink
+    href: IdeaStatiCa.BimApiLink.html
+  - name: .
+  - uid: IdeaStatiCa.BimApiLink.Identifiers
+    name: Identifiers
+    href: IdeaStatiCa.BimApiLink.Identifiers.html
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html#IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+  name: Lenght
+  nameWithType: IdeaConcreteBlock.Lenght
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Lenght
+- uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Lenght
+  commentId: P:IdeaStatiCa.BimApi.IIdeaConcreteBlock.Lenght
+  parent: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  name: Lenght
+  nameWithType: IIdeaConcreteBlock.Lenght
+  fullName: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Lenght
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html#IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+  name: Width
+  nameWithType: IdeaConcreteBlock.Width
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Width
+- uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Width
+  commentId: P:IdeaStatiCa.BimApi.IIdeaConcreteBlock.Width
+  parent: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  name: Width
+  nameWithType: IIdeaConcreteBlock.Width
+  fullName: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Width
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html#IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+  name: Height
+  nameWithType: IdeaConcreteBlock.Height
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Height
+- uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Height
+  commentId: P:IdeaStatiCa.BimApi.IIdeaConcreteBlock.Height
+  parent: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  name: Height
+  nameWithType: IIdeaConcreteBlock.Height
+  fullName: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Height
+- uid: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+  href: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.html#IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+  name: Material
+  nameWithType: IdeaConcreteBlock.Material
+  fullName: IdeaStatiCa.BimApiLink.BimApi.IdeaConcreteBlock.Material
+- uid: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Material
+  commentId: P:IdeaStatiCa.BimApi.IIdeaConcreteBlock.Material
+  parent: IdeaStatiCa.BimApi.IIdeaConcreteBlock
+  name: Material
+  nameWithType: IIdeaConcreteBlock.Material
+  fullName: IdeaStatiCa.BimApi.IIdeaConcreteBlock.Material
+- uid: IdeaStatiCa.BimApi.IIdeaMaterial
+  commentId: T:IdeaStatiCa.BimApi.IIdeaMaterial
+  parent: IdeaStatiCa.BimApi
+  name: IIdeaMaterial
+  nameWithType: IIdeaMaterial
+  fullName: IdeaStatiCa.BimApi.IIdeaMaterial
