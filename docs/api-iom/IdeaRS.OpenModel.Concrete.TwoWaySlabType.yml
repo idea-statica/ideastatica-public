@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TwoWaySlabType
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Slab
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Wall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DeepBeam
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ShellAsPlate
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ShellAsWall
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberData.cs

@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinfBarInclined
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -88,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -119,7 +119,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -150,7 +150,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterPoint
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -181,7 +181,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterEdge
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -212,7 +212,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InclinedReinfBarType
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -243,7 +243,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Angle
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -274,7 +274,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddBarOnTop
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -305,7 +305,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TopLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -336,7 +336,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddBarOnBottom
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
@@ -367,7 +367,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BottomLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfBarInclined.cs

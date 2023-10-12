@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForcesBuilder
     path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
@@ -64,7 +64,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
@@ -96,7 +96,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: For
     path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
@@ -132,7 +132,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: For
     path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
@@ -168,7 +168,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: For
     path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
@@ -203,7 +203,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetEnumerator
     path: ../src/IdeaStatica.BimApiLink/Results/InternalForcesBuilder.cs

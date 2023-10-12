@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamLoadsImportMappingData
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -68,7 +68,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamID
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -140,7 +140,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CADBeamID
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -181,7 +181,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffVM_Y
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -222,7 +222,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffVM_Z
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -263,7 +263,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffVM_X
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs

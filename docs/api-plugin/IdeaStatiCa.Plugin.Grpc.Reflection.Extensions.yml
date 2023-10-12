@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/Extensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Extensions
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/Extensions.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/Extensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FromVal
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/Extensions.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/Extensions.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FromVal
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/Extensions.cs

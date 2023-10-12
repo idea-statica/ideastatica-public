@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IOMSettings
     path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
@@ -89,7 +89,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FileName
     path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
@@ -122,7 +122,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CreatedSuccessfully
     path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IOMSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CountryCode
     path: ../src/IdeaRS.OpenModel/Message/IOMSettings.cs

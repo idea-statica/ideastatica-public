@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyConnTemplateSetting
     path: ../src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
@@ -67,7 +67,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultBoltAssemblyID
     path: ../src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
@@ -108,7 +108,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultCleatCrossSectionID
     path: ../src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultConcreteMaterialID
     path: ../src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
@@ -190,7 +190,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultStiffMemberCrossSectionID
     path: ../src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
@@ -231,7 +231,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UseMatFromOrigin
     path: ../src/IdeaRS.OpenModel/Connection/ApplyConnTemplateSetting.cs

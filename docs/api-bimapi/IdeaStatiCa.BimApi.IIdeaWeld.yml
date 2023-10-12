@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaWeld
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs
@@ -52,7 +52,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Thickness
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs
@@ -81,7 +81,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs
@@ -112,7 +112,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Start
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs
@@ -143,7 +143,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: End
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs
@@ -174,7 +174,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedParts
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs
@@ -205,7 +205,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaWeld.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaStatiCa.BimApi/IIdeaWeld.cs

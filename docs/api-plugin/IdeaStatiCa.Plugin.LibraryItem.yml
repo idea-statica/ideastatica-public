@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LibraryItem
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
@@ -66,7 +66,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Group
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Identifier
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GroupId
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs

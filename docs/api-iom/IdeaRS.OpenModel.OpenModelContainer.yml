@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModelContainer.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModelContainer
     path: ../src/IdeaRS.OpenModel/OpenModelContainer.cs
@@ -57,7 +57,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModelContainer.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModel
     path: ../src/IdeaRS.OpenModel/OpenModelContainer.cs
@@ -88,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModelContainer.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModelResult
     path: ../src/IdeaRS.OpenModel/OpenModelContainer.cs

@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectData
     path: ../src/IdeaRS.OpenModel/ProjectData.cs
@@ -72,7 +72,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/ProjectData.cs
@@ -115,7 +115,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/ProjectData.cs
@@ -146,7 +146,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Number
     path: ../src/IdeaRS.OpenModel/ProjectData.cs
@@ -189,7 +189,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Author
     path: ../src/IdeaRS.OpenModel/ProjectData.cs
@@ -220,7 +220,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Date
     path: ../src/IdeaRS.OpenModel/ProjectData.cs
@@ -263,7 +263,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/ProjectData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CodeDependentData
     path: ../src/IdeaRS.OpenModel/ProjectData.cs

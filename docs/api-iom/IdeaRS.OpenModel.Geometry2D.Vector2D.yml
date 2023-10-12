@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Geometry/Geometry2D/Vector2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Vector2D
     path: ../src/IdeaRS.OpenModel/Geometry/Geometry2D/Vector2D.cs
@@ -67,7 +67,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Geometry/Geometry2D/Vector2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: X
     path: ../src/IdeaRS.OpenModel/Geometry/Geometry2D/Vector2D.cs
@@ -98,7 +98,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Geometry/Geometry2D/Vector2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Y
     path: ../src/IdeaRS.OpenModel/Geometry/Geometry2D/Vector2D.cs

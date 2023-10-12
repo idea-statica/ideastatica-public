@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaBoltGrid
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Origin
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -84,7 +84,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LocalCoordinateSystem
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Positions
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedParts
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -180,7 +180,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ShearInThread
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -211,7 +211,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltShearType
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
@@ -242,7 +242,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltAssembly
     path: ../src/IdeaStatiCa.BimApi/IIdeaBoltGrid.cs

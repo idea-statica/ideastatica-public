@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteMemberDataEc2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -82,7 +82,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -113,7 +113,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ColumnData
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExposureClassesData
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -175,7 +175,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamData
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -206,7 +206,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RelativeHumidity
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -237,7 +237,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CreepCoeffInfinityValue
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -268,7 +268,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CreepCoeffInfinity
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -299,7 +299,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberImportance
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -330,7 +330,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoeffKxForWmax
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
@@ -361,7 +361,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DeflectionRequirement
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteMemberDataEc2.cs

@@ -21,11 +21,11 @@ items:
   type: Class
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberHiddenCheckClient
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 6
   assemblies:
   - IdeaStatiCa.Plugin
@@ -75,11 +75,11 @@ items:
   type: Property
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HiddenCalculatorId
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 8
   assemblies:
   - IdeaStatiCa.Plugin
@@ -104,11 +104,11 @@ items:
   type: Constructor
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 15
   assemblies:
   - IdeaStatiCa.Plugin
@@ -138,11 +138,11 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProject
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 19
   assemblies:
   - IdeaStatiCa.Plugin
@@ -174,11 +174,11 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CloseProject
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 24
   assemblies:
   - IdeaStatiCa.Plugin
@@ -204,11 +204,11 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Calculate
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 29
   assemblies:
   - IdeaStatiCa.Plugin
@@ -241,11 +241,11 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cancel
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 34
   assemblies:
   - IdeaStatiCa.Plugin
@@ -271,11 +271,11 @@ items:
   type: Property
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Service
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenCheckClient.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
     startLine: 50
   assemblies:
   - IdeaStatiCa.Plugin

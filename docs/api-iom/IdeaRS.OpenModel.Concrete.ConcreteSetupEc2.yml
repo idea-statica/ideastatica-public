@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteSetupEc2
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Annex
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Nad
     path: ../src/IdeaRS.OpenModel/Concrete/ConcreteSetupEc2.cs

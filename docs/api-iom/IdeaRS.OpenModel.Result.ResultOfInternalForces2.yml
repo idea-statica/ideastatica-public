@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultOfInternalForces2
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -82,7 +82,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -113,7 +113,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Loading
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: N
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -175,7 +175,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Qy
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -206,7 +206,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Qz
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -237,7 +237,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mx
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -268,7 +268,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: My
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
@@ -299,7 +299,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mz
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfInternalForces.cs

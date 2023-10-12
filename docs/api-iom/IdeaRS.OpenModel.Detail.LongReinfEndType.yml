@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LongReinfEndType
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -51,7 +51,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: None
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bend
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Hook
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -135,7 +135,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Loop
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -163,7 +163,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldedTransverseBar
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ContinuousBar
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -219,7 +219,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ContinuousBarOutside
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -247,7 +247,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Hook90DegreeACI
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
@@ -275,7 +275,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Hook180DegreeACI
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinforcementGroup.cs

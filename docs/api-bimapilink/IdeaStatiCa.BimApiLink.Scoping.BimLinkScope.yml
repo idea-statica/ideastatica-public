@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BimLinkScope
     path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BimApiImporter
     path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CountryCode
     path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
@@ -122,7 +122,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserData
     path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
@@ -154,7 +154,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
@@ -192,7 +192,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatica.BimApiLink/Scoping/BimLinkScope.cs

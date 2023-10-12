@@ -36,7 +36,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -82,7 +82,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -113,7 +113,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromLibrary
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: E
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -175,7 +175,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: G
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -206,7 +206,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Poisson
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -237,7 +237,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UnitMass
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -268,7 +268,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SpecificHeat
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -299,7 +299,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ThermalExpansion
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -330,7 +330,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ThermalConductivity
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -361,7 +361,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsDefaultMaterial
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -392,7 +392,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OrderInCode
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -423,7 +423,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StateOfThermalExpansion
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -454,7 +454,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StateOfThermalConductivity
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -485,7 +485,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StateOfThermalSpecificHeat
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -516,7 +516,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StateOfThermalStressStrain
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -547,7 +547,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StateOfThermalStrain
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -578,7 +578,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserThermalSpecificHeatCurvature
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -609,7 +609,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserThermalConductivityCurvature
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -640,7 +640,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserThermalExpansionCurvature
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -671,7 +671,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserThermalStrainCurvature
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs
@@ -702,7 +702,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/Material.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserThermalStressStrainCurvature
     path: ../src/IdeaRS.OpenModel/Libraries/Material/Material.cs

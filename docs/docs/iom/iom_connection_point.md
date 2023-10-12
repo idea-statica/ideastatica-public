@@ -10,7 +10,7 @@ This data extends the properties of Design Members in the Structural Model for t
 
 Added Members are additional structural items that relate to a particular connection. Some examples are stiffening members or angle cleats.
 
-![added members](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/added_members.png)
+![added members](images/added_members.png)
 
 Although typically relating to a single connection, added Members are references to Member1D's in the Open Model. Therefore, they need to be defined and added to the OpenModel as a Member1D (I.e by defining start/endpoints, LCS, and cross-section).
 

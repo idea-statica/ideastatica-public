@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResultType
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Capacity
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -81,7 +81,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Response
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Shear
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Torsion
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -165,7 +165,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Interaction
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -193,7 +193,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fatigue
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -221,7 +221,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StressLimitation
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -249,7 +249,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrackWidth
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Detailing
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -305,7 +305,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stiffness
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
@@ -333,7 +333,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Deflection
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResult.cs

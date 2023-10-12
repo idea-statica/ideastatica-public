@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcReflectionCallbackData
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
@@ -89,7 +89,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
@@ -123,7 +123,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueType
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
@@ -154,7 +154,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Value
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionCallbackData.cs

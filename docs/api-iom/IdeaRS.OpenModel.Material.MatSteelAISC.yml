@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatSteelAISC
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
@@ -98,7 +98,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fy
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
@@ -129,7 +129,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fu
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
@@ -160,7 +160,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fy40
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fu40
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelAISC.cs

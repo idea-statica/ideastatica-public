@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SteelSetupIND
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaM0
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaM1
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
@@ -121,7 +121,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaMb
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaMf
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaMw
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
@@ -214,7 +214,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FrictionCoefficientPboltDefault
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupIND.cs

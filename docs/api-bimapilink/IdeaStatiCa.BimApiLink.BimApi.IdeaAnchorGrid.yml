@@ -29,7 +29,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaAnchorGrid
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -86,7 +86,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -150,7 +150,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -182,7 +182,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorType
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -215,7 +215,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteBlock
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -248,7 +248,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WasherSize
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -281,7 +281,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Origin
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -314,7 +314,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LocalCoordinateSystem
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -350,7 +350,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Positions
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -383,7 +383,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedParts
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -416,7 +416,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ShearInThread
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -449,7 +449,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltShearType
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -482,7 +482,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltAssembly
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
@@ -515,7 +515,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Token
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaAnchorGrid.cs

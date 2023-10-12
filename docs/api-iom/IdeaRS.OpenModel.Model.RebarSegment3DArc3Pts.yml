@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarSegment3DArc3Pts.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarSegment3DArc3Pts
     path: ../src/IdeaRS.OpenModel/Model/RebarSegment3DArc3Pts.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarSegment3DArc3Pts.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ThirdPoint
     path: ../src/IdeaRS.OpenModel/Model/RebarSegment3DArc3Pts.cs

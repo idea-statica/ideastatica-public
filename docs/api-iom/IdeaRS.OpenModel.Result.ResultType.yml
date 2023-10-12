@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultType
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForces
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Deformation
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionNLA
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs
@@ -146,7 +146,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionTA
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs
@@ -174,7 +174,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InteractionDiagram
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs
@@ -202,7 +202,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOnMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionMesh
     path: ../src/IdeaRS.OpenModel/Result/ResultOnMember.cs

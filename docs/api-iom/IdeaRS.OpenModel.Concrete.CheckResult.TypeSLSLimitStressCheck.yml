@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeSLSLimitStressCheck
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -49,7 +49,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: notSet
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -77,7 +77,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check_7_2_2_Concrete_fck
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check_7_2_3_Concrete_fck
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -133,7 +133,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check_7_2_5_Tendons_fpk
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -161,7 +161,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check_7_2_5_ReinforcementBars_fyk
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -189,7 +189,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check_5_10_3_2_Tendons
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
@@ -217,7 +217,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check_5_10_2_1_1_Tendons
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteSLSCheckResultStressLimitationEc2.cs

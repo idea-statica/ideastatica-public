@@ -10,6 +10,7 @@ items:
   - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.Dispose
   - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.Dispose(System.Boolean)
   - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.EventName
+  - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
   - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.IsConnected
   - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.MyBIM
   - IdeaStatiCa.Plugin.AutomationHostingGrpc`2.NotifyBIMStatusChanged(IdeaStatiCa.Plugin.AppStatus)
@@ -27,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AutomationHostingGrpc
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -74,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventName
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -91,6 +92,37 @@ items:
   overload: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.EventName*
   nameWithType.vb: AutomationHostingGrpc(Of MyInterface, ClientInterface).EventName
   fullName.vb: IdeaStatiCa.Plugin.AutomationHostingGrpc(Of MyInterface, ClientInterface).EventName
+- uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  commentId: P:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  id: GrpcClient
+  parent: IdeaStatiCa.Plugin.AutomationHostingGrpc`2
+  langs:
+  - csharp
+  - vb
+  name: GrpcClient
+  nameWithType: AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  fullName: IdeaStatiCa.Plugin.AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GrpcClient
+    path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  syntax:
+    content: public IGrpcClient GrpcClient { get; }
+    parameters: []
+    return:
+      type: IdeaStatiCa.Plugin.Grpc.IGrpcClient
+    content.vb: Public Property GrpcClient As IGrpcClient
+  overload: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient*
+  nameWithType.vb: AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
+  fullName.vb: IdeaStatiCa.Plugin.AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
 - uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.MyBIM
   commentId: P:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.MyBIM
   id: MyBIM
@@ -105,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MyBIM
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -140,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Status
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -175,7 +207,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsConnected
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -208,7 +240,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -241,7 +273,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -279,7 +311,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -317,7 +349,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stop
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -349,7 +381,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunServer
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -383,7 +415,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotifyBIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -414,7 +446,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -446,7 +478,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -863,6 +895,51 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
+- uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient*
+  commentId: Overload:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  href: IdeaStatiCa.Plugin.AutomationHostingGrpc-2.html#IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  name: GrpcClient
+  nameWithType: AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  fullName: IdeaStatiCa.Plugin.AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  nameWithType.vb: AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
+  fullName.vb: IdeaStatiCa.Plugin.AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
+- uid: IdeaStatiCa.Plugin.Grpc.IGrpcClient
+  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcClient
+  parent: IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.Plugin.Grpc.IGrpcClient.html
+  name: IGrpcClient
+  nameWithType: IGrpcClient
+  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcClient
+- uid: IdeaStatiCa.Plugin.Grpc
+  commentId: N:IdeaStatiCa.Plugin.Grpc
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Grpc
+  nameWithType: IdeaStatiCa.Plugin.Grpc
+  fullName: IdeaStatiCa.Plugin.Grpc
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Grpc
+    name: Grpc
+    href: IdeaStatiCa.Plugin.Grpc.html
 - uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.MyBIM*
   commentId: Overload:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.MyBIM
   href: IdeaStatiCa.Plugin.AutomationHostingGrpc-2.html#IdeaStatiCa.Plugin.AutomationHostingGrpc`2.MyBIM
@@ -991,13 +1068,6 @@ references:
   name: MyInterface
   nameWithType: MyInterface
   fullName: MyInterface
-- uid: IdeaStatiCa.Plugin.Grpc.IGrpcClient
-  commentId: T:IdeaStatiCa.Plugin.Grpc.IGrpcClient
-  parent: IdeaStatiCa.Plugin.Grpc
-  href: IdeaStatiCa.Plugin.Grpc.IGrpcClient.html
-  name: IGrpcClient
-  nameWithType: IGrpcClient
-  fullName: IdeaStatiCa.Plugin.Grpc.IGrpcClient
 - uid: IdeaStatiCa.Plugin.IPluginLogger
   commentId: T:IdeaStatiCa.Plugin.IPluginLogger
   parent: IdeaStatiCa.Plugin
@@ -1008,36 +1078,6 @@ references:
   name: MyInterface
   nameWithType: MyInterface
   fullName: MyInterface
-- uid: IdeaStatiCa.Plugin.Grpc
-  commentId: N:IdeaStatiCa.Plugin.Grpc
-  href: IdeaStatiCa.html
-  name: IdeaStatiCa.Plugin.Grpc
-  nameWithType: IdeaStatiCa.Plugin.Grpc
-  fullName: IdeaStatiCa.Plugin.Grpc
-  spec.csharp:
-  - uid: IdeaStatiCa
-    name: IdeaStatiCa
-    href: IdeaStatiCa.html
-  - name: .
-  - uid: IdeaStatiCa.Plugin
-    name: Plugin
-    href: IdeaStatiCa.Plugin.html
-  - name: .
-  - uid: IdeaStatiCa.Plugin.Grpc
-    name: Grpc
-    href: IdeaStatiCa.Plugin.Grpc.html
-  spec.vb:
-  - uid: IdeaStatiCa
-    name: IdeaStatiCa
-    href: IdeaStatiCa.html
-  - name: .
-  - uid: IdeaStatiCa.Plugin
-    name: Plugin
-    href: IdeaStatiCa.Plugin.html
-  - name: .
-  - uid: IdeaStatiCa.Plugin.Grpc
-    name: Grpc
-    href: IdeaStatiCa.Plugin.Grpc.html
 - uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.RunAsync*
   commentId: Overload:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.RunAsync
   href: IdeaStatiCa.Plugin.AutomationHostingGrpc-2.html#IdeaStatiCa.Plugin.AutomationHostingGrpc`2.RunAsync(System.String)

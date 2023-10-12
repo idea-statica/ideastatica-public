@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaCut
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -54,7 +54,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModifiedObject
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -85,7 +85,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CuttingObject
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -116,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Offset
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -147,7 +147,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Weld
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -178,7 +178,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CutMethod
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -209,7 +209,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CutOrientation
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -240,7 +240,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceComparison
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs
@@ -271,7 +271,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCut.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CutPart
     path: ../src/IdeaStatiCa.BimApi/IIdeaCut.cs

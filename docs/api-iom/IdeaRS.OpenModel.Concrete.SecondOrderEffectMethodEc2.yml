@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SecondOrderEffectMethodEc2
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
@@ -44,7 +44,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NominalStiffness
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NominalCurvature
     path: ../src/IdeaRS.OpenModel/Concrete/ColumnDataEc2.cs

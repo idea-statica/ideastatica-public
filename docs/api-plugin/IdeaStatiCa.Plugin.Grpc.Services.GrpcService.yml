@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcService
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ClientConnected
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -91,7 +91,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ClientDisconnected
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -120,7 +120,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsConnected
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -153,7 +153,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -237,7 +237,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -278,7 +278,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RegisterHandler
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
@@ -318,7 +318,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleMessageAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/Services/GrpcService.cs

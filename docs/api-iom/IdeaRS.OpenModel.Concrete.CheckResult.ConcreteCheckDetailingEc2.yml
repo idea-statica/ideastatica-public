@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckDetailingEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteCheckDetailingEc2
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckDetailingEc2.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckDetailingEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckValueLongReinf
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckDetailingEc2.cs
@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckDetailingEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckValueShearReinf
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckDetailingEc2.cs

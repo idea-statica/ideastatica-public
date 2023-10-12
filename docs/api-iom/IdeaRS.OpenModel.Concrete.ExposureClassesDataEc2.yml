@@ -27,7 +27,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExposureClassesDataEc2
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -64,7 +64,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -95,7 +95,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoCorrosionCheck
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -126,7 +126,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CarbonationCheck
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -157,7 +157,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Carbonation
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -188,7 +188,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ChloridesCheck
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -219,7 +219,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Chlorides
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -250,7 +250,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ChloridesFromSeaCheck
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -281,7 +281,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ChloridesFromSea
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -312,7 +312,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FreezeAttackCheck
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -343,7 +343,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FreezeAttack
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -374,7 +374,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ChemicalAttackCheck
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
@@ -405,7 +405,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ChemicalAttack
     path: ../src/IdeaRS.OpenModel/Concrete/ExposureClassesDataEc2.cs

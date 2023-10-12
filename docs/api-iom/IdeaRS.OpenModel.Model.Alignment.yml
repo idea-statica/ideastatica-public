@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Alignment
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -49,7 +49,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Center
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Top
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bottom
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -127,7 +127,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Left
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -153,7 +153,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Right
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -179,7 +179,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TopLeft
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -205,7 +205,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TopRight
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -231,7 +231,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BottomLeft
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs
@@ -257,7 +257,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Member1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BottomRight
     path: ../src/IdeaRS.OpenModel/Model/Member1D.cs

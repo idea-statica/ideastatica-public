@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IdeaVector3D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaVector3D
     path: ../src/IdeaStatiCa.BimApi/IdeaVector3D.cs
@@ -56,7 +56,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IdeaVector3D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: X
     path: ../src/IdeaStatiCa.BimApi/IdeaVector3D.cs
@@ -87,7 +87,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IdeaVector3D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Y
     path: ../src/IdeaStatiCa.BimApi/IdeaVector3D.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IdeaVector3D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Z
     path: ../src/IdeaStatiCa.BimApi/IdeaVector3D.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IdeaVector3D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.BimApi/IdeaVector3D.cs

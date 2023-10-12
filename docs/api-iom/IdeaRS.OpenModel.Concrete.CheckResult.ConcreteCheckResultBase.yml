@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteCheckResultBase
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -70,7 +70,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalFores
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -132,7 +132,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NonConformities
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -163,7 +163,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Result
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -194,7 +194,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckValue
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -225,7 +225,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LimitCheckValue
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
@@ -256,7 +256,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Check
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteCheckResultBase.cs

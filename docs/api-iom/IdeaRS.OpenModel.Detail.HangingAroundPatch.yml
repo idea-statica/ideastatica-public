@@ -28,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HangingAroundPatch
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -83,7 +83,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -114,7 +114,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -145,7 +145,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumOfBarsInLayer
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -176,7 +176,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Diameter
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -207,7 +207,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndsType
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -238,7 +238,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiameterOfMandrel
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -269,7 +269,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceFromPatch
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -300,7 +300,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BottomPartLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -331,7 +331,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InclinedPartsLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -362,7 +362,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LegsLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -393,7 +393,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InclinedPartsAngle
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -424,7 +424,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Rotation
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
@@ -455,7 +455,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsMirrored
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/HangingAroundPatch.cs

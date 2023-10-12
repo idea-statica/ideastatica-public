@@ -34,7 +34,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaConImportSettings
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -73,7 +73,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -104,7 +104,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UseWizard
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -135,7 +135,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OrderMembersById
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -169,7 +169,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultBoltAssembly
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -200,7 +200,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultSteelMaterial
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -231,7 +231,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExportAllLinearCombination
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -262,7 +262,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OnePageWizard
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -293,7 +293,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionFileName
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -324,7 +324,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WaitForExit
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -355,7 +355,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CanChangeDesignCodeInWizard
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -386,7 +386,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserWizardBrand
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -417,7 +417,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunningApplication
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -448,7 +448,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignCode
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -490,7 +490,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AmericanSubcode
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -532,7 +532,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DefaultWeldMaterial
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -563,7 +563,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StartIdeaStaticaApp
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -594,7 +594,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectName
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -625,7 +625,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectDescription
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
@@ -656,7 +656,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BimAppCode
     path: ../src/IdeaRS.OpenModel/Connection/IdeaConImportSettings.cs

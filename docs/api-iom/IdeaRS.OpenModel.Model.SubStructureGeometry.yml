@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SubStructureGeometry
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionPoints
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
@@ -134,7 +134,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RealMembers
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
@@ -166,7 +166,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TheoreticalMembers
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs

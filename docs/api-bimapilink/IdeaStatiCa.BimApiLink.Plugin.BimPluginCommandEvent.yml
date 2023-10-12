@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BimPluginCommandEvent
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
@@ -61,7 +61,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs

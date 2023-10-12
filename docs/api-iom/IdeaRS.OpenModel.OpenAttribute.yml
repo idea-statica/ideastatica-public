@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenAttribute
     path: ../src/IdeaRS.OpenModel/OpenAttribute.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Element
     path: ../src/IdeaRS.OpenModel/OpenAttribute.cs
