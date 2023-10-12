@@ -7,6 +7,7 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
 using MathNet.Numerics;
+using System;
 using System.Collections.Generic;
 using NMVector3D = MathNet.Spatial.Euclidean.Vector3D;
 using UnitVector3D = MathNet.Spatial.Euclidean.UnitVector3D;
@@ -49,8 +50,8 @@ namespace IdeaRstabPlugin.Factories
 				memberData.EndCrossSectionNo,
 				rotationRad)
 			{
-				EccentricityBegin = GetEccentricity(member, 0.0),
-				EccentricityEnd = GetEccentricity(member, 1.0)
+				EccentricityBegin = GetEccentricity(member, 0.0, (CoordSystemByVector)lcs),
+				EccentricityEnd = GetEccentricity(member, 1.0, (CoordSystemByVector)lcs)
 			};
 
 			return new List<IIdeaElement1D>() { element };
@@ -141,8 +142,8 @@ namespace IdeaRstabPlugin.Factories
 			}
 
 			axisY = axisZ.CrossProduct(axisX);
-			axisZ = axisX.CrossProduct(axisY);
-
+			axisZ = axisX.CrossProduct(axisY);			
+			
 			return new CoordSystemByVector()
 			{
 				VecX = MNVector2Vector(axisX),
@@ -180,18 +181,26 @@ namespace IdeaRstabPlugin.Factories
 			return new NMVector3D(vector3D.X, vector3D.Y, vector3D.Z);
 		}
 
-		private IdeaVector3D GetEccentricity(IMember member, double param)
+		private IdeaVector3D GetEccentricity(IMember member, double param, CoordSystemByVector cs)
 		{
 			Dlubal.RSTAB8.Point3D point = member.GetEccentricity(param, false);
-
+			
 			if (_importSession.IsGCSOrientedUpwards)
 			{
-				return new IdeaVector3D(point.X, -point.Y, -point.Z);
+				return TransformToLCS(new IdeaVector3D(point.X, point.Y, point.Z), cs);
 			}
 			else
 			{
-				return new IdeaVector3D(point.X, -point.Y, point.Z);
+				return TransformToLCS(new IdeaVector3D(point.X, -point.Y, -point.Z), cs);
 			}
+		}
+
+		private static IdeaVector3D TransformToLCS(IdeaVector3D vec, CoordSystemByVector cs)
+		{			
+			double x = (vec.X * cs.VecX.X) + (vec.Y * cs.VecX.Y) + (vec.Z * cs.VecX.Z);
+			double y = (vec.X * cs.VecY.X) + (vec.Y * cs.VecY.Y) + (vec.Z * cs.VecY.Z);
+			double z = (vec.X * cs.VecZ.X) + (vec.Y * cs.VecZ.Y) + (vec.Z * cs.VecZ.Z);			
+			return new IdeaVector3D(x, y, z);
 		}
 	}
 }
