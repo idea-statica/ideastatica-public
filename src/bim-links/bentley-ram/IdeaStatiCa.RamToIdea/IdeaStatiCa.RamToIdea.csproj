@@ -1,27 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<ProjectGuid>ec8df878-7ce5-458d-bf3e-fec30768a104</ProjectGuid>
-		<TargetFramework>net48</TargetFramework>
-		<AssemblyTitle>IdeaStatiCa.RamToIdea</AssemblyTitle>
-		<Product>IdeaStatiCa.RamToIdea</Product>
-		<Copyright>Copyright ©  2021</Copyright>
-		<Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<WarningsAsErrors />
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="Autofac" Version="6.4.0" />
-		<PackageReference Include="Idea.Bentley.Ram" Version="17.2.14" />
-		<PackageReference Include="MathNet.Numerics" Version="4.15.0" />
-		<PackageReference Include="MathNet.Spatial" Version="0.6.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
-		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-	</ItemGroup>
-	<Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
+  <Import Project="..\..\..\Common.props" />
+  <PropertyGroup>
+    <ProjectGuid>{ec8df878-7ce5-458d-bf3e-fec30768a104}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
+    <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Idea.Bentley.Ram" Version="17.2.14" />
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+    <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+  </ItemGroup>
+  <Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
 </Project>

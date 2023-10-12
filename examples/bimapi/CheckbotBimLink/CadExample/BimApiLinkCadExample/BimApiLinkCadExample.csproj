@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	<DebugType>full</DebugType>
-	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  <DebugType>full</DebugType>
+  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NuGet|AnyCPU'">
@@ -16,29 +15,29 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
-	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  <DebugType>pdbonly</DebugType>
+  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release_NuGet|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
-	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  <DebugType>pdbonly</DebugType>
+  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\CadExampleApi\CadExampleApi.csproj" />
+  <ProjectReference Include="..\CadExampleApi\CadExampleApi.csproj" />
   </ItemGroup>
-	  
+    
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
-		
+    
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
     <PackageReference Include="IdeaStatica.BimApiLink" Version="23.0.4.1320" />
-	<PackageReference Include="IdeaStatiCa.Plugin" Version="23.0.4.1320" />
+  <PackageReference Include="IdeaStatiCa.Plugin" Version="23.0.4.1320" />
   </ItemGroup>
-	    
+      
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
     <ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
     <ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />

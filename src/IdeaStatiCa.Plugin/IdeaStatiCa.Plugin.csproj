@@ -1,74 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common.props" />
+  
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Product>IdeaStatiCa.Plugin</Product>
-    <Copyright>Copyright (c) 2021 IDEA StatiCa</Copyright>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Authors>IDEA StatiCa</Authors>
-    <Deterministic>False</Deterministic>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/idea-statica/ideastatica-public.git</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
     <Description>Gateway to IDEA StatiCa. Includes classes which allows communication and controlling IDEA StatiCa applications and includes classes which provides IDEA StatiCa services to other applications.</Description>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
     <PackageId>IdeaStatiCa.Plugin</PackageId>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <RepositoryType>Git</RepositoryType>
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM</PackageTags>
-    <Version>21.0.0</Version>
-    <EnableNETAnalyzers>False</EnableNETAnalyzers>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <DebugType>full</DebugType>
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <DebugType>full</DebugType>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.1'">
-    <DebugType>full</DebugType>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
     
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\..\bin\Release\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <Optimize>True</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <DebugType>full</DebugType>
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <Optimize>False</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <DebugType>pdbonly</DebugType>
-    <OutputPath>bin\Release\</OutputPath>
-    <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU' AND '$(TargetFramework)' == 'netstandard2.1'">
-    <DebugType>pdbonly</DebugType>
-    <OutputPath>bin\Release\</OutputPath>
-    <NoWarn>1701;1702;NU5128;NU5100</NoWarn>
-  </PropertyGroup>
-    
-	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
@@ -81,7 +25,7 @@
     <PackageReference Include="Google.Protobuf" Version="3.21.3" />
     <PackageReference Include="Grpc.Core" Version="2.46.3" />
     <PackageReference Include="Grpc.Tools" Version="2.47.0">
-	  <PrivateAssets>all</PrivateAssets>
+    <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
