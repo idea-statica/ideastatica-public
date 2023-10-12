@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Library Materials | IDEA StatiCa API </title>
+      <title>Materials | IDEA StatiCa API </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Library Materials | IDEA StatiCa API ">
+      <meta name="title" content="Materials | IDEA StatiCa API ">
       
       <link rel="icon" href="../../favicon.ico">
       <link rel="stylesheet" href="../../public/docfx.min.css">
@@ -83,10 +83,11 @@
         </div>
 
         <article data-uid="">
+<h1 id="materials">Materials</h1>
 
 <p>All materials in IOM derive from the <code>Material</code> base class. Materials are then defined by a Type Class (Steel, Concrete, Reinforcement) and then by country (EC, US, AUS).</p>
 <p>All materials in an OpenModel <strong>MUST</strong> reference the same Country Code. To ensure this it is best to pass the IOM Open Model Settings Model Country Code on the creation of materials.</p>
-<h1 id="library-materials">Library Materials</h1>
+<h2 id="library-materials">Library Materials</h2>
 <p>IDEA StatiCa has a library of materials that can be searched for without the requirement to specify all material information in the code.</p>
 <ul>
 <li>Make sure the name exactly matches that of the material name in IDEA StatiCa.</li>
@@ -107,7 +108,6 @@
     //Switch between other codes as required.
 }
 </code></pre>
-<h1 id="materials">Materials</h1>
 <h2 id="steel-materials">Steel Materials</h2>
 <p>Steel Materials for different codes have differing parameters for creation. Although, still a lot share common parameters as well.</p>
 <p>The below shows how to create a Eurocode Steel Material.</p>
@@ -190,7 +190,9 @@
 }
 </code></pre>
 <h2 id="timber-materials">Timber Materials</h2>
-<p>**Timber materials cannot currently be defined through the IOM. **</p>
+<blockquote>
+<p>Timber materials cannot currently be defined through the IOM.</p>
+</blockquote>
 </article>
 
         <div class="contribution d-print-none">

@@ -86,7 +86,7 @@
 
 <p>As a general rule, you can consider all coordinate systems used are right-handed.</p>
 <h1 id="global-coordinate-system">Global Coordinate System</h1>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/gcs.png" alt="global coordinate system"></p>
+<p><img src="images/gcs.png" alt="global coordinate system"></p>
 <p>All elements and nodes are defined in a standard cartesian axis system with the <strong>z-axis</strong> vertical:</p>
 <ul>
 <li>The X-axis of the global coordinate system is horizontal and reads from left to right.</li>
@@ -95,7 +95,7 @@
 </ul>
 <h1 id="local-coordinate-systems">Local Coordinate Systems</h1>
 <h2 id="1d-members">1D Members</h2>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/lcs.png" alt="cross section axis"></p>
+<p><img src="images/lcs.png" alt="cross section axis"></p>
 <p>Each <code>1D member</code> is defined by a start and end node and has a local coordinate system defined in the following way:</p>
 <ul>
 <li>Origin is defined as the start node of the member.</li>
@@ -142,7 +142,7 @@ segment3D.LocalCoordinateSystem = system;
 <p>Rotations of the Cross-section around the LCS are completed through the <code>Element1D</code> <code>RotationRx</code> property.</p>
 <p>Rotations follow a right-hand rule system around the member local x-axis direction.</p>
 <h2 id="coordinate-system-of-cross-section">Coordinate system of cross-section</h2>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/css-cs.png" alt="cross section axis"></p>
+<p><img src="images/css-cs.png" alt="cross section axis"></p>
 <p>Cross-sections have reference axes y (horizontal) and z (vertical). Principal axes of the cross-section are marked with u and v.</p>
 <p>If reference axes are identical with the main central axes of cross-section, only reference axes are drawn.</p>
 <p><strong>By default, cross-sections are applied to Member 1Ds with the reference axis aligning with the coordinate system of the member.</strong></p>
@@ -153,58 +153,58 @@ segment3D.LocalCoordinateSystem = system;
 <h2 id="normal-force-n">Normal force N</h2>
 <p>Positive (+N) normal force causes tension. Negative (-N) normal force causes compression.</p>
 <p><strong>Axial load [X]</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_x.png" alt="Load X"></p>
+<p><img src="images/conv_load_x.png" alt="Load X"></p>
 <p><strong>Resulting normal force [N] diagram</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_n.png" alt="Diagram N"></p>
+<p><img src="images/conv_diag_n.png" alt="Diagram N"></p>
 <p><strong>Effects of the normal force [N] on a beam element</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_n.png" alt="Effects N"></p>
+<p><img src="images/conv_effect_n.png" alt="Effects N"></p>
 <h2 id="shear-force-vy">Shear force Vy</h2>
 <p>Positive (+Vy) shear force shifts the left face in the positive Y axis direction.</p>
 <p><strong>Continuous load [Y]</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_y.png" alt="Load Y"></p>
+<p><img src="images/conv_load_y.png" alt="Load Y"></p>
 <p><strong>Resulting shear force [Vy] diagram</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_vy.png" alt="Diagram Vy"></p>
+<p><img src="images/conv_diag_vy.png" alt="Diagram Vy"></p>
 <p><strong>Effects of the shear force [Vy] on a beam element</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_vy.png" alt="Effects Vy"></p>
+<p><img src="images/conv_effect_vy.png" alt="Effects Vy"></p>
 <h2 id="shear-force-vz">Shear force Vz</h2>
 <p>Positive (+Vz) shear force shifts the left face in the positive Z axis direction.</p>
 <p><strong>Continuous load [Z]</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_z.png" alt="Load Z"></p>
+<p><img src="images/conv_load_z.png" alt="Load Z"></p>
 <p><strong>Resulting shear force [Vz] diagram</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_vz.png" alt="Diagram Vz"></p>
+<p><img src="images/conv_diag_vz.png" alt="Diagram Vz"></p>
 <p><strong>Effects of the shear force [Vz] on a beam element</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_vz.png" alt="Effects Vz"></p>
+<p><img src="images/conv_effect_vz.png" alt="Effects Vz"></p>
 <h2 id="torsion-mx">Torsion Mx</h2>
 <p>Positive (+Mx) torsion twists the left face counterclockwise.</p>
 <p><strong>Point load [Mx]</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_mx.png" alt="Load Mx"></p>
+<p><img src="images/conv_load_mx.png" alt="Load Mx"></p>
 <p><strong>Resulting torsion [Mx] diagram</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_mx.png" alt="Diagram Mx"></p>
+<p><img src="images/conv_diag_mx.png" alt="Diagram Mx"></p>
 <p><strong>Effects of the torsion [Mx] on a beam element</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_mx.png" alt="Effects Mx"></p>
+<p><img src="images/conv_effect_mx.png" alt="Effects Mx"></p>
 <h2 id="bending-moment-my">Bending moment [My]</h2>
 <p>Positive (+My) bending moment causes tension the fibers with a negative Z coordinate.</p>
 <p><strong>Continuous load [Z]</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_z.png" alt="Load Z"></p>
+<p><img src="images/conv_load_z.png" alt="Load Z"></p>
 <p><strong>Resulting bending [My] diagram</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_my.png" alt="Diagram My"></p>
+<p><img src="images/conv_diag_my.png" alt="Diagram My"></p>
 <p><strong>Effects of the bending [My] on a beam element</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_my.png" alt="Effects My"></p>
+<p><img src="images/conv_effect_my.png" alt="Effects My"></p>
 <h2 id="bending-moment-mz">Bending moment [Mz]</h2>
 <p>Positive (+Mz) bending moment causes tension the fibers with a negative Y coordinate.</p>
 <p><strong>Continuous load [Y]</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_y.png" alt="Load Y"></p>
+<p><img src="images/conv_load_y.png" alt="Load Y"></p>
 <p><strong>Resulting bending [Mz] diagram</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_mz.png" alt="Diagram Mz"></p>
+<p><img src="images/conv_diag_mz.png" alt="Diagram Mz"></p>
 <p><strong>Effects of the bending [Mz] on a beam element</strong></p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_mz.png" alt="Effects Mz"></p>
+<p><img src="images/conv_effect_mz.png" alt="Effects Mz"></p>
 <h1 id="convention-of-load-effects-in-the-connection-app">Convention of load effects in the Connection app</h1>
 <p>The load effects input on the connected beams in the Connection app follow the LCS axes. As a beam can either be connected by its startpoint or endpoint, the load effects directions change accordingly.</p>
 <h2 id="visualization-of-the-load-effect-convention-in-the-connection-app">Visualization of the load effect convention in the Connection app</h2>
 <p>The positive (+) force components act in positive directions of LCS axes. Beam connected by endpoint (left) and startpoint (right):</p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_conn_force.png" alt="Connection force convetion"></p>
+<p><img src="images/conv_conn_force.png" alt="Connection force convetion"></p>
 <p>The positive (+) moment components strictly follow the right-hand rule. Beam connected by endpoint (left) and startpoint (right):</p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_conn_moment.png" alt="Connection moment convention"></p>
+<p><img src="images/conv_conn_moment.png" alt="Connection moment convention"></p>
 <h2 id="conversion-between-the-structural-model-results-and-connection-app-load-effects">Conversion between the structural model results and Connection app load effects</h2>
 <p>As a result of both the conventions documented above, there is a transformation of internal force results to load effects taking place internally.</p>
 <p>This transformation happens every time a connection project is created on the basis of a structural model.</p>
@@ -214,13 +214,13 @@ segment3D.LocalCoordinateSystem = system;
 <p>Endpoint (relative position = 1)</p>
 <p><code>Tranformation to load effects {-1, +1, +1, -1, +1, -1}</code></p>
 <p>Consider the example of two cantilevers below. One is supported in the standpoint (relative position 0), the other in the endpoint (relative position 1).</p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_cantilever.png" alt="Cantilever example"></p>
+<p><img src="images/conv_cantilever.png" alt="Cantilever example"></p>
 <p>Internal forces in the fixed points of the cantilevers are <code>{1, 0, 1, 0, -1, 0}</code> and <code>{1, 0, -1, 0, -1, 0}</code>, respectively.</p>
 <p>When connections are generated in these points, the transformation vector above is applied, with the following results.</p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_connection.png" alt="Cantilever example Connection"></p>
+<p><img src="images/conv_connection.png" alt="Cantilever example Connection"></p>
 <p>Load effects in the fixed points of the cantilevers are <code>{1, 0, -1, 0, 1, 0}</code> and <code>{-1, 0, -1, 0, -1, 0}</code>, respectively.</p>
 <p>Comparing the deformed shapes of the connections above, their behaviour confirms the correct transformation and is in accordance with the structural model.</p>
-<p><img src="https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_deformed.png" alt="Cantilever example deformed"></p>
+<p><img src="images/conv_deformed.png" alt="Cantilever example deformed"></p>
 </article>
 
         <div class="contribution d-print-none">

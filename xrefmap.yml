@@ -43861,6 +43861,22 @@ references:
   commentId: T:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
   fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
   nameWithType: CrossSectionFactoryHelper
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name: FillBox2(IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillBox2_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name.vb: FillBox2(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Double)
+  nameWithType: CrossSectionFactoryHelper.FillBox2(IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  nameWithType.vb: CrossSectionFactoryHelper.FillBox2(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2*
+  name: FillBox2
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillBox2_
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2
+  isSpec: "True"
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2
+  nameWithType: CrossSectionFactoryHelper.FillBox2
 - uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillCircle(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double)
   name: FillCircle(IdeaCrossSectionByParameters, double)
   href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillCircle_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_
@@ -44021,6 +44037,38 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledT
   nameWithType: CrossSectionFactoryHelper.FillRolledT
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name: FillWeldedAsymI(IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillWeldedAsymI_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name.vb: FillWeldedAsymI(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double)
+  nameWithType: CrossSectionFactoryHelper.FillWeldedAsymI(IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  nameWithType.vb: CrossSectionFactoryHelper.FillWeldedAsymI(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI*
+  name: FillWeldedAsymI
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillWeldedAsymI_
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI
+  isSpec: "True"
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI
+  nameWithType: CrossSectionFactoryHelper.FillWeldedAsymI
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
+  name: FillWeldedI(IdeaCrossSectionByParameters, double, double, double, double)
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillWeldedI_IdeaStatiCa_BimApiLink_BimApi_IdeaCrossSectionByParameters_System_Double_System_Double_System_Double_System_Double_
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
+  name.vb: FillWeldedI(IdeaCrossSectionByParameters, Double, Double, Double, Double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, double, double, double, double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double)
+  nameWithType: CrossSectionFactoryHelper.FillWeldedI(IdeaCrossSectionByParameters, double, double, double, double)
+  nameWithType.vb: CrossSectionFactoryHelper.FillWeldedI(IdeaCrossSectionByParameters, Double, Double, Double, Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI*
+  name: FillWeldedI
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa_BimApiLink_Utils_CrossSectionFactoryHelper_FillWeldedI_
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI
+  isSpec: "True"
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI
+  nameWithType: CrossSectionFactoryHelper.FillWeldedI
 - uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions
   name: DoubleExtensions
   href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html
@@ -44203,6 +44251,22 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.KipsToNewtons
   nameWithType: DoubleExtensions.KipsToNewtons
+- uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(System.Double)
+  name: MetersToInches(double)
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html#IdeaStatiCa_BimApiLink_Utils_DoubleExtensions_MetersToInches_System_Double_
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(System.Double)
+  name.vb: MetersToInches(Double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches(Double)
+  nameWithType: DoubleExtensions.MetersToInches(double)
+  nameWithType.vb: DoubleExtensions.MetersToInches(Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches*
+  name: MetersToInches
+  href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html#IdeaStatiCa_BimApiLink_Utils_DoubleExtensions_MetersToInches_
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches
+  isSpec: "True"
+  fullName: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToInches
+  nameWithType: DoubleExtensions.MetersToInches
 - uid: IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.MetersToMilimeters(System.Double)
   name: MetersToMilimeters(double)
   href: api-bimapilink/IdeaStatiCa.BimApiLink.Utils.DoubleExtensions.html#IdeaStatiCa_BimApiLink_Utils_DoubleExtensions_MetersToMilimeters_System_Double_
@@ -44759,6 +44823,23 @@ references:
   fullName.vb: IdeaStatiCa.Plugin.AutomationHostingGrpc(Of MyInterface, ClientInterface).EventName
   nameWithType: AutomationHostingGrpc<MyInterface, ClientInterface>.EventName
   nameWithType.vb: AutomationHostingGrpc(Of MyInterface, ClientInterface).EventName
+- uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  name: GrpcClient
+  href: api-plugin/IdeaStatiCa.Plugin.AutomationHostingGrpc-2.html#IdeaStatiCa_Plugin_AutomationHostingGrpc_2_GrpcClient
+  commentId: P:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  fullName: IdeaStatiCa.Plugin.AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  fullName.vb: IdeaStatiCa.Plugin.AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
+  nameWithType: AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  nameWithType.vb: AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
+- uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient*
+  name: GrpcClient
+  href: api-plugin/IdeaStatiCa.Plugin.AutomationHostingGrpc-2.html#IdeaStatiCa_Plugin_AutomationHostingGrpc_2_GrpcClient_
+  commentId: Overload:IdeaStatiCa.Plugin.AutomationHostingGrpc`2.GrpcClient
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  fullName.vb: IdeaStatiCa.Plugin.AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
+  nameWithType: AutomationHostingGrpc<MyInterface, ClientInterface>.GrpcClient
+  nameWithType.vb: AutomationHostingGrpc(Of MyInterface, ClientInterface).GrpcClient
 - uid: IdeaStatiCa.Plugin.AutomationHostingGrpc`2.IsConnected
   name: IsConnected
   href: api-plugin/IdeaStatiCa.Plugin.AutomationHostingGrpc-2.html#IdeaStatiCa_Plugin_AutomationHostingGrpc_2_IsConnected
@@ -45802,6 +45883,12 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.ConnHiddenClientFactory.Dispose
   nameWithType: ConnHiddenClientFactory.Dispose
+- uid: IdeaStatiCa.Plugin.ConnReportSettings
+  name: ConnReportSettings
+  href: api-plugin/IdeaStatiCa.Plugin.ConnReportSettings.html
+  commentId: T:IdeaStatiCa.Plugin.ConnReportSettings
+  fullName: IdeaStatiCa.Plugin.ConnReportSettings
+  nameWithType: ConnReportSettings
 - uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
   name: ConnectionHiddenCheckClient
   href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html
@@ -46013,6 +46100,22 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.ExportToTemplate
   nameWithType: ConnectionHiddenCheckClient.ExportToTemplate
+- uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport(string, ConnReportSettings)
+  href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html#IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GenerateReport_System_String_IdeaStatiCa_Plugin_ConnReportSettings_
+  commentId: M:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(String, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport(string, IdeaStatiCa.Plugin.ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport(String, IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType: ConnectionHiddenCheckClient.GenerateReport(string, ConnReportSettings)
+  nameWithType.vb: ConnectionHiddenCheckClient.GenerateReport(String, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport*
+  name: GenerateReport
+  href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html#IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GenerateReport_
+  commentId: Overload:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GenerateReport
+  nameWithType: ConnectionHiddenCheckClient.GenerateReport
 - uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.GetAllConnectionData(System.String)
   name: GetAllConnectionData(string)
   href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html#IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_GetAllConnectionData_System_String_
@@ -46209,6 +46312,22 @@ references:
   commentId: F:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Logger
   fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.Logger
   nameWithType: ConnectionHiddenCheckClient.Logger
+- uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp(System.String)
+  name: OpenConnectionInApp(string)
+  href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html#IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_OpenConnectionInApp_System_String_
+  commentId: M:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp(System.String)
+  name.vb: OpenConnectionInApp(String)
+  fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp(string)
+  fullName.vb: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp(String)
+  nameWithType: ConnectionHiddenCheckClient.OpenConnectionInApp(string)
+  nameWithType.vb: ConnectionHiddenCheckClient.OpenConnectionInApp(String)
+- uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp*
+  name: OpenConnectionInApp
+  href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html#IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_OpenConnectionInApp_
+  commentId: Overload:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenConnectionInApp
+  nameWithType: ConnectionHiddenCheckClient.OpenConnectionInApp
 - uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.OpenProject(System.String)
   name: OpenProject(string)
   href: api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html#IdeaStatiCa_Plugin_ConnectionHiddenCheckClient_OpenProject_System_String_
@@ -46437,6 +46556,12 @@ references:
   commentId: F:IdeaStatiCa.Plugin.Constants.GRPC_CHUNK_SIZE
   fullName: IdeaStatiCa.Plugin.Constants.GRPC_CHUNK_SIZE
   nameWithType: Constants.GRPC_CHUNK_SIZE
+- uid: IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE
+  name: GRPC_CONNECTION_HANDLER_MESSAGE
+  href: api-plugin/IdeaStatiCa.Plugin.Constants.html#IdeaStatiCa_Plugin_Constants_GRPC_CONNECTION_HANDLER_MESSAGE
+  commentId: F:IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE
+  fullName: IdeaStatiCa.Plugin.Constants.GRPC_CONNECTION_HANDLER_MESSAGE
+  nameWithType: Constants.GRPC_CONNECTION_HANDLER_MESSAGE
 - uid: IdeaStatiCa.Plugin.Constants.GRPC_MAX_MSG_SIZE
   name: GRPC_MAX_MSG_SIZE
   href: api-plugin/IdeaStatiCa.Plugin.Constants.html#IdeaStatiCa_Plugin_Constants_GRPC_MAX_MSG_SIZE
@@ -47032,6 +47157,25 @@ references:
   fullName.vb: IdeaStatiCa.Plugin.Grpc.ContentData.New
   nameWithType: ContentData.ContentData
   nameWithType.vb: ContentData.New
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  name: BlobStorageId
+  href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_BlobStorageId
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  nameWithType: ContentData.BlobStorageId
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId*
+  name: BlobStorageId
+  href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_BlobStorageId_
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  nameWithType: ContentData.BlobStorageId
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
+  name: BlobStorageIdFieldNumber
+  href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_BlobStorageIdFieldNumber
+  commentId: F:IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
+  nameWithType: ContentData.BlobStorageIdFieldNumber
 - uid: IdeaStatiCa.Plugin.Grpc.ContentData.CalculateSize
   name: CalculateSize()
   href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_CalculateSize
@@ -47058,6 +47202,25 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.Grpc.ContentData.Clone
   nameWithType: ContentData.Clone
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  name: ContentId
+  href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_ContentId
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  nameWithType: ContentData.ContentId
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId*
+  name: ContentId
+  href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_ContentId_
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  nameWithType: ContentData.ContentId
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
+  name: ContentIdFieldNumber
+  href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_ContentIdFieldNumber
+  commentId: F:IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
+  nameWithType: ContentData.ContentIdFieldNumber
 - uid: IdeaStatiCa.Plugin.Grpc.ContentData.Data
   name: Data
   href: api-plugin/IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa_Plugin_Grpc_ContentData_Data
@@ -51287,6 +51450,22 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate
   nameWithType: IConnHiddenCheck.ExportToTemplate
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport(string, ConnReportSettings)
+  href: api-plugin/IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa_Plugin_IConnHiddenCheck_GenerateReport_System_String_IdeaStatiCa_Plugin_ConnReportSettings_
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(String, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport(string, IdeaStatiCa.Plugin.ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport(String, IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType: IConnHiddenCheck.GenerateReport(string, ConnReportSettings)
+  nameWithType.vb: IConnHiddenCheck.GenerateReport(String, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport*
+  name: GenerateReport
+  href: api-plugin/IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa_Plugin_IConnHiddenCheck_GenerateReport_
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport
+  nameWithType: IConnHiddenCheck.GenerateReport
 - uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)
   name: GetAllConnectionData(string)
   href: api-plugin/IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa_Plugin_IConnHiddenCheck_GetAllConnectionData_System_String_
@@ -51464,6 +51643,22 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GetProjectInfo
   nameWithType: IConnHiddenCheck.GetProjectInfo
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(System.String)
+  name: OpenConnectionInApp(string)
+  href: api-plugin/IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa_Plugin_IConnHiddenCheck_OpenConnectionInApp_System_String_
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(System.String)
+  name.vb: OpenConnectionInApp(String)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(string)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(String)
+  nameWithType: IConnHiddenCheck.OpenConnectionInApp(string)
+  nameWithType.vb: IConnHiddenCheck.OpenConnectionInApp(String)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp*
+  name: OpenConnectionInApp
+  href: api-plugin/IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa_Plugin_IConnHiddenCheck_OpenConnectionInApp_
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp
+  nameWithType: IConnHiddenCheck.OpenConnectionInApp
 - uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenProject(System.String)
   name: OpenProject(string)
   href: api-plugin/IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa_Plugin_IConnHiddenCheck_OpenProject_System_String_
@@ -51589,6 +51784,41 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.UpdateLoadingFromJson
   nameWithType: IConnHiddenCheck.UpdateLoadingFromJson
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation
+  name: IConnectionAutomation
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.html
+  commentId: T:IdeaStatiCa.Plugin.IConnectionAutomation
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation
+  nameWithType: IConnectionAutomation
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport(int, ConnReportSettings)
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa_Plugin_IConnectionAutomation_GenerateReport_System_Int32_IdeaStatiCa_Plugin_ConnReportSettings_
+  commentId: M:IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType: IConnectionAutomation.GenerateReport(int, ConnReportSettings)
+  nameWithType.vb: IConnectionAutomation.GenerateReport(Integer, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport*
+  name: GenerateReport
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa_Plugin_IConnectionAutomation_GenerateReport_
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport
+  nameWithType: IConnectionAutomation.GenerateReport
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  name: GetProjectInfo()
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa_Plugin_IConnectionAutomation_GetProjectInfo
+  commentId: M:IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo()
+  nameWithType: IConnectionAutomation.GetProjectInfo()
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo*
+  name: GetProjectInfo
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa_Plugin_IConnectionAutomation_GetProjectInfo_
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
+  nameWithType: IConnectionAutomation.GetProjectInfo
 - uid: IdeaStatiCa.Plugin.IConnectionController
   name: IConnectionController
   href: api-plugin/IdeaStatiCa.Plugin.IConnectionController.html
@@ -51614,6 +51844,22 @@ references:
   commentId: E:IdeaStatiCa.Plugin.IConnectionController.ConnectionAppExited
   fullName: IdeaStatiCa.Plugin.IConnectionController.ConnectionAppExited
   nameWithType: IConnectionController.ConnectionAppExited
+- uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport(int, ConnReportSettings)
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa_Plugin_IConnectionController_GenerateReport_System_Int32_IdeaStatiCa_Plugin_ConnReportSettings_
+  commentId: M:IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType: IConnectionController.GenerateReport(int, ConnReportSettings)
+  nameWithType.vb: IConnectionController.GenerateReport(Integer, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport*
+  name: GenerateReport
+  href: api-plugin/IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa_Plugin_IConnectionController_GenerateReport_
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionController.GenerateReport
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.IConnectionController.GenerateReport
+  nameWithType: IConnectionController.GenerateReport
 - uid: IdeaStatiCa.Plugin.IConnectionController.IsConnected
   name: IsConnected
   href: api-plugin/IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa_Plugin_IConnectionController_IsConnected
@@ -52172,6 +52418,22 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.IdeaConnectionController.Dispose
   nameWithType: IdeaConnectionController.Dispose
+- uid: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport(int, ConnReportSettings)
+  href: api-plugin/IdeaStatiCa.Plugin.IdeaConnectionController.html#IdeaStatiCa_Plugin_IdeaConnectionController_GenerateReport_System_Int32_IdeaStatiCa_Plugin_ConnReportSettings_
+  commentId: M:IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType: IdeaConnectionController.GenerateReport(int, ConnReportSettings)
+  nameWithType.vb: IdeaConnectionController.GenerateReport(Integer, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport*
+  name: GenerateReport
+  href: api-plugin/IdeaStatiCa.Plugin.IdeaConnectionController.html#IdeaStatiCa_Plugin_IdeaConnectionController_GenerateReport_
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport
+  nameWithType: IdeaConnectionController.GenerateReport
 - uid: IdeaStatiCa.Plugin.IdeaConnectionController.GrpcClient
   name: GrpcClient
   href: api-plugin/IdeaStatiCa.Plugin.IdeaConnectionController.html#IdeaStatiCa_Plugin_IdeaConnectionController_GrpcClient
@@ -53589,6 +53851,38 @@ references:
   isSpec: "True"
   fullName: IdeaStatiCa.Plugin.ProjectItem.Name
   nameWithType: ProjectItem.Name
+- uid: IdeaStatiCa.Plugin.ReportResponse
+  name: ReportResponse
+  href: api-plugin/IdeaStatiCa.Plugin.ReportResponse.html
+  commentId: T:IdeaStatiCa.Plugin.ReportResponse
+  fullName: IdeaStatiCa.Plugin.ReportResponse
+  nameWithType: ReportResponse
+- uid: IdeaStatiCa.Plugin.ReportResponse.Port
+  name: Port
+  href: api-plugin/IdeaStatiCa.Plugin.ReportResponse.html#IdeaStatiCa_Plugin_ReportResponse_Port
+  commentId: P:IdeaStatiCa.Plugin.ReportResponse.Port
+  fullName: IdeaStatiCa.Plugin.ReportResponse.Port
+  nameWithType: ReportResponse.Port
+- uid: IdeaStatiCa.Plugin.ReportResponse.Port*
+  name: Port
+  href: api-plugin/IdeaStatiCa.Plugin.ReportResponse.html#IdeaStatiCa_Plugin_ReportResponse_Port_
+  commentId: Overload:IdeaStatiCa.Plugin.ReportResponse.Port
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.ReportResponse.Port
+  nameWithType: ReportResponse.Port
+- uid: IdeaStatiCa.Plugin.ReportResponse.ReportId
+  name: ReportId
+  href: api-plugin/IdeaStatiCa.Plugin.ReportResponse.html#IdeaStatiCa_Plugin_ReportResponse_ReportId
+  commentId: P:IdeaStatiCa.Plugin.ReportResponse.ReportId
+  fullName: IdeaStatiCa.Plugin.ReportResponse.ReportId
+  nameWithType: ReportResponse.ReportId
+- uid: IdeaStatiCa.Plugin.ReportResponse.ReportId*
+  name: ReportId
+  href: api-plugin/IdeaStatiCa.Plugin.ReportResponse.html#IdeaStatiCa_Plugin_ReportResponse_ReportId_
+  commentId: Overload:IdeaStatiCa.Plugin.ReportResponse.ReportId
+  isSpec: "True"
+  fullName: IdeaStatiCa.Plugin.ReportResponse.ReportId
+  nameWithType: ReportResponse.ReportId
 - uid: IdeaStatiCa.Plugin.RequestedItemsType
   name: RequestedItemsType
   href: api-plugin/IdeaStatiCa.Plugin.RequestedItemsType.html

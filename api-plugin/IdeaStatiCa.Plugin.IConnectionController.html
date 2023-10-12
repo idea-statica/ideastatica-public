@@ -17,7 +17,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/add_wiki_content_to_docfx/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnectionController.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnectionController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/new/fix_dev_site_links/apiSpec/new?filename=IdeaStatiCa_Plugin_IConnectionController.md&amp;value=---%0Auid%3A%20IdeaStatiCa.Plugin.IConnectionController%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -90,7 +90,7 @@
 
   <h1 id="IdeaStatiCa_Plugin_IConnectionController" data-uid="IdeaStatiCa.Plugin.IConnectionController" class="text-break">
     Interface IConnectionController
-  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/IConnectionController.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -98,7 +98,7 @@
   <dl><dt>Assembly</dt><dd>IdeaStatiCa.Plugin.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides opening of project with UI (opens IDEA StatiCa Connection application).</p>
+  <div class="markdown summary"><p>Automation of IdeaConnection app</p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -126,10 +126,10 @@
 
   <h3 id="IdeaStatiCa_Plugin_IConnectionController_IsConnected" data-uid="IdeaStatiCa.Plugin.IConnectionController.IsConnected">
   IsConnected
-  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/IConnectionController.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Indicates whether communication (open/close project) is alive.</p>
+  <div class="markdown level1 summary"><p>Indicates whether communication with IdeaConnection.exe is alive.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -162,10 +162,10 @@
 
   <h3 id="IdeaStatiCa_Plugin_IConnectionController_CloseProject" data-uid="IdeaStatiCa.Plugin.IConnectionController.CloseProject">
   CloseProject()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/IConnectionController.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Close connection file project, provided service is connected and connection file is opened.</p>
+  <div class="markdown level1 summary"><p>Close the open project</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -190,14 +190,56 @@
 
 
 
+  <a id="IdeaStatiCa_Plugin_IConnectionController_GenerateReport_" data-uid="IdeaStatiCa.Plugin.IConnectionController.GenerateReport*"></a>
+
+  <h3 id="IdeaStatiCa_Plugin_IConnectionController_GenerateReport_System_Int32_IdeaStatiCa_Plugin_ConnReportSettings_" data-uid="IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)">
+  GenerateReport(int, ConnReportSettings)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Send a request to generate a connection report and return a blobstorage with its data</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IBlobStorage GenerateReport(int conId, ConnReportSettings settings)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>conId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Id of the requested connection</p>
+</dd>
+    <dt><code>settings</code> <a class="xref" href="IdeaStatiCa.Plugin.ConnReportSettings.html">ConnReportSettings</a></dt>
+    <dd><p>Report settings</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IBlobStorage</span></dt>
+    <dd><p>The instance of the blobstorage</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="IdeaStatiCa_Plugin_IConnectionController_OpenProject_" data-uid="IdeaStatiCa.Plugin.IConnectionController.OpenProject*"></a>
 
   <h3 id="IdeaStatiCa_Plugin_IConnectionController_OpenProject_System_String_" data-uid="IdeaStatiCa.Plugin.IConnectionController.OpenProject(System.String)">
   OpenProject(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/IConnectionController.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Opens connection file project, provided service is connected.</p>
+  <div class="markdown level1 summary"><p>Open idea con project in IdeaConnection</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -235,10 +277,10 @@
 
   <h3 id="IdeaStatiCa_Plugin_IConnectionController_ConnectionAppExited" data-uid="IdeaStatiCa.Plugin.IConnectionController.ConnectionAppExited">
   ConnectionAppExited
-  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/IConnectionController.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Fires when connection application exited.</p>
+  <div class="markdown level1 summary"><p>Fires when IdeaConnection app exited.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -267,7 +309,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/idea-statica/ideastatica-public/blob/add_wiki_content_to_docfx/src/IdeaStatiCa.Plugin/IConnectionController.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/fix_dev_site_links/src/IdeaStatiCa.Plugin/Api/Connection/IConnectionController.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
         

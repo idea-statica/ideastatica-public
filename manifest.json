@@ -1,5 +1,4 @@
 {
-  "homepages": [],
   "source_base_path": "/home/runner/work/ideastatica-public/ideastatica-public/docs",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -3854,6 +3853,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "api-bimapilink/IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.yml",
       "output": {
@@ -9225,6 +9227,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api-plugin/IdeaStatiCa.Plugin.ConnReportSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-plugin/IdeaStatiCa.Plugin.ConnReportSettings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.yml",
       "output": {
         ".html": {
@@ -9875,6 +9887,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-plugin/IdeaStatiCa.Plugin.IConnectionAutomation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api-plugin/IdeaStatiCa.Plugin.IConnectionController.yml",
       "output": {
         ".html": {
@@ -10119,6 +10141,16 @@
       "output": {
         ".html": {
           "relative_path": "api-plugin/IdeaStatiCa.Plugin.ProjectItem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api-plugin/IdeaStatiCa.Plugin.ReportResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api-plugin/IdeaStatiCa.Plugin.ReportResponse.html"
         }
       },
       "version": ""
@@ -10925,13 +10957,13 @@
     },
     {
       "type": "Toc",
-      "source_relative_path": "docs/api/dotnet/toc.yml",
+      "source_relative_path": "docs/api/dotnet/examples/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "docs/api/dotnet/toc.html"
+          "relative_path": "docs/api/dotnet/examples/toc.html"
         },
         ".json": {
-          "relative_path": "docs/api/dotnet/toc.json"
+          "relative_path": "docs/api/dotnet/examples/toc.json"
         }
       },
       "version": ""
@@ -10982,6 +11014,19 @@
       "output": {
         ".html": {
           "relative_path": "docs/api/python/api_using_python_with_idea_packages.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/api/python/examples/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/python/examples/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/api/python/examples/toc.json"
         }
       },
       "version": ""
@@ -11055,6 +11100,19 @@
       "output": {
         ".html": {
           "relative_path": "docs/bimapi/bimapi_linking_an_application_with_checkbot.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/bimapi/examples/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/bimapi/examples/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/bimapi/examples/toc.json"
         }
       },
       "version": ""
@@ -11407,6 +11465,19 @@
       "output": {
         ".html": {
           "relative_path": "docs/iom/examples/steel_frame_example_python/iom_steel_frame_example_python.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/iom/examples/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/iom/examples/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/iom/examples/toc.json"
         }
       },
       "version": ""
@@ -12133,6 +12204,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "docs/iom/images/css-cs.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/css-cs.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "docs/iom/images/double_I.png",
       "output": {
         "resource": {
@@ -12257,6 +12338,16 @@
       "output": {
         "resource": {
           "relative_path": "docs/iom/images/geom_segments.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/iom/images/lcs.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/iom/images/lcs.png"
         }
       },
       "version": ""
@@ -12482,6 +12573,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/iom/iom_coordinate_systems.md",
       "output": {
@@ -12621,7 +12715,6 @@
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"
