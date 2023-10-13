@@ -1,17 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common.props" />
+  
   <PropertyGroup>
     <TargetFrameworks>net48;net6-windows</TargetFrameworks>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>true</AppendRuntimeIdentifierToOutputPath>
     <AssemblyTitle>IdeaStatiCa.PluginsTools.Windows</AssemblyTitle>
     <Product>IdeaStatiCa.PluginsTools.Windows</Product>
-    <Copyright></Copyright>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Authors>IdeaStatiCa</Authors>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
-    <Configurations>Debug;Release</Configurations>
-    <Version>22.1.3</Version>
   </PropertyGroup>
 </Project>
