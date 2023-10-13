@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -110,7 +110,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -141,7 +141,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ListItem
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -172,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -203,7 +203,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeResultClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -234,7 +234,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdConstructionStage
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -265,7 +265,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeUpdateResultClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -296,7 +296,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Nonlinear
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs

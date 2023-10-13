@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TemperatureDirection
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -44,7 +44,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EveryWhere
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -72,7 +72,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SpecifiedEdges
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs

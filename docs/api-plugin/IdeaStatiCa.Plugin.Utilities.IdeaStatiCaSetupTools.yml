@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Utilities/IdeaStatiCaSetupTools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaStatiCaSetupTools
     path: ../src/IdeaStatiCa.Plugin/Utilities/IdeaStatiCaSetupTools.cs
@@ -54,7 +54,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Utilities/IdeaStatiCaSetupTools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaStatiCaRegistryKey
     path: ../src/IdeaStatiCa.Plugin/Utilities/IdeaStatiCaSetupTools.cs
@@ -81,7 +81,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Utilities/IdeaStatiCaSetupTools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetIdeaStatiCaInstallDir
     path: ../src/IdeaStatiCa.Plugin/Utilities/IdeaStatiCaSetupTools.cs

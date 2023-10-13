@@ -1,7 +1,9 @@
 Status: 👷‍♂️ Work In Progress. Have a question relating to the topic? Please add an issue.
 
-## Origin Settings
-//To do
 
-## IDEA Settings
+# Removed from the developer site as it is incomplete
+
+
+
+## Origin Settings
 //To do

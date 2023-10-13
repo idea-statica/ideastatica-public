@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaConnectionPoint
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Node
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -82,7 +82,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedMembers
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -111,7 +111,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Plates
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -140,7 +140,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FoldedPlates
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -169,7 +169,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorGrids
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -198,7 +198,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltGrids
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -227,7 +227,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Welds
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
@@ -256,7 +256,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cuts
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectionPoint.cs

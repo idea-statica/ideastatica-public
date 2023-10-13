@@ -27,7 +27,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinfFabric
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -82,7 +82,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -113,7 +113,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -144,7 +144,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiameterX
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -175,7 +175,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiameterY
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -206,7 +206,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceX
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -237,7 +237,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DistanceY
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -268,7 +268,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SeparatelyPerWall
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -299,7 +299,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Number
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -330,7 +330,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CoverFromSetting
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -361,7 +361,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cover
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -392,7 +392,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Position
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
@@ -423,7 +423,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Angle
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfFabric.cs

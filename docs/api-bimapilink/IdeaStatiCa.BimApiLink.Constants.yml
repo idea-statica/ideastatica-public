@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Constants.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Constants
     path: ../src/IdeaStatica.BimApiLink/Constants.cs
@@ -52,7 +52,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Constants.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Tolerance
     path: ../src/IdeaStatica.BimApiLink/Constants.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Constants.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GravitationalAcceleration
     path: ../src/IdeaStatica.BimApiLink/Constants.cs

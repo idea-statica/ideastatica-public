@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionCheckRes
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -80,7 +80,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -111,7 +111,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResSummary
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResPlate
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -193,7 +193,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResWeld
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -234,7 +234,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResBolt
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -275,7 +275,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResAnchor
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -316,7 +316,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResConcreteBlock
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -357,7 +357,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BucklingResults
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -398,7 +398,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -439,7 +439,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionID
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -480,7 +480,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Messages
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs

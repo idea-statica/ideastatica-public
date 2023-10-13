@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaUserEventImplementation
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventCategory
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
@@ -96,7 +96,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventName
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventAction
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
@@ -166,7 +166,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventLabel
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
@@ -202,7 +202,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventValue
     path: ../src/IdeaStatica.BimApiLink/Plugin/BimApiLinkEvents.cs

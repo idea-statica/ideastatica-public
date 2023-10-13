@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarStirrupPattern
     path: ../src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
@@ -77,7 +77,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
@@ -108,7 +108,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Distance
     path: ../src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
@@ -139,7 +139,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Translation
     path: ../src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
@@ -173,7 +173,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddFirstStirrup
     path: ../src/IdeaRS.OpenModel/Model/RebarStirrupPattern.cs

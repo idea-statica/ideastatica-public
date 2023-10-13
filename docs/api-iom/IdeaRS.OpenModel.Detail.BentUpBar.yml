@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BentUpBar
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -87,7 +87,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -118,7 +118,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsOnLeft
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -180,7 +180,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Offset
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -211,7 +211,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Angle
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -242,7 +242,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TopLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -273,7 +273,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BottomLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -304,7 +304,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddAnchor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
@@ -335,7 +335,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/BentUpBar.cs

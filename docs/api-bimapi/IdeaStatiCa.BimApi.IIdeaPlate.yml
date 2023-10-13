@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaPlate
     path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
@@ -51,7 +51,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Thickness
     path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
@@ -80,7 +80,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
@@ -111,7 +111,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Origin
     path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
@@ -142,7 +142,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LocalCoordinateSystem
     path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs
@@ -176,7 +176,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaPlate.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaStatiCa.BimApi/IIdeaPlate.cs

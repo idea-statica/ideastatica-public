@@ -36,7 +36,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatConcreteEc2
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -202,7 +202,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateDependentValues
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -233,7 +233,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fck
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -264,7 +264,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Ecm
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -295,7 +295,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epsc1
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -326,7 +326,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epsc2
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -357,7 +357,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epsc3
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -388,7 +388,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epscu1
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -419,7 +419,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epscu2
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -450,7 +450,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epscu3
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -481,7 +481,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fctm
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -512,7 +512,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fctk_0_05
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -543,7 +543,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fctk_0_95
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -574,7 +574,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NFactor
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -605,7 +605,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fcm
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -636,7 +636,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StoneDiameter
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -667,7 +667,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CementClass
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -698,7 +698,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AggregateType
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -729,7 +729,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagramType
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -760,7 +760,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SilicaFume
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -791,7 +791,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PlainConcreteDiagram
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -822,7 +822,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserDiagram
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs

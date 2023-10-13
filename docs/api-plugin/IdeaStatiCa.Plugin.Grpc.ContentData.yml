@@ -7,8 +7,12 @@ items:
   children:
   - IdeaStatiCa.Plugin.Grpc.ContentData.#ctor
   - IdeaStatiCa.Plugin.Grpc.ContentData.#ctor(IdeaStatiCa.Plugin.Grpc.ContentData)
+  - IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  - IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
   - IdeaStatiCa.Plugin.Grpc.ContentData.CalculateSize
   - IdeaStatiCa.Plugin.Grpc.ContentData.Clone
+  - IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  - IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
   - IdeaStatiCa.Plugin.Grpc.ContentData.Data
   - IdeaStatiCa.Plugin.Grpc.ContentData.DataFieldNumber
   - IdeaStatiCa.Plugin.Grpc.ContentData.Descriptor
@@ -30,11 +34,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ContentData
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 674
+    startLine: 675
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -67,11 +71,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Parser
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 681
+    startLine: 682
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -96,11 +100,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Descriptor
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 685
+    startLine: 686
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -125,11 +129,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 697
+    startLine: 698
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -154,11 +158,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 705
+    startLine: 706
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -186,11 +190,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Clone
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 712
+    startLine: 715
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -219,11 +223,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DataFieldNumber
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 719
+    startLine: 722
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -248,11 +252,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Data
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 721
+    startLine: 724
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -263,6 +267,122 @@ items:
       type: Google.Protobuf.ByteString
     content.vb: Public Property Data As ByteString
   overload: IdeaStatiCa.Plugin.Grpc.ContentData.Data*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
+  commentId: F:IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
+  id: BlobStorageIdFieldNumber
+  parent: IdeaStatiCa.Plugin.Grpc.ContentData
+  langs:
+  - csharp
+  - vb
+  name: BlobStorageIdFieldNumber
+  nameWithType: ContentData.BlobStorageIdFieldNumber
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageIdFieldNumber
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BlobStorageIdFieldNumber
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 734
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Field number for the "blobStorageId" field.
+  example: []
+  syntax:
+    content: public const int BlobStorageIdFieldNumber = 2
+    return:
+      type: System.Int32
+    content.vb: Public Const BlobStorageIdFieldNumber As Integer = 2
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  id: BlobStorageId
+  parent: IdeaStatiCa.Plugin.Grpc.ContentData
+  langs:
+  - csharp
+  - vb
+  name: BlobStorageId
+  nameWithType: ContentData.BlobStorageId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: BlobStorageId
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 736
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public string BlobStorageId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property BlobStorageId As String
+  overload: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId*
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
+  commentId: F:IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
+  id: ContentIdFieldNumber
+  parent: IdeaStatiCa.Plugin.Grpc.ContentData
+  langs:
+  - csharp
+  - vb
+  name: ContentIdFieldNumber
+  nameWithType: ContentData.ContentIdFieldNumber
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ContentIdFieldNumber
+  type: Field
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContentIdFieldNumber
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 746
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  summary: Field number for the "contentId" field.
+  example: []
+  syntax:
+    content: public const int ContentIdFieldNumber = 3
+    return:
+      type: System.Int32
+    content.vb: Public Const ContentIdFieldNumber As Integer = 3
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  commentId: P:IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  id: ContentId
+  parent: IdeaStatiCa.Plugin.Grpc.ContentData
+  langs:
+  - csharp
+  - vb
+  name: ContentId
+  nameWithType: ContentData.ContentId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ContentId
+    path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
+    startLine: 748
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Grpc
+  syntax:
+    content: public string ContentId { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ContentId As String
+  overload: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId*
 - uid: IdeaStatiCa.Plugin.Grpc.ContentData.Equals(System.Object)
   commentId: M:IdeaStatiCa.Plugin.Grpc.ContentData.Equals(System.Object)
   id: Equals(System.Object)
@@ -277,11 +397,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 730
+    startLine: 757
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -315,11 +435,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 736
+    startLine: 763
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -352,11 +472,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetHashCode
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 749
+    startLine: 778
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -384,11 +504,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ToString
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 760
+    startLine: 791
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -416,11 +536,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WriteTo
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 766
+    startLine: 797
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -450,11 +570,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateSize
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 796
+    startLine: 843
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -485,11 +605,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MergeFrom
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 809
+    startLine: 862
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -519,11 +639,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MergeFrom
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 821
+    startLine: 880
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -1126,6 +1246,29 @@ references:
   name: ByteString
   nameWithType: ByteString
   fullName: Google.Protobuf.ByteString
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  href: IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+  name: BlobStorageId
+  nameWithType: ContentData.BlobStorageId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.BlobStorageId
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId*
+  commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  href: IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
+  name: ContentId
+  nameWithType: ContentData.ContentId
+  fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ContentId
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1291,17 +1434,6 @@ references:
   name: ToString
   nameWithType: ContentData.ToString
   fullName: IdeaStatiCa.Plugin.Grpc.ContentData.ToString
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
 - uid: IdeaStatiCa.Plugin.Grpc.ContentData.WriteTo*
   commentId: Overload:IdeaStatiCa.Plugin.Grpc.ContentData.WriteTo
   href: IdeaStatiCa.Plugin.Grpc.ContentData.html#IdeaStatiCa.Plugin.Grpc.ContentData.WriteTo(Google.Protobuf.CodedOutputStream)

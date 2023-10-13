@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSection
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
@@ -94,7 +94,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
@@ -125,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionRotation
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsInPrincipal
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSection.cs

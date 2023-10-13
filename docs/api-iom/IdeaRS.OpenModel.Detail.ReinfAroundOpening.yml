@@ -27,7 +27,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinfAroundOpening
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -121,7 +121,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumOfLayers
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Distance
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -214,7 +214,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -245,7 +245,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalReinforcement
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -276,7 +276,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalDiameter
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -307,7 +307,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalNumOfBarsInLayer
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -338,7 +338,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalNumOfLayers
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -369,7 +369,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalDistance
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -400,7 +400,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalLength
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
@@ -431,7 +431,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalEndsType
     path: ../src/IdeaRS.OpenModel/Detail/Reinforcement/ReinfAroundOpening.cs

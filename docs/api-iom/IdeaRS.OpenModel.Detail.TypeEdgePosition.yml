@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeEdgePosition
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WholeLength
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PartEdge
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PartEdgeToEndEdge
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PartEdgeToSegment
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PartEdgeFromEnd
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/LineSupport.cs

@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CutBeamByBeamData
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModifiedObject
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CuttingObject
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -124,7 +124,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsWeld
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldThickness
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -186,7 +186,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -217,7 +217,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Offset
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -248,7 +248,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Method
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -282,7 +282,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Orientation
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -313,7 +313,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PlaneOnCuttingObject
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -344,7 +344,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CutPart
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs

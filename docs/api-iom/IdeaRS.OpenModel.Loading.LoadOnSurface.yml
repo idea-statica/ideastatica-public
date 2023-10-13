@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadOnSurface
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
@@ -106,7 +106,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fx
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fy
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
@@ -168,7 +168,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fz
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
@@ -199,7 +199,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Direction
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
@@ -230,7 +230,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Loading/LoadOnSurface.cs

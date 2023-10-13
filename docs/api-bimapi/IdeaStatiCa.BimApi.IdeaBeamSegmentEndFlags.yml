@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaBeamSegmentEndFlags
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AllDirActive
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoNotActDirX
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoNotActDirY
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -129,7 +129,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoNotActDirZ
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -157,7 +157,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Supported
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -185,7 +185,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Rod
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -213,7 +213,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NoBending
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs

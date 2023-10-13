@@ -61,7 +61,7 @@ The table below shows how different basic types should be provided in the expres
 
 ### Units
 
-> Currently, all parameter inputs need to be provided in _basic_ SI Units. Please see the link [here](https://github.com/idea-statica/ideastatica-public/wiki/IOM-Model-Basics) for reference.
+> Currently, all parameter inputs need to be provided in _basic_ SI Units. Please see the link [here](../../docs/iom/iom_units.md) for reference.
 
 ### Expression methods
 
@@ -77,11 +77,11 @@ The below table provides the basic expression functions typically required to en
 | **RoundNumber(..)** | rounds a decimal number to an Integer |  Round(2.1578, 0) | `2` |
 | **RoundNumber(..)** | rounds a decimal number to a precision three |  Round(2.1578, 3) | `2.158` |
 
-For a further and full explanation of available expression methods refer to the [Parameter Reference Guide](https://github.com/idea-statica/ideastatica-public/wiki/Reference-Guide-Expression-Parameters)
+For a further and full explanation of available expression methods refer to the [Parameter Reference Guide](api_parameter_reference_guide.md)
 
 ### Advanced expression methods
 
-There are further advanced Expression methods that can retrieve parameters currently available to be accessed from parts of an existing model using specific evaluation strings. This is currently an advanced feature and will be developed further in the future. Refer to the [Parameter Reference Guide](https://github.com/idea-statica/ideastatica-public/wiki/Reference-Guide-Expression-Parameters)
+There are further advanced Expression methods that can retrieve parameters currently available to be accessed from parts of an existing model using specific evaluation strings. This is currently an advanced feature and will be developed further in the future. Refer to the [Parameter Reference Guide](api_parameter_reference_guide.md)
 
 ## Model properties
 
@@ -128,7 +128,7 @@ Note that the developer tab ‘Templates’ functionality is like that provided 
 
 ## Further information and examples
 * [Webinar on using parameters for optimization](https://www.youtube.com/watch?v=YJ748NLRYIA&t=1067s)
-* [Parameter Expression Reference Guide](https://github.com/idea-statica/ideastatica-public/wiki/Reference-Guide-Expression-Parameters)
+* [Parameter Expression Reference Guide](api_parameter_reference_guide.md)
 
 
 

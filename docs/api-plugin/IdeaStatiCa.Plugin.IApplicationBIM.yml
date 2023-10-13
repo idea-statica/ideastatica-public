@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IApplicationBIM
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -61,7 +61,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetActiveSelection
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetActiveSelectionModelXML
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -142,7 +142,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetActiveSelectionModelXMLAsync
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -175,7 +175,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetApplicationName
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -213,7 +213,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetModelForSelectionXML
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -269,7 +269,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetModelForSelectionXMLAsync
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -305,7 +305,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsCAD
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -343,7 +343,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SelectAsync
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -387,7 +387,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsDataUpToDate
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs

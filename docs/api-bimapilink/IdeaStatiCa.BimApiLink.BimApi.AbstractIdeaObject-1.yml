@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AbstractIdeaObject
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -108,7 +108,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Id
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -146,7 +146,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -181,7 +181,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Identifier
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -212,7 +212,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -244,7 +244,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetHashCode
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -278,7 +278,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
@@ -317,7 +317,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatica.BimApiLink/BimApi/AbstractIdeaObject.cs

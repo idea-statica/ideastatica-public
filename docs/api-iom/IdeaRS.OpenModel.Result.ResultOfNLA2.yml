@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfNLA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultOfNLA2
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfNLA.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfNLA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfNLA.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Obsolete/ResultOfNLA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Points
     path: ../src/IdeaRS.OpenModel/Obsolete/ResultOfNLA.cs

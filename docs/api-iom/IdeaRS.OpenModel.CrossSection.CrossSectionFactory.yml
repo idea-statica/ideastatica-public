@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionFactory
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZ
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -179,7 +179,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedC
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -231,7 +231,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -280,7 +280,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZed
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -332,7 +332,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedOmega
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -384,7 +384,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedL
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -435,7 +435,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedLgen
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -489,7 +489,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedRegularPolygon
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -536,7 +536,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedSigma
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -597,7 +597,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedRHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -644,7 +644,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedGeneral
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -688,7 +688,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedCp
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -746,7 +746,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeIBase
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -805,7 +805,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -858,7 +858,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeL
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -905,7 +905,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -952,7 +952,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTwh
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1002,7 +1002,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1052,7 +1052,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTrev
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1099,7 +1099,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTrev1
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1149,7 +1149,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTrapezoid1
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1193,7 +1193,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeU
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1246,7 +1246,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssRectangleHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1299,7 +1299,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillOHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1340,7 +1340,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillLibraryShape
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1374,7 +1374,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRectangle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1415,7 +1415,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCircle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1453,7 +1453,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillGeneralShape
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1506,7 +1506,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssIarc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1564,7 +1564,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1622,7 +1622,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelAngle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1680,7 +1680,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCHSPar
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1728,7 +1728,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelCircularHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1776,7 +1776,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelRectangularHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1832,7 +1832,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillSteelTube
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1880,7 +1880,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssTarc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1944,7 +1944,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillSteelTI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1994,7 +1994,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedU
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2054,7 +2054,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeDblU
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2112,7 +2112,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWelded2Uc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2160,7 +2160,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWelded2Lt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2212,7 +2212,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWelded2Lu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2264,7 +2264,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeDblL
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2322,7 +2322,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2380,7 +2380,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBox2
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2438,7 +2438,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBoxWeb
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2498,7 +2498,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBoxWeb
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2564,7 +2564,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillTriangle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2620,7 +2620,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2678,7 +2678,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2736,7 +2736,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUo
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2794,7 +2794,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -2850,7 +2850,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -2884,7 +2884,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -2942,7 +2942,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -2978,7 +2978,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3037,7 +3037,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3075,7 +3075,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3128,7 +3128,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3162,7 +3162,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3203,7 +3203,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3237,7 +3237,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3302,7 +3302,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3338,7 +3338,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledTFromI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3382,7 +3382,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3429,7 +3429,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3478,7 +3478,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedAsymI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3531,7 +3531,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUo
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3581,7 +3581,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUo
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3622,7 +3622,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3663,7 +3663,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3714,7 +3714,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3759,7 +3759,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3810,7 +3810,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3855,7 +3855,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedBoxFlange
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3911,7 +3911,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedBoxWeb
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -3959,7 +3959,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedBoxDelta
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -4013,7 +4013,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedTriangle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs

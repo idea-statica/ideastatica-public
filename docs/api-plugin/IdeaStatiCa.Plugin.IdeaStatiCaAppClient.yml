@@ -37,7 +37,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaStatiCaAppClient
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -92,7 +92,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -124,7 +124,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCssInMPRL
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -161,7 +161,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCssInProject
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -194,7 +194,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCssInProjectV2
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -227,7 +227,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaterialsInMPRL
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -264,7 +264,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaterialsInProject
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -297,7 +297,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetConnectionModel
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -341,7 +341,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetAllConnectionData
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -385,7 +385,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessage
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -422,7 +422,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStage
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -461,7 +461,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStageProgress
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -496,7 +496,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetLocalizedText
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -530,7 +530,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCurrentCulture
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -561,7 +561,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageInteractive
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -602,7 +602,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CancelMessage
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -631,7 +631,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Service
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -660,7 +660,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCancellationFlag
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -691,7 +691,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InitProgressDialog
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -720,7 +720,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessage
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -751,7 +751,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStage
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -787,7 +787,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageLocalised
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
@@ -826,7 +826,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetStageLocalised
     path: ../src/IdeaStatiCa.Plugin/IdeaStatiCaAppClient.cs

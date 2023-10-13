@@ -1,4 +1,9 @@
 - name: Getting Started .Net API
   href: api_dotnet_getting_started.md
 - name: Examples
-  href: examples/toc.yml
+- name: RCS column example
+  href: examples/rcs/rcs_column.md
+- name: RCS reinforced beam example
+  href: examples/rcs/rcs_reinforced_beam.md
+- name: RCS pre-stressed beam example
+  href: examples/rcs/rcs_prestressed_beam.md

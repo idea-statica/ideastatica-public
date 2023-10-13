@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcMethodInvokerHandler
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
@@ -35,8 +35,6 @@ items:
     content.vb: Public Class GrpcMethodInvokerHandler Implements IMethodInvoker, IGrpcMessageHandler
   inheritance:
   - System.Object
-  derivedClasses:
-  - IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
   implements:
   - IdeaStatiCa.Plugin.Grpc.Reflection.IMethodInvoker
   - IdeaStatiCa.Plugin.Grpc.IGrpcMessageHandler
@@ -62,7 +60,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandlerName
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
@@ -89,7 +87,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcSender
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
@@ -118,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
@@ -159,7 +157,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InvokeMethod
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
@@ -212,11 +210,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SendMessageDataSync
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-    startLine: 189
+    startLine: 190
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection
@@ -243,11 +241,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleServerMessage
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-    startLine: 206
+    startLine: 207
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection
@@ -283,11 +281,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleClientMessage
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcMethodInvokerHandler.cs
-    startLine: 213
+    startLine: 214
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection

@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StrainImpulse
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -55,7 +55,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EpsX
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -86,7 +86,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PhiX
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -117,7 +117,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PhiY
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -148,7 +148,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PhiZ
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -179,7 +179,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaXY
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -210,7 +210,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaXZ
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs

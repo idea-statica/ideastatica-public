@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByName.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaCrossSectionByName
     path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByName.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaCrossSectionByName.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaStatiCa.BimApi/IIdeaCrossSectionByName.cs

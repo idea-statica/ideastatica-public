@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadingULS
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -90,7 +90,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForces
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -121,7 +121,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForcesVariable
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForcesBegin
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -183,7 +183,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForcesEnd
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -214,7 +214,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForces2ndOrder
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
@@ -245,7 +245,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForcesImperfection
     path: ../src/IdeaRS.OpenModel/Concrete/Load/LoadingULS.cs

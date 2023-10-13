@@ -29,7 +29,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SteelSetupAISC
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -68,7 +68,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReductionFactorTension
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReductionFactorShear
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltTensileShear_Omega
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -161,7 +161,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltTensileShearCombined_Omega
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -192,7 +192,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltBearing_Omega
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -223,7 +223,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FilletWelds_Omega
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -254,7 +254,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltTensileShear_Phi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -285,7 +285,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltTensileShearCombined_Phi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -316,7 +316,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltBearing_Phi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -347,7 +347,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FilletWelds_Phi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -378,7 +378,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialFy_Omega
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -409,7 +409,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialFy_Phi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -440,7 +440,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltSlipRes_Phi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
@@ -471,7 +471,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltSlipRes_Omega
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupAISC.cs

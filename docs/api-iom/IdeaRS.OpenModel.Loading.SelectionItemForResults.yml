@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SelectionItemForResults
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfLoad
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -138,7 +138,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeClassEvaluation
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -169,7 +169,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Item
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -200,7 +200,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Coeff
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs

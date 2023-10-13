@@ -32,7 +32,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamDataEc2
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -69,7 +69,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -100,7 +100,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfCalculation
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Ln
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -162,7 +162,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamSpanLength
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -193,7 +193,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfSupportLeft
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -224,7 +224,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfSupportRight
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -255,7 +255,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WidthOfSupportLeft
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -286,7 +286,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WidthOfSupportRight
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -317,7 +317,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DeflectionSheme
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -348,7 +348,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckLimitDeflection
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -379,7 +379,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsUserLimitDeflection
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -410,7 +410,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserLimitDeflection
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -441,7 +441,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckLimitDeflRheoEffects
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -472,7 +472,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserLimitDeflRheoEffects
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -503,7 +503,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsAbsValueLimitDeflection
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -534,7 +534,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RequiredCamber
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -565,7 +565,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsYDirectionData
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs

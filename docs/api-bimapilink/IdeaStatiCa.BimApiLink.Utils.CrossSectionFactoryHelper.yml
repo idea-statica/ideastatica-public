@@ -5,6 +5,7 @@ items:
   id: CrossSectionFactoryHelper
   parent: IdeaStatiCa.BimApiLink.Utils
   children:
+  - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillCircle(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double)
   - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedC(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
   - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedZ(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Boolean)
@@ -15,6 +16,8 @@ items:
   - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledRHS(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillRolledT(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
+  - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  - IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
   langs:
   - csharp
   - vb
@@ -25,11 +28,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionFactoryHelper
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 8
+    startLine: 7
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -62,11 +65,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 21
+    startLine: 20
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -118,11 +121,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 48
+    startLine: 47
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -183,11 +186,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 69
+    startLine: 68
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -224,11 +227,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 89
+    startLine: 88
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -282,11 +285,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 114
+    startLine: 113
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -341,11 +344,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 137
+    startLine: 136
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -394,11 +397,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCircle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 153
+    startLine: 152
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -432,11 +435,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRectangle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 165
+    startLine: 164
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -473,11 +476,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZ
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 181
+    startLine: 180
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -523,11 +526,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedC
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-    startLine: 200
+    startLine: 199
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Utils
@@ -561,6 +564,212 @@ items:
   nameWithType.vb: CrossSectionFactoryHelper.FillColdFormedC(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Boolean)
   fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedC(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Boolean)
   name.vb: FillColdFormedC(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Boolean)
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  id: FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  parent: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+  langs:
+  - csharp
+  - vb
+  name: FillWeldedAsymI(IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  nameWithType: CrossSectionFactoryHelper.FillWeldedAsymI(IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, double, double, double, double, double, double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FillWeldedAsymI
+    path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
+    startLine: 239
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Utils
+  summary: Welded I asymetrical - steel shape
+  remarks: >-
+    Dimension of assymetrical I section<br />
+        <img src="Images\Iasym.png" /> <br />
+  example:
+  - >-
+    This sample shows how to call this method./&gt;
+
+    <pre><code class="lang-csharp">CrossSectionParameter css = new CrossSectionParameter();
+
+    css.Id = 4;
+
+    css.Material = new ReferenceElement(openStructModel.MatSteel.First());
+
+    double bu = 0.150;
+
+    double bb = 0.180;
+
+    double hw = 0.320;
+
+    double tw = 0.016;
+
+    double tfu = 0.014;
+
+    double tfb = 0.018;
+
+    CrossSectionFactory.FillWeldedAsymI(css, bu, bb, hw, tw, tfu, tfb);
+
+    openStructModel.AddObject(css);</code></pre>
+  syntax:
+    content: public static void FillWeldedAsymI(IdeaCrossSectionByParameters css, double bu, double bb, double hw, double tw, double tfu, double tfb)
+    parameters:
+    - id: css
+      type: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+      description: Parameters of CrossSectionParameter will be filled
+    - id: bu
+      type: System.Double
+      description: Width of upper flange
+    - id: bb
+      type: System.Double
+      description: Width of bottom flange
+    - id: hw
+      type: System.Double
+      description: Height of web
+    - id: tw
+      type: System.Double
+      description: Web thickness
+    - id: tfu
+      type: System.Double
+      description: Upper flange thickness
+    - id: tfb
+      type: System.Double
+      description: Bottom flange thickness
+    content.vb: Public Shared Sub FillWeldedAsymI(css As IdeaCrossSectionByParameters, bu As Double, bb As Double, hw As Double, tw As Double, tfu As Double, tfb As Double)
+  overload: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI*
+  nameWithType.vb: CrossSectionFactoryHelper.FillWeldedAsymI(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double)
+  name.vb: FillWeldedAsymI(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  id: FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  parent: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+  langs:
+  - csharp
+  - vb
+  name: FillBox2(IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  nameWithType: CrossSectionFactoryHelper.FillBox2(IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, double, double, double, double, double, double, double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FillBox2
+    path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
+    startLine: 261
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Utils
+  summary: Box 2 - steel shape
+  example: []
+  syntax:
+    content: public static void FillBox2(IdeaCrossSectionByParameters css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb)
+    parameters:
+    - id: css
+      type: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+      description: Parameters of CrossSectionParameter will be filled
+    - id: bu
+      type: System.Double
+      description: Width of upper flange
+    - id: bb
+      type: System.Double
+      description: Width of bottom flange
+    - id: hw
+      type: System.Double
+      description: Height of web
+    - id: b1
+      type: System.Double
+      description: Web distance
+    - id: tw
+      type: System.Double
+      description: Web thickness
+    - id: tfu
+      type: System.Double
+      description: Upper flange thickness
+    - id: tfb
+      type: System.Double
+      description: Bottom flange thickness
+    content.vb: Public Shared Sub FillBox2(css As IdeaCrossSectionByParameters, bu As Double, bb As Double, hw As Double, b1 As Double, tw As Double, tfu As Double, tfb As Double)
+  overload: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2*
+  nameWithType.vb: CrossSectionFactoryHelper.FillBox2(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Double)
+  name.vb: FillBox2(IdeaCrossSectionByParameters, Double, Double, Double, Double, Double, Double, Double)
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
+  commentId: M:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
+  id: FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
+  parent: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper
+  langs:
+  - csharp
+  - vb
+  name: FillWeldedI(IdeaCrossSectionByParameters, double, double, double, double)
+  nameWithType: CrossSectionFactoryHelper.FillWeldedI(IdeaCrossSectionByParameters, double, double, double, double)
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, double, double, double, double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FillWeldedI
+    path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
+    startLine: 299
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Utils
+  summary: Fill steel section of welded I
+  remarks: >-
+    Dimension of welded I section<br />
+        <img src="Images\WeldedI.png" /> <br />
+  example:
+  - >-
+    This sample shows how to call this method./&gt;
+
+    <pre><code class="lang-csharp">CrossSectionParameter css = new CrossSectionParameter();
+
+    css.Id = 1;
+
+    css.Material = new ReferenceElement(openStructModel.MatSteel.First());  // I have only one material, I take the first one
+
+    double bu = 0.2;
+
+    double hw = 0.4;
+
+    double tw = 0.025;
+
+    double tf = 0.02;
+
+    CrossSectionFactory.FillWeldedI(css, bu, hw, tw, tf);
+
+    openStructModel.AddObject(css);</code></pre>
+  syntax:
+    content: public static void FillWeldedI(IdeaCrossSectionByParameters css, double bu, double hw, double tw, double tf)
+    parameters:
+    - id: css
+      type: IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters
+      description: Parameters of CrossSectionParameter will be filled
+    - id: bu
+      type: System.Double
+      description: Width of flange
+    - id: hw
+      type: System.Double
+      description: Height of web
+    - id: tw
+      type: System.Double
+      description: Web thickness
+    - id: tf
+      type: System.Double
+      description: Flange thickness
+    content.vb: Public Shared Sub FillWeldedI(css As IdeaCrossSectionByParameters, bu As Double, hw As Double, tw As Double, tf As Double)
+  overload: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI*
+  nameWithType.vb: CrossSectionFactoryHelper.FillWeldedI(IdeaCrossSectionByParameters, Double, Double, Double, Double)
+  fullName.vb: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters, Double, Double, Double, Double)
+  name.vb: FillWeldedI(IdeaCrossSectionByParameters, Double, Double, Double, Double)
 references:
 - uid: IdeaStatiCa.BimApiLink.Utils
   commentId: N:IdeaStatiCa.BimApiLink.Utils
@@ -948,3 +1157,21 @@ references:
   name: FillColdFormedC
   nameWithType: CrossSectionFactoryHelper.FillColdFormedC
   fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillColdFormedC
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI
+  href: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name: FillWeldedAsymI
+  nameWithType: CrossSectionFactoryHelper.FillWeldedAsymI
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedAsymI
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2
+  href: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name: FillBox2
+  nameWithType: CrossSectionFactoryHelper.FillBox2
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillBox2
+- uid: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI
+  href: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.html#IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI(IdeaStatiCa.BimApiLink.BimApi.IdeaCrossSectionByParameters,System.Double,System.Double,System.Double,System.Double)
+  name: FillWeldedI
+  nameWithType: CrossSectionFactoryHelper.FillWeldedI
+  fullName: IdeaStatiCa.BimApiLink.Utils.CrossSectionFactoryHelper.FillWeldedI

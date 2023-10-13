@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TemperatureLoadOnLine
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -219,7 +219,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -250,7 +250,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TemperatureCurve
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -281,7 +281,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -312,7 +312,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RelativeBeginPosition
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -343,7 +343,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RelativeEndPosition
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -374,7 +374,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Direction
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -405,7 +405,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DirectionEdges
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -436,7 +436,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConvectionCoefficient
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
@@ -467,7 +467,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RadiationCoefficient
     path: ../src/IdeaRS.OpenModel/Loading/TemperatureLoadOnLine.cs

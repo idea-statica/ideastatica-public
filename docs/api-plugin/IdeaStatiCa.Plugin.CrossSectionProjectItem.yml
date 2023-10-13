@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionProjectItem
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
@@ -67,7 +67,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialIdentifier
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
@@ -108,7 +108,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialName
     path: ../src/IdeaStatiCa.Plugin/IIdeaStaticaApp.cs

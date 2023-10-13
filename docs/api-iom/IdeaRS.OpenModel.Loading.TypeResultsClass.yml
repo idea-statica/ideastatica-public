@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeResultsClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ULSResultsClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -81,7 +81,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLSResultsClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ULSCheckClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLSFrequentCheckClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -165,7 +165,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLSQuasiPermanentCheckClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -193,7 +193,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLSCharacteristicsCheckClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -221,7 +221,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLSDeflectionResultsClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -249,7 +249,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ULSAccidentalResultsClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FatigueResultsClass
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -305,7 +305,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckClassFireResistance
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs
@@ -333,7 +333,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/ResultClass.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckClassBridgeLoadRating
     path: ../src/IdeaRS.OpenModel/Loading/ResultClass.cs

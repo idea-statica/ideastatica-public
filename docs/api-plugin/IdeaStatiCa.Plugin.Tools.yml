@@ -33,7 +33,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Tools
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -68,7 +68,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelToXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelToFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -136,7 +136,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModelContainerToXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -167,7 +167,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModelContainerToFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -201,7 +201,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModelContainerFromXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -235,7 +235,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModelContainerFromFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -269,7 +269,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionDataToXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -300,7 +300,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionDataFromXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -334,7 +334,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelToXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -365,7 +365,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelToFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -399,7 +399,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectToXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -430,7 +430,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectToFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -464,7 +464,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectFromXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -498,7 +498,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectFromFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -532,7 +532,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelFromXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -566,7 +566,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelFromFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -600,7 +600,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelsFromXml
     path: ../src/IdeaStatiCa.Plugin/Tools.cs
@@ -634,7 +634,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Tools.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelsFromFile
     path: ../src/IdeaStatiCa.Plugin/Tools.cs

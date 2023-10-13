@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProductionType
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HotRolledAndProcessed
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Patented
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ColdDrawn
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StressRelieved
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LowRelaxation
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatPrestressSteelEc2.cs

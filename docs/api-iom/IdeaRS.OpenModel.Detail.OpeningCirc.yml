@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/OpeningCirc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpeningCirc
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/OpeningCirc.cs
@@ -77,7 +77,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/OpeningCirc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/OpeningCirc.cs
@@ -108,7 +108,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/OpeningCirc.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Diameter
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/OpeningCirc.cs

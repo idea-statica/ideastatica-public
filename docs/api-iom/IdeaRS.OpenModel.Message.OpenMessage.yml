@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenMessage
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -114,7 +114,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -145,7 +145,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -195,7 +195,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Number
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -236,7 +236,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InnerMessage
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -267,7 +267,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -308,7 +308,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Object
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -339,7 +339,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PropertyName
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -370,7 +370,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PropertyValue
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs
@@ -401,7 +401,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/OpenMessage.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Message
     path: ../src/IdeaRS.OpenModel/Message/OpenMessage.cs

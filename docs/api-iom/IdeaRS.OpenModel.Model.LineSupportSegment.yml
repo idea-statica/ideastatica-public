@@ -29,7 +29,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LineSupportSegment
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -83,7 +83,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Segment
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -126,7 +126,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LocalCoordinateSystem
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -157,7 +157,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FlexibleStiffnessX
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -188,7 +188,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FlexibleStiffnessY
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -219,7 +219,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FlexibleStiffnessZ
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -250,7 +250,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FlexibleStiffnessRX
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -281,7 +281,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FlexibleStiffnessRY
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -312,7 +312,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FlexibleStiffnessRZ
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -343,7 +343,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTypeX
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -374,7 +374,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTypeY
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -405,7 +405,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTypeZ
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -436,7 +436,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTypeRX
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -467,7 +467,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTypeRY
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
@@ -498,7 +498,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/LineSupportSegment.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SupportTypeRZ
     path: ../src/IdeaRS.OpenModel/Model/LineSupportSegment.cs

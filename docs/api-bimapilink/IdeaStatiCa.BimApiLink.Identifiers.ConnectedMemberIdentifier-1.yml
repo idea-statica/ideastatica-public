@@ -28,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedMemberIdentifier
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GeometricalType
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedMemberType
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -138,7 +138,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsBearing
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -169,7 +169,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ForcesIn
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -200,7 +200,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberSegmentType
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -231,7 +231,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AutoAddCutByWorkplane
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -262,7 +262,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsReferenceLineInCenterOfGravity
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -293,7 +293,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaMember
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -324,7 +324,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetStringId
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -356,7 +356,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetId
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -388,7 +388,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -417,7 +417,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
@@ -449,7 +449,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectedMemberIdentidier.cs

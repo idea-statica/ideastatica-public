@@ -36,6 +36,8 @@ items:
     name: ConnectionHiddenCheckClient
   - uid: IdeaStatiCa.Plugin.ConnHiddenClientFactory
     name: ConnHiddenClientFactory
+  - uid: IdeaStatiCa.Plugin.ConnReportSettings
+    name: ConnReportSettings
   - uid: IdeaStatiCa.Plugin.Constants
     name: Constants
   - uid: IdeaStatiCa.Plugin.ConversionDictionary`1
@@ -66,6 +68,8 @@ items:
     name: IClientBIM<B>
   - uid: IdeaStatiCa.Plugin.IConnCalculatorFactory
     name: IConnCalculatorFactory
+  - uid: IdeaStatiCa.Plugin.IConnectionAutomation
+    name: IConnectionAutomation
   - uid: IdeaStatiCa.Plugin.IConnectionController
     name: IConnectionController
   - uid: IdeaStatiCa.Plugin.IConnHiddenCheck
@@ -106,6 +110,8 @@ items:
     name: ProgressSender
   - uid: IdeaStatiCa.Plugin.ProjectItem
     name: ProjectItem
+  - uid: IdeaStatiCa.Plugin.ReportResponse
+    name: ReportResponse
   - uid: IdeaStatiCa.Plugin.RequestedItemsType
     name: RequestedItemsType
   - uid: IdeaStatiCa.Plugin.SerializableDictionary`2
@@ -213,17 +219,6 @@ items:
     name: GrpcBlobStorageService
   - uid: IdeaStatiCa.Plugin.Grpc.Services.GrpcService
     name: GrpcService
-- uid: IdeaStatiCa.Plugin.ProjectContent
-  name: IdeaStatiCa.Plugin.ProjectContent
-  items:
-  - uid: IdeaStatiCa.Plugin.ProjectContent.IProjectContentStorage
-    name: IProjectContentStorage
-  - uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentClientHandler
-    name: ProjectContentClientHandler
-  - uid: IdeaStatiCa.Plugin.ProjectContent.ProjectContentServerHandler
-    name: ProjectContentServerHandler
-  - uid: IdeaStatiCa.Plugin.ProjectContent.RemoteDataStream
-    name: RemoteDataStream
 - uid: IdeaStatiCa.Plugin.Utilities
   name: IdeaStatiCa.Plugin.Utilities
   items:

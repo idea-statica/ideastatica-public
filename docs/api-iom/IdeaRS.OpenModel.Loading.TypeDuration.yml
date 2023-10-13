@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeDuration
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -46,7 +46,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LongTerm
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MediumTerm
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ShortTerm
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InstantaneousTerm
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs

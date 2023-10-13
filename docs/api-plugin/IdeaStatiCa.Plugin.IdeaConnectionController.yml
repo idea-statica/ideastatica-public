@@ -13,6 +13,7 @@ items:
   - IdeaStatiCa.Plugin.IdeaConnectionController.CurrentItemChangedEvent
   - IdeaStatiCa.Plugin.IdeaConnectionController.Dispose
   - IdeaStatiCa.Plugin.IdeaConnectionController.Dispose(System.Boolean)
+  - IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
   - IdeaStatiCa.Plugin.IdeaConnectionController.GrpcClient
   - IdeaStatiCa.Plugin.IdeaConnectionController.OpenConnectionClient
   - IdeaStatiCa.Plugin.IdeaConnectionController.OpenProject(System.String)
@@ -26,15 +27,16 @@ items:
   type: Class
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaConnectionController
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 10
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 13
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
+  example: []
   syntax:
     content: 'public class IdeaConnectionController : IDisposable, IConnectionController'
     content.vb: Public Class IdeaConnectionController Implements IDisposable, IConnectionController
@@ -64,16 +66,16 @@ items:
   type: Event
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionAppExited
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 16
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 22
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Fires when connection application exited.
+  summary: Fires when IdeaConnection app exited.
   example: []
   syntax:
     content: public event EventHandler ConnectionAppExited
@@ -95,12 +97,12 @@ items:
   type: Field
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CurrentItemChangedEvent
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 22
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 28
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -122,12 +124,12 @@ items:
   type: Property
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcClient
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 24
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 30
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -151,12 +153,12 @@ items:
   type: Property
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserMode
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 26
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 32
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -180,12 +182,12 @@ items:
   type: Constructor
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 37
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 43
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -214,12 +216,12 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 54
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 60
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -255,12 +257,12 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 66
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 72
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -299,16 +301,16 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProject
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 74
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 80
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Opens connection file project, provided service is connected.
+  summary: Open idea con project in IdeaConnection
   example: []
   syntax:
     content: public int OpenProject(string fileName)
@@ -339,16 +341,16 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CloseProject
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 81
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 87
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
-  summary: Close connection file project, provided service is connected and connection file is opened.
+  summary: Close the open project
   example: []
   syntax:
     content: public int CloseProject()
@@ -359,6 +361,45 @@ items:
   overload: IdeaStatiCa.Plugin.IdeaConnectionController.CloseProject*
   implements:
   - IdeaStatiCa.Plugin.IConnectionController.CloseProject
+- uid: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IdeaConnectionController
+  langs:
+  - csharp
+  - vb
+  name: GenerateReport(int, ConnReportSettings)
+  nameWithType: IdeaConnectionController.GenerateReport(int, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GenerateReport
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 94
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  example: []
+  syntax:
+    content: public IBlobStorage GenerateReport(int conId, ConnReportSettings settings)
+    parameters:
+    - id: conId
+      type: System.Int32
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+    return:
+      type: IdeaStatiCa.Public.IBlobStorage
+    content.vb: Public Function GenerateReport(conId As Integer, settings As ConnReportSettings) As IBlobStorage
+  overload: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport*
+  implements:
+  - IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType.vb: IdeaConnectionController.GenerateReport(Integer, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
 - uid: IdeaStatiCa.Plugin.IdeaConnectionController.OpenConnectionClient
   commentId: M:IdeaStatiCa.Plugin.IdeaConnectionController.OpenConnectionClient
   id: OpenConnectionClient
@@ -372,12 +413,12 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenConnectionClient
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 87
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 101
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -398,12 +439,12 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 150
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 170
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -430,12 +471,12 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
-    path: ../src/IdeaStatiCa.Plugin/IdeaConnectionController.cs
-    startLine: 174
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IdeaConnectionController.cs
+    startLine: 194
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -972,6 +1013,83 @@ references:
     href: IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa.Plugin.IConnectionController.CloseProject
   - name: (
   - name: )
+- uid: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport*
+  commentId: Overload:IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport
+  href: IdeaStatiCa.Plugin.IdeaConnectionController.html#IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport
+  nameWithType: IdeaConnectionController.GenerateReport
+  fullName: IdeaStatiCa.Plugin.IdeaConnectionController.GenerateReport
+- uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnectionController
+  isExternal: true
+  href: IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReport(int, ConnReportSettings)
+  nameWithType: IConnectionController.GenerateReport(int, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  nameWithType.vb: IConnectionController.GenerateReport(Integer, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReport(Integer, ConnReportSettings)
+  spec.csharp:
+  - uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+    name: GenerateReport
+    href: IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.ConnReportSettings
+    name: ConnReportSettings
+    href: IdeaStatiCa.Plugin.ConnReportSettings.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+    name: GenerateReport
+    href: IdeaStatiCa.Plugin.IConnectionController.html#IdeaStatiCa.Plugin.IConnectionController.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.ConnReportSettings
+    name: ConnReportSettings
+    href: IdeaStatiCa.Plugin.ConnReportSettings.html
+  - name: )
+- uid: IdeaStatiCa.Plugin.ConnReportSettings
+  commentId: T:IdeaStatiCa.Plugin.ConnReportSettings
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ConnReportSettings.html
+  name: ConnReportSettings
+  nameWithType: ConnReportSettings
+  fullName: IdeaStatiCa.Plugin.ConnReportSettings
+- uid: IdeaStatiCa.Public.IBlobStorage
+  commentId: T:IdeaStatiCa.Public.IBlobStorage
+  parent: IdeaStatiCa.Public
+  name: IBlobStorage
+  nameWithType: IBlobStorage
+  fullName: IdeaStatiCa.Public.IBlobStorage
+- uid: IdeaStatiCa.Public
+  commentId: N:IdeaStatiCa.Public
+  name: IdeaStatiCa.Public
+  nameWithType: IdeaStatiCa.Public
+  fullName: IdeaStatiCa.Public
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+  - name: .
+  - uid: IdeaStatiCa.Public
+    name: Public
 - uid: IdeaStatiCa.Plugin.IdeaConnectionController.OpenConnectionClient*
   commentId: Overload:IdeaStatiCa.Plugin.IdeaConnectionController.OpenConnectionClient
   href: IdeaStatiCa.Plugin.IdeaConnectionController.html#IdeaStatiCa.Plugin.IdeaConnectionController.OpenConnectionClient

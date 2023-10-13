@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IFeaModel
     path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
@@ -44,7 +44,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetUserSelection
     path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs

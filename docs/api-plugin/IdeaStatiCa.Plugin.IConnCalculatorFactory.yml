@@ -15,11 +15,11 @@ items:
   type: Interface
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/ConnHiddenClientFactory.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IConnCalculatorFactory
-    path: ../src/IdeaStatiCa.Plugin/ConnHiddenClientFactory.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
     startLine: 10
   assemblies:
   - IdeaStatiCa.Plugin
@@ -40,11 +40,11 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/ConnHiddenClientFactory.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
-    path: ../src/IdeaStatiCa.Plugin/ConnHiddenClientFactory.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
     startLine: 12
   assemblies:
   - IdeaStatiCa.Plugin

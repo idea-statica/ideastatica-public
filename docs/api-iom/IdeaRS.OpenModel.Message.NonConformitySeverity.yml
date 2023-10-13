@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NonConformitySeverity
     path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
@@ -46,7 +46,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Info
     path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Warning
     path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Error
     path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/NonConformityIssue.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TerminatedError
     path: ../src/IdeaRS.OpenModel/Message/NonConformityIssue.cs

@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaConcreteBlock
     path: ../src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Lenght
     path: ../src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Width
     path: ../src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Height
     path: ../src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
@@ -140,7 +140,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaStatiCa.BimApi/IIdeaConcreteBlock.cs

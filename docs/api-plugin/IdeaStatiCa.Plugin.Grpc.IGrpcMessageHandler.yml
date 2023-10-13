@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IGrpcMessageHandler
     path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
@@ -44,7 +44,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleServerMessage
     path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
@@ -82,7 +82,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleClientMessage
     path: ../src/IdeaStatiCa.Plugin/Grpc/IGrpcMessageHandler.cs

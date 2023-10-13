@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcAggregateType
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -46,7 +46,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Quartzite
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Limestone
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Sandstone
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Basalt
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteEc2.cs

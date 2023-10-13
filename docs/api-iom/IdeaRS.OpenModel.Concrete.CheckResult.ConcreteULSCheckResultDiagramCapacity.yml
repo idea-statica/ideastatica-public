@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteULSCheckResultDiagramCapacity
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
@@ -65,7 +65,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fu1
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
@@ -96,7 +96,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fu2
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
@@ -127,7 +127,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fu
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
@@ -158,7 +158,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckMethod
     path: ../src/IdeaRS.OpenModel/Concrete/CheckResult/ConcreteULSCheckResultDiagramCapacity.cs

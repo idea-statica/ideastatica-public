@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionIdentifier
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Plates
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedMembers
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -136,7 +136,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FoldedPlates
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -167,7 +167,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorGrids
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -198,7 +198,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoltGrids
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -229,7 +229,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Welds
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -260,7 +260,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cuts
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -291,7 +291,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Node
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
@@ -322,7 +322,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Identifiers/ConnectionIdentifier.cs

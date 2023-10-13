@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Settlement
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -223,7 +223,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -254,7 +254,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueX
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -285,7 +285,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueY
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -316,7 +316,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueZ
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -347,7 +347,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueRx
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -378,7 +378,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueRy
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -409,7 +409,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueRz
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs
@@ -440,7 +440,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/Settlement.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Support
     path: ../src/IdeaRS.OpenModel/Loading/Settlement.cs

@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OriginSettings
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectName
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -124,7 +124,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectDescription
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Author
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -186,7 +186,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DateOfCreate
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -217,7 +217,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionConversionTable
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -248,7 +248,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CountryCode
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -279,7 +279,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportRecommendedWelds
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
@@ -310,7 +310,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OriginSettings.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckEquilibrium
     path: ../src/IdeaRS.OpenModel/OriginSettings.cs
