@@ -10,12 +10,16 @@
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <Deterministic>true</Deterministic>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith(`net6`))">
+    <!-- Needs to be enabled for net6 only. It breaks internal builds for net48 projects. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
-    <Deterministic>true</Deterministic>
-
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)\..\..\Common\Common.props" Condition="$(Configuration.EndsWith(`_IdeaStatiCa_Internal`))" />
