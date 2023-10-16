@@ -1,4 +1,6 @@
-﻿namespace IdeaRS.OpenModel
+﻿using System;
+
+namespace IdeaRS.OpenModel
 {
 	/// <summary>
 	/// Steel setup RUS class
@@ -38,6 +40,7 @@
 		/// <summary>
 		/// WeldingType
 		/// </summary>
+		[Obsolete("Moved to the welding electrodes properties")]
 		public WeldingTypeSNIP WeldingTypeSNIP { get; set; }
 
 		/// <summary>
