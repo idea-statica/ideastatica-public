@@ -35,6 +35,28 @@
 		}
 
 		/// <summary>
+		/// Rolled steel double I section
+		/// </summary>
+		/// <param name="css">CrossSectionParameter to fill</param>
+		/// <param name="w">Width</param>
+		/// <param name="h">Height</param>
+		/// <param name="wt">Web thickness</param>
+		/// <param name="ft">Flange thickness</param>
+		public static void FillRolledDoubleI(CrossSectionParameter css, string name, double d, double h, double w, double wt, double ft)
+		{
+			css.CrossSectionType = CrossSectionType.Rolled2I;
+			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = d });
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value =  w });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = wt });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = ft });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeTapper", Value = 0 });
+			css.Parameters.Add(new ParameterDouble() { Name = "Radius", Value = 0 });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeEdgeRadius", Value = 0 });
+		}
+
+		/// <summary>
 		/// Rolled steel channel
 		/// </summary>
 		/// <param name="css">CrossSectionParameter to fill</param>
@@ -281,6 +303,25 @@
 		{
 			css.CrossSectionType = CrossSectionType.RolledDoubleUo;
 			css.Parameters.Add(new ParameterString() { Name = "UniqueName", Value = name });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
+		}
+
+		/// <summary>
+		/// Fills a double channel steel section. They form an closed/back-to-back [] shape.
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">The width of css</param>
+		/// <param name="h">The height of css</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="th">Flange thickness</param>
+		/// <param name="distance">Distance between ][</param>
+		public static void FillComposedDblUc(CrossSectionParameter css, double b, double h, double tw, double th, double distance)
+		{
+			css.CrossSectionType = CrossSectionType.RolledDoubleUc;
+			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bw", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = th });
 			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
 		}
 
