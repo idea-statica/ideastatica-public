@@ -177,7 +177,9 @@ namespace IdeaStatiCa.BIM.Common
 			data.Fasteners = data.Fasteners?.Distinct(Item.CustomComparer).Cast<FastenerGrid>();
 			data.Welds = data.Welds?.Distinct(Item.CustomComparer).Cast<Weld>();
 
-			var nodes = data.Members.SelectMany((b, i) =>
+			var orderMembers = data.Members.OrderByDescending(GetBiggestMemberSelector);
+
+			var nodes = orderMembers.SelectMany((b, i) =>
 			{
 				var css = b.CrossSectionBounds;
 				var maxX = Math.Max(css.Width, css.Height);
@@ -254,7 +256,30 @@ namespace IdeaStatiCa.BIM.Common
 						members.Insert(0, bearing);
 					}
 
-					var joint = new Joint(node.Location)
+					var nodeLocation = node.Location;
+					//check if node location is on reference line of bearing member
+					if (!bearing.m.IsPointOn(node.Location))
+					{
+						var distanceFromOrigin = double.PositiveInfinity;
+						var canditades = nodes.Except(new Node[] { node }).Where(n => node.Contains(n.Location)).OrderByDescending(n => GetBiggestMemberSelector(n.Master));
+
+						foreach (var cn in canditades)
+						{
+							if (bearing.m.IsPointOn(cn.Location))
+							{
+								var newDistatance = GeomOperation.Distance(cn.Location, node.Location);
+								//If exist more candidates take it the closest one
+								if (newDistatance < distanceFromOrigin)
+								{
+									distanceFromOrigin = newDistatance;
+									nodeLocation = cn.Location;
+								}
+							}
+						}
+					}
+
+
+					var joint = new Joint(nodeLocation)
 					{
 						Members = members.Select(m => m.m).Distinct().ToArray(),
 						StiffeningMembers = stiffeningMembers.Select(m => m.m).Distinct().ToArray(),
@@ -434,7 +459,12 @@ namespace IdeaStatiCa.BIM.Common
 
 		private static double GetBiggestMemberSelector((Member m, bool isended) member)
 		{
-			var cssBounds = member.m.CrossSectionBounds;
+			return GetBiggestMemberSelector(member.m);
+		}
+
+		private static double GetBiggestMemberSelector(Member member)
+		{
+			var cssBounds = member.CrossSectionBounds;
 			return Math.Max(cssBounds.Width, cssBounds.Height);
 		}
 
@@ -861,7 +891,7 @@ namespace IdeaStatiCa.BIM.Common
 
 			private static string CreateContour(IList<IPoint3D> contour)
 			{
-				return $"new List<IPoint3D> {{ { string.Join(", ", contour.Select(CreatePoint3D))} }}";
+				return $"new List<IPoint3D> {{ {string.Join(", ", contour.Select(CreatePoint3D))} }}";
 			}
 
 			private static string CreateLCS(IMatrix44 m)
@@ -903,6 +933,13 @@ namespace IdeaStatiCa.BIM.Common
 			}
 
 			return double.NaN;
+		}
+
+		public static bool IsPointOn(this Member member, IPoint3D point)
+		{
+			var position = GetPositionOnMember(member, point, new SorterSettings() { EnlargeNodeY = 0.001, EnlargeNodeZ = 0.001 });
+
+			return !double.IsNaN(position);
 		}
 
 		/// <summary>
