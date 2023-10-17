@@ -157,7 +157,7 @@ namespace ConnectionAutomationApp
 					switch (reportType)
 					{
 						case ConnReportTypeEnum.Pdf:
-							saveFileDialog.Filter = "pdf | *.pdg";
+							saveFileDialog.Filter = "pdf | *.pdf";
 							fileContent = ConnectionController.GeneratePdfReport(1, new ConnReportSettings());
 							break;
 						case ConnReportTypeEnum.Word:
