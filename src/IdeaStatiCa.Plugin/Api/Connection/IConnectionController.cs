@@ -39,5 +39,21 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="settings">Report settings</param>
 		/// <returns>The instance of the blobstorage</returns>
 		IBlobStorage GenerateReport(int conId, ConnReportSettings settings);
+
+		/// <summary>
+		/// Send a request to generate connection report and return word document with its data
+		/// </summary>
+		/// <param name="conId">Id of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>Byte array of report content in docs format</returns>
+		byte[] GenerateWordReport(int conId, ConnReportSettings settings);
+
+		/// <summary>
+		/// Send a request to generate connection report and return PDF document with its data
+		/// </summary>
+		/// <param name="conId">Id of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>Byte array of report content in PDF format</returns>
+		byte[] GeneratePdfReport(int conId, ConnReportSettings settings);
 	}
 }

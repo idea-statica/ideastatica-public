@@ -43,13 +43,26 @@ namespace ConnectionAutomationApp
 			OpenProjectCmd = new CustomCommand(this.CanOpenProject, this.OpenProject);
 			CloseProjectCmd = new CustomCommand(this.CanCloseProject, this.CloseProject);
 			GenerateReportCmd = new CustomCommand(this.CanGenerateReport, this.GenerateReport);
+			GeneratePdfReportCmd = new CustomCommand(this.CanGenerateReport, this.GenerateReport);
+			GenerateWordReportCmd = new CustomCommand(this.CanGenerateReport, this.GenerateReport);
 		}
+
 
 		#region Commands
 		public CustomCommand RunIdeaConnectionCmd { get; set; }
 		public CustomCommand OpenProjectCmd { get; set; }
 		public CustomCommand CloseProjectCmd { get; set; }
 		public CustomCommand GenerateReportCmd { get; set; }
+		public CustomCommand GeneratePdfReportCmd { get; set; }
+		public CustomCommand GenerateWordReportCmd { get; set; }
+		#endregion
+
+		#region Command parameters
+		public ConnReportTypeEnum PdfReportType => ConnReportTypeEnum.Pdf;
+		public ConnReportTypeEnum WordReportType => ConnReportTypeEnum.Word;
+		public ConnReportTypeEnum DXFReportType => ConnReportTypeEnum.DXF;
+		public ConnReportTypeEnum ZipReportType => ConnReportTypeEnum.Zip;
+
 		#endregion
 
 		public bool IsIdea
@@ -134,14 +147,58 @@ namespace ConnectionAutomationApp
 
 		private void GenerateReport(object obj)
 		{
+			if(obj is ConnReportTypeEnum reportType)
+			{
+				try
+				{
+					SaveFileDialog saveFileDialog = new SaveFileDialog();
+					byte[] fileContent = new byte[] { };
+
+					switch (reportType)
+					{
+						case ConnReportTypeEnum.Pdf:
+							saveFileDialog.Filter = "pdf | *.pdf";
+							fileContent = ConnectionController.GeneratePdfReport(1, new ConnReportSettings());
+							break;
+						case ConnReportTypeEnum.Word:
+							saveFileDialog.Filter = "doc | *.doc";
+							fileContent = ConnectionController.GenerateWordReport(1, new ConnReportSettings());
+							break;
+						case ConnReportTypeEnum.Zip:
+						default:
+							GenerateReportZipFolder();
+							return;
+					}
+
+					if (saveFileDialog.ShowDialog() != true)
+					{
+						return;
+					}
+
+					using (var stream = saveFileDialog.OpenFile())
+					using (MemoryStream ms = new MemoryStream(fileContent))
+					{
+						ms.CopyTo(stream);
+					}
+				}
+				catch (Exception e)
+				{
+					MessageBox.Show(e.Message, "Error");
+				}
+			}
+
+		}
+
+		private void GenerateReportZipFolder()
+		{
 			try
 			{
-				
 				var blobStorage = ConnectionController.GenerateReport(1, new ConnReportSettings());
 
-				SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-				saveFileDialog.Filter = "zip | *.zip";
+				SaveFileDialog saveFileDialog = new SaveFileDialog
+				{
+					Filter = "zip | *.zip"
+				};
 
 				if (saveFileDialog.ShowDialog() != true)
 				{
@@ -150,6 +207,7 @@ namespace ConnectionAutomationApp
 
 				using (var stream = saveFileDialog.OpenFile())
 				{
+
 					using (BlobStorageInArchive archive = new BlobStorageInArchive(stream))
 					{
 						archive.CopyFrom(blobStorage);
@@ -217,5 +275,13 @@ namespace ConnectionAutomationApp
 			// GC.SuppressFinalize(this);
 		}
 		#endregion
+	}
+
+	public enum ConnReportTypeEnum
+	{
+		Pdf,
+		Word,
+		DXF,
+		Zip
 	}
 }

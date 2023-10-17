@@ -99,6 +99,18 @@ namespace IdeaStatiCa.Plugin
 			return blobStorage;
 		}
 
+		/// <inheritdoc cref="IConnectionController.GenerateWordReport(int, ConnReportSettings)"/>
+		public byte[] GenerateWordReport(int conId, ConnReportSettings settings)
+		{
+			return ConnectionAutomation.GenerateWordReport(conId, settings);
+		}
+
+		/// <inheritdoc cref="IConnectionController.GeneratePdfReport(int, ConnReportSettings)"/>
+		public byte[] GeneratePdfReport(int conId, ConnReportSettings settings)
+		{
+			return ConnectionAutomation.GeneratePdfReport(conId, settings);
+		}
+
 		protected void OpenConnectionClient()
 		{
 			OpenConnectionClientGrpc();
