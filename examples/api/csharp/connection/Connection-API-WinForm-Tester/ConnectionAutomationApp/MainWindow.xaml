@@ -11,7 +11,9 @@
 			<Button Command="{Binding RunIdeaConnectionCmd, Mode=TwoWay}">Run IdeaConnection</Button>
 			<Button Command="{Binding OpenProjectCmd, Mode=TwoWay}">Open Project</Button>
 			<Button Command="{Binding CloseProjectCmd, Mode=TwoWay}">Close Project</Button>
-			<Button Command="{Binding GenerateReportCmd, Mode=TwoWay}">Generate report</Button>
+			<Button Command="{Binding GenerateReportCmd, Mode=TwoWay}" CommandParameter="{Binding ZipReportType}">Generate ZIP report</Button>
+			<Button Command="{Binding GeneratePdfReportCmd, Mode=TwoWay}" CommandParameter="{Binding PdfReportType}">Generate PDF</Button>
+			<Button Command="{Binding GenerateWordReportCmd, Mode=TwoWay}" CommandParameter="{Binding WordReportType}">Generate Word</Button>
 		</ToolBar>
 		<StackPanel DockPanel.Dock="Bottom">
 			<TextBlock Text="{Binding StatusMessage}"></TextBlock>
