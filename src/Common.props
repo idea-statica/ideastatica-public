@@ -43,13 +43,11 @@
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>
     <OutputPath>$(MSBuildThisFileDirectory)\..\..\bin\Debug\</OutputPath>
-    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release_IdeaStatiCa_Internal'">
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <OutputPath>$(MSBuildThisFileDirectory)\..\..\bin\Release\</OutputPath>
-    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
   </PropertyGroup>
 </Project>
