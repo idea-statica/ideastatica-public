@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOfLoading.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultOfLoading
     path: ../src/IdeaRS.OpenModel/Result/ResultOfLoading.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOfLoading.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Result/ResultOfLoading.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/ResultOfLoading.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Items
     path: ../src/IdeaRS.OpenModel/Result/ResultOfLoading.cs

@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ErrorHandlerAttribute
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -95,7 +95,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -127,7 +127,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddBindingParameters
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -173,7 +173,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyDispatchBehavior
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
@@ -210,7 +210,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/WcfErrorHandler.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Validate
     path: ../src/IdeaStatiCa.Plugin/WcfErrorHandler.cs

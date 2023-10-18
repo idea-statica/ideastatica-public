@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfSupportConditions
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NonContinuous
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Continuous
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FullyRestrained
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bearing
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cantilever
     path: ../src/IdeaRS.OpenModel/Concrete/BeamDataEc2.cs

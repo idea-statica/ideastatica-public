@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportersConfiguration
     path: ../src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RegisterProvider
     path: ../src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
@@ -84,7 +84,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RegisterImporter
     path: ../src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
@@ -120,7 +120,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RegisterImporter
     path: ../src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/ImportersConfiguration.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RegisterContainer
     path: ../src/IdeaStatica.BimApiLink/ImportersConfiguration.cs

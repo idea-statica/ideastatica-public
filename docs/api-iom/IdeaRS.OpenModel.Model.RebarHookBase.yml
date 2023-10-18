@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarHookBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarHookBase
     path: ../src/IdeaRS.OpenModel/Model/RebarHookBase.cs
@@ -57,7 +57,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarHookBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AxisY
     path: ../src/IdeaRS.OpenModel/Model/RebarHookBase.cs
@@ -93,7 +93,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/RebarHookBase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Reverse
     path: ../src/IdeaRS.OpenModel/Model/RebarHookBase.cs

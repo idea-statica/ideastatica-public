@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaElement1D
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
@@ -57,7 +57,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StartCrossSection
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
@@ -88,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndCrossSection
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
@@ -119,7 +119,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EccentricityBegin
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
@@ -153,7 +153,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EccentricityEnd
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
@@ -187,7 +187,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RotationRx
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
@@ -218,7 +218,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaElement1D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Segment
     path: ../src/IdeaStatiCa.BimApi/IIdeaElement1D.cs

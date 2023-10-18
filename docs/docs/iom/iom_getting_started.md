@@ -7,8 +7,7 @@
 `OpenModel` is the high-level class that holds all the information required for CAD or FEA model transfer (except model results). Information is stored in Lists of separate lists for different object types.  
 
 To start creating a Model definition, create a new OpenModel.
-
-```
+```csharp
 OpenModel model = new OpenModel();
 ```
 

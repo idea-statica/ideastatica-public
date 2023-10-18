@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CssConversionBuilder
     path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
@@ -85,7 +85,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Register
     path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
@@ -116,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Build
     path: ../src/IdeaStatiCa.Plugin/CrossSectionConversions/CssConversionBuilder.cs

@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BimLinkObject
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -65,7 +65,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Get
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Get
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Get
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -173,7 +173,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaybe
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -209,7 +209,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaybe
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -245,7 +245,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaybe
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -281,7 +281,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CountryCode
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs
@@ -310,7 +310,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLinkObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserData
     path: ../src/IdeaStatica.BimApiLink/BimLinkObject.cs

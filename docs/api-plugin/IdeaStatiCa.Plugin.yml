@@ -17,6 +17,7 @@ items:
   - IdeaStatiCa.Plugin.BIMPluginHostingGrpc
   - IdeaStatiCa.Plugin.BIMProject
   - IdeaStatiCa.Plugin.ConnHiddenClientFactory
+  - IdeaStatiCa.Plugin.ConnReportSettings
   - IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
   - IdeaStatiCa.Plugin.Constants
   - IdeaStatiCa.Plugin.ConversionDictionaryInt
@@ -34,6 +35,7 @@ items:
   - IdeaStatiCa.Plugin.IClientBIM`1
   - IdeaStatiCa.Plugin.IConnCalculatorFactory
   - IdeaStatiCa.Plugin.IConnHiddenCheck
+  - IdeaStatiCa.Plugin.IConnectionAutomation
   - IdeaStatiCa.Plugin.IConnectionController
   - IdeaStatiCa.Plugin.IIdeaStaticaApp
   - IdeaStatiCa.Plugin.IMemberCalculatorFactory
@@ -53,6 +55,7 @@ items:
   - IdeaStatiCa.Plugin.ModelBIM
   - IdeaStatiCa.Plugin.ProgressSender
   - IdeaStatiCa.Plugin.ProjectItem
+  - IdeaStatiCa.Plugin.ReportResponse
   - IdeaStatiCa.Plugin.RequestedItemsType
   - IdeaStatiCa.Plugin.SerializableDictionary`2
   - IdeaStatiCa.Plugin.Tools
@@ -67,6 +70,93 @@ items:
   assemblies:
   - IdeaStatiCa.Plugin
 references:
+- uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
+  commentId: T:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html
+  name: ConnectionHiddenCheckClient
+  nameWithType: ConnectionHiddenCheckClient
+  fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
+- uid: IdeaStatiCa.Plugin.IConnCalculatorFactory
+  commentId: T:IdeaStatiCa.Plugin.IConnCalculatorFactory
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IConnCalculatorFactory.html
+  name: IConnCalculatorFactory
+  nameWithType: IConnCalculatorFactory
+  fullName: IdeaStatiCa.Plugin.IConnCalculatorFactory
+- uid: IdeaStatiCa.Plugin.ConnHiddenClientFactory
+  commentId: T:IdeaStatiCa.Plugin.ConnHiddenClientFactory
+  href: IdeaStatiCa.Plugin.ConnHiddenClientFactory.html
+  name: ConnHiddenClientFactory
+  nameWithType: ConnHiddenClientFactory
+  fullName: IdeaStatiCa.Plugin.ConnHiddenClientFactory
+- uid: IdeaStatiCa.Plugin.ConnReportSettings
+  commentId: T:IdeaStatiCa.Plugin.ConnReportSettings
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ConnReportSettings.html
+  name: ConnReportSettings
+  nameWithType: ConnReportSettings
+  fullName: IdeaStatiCa.Plugin.ConnReportSettings
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation
+  commentId: T:IdeaStatiCa.Plugin.IConnectionAutomation
+  href: IdeaStatiCa.Plugin.IConnectionAutomation.html
+  name: IConnectionAutomation
+  nameWithType: IConnectionAutomation
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation
+- uid: IdeaStatiCa.Plugin.IConnectionController
+  commentId: T:IdeaStatiCa.Plugin.IConnectionController
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IConnectionController.html
+  name: IConnectionController
+  nameWithType: IConnectionController
+  fullName: IdeaStatiCa.Plugin.IConnectionController
+- uid: IdeaStatiCa.Plugin.ReportResponse
+  commentId: T:IdeaStatiCa.Plugin.ReportResponse
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.ReportResponse.html
+  name: ReportResponse
+  nameWithType: ReportResponse
+  fullName: IdeaStatiCa.Plugin.ReportResponse
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck
+  commentId: T:IdeaStatiCa.Plugin.IConnHiddenCheck
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html
+  name: IConnHiddenCheck
+  nameWithType: IConnHiddenCheck
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck
+- uid: IdeaStatiCa.Plugin.IdeaConnectionController
+  commentId: T:IdeaStatiCa.Plugin.IdeaConnectionController
+  href: IdeaStatiCa.Plugin.IdeaConnectionController.html
+  name: IdeaConnectionController
+  nameWithType: IdeaConnectionController
+  fullName: IdeaStatiCa.Plugin.IdeaConnectionController
+- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck
+  commentId: T:IdeaStatiCa.Plugin.IMemberHiddenCheck
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html
+  name: IMemberHiddenCheck
+  nameWithType: IMemberHiddenCheck
+  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck
+- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  commentId: T:IdeaStatiCa.Plugin.MemberHiddenCheckClient
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html
+  name: MemberHiddenCheckClient
+  nameWithType: MemberHiddenCheckClient
+  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient
+- uid: IdeaStatiCa.Plugin.IMemberCalculatorFactory
+  commentId: T:IdeaStatiCa.Plugin.IMemberCalculatorFactory
+  parent: IdeaStatiCa.Plugin
+  href: IdeaStatiCa.Plugin.IMemberCalculatorFactory.html
+  name: IMemberCalculatorFactory
+  nameWithType: IMemberCalculatorFactory
+  fullName: IdeaStatiCa.Plugin.IMemberCalculatorFactory
+- uid: IdeaStatiCa.Plugin.MemberHiddenClientFactory
+  commentId: T:IdeaStatiCa.Plugin.MemberHiddenClientFactory
+  href: IdeaStatiCa.Plugin.MemberHiddenClientFactory.html
+  name: MemberHiddenClientFactory
+  nameWithType: MemberHiddenClientFactory
+  fullName: IdeaStatiCa.Plugin.MemberHiddenClientFactory
 - uid: IdeaStatiCa.Plugin.ApplicationBIM
   commentId: T:IdeaStatiCa.Plugin.ApplicationBIM
   href: IdeaStatiCa.Plugin.ApplicationBIM.html
@@ -167,26 +257,6 @@ references:
   name: BIMProject
   nameWithType: BIMProject
   fullName: IdeaStatiCa.Plugin.BIMProject
-- uid: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
-  commentId: T:IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.html
-  name: ConnectionHiddenCheckClient
-  nameWithType: ConnectionHiddenCheckClient
-  fullName: IdeaStatiCa.Plugin.ConnectionHiddenCheckClient
-- uid: IdeaStatiCa.Plugin.IConnCalculatorFactory
-  commentId: T:IdeaStatiCa.Plugin.IConnCalculatorFactory
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.IConnCalculatorFactory.html
-  name: IConnCalculatorFactory
-  nameWithType: IConnCalculatorFactory
-  fullName: IdeaStatiCa.Plugin.IConnCalculatorFactory
-- uid: IdeaStatiCa.Plugin.ConnHiddenClientFactory
-  commentId: T:IdeaStatiCa.Plugin.ConnHiddenClientFactory
-  href: IdeaStatiCa.Plugin.ConnHiddenClientFactory.html
-  name: ConnHiddenClientFactory
-  nameWithType: ConnHiddenClientFactory
-  fullName: IdeaStatiCa.Plugin.ConnHiddenClientFactory
 - uid: IdeaStatiCa.Plugin.Constants
   commentId: T:IdeaStatiCa.Plugin.Constants
   href: IdeaStatiCa.Plugin.Constants.html
@@ -397,26 +467,6 @@ references:
   - name: " "
   - name: B
   - name: )
-- uid: IdeaStatiCa.Plugin.IConnectionController
-  commentId: T:IdeaStatiCa.Plugin.IConnectionController
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.IConnectionController.html
-  name: IConnectionController
-  nameWithType: IConnectionController
-  fullName: IdeaStatiCa.Plugin.IConnectionController
-- uid: IdeaStatiCa.Plugin.IConnHiddenCheck
-  commentId: T:IdeaStatiCa.Plugin.IConnHiddenCheck
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html
-  name: IConnHiddenCheck
-  nameWithType: IConnHiddenCheck
-  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck
-- uid: IdeaStatiCa.Plugin.IdeaConnectionController
-  commentId: T:IdeaStatiCa.Plugin.IdeaConnectionController
-  href: IdeaStatiCa.Plugin.IdeaConnectionController.html
-  name: IdeaConnectionController
-  nameWithType: IdeaConnectionController
-  fullName: IdeaStatiCa.Plugin.IdeaConnectionController
 - uid: IdeaStatiCa.Plugin.IdeaStatiCaAppClient
   commentId: T:IdeaStatiCa.Plugin.IdeaStatiCaAppClient
   href: IdeaStatiCa.Plugin.IdeaStatiCaAppClient.html
@@ -474,13 +524,6 @@ references:
   name: IIdeaStaticaApp
   nameWithType: IIdeaStaticaApp
   fullName: IdeaStatiCa.Plugin.IIdeaStaticaApp
-- uid: IdeaStatiCa.Plugin.IMemberHiddenCheck
-  commentId: T:IdeaStatiCa.Plugin.IMemberHiddenCheck
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.IMemberHiddenCheck.html
-  name: IMemberHiddenCheck
-  nameWithType: IMemberHiddenCheck
-  fullName: IdeaStatiCa.Plugin.IMemberHiddenCheck
 - uid: IdeaStatiCa.Plugin.IProgressCallback
   commentId: T:IdeaStatiCa.Plugin.IProgressCallback
   parent: IdeaStatiCa.Plugin
@@ -530,26 +573,6 @@ references:
   name: ISEventArgs
   nameWithType: ISEventArgs
   fullName: IdeaStatiCa.Plugin.ISEventArgs
-- uid: IdeaStatiCa.Plugin.MemberHiddenCheckClient
-  commentId: T:IdeaStatiCa.Plugin.MemberHiddenCheckClient
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.MemberHiddenCheckClient.html
-  name: MemberHiddenCheckClient
-  nameWithType: MemberHiddenCheckClient
-  fullName: IdeaStatiCa.Plugin.MemberHiddenCheckClient
-- uid: IdeaStatiCa.Plugin.IMemberCalculatorFactory
-  commentId: T:IdeaStatiCa.Plugin.IMemberCalculatorFactory
-  parent: IdeaStatiCa.Plugin
-  href: IdeaStatiCa.Plugin.IMemberCalculatorFactory.html
-  name: IMemberCalculatorFactory
-  nameWithType: IMemberCalculatorFactory
-  fullName: IdeaStatiCa.Plugin.IMemberCalculatorFactory
-- uid: IdeaStatiCa.Plugin.MemberHiddenClientFactory
-  commentId: T:IdeaStatiCa.Plugin.MemberHiddenClientFactory
-  href: IdeaStatiCa.Plugin.MemberHiddenClientFactory.html
-  name: MemberHiddenClientFactory
-  nameWithType: MemberHiddenClientFactory
-  fullName: IdeaStatiCa.Plugin.MemberHiddenClientFactory
 - uid: IdeaStatiCa.Plugin.ModelBIM
   commentId: T:IdeaStatiCa.Plugin.ModelBIM
   parent: IdeaStatiCa.Plugin

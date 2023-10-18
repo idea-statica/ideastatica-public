@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StrainLoadOnLine
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -176,7 +176,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -207,7 +207,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bimp
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -238,7 +238,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Eimp
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -269,7 +269,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -312,7 +312,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RelativeBeginPosition
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
@@ -343,7 +343,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RelativeEndPosition
     path: ../src/IdeaRS.OpenModel/Loading/StrainLoadOnLine.cs

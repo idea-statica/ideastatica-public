@@ -38,7 +38,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LocalisedMessage
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportingGroups
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -89,7 +89,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportingMembers
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -115,7 +115,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportingConnections
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -141,7 +141,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalSync
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -167,7 +167,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SyncingModel
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -193,7 +193,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SavingProject
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -219,7 +219,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelImport
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -245,7 +245,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CancellingImport
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -271,7 +271,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CreatingConnection
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -297,7 +297,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportingIOMObject
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -323,7 +323,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportingStructuralModel
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -349,7 +349,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportStarted
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -375,7 +375,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportFailed
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -401,7 +401,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ModelPostProcess
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -427,7 +427,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalImport
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -453,7 +453,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Member
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -479,7 +479,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SavingData
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -505,7 +505,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConvertingModelFromXML
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -531,7 +531,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProcessingSubstructure
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -557,7 +557,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProcessingConnection
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -583,7 +583,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FinishingImport
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -609,7 +609,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SciaSDKError
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs
@@ -635,7 +635,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IProgressMessaging.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AwaitingUserSelection
     path: ../src/IdeaStatiCa.Plugin/IProgressMessaging.cs

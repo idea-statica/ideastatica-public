@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatConcreteHKG
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
@@ -97,7 +97,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
@@ -128,7 +128,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fcu
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Epscu2
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatConcreteHKG.cs

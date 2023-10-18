@@ -18,7 +18,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CombiInputEC
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeCombiEC
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -140,7 +140,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeCalculationCombi
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs

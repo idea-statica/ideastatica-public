@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ProjectDataConcrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectDataConcrete
     path: ../src/IdeaRS.OpenModel/Concrete/ProjectDataConcrete.cs
@@ -57,7 +57,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ProjectDataConcrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/ProjectDataConcrete.cs
@@ -88,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/ProjectDataConcrete.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignWorkingLife
     path: ../src/IdeaRS.OpenModel/Concrete/ProjectDataConcrete.cs

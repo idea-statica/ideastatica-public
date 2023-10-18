@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaObject
     path: ../src/IdeaStatiCa.BimApi/IIdeaObject.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Id
     path: ../src/IdeaStatiCa.BimApi/IIdeaObject.cs
@@ -97,7 +97,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaObject.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaStatiCa.BimApi/IIdeaObject.cs

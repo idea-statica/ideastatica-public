@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueCount
     path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
@@ -55,7 +55,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Value
     path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
@@ -86,7 +86,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Count
     path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
@@ -117,7 +117,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
     path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
@@ -155,7 +155,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
     path: ../src/IdeaRS.OpenModel/Parameters/Values/BoltParam.cs

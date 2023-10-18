@@ -15,11 +15,11 @@ items:
   type: Interface
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenClientFactory.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IMemberCalculatorFactory
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenClientFactory.cs
     startLine: 10
   assemblies:
   - IdeaStatiCa.Plugin
@@ -40,11 +40,11 @@ items:
   type: Method
   source:
     remote:
-      path: src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
-      branch: add_wiki_content_to_docfx
+      path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenClientFactory.cs
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
-    path: ../src/IdeaStatiCa.Plugin/MemberHiddenClientFactory.cs
+    path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenClientFactory.cs
     startLine: 12
   assemblies:
   - IdeaStatiCa.Plugin

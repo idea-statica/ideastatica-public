@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ISDModel
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs
@@ -61,7 +61,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs
@@ -92,7 +92,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ISDType
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs
@@ -123,7 +123,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Setting
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs
@@ -154,7 +154,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs
@@ -185,7 +185,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Reinforcement
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs
@@ -216,7 +216,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/ISDModel.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Loading
     path: ../src/IdeaRS.OpenModel/Detail/ISDModel.cs

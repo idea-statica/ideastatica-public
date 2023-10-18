@@ -1,34 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common.props" />
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <AssemblyTitle>IdeaStatiCa.PluginsTools</AssemblyTitle>
     <Product>IdeaStatiCa.PluginsTools</Product>
-    <Copyright></Copyright>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Authors>IdeaStatiCa</Authors>
-	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-	<RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
-	<PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
-	<Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
+    <Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
     <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\bin\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'  AND '$(TargetFramework)' == 'net48'">
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'  AND '$(TargetFramework)' == 'net48'">
-    <OutputPath>..\..\..\bin\Release\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />

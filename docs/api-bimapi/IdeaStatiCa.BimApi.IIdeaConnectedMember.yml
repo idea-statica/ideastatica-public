@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IIdeaConnectedMember
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -54,7 +54,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GeometricalType
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -85,7 +85,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedMemberType
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -116,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsBearing
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -147,7 +147,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ForcesIn
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -178,7 +178,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberSegmentType
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -209,7 +209,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaMember
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -240,7 +240,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsReferenceLineInCenterOfGravity
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
@@ -271,7 +271,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AutoAddCutByWorkplane
     path: ../src/IdeaStatiCa.BimApi/IIdeaConnectedMember.cs

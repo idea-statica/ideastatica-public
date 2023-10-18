@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldData
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -60,7 +60,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Id
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -91,7 +91,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -122,7 +122,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Thickness
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -153,7 +153,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -184,7 +184,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -215,7 +215,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedPartIds
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -246,7 +246,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Start
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: End
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs

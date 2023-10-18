@@ -3,7 +3,7 @@ As a general rule, you can consider all coordinate systems used are right-handed
 
 # Global Coordinate System
 
-![global coordinate system](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/gcs.png)
+![global coordinate system](images/gcs.png)
 
 All elements and nodes are defined in a standard cartesian axis system with the **z-axis** vertical:
 
@@ -15,7 +15,7 @@ All elements and nodes are defined in a standard cartesian axis system with the 
 
 ## 1D Members
 
-![cross section axis](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/lcs.png)
+![cross section axis](images/lcs.png)
 
 Each `1D member` is defined by a start and end node and has a local coordinate system defined in the following way:
 * Origin is defined as the start node of the member. 
@@ -71,7 +71,7 @@ Rotations follow a right-hand rule system around the member local x-axis directi
 
 ## Coordinate system of cross-section
 
-![cross section axis](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/css-cs.png)
+![cross section axis](images/css-cs.png)
 
 Cross-sections have reference axes y (horizontal) and z (vertical). Principal axes of the cross-section are marked with u and v. 
 
@@ -92,90 +92,90 @@ Positive (+N) normal force causes tension. Negative (-N) normal force causes com
 
 **Axial load [X]**
 
-![Load X](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_x.png)
+![Load X](images/conv_load_x.png)
 
 **Resulting normal force [N] diagram**
 
-![Diagram N](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_n.png)
+![Diagram N](images/conv_diag_n.png)
 
 **Effects of the normal force [N] on a beam element**
 
-![Effects N](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_n.png)
+![Effects N](images/conv_effect_n.png)
 
 ## Shear force Vy
 Positive (+Vy) shear force shifts the left face in the positive Y axis direction.
 
 **Continuous load [Y]**
 
-![Load Y](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_y.png)
+![Load Y](images/conv_load_y.png)
 
 **Resulting shear force [Vy] diagram**
 
-![Diagram Vy](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_vy.png)
+![Diagram Vy](images/conv_diag_vy.png)
 
 **Effects of the shear force [Vy] on a beam element**
 
-![Effects Vy](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_vy.png)
+![Effects Vy](images/conv_effect_vy.png)
 
 ## Shear force Vz
 Positive (+Vz) shear force shifts the left face in the positive Z axis direction.
 
 **Continuous load [Z]**
 
-![Load Z](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_z.png)
+![Load Z](images/conv_load_z.png)
 
 **Resulting shear force [Vz] diagram**
 
-![Diagram Vz](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_vz.png)
+![Diagram Vz](images/conv_diag_vz.png)
 
 **Effects of the shear force [Vz] on a beam element**
 
-![Effects Vz](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_vz.png)
+![Effects Vz](images/conv_effect_vz.png)
 
 ## Torsion Mx
 Positive (+Mx) torsion twists the left face counterclockwise.
 
 **Point load [Mx]**
 
-![Load Mx](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_mx.png)
+![Load Mx](images/conv_load_mx.png)
 
 **Resulting torsion [Mx] diagram**
 
-![Diagram Mx](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_mx.png)
+![Diagram Mx](images/conv_diag_mx.png)
 
 **Effects of the torsion [Mx] on a beam element**
 
-![Effects Mx](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_mx.png)
+![Effects Mx](images/conv_effect_mx.png)
 
 ## Bending moment [My]
 Positive (+My) bending moment causes tension the fibers with a negative Z coordinate.
 
 **Continuous load [Z]**
 
-![Load Z](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_z.png)
+![Load Z](images/conv_load_z.png)
 
 **Resulting bending [My] diagram**
 
-![Diagram My](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_my.png)
+![Diagram My](images/conv_diag_my.png)
 
 **Effects of the bending [My] on a beam element**
 
-![Effects My](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_my.png)
+![Effects My](images/conv_effect_my.png)
 
 ## Bending moment [Mz]
 Positive (+Mz) bending moment causes tension the fibers with a negative Y coordinate.
 
 **Continuous load [Y]**
 
-![Load Y](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_load_y.png)
+![Load Y](images/conv_load_y.png)
 
 **Resulting bending [Mz] diagram**
 
-![Diagram Mz](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_diag_mz.png)
+![Diagram Mz](images/conv_diag_mz.png)
 
 **Effects of the bending [Mz] on a beam element**
 
-![Effects Mz](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_effect_mz.png)
+![Effects Mz](images/conv_effect_mz.png)
 
 # Convention of load effects in the Connection app
 
@@ -185,11 +185,11 @@ The load effects input on the connected beams in the Connection app follow the L
 
 The positive (+) force components act in positive directions of LCS axes. Beam connected by endpoint (left) and startpoint (right):
 
-![Connection force convetion](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_conn_force.png)
+![Connection force convetion](images/conv_conn_force.png)
 
 The positive (+) moment components strictly follow the right-hand rule. Beam connected by endpoint (left) and startpoint (right):
 
-![Connection moment convention](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_conn_moment.png)
+![Connection moment convention](images/conv_conn_moment.png)
 
 ## Conversion between the structural model results and Connection app load effects
 
@@ -209,16 +209,16 @@ Endpoint (relative position = 1)
 
 Consider the example of two cantilevers below. One is supported in the standpoint (relative position 0), the other in the endpoint (relative position 1).
 
-![Cantilever example](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_cantilever.png)
+![Cantilever example](images/conv_cantilever.png)
 
 Internal forces in the fixed points of the cantilevers are `{1, 0, 1, 0, -1, 0}` and `{1, 0, -1, 0, -1, 0}`, respectively.
 
 When connections are generated in these points, the transformation vector above is applied, with the following results.
 
-![Cantilever example Connection](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_connection.png)
+![Cantilever example Connection](images/conv_connection.png)
 
 Load effects in the fixed points of the cantilevers are `{1, 0, -1, 0, 1, 0}` and `{-1, 0, -1, 0, -1, 0}`, respectively.
 
 Comparing the deformed shapes of the connections above, their behaviour confirms the correct transformation and is in accordance with the structural model.
 
-![Cantilever example deformed](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/conv_deformed.png)
+![Cantilever example deformed](images/conv_deformed.png)

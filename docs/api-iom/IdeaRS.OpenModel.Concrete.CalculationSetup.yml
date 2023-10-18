@@ -29,7 +29,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculationSetup
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -67,7 +67,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -98,7 +98,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UlsResponse
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -129,7 +129,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UlsDiagram
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -160,7 +160,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UlsShear
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UlsTorsion
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -222,7 +222,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UlsInteraction
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -253,7 +253,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SlsCrack
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -284,7 +284,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SlsStressLimitation
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -315,7 +315,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Detailing
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -346,7 +346,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MNKappaDiagram
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -377,7 +377,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fatigue
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -408,7 +408,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionCharacteristics
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -439,7 +439,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SlsStiffnesses
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
@@ -470,7 +470,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SlsDeflections
     path: ../src/IdeaRS.OpenModel/Concrete/CalculationSetup.cs

@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FeaUserSelection
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
@@ -54,7 +54,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Nodes
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
@@ -83,7 +83,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Members
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
@@ -112,7 +112,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Members2D
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
@@ -141,7 +141,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Combinations
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaUserSelection.cs

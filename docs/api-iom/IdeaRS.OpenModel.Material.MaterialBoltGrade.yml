@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialBoltGrade
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fub
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
@@ -132,7 +132,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fyb
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
@@ -163,7 +163,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Elongation
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
@@ -194,7 +194,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Code
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
@@ -225,7 +225,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MprlElementID
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
@@ -256,7 +256,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MprlTableID
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs

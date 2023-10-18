@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Element2D
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -80,7 +80,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -111,7 +111,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -142,7 +142,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -173,7 +173,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GeometricRegion
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -204,7 +204,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Thickness
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -235,7 +235,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EccentricityZ
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -266,7 +266,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InnerLines
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -297,7 +297,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InnerPoints
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs
@@ -328,7 +328,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/Element2D.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ElementType
     path: ../src/IdeaRS.OpenModel/Model/Element2D.cs

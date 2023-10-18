@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadCaseSubType
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -53,7 +53,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentSelfweight
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -81,7 +81,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentStandard
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentPrestress
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentRheologic
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -165,7 +165,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentPrimaryEffect
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -193,7 +193,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: VariableStatic
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -221,7 +221,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: VariableDynamic
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -249,7 +249,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: VariablePrimaryEffect
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentPrestressPretensioned
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -305,7 +305,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentPrestressPrimary
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs
@@ -333,7 +333,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/LoadCase.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PermanentSelfweightLocal
     path: ../src/IdeaRS.OpenModel/Loading/LoadCase.cs

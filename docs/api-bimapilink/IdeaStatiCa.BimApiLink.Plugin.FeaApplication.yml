@@ -19,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FeaApplication
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
@@ -78,7 +78,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
@@ -128,7 +128,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ImportSelection
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
@@ -163,7 +163,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Synchronize
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
@@ -201,7 +201,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Select
     path: ../src/IdeaStatica.BimApiLink/Plugin/FeaApplication.cs

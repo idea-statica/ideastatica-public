@@ -1,41 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common.props" />
 
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Authors>IDEA StatiCa</Authors>
-    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/idea-statica/ideastatica-public.git</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
-    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
-    <EnableNETAnalyzers>False</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>README.md</PackageLicenseFile>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <OutputPath>..\..\..\bin\Debug\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU' AND '$(TargetFramework)' == 'net48'">
-    <Optimize>True</Optimize>
-    <OutputPath>..\..\..\bin\Release\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
     <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
@@ -45,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-	<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+  <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
 
   <ItemGroup>

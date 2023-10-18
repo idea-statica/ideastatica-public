@@ -28,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AutomationHosting
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -116,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Status
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -184,7 +184,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunAsync
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -221,7 +221,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MyBIM
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -256,7 +256,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stop
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -288,7 +288,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunServer
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -322,7 +322,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotifyBIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -353,7 +353,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HostingTask
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -384,7 +384,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Service
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -415,7 +415,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ServiceBaseAddress
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -446,7 +446,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs
@@ -478,7 +478,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/AutomationHosting.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/AutomationHosting.cs

@@ -44,8 +44,6 @@ Refer to the IOM Material and IOM Section Property Conversion sections for more 
 
 ## Conversion Files
 
-//How are conversion files stored and saved?
-
 Conversion files are persistent across the checkbot program and stored locally on a user's machine. **This is managed by the checkbot application.**
 
 Each code has a separate file.

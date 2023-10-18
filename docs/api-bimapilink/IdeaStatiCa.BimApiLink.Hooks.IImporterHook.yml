@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IImporterHook
     path: ../src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
@@ -42,7 +42,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EnterCreate
     path: ../src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExitCreate
     path: ../src/IdeaStatica.BimApiLink/Hooks/IImporterHook.cs

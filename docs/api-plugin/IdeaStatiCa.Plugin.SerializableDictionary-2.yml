@@ -23,7 +23,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SerializableDictionary
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -136,7 +136,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -168,7 +168,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -200,7 +200,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -232,7 +232,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -266,7 +266,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -300,7 +300,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs
@@ -334,7 +334,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/ConversionDictionary.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ValueSerializer
     path: ../src/IdeaStatiCa.Plugin/ConversionDictionary.cs

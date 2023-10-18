@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -47,7 +47,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: None
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LeftFillet
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -103,7 +103,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RightFillet
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -131,7 +131,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoubleFillet
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -159,7 +159,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bevel
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs

@@ -29,7 +29,6 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// Id of Load Case
 		/// </summary>
-		[Obsolete]
 		[DataMember]
 		public int LoadCaseId { get; set; }
 

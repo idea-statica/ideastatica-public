@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeOfCombiEC
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -51,7 +51,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ULS
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ULS_SET_C
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Accidental
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -135,7 +135,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Accidental_2
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -163,7 +163,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Seismic
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLS_Char
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -219,7 +219,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLS_Freq
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -247,7 +247,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SLS_Quasi
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
@@ -275,7 +275,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/CombiInputEC.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fatigue
     path: ../src/IdeaRS.OpenModel/Loading/CombiInputEC.cs

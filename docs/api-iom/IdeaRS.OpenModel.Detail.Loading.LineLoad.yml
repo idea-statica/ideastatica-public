@@ -39,7 +39,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LineLoad
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -79,7 +79,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -110,7 +110,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -141,7 +141,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BegFx
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -172,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndFx
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -203,7 +203,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BegFy
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -234,7 +234,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndFy
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -265,7 +265,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Direction
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -296,7 +296,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GeometryPointsPath
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -327,7 +327,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultantForces
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -358,7 +358,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BegPositionX
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -389,7 +389,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BegPositionY
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -420,7 +420,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndPositionX
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -451,7 +451,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EndPositionY
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -482,7 +482,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DirectionType
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -513,7 +513,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Angle
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -544,7 +544,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeLinePosition
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -575,7 +575,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -606,7 +606,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterEdge
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -637,7 +637,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterPoint
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -668,7 +668,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TypeEdgePosition
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -699,7 +699,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EdgePositionType
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -730,7 +730,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PositionOnEdge
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -761,7 +761,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LengthOnEdge
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
@@ -792,7 +792,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GeneralLine
     path: ../src/IdeaRS.OpenModel/Detail/Loading/LineLoad.cs

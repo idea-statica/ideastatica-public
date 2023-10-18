@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcBlobStorageClient
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
@@ -109,7 +109,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WriteAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
@@ -155,11 +155,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReadAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-    startLine: 110
+    startLine: 108
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -198,11 +198,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExistAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-    startLine: 153
+    startLine: 151
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -241,11 +241,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DeleteAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-    startLine: 181
+    startLine: 179
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -284,11 +284,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetEntriesAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-    startLine: 207
+    startLine: 205
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -324,11 +324,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/GrpcBlobStorageClient.cs
-    startLine: 231
+    startLine: 229
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc

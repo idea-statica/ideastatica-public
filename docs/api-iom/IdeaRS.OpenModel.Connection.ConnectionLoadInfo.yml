@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionLoadInfo
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
@@ -112,7 +112,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BeamMapping
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs

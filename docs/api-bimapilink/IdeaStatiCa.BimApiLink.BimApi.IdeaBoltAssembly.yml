@@ -28,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IdeaBoltAssembly
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -83,7 +83,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -115,7 +115,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -147,7 +147,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HoleDiameter
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -180,7 +180,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Diameter
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -213,7 +213,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HeadDiameter
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -246,7 +246,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Lenght
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -279,7 +279,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DiagonalHeadDiameter
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -312,7 +312,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HeadHeight
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -345,7 +345,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BoreHole
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -378,7 +378,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TensileStressArea
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -411,7 +411,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NutThickness
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -444,7 +444,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Standard
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
@@ -477,7 +477,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaStatica.BimApiLink/BimApi/IdeaBoltAssembly.cs

@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/PointResultOfTA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointResultOfTA
     path: ../src/IdeaRS.OpenModel/Result/PointResultOfTA.cs
@@ -69,7 +69,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Result/PointResultOfTA.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Temp
     path: ../src/IdeaRS.OpenModel/Result/PointResultOfTA.cs

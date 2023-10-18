@@ -25,7 +25,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IAutomation
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -62,7 +62,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProject
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SelectItem
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -152,7 +152,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RefreshProject
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -190,7 +190,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CloseProject
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -228,7 +228,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Shutdown
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -264,7 +264,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Refresh
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -300,7 +300,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotifyChange
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -326,7 +326,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TempWorkingDir
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -355,7 +355,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectDir
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs
@@ -384,7 +384,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IAutomation.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Status
     path: ../src/IdeaStatiCa.Plugin/IAutomation.cs

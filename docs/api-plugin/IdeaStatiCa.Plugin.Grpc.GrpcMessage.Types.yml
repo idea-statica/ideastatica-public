@@ -15,11 +15,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Types
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 509
+    startLine: 510
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc

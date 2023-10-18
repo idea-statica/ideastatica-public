@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RequestedItemsType
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -45,7 +45,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Connections
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -71,7 +71,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Substructure
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -97,7 +97,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SingleConnection
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -123,7 +123,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WholeModel
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs
@@ -149,7 +149,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/IApplicationBIM.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteWall
     path: ../src/IdeaStatiCa.Plugin/IApplicationBIM.cs

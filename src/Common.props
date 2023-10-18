@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Deterministic>true</Deterministic>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith(`net6`))">
+    <!-- Needs to be enabled for net6 only. It breaks internal builds for net48 projects. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)\..\..\Common\Common.props" Condition="$(Configuration.EndsWith(`_IdeaStatiCa_Internal`))" />
+
+  <PropertyGroup>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>IDEA StatiCa</Authors>
+    <Company>IDEA StatiCa</Company>
+    <Version>23.0.0</Version>
+    <Copyright>Copyright (c) IDEA StatiCa ltd., 2023</Copyright>
+    <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
+    <RepositoryType>Git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug_IdeaStatiCa_Internal'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <OutputPath>$(MSBuildThisFileDirectory)\..\..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release_IdeaStatiCa_Internal'">
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <OutputPath>$(MSBuildThisFileDirectory)\..\..\bin\Release\</OutputPath>
+  </PropertyGroup>
+</Project>

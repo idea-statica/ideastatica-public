@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldParam
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
@@ -116,7 +116,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Size
     path: ../src/IdeaRS.OpenModel/Parameters/Values/WeldParam.cs

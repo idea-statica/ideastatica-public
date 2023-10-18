@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckSection
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
@@ -94,7 +94,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Description
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
@@ -125,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckMember
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
@@ -156,7 +156,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinfSection
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs
@@ -187,7 +187,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/CheckSection.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Extremes
     path: ../src/IdeaRS.OpenModel/Concrete/CheckSection.cs

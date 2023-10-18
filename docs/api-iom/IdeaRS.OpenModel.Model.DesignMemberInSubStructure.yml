@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignMemberInSubStructure
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
@@ -68,7 +68,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignMember
     path: ../src/IdeaRS.OpenModel/Model/SubStructureGeometry.cs

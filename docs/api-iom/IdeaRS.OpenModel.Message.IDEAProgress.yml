@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IDEAProgress.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IDEAProgress
     path: ../src/IdeaRS.OpenModel/Message/IDEAProgress.cs
@@ -54,7 +54,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IDEAProgress.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Message/IDEAProgress.cs
@@ -89,7 +89,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Message/IDEAProgress.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Report
     path: ../src/IdeaRS.OpenModel/Message/IDEAProgress.cs

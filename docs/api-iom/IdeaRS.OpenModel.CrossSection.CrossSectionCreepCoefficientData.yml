@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionCreepCoefficientData
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
@@ -70,7 +70,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ComponentIndex
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
@@ -101,7 +101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CreepInput
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
@@ -132,7 +132,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UserCreepCoeeficient
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
@@ -163,7 +163,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Humidity
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
@@ -194,7 +194,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotionalSizeInput
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
@@ -225,7 +225,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotionalSize
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionCreepCoefficientAttribute.cs

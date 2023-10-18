@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\Common.props" />
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,7 +7,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>IdeaStatiCa.PluginRunner</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 

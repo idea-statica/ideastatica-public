@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/TendonLoading.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TendonStressLoading
     path: ../src/IdeaRS.OpenModel/Concrete/Load/TendonLoading.cs
@@ -55,7 +55,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/TendonLoading.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Concrete/Load/TendonLoading.cs
@@ -86,7 +86,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Concrete/Load/TendonLoading.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stresses
     path: ../src/IdeaRS.OpenModel/Concrete/Load/TendonLoading.cs

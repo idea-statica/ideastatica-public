@@ -1,5 +1,7 @@
 **WIP: 👷‍♂️ Needs testing and confirmation.**
 
+## This page is excluded from documentation as it is not implemented correctly in IOM
+
 ## Bolt Grades
 
 A bolt grade can now be added to IOM using the [`MaterialBoltGrade`](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Libraries/Material/MaterialBoltGrade.cs) class.
@@ -32,6 +34,4 @@ A bolt assembly can be referenced to a `BoltGrid` or `AnchorGrid` by specifying 
 
 ## Weld Electrode / Grade
 
-**Currently, weld electrodes and materials relating to welds are defined as a steel material and referenced to a weld by Name.**   
-
-## 
+Currently, weld electrodes and materials relating to welds are defined as a steel material and referenced to a weld by Name.

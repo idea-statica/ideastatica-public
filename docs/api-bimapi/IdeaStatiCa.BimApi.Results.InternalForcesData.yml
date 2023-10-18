@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InternalForcesData
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
@@ -58,7 +58,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: N
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
@@ -89,7 +89,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Qy
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
@@ -120,7 +120,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Qz
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
@@ -151,7 +151,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mx
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
@@ -182,7 +182,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: My
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
@@ -213,7 +213,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mz
     path: ../src/IdeaStatiCa.BimApi/Results/InternalForcesData.cs

@@ -27,7 +27,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointLoadOnLine
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -179,7 +179,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -210,7 +210,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Direction
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -241,7 +241,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fx
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -272,7 +272,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fy
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -303,7 +303,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fz
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -334,7 +334,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mx
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -365,7 +365,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: My
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -396,7 +396,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Mz
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -427,7 +427,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Ey
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -458,7 +458,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Ez
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -489,7 +489,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Geometry
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
@@ -520,7 +520,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RelativePosition
     path: ../src/IdeaRS.OpenModel/Loading/PointLoadOnLine.cs

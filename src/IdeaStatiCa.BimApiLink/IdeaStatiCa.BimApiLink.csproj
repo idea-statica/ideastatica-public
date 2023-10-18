@@ -1,32 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common.props" />
+  
+  <PropertyGroup>
+    <TargetFrameworks>net48;net6.0</TargetFrameworks>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
+  </PropertyGroup>
 
-	<PropertyGroup>
-		<TargetFrameworks>net48;net6.0</TargetFrameworks>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<Configurations>Debug;Release</Configurations>
-		<Authors>IDEA StatiCa</Authors>
-		<Company>IDEA StatiCa</Company>
-		<PackageProjectUrl>https://github.com/idea-statica/ideastatica-public</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/idea-statica/ideastatica-public.git</RepositoryUrl>
-		<RepositoryType>Git</RepositoryType>
-		<PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
-		<EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
-	</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+  </ItemGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
-		<AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-	</PropertyGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
-		<ProjectReference Include="..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
-		<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+  </ItemGroup>
 
 </Project>

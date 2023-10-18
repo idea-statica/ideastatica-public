@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConnCalculatorConsole</RootNamespace>
+    <AssemblyName>ConnCalculatorConsole</AssemblyName>
+    <TargetFramework>net48</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyTitle>ConnCalculatorConsole</AssemblyTitle>
+    <Product>ConnCalculatorConsole</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NuGet|AnyCPU'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NuGet|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <None Include="testProj.ideaCon">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+	<ProjectReference Include="..\..\..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+	<ProjectReference Include="..\..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+  </ItemGroup>
+	
+	
+  <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+    <PackageReference Include="IdeaStatiCa.OpenModel">
+      <Version>23.0.4.1320</Version>
+    </PackageReference>
+    <PackageReference Include="IdeaStatiCa.Plugin">
+      <Version>23.0.4.1320</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

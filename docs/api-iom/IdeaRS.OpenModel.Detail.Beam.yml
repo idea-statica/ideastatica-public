@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Beam
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -107,7 +107,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GeomId
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -138,7 +138,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterComponent
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -169,7 +169,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MasterPoint
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -200,7 +200,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InsertPoint
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -231,7 +231,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Edges
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
@@ -264,7 +264,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Position
     path: ../src/IdeaRS.OpenModel/Detail/Geometry/Beam.cs

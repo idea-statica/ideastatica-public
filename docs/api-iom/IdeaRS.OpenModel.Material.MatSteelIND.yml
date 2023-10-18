@@ -20,7 +20,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatSteelIND
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
@@ -99,7 +99,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fy
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
@@ -130,7 +130,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: fu
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
@@ -161,7 +161,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaOVfu
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
@@ -192,7 +192,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GammaOVfy
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
@@ -223,7 +223,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialStrength
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MatSteelIND.cs

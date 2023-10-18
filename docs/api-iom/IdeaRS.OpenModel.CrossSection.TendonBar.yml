@@ -24,7 +24,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TendonBar
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -74,7 +74,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Id
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TendonType
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -136,7 +136,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Point
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -179,7 +179,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -210,7 +210,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PrestressingOrder
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -241,7 +241,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NumStrandsInTendon
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -272,7 +272,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PrestressReinforcementType
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -303,7 +303,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Phase
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
@@ -334,7 +334,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TendonDuct
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/TendonBar.cs

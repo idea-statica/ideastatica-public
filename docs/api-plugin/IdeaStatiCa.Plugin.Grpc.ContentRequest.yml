@@ -32,11 +32,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ContentRequest
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 863
+    startLine: 938
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -69,11 +69,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Parser
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 870
+    startLine: 945
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -98,11 +98,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Descriptor
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 874
+    startLine: 949
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -127,11 +127,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 886
+    startLine: 961
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -156,11 +156,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 894
+    startLine: 969
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -188,11 +188,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Clone
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 902
+    startLine: 977
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -221,11 +221,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BlobStorageIdFieldNumber
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 909
+    startLine: 984
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -250,11 +250,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BlobStorageId
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 911
+    startLine: 986
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -279,11 +279,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ContentIdFieldNumber
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 921
+    startLine: 996
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -308,11 +308,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ContentId
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 923
+    startLine: 998
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -337,11 +337,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 932
+    startLine: 1007
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -375,11 +375,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Equals
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 938
+    startLine: 1013
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -412,11 +412,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetHashCode
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 952
+    startLine: 1027
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -444,11 +444,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ToString
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 964
+    startLine: 1039
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -476,11 +476,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WriteTo
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 970
+    startLine: 1045
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -510,11 +510,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateSize
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 1008
+    startLine: 1083
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -545,11 +545,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MergeFrom
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 1024
+    startLine: 1099
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
@@ -579,11 +579,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-      branch: add_wiki_content_to_docfx
+      branch: fix_dev_site_links
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MergeFrom
     path: ../src/IdeaStatiCa.Plugin/obj/Release/net48/Grpc/GrpcReflectionServiceContract.cs
-    startLine: 1039
+    startLine: 1114
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc
