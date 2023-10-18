@@ -1,13 +1,12 @@
 ﻿using BimApiLinkCadExample.CadExampleApi;
 using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
-using IdeaStatiCa.BimApi;
 using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System;
 
 namespace BimApiLinkCadExample
 {
@@ -53,7 +52,7 @@ namespace BimApiLinkCadExample
 				var selectedObjects = _model.GetSelectPartObjects();
 				return GetCadUserSelection(point, members, selectedObjects);
 			}
-			catch 
+			catch
 			{
 				return null;
 			}
@@ -66,7 +65,7 @@ namespace BimApiLinkCadExample
 		public IEnumerable<CadUserSelection> GetUserSelections()
 		{
 			return new List<CadUserSelection>() { GetUserSelection() };
-			
+
 			//var selections = new List<CadUserSelection>();
 
 			//foreach (var joint in _model.GetBulkSelection())
@@ -96,24 +95,24 @@ namespace BimApiLinkCadExample
 
 			List<IIdentifier> identifiers = new List<IIdentifier>();
 
-			foreach(var member in members) 
+			foreach (var member in members)
 			{
 				identifiers.Add(GetIdentifier(member));
 			}
 
-			foreach(var part in selectedObject) 
+			foreach (var part in selectedObject)
 			{
 				identifiers.Add(GetIdentifier(part));
 			}
 
 			selection.Objects = identifiers;
-			
+
 			return selection;
 		}
 
 		private IIdentifier GetIdentifier(CadObject item)
 		{
-			if(item is CadMember)
+			if (item is CadMember)
 				return new IntIdentifier<IIdeaMember1D>(item.Id);
 			else if (item is CadPlate)
 				return new IntIdentifier<IIdeaPlate>(item.Id);

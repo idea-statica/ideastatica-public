@@ -124,6 +124,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeaExampleApi", "Examples\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleRunner", "Examples\CheckbotBimLink\BimLinkExampleRunner\BimLinkExampleRunner.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BimLinkExampleConsoleApp", "Examples\CheckbotBimLink\BimLinkExampleConsoleApp\BimLinkExampleConsoleApp.csproj", "{D4839311-3A97-499B-8B49-A85726D92BFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -306,6 +308,10 @@ Global
 		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -354,6 +360,7 @@ Global
 		{9E8E5ECD-206D-4A9E-9CB7-E2357315A999} = {8ADB503F-1699-4688-A962-F2D2574F73E6}
 		{BB170A0D-89DE-4A33-89AB-4A80FA7AD505} = {8ADB503F-1699-4688-A962-F2D2574F73E6}
 		{669835E3-E2A5-48E5-8CF4-752370CB7051} = {2BF4524E-3515-438F-AAAE-310F0EA228BE}
+		{D4839311-3A97-499B-8B49-A85726D92BFA} = {2BF4524E-3515-438F-AAAE-310F0EA228BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
