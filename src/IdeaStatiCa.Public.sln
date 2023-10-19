@@ -112,6 +112,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeaExampleApi", "..\example
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleRunner", "..\examples\bimapi\CheckbotBimLink\BimLinkExampleRunner\BimLinkExampleRunner.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BimLinkExampleConsoleApp", "Examples\CheckbotBimLink\BimLinkExampleConsoleApp\BimLinkExampleConsoleApp.csproj", "{D4839311-3A97-499B-8B49-A85726D92BFA}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.GeneratorExample", "..\examples\iom\IOM\IOM.GeneratorExample\IOM.GeneratorExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "..\examples\iom\IOM\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
@@ -135,6 +137,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Common.props = Common.props
 	EndProjectSection
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -321,6 +324,10 @@ Global
 		{44461F4B-F2CC-44C0-A265-07CBCF5302C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44461F4B-F2CC-44C0-A265-07CBCF5302C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44461F4B-F2CC-44C0-A265-07CBCF5302C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4839311-3A97-499B-8B49-A85726D92BFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -372,6 +379,7 @@ Global
 		{F5E015AA-E033-425C-B0D5-6B51FD548CBF} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
 		{9CE136B8-8F03-4096-94BF-F613E874A3CB} = {F5E015AA-E033-425C-B0D5-6B51FD548CBF}
 		{44461F4B-F2CC-44C0-A265-07CBCF5302C8} = {9CE136B8-8F03-4096-94BF-F613E874A3CB}
+		{D4839311-3A97-499B-8B49-A85726D92BFA} = {2BF4524E-3515-438F-AAAE-310F0EA228BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
