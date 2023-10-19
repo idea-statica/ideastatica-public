@@ -31,18 +31,19 @@ namespace IdeaStatiCa.BimApiLink
 
 		protected BimApiApplication(
 			string applicationName,
-			IPluginLogger logger,
+			IPluginLogger pluginLogger,
 			IProject project,
 			IProjectStorage projectStorage,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
-			TaskScheduler taskScheduler)
+			TaskScheduler taskScheduler):
+			base(pluginLogger)
 		{
 			ApplicationName = applicationName;
 
-			_logger = logger;
+			_logger = pluginLogger;
 			_project = project;
 			_projectStorage = projectStorage;
 			_bimApiImporter = bimApiImporter;
