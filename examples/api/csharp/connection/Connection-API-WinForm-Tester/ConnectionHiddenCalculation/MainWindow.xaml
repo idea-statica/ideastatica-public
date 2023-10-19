@@ -92,6 +92,8 @@
 				</Button>
 				<Button Command="{Binding GetConnectionCostCmd}"  CommandParameter="{Binding SelectedConnection}">Get Cost</Button>
 				<Button Command="{Binding GenerateReportCmd}"  CommandParameter="{Binding SelectedConnection}">Generate report</Button>
+				<Button Command="{Binding GeneratePdfReportCmd}"  CommandParameter="{Binding SelectedConnection}">Generate PDF</Button>
+				<Button Command="{Binding GenerateWordReportCmd}"  CommandParameter="{Binding SelectedConnection}">Generate Word</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<StackPanel DockPanel.Dock="Bottom">

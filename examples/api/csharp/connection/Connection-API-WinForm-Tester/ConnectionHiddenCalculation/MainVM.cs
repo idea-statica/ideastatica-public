@@ -97,7 +97,9 @@ namespace ConnectionHiddenCalculation
 			ConnectionToTemplateCmd = new ConnectionToTemplateCommand(this);
 			ApplyTemplateCmd = new ApplyTemplateCommand(this);
 			DeleteOperationsCmd = new DeleteAllOperationsCommand(this);
-			GenerateReportCmd = new GenerateReportCommand(this);
+			GenerateReportCmd = new GenerateReportCommand(this, ConnReportTypeEnum.Zip);
+			GeneratePdfReportCmd = new GenerateReportCommand(this, ConnReportTypeEnum.Pdf);
+			GenerateWordReportCmd = new GenerateReportCommand(this, ConnReportTypeEnum.Word);
 
 			GetConnectionCostCmd = new GetConnectionCostCommand(this);
 			GetMaterialsCmd = new GetMaterialsCommand(this);
@@ -150,7 +152,8 @@ namespace ConnectionHiddenCalculation
 		public ICommand OpenTempProjectCmd { get; set; }
 		public ICommand DeleteOperationsCmd { get;set; }
 		public ICommand GenerateReportCmd { get; set; }
-
+		public ICommand GeneratePdfReportCmd { get; set; }
+		public ICommand GenerateWordReportCmd { get; set; }
 		#endregion
 
 		#region IConHiddenCalcModel
