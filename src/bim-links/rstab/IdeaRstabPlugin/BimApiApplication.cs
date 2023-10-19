@@ -17,7 +17,7 @@ namespace IdeaRstabPlugin
 {
 	public abstract class BimApiApplication : ApplicationBIM
 	{
-		private static readonly IPluginLogger _logger = LoggerProvider.GetLogger("ideastatica.IdeaRstabPlugin.bimapiapplication");
+		private static readonly IPluginLogger ideaLogger = LoggerProvider.GetLogger("ideastatica.IdeaRstabPlugin.bimapiapplication");
 
 		private const string PersistencyStorage = "bimapi-data.json";
 
@@ -34,16 +34,17 @@ namespace IdeaRstabPlugin
 		protected event Action ImportFinished;
 
 		public BimApiApplication(
-			IPluginLogger logger,
+			IPluginLogger pluginLogger,
 			IIdeaModel ideaModel,
 			IObjectRestorer objectRestorer,
 			IGeometryProvider geometryProvider,
-			string workingDirectory)
+			string workingDirectory):
+			base(pluginLogger)
 		{
 			_workingDirectory = workingDirectory;
 			_persistencyStoragePath = Path.Combine(workingDirectory, PersistencyStorage);
 
-			_jsonPersistence = new JsonPersistence(logger);
+			_jsonPersistence = new JsonPersistence(pluginLogger);
 			if (File.Exists(_persistencyStoragePath))
 			{
 				using (FileStream fs = new FileStream(_persistencyStoragePath, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -61,8 +62,8 @@ namespace IdeaRstabPlugin
 				LCSPrecision = 1e-5
 			};
 
-			_project = new Project(logger, _jsonPersistence, objectRestorer);
-			_bimImporter = BimImporter.Create(ideaModel, _project, logger, geometryProvider, bimImporterConfiguration, null, null);
+			_project = new Project(pluginLogger, _jsonPersistence, objectRestorer);
+			_bimImporter = BimImporter.Create(ideaModel, _project, pluginLogger, geometryProvider, bimImporterConfiguration, null, null);
 
 			ImportFinished += OnImportFinished;
 		}
@@ -93,7 +94,7 @@ namespace IdeaRstabPlugin
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ActivateInBIM failed", e);
+				ideaLogger.LogError("ActivateInBIM failed", e);
 			}
 		}
 
@@ -121,7 +122,7 @@ namespace IdeaRstabPlugin
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ImportActive failed", e);
+				ideaLogger.LogError("ImportActive failed", e);
 				return null;
 			}
 			finally
@@ -143,7 +144,7 @@ namespace IdeaRstabPlugin
 			}
 			catch (Exception e)
 			{
-				_logger.LogError("ImportSelection failed", e);
+				ideaLogger.LogError("ImportSelection failed", e);
 				return null;
 			}
 			finally
