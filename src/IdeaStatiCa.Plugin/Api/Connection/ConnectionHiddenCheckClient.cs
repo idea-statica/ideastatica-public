@@ -233,6 +233,20 @@ namespace IdeaStatiCa.Plugin
 			return Service.GenerateReport(connectionId, settings);
 		}
 
+		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportPdf(string, ConnReportSettings)"/>
+		public byte[] GenerateReportPdf(string connectionId, ConnReportSettings settings)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
+			return Service.GenerateReportPdf(connectionId, settings);
+		}
+
+		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportWord(string, ConnReportSettings)"/>
+		public byte[] GenerateReportWord(string connectionId, ConnReportSettings settings)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
+			return Service.GenerateReportWord(connectionId, settings);
+		}
+
 		/// <inheritdoc cref="IConnHiddenCheck.OpenConnectionInApp(string)"/>
 		public void OpenConnectionInApp(string connectionId)
 		{

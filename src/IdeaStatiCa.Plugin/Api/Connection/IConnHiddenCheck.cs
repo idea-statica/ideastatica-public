@@ -294,6 +294,24 @@ namespace IdeaStatiCa.Plugin
 		ReportResponse GenerateReport(string connectionId, ConnReportSettings settings);
 
 		/// <summary>
+		/// Generate a report for connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
+		[OperationContract]
+		byte[] GenerateReportPdf(string connectionId, ConnReportSettings settings);
+
+		/// <summary>
+		/// Generate a report for connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
+		[OperationContract]
+		byte[] GenerateReportWord(string connectionId, ConnReportSettings settings);
+
+		/// <summary>
 		/// Open and select the connection <paramref name="connectionId"/> in an application
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
