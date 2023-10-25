@@ -1,11 +1,7 @@
-﻿#if (CAD)
-using BimApiLinkCadExample;
-using BimApiLinkCadExample.CadExampleApi;
-#else
-using BimApiLinkFeaExample;
+﻿using BimApiLinkCadExample.CadExampleApi;
 using BimApiLinkFeaExample.FeaExampleApi;
-#endif
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -23,6 +19,16 @@ namespace BimLinkExampleRunner.ViewModels
 		}
 
 		public IEnumerable<string> Actions { get; } = new List<string>();
+
+		public ApplicationType ApplicationType
+		{
+			get => Properties.Settings.Default.ApplicationType;
+			set
+			{
+				Properties.Settings.Default.ApplicationType = value;
+				Properties.Settings.Default.Save();
+			}
+		}
 
 		public string CheckbotLocation
 		{
@@ -44,13 +50,21 @@ namespace BimLinkExampleRunner.ViewModels
 			//Provides the instance of the Fea Application Api or Model Object.
 			//We have created a simple test api for this example which mocks a typical Api. 
 
-#if (CAD)
-			ICadApi cadApi = new CadApi();
-			Task.Run(() => TestPlugin.Run(CheckbotLocation, cadApi, Logger));
-#else
-			IFeaApi feaApi = new FeaApi();
-			Task.Run(() => TestPlugin.Run(CheckbotLocation, feaApi, Logger));
-#endif
+			if (ApplicationType is ApplicationType.CAD)
+			{
+				ICadApi cadApi = new CadApi();
+				Task.Run(() => BimApiLinkCadExample.TestPlugin.Run(CheckbotLocation, cadApi, Logger));
+			}
+			else if (ApplicationType is ApplicationType.FEA)
+			{
+				IFeaApi feaApi = new FeaApi();
+				Task.Run(() => BimApiLinkFeaExample.TestPlugin.Run(CheckbotLocation, feaApi, Logger));
+			}
+			else
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
+
 }

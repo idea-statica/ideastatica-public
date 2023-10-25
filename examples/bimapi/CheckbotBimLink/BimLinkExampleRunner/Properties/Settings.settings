@@ -1,9 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BimApiExample.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BimLinkExampleRunner.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="CheckbotLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ApplicationType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CAD</Value>
     </Setting>
   </Settings>
 </SettingsFile>
