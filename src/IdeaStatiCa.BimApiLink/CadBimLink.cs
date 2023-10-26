@@ -12,10 +12,13 @@ namespace IdeaStatiCa.BimApiLink
 {
 	public class CadBimLink : BimLink
 	{
-		public CadBimLink(string applicationName, string projectPath) : base(applicationName, projectPath)
+		public static BimLink Create(string applicationName, string checkbotProjectPath)
+			=> new CadBimLink(applicationName, checkbotProjectPath);
+
+		public CadBimLink(string applicationName, string projectPath)
+			: base(applicationName, projectPath)
 		{
 		}
-		public static BimLink Create(string applicationName, string checkbotProjectPath) => new CadBimLink(applicationName, checkbotProjectPath);
 
 		protected override IApplicationBIM Create(
 			IPluginLogger logger,
@@ -26,7 +29,7 @@ namespace IdeaStatiCa.BimApiLink
 			IBimResultsProvider resultsProvider,
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
-			IModel feaModel,
+			IModel model,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler)
 		{
@@ -34,7 +37,8 @@ namespace IdeaStatiCa.BimApiLink
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			CadModelAdapter cadModelAdapter = new CadModelAdapter(bimApiImporter, feaModel as ICadModel, remoteApp, ApplicationName);
+			CadModelAdapter cadModelAdapter = new CadModelAdapter(bimApiImporter, model as ICadModel, remoteApp, ApplicationName);
+
 			IBimImporter bimImporter = BimImporter.BimImporter.Create(
 				cadModelAdapter,
 				projectAdapter,
@@ -43,6 +47,7 @@ namespace IdeaStatiCa.BimApiLink
 				bimImporterConfiguration,
 				remoteApp,
 				resultsProvider);
+
 			return CreateApplicationInstace(logger, bimApiImporter, pluginHook, scopeHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
 		}
 

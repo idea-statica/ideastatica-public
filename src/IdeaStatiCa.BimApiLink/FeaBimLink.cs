@@ -16,7 +16,8 @@ namespace IdeaStatiCa.BimApiLink
 		{
 		}
 
-		public static BimLink Create(string applicationName, string checkbotProjectPath) => new FeaBimLink(applicationName, checkbotProjectPath);
+		public static BimLink Create(string applicationName, string checkbotProjectPath) 
+			=> new FeaBimLink(applicationName, checkbotProjectPath);
 
 		protected override IApplicationBIM Create(
 			IPluginLogger logger,
@@ -36,6 +37,7 @@ namespace IdeaStatiCa.BimApiLink
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
 			FeaModelAdapter feaModelAdapter = new FeaModelAdapter(bimApiImporter, model as IFeaModel);
+
 			IBimImporter bimImporter = BimImporter.BimImporter.Create(
 				feaModelAdapter,
 				projectAdapter,
