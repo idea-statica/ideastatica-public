@@ -1,13 +1,10 @@
 ﻿using IdeaStatiCa.BimApiLink.Hooks;
 using IdeaStatiCa.BimApiLink.Importers;
-using IdeaStatiCa.BimApiLink.Persistence;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
-using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.BimApiLink
@@ -18,12 +15,13 @@ namespace IdeaStatiCa.BimApiLink
 
 		private string _ideaStatiCaPath;
 		private IPluginLogger _pluginLogger;
-		private GrpcBimHostingFactory _bimHosting;
 		private ResultsImportersConfiguration _resultsImportersConfiguration;
 		private BimImporterConfiguration _bimImporterConfiguration;
 		private readonly string _projectPath;
 		private IBimUserDataSource _bimUserDataSource = new NullBimUserDataSource();
 		private TaskScheduler _taskScheduler = TaskScheduler.Default;
+		private IBimHostingFactory _bimHostingFactory = new GrpcBimHostingFactory();
+		private IProgressMessaging _progressMessaging;
 
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
 		private readonly HookManagers _hookManagers = new HookManagers();
@@ -97,42 +95,46 @@ namespace IdeaStatiCa.BimApiLink
 			return this;
 		}
 
-		public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
+		public BimLink WithBimHostingFactory(IBimHostingFactory bimHostingFactory)
 		{
-			if (_bimHosting is null)
-			{
-				_bimHosting = new GrpcBimHostingFactory();
-			}
-
-			return _bimHosting.InitGrpcClient(pluginLogger);
+			_bimHostingFactory = bimHostingFactory;
+			return this;
 		}
 
-		public virtual Task Run(IModel model)
+		public BimLink WithProgressMessaging(IProgressMessaging progressMessaging)
 		{
+			_progressMessaging = progressMessaging;
+			return this;
+		}
+
+		public IApplicationBimRunnable Create(IModel model)
+		{
+			if (model is null)
+			{
+				throw new ArgumentNullException(nameof(model));
+			}
+
 			IPluginLogger pluginLogger = _pluginLogger ?? new NullLogger();
-			IApplicationBIM applicationBIM = CreateApplicationBIM(model, pluginLogger, InitHostingClient(pluginLogger));
+			IBimHostingFactory bimHostingFactory = _bimHostingFactory ?? new GrpcBimHostingFactory();
+			IProgressMessaging progressMessaging = _progressMessaging;
 
-			PluginFactory pluginFactory = new PluginFactory(
-				applicationBIM,
-				ApplicationName,
-				_ideaStatiCaPath);
-
-			if (_bimHosting is null)
+			if (progressMessaging is null && bimHostingFactory is GrpcBimHostingFactory grpcBimHostingFactory)
 			{
-				InitHostingClient(pluginLogger);
+				progressMessaging = grpcBimHostingFactory.InitGrpcClient(pluginLogger);
 			}
 
-			IBIMPluginHosting pluginHosting = _bimHosting.Create(pluginFactory, pluginLogger);
+			IApplicationBIM applicationBIM = CreateApplicationBIM(model, pluginLogger, progressMessaging);
 
-#if NET6_0
-			string pid = Environment.ProcessId.ToString();
-#else
-			string pid = Process.GetCurrentProcess().Id.ToString();
-#endif
-			return pluginHosting.RunAsync(pid, _projectPath);
+			return new ApplicationBimRunnable(
+				applicationBIM,
+				bimHostingFactory,
+				pluginLogger,
+				ApplicationName,
+				_ideaStatiCaPath,
+				_projectPath);
 		}
 
-		public IApplicationBIM CreateApplicationBIM(IModel model, IPluginLogger pluginLogger, IProgressMessaging remoteApp = null)
+		private IApplicationBIM CreateApplicationBIM(IModel model, IPluginLogger pluginLogger, IProgressMessaging progressMessaging = null)
 		{
 			ImporterDispatcher importerDispatcher = new ImporterDispatcher(
 							_importersConfiguration.Manager,
@@ -146,7 +148,7 @@ namespace IdeaStatiCa.BimApiLink
 				importerDispatcher,
 				_projectPath,
 				bimImporterConfiguration,
-				remoteApp,
+				progressMessaging,
 				resultsProvider,
 				_hookManagers.PluginHookManager,
 				_hookManagers.ScopeHookManager,
