@@ -32,17 +32,19 @@ namespace BimApiLinkCadExample
 
 			try
 			{
-				logger.LogInformation($"Project working directory is {workingDirectory}");
-				var link = CadBimLink.Create("My application name", workingDirectory);
+				GrpcBimHostingFactory bimHostingFactory = new GrpcBimHostingFactory();
 
-				var container = BuildContainer(link.InitHostingClient(logger), cadApi);
+				logger.LogInformation($"Project working directory is {workingDirectory}");
+
+				var container = BuildContainer(bimHostingFactory.InitGrpcClient(logger), cadApi);
 
 				Model model = container.Resolve<Model>();
 
-				await link
+				await CadBimLink.Create("My application name", workingDirectory)
 					.WithIdeaStatiCa(checkbotLocation)
 					.WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
 					.WithLogger(logger)
+					.WithBimHostingFactory(bimHostingFactory)
 					.Run(model);
 			}
 			catch (Exception ex)
