@@ -30,17 +30,19 @@ namespace BimApiLinkFeaExample
 
 			try
 			{
-				logger.LogInformation($"Project working directory is {workingDirectory}");
-				var link = FeaBimLink.Create("My application name", workingDirectory);
+				GrpcBimHostingFactory bimHostingFactory = new GrpcBimHostingFactory();
 
-				var container = BuildContainer(link.InitHostingClient(logger), feaApi);
+				logger.LogInformation($"Project working directory is {workingDirectory}");
+
+				var container = BuildContainer(bimHostingFactory.InitGrpcClient(logger), feaApi);
 
 				Model model = container.Resolve<Model>();
 
-				await link
+				await FeaBimLink.Create("My application name", workingDirectory)
 					.WithIdeaStatiCa(checkbotLocation)
 					.WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
 					.WithLogger(logger)
+					.WithBimHostingFactory(bimHostingFactory)
 					.Run(model);
 			}
 			catch (Exception ex)
