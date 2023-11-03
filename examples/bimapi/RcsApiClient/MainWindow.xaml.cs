@@ -81,7 +81,7 @@ namespace RcsApiClient
 			};
 			_controller = _rcsClientFactory.CreateRcsApiClient();
 		
-			ApplicationInformation.Text = _controller != null ? $"{ideaStatiCaDir}/RcsApi.exe" : "API is not running";
+			ApplicationInformation.Text = _controller != null ? $"{ideaStatiCaDir}/IdeaStatiCa.RcsRestApi.exe.exe" : "API is not running";
 
 			AppDomain.CurrentDomain.ProcessExit += ProcessExit;
 		}

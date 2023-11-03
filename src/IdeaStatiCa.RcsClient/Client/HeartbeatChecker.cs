@@ -9,20 +9,21 @@ namespace IdeaStatiCa.RcsClient.Client
 {
 	internal class HeartbeatChecker : IHeartbeatChecker
 	{
-		private readonly string _heartbeatEndpoint;
-		private readonly HttpClient _client;
-		private CancellationTokenSource _cancellationTokenSource;
-		private IPluginLogger _logger;
-		private TimeSpan _interval;
+		private readonly string heartbeatEndpoint;
+		private readonly HttpClient client;
+		private CancellationTokenSource cancellationTokenSource;
+		private IPluginLogger logger;
+		private TimeSpan interval;
 
 		public Action<string> HeartBeatLogAction { get; set; } = null;
 
-		public HeartbeatChecker(HttpClient client, string heartbeatEndpoint, TimeSpan? interval = null)
+		public HeartbeatChecker(IPluginLogger logger, HttpClient client, string heartbeatEndpoint, TimeSpan? interval = null)
 		{
-			_client = client;
-			_interval = interval ?? TimeSpan.FromSeconds(10);
-			_heartbeatEndpoint = heartbeatEndpoint;
-			_cancellationTokenSource = new CancellationTokenSource();
+			this.client = client;
+			this.logger = logger;
+			this.interval = interval ?? TimeSpan.FromSeconds(10);
+			this.heartbeatEndpoint = heartbeatEndpoint;
+			this.cancellationTokenSource = new CancellationTokenSource();
 		}
 
 		/// <summary>
@@ -32,11 +33,11 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <returns></returns>
 		public async Task StartAsync()
 		{
-			while (!_cancellationTokenSource.Token.IsCancellationRequested)
+			while (!cancellationTokenSource.Token.IsCancellationRequested)
 			{
 				try
 				{
-					var response = await _client.GetStringAsync(_heartbeatEndpoint);
+					var response = await client.GetStringAsync(heartbeatEndpoint);
 					if (HeartBeatLogAction != null)
 					{
 						HeartBeatLogAction(response);
@@ -44,10 +45,10 @@ namespace IdeaStatiCa.RcsClient.Client
 				}
 				catch (Exception ex)
 				{
-					_logger.LogError($"API is not responsive: {ex.Message}");
+					logger.LogError($"API is not responsive: {ex.Message}");
 				}
 
-				await Task.Delay(_interval);
+				await Task.Delay(interval);
 			}
 		}
 
@@ -56,10 +57,10 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// </summary>
 		public void Stop()
 		{
-			if (_cancellationTokenSource is { })
+			if (cancellationTokenSource is { })
 			{
-				_cancellationTokenSource.Cancel();
-				_cancellationTokenSource.Dispose();
+				cancellationTokenSource.Cancel();
+				cancellationTokenSource.Dispose();
 			}
 		}
 	}

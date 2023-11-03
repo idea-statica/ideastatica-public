@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using IdeaStatiCa.Plugin.Api.Rcs;
 
 namespace IdeaStatiCa.RcsClient.HttpWrapper
 {

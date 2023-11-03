@@ -14,20 +14,20 @@ namespace IdeaStatiCa.RcsClient.Factory
 	public class RcsClientFactory : IRcsClientFactory
 	{
 		private const string LOCALHOST_URL = "https://localhost";
-		private readonly IPluginLogger _pluginLogger;
-		private IHttpClientWrapper _httpClientWrapper;
+		private readonly IPluginLogger pluginLogger;
+		private IHttpClientWrapper httpClientWrapper;
 		private int _port = -1;
 		private Process _rcsRestApiProcess = null;
-		private string _directory = null;
+		private string directory = null;
 
 		public Action<string, int> StreamingLog { get; set; } = null;
 		public Action<string> HeartbeatLog { get; set; } = null;
 
 		public RcsClientFactory(IPluginLogger pluginLogger, IHttpClientWrapper httpClientWrapper = null, string directory = null)
 		{
-			_httpClientWrapper = httpClientWrapper;
-			_pluginLogger = pluginLogger;
-			_directory = directory;
+			this.httpClientWrapper = httpClientWrapper;
+			this.pluginLogger = pluginLogger;
+			this.directory = directory;
 		}
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 		public IRcsApiController CreateRcsApiClient()
 		{
 			var (url, controller, processId) = RunRcsRestApiService();
-			var wrapper = _httpClientWrapper ?? new HttpClientWrapper(_pluginLogger, url, controller);
+			var wrapper = httpClientWrapper ?? new HttpClientWrapper(pluginLogger, url, controller);
 			if(StreamingLog != null)
 			{
 				wrapper.ProgressLogAction = StreamingLog;
@@ -49,7 +49,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			{
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
-			return new RcsApiClient(processId, _pluginLogger, wrapper);
+			return new RcsApiClient(processId, pluginLogger, wrapper);
 		}
 
 		private (string, string, int) RunRcsRestApiService()
@@ -60,10 +60,10 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 				while (_port > 0)
 				{
-					var directoryName = _directory ?? Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-					string apiExecutablePath = Path.Combine(directoryName, "IdeaRcsRestApi.exe");
+					var directoryName = directory ?? Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+					string apiExecutablePath = Path.Combine(directoryName, "IdeaStatiCa.RcsRestApi.exe");
 
-					_pluginLogger.LogDebug($"Running {apiExecutablePath} on port {_port}");
+					pluginLogger.LogDebug($"Running {apiExecutablePath} on port {_port}");
 					// Start the REST API executable with the chosen port
 					string arguments = $"-port={_port}";
 					_rcsRestApiProcess = new Process();
@@ -81,18 +81,18 @@ namespace IdeaStatiCa.RcsClient.Factory
 					if (!_rcsRestApiProcess.HasExited)
 					{
 						_rcsRestApiProcess.CloseMainWindow();
-						_pluginLogger.LogInformation($"REST API process started on port {_port}.");
+						pluginLogger.LogInformation($"REST API process started on port {_port}.");
 						break;
 					}
 				}
 
 				if (_port <= 0)
 				{
-					_pluginLogger.LogError("Failed to start the REST API on an available port.");
+					pluginLogger.LogError("Failed to start the REST API on an available port.");
 				}
 			}
 
-			_pluginLogger.LogDebug($"Created process with Id {_rcsRestApiProcess.Id}");
+			pluginLogger.LogDebug($"Created process with Id {_rcsRestApiProcess.Id}");
 			return ($"{LOCALHOST_URL}:{_port}", "RcsRest", _rcsRestApiProcess.Id);
 		}
 

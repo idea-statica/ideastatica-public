@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using IdeaRS.OpenModel.Concrete.CheckResult;
 using IdeaRS.OpenModel.Message;
@@ -14,55 +11,55 @@ namespace IdeaStatiCa.RcsClient.Client
 {
 	public class RcsApiClient : IRcsApiController
 	{
-		private readonly IHttpClientWrapper _httpClient;
-		private readonly int _restApiProcessId;
-		private readonly IPluginLogger _pluginLogger;
+		private readonly IHttpClientWrapper httpClient;
+		private readonly int restApiProcessId;
+		private readonly IPluginLogger pluginLogger;
 
-		private Dictionary<string, ProjectResult> _projectResults;
+		private Dictionary<string, ProjectResult> projectResults;
 
 		public RcsApiClient(int processId, IPluginLogger logger, IHttpClientWrapper httpClientWrapper)
 		{
-			_pluginLogger = logger;
-			_restApiProcessId = processId;
-			_httpClient = httpClientWrapper;
-			_projectResults = new Dictionary<string, ProjectResult>();
+			pluginLogger = logger;
+			this.restApiProcessId = processId;
+			this.httpClient = httpClientWrapper;
+			projectResults = new Dictionary<string, ProjectResult>();
 		}
 
 		private ProjectResult GetProjectResult(RcsProjectInfo projectInfo)
 		{
-			if ((projectInfo.IdeaProjectPath != null && !_projectResults.ContainsKey(projectInfo.IdeaProjectPath)) ||
-				(projectInfo.ProjectName != null && !_projectResults.ContainsKey(projectInfo.ProjectName)))
+			if ((projectInfo.IdeaProjectPath != null && !projectResults.ContainsKey(projectInfo.IdeaProjectPath)) ||
+				(projectInfo.ProjectName != null && !projectResults.ContainsKey(projectInfo.ProjectName)))
 			{
-				_pluginLogger.LogInformation("Project not found in cache, calling RCS API");
-				var projectTask = Task.Run(async () => await _httpClient.PostAsync<ProjectResult>("LongCalculation", projectInfo, "application/xml"));
+				pluginLogger.LogInformation("Project not found in cache, calling RCS API");
+				var projectTask = Task.Run(async () => await httpClient.PostAsync<ProjectResult>("LongCalculation", projectInfo, "application/xml"));
 
 				var projectResult = projectTask.GetAwaiter().GetResult();
 
 				if (!string.IsNullOrEmpty(projectInfo.IdeaProjectPath))
 				{
-					_projectResults.Add(projectInfo.IdeaProjectPath, projectResult);
+					projectResults.Add(projectInfo.IdeaProjectPath, projectResult);
 				}
 
 				if (!string.IsNullOrEmpty(projectInfo.ProjectName))
 				{
-					_projectResults.Add(projectInfo.ProjectName, projectResult);
+					projectResults.Add(projectInfo.ProjectName, projectResult);
 				}
 
 				return projectResult;
 			}
 
-			if (_projectResults.ContainsKey(projectInfo.IdeaProjectPath))
+			if (projectResults.ContainsKey(projectInfo.IdeaProjectPath))
 			{
-				return _projectResults[projectInfo.IdeaProjectPath];
+				return projectResults[projectInfo.IdeaProjectPath];
 			}
 
-			if (_projectResults.ContainsKey(projectInfo.ProjectName))
+			if (projectResults.ContainsKey(projectInfo.ProjectName))
 			{
-				return _projectResults[projectInfo.ProjectName];
+				return projectResults[projectInfo.ProjectName];
 			}
 
 			var msg = $"Project {projectInfo.IdeaProjectPath}, {projectInfo.ProjectName} was not found";
-			_pluginLogger.LogError(msg);
+			pluginLogger.LogError(msg);
 			throw new KeyNotFoundException(msg);
 		}
 
@@ -94,12 +91,12 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// </summary>
 		public void Dispose()
 		{
-			var restApiProcess = Process.GetProcessById(_restApiProcessId);
+			var restApiProcess = Process.GetProcessById(restApiProcessId);
 			if (restApiProcess is { })
 			{
 				if (!restApiProcess.HasExited)
 				{
-					_pluginLogger.LogInformation($"Cleaning the API process with ID {_restApiProcessId}");
+					pluginLogger.LogInformation($"Cleaning the API process with ID {restApiProcessId}");
 					restApiProcess.Kill();
 				}
 			}

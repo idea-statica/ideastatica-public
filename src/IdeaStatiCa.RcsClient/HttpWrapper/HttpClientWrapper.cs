@@ -20,17 +20,17 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 	/// </summary>
 	public class HttpClientWrapper : IHttpClientWrapper
 	{
-		private readonly IPluginLogger _logger;
-		private string _url;
-		private string _controllerName;
+		private readonly IPluginLogger logger;
+		private string baseUrl;
+		private string controllerName;
 		public Action<string, int> ProgressLogAction { get; set; } = null;
 		public Action<string> HeartBeatLogAction { get; set; } = null;
 
 		public HttpClientWrapper(IPluginLogger logger, string baseAddress, string controllerName)
 		{
-			_url = baseAddress.ToString();
-			_logger = logger;
-			_controllerName = controllerName;
+			baseUrl = baseAddress.ToString();
+			this.logger = logger;
+			this.controllerName = controllerName;
 		}
 
 		/// <summary>
@@ -42,8 +42,8 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json")
 		{
-			var url = _url + "/" + _controllerName + "/" + requestUri;
-			_logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
+			var url = baseUrl + "/" + controllerName + "/" + requestUri;
+			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
 			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url); }
 			, acceptHeader);
 		}
@@ -58,8 +58,8 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json")
 		{
-			var url = $"{_url}{PluginConstants.RcsProgressEndpoint}";
-			_logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
+			var url = $"{baseUrl}{PluginConstants.RcsProgressEndpoint}";
+			logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 			HubConnection hubConnection = null;
 			
 			if(ProgressLogAction != null)
@@ -70,7 +70,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 
 				hubConnection.On<string, int>(PluginConstants.RcsProgressMethod, (msg, num) => ProgressLogAction(msg, num));
 
-				_logger.LogInformation($"Starting hub connection on {url} address");
+				logger.LogInformation($"Starting hub connection on {url} address");
 				await hubConnection.StartAsync();
 			}
 			
@@ -79,14 +79,14 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";
-					var url = _url + "/" +_controllerName + "/" + requestUri;
+					var url = baseUrl + "/" +controllerName + "/" + requestUri;
 					return await client.PostAsync(url, content);
 				}
 			}, acceptHeader);
 
 			if(hubConnection is { })
 			{
-				_logger.LogInformation("Stopping hub connection");
+				logger.LogInformation("Stopping hub connection");
 				await hubConnection.StopAsync();
 			}
 
@@ -100,30 +100,30 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			{		
 				using (var client = new HttpClient() { Timeout = Timeout.InfiniteTimeSpan })
 				{
-					heartbeatChecker = new HeartbeatChecker(client, _url + PluginConstants.RcsApiHeartbeat);
+					heartbeatChecker = new HeartbeatChecker(logger, client, baseUrl + PluginConstants.RcsApiHeartbeat);
 					heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
 					// Periodically check the heartbeat while the long operation is in progress
 					var heartbeatTask = heartbeatChecker.StartAsync();
-					_logger.LogDebug($"Starting HeartbeatChecker on url {_url + PluginConstants.RcsApiHeartbeat}");
+					logger.LogDebug($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
 					HttpResponseMessage response = await clientCall(client);
 					
 					if (response is { IsSuccessStatusCode: true })
 					{
-						_logger.LogDebug($"Response is successfull");
+						logger.LogDebug($"Response is successfull");
 						var stringContent = await response.Content.ReadAsStringAsync();
 						// Stop the heartbeat checker
 						heartbeatChecker.Stop();
-						_logger.LogDebug($"Stopping HeartbeatChecker");
+						logger.LogDebug($"Stopping HeartbeatChecker");
 						return Deserialize<TResult>(acceptHeader, stringContent);
 					}
 
-					_logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+					logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
 					throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
 				}
 			}
 			catch (HttpRequestException ex)
 			{
-				_logger.LogError("API Request for RCS failed.", ex);
+				logger.LogError("API Request for RCS failed.", ex);
 				throw new Exception("API Request for RCS failed", ex);
 			}
 		}
