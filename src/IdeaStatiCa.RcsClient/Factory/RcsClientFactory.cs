@@ -16,8 +16,8 @@ namespace IdeaStatiCa.RcsClient.Factory
 		private const string LOCALHOST_URL = "https://localhost";
 		private readonly IPluginLogger pluginLogger;
 		private IHttpClientWrapper httpClientWrapper;
-		private int _port = -1;
-		private Process _rcsRestApiProcess = null;
+		private int port = -1;
+		private Process rcsRestApiProcess = null;
 		private string directory = null;
 
 		public Action<string, int> StreamingLog { get; set; } = null;
@@ -54,46 +54,48 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 		private (string, string, int) RunRcsRestApiService()
 		{
-			if (_rcsRestApiProcess is null)
+			if (rcsRestApiProcess is null)
 			{
-				_port = FindAvailablePort(5000, 5100);
+				port = FindAvailablePort(5000, 5100);
 
-				while (_port > 0)
+				while (port > 0)
 				{
 					var directoryName = directory ?? Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 					string apiExecutablePath = Path.Combine(directoryName, "IdeaStatiCa.RcsRestApi.exe");
 
-					pluginLogger.LogDebug($"Running {apiExecutablePath} on port {_port}");
+					pluginLogger.LogDebug($"Running {apiExecutablePath} on port {port}");
 					// Start the REST API executable with the chosen port
-					string arguments = $"-port={_port}";
-					_rcsRestApiProcess = new Process();
-					_rcsRestApiProcess.StartInfo.FileName = apiExecutablePath;
-					_rcsRestApiProcess.StartInfo.Arguments = arguments;
-					_rcsRestApiProcess.StartInfo.UseShellExecute = false;
-					_rcsRestApiProcess.StartInfo.RedirectStandardOutput = true;
-					_rcsRestApiProcess.StartInfo.CreateNoWindow = true;
-					_rcsRestApiProcess.Start();
+					string arguments = $"-port={port}";
+					rcsRestApiProcess = new Process();
+					rcsRestApiProcess.StartInfo.FileName = apiExecutablePath;
+					rcsRestApiProcess.StartInfo.Arguments = arguments;
+					rcsRestApiProcess.StartInfo.UseShellExecute = false;
+#if DEBUG
+					rcsRestApiProcess.StartInfo.RedirectStandardOutput = true;
+					rcsRestApiProcess.StartInfo.CreateNoWindow = true;
+#endif
+					rcsRestApiProcess.Start();
 
 					// Wait for the API to start (you might need a more robust way to determine this)
 					Thread.Sleep(5000);
 
 					// Check if the API process is still running
-					if (!_rcsRestApiProcess.HasExited)
+					if (!rcsRestApiProcess.HasExited)
 					{
-						_rcsRestApiProcess.CloseMainWindow();
-						pluginLogger.LogInformation($"REST API process started on port {_port}.");
+						rcsRestApiProcess.CloseMainWindow();
+						pluginLogger.LogInformation($"REST API process started on port {port}.");
 						break;
 					}
 				}
 
-				if (_port <= 0)
+				if (port <= 0)
 				{
 					pluginLogger.LogError("Failed to start the REST API on an available port.");
 				}
 			}
 
-			pluginLogger.LogDebug($"Created process with Id {_rcsRestApiProcess.Id}");
-			return ($"{LOCALHOST_URL}:{_port}", "RcsRest", _rcsRestApiProcess.Id);
+			pluginLogger.LogDebug($"Created process with Id {rcsRestApiProcess.Id}");
+			return ($"{LOCALHOST_URL}:{port}", "RcsRest", rcsRestApiProcess.Id);
 		}
 
 		// Function to find an available port within a range
@@ -128,7 +130,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 		public void Dispose()
 		{
-			_rcsRestApiProcess?.Dispose();
+			rcsRestApiProcess?.Dispose();
 		}
 	}
 }

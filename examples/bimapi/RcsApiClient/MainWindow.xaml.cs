@@ -20,14 +20,11 @@ namespace RcsApiClient
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private bool isApiFileFilled;
 		private bool isProjectFilled;
 		private string ideaStatiCaDir = Properties.Settings.Default.IdeaStatiCaDir;
 
-		private Process apiProcess;
-
-		private IRcsClientFactory _rcsClientFactory; 
-		private IRcsApiController _controller;
+		private IRcsClientFactory rcsClientFactory; 
+		private IRcsApiController controller;
 
 		private IProgress<string> progressReporter;
 		private IProgress<int> progressBarValue;
@@ -42,7 +39,6 @@ namespace RcsApiClient
 				NotifyPropertyChanged(nameof(IsProjectFilled));
 			}
 		}
-
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -62,7 +58,7 @@ namespace RcsApiClient
 			ProjectFileInputPath.TextChanged += (sender, e) =>
 			{
 				IsProjectFilled = !string.IsNullOrWhiteSpace(ProjectFileInputPath.Text);
-				if (_controller is { } && IsProjectFilled)
+				if (controller is { } && IsProjectFilled)
 				{
 					GetResultOnSections.IsEnabled = true;
 					GetNonConformityIssues.IsEnabled = true;
@@ -70,18 +66,18 @@ namespace RcsApiClient
 			};
 
 			var nullLogger = new IdeaStatiCa.Plugin.NullLogger();
-			_rcsClientFactory = new RcsClientFactory(nullLogger, httpClientWrapper: null, ideaStatiCaDir);
-			_rcsClientFactory.StreamingLog = (msg, progress) =>
+			rcsClientFactory = new RcsClientFactory(nullLogger, httpClientWrapper: null, ideaStatiCaDir);
+			rcsClientFactory.StreamingLog = (msg, progress) =>
 			{
 				Application.Current.Dispatcher.Invoke(() => UpdateProgress(msg, progress));
 			};
-			_rcsClientFactory.HeartbeatLog = (msg) => 
+			rcsClientFactory.HeartbeatLog = (msg) => 
 			{
 				Application.Current.Dispatcher.Invoke(() => { ApiHeartbeatUpdate(msg); });
 			};
-			_controller = _rcsClientFactory.CreateRcsApiClient();
+			controller = rcsClientFactory.CreateRcsApiClient();
 		
-			ApplicationInformation.Text = _controller != null ? $"{ideaStatiCaDir}/IdeaStatiCa.RcsRestApi.exe.exe" : "API is not running";
+			ApplicationInformation.Text = controller != null ? $"{ideaStatiCaDir}/IdeaStatiCa.RcsRestApi.exe.exe" : "API is not running";
 
 			AppDomain.CurrentDomain.ProcessExit += ProcessExit;
 		}
@@ -122,7 +118,7 @@ namespace RcsApiClient
 				}
 			};
 
-			var result = await Task.Run(() => _controller.GetResultOnSections(projectInfo));
+			var result = await Task.Run(() => controller.GetNonConformityIssues(projectInfo));
 
 			if (result is { })
 			{
@@ -149,7 +145,7 @@ namespace RcsApiClient
 				}
 			};
 
-			var result = await Task.Run(() => _controller.GetResultOnSections(projectInfo));
+			var result = await Task.Run(() => controller.GetResultOnSections(projectInfo));
 
 			if (result is { })
 			{
@@ -188,13 +184,13 @@ namespace RcsApiClient
 				string selectedFilePath = openFileDialog.FileName;
 
 				// Do something with the selected file path (e.g., display it in a TextBox)
-				ProjectFileInputPath.Text = selectedFilePath; // Assuming you have a TextBox named "FileInputPath"
+				ProjectFileInputPath.Text = selectedFilePath;
 			}
 		}
 
 		private void ProcessExit(object? sender, EventArgs e)
 		{
-			_controller.Dispose();
+			controller.Dispose();
 		}
 	}
 }
