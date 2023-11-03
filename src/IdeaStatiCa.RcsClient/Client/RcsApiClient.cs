@@ -66,16 +66,32 @@ namespace IdeaStatiCa.RcsClient.Client
 			throw new KeyNotFoundException(msg);
 		}
 
+		/// <summary>
+		/// Gets the non conformity issues specified in request for given project
+		/// Method checks first cache, after that calls the calculation
+		/// </summary>
+		/// <param name="projectInfo"></param>
+		/// <returns>Collection of nonconformity issues</returns>
 		public IEnumerable<NonConformityIssue> GetNonConformityIssues(RcsProjectInfo projectInfo)
 		{
 			return GetProjectResult(projectInfo).Issues;
 		}
 
+		/// <summary>
+		/// Gets the section concrete check results specified in request for given project
+		/// Method checks first cache, after that calls the calculation
+		/// If no sections are specified in request, every section will be calculated
+		/// </summary>
+		/// <param name="projectInfo"></param>
+		/// <returns>Collection of SectionConcrete check results</returns>
 		public IEnumerable<SectionConcreteCheckResult> GetResultOnSections(RcsProjectInfo projectInfo)
 		{
 			return GetProjectResult(projectInfo).Sections;
 		}
 
+		/// <summary>
+		/// Disposing the object along with related API instance
+		/// </summary>
 		public void Dispose()
 		{
 			var restApiProcess = Process.GetProcessById(_restApiProcessId);

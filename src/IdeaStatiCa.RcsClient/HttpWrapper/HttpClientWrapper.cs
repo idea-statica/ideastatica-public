@@ -15,6 +15,9 @@ using System.Threading;
 
 namespace IdeaStatiCa.RcsClient.HttpWrapper
 {
+	/// <summary>
+	/// Class to wrap HttpClient for REST calls
+	/// </summary>
 	public class HttpClientWrapper : IHttpClientWrapper
 	{
 		private readonly IPluginLogger _logger;
@@ -30,14 +33,29 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			_controllerName = controllerName;
 		}
 
+		/// <summary>
+		/// Calls GetAsync on HttpClient
+		/// </summary>
+		/// <typeparam name="TResult">Expected response object</typeparam>
+		/// <param name="requestUri">Request endpoint</param>
+		/// <param name="acceptHeader">Optional accept header</param>
+		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json")
 		{
 			var url = _url + "/" + _controllerName + "/" + requestUri;
 			_logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
 			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url); }
 			, acceptHeader);
-		}   
+		}
 
+		/// <summary>
+		/// Calls PostAsync on HttpClient
+		/// </summary>
+		/// <typeparam name="TResult">Expected response object</typeparam>
+		/// <param name="requestUri">Request endpoint</param>
+		/// <param name="requestData">Request body object</param>
+		/// <param name="acceptHeader">Optional accept header</param>
+		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json")
 		{
 			var url = $"{_url}{PluginConstants.RcsProgressEndpoint}";

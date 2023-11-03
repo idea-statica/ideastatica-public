@@ -25,6 +25,11 @@ namespace IdeaStatiCa.RcsClient.Client
 			_cancellationTokenSource = new CancellationTokenSource();
 		}
 
+		/// <summary>
+		/// Starts checking process if API is still active based on interval from constructor
+		/// Default is 10 seconds
+		/// </summary>
+		/// <returns></returns>
 		public async Task StartAsync()
 		{
 			while (!_cancellationTokenSource.Token.IsCancellationRequested)
@@ -46,6 +51,9 @@ namespace IdeaStatiCa.RcsClient.Client
 			}
 		}
 
+		/// <summary>
+		/// Stops the automatic check process by cancelling the token
+		/// </summary>
 		public void Stop()
 		{
 			if (_cancellationTokenSource is { })
