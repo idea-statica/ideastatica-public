@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
+	<LangVersion>8.0</LangVersion>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Product>IdeaStatiCa.Plugin</Product>
     <Description>Gateway to IDEA StatiCa. Includes classes which allows communication and controlling IDEA StatiCa applications and includes classes which provides IDEA StatiCa services to other applications.</Description>
