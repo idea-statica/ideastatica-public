@@ -27,10 +27,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 		{
 			switch (type.ToLower())
 			{
-				case "dotnet_runner":
+				case DotNetRunnerDriver.TypeName:
 					return JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options).ToMaybe<Driver>();
 
-				case "executable":
+				case ExecutableDriver.TypeValue:
 					return JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options).ToMaybe<Driver>();
 			}
 

@@ -4,6 +4,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 {
 	internal class ExecutableDriver : Driver
 	{
+		public const string TypeValue = "executable";
+
 		[JsonPropertyName("path")]
 		public string Path { get; set; } = string.Empty;
 
@@ -12,7 +14,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 
 		public ExecutableDriver()
 		{
-			Type = "executable";
+			Type = TypeValue;
 		}
 	}
 }

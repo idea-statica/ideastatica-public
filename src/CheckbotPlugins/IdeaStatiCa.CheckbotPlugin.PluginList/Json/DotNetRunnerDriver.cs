@@ -4,6 +4,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 {
 	internal class DotNetRunnerDriver : Driver
 	{
+		public const string TypeName = "dotnet_runner";;
+
 		[JsonPropertyName("path")]
 		public string Path { get; set; } = string.Empty;
 
@@ -12,7 +14,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 
 		public DotNetRunnerDriver()
 		{
-			Type = "dotnet_runner";
+			Type = TypeName;
 		}
 	}
 }
