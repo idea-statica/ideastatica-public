@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using Grpc.Core;
+﻿using Grpc.Core;
 using IdeaRS.OpenModel;
 using IdeaStatiCa.CheckbotPlugin.Common;
+using IdeaStatiCa.CheckbotPlugin.Common.Mappers;
 using IdeaStatiCa.CheckbotPlugin.Models;
 using IdeaStatiCa.CheckbotPlugin.Services;
 using System.IO.Pipelines;
@@ -13,8 +13,6 @@ namespace IdeaStatiCa.PluginRunner.Services
 {
 	public class ProjectService : IProjectService
 	{
-		private static readonly Mapper _mapper = Mapping.GetMapper();
-
 		private readonly Protos.ProjectService.ProjectServiceClient _client;
 
 		public ProjectService(Protos.ProjectService.ProjectServiceClient client)
@@ -34,7 +32,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			Protos.GetModelReq reg = new()
 			{
-				Options = _mapper.Map<Protos.ModelExportOptions>(options)
+				Options = Mapper.Map(options)
 			};
 
 			return await GetOpenModelContainer(_client.GetModel(reg), x => x.Packet);
@@ -46,9 +44,9 @@ namespace IdeaStatiCa.PluginRunner.Services
 
 			Protos.GetObjectsReq reg = new()
 			{
-				Options = _mapper.Map<Protos.ModelExportOptions>(options)
+				Options = Mapper.Map(options)
 			};
-			reg.Objects.AddRange(_mapper.Map<List<Protos.ModelObject>>(objects));
+			reg.Objects.AddRange(objects.Select(Mapper.Map));
 
 			return await GetOpenModelContainer(_client.GetObjects(reg), x => x.Packet);
 		}
@@ -57,7 +55,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 		{
 			Protos.ListObjectsRes resp = await _client.ListObjectsAsync(new());
 			return resp.Objects
-				.Select(x => _mapper.Map<ModelObject>(x))
+				.Select(x => Mapper.Map(x))
 				.ToList();
 		}
 

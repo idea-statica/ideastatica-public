@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using IdeaStatiCa.CheckbotPlugin.Common;
+﻿using IdeaStatiCa.CheckbotPlugin.Common;
+using IdeaStatiCa.CheckbotPlugin.Common.Mappers;
 using IdeaStatiCa.CheckbotPlugin.Services;
 
 using Models = IdeaStatiCa.CheckbotPlugin.Models;
@@ -10,8 +10,6 @@ namespace IdeaStatiCa.PluginRunner.Services
 {
 	public class ApplicationService : IApplicationService
 	{
-		private static readonly Mapper _mapper = Mapping.GetMapper();
-
 		private readonly Protos.ApplicationService.ApplicationServiceClient _client;
 
 		public ApplicationService(Protos.ApplicationService.ApplicationServiceClient client)
@@ -25,7 +23,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 			Protos.GetAllSettingsResp resp = await _client.GetAllSettingsAsync(reg);
 
 			return resp.Values
-				.Select(Map)
+				.Select(Mapper.Map)
 				.ToList();
 		}
 
@@ -36,11 +34,9 @@ namespace IdeaStatiCa.PluginRunner.Services
 			Protos.GetSettingsReq reg = new();
 			Protos.GetSettingsResp resp = await _client.GetSettingsAsync(reg);
 
-			Models.SettingsValue settingsValue = Map(resp.Value);
+			Models.SettingsValue settingsValue = Mapper.Map(resp.Value);
 
 			return settingsValue.Value;
 		}
-
-		private static Models.SettingsValue Map(Protos.SettingsValue settingsValue) => _mapper.Map<Models.SettingsValue>(settingsValue);
 	}
 }
