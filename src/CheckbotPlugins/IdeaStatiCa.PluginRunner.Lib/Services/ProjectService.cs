@@ -28,17 +28,17 @@ namespace IdeaStatiCa.PluginRunner.Services
 			return new ProjectInfo(resp.Name, CountryCode.ECEN);
 		}
 
-		public async Task<OpenModelContainer> GetModel(ModelExportOptions options)
+		public Task<OpenModelContainer> GetModel(ModelExportOptions options)
 		{
 			Protos.GetModelReq reg = new()
 			{
 				Options = Mapper.Map(options)
 			};
 
-			return await GetOpenModelContainer(_client.GetModel(reg), x => x.Packet);
+			return GetOpenModelContainer(_client.GetModel(reg), x => x.Packet);
 		}
 
-		public async Task<OpenModelContainer> GetObjects(IEnumerable<ModelObject> objects, ModelExportOptions options)
+		public Task<OpenModelContainer> GetObjects(IEnumerable<ModelObject> objects, ModelExportOptions options)
 		{
 			Ensure.NotNull(objects);
 
@@ -48,7 +48,7 @@ namespace IdeaStatiCa.PluginRunner.Services
 			};
 			reg.Objects.AddRange(objects.Select(Mapper.Map));
 
-			return await GetOpenModelContainer(_client.GetObjects(reg), x => x.Packet);
+			return GetOpenModelContainer(_client.GetObjects(reg), x => x.Packet);
 		}
 
 		public async Task<IReadOnlyCollection<ModelObject>> ListObjects()

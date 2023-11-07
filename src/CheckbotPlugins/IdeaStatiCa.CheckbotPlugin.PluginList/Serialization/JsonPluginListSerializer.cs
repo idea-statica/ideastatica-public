@@ -28,12 +28,12 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 				.GetOrElse(Task.FromResult(new List<PluginDescriptor>()));
 		}
 
-		public Task Write(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
+		public async Task Write(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
 		{
 			using (Stream stream = _storage.GetWriteStream())
 			{
 				List<Plugin> plugins = pluginDescriptors.Select(Mapper.Map).ToList();
-				return JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
+				await JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
 			}
 		}
 
