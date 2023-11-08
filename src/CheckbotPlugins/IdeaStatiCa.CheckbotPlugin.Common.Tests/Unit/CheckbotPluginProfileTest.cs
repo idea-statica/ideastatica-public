@@ -1,8 +1,7 @@
 ﻿#nullable disable
 
-using AutoMapper;
 using FluentAssertions;
-using IdeaStatiCa.CheckbotPlugin.Common.MappingProfiles;
+using IdeaStatiCa.CheckbotPlugin.Common.Mappers;
 using NUnit.Framework;
 
 namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
@@ -10,23 +9,6 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
 	[TestFixture]
 	public class CheckbotPluginProfileTest
 	{
-		private Mapper _mapper;
-
-		[SetUp]
-		public void SetUp()
-		{
-			MapperConfiguration cfg = new(cfg =>
-				cfg.AddProfile(new PluginApiProfile()));
-
-			_mapper = new Mapper(cfg);
-		}
-
-		[Test]
-		public void Test_ConfigurationValid()
-		{
-			_mapper.ConfigurationProvider.AssertConfigurationIsValid();
-		}
-
 		[Test]
 		public void Test_Mapping_EventOpenCheckApplication()
 		{
@@ -42,7 +24,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
 				}
 			};
 
-			Models.Event dst = _mapper.Map<Models.Event>(src);
+			Models.Event dst = Mapper.Map(src);
 			dst.Should().BeOfType<Models.EventOpenCheckApplication>();
 
 			Models.EventOpenCheckApplication evt = (Models.EventOpenCheckApplication)dst;
@@ -56,7 +38,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
 			Models.EventOpenCheckApplication src = new(
 				new(Models.ModelObjectType.Node, 1));
 
-			Protos.Event dst = _mapper.Map<Protos.Event>(src);
+			Protos.Event dst = Mapper.Map((Models.Event)src);
 
 			dst.EventCase.Should().Be(Protos.Event.EventOneofCase.OpenCheckApplication);
 			dst.OpenCheckApplication.Object.Type.Should().Be(Protos.ModelObjectType.Node);
@@ -74,7 +56,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
 				}
 			};
 
-			Models.Event dst = _mapper.Map<Models.Event>(src);
+			Models.Event dst = Mapper.Map(src);
 			dst.Should().BeOfType<Models.EventCustomButtonClicked>();
 
 			Models.EventCustomButtonClicked evt = (Models.EventCustomButtonClicked)dst;
@@ -86,7 +68,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Common.Tests.Unit
 		{
 			Models.EventCustomButtonClicked src = new("my-button");
 
-			Protos.Event dst = _mapper.Map<Protos.Event>(src);
+			Protos.Event dst = Mapper.Map((Models.Event)src);
 
 			dst.EventCase.Should().Be(Protos.Event.EventOneofCase.CustomButtonClicked);
 			dst.CustomButtonClicked.ButtonName.Should().Be("my-button");
