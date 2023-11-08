@@ -10,7 +10,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 		public string Path { get; set; } = string.Empty;
 
 		[JsonPropertyName("class_name")]
-		public string ClassName { get; set; } = string.Empty;
+		public string? ClassName { get; set; } = null;
 
 		public DotNetRunnerDriver()
 		{

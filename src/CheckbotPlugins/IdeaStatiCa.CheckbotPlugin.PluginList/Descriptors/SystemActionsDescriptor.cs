@@ -2,9 +2,9 @@
 {
 	public sealed class SystemActionsDescriptor
 	{
-		public ActionButtonDescriptor Open { get; }
+		public ActionButtonDescriptor? Open { get; }
 
-		public SystemActionsDescriptor(ActionButtonDescriptor open)
+		public SystemActionsDescriptor(ActionButtonDescriptor? open)
 		{
 			Open = open;
 		}

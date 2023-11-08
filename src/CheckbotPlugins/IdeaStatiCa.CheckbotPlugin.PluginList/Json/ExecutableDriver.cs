@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Json
 {
@@ -10,7 +11,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Json
 		public string Path { get; set; } = string.Empty;
 
 		[JsonPropertyName("additional_arguments")]
-		public string[] AdditionalArguments { get; set; } = new string[0];
+		public string[] AdditionalArguments { get; set; } = Array.Empty<string>();
 
 		public ExecutableDriver()
 		{

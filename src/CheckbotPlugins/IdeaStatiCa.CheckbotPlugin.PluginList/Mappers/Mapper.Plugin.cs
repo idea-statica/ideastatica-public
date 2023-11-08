@@ -1,9 +1,5 @@
-﻿using System.Linq;
-
-namespace IdeaStatiCa.PluginSystem.PluginList.Mappers
+﻿namespace IdeaStatiCa.PluginSystem.PluginList.Mappers
 {
-
-
 	internal static partial class Mapper
 	{
 		internal static Descriptors.PluginDescriptor Map(Json.Plugin source)
@@ -13,7 +9,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Mappers
 				MapPluginType(source.Type),
 				Map(source.Driver),
 				Map(source.Actions),
-				source.CustomActions.Select(Map).ToArray());
+				MapActionButtons(source.CustomActions));
 		}
 
 		internal static Json.Plugin Map(Descriptors.PluginDescriptor source)
@@ -24,7 +20,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Mappers
 				Driver = Map(source.DriverDescriptor),
 				Name = source.Name,
 				Actions = Map(source.SystemActionsDescriptor),
-				CustomActions = source.CustomActionDescriptors.Select(Map).ToArray()
+				CustomActions = MapActionButtons(source.CustomActionDescriptors)
 			};
 		}
 
@@ -46,6 +42,45 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Mappers
 				Descriptors.PluginType.Check => Json.JsonPluginType.Check,
 				_ => throw new System.ComponentModel.InvalidEnumArgumentException(nameof(source), (int)source, typeof(Descriptors.PluginType))
 			};
+		}
+
+		private static Descriptors.ActionButtonDescriptor[]? MapActionButtons(Json.ActionButton[]? source)
+		{
+			if (source is null)
+			{
+				return null;
+			}
+
+			return source
+				.Select(Map)
+				.WhereNotNull()
+				.ToArray();
+		}
+
+		private static Json.ActionButton[]? MapActionButtons(Descriptors.ActionButtonDescriptor[]? source)
+		{
+			if (source is null)
+			{
+				return null;
+			}
+
+			return source
+				.Select(Map)
+				.WhereNotNull()
+				.ToArray();
+		}
+
+		internal static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
+		{
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
+			foreach (T? item in source)
+			{
+				if (item is not null)
+				{
+					yield return item;
+				}
+			}
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 		}
 	}
 }

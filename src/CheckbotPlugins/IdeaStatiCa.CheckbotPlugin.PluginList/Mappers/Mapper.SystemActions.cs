@@ -2,27 +2,26 @@
 {
 	internal static partial class Mapper
 	{
-		internal static Descriptors.SystemActionsDescriptor Map(Json.SystemActions source)
+		internal static Descriptors.SystemActionsDescriptor? Map(Json.SystemActions? source)
 		{
-			return new Descriptors.SystemActionsDescriptor(new Descriptors.ActionButtonDescriptor(source.Open.Name, source.Open.Image, source.Open.Text, source.Open.Tooltip));
+			if (source is null)
+			{
+				return null;
+			}
+
+			return new Descriptors.SystemActionsDescriptor(Map(source.Open));
 		}
 
-		internal static Json.SystemActions Map(Descriptors.SystemActionsDescriptor source)
+		internal static Json.SystemActions? Map(Descriptors.SystemActionsDescriptor? source)
 		{
+			if (source is null)
+			{
+				return null;
+			}
+
 			return new Json.SystemActions
 			{
-				Open = MapActionButton(source.Open)
-			};
-		}
-
-		private static Json.ActionButton MapActionButton(Descriptors.ActionButtonDescriptor source)
-		{
-			return new Json.ActionButton
-			{
-				Name = source.Name,
-				Image = source.Image,
-				Text = source.Text,
-				Tooltip = source.Tooltip
+				Open = Map(source.Open)
 			};
 		}
 	}

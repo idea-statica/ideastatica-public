@@ -38,13 +38,13 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public async Task<PluginDescriptor> Get(string name)
+		public async Task<PluginDescriptor?> Get(string name)
 		{
 			Ensure.NotEmpty(name, nameof(name));
 
 			List<PluginDescriptor> pluginList = await Load();
 			return pluginList
-				.Where(x => !(x is null))
+				.Where(x => x is not null)
 				.FirstOrDefault(x => x.Name == name);
 		}
 

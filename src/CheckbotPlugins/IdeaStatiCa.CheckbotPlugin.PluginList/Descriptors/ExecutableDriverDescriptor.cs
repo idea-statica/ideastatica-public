@@ -1,6 +1,4 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using System;
-using System.Collections.Generic;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 {
@@ -18,8 +16,13 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			AdditionalArguments = additionalArguments ?? new string[0];
 		}
 
-		public override bool Equals(object obj)
+		public override bool Equals(object? obj)
 		{
+			if (obj is null)
+			{
+				return false;
+			}
+
 			if (ReferenceEquals(this, obj))
 			{
 				return true;
@@ -28,7 +31,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			return Equals(obj as ExecutableDriverDescriptor);
 		}
 
-		public bool Equals(ExecutableDriverDescriptor other)
+		public bool Equals(ExecutableDriverDescriptor? other)
 		{
 			if (other is null)
 			{
@@ -39,6 +42,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 				&& EqualityComparer<string[]>.Default.Equals(AdditionalArguments, other.AdditionalArguments);
 		}
 
-		public override int GetHashCode() => HashCode.Combine(Path, AdditionalArguments);
+		public override int GetHashCode()
+			=> HashCode.Combine(Path, AdditionalArguments);
 	}
 }
