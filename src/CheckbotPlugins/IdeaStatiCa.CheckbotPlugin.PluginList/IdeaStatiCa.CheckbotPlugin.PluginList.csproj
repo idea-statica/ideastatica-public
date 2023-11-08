@@ -3,11 +3,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
-    <ImplicitUsings>false</ImplicitUsings>
-    <Nullable>disable</Nullable>
     <RootNamespace>IdeaStatiCa.PluginSystem.PluginList</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>11</LangVersion>
     <NoWarn>1591</NoWarn>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -15,9 +16,12 @@
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
   </ItemGroup>
   
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <LangVersion>8</LangVersion>
-  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="PolySharp" Version="1.13.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj" />
