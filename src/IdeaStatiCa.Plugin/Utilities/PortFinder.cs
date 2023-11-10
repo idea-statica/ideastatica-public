@@ -9,46 +9,75 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Utilities
 {
-    /// <summary>
-    /// Tool used to find a free port for gRPC communication.
-    /// </summary>
-    public static class PortFinder
-    {
-        /// <summary>
-        /// Searches for the next available port.
-        /// <paramref name="startPort"/> Initial port to start the search from.
-        /// </summary>
-		/// <param name="usedPort">Port that was already generated for use but not assigned</param>
-        /// <returns></returns>
-        public static int FindPort(int minPort, int maxPort, int? usedPort = null)
-        {
-            if (maxPort < minPort)
-                throw new ArgumentException("Max cannot be less than min.");
+	/// <summary>
+	/// Tool used to find a free port for gRPC communication.
+	/// </summary>
+	public static class PortFinder
+	{
 
-            var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+		/// <summary>
+		/// Searches for the next available tcp port on the localhost.
+		/// </summary>
+		/// <param name="minPort">Initial port to start the search from.</param>
+		/// <param name="maxPort">The last available tcp port</param>
+		/// <param name="usedPort">Obsolete - should be removed</param>
+		/// <param name="pluginLogger">Optional logger</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="Exception"></exception>
+		public static int FindPort(int minPort, int maxPort, int? usedPort = null, IPluginLogger pluginLogger = null)
+		{
+			if(pluginLogger != null)
+			{
+				pluginLogger.LogDebug($"PortFinder.FindPort minport = {minPort} maxport = {maxPort} usedport = {usedPort}");
+			}
 
-            var usedPorts =
-                ipProperties.GetActiveTcpConnections()
-                    .Where(connection => connection.State != TcpState.Closed)
-                    .Select(connection => connection.LocalEndPoint)
-                    .Concat(ipProperties.GetActiveTcpListeners())
-                    .Concat(ipProperties.GetActiveUdpListeners())
-                    .Select(endpoint => endpoint.Port)
-                    .ToArray();
+			if (maxPort < minPort)
+			{
+				throw new ArgumentException("Max cannot be less than min.");
+			}
+
+			var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+
+			var activeTcpConnections = ipProperties.GetActiveTcpConnections();
+
+			var usedPorts =
+				activeTcpConnections
+					.Where(connection => connection.State != TcpState.Closed)
+					.Select(connection => connection.LocalEndPoint)
+					.Concat(ipProperties.GetActiveTcpListeners())
+					.Concat(ipProperties.GetActiveUdpListeners())
+					.Select(endpoint => endpoint.Port)
+					.ToArray();
+
+			if (pluginLogger != null)
+			{
+				pluginLogger.LogDebug($"PortFinder.FindPort {usedPorts.Length} ports are currently used");
+			}
 
 			var allUnused =
 				Enumerable.Range(minPort, maxPort - minPort)
 					.Where(port => !usedPorts.Contains(port))
 					.Select(port => new int?(port));
 
-			var firstUnused =allUnused
+			var firstUnused = allUnused
 				.Where(port => port != usedPort)
 				.FirstOrDefault();
 
 			if (!firstUnused.HasValue)
-                throw new Exception($"All local TCP ports between {minPort} and {maxPort} are currently in use.");
+			{
+				if (pluginLogger != null)
+				{
+					foreach (var connection in activeTcpConnections)
+					{
+						pluginLogger.LogTrace($"Local {connection.LocalEndPoint.Address}:{connection.LocalEndPoint.Port} Remote {connection.RemoteEndPoint.Address}:{connection.RemoteEndPoint.Port}");
+					}
+				}
 
-            return firstUnused.Value;
-        }
-    }
+				throw new Exception($"All local TCP ports between {minPort} and {maxPort} are currently in use.");
+			}
+
+			return firstUnused.Value;
+		}
+	}
 }
