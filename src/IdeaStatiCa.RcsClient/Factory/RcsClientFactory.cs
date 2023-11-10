@@ -13,7 +13,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 {
 	public class RcsClientFactory : IRcsClientFactory
 	{
-		private const string LOCALHOST_URL = "https://localhost";
+		private const string LOCALHOST_URL = "http://localhost";
 		private readonly IPluginLogger pluginLogger;
 		private IHttpClientWrapper httpClientWrapper;
 		private int port = -1;
@@ -70,7 +70,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 					rcsRestApiProcess.StartInfo.FileName = apiExecutablePath;
 					rcsRestApiProcess.StartInfo.Arguments = arguments;
 					rcsRestApiProcess.StartInfo.UseShellExecute = false;
-#if DEBUG
+#if !DEBUG
 					rcsRestApiProcess.StartInfo.RedirectStandardOutput = true;
 					rcsRestApiProcess.StartInfo.CreateNoWindow = true;
 #endif
