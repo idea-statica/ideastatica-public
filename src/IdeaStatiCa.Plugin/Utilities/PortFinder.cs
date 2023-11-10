@@ -50,7 +50,10 @@ namespace IdeaStatiCa.Plugin.Utilities
 					.Select(endpoint => endpoint.Port)
 					.ToArray();
 
-			pluginLogger.LogDebug($"PortFinder.FindPort {usedPorts.Length} ports is currently used");
+			if (pluginLogger != null)
+			{
+				pluginLogger.LogDebug($"PortFinder.FindPort {usedPorts.Length} ports are currently used");
+			}
 
 			var allUnused =
 				Enumerable.Range(minPort, maxPort - minPort)
@@ -63,10 +66,14 @@ namespace IdeaStatiCa.Plugin.Utilities
 
 			if (!firstUnused.HasValue)
 			{
-				foreach(var connection in activeTcpConnections)
+				if (pluginLogger != null)
 				{
-					pluginLogger.LogTrace($"Local {connection.LocalEndPoint.Address}:{connection.LocalEndPoint.Port} Remote {connection.RemoteEndPoint.Address}:{connection.RemoteEndPoint.Port}");
+					foreach (var connection in activeTcpConnections)
+					{
+						pluginLogger.LogTrace($"Local {connection.LocalEndPoint.Address}:{connection.LocalEndPoint.Port} Remote {connection.RemoteEndPoint.Address}:{connection.RemoteEndPoint.Port}");
+					}
 				}
+
 				throw new Exception($"All local TCP ports between {minPort} and {maxPort} are currently in use.");
 			}
 
