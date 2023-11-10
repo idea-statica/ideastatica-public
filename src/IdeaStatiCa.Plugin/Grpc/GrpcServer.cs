@@ -114,6 +114,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 				try
 				{
 					await server.ShutdownAsync();
+					server = null;
 				}
 				catch (Exception ex)
 				{
