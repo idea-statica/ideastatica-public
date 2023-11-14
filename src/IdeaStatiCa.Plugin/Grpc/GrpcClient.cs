@@ -60,6 +60,7 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public GrpcClient(IPluginLogger logger, int maxDataLength = Constants.GRPC_MAX_MSG_SIZE)
 		{
 			Debug.Assert(logger != null);
+			logger.LogDebug($"GrpcClient constructor");
 			MaxDataLength = maxDataLength;
 			this.Logger = logger;
 			Host = "localhost";

@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Services
@@ -42,7 +43,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		{
 			this.logger = logger;
 			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
-			logger.LogInformation("Creating GrpcService");
+			logger.LogInformation("GrpcService constructor");
 		}
 		#endregion
 
@@ -55,11 +56,11 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		/// <returns></returns>
 		public async override Task ConnectAsync(IAsyncStreamReader<GrpcMessage> requestStream, IServerStreamWriter<GrpcMessage> responseStream, ServerCallContext context)
 		{
-			logger.LogDebug("GrpcServer.ConnectAsync");
+			logger.LogDebug("GrpcService.ConnectAsync");
 
 			if (!await requestStream.MoveNext())
 			{
-				logger.LogDebug("GrpcServer.ConnectAsync MoveNext returned false");
+				logger.LogDebug("GrpcService.ConnectAsync MoveNext returned false");
 				return;
 			}
 
@@ -69,7 +70,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 				if (IsConnected && currentClientId != requestStream.Current.ClientId)
 				{
 
-					logger.LogDebug("GrpcServer.ConnectAsync error = Client already connected");
+					logger.LogDebug($"GrpcService.ConnectAsync error = Client already connected currentClientId = {currentClientId}");
 					var errorMsg = new GrpcMessage()
 					{
 						OperationId = "Error",
@@ -82,12 +83,11 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 				}
 				else
 				{
-
 					// Handle first connection
 					if (!IsConnected)
 					{
 						currentClientId = requestStream.Current.ClientId;
-						logger.LogDebug($"GrpcServer.ConnectAsync - first connection currentClientId = {currentClientId}, ");
+						logger.LogDebug($"GrpcService.ConnectAsync - first connection currentClientId = {currentClientId}, ");
 						currentClientStream = responseStream;
 
 						IsConnected = true;
@@ -95,12 +95,12 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 						ClientConnected?.Invoke(this, currentClientId);
 					}
 
-					logger.LogTrace($"GrpcServer.ConnectAsync - reading message ");
+					logger.LogTrace($"GrpcService.ConnectAsync - reading message ");
 
 					var message = requestStream.Current;
 
 
-					logger.LogTrace($"GrpcServer.ConnectAsync - calling RunHandler");
+					logger.LogTrace($"GrpcService.ConnectAsync - calling RunHandler");
 					RunHandler(message);
 				}
 
@@ -123,7 +123,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		public async Task SendMessageAsync(GrpcMessage message)
 		{
 			int dataStringLength = string.IsNullOrEmpty(message.Data) ? 0 : message.Data.Length;
-			logger.LogDebug($"GrpcServer.SendMessageAsync operationId = '{message.OperationId}, messageName = '{message.MessageName}', dataLength = {dataStringLength}");
+			logger.LogDebug($"GrpcService.SendMessageAsync operationId = '{message.OperationId}, messageName = '{message.MessageName}', dataLength = {dataStringLength}");
 
 			// check if the size of the sending data is not bigger than size of the buffer
 			if ((2 * dataStringLength) > MaxDataLength)
@@ -134,14 +134,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 				logger.LogTrace($"Compressing data origSize = {dataStringLength}, compressedSize = {message.Data.Length}");
 			}
 
-			if (IsConnected)
-			{
-				await currentClientStream.WriteAsync(message);
-			}
-			else
-			{
-				throw new Exception("Client disconnected.");
-			}
+			await currentClientStream.WriteAsync(message);
 		}
 
 		/// <summary>

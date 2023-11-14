@@ -20,16 +20,15 @@ namespace IdeaStatiCa.Plugin.Utilities
 		/// </summary>
 		/// <param name="minPort">Initial port to start the search from.</param>
 		/// <param name="maxPort">The last available tcp port</param>
-		/// <param name="usedPort">Obsolete - should be removed</param>
 		/// <param name="pluginLogger">Optional logger</param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentException"></exception>
 		/// <exception cref="Exception"></exception>
-		public static int FindPort(int minPort, int maxPort, int? usedPort = null, IPluginLogger pluginLogger = null)
+		public static int FindPort(int minPort, int maxPort, IPluginLogger pluginLogger = null)
 		{
 			if(pluginLogger != null)
 			{
-				pluginLogger.LogDebug($"PortFinder.FindPort minport = {minPort} maxport = {maxPort} usedport = {usedPort}");
+				pluginLogger.LogDebug($"PortFinder.FindPort minport = {minPort} maxport = {maxPort}");
 			}
 
 			if (maxPort < minPort)
@@ -61,7 +60,6 @@ namespace IdeaStatiCa.Plugin.Utilities
 					.Select(port => new int?(port));
 
 			var firstUnused = allUnused
-				.Where(port => port != usedPort)
 				.FirstOrDefault();
 
 			if (!firstUnused.HasValue)
