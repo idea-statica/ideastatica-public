@@ -44,7 +44,6 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 			this.logger = logger;
 			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
 			logger.LogInformation("GrpcService constructor");
-			logger.LogStack();
 		}
 		#endregion
 

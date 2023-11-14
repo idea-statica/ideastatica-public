@@ -47,7 +47,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
 			Host = "localhost";
 			GrpcService = new Services.GrpcService(Logger);
-			logger.LogStack();
 		}
 
 		/// <summary>
@@ -66,7 +65,6 @@ namespace IdeaStatiCa.Plugin.Grpc
 			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
 			Host = "localhost";
 			GrpcService = grpcService;
-			logger.LogStack();
 		}
 
 		/// <summary>
