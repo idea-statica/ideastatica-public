@@ -7,26 +7,28 @@ namespace IdeaStatiCa.Plugin
 {
 	public class GrpcBimHostingFactory : IBimHostingFactory
 	{
-		private GrpcServer _grpcServer;
-		private GrpcServiceClient<IIdeaStaticaApp> _checkBotClient;
+		private IdeaStatiCa.Plugin.Grpc.Services.GrpcService grpcService;
+		private GrpcServer grpcServer;
+		private GrpcServiceClient<IIdeaStaticaApp> checkBotClient;
 
 		public IBIMPluginHosting Create(IBIMPluginFactory pluginFactory, IPluginLogger logger)
 		{
-			if (_checkBotClient != null)
+			logger.LogDebug("GrpcBimHostingFactory.Create");
+			if (checkBotClient != null)
 			{
-				Debug.Assert(_grpcServer != null);
+				Debug.Assert(grpcServer != null);
 			}
 
 			this.InitGrpcClient(logger);
 			// It will be used for gRPC communication
-			BIMPluginHostingGrpc pluginHostingGrpc = new BIMPluginHostingGrpc(pluginFactory, _grpcServer, logger);
+			BIMPluginHostingGrpc pluginHostingGrpc = new BIMPluginHostingGrpc(pluginFactory, grpcServer, logger);
 			if (pluginHostingGrpc.Service is ApplicationBIM appBim)
 			{
-				appBim.IdeaStaticaApp = _checkBotClient.Service;
+				appBim.IdeaStaticaApp = checkBotClient.Service;
 				// @Todo: better way to pass it, maybe a common IRemoteApp interface that implements both?
-				if (_checkBotClient.Service is IProgressMessaging)
+				if (checkBotClient.Service is IProgressMessaging)
 				{
-					appBim.Progress = _checkBotClient.Service;
+					appBim.Progress = checkBotClient.Service;
 				}
 			}
 
@@ -35,18 +37,26 @@ namespace IdeaStatiCa.Plugin
 
 		public IProgressMessaging InitGrpcClient(IPluginLogger logger)
 		{
-			if (_checkBotClient == null)
+			if (checkBotClient == null)
 			{
+				logger.LogDebug("GrpcBimHostingFactory.InitGrpcClient - creating GrpcServiceClient<IIdeaStaticaApp>");
+
 				int clientId = Process.GetCurrentProcess().Id;
 				int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 
-				_grpcServer = new GrpcServer(logger);
-				_grpcServer.StartAsync(clientId.ToString(), grpcPort);
+				grpcService = new IdeaStatiCa.Plugin.Grpc.Services.GrpcService(logger);
 
-				_checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, _grpcServer.GrpcService, _grpcServer.Logger);
+				grpcServer = new GrpcServer(logger, grpcService, null);
+				grpcServer.StartAsync(clientId.ToString(), grpcPort);
+
+				checkBotClient = new GrpcServiceClient<IIdeaStaticaApp>(Constants.GRPC_CHECKBOT_HANDLER_MESSAGE, grpcServer.GrpcService, grpcServer.Logger);
+			}
+			else
+			{
+				logger.LogDebug("GrpcBimHostingFactory.InitGrpcClient - returning the existing  GrpcServiceClient<IIdeaStaticaApp>");
 			}
 
-			return _checkBotClient.Service is IProgressMessaging messaging ? messaging : null;
+			return checkBotClient.Service is IProgressMessaging messaging ? messaging : null;
 		}
 	}
 }

@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)LoggerProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SerilogFacade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PluginLoggerTools.cs" />
   </ItemGroup>
 </Project>

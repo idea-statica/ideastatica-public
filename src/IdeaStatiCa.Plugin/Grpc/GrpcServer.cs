@@ -41,11 +41,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		public GrpcServer(IPluginLogger logger)
 		{
 			this.Logger = logger;
+			Logger.LogDebug("GrpcServer(IPluginLogger logger)");
 			this.blobStorageProvider = null;
 			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
 			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
 			Host = "localhost";
 			GrpcService = new Services.GrpcService(Logger);
+			logger.LogStack();
 		}
 
 		/// <summary>
@@ -58,11 +60,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
+			Logger.LogDebug("GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider)");
 			this.blobStorageProvider = blobStorageProvider;
 			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
 			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
 			Host = "localhost";
 			GrpcService = grpcService;
+			logger.LogStack();
 		}
 
 		/// <summary>
