@@ -135,14 +135,6 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 			}
 
 			await currentClientStream.WriteAsync(message);
-			//if (IsConnected)
-			//{
-			//	await currentClientStream.WriteAsync(message);
-			//}
-			//else
-			//{
-			//	throw new Exception("Client disconnected.");
-			//}
 		}
 
 		/// <summary>
