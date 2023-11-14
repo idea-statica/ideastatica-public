@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.Plugin.Utilities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Reflection
@@ -10,9 +12,16 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 	/// </summary>
 	public class GrpcReflectionMessageHandler : IGrpcMessageHandler<object>
 	{
+		private static JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings()
+		{
+			ContractResolver = new ExceptionContractResolver(),
+			Context = new StreamingContext(StreamingContextStates.All)
+		};
+
 		private object instance;
 
 		public bool IsSynchronous => true;
+
 		internal IPluginLogger Logger { get; private set; }
 
 		/// <summary>
@@ -64,13 +73,15 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			{
 				Logger.LogDebug($"GrpcMethodInvokerHandler.InvokeMethod FAILED : MessageName = '{message?.MessageName}', MethodName = '{grpcInvokeData?.MethodName}'", e);
 
+				var exception = e.InnerException ?? e;
+
 				// return information about exception to the caller
 				var errMsg = new GrpcMessage()
 				{
 					OperationId = message.OperationId,
 					MessageType = GrpcMessage.Types.MessageType.Response,
 					MessageName = message.MessageName,
-					Data = e?.InnerException != null ? JsonConvert.SerializeObject(e.InnerException) : JsonConvert.SerializeObject(e),
+					Data = JsonConvert.SerializeObject(exception, JsonSerializerSettings),
 					DataType = typeof(Exception).Name
 				};
 
@@ -83,7 +94,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 		public Task<object> HandleClientMessage(GrpcMessage message, IGrpcSender client)
 		{
 			var callback = JsonConvert.DeserializeObject<GrpcReflectionCallbackData>(message.Data);
-			if(callback == null)
+			if (callback == null)
 			{
 				object res = null;
 				return Task<object>.FromResult(res);
@@ -93,5 +104,17 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 			return Task<object>.FromResult(value);
 		}
 
+		private sealed class ExceptionContractResolver : DefaultContractResolver
+		{
+			public override JsonContract ResolveContract(Type type)
+			{
+				if (typeof(Exception).IsAssignableFrom(type))
+				{
+					return new JsonISerializableContract(type);
+				}
+
+				return base.ResolveContract(type);
+			}
+		}
 	}
 }
