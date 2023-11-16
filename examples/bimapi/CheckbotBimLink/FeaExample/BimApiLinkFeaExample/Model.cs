@@ -69,6 +69,9 @@ namespace BimApiLinkFeaExample
 		/// </summary>
 		/// <param name="nodes"></param>
 		/// <param name="members"></param>
-		public void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members) { }
+		public void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members) 
+		{
+			//feaApi.SelectNodes(nodes, members);
+		}
 	}
 }
