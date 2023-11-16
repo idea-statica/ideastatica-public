@@ -64,11 +64,7 @@ namespace BimApiLinkFeaExample
 			};
 		}
 
-		/// <summary>
-		/// Get's the user selected nodes and members and projects the selection in connected Fea application
-		/// </summary>
-		/// <param name="nodes"></param>
-		/// <param name="members"></param>
+		/// <inheritdoc cref="SelectUserSelection"/>
 		public void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members) 
 		{
 			//feaApi.SelectNodes(nodes, members);
