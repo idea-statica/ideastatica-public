@@ -16,7 +16,7 @@ namespace IdeaStatiCa.BimApiLink
 		{
 		}
 
-		public static BimLink Create(string applicationName, string checkbotProjectPath) 
+		public static BimLink Create(string applicationName, string checkbotProjectPath)
 			=> new FeaBimLink(applicationName, checkbotProjectPath);
 
 		protected override IApplicationBIM Create(
@@ -47,6 +47,31 @@ namespace IdeaStatiCa.BimApiLink
 				remoteApp,
 				resultsProvider);
 
+			var appBim =  CreateAppBim(logger,
+				bimApiImporter,
+				pluginHook,
+				scopeHook,
+				userDataSource,
+				taskScheduler, 
+				projectStorage, 
+				projectAdapter, 
+				bimImporter,
+				model as IFeaModel);
+
+			return appBim;
+		}
+
+		protected virtual IApplicationBIM CreateAppBim(IPluginLogger logger,
+			IBimApiImporter bimApiImporter,
+			IPluginHook pluginHook,
+			IScopeHook scopeHook,
+			IBimUserDataSource userDataSource,
+			TaskScheduler taskScheduler,
+			IProjectStorage projectStorage,
+			IProject projectAdapter,
+			IBimImporter bimImporter,
+			IFeaModel model)
+		{
 			return new FeaApplication(
 				ApplicationName,
 				logger,

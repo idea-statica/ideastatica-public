@@ -63,5 +63,11 @@ namespace BimApiLinkFeaExample
 				Nodes = nodes
 			};
 		}
+
+		/// <inheritdoc cref="SelectUserSelection"/>
+		public void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members) 
+		{
+			//feaApi.SelectNodes(nodes, members);
+		}
 	}
 }
