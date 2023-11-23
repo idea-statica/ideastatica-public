@@ -17,7 +17,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		protected override object ImportInternal(IImportContext ctx, IIdeaPlate plate, ConnectionData connectionData)
 		{
 			//for negative plate check duplicity
-			
+
 			if (connectionData.Plates != null)
 			{
 				var foundPlate = connectionData.Plates.Find(p => p.OriginalModelId == plate.Id);
@@ -57,7 +57,17 @@ namespace IdeaStatiCa.BimImporter.Importers
 			(connectionData.Plates ?? (connectionData.Plates = new List<PlateData>())).Add(plateIOM);
 
 			//set correct Id
-			plateIOM.Id = connectionData.Plates.Max(p => p.Id) + 1;
+
+			//find max existing id 
+			var maxId = connectionData.Plates.Max(p => p.Id);
+
+			connectionData.FoldedPlates?.ForEach(fp =>
+				fp.Plates.ForEach(p =>
+						maxId = System.Math.Max(p.Id, maxId)
+					)
+				);
+
+			plateIOM.Id = maxId + 1;
 
 			return plateIOM;
 		}
