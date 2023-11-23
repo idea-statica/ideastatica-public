@@ -22,17 +22,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				Plates = foldedPlate.Plates.Select(p =>
 				{
-					var plate = ctx.ImportConnectionItem(p, connectionData) as PlateData;
-					connectionData.Plates.Remove(plate);
-					return plate;
+					return ctx.ImportConnectionItem(p, connectionData) as PlateData;
 				}).ToList(),
 
 				Bends = foldedPlate.Bends.Select(fp => new BendData()
 				{
 					EndFaceNormal1 = fp.EndFaceNormal.ToIOMVector(),
 					Point1OfSideBoundary1 = ctx.Import(fp.LineOnSideBoundary1.StartNode).Element as Point3D,
-					Point1OfSideBoundary2 = ctx.Import(fp.LineOnSideBoundary1.EndNode).Element as Point3D,
-					Point2OfSideBoundary1 = ctx.Import(fp.LineOnSideBoundary2.EndNode).Element as Point3D,
+					Point2OfSideBoundary1 = ctx.Import(fp.LineOnSideBoundary1.EndNode).Element as Point3D,
+					Point1OfSideBoundary2 = ctx.Import(fp.LineOnSideBoundary2.StartNode).Element as Point3D,
 					Point2OfSideBoundary2 = ctx.Import(fp.LineOnSideBoundary2.EndNode).Element as Point3D,
 					Radius = fp.Radius,
 					Plate1Id = (ctx.ImportConnectionItem(fp.Plate1, connectionData) as PlateData)?.Id ?? 0,
@@ -40,8 +38,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 				}).ToList(),
 			};
 
+
 			(connectionData.FoldedPlates ?? (connectionData.FoldedPlates = new List<FoldedPlateData>())).Add(foldedPlateIOM);
 
+			foldedPlateIOM.Plates.ForEach(plate => connectionData.Plates.Remove(plate));
 
 			return foldedPlateIOM;
 		}
