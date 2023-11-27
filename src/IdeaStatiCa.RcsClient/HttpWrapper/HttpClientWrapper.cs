@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -9,7 +8,6 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.SignalR.Client;
 using PluginConstants = IdeaStatiCa.Plugin.Constants;
-using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.RcsClient.Client;
 using System.Threading;
 
@@ -106,19 +104,22 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					var heartbeatTask = heartbeatChecker.StartAsync();
 					logger.LogDebug($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
 					HttpResponseMessage response = await clientCall(client);
-					
+
+					// Stop the heartbeat checker
+					heartbeatChecker.Stop();
+					logger.LogDebug($"Stopping HeartbeatChecker");
+
 					if (response is { IsSuccessStatusCode: true })
 					{
 						logger.LogDebug($"Response is successfull");
 						var stringContent = await response.Content.ReadAsStringAsync();
-						// Stop the heartbeat checker
-						heartbeatChecker.Stop();
-						logger.LogDebug($"Stopping HeartbeatChecker");
 						return Deserialize<TResult>(acceptHeader, stringContent);
 					}
-
-					logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
-					throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+					else
+					{
+						logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+						throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+					}
 				}
 			}
 			catch (HttpRequestException ex)

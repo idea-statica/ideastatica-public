@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
+using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Concrete.CheckResult;
 using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
+using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.HttpWrapper;
 
 namespace IdeaStatiCa.RcsClient.Client
@@ -15,52 +18,11 @@ namespace IdeaStatiCa.RcsClient.Client
 		private readonly int restApiProcessId;
 		private readonly IPluginLogger pluginLogger;
 
-		private Dictionary<string, ProjectResult> projectResults;
-
 		public RcsApiClient(int processId, IPluginLogger logger, IHttpClientWrapper httpClientWrapper)
 		{
 			pluginLogger = logger;
 			this.restApiProcessId = processId;
 			this.httpClient = httpClientWrapper;
-			projectResults = new Dictionary<string, ProjectResult>();
-		}
-
-		private ProjectResult GetProjectResult(RcsProjectInfo projectInfo)
-		{
-			if ((projectInfo.IdeaProjectPath != null && !projectResults.ContainsKey(projectInfo.IdeaProjectPath)) ||
-				(projectInfo.ProjectName != null && !projectResults.ContainsKey(projectInfo.ProjectName)))
-			{
-				pluginLogger.LogInformation("Project not found in cache, calling RCS API");
-				var projectTask = Task.Run(async () => await httpClient.PostAsync<ProjectResult>("LongCalculation", projectInfo, "application/xml"));
-
-				var projectResult = projectTask.GetAwaiter().GetResult();
-
-				if (!string.IsNullOrEmpty(projectInfo.IdeaProjectPath))
-				{
-					projectResults.Add(projectInfo.IdeaProjectPath, projectResult);
-				}
-
-				if (!string.IsNullOrEmpty(projectInfo.ProjectName))
-				{
-					projectResults.Add(projectInfo.ProjectName, projectResult);
-				}
-
-				return projectResult;
-			}
-
-			if (projectResults.ContainsKey(projectInfo.IdeaProjectPath))
-			{
-				return projectResults[projectInfo.IdeaProjectPath];
-			}
-
-			if (projectResults.ContainsKey(projectInfo.ProjectName))
-			{
-				return projectResults[projectInfo.ProjectName];
-			}
-
-			var msg = $"Project {projectInfo.IdeaProjectPath}, {projectInfo.ProjectName} was not found";
-			pluginLogger.LogError(msg);
-			throw new KeyNotFoundException(msg);
 		}
 
 		/// <summary>
@@ -69,9 +31,12 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// </summary>
 		/// <param name="projectInfo"></param>
 		/// <returns>Collection of nonconformity issues</returns>
-		public IEnumerable<NonConformityIssue> GetNonConformityIssues(RcsProjectInfo projectInfo)
+		public IEnumerable<NonConformityIssue> GetNonConformityIssues(RcsProjectInfo projectInfo, CancellationToken token)
 		{
-			return GetProjectResult(projectInfo).Issues;
+			var calculationTask = Task.Run(async () => await httpClient.PostAsync<ProjectResult>("CalculateResults", projectInfo, "application/xml"));
+			var result = calculationTask.GetAwaiter().GetResult();
+
+			return result.Issues;
 		}
 
 		/// <summary>
@@ -81,9 +46,12 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// </summary>
 		/// <param name="projectInfo"></param>
 		/// <returns>Collection of SectionConcrete check results</returns>
-		public IEnumerable<SectionConcreteCheckResult> GetResultOnSections(RcsProjectInfo projectInfo)
+		public IEnumerable<SectionConcreteCheckResult> GetResultOnSections(RcsProjectInfo projectInfo, CancellationToken token)
 		{
-			return GetProjectResult(projectInfo).Sections;
+			var calculationTask = Task.Run(async () => await httpClient.PostAsync<ProjectResult>("CalculateResults", projectInfo, "application/xml"));
+			var result = calculationTask.GetAwaiter().GetResult();
+
+			return result.Sections;
 		}
 
 		/// <summary>
@@ -100,6 +68,29 @@ namespace IdeaStatiCa.RcsClient.Client
 					restApiProcess.Kill();
 				}
 			}
+		}
+
+		public async Task<ProjectResult> CalculateProjectAsync(RcsProjectInfo projectInfo, CancellationToken token)
+		{
+			//use the cancellation token
+			return await httpClient.PostAsync<ProjectResult>("CalculateResults", projectInfo, "application/xml");
+		}
+
+		public RcsModelOverview GetProjectOverview(RcsProjectInfo projectInfo, CancellationToken token)
+		{
+			var result = Task.Run(async () => await httpClient.PostAsync<RcsModelOverview>("ProjectOverview", projectInfo));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public IEnumerable<RcsCrossSectionDetailModel> GetSectionDetails(RcsProjectInfo projectInfo)
+		{
+			var result = Task.Run(async () => await httpClient.PostAsync<IEnumerable<RcsCrossSectionDetailModel>>("SectionDetails", projectInfo));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public async Task<ProjectResult> CalculateProjectOpenModelAsync(OpenModel projectOpenModel, CancellationToken token)
+		{
+			return await httpClient.PostAsync<ProjectResult>("CalculateResultsOpenModel", projectOpenModel, "application/xml");
 		}
 	}
 }
