@@ -18,6 +18,9 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		RcsModelOverview GetProjectOverview();
 		RcsCrossSectionDetailModel GetCrossSectionModel(int sectionId);
 
+
+		void SaveAsIdeaProjectFile(string ideaProjectPath);
+
 		bool Calculate(IEnumerable<int> sections);
 		IEnumerable<SectionConcreteCheckResult> GetResultOnSections(CancellationToken cancellationToken, params int[] sections);
 		IEnumerable<NonConformityIssue> GetNonConformityIssues(CancellationToken cancellationToken, params Guid[] issues);
