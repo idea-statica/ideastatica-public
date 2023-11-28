@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IdeaRS.OpenModel.Material
+﻿namespace IdeaRS.OpenModel.Material
 {
+	/// <summary>
+	/// Welding material for australian code
+	/// </summary>
 	public class MatWeldingAUS : MatWelding
 	{
 		/// <summary>
-		/// Nominal Tensile Strength
+		/// Ultimate Strength
 		/// </summary>
-		public double fuw { get; set; }
+		public double fu { get; set; }
 	}
 }

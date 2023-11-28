@@ -1,10 +1,12 @@
-﻿
-namespace IdeaRS.OpenModel.Material
+﻿namespace IdeaRS.OpenModel.Material
 {
+	/// <summary>
+	/// Welding material for russian code
+	/// </summary>
 	public class MatWeldingRUS : MatWelding
 	{
 		/// <summary>
-		/// Nominal Tensile Strength
+		/// Ultimate Strength
 		/// </summary>
 		public double Rwun { get; set; }
 
@@ -12,7 +14,10 @@ namespace IdeaRS.OpenModel.Material
 		/// Welding type
 		/// </summary>
 		public WeldingTypeSNIP WeldingType { get; set; }
-		
+
+		/// <summary>
+		/// Flat position
+		/// </summary>
 		public bool FlatPosition { get; set; }
 	}
 }

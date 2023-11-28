@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IdeaRS.OpenModel.Material
+﻿namespace IdeaRS.OpenModel.Material
 {
+	/// <summary>
+	/// Welding material for indian code
+	/// </summary>
 	public class MatWeldingIS : MatWelding
 	{
 		/// <summary>
-		/// Nominal Tensile Strength
+		/// Ultimate Strength
 		/// </summary>
 		public double fu { get; set; }
 	}

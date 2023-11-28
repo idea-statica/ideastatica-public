@@ -1,10 +1,13 @@
 ﻿
 namespace IdeaRS.OpenModel.Material
 {
+	/// <summary>
+	/// Welding material for hong kongese code
+	/// </summary>
 	public class MatWeldingHKG : MatWelding
 	{
 		/// <summary>
-		/// Nominal Tensile Strength
+		/// Ultimate Strength
 		/// </summary>
 		public double Ue { get; set; }
 

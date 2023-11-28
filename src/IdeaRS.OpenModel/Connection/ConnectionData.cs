@@ -1,4 +1,5 @@
 using IdeaRS.OpenModel.Geometry2D;
+using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Parameters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -469,6 +470,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// Name of the material
 		/// </summary>
 		public string Material { get; set; }
+
+		/// <summary>
+		/// Material of the weld
+		/// </summary>
+		public MatWelding WeldMaterial { get; set; }
 
 		/// <summary>
 		/// Type of the weld

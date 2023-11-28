@@ -43,6 +43,7 @@ namespace IdeaRS.OpenModel
 			MatReinforcement = new List<MatReinforcement>();
 			MatSteel = new List<MatSteel>();
 			MatPrestressSteel = new List<MatPrestressSteel>();
+			MatWelding = new List<MatWelding>();
 			CrossSection = new List<CrossSection.CrossSection>();
 			ReinforcedCrossSection = new List<CrossSection.ReinforcedCrossSection>();
 			HingeElement1D = new List<HingeElement1D>();
@@ -147,6 +148,11 @@ namespace IdeaRS.OpenModel
 		/// List of MatPrestressSteel
 		/// </summary>
 		public List<MatPrestressSteel> MatPrestressSteel { get; set; }
+
+		/// <summary>
+		/// List of MatWelding
+		/// </summary>
+		public List<MatWelding> MatWelding { get; set; }
 
 		/// <summary>
 		/// List of CrossSection
@@ -620,6 +626,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(MatReinforcement).Name, MatReinforcement },
 					{ typeof(MatSteel).Name, MatSteel },
 					{ typeof(MatPrestressSteel).Name, MatPrestressSteel },
+					{ typeof(MatWelding).Name, MatWelding },
 					{ typeof(CrossSection.CrossSection).Name, CrossSection },
 					{ typeof(CrossSection.ReinforcedCrossSection).Name, ReinforcedCrossSection },
 					{ typeof(HingeElement1D).Name, HingeElement1D },

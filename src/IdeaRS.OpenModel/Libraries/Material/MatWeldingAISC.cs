@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IdeaRS.OpenModel.Material
+﻿namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
-	/// Welding material AISC
+	/// Welding material for AISC
 	/// </summary>
 	public class MatWeldingAISC : MatWelding
 	{
 		/// <summary>
-		/// Nominal Tensile Strength
+		/// Ultimate Strength
 		/// </summary>
-		public double FEXX { get; set; }
+		public double Fexx { get; set; }
 	}
 }

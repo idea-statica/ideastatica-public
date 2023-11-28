@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IdeaRS.OpenModel.Material
+﻿namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
-	/// Welding material Ec2
+	/// Welding material for ECEN
 	/// </summary>
 	public class MatWeldingEc2 : MatWelding
 	{
 		/// <summary>
-		/// Nominal Tensile Strength
+		/// Ultimate Strength
 		/// </summary>
 		public double fu { get; set; }
 
