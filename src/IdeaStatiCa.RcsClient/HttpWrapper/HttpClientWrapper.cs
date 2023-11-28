@@ -20,15 +20,13 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 	{
 		private readonly IPluginLogger logger;
 		private string baseUrl;
-		private string controllerName;
 		public Action<string, int> ProgressLogAction { get; set; } = null;
 		public Action<string> HeartBeatLogAction { get; set; } = null;
 
-		public HttpClientWrapper(IPluginLogger logger, string baseAddress, string controllerName)
+		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
 		{
 			baseUrl = baseAddress.ToString();
 			this.logger = logger;
-			this.controllerName = controllerName;
 		}
 
 		/// <summary>
@@ -40,7 +38,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json")
 		{
-			var url = baseUrl + "/" + controllerName + "/" + requestUri;
+			var url = baseUrl + "/" + requestUri;
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
 			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url); }
 			, acceptHeader);
@@ -77,7 +75,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";
-					var url = baseUrl + "/" +controllerName + "/" + requestUri;
+					var url = baseUrl + "/" + requestUri;
 					return await client.PostAsync(url, content);
 				}
 			}, acceptHeader);
