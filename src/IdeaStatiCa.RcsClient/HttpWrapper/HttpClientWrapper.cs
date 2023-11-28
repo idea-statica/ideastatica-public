@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -9,7 +8,6 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.SignalR.Client;
 using PluginConstants = IdeaStatiCa.Plugin.Constants;
-using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.RcsClient.Client;
 using System.Threading;
 
@@ -22,15 +20,13 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 	{
 		private readonly IPluginLogger logger;
 		private string baseUrl;
-		private string controllerName;
 		public Action<string, int> ProgressLogAction { get; set; } = null;
 		public Action<string> HeartBeatLogAction { get; set; } = null;
 
-		public HttpClientWrapper(IPluginLogger logger, string baseAddress, string controllerName)
+		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
 		{
 			baseUrl = baseAddress.ToString();
 			this.logger = logger;
-			this.controllerName = controllerName;
 		}
 
 		/// <summary>
@@ -42,7 +38,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json")
 		{
-			var url = baseUrl + "/" + controllerName + "/" + requestUri;
+			var url = baseUrl + "/" + requestUri;
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
 			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url); }
 			, acceptHeader);
@@ -79,7 +75,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";
-					var url = baseUrl + "/" +controllerName + "/" + requestUri;
+					var url = baseUrl + "/" + requestUri;
 					return await client.PostAsync(url, content);
 				}
 			}, acceptHeader);
@@ -106,19 +102,22 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					var heartbeatTask = heartbeatChecker.StartAsync();
 					logger.LogDebug($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
 					HttpResponseMessage response = await clientCall(client);
-					
+
+					// Stop the heartbeat checker
+					heartbeatChecker.Stop();
+					logger.LogDebug($"Stopping HeartbeatChecker");
+
 					if (response is { IsSuccessStatusCode: true })
 					{
 						logger.LogDebug($"Response is successfull");
 						var stringContent = await response.Content.ReadAsStringAsync();
-						// Stop the heartbeat checker
-						heartbeatChecker.Stop();
-						logger.LogDebug($"Stopping HeartbeatChecker");
 						return Deserialize<TResult>(acceptHeader, stringContent);
 					}
-
-					logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
-					throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+					else
+					{
+						logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+						throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+					}
 				}
 			}
 			catch (HttpRequestException ex)

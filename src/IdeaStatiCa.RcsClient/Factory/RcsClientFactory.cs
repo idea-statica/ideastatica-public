@@ -33,14 +33,13 @@ namespace IdeaStatiCa.RcsClient.Factory
 		/// <summary>
 		/// Create instance of IRcsApiController that is connected to locally hosted Rest API
 		/// URL = Url for the REST API service
-		/// Controller = Name of the controller
 		/// ProcessId = For disposing the API process once the instance is disposed
 		/// </summary>
 		/// <returns>Instance of RcsApiController</returns>
 		public IRcsApiController CreateRcsApiClient()
 		{
-			var (url, controller, processId) = RunRcsRestApiService();
-			var wrapper = httpClientWrapper ?? new HttpClientWrapper(pluginLogger, url, controller);
+			var (url, processId) = RunRcsRestApiService();
+			var wrapper = httpClientWrapper ?? new HttpClientWrapper(pluginLogger, url);
 			if(StreamingLog != null)
 			{
 				wrapper.ProgressLogAction = StreamingLog;
@@ -52,7 +51,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			return new RcsApiClient(processId, pluginLogger, wrapper);
 		}
 
-		private (string, string, int) RunRcsRestApiService()
+		private (string, int) RunRcsRestApiService()
 		{
 			if (rcsRestApiProcess is null)
 			{
@@ -95,7 +94,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			}
 
 			pluginLogger.LogDebug($"Created process with Id {rcsRestApiProcess.Id}");
-			return ($"{LOCALHOST_URL}:{port}", "RcsRest", rcsRestApiProcess.Id);
+			return ($"{LOCALHOST_URL}:{port}", rcsRestApiProcess.Id);
 		}
 
 		// Function to find an available port within a range
