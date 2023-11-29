@@ -23,6 +23,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <PropertyGroup>
+    <PolySharpIncludeRuntimeSupportedAttributes>false</PolySharpIncludeRuntimeSupportedAttributes>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj" />
   </ItemGroup>
