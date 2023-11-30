@@ -5,6 +5,8 @@ namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
 	public class RcsCrossSectionDetailModel
 	{
+		public int Id { get; set; }
+
 		public string Description { get; set; }
 
 		public CheckMember CheckMember { get; set; }
