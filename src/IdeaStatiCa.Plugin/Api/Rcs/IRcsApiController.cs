@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaRS.OpenModel;
@@ -14,53 +15,75 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		//Section for Grasshopper
 
 		/// <summary>
-		/// Calculates RCS project for given input parameter
-		/// When no sections are specified, everything is calculated
-		/// When no non-conformities are specified, nothing is returned
+		/// Open project
 		/// </summary>
-		/// <param name="projectInfo">Project info with path</param>
+		/// <param name="project">Project information</param>
+		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<ProjectResult> CalculateProjectAsync(RcsProjectInfo projectInfo, CancellationToken token);
+		Guid OpenProject(RcsProjectInfo project, CancellationToken token);
 
 		/// <summary>
-		/// Calculates RCS project for given input parameter
+		/// Open project from Open Model
+		/// </summary>
+		/// <param name="model">Project in open model format</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		Guid OpenProjectFromModel(OpenModel model, CancellationToken token);
+
+		/// <summary>
+		/// Calculates RCS project for given project id
 		/// When no sections are specified, everything is calculated
 		/// When no non-conformities are specified, nothing is returned
 		/// </summary>
-		/// <param name="projectOpenModel">Project specified in OpenModel format</param>
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="parameters">Parameters to specify sections and nonconformities</param>
+		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<ProjectResult> CalculateProjectOpenModelAsync(OpenModel projectOpenModel, CancellationToken token);
+		Task<ProjectResult> CalculateProjectAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
 		/// Get information about Project
 		/// </summary>
-		/// <param name="projectInfo"></param>
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		RcsModelOverview GetProjectOverview(RcsProjectInfo projectInfo, CancellationToken token);
+		RcsModelOverview GetProjectOverview(Guid projectId, CancellationToken token);
 
 		/// <summary>
-		/// Get section detail
+		/// Return open project as file stream (*.idearcs)
 		/// </summary>
-		/// <param name="projectInfo">Based on specified sections</param>
-		/// <returns>Secton detail model</returns>
-		IEnumerable<RcsCrossSectionDetailModel> GetSectionDetails(RcsProjectInfo projectInfo);
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		MemoryStream Download(Guid projectId, CancellationToken token);
+
+		/// <summary>
+		/// Return collection of section details of opened project
+		/// When no sections are specified, nothing is returned
+		/// </summary>
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="parameters">Parameters to specify the sections</param>
+		/// <returns></returns>
+		IEnumerable<RcsCrossSectionDetailModel> SectionDetails(Guid projectId, RcsCalculationParameters parameters);
 
 
 		// Section for current implementations using direct RCS class
 		/// <summary>
 		/// Return calculated sections for given project input
 		/// </summary>
-		/// <param name="projectInfo">Project information</param>
-		/// <param name="token">Token for cancellation</param>
-		/// <returns>Collection of calculated sections</returns>
-		IEnumerable<SectionConcreteCheckResult> GetResultOnSections(RcsProjectInfo projectInfo, CancellationToken token);
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="parameters">Parameters to specify the sections</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		IEnumerable<SectionConcreteCheckResult> GetResultOnSections(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
 		/// Returns nonconformity issues for specified GUID values
 		/// </summary>
-		/// <param name="projectInfo">Project information</param>
-		/// <param name="token">Token for cancellation</param>
-		/// <returns>Collection of nonconformity issues</returns>
-		IEnumerable<NonConformityIssue> GetNonConformityIssues(RcsProjectInfo projectInfo, CancellationToken token);
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="parameters">Parameters to specify the sections</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		IEnumerable<NonConformityIssue> GetNonConformityIssues(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
 	}
 }

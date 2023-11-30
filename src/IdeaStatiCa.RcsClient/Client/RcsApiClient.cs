@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaRS.OpenModel;
@@ -18,40 +20,12 @@ namespace IdeaStatiCa.RcsClient.Client
 		private readonly int restApiProcessId;
 		private readonly IPluginLogger pluginLogger;
 
+
 		public RcsApiClient(int processId, IPluginLogger logger, IHttpClientWrapper httpClientWrapper)
 		{
 			pluginLogger = logger;
 			this.restApiProcessId = processId;
 			this.httpClient = httpClientWrapper;
-		}
-
-		/// <summary>
-		/// Gets the non conformity issues specified in request for given project
-		/// Method checks first cache, after that calls the calculation
-		/// </summary>
-		/// <param name="projectInfo"></param>
-		/// <returns>Collection of nonconformity issues</returns>
-		public IEnumerable<NonConformityIssue> GetNonConformityIssues(RcsProjectInfo projectInfo, CancellationToken token)
-		{
-			var calculationTask = Task.Run(async () => await httpClient.PostAsync<ProjectResult>("Calculations/CalculateResults", projectInfo, "application/xml"));
-			var result = calculationTask.GetAwaiter().GetResult();
-
-			return result.Issues;
-		}
-
-		/// <summary>
-		/// Gets the section concrete check results specified in request for given project
-		/// Method checks first cache, after that calls the calculation
-		/// If no sections are specified in request, every section will be calculated
-		/// </summary>
-		/// <param name="projectInfo"></param>
-		/// <returns>Collection of SectionConcrete check results</returns>
-		public IEnumerable<SectionConcreteCheckResult> GetResultOnSections(RcsProjectInfo projectInfo, CancellationToken token)
-		{
-			var calculationTask = Task.Run(async () => await httpClient.PostAsync<ProjectResult>("Calculations/CalculateResults", projectInfo, "application/xml"));
-			var result = calculationTask.GetAwaiter().GetResult();
-
-			return result.Sections;
 		}
 
 		/// <summary>
@@ -70,27 +44,56 @@ namespace IdeaStatiCa.RcsClient.Client
 			}
 		}
 
-		public async Task<ProjectResult> CalculateProjectAsync(RcsProjectInfo projectInfo, CancellationToken token)
+		public Guid OpenProject(RcsProjectInfo project, CancellationToken token)
 		{
-			//use the cancellation token
-			return await httpClient.PostAsync<ProjectResult>("Calculations/CalculateResults", projectInfo, "application/xml");
-		}
-
-		public RcsModelOverview GetProjectOverview(RcsProjectInfo projectInfo, CancellationToken token)
-		{
-			var result = Task.Run(async () => await httpClient.PostAsync<RcsModelOverview>("Project/ProjectOverview", projectInfo));
+			var result = Task.Run(async () => await httpClient.PostAsync<Guid> ("Project/OpenProject", project));
 			return result.GetAwaiter().GetResult();
 		}
 
-		public IEnumerable<RcsCrossSectionDetailModel> GetSectionDetails(RcsProjectInfo projectInfo)
+		public Guid OpenProjectFromModel(OpenModel model, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.PostAsync<IEnumerable<RcsCrossSectionDetailModel>>("Calculations/SectionDetails", projectInfo));
+			var result = Task.Run(async () => await httpClient.PostAsync<Guid>("Project/OpenProjectFromModel", model));
 			return result.GetAwaiter().GetResult();
 		}
 
-		public async Task<ProjectResult> CalculateProjectOpenModelAsync(OpenModel projectOpenModel, CancellationToken token)
+		public async Task<ProjectResult> CalculateProjectAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
 		{
-			return await httpClient.PostAsync<ProjectResult>("Calculations/CalculateResultsOpenModel", projectOpenModel, "application/xml");
+			return await httpClient.PostAsync<ProjectResult>($"Calculations/{projectId}/CalculateResults", parameters, "application/xml");
+		}
+
+		public RcsModelOverview GetProjectOverview(Guid projectId, CancellationToken token)
+		{
+			var result = Task.Run(async () => await httpClient.GetAsync<RcsModelOverview>($"Project/{projectId}/ProjectOverview"));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public MemoryStream Download(Guid projectId, CancellationToken token)
+		{
+			var result = Task.Run(async () => await httpClient.GetAsync<MemoryStream>($"Project/{projectId}/Download"));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public IEnumerable<RcsCrossSectionDetailModel> SectionDetails(Guid projectId, RcsCalculationParameters parameters)
+		{
+			var result = Task.Run(async () => await httpClient.PostAsync<IEnumerable<RcsCrossSectionDetailModel>>($"Calculations/{projectId}/SectionDetails", parameters));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public IEnumerable<SectionConcreteCheckResult> GetResultOnSections(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+		{
+			var calculationTask = Task.Run(async () => await CalculateProjectAsync(projectId, parameters, token));
+			var result = calculationTask.GetAwaiter().GetResult();
+
+			return result.Sections;
+
+		}
+
+		public IEnumerable<NonConformityIssue> GetNonConformityIssues(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+		{
+			var calculationTask = Task.Run(async () => await CalculateProjectAsync(projectId, parameters, token));
+			var result = calculationTask.GetAwaiter().GetResult();
+
+			return result.Issues;
 		}
 	}
 }

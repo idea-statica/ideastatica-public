@@ -28,6 +28,8 @@ namespace RcsApiClient
 		private IProgress<int> progressBarValue;
 		private IProgress<string> apiHeartbeat;
 
+		private Guid openedProjectId;
+
 		public bool IsProjectFilled
 		{
 			get { return isProjectFilled; }
@@ -106,12 +108,9 @@ namespace RcsApiClient
 		{
 			CalculationResult.Text = "";
 			UpdateProgress("", 0);
-			var projectInfo = new RcsProjectInfo
-			{
-				IdeaProjectPath = ProjectFileInputPath.Text,
-			};
 
-			var result = await Task.Run(() => controller.GetNonConformityIssues(projectInfo, CancellationToken.None));
+			var parameters = new RcsCalculationParameters();
+			var result = await Task.Run(() => controller.GetNonConformityIssues(openedProjectId, parameters, CancellationToken.None));
 
 			if (result is { })
 			{
@@ -127,20 +126,18 @@ namespace RcsApiClient
 		{
 			CalculationResult.Text = "";
 			UpdateProgress("", 0);
-			var projectInfo = new RcsProjectInfo
-			{
-				IdeaProjectPath = ProjectFileInputPath.Text,
-			};
 
-			var selectedSections = new List<int>();
-			foreach(var selectedSection in MultiSelectListBox.SelectedItems)
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
 			{
-				selectedSections.Add(int.Parse(selectedSection.ToString()));
+				sectionList.Add(int.Parse(selectedSection.ToString()));
 			}
 
-			projectInfo.Sections = selectedSections;
-
-			var result = await controller.CalculateProjectAsync(projectInfo, CancellationToken.None);
+			parameters.Sections = sectionList;
+			
+			var result = await controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
 
 			if (result is { })
 			{
@@ -181,6 +178,10 @@ namespace RcsApiClient
 				// Do something with the selected file path (e.g., display it in a TextBox)
 				ProjectFileInputPath.Text = selectedFilePath;
 			}
+
+			var projectInfo = new RcsProjectInfo { IdeaProjectPath = ProjectFileInputPath.Text };
+			openedProjectId = controller.OpenProject(projectInfo, CancellationToken.None);
+			CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
 		}
 
 		private void ProcessExit(object? sender, EventArgs e)
@@ -197,7 +198,7 @@ namespace RcsApiClient
 				IdeaProjectPath = ProjectFileInputPath.Text
 			};
 
-			var result = await Task.Run(() => controller.GetProjectOverview(projectInfo, CancellationToken.None));
+			var result = await Task.Run(() => controller.GetProjectOverview(openedProjectId, CancellationToken.None));
 			if (result is { })
 			{
 				foreach(var section in result.Sections)

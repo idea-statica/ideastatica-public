@@ -16,10 +16,12 @@ namespace IdeaStatiCa.Plugin.Api.RCS.Model
 
 		// Option for XML Open model object
 		public OpenModel OpenModel { get; set; }
+		public override string ToString() => $"Project path: '{IdeaProjectPath}', Project name: '{ProjectName}'";
+	}
 
+	public class RcsCalculationParameters
+	{
 		public IEnumerable<int> Sections { get; set; } = new List<int>();
 		public IEnumerable<Guid> NonConformities { get; set; } = new List<Guid>();
-
-		public override string ToString() => $"Project path: '{IdeaProjectPath}', Project name: '{ProjectName}'";
 	}
 }
