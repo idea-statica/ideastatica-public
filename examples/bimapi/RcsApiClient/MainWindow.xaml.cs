@@ -181,6 +181,7 @@ namespace RcsApiClient
 
 			var projectInfo = new RcsProjectInfo { IdeaProjectPath = ProjectFileInputPath.Text };
 			openedProjectId = controller.OpenProject(projectInfo, CancellationToken.None);
+			MultiSelectListBox.Items.Clear();
 			CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
 		}
 
