@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Interop;
 using IdeaStatiCa.Plugin.Api.Rcs;
-using IdeaStatiCa.RcsClient.Client;
+using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Factory;
-using IdeaStatiCa.RcsClient.HttpWrapper;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -29,6 +27,8 @@ namespace RcsApiClient
 		private IProgress<string> progressReporter;
 		private IProgress<int> progressBarValue;
 		private IProgress<string> apiHeartbeat;
+
+		private Guid openedProjectId;
 
 		public bool IsProjectFilled
 		{
@@ -62,6 +62,7 @@ namespace RcsApiClient
 				{
 					GetResultOnSections.IsEnabled = true;
 					GetNonConformityIssues.IsEnabled = true;
+					GetProjectOverview.IsEnabled = true;
 				}
 			};
 
@@ -107,18 +108,9 @@ namespace RcsApiClient
 		{
 			CalculationResult.Text = "";
 			UpdateProgress("", 0);
-			var projectInfo = new RcsProjectInfo
-			{
-				IdeaProjectPath = ProjectFileInputPath.Text,
-				NonConformities = new List<Guid> 
-				{
-					Guid.Parse("81a0b61d-09a3-4a16-9cfc-80138a778743"),
-					Guid.Parse("0934a621-039c-4397-8fec-382a780b98c0"),
-					Guid.Parse("2f9571d5-85cb-4643-a6e3-7ca6e9e5c460")
-				}
-			};
 
-			var result = await Task.Run(() => controller.GetNonConformityIssues(projectInfo));
+			var parameters = new RcsCalculationParameters();
+			var result = await Task.Run(() => controller.GetNonConformityIssues(openedProjectId, parameters, CancellationToken.None));
 
 			if (result is { })
 			{
@@ -134,22 +126,22 @@ namespace RcsApiClient
 		{
 			CalculationResult.Text = "";
 			UpdateProgress("", 0);
-			var projectInfo = new RcsProjectInfo
-			{
-				IdeaProjectPath = ProjectFileInputPath.Text,
-				NonConformities = new List<Guid>
-				{
-					Guid.Parse("81a0b61d-09a3-4a16-9cfc-80138a778743"),
-					Guid.Parse("0934a621-039c-4397-8fec-382a780b98c0"),
-					Guid.Parse("2f9571d5-85cb-4643-a6e3-7ca6e9e5c460")
-				}
-			};
 
-			var result = await Task.Run(() => controller.GetResultOnSections(projectInfo));
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
+			{
+				sectionList.Add(int.Parse(selectedSection.ToString()));
+			}
+
+			parameters.Sections = sectionList;
+			
+			var result = await controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
 
 			if (result is { })
 			{
-				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result.Sections));
 			}
 			else
 			{
@@ -186,11 +178,41 @@ namespace RcsApiClient
 				// Do something with the selected file path (e.g., display it in a TextBox)
 				ProjectFileInputPath.Text = selectedFilePath;
 			}
+
+			var projectInfo = new RcsProjectInfo { IdeaProjectPath = ProjectFileInputPath.Text };
+			openedProjectId = controller.OpenProject(projectInfo, CancellationToken.None);
+			MultiSelectListBox.Items.Clear();
+			CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
 		}
 
 		private void ProcessExit(object? sender, EventArgs e)
 		{
 			controller.Dispose();
+		}
+
+		private async void GetProjectOverview_Click(object sender, RoutedEventArgs e)
+		{
+			MultiSelectListBox.Items.Clear();
+
+			var projectInfo = new RcsProjectInfo
+			{
+				IdeaProjectPath = ProjectFileInputPath.Text
+			};
+
+			var result = await Task.Run(() => controller.GetProjectOverview(openedProjectId, CancellationToken.None));
+			if (result is { })
+			{
+				foreach(var section in result.Sections)
+				{
+					MultiSelectListBox.Items.Add(section.Id);
+				}
+
+				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+			}
+			else
+			{
+				MessageBox.Show($"Request failed.");
+			}
 		}
 	}
 }
