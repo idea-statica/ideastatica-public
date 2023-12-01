@@ -3,6 +3,7 @@
 	/// <summary>
 	/// Welding material for russian code
 	/// </summary>
+	[OpenModelClass("CI.StructModel.Libraries.Material.RUS.WeldingMaterialRUS,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatWelding))]	 
 	public class MatWeldingRUS : MatWelding
 	{
 		/// <summary>
