@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using IdeaStatiCa.CheckbotPlugin.Common;
+﻿using IdeaStatiCa.CheckbotPlugin.Common;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Json;
-using IdeaStatiCa.PluginSystem.PluginList.Serialization;
+using IdeaStatiCa.PluginSystem.PluginList.Mappers;
 using IdeaStatiCa.PluginSystem.PluginList.Storage;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -14,10 +14,6 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 {
 	internal class JsonPluginListSerializer
 	{
-		internal static readonly IMapper _mapper
-			= new Mapper(new MapperConfiguration(
-				  x => x.AddProfile(typeof(JsonMappingProfile))));
-
 		private readonly IStorage _storage;
 
 		public JsonPluginListSerializer(IStorage storage)
@@ -32,12 +28,12 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 				.GetOrElse(Task.FromResult(new List<PluginDescriptor>()));
 		}
 
-		public Task Write(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
+		public async Task Write(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
 		{
 			using (Stream stream = _storage.GetWriteStream())
 			{
-				List<Plugin> plugins = _mapper.Map<List<Plugin>>(pluginDescriptors);
-				return JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
+				List<Plugin> plugins = pluginDescriptors.Select(Mapper.Map).ToList();
+				await JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
 			}
 		}
 
@@ -49,7 +45,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 
 				return Task.FromResult(JsonSerializer.Deserialize<List<Plugin>>(content, GetOptions())
 					.ToMaybe()
-					.Map(x => _mapper.Map<List<PluginDescriptor>>(x))
+					.Map(x => x.Select(Mapper.Map).ToList())
 					.GetOrElse(new List<PluginDescriptor>()));
 			}
 		}

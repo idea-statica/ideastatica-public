@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
 using IdeaStatiCa.PluginSystem.PluginList.Json;
-using IdeaStatiCa.PluginSystem.PluginList.Serialization;
+using IdeaStatiCa.PluginSystem.PluginList.Mappers;
 using NUnit.Framework;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Unit
@@ -10,23 +9,6 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Unit
 	[TestFixture]
 	public class JsonMappingProfileTest
 	{
-		private Mapper _mapper;
-
-		[SetUp]
-		public void SetUp()
-		{
-			MapperConfiguration cfg = new(cfg =>
-				cfg.AddProfile(typeof(JsonMappingProfile)));
-
-			_mapper = new Mapper(cfg);
-		}
-
-		[Test]
-		public void Test_ConfigurationValid()
-		{
-			_mapper.ConfigurationProvider.AssertConfigurationIsValid();
-		}
-
 		[Test]
 		public void Test_Mapping_JsonDotNetRunnerDriver_Polymorhic()
 		{
@@ -36,7 +18,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Unit
 				Path = @"c:\plugin.exe"
 			};
 
-			PluginDriverDescriptor descriptor = _mapper.Map<PluginDriverDescriptor>(driver);
+			PluginDriverDescriptor descriptor = Mapper.Map(driver);
 			descriptor.Should().BeOfType<DotNetRunnerDriverDescriptor>();
 
 			DotNetRunnerDriverDescriptor dotNetRunnerDriverDescriptor = (DotNetRunnerDriverDescriptor)descriptor;
@@ -58,7 +40,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Unit
 				}
 			};
 
-			PluginDescriptor descriptor = _mapper.Map<PluginDescriptor>(plugin);
+			PluginDescriptor descriptor = Mapper.Map(plugin);
 
 			descriptor.Name.Should().Be("testplugin");
 			descriptor.Type.Should().Be(PluginType.Check);
@@ -93,7 +75,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Unit
 				}
 			};
 
-			PluginDescriptor descriptor = _mapper.Map<PluginDescriptor>(plugin);
+			PluginDescriptor descriptor = Mapper.Map(plugin);
 
 			descriptor.CustomActionDescriptors.Should().NotBeEmpty();
 

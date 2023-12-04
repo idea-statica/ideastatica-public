@@ -1,6 +1,5 @@
 ﻿using IdeaStatiCa.CheckbotPlugin;
 using IdeaStatiCa.CheckbotPlugin.Common;
-using System;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 {
@@ -19,7 +18,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		/// Optional, is set to null when not used.
 		/// When null, the plugin runner will use an public class implementing <see cref="IPlugin"/>.
 		/// </summary>
-		public string ClassName { get; }
+		public string? ClassName { get; }
 
 		public DotNetRunnerDriverDescriptor(string path)
 		{
@@ -29,7 +28,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			ClassName = null;
 		}
 
-		public DotNetRunnerDriverDescriptor(string path, string className)
+		public DotNetRunnerDriverDescriptor(string path, string? className)
 		{
 			Ensure.NotEmpty(path, nameof(path));
 
@@ -37,8 +36,13 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			ClassName = string.IsNullOrEmpty(className) ? null : className;
 		}
 
-		public override bool Equals(object obj)
+		public override bool Equals(object? obj)
 		{
+			if (obj is null)
+			{
+				return false;
+			}
+
 			if (ReferenceEquals(this, obj))
 			{
 				return true;
@@ -47,7 +51,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			return Equals(obj as DotNetRunnerDriverDescriptor);
 		}
 
-		public bool Equals(DotNetRunnerDriverDescriptor other)
+		public bool Equals(DotNetRunnerDriverDescriptor? other)
 		{
 			if (other is null)
 			{
@@ -58,6 +62,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 				&& ClassName == other.ClassName;
 		}
 
-		public override int GetHashCode() => HashCode.Combine(Path, ClassName);
+		public override int GetHashCode() 
+			=> HashCode.Combine(Path, ClassName);
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using System;
 
 namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 {
@@ -21,9 +20,9 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		/// </summary>
 		public PluginDriverDescriptor DriverDescriptor { get; }
 
-		public SystemActionsDescriptor SystemActionsDescriptor { get; }
+		public SystemActionsDescriptor? SystemActionsDescriptor { get; }
 
-		public ActionButtonDescriptor[] CustomActionDescriptors { get; }
+		public ActionButtonDescriptor[]? CustomActionDescriptors { get; }
 
 		/// <summary>
 		/// Ctor.
@@ -37,8 +36,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			string name,
 			PluginType type,
 			PluginDriverDescriptor driverDescriptor,
-			SystemActionsDescriptor systemActionsDescriptor = null,
-			ActionButtonDescriptor[] customActionDescriptors = null)
+			SystemActionsDescriptor? systemActionsDescriptor = null,
+			ActionButtonDescriptor[]? customActionDescriptors = null)
 		{
 			Ensure.NotEmpty(name, nameof(name));
 			Ensure.NotNull(driverDescriptor, nameof(driverDescriptor));
@@ -50,7 +49,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			CustomActionDescriptors = customActionDescriptors;
 		}
 
-		public bool Equals(PluginDescriptor other)
+		public bool Equals(PluginDescriptor? other)
 		{
 			if (other is null)
 			{
@@ -67,7 +66,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 				&& DriverDescriptor.Equals(other.DriverDescriptor);
 		}
 
-		public override bool Equals(object obj)
+		public override bool Equals(object? obj)
 			 => Equals(obj as PluginDescriptor);
 
 		public override int GetHashCode()
