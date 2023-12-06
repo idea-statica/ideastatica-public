@@ -66,6 +66,7 @@
       { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
       { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
       { "files": ["toc.yml", "*.md"]}
+      { "files": ["..\\examples/**/*.md"]}
     ],
     "resource": [
       {

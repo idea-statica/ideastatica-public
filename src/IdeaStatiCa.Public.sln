@@ -106,7 +106,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeaExampleApi", "..\example
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleRunner", "..\examples\bimapi\CheckbotBimLink\BimLinkExampleRunner\BimLinkExampleRunner.csproj", "{669835E3-E2A5-48E5-8CF4-752370CB7051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BimLinkExampleConsoleApp", "Examples\CheckbotBimLink\BimLinkExampleConsoleApp\BimLinkExampleConsoleApp.csproj", "{D4839311-3A97-499B-8B49-A85726D92BFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleConsoleApp", "Examples\CheckbotBimLink\BimLinkExampleConsoleApp\BimLinkExampleConsoleApp.csproj", "{D4839311-3A97-499B-8B49-A85726D92BFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.GeneratorExample", "..\examples\iom\IOM\IOM.GeneratorExample\IOM.GeneratorExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
 EndProject
@@ -135,7 +135,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCS", "RCS", "{AD9AA2F4-2BB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiClient", "..\examples\bimapi\RcsApiClient\RcsApiClient.csproj", "{82395CC6-FB2A-42C0-B376-F48E40590758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.RcsClient", "IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj", "{6044CF49-4A08-4C9E-8A62-A0DCD48530F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.RcsClient", "IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj", "{6044CF49-4A08-4C9E-8A62-A0DCD48530F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOM-RCS", "IOM-RCS", "{A4E5E496-5024-4888-9140-6FC43A29DB1B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExamples", "..\examples\iom\iom-rcs\IomToRcsExamples\IomToRcsExamples.csproj", "{F84AACA8-4301-414A-B353-EA6492CC1F47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExampleRunner", "..\examples\iom\iom-rcs\IomToRcsExampleRunner\IomToRcsExampleRunner.csproj", "{07E20DE8-7206-4814-B09E-37BE76F72571}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -323,6 +329,14 @@ Global
 		{6044CF49-4A08-4C9E-8A62-A0DCD48530F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6044CF49-4A08-4C9E-8A62-A0DCD48530F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6044CF49-4A08-4C9E-8A62-A0DCD48530F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F84AACA8-4301-414A-B353-EA6492CC1F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F84AACA8-4301-414A-B353-EA6492CC1F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F84AACA8-4301-414A-B353-EA6492CC1F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F84AACA8-4301-414A-B353-EA6492CC1F47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E20DE8-7206-4814-B09E-37BE76F72571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E20DE8-7206-4814-B09E-37BE76F72571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E20DE8-7206-4814-B09E-37BE76F72571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E20DE8-7206-4814-B09E-37BE76F72571}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -374,6 +388,9 @@ Global
 		{44461F4B-F2CC-44C0-A265-07CBCF5302C8} = {9CE136B8-8F03-4096-94BF-F613E874A3CB}
 		{AD9AA2F4-2BB8-4AA0-8DFC-FAB7A5CCE3FD} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
 		{82395CC6-FB2A-42C0-B376-F48E40590758} = {AD9AA2F4-2BB8-4AA0-8DFC-FAB7A5CCE3FD}
+		{A4E5E496-5024-4888-9140-6FC43A29DB1B} = {C3DAC5ED-3FD3-4F17-A22A-5B74B6956E49}
+		{F84AACA8-4301-414A-B353-EA6492CC1F47} = {A4E5E496-5024-4888-9140-6FC43A29DB1B}
+		{07E20DE8-7206-4814-B09E-37BE76F72571} = {A4E5E496-5024-4888-9140-6FC43A29DB1B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
