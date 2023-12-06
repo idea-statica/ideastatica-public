@@ -57,8 +57,8 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			var url = $"{baseUrl}{PluginConstants.RcsProgressEndpoint}";
 			logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 			HubConnection hubConnection = null;
-			
-			if(ProgressLogAction != null)
+
+			if (ProgressLogAction != null)
 			{
 				hubConnection = new HubConnectionBuilder()
 					.WithUrl(url)
@@ -69,7 +69,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				logger.LogInformation($"Starting hub connection on {url} address");
 				await hubConnection.StartAsync();
 			}
-			
+
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
 				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
@@ -80,7 +80,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				}
 			}, acceptHeader);
 
-			if(hubConnection is { })
+			if (hubConnection is { })
 			{
 				logger.LogInformation("Stopping hub connection");
 				await hubConnection.StopAsync();
@@ -93,7 +93,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		{
 			HeartbeatChecker heartbeatChecker = null;
 			try
-			{		
+			{
 				using (var client = new HttpClient() { Timeout = Timeout.InfiniteTimeSpan })
 				{
 					heartbeatChecker = new HeartbeatChecker(logger, client, baseUrl + PluginConstants.RcsApiHeartbeat);
@@ -145,6 +145,15 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			{
 				return (TResult)serializer.Deserialize(reader);
 			}
+		}
+
+		public async Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream)
+		{
+			return await ExecuteClientCallAsync<TResult>(async (client) =>
+			{
+				var url = baseUrl + "/" + requestUri;
+				return await client.PostAsync(url, stream);
+			}, "application/json");
 		}
 	}
 }

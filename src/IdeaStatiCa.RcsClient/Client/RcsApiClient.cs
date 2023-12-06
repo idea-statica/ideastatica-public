@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaRS.OpenModel;
@@ -11,6 +15,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.HttpWrapper;
+using Newtonsoft.Json;
 
 namespace IdeaStatiCa.RcsClient.Client
 {
@@ -44,9 +49,20 @@ namespace IdeaStatiCa.RcsClient.Client
 			}
 		}
 
-		public Guid OpenProject(RcsProjectInfo project, CancellationToken token)
+		public Guid OpenProject(string path, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.PostAsync<Guid> ("Project/OpenProject", project));
+			var header = path switch
+			{
+				{ } when path.EndsWith(".IdeaRcs") => "application/octet-stream",
+				{ } when path.EndsWith(".xml") => "application/xml",
+				_ => throw new InvalidDataException("Non supported file type. Please send .IdeaRcs or IOM in .xml")
+			};
+
+			byte[] fileData = File.ReadAllBytes(path);
+			var streamContent = new StreamContent(new MemoryStream(fileData));
+			streamContent.Headers.ContentType = new MediaTypeHeaderValue(header);
+
+			var result = Task.Run(async () => await httpClient.PostAsyncStream<Guid>("Project/OpenProject", streamContent));
 			return result.GetAwaiter().GetResult();
 		}
 
@@ -94,6 +110,24 @@ namespace IdeaStatiCa.RcsClient.Client
 			var result = calculationTask.GetAwaiter().GetResult();
 
 			return result.Issues;
+		}
+
+		public IList<RcsCrossSectionOverviewModel> GetProjectSections(Guid projectId, CancellationToken token)
+		{
+			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsCrossSectionOverviewModel>>($"Project/{projectId}/ProjectSections"));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public IList<RcsCheckMemberModel> GetProjectMembers(Guid projectId, CancellationToken token)
+		{
+			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsCheckMemberModel>>($"Project/{projectId}/ProjectSections"));
+			return result.GetAwaiter().GetResult();
+		}
+
+		public IList<RcsReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token)
+		{
+			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsReinforcedCrossSectionModel>>($"Project/{projectId}/ProjectReinforcedCrossSections"));
+			return result.GetAwaiter().GetResult();
 		}
 	}
 }

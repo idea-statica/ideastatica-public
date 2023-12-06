@@ -15,15 +15,15 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		//Section for Grasshopper
 
 		/// <summary>
-		/// Open project
+		/// Open project from ideaRcs file, or IOM in xml
 		/// </summary>
 		/// <param name="project">Project information</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Guid OpenProject(RcsProjectInfo project, CancellationToken token);
+		Guid OpenProject(string path, CancellationToken token);
 
 		/// <summary>
-		/// Open project from Open Model
+		/// Open project from Open Model object
 		/// </summary>
 		/// <param name="model">Project in open model format</param>
 		/// <param name="token">Cancellation token</param>
@@ -42,12 +42,36 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		Task<ProjectResult> CalculateProjectAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
-		/// Get information about Project
+		/// Get overall information about Project
 		/// </summary>
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
 		RcsModelOverview GetProjectOverview(Guid projectId, CancellationToken token);
+
+		/// <summary>
+		/// Get information about sections in Project
+		/// </summary>
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		IList<RcsCrossSectionOverviewModel> GetProjectSections(Guid projectId, CancellationToken token);
+
+		/// <summary>
+		/// Get information about members in Project
+		/// </summary>
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		IList<RcsCheckMemberModel> GetProjectMembers(Guid projectId, CancellationToken token);
+
+		/// <summary>
+		/// Get information about reinforced cross sections in Project
+		/// </summary>
+		/// <param name="projectId">Id of the project</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		IList<RcsReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Return open project as file stream (*.idearcs)

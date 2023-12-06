@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RcsClient.HttpWrapper
@@ -9,5 +10,6 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		Action<string> HeartBeatLogAction { get; set; }
 		Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json");
 		Task<TResult> PostAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json");
+		Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream);
 	}
 }

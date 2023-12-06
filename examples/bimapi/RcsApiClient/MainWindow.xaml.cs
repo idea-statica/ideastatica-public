@@ -52,7 +52,7 @@ namespace RcsApiClient
 			InitializeComponent();
 			progressReporter = new Progress<string>(UpdateProgress);
 			progressBarValue = new Progress<int>(UpdateProgressbar);
-			apiHeartbeat= new Progress<string>(ApiHeartbeatUpdate);
+			apiHeartbeat = new Progress<string>(ApiHeartbeatUpdate);
 
 			DataContext = this;
 			ProjectFileInputPath.TextChanged += (sender, e) =>
@@ -72,12 +72,12 @@ namespace RcsApiClient
 			{
 				Application.Current.Dispatcher.Invoke(() => UpdateProgress(msg, progress));
 			};
-			rcsClientFactory.HeartbeatLog = (msg) => 
+			rcsClientFactory.HeartbeatLog = (msg) =>
 			{
 				Application.Current.Dispatcher.Invoke(() => { ApiHeartbeatUpdate(msg); });
 			};
 			controller = rcsClientFactory.CreateRcsApiClient();
-		
+
 			ApplicationInformation.Text = controller != null ? $"{ideaStatiCaDir}\\IdeaStatiCa.RcsRestApi.exe" : "API is not running";
 
 			AppDomain.CurrentDomain.ProcessExit += ProcessExit;
@@ -168,19 +168,16 @@ namespace RcsApiClient
 
 			// Set properties for the OpenFileDialog
 			openFileDialog.Title = "Select a Project File";
-			openFileDialog.Filter = "IdeaRcs Files(*.IdeaRcs)| *.IdeaRcs";
+			openFileDialog.Filter = "IDEARCS Files (*.idearcs)|*.idearcs|XML Files (*.xml)|*.xml";
 
 			// Show the file dialog and get the selected file
 			if (openFileDialog.ShowDialog() == true)
 			{
 				string selectedFilePath = openFileDialog.FileName;
-
-				// Do something with the selected file path (e.g., display it in a TextBox)
 				ProjectFileInputPath.Text = selectedFilePath;
 			}
 
-			var projectInfo = new RcsProjectInfo { IdeaProjectPath = ProjectFileInputPath.Text };
-			openedProjectId = controller.OpenProject(projectInfo, CancellationToken.None);
+			openedProjectId = controller.OpenProject(ProjectFileInputPath.Text, CancellationToken.None);
 			MultiSelectListBox.Items.Clear();
 			CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
 		}
