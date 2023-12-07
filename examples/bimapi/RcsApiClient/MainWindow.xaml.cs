@@ -122,32 +122,32 @@ namespace RcsApiClient
 			}
 		}
 
-		private async void GetResultOnSections_Click(object sender, RoutedEventArgs e)
-		{
-			CalculationResult.Text = "";
-			UpdateProgress("", 0);
+		//private async void GetResultOnSections_Click(object sender, RoutedEventArgs e)
+		//{
+		//	CalculationResult.Text = "";
+		//	UpdateProgress("", 0);
 
-			var parameters = new RcsCalculationParameters();
-			var sectionList = new List<int>();
+		//	var parameters = new RcsCalculationParameters();
+		//	var sectionList = new List<int>();
 
-			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
-			{
-				sectionList.Add(int.Parse(selectedSection.ToString()));
-			}
+		//	foreach (var selectedSection in MultiSelectListBox.SelectedItems)
+		//	{
+		//		sectionList.Add(int.Parse(selectedSection.ToString()));
+		//	}
 
-			parameters.Sections = sectionList;
+		//	parameters.Sections = sectionList;
 			
-			var result = await controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
+		//	var result = await controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
 
-			if (result is { })
-			{
-				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result.Sections));
-			}
-			else
-			{
-				MessageBox.Show($"Request failed.");
-			}
-		}
+		//	if (result is { })
+		//	{
+		//		CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result.Sections));
+		//	}
+		//	else
+		//	{
+		//		MessageBox.Show($"Request failed.");
+		//	}
+		//}
 
 		private string FormatJson(string json)
 		{
@@ -187,29 +187,29 @@ namespace RcsApiClient
 			controller.Dispose();
 		}
 
-		private async void GetProjectOverview_Click(object sender, RoutedEventArgs e)
-		{
-			MultiSelectListBox.Items.Clear();
+	//	private async void GetProjectOverview_Click(object sender, RoutedEventArgs e)
+	//	{
+	//		MultiSelectListBox.Items.Clear();
 
-			var projectInfo = new RcsProjectInfo
-			{
-				IdeaProjectPath = ProjectFileInputPath.Text
-			};
+	//		var projectInfo = new RcsProjectInfo
+	//		{
+	//			IdeaProjectPath = ProjectFileInputPath.Text
+	//		};
 
-			var result = await Task.Run(() => controller.GetProjectOverview(openedProjectId, CancellationToken.None));
-			if (result is { })
-			{
-				foreach(var section in result.Sections)
-				{
-					MultiSelectListBox.Items.Add(section.Id);
-				}
+	//		var result = await Task.Run(() => controller.GetProjectOverview(openedProjectId, CancellationToken.None));
+	//		if (result is { })
+	//		{
+	//			foreach(var section in result.Sections)
+	//			{
+	//				MultiSelectListBox.Items.Add(section.Id);
+	//			}
 
-				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
-			}
-			else
-			{
-				MessageBox.Show($"Request failed.");
-			}
-		}
+	//			CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+	//		}
+	//		else
+	//		{
+	//			MessageBox.Show($"Request failed.");
+	//		}
+	//	}
 	}
 }

@@ -47,7 +47,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		RcsModelOverview GetProjectOverview(Guid projectId, CancellationToken token);
+		Task<RcsProjectModel> GetProjectOverviewAsync(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Get information about sections in Project
@@ -55,7 +55,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IList<RcsCrossSectionOverviewModel> GetProjectSections(Guid projectId, CancellationToken token);
+		IList<RcsSectionModel> GetProjectSections(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Get information about members in Project
@@ -71,7 +71,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IList<RcsReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token);
+		IList<ReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Return open project as file stream (*.idearcs)

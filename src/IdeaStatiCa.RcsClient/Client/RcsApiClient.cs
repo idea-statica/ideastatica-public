@@ -77,10 +77,9 @@ namespace IdeaStatiCa.RcsClient.Client
 			return await httpClient.PostAsync<ProjectResult>($"Calculations/{projectId}/CalculateResults", parameters, "application/xml");
 		}
 
-		public RcsModelOverview GetProjectOverview(Guid projectId, CancellationToken token)
+		public async Task<RcsProjectModel> GetProjectOverviewAsync(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<RcsModelOverview>($"Project/{projectId}/ProjectOverview"));
-			return result.GetAwaiter().GetResult();
+			return  await httpClient.GetAsync<RcsProjectModel>($"Project/{projectId}/ProjectOverview");
 		}
 
 		public MemoryStream Download(Guid projectId, CancellationToken token)
@@ -112,9 +111,9 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result.Issues;
 		}
 
-		public IList<RcsCrossSectionOverviewModel> GetProjectSections(Guid projectId, CancellationToken token)
+		public IList<RcsSectionModel> GetProjectSections(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsCrossSectionOverviewModel>>($"Project/{projectId}/ProjectSections"));
+			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsSectionModel>>($"Project/{projectId}/ProjectSections"));
 			return result.GetAwaiter().GetResult();
 		}
 
@@ -124,9 +123,9 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result.GetAwaiter().GetResult();
 		}
 
-		public IList<RcsReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token)
+		public IList<ReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsReinforcedCrossSectionModel>>($"Project/{projectId}/ProjectReinforcedCrossSections"));
+			var result = Task.Run(async () => await httpClient.GetAsync<IList<ReinforcedCrossSectionModel>>($"Project/{projectId}/ProjectReinforcedCrossSections"));
 			return result.GetAwaiter().GetResult();
 		}
 	}

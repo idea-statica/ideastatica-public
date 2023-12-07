@@ -15,7 +15,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		bool OpenIdeaProjectFromIdeaOpenModel(OpenModel ideaOpenModel, string projectName, out OpenMessages messages);
 
 		int[] GetProjectSections();
-		RcsModelOverview GetProjectOverview(RcsProjectEnum projectEnum);
+		RcsProjectModel GetProjectOverview(RcsProjectEnum projectEnum);
 		RcsCrossSectionDetailModel GetCrossSectionModel(int sectionId);
 
 

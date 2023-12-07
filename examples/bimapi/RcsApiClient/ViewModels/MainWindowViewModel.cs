@@ -1,27 +1,39 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
-using System.Windows.Controls;
-using System;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+using IdeaStatiCa.Plugin.Api.RCS.Model;
 using Microsoft.Win32;
+using Newtonsoft.Json;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace RcsApiClient.ViewModels
 {
 	public class MainWindowViewModel : ObservableObject
 	{
+		private readonly CancellationTokenSource cancellationTokenSource;
 		private readonly IPluginLogger pluginLogger;
 		private readonly IRcsClientFactory rcsClientFactory;
-		private IRcsApiController controller;
+		private IRcsApiController? controller;
 
 		public MainWindowViewModel(IPluginLogger pluginLogger, IRcsClientFactory rcsClientFactory)
 		{
+			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
+			GetProjectOverviewCmdAsync = new AsyncRelayCommand(GetProjectOverviewAsync, CanGetProjectOverview);
+
+			Sections = new ObservableCollection<SectionViewModel>();
+
+			this.cancellationTokenSource = new CancellationTokenSource();
+			this.OpenedProjectId = Guid.Empty;
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
 
-			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
+
 
 			rcsClientFactory.StreamingLog = (msg, progress) =>
 			{
@@ -42,15 +54,24 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
-		
-		private bool CanOpenProject()
+		public IAsyncRelayCommand GetProjectOverviewCmdAsync
 		{
-			return (this.Controller != null) && (string.IsNullOrEmpty(RcsProjectPath));
+			get;
+			private set;
 		}
 
+		private bool CanOpenProject()
+		{
+			return (this.Controller != null) && !IsRcsProjectOpen();
+		}
 
 		private async Task OpenProjectAsync()
 		{
+			if(this.controller == null)
+			{
+				throw new Exception("Service is not running");
+			}
+
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 
 			// Set properties for the OpenFileDialog
@@ -65,7 +86,7 @@ namespace RcsApiClient.ViewModels
 					string selectedFilePath = openFileDialog.FileName;
 
 					ApiMessage = "Opening RCS project";
-					OpenedProjectId = await controller.OpenProjectAsync(selectedFilePath, CancellationToken.None);
+					OpenedProjectId = await controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
 					this.RcsProjectPath = selectedFilePath;
 					//MultiSelectListBox.Items.Clear();
 					CalculationResult = $"Project is opened with ID '{OpenedProjectId}'";
@@ -75,8 +96,62 @@ namespace RcsApiClient.ViewModels
 			{
 				ApiMessage = ex.Message;
 			}
+		}
 
-;
+		private RcsProjectModel? rcsProject;
+		public RcsProjectModel? RcsProject
+		{
+			get => rcsProject;
+			set
+			{
+				rcsProject = value;
+				OnPropertyChanged(nameof(RcsProject));
+			}
+		}
+
+
+		private ObservableCollection<SectionViewModel> sections;
+		public ObservableCollection<SectionViewModel> Sections
+		{
+			get => sections;
+			set
+			{
+				sections = value;
+				OnPropertyChanged(nameof(Sections));
+			}
+		}
+
+		private SectionViewModel selectedSection;
+		public SectionViewModel SelectedSection
+		{
+			get => selectedSection;
+			set
+			{
+				selectedSection = value;
+				OnPropertyChanged(nameof(SelectedSection));
+			}
+		}
+
+		private bool CanGetProjectOverview()
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private async Task GetProjectOverviewAsync()
+		{
+			try
+			{
+				if (Controller == null)
+				{
+					throw new Exception("Service is not running");
+				}
+
+				RcsProject = await Controller.GetProjectOverviewAsync(OpenedProjectId, cancellationTokenSource.Token);
+				Sections = new ObservableCollection<SectionViewModel>(RcsProject.Sections.Select(s => new SectionViewModel(s)));
+			}
+			catch(Exception ex)
+			{
+			}
 		}
 
 		private async void CreateClientAsync()
@@ -95,10 +170,11 @@ namespace RcsApiClient.ViewModels
 			{
 				openedProjectId = value;
 				OnPropertyChanged(nameof(OpenedProjectId));
+				GetProjectOverviewCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
-		private string calculationResult;
+		private string calculationResult = string.Empty;
 		public string CalculationResult
 		{
 			get => calculationResult;
@@ -109,7 +185,7 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private string apiMessage;
+		private string apiMessage = string.Empty;
 
 		public string ApiMessage
 		{
@@ -132,7 +208,7 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private string progressMsg;
+		private string progressMsg = string.Empty ;
 		public string ProgressMsg
 		{
 			get => progressMsg;
@@ -143,7 +219,7 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		public IRcsApiController Controller
+		public IRcsApiController? Controller
 		{
 			get => controller;
 			set
@@ -153,6 +229,8 @@ namespace RcsApiClient.ViewModels
 				OpenProjectCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
+
+		private string rcsProjectPath = string.Empty ;
 
 		public string RcsProjectPath
 		{
@@ -165,7 +243,10 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private string rcsProjectPath;
+		private bool IsRcsProjectOpen()
+		{
+			return OpenedProjectId != Guid.Empty;
+		}
 
 		private void ApiHeartbeatUpdate(string heartbeatMsg)
 		{
