@@ -5,21 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RcsApiClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="700" Width="800">
 	<Grid>
 		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 			<TextBox x:Name="ApplicationInformation" Width="750" Margin="5" IsEnabled="False" />
 			<Button HorizontalAlignment="Left"  Content="Browse for RCS project" Click="BrowseForProject_Click" Width="150" Height="30" />
 			<TextBox x:Name="ProjectFileInputPath" Width="750" Margin="5" IsEnabled="False" />
 
-			<Button x:Name="GetResultOnSections" HorizontalAlignment="Left"  Content="GetResultOnSections" Width="300" Height="30" IsEnabled="False" Click="GetResultOnSections_Click"/>
-			<Button x:Name="GetNonConformityIssues" HorizontalAlignment="Left"  Content="GetNonConformityIssues" Width="300" Height="30" IsEnabled="False" Click="GetNonConformityIssues_Click"/>
+			<Button x:Name="CalculateResults" HorizontalAlignment="Left"  Content="CalculateResults" Width="300" Height="30" IsEnabled="False" Click="CalculateResults_Click"/>
+			<Button x:Name="GetResults" HorizontalAlignment="Left"  Content="GetResults" Width="300" Height="30" IsEnabled="False" Click="GetResults_Click"/>
+			<Button x:Name="GetSectionDetails" HorizontalAlignment="Left"  Content="GetSectionDetails" Width="300" Height="30" IsEnabled="False" Click="GetSectionDetails_Click"/>
 			<Button x:Name="GetProjectOverview" HorizontalAlignment="Left"  Content="GetProjectOverview" Width="300" Height="30" IsEnabled="False" Click="GetProjectOverview_Click"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+				<Button x:Name="Members" HorizontalAlignment="Left"  Content="Members" Width="100" Height="30" IsEnabled="False" Click="Members_Click"/>
+				<Button x:Name="ReinforcedSections" HorizontalAlignment="Left"  Content="ReinforcedSections" Width="100" Height="30" IsEnabled="False" Click="ReinforcedSections_Click"/>
+				<Button x:Name="Sections" HorizontalAlignment="Left"  Content="Sections" Width="100" Height="30" IsEnabled="False" Click="Sections_Click"/>
+			</StackPanel>
 			<ListBox x:Name="MultiSelectListBox"
-                 HorizontalAlignment="Left"
-                 Width="600"
-                 Height="120"
-                 SelectionMode="Multiple"/>
+                HorizontalAlignment="Left"
+                Width="600"
+                Height="120"
+                SelectionMode="Multiple"/>
 
 			<TextBox x:Name="ProgressLog" Width="750" Margin="5" HorizontalAlignment="Left" IsEnabled="False"></TextBox>
 			<TextBox x:Name="ApiTextBox" Width="400" Margin="5" HorizontalAlignment="Left" IsEnabled="False"></TextBox>

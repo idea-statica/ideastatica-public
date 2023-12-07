@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -60,9 +61,12 @@ namespace RcsApiClient
 				IsProjectFilled = !string.IsNullOrWhiteSpace(ProjectFileInputPath.Text);
 				if (controller is { } && IsProjectFilled)
 				{
-					GetResultOnSections.IsEnabled = true;
-					GetNonConformityIssues.IsEnabled = true;
+					CalculateResults.IsEnabled = true;
 					GetProjectOverview.IsEnabled = true;
+					GetResults.IsEnabled = true;
+					Members.IsEnabled = true;
+					Sections.IsEnabled = true;
+					ReinforcedSections.IsEnabled = true;
 				}
 			};
 
@@ -104,51 +108,6 @@ namespace RcsApiClient
 			UpdateProgressbar(percentage);
 		}
 
-		private async void GetNonConformityIssues_Click(object sender, RoutedEventArgs e)
-		{
-			CalculationResult.Text = "";
-			UpdateProgress("", 0);
-
-			var parameters = new RcsCalculationParameters();
-			var result = await Task.Run(() => controller.GetNonConformityIssues(openedProjectId, parameters, CancellationToken.None));
-
-			if (result is { })
-			{
-				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
-			}
-			else
-			{
-				MessageBox.Show($"Request failed.");
-			}
-		}
-
-		private async void GetResultOnSections_Click(object sender, RoutedEventArgs e)
-		{
-			CalculationResult.Text = "";
-			UpdateProgress("", 0);
-
-			var parameters = new RcsCalculationParameters();
-			var sectionList = new List<int>();
-
-			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
-			{
-				sectionList.Add(int.Parse(selectedSection.ToString()));
-			}
-
-			parameters.Sections = sectionList;
-			
-			var result = await controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
-
-			if (result is { })
-			{
-				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result.Sections));
-			}
-			else
-			{
-				MessageBox.Show($"Request failed.");
-			}
-		}
-
 		private string FormatJson(string json)
 		{
 			try
@@ -177,9 +136,17 @@ namespace RcsApiClient
 				ProjectFileInputPath.Text = selectedFilePath;
 			}
 
-			openedProjectId = controller.OpenProject(ProjectFileInputPath.Text, CancellationToken.None);
+			var projectOpened = controller.OpenProject(ProjectFileInputPath.Text, CancellationToken.None);
 			MultiSelectListBox.Items.Clear();
-			CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
+			if(projectOpened)
+			{
+				CalculationResult.Text = $"Project was opened successfully.";
+			}
+			else
+			{
+				CalculationResult.Text = $"Project failed to open.";
+			}
+			
 		}
 
 		private void ProcessExit(object? sender, EventArgs e)
@@ -191,12 +158,7 @@ namespace RcsApiClient
 		{
 			MultiSelectListBox.Items.Clear();
 
-			var projectInfo = new RcsProjectInfo
-			{
-				IdeaProjectPath = ProjectFileInputPath.Text
-			};
-
-			var result = await Task.Run(() => controller.GetProjectOverview(openedProjectId, CancellationToken.None));
+			var result = await Task.Run(() => controller.GetProjectOverview(CancellationToken.None));
 			if (result is { })
 			{
 				foreach(var section in result.Sections)
@@ -205,10 +167,146 @@ namespace RcsApiClient
 				}
 
 				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+				GetSectionDetails.IsEnabled = true;
 			}
 			else
 			{
 				MessageBox.Show($"Request failed.");
+			}
+		}
+
+		private async void CalculateResults_Click(object sender, RoutedEventArgs e)
+		{
+			CalculationResult.Text = "";
+			UpdateProgress("", 0);
+
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
+			{
+				sectionList.Add(int.Parse(selectedSection.ToString()));
+			}
+
+			parameters.Sections = sectionList;
+
+			var result = await controller.CalculateResultsAsync(parameters, CancellationToken.None);
+
+			if (result is { })
+			{
+				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+			}
+			else
+			{
+				MessageBox.Show($"Request failed.");
+			}
+		}
+
+		private async void GetResults_Click(object sender, RoutedEventArgs e)
+		{
+			CalculationResult.Text = "";
+			UpdateProgress("", 0);
+
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
+			{
+				sectionList.Add(int.Parse(selectedSection.ToString()));
+			}
+
+			parameters.Sections = sectionList;
+			if (sectionList.Any())
+			{
+				var result = await controller.GetResultsAsync(parameters, CancellationToken.None);
+
+				if (result is { })
+				{
+					CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+				}
+				else
+				{
+					MessageBox.Show($"Request failed.");
+				}
+			}
+			else
+			{
+				CalculationResult.Text = "Please specify sections";
+			}
+
+		}
+
+		private async void Members_Click(object sender, RoutedEventArgs e)
+		{
+			var result = await Task.Run(() => controller.GetProjectMembers(CancellationToken.None));
+			if (result is { })
+			{
+				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+			}
+			else
+			{
+				MessageBox.Show($"Request failed.");
+			}
+		}
+
+		private async void ReinforcedSections_Click(object sender, RoutedEventArgs e)
+		{
+			var result = await Task.Run(() => controller.GetProjectReinforcedCrossSections(CancellationToken.None));
+			if (result is { })
+			{
+				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+			}
+			else
+			{
+				MessageBox.Show($"Request failed.");
+			}
+		}
+
+		private async void Sections_Click(object sender, RoutedEventArgs e)
+		{
+			var result = await Task.Run(() => controller.GetProjectSections(CancellationToken.None));
+			if (result is { })
+			{
+				foreach (var section in result)
+				{
+					MultiSelectListBox.Items.Add(section.Id);
+				}
+
+				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+				GetSectionDetails.IsEnabled = true;
+			}
+			else
+			{
+				MessageBox.Show($"Request failed.");
+			}
+		}
+
+		private async void GetSectionDetails_Click(object sender, RoutedEventArgs e)
+		{
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in MultiSelectListBox.SelectedItems)
+			{
+				sectionList.Add(int.Parse(selectedSection.ToString()));
+			}
+
+			parameters.Sections = sectionList;
+			if (sectionList.Any())
+			{
+				var result = await Task.Run(() => controller.SectionDetails(parameters));
+				if (result is { })
+				{
+					CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+				}
+				else
+				{
+					MessageBox.Show($"Request failed.");
+				}
+			}
+			else
+			{
+				CalculationResult.Text = "Please specify sections";
 			}
 		}
 	}

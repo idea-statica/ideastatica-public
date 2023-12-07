@@ -9,7 +9,8 @@ namespace IdeaStatiCa.Plugin.Api.RCS.Model
 
 		public string Description { get; set; }
 
-		public CheckMember CheckMember { get; set; }
+		//CheckMember is abstract class that cannot be serialized
+		public CheckMember1D CheckMember { get; set; }
 
 		public int DesignMemberSpanIndex { get; set; }
 
