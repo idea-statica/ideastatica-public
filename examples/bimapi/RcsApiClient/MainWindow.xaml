@@ -30,7 +30,7 @@
 							<GridViewColumn.CellTemplate>
 								<DataTemplate>
 									<StackPanel>
-										<TextBlock Text="{Binding Name}"></TextBlock>
+										<TextBlock Text="{Binding Description}"></TextBlock>
 									</StackPanel>
 								</DataTemplate>
 							</GridViewColumn.CellTemplate>

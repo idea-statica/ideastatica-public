@@ -25,7 +25,7 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private string name;
+		private string name = string.Empty;
 		public string Name
 		{
 			get => name;
@@ -36,7 +36,7 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private string description;
+		private string description = string.Empty;
 		public string Description
 		{
 			get => description;
