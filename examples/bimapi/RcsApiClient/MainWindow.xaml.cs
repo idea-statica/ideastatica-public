@@ -267,6 +267,7 @@ namespace RcsApiClient
 			var result = await Task.Run(() => controller.GetProjectSections(CancellationToken.None));
 			if (result is { })
 			{
+				MultiSelectListBox.Items.Clear();
 				foreach (var section in result)
 				{
 					MultiSelectListBox.Items.Add(section.Id);
