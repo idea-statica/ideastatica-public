@@ -20,7 +20,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="project">Project information</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Guid OpenProject(string path, CancellationToken token);
+		Task<Guid> OpenProjectAsync(string path, CancellationToken token);
 
 		/// <summary>
 		/// Open project from Open Model object

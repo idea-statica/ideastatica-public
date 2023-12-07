@@ -54,7 +54,7 @@ namespace IdeaStatiCa.Plugin
 
 		/// <summary>
 		/// Creates connection and starts IDEA StatiCa connection application.
-		/// Call OpenProject after this method to open specific project.
+		/// Call OpenProjectAsync after this method to open specific project.
 		/// </summary>
 		/// <param name="ideaInstallDir">IDEA StatiCa installation directory.</param>
 		/// <returns>A controller object.</returns>
@@ -65,7 +65,7 @@ namespace IdeaStatiCa.Plugin
 
 		/// <summary>
 		/// Creates connection and starts IDEA StatiCa connection application.
-		/// Call OpenProject after this method to open specific project.
+		/// Call OpenProjectAsync after this method to open specific project.
 		/// </summary>
 		/// <param name="ideaInstallDir">IDEA StatiCa installation directory.</param>
 		/// <param name="logger">The pluginLogger.</param>

@@ -49,7 +49,7 @@ namespace IdeaStatiCa.RcsClient.Client
 			}
 		}
 
-		public Guid OpenProject(string path, CancellationToken token)
+		public async Task<Guid> OpenProjectAsync(string path, CancellationToken token)
 		{
 			var header = path switch
 			{
@@ -62,8 +62,8 @@ namespace IdeaStatiCa.RcsClient.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue(header);
 
-			var result = Task.Run(async () => await httpClient.PostAsyncStream<Guid>("Project/OpenProject", streamContent));
-			return result.GetAwaiter().GetResult();
+			return await httpClient.PostAsyncStream<Guid>("Project/OpenProject", streamContent);
+
 		}
 
 		public Guid OpenProjectFromModel(OpenModel model, CancellationToken token)

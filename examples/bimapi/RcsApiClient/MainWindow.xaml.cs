@@ -50,37 +50,37 @@ namespace RcsApiClient
 		public MainWindow()
 		{
 			InitializeComponent();
-			progressReporter = new Progress<string>(UpdateProgress);
-			progressBarValue = new Progress<int>(UpdateProgressbar);
-			apiHeartbeat = new Progress<string>(ApiHeartbeatUpdate);
+			//progressReporter = new Progress<string>(UpdateProgress);
+			//progressBarValue = new Progress<int>(UpdateProgressbar);
+			//apiHeartbeat = new Progress<string>(ApiHeartbeatUpdate);
 
-			DataContext = this;
-			ProjectFileInputPath.TextChanged += (sender, e) =>
-			{
-				IsProjectFilled = !string.IsNullOrWhiteSpace(ProjectFileInputPath.Text);
-				if (controller is { } && IsProjectFilled)
-				{
-					GetResultOnSections.IsEnabled = true;
-					GetNonConformityIssues.IsEnabled = true;
-					GetProjectOverview.IsEnabled = true;
-				}
-			};
+			//DataContext = this;
+			//ProjectFileInputPath.TextChanged += (sender, e) =>
+			//{
+			//	IsProjectFilled = !string.IsNullOrWhiteSpace(ProjectFileInputPath.Text);
+			//	if (controller is { } && IsProjectFilled)
+			//	{
+			//		GetResultOnSections.IsEnabled = true;
+			//		GetNonConformityIssues.IsEnabled = true;
+			//		GetProjectOverview.IsEnabled = true;
+			//	}
+			//};
 
-			var nullLogger = new IdeaStatiCa.Plugin.NullLogger();
-			rcsClientFactory = new RcsClientFactory(nullLogger, httpClientWrapper: null, ideaStatiCaDir);
-			rcsClientFactory.StreamingLog = (msg, progress) =>
-			{
-				Application.Current.Dispatcher.Invoke(() => UpdateProgress(msg, progress));
-			};
-			rcsClientFactory.HeartbeatLog = (msg) =>
-			{
-				Application.Current.Dispatcher.Invoke(() => { ApiHeartbeatUpdate(msg); });
-			};
-			controller = rcsClientFactory.CreateRcsApiClient();
+			//var nullLogger = new IdeaStatiCa.Plugin.NullLogger();
+			//rcsClientFactory = new RcsClientFactory(nullLogger, httpClientWrapper: null, ideaStatiCaDir);
+			//rcsClientFactory.StreamingLog = (msg, progress) =>
+			//{
+			//	Application.Current.Dispatcher.Invoke(() => UpdateProgress(msg, progress));
+			//};
+			//rcsClientFactory.HeartbeatLog = (msg) =>
+			//{
+			//	Application.Current.Dispatcher.Invoke(() => { ApiHeartbeatUpdate(msg); });
+			//};
+			//controller = rcsClientFactory.CreateRcsApiClient();
 
-			ApplicationInformation.Text = controller != null ? $"{ideaStatiCaDir}\\IdeaStatiCa.RcsRestApi.exe" : "API is not running";
+			//ApplicationInformation.Text = controller != null ? $"{ideaStatiCaDir}\\IdeaStatiCa.RcsRestApi.exe" : "API is not running";
 
-			AppDomain.CurrentDomain.ProcessExit += ProcessExit;
+			//AppDomain.CurrentDomain.ProcessExit += ProcessExit;
 		}
 
 		private void ApiHeartbeatUpdate(string heartbeatMsg)
@@ -162,25 +162,25 @@ namespace RcsApiClient
 			}
 		}
 
-		private void BrowseForProject_Click(object sender, RoutedEventArgs e)
-		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
+		//private void BrowseForProject_Click(object sender, RoutedEventArgs e)
+		//{
+		//	OpenFileDialog openFileDialog = new OpenFileDialog();
 
-			// Set properties for the OpenFileDialog
-			openFileDialog.Title = "Select a Project File";
-			openFileDialog.Filter = "IDEARCS Files (*.idearcs)|*.idearcs|XML Files (*.xml)|*.xml";
+		//	// Set properties for the OpenFileDialog
+		//	openFileDialog.Title = "Select a Project File";
+		//	openFileDialog.Filter = "IDEARCS Files (*.idearcs)|*.idearcs|XML Files (*.xml)|*.xml";
 
-			// Show the file dialog and get the selected file
-			if (openFileDialog.ShowDialog() == true)
-			{
-				string selectedFilePath = openFileDialog.FileName;
-				ProjectFileInputPath.Text = selectedFilePath;
-			}
+		//	// Show the file dialog and get the selected file
+		//	if (openFileDialog.ShowDialog() == true)
+		//	{
+		//		string selectedFilePath = openFileDialog.FileName;
+		//		ProjectFileInputPath.Text = selectedFilePath;
+		//	}
 
-			openedProjectId = controller.OpenProject(ProjectFileInputPath.Text, CancellationToken.None);
-			MultiSelectListBox.Items.Clear();
-			CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
-		}
+		//	openedProjectId = controller.OpenProjectAsync(ProjectFileInputPath.Text, CancellationToken.None);
+		//	MultiSelectListBox.Items.Clear();
+		//	CalculationResult.Text = $"Project is opened with ID '{openedProjectId}'";
+		//}
 
 		private void ProcessExit(object? sender, EventArgs e)
 		{

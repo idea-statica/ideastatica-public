@@ -9,8 +9,8 @@
 	<Grid>
 		<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 			<TextBox x:Name="ApplicationInformation" Width="750" Margin="5" IsEnabled="False" />
-			<Button HorizontalAlignment="Left"  Content="Browse for RCS project" Click="BrowseForProject_Click" Width="150" Height="30" />
-			<TextBox x:Name="ProjectFileInputPath" Width="750" Margin="5" IsEnabled="False" />
+			<Button HorizontalAlignment="Left"  Content="Browse for RCS project" Command="{Binding OpenProjectCmdAsync}" Width="150" Height="30" />
+			<TextBox x:Name="ProjectFileInputPath" Text="{Binding RcsProjectPath}" Width="750" Margin="5" IsEnabled="False" />
 
 			<Button x:Name="GetResultOnSections" HorizontalAlignment="Left"  Content="GetResultOnSections" Width="300" Height="30" IsEnabled="False" Click="GetResultOnSections_Click"/>
 			<Button x:Name="GetNonConformityIssues" HorizontalAlignment="Left"  Content="GetNonConformityIssues" Width="300" Height="30" IsEnabled="False" Click="GetNonConformityIssues_Click"/>
@@ -21,11 +21,11 @@
                  Height="120"
                  SelectionMode="Multiple"/>
 
-			<TextBox x:Name="ProgressLog" Width="750" Margin="5" HorizontalAlignment="Left" IsEnabled="False"></TextBox>
-			<TextBox x:Name="ApiTextBox" Width="400" Margin="5" HorizontalAlignment="Left" IsEnabled="False"></TextBox>
-			<ProgressBar x:Name="ProgressBar" Width="750" Height="10" Margin="5"></ProgressBar>
+			<TextBox x:Name="ProgressLog" Text="{Binding ProgressMsg}" Width="750" Margin="5" HorizontalAlignment="Left" IsEnabled="False"></TextBox>
+			<TextBox x:Name="ApiTextBox" Text="{Binding ApiMessage}" Width="400" Margin="5" HorizontalAlignment="Left" IsEnabled="False"></TextBox>
+			<ProgressBar x:Name="ProgressBar" Value="{Binding Progress}" Width="750" Height="10" Margin="5"></ProgressBar>
 			<ScrollViewer>
-				<TextBox x:Name="CalculationResult" TextWrapping="Wrap" Height="200" MaxHeight="500" VerticalScrollBarVisibility="Auto"></TextBox>
+				<TextBox x:Name="CalculationResult" Text="{Binding CalculationResult}" TextWrapping="Wrap" Height="200" MaxHeight="500" VerticalScrollBarVisibility="Auto"></TextBox>
 			</ScrollViewer>
 		</StackPanel>
 	</Grid>
