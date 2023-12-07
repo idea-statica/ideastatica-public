@@ -18,11 +18,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BucklingRes
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 351
+    startLine: 350
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -72,11 +72,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadCaseId
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 357
+    startLine: 356
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -111,11 +111,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Shape
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 363
+    startLine: 362
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -152,11 +152,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Factor
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 369
+    startLine: 368
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection

@@ -1,7 +1,0 @@
-- name: Home
-  href: ../../index.md
-- name: Examples
-  href: ../../../examples/readme.md
-# Hide release notes as we do not have any yet
-#- name: Release Notes
-#  href: releasenotes.md

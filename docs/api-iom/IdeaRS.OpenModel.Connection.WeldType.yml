@@ -25,11 +25,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 394
+    startLine: 395
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -52,11 +52,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotSpecified
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 399
+    startLine: 400
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -80,11 +80,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Fillet
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 404
+    startLine: 405
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -108,11 +108,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoubleFillet
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 409
+    startLine: 410
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -136,11 +136,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bevel
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 414
+    startLine: 415
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -164,11 +164,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Square
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 419
+    startLine: 420
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -192,11 +192,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Plug
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 424
+    startLine: 425
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -220,11 +220,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LengthAtHaunch
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 429
+    startLine: 430
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -248,11 +248,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FilletRear
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 434
+    startLine: 435
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -276,11 +276,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Contact
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 439
+    startLine: 440
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -304,11 +304,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Intermittent
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 444
+    startLine: 445
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection

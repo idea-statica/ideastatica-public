@@ -12,6 +12,7 @@ items:
   - IdeaRS.OpenModel.Connection.WeldData.Name
   - IdeaRS.OpenModel.Connection.WeldData.Start
   - IdeaRS.OpenModel.Connection.WeldData.Thickness
+  - IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
   - IdeaRS.OpenModel.Connection.WeldData.WeldType
   langs:
   - csharp
@@ -23,11 +24,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldData
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 450
+    startLine: 451
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -60,11 +61,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Id
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 455
+    startLine: 456
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -91,11 +92,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 460
+    startLine: 461
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -122,11 +123,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Thickness
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 465
+    startLine: 466
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -153,11 +154,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Material
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 470
+    startLine: 471
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -170,6 +171,37 @@ items:
       type: System.String
     content.vb: Public Property Material As String
   overload: IdeaRS.OpenModel.Connection.WeldData.Material*
+- uid: IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
+  commentId: P:IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
+  id: WeldMaterial
+  parent: IdeaRS.OpenModel.Connection.WeldData
+  langs:
+  - csharp
+  - vb
+  name: WeldMaterial
+  nameWithType: WeldData.WeldMaterial
+  fullName: IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WeldMaterial
+    path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+    startLine: 476
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Connection
+  summary: Material of the weld
+  example: []
+  syntax:
+    content: public MatWelding WeldMaterial { get; set; }
+    parameters: []
+    return:
+      type: IdeaRS.OpenModel.Material.MatWelding
+    content.vb: Public Property WeldMaterial As MatWelding
+  overload: IdeaRS.OpenModel.Connection.WeldData.WeldMaterial*
 - uid: IdeaRS.OpenModel.Connection.WeldData.WeldType
   commentId: P:IdeaRS.OpenModel.Connection.WeldData.WeldType
   id: WeldType
@@ -184,11 +216,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldType
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 475
+    startLine: 481
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -215,11 +247,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectedPartIds
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 480
+    startLine: 486
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -246,11 +278,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Start
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 485
+    startLine: 491
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -277,11 +309,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: End
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 490
+    startLine: 496
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -619,6 +651,49 @@ references:
   name: Material
   nameWithType: WeldData.Material
   fullName: IdeaRS.OpenModel.Connection.WeldData.Material
+- uid: IdeaRS.OpenModel.Connection.WeldData.WeldMaterial*
+  commentId: Overload:IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
+  href: IdeaRS.OpenModel.Connection.WeldData.html#IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
+  name: WeldMaterial
+  nameWithType: WeldData.WeldMaterial
+  fullName: IdeaRS.OpenModel.Connection.WeldData.WeldMaterial
+- uid: IdeaRS.OpenModel.Material.MatWelding
+  commentId: T:IdeaRS.OpenModel.Material.MatWelding
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.MatWelding.html
+  name: MatWelding
+  nameWithType: MatWelding
+  fullName: IdeaRS.OpenModel.Material.MatWelding
+- uid: IdeaRS.OpenModel.Material
+  commentId: N:IdeaRS.OpenModel.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Material
+  nameWithType: IdeaRS.OpenModel.Material
+  fullName: IdeaRS.OpenModel.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Material
+    name: Material
+    href: IdeaRS.OpenModel.Material.html
 - uid: IdeaRS.OpenModel.Connection.WeldData.WeldType*
   commentId: Overload:IdeaRS.OpenModel.Connection.WeldData.WeldType
   href: IdeaRS.OpenModel.Connection.WeldData.html#IdeaRS.OpenModel.Connection.WeldData.WeldType

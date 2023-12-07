@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/OpenProjectResult.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProjectResult
     path: ../src/IdeaRS.OpenModel/Connection/OpenProjectResult.cs
@@ -52,7 +52,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/OpenProjectResult.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProjectId
     path: ../src/IdeaRS.OpenModel/Connection/OpenProjectResult.cs
@@ -81,7 +81,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/OpenProjectResult.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectInfo
     path: ../src/IdeaRS.OpenModel/Connection/OpenProjectResult.cs

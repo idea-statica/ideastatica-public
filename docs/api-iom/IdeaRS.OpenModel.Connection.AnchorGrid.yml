@@ -18,11 +18,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorGrid
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 253
+    startLine: 254
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -80,11 +80,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteBlock
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 258
+    startLine: 259
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -111,11 +111,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AnchorType
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 263
+    startLine: 264
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -142,11 +142,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WasherSize
     path: ../src/IdeaRS.OpenModel/Connection/ConnectionData.cs
-    startLine: 269
+    startLine: 270
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection

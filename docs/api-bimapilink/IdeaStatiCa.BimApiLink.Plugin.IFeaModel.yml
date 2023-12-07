@@ -6,6 +6,7 @@ items:
   parent: IdeaStatiCa.BimApiLink.Plugin
   children:
   - IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection
+  - IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection(System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}},System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}})
   langs:
   - csharp
   - vb
@@ -16,11 +17,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IFeaModel
     path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
-    startLine: 2
+    startLine: 6
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Plugin
@@ -44,11 +45,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetUserSelection
     path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
-    startLine: 4
+    startLine: 8
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink.Plugin
@@ -58,6 +59,44 @@ items:
       type: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection
     content.vb: Function GetUserSelection() As FeaUserSelection
   overload: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.GetUserSelection*
+- uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection(System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}},System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}})
+  commentId: M:IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection(System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}},System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}})
+  id: SelectUserSelection(System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}},System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}})
+  parent: IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+  langs:
+  - csharp
+  - vb
+  name: SelectUserSelection(IEnumerable<Identifier<IIdeaNode>>, IEnumerable<Identifier<IIdeaMember1D>>)
+  nameWithType: IFeaModel.SelectUserSelection(IEnumerable<Identifier<IIdeaNode>>, IEnumerable<Identifier<IIdeaMember1D>>)
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection(System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaNode>>, System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaMember1D>>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SelectUserSelection
+    path: ../src/IdeaStatica.BimApiLink/Plugin/IFeaModel.cs
+    startLine: 15
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink.Plugin
+  summary: Get's the user selected nodes and members as input parameters and projects the selection in connected Fea application
+  example: []
+  syntax:
+    content: void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members)
+    parameters:
+    - id: nodes
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}}
+      description: Nodes to be selected
+    - id: members
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}}
+      description: Members to be selected
+    content.vb: Sub SelectUserSelection(nodes As IEnumerable(Of Identifier(Of IIdeaNode)), members As IEnumerable(Of Identifier(Of IIdeaMember1D)))
+  overload: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection*
+  nameWithType.vb: IFeaModel.SelectUserSelection(IEnumerable(Of Identifier(Of IIdeaNode)), IEnumerable(Of Identifier(Of IIdeaMember1D)))
+  fullName.vb: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection(System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaNode)), System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaMember1D)))
+  name.vb: SelectUserSelection(IEnumerable(Of Identifier(Of IIdeaNode)), IEnumerable(Of Identifier(Of IIdeaMember1D)))
 references:
 - uid: IdeaStatiCa.BimApiLink.Plugin
   commentId: N:IdeaStatiCa.BimApiLink.Plugin
@@ -147,3 +186,160 @@ references:
   name: FeaUserSelection
   nameWithType: FeaUserSelection
   fullName: IdeaStatiCa.BimApiLink.Plugin.FeaUserSelection
+- uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection*
+  commentId: Overload:IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection
+  href: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.html#IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection(System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}},System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}})
+  name: SelectUserSelection
+  nameWithType: IFeaModel.SelectUserSelection
+  fullName: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.SelectUserSelection
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaNode}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<Identifier<IIdeaNode>>
+  nameWithType: IEnumerable<Identifier<IIdeaNode>>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaNode>>
+  nameWithType.vb: IEnumerable(Of Identifier(Of IIdeaNode))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaNode))
+  name.vb: IEnumerable(Of Identifier(Of IIdeaNode))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaNode
+    name: IIdeaNode
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.BimApiLink.Identifiers.Identifier{IdeaStatiCa.BimApi.IIdeaMember1D}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<Identifier<IIdeaMember1D>>
+  nameWithType: IEnumerable<Identifier<IIdeaMember1D>>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.BimApiLink.Identifiers.Identifier<IdeaStatiCa.BimApi.IIdeaMember1D>>
+  nameWithType.vb: IEnumerable(Of Identifier(Of IIdeaMember1D))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.BimApiLink.Identifiers.Identifier(Of IdeaStatiCa.BimApi.IIdeaMember1D))
+  name.vb: IEnumerable(Of Identifier(Of IIdeaMember1D))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: <
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Identifiers.Identifier`1
+    name: Identifier
+    href: IdeaStatiCa.BimApiLink.Identifiers.Identifier-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.BimApi.IIdeaMember1D
+    name: IIdeaMember1D
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

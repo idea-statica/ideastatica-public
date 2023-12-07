@@ -6,10 +6,12 @@ items:
   children:
   - IdeaStatiCa.BimApiLink.BimApiApplication
   - IdeaStatiCa.BimApiLink.BimLink
+  - IdeaStatiCa.BimApiLink.BimLinkExtension
   - IdeaStatiCa.BimApiLink.BimLinkObject
   - IdeaStatiCa.BimApiLink.CadBimLink
   - IdeaStatiCa.BimApiLink.Constants
   - IdeaStatiCa.BimApiLink.FeaBimLink
+  - IdeaStatiCa.BimApiLink.IApplicationBimRunnable
   - IdeaStatiCa.BimApiLink.IBimUserDataSource
   - IdeaStatiCa.BimApiLink.ImportersConfiguration
   - IdeaStatiCa.BimApiLink.ResultsImportersConfiguration
@@ -30,6 +32,13 @@ references:
   name: BimLink
   nameWithType: BimLink
   fullName: IdeaStatiCa.BimApiLink.BimLink
+- uid: IdeaStatiCa.BimApiLink.BimLinkExtension
+  commentId: T:IdeaStatiCa.BimApiLink.BimLinkExtension
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLinkExtension.html
+  name: BimLinkExtension
+  nameWithType: BimLinkExtension
+  fullName: IdeaStatiCa.BimApiLink.BimLinkExtension
 - uid: IdeaStatiCa.BimApiLink.BimLinkObject
   commentId: T:IdeaStatiCa.BimApiLink.BimLinkObject
   parent: IdeaStatiCa.BimApiLink
@@ -55,6 +64,13 @@ references:
   name: FeaBimLink
   nameWithType: FeaBimLink
   fullName: IdeaStatiCa.BimApiLink.FeaBimLink
+- uid: IdeaStatiCa.BimApiLink.IApplicationBimRunnable
+  commentId: T:IdeaStatiCa.BimApiLink.IApplicationBimRunnable
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.IApplicationBimRunnable.html
+  name: IApplicationBimRunnable
+  nameWithType: IApplicationBimRunnable
+  fullName: IdeaStatiCa.BimApiLink.IApplicationBimRunnable
 - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
   commentId: T:IdeaStatiCa.BimApiLink.IBimUserDataSource
   parent: IdeaStatiCa.BimApiLink

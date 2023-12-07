@@ -120,6 +120,38 @@ items:
     name: Tools
   - uid: IdeaStatiCa.Plugin.WcfErrorHandler
     name: WcfErrorHandler
+- uid: IdeaStatiCa.Plugin.Api.Rcs
+  name: IdeaStatiCa.Plugin.Api.Rcs
+  items:
+  - uid: IdeaStatiCa.Plugin.Api.Rcs.IHeartbeatChecker
+    name: IHeartbeatChecker
+  - uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+    name: IRcsApiController
+  - uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsClientFactory
+    name: IRcsClientFactory
+  - uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+    name: IRcsController
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model
+  name: IdeaStatiCa.Plugin.Api.RCS.Model
+  items:
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult
+    name: ProjectResult
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+    name: RcsCalculationParameters
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCheckMemberModel
+    name: RcsCheckMemberModel
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+    name: RcsCrossSectionDetailModel
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+    name: RcsCrossSectionOverviewModel
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+    name: RcsModelOverview
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+    name: RcsProjectData
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo
+    name: RcsProjectInfo
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsReinforcedCrossSectionModel
+    name: RcsReinforcedCrossSectionModel
 - uid: IdeaStatiCa.Plugin.Grpc
   name: IdeaStatiCa.Plugin.Grpc
   items:

@@ -24,11 +24,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SteelSetupRUS
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 5
+    startLine: 7
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -62,11 +62,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Structural_Fi
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 10
+    startLine: 12
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -93,11 +93,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bolt_Fib
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 15
+    startLine: 17
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -124,11 +124,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Bolt_Fip
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 20
+    startLine: 22
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -155,11 +155,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Weld_Fiw
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 25
+    startLine: 27
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -186,11 +186,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Anchor_Fiar
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 30
+    startLine: 32
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -217,11 +217,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrtBearing
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 35
+    startLine: 37
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -248,23 +248,35 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WeldingTypeSNIP
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 40
+    startLine: 42
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
   summary: WeldingType
   example: []
   syntax:
-    content: public WeldingTypeSNIP WeldingTypeSNIP { get; set; }
+    content: >-
+      [Obsolete("Moved to the welding electrodes properties")]
+
+      public WeldingTypeSNIP WeldingTypeSNIP { get; set; }
     parameters: []
     return:
       type: IdeaRS.OpenModel.WeldingTypeSNIP
-    content.vb: Public Property WeldingTypeSNIP As WeldingTypeSNIP
+    content.vb: >-
+      <Obsolete("Moved to the welding electrodes properties")>
+
+      Public Property WeldingTypeSNIP As WeldingTypeSNIP
   overload: IdeaRS.OpenModel.SteelSetupRUS.WeldingTypeSNIP*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Moved to the welding electrodes properties
 - uid: IdeaRS.OpenModel.SteelSetupRUS.PreloadedBoltsLoadType
   commentId: P:IdeaRS.OpenModel.SteelSetupRUS.PreloadedBoltsLoadType
   id: PreloadedBoltsLoadType
@@ -279,11 +291,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PreloadedBoltsLoadType
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 45
+    startLine: 48
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -310,11 +322,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FrictionCoefficientPboltDefault
     path: ../src/IdeaRS.OpenModel/Setups/SteelSetupRUS.cs
-    startLine: 50
+    startLine: 53
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel

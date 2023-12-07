@@ -84,6 +84,7 @@ references:
   fullName: IdeaStatiCa.BimApiLink.Plugin.ICadModel
 - uid: IdeaStatiCa.BimApiLink.Plugin.IFeaModel
   commentId: T:IdeaStatiCa.BimApiLink.Plugin.IFeaModel
+  parent: IdeaStatiCa.BimApiLink.Plugin
   href: IdeaStatiCa.BimApiLink.Plugin.IFeaModel.html
   name: IFeaModel
   nameWithType: IFeaModel

@@ -1,0 +1,909 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  commentId: T:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  id: IRcsApiController
+  parent: IdeaStatiCa.Plugin.Api.Rcs
+  children:
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download(System.Guid,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview(System.Guid,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject(IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel(IdeaRS.OpenModel.OpenModel,System.Threading.CancellationToken)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters)
+  langs:
+  - csharp
+  - vb
+  name: IRcsApiController
+  nameWithType: IRcsApiController
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IRcsApiController
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: 'public interface IRcsApiController : IDisposable'
+    content.vb: Public Interface IRcsApiController Inherits IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject(IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject(IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo,System.Threading.CancellationToken)
+  id: OpenProject(IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: OpenProject(RcsProjectInfo, CancellationToken)
+  nameWithType: IRcsApiController.OpenProject(RcsProjectInfo, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject(IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenProject
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 22
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: Open project
+  example: []
+  syntax:
+    content: Guid OpenProject(RcsProjectInfo project, CancellationToken token)
+    parameters:
+    - id: project
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo
+      description: Project information
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: System.Guid
+      description: ''
+    content.vb: Function OpenProject(project As RcsProjectInfo, token As CancellationToken) As Guid
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel(IdeaRS.OpenModel.OpenModel,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel(IdeaRS.OpenModel.OpenModel,System.Threading.CancellationToken)
+  id: OpenProjectFromModel(IdeaRS.OpenModel.OpenModel,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: OpenProjectFromModel(OpenModel, CancellationToken)
+  nameWithType: IRcsApiController.OpenProjectFromModel(OpenModel, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel(IdeaRS.OpenModel.OpenModel, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenProjectFromModel
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 30
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: Open project from Open Model
+  example: []
+  syntax:
+    content: Guid OpenProjectFromModel(OpenModel model, CancellationToken token)
+    parameters:
+    - id: model
+      type: IdeaRS.OpenModel.OpenModel
+      description: Project in open model format
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: System.Guid
+      description: ''
+    content.vb: Function OpenProjectFromModel(model As OpenModel, token As CancellationToken) As Guid
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  id: CalculateProjectAsync(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: CalculateProjectAsync(Guid, RcsCalculationParameters, CancellationToken)
+  nameWithType: IRcsApiController.CalculateProjectAsync(Guid, RcsCalculationParameters, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync(System.Guid, IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CalculateProjectAsync
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 41
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: >-
+    Calculates RCS project for given project id
+
+    When no sections are specified, everything is calculated
+
+    When no non-conformities are specified, nothing is returned
+  example: []
+  syntax:
+    content: Task<ProjectResult> CalculateProjectAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+    parameters:
+    - id: projectId
+      type: System.Guid
+      description: Id of the project
+    - id: parameters
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+      description: Parameters to specify sections and nonconformities
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult}
+      description: ''
+    content.vb: Function CalculateProjectAsync(projectId As Guid, parameters As RcsCalculationParameters, token As CancellationToken) As Task(Of ProjectResult)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview(System.Guid,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview(System.Guid,System.Threading.CancellationToken)
+  id: GetProjectOverview(System.Guid,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: GetProjectOverview(Guid, CancellationToken)
+  nameWithType: IRcsApiController.GetProjectOverview(Guid, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview(System.Guid, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetProjectOverview
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 49
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: Get information about Project
+  example: []
+  syntax:
+    content: RcsModelOverview GetProjectOverview(Guid projectId, CancellationToken token)
+    parameters:
+    - id: projectId
+      type: System.Guid
+      description: Id of the project
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+      description: ''
+    content.vb: Function GetProjectOverview(projectId As Guid, token As CancellationToken) As RcsModelOverview
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download(System.Guid,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download(System.Guid,System.Threading.CancellationToken)
+  id: Download(System.Guid,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: Download(Guid, CancellationToken)
+  nameWithType: IRcsApiController.Download(Guid, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download(System.Guid, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Download
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 57
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: Return open project as file stream (*.idearcs)
+  example: []
+  syntax:
+    content: MemoryStream Download(Guid projectId, CancellationToken token)
+    parameters:
+    - id: projectId
+      type: System.Guid
+      description: Id of the project
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: System.IO.MemoryStream
+      description: ''
+    content.vb: Function Download(projectId As Guid, token As CancellationToken) As MemoryStream
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters)
+  id: SectionDetails(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: SectionDetails(Guid, RcsCalculationParameters)
+  nameWithType: IRcsApiController.SectionDetails(Guid, RcsCalculationParameters)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails(System.Guid, IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SectionDetails
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 66
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: >-
+    Return collection of section details of opened project
+
+    When no sections are specified, nothing is returned
+  example: []
+  syntax:
+    content: IEnumerable<RcsCrossSectionDetailModel> SectionDetails(Guid projectId, RcsCalculationParameters parameters)
+    parameters:
+    - id: projectId
+      type: System.Guid
+      description: Id of the project
+    - id: parameters
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+      description: Parameters to specify the sections
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel}
+      description: ''
+    content.vb: Function SectionDetails(projectId As Guid, parameters As RcsCalculationParameters) As IEnumerable(Of RcsCrossSectionDetailModel)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  id: GetResultOnSections(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: GetResultOnSections(Guid, RcsCalculationParameters, CancellationToken)
+  nameWithType: IRcsApiController.GetResultOnSections(Guid, RcsCalculationParameters, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections(System.Guid, IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetResultOnSections
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 77
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: Return calculated sections for given project input
+  example: []
+  syntax:
+    content: IEnumerable<SectionConcreteCheckResult> GetResultOnSections(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+    parameters:
+    - id: projectId
+      type: System.Guid
+      description: Id of the project
+    - id: parameters
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+      description: Parameters to specify the sections
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult}
+      description: ''
+    content.vb: Function GetResultOnSections(projectId As Guid, parameters As RcsCalculationParameters, token As CancellationToken) As IEnumerable(Of SectionConcreteCheckResult)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  id: GetNonConformityIssues(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController
+  langs:
+  - csharp
+  - vb
+  name: GetNonConformityIssues(Guid, RcsCalculationParameters, CancellationToken)
+  nameWithType: IRcsApiController.GetNonConformityIssues(Guid, RcsCalculationParameters, CancellationToken)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues(System.Guid, IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters, System.Threading.CancellationToken)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetNonConformityIssues
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsApiController.cs
+    startLine: 86
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  summary: Returns nonconformity issues for specified GUID values
+  example: []
+  syntax:
+    content: IEnumerable<NonConformityIssue> GetNonConformityIssues(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+    parameters:
+    - id: projectId
+      type: System.Guid
+      description: Id of the project
+    - id: parameters
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+      description: Parameters to specify the sections
+    - id: token
+      type: System.Threading.CancellationToken
+      description: Cancellation token
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Message.NonConformityIssue}
+      description: ''
+    content.vb: Function GetNonConformityIssues(projectId As Guid, parameters As RcsCalculationParameters, token As CancellationToken) As IEnumerable(Of NonConformityIssue)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues*
+references:
+- uid: IdeaStatiCa.Plugin.Api.Rcs
+  commentId: N:IdeaStatiCa.Plugin.Api.Rcs
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Api.Rcs
+  nameWithType: IdeaStatiCa.Plugin.Api.Rcs
+  fullName: IdeaStatiCa.Plugin.Api.Rcs
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.Rcs
+    name: Rcs
+    href: IdeaStatiCa.Plugin.Api.Rcs.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.Rcs
+    name: Rcs
+    href: IdeaStatiCa.Plugin.Api.Rcs.html
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject(IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo,System.Threading.CancellationToken)
+  name: OpenProject
+  nameWithType: IRcsApiController.OpenProject
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProject
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo.html
+  name: RcsProjectInfo
+  nameWithType: RcsProjectInfo
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectInfo
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Guid
+  commentId: T:System.Guid
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid
+  nameWithType: Guid
+  fullName: System.Guid
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model
+  commentId: N:IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Api.RCS.Model
+  nameWithType: IdeaStatiCa.Plugin.Api.RCS.Model
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel(IdeaRS.OpenModel.OpenModel,System.Threading.CancellationToken)
+  name: OpenProjectFromModel
+  nameWithType: IRcsApiController.OpenProjectFromModel
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.OpenProjectFromModel
+- uid: IdeaRS.OpenModel.OpenModel
+  commentId: T:IdeaRS.OpenModel.OpenModel
+  parent: IdeaRS.OpenModel
+  name: OpenModel
+  nameWithType: OpenModel
+  fullName: IdeaRS.OpenModel.OpenModel
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  name: CalculateProjectAsync
+  nameWithType: IRcsApiController.CalculateProjectAsync
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.CalculateProjectAsync
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters.html
+  name: RcsCalculationParameters
+  nameWithType: RcsCalculationParameters
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters
+- uid: System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult}
+  commentId: T:System.Threading.Tasks.Task{IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<ProjectResult>
+  nameWithType: Task<ProjectResult>
+  fullName: System.Threading.Tasks.Task<IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult>
+  nameWithType.vb: Task(Of ProjectResult)
+  fullName.vb: System.Threading.Tasks.Task(Of IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult)
+  name.vb: Task(Of ProjectResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult
+    name: ProjectResult
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult
+    name: ProjectResult
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.ProjectResult.html
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview(System.Guid,System.Threading.CancellationToken)
+  name: GetProjectOverview
+  nameWithType: IRcsApiController.GetProjectOverview
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetProjectOverview
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview.html
+  name: RcsModelOverview
+  nameWithType: RcsModelOverview
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download(System.Guid,System.Threading.CancellationToken)
+  name: Download
+  nameWithType: IRcsApiController.Download
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.Download
+- uid: System.IO.MemoryStream
+  commentId: T:System.IO.MemoryStream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.memorystream
+  name: MemoryStream
+  nameWithType: MemoryStream
+  fullName: System.IO.MemoryStream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters)
+  name: SectionDetails
+  nameWithType: IRcsApiController.SectionDetails
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.SectionDetails
+- uid: System.Collections.Generic.IEnumerable{IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<RcsCrossSectionDetailModel>
+  nameWithType: IEnumerable<RcsCrossSectionDetailModel>
+  fullName: System.Collections.Generic.IEnumerable<IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel>
+  nameWithType.vb: IEnumerable(Of RcsCrossSectionDetailModel)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel)
+  name.vb: IEnumerable(Of RcsCrossSectionDetailModel)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+    name: RcsCrossSectionDetailModel
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+    name: RcsCrossSectionDetailModel
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  name: GetResultOnSections
+  nameWithType: IRcsApiController.GetResultOnSections
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetResultOnSections
+- uid: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<SectionConcreteCheckResult>
+  nameWithType: IEnumerable<SectionConcreteCheckResult>
+  fullName: System.Collections.Generic.IEnumerable<IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult>
+  nameWithType.vb: IEnumerable(Of SectionConcreteCheckResult)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult)
+  name.vb: IEnumerable(Of SectionConcreteCheckResult)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult
+    name: SectionConcreteCheckResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult
+    name: SectionConcreteCheckResult
+  - name: )
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues(System.Guid,IdeaStatiCa.Plugin.Api.RCS.Model.RcsCalculationParameters,System.Threading.CancellationToken)
+  name: GetNonConformityIssues
+  nameWithType: IRcsApiController.GetNonConformityIssues
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsApiController.GetNonConformityIssues
+- uid: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Message.NonConformityIssue}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Message.NonConformityIssue}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<NonConformityIssue>
+  nameWithType: IEnumerable<NonConformityIssue>
+  fullName: System.Collections.Generic.IEnumerable<IdeaRS.OpenModel.Message.NonConformityIssue>
+  nameWithType.vb: IEnumerable(Of NonConformityIssue)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaRS.OpenModel.Message.NonConformityIssue)
+  name.vb: IEnumerable(Of NonConformityIssue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Message.NonConformityIssue
+    name: NonConformityIssue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Message.NonConformityIssue
+    name: NonConformityIssue
+  - name: )

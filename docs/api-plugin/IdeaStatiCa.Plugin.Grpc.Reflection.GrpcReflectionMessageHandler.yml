@@ -19,11 +19,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcReflectionMessageHandler
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-    startLine: 10
+    startLine: 12
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection
@@ -59,11 +59,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsSynchronous
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-    startLine: 14
+    startLine: 22
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection
@@ -88,11 +88,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-    startLine: 21
+    startLine: 30
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection
@@ -125,11 +125,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleServerMessage
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-    startLine: 32
+    startLine: 41
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection
@@ -165,11 +165,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HandleClientMessage
     path: ../src/IdeaStatiCa.Plugin/Grpc/Reflection/GrpcReflectionMessageHandler.cs
-    startLine: 82
+    startLine: 93
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin.Grpc.Reflection

@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialStrengthProperty.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MaterialStrengthProperty
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialStrengthProperty.cs
@@ -66,7 +66,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/Material/MaterialStrengthProperty.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: List
     path: ../src/IdeaRS.OpenModel/Libraries/Material/MaterialStrengthProperty.cs

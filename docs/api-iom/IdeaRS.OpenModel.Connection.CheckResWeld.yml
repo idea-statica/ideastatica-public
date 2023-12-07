@@ -21,11 +21,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckResWeld
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 306
+    startLine: 305
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -75,11 +75,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Name
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 314
+    startLine: 313
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -116,11 +116,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Id
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 320
+    startLine: 319
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -157,11 +157,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UnityCheck
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 326
+    startLine: 325
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -198,11 +198,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckStatus
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 332
+    startLine: 331
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -239,11 +239,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadCaseId
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 338
+    startLine: 337
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection
@@ -280,11 +280,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Items
     path: ../src/IdeaRS.OpenModel/Connection/ConnectedCheckResults.cs
-    startLine: 344
+    startLine: 343
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.Connection

@@ -1,0 +1,896 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  commentId: T:IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  id: IRcsController
+  parent: IdeaStatiCa.Plugin.Api.Rcs
+  children:
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate(System.Collections.Generic.IEnumerable{System.Int32})
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel(System.Int32)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues(System.Threading.CancellationToken,System.Guid[])
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections(System.Threading.CancellationToken,System.Int32[])
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject(System.String)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(IdeaRS.OpenModel.OpenModel,System.String,IdeaRS.OpenModel.Message.OpenMessages@)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(System.String,System.String,System.String)
+  - IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile(System.String)
+  langs:
+  - csharp
+  - vb
+  name: IRcsController
+  nameWithType: IRcsController
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  type: Interface
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: IRcsController
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: 'public interface IRcsController : IDisposable'
+    content.vb: Public Interface IRcsController Inherits IDisposable
+  inheritedMembers:
+  - System.IDisposable.Dispose
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject(System.String)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject(System.String)
+  id: OpenIdeaProject(System.String)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: OpenIdeaProject(string)
+  nameWithType: IRcsController.OpenIdeaProject(string)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenIdeaProject
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: bool OpenIdeaProject(string ideaProjectPath)
+    parameters:
+    - id: ideaProjectPath
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Function OpenIdeaProject(ideaProjectPath As String) As Boolean
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject*
+  nameWithType.vb: IRcsController.OpenIdeaProject(String)
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject(String)
+  name.vb: OpenIdeaProject(String)
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(System.String,System.String,System.String)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(System.String,System.String,System.String)
+  id: OpenIdeaProjectFromIdeaOpenModel(System.String,System.String,System.String)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: OpenIdeaProjectFromIdeaOpenModel(string, string, string)
+  nameWithType: IRcsController.OpenIdeaProjectFromIdeaOpenModel(string, string, string)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenIdeaProjectFromIdeaOpenModel
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: bool OpenIdeaProjectFromIdeaOpenModel(string ideaOpenModelProjectPath, string projectName, string ideaOpenMessagesPath)
+    parameters:
+    - id: ideaOpenModelProjectPath
+      type: System.String
+    - id: projectName
+      type: System.String
+    - id: ideaOpenMessagesPath
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Function OpenIdeaProjectFromIdeaOpenModel(ideaOpenModelProjectPath As String, projectName As String, ideaOpenMessagesPath As String) As Boolean
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel*
+  nameWithType.vb: IRcsController.OpenIdeaProjectFromIdeaOpenModel(String, String, String)
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(String, String, String)
+  name.vb: OpenIdeaProjectFromIdeaOpenModel(String, String, String)
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(IdeaRS.OpenModel.OpenModel,System.String,IdeaRS.OpenModel.Message.OpenMessages@)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(IdeaRS.OpenModel.OpenModel,System.String,IdeaRS.OpenModel.Message.OpenMessages@)
+  id: OpenIdeaProjectFromIdeaOpenModel(IdeaRS.OpenModel.OpenModel,System.String,IdeaRS.OpenModel.Message.OpenMessages@)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: OpenIdeaProjectFromIdeaOpenModel(OpenModel, string, out OpenMessages)
+  nameWithType: IRcsController.OpenIdeaProjectFromIdeaOpenModel(OpenModel, string, out OpenMessages)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(IdeaRS.OpenModel.OpenModel, string, out IdeaRS.OpenModel.Message.OpenMessages)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: OpenIdeaProjectFromIdeaOpenModel
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: bool OpenIdeaProjectFromIdeaOpenModel(OpenModel ideaOpenModel, string projectName, out OpenMessages messages)
+    parameters:
+    - id: ideaOpenModel
+      type: IdeaRS.OpenModel.OpenModel
+    - id: projectName
+      type: System.String
+    - id: messages
+      type: IdeaRS.OpenModel.Message.OpenMessages
+    return:
+      type: System.Boolean
+    content.vb: Function OpenIdeaProjectFromIdeaOpenModel(ideaOpenModel As OpenModel, projectName As String, messages As OpenMessages) As Boolean
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel*
+  nameWithType.vb: IRcsController.OpenIdeaProjectFromIdeaOpenModel(OpenModel, String, OpenMessages)
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(IdeaRS.OpenModel.OpenModel, String, IdeaRS.OpenModel.Message.OpenMessages)
+  name.vb: OpenIdeaProjectFromIdeaOpenModel(OpenModel, String, OpenMessages)
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections
+  id: GetProjectSections
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: GetProjectSections()
+  nameWithType: IRcsController.GetProjectSections()
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetProjectSections
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 16
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: int[] GetProjectSections()
+    return:
+      type: System.Int32[]
+    content.vb: Function GetProjectSections() As Integer()
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview
+  id: GetProjectOverview
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: GetProjectOverview()
+  nameWithType: IRcsController.GetProjectOverview()
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview()
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetProjectOverview
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 17
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: RcsModelOverview GetProjectOverview()
+    return:
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+    content.vb: Function GetProjectOverview() As RcsModelOverview
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview*
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel(System.Int32)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel(System.Int32)
+  id: GetCrossSectionModel(System.Int32)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: GetCrossSectionModel(int)
+  nameWithType: IRcsController.GetCrossSectionModel(int)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel(int)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetCrossSectionModel
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 18
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: RcsCrossSectionDetailModel GetCrossSectionModel(int sectionId)
+    parameters:
+    - id: sectionId
+      type: System.Int32
+    return:
+      type: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+    content.vb: Function GetCrossSectionModel(sectionId As Integer) As RcsCrossSectionDetailModel
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel*
+  nameWithType.vb: IRcsController.GetCrossSectionModel(Integer)
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel(Integer)
+  name.vb: GetCrossSectionModel(Integer)
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile(System.String)
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile(System.String)
+  id: SaveAsIdeaProjectFile(System.String)
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: SaveAsIdeaProjectFile(string)
+  nameWithType: IRcsController.SaveAsIdeaProjectFile(string)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile(string)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: SaveAsIdeaProjectFile
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 21
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: void SaveAsIdeaProjectFile(string ideaProjectPath)
+    parameters:
+    - id: ideaProjectPath
+      type: System.String
+    content.vb: Sub SaveAsIdeaProjectFile(ideaProjectPath As String)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile*
+  nameWithType.vb: IRcsController.SaveAsIdeaProjectFile(String)
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile(String)
+  name.vb: SaveAsIdeaProjectFile(String)
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate(System.Collections.Generic.IEnumerable{System.Int32})
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate(System.Collections.Generic.IEnumerable{System.Int32})
+  id: Calculate(System.Collections.Generic.IEnumerable{System.Int32})
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: Calculate(IEnumerable<int>)
+  nameWithType: IRcsController.Calculate(IEnumerable<int>)
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate(System.Collections.Generic.IEnumerable<int>)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Calculate
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 23
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: bool Calculate(IEnumerable<int> sections)
+    parameters:
+    - id: sections
+      type: System.Collections.Generic.IEnumerable{System.Int32}
+    return:
+      type: System.Boolean
+    content.vb: Function Calculate(sections As IEnumerable(Of Integer)) As Boolean
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate*
+  nameWithType.vb: IRcsController.Calculate(IEnumerable(Of Integer))
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate(System.Collections.Generic.IEnumerable(Of Integer))
+  name.vb: Calculate(IEnumerable(Of Integer))
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections(System.Threading.CancellationToken,System.Int32[])
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections(System.Threading.CancellationToken,System.Int32[])
+  id: GetResultOnSections(System.Threading.CancellationToken,System.Int32[])
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: GetResultOnSections(CancellationToken, params int[])
+  nameWithType: IRcsController.GetResultOnSections(CancellationToken, params int[])
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections(System.Threading.CancellationToken, params int[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetResultOnSections
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 24
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: IEnumerable<SectionConcreteCheckResult> GetResultOnSections(CancellationToken cancellationToken, params int[] sections)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    - id: sections
+      type: System.Int32[]
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult}
+    content.vb: Function GetResultOnSections(cancellationToken As CancellationToken, ParamArray sections As Integer()) As IEnumerable(Of SectionConcreteCheckResult)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections*
+  nameWithType.vb: IRcsController.GetResultOnSections(CancellationToken, ParamArray Integer())
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections(System.Threading.CancellationToken, ParamArray Integer())
+  name.vb: GetResultOnSections(CancellationToken, ParamArray Integer())
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues(System.Threading.CancellationToken,System.Guid[])
+  commentId: M:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues(System.Threading.CancellationToken,System.Guid[])
+  id: GetNonConformityIssues(System.Threading.CancellationToken,System.Guid[])
+  parent: IdeaStatiCa.Plugin.Api.Rcs.IRcsController
+  langs:
+  - csharp
+  - vb
+  name: GetNonConformityIssues(CancellationToken, params Guid[])
+  nameWithType: IRcsController.GetNonConformityIssues(CancellationToken, params Guid[])
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues(System.Threading.CancellationToken, params System.Guid[])
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GetNonConformityIssues
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/IRcsController.cs
+    startLine: 25
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.Rcs
+  syntax:
+    content: IEnumerable<NonConformityIssue> GetNonConformityIssues(CancellationToken cancellationToken, params Guid[] issues)
+    parameters:
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+    - id: issues
+      type: System.Guid[]
+    return:
+      type: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Message.NonConformityIssue}
+    content.vb: Function GetNonConformityIssues(cancellationToken As CancellationToken, ParamArray issues As Guid()) As IEnumerable(Of NonConformityIssue)
+  overload: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues*
+  nameWithType.vb: IRcsController.GetNonConformityIssues(CancellationToken, ParamArray Guid())
+  fullName.vb: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues(System.Threading.CancellationToken, ParamArray System.Guid())
+  name.vb: GetNonConformityIssues(CancellationToken, ParamArray Guid())
+references:
+- uid: IdeaStatiCa.Plugin.Api.Rcs
+  commentId: N:IdeaStatiCa.Plugin.Api.Rcs
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Api.Rcs
+  nameWithType: IdeaStatiCa.Plugin.Api.Rcs
+  fullName: IdeaStatiCa.Plugin.Api.Rcs
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.Rcs
+    name: Rcs
+    href: IdeaStatiCa.Plugin.Api.Rcs.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.Rcs
+    name: Rcs
+    href: IdeaStatiCa.Plugin.Api.Rcs.html
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject(System.String)
+  name: OpenIdeaProject
+  nameWithType: IRcsController.OpenIdeaProject
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProject
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel(System.String,System.String,System.String)
+  name: OpenIdeaProjectFromIdeaOpenModel
+  nameWithType: IRcsController.OpenIdeaProjectFromIdeaOpenModel
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.OpenIdeaProjectFromIdeaOpenModel
+- uid: IdeaRS.OpenModel.OpenModel
+  commentId: T:IdeaRS.OpenModel.OpenModel
+  parent: IdeaRS.OpenModel
+  name: OpenModel
+  nameWithType: OpenModel
+  fullName: IdeaRS.OpenModel.OpenModel
+- uid: IdeaRS.OpenModel.Message.OpenMessages
+  commentId: T:IdeaRS.OpenModel.Message.OpenMessages
+  parent: IdeaRS.OpenModel.Message
+  name: OpenMessages
+  nameWithType: OpenMessages
+  fullName: IdeaRS.OpenModel.Message.OpenMessages
+- uid: IdeaRS.OpenModel
+  commentId: N:IdeaRS.OpenModel
+  name: IdeaRS.OpenModel
+  nameWithType: IdeaRS.OpenModel
+  fullName: IdeaRS.OpenModel
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+- uid: IdeaRS.OpenModel.Message
+  commentId: N:IdeaRS.OpenModel.Message
+  name: IdeaRS.OpenModel.Message
+  nameWithType: IdeaRS.OpenModel.Message
+  fullName: IdeaRS.OpenModel.Message
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+  - name: .
+  - uid: IdeaRS.OpenModel.Message
+    name: Message
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections
+  name: GetProjectSections
+  nameWithType: IRcsController.GetProjectSections
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectSections
+- uid: System.Int32[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int[]
+  nameWithType: int[]
+  fullName: int[]
+  nameWithType.vb: Integer()
+  fullName.vb: Integer()
+  name.vb: Integer()
+  spec.csharp:
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview
+  name: GetProjectOverview
+  nameWithType: IRcsController.GetProjectOverview
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetProjectOverview
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview.html
+  name: RcsModelOverview
+  nameWithType: RcsModelOverview
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsModelOverview
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model
+  commentId: N:IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Api.RCS.Model
+  nameWithType: IdeaStatiCa.Plugin.Api.RCS.Model
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel(System.Int32)
+  name: GetCrossSectionModel
+  nameWithType: IRcsController.GetCrossSectionModel
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetCrossSectionModel
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel.html
+  name: RcsCrossSectionDetailModel
+  nameWithType: RcsCrossSectionDetailModel
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionDetailModel
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile(System.String)
+  name: SaveAsIdeaProjectFile
+  nameWithType: IRcsController.SaveAsIdeaProjectFile
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.SaveAsIdeaProjectFile
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate(System.Collections.Generic.IEnumerable{System.Int32})
+  name: Calculate
+  nameWithType: IRcsController.Calculate
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.Calculate
+- uid: System.Collections.Generic.IEnumerable{System.Int32}
+  commentId: T:System.Collections.Generic.IEnumerable{System.Int32}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<int>
+  nameWithType: IEnumerable<int>
+  fullName: System.Collections.Generic.IEnumerable<int>
+  nameWithType.vb: IEnumerable(Of Integer)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Integer)
+  name.vb: IEnumerable(Of Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections(System.Threading.CancellationToken,System.Int32[])
+  name: GetResultOnSections
+  nameWithType: IRcsController.GetResultOnSections
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetResultOnSections
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<SectionConcreteCheckResult>
+  nameWithType: IEnumerable<SectionConcreteCheckResult>
+  fullName: System.Collections.Generic.IEnumerable<IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult>
+  nameWithType.vb: IEnumerable(Of SectionConcreteCheckResult)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult)
+  name.vb: IEnumerable(Of SectionConcreteCheckResult)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult
+    name: SectionConcreteCheckResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Concrete.CheckResult.SectionConcreteCheckResult
+    name: SectionConcreteCheckResult
+  - name: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues
+  href: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.html#IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues(System.Threading.CancellationToken,System.Guid[])
+  name: GetNonConformityIssues
+  nameWithType: IRcsController.GetNonConformityIssues
+  fullName: IdeaStatiCa.Plugin.Api.Rcs.IRcsController.GetNonConformityIssues
+- uid: System.Guid[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.guid
+  name: Guid[]
+  nameWithType: Guid[]
+  fullName: System.Guid[]
+  nameWithType.vb: Guid()
+  fullName.vb: System.Guid()
+  name.vb: Guid()
+  spec.csharp:
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Guid
+    name: Guid
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.guid
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Message.NonConformityIssue}
+  commentId: T:System.Collections.Generic.IEnumerable{IdeaRS.OpenModel.Message.NonConformityIssue}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<NonConformityIssue>
+  nameWithType: IEnumerable<NonConformityIssue>
+  fullName: System.Collections.Generic.IEnumerable<IdeaRS.OpenModel.Message.NonConformityIssue>
+  nameWithType.vb: IEnumerable(Of NonConformityIssue)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of IdeaRS.OpenModel.Message.NonConformityIssue)
+  name.vb: IEnumerable(Of NonConformityIssue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Message.NonConformityIssue
+    name: NonConformityIssue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Message.NonConformityIssue
+    name: NonConformityIssue
+  - name: )

@@ -16,7 +16,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IConnCalculatorFactory
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
@@ -41,7 +41,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/ConnHiddenClientFactory.cs

@@ -1,0 +1,679 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  id: RcsProjectData
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  children:
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+  langs:
+  - csharp
+  - vb
+  name: RcsProjectData
+  nameWithType: RcsProjectData
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RcsProjectData
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public class RcsProjectData
+    content.vb: Public Class RcsProjectData
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+  id: ProjectName
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: ProjectName
+  nameWithType: RcsProjectData.ProjectName
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProjectName
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string ProjectName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ProjectName As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+  id: DateOfCreate
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: DateOfCreate
+  nameWithType: RcsProjectData.DateOfCreate
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: DateOfCreate
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public DateTime DateOfCreate { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property DateOfCreate As Date
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+  id: Description
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: Description
+  nameWithType: RcsProjectData.Description
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Description
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 8
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string Description { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Description As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+  id: Author
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: Author
+  nameWithType: RcsProjectData.Author
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Author
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 9
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string Author { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Author As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+  id: Code
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: Code
+  nameWithType: RcsProjectData.Code
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Code
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 10
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string Code { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Code As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+  id: ProjectNo
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: ProjectNo
+  nameWithType: RcsProjectData.ProjectNo
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: ProjectNo
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 11
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string ProjectNo { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ProjectNo As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+  id: TypeBridge
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: TypeBridge
+  nameWithType: RcsProjectData.TypeBridge
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeBridge
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 12
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string TypeBridge { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TypeBridge As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+  id: TypeOfStructure
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: TypeOfStructure
+  nameWithType: RcsProjectData.TypeOfStructure
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: TypeOfStructure
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 13
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string TypeOfStructure { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TypeOfStructure As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+  id: FireResistanceCheck
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData
+  langs:
+  - csharp
+  - vb
+  name: FireResistanceCheck
+  nameWithType: RcsProjectData.FireResistanceCheck
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FireResistanceCheck
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsProjectData.cs
+    startLine: 14
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public bool FireResistanceCheck { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property FireResistanceCheck As Boolean
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck*
+references:
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model
+  commentId: N:IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Api.RCS.Model
+  nameWithType: IdeaStatiCa.Plugin.Api.RCS.Model
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+  name: ProjectName
+  nameWithType: RcsProjectData.ProjectName
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+  name: DateOfCreate
+  nameWithType: RcsProjectData.DateOfCreate
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.DateOfCreate
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+  name: Description
+  nameWithType: RcsProjectData.Description
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Description
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+  name: Author
+  nameWithType: RcsProjectData.Author
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Author
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+  name: Code
+  nameWithType: RcsProjectData.Code
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.Code
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+  name: ProjectNo
+  nameWithType: RcsProjectData.ProjectNo
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.ProjectNo
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+  name: TypeBridge
+  nameWithType: RcsProjectData.TypeBridge
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeBridge
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+  name: TypeOfStructure
+  nameWithType: RcsProjectData.TypeOfStructure
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.TypeOfStructure
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+  name: FireResistanceCheck
+  nameWithType: RcsProjectData.FireResistanceCheck
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsProjectData.FireResistanceCheck
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

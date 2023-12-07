@@ -31,7 +31,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DoubleExtensions
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -67,7 +67,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PrecentageToRadians
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -102,7 +102,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MetersToMilimeters
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MilimetersToMeters
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -172,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InchesToMeters
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -207,7 +207,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MetersToInches
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -242,7 +242,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: KipsToNewtons
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: KipsToMPascal
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -312,7 +312,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: KipsToKgPerCm2
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -347,7 +347,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DegreesToRadians
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -382,7 +382,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RadiansToDegrees
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -417,7 +417,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsGreater
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -462,7 +462,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsGreaterOrEqual
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -507,7 +507,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsLesser
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -552,7 +552,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsLesserOrEqual
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -597,7 +597,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsZero
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
@@ -639,7 +639,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsEqual
     path: ../src/IdeaStatica.BimApiLink/Utils/DoubleExtensions.cs

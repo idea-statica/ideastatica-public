@@ -17,7 +17,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReportResponse
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -64,7 +64,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Port
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReportId
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs

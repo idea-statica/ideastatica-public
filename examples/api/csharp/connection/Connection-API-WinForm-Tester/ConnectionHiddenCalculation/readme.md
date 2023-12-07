@@ -2,12 +2,12 @@
 
 It is more complex example which presents more features which are provided by IDEA StaiCa API. To be able to run this example set the path to Idea StatiCa directory in the project settings.
 
-![ConnectionHiddenCalculation](../../../../Images/conn-hidden-calculation.PNG?raw=true)
+![ConnectionHiddenCalculation](images/conn-hidden-calculation.PNG?raw=true)
 
 Communication of a 3rd party application (the example ConnectionHiddenCalculation in this case) with ConnectionCalcService which runs in a another process.
-![ConnectionHiddenCalculation](https://github.com/idea-statica/ideastatica-plugin/blob/master/Images/ConnectionHiddenCalculation.svg?raw=true)
+![ConnectionHiddenCalculation](images/ConnectionHiddenCalculation.svg?raw=true)
 
-In the project [IdeaStatiCa.ConnectionClient](https://github.com/idea-statica/iom-examples/tree/master/ConnCalcExamples/IdeaStatiCa.ConnectionClient) there are commands which control [ConnHiddenCheck Service](https://github.com/idea-statica/ideastatica-plugin/blob/master/IdeaStatiCa.Plugin/IConnHiddenCheck.cs). These commands show how to  :
+In the project [IdeaStatiCa.ConnectionClient](https://github.com/idea-statica/ideastatica-public/tree/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/IdeaStatiCa.ConnectionClient) there are commands which control @"IdeaStatiCa.Plugin.IConnHiddenCheck" Service. These commands show how to  :
 
 * [Open IDEA Connection project](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/OpenProjectCommand.cs)
 * [Import IDEA Connection from IOM](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ImportIOMCommand.cs)
@@ -32,7 +32,7 @@ There are new methods for getting information about materials, cross-sections an
 
 The method *ApplyTemplate* has the new parameter *connTemplateSetting*. It defines materials which are used when template is applied. 
 
-![Get materials from project](../../../../Images/hidden-check-get_material.png?raw=true)
+![Get materials from project](images/hidden-check-get_material.png?raw=true)
 
 The examples of using these new *IConnHiddenCheck* methods can be found in examples :
 
@@ -45,7 +45,7 @@ The examples of using these new *IConnHiddenCheck* methods can be found in examp
 
 API users can apply simple template to a connection.
 
-![ConnectionHiddenCalculation](../../../../Images/apply-simple-template.PNG?raw=true)
+![ConnectionHiddenCalculation](images/apply-simple-template.PNG?raw=true)
 
 There is the example how to call the service in the command : [Apply Simple template](../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplySimpleTemplateCommands.cs)
 

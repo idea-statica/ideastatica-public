@@ -28,6 +28,7 @@ items:
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblLu(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Boolean,System.Boolean)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblLu(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean,System.Boolean)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblLu(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double,System.Boolean,System.Boolean)
+  - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUo(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUo(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
@@ -49,6 +50,7 @@ items:
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledCHS(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Boolean)
+  - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String)
   - IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledRHS(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)
@@ -93,7 +95,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionFactory
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -130,7 +132,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZ
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -179,7 +181,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedC
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -231,7 +233,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -280,7 +282,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZed
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -332,7 +334,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedOmega
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -384,7 +386,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedL
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -435,7 +437,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedLgen
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -489,7 +491,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedRegularPolygon
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -536,7 +538,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedSigma
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -597,7 +599,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedRHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -644,7 +646,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedGeneral
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -688,7 +690,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedCp
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.ColdFormed.cs
@@ -746,7 +748,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeIBase
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -805,7 +807,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -858,7 +860,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeL
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -905,7 +907,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -952,7 +954,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTwh
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1002,7 +1004,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1052,7 +1054,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTrev
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1099,7 +1101,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTrev1
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1149,7 +1151,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeTrapezoid1
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1193,7 +1195,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeU
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1246,7 +1248,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssRectangleHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1299,7 +1301,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillOHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Concrete.cs
@@ -1340,7 +1342,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillLibraryShape
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1374,7 +1376,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRectangle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1415,7 +1417,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCircle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1453,7 +1455,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillGeneralShape
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.cs
@@ -1506,7 +1508,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssIarc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1564,7 +1566,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1622,7 +1624,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelAngle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1680,7 +1682,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCHSPar
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1728,7 +1730,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelCircularHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1776,7 +1778,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssSteelRectangularHollow
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1832,7 +1834,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillSteelTube
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1880,7 +1882,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCssTarc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1944,7 +1946,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillSteelTI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -1994,7 +1996,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedU
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2054,7 +2056,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeDblU
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2112,7 +2114,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWelded2Uc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2160,7 +2162,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWelded2Lt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2212,7 +2214,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWelded2Lu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2264,7 +2266,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeDblL
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2322,7 +2324,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillShapeDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2380,7 +2382,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBox2
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2438,7 +2440,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBoxWeb
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2498,7 +2500,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBoxWeb
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2564,7 +2566,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillTriangle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2620,7 +2622,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2678,7 +2680,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2736,7 +2738,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUo
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Obsolete.cs
@@ -2794,7 +2796,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -2850,7 +2852,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
@@ -2870,6 +2872,57 @@ items:
   nameWithType.vb: CrossSectionFactory.FillRolledI(CrossSectionParameter, String)
   fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter, String)
   name.vb: FillRolledI(CrossSectionParameter, String)
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double,System.Double,System.Double,System.Double,System.Double)
+  commentId: M:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double,System.Double,System.Double,System.Double,System.Double)
+  id: FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double,System.Double,System.Double,System.Double,System.Double)
+  parent: IdeaRS.OpenModel.CrossSection.CrossSectionFactory
+  langs:
+  - csharp
+  - vb
+  name: FillRolledDoubleI(CrossSectionParameter, string, double, double, double, double, double)
+  nameWithType: CrossSectionFactory.FillRolledDoubleI(CrossSectionParameter, string, double, double, double, double, double)
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter, string, double, double, double, double, double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FillRolledDoubleI
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
+    startLine: 44
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Rolled steel double I section
+  example: []
+  syntax:
+    content: public static void FillRolledDoubleI(CrossSectionParameter css, string name, double d, double h, double w, double wt, double ft)
+    parameters:
+    - id: css
+      type: IdeaRS.OpenModel.CrossSection.CrossSectionParameter
+      description: CrossSectionParameter to fill
+    - id: name
+      type: System.String
+    - id: d
+      type: System.Double
+    - id: h
+      type: System.Double
+      description: Height
+    - id: w
+      type: System.Double
+      description: Width
+    - id: wt
+      type: System.Double
+      description: Web thickness
+    - id: ft
+      type: System.Double
+      description: Flange thickness
+    content.vb: Public Shared Sub FillRolledDoubleI(css As CrossSectionParameter, name As String, d As Double, h As Double, w As Double, wt As Double, ft As Double)
+  overload: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI*
+  nameWithType.vb: CrossSectionFactory.FillRolledDoubleI(CrossSectionParameter, String, Double, Double, Double, Double, Double)
+  fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter, String, Double, Double, Double, Double, Double)
+  name.vb: FillRolledDoubleI(CrossSectionParameter, String, Double, Double, Double, Double, Double)
 - uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
   commentId: M:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
   id: FillRolledChannel(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
@@ -2884,11 +2937,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 48
+    startLine: 70
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -2942,11 +2995,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 61
+    startLine: 83
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -2978,11 +3031,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 80
+    startLine: 102
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3037,11 +3090,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 93
+    startLine: 115
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3075,11 +3128,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 111
+    startLine: 133
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3128,11 +3181,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 122
+    startLine: 144
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3162,11 +3215,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 134
+    startLine: 156
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3203,11 +3256,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 141
+    startLine: 163
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3237,11 +3290,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 161
+    startLine: 183
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3302,11 +3355,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 176
+    startLine: 198
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3338,11 +3391,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledTFromI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 190
+    startLine: 212
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3382,11 +3435,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 206
+    startLine: 228
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3429,11 +3482,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedT
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 223
+    startLine: 245
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3478,11 +3531,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedAsymI
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 243
+    startLine: 265
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3531,11 +3584,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUo
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 263
+    startLine: 285
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3581,11 +3634,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUo
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 279
+    startLine: 301
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3608,6 +3661,56 @@ items:
   nameWithType.vb: CrossSectionFactory.FillComposedDblUo(CrossSectionParameter, String, Double)
   fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUo(IdeaRS.OpenModel.CrossSection.CrossSectionParameter, String, Double)
   name.vb: FillComposedDblUo(CrossSectionParameter, String, Double)
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double)
+  commentId: M:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double)
+  id: FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double)
+  parent: IdeaRS.OpenModel.CrossSection.CrossSectionFactory
+  langs:
+  - csharp
+  - vb
+  name: FillComposedDblUc(CrossSectionParameter, double, double, double, double, double)
+  nameWithType: CrossSectionFactory.FillComposedDblUc(CrossSectionParameter, double, double, double, double, double)
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter, double, double, double, double, double)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: FillComposedDblUc
+    path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
+    startLine: 317
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.CrossSection
+  summary: Fills a double channel steel section. They form an closed/back-to-back [] shape.
+  example: []
+  syntax:
+    content: public static void FillComposedDblUc(CrossSectionParameter css, double b, double h, double tw, double th, double distance)
+    parameters:
+    - id: css
+      type: IdeaRS.OpenModel.CrossSection.CrossSectionParameter
+      description: Parameters of CrossSectionParameter will be filled
+    - id: b
+      type: System.Double
+      description: The width of css
+    - id: h
+      type: System.Double
+      description: The height of css
+    - id: tw
+      type: System.Double
+      description: Web thickness
+    - id: th
+      type: System.Double
+      description: Flange thickness
+    - id: distance
+      type: System.Double
+      description: Distance between ][
+    content.vb: Public Shared Sub FillComposedDblUc(css As CrossSectionParameter, b As Double, h As Double, tw As Double, th As Double, distance As Double)
+  overload: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc*
+  nameWithType.vb: CrossSectionFactory.FillComposedDblUc(CrossSectionParameter, Double, Double, Double, Double, Double)
+  fullName.vb: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter, Double, Double, Double, Double, Double)
+  name.vb: FillComposedDblUc(CrossSectionParameter, Double, Double, Double, Double, Double)
 - uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double)
   commentId: M:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double)
   id: FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double)
@@ -3622,11 +3725,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblUc
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 292
+    startLine: 333
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3663,11 +3766,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 307
+    startLine: 348
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3714,11 +3817,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLt
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 324
+    startLine: 365
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3759,11 +3862,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 342
+    startLine: 383
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3810,11 +3913,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillComposedDblLu
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 359
+    startLine: 400
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3855,11 +3958,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedBoxFlange
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 379
+    startLine: 420
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3911,11 +4014,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedBoxWeb
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 391
+    startLine: 432
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -3959,11 +4062,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedBoxDelta
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 404
+    startLine: 445
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -4013,11 +4116,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedTriangle
     path: ../src/IdeaRS.OpenModel/Libraries/CrossSection/CrossSectionFactory.Steel.cs
-    startLine: 420
+    startLine: 461
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel.CrossSection
@@ -4719,6 +4822,12 @@ references:
   name: FillRolledI
   nameWithType: CrossSectionFactory.FillRolledI
   fullName: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledI
+- uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI*
+  commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI
+  href: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.html#IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double,System.Double,System.Double,System.Double,System.Double)
+  name: FillRolledDoubleI
+  nameWithType: CrossSectionFactory.FillRolledDoubleI
+  fullName: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledDoubleI
 - uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel*
   commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel
   href: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.html#IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledChannel(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)
@@ -4775,7 +4884,7 @@ references:
   fullName: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillWeldedAsymI
 - uid: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc*
   commentId: Overload:IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc
-  href: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.html#IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.String,System.Double)
+  href: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.html#IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc(IdeaRS.OpenModel.CrossSection.CrossSectionParameter,System.Double,System.Double,System.Double,System.Double,System.Double)
   name: FillComposedDblUc
   nameWithType: CrossSectionFactory.FillComposedDblUc
   fullName: IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillComposedDblUc

@@ -7,16 +7,16 @@ items:
   children:
   - IdeaStatiCa.BimApiLink.BimLink.#ctor(System.String,System.String)
   - IdeaStatiCa.BimApiLink.BimLink.ApplicationName
+  - IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.BimApiLink.Plugin.IModel)
   - IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
-  - IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
-  - IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
-  - IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory(IdeaStatiCa.Plugin.IBimHostingFactory)
   - IdeaStatiCa.BimApiLink.BimLink.WithBimImporterConfiguration(IdeaStatiCa.BimImporter.BimImporterConfiguration)
   - IdeaStatiCa.BimApiLink.BimLink.WithIdeaStatiCa(System.String)
   - IdeaStatiCa.BimApiLink.BimLink.WithImporterHook(IdeaStatiCa.BimApiLink.Hooks.IImporterHook)
   - IdeaStatiCa.BimApiLink.BimLink.WithImporters(System.Action{IdeaStatiCa.BimApiLink.ImportersConfiguration})
   - IdeaStatiCa.BimApiLink.BimLink.WithLogger(IdeaStatiCa.Plugin.IPluginLogger)
   - IdeaStatiCa.BimApiLink.BimLink.WithPluginHook(IdeaStatiCa.BimApiLink.Hooks.IPluginHook)
+  - IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging(IdeaStatiCa.Plugin.IProgressMessaging)
   - IdeaStatiCa.BimApiLink.BimLink.WithResultsImporters(System.Action{IdeaStatiCa.BimApiLink.ResultsImportersConfiguration})
   - IdeaStatiCa.BimApiLink.BimLink.WithScopeHook(IdeaStatiCa.BimApiLink.Hooks.IScopeHook)
   - IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler(System.Threading.Tasks.TaskScheduler)
@@ -31,11 +31,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BimLink
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 14
+    startLine: 11
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -55,6 +55,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
+  extensionMethods:
+  - IdeaStatiCa.BimApiLink.BimLink.IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
 - uid: IdeaStatiCa.BimApiLink.BimLink.ApplicationName
   commentId: P:IdeaStatiCa.BimApiLink.BimLink.ApplicationName
   id: ApplicationName
@@ -69,11 +71,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplicationName
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 16
+    startLine: 13
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -98,11 +100,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 30
+    startLine: 28
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -132,11 +134,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithIdeaStatiCa
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 36
+    startLine: 34
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -166,11 +168,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithLogger
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 42
+    startLine: 40
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -197,11 +199,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithImporters
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 48
+    startLine: 46
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -231,11 +233,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithResultsImporters
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 54
+    startLine: 52
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -265,11 +267,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithBimImporterConfiguration
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 63
+    startLine: 61
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -296,11 +298,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithImporterHook
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 69
+    startLine: 67
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -327,11 +329,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithPluginHook
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 75
+    startLine: 73
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -358,11 +360,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithScopeHook
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 81
+    startLine: 79
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -389,11 +391,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithUserDataSource
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 87
+    startLine: 85
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -420,11 +422,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: WithTaskScheduler
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 93
+    startLine: 91
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -437,103 +439,99 @@ items:
       type: IdeaStatiCa.BimApiLink.BimLink
     content.vb: Public Function WithTaskScheduler(taskScheduler As TaskScheduler) As BimLink
   overload: IdeaStatiCa.BimApiLink.BimLink.WithTaskScheduler*
-- uid: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
-  commentId: M:IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
-  id: InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory(IdeaStatiCa.Plugin.IBimHostingFactory)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory(IdeaStatiCa.Plugin.IBimHostingFactory)
+  id: WithBimHostingFactory(IdeaStatiCa.Plugin.IBimHostingFactory)
   parent: IdeaStatiCa.BimApiLink.BimLink
   langs:
   - csharp
   - vb
-  name: InitHostingClient(IPluginLogger)
-  nameWithType: BimLink.InitHostingClient(IPluginLogger)
-  fullName: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
+  name: WithBimHostingFactory(IBimHostingFactory)
+  nameWithType: BimLink.WithBimHostingFactory(IBimHostingFactory)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory(IdeaStatiCa.Plugin.IBimHostingFactory)
   type: Method
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
-    id: InitHostingClient
+    id: WithBimHostingFactory
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 99
+    startLine: 97
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
   syntax:
-    content: public IProgressMessaging InitHostingClient(IPluginLogger pluginLogger)
+    content: public BimLink WithBimHostingFactory(IBimHostingFactory bimHostingFactory)
     parameters:
-    - id: pluginLogger
-      type: IdeaStatiCa.Plugin.IPluginLogger
+    - id: bimHostingFactory
+      type: IdeaStatiCa.Plugin.IBimHostingFactory
     return:
-      type: IdeaStatiCa.Plugin.IProgressMessaging
-    content.vb: Public Function InitHostingClient(pluginLogger As IPluginLogger) As IProgressMessaging
-  overload: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient*
-- uid: IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
-  commentId: M:IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
-  id: Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+      type: IdeaStatiCa.BimApiLink.BimLink
+    content.vb: Public Function WithBimHostingFactory(bimHostingFactory As IBimHostingFactory) As BimLink
+  overload: IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory*
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging(IdeaStatiCa.Plugin.IProgressMessaging)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging(IdeaStatiCa.Plugin.IProgressMessaging)
+  id: WithProgressMessaging(IdeaStatiCa.Plugin.IProgressMessaging)
   parent: IdeaStatiCa.BimApiLink.BimLink
   langs:
   - csharp
   - vb
-  name: Run(IModel)
-  nameWithType: BimLink.Run(IModel)
-  fullName: IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  name: WithProgressMessaging(IProgressMessaging)
+  nameWithType: BimLink.WithProgressMessaging(IProgressMessaging)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging(IdeaStatiCa.Plugin.IProgressMessaging)
   type: Method
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
-    id: Run
+    id: WithProgressMessaging
+    path: ../src/IdeaStatica.BimApiLink/BimLink.cs
+    startLine: 103
+  assemblies:
+  - IdeaStatiCa.BimApiLink
+  namespace: IdeaStatiCa.BimApiLink
+  syntax:
+    content: public BimLink WithProgressMessaging(IProgressMessaging progressMessaging)
+    parameters:
+    - id: progressMessaging
+      type: IdeaStatiCa.Plugin.IProgressMessaging
+    return:
+      type: IdeaStatiCa.BimApiLink.BimLink
+    content.vb: Public Function WithProgressMessaging(progressMessaging As IProgressMessaging) As BimLink
+  overload: IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging*
+- uid: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  id: Create(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  parent: IdeaStatiCa.BimApiLink.BimLink
+  langs:
+  - csharp
+  - vb
+  name: Create(IModel)
+  nameWithType: BimLink.Create(IModel)
+  fullName: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatica.BimApiLink/BimLink.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Create
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
     startLine: 109
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
   syntax:
-    content: public virtual Task Run(IModel model)
+    content: public IApplicationBimRunnable Create(IModel model)
     parameters:
     - id: model
       type: IdeaStatiCa.BimApiLink.Plugin.IModel
     return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Overridable Function Run(model As IModel) As Task
-  overload: IdeaStatiCa.BimApiLink.BimLink.Run*
-- uid: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
-  commentId: M:IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
-  id: CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
-  parent: IdeaStatiCa.BimApiLink.BimLink
-  langs:
-  - csharp
-  - vb
-  name: CreateApplicationBIM(IModel, IPluginLogger, IProgressMessaging)
-  nameWithType: BimLink.CreateApplicationBIM(IModel, IPluginLogger, IProgressMessaging)
-  fullName: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel, IdeaStatiCa.Plugin.IPluginLogger, IdeaStatiCa.Plugin.IProgressMessaging)
-  type: Method
-  source:
-    remote:
-      path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
-      repo: https://github.com/idea-statica/ideastatica-public.git
-    id: CreateApplicationBIM
-    path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 134
-  assemblies:
-  - IdeaStatiCa.BimApiLink
-  namespace: IdeaStatiCa.BimApiLink
-  syntax:
-    content: public IApplicationBIM CreateApplicationBIM(IModel model, IPluginLogger pluginLogger, IProgressMessaging remoteApp = null)
-    parameters:
-    - id: model
-      type: IdeaStatiCa.BimApiLink.Plugin.IModel
-    - id: pluginLogger
-      type: IdeaStatiCa.Plugin.IPluginLogger
-    - id: remoteApp
-      type: IdeaStatiCa.Plugin.IProgressMessaging
-    return:
-      type: IdeaStatiCa.Plugin.IApplicationBIM
-    content.vb: Public Function CreateApplicationBIM(model As IModel, pluginLogger As IPluginLogger, remoteApp As IProgressMessaging = Nothing) As IApplicationBIM
-  overload: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM*
+      type: IdeaStatiCa.BimApiLink.IApplicationBimRunnable
+    content.vb: Public Function Create(model As IModel) As IApplicationBimRunnable
+  overload: IdeaStatiCa.BimApiLink.BimLink.Create*
 - uid: IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
   commentId: M:IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
   id: Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
@@ -548,11 +546,11 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/BimLink.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Create
     path: ../src/IdeaStatica.BimApiLink/BimLink.cs
-    startLine: 158
+    startLine: 160
   assemblies:
   - IdeaStatiCa.BimApiLink
   namespace: IdeaStatiCa.BimApiLink
@@ -841,6 +839,42 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
   - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLink.IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  parent: IdeaStatiCa.BimApiLink.BimLinkExtension
+  definition: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  href: IdeaStatiCa.BimApiLink.BimLinkExtension.html#IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  name: Run(BimLink, IModel)
+  nameWithType: BimLinkExtension.Run(BimLink, IModel)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink, IdeaStatiCa.BimApiLink.Plugin.IModel)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+    name: Run
+    href: IdeaStatiCa.BimApiLink.BimLinkExtension.html#IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimLink
+    name: BimLink
+    href: IdeaStatiCa.BimApiLink.BimLink.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+    name: Run
+    href: IdeaStatiCa.BimApiLink.BimLinkExtension.html#IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimLink
+    name: BimLink
+    href: IdeaStatiCa.BimApiLink.BimLink.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -848,6 +882,47 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  commentId: M:IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  href: IdeaStatiCa.BimApiLink.BimLinkExtension.html#IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  name: Run(BimLink, IModel)
+  nameWithType: BimLinkExtension.Run(BimLink, IModel)
+  fullName: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink, IdeaStatiCa.BimApiLink.Plugin.IModel)
+  spec.csharp:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+    name: Run
+    href: IdeaStatiCa.BimApiLink.BimLinkExtension.html#IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimLink
+    name: BimLink
+    href: IdeaStatiCa.BimApiLink.BimLink.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: )
+  spec.vb:
+  - uid: IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+    name: Run
+    href: IdeaStatiCa.BimApiLink.BimLinkExtension.html#IdeaStatiCa.BimApiLink.BimLinkExtension.Run(IdeaStatiCa.BimApiLink.BimLink,IdeaStatiCa.BimApiLink.Plugin.IModel)
+  - name: (
+  - uid: IdeaStatiCa.BimApiLink.BimLink
+    name: BimLink
+    href: IdeaStatiCa.BimApiLink.BimLink.html
+  - name: ','
+  - name: " "
+  - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
+    name: IModel
+    href: IdeaStatiCa.BimApiLink.Plugin.IModel.html
+  - name: )
+- uid: IdeaStatiCa.BimApiLink.BimLinkExtension
+  commentId: T:IdeaStatiCa.BimApiLink.BimLinkExtension
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.BimLinkExtension.html
+  name: BimLinkExtension
+  nameWithType: BimLinkExtension
+  fullName: IdeaStatiCa.BimApiLink.BimLinkExtension
 - uid: IdeaStatiCa.BimApiLink.BimLink.ApplicationName*
   commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.ApplicationName
   href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.ApplicationName
@@ -1184,24 +1259,36 @@ references:
     name: Tasks
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
-- uid: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient*
-  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.InitHostingClient
-  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.InitHostingClient(IdeaStatiCa.Plugin.IPluginLogger)
-  name: InitHostingClient
-  nameWithType: BimLink.InitHostingClient
-  fullName: IdeaStatiCa.BimApiLink.BimLink.InitHostingClient
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory(IdeaStatiCa.Plugin.IBimHostingFactory)
+  name: WithBimHostingFactory
+  nameWithType: BimLink.WithBimHostingFactory
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithBimHostingFactory
+- uid: IdeaStatiCa.Plugin.IBimHostingFactory
+  commentId: T:IdeaStatiCa.Plugin.IBimHostingFactory
+  parent: IdeaStatiCa.Plugin
+  name: IBimHostingFactory
+  nameWithType: IBimHostingFactory
+  fullName: IdeaStatiCa.Plugin.IBimHostingFactory
+- uid: IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging(IdeaStatiCa.Plugin.IProgressMessaging)
+  name: WithProgressMessaging
+  nameWithType: BimLink.WithProgressMessaging
+  fullName: IdeaStatiCa.BimApiLink.BimLink.WithProgressMessaging
 - uid: IdeaStatiCa.Plugin.IProgressMessaging
   commentId: T:IdeaStatiCa.Plugin.IProgressMessaging
   parent: IdeaStatiCa.Plugin
   name: IProgressMessaging
   nameWithType: IProgressMessaging
   fullName: IdeaStatiCa.Plugin.IProgressMessaging
-- uid: IdeaStatiCa.BimApiLink.BimLink.Run*
-  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.Run
-  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Run(IdeaStatiCa.BimApiLink.Plugin.IModel)
-  name: Run
-  nameWithType: BimLink.Run
-  fullName: IdeaStatiCa.BimApiLink.BimLink.Run
+- uid: IdeaStatiCa.BimApiLink.BimLink.Create*
+  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.Create
+  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.BimApiLink.Plugin.IModel)
+  name: Create
+  nameWithType: BimLink.Create
+  fullName: IdeaStatiCa.BimApiLink.BimLink.Create
 - uid: IdeaStatiCa.BimApiLink.Plugin.IModel
   commentId: T:IdeaStatiCa.BimApiLink.Plugin.IModel
   parent: IdeaStatiCa.BimApiLink.Plugin
@@ -1209,14 +1296,13 @@ references:
   name: IModel
   nameWithType: IModel
   fullName: IdeaStatiCa.BimApiLink.Plugin.IModel
-- uid: System.Threading.Tasks.Task
-  commentId: T:System.Threading.Tasks.Task
-  parent: System.Threading.Tasks
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
-  name: Task
-  nameWithType: Task
-  fullName: System.Threading.Tasks.Task
+- uid: IdeaStatiCa.BimApiLink.IApplicationBimRunnable
+  commentId: T:IdeaStatiCa.BimApiLink.IApplicationBimRunnable
+  parent: IdeaStatiCa.BimApiLink
+  href: IdeaStatiCa.BimApiLink.IApplicationBimRunnable.html
+  name: IApplicationBimRunnable
+  nameWithType: IApplicationBimRunnable
+  fullName: IdeaStatiCa.BimApiLink.IApplicationBimRunnable
 - uid: IdeaStatiCa.BimApiLink.Plugin
   commentId: N:IdeaStatiCa.BimApiLink.Plugin
   href: IdeaStatiCa.html
@@ -1247,24 +1333,6 @@ references:
   - uid: IdeaStatiCa.BimApiLink.Plugin
     name: Plugin
     href: IdeaStatiCa.BimApiLink.Plugin.html
-- uid: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM*
-  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM
-  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM(IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.Plugin.IProgressMessaging)
-  name: CreateApplicationBIM
-  nameWithType: BimLink.CreateApplicationBIM
-  fullName: IdeaStatiCa.BimApiLink.BimLink.CreateApplicationBIM
-- uid: IdeaStatiCa.Plugin.IApplicationBIM
-  commentId: T:IdeaStatiCa.Plugin.IApplicationBIM
-  parent: IdeaStatiCa.Plugin
-  name: IApplicationBIM
-  nameWithType: IApplicationBIM
-  fullName: IdeaStatiCa.Plugin.IApplicationBIM
-- uid: IdeaStatiCa.BimApiLink.BimLink.Create*
-  commentId: Overload:IdeaStatiCa.BimApiLink.BimLink.Create
-  href: IdeaStatiCa.BimApiLink.BimLink.html#IdeaStatiCa.BimApiLink.BimLink.Create(IdeaStatiCa.Plugin.IPluginLogger,IdeaStatiCa.BimApiLink.Importers.IBimApiImporter,System.String,IdeaStatiCa.BimImporter.BimImporterConfiguration,IdeaStatiCa.Plugin.IProgressMessaging,IdeaStatiCa.BimImporter.Results.IBimResultsProvider,IdeaStatiCa.BimApiLink.Hooks.IPluginHook,IdeaStatiCa.BimApiLink.Hooks.IScopeHook,IdeaStatiCa.BimApiLink.Plugin.IModel,IdeaStatiCa.BimApiLink.IBimUserDataSource,System.Threading.Tasks.TaskScheduler)
-  name: Create
-  nameWithType: BimLink.Create
-  fullName: IdeaStatiCa.BimApiLink.BimLink.Create
 - uid: IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
   commentId: T:IdeaStatiCa.BimApiLink.Importers.IBimApiImporter
   parent: IdeaStatiCa.BimApiLink.Importers
@@ -1278,6 +1346,12 @@ references:
   name: IBimResultsProvider
   nameWithType: IBimResultsProvider
   fullName: IdeaStatiCa.BimImporter.Results.IBimResultsProvider
+- uid: IdeaStatiCa.Plugin.IApplicationBIM
+  commentId: T:IdeaStatiCa.Plugin.IApplicationBIM
+  parent: IdeaStatiCa.Plugin
+  name: IApplicationBIM
+  nameWithType: IApplicationBIM
+  fullName: IdeaStatiCa.Plugin.IApplicationBIM
 - uid: IdeaStatiCa.BimApiLink.Importers
   commentId: N:IdeaStatiCa.BimApiLink.Importers
   href: IdeaStatiCa.html

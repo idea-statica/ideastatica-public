@@ -1,0 +1,539 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  commentId: T:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  id: RcsCrossSectionOverviewModel
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model
+  children:
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+  - IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId
+  langs:
+  - csharp
+  - vb
+  name: RcsCrossSectionOverviewModel
+  nameWithType: RcsCrossSectionOverviewModel
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  type: Class
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RcsCrossSectionOverviewModel
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+    startLine: 2
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public class RcsCrossSectionOverviewModel
+    content.vb: Public Class RcsCrossSectionOverviewModel
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+  id: Id
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: RcsCrossSectionOverviewModel.Id
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Id
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+    startLine: 4
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public int Id { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Id As Integer
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+  id: Name
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: RcsCrossSectionOverviewModel.Name
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Name
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+    startLine: 5
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+  id: CheckMemberId
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  langs:
+  - csharp
+  - vb
+  name: CheckMemberId
+  nameWithType: RcsCrossSectionOverviewModel.CheckMemberId
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: CheckMemberId
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+    startLine: 6
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public int? CheckMemberId { get; set; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Int32}
+    content.vb: Public Property CheckMemberId As Integer?
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId*
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId
+  commentId: P:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId
+  id: RCSId
+  parent: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel
+  langs:
+  - csharp
+  - vb
+  name: RCSId
+  nameWithType: RcsCrossSectionOverviewModel.RCSId
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId
+  type: Property
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: RCSId
+    path: ../src/IdeaStatiCa.Plugin/Api/RCS/Model/RcsCrossSectionOverviewModel.cs
+    startLine: 7
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin.Api.RCS.Model
+  syntax:
+    content: public int? RCSId { get; set; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Int32}
+    content.vb: Public Property RCSId As Integer?
+  overload: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId*
+references:
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model
+  commentId: N:IdeaStatiCa.Plugin.Api.RCS.Model
+  href: IdeaStatiCa.html
+  name: IdeaStatiCa.Plugin.Api.RCS.Model
+  nameWithType: IdeaStatiCa.Plugin.Api.RCS.Model
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model
+  spec.csharp:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+  spec.vb:
+  - uid: IdeaStatiCa
+    name: IdeaStatiCa
+    href: IdeaStatiCa.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin
+    name: Plugin
+    href: IdeaStatiCa.Plugin.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api
+    name: Api
+    href: IdeaStatiCa.Plugin.Api.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS
+    name: RCS
+    href: IdeaStatiCa.Plugin.Api.RCS.html
+  - name: .
+  - uid: IdeaStatiCa.Plugin.Api.RCS.Model
+    name: Model
+    href: IdeaStatiCa.Plugin.Api.RCS.Model.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+  name: Id
+  nameWithType: RcsCrossSectionOverviewModel.Id
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Id
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+  name: Name
+  nameWithType: RcsCrossSectionOverviewModel.Name
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+  name: CheckMemberId
+  nameWithType: RcsCrossSectionOverviewModel.CheckMemberId
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.CheckMemberId
+- uid: System.Nullable{System.Int32}
+  commentId: T:System.Nullable{System.Int32}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int?
+  nameWithType: int?
+  fullName: int?
+  nameWithType.vb: Integer?
+  fullName.vb: Integer?
+  name.vb: Integer?
+  spec.csharp:
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '?'
+  spec.vb:
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '?'
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId*
+  commentId: Overload:IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId
+  href: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.html#IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId
+  name: RCSId
+  nameWithType: RcsCrossSectionOverviewModel.RCSId
+  fullName: IdeaStatiCa.Plugin.Api.RCS.Model.RcsCrossSectionOverviewModel.RCSId

@@ -44,6 +44,15 @@ items:
   - IdeaRS.OpenModel.Material.MatSteelHKG
   - IdeaRS.OpenModel.Material.MatSteelIND
   - IdeaRS.OpenModel.Material.MatSteelRUS
+  - IdeaRS.OpenModel.Material.MatWelding
+  - IdeaRS.OpenModel.Material.MatWeldingAISC
+  - IdeaRS.OpenModel.Material.MatWeldingAUS
+  - IdeaRS.OpenModel.Material.MatWeldingCHN
+  - IdeaRS.OpenModel.Material.MatWeldingCISC
+  - IdeaRS.OpenModel.Material.MatWeldingEc2
+  - IdeaRS.OpenModel.Material.MatWeldingHKG
+  - IdeaRS.OpenModel.Material.MatWeldingIS
+  - IdeaRS.OpenModel.Material.MatWeldingRUS
   - IdeaRS.OpenModel.Material.Material
   - IdeaRS.OpenModel.Material.MaterialBoltGrade
   - IdeaRS.OpenModel.Material.MaterialBoltGradeHKG
@@ -480,6 +489,61 @@ references:
   name: MatSteelRUS
   nameWithType: MatSteelRUS
   fullName: IdeaRS.OpenModel.Material.MatSteelRUS
+- uid: IdeaRS.OpenModel.Material.MatWelding
+  commentId: T:IdeaRS.OpenModel.Material.MatWelding
+  parent: IdeaRS.OpenModel.Material
+  href: IdeaRS.OpenModel.Material.MatWelding.html
+  name: MatWelding
+  nameWithType: MatWelding
+  fullName: IdeaRS.OpenModel.Material.MatWelding
+- uid: IdeaRS.OpenModel.Material.MatWeldingAISC
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingAISC
+  href: IdeaRS.OpenModel.Material.MatWeldingAISC.html
+  name: MatWeldingAISC
+  nameWithType: MatWeldingAISC
+  fullName: IdeaRS.OpenModel.Material.MatWeldingAISC
+- uid: IdeaRS.OpenModel.Material.MatWeldingAUS
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingAUS
+  href: IdeaRS.OpenModel.Material.MatWeldingAUS.html
+  name: MatWeldingAUS
+  nameWithType: MatWeldingAUS
+  fullName: IdeaRS.OpenModel.Material.MatWeldingAUS
+- uid: IdeaRS.OpenModel.Material.MatWeldingCHN
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingCHN
+  href: IdeaRS.OpenModel.Material.MatWeldingCHN.html
+  name: MatWeldingCHN
+  nameWithType: MatWeldingCHN
+  fullName: IdeaRS.OpenModel.Material.MatWeldingCHN
+- uid: IdeaRS.OpenModel.Material.MatWeldingCISC
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingCISC
+  href: IdeaRS.OpenModel.Material.MatWeldingCISC.html
+  name: MatWeldingCISC
+  nameWithType: MatWeldingCISC
+  fullName: IdeaRS.OpenModel.Material.MatWeldingCISC
+- uid: IdeaRS.OpenModel.Material.MatWeldingEc2
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingEc2
+  href: IdeaRS.OpenModel.Material.MatWeldingEc2.html
+  name: MatWeldingEc2
+  nameWithType: MatWeldingEc2
+  fullName: IdeaRS.OpenModel.Material.MatWeldingEc2
+- uid: IdeaRS.OpenModel.Material.MatWeldingHKG
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingHKG
+  href: IdeaRS.OpenModel.Material.MatWeldingHKG.html
+  name: MatWeldingHKG
+  nameWithType: MatWeldingHKG
+  fullName: IdeaRS.OpenModel.Material.MatWeldingHKG
+- uid: IdeaRS.OpenModel.Material.MatWeldingIS
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingIS
+  href: IdeaRS.OpenModel.Material.MatWeldingIS.html
+  name: MatWeldingIS
+  nameWithType: MatWeldingIS
+  fullName: IdeaRS.OpenModel.Material.MatWeldingIS
+- uid: IdeaRS.OpenModel.Material.MatWeldingRUS
+  commentId: T:IdeaRS.OpenModel.Material.MatWeldingRUS
+  href: IdeaRS.OpenModel.Material.MatWeldingRUS.html
+  name: MatWeldingRUS
+  nameWithType: MatWeldingRUS
+  fullName: IdeaRS.OpenModel.Material.MatWeldingRUS
 - uid: IdeaRS.OpenModel.Material
   commentId: N:IdeaRS.OpenModel.Material
   href: IdeaRS.html

@@ -22,7 +22,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MemberHiddenCheckClient
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -76,7 +76,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HiddenCalculatorId
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -139,7 +139,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProject
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -175,7 +175,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CloseProject
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -205,7 +205,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Calculate
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -242,7 +242,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cancel
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
@@ -272,7 +272,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Service
     path: ../src/IdeaStatiCa.Plugin/Api/Member/MemberHiddenCheckClient.cs

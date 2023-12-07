@@ -18,6 +18,8 @@ items:
   - IdeaStatiCa.Plugin.IConnHiddenCheck.EvaluateExpression(System.String,System.String,System.String)
   - IdeaStatiCa.Plugin.IConnHiddenCheck.ExportToTemplate(System.String,System.String)
   - IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  - IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
   - IdeaStatiCa.Plugin.IConnHiddenCheck.GetAllConnectionData(System.String)
   - IdeaStatiCa.Plugin.IConnHiddenCheck.GetBoltAssembliesInProject
   - IdeaStatiCa.Plugin.IConnHiddenCheck.GetCheckResultsJSON(System.String)
@@ -49,7 +51,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IConnHiddenCheck
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -86,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenProject
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -131,7 +133,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SaveAsProject
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -176,7 +178,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Save
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -214,7 +216,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyTemplate
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -268,7 +270,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplySimpleTemplate
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -328,7 +330,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetConnectionModelXML
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -376,7 +378,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ExportToTemplate
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -427,7 +429,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetProjectInfo
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -468,7 +470,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Calculate
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -516,7 +518,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CalculateBuckling
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -560,7 +562,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetConnectionCost
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -608,7 +610,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetConnectionModel
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -656,7 +658,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetAllConnectionData
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -704,7 +706,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EvaluateExpression
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -758,7 +760,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UpdateConProjFromIOM
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -806,7 +808,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CreateConProjFromIOM
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -857,7 +859,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CloseProject
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -895,7 +897,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Cancel
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -933,7 +935,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaterialsInProject
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -974,7 +976,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCrossSectionsInProject
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1015,7 +1017,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetBoltAssembliesInProject
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1056,7 +1058,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddBoltAssembly
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1104,7 +1106,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetParametersJSON
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1155,7 +1157,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCodeSetupJSON
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1199,7 +1201,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ApplyParameters
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1253,7 +1255,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetConnectionLoadingJSON
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1301,7 +1303,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UpdateLoadingFromJson
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1352,7 +1354,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: UpdateCodeSetupJSON
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1400,7 +1402,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetCheckResultsJSON
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1448,7 +1450,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DeleteAllOperations
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1496,7 +1498,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetCrossSectionMaterial
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1544,7 +1546,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SetMemberCrossSection
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1595,7 +1597,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GenerateReport
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
@@ -1632,6 +1634,108 @@ items:
   nameWithType.vb: IConnHiddenCheck.GenerateReport(String, ConnReportSettings)
   fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReport(String, IdeaStatiCa.Plugin.ConnReportSettings)
   name.vb: GenerateReport(String, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GenerateReportPdf(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GenerateReportPdf(string, ConnReportSettings)
+  nameWithType: IConnHiddenCheck.GenerateReportPdf(string, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf(string, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GenerateReportPdf
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
+    startLine: 301
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Generate a report for connection <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      byte[] GenerateReportPdf(string connectionId, ConnReportSettings settings)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: The unique identifier of the requested connection
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+      description: Report settings
+    return:
+      type: System.Byte[]
+      description: The identifier of the generated report. It will be used in <xref href="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient" data-throw-if-not-resolved="false"></xref> requests
+    content.vb: >-
+      <OperationContract>
+
+      Function GenerateReportPdf(connectionId As String, settings As ConnReportSettings) As Byte()
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GenerateReportPdf(String, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf(String, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReportPdf(String, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GenerateReportWord(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnHiddenCheck
+  langs:
+  - csharp
+  - vb
+  name: GenerateReportWord(string, ConnReportSettings)
+  nameWithType: IConnHiddenCheck.GenerateReportWord(string, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord(string, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GenerateReportWord
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
+    startLine: 310
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Generate a report for connection <code class="paramref">connectionId</code>
+  example: []
+  syntax:
+    content: >-
+      [OperationContract]
+
+      byte[] GenerateReportWord(string connectionId, ConnReportSettings settings)
+    parameters:
+    - id: connectionId
+      type: System.String
+      description: The unique identifier of the requested connection
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+      description: Report settings
+    return:
+      type: System.Byte[]
+      description: The identifier of the generated report. It will be used in <xref href="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient" data-throw-if-not-resolved="false"></xref> requests
+    content.vb: >-
+      <OperationContract>
+
+      Function GenerateReportWord(connectionId As String, settings As ConnReportSettings) As Byte()
+  overload: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord*
+  attributes:
+  - type: System.ServiceModel.OperationContractAttribute
+    ctor: System.ServiceModel.OperationContractAttribute.#ctor
+    arguments: []
+  nameWithType.vb: IConnHiddenCheck.GenerateReportWord(String, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord(String, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateReportWord(String, ConnReportSettings)
 - uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(System.String)
   commentId: M:IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(System.String)
   id: OpenConnectionInApp(System.String)
@@ -1646,11 +1750,11 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenConnectionInApp
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnHiddenCheck.cs
-    startLine: 299
+    startLine: 317
   assemblies:
   - IdeaStatiCa.Plugin
   namespace: IdeaStatiCa.Plugin
@@ -2127,6 +2231,41 @@ references:
   name: ReportResponse
   nameWithType: ReportResponse
   fullName: IdeaStatiCa.Plugin.ReportResponse
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReportPdf
+  nameWithType: IConnHiddenCheck.GenerateReportPdf
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportPdf
+- uid: System.Byte[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.byte
+  name: byte[]
+  nameWithType: byte[]
+  fullName: byte[]
+  nameWithType.vb: Byte()
+  fullName.vb: Byte()
+  name.vb: Byte()
+  spec.csharp:
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord
+  href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord(System.String,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateReportWord
+  nameWithType: IConnHiddenCheck.GenerateReportWord
+  fullName: IdeaStatiCa.Plugin.IConnHiddenCheck.GenerateReportWord
 - uid: IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp*
   commentId: Overload:IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp
   href: IdeaStatiCa.Plugin.IConnHiddenCheck.html#IdeaStatiCa.Plugin.IConnHiddenCheck.OpenConnectionInApp(System.String)

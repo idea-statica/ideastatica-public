@@ -5,7 +5,9 @@ items:
   id: IConnectionAutomation
   parent: IdeaStatiCa.Plugin
   children:
+  - IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
   - IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  - IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
   - IdeaStatiCa.Plugin.IConnectionAutomation.GetProjectInfo
   langs:
   - csharp
@@ -17,7 +19,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IConnectionAutomation
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
@@ -54,7 +56,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetProjectInfo
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
@@ -85,7 +87,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GenerateReport
     path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
@@ -112,6 +114,88 @@ items:
   nameWithType.vb: IConnectionAutomation.GenerateReport(Integer, ConnReportSettings)
   fullName.vb: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
   name.vb: GenerateReport(Integer, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GeneratePdfReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnectionAutomation
+  langs:
+  - csharp
+  - vb
+  name: GeneratePdfReport(int, ConnReportSettings)
+  nameWithType: IConnectionAutomation.GeneratePdfReport(int, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GeneratePdfReport
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+    startLine: 32
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Generate a report of the connection <code class="paramref">conId</code>
+  example: []
+  syntax:
+    content: byte[] GeneratePdfReport(int conId, ConnReportSettings settings)
+    parameters:
+    - id: conId
+      type: System.Int32
+      description: Id of the required connection
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+      description: Report settings
+    return:
+      type: System.Byte[]
+      description: The byte content of a generated PDF report
+    content.vb: Function GeneratePdfReport(conId As Integer, settings As ConnReportSettings) As Byte()
+  overload: IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport*
+  nameWithType.vb: IConnectionAutomation.GeneratePdfReport(Integer, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GeneratePdfReport(Integer, ConnReportSettings)
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  commentId: M:IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  id: GenerateWordReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  parent: IdeaStatiCa.Plugin.IConnectionAutomation
+  langs:
+  - csharp
+  - vb
+  name: GenerateWordReport(int, ConnReportSettings)
+  nameWithType: IConnectionAutomation.GenerateWordReport(int, ConnReportSettings)
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport(int, IdeaStatiCa.Plugin.ConnReportSettings)
+  type: Method
+  source:
+    remote:
+      path: src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: GenerateWordReport
+    path: ../src/IdeaStatiCa.Plugin/Api/Connection/IConnectionAutomation.cs
+    startLine: 40
+  assemblies:
+  - IdeaStatiCa.Plugin
+  namespace: IdeaStatiCa.Plugin
+  summary: Generate a report of the connection <code class="paramref">conId</code>
+  example: []
+  syntax:
+    content: byte[] GenerateWordReport(int conId, ConnReportSettings settings)
+    parameters:
+    - id: conId
+      type: System.Int32
+      description: Id of the required connection
+    - id: settings
+      type: IdeaStatiCa.Plugin.ConnReportSettings
+      description: Report settings
+    return:
+      type: System.Byte[]
+      description: The byte content of a generated Word report
+    content.vb: Function GenerateWordReport(conId As Integer, settings As ConnReportSettings) As Byte()
+  overload: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport*
+  nameWithType.vb: IConnectionAutomation.GenerateWordReport(Integer, ConnReportSettings)
+  fullName.vb: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport(Integer, IdeaStatiCa.Plugin.ConnReportSettings)
+  name.vb: GenerateWordReport(Integer, ConnReportSettings)
 references:
 - uid: IdeaStatiCa.Plugin
   commentId: N:IdeaStatiCa.Plugin
@@ -212,3 +296,38 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport
+  href: IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GeneratePdfReport
+  nameWithType: IConnectionAutomation.GeneratePdfReport
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GeneratePdfReport
+- uid: System.Byte[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.byte
+  name: byte[]
+  nameWithType: byte[]
+  fullName: byte[]
+  nameWithType.vb: Byte()
+  fullName.vb: Byte()
+  name.vb: Byte()
+  spec.csharp:
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: (
+  - name: )
+- uid: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport*
+  commentId: Overload:IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport
+  href: IdeaStatiCa.Plugin.IConnectionAutomation.html#IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport(System.Int32,IdeaStatiCa.Plugin.ConnReportSettings)
+  name: GenerateWordReport
+  nameWithType: IConnectionAutomation.GenerateWordReport
+  fullName: IdeaStatiCa.Plugin.IConnectionAutomation.GenerateWordReport

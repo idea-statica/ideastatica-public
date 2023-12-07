@@ -28,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSectionFactoryHelper
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -65,7 +65,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledI
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -121,7 +121,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledT
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -186,7 +186,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledCHS
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -227,7 +227,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledChannel
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -285,7 +285,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledAngle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -344,7 +344,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRolledRHS
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -397,7 +397,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillCircle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -435,7 +435,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillRectangle
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -476,7 +476,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedZ
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -526,7 +526,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillColdFormedC
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -578,7 +578,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedAsymI
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -658,7 +658,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillBox2
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
@@ -714,7 +714,7 @@ items:
   source:
     remote:
       path: src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: FillWeldedI
     path: ../src/IdeaStatica.BimApiLink/Utils/CrossSectionFactoryHelper.cs

@@ -28,7 +28,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AutomationHostingGrpc
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -75,7 +75,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: EventName
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -106,7 +106,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GrpcClient
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -137,7 +137,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MyBIM
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -172,7 +172,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Status
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -207,7 +207,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: IsConnected
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -240,7 +240,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: BIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -273,7 +273,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -311,7 +311,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunAsync
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -349,7 +349,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Stop
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -381,7 +381,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RunServer
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -415,7 +415,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: NotifyBIMStatusChanged
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -446,7 +446,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
@@ -478,7 +478,7 @@ items:
   source:
     remote:
       path: src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Dispose
     path: ../src/IdeaStatiCa.Plugin/Grpc/AutomationHostingGrpc.cs

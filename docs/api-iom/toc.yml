@@ -567,6 +567,11 @@ items:
     name: Segment3D
   - uid: IdeaRS.OpenModel.Geometry3D.Vector3D
     name: Vector3D
+- uid: IdeaRS.OpenModel.Libraries.Material
+  name: IdeaRS.OpenModel.Libraries.Material
+  items:
+  - uid: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+    name: WeldLoadTypeCHN
 - uid: IdeaRS.OpenModel.Loading
   name: IdeaRS.OpenModel.Loading
   items:
@@ -737,6 +742,24 @@ items:
     name: MatSteelIND
   - uid: IdeaRS.OpenModel.Material.MatSteelRUS
     name: MatSteelRUS
+  - uid: IdeaRS.OpenModel.Material.MatWelding
+    name: MatWelding
+  - uid: IdeaRS.OpenModel.Material.MatWeldingAISC
+    name: MatWeldingAISC
+  - uid: IdeaRS.OpenModel.Material.MatWeldingAUS
+    name: MatWeldingAUS
+  - uid: IdeaRS.OpenModel.Material.MatWeldingCHN
+    name: MatWeldingCHN
+  - uid: IdeaRS.OpenModel.Material.MatWeldingCISC
+    name: MatWeldingCISC
+  - uid: IdeaRS.OpenModel.Material.MatWeldingEc2
+    name: MatWeldingEc2
+  - uid: IdeaRS.OpenModel.Material.MatWeldingHKG
+    name: MatWeldingHKG
+  - uid: IdeaRS.OpenModel.Material.MatWeldingIS
+    name: MatWeldingIS
+  - uid: IdeaRS.OpenModel.Material.MatWeldingRUS
+    name: MatWeldingRUS
   - uid: IdeaRS.OpenModel.Material.PrestressSteelType
     name: PrestressSteelType
   - uid: IdeaRS.OpenModel.Material.PrestressSteelTypeSIA

@@ -45,6 +45,7 @@ items:
   - IdeaRS.OpenModel.OpenModel.MatPrestressSteel
   - IdeaRS.OpenModel.OpenModel.MatReinforcement
   - IdeaRS.OpenModel.OpenModel.MatSteel
+  - IdeaRS.OpenModel.OpenModel.MatWelding
   - IdeaRS.OpenModel.OpenModel.Member1D
   - IdeaRS.OpenModel.OpenModel.Member2D
   - IdeaRS.OpenModel.OpenModel.Opening
@@ -87,7 +88,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OpenModel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -124,7 +125,7 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: .ctor
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
@@ -155,11 +156,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Version
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 98
+    startLine: 99
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -186,11 +187,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: OriginSettings
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 103
+    startLine: 104
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -217,11 +218,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Point3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 108
+    startLine: 109
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -248,11 +249,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LineSegment3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 113
+    startLine: 114
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -279,11 +280,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ArcSegment3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 118
+    startLine: 119
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -310,11 +311,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PolyLine3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 123
+    startLine: 124
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -341,11 +342,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Region3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 128
+    startLine: 129
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -372,11 +373,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatConcrete
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 133
+    startLine: 134
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -403,11 +404,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatReinforcement
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 138
+    startLine: 139
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -434,11 +435,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatSteel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 143
+    startLine: 144
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -465,11 +466,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: MatPrestressSteel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 148
+    startLine: 149
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -482,6 +483,37 @@ items:
       type: System.Collections.Generic.List{IdeaRS.OpenModel.Material.MatPrestressSteel}
     content.vb: Public Property MatPrestressSteel As List(Of MatPrestressSteel)
   overload: IdeaRS.OpenModel.OpenModel.MatPrestressSteel*
+- uid: IdeaRS.OpenModel.OpenModel.MatWelding
+  commentId: P:IdeaRS.OpenModel.OpenModel.MatWelding
+  id: MatWelding
+  parent: IdeaRS.OpenModel.OpenModel
+  langs:
+  - csharp
+  - vb
+  name: MatWelding
+  nameWithType: OpenModel.MatWelding
+  fullName: IdeaRS.OpenModel.OpenModel.MatWelding
+  type: Property
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/OpenModel.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: MatWelding
+    path: ../src/IdeaRS.OpenModel/OpenModel.cs
+    startLine: 154
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel
+  summary: List of MatWelding
+  example: []
+  syntax:
+    content: public List<MatWelding> MatWelding { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{IdeaRS.OpenModel.Material.MatWelding}
+    content.vb: Public Property MatWelding As List(Of MatWelding)
+  overload: IdeaRS.OpenModel.OpenModel.MatWelding*
 - uid: IdeaRS.OpenModel.OpenModel.CrossSection
   commentId: P:IdeaRS.OpenModel.OpenModel.CrossSection
   id: CrossSection
@@ -496,11 +528,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CrossSection
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 153
+    startLine: 159
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -527,11 +559,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReinforcedCrossSection
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 158
+    startLine: 164
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -558,11 +590,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: HingeElement1D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 163
+    startLine: 169
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -589,11 +621,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Opening
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 168
+    startLine: 174
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -620,11 +652,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DappedEnd
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 173
+    startLine: 179
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -651,11 +683,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PatchDevice
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 178
+    startLine: 184
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -682,11 +714,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Element1D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 183
+    startLine: 189
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -713,11 +745,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Beam
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 188
+    startLine: 194
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -744,11 +776,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Member1D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 193
+    startLine: 199
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -775,11 +807,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Element2D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 198
+    startLine: 204
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -806,11 +838,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Wall
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 203
+    startLine: 209
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -837,11 +869,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Member2D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 208
+    startLine: 214
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -868,11 +900,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RigidLink
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 213
+    startLine: 219
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -899,11 +931,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointOnLine3D
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 218
+    startLine: 224
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -930,11 +962,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointSupportNode
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 223
+    startLine: 229
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -961,11 +993,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LineSupportSegment
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 228
+    startLine: 234
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -992,11 +1024,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsInPoint
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 233
+    startLine: 239
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1023,11 +1055,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 238
+    startLine: 244
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1054,11 +1086,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: StrainLoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 243
+    startLine: 249
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1085,11 +1117,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: PointLoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 248
+    startLine: 254
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1116,11 +1148,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadsOnSurface
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 253
+    startLine: 259
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1147,11 +1179,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Settlements
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 258
+    startLine: 264
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1178,11 +1210,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: TemperatureLoadsOnLine
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 263
+    startLine: 269
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1209,11 +1241,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadGroup
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 268
+    startLine: 274
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1240,11 +1272,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadCase
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 273
+    startLine: 279
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1271,11 +1303,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CombiInput
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 278
+    startLine: 284
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1302,11 +1334,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Attribute
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 283
+    startLine: 289
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1333,11 +1365,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionPoint
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 288
+    startLine: 294
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1364,11 +1396,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Connections
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 293
+    startLine: 299
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1395,11 +1427,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Reinforcement
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 298
+    startLine: 304
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1426,11 +1458,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ISDModel
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 303
+    startLine: 309
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1457,11 +1489,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: InitialImperfectionOfPoint
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 308
+    startLine: 314
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1488,11 +1520,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Tendon
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 313
+    startLine: 319
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1519,11 +1551,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ResultClass
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 318
+    startLine: 324
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1550,11 +1582,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: DesignMember
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 323
+    startLine: 329
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1581,11 +1613,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SubStructure
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 328
+    startLine: 334
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1612,11 +1644,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConnectionSetup
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 333
+    startLine: 339
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1643,11 +1675,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectData
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 338
+    startLine: 344
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1674,11 +1706,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: CheckMember
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 343
+    startLine: 349
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1705,11 +1737,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteCheckSection
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 348
+    startLine: 354
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1736,11 +1768,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ConcreteSetup
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 353
+    startLine: 359
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1767,11 +1799,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ProjectDataConcrete
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 358
+    startLine: 364
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1798,11 +1830,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarShape
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 363
+    startLine: 369
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1829,11 +1861,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarGeneral
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 368
+    startLine: 374
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1860,11 +1892,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarSingle
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 373
+    startLine: 379
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1891,11 +1923,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: RebarStirrups
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 378
+    startLine: 384
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1922,11 +1954,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Taper
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 380
+    startLine: 386
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1951,11 +1983,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: Span
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 382
+    startLine: 388
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -1980,11 +2012,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaxId
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 389
+    startLine: 395
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2018,11 +2050,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaxId
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 411
+    startLine: 417
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2053,11 +2085,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetMaxId
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 422
+    startLine: 428
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2088,11 +2120,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 436
+    startLine: 442
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2124,11 +2156,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: AddObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 457
+    startLine: 463
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2160,11 +2192,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetExistingObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 491
+    startLine: 497
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2196,11 +2228,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: SaveToXmlFile
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 516
+    startLine: 522
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2234,11 +2266,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromXmlFile
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 539
+    startLine: 545
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2272,11 +2304,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromStream
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 555
+    startLine: 561
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2307,11 +2339,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: LoadFromString
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 575
+    startLine: 581
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2345,11 +2377,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: GetObject
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 590
+    startLine: 596
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -2380,11 +2412,11 @@ items:
   source:
     remote:
       path: src/IdeaRS.OpenModel/OpenModel.cs
-      branch: fix_dev_site_links
+      branch: rcs_iom_examples
       repo: https://github.com/idea-statica/ideastatica-public.git
     id: ReferenceElementsReconstruction
     path: ../src/IdeaRS.OpenModel/OpenModel.cs
-    startLine: 699
+    startLine: 706
   assemblies:
   - IdeaRS.OpenModel
   namespace: IdeaRS.OpenModel
@@ -3114,6 +3146,45 @@ references:
   - uid: IdeaRS.OpenModel.Material.MatPrestressSteel
     name: MatPrestressSteel
     href: IdeaRS.OpenModel.Material.MatPrestressSteel.html
+  - name: )
+- uid: IdeaRS.OpenModel.OpenModel.MatWelding*
+  commentId: Overload:IdeaRS.OpenModel.OpenModel.MatWelding
+  href: IdeaRS.OpenModel.OpenModel.html#IdeaRS.OpenModel.OpenModel.MatWelding
+  name: MatWelding
+  nameWithType: OpenModel.MatWelding
+  fullName: IdeaRS.OpenModel.OpenModel.MatWelding
+- uid: System.Collections.Generic.List{IdeaRS.OpenModel.Material.MatWelding}
+  commentId: T:System.Collections.Generic.List{IdeaRS.OpenModel.Material.MatWelding}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<MatWelding>
+  nameWithType: List<MatWelding>
+  fullName: System.Collections.Generic.List<IdeaRS.OpenModel.Material.MatWelding>
+  nameWithType.vb: List(Of MatWelding)
+  fullName.vb: System.Collections.Generic.List(Of IdeaRS.OpenModel.Material.MatWelding)
+  name.vb: List(Of MatWelding)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: IdeaRS.OpenModel.Material.MatWelding
+    name: MatWelding
+    href: IdeaRS.OpenModel.Material.MatWelding.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: IdeaRS.OpenModel.Material.MatWelding
+    name: MatWelding
+    href: IdeaRS.OpenModel.Material.MatWelding.html
   - name: )
 - uid: IdeaRS.OpenModel.OpenModel.CrossSection*
   commentId: Overload:IdeaRS.OpenModel.OpenModel.CrossSection

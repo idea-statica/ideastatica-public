@@ -7,6 +7,8 @@ items:
     name: BimApiApplication
   - uid: IdeaStatiCa.BimApiLink.BimLink
     name: BimLink
+  - uid: IdeaStatiCa.BimApiLink.BimLinkExtension
+    name: BimLinkExtension
   - uid: IdeaStatiCa.BimApiLink.BimLinkObject
     name: BimLinkObject
   - uid: IdeaStatiCa.BimApiLink.CadBimLink
@@ -15,6 +17,8 @@ items:
     name: Constants
   - uid: IdeaStatiCa.BimApiLink.FeaBimLink
     name: FeaBimLink
+  - uid: IdeaStatiCa.BimApiLink.IApplicationBimRunnable
+    name: IApplicationBimRunnable
   - uid: IdeaStatiCa.BimApiLink.IBimUserDataSource
     name: IBimUserDataSource
   - uid: IdeaStatiCa.BimApiLink.ImportersConfiguration

@@ -1,0 +1,128 @@
+### YamlMime:ManagedReference
+items:
+- uid: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  commentId: T:IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  id: WeldLoadTypeCHN
+  parent: IdeaRS.OpenModel.Libraries.Material
+  children:
+  - IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Dynamic
+  - IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Static
+  langs:
+  - csharp
+  - vb
+  name: WeldLoadTypeCHN
+  nameWithType: WeldLoadTypeCHN
+  fullName: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  type: Enum
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/WeldLoadTypeCHN.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: WeldLoadTypeCHN
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/WeldLoadTypeCHN.cs
+    startLine: 2
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Libraries.Material
+  syntax:
+    content: public enum WeldLoadTypeCHN
+    content.vb: Public Enum WeldLoadTypeCHN
+- uid: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Static
+  commentId: F:IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Static
+  id: Static
+  parent: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  langs:
+  - csharp
+  - vb
+  name: Static
+  nameWithType: WeldLoadTypeCHN.Static
+  fullName: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Static
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/WeldLoadTypeCHN.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Static
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/WeldLoadTypeCHN.cs
+    startLine: 4
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Libraries.Material
+  syntax:
+    content: Static = 0
+    return:
+      type: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+- uid: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Dynamic
+  commentId: F:IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Dynamic
+  id: Dynamic
+  parent: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  langs:
+  - csharp
+  - vb
+  name: Dynamic
+  nameWithType: WeldLoadTypeCHN.Dynamic
+  fullName: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.Dynamic
+  type: Field
+  source:
+    remote:
+      path: src/IdeaRS.OpenModel/Libraries/Material/WeldLoadTypeCHN.cs
+      branch: rcs_iom_examples
+      repo: https://github.com/idea-statica/ideastatica-public.git
+    id: Dynamic
+    path: ../src/IdeaRS.OpenModel/Libraries/Material/WeldLoadTypeCHN.cs
+    startLine: 5
+  assemblies:
+  - IdeaRS.OpenModel
+  namespace: IdeaRS.OpenModel.Libraries.Material
+  syntax:
+    content: Dynamic = 1
+    return:
+      type: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+references:
+- uid: IdeaRS.OpenModel.Libraries.Material
+  commentId: N:IdeaRS.OpenModel.Libraries.Material
+  href: IdeaRS.html
+  name: IdeaRS.OpenModel.Libraries.Material
+  nameWithType: IdeaRS.OpenModel.Libraries.Material
+  fullName: IdeaRS.OpenModel.Libraries.Material
+  spec.csharp:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Libraries
+    name: Libraries
+    href: IdeaRS.OpenModel.Libraries.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Libraries.Material
+    name: Material
+    href: IdeaRS.OpenModel.Libraries.Material.html
+  spec.vb:
+  - uid: IdeaRS
+    name: IdeaRS
+    href: IdeaRS.html
+  - name: .
+  - uid: IdeaRS.OpenModel
+    name: OpenModel
+    href: IdeaRS.OpenModel.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Libraries
+    name: Libraries
+    href: IdeaRS.OpenModel.Libraries.html
+  - name: .
+  - uid: IdeaRS.OpenModel.Libraries.Material
+    name: Material
+    href: IdeaRS.OpenModel.Libraries.Material.html
+- uid: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  commentId: T:IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
+  parent: IdeaRS.OpenModel.Libraries.Material
+  href: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN.html
+  name: WeldLoadTypeCHN
+  nameWithType: WeldLoadTypeCHN
+  fullName: IdeaRS.OpenModel.Libraries.Material.WeldLoadTypeCHN
