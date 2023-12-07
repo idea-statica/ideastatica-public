@@ -27,6 +27,5 @@ namespace IdeaStatiCa.Plugin.Api.RCS.Model
 	public class RcsCalculationParameters
 	{
 		public IEnumerable<int> Sections { get; set; } = new List<int>();
-		public IEnumerable<Guid> NonConformities { get; set; } = new List<Guid>();
 	}
 }
