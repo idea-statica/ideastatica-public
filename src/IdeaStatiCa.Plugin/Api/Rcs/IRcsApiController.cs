@@ -18,7 +18,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="project">Project information</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<Guid> OpenProjectAsync(string path, CancellationToken token);
+		Task<bool> OpenProjectAsync(string path, CancellationToken token);
 
 		/// <summary>
 		/// Open project from Open Model object
@@ -26,86 +26,84 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="model">Project in open model format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<Guid> OpenProjectFromModelAsync(OpenModel model, CancellationToken token);
+		Task<bool> OpenProjectFromModelAsync(OpenModel model, CancellationToken token);
 
 		/// <summary>
-		/// Calculates RCS project for given project id
+		/// Calculates RCS project
 		/// When no sections are specified, everything is calculated
-		/// When no non-conformities are specified, nothing is returned
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
-		/// <param name="parameters">Parameters to specify sections and nonconformities</param>
+		/// <param name="parameters">Parameters to specify sections</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<ProjectResult> CalculateProjectAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
+		Task<List<RcsSectionResultOverview>> CalculateResultsAsync(RcsCalculationParameters parameters, CancellationToken token);
+
+		/// <summary>
+		/// Get calculated results for given project id
+		/// </summary>
+		/// <param name="parameters"></param>
+		/// <param name="token"></param>
+		/// <returns></returns>
+		Task<ProjectResult> GetResultsAsync(RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
 		/// Get overall information about Project
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<RcsProjectModel> GetProjectOverviewAsync(Guid projectId, CancellationToken token);
+		Task<RcsProjectModel> GetProjectOverviewAsync(CancellationToken token);
 
 		/// <summary>
 		/// Get information about sections in Project
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<IList<RcsSectionModel>> GetProjectSectionsAsync(Guid projectId, CancellationToken token);
+		Task<List<RcsSectionModel>> GetProjectSectionsAsync(CancellationToken token);
 
 		/// <summary>
 		/// Get information about members in Project
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<IList<RcsCheckMemberModel>> GetProjectMembersAsync(Guid projectId, CancellationToken token);
+		Task<List<RcsCheckMemberModel>> GetProjectMembersAsync(CancellationToken token);
 
 		/// <summary>
 		/// Get information about reinforced cross sections in Project
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<IList<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(Guid projectId, CancellationToken token);
+		Task<List<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token);
 
 		/// <summary>
 		/// Return open project as file stream (*.idearcs)
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<Stream> DownloadAsync(Guid projectId, CancellationToken token);
+		Task<Stream> DownloadAsync(CancellationToken token);
 
 		/// <summary>
 		/// Return collection of section details of opened project
 		/// When no sections are specified, nothing is returned
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <returns></returns>
-		Task<IEnumerable<RcsCrossSectionDetailModel>> SectionDetailsAsync(Guid projectId, RcsCalculationParameters parameters);
+		Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters);
 
 
 		// Section for current implementations using direct RCS class
 		/// <summary>
 		/// Return calculated sections for given project input
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<IEnumerable<SectionConcreteCheckResult>> GetResultOnSectionsAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
+		Task<List<SectionConcreteCheckResult>> GetResultOnSectionsAsync(RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
 		/// Returns nonconformity issues for specified GUID values
 		/// </summary>
-		/// <param name="projectId">Id of the project</param>
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<IEnumerable<NonConformityIssue>> GetNonConformityIssuesAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
+		Task<List<NonConformityIssue>> GetNonConformityIssuesAsync(RcsCalculationParameters parameters, CancellationToken token);
 	}
 }
