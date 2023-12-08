@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Concrete.CheckResult;
 using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.HttpWrapper;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RcsClient.Client
 {
@@ -51,6 +48,8 @@ namespace IdeaStatiCa.RcsClient.Client
 
 		public async Task<Guid> OpenProjectAsync(string path, CancellationToken token)
 		{
+			pluginLogger.LogDebug($"RcsApiClient.OpenProjectAsync path = '{path}'");
+
 			var header = path switch
 			{
 				{ } when path.EndsWith(".IdeaRcs") => "application/octet-stream",
@@ -62,71 +61,84 @@ namespace IdeaStatiCa.RcsClient.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue(header);
 
-			return await httpClient.PostAsyncStream<Guid>("Project/OpenProject", streamContent);
+			var res = await httpClient.PostAsyncStream<Guid>("Project/OpenProject", streamContent);
+
+			pluginLogger.LogDebug($"RcsApiClient.OpenProjectAsync projectId = {res}");
+
+			return res;
 
 		}
 
-		public Guid OpenProjectFromModel(OpenModel model, CancellationToken token)
+		public async Task<Guid> OpenProjectFromModelAsync(OpenModel model, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.PostAsync<Guid>("Project/OpenProjectFromModel", model));
-			return result.GetAwaiter().GetResult();
+			pluginLogger.LogDebug("RcsApiClient.OpenProjectFromModelAsync");
+			var result =  await httpClient.PostAsync<Guid>("Project/OpenProjectFromModel", model);
+			return result;
 		}
 
 		public async Task<ProjectResult> CalculateProjectAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
 		{
-			return await httpClient.PostAsync<ProjectResult>($"Calculations/{projectId}/CalculateResults", parameters, "application/xml");
+			pluginLogger.LogDebug($"RcsApiClient.CalculateProjectAsync projectId = {projectId}");
+			var res = await httpClient.PostAsync<ProjectResult>($"Calculations/{projectId}/CalculateResults", parameters, "application/xml");
+			return res;
 		}
 
 		public async Task<RcsProjectModel> GetProjectOverviewAsync(Guid projectId, CancellationToken token)
 		{
-			return  await httpClient.GetAsync<RcsProjectModel>($"Project/{projectId}/ProjectOverview");
+			pluginLogger.LogDebug($"RcsApiClient.GetProjectOverviewAsync projectId = {projectId}");
+			var res=  await httpClient.GetAsync<RcsProjectModel>($"Project/{projectId}/ProjectOverview");
+			return res;
 		}
 
-		public MemoryStream Download(Guid projectId, CancellationToken token)
+		public async Task<Stream> DownloadAsync(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<MemoryStream>($"Project/{projectId}/Download"));
-			return result.GetAwaiter().GetResult();
+			pluginLogger.LogDebug($"RcsApiClient.Download projectId = {projectId}");
+			var result = await httpClient.GetAsync<MemoryStream>($"Project/{projectId}/Download");
+			return result;
 		}
 
-		public IEnumerable<RcsCrossSectionDetailModel> SectionDetails(Guid projectId, RcsCalculationParameters parameters)
+		public async Task<IEnumerable<RcsCrossSectionDetailModel>> SectionDetailsAsync(Guid projectId, RcsCalculationParameters parameters)
 		{
-			var result = Task.Run(async () => await httpClient.PostAsync<IEnumerable<RcsCrossSectionDetailModel>>($"Calculations/{projectId}/SectionDetails", parameters));
-			return result.GetAwaiter().GetResult();
+			pluginLogger.LogDebug($"RcsApiClient.SectionDetailsAsync projectId = {projectId}");
+			var result =await httpClient.PostAsync<IEnumerable<RcsCrossSectionDetailModel>>($"Calculations/{projectId}/SectionDetails", parameters);
+			return result;
 		}
 
-		public IEnumerable<SectionConcreteCheckResult> GetResultOnSections(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+		public async Task<IEnumerable<SectionConcreteCheckResult>> GetResultOnSectionsAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
 		{
-			var calculationTask = Task.Run(async () => await CalculateProjectAsync(projectId, parameters, token));
-			var result = calculationTask.GetAwaiter().GetResult();
+			pluginLogger.LogDebug($"RcsApiClient.GetResultOnSectionsAsync projectId = {projectId}");
+			var result = await CalculateProjectAsync(projectId, parameters, token);
 
 			return result.Sections;
 
 		}
 
-		public IEnumerable<NonConformityIssue> GetNonConformityIssues(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
+		public async Task<IEnumerable<NonConformityIssue>> GetNonConformityIssuesAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token)
 		{
-			var calculationTask = Task.Run(async () => await CalculateProjectAsync(projectId, parameters, token));
-			var result = calculationTask.GetAwaiter().GetResult();
-
+			pluginLogger.LogDebug($"RcsApiClient.GetNonConformityIssuesAsync projectId = {projectId}");
+			var result =  await CalculateProjectAsync(projectId, parameters, token);
 			return result.Issues;
 		}
 
-		public IList<RcsSectionModel> GetProjectSections(Guid projectId, CancellationToken token)
+		public async Task<IList<RcsSectionModel>> GetProjectSectionsAsync(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsSectionModel>>($"Project/{projectId}/ProjectSections"));
-			return result.GetAwaiter().GetResult();
+			pluginLogger.LogDebug($"RcsApiClient.GetProjectSectionsAsync projectId = {projectId}");
+			var result = await httpClient.GetAsync<IList<RcsSectionModel>>($"Project/{projectId}/ProjectSections");
+			return result;
 		}
 
-		public IList<RcsCheckMemberModel> GetProjectMembers(Guid projectId, CancellationToken token)
+		public async Task<IList<RcsCheckMemberModel>> GetProjectMembersAsync(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<IList<RcsCheckMemberModel>>($"Project/{projectId}/ProjectSections"));
-			return result.GetAwaiter().GetResult();
+			pluginLogger.LogDebug($"RcsApiClient.GetProjectMembersAsync projectId = {projectId}");
+			var result = await httpClient.GetAsync<IList<RcsCheckMemberModel>>($"Project/{projectId}/ProjectSections");
+			return result;
 		}
 
-		public IList<ReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token)
+		public async Task<IList<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(Guid projectId, CancellationToken token)
 		{
-			var result = Task.Run(async () => await httpClient.GetAsync<IList<ReinforcedCrossSectionModel>>($"Project/{projectId}/ProjectReinforcedCrossSections"));
-			return result.GetAwaiter().GetResult();
+			pluginLogger.LogDebug($"RcsApiClient.GetProjectReinforcedCrossSectionsAsync projectId = {projectId}");
+			var result = await httpClient.GetAsync<IList<ReinforcedCrossSectionModel>>($"Project/{projectId}/ProjectReinforcedCrossSections");
+			return result;
 		}
 	}
 }

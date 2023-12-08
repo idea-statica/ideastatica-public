@@ -104,23 +104,23 @@ namespace RcsApiClient
 			UpdateProgressbar(percentage);
 		}
 
-		private async void GetNonConformityIssues_Click(object sender, RoutedEventArgs e)
-		{
-			CalculationResult.Text = "";
-			UpdateProgress("", 0);
+		//private async void GetNonConformityIssues_Click(object sender, RoutedEventArgs e)
+		//{
+		//	CalculationResult.Text = "";
+		//	UpdateProgress("", 0);
 
-			var parameters = new RcsCalculationParameters();
-			var result = await Task.Run(() => controller.GetNonConformityIssues(openedProjectId, parameters, CancellationToken.None));
+		//	var parameters = new RcsCalculationParameters();
+		//	var result = await Task.Run(() => controller.GetNonConformityIssues(openedProjectId, parameters, CancellationToken.None));
 
-			if (result is { })
-			{
-				CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
-			}
-			else
-			{
-				MessageBox.Show($"Request failed.");
-			}
-		}
+		//	if (result is { })
+		//	{
+		//		CalculationResult.Text = FormatJson(JsonConvert.SerializeObject(result));
+		//	}
+		//	else
+		//	{
+		//		MessageBox.Show($"Request failed.");
+		//	}
+		//}
 
 		//private async void GetResultOnSections_Click(object sender, RoutedEventArgs e)
 		//{

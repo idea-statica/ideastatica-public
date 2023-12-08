@@ -4,13 +4,11 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace RcsApiClient.ViewModels
 {
@@ -139,6 +137,7 @@ namespace RcsApiClient.ViewModels
 
 		private async Task GetProjectOverviewAsync()
 		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetProjectOverviewAsync");
 			try
 			{
 				if (Controller == null)
@@ -147,10 +146,13 @@ namespace RcsApiClient.ViewModels
 				}
 
 				RcsProject = await Controller.GetProjectOverviewAsync(OpenedProjectId, cancellationTokenSource.Token);
+
 				Sections = new ObservableCollection<SectionViewModel>(RcsProject.Sections.Select(s => new SectionViewModel(s)));
+				
 			}
 			catch(Exception ex)
 			{
+				pluginLogger.LogWarning(ex.Message);
 			}
 		}
 

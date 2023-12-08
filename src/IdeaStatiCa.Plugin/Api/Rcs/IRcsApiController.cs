@@ -12,8 +12,6 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 {
 	public interface IRcsApiController : IDisposable
 	{
-		//Section for Grasshopper
-
 		/// <summary>
 		/// Open project from ideaRcs file, or IOM in xml
 		/// </summary>
@@ -28,7 +26,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="model">Project in open model format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Guid OpenProjectFromModel(OpenModel model, CancellationToken token);
+		Task<Guid> OpenProjectFromModelAsync(OpenModel model, CancellationToken token);
 
 		/// <summary>
 		/// Calculates RCS project for given project id
@@ -55,7 +53,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IList<RcsSectionModel> GetProjectSections(Guid projectId, CancellationToken token);
+		Task<IList<RcsSectionModel>> GetProjectSectionsAsync(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Get information about members in Project
@@ -63,7 +61,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IList<RcsCheckMemberModel> GetProjectMembers(Guid projectId, CancellationToken token);
+		Task<IList<RcsCheckMemberModel>> GetProjectMembersAsync(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Get information about reinforced cross sections in Project
@@ -71,7 +69,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IList<ReinforcedCrossSectionModel> GetProjectReinforcedCrossSections(Guid projectId, CancellationToken token);
+		Task<IList<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Return open project as file stream (*.idearcs)
@@ -79,7 +77,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		MemoryStream Download(Guid projectId, CancellationToken token);
+		Task<Stream> DownloadAsync(Guid projectId, CancellationToken token);
 
 		/// <summary>
 		/// Return collection of section details of opened project
@@ -88,7 +86,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="projectId">Id of the project</param>
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <returns></returns>
-		IEnumerable<RcsCrossSectionDetailModel> SectionDetails(Guid projectId, RcsCalculationParameters parameters);
+		Task<IEnumerable<RcsCrossSectionDetailModel>> SectionDetailsAsync(Guid projectId, RcsCalculationParameters parameters);
 
 
 		// Section for current implementations using direct RCS class
@@ -99,7 +97,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IEnumerable<SectionConcreteCheckResult> GetResultOnSections(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
+		Task<IEnumerable<SectionConcreteCheckResult>> GetResultOnSectionsAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
 		/// Returns nonconformity issues for specified GUID values
@@ -108,6 +106,6 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		IEnumerable<NonConformityIssue> GetNonConformityIssues(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
+		Task<IEnumerable<NonConformityIssue>> GetNonConformityIssuesAsync(Guid projectId, RcsCalculationParameters parameters, CancellationToken token);
 	}
 }
