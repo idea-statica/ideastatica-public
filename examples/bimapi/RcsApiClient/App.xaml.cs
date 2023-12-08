@@ -55,5 +55,11 @@ namespace RcsApiClient
 			mainWindow.Show();
 			base.OnStartup(e);
 		}
+
+		protected override void OnExit(ExitEventArgs e)
+		{
+			base.OnExit(e);
+			serviceProvider.GetRequiredService<IRcsClientFactory>().Dispose();
+		}
 	}
 }

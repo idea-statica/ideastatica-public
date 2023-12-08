@@ -133,6 +133,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 		public void Dispose()
 		{
+			rcsRestApiProcess?.Kill();
 			rcsRestApiProcess?.Dispose();
 		}
 	}

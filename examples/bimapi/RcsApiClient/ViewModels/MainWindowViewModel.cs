@@ -16,7 +16,7 @@ namespace RcsApiClient.ViewModels
 {
 	public class MainWindowViewModel : ObservableObject
 	{
-		private readonly CancellationTokenSource cancellationTokenSource;
+		private CancellationTokenSource cancellationTokenSource;
 		private readonly IPluginLogger pluginLogger;
 		private readonly IRcsClientFactory rcsClientFactory;
 		private IRcsApiController? controller;
@@ -24,18 +24,22 @@ namespace RcsApiClient.ViewModels
 		public MainWindowViewModel(IPluginLogger pluginLogger, IRcsClientFactory rcsClientFactory)
 		{
 			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
+			CancelCalculationCmd = new RelayCommand(CancelCalculation, CanCancel);
+
 			GetProjectOverviewCmdAsync = new AsyncRelayCommand(GetProjectOverviewAsync, CanGetProjectOverview);
-			GetResultOnSectionsCmdAsync = new AsyncRelayCommand(GetResultOnSectionsAsync, CanGetResultOnSections);
-			GetNonConformityIssuesCmdAsync = new AsyncRelayCommand(GetNonConformityIssuesAsync, CanGetNonConformityIssues);
+			CalculateResultsCmdAsync = new AsyncRelayCommand(CalculateResultsAsync, CanCalculateResultsAsync);
+			GetResultsCmdAsync = new AsyncRelayCommand(GetResultsAsync, CanGetResultsAsync);
+
+			GetSectionsCmdAsync = new AsyncRelayCommand(GetSections, CanGetProjectOverview);
+			GetMembersCmdAsync = new AsyncRelayCommand(GetMembers, CanGetProjectOverview);
+			GetReinforcedCrossSectionsCmdAsync = new AsyncRelayCommand(GetReinforcedCrossSections, CanGetProjectOverview);
 
 			sections = new ObservableCollection<SectionViewModel>();
 
 			this.cancellationTokenSource = new CancellationTokenSource();
-			this.OpenedProjectId = Guid.Empty;
+			this.ProjectOpened = false;
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
-
-
 
 			rcsClientFactory.StreamingLog = (msg, progress) =>
 			{
@@ -55,6 +59,11 @@ namespace RcsApiClient.ViewModels
 			get;
 			private set;
 		}
+		public IRelayCommand CancelCalculationCmd
+		{
+			get;
+			private set;
+		}
 
 		public IAsyncRelayCommand GetProjectOverviewCmdAsync
 		{
@@ -62,13 +71,37 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
-		public IAsyncRelayCommand GetResultOnSectionsCmdAsync
+		public IAsyncRelayCommand CalculateResultsCmdAsync
 		{
 			get;
 			private set;
 		}
 
-		public IAsyncRelayCommand GetNonConformityIssuesCmdAsync
+		public IAsyncRelayCommand GetResultsCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand SelectionChangedCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand GetMembersCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand GetSectionsCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand GetReinforcedCrossSectionsCmdAsync
 		{
 			get;
 			private set;
@@ -76,7 +109,12 @@ namespace RcsApiClient.ViewModels
 
 		private bool CanOpenProject()
 		{
-			return (this.Controller != null) && !IsRcsProjectOpen();
+			return this.Controller != null;
+		}
+
+		private bool CanCancel()
+		{
+			return this.Controller != null && CalculationInProgress;
 		}
 
 		private async Task OpenProjectAsync()
@@ -100,15 +138,32 @@ namespace RcsApiClient.ViewModels
 					string selectedFilePath = openFileDialog.FileName;
 
 					ApiMessage = "Opening RCS project";
-					OpenedProjectId = await controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
+					ProjectOpened = await controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
 					this.RcsProjectPath = selectedFilePath;
-					CalculationResult = $"Project is opened with ID '{OpenedProjectId}'";
+					CalculationResult = "Project is opened";
 					await GetProjectOverviewAsync();
 				}
 			}
 			catch(Exception ex)
 			{
 				ApiMessage = ex.Message;
+			}
+		}
+
+		private void CancelCalculation()
+		{
+			cancellationTokenSource.Cancel();
+		}
+
+		private bool calculationInProgress;
+		public bool CalculationInProgress
+		{
+			get => calculationInProgress;
+			set
+			{
+				calculationInProgress = value;
+				OnPropertyChanged(nameof(CalculationInProgress));
+				CancelCalculationCmd.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -151,14 +206,53 @@ namespace RcsApiClient.ViewModels
 			return IsRcsProjectOpen();
 		}
 
-		private bool CanGetResultOnSections()
+		private bool CanCalculateResultsAsync()
 		{
 			return IsRcsProjectOpen();
 		}
 
-		private bool CanGetNonConformityIssues()
+		private bool CanGetResultsAsync()
 		{
 			return IsRcsProjectOpen();
+		}
+
+		private async Task GetReinforcedCrossSections()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetReinforcedCrossSections");
+			if (Controller is null)
+			{
+				throw new NullReferenceException("Service is not running");
+			}
+
+			var result = await Controller.GetProjectReinforcedCrossSectionsAsync(cancellationTokenSource.Token);
+
+			CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
+		}
+
+		private async Task GetMembers()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetMembers");
+			if (Controller is null)
+			{
+				throw new NullReferenceException("Service is not running");
+			}
+
+			var result = await Controller.GetProjectMembersAsync(cancellationTokenSource.Token);
+
+			CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
+		}
+
+		private async Task GetSections()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetSections");
+			if (Controller is null)
+			{
+				throw new NullReferenceException("Service is not running");
+			}
+
+			var result = await Controller.GetProjectSectionsAsync(cancellationTokenSource.Token);
+
+			CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
 		}
 
 		private async Task GetProjectOverviewAsync()
@@ -166,12 +260,14 @@ namespace RcsApiClient.ViewModels
 			pluginLogger.LogDebug("MainWindowViewModel.GetProjectOverviewAsync");
 			try
 			{
-				if (Controller == null)
+				if (Controller is null)
 				{
-					throw new Exception("Service is not running");
+					throw new NullReferenceException("Service is not running");
 				}
 
-				RcsProject = await Controller.GetProjectOverviewAsync(OpenedProjectId, cancellationTokenSource.Token);
+				RcsProject = await Controller.GetProjectOverviewAsync(cancellationTokenSource.Token);
+
+				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(RcsProject));
 
 				Sections = new ObservableCollection<SectionViewModel>(RcsProject.Sections.Select(s => new SectionViewModel(s)));
 
@@ -184,13 +280,48 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private async Task GetResultOnSectionsAsync()
+		private async Task CalculateResultsAsync()
 		{
 			if (Controller == null)
 			{
-				throw new Exception("Service is not running");
+				throw new NullReferenceException("Service is not running");
 			}
 
+			cancellationTokenSource = new CancellationTokenSource();
+			pluginLogger.LogDebug("MainWindowViewModel.CalculateResultsAsync");
+			CalculationResult = string.Empty;
+
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in Sections)
+			{
+				sectionList.Add(int.Parse(selectedSection.Id.ToString()));
+			}
+
+			parameters.Sections = sectionList;
+
+			CalculationInProgress = true;
+			var result = await Controller.CalculateResultsAsync(parameters, cancellationTokenSource.Token);
+			CalculationInProgress = false;
+			if (result is { })
+			{
+				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
+			}
+			else
+			{
+				CalculationResult = "Request failed.";
+			}
+		}
+
+		private async Task GetResultsAsync()
+		{
+			if (Controller == null)
+			{
+				throw new NullReferenceException("Service is not running");
+			}
+
+			pluginLogger.LogDebug("MainWindowViewModel.GetResultsAsync");
 			CalculationResult = string.Empty;
 			UpdateProgress("", 0);
 
@@ -203,31 +334,7 @@ namespace RcsApiClient.ViewModels
 			}
 
 			parameters.Sections = sectionList;
-
-			var result = await Controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
-
-			if (result is { })
-			{
-				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result.Sections));
-			}
-			else
-			{
-				CalculationResult = "Request failed.";
-			}
-		}
-
-		private async Task GetNonConformityIssuesAsync()
-		{
-			if (Controller == null)
-			{
-				throw new Exception("Service is not running");
-			}
-
-			CalculationResult = string.Empty;
-			UpdateProgress("", 0);
-
-			var parameters = new RcsCalculationParameters();
-			var result = await Controller.GetNonConformityIssuesAsync(openedProjectId, parameters, CancellationToken.None);
+			var result = await Controller.GetResultsAsync(parameters, cancellationTokenSource.Token);
 
 			if (result is { })
 			{
@@ -238,26 +345,29 @@ namespace RcsApiClient.ViewModels
 				CalculationResult = "Request failed.";
 			}
 		}
-
+		
 		private async void CreateClientAsync()
 		{
 			ApiMessage = "Starting RCS Service";
-			var x = await rcsClientFactory.CreateRcsApiClient();
-			this.Controller = x;
+			var apiController = await rcsClientFactory.CreateRcsApiClient();
+			this.Controller = apiController;
 			ApiMessage = "RCS Service is running";
 		}
 
-		private Guid openedProjectId;
-		public Guid OpenedProjectId
+		private bool projectOpened;
+		public bool ProjectOpened
 		{
-			get => openedProjectId;
+			get => projectOpened;
 			set
 			{
-				openedProjectId = value;
-				OnPropertyChanged(nameof(OpenedProjectId));
+				projectOpened = value;
+				OnPropertyChanged(nameof(ProjectOpened));
 				GetProjectOverviewCmdAsync.NotifyCanExecuteChanged();
-				GetNonConformityIssuesCmdAsync.NotifyCanExecuteChanged();
-				GetResultOnSectionsCmdAsync.NotifyCanExecuteChanged();
+				CalculateResultsCmdAsync.NotifyCanExecuteChanged();
+				GetResultsCmdAsync.NotifyCanExecuteChanged();
+				GetSectionsCmdAsync.NotifyCanExecuteChanged();
+				GetMembersCmdAsync.NotifyCanExecuteChanged();
+				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -332,7 +442,7 @@ namespace RcsApiClient.ViewModels
 
 		private bool IsRcsProjectOpen()
 		{
-			return OpenedProjectId != Guid.Empty;
+			return ProjectOpened;
 		}
 
 		private void ApiHeartbeatUpdate(string heartbeatMsg)
