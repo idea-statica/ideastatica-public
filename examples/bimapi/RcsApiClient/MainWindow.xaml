@@ -13,9 +13,9 @@
 				<TextBox x:Name="ProjectFileInputPath" Text="{Binding RcsProjectPath}" Margin="5" IsEnabled="False" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button x:Name="GetResultOnSections" HorizontalAlignment="Left"  Content="GetResultOnSections" Width="200" Height="30"/>
-				<Button x:Name="GetNonConformityIssues" HorizontalAlignment="Left"  Content="GetNonConformityIssues" Width="200" Height="30"/>
 				<Button x:Name="GetProjectOverview" HorizontalAlignment="Left"  Content="GetProjectOverview" Command="{Binding GetProjectOverviewCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetResultOnSections" HorizontalAlignment="Left"  Content="GetResultOnSections" Command="{Binding GetResultOnSectionsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetNonConformityIssues" HorizontalAlignment="Left"  Content="GetNonConformityIssues" Command="{Binding GetNonConformityIssuesCmdAsync}" Width="200" Height="30"/>
 			</StackPanel>
 
 			<ListView ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection, Mode=TwoWay}" MinHeight="200">

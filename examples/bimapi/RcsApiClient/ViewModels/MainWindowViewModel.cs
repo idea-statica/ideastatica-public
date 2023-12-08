@@ -4,7 +4,9 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -23,8 +25,10 @@ namespace RcsApiClient.ViewModels
 		{
 			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
 			GetProjectOverviewCmdAsync = new AsyncRelayCommand(GetProjectOverviewAsync, CanGetProjectOverview);
+			GetResultOnSectionsCmdAsync = new AsyncRelayCommand(GetResultOnSectionsAsync, CanGetResultOnSections);
+			GetNonConformityIssuesCmdAsync = new AsyncRelayCommand(GetNonConformityIssuesAsync, CanGetNonConformityIssues);
 
-			Sections = new ObservableCollection<SectionViewModel>();
+			sections = new ObservableCollection<SectionViewModel>();
 
 			this.cancellationTokenSource = new CancellationTokenSource();
 			this.OpenedProjectId = Guid.Empty;
@@ -58,6 +62,18 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
+		public IAsyncRelayCommand GetResultOnSectionsCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand GetNonConformityIssuesCmdAsync
+		{
+			get;
+			private set;
+		}
+
 		private bool CanOpenProject()
 		{
 			return (this.Controller != null) && !IsRcsProjectOpen();
@@ -86,8 +102,8 @@ namespace RcsApiClient.ViewModels
 					ApiMessage = "Opening RCS project";
 					OpenedProjectId = await controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
 					this.RcsProjectPath = selectedFilePath;
-					//MultiSelectListBox.Items.Clear();
 					CalculationResult = $"Project is opened with ID '{OpenedProjectId}'";
+					await GetProjectOverviewAsync();
 				}
 			}
 			catch(Exception ex)
@@ -119,8 +135,8 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private SectionViewModel selectedSection;
-		public SectionViewModel SelectedSection
+		private SectionViewModel? selectedSection;
+		public SectionViewModel? SelectedSection
 		{
 			get => selectedSection;
 			set
@@ -131,6 +147,16 @@ namespace RcsApiClient.ViewModels
 		}
 
 		private bool CanGetProjectOverview()
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private bool CanGetResultOnSections()
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private bool CanGetNonConformityIssues()
 		{
 			return IsRcsProjectOpen();
 		}
@@ -148,11 +174,68 @@ namespace RcsApiClient.ViewModels
 				RcsProject = await Controller.GetProjectOverviewAsync(OpenedProjectId, cancellationTokenSource.Token);
 
 				Sections = new ObservableCollection<SectionViewModel>(RcsProject.Sections.Select(s => new SectionViewModel(s)));
+
+				SelectedSection = Sections?.FirstOrDefault();
 				
 			}
 			catch(Exception ex)
 			{
 				pluginLogger.LogWarning(ex.Message);
+			}
+		}
+
+		private async Task GetResultOnSectionsAsync()
+		{
+			if (Controller == null)
+			{
+				throw new Exception("Service is not running");
+			}
+
+			CalculationResult = string.Empty;
+			UpdateProgress("", 0);
+
+			var parameters = new RcsCalculationParameters();
+			var sectionList = new List<int>();
+
+			foreach (var selectedSection in Sections)
+			{
+				sectionList.Add(int.Parse(selectedSection.Id.ToString()));
+			}
+
+			parameters.Sections = sectionList;
+
+			var result = await Controller.CalculateProjectAsync(openedProjectId, parameters, CancellationToken.None);
+
+			if (result is { })
+			{
+				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result.Sections));
+			}
+			else
+			{
+				CalculationResult = "Request failed.";
+			}
+		}
+
+		private async Task GetNonConformityIssuesAsync()
+		{
+			if (Controller == null)
+			{
+				throw new Exception("Service is not running");
+			}
+
+			CalculationResult = string.Empty;
+			UpdateProgress("", 0);
+
+			var parameters = new RcsCalculationParameters();
+			var result = await Controller.GetNonConformityIssuesAsync(openedProjectId, parameters, CancellationToken.None);
+
+			if (result is { })
+			{
+				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
+			}
+			else
+			{
+				CalculationResult = "Request failed.";
 			}
 		}
 
@@ -173,6 +256,8 @@ namespace RcsApiClient.ViewModels
 				openedProjectId = value;
 				OnPropertyChanged(nameof(OpenedProjectId));
 				GetProjectOverviewCmdAsync.NotifyCanExecuteChanged();
+				GetNonConformityIssuesCmdAsync.NotifyCanExecuteChanged();
+				GetResultOnSectionsCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
