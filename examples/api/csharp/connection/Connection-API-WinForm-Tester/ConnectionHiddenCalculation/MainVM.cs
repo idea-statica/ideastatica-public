@@ -413,7 +413,7 @@ namespace ConnectionHiddenCalculation
 			//IdeaConTempFileName = Path.ChangeExtension(Path.GetTempFileName(), ".ideacon");
 			//SaveAsProjectCmd.Execute(IdeaConTempFileName);
 
-			//ConnectionController.OpenProject(IdeaConTempFileName);
+			//ConnectionController.OpenProjectAsync(IdeaConTempFileName);
 		}
 
 		private void ConnectionController_ConnectionAppExited(object sender, EventArgs e)

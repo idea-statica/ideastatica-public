@@ -1,6 +1,9 @@
 ﻿namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
-	public class RcsReinforcedCrossSectionModel
+	/// <summary>
+	/// Reinforced cross-section in RCS project
+	/// </summary>
+	public class ReinforcedCrossSectionModel
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
