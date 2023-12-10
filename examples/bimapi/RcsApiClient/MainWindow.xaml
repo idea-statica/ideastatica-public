@@ -27,6 +27,10 @@
 			<StackPanel>
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Button HorizontalAlignment="Left"  Content="SetReinforcement" ToolTip="Set reinforced cross-section to a selected section" Command="{Binding SetReinforcedCssCmdAsync}" Width="200" Height="30"/>
+
+			</StackPanel>
 
 			<ListView ItemsSource="{Binding Sections}" 
 					  SelectionMode="Extended"

@@ -10,6 +10,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		Action<string> HeartBeatLogAction { get; set; }
 		Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json");
 		Task<TResult> PostAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json");
+		Task<TResult> PutAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json");
 		Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream);
 	}
 }

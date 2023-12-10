@@ -34,6 +34,8 @@ namespace RcsApiClient.ViewModels
 			GetMembersCmdAsync = new AsyncRelayCommand(GetMembers, CanGetProjectOverview);
 			GetReinforcedCrossSectionsCmdAsync = new AsyncRelayCommand(GetReinforcedCrossSections, CanGetProjectOverview);
 
+			SetReinforcedCssCmdAsync = new AsyncRelayCommand(SetReinforcedCssAsync, CanSetReinforcedCss);
+
 			sections = new ObservableCollection<SectionViewModel>();
 
 			this.cancellationTokenSource = new CancellationTokenSource();
@@ -59,6 +61,17 @@ namespace RcsApiClient.ViewModels
 			get;
 			private set;
 		}
+
+
+		/// <summary>
+		/// A command for changing reinforced cross-section in a selected section
+		/// </summary>
+		public IAsyncRelayCommand SetReinforcedCssCmdAsync
+		{
+			get;
+			private set;
+		}
+
 		public IRelayCommand CancelCalculationCmd
 		{
 			get;
@@ -198,6 +211,7 @@ namespace RcsApiClient.ViewModels
 			{
 				selectedSection = value;
 				OnPropertyChanged(nameof(SelectedSection));
+				SetReinforcedCssCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -214,6 +228,34 @@ namespace RcsApiClient.ViewModels
 		private bool CanGetResultsAsync()
 		{
 			return IsRcsProjectOpen();
+		}
+
+		private bool CanSetReinforcedCss()
+		{
+			return (IsRcsProjectOpen() && SelectedSection != null);
+		}
+
+
+		private async Task SetReinforcedCssAsync()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.SetReinforcedCssAsync");
+			try
+			{
+				if (Controller == null)
+				{
+					throw new Exception("Service is not running");
+				}
+
+				int sectionId = 6;
+				int reinforcedSection = 2;
+
+				var updatedSection = await Controller.SetReinforcementAsync(sectionId, reinforcedSection);
+
+			}
+			catch (Exception ex)
+			{
+				pluginLogger.LogWarning(ex.Message);
+			}
 		}
 
 		private async Task GetReinforcedCrossSections()
@@ -345,7 +387,22 @@ namespace RcsApiClient.ViewModels
 				CalculationResult = "Request failed.";
 			}
 		}
-		
+
+		private async Task SetReinforcedCssAsyncAsync()
+		{
+			if (Controller == null)
+			{
+				throw new Exception("Service is not running");
+			}
+
+			CalculationResult = string.Empty;
+			UpdateProgress("", 0);
+
+			var parameters = new RcsCalculationParameters();
+			var result = await Controller.GetNonConformityIssuesAsync(parameters, CancellationToken.None);
+		}
+
+
 		private async void CreateClientAsync()
 		{
 			ApiMessage = "Starting RCS Service";

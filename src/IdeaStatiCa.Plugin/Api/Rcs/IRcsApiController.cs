@@ -105,5 +105,13 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
 		Task<List<NonConformityIssue>> GetNonConformityIssuesAsync(RcsCalculationParameters parameters, CancellationToken token);
+
+		/// <summary>
+		/// Set a reinforced cross-section which is defined in RCS project by <paramref name="reinforcedSectionId"/> to the RCS section desined by <paramref name="sectionId"/>
+		/// </summary>
+		/// <param name="sectionId">Id of a section in a RCS project to modified</param>
+		/// <param name="reinforcedSectionId">Iid of a reinforced cross-section in RCS project to be set to a section</param>
+		/// <returns></returns>
+		Task<RcsSectionModel> SetReinforcementAsync(int sectionId, int reinforcedSectionId);
 	}
 }

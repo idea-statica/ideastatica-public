@@ -44,6 +44,21 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			, acceptHeader);
 		}
 
+
+		public async Task<TResult> PutAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json")
+		{
+			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
+			{ 
+				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
+			{
+				content.Headers.ContentType.CharSet = "";
+				var url = baseUrl + "/" + requestUri;
+				return await client.PutAsync(url, content);
+			}
+		}, acceptHeader);
+			return result;
+		}
+
 		/// <summary>
 		/// Calls PostAsync on HttpClient
 		/// </summary>

@@ -149,6 +149,15 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 
+		public async Task<RcsSectionModel> SetReinforcementAsync(int sectionId, int reinforcedSectionId)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.SetReinforcementAsync projectId = {ActiveProjectId} sectionId = {sectionId} reinforcedSectionId = {reinforcedSectionId}");
+
+			RcsSectionModel sectionModel = new RcsSectionModel() { Id = sectionId, RCSId= reinforcedSectionId };
+			var result = await httpClient.PutAsync<RcsSectionModel>($"Section/{ActiveProjectId}/SetReinforcedSection", sectionModel);
+			return result;
+		}
+
 		private async Task<ProjectResult> CalculateProjectAsync(RcsCalculationParameters parameters, CancellationToken token)
 		{
 			return await httpClient.PostAsync<ProjectResult>($"Calculations/{ActiveProjectId}/CalculateResults", parameters, "application/xml");
