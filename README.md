@@ -1,52 +1,36 @@
 ![build & test](https://github.com/idea-statica/ideastatica-public/actions/workflows/dotnet.yml/badge.svg)
 
-# IdeaStatiCa API
-Documentation of IDEA StatiCA API
+# IDEA StatiCa Public Repo
 
-## Idea Open Model
-This model contains information about geometry, materials and loading of a structure. It is used for exchanging data with IdeaStatica and any othe FE or CAD application. The source code of [IdeaRS.OpenModel](./src/IdeaRS.OpenModel)
+Welcome to the IDEA StatiCa public GitHub repo. 
 
-## IdeaStatiCa.Plugin
-is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications. The source code of [IdeaStatiCa.Plugin](./src/IdeaStatiCa.Plugin)
+## Documentation (docs)
 
-## IdeaRS.Connections
-The documentation of manufacturing operations. [IdeaRS.Connections.Data](https://idea-statica.github.io/iom/ideaconnections-api/latest/html/N_IdeaRS_Connections_Data.htm)
+The docs folder contains all the information which builds our API documentation website at [developer.ideastatica.com](https://developer.ideastatica.com/). 
 
-# IdeaStatiCa Diagnostics
-There is description how to use [IdeaStatiCa.Diagnostics](docs/ccm-diagnostics.md) to get log files.
+**The developer site should be the first port of call for any developer or scripter.**
 
-# Examples
-Examples how to use IDEA StatiCa API
+## Examples (examples)
 
-## Idea Open Model
-These examples show how to create Idea Open Model for various types of structures.
-### Steel Structures
-[Steel Frame 1 Example](src/Examples/IOM)
+The examples folder contains all the examples we currently have avaliable. It provides examples for creating BIM Links with Checkbot, Generating IDEA Open Model format from scratch, and also examples on using design app API's to automate your designs. 
 
-## Calculations
-These examples show how to calculate structures which were defined in Idea Open Model
+## Source (src)
 
-### Calculation of steel connection
-[ConHiddenCheckConsole](src/Examples/ConnHiddenCalc/ConHiddenCheckConsole)
+Here you will find source code for code of IDEA StatiCa Open API's, IDEA Open Model as well as code for some of our most popular BIM Links. 
 
-[ConnectionHiddenCalculation](src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation)
+## Other Information
 
-[Python Examples](src/Examples/ConnHiddenCalc/python-examples)
+### Discussions & Issues
 
-### Concrete Structures
+We encourage people to engage in our community with through posting on our IDEA StatiCa API [discussion forum](https://github.com/idea-statica/ideastatica-public/discussions) or by notifying us of bugs you may come accross when using our API and services on the [issues](https://github.com/idea-statica/ideastatica-public/issues) tab. 
 
-[Concrete Column](docs/rcs/rcs-column.md)
+### Contributing
 
-[Reinforced Beam](docs/rcs/rcs-reinforced-beam.md)
+If you would like to contribute to anything in this repo, please see our [pull request template](PULL_REQUEST_TEMPLATE.md). If you would like to know how you could contribute, please get in contact with us.
 
-[Prestressed Beam](docs/rcs/rcs-prestressed-beam.md)
+We also ask that, when interacting on our GitHub site you adhere to our [code of conduct](CODE_OF_CONDUCT.md).
 
-## CheckBot
-Examples of using - Idea StatiCa Code Check Manager API
+### Licence
 
-[FEAppExample_1](src/Examples/CCM/FEAppExample_1)
-
-## IdeaRstabPlugin
-
-The [source code](/src/bim-links/rstab/IdeaRstabPlugin) of the implementation of [BimApi](/src/IdeaStatiCa.BimApi) for [RSTAB v8](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
+Please review our [license](LICENSE). 
 
