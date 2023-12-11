@@ -4,8 +4,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Concrete.CheckResult;
-using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 
 namespace IdeaStatiCa.Plugin.Api.Rcs
@@ -86,25 +84,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// </summary>
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <returns></returns>
-		Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters);
-
-
-		// Section for current implementations using direct RCS class
-		/// <summary>
-		/// Return calculated sections for given project input
-		/// </summary>
-		/// <param name="parameters">Parameters to specify the sections</param>
-		/// <param name="token">Cancellation token</param>
-		/// <returns></returns>
-		Task<List<SectionConcreteCheckResult>> GetResultOnSectionsAsync(RcsCalculationParameters parameters, CancellationToken token);
-
-		/// <summary>
-		/// Returns nonconformity issues for specified GUID values
-		/// </summary>
-		/// <param name="parameters">Parameters to specify the sections</param>
-		/// <param name="token">Cancellation token</param>
-		/// <returns></returns>
-		Task<List<NonConformityIssue>> GetNonConformityIssuesAsync(RcsCalculationParameters parameters, CancellationToken token);
+		Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters, CancellationToken token);
 
 		/// <summary>
 		/// Set a reinforced cross-section which is defined in RCS project by <paramref name="reinforcedSectionId"/> to the RCS section desined by <paramref name="sectionId"/>
@@ -112,6 +92,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="sectionId">Id of a section in a RCS project to modified</param>
 		/// <param name="reinforcedSectionId">Iid of a reinforced cross-section in RCS project to be set to a section</param>
 		/// <returns></returns>
-		Task<RcsSectionModel> SetReinforcementAsync(int sectionId, int reinforcedSectionId);
+		Task<RcsSectionModel> SetReinforcementAsync(int sectionId, int reinforcedSectionId, CancellationToken token);
+
 	}
 }

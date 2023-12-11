@@ -249,7 +249,7 @@ namespace RcsApiClient.ViewModels
 				int sectionId = 6;
 				int reinforcedSection = 2;
 
-				var updatedSection = await Controller.SetReinforcementAsync(sectionId, reinforcedSection);
+				var updatedSection = await Controller.SetReinforcementAsync(sectionId, reinforcedSection, cancellationTokenSource.Token);
 
 			}
 			catch (Exception ex)
@@ -329,7 +329,6 @@ namespace RcsApiClient.ViewModels
 				throw new NullReferenceException("Service is not running");
 			}
 
-			cancellationTokenSource = new CancellationTokenSource();
 			pluginLogger.LogDebug("MainWindowViewModel.CalculateResultsAsync");
 			CalculationResult = string.Empty;
 
@@ -344,15 +343,25 @@ namespace RcsApiClient.ViewModels
 			parameters.Sections = sectionList;
 
 			CalculationInProgress = true;
-			var result = await Controller.CalculateResultsAsync(parameters, cancellationTokenSource.Token);
-			CalculationInProgress = false;
-			if (result is { })
+			try
 			{
-				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
+				var result = await Controller.CalculateResultsAsync(parameters, cancellationTokenSource.Token);
+				CalculationInProgress = false;
+				if (result is { })
+				{
+					CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
+				}
+				else
+				{
+					CalculationResult = "Request failed.";
+				}
 			}
-			else
+			catch(OperationCanceledException ex)
 			{
-				CalculationResult = "Request failed.";
+				pluginLogger.LogDebug("Calculation was cancelled", ex);
+				CalculationResult = "Operation was cancelled. Fully calculated sections won't loose the results.";
+				cancellationTokenSource.Dispose();
+				cancellationTokenSource = new CancellationTokenSource();
 			}
 		}
 
@@ -387,21 +396,6 @@ namespace RcsApiClient.ViewModels
 				CalculationResult = "Request failed.";
 			}
 		}
-
-		private async Task SetReinforcedCssAsyncAsync()
-		{
-			if (Controller == null)
-			{
-				throw new Exception("Service is not running");
-			}
-
-			CalculationResult = string.Empty;
-			UpdateProgress("", 0);
-
-			var parameters = new RcsCalculationParameters();
-			var result = await Controller.GetNonConformityIssuesAsync(parameters, CancellationToken.None);
-		}
-
 
 		private async void CreateClientAsync()
 		{
