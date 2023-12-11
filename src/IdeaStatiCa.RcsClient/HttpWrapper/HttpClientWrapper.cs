@@ -36,11 +36,11 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <param name="requestUri">Request endpoint</param>
 		/// <param name="acceptHeader">Optional accept header</param>
 		/// <returns>Deserialized object from Http response</returns>
-		public async Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json")
+		public async Task<TResult> GetAsync<TResult>(string requestUri, CancellationToken token, string acceptHeader = "application/json")
 		{
 			var url = baseUrl + "/" + requestUri;
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
-			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url); }
+			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url, token); }
 			, acceptHeader);
 		}
 
@@ -52,7 +52,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <param name="requestData">Request body object</param>
 		/// <param name="acceptHeader">Optional accept header</param>
 		/// <returns>Deserialized object from Http response</returns>
-		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json")
+		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
 		{
 			var url = $"{baseUrl}{PluginConstants.RcsProgressEndpoint}";
 			logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
@@ -76,7 +76,16 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				{
 					content.Headers.ContentType.CharSet = "";
 					var url = baseUrl + "/" + requestUri;
-					return await client.PostAsync(url, content);
+					try
+					{
+						return await client.PostAsync(url, content, token);
+					}
+					catch(OperationCanceledException ex)
+					{
+						logger.LogDebug("Operation was cancelled", ex);
+						throw ex;
+					}
+									
 				}
 			}, acceptHeader);
 
@@ -87,6 +96,23 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// Post call that contains binary body content
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="requestUri"></param>
+		/// <param name="stream"></param>
+		/// <param name="token"></param>
+		/// <returns></returns>
+		public async Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream, CancellationToken token)
+		{
+			return await ExecuteClientCallAsync<TResult>(async (client) =>
+			{
+				var url = baseUrl + "/" + requestUri;
+				return await client.PostAsync(url, stream, token);
+			}, "application/json");
 		}
 
 		private async Task<TResult> ExecuteClientCallAsync<TResult>(Func<HttpClient, Task<HttpResponseMessage>> clientCall, string acceptHeader)
@@ -145,15 +171,6 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			{
 				return (TResult)serializer.Deserialize(reader);
 			}
-		}
-
-		public async Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream)
-		{
-			return await ExecuteClientCallAsync<TResult>(async (client) =>
-			{
-				var url = baseUrl + "/" + requestUri;
-				return await client.PostAsync(url, stream);
-			}, "application/json");
 		}
 	}
 }
