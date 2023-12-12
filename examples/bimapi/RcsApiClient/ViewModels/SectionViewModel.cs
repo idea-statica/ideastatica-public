@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
+using System;
 
 namespace RcsApiClient.ViewModels
 {
@@ -10,8 +11,14 @@ namespace RcsApiClient.ViewModels
 
 		public SectionViewModel(RcsSectionModel rcsSectionModel)
 		{
+			if (rcsSectionModel == null || rcsSectionModel?.RCSId == null)
+			{
+				throw new Exception();
+			}
+
 			Id = rcsSectionModel.Id;
 			Description = rcsSectionModel.Description;
+			ReinforcedCssId = rcsSectionModel.RCSId.Value;
 		}
 
 		private int id;
@@ -22,6 +29,18 @@ namespace RcsApiClient.ViewModels
 			{
 				id = value;
 				OnPropertyChanged(nameof(Id));
+			}
+		}
+
+
+		private int rfId;
+		public int ReinforcedCssId
+		{
+			get => rfId;
+			set
+			{
+				rfId = value;
+				OnPropertyChanged(nameof(ReinforcedCssId));
 			}
 		}
 

@@ -8,6 +8,7 @@
 	    x:Class="RcsApiClient.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
+
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal">
@@ -28,14 +29,21 @@
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button HorizontalAlignment="Left"  Content="SetReinforcement" ToolTip="Set reinforced cross-section to a selected section" Command="{Binding SetReinforcedCssCmdAsync}" Width="200" Height="30"/>
-
+				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Set reinforced cross-section to a selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
+				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
 			</StackPanel>
 
-			<ListView ItemsSource="{Binding Sections}" 
-					  SelectionMode="Extended"
-					  Name="SectionsListView"
-					  MinHeight="200">
+			<ListView ItemsSource="{Binding Sections}"
+				SelectionMode="Single"
+				SelectedItem="{Binding SelectedSection, Mode=TwoWay}"
+				Name="SectionsListView"
+				MinHeight="200">
 				<ListView.ItemContainerStyle>
 					<Style TargetType="{x:Type ListViewItem}">
 						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -47,7 +55,7 @@
 							<GridViewColumn.CellTemplate>
 								<DataTemplate>
 									<StackPanel>
-										<TextBlock Text="{Binding Id}"/>
+										<TextBlock Text="{Binding Description}"/>
 									</StackPanel>
 								</DataTemplate>
 							</GridViewColumn.CellTemplate>

@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
+using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -19,9 +21,10 @@ namespace RcsApiClient.ViewModels
 		private CancellationTokenSource cancellationTokenSource;
 		private readonly IPluginLogger pluginLogger;
 		private readonly IRcsClientFactory rcsClientFactory;
+		private readonly IReinfCssSelector reinfSectSlector;
 		private IRcsApiController? controller;
 
-		public MainWindowViewModel(IPluginLogger pluginLogger, IRcsClientFactory rcsClientFactory)
+		public MainWindowViewModel(IPluginLogger pluginLogger, IRcsClientFactory rcsClientFactory, IReinfCssSelector reinfSectSlector)
 		{
 			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
 			CancelCalculationCmd = new RelayCommand(CancelCalculation, CanCancel);
@@ -34,14 +37,17 @@ namespace RcsApiClient.ViewModels
 			GetMembersCmdAsync = new AsyncRelayCommand(GetMembers, CanGetProjectOverview);
 			GetReinforcedCrossSectionsCmdAsync = new AsyncRelayCommand(GetReinforcedCrossSections, CanGetProjectOverview);
 
-			SetReinforcedCssCmdAsync = new AsyncRelayCommand(SetReinforcedCssAsync, CanSetReinforcedCss);
+			UpdateSectionCmdAsync = new AsyncRelayCommand(UpdateSectionAsync, CanUpdateSection);
 
+			this.pluginLogger = pluginLogger;
+			this.rcsClientFactory = rcsClientFactory;
+			this.reinfSectSlector = reinfSectSlector;
 			sections = new ObservableCollection<SectionViewModel>();
+			reinforcedCrossSections = new ObservableCollection<ReinforcedCssViewModel>();
+
 
 			this.cancellationTokenSource = new CancellationTokenSource();
 			this.ProjectOpened = false;
-			this.pluginLogger = pluginLogger;
-			this.rcsClientFactory = rcsClientFactory;
 
 			rcsClientFactory.StreamingLog = (msg, progress) =>
 			{
@@ -66,7 +72,7 @@ namespace RcsApiClient.ViewModels
 		/// <summary>
 		/// A command for changing reinforced cross-section in a selected section
 		/// </summary>
-		public IAsyncRelayCommand SetReinforcedCssCmdAsync
+		public IAsyncRelayCommand UpdateSectionCmdAsync
 		{
 			get;
 			private set;
@@ -91,12 +97,6 @@ namespace RcsApiClient.ViewModels
 		}
 
 		public IAsyncRelayCommand GetResultsCmdAsync
-		{
-			get;
-			private set;
-		}
-
-		public IAsyncRelayCommand SelectionChangedCmdAsync
 		{
 			get;
 			private set;
@@ -203,6 +203,29 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
+		private ObservableCollection<ReinforcedCssViewModel> reinforcedCrossSections;
+		public ObservableCollection<ReinforcedCssViewModel> ReinforcedCrossSections
+		{
+			get => reinforcedCrossSections;
+			set
+			{
+				reinforcedCrossSections = value;
+				OnPropertyChanged(nameof(ReinforcedCrossSections));
+			}
+		}
+
+		private ReinforcedCssViewModel? selectedReinforcedCss;
+		public ReinforcedCssViewModel? SelectedReinforcedCss
+		{
+			get => selectedReinforcedCss;
+			set
+			{
+				selectedReinforcedCss = value;
+				OnPropertyChanged(nameof(SelectedReinforcedCss));
+				UpdateSectionCmdAsync.NotifyCanExecuteChanged();
+			}
+		}
+
 		private SectionViewModel? selectedSection;
 		public SectionViewModel? SelectedSection
 		{
@@ -210,8 +233,18 @@ namespace RcsApiClient.ViewModels
 			set
 			{
 				selectedSection = value;
+
+				if (selectedSection != null && SelectedReinforcedCss != null)
+				{
+					SelectedReinforcedCss = ReinforcedCrossSections.FirstOrDefault(s => s.Id == selectedSection?.ReinforcedCssId);
+				}
+				else
+				{
+					SelectedReinforcedCss = null;
+				}
+
 				OnPropertyChanged(nameof(SelectedSection));
-				SetReinforcedCssCmdAsync.NotifyCanExecuteChanged();
+				UpdateSectionCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -230,24 +263,58 @@ namespace RcsApiClient.ViewModels
 			return IsRcsProjectOpen();
 		}
 
-		private bool CanSetReinforcedCss()
+		private bool CanUpdateSection()
 		{
-			return (IsRcsProjectOpen() && SelectedSection != null);
+			if(!IsRcsProjectOpen() || SelectedSection == null || SelectedReinforcedCss == null)
+			{
+				return false;
+			}
+
+			int rfCssIdInProject = GetCurrentRFCssId();
+
+			return SelectedReinforcedCss.Id != rfCssIdInProject;
+		}
+
+		/// <summary>
+		/// Returns the ID of the reinforced cross-section from the selected section
+		/// If onthing is selected it retuns -1
+		/// </summary>
+		/// <returns></returns>
+		private int GetCurrentRFCssId()
+		{
+			if (RcsProject == null)
+			{
+				return -1;
+			}
+
+			if (SelectedSection == null)
+			{
+				return -1;
+			}
+
+
+				// get ID of the reinforced cross-section for the selected section from the open RCS projects
+				int rfCssIdInProject = RcsProject.Sections.First(s => s.Id == SelectedSection?.Id).Id;
+				return rfCssIdInProject;
+
 		}
 
 
-		private async Task SetReinforcedCssAsync()
+		private async Task UpdateSectionAsync()
 		{
-			pluginLogger.LogDebug("MainWindowViewModel.SetReinforcedCssAsync");
+			pluginLogger.LogDebug("MainWindowViewModel.UpdateSectionAsync");
 			try
 			{
-				if (Controller == null)
+				if (Controller == null || SelectedSection == null)
 				{
 					throw new Exception("Service is not running");
 				}
 
-				int sectionId = 6;
-				int reinforcedSection = 2;
+				// selected section
+				int sectionId = SelectedSection.Id;
+
+				// ask user to select reinforced cross-section
+				int reinforcedSection = reinfSectSlector.Select(RcsProject);
 
 				var updatedSection = await Controller.SetReinforcementAsync(sectionId, reinforcedSection, cancellationTokenSource.Token);
 
@@ -307,9 +374,16 @@ namespace RcsApiClient.ViewModels
 					throw new NullReferenceException("Service is not running");
 				}
 
+				SelectedReinforcedCss = null;
+				SelectedSection = null;
+
 				RcsProject = await Controller.GetProjectOverviewAsync(cancellationTokenSource.Token);
 
 				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(RcsProject));
+
+				ReinforcedCrossSections = new ObservableCollection<ReinforcedCssViewModel>(RcsProject.ReinforcedCrossSections.Select(rf => new ReinforcedCssViewModel(rf)));
+
+				SelectedReinforcedCss = ReinforcedCrossSections.FirstOrDefault();
 
 				Sections = new ObservableCollection<SectionViewModel>(RcsProject.Sections.Select(s => new SectionViewModel(s)));
 
