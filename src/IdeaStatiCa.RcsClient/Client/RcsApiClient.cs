@@ -140,12 +140,10 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 
-		public async Task<RcsSectionModel> SetReinforcementAsync(int sectionId, int reinforcedSectionId, CancellationToken token)
+		public async Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token)
 		{
-			pluginLogger.LogDebug($"RcsApiClient.SetReinforcementAsync projectId = {ActiveProjectId} sectionId = {sectionId} reinforcedSectionId = {reinforcedSectionId}");
-
-			RcsSectionModel sectionModel = new RcsSectionModel() { Id = sectionId, RCSId= reinforcedSectionId };
-			var result = await httpClient.PutAsync<RcsSectionModel>($"Section/{ActiveProjectId}/SetReinforcedSection", sectionModel, token);
+			pluginLogger.LogDebug($"RcsApiClient.UpdateSectionAsync projectId = {ActiveProjectId} sectionId = {newSectionData.Id} reinforcedSectionId = {newSectionData.RCSId}");
+			var result = await httpClient.PutAsync<RcsSectionModel>($"Section/{ActiveProjectId}/UpdateSection", newSectionData, token);
 			return result;
 		}
 

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Castle.DynamicProxy.Generators;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Plugin;
@@ -310,7 +311,7 @@ namespace RcsApiClient.ViewModels
 			pluginLogger.LogDebug("MainWindowViewModel.UpdateSectionAsync");
 			try
 			{
-				if (Controller == null || SelectedSection == null)
+				if (Controller == null || SelectedSection == null || SelectedReinforcedCss == null)
 				{
 					throw new Exception("Service is not running");
 				}
@@ -319,9 +320,15 @@ namespace RcsApiClient.ViewModels
 				int sectionId = SelectedSection.Id;
 
 				// ask user to select reinforced cross-section
-				int reinforcedSection = reinfSectSlector.Select(RcsProject);
+				int reinforcedSection = SelectedReinforcedCss.Id;
 
-				var updatedSection = await Controller.SetReinforcementAsync(sectionId, reinforcedSection, cancellationTokenSource.Token);
+				var newSectionData = new RcsSectionModel();
+				newSectionData.Id= sectionId;
+				newSectionData.RCSId = reinforcedSection;
+
+				var updatedSection = await Controller.UpdateSectionAsync(newSectionData, cancellationTokenSource.Token);
+
+				await GetProjectOverviewAsync();
 
 			}
 			catch (Exception ex)

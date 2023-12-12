@@ -86,13 +86,15 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <returns></returns>
 		Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters, CancellationToken token);
 
+
 		/// <summary>
-		/// Set a reinforced cross-section which is defined in RCS project by <paramref name="reinforcedSectionId"/> to the RCS section desined by <paramref name="sectionId"/>
+		/// Update data of the section in the RCS project.
+		/// The section to modify is defined by property ID passed in <paramref name="newSectionData"/>
 		/// </summary>
-		/// <param name="sectionId">Id of a section in a RCS project to modified</param>
-		/// <param name="reinforcedSectionId">Iid of a reinforced cross-section in RCS project to be set to a section</param>
-		/// <returns></returns>
-		Task<RcsSectionModel> SetReinforcementAsync(int sectionId, int reinforcedSectionId, CancellationToken token);
+		/// <param name="newSectionData">New data of the section. A valid value of the section Id is requiered.</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns>Chanded data</returns>
+		Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token);
 
 	}
 }
