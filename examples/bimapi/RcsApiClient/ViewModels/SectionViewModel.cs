@@ -13,7 +13,7 @@ namespace RcsApiClient.ViewModels
 		{
 			if (rcsSectionModel == null || rcsSectionModel?.RCSId == null)
 			{
-				throw new Exception();
+				throw new ArgumentException("SectionViewModel() : invalid rcsSectionModel");
 			}
 
 			Id = rcsSectionModel.Id;

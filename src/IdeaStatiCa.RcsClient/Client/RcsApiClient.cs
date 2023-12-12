@@ -101,7 +101,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		public async Task<Stream> DownloadAsync(CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.Download projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/Download", token);
+			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/Download", token, "application/octet-stream");
 			return result;
 		}
 		/// <inheritdoc cref="IRcsApiController.SectionDetailsAsync(RcsCalculationParameters, CancellationToken) "/>

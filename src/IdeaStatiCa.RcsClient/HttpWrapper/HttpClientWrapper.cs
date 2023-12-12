@@ -48,14 +48,14 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		public async Task<TResult> PutAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
 		{
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
-			{ 
-				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
 			{
-				content.Headers.ContentType.CharSet = "";
-				var url = baseUrl + "/" + requestUri;
-				return await client.PutAsync(url, content);
-			}
-		}, acceptHeader);
+				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
+				{
+					content.Headers.ContentType.CharSet = "";
+					var url = baseUrl + "/" + requestUri;
+					return await client.PutAsync(url, content, token);
+				}
+			}, acceptHeader);
 			return result;
 		}
 
@@ -95,12 +95,12 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					{
 						return await client.PostAsync(url, content, token);
 					}
-					catch(OperationCanceledException ex)
+					catch (OperationCanceledException ex)
 					{
 						logger.LogDebug("Operation was cancelled", ex);
 						throw ex;
 					}
-									
+
 				}
 			}, acceptHeader);
 
