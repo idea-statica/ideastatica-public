@@ -292,10 +292,15 @@ namespace RcsApiClient.ViewModels
 				return -1;
 			}
 
+			// get ID of the reinforced cross-section for the selected section from the open RCS projects
+			var section = RcsProject.Sections?.FirstOrDefault(s => s.Id == SelectedSection?.Id);
 
-				// get ID of the reinforced cross-section for the selected section from the open RCS projects
-				int rfCssIdInProject = RcsProject.Sections.First(s => s.Id == SelectedSection?.Id).Id;
-				return rfCssIdInProject;
+			if (section == null || !section.RCSId.HasValue)
+			{
+				return -1;
+			}
+
+			return section.RCSId.Value;
 
 		}
 
