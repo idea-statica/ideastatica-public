@@ -28,6 +28,7 @@ namespace RcsApiClient.ViewModels
 		public MainWindowViewModel(IPluginLogger pluginLogger, IRcsClientFactory rcsClientFactory, IReinfCssSelector reinfSectSlector)
 		{
 			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
+			SaveProjectCmdAsync = new AsyncRelayCommand(SaveProjectAsync, CanSaveProject);
 			CancelCalculationCmd = new RelayCommand(CancelCalculation, CanCancel);
 
 			GetProjectOverviewCmdAsync = new AsyncRelayCommand(GetProjectOverviewAsync, CanGetProjectOverview);
@@ -69,6 +70,11 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
+		public IAsyncRelayCommand SaveProjectCmdAsync
+		{
+			get;
+			private set;
+		}
 
 		/// <summary>
 		/// A command for changing reinforced cross-section in a selected section
@@ -133,7 +139,7 @@ namespace RcsApiClient.ViewModels
 
 		private async Task OpenProjectAsync()
 		{
-			if(this.controller == null)
+			if(Controller == null)
 			{
 				throw new Exception("Service is not running");
 			}
@@ -152,10 +158,51 @@ namespace RcsApiClient.ViewModels
 					string selectedFilePath = openFileDialog.FileName;
 
 					ApiMessage = "Opening RCS project";
-					ProjectOpened = await controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
+					ProjectOpened = await Controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
 					this.RcsProjectPath = selectedFilePath;
 					CalculationResult = "Project is opened";
 					await GetProjectOverviewAsync();
+				}
+			}
+			catch(Exception ex)
+			{
+				ApiMessage = ex.Message;
+			}
+		}
+
+		private bool CanSaveProject()
+		{
+			return (this.Controller != null && IsRcsProjectOpen());
+		}
+
+		private async Task SaveProjectAsync()
+		{
+			if (Controller == null)
+			{
+				throw new Exception("Service is not running");
+			}
+
+			try
+			{
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+				// Set properties for the SaveFileDialog
+				saveFileDialog.Title = "Select a Project File";
+				saveFileDialog.Filter = "IDEARCS Files (*.idearcs)|*.idearcs";
+				saveFileDialog.OverwritePrompt = true;
+
+				// Show the file dialog and get the selected file
+				if (saveFileDialog.ShowDialog() == true)
+				{
+					using (var fs = saveFileDialog.OpenFile())
+					{
+						using (var rcsProjectStream = await Controller.DownloadAsync(cancellationTokenSource.Token))
+						{
+							rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
+							await rcsProjectStream.CopyToAsync(fs);
+						}
+					}
+
 				}
 			}
 			catch(Exception ex)
@@ -334,6 +381,7 @@ namespace RcsApiClient.ViewModels
 			catch (Exception ex)
 			{
 				pluginLogger.LogWarning(ex.Message);
+				ApiMessage = ex.Message;
 			}
 		}
 
@@ -405,6 +453,7 @@ namespace RcsApiClient.ViewModels
 			catch(Exception ex)
 			{
 				pluginLogger.LogWarning(ex.Message);
+				ApiMessage = ex.Message;
 			}
 		}
 
@@ -505,6 +554,7 @@ namespace RcsApiClient.ViewModels
 				GetSectionsCmdAsync.NotifyCanExecuteChanged();
 				GetMembersCmdAsync.NotifyCanExecuteChanged();
 				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
+				SaveProjectCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 

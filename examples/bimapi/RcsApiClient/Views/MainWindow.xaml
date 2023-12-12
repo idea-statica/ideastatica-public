@@ -13,6 +13,7 @@
 		<StackPanel DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal">
 				<Button HorizontalAlignment="Left"  Content="Browse for RCS project" Command="{Binding OpenProjectCmdAsync}" Width="150" Height="30" />
+				<Button HorizontalAlignment="Left"  Content="Save RCS" Command="{Binding SaveProjectCmdAsync}" ToolTip="Get the current data of RCS project and save it" Width="150" Height="30" />
 				<TextBox x:Name="ProjectFileInputPath" Text="{Binding RcsProjectPath}" Margin="5" IsEnabled="False" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
@@ -29,7 +30,7 @@
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Set reinforced cross-section to a selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
 				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
