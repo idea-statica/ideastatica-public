@@ -142,22 +142,36 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					// Periodically check the heartbeat while the long operation is in progress
 					var heartbeatTask = heartbeatChecker.StartAsync();
 					logger.LogDebug($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
-					HttpResponseMessage response = await clientCall(client);
-
-					// Stop the heartbeat checker
-					heartbeatChecker.Stop();
-					logger.LogDebug($"Stopping HeartbeatChecker");
-
-					if (response is { IsSuccessStatusCode: true })
+					using (HttpResponseMessage response = await clientCall(client))
 					{
-						logger.LogDebug($"Response is successfull");
-						var stringContent = await response.Content.ReadAsStringAsync();
-						return Deserialize<TResult>(acceptHeader, stringContent);
-					}
-					else
-					{
-						logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
-						throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+
+						// Stop the heartbeat checker
+						heartbeatChecker.Stop();
+						logger.LogDebug($"Stopping HeartbeatChecker");
+
+						if (response is { IsSuccessStatusCode: true })
+						{
+							logger.LogDebug($"Response is successfull");
+
+							if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase))
+							{
+								logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
+								var ms = new MemoryStream();
+								await response.Content.CopyToAsync(ms);
+								return (TResult)Convert.ChangeType(ms, typeof(MemoryStream));
+							}
+							else
+							{
+								var stringContent = await response.Content.ReadAsStringAsync();
+								logger.LogDebug($"HttpClientWrapper.ExecuteClientCallAsync - response is '{typeof(TResult).Name}'");
+								return Deserialize<TResult>(acceptHeader, stringContent);
+							}
+						}
+						else
+						{
+							logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+							throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+						}
 					}
 				}
 			}

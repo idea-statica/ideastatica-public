@@ -52,8 +52,8 @@ namespace IdeaStatiCa.RcsClient.Client
 
 			var header = path switch
 			{
-				{ } when path.EndsWith(".IdeaRcs") => "application/octet-stream",
-				{ } when path.EndsWith(".xml") => "application/xml",
+				{ } when path.EndsWith(".IdeaRcs", StringComparison.InvariantCultureIgnoreCase) => "application/octet-stream",
+				{ } when path.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase) => "application/xml",
 				_ => throw new InvalidDataException("Non supported file type. Please send .IdeaRcs or IOM in .xml")
 			};
 
