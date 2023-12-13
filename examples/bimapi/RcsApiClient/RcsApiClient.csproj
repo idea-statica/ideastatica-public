@@ -9,13 +9,9 @@
 
 	<ItemGroup>
 	  <Compile Remove="Commands\**" />
-	  <Compile Remove="Views\**" />
 	  <EmbeddedResource Remove="Commands\**" />
-	  <EmbeddedResource Remove="Views\**" />
 	  <None Remove="Commands\**" />
-	  <None Remove="Views\**" />
 	  <Page Remove="Commands\**" />
-	  <Page Remove="Views\**" />
 	</ItemGroup>
 
 	<ItemGroup>

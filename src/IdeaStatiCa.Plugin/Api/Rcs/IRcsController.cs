@@ -3,7 +3,8 @@ using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaRS.OpenModel.Concrete.CheckResult;
 using System.Threading;
-using System.Threading;
+using System.Collections.Generic;
+using System;
 
 namespace IdeaStatiCa.Plugin.Api.Rcs
 {

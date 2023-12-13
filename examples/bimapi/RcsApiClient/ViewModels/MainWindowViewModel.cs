@@ -82,7 +82,10 @@ namespace RcsApiClient.ViewModels
 		/// <summary>
 		/// A command for changing reinforced cross-section in a selected section
 		/// </summary>
-		public IAsyncRelayCommand UpdateSectionCmdAsync
+		public IAsyncRelayCommand UpdateSectionCmdAsync 
+		{ 
+			get;
+			private set;
 		}
 
 		public IAsyncRelayCommand GetProjectDataCmdAsync
@@ -97,7 +100,7 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
-		public IAsyncRelayCommand GetProjectOverviewCmdAsync
+		public IAsyncRelayCommand GetProjectSummaryCmdAsync
 		{
 			get;
 			private set;
@@ -217,7 +220,7 @@ namespace RcsApiClient.ViewModels
 				{
 					using (var fs = saveFileDialog.OpenFile())
 					{
-						using (var rcsProjectStream = await Controller.DownloadAsync(cancellationTokenSource.Token))
+						using (var rcsProjectStream = await Controller.DownloadProjectAsync(cancellationTokenSource.Token))
 						{
 							rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
 							await rcsProjectStream.CopyToAsync(fs);
@@ -396,7 +399,7 @@ namespace RcsApiClient.ViewModels
 
 				var updatedSection = await Controller.UpdateSectionAsync(newSectionData, cancellationTokenSource.Token);
 
-				await GetProjectOverviewAsync();
+				await GetProjectSummaryAsync();
 
 			}
 			catch (Exception ex)
