@@ -176,11 +176,11 @@ namespace RcsApiClient.ViewModels
 					ProjectOpened = await Controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
 					if(selectedFilePath.EndsWith("xml"))
 					{
-						ProjectOpened = await controller.CreateProjectFromIOMFileAsync(selectedFilePath, cancellationTokenSource.Token);
+						ProjectOpened = await Controller.CreateProjectFromIOMFileAsync(selectedFilePath, cancellationTokenSource.Token);
 					}
 					else
 					{
-						ProjectOpened = await controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
+						ProjectOpened = await Controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
 					}
 					
 					this.RcsProjectPath = selectedFilePath;
