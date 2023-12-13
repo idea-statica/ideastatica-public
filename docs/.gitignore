@@ -6,4 +6,11 @@
 /**/packages/
 /**/bin/
 /**/obj/
+
+/**/api-bimapi/
+/**/api-bimapilink/
+/**/api-iom/
+/**/api-plugin/
+
 _site
+_site_pdf
