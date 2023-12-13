@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using IdeaRS.OpenModel.Concrete.CheckResult;
-using IdeaRS.OpenModel.Message;
 
 namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
@@ -10,12 +9,9 @@ namespace IdeaStatiCa.Plugin.Api.RCS.Model
 
 		public List<ConcreteCheckResultOverallItem> OverallItems { get; set; }
 
-		public List<NonConformityIssue> NonConformityIssues { get; set; }
-
 		public RcsSectionResultOverview()
 		{
 			OverallItems = new List<ConcreteCheckResultOverallItem>();
-			NonConformityIssues = new List<NonConformityIssue>();
 		}
 	}
 }

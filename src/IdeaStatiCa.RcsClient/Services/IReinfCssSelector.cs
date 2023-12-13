@@ -12,6 +12,6 @@ namespace IdeaStatiCa.RcsClient.Services
 		/// </summary>
 		/// <param name="rcsProject">RCS project</param>
 		/// <returns>Id of a selecte reinforced cross-section. The retun valu -1 means that nothing was selected</returns>
-		int Select(RcsProjectModel rcsProject);
+		int Select(RcsProjectSummaryModel rcsProject);
 	}
 }
