@@ -179,11 +179,10 @@ namespace IdeaStatiCa.RcsClient.Client
 			return await httpClient.GetAsync<string>($"Project/{ActiveProjectId}/GetCodeSettings", token, "text/plain");
 		}
 
-		/// <inheritdoc cref="IRcsApiController.UpdateSettings(List{RcsSettingModel})"/>
-		public Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup)
+		/// <inheritdoc cref="IRcsApiController.UpdateCodeSettings(List{RcsSettingModel}, CancellationToken)"/>
+		public async Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup, CancellationToken token)
 		{
-			return Task.FromResult(true);
-			//return await httpClient.PutAsync<string>($"Project/{ActiveProjectId}/GetCodeSettings", token);
+			return await httpClient.PutAsync<bool>($"Project/{ActiveProjectId}/UpdateCodeSettings", setup, token);
 		}
 	}
 }

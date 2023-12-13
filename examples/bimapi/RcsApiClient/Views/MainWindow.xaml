@@ -24,6 +24,7 @@
 			<StackPanel Orientation="Horizontal">
 				<Button x:Name="Calculate" HorizontalAlignment="Left"  Content="Calculate" Command="{Binding CalculateResultsCmdAsync}" Width="200" Height="30"/>
 				<Button x:Name="GetResults" HorizontalAlignment="Left"  Content="Results" Command="{Binding GetResultsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="UpdateSettings" Content="Update Settings" Command="{Binding UpdateSettingsCmdAsync}" Width="200" Height="30"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Button x:Name="GetSections" HorizontalAlignment="Left"  Content="Sections" Command="{Binding GetSectionsCmdAsync}" Width="200" Height="30"/>

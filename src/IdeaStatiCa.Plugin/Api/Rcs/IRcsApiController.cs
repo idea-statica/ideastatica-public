@@ -116,7 +116,7 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// </summary>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup);
+		Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup, CancellationToken token);
 
 		/// <summary>
 		/// Update data of the section in the RCS project.

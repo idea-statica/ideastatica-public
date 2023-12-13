@@ -8,12 +8,14 @@ using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using RcsApiClient.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace RcsApiClient.ViewModels
 {
@@ -43,6 +45,7 @@ namespace RcsApiClient.ViewModels
 			GetReinforcedCrossSectionsCmdAsync = new AsyncRelayCommand(GetReinforcedCrossSections, CanGetProjectSummary);
 
 			UpdateSectionCmdAsync = new AsyncRelayCommand(UpdateSectionAsync, CanUpdateSection);
+			UpdateSettingsCmdAsync = new AsyncRelayCommand(UpdateSettingsAsync, CanGetProjectSummary);
 
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
@@ -142,6 +145,12 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
+		public IAsyncRelayCommand UpdateSettingsCmdAsync
+		{
+			get;		
+			private set;
+		}
+
 		private bool CanOpenProject()
 		{
 			return this.Controller != null;
@@ -232,6 +241,29 @@ namespace RcsApiClient.ViewModels
 			catch(Exception ex)
 			{
 				ApiMessage = ex.Message;
+			}
+		}
+
+		private async Task UpdateSettingsAsync()
+		{
+			var settingsViewModel = new SettingsViewModel();
+			var settingsWindow = new SettingsWindow(settingsViewModel);
+			var result = settingsWindow.ShowDialog();	
+			
+			if(result is { } ok && ok && Controller is { })
+			{
+				var settings = new List<RcsSettingModel>
+				{
+					new RcsSettingModel
+					{
+						Id = int.Parse(settingsViewModel.Id),
+						Type = settingsViewModel.Type,
+						Value = settingsViewModel.Value,
+					}
+				};
+
+				var settingUpdated = await Controller.UpdateCodeSettings(settings, cancellationTokenSource.Token);
+				CalculationResult = settingUpdated ? "Setting updated" : "Setting was not updated";
 			}
 		}
 
@@ -375,7 +407,6 @@ namespace RcsApiClient.ViewModels
 			return section.RCSId.Value;
 
 		}
-
 
 		private async Task UpdateSectionAsync()
 		{
@@ -611,6 +642,7 @@ namespace RcsApiClient.ViewModels
 				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
 				SaveProjectCmdAsync.NotifyCanExecuteChanged();
 				GetCodeSettingsCmdAsync.NotifyCanExecuteChanged();
+				UpdateSettingsCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
