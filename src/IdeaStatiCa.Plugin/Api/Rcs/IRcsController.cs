@@ -1,9 +1,8 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Concrete.CheckResult;
 using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
-using System;
-using System.Collections.Generic;
+using IdeaRS.OpenModel.Concrete.CheckResult;
+using System.Threading;
 using System.Threading;
 
 namespace IdeaStatiCa.Plugin.Api.Rcs
@@ -14,10 +13,11 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		bool OpenIdeaProjectFromIdeaOpenModel(string ideaOpenModelProjectPath, string projectName, string ideaOpenMessagesPath);
 		bool OpenIdeaProjectFromIdeaOpenModel(OpenModel ideaOpenModel, string projectName, out OpenMessages messages);
 
-		int[] GetProjectSections();
-		RcsProjectModel GetProjectOverview(RcsProjectEnum projectEnum);
-		RcsCrossSectionDetailModel GetCrossSectionModel(int sectionId);
+		RcsProjectSummaryModel GetProjectSummary(RcsProjectEnum projectEnum);
+		RcsProjectData GetProjectData();
 
+		object GetSettings();
+		object SetSettings(List<RcsSettingModel> changes);
 
 		void SaveAsIdeaProjectFile(string ideaProjectPath);
 

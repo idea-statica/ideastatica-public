@@ -2,14 +2,13 @@
 
 namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
-	public class RcsProjectModel
+	public class RcsProjectSummaryModel
 	{
-		public RcsProjectData ProjectData { get; set; }
 		public List<RcsSectionModel> Sections { get; set; }
 		public List<RcsCheckMemberModel> CheckMembers { get; set; }
 		public List<ReinforcedCrossSectionModel> ReinforcedCrossSections { get; set; }
 
-		public RcsProjectModel()
+		public RcsProjectSummaryModel()
 		{
 			Sections = new List<RcsSectionModel>();
 			CheckMembers = new List<RcsCheckMemberModel>();

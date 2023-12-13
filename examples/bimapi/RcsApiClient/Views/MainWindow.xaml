@@ -17,9 +17,13 @@
 				<TextBox x:Name="ProjectFileInputPath" Text="{Binding RcsProjectPath}" Margin="5" IsEnabled="False" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button x:Name="GetProjectOverview" HorizontalAlignment="Left"  Content="Project overview" Command="{Binding GetProjectOverviewCmdAsync}" Width="200" Height="30"/>
-				<Button x:Name="GetResultOnSections" HorizontalAlignment="Left"  Content="Calculate" Command="{Binding CalculateResultsCmdAsync}" Width="200" Height="30"/>
-				<Button x:Name="GetNonConformityIssues" HorizontalAlignment="Left"  Content="Results" Command="{Binding GetResultsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetProjectSummary" HorizontalAlignment="Left"  Content="Project overview" Command="{Binding GetProjectSummaryCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetProjectData" HorizontalAlignment="Left"  Content="Project data" Command="{Binding GetProjectDataCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetSettings" HorizontalAlignment="Left"  Content="Code Settings" Command="{Binding GetCodeSettingsCmdAsync}" Width="200" Height="30"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Button x:Name="Calculate" HorizontalAlignment="Left"  Content="Calculate" Command="{Binding CalculateResultsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetResults" HorizontalAlignment="Left"  Content="Results" Command="{Binding GetResultsCmdAsync}" Width="200" Height="30"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Button x:Name="GetSections" HorizontalAlignment="Left"  Content="Sections" Command="{Binding GetSectionsCmdAsync}" Width="200" Height="30"/>

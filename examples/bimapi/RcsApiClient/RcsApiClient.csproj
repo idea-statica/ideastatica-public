@@ -8,6 +8,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Commands\**" />
+	  <Compile Remove="Views\**" />
+	  <EmbeddedResource Remove="Commands\**" />
+	  <EmbeddedResource Remove="Views\**" />
+	  <None Remove="Commands\**" />
+	  <None Remove="Views\**" />
+	  <Page Remove="Commands\**" />
+	  <Page Remove="Views\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<ProjectReference Include="..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 		<ProjectReference Include="..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
@@ -27,10 +38,6 @@
 			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Commands\" />
 	</ItemGroup>
 
 </Project>

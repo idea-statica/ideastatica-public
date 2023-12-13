@@ -4,9 +4,11 @@ using IdeaRS.OpenModel.Message;
 
 namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
-	public class ProjectResult
+	public class RcsDetailedResultForSection
 	{
-		public List<SectionConcreteCheckResult> Sections { get; set; } = new List<SectionConcreteCheckResult>();
+		public int Id { get; set; }
+
+		public SectionConcreteCheckResult SectionResult { get; set; }
 
 		public List<NonConformityIssue> Issues { get; set; } = new List<NonConformityIssue>();
 	}
