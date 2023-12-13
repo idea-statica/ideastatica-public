@@ -6,12 +6,14 @@ using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using RcsApiClient.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace RcsApiClient.ViewModels
 {
@@ -33,15 +35,19 @@ namespace RcsApiClient.ViewModels
 			SaveProjectCmdAsync = new AsyncRelayCommand(SaveProjectAsync, CanSaveProject);
 			CancelCalculationCmd = new RelayCommand(CancelCalculation, CanCancel);
 
-			GetProjectOverviewCmdAsync = new AsyncRelayCommand(GetProjectOverviewAsync, CanGetProjectOverview);
+			GetProjectSummaryCmdAsync = new AsyncRelayCommand(GetProjectSummaryAsync, CanGetProjectSummary);
+			GetProjectDataCmdAsync = new AsyncRelayCommand(GetProjectDataAsync, CanGetProjectSummary);
+			GetCodeSettingsCmdAsync = new AsyncRelayCommand(GetCodeSettingsAsync, CanGetProjectSummary);
 			CalculateResultsCmdAsync = new AsyncRelayCommand(CalculateResultsAsync, CanCalculateResultsAsync);
 			GetResultsCmdAsync = new AsyncRelayCommand(GetResultsAsync, CanGetResultsAsync);
 
-			GetSectionsCmdAsync = new AsyncRelayCommand(GetSections, CanGetProjectOverview);
-			GetMembersCmdAsync = new AsyncRelayCommand(GetMembers, CanGetProjectOverview);
-			GetReinforcedCrossSectionsCmdAsync = new AsyncRelayCommand(GetReinforcedCrossSections, CanGetProjectOverview);
+
+			GetSectionsCmdAsync = new AsyncRelayCommand(GetSections, CanGetProjectSummary);
+			GetMembersCmdAsync = new AsyncRelayCommand(GetMembers, CanGetProjectSummary);
+			GetReinforcedCrossSectionsCmdAsync = new AsyncRelayCommand(GetReinforcedCrossSections, CanGetProjectSummary);
 
 			UpdateSectionCmdAsync = new AsyncRelayCommand(UpdateSectionAsync, CanUpdateSection);
+			UpdateSettingsCmdAsync = new AsyncRelayCommand(UpdateSettingsAsync, CanGetProjectSummary);
 
 			CreateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanCreateReinforcedCss(p));
 			UpdateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
@@ -86,7 +92,13 @@ namespace RcsApiClient.ViewModels
 		/// <summary>
 		/// A command for changing reinforced cross-section in a selected section
 		/// </summary>
-		public IAsyncRelayCommand UpdateSectionCmdAsync
+		public IAsyncRelayCommand UpdateSectionCmdAsync 
+		{ 
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand GetProjectDataCmdAsync
 		{
 			get;
 			private set;
@@ -117,7 +129,7 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
-		public IAsyncRelayCommand GetProjectOverviewCmdAsync
+		public IAsyncRelayCommand GetProjectSummaryCmdAsync
 		{
 			get;
 			private set;
@@ -153,6 +165,18 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 
+		public IAsyncRelayCommand GetCodeSettingsCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand UpdateSettingsCmdAsync
+		{
+			get;		
+			private set;
+		}
+
 		private bool CanOpenProject()
 		{
 			return this.Controller != null;
@@ -185,9 +209,18 @@ namespace RcsApiClient.ViewModels
 
 					ApiMessage = "Opening RCS project";
 					ProjectOpened = await Controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
+					if(selectedFilePath.EndsWith("xml"))
+					{
+						ProjectOpened = await Controller.CreateProjectFromIOMFileAsync(selectedFilePath, cancellationTokenSource.Token);
+					}
+					else
+					{
+						ProjectOpened = await Controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
+					}
+					
 					this.RcsProjectPath = selectedFilePath;
 					CalculationResult = "Project is opened";
-					await GetProjectOverviewAsync();
+					await GetProjectSummaryAsync();
 				}
 			}
 			catch(Exception ex)
@@ -222,7 +255,7 @@ namespace RcsApiClient.ViewModels
 				{
 					using (var fs = saveFileDialog.OpenFile())
 					{
-						using (var rcsProjectStream = await Controller.DownloadAsync(cancellationTokenSource.Token))
+						using (var rcsProjectStream = await Controller.DownloadProjectAsync(cancellationTokenSource.Token))
 						{
 							rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
 							await rcsProjectStream.CopyToAsync(fs);
@@ -234,6 +267,29 @@ namespace RcsApiClient.ViewModels
 			catch(Exception ex)
 			{
 				ApiMessage = ex.Message;
+			}
+		}
+
+		private async Task UpdateSettingsAsync()
+		{
+			var settingsViewModel = new SettingsViewModel();
+			var settingsWindow = new SettingsWindow(settingsViewModel);
+			var result = settingsWindow.ShowDialog();	
+			
+			if(result is { } ok && ok && Controller is { })
+			{
+				var settings = new List<RcsSettingModel>
+				{
+					new RcsSettingModel
+					{
+						Id = int.Parse(settingsViewModel.Id),
+						Type = settingsViewModel.Type,
+						Value = settingsViewModel.Value,
+					}
+				};
+
+				var settingUpdated = await Controller.UpdateCodeSettings(settings, cancellationTokenSource.Token);
+				CalculationResult = settingUpdated ? "Setting updated" : "Setting was not updated";
 			}
 		}
 
@@ -254,8 +310,8 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private RcsProjectModel? rcsProject;
-		public RcsProjectModel? RcsProject
+		private RcsProjectSummaryModel? rcsProject;
+		public RcsProjectSummaryModel? RcsProject
 		{
 			get => rcsProject;
 			set
@@ -323,7 +379,7 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private bool CanGetProjectOverview()
+		private bool CanGetProjectSummary()
 		{
 			return IsRcsProjectOpen();
 		}
@@ -401,7 +457,7 @@ namespace RcsApiClient.ViewModels
 
 				var updatedSection = await Controller.UpdateSectionAsync(newSectionData, cancellationTokenSource.Token);
 
-				await GetProjectOverviewAsync();
+				await GetProjectSummaryAsync();
 
 			}
 			catch (Exception ex)
@@ -460,7 +516,7 @@ namespace RcsApiClient.ViewModels
 
 				var updatedSection = await Controller.ImportReinfCssAsync(importSetting, template, cancellationTokenSource.Token);
 
-				await GetProjectOverviewAsync();
+				await GetProjectSummaryAsync();
 
 			}
 			catch (Exception ex)
@@ -498,6 +554,16 @@ namespace RcsApiClient.ViewModels
 			CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
 		}
 
+		private async Task GetCodeSettingsAsync()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetCodeSettingsAsync");
+			if (Controller is null)
+			{
+				throw new NullReferenceException("Service is not running");
+			}
+			CalculationResult = await Controller.GetCodeSettings(cancellationTokenSource.Token);
+		}
+
 		private async Task GetSections()
 		{
 			pluginLogger.LogDebug("MainWindowViewModel.GetSections");
@@ -511,9 +577,9 @@ namespace RcsApiClient.ViewModels
 			CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
 		}
 
-		private async Task GetProjectOverviewAsync()
+		private async Task GetProjectDataAsync()
 		{
-			pluginLogger.LogDebug("MainWindowViewModel.GetProjectOverviewAsync");
+			pluginLogger.LogDebug("MainWindowViewModel.GetProjectDataAsync");
 			try
 			{
 				if (Controller is null)
@@ -521,10 +587,30 @@ namespace RcsApiClient.ViewModels
 					throw new NullReferenceException("Service is not running");
 				}
 
+				var data = await Controller.GetProjectDataAsync(cancellationTokenSource.Token);
+
+				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(data));
 				SelectedReinforcedCss = null;
 				SelectedSection = null;
 
-				RcsProject = await Controller.GetProjectOverviewAsync(cancellationTokenSource.Token);
+			}
+			catch (Exception ex)
+			{
+				pluginLogger.LogWarning(ex.Message);
+			}
+		}
+
+		private async Task GetProjectSummaryAsync()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetProjectSummaryAsync");
+			try
+			{
+				if (Controller is null)
+				{
+					throw new NullReferenceException("Service is not running");
+				}
+
+				RcsProject = await Controller.GetProjectSummaryAsync(cancellationTokenSource.Token);
 
 				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(RcsProject));
 
@@ -567,7 +653,7 @@ namespace RcsApiClient.ViewModels
 			CalculationInProgress = true;
 			try
 			{
-				var result = await Controller.CalculateResultsAsync(parameters, cancellationTokenSource.Token);
+				var result = await Controller.CalculateAsync(parameters, cancellationTokenSource.Token);
 				CalculationInProgress = false;
 				if (result is { })
 				{
@@ -598,7 +684,7 @@ namespace RcsApiClient.ViewModels
 			CalculationResult = string.Empty;
 			UpdateProgress("", 0);
 
-			var parameters = new RcsCalculationParameters();
+			var parameters = new RcsResultParameters();
 			var sectionList = new List<int>();
 
 			foreach (var selectedSection in Sections)
@@ -635,13 +721,16 @@ namespace RcsApiClient.ViewModels
 			{
 				projectOpened = value;
 				OnPropertyChanged(nameof(ProjectOpened));
-				GetProjectOverviewCmdAsync.NotifyCanExecuteChanged();
+				GetProjectSummaryCmdAsync.NotifyCanExecuteChanged();
+				GetProjectDataCmdAsync.NotifyCanExecuteChanged();
 				CalculateResultsCmdAsync.NotifyCanExecuteChanged();
 				GetResultsCmdAsync.NotifyCanExecuteChanged();
 				GetSectionsCmdAsync.NotifyCanExecuteChanged();
 				GetMembersCmdAsync.NotifyCanExecuteChanged();
 				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
 				SaveProjectCmdAsync.NotifyCanExecuteChanged();
+				GetCodeSettingsCmdAsync.NotifyCanExecuteChanged();
+				UpdateSettingsCmdAsync.NotifyCanExecuteChanged();
 				CreateReinfCssCmdAsync.NotifyCanExecuteChanged();
 				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 			}

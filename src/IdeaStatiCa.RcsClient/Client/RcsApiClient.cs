@@ -51,38 +51,46 @@ namespace IdeaStatiCa.RcsClient.Client
 		{
 			pluginLogger.LogDebug($"RcsApiClient.OpenProjectAsync path = '{path}'");
 
-			var header = path switch
-			{
-				{ } when path.EndsWith(".IdeaRcs", StringComparison.InvariantCultureIgnoreCase) => "application/octet-stream",
-				{ } when path.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase) => "application/xml",
-				_ => throw new InvalidDataException("Non supported file type. Please send .IdeaRcs or IOM in .xml")
-			};
-
 			byte[] fileData = File.ReadAllBytes(path);
 			var streamContent = new StreamContent(new MemoryStream(fileData));
-			streamContent.Headers.ContentType = new MediaTypeHeaderValue(header);
+			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
 			ActiveProjectId = await httpClient.PostAsyncStream<Guid>("Project/OpenProject", streamContent, token);
-
 			pluginLogger.LogDebug($"RcsApiClient.OpenProjectAsync projectId = {ActiveProjectId}");
 
 			return true;
-
 		}
-		/// <inheritdoc cref="IRcsApiController.OpenProjectFromModelAsync(OpenModel, CancellationToken) "/>
-		public async Task<bool> OpenProjectFromModelAsync(OpenModel model, CancellationToken token)
+
+		/// <inheritdoc cref="IRcsApiController.CreateProjectFromIOMFileAsync(string, CancellationToken)"/>
+		public async Task<bool> CreateProjectFromIOMFileAsync(string iomFilePath, CancellationToken token)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.CreateProjectFromIOMFileAsync");
+
+			byte[] fileData = File.ReadAllBytes(iomFilePath);
+			var streamContent = new StreamContent(new MemoryStream(fileData));
+			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
+
+			ActiveProjectId = await httpClient.PostAsyncStream<Guid>("Project/CreateProjectFromIOMFile", streamContent, token);
+			pluginLogger.LogDebug($"RcsApiClient.OpenProjectAsync projectId = {ActiveProjectId}");
+
+			return true;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.CreateProjectFromIOMAsync(OpenModel, CancellationToken) "/>
+		public async Task<bool> CreateProjectFromIOMAsync(OpenModel model, CancellationToken token)
 		{
 			pluginLogger.LogDebug("RcsApiClient.OpenProjectFromModelAsync");
 			ActiveProjectId = await httpClient.PostAsync<Guid>("Project/OpenProjectFromModel", model, token);
 			return true;
 		}
-		/// <inheritdoc cref="IRcsApiController.CalculateResultsAsync(RcsCalculationParameters, CancellationToken) "/>
-		public async Task<List<RcsSectionResultOverview>> CalculateResultsAsync(RcsCalculationParameters parameters, CancellationToken token)
+
+		/// <inheritdoc cref="IRcsApiController.CalculateAsync(RcsCalculationParameters, CancellationToken) "/>
+		public async Task<List<RcsSectionResultOverview>> CalculateAsync(RcsCalculationParameters parameters, CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.CalculateResultsAsync projectId = {ActiveProjectId}");
 			try
 			{
-				var res = await httpClient.PostAsync<List<RcsSectionResultOverview>>($"Calculations/{ActiveProjectId}/CalculateResults", parameters, token, "application/xml");
+				var res = await httpClient.PostAsync<List<RcsSectionResultOverview>>($"Calculations/{ActiveProjectId}/Calculate", parameters, token, "application/xml");
 				return res;
 			}
 			catch(OperationCanceledException ex)
@@ -91,32 +99,35 @@ namespace IdeaStatiCa.RcsClient.Client
 				throw ex;
 			}
 		}
-		/// <inheritdoc cref="IRcsApiController.GetProjectOverviewAsync(CancellationToken) "/>
-		public async Task<RcsProjectModel> GetProjectOverviewAsync(CancellationToken token)
+
+		/// <inheritdoc cref="IRcsApiController.GetProjectSummaryAsync(CancellationToken) "/>
+		public async Task<RcsProjectSummaryModel> GetProjectSummaryAsync(CancellationToken token)
 		{
-			pluginLogger.LogDebug($"RcsApiClient.GetProjectOverviewAsync projectId = {ActiveProjectId}");
-			var res=  await httpClient.GetAsync<RcsProjectModel>($"Project/{ActiveProjectId}/ProjectOverview", token);
+			pluginLogger.LogDebug($"RcsApiClient.GetProjectSummaryAsync projectId = {ActiveProjectId}");
+			var res=  await httpClient.GetAsync<RcsProjectSummaryModel>($"Project/{ActiveProjectId}/ProjectSummary", token);
 			return res;
 		}
-		/// <inheritdoc cref="IRcsApiController.DownloadAsync(CancellationToken) "/>
-		public async Task<Stream> DownloadAsync(CancellationToken token)
+
+		/// <inheritdoc cref="IRcsApiController.GetProjectDataAsync(CancellationToken) "/>
+		public async Task<RcsProjectData> GetProjectDataAsync(CancellationToken token)
 		{
-			pluginLogger.LogDebug($"RcsApiClient.Download projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/Download", token, "application/octet-stream");
-			return result;
-		}
-		/// <inheritdoc cref="IRcsApiController.SectionDetailsAsync(RcsCalculationParameters, CancellationToken) "/>
-		public async Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters, CancellationToken token)
-		{
-			pluginLogger.LogDebug($"RcsApiClient.SectionDetailsAsync projectId = {ActiveProjectId}");
-			var result =await httpClient.PostAsync<List<RcsCrossSectionDetailModel>>($"Calculations/{ActiveProjectId}/SectionDetails", parameters, token);
-			return result;
+			pluginLogger.LogDebug($"RcsApiClient.GetProjectDataAsync projectId = {ActiveProjectId}");
+			var res = await httpClient.GetAsync<RcsProjectData>($"Project/{ActiveProjectId}/ProjectData", token);
+			return res;
 		}
 
-		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsCalculationParameters, CancellationToken)"/>
-		public async Task<ProjectResult> GetResultsAsync(RcsCalculationParameters parameters, CancellationToken token)
+		/// <inheritdoc cref="IRcsApiController.DownloadAsync(CancellationToken) "/>
+		public async Task<Stream> DownloadProjectAsync(CancellationToken token)
 		{
-			return await httpClient.PostAsync<ProjectResult>($"Calculations/{ActiveProjectId}/GetResults", parameters, token, "application/xml");
+			pluginLogger.LogDebug($"RcsApiClient.DownloadProjectAsync projectId = {ActiveProjectId}");
+			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/DownloadProject", token, "application/octet-stream");
+			return result;
+		}
+		
+		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsResultParameters, CancellationToken)"/>
+		public async Task<List<RcsDetailedResultForSection>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token)
+		{
+			return await httpClient.PostAsync<List<RcsDetailedResultForSection>>($"Calculations/{ActiveProjectId}/GetResults", parameters, token, "application/xml");
 		}
 
 		/// <inheritdoc cref="IRcsApiController.GetProjectSectionsAsync(CancellationToken)  "/>
@@ -158,9 +169,30 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 
-		private async Task<ProjectResult> CalculateProjectAsync(RcsCalculationParameters parameters, CancellationToken token)
+		/// <inheritdoc cref="IRcsApiController.SaveProjectAsync(string, CancellationToken)"/>
+		public async Task SaveProjectAsync(string outputPath, CancellationToken token)
 		{
-			return await httpClient.PostAsync<ProjectResult>($"Calculations/{ActiveProjectId}/CalculateResults", parameters, token, "application/xml");
+			var memoryStream = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/DownloadProject", token);
+			// Ensure the MemoryStream is at the beginning
+			memoryStream.Seek(0, SeekOrigin.Begin);
+
+			// Create a FileStream and copy the MemoryStream data to it
+			using (FileStream fileStream = File.Create(outputPath))
+			{
+				memoryStream.CopyTo(fileStream);
+			}
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetCodeSettings(CancellationToken)"/>
+		public async Task<string> GetCodeSettings(CancellationToken token)
+		{
+			return await httpClient.GetAsync<string>($"Project/{ActiveProjectId}/GetCodeSettings", token, "text/plain");
+		}
+
+		/// <inheritdoc cref="IRcsApiController.UpdateCodeSettings(List{RcsSettingModel}, CancellationToken)"/>
+		public async Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup, CancellationToken token)
+		{
+			return await httpClient.PutAsync<bool>($"Project/{ActiveProjectId}/UpdateCodeSettings", setup, token);
 		}
 	}
 }

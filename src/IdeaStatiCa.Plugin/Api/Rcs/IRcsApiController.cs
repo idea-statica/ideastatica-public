@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Concrete;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 
 namespace IdeaStatiCa.Plugin.Api.Rcs
@@ -11,20 +12,28 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 	public interface IRcsApiController : IDisposable
 	{
 		/// <summary>
-		/// Open project from ideaRcs file, or IOM in xml
+		/// Open project from IdeaRcs file
 		/// </summary>
-		/// <param name="project">Project information</param>
+		/// <param name="rscFilePath">Local path of the IdeaRcs file</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<bool> OpenProjectAsync(string path, CancellationToken token);
+		Task<bool> OpenProjectAsync(string rscFilePath, CancellationToken token);
 
 		/// <summary>
-		/// Open project from Open Model object
+		/// Create project from Open Model object
 		/// </summary>
 		/// <param name="model">Project in open model format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<bool> OpenProjectFromModelAsync(OpenModel model, CancellationToken token);
+		Task<bool> CreateProjectFromIOMAsync(OpenModel model, CancellationToken token);
+
+		/// <summary>
+		/// Create project from Open Model file
+		/// </summary>
+		/// <param name="iomFilePath">Local path of the XML file</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		Task<bool> CreateProjectFromIOMFileAsync(string iomFilePath, CancellationToken token);
 
 		/// <summary>
 		/// Calculates RCS project
@@ -33,7 +42,9 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="parameters">Parameters to specify sections</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<List<RcsSectionResultOverview>> CalculateResultsAsync(RcsCalculationParameters parameters, CancellationToken token);
+		Task<List<RcsSectionResultOverview>> CalculateAsync(RcsCalculationParameters parameters, CancellationToken token);
+
+		// CalculateAsync
 
 		/// <summary>
 		/// Get calculated results for given project id
@@ -41,14 +52,21 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="parameters"></param>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<ProjectResult> GetResultsAsync(RcsCalculationParameters parameters, CancellationToken token);
+		Task<List<RcsDetailedResultForSection>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token);
 
 		/// <summary>
-		/// Get overall information about Project
+		/// Get information summary about the Project
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<RcsProjectModel> GetProjectOverviewAsync(CancellationToken token);
+		Task<RcsProjectSummaryModel> GetProjectSummaryAsync(CancellationToken token);
+
+		/// <summary>
+		/// Get project data
+		/// </summary>
+		/// <param name="token">Cancellation token</param>
+		/// <returns></returns>
+		Task<RcsProjectData> GetProjectDataAsync(CancellationToken token);
 
 		/// <summary>
 		/// Get information about sections in Project
@@ -76,16 +94,29 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<Stream> DownloadAsync(CancellationToken token);
+		Task<Stream> DownloadProjectAsync(CancellationToken token); // for the REST API
 
 		/// <summary>
-		/// Return collection of section details of opened project
-		/// When no sections are specified, nothing is returned
+		/// Saves the loaded project as .IdeaRcs file on disk
 		/// </summary>
-		/// <param name="parameters">Parameters to specify the sections</param>
+		/// <param name="outputPath"></param>
+		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters, CancellationToken token);
+		Task SaveProjectAsync(string outputPath, CancellationToken token); // for the REST API
 
+		/// <summary>
+		/// Get the code settings
+		/// </summary>
+		/// <param name="token"></param>
+		/// <returns></returns>
+		Task<string> GetCodeSettings(CancellationToken token);
+
+		/// <summary>
+		/// Update the code settings
+		/// </summary>
+		/// <param name="token"></param>
+		/// <returns></returns>
+		Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup, CancellationToken token);
 
 		/// <summary>
 		/// Update data of the section in the RCS project.

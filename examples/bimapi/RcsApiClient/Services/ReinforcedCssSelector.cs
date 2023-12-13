@@ -11,7 +11,7 @@ namespace RcsApiClient.Services
 	public class DialogReinforcedCssSelector : IReinfCssSelector
 	{
 		/// <inheritdoc cref="IReinfCssSelector.Select(RcsProjectModel)"/>
-		public int Select(RcsProjectModel rcsProject)
+		public int Select(RcsProjectSummaryModel rcsProject)
 		{
 			return rcsProject.ReinforcedCrossSections.First().Id;
 
