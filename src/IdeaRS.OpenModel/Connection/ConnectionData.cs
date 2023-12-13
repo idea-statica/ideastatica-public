@@ -474,7 +474,7 @@ namespace IdeaRS.OpenModel.Connection
 		/// <summary>
 		/// Material of the weld
 		/// </summary>
-		public MatWelding WeldMaterial { get; set; }
+		public ReferenceElement WeldMaterial { get; set; }
 
 		/// <summary>
 		/// Type of the weld

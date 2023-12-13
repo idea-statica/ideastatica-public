@@ -36,11 +36,11 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <param name="requestUri">Request endpoint</param>
 		/// <param name="acceptHeader">Optional accept header</param>
 		/// <returns>Deserialized object from Http response</returns>
-		public async Task<TResult> GetAsync<TResult>(string requestUri, string acceptHeader = "application/json")
+		public async Task<TResult> GetAsync<TResult>(string requestUri, CancellationToken token, string acceptHeader = "application/json")
 		{
 			var url = baseUrl + "/" + requestUri;
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
-			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url); }
+			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url, token); }
 			, acceptHeader);
 		}
 
@@ -52,13 +52,13 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		/// <param name="requestData">Request body object</param>
 		/// <param name="acceptHeader">Optional accept header</param>
 		/// <returns>Deserialized object from Http response</returns>
-		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, string acceptHeader = "application/json")
+		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
 		{
 			var url = $"{baseUrl}{PluginConstants.RcsProgressEndpoint}";
 			logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 			HubConnection hubConnection = null;
-			
-			if(ProgressLogAction != null)
+
+			if (ProgressLogAction != null)
 			{
 				hubConnection = new HubConnectionBuilder()
 					.WithUrl(url)
@@ -69,18 +69,27 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 				logger.LogInformation($"Starting hub connection on {url} address");
 				await hubConnection.StartAsync();
 			}
-			
+
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
 				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";
 					var url = baseUrl + "/" + requestUri;
-					return await client.PostAsync(url, content);
+					try
+					{
+						return await client.PostAsync(url, content, token);
+					}
+					catch(OperationCanceledException ex)
+					{
+						logger.LogDebug("Operation was cancelled", ex);
+						throw ex;
+					}
+									
 				}
 			}, acceptHeader);
 
-			if(hubConnection is { })
+			if (hubConnection is { })
 			{
 				logger.LogInformation("Stopping hub connection");
 				await hubConnection.StopAsync();
@@ -89,11 +98,28 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			return result;
 		}
 
+		/// <summary>
+		/// Post call that contains binary body content
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="requestUri"></param>
+		/// <param name="stream"></param>
+		/// <param name="token"></param>
+		/// <returns></returns>
+		public async Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream, CancellationToken token)
+		{
+			return await ExecuteClientCallAsync<TResult>(async (client) =>
+			{
+				var url = baseUrl + "/" + requestUri;
+				return await client.PostAsync(url, stream, token);
+			}, "application/json");
+		}
+
 		private async Task<TResult> ExecuteClientCallAsync<TResult>(Func<HttpClient, Task<HttpResponseMessage>> clientCall, string acceptHeader)
 		{
 			HeartbeatChecker heartbeatChecker = null;
 			try
-			{		
+			{
 				using (var client = new HttpClient() { Timeout = Timeout.InfiniteTimeSpan })
 				{
 					heartbeatChecker = new HeartbeatChecker(logger, client, baseUrl + PluginConstants.RcsApiHeartbeat);

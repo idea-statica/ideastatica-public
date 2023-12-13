@@ -55,7 +55,7 @@ namespace IdeaStatiCa.Plugin
 
 		public void OpenProject(string ideaConFileName)
 		{
-			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenProject ideaConFileName = '{ideaConFileName}'");
+			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenProjectAsync ideaConFileName = '{ideaConFileName}'");
 			Service.OpenProject(ideaConFileName);
 		}
 

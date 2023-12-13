@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Api.Rcs
 {
@@ -18,6 +19,6 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// Create instance of IRcsApiController that is connected to locally hosted Rest API
 		/// </summary>
 		/// <returns>Instance of RcsApiController</returns>
-		IRcsApiController CreateRcsApiClient();
+		Task<IRcsApiController> CreateRcsApiClient();
 	}
 }

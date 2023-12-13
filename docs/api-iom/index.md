@@ -1,2 +1,0 @@
-# IdeaRS.OpenModel
-
