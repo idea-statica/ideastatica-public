@@ -85,5 +85,16 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="parameters">Parameters to specify the sections</param>
 		/// <returns></returns>
 		Task<List<RcsCrossSectionDetailModel>> SectionDetailsAsync(RcsCalculationParameters parameters, CancellationToken token);
+
+
+		/// <summary>
+		/// Update data of the section in the RCS project.
+		/// The section to modify is defined by property ID passed in <paramref name="newSectionData"/>
+		/// </summary>
+		/// <param name="newSectionData">New data of the section. A valid value of the section Id is requiered.</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns>Chanded data</returns>
+		Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token);
+
 	}
 }

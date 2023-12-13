@@ -44,6 +44,21 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			, acceptHeader);
 		}
 
+
+		public async Task<TResult> PutAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
+		{
+			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
+			{
+				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
+				{
+					content.Headers.ContentType.CharSet = "";
+					var url = baseUrl + "/" + requestUri;
+					return await client.PutAsync(url, content, token);
+				}
+			}, acceptHeader);
+			return result;
+		}
+
 		/// <summary>
 		/// Calls PostAsync on HttpClient
 		/// </summary>
@@ -80,12 +95,12 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					{
 						return await client.PostAsync(url, content, token);
 					}
-					catch(OperationCanceledException ex)
+					catch (OperationCanceledException ex)
 					{
 						logger.LogDebug("Operation was cancelled", ex);
 						throw ex;
 					}
-									
+
 				}
 			}, acceptHeader);
 
@@ -127,22 +142,36 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					// Periodically check the heartbeat while the long operation is in progress
 					var heartbeatTask = heartbeatChecker.StartAsync();
 					logger.LogDebug($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
-					HttpResponseMessage response = await clientCall(client);
-
-					// Stop the heartbeat checker
-					heartbeatChecker.Stop();
-					logger.LogDebug($"Stopping HeartbeatChecker");
-
-					if (response is { IsSuccessStatusCode: true })
+					using (HttpResponseMessage response = await clientCall(client))
 					{
-						logger.LogDebug($"Response is successfull");
-						var stringContent = await response.Content.ReadAsStringAsync();
-						return Deserialize<TResult>(acceptHeader, stringContent);
-					}
-					else
-					{
-						logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
-						throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+
+						// Stop the heartbeat checker
+						heartbeatChecker.Stop();
+						logger.LogDebug($"Stopping HeartbeatChecker");
+
+						if (response is { IsSuccessStatusCode: true })
+						{
+							logger.LogDebug($"Response is successfull");
+
+							if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase))
+							{
+								logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
+								var ms = new MemoryStream();
+								await response.Content.CopyToAsync(ms);
+								return (TResult)Convert.ChangeType(ms, typeof(MemoryStream));
+							}
+							else
+							{
+								var stringContent = await response.Content.ReadAsStringAsync();
+								logger.LogDebug($"HttpClientWrapper.ExecuteClientCallAsync - response is '{typeof(TResult).Name}'");
+								return Deserialize<TResult>(acceptHeader, stringContent);
+							}
+						}
+						else
+						{
+							logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+							throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+						}
 					}
 				}
 			}

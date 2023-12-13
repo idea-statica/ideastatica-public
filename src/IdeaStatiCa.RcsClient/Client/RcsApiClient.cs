@@ -52,8 +52,8 @@ namespace IdeaStatiCa.RcsClient.Client
 
 			var header = path switch
 			{
-				{ } when path.EndsWith(".IdeaRcs") => "application/octet-stream",
-				{ } when path.EndsWith(".xml") => "application/xml",
+				{ } when path.EndsWith(".IdeaRcs", StringComparison.InvariantCultureIgnoreCase) => "application/octet-stream",
+				{ } when path.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase) => "application/xml",
 				_ => throw new InvalidDataException("Non supported file type. Please send .IdeaRcs or IOM in .xml")
 			};
 
@@ -101,7 +101,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		public async Task<Stream> DownloadAsync(CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.Download projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/Download", token);
+			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/Download", token, "application/octet-stream");
 			return result;
 		}
 		/// <inheritdoc cref="IRcsApiController.SectionDetailsAsync(RcsCalculationParameters, CancellationToken) "/>
@@ -137,6 +137,13 @@ namespace IdeaStatiCa.RcsClient.Client
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectReinforcedCrossSectionsAsync projectId = {ActiveProjectId}");
 			var result = await httpClient.GetAsync<List<ReinforcedCrossSectionModel>>($"Project/{ActiveProjectId}/ProjectReinforcedCrossSections", token);
+			return result;
+		}
+
+		public async Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.UpdateSectionAsync projectId = {ActiveProjectId} sectionId = {newSectionData.Id} reinforcedSectionId = {newSectionData.RCSId}");
+			var result = await httpClient.PutAsync<RcsSectionModel>($"Section/{ActiveProjectId}/UpdateSection", newSectionData, token);
 			return result;
 		}
 

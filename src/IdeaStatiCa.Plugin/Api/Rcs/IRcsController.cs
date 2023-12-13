@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Concrete.CheckResult;
 using IdeaRS.OpenModel.Message;
-using IdeaRS.OpenModel;
-using System.Threading;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace IdeaStatiCa.Plugin.Api.Rcs
 {
@@ -24,5 +24,12 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		bool Calculate(IEnumerable<int> sections);
 		IEnumerable<SectionConcreteCheckResult> GetResultOnSections(CancellationToken cancellationToken, params int[] sections);
 		IEnumerable<NonConformityIssue> GetNonConformityIssues(CancellationToken cancellationToken, params Guid[] issues);
+
+		/// <summary>
+		/// Update data of a RCS section
+		/// </summary>
+		/// <param name="modifiedData">The section </param>
+		/// <returns></returns>
+		RcsSectionModel UpdateSection(RcsSectionModel modifiedSectionData);
 	}
 }
