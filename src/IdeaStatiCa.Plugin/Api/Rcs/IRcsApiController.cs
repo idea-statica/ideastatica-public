@@ -96,13 +96,15 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <returns>Chanded data</returns>
 		Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token);
 
+
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="options"></param>
 		/// <param name="reinfCssTemplate"></param>
+		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<RcsSectionModel> ImportReinfCssAsync(ReinfCssImportOptions options, string reinfCssTemplate);
+		Task<RcsSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token);
 
 	}
 }

@@ -3,6 +3,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.HttpWrapper;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -140,10 +141,20 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 
+		/// <inheritdoc cref="IRcsApiController.UpdateSectionAsync(RcsSectionModel, CancellationToken)"/>
 		public async Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.UpdateSectionAsync projectId = {ActiveProjectId} sectionId = {newSectionData.Id} reinforcedSectionId = {newSectionData.RCSId}");
 			var result = await httpClient.PutAsync<RcsSectionModel>($"Section/{ActiveProjectId}/UpdateSection", newSectionData, token);
+			return result;
+		}
+
+		/// <inheritdoc cref="IRcsApiController.ImportReinfCssAsync(ReinfCssImportSetting, string)"/>
+		public async Task<RcsSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token)
+		{
+			var data = new ReinfCssImportData(){Setting = importSetting, Template = reinfCssTemplate };
+			pluginLogger.LogDebug($"RcsApiClient.ImportReinfCssAsync projectId = {ActiveProjectId} reinfCssId = {importSetting?.ReinfCssId}");
+			var result = await httpClient.PostAsync<RcsSectionModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
 			return result;
 		}
 
