@@ -7,7 +7,7 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors" 
 	    x:Class="RcsApiClient.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="850">
 
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Top">
@@ -30,8 +30,9 @@
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button HorizontalAlignment="Left"  Content="Import RF Css" ToolTip="Import reinforced cross-section from a NAV file" Command="{Binding ImportReinfCssCmdAsync}" Width="200" Height="30"/>
-				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="New RF Css" ToolTip="Create a new reinforced cross-section from a NAV file" Command="{Binding CreateReinfCssCmdAsync}" CommandParameter="New" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="Update RF Css" ToolTip="Import a new reinforced cross-section from a NAV file to the selected reinforced css" Command="{Binding UpdateReinfCssCmdAsync}" CommandParameter="Complete" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section. E.g. set a different reinforced css." Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
 				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>

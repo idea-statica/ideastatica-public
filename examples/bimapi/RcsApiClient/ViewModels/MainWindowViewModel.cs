@@ -43,7 +43,8 @@ namespace RcsApiClient.ViewModels
 
 			UpdateSectionCmdAsync = new AsyncRelayCommand(UpdateSectionAsync, CanUpdateSection);
 
-			ImportReinfCssCmdAsync = new AsyncRelayCommand(ImportReinforcedCssAsync, CanImportReinforcedCss);
+			CreateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanCreateReinforcedCss(p));
+			UpdateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
 
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
@@ -92,13 +93,23 @@ namespace RcsApiClient.ViewModels
 		}
 
 		/// <summary>
-		/// A command for changing reinforced cross-section in a selected section
+		/// A command for creating a new reinforced cross-section by importing template (.nav file)
 		/// </summary>
-		public IAsyncRelayCommand ImportReinfCssCmdAsync
+		public IAsyncRelayCommand<object?> CreateReinfCssCmdAsync
 		{
 			get;
 			private set;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public IAsyncRelayCommand<object?> UpdateReinfCssCmdAsync
+		{
+			get;
+			private set;
+		}
+		
 
 		public IRelayCommand CancelCalculationCmd
 		{
@@ -286,6 +297,7 @@ namespace RcsApiClient.ViewModels
 				selectedReinforcedCss = value;
 				OnPropertyChanged(nameof(SelectedReinforcedCss));
 				UpdateSectionCmdAsync.NotifyCanExecuteChanged();
+				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -399,13 +411,17 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
-		private bool CanImportReinforcedCss()
+		private bool CanCreateReinforcedCss(object? param)
 		{
 			return IsRcsProjectOpen();
 		}
 
+		private bool CanUpdateReinforcedCss(object? param)
+		{
+			return IsRcsProjectOpen() && (SelectedReinforcedCss != null && SelectedReinforcedCss.Id > 0);
+		}
 
-		private async Task ImportReinforcedCssAsync()
+		private async Task ImportReinforcedCssAsync(object? param)
 		{
 			pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync");
 			try
@@ -425,6 +441,22 @@ namespace RcsApiClient.ViewModels
 				}
 
 				var importSetting = new ReinfCssImportSetting();
+				if(param != null && "New".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
+				{
+					// create a new reinforced cross-section
+					pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync - new reinforced cross-section is required");
+				}
+				else if (param != null && "Complete".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
+				{
+					// create a new reinforced cross-section
+					pluginLogger.LogDebug($"MainWindowViewModel.ImportReinforcedCssAsync - it is required to update current RF id = {SelectedReinforcedCss.Id}");
+					importSetting.ReinfCssId = SelectedReinforcedCss.Id;
+					importSetting.PartsToImport = param.ToString();
+				}
+				else
+				{
+					throw new NotSupportedException($"Unsupported import type '{param}'");
+				}
 
 				var updatedSection = await Controller.ImportReinfCssAsync(importSetting, template, cancellationTokenSource.Token);
 
@@ -610,7 +642,8 @@ namespace RcsApiClient.ViewModels
 				GetMembersCmdAsync.NotifyCanExecuteChanged();
 				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
 				SaveProjectCmdAsync.NotifyCanExecuteChanged();
-				ImportReinfCssCmdAsync.NotifyCanExecuteChanged();
+				CreateReinfCssCmdAsync.NotifyCanExecuteChanged();
+				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
