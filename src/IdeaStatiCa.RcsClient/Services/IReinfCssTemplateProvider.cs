@@ -1,7 +1,9 @@
-﻿namespace IdeaStatiCa.RcsClient.Services
+﻿using System.Threading.Tasks;
+
+namespace IdeaStatiCa.RcsClient.Services
 {
 	public interface IReinfCssTemplateProvider
 	{
-		string GetTemplate();
+		Task<string> GetTemplateAsync();
 	}
 }

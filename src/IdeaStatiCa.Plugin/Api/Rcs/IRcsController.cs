@@ -26,10 +26,19 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		IEnumerable<NonConformityIssue> GetNonConformityIssues(CancellationToken cancellationToken, params Guid[] issues);
 
 		/// <summary>
-		/// Update data of a RCS section
+		/// Update data of a RCS section in the RCS project. The section is taken according to pass value in <paramref name="modifiedSectionData"/>
+		/// <see cref="RcsSectionModel.Id"/>
 		/// </summary>
-		/// <param name="modifiedData">The section </param>
-		/// <returns></returns>
+		/// <param name="modifiedData">Data to set</param>
+		/// <returns>Data of the modified section</returns>
 		RcsSectionModel UpdateSection(RcsSectionModel modifiedSectionData);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="importSetting"></param>
+		/// <param name="reinfCssTemplate"></param>
+		/// <returns></returns>
+		ReinforcedCrossSectionModel ImportReinfCss(ReinfCssImportSetting importSetting, string reinfCssTemplate);
 	}
 }

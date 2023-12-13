@@ -1,7 +1,5 @@
-﻿using Castle.DynamicProxy.Generators;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using IdeaRS.OpenModel.CrossSection;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
@@ -23,9 +21,13 @@ namespace RcsApiClient.ViewModels
 		private readonly IPluginLogger pluginLogger;
 		private readonly IRcsClientFactory rcsClientFactory;
 		private readonly IReinfCssSelector reinfSectSlector;
+		private readonly IReinfCssTemplateProvider reinfCssTemplateProvider;
 		private IRcsApiController? controller;
 
-		public MainWindowViewModel(IPluginLogger pluginLogger, IRcsClientFactory rcsClientFactory, IReinfCssSelector reinfSectSlector)
+		public MainWindowViewModel(IPluginLogger pluginLogger,
+			IRcsClientFactory rcsClientFactory,
+			IReinfCssSelector reinfSectSlector,
+			IReinfCssTemplateProvider reinfCssTemplateProvider)
 		{
 			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
 			SaveProjectCmdAsync = new AsyncRelayCommand(SaveProjectAsync, CanSaveProject);
@@ -46,6 +48,8 @@ namespace RcsApiClient.ViewModels
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
 			this.reinfSectSlector = reinfSectSlector;
+			this.reinfCssTemplateProvider = reinfCssTemplateProvider;
+
 			sections = new ObservableCollection<SectionViewModel>();
 			reinforcedCrossSections = new ObservableCollection<ReinforcedCssViewModel>();
 
@@ -406,22 +410,23 @@ namespace RcsApiClient.ViewModels
 			pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync");
 			try
 			{
-				if (Controller == null || SelectedSection == null)
+				if (Controller == null || SelectedReinforcedCss == null)
 				{
 					throw new Exception("Service is not running");
 				}
 
-				// selected section
-				int sectionId = SelectedSection.Id;
+				var template = await reinfCssTemplateProvider.GetTemplateAsync();
 
-				// ask user to select reinforced cross-section
-				int reinforcedSection = SelectedReinforcedCss.Id;
+				if(string.IsNullOrEmpty(template))
+				{
+					// no template is provided
+					pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync - leaving, no template to import");
+					return;
+				}
 
-				var newSectionData = new RcsSectionModel();
-				newSectionData.Id = sectionId;
-				newSectionData.RCSId = reinforcedSection;
+				var importSetting = new ReinfCssImportSetting();
 
-				var updatedSection = await Controller.UpdateSectionAsync(newSectionData, cancellationTokenSource.Token);
+				var updatedSection = await Controller.ImportReinfCssAsync(importSetting, template, cancellationTokenSource.Token);
 
 				await GetProjectOverviewAsync();
 
@@ -605,6 +610,7 @@ namespace RcsApiClient.ViewModels
 				GetMembersCmdAsync.NotifyCanExecuteChanged();
 				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
 				SaveProjectCmdAsync.NotifyCanExecuteChanged();
+				ImportReinfCssCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 

@@ -104,7 +104,6 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <param name="reinfCssTemplate"></param>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<RcsSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token);
-
+		Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token);
 	}
 }

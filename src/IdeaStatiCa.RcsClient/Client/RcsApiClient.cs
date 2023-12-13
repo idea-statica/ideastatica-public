@@ -150,11 +150,11 @@ namespace IdeaStatiCa.RcsClient.Client
 		}
 
 		/// <inheritdoc cref="IRcsApiController.ImportReinfCssAsync(ReinfCssImportSetting, string)"/>
-		public async Task<RcsSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token)
+		public async Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token)
 		{
 			var data = new ReinfCssImportData(){Setting = importSetting, Template = reinfCssTemplate };
 			pluginLogger.LogDebug($"RcsApiClient.ImportReinfCssAsync projectId = {ActiveProjectId} reinfCssId = {importSetting?.ReinfCssId}");
-			var result = await httpClient.PostAsync<RcsSectionModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
+			var result = await httpClient.PostAsync<ReinforcedCrossSectionModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
 			return result;
 		}
 
