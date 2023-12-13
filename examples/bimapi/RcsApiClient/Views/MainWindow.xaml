@@ -30,6 +30,7 @@
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
+				<Button HorizontalAlignment="Left"  Content="Import RF Css" ToolTip="Import reinforced cross-section from a NAV file" Command="{Binding ImportReinfCssCmdAsync}" Width="200" Height="30"/>
 				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
 				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
 					<ComboBox.ItemTemplate>

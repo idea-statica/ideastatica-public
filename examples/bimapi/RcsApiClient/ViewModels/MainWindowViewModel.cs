@@ -41,6 +41,8 @@ namespace RcsApiClient.ViewModels
 
 			UpdateSectionCmdAsync = new AsyncRelayCommand(UpdateSectionAsync, CanUpdateSection);
 
+			ImportReinfCssCmdAsync = new AsyncRelayCommand(ImportReinforcedCssAsync, CanImportReinforcedCss);
+
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
 			this.reinfSectSlector = reinfSectSlector;
@@ -80,6 +82,15 @@ namespace RcsApiClient.ViewModels
 		/// A command for changing reinforced cross-section in a selected section
 		/// </summary>
 		public IAsyncRelayCommand UpdateSectionCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// A command for changing reinforced cross-section in a selected section
+		/// </summary>
+		public IAsyncRelayCommand ImportReinfCssCmdAsync
 		{
 			get;
 			private set;
@@ -352,7 +363,6 @@ namespace RcsApiClient.ViewModels
 
 		}
 
-
 		private async Task UpdateSectionAsync()
 		{
 			pluginLogger.LogDebug("MainWindowViewModel.UpdateSectionAsync");
@@ -384,6 +394,46 @@ namespace RcsApiClient.ViewModels
 				ApiMessage = ex.Message;
 			}
 		}
+
+		private bool CanImportReinforcedCss()
+		{
+			return IsRcsProjectOpen();
+		}
+
+
+		private async Task ImportReinforcedCssAsync()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync");
+			try
+			{
+				if (Controller == null || SelectedSection == null)
+				{
+					throw new Exception("Service is not running");
+				}
+
+				// selected section
+				int sectionId = SelectedSection.Id;
+
+				// ask user to select reinforced cross-section
+				int reinforcedSection = SelectedReinforcedCss.Id;
+
+				var newSectionData = new RcsSectionModel();
+				newSectionData.Id = sectionId;
+				newSectionData.RCSId = reinforcedSection;
+
+				var updatedSection = await Controller.UpdateSectionAsync(newSectionData, cancellationTokenSource.Token);
+
+				await GetProjectOverviewAsync();
+
+			}
+			catch (Exception ex)
+			{
+				pluginLogger.LogWarning(ex.Message);
+				ApiMessage = ex.Message;
+			}
+		}
+
+
 
 		private async Task GetReinforcedCrossSections()
 		{
