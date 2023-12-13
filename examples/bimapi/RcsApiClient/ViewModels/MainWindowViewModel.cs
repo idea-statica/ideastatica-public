@@ -365,7 +365,7 @@ namespace RcsApiClient.ViewModels
 			{
 				selectedSection = value;
 
-				if (selectedSection != null && SelectedReinforcedCss != null)
+				if (selectedSection != null && ReinforcedCrossSections != null)
 				{
 					SelectedReinforcedCss = ReinforcedCrossSections.FirstOrDefault(s => s.Id == selectedSection?.ReinforcedCssId);
 				}
@@ -614,9 +614,9 @@ namespace RcsApiClient.ViewModels
 
 				CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(RcsProject));
 
-				ReinforcedCrossSections = new ObservableCollection<ReinforcedCssViewModel>(RcsProject.ReinforcedCrossSections.Select(rf => new ReinforcedCssViewModel(rf)));
+				SelectedReinforcedCss = null;
 
-				SelectedReinforcedCss = ReinforcedCrossSections.FirstOrDefault();
+				ReinforcedCrossSections = new ObservableCollection<ReinforcedCssViewModel>(RcsProject.ReinforcedCrossSections.Select(rf => new ReinforcedCssViewModel(rf)));
 
 				Sections = new ObservableCollection<SectionViewModel>(RcsProject.Sections.Select(s => new SectionViewModel(s)));
 
