@@ -610,6 +610,7 @@ namespace RcsApiClient.ViewModels
 				GetMembersCmdAsync.NotifyCanExecuteChanged();
 				GetReinforcedCrossSectionsCmdAsync.NotifyCanExecuteChanged();
 				SaveProjectCmdAsync.NotifyCanExecuteChanged();
+				GetCodeSettingsCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 

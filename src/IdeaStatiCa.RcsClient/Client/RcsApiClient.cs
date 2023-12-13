@@ -83,8 +83,8 @@ namespace IdeaStatiCa.RcsClient.Client
 			ActiveProjectId = await httpClient.PostAsync<Guid>("Project/OpenProjectFromModel", model, token);
 			return true;
 		}
-		
-		/// <inheritdoc cref="IRcsApiController.Calcu(RcsCalculationParameters, CancellationToken) "/>
+
+		/// <inheritdoc cref="IRcsApiController.CalculateAsync(RcsCalculationParameters, CancellationToken) "/>
 		public async Task<List<RcsSectionResultOverview>> CalculateAsync(RcsCalculationParameters parameters, CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.CalculateResultsAsync projectId = {ActiveProjectId}");
@@ -99,8 +99,8 @@ namespace IdeaStatiCa.RcsClient.Client
 				throw ex;
 			}
 		}
-		
-		/// <inheritdoc cref="IRcsApiController.GetProjectOverviewAsync(CancellationToken) "/>
+
+		/// <inheritdoc cref="IRcsApiController.GetProjectSummaryAsync(CancellationToken) "/>
 		public async Task<RcsProjectSummaryModel> GetProjectSummaryAsync(CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectSummaryAsync projectId = {ActiveProjectId}");
@@ -120,7 +120,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		public async Task<Stream> DownloadProjectAsync(CancellationToken token)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.DownloadProjectAsync projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/Download", token);
+			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/DownloadProject", token, "application/octet-stream");
 			return result;
 		}
 		
