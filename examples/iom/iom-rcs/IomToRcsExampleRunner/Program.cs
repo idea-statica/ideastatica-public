@@ -1,23 +1,35 @@
 ﻿using IdeaRS.OpenModel;
 using IomToRcsExamples;
+using IdeaStatiCa.RcsClient;
 using System.Text;
 using System.Xml.Serialization;
 using System;
 using Microsoft.VisualBasic;
 using System.Xml;
+using IdeaStatiCa.RcsClient.Factory;
+using IdeaStatiCa.RcsClient.Client;
 
 namespace IomToRcsExampleRunner
 {
 	internal class Program
 	{
-		static void Main(string[] args)
+		static async void Main(string[] args)
 		{
 			//Lets Create the Open Model 
 			OpenModel openModel = RcsExampleBuilder.BuildExampleModel(RcsExampleBuilder.Example.ReinforcedBeam);
 
 			openModel.SaveToXmlFile("IomToRcsExampleRunner.xml");
 
+			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.0\\net6.0-windows";
+
+			RcsClientFactory rcsClientFactory = new RcsClientFactory(new IdeaStatiCa.Plugin.NullLogger(), null, directoryPath);
+
+			RcsApiClient? client = await rcsClientFactory.CreateRcsApiClient() as RcsApiClient;
+
+			//client.OpenProjectAsync();
+
 			#region SaveIOMtoRCS-TODO
+
 
 			//placeholder for some example code which will create an RcsFile from selecting one of the Rcs Projects. 
 
