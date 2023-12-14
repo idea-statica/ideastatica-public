@@ -127,14 +127,14 @@ namespace IdeaStatiCa.Plugin.Api.Rcs
 		/// <returns>Chanded data</returns>
 		Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token);
 
-
 		/// <summary>
-		/// 
+		/// Update the active RCS project. According to <paramref name="importSetting"/> a new reinforced section can be added to the project
+		/// or existion reinforced section can be updated using a template <paramref name="reinfCssTemplate"/>
 		/// </summary>
-		/// <param name="options"></param>
-		/// <param name="reinfCssTemplate"></param>
-		/// <param name="token"></param>
-		/// <returns></returns>
+		/// <param name="options">Options of importing a template</param>
+		/// <param name="reinfCssTemplate">Template to import</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns>Data of the updated reinforced cross-section</returns>
 		Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token);
 	}
 }
