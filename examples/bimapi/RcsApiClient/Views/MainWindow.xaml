@@ -7,7 +7,7 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors" 
 	    x:Class="RcsApiClient.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="1050">
 
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Top">
@@ -35,7 +35,11 @@
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="New RF Css" ToolTip="Create a new reinforced cross-section from a NAV file" Command="{Binding CreateReinfCssCmdAsync}" CommandParameter="New" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="Update RF Css" ToolTip="Update a complete existing reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinfCssCmdAsync}" CommandParameter="Complete" Width="200" Height="30"/>
+				<Button HorizontalAlignment="Left"  Content="Update Reinforcement" ToolTip="Update only reinforcement of a reinforced cross-section by a template from a NAV file" Command="{Binding UpdateReinforcementCmdAsync}" CommandParameter="Reinf" Width="200" Height="30"/>
+
+				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section. E.g. set a different reinforced css." Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
 				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
@@ -45,30 +49,7 @@
 				</ComboBox>
 			</StackPanel>
 
-			<ListView ItemsSource="{Binding Sections}"
-				SelectionMode="Single"
-				SelectedItem="{Binding SelectedSection, Mode=TwoWay}"
-				Name="SectionsListView"
-				MinHeight="200">
-				<ListView.ItemContainerStyle>
-					<Style TargetType="{x:Type ListViewItem}">
-						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-					</Style>
-				</ListView.ItemContainerStyle>
-				<ListView.View>
-					<GridView>
-						<GridViewColumn>
-							<GridViewColumn.CellTemplate>
-								<DataTemplate>
-									<StackPanel>
-										<TextBlock Text="{Binding Description}"/>
-									</StackPanel>
-								</DataTemplate>
-							</GridViewColumn.CellTemplate>
-						</GridViewColumn>
-					</GridView>
-				</ListView.View>
-			</ListView>
+
 		</StackPanel>
 
 		<StackPanel DockPanel.Dock="Bottom">
@@ -77,8 +58,59 @@
 			<ProgressBar x:Name="ProgressBar" Value="{Binding Progress}" Width="750" Height="10" Margin="5"/>
 		</StackPanel>
 
-		<ScrollViewer>
-			<TextBox x:Name="CalculationResult" Text="{Binding CalculationResult}" TextWrapping="Wrap" Height="200" MaxHeight="500" VerticalScrollBarVisibility="Auto"/>
-		</ScrollViewer>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"></ColumnDefinition>
+				<ColumnDefinition Width="3*"></ColumnDefinition>
+
+			</Grid.ColumnDefinitions>
+
+			<ListView ItemsSource="{Binding Sections}"
+				SelectionMode="Single"
+				SelectedItem="{Binding SelectedSection, Mode=TwoWay}"
+				Name="SectionsListView">
+
+				<ListView.ItemContainerStyle>
+					<Style TargetType="{x:Type ListViewItem}">
+						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					</Style>
+				</ListView.ItemContainerStyle>
+		  
+				<ListView.View>
+					<GridView>
+						<GridViewColumn>
+							<GridViewColumn.Header>
+								<Label>Section</Label>
+							</GridViewColumn.Header>
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock Text="{Binding Description}"/>
+									</StackPanel>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+
+						<GridViewColumn>
+							<GridViewColumn.Header>
+								<Label>Reinf Section Id</Label>
+							</GridViewColumn.Header>
+							<GridViewColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock Text="{Binding ReinforcedCssId}"/>
+									</StackPanel>
+								</DataTemplate>
+							</GridViewColumn.CellTemplate>
+						</GridViewColumn>
+			  
+					</GridView>
+				</ListView.View>
+			</ListView>
+
+			<ScrollViewer Grid.Column="1">
+				<TextBox x:Name="CalculationResult" Text="{Binding CalculationResult}" TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto"/>
+			</ScrollViewer>
+		</Grid>
 	</DockPanel>
 </Window>
