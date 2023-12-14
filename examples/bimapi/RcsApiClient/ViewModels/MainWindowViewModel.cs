@@ -51,6 +51,8 @@ namespace RcsApiClient.ViewModels
 
 			CreateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanCreateReinforcedCss(p));
 			UpdateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
+			UpdateReinforcementCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
+
 
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
@@ -121,7 +123,14 @@ namespace RcsApiClient.ViewModels
 			get;
 			private set;
 		}
+
+		public IAsyncRelayCommand<object?> UpdateReinforcementCmdAsync
+		{
+			get;
+			private set;
+		}
 		
+
 
 		public IRelayCommand CancelCalculationCmd
 		{
@@ -354,6 +363,7 @@ namespace RcsApiClient.ViewModels
 				OnPropertyChanged(nameof(SelectedReinforcedCss));
 				UpdateSectionCmdAsync.NotifyCanExecuteChanged();
 				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
+				UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -489,7 +499,7 @@ namespace RcsApiClient.ViewModels
 
 				var template = await reinfCssTemplateProvider.GetTemplateAsync();
 
-				if(string.IsNullOrEmpty(template))
+				if (string.IsNullOrEmpty(template))
 				{
 					// no template is provided
 					pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync - leaving, no template to import");
@@ -497,12 +507,14 @@ namespace RcsApiClient.ViewModels
 				}
 
 				var importSetting = new ReinfCssImportSetting();
-				if(param != null && "New".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
+				if (param != null && "New".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
 				{
 					// create a new reinforced cross-section
 					pluginLogger.LogDebug("MainWindowViewModel.ImportReinforcedCssAsync - new reinforced cross-section is required");
 				}
-				else if (param != null && "Complete".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
+				else if (param != null &&
+					("Complete".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase) ||
+					("Reinf".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))))
 				{
 					// create a new reinforced cross-section
 					pluginLogger.LogDebug($"MainWindowViewModel.ImportReinforcedCssAsync - it is required to update current RF id = {SelectedReinforcedCss.Id}");
@@ -733,6 +745,7 @@ namespace RcsApiClient.ViewModels
 				UpdateSettingsCmdAsync.NotifyCanExecuteChanged();
 				CreateReinfCssCmdAsync.NotifyCanExecuteChanged();
 				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
+				UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
