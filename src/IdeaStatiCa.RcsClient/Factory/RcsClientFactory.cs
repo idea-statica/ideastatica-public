@@ -73,8 +73,8 @@ namespace IdeaStatiCa.RcsClient.Factory
 						rcsRestApiProcess.StartInfo.Arguments = arguments;
 						rcsRestApiProcess.StartInfo.UseShellExecute = false;
 #if !DEBUG
-					rcsRestApiProcess.StartInfo.RedirectStandardOutput = true;
-					rcsRestApiProcess.StartInfo.CreateNoWindow = true;
+						//rcsRestApiProcess.StartInfo.RedirectStandardOutput = true;
+						rcsRestApiProcess.StartInfo.CreateNoWindow = true;
 #endif
 						rcsRestApiProcess.Start();
 
