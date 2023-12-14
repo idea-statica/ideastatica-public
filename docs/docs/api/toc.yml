@@ -9,10 +9,10 @@
 - name: Expression Parameter Reference Guide
   href: api_parameter_reference_guide.md
 - name: Client Docs
-- name: Python API
-  href: python/toc.yml
 - name: .Net API
   href: dotnet/toc.yml
+- name: Python API
+  href: python/toc.yml
 - name: API Reference
 - name: IdeaStatiCa.PlugIn
   href: ../../api-plugin/toc.yml

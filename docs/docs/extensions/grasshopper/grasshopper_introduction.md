@@ -6,14 +6,14 @@ The IDEA StatiCa Grasshopper plugin consists of the following primary parts:
 
 
 
-1. [Components to generate IDEA Open Model (IOM)](grasshopper_iom_components_overview). These are used to facilitate:
+1. [Components to generate IDEA Open Model (IOM)](grasshopper_iom_components_overview.md). These are used to facilitate:
 
     * Create, Import or Modify IDEA Open Model.
     * Custom FEA Conversions
     * Geometric conversion: IOM <-> Rhino
     * Explicit modelling of members, plates, bolts, cuts, and welds.
 
-2.	[Components to interact with IDEA Design Applications](grasshopper_connection_app_components). The are used to:
+2.	[Components to interact with IDEA Design Applications](grasshopper_connection_app_components.md). The are used to:
 
     * Create, import, modify design app files, such as connections.
     * Get and update geometry and components.

@@ -59,21 +59,23 @@
       "modern",
       "templates/idea_template"
     ],
+    "xref": [
+      "xrefmap.yml"
+    ],
     "content": [
       { "files": ["docs/**/*.{md|yml}"]},
+      { "files": ["articles/*.{md|yml}"]},
       { "files": ["api-iom/**.yml", "api-iom/index.md"] },
       { "files": ["api-bimapi/**.yml", "api-bimapi/index.md" ]},
       { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
       { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
-      { "files": ["toc.yml", "*.md"]}
+      { "files": ["toc.yml", "*.md"]},
+      { "files": "**/**/*.{md|yml}" , "src": "../examples", "dest":"examples"}
     ],
     "resource": [
-      {
-        "files": [
-          "**/images/**",
-          "api-iom/Images/**"
-        ]
-      }
+      { "files": ["**/images/**", "api-iom/Images/**"] },
+      { "files": ["**/images/**", "**/*.cs"], "src" : "../examples", "dest":"examples"},
+      { "files": "**/*.{cs|ideaCon|ideaRcs}", "src" : "../examples"}
     ],
     "overwrite": [
       {
@@ -87,7 +89,8 @@
       }
     ],
     "globalMetadata": {
-      "_appTitle": "IDEA StatiCa API"
+      "_appTitle": "IDEA StatiCa API",
+      "_enableSearch": true
     },
     "dest": "_site",
     "postProcessors": [],
