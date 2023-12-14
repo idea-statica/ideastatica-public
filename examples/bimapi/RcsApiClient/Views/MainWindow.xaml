@@ -8,16 +8,23 @@
 	    x:Class="RcsApiClient.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
+
 	<DockPanel LastChildFill="True">
 		<StackPanel DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal">
 				<Button HorizontalAlignment="Left"  Content="Browse for RCS project" Command="{Binding OpenProjectCmdAsync}" Width="150" Height="30" />
+				<Button HorizontalAlignment="Left"  Content="Save RCS" Command="{Binding SaveProjectCmdAsync}" ToolTip="Get the current data of RCS project and save it" Width="150" Height="30" />
 				<TextBox x:Name="ProjectFileInputPath" Text="{Binding RcsProjectPath}" Margin="5" IsEnabled="False" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
-				<Button x:Name="GetProjectOverview" HorizontalAlignment="Left"  Content="Project overview" Command="{Binding GetProjectOverviewCmdAsync}" Width="200" Height="30"/>
-				<Button x:Name="GetResultOnSections" HorizontalAlignment="Left"  Content="Calculate" Command="{Binding CalculateResultsCmdAsync}" Width="200" Height="30"/>
-				<Button x:Name="GetNonConformityIssues" HorizontalAlignment="Left"  Content="Results" Command="{Binding GetResultsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetProjectSummary" HorizontalAlignment="Left"  Content="Project overview" Command="{Binding GetProjectSummaryCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetProjectData" HorizontalAlignment="Left"  Content="Project data" Command="{Binding GetProjectDataCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetSettings" HorizontalAlignment="Left"  Content="Code Settings" Command="{Binding GetCodeSettingsCmdAsync}" Width="200" Height="30"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Button x:Name="Calculate" HorizontalAlignment="Left"  Content="Calculate" Command="{Binding CalculateResultsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetResults" HorizontalAlignment="Left"  Content="Results" Command="{Binding GetResultsCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="UpdateSettings" Content="Update Settings" Command="{Binding UpdateSettingsCmdAsync}" Width="200" Height="30"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Button x:Name="GetSections" HorizontalAlignment="Left"  Content="Sections" Command="{Binding GetSectionsCmdAsync}" Width="200" Height="30"/>
@@ -27,11 +34,22 @@
 			<StackPanel>
 				<Button x:Name="Cancel" HorizontalAlignment="Left" Content="Cancel"  Width="200" Command="{Binding CancelCalculationCmd}"></Button>
 			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Button HorizontalAlignment="Left"  Content="Update Section" ToolTip="Update data of the selected section" Command="{Binding UpdateSectionCmdAsync}" Width="200" Height="30"/>
+				<ComboBox ItemsSource="{Binding ReinforcedCrossSections}" SelectedItem="{Binding SelectedReinforcedCss}" Width="200">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+			</StackPanel>
 
-			<ListView ItemsSource="{Binding Sections}" 
-					  SelectionMode="Extended"
-					  Name="SectionsListView"
-					  MinHeight="200">
+			<ListView ItemsSource="{Binding Sections}"
+				SelectionMode="Single"
+				SelectedItem="{Binding SelectedSection, Mode=TwoWay}"
+				Name="SectionsListView"
+				MinHeight="200">
 				<ListView.ItemContainerStyle>
 					<Style TargetType="{x:Type ListViewItem}">
 						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -43,7 +61,7 @@
 							<GridViewColumn.CellTemplate>
 								<DataTemplate>
 									<StackPanel>
-										<TextBlock Text="{Binding Id}"/>
+										<TextBlock Text="{Binding Description}"/>
 									</StackPanel>
 								</DataTemplate>
 							</GridViewColumn.CellTemplate>

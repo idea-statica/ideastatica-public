@@ -5,7 +5,9 @@ using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.Factory;
 using IdeaStatiCa.RcsClient.HttpWrapper;
+using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Extensions.DependencyInjection;
+using RcsApiClient.Services;
 using RcsApiClient.ViewModels;
 using System;
 using System.Windows;
@@ -36,6 +38,7 @@ namespace RcsApiClient
 			});
 
 			services.AddSingleton<MainWindowViewModel>();
+			services.AddTransient<IReinfCssSelector, DialogReinforcedCssSelector>();
 
 			services.AddSingleton<Func<Type, ObservableObject>>(serviceProvider => viewModelType => (ObservableObject)serviceProvider.GetRequiredService(viewModelType));
 
