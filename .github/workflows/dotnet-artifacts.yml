@@ -66,6 +66,13 @@ jobs:
         path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/bin/Release/net48/
         if-no-files-found: error
 
+    - name: 'Upload RcsApiClient'
+      uses: actions/upload-artifact@v3
+      with:
+        name: RcsApiClient
+        path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
+        if-no-files-found: error
+
     #- name: Nuget restore dependencies
     #  run: nuget restore ./examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.sln
     #  working-directory: main
