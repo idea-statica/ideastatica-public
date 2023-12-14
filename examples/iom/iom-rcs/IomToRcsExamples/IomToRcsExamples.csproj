@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+	<OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

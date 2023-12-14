@@ -13,7 +13,7 @@ namespace IomToRcsExampleRunner
 {
 	internal class Program
 	{
-		static async void Main(string[] args)
+		static async Task Main(string[] args)
 		{
 			//Lets Create the Open Model 
 			OpenModel openModel = RcsExampleBuilder.BuildExampleModel(RcsExampleBuilder.Example.ReinforcedBeam);
