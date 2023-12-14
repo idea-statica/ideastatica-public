@@ -1,5 +1,0 @@
-- name: Home
-  href: ../../index.md
-# Hide release notes as we do not have any yet
-#- name: Release Notes
-#  href: releasenotes.md

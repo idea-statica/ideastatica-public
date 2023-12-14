@@ -1,11 +1,11 @@
 #  IOM Example - SteelFrame
 
 This example describes how to define a steel frame in IOM (IDEA StatiCa Open Model).
-The source code of this example is in the project [IOM.GeneratorExample](IOM.GeneratorExample)
+The source code of this example is in the project [IOM.GeneratorExample](https://github.com/idea-statica/ideastatica-public/tree/main/examples/iom/IOM/IOM.GeneratorExample)
 
-The generated IOM can be used for creating IDEA StatiCa Connection project (ideacon). It can be done on a desktop PC where IDEA StatiCa is installed. More details how to do are in the project [IOM.SteelFrameDesktop](IOM.SteelFrameDesktop). It requires the installation of IdeaStatiCa on PC.
+The generated IOM can be used for creating IDEA StatiCa Connection project (ideacon). It can be done on a desktop PC where IDEA StatiCa is installed. More details how to do are in the project [IOM.SteelFrameDesktop](https://github.com/idea-statica/ideastatica-public/tree/main/examples/iom/IOM/IOM.SteelFrameDesktop). It requires the installation of IdeaStatiCa on PC.
 
-Idea Connection project can be also generated from IOM by the webservice which runs in IDEA Cloud. More details are in the project [IOM.SteelFrameWeb](IOM.SteelFrameWeb)
+Idea Connection project can be also generated from IOM by the webservice which runs in IDEA Cloud. More details are in the project [IOM.SteelFrameWeb](https://github.com/idea-statica/ideastatica-public/tree/main/examples/iom/IOM/IOM.SteelFrameWeb)
 
 # Creating IOM for steel frame step by step
 
@@ -17,7 +17,7 @@ OpenModel is published as [the nuget package](https://www.nuget.org/packages/Ide
 
 For more information, see [Install and use a package in Visual Studio](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio)
 
-There is also documentation related to [IdeaRS.OpenModel](https://idea-statica.github.io/ideastatica-public/docs/latest/api-iom/index.html) on Github.
+There is also full documentation related to @"IdeaRS.OpenModel".
 
 ## The geometry of the steel frame
 The geometrical model of the steel structure which you can see in the picture below will be created in this step. The model consists of several columns and beams.
@@ -39,12 +39,12 @@ model.OriginSettings.Author = "IDEA StatiCa s.r.o.";
 model.OriginSettings.ProjectDescription = "Training example";
 ```
 
-More datails can be found [here](../../IdeaRS.OpenModel/OriginSettings.cs).
+More datails can be found here @"IdeaRS.OpenModel.OriginSettings".
 
 
 ### Definition of materials in our model
 *The type of materials corresponds to the selected design code for our project ! We can't mixed 
-*Reference to the materials in open model is [here](../../IdeaRS.OpenModel/Libraries/Material).*
+*Reference to the materials in open model is @"IdeaRS.OpenModel.Material"*
 
 ```csharp
 MatSteelEc2 material = new MatSteelEc2();
@@ -78,7 +78,7 @@ model.AddObject(material);
 
 ### Definition of cross sections in our model
 
-*Reference to the cross sections in open model is [here](../../IdeaRS.OpenModel/Libraries/CrossSection).*
+*Reference to the cross sections in open model is @"IdeaRS.OpenModel.CrossSection".*
 
 Model has two types of cross sections: HE200B and HE240B. To create a single cross-section you need to know the material from previous section.
 
@@ -148,7 +148,7 @@ __1. The example of an instance of Member1D which has only one Element1D and it 
 
 The code below describes how to create a member which has only one Element1D
 
-*Please notice, for better readability there are also helper functions like __CreateLineSegment3D__, __CreateElement1D__ and __CreateMember1D__ that you can find [here](IOM.GeneratorExample/Helpers.cs).*
+*Please notice, for better readability there are also helper functions like __CreateLineSegment3D__, __CreateElement1D__ and __CreateMember1D__ that you can find [here](https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/Helpers.cs).*
 
 ```csharp
 // set the appropriate cross section
@@ -232,19 +232,19 @@ model.AddObject(M2);
 
 ### The local coordinate system of members
 
-It its important to pay attantion to the correct setting of [coordinate systems](../../../docs/coord-system.md) of members. It must correspond to coordinate systems which are used in your FEA model otherwise it can caused unbalanced internal forces in exported connections.
+It its important to pay attantion to the correct setting of [coordinate systems](../../../docs/docs/iom/iom_coordinate_systems.md) of members. It must correspond to coordinate systems which are used in your FEA model otherwise it can caused unbalanced internal forces in exported connections.
 
 ![alt text][members-lcs]
 
 There are 3 options how to define the coordinate system for member 1d :
 
-[CoordSystemByPoint](../../IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByPoint.cs)
+@"IdeaRS.OpenModel.Geometry3D.CoordSystemByPoint"
 
-[CoordSystemByVector](../../IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByVector.cs)
+@"IdeaRS.OpenModel.Geometry3D.CoordSystemByVector"
 
-[CoordSystemByZup](../../IdeaRS.OpenModel/Geometry/Geometry3D/CoordSystemByZup.cs)
+@"IdeaRS.OpenModel.Geometry3D.CoordSystemByZup"
 
-The coordinate system is a property of [Segment3D](../../IdeaRS.OpenModel/Geometry/Geometry3D/Segment3D.cs)
+The coordinate system is a property of @"IdeaRS.OpenModel.Geometry3D.Segement3D"
 
 ```csharp
 	LineSegment3D segment3D = new LineSegment3D();
@@ -389,9 +389,9 @@ Loading impuses for our connection are determined  from results of FE analysis. 
 
 ### Internal forces on members 
 
-Results of internal forces which were generated by a FEA application can be optionally saved as in the format of [OpenModelResult](https://idea-statica.github.io/ideastatica-public/docs/latest/api-iom/index.html). It contains internal forces on the Member1Ds. The relationships between the IOM and the IOM Results are defined by ID of objects.
+Results of internal forces which were generated by a FEA application can be optionally saved as in the format of @"IdeaRS.OpenModel.Result.OpenModelResult". It contains internal forces on the Member1Ds. The relationships between the IOM and the IOM Results are defined by ID of objects.
 
-The file (*.xmlR*) with results can be found [here]( https://github.com/idea-statica/iom-examples/blob/master/IdeaStatiCa.Codes/SampleFiles/IOM-SteelFrame.xmlR). Format is as follows:
+The file (*.xmlR*) with results can be found [here](https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/IOM-SteelFrame.xmlR). Format is as follows:
 
 ```xml
 <?xml version="1.0" encoding="utf-16"?>
@@ -468,9 +468,9 @@ If everything is set correctly loads are in equilibrium.
 
 ![alt text][unbalanced_forces]
 
-You can download [idea project file](https://github.com/idea-statica/iom-examples/blob/master/IdeaStatiCa.Codes/SampleFiles/connectionFromIOM-web.idea) of our steel frame which can be open in IDEA StatiCa Designer.
+You can download [idea project file](https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/connectionFromIOM-web.idea) of our steel frame which can be open in IDEA StatiCa Designer.
 
-You can also download [idea connection file](https://github.com/idea-statica/iom-examples/blob/master/IdeaStatiCa.Codes/SampleFiles/con-n2.ideaCon) of the created connection which can be open in IDEA StatiCa Connection.
+You can also download [idea connection file](https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/con-n2.ideaCon) of the created connection which can be open in IDEA StatiCa Connection.
 
 ## Definition of a geometry of a connection 
 The geometry of a connection can be defined for each connection point in IOM. Following data about connected members, their cutting (shortening) and components of the connection (plates, welds, bolts) are required for creating a connection.
@@ -496,7 +496,7 @@ openModel.Connections.Add(new IdeaRS.OpenModel.Connection.ConnectionData());
 openModel.AddObject(connection);
 ```
 ## Connected members
-There can be one or more connected mebers in a connection. The information about behaviour and properties of a connected member are passed by the instances of the class  [```IdeaRS.OpenModel.Connection.BeamData```](https://idea-statica.github.io/iom/iom-api/latest/html/9361a78c-621f-87b4-c32c-4432d673d3fe.htm). 
+There can be one or more connected mebers in a connection. The information about behaviour and properties of a connected member are passed by the instances of the class  @"IdeaRS.OpenModel.Connection.BeamData".
 
 * `Id` - unique identificator [int]
 * `OriginalModelId` - unique identificator from original model [string]
@@ -504,9 +504,9 @@ There can be one or more connected mebers in a connection. The information about
 * `MirrorY` - mirror the cross-section acccording to its XY plane [bool]
 * `RefLineInCenterOfGravity` - the reference line of a cross-section is in center of gravity [bool]
 
-The instance of  [```IdeaRS.OpenModel.Connection.ConnectedMember```](https://idea-statica.github.io/iom/iom-api/latest/html/b41a9e1a-77eb-b644-c90c-101d95a25cdc.htm) has the reference of its 1D model and defines how the member is connected. 
+The instance of  @"IdeaRS.OpenModel.Connection.ConnectedMember" has the reference of its 1D model and defines how the member is connected. 
 * `Id` - unique identificator [int]
-* `MemberId` - reference to member1D represented beam [[ReferenceElement](https://idea-statica.github.io/iom/iom-api/latest/html/9e905b1a-a8a6-ae75-4c62-221258514c0b.htm)]
+* `MemberId` - reference to member1D represented beam @"IdeaRS.OpenModel.ReferenceElement"
 * `IsContinuous` - a beam can be ended or continuous in a connection[bool]
 
 
@@ -561,15 +561,15 @@ openModel.Connections[0].Beams.Add(beam2Data);
 
 ## PlateData
 
-[```IdeaRS.OpenModel.Connection.PlateData```](https://idea-statica.github.io/iom/iom-api/latest/html/fa62da56-78d0-ae76-ec1a-543e2b77497f.htm) includes data about geometry and material of the plate. 
+@"IdeaRS.OpenModel.Connection.PlateData" includes data about geometry and material of the plate. 
 
 * `Name`- name of plate [string]
 * `Id` - unique identificator [int]
 * `OriginalModelId` - unique identificator from original model [string]
 * `Material` - name of already defined material in IOM [string]
 * `Thickness` - thickness of plate defined in metric system(m) [double]
-* `Origin` - point of local coordinate system defined in global coordinate system [Point3D](https://idea-statica.github.io/iom/iom-api/latest/html/20f596b7-3cd7-56ba-be81-c712cfd9f094.htm)
-* `AxisX` `AxisY` `AxisZ` - axixs of local coordinate system [Vector3D](https://idea-statica.github.io/iom/iom-api/latest/html/5789c2c7-c7a4-30f0-f1d0-cb971aeb37bc.htm)
+* `Origin` - point of local coordinate system defined in global coordinate system @"IdeaRS.OpenModel.Geometry3D.Point3D"
+* `AxisX` `AxisY` `AxisZ` - axixs of local coordinate system @"IdeaRS.OpenModel.Geometry3D.Vector3D"
 * `Region` - geometry of plate descript by [SVG path](https://www.w3.org/TR/SVG/paths.html) [string]
 
 #### The example how to create a plate:
@@ -621,8 +621,8 @@ Connected mebers can be cut by a plate, other member or a work plane
 ### Cut member by other member or plate 
 By ```IdeaRS.OpenModel.Connection.CutBeamByBeamData``` you can define cutting beam by other beam or plate. 
 This object requires this values:
-* `CuttingObject`- reference of a member or plate which is cutting [[ReferenceElement](https://idea-statica.github.io/iom/iom-api/latest/html/9e905b1a-a8a6-ae75-4c62-221258514c0b.htm)]
-* `ModifiedObject`- reference of the modified member [[ReferenceElement](https://idea-statica.github.io/iom/iom-api/latest/html/9e905b1a-a8a6-ae75-4c62-221258514c0b.htm)]
+* `CuttingObject`- reference of a member or plate which is cutting @"IdeaRS.OpenModel.ReferenceElement"
+* `ModifiedObject`- reference of the modified member @"IdeaRS.OpenModel.ReferenceElement"
 * `IsWeld`- flags for welding cut [bool]
 
 #### The example of cutting a beam by a plate:
@@ -643,10 +643,10 @@ openModel.Connections[0].CutBeamByBeams = new List<IdeaRS.OpenModel.Connection.C
 
 ### Cutting a member by a workplane
 Members can be also cut by a workplane. This cut is defined by properties of an instance of the class
-By [```IdeaRS.OpenModel.Connection.CutData```](https://idea-statica.github.io/iom/iom-api/latest/html/ccc12bf8-7d60-c423-f975-b6cc90cf2b3c.htm).
+By @"IdeaRS.OpenModel.Connection.CutData"
 This object requires this values:
-* `PlanePoint`- point on workplane in global coordinate system [Point3D](https://idea-statica.github.io/iom/iom-api/latest/html/20f596b7-3cd7-56ba-be81-c712cfd9f094.htm)
-* `NormalVector`- normal vector of workplane [Vector3D](https://idea-statica.github.io/iom/iom-api/latest/html/5789c2c7-c7a4-30f0-f1d0-cb971aeb37bc.htm)
+* `PlanePoint`- point on workplane in global coordinate system @"IdeaRS.OpenModel.Geometry3D.Point3D"
+* `NormalVector`- normal vector of workplane @"IdeaRS.OpenModel.Geometry3D.Vector3D"
 
 #### The example of cutting of a member by a workplane:
 
@@ -659,7 +659,7 @@ CutData cutData = new CutData(){
 ```
 
 ## Bolt grids
-[```IdeaRS.OpenModel.Connection.BoltGrid```](https://idea-statica.github.io/iom/iom-api/latest/html/b9b49fac-1350-22fd-8ed4-9938ce6345d1.htm) includes properties of the bolt grid. 
+@"IdeaRS.OpenModel.Connection.BoltGrid" includes properties of the bolt grid. 
 
 * `Id` - unique identificator [int]
 * `Diameter` - diameter of bolt(m) [double]
@@ -671,9 +671,9 @@ CutData cutData = new CutData(){
 * `AnchorLen` - lenght of bolt/anchor(m) [double]
 * `Material` - name of already defined material in IOM [string]
 * `Standard` - standard of bolt [string]
-* `Origin` - point of local coordinate system defined in global coordinate system [[Point3D](https://idea-statica.github.io/iom/iom-api/latest/html/20f596b7-3cd7-56ba-be81-c712cfd9f094.htm)]
-* `AxisX` `AxisY` `AxisZ` - axis of local coordinate  system [[Vector3D](https://idea-statica.github.io/iom/iom-api/latest/html/5789c2c7-c7a4-30f0-f1d0-cb971aeb37bc.htm)]
-* `Positions` - list of bolt positions define by points in global coordinate system [[List Point3D](https://idea-statica.github.io/iom/iom-api/latest/html/20f596b7-3cd7-56ba-be81-c712cfd9f094.htm)]
+* `Origin` - point of local coordinate system defined in global coordinate system 
+* `AxisX` `AxisY` `AxisZ` - axis of local coordinate  system @"IdeaRS.OpenModel.Geometry3D.Vector3D"
+* `Positions` - list of bolt positions define by points in global coordinate system List<@"IdeaRS.OpenModel.Geometry3D.Point3D"> 
 * `ConnectedPartIds` - list of identificators object which want to connect together [string]
 
 
@@ -736,14 +736,14 @@ boltGrid.ConnectedPartIds = new List<string>() { beam2Data.OriginalModelId, plat
 
 ## Welds
 ### Weld 
-By [```IdeaRS.OpenModel.Connection.WeldData```](https://idea-statica.github.io/iom/iom-api/latest/html/c8c8c54b-d021-d04f-85a3-8e410e7a0170.htm) you can define weld. 
+By @"IdeaRS.OpenModel.Connection.WeldData" you can define weld. 
 
 * `Id` - unique identificator [int]
 * `ConnectedPartIds` - list of identificators object which want to welded together [string]
-* `Start` - point of start weld defined in global coordinate system [[Point3D](https://idea-statica.github.io/iom/iom-api/latest/html/20f596b7-3cd7-56ba-be81-c712cfd9f094.htm)]
-* `End` - point of end weld defined in global coordinate system [[Point3D](https://idea-statica.github.io/iom/iom-api/latest/html/20f596b7-3cd7-56ba-be81-c712cfd9f094.htm)]
+* `Start` - point of start weld defined in global coordinate system   @"IdeaRS.OpenModel.Geometry3D.Point3D"
+* `End` - point of end weld defined in global coordinate system  @"IdeaRS.OpenModel.Geometry3D.Point3D"
 * `Thickness` - thickness of weld defined in metric system(m) [double]
-* `WeldType` - type of weld [[WeldType](https://idea-statica.github.io/iom/iom-api/latest/html/722ccc5e-a301-19b2-2da0-00969bf409b3.htm)]
+* `WeldType` - type of weld @"IdeaRS.OpenModel.Connection.WeldType"
 
 #### The example of creating stiffeners with welds:
 ```#C
@@ -1157,26 +1157,26 @@ openModel.Connections[0].Welds.Add(weldData12);
 
 ![alt text][Stiffeners With Welds]
 
-The IOM (*.xml*) is [here]( https://github.com/idea-statica/iom-examples/blob/master/IdeaStatiCa.Codes/SampleFiles/IOM-SteelFrame.xml).
+The IOM (*.xml*) is [here]( https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/IOM-SteelFrame.xml).
 
-[structure]: ../../../Images/structure.PNG "Structure"
-[nodes]: ../../../Images/nodes.PNG "Nodes"
-[first_member]: ../../../Images/first_member.PNG "Member"
-[second_member]: ../../../Images/second_member.PNG "Continuous member"
-[connection_point]: ../../../Images/connection_point.PNG "Connection point"
-[unbalanced_forces]: ../../../Images/unbalanced_forces.PNG "Unbalanced forces"
-[coordinates]: ../../../Images/coordinates.png "Coordinates"
-[n]: ../../../Images/LC1-N.PNG "Axial forces N"
-[vz]: ../../../Images/LC1-Vz.PNG "Shear forces Vz"
-[my]: ../../../Images/LC1-My.PNG "Bending moments My"
-[members-lcs]: ../../../Images/members-lcs.PNG "Members - local coordinate systems"
-[con-n2-mem-lcs]: ../../../Images/connection-n2.PNG "Connection N2 - coordinate systems on imported members"
-[connection_loading]: ../../../Images/connection_loading.png "Loads on connected memebers"
-[Beams]: ../../../Images/beams.PNG "Beam"
-[Plate]: ../../../Images/plate.PNG "Plate"
-[Cut Beam By Beam]: ../../../Images/cutBeamByPlate.PNG "Cut Beam By Beam"
-[Bolts]: ../../../Images/bolts.PNG "Bolts"
-[Stiffeners With Welds]: ../../../Images/stiffenersWithWelds.PNG "Stiffeners With Welds"
-[check_results]: ../../../Images/CheckResults.PNG "Brief results of the CBFEM analysis"
-[connection_geometry]: ../../../Images/ConnectionGeometry.PNG "Information about the geometry of the connection in IOM format"
+[structure]: images/structure.PNG "Structure"
+[nodes]: images/nodes.PNG "Nodes"
+[first_member]: images/first_member.PNG "Member"
+[second_member]: images/second_member.PNG "Continuous member"
+[connection_point]: images/connection_point.PNG "Connection point"
+[unbalanced_forces]: images/unbalanced_forces.PNG "Unbalanced forces"
+[coordinates]: images/coordinates.png "Coordinates"
+[n]: images/LC1-N.PNG "Axial forces N"
+[vz]: images/LC1-Vz.PNG "Shear forces Vz"
+[my]: images/LC1-My.PNG "Bending moments My"
+[members-lcs]: images/members-lcs.PNG "Members - local coordinate systems"
+[con-n2-mem-lcs]: images/connection-n2.PNG "Connection N2 - coordinate systems on imported members"
+[connection_loading]: images/connection_loading.png "Loads on connected memebers"
+[Beams]: images/beams.PNG "Beam"
+[Plate]: images/plate.PNG "Plate"
+[Cut Beam By Beam]: images/cutBeamByPlate.PNG "Cut Beam By Beam"
+[Bolts]: images/bolts.PNG "Bolts"
+[Stiffeners With Welds]: images/stiffenersWithWelds.PNG "Stiffeners With Welds"
+[check_results]: images/CheckResults.PNG "Brief results of the CBFEM analysis"
+[connection_geometry]: images/ConnectionGeometry.PNG "Information about the geometry of the connection in IOM format"
 

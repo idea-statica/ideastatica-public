@@ -1,0 +1,13 @@
+- name: Home
+  href: ../index.md
+- name: Getting Started
+- name: SDK Examples
+  href: ../../examples/readme.md
+- name: NuGet Packages
+  href: nugetpackages.md
+- name: Reference
+- name: Diagnostics in IDEA StatiCa Apps
+  href: diagnostics.md  
+# Hide release notes as we do not have any yet
+#- name: Release Notes
+#  href: releasenotes.md

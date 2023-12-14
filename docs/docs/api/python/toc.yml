@@ -9,3 +9,7 @@
 - name: Using API in GhPython (Grasshopper)
   href: api_using_api_in_grasshopper.md
 - name: Python Examples
+- name: Connection API Examples
+  items:
+    - name: Parameter example
+      href: ../../../../examples\api\python\connection\parameter-example\readme.md
