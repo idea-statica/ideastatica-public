@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+		<!--<Nullable>enable</Nullable>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.4.0" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\FeaExampleApi\FeaExampleApi.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+		<PackageReference Include="IdeaStatiCa.BimApiLink" Version="23.0.4.1320" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+		<ProjectReference Include="..\FeaExampleApi\FeaExampleApi.csproj" />
+	</ItemGroup>
+</Project>

@@ -12,7 +12,7 @@
       <meta name="docfx:navrel" content="../../../toc.html">
       <meta name="docfx:tocrel" content="../toc.html">
       
-      
+      <meta name="docfx:rel" content="../../../">
       
       
       <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/main/docs/docs/extensions/grasshopper/grasshopper_introduction.md/#L1">
@@ -27,13 +27,10 @@
       <meta name="loc:themeAuto" content="Auto">
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
   </head>
 
-  <script type="module">
-    import options from './../../../public/main.js'
-    import { init } from './../../../public/docfx.min.js'
-    init(options)
-  </script>
+  <script type="module" src="./../../../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -54,6 +51,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navpanel">
             <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
             </div>
           </div>
         </div>
@@ -88,7 +89,7 @@
 <p>The IDEA StatiCa Grasshopper plugin consists of the following primary parts:</p>
 <p><img src="images/grasshopper_iom_api_components.png" alt="Component overview"></p>
 <ol>
-<li><p><a href="grasshopper_iom_components_overview">Components to generate IDEA Open Model (IOM)</a>. These are used to facilitate:</p>
+<li><p><a href="grasshopper_iom_components_overview.html">Components to generate IDEA Open Model (IOM)</a>. These are used to facilitate:</p>
 <ul>
 <li>Create, Import or Modify IDEA Open Model.</li>
 <li>Custom FEA Conversions</li>
@@ -96,7 +97,7 @@
 <li>Explicit modelling of members, plates, bolts, cuts, and welds.</li>
 </ul>
 </li>
-<li><p><a href="grasshopper_connection_app_components">Components to interact with IDEA Design Applications</a>. The are used to:</p>
+<li><p><a href="grasshopper_connection_app_components.html">Components to interact with IDEA Design Applications</a>. The are used to:</p>
 <ul>
 <li>Create, import, modify design app files, such as connections.</li>
 <li>Get and update geometry and components.</li>
@@ -110,6 +111,7 @@
 <p>Components to generate IOM are API agnostic, and therefore do not require a license of IDEA StatiCa.</p>
 <p>Component that interacts with IDEA StatiCa Design App’s require an active license of IDEA StatiCa.
 Open Model components are used across Design App components in cases where geometry conversion and interoperability are concerned.</p>
+
 </article>
 
         <div class="contribution d-print-none">
@@ -117,7 +119,7 @@ Open Model components are used across Design App components in cases where geome
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -125,8 +127,9 @@ Open Model components are used across Design App components in cases where geome
       </div>
     </main>
 
+    <div class="container-xxl search-results" id="search-results"></div>
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

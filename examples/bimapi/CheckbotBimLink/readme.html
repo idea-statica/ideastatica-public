@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Checkbot BIM Link Example for an FEA Application. | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Checkbot BIM Link Example for an FEA Application. | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/main/examples/bimapi/CheckbotBimLink/readme.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="checkbot-bim-link-example-for-an-fea-application">Checkbot BIM Link Example for an FEA Application.</h1>
+
+<h2 id="intro">Intro</h2>
+<p>Here we provied two simple examples on how to create a link with IDEA StatiCa Checkbot and either a FEA or CAD Application using our BimApiLink Framework.</p>
+<p>There are typically some requirements to ensure a connection can be completed successfully with Checkbot. In these examples we provide Fake/Mock/Simulation API's for both the CAD and FEA applications, which should be replaced by your application API.</p>
+<p>You can read more about this <a href="https://github.com/idea-statica/ideastatica-public/wiki/Linking-an-Application-with-Checkbot">here</a>.</p>
+<p>Before creating your own link we always encourage you to get in-touch with us to discuss co-operation.</p>
+<h2 id="example">Example</h2>
+<h3 id="example-requirements">Example requirements</h3>
+<ul>
+<li>Visual Studio 2022 or Greater</li>
+</ul>
+<h3 id="architecture">Architecture</h3>
+<p>The Below relates to the FEA example, however the CAD example follows the exact same logic.</p>
+<p>There are two main projects in each example:</p>
+<ol>
+<li><strong>BimApiLinkFEAExample</strong> - The primary Class Library project which provides linking and conversion with the Checkbot application.</li>
+</ol>
+<details>
+  <summary>Look First</summary>
+  
+	Look at TestPlugin.cs to get started. The Run() method is the primary method which will be called from your application. 
+<h3 id="dependency-injection">Dependency Injection</h3>
+<p>Our BimLinkFramework relys on automatic dependency injection. We use <a href="https://autofac.readthedocs.io/en/latest/integration/aspnetcore.html">Autofac</a> for this. Within the BuildContainer() method we define the instances used in the plugin.</p>
+</details>
+<ol start="2">
+<li><strong>FeaExampleApi</strong>* - A class library project which provides some dumby structural geometry and other inputs to the <em>BimApiLinkFEAExample</em>. It emulates a typical API of an FEA software and provides some dumby structural information.</li>
+</ol>
+<blockquote>
+<p>*When creating your own link only the <em>BimApiLinkExample</em> would be required. The <em>BimApiExample</em> should be replaced by a command interface or other small app which allows your program to host and run the link. <em>FeaExampleApi</em> should be replaced with the third party API object.</p>
+</blockquote>
+<ol start="3">
+<li><strong>BimLinkExampleRunner</strong>* - Simple windows form app for running and testing the <em>BimApiLinkFEAExample</em> or <em>BimApiLineCadExample</em>. Implements the Run() command provided from the TestPlugin.</li>
+</ol>
+<blockquote>
+<p>*This is only used for demonstrating in the test enviroment. This will be replaced by on the third-party developers side with either another simple app runner or a command interface.</p>
+</blockquote>
+<details>
+  <summary>Look First</summary>
+  
+	Navigate to the folder ViewModels > MainWindowViewModel.cs. The MainWindowViewModel class provides a method called OnRunCheckbot() which implements the TestPlugin.Run() method. The FEAExampleApi is provide to the TestPlugin. 
+</details>
+<h3 id="building-the-example">Building the example</h3>
+<ol>
+<li>Clone the <a href="https://github.com/idea-statica/ideastatica-public">idea-statica/public</a> repository. Some typical instructions <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=desktop">here</a>.</li>
+<li>In windows explorer navigate to the repository location <code>/src</code> folder and open the solution <em>IdeaStatiCa.Public.sln</em> in visual studio.</li>
+<li>Build the entire solution, which may take a minute or two. There should be no errors.</li>
+<li>Navigate to the example location and right click on the <em>BimLinkExampleRunner</em> and select set as start-up project.</li>
+</ol>
+<h3 id="running-the-example">Running the example</h3>
+<p>This simple example will run Checkbot and allow you to import some simple Member and Node objects which we have defined in the <em>FakeFEAApi</em>.</p>
+<ol>
+<li>Run the <em>BimLinkExampleRunner</em> project. A form should appear.</li>
+<li>We need to provide the link to the Checkbot executable. This allows you to select which version of IDEA StatiCa you would like to run. For example:</li>
+</ol>
+<pre><code class="lang-text">C:\Program Files\IDEA StatiCa\StatiCa 23.1\IdeaCheckbot.exe
+</code></pre>
+<ol start="3">
+<li>Now we can <em>Run IDEA StatiCa Checkbot</em>. This triggers the <code>TestPlug.Run()</code> command.</li>
+<li>[info] A new Checkbot project folder will automatically be created (if one has not already been created) in the the /bin folder.</li>
+<li>The new project screen will appear. You will be prompted to select a Country Code (Select <strong>EU</strong> for this example) and Create the Checkbot project. Checkbot should now open to a black screen.</li>
+</ol>
+<blockquote>
+<p>On creating the Checkbot project, a project file <em>IdeaStatiCa.proj</em> is saved into the checkbot folder. Next time checkbot is run it will detect this file and the project will be opened automatically wher you left off. To reset the test, simply delete the created Checkbot folder.</p>
+</blockquote>
+<ol start="6">
+<li>In the top left hand corner of the ribbon, click 'Connections'. This triggers the <code>GetUserSelection()</code> method in the 'Model' class of <em>Model.cs</em>. Here we provide the indentifiers of the objects that we want to import.</li>
+<li>One column (M7) and one beam (M13) should be imported, with three connections (C 9, C 15, C 16).</li>
+<li>END OF EXAMPLE</li>
+</ol>
+<h3 id="copying-the-example-to-create-a-new-link">Copying the example to create a new Link</h3>
+<p>To start work on a link of your own, you can copy the BimApiLinkFeaExample or BimApiLinkCadExample project and rename it. You will need to bulk rename the namespace in the example. A typical naming structure is [AppName]Link.</p>
+<p>You can use the BimApiExample to test your duplicated plugin by changing the project reference from the <em>BimApiLinkFEAExample</em> to your created project.</p>
+<blockquote>
+<p>When creating your own link only the BimApiLinkExample would be required, BimLinkExampleRunner should be replaced by a command interface or other small app which allows your program to host and run the link. FeaExampleApi should be replaced with the third party API Model object.</p>
+</blockquote>
+<h4 id="references">References</h4>
+<p>As you will eventually deploy your plugin outside of the test environment, it is best to reference required modules via Nuget and remove current project dependencies.</p>
+<p>Simply double click on your project in the solution explorer and modify the xml as below. We also highly reccommend that you update to the latest NuGet packages at this point.</p>
+<pre><code class="lang-xml">	&lt;ItemGroup&gt;
+		&lt;PackageReference Include=&quot;Autofac&quot; Version=&quot;6.4.0&quot; /&gt;
+		&lt;PackageReference Include=&quot;Autofac.Extensions.DependencyInjection&quot; Version=&quot;8.0.0&quot; /&gt;
+
+		&lt;PackageReference Include=&quot;IdeaStatiCa.BimApiLink&quot; Version=&quot;22.1.0.3519&quot; /&gt;
+		&lt;PackageReference Include=&quot;IdeaStatiCa.BimImporter&quot; Version=&quot;22.1.0.3519&quot; /&gt;
+		&lt;PackageReference Include=&quot;IdeaStatiCa.Plugin&quot; Version=&quot;22.1.0.3519&quot; /&gt;
+	&lt;/ItemGroup&gt;
+</code></pre>
+<p>You should also remove the current reference to the FeaExampleApi and inject your own applications Api DLLs.</p>
+<h4 id="further-information">Further Information</h4>
+<p>In a fully functioning link, there are typically a number of different importers and further conversion utilities which are outside the scope of this example. We will continue to improve on this example where required.</p>
+<p>Please comment in the <a href="https://github.com/idea-statica/ideastatica-public/discussions/categories/bim-api-link-disscusion">discussion forums</a> if you require further clarification or information.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/bimapi/CheckbotBimLink/readme.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

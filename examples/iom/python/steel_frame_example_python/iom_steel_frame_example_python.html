@@ -1,0 +1,631 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Creating a simple IOM model with Python | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Creating a simple IOM model with Python | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../docs/iom/toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/python/steel_frame_example_python/iom_steel_frame_example_python.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="creating-a-simple-iom-model-with-python">Creating a simple IOM model with Python</h1>
+
+<p>This example runs through how a simple steel frame structure can be created using the IDEA Open Model (IOM) and Python.</p>
+<p>This example follows along very similarly to the c# <a href="">steel frame example</a></p>
+<h2 id="define-and-reference-iom-dlls-from-the-idea-directory">Define and reference IOM .dlls from the IDEA directory</h2>
+<p>Import required .dlls, including some system collections. We will reference the <code>IdeaRS.OpenModel</code> .dll from the IDEA installation path.</p>
+<pre><code class="lang-python">import clr
+import sys
+import json
+import math
+import os
+
+idea_path = &quot;C:\Program Files\IDEA StatiCa\StatiCa 22.1&quot;
+sys.path.append(idea_path);
+
+clr.AddReference(&quot;System.Collections&quot;)
+from System.Collections.Generic import List
+
+clr.AddReference(&quot;IdeaRS.OpenModel&quot;)
+</code></pre>
+<pre><code class="lang-python">#This allows us to quickly create the open Model Object
+from IdeaRS.OpenModel import OpenModel
+
+#This import allows us to quickly create objects which are referenced under the Open Model Namespace. 
+from IdeaRS import OpenModel as IOM
+</code></pre>
+<h2 id="create-open-model">Create Open Model</h2>
+<p>Create the open model object to which we will start to add objects.</p>
+<pre><code class="lang-python">model = OpenModel()
+</code></pre>
+<h2 id="project-settings">Project settings</h2>
+<p>Basic information about our project - such as a project name, a description, etc. Specification of the project country code is also important.</p>
+<pre><code class="lang-python">originSettings = IOM.OriginSettings() 
+
+originSettings.CrossSectionConversionTable = IOM.CrossSectionConversionTable.SCIA
+originSettings.CountryCode = IOM.CountryCode.ECEN
+originSettings.ProjectName = &quot;Project&quot;
+originSettings.Author = &quot;IDEA StatiCa s.r.o.&quot;
+originSettings.ProjectDescription = &quot;Training example&quot;
+
+model.OriginSettings = originSettings
+</code></pre>
+<h2 id="definition-of-materials-in-the-model">Definition of materials in the model</h2>
+<blockquote>
+<p>Note that materials are code specific.</p>
+</blockquote>
+<pre><code class="lang-python">material = IOM.Material.MatSteelEc2()
+
+#set properties
+material.Id = 1
+material.Name = &quot;S355&quot;
+
+#material.LoadFromLibrary = True;
+
+material.E = 210000000000
+material.G = material.E / (2 * (1 + 0.3))
+material.Poisson = 0.3
+material.UnitMass = 7850
+material.SpecificHeat = 0.6
+material.ThermalExpansion = 0.000012
+material.ThermalConductivity = 45
+material.IsDefaultMaterial = False
+material.OrderInCode = 0
+material.StateOfThermalExpansion = IOM.Material.ThermalExpansionState.Code
+material.StateOfThermalConductivity = IOM.Material.ThermalConductivityState.Code
+material.StateOfThermalSpecificHeat = IOM.Material.ThermalSpecificHeatState.Code
+material.StateOfThermalStressStrain = IOM.Material.ThermalStressStrainState.Code
+material.StateOfThermalStrain = IOM.Material.ThermalStrainState.Code
+material.fy = 355000000
+material.fu = 510000000
+material.fy40 = 335000000
+material.fu40 = 470000000
+material.DiagramType = IOM.Material.SteelDiagramType.Bilinear
+
+#add material to the model
+model.AddObject(material);
+</code></pre>
+<h2 id="definition-of-cross-sections-in-the-model">Definition of cross sections in the model</h2>
+<p>We will add two different I Shape cross sections to the model: HE200B and HE240B. To create a single cross-section we will reference the material created in the previous section.</p>
+<p>The IOM <code>ReferenceElement</code> is used to reference different objects to others in an IOM model.</p>
+<pre><code class="lang-python">
+# We can directly reference the material we create above as a reference element.
+
+css1 = IOM.CrossSection.CrossSectionParameter()
+css1.Id = 1;
+css1.Name = &quot;HE200B&quot;
+css1.Material =  IOM.ReferenceElement(material)
+IOM.CrossSection.CrossSectionFactory.FillRolledI(css1, &quot;HE200B&quot;)
+
+css2 = IOM.CrossSection.CrossSectionParameter()
+css2.Id = 2;
+css2.Name = &quot;HE240B&quot;
+css2.Material =  IOM.ReferenceElement(material)
+IOM.CrossSection.CrossSectionFactory.FillRolledI(css2, &quot;HE240B&quot;)
+
+#add both cross-sections to the model
+model.AddObject(css1)
+model.AddObject(css2)
+</code></pre>
+<pre><code class="lang-python"># We can save our progress at any time using the `SaveToXmlFile()` method.
+
+model.SaveToXmlFile('progressIOM.xml')
+</code></pre>
+<h1 id="model-geometry">Model Geometry</h1>
+<p><img src="images/nodes.png" alt="model nodes"></p>
+<h2 id="create-nodes">Create Nodes</h2>
+<p>Table of all nodes with given coordinates:</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N1</td>
+<td>-2</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>N2</td>
+<td>-2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>N3</td>
+<td>2</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>N4</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>N5</td>
+<td>6</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>N6</td>
+<td>6</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>N7</td>
+<td>-2</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>N8</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>N9</td>
+<td>6</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-python"># For ease I have created a List of List of Node Co-ordinates
+nodes = [[-2,3,0],[-2,3,3],[2,3,0],[2,3,3],[6,3,0],[6,3,3],[-2,3,6],[2,3,6],[6,3,6]]
+
+for i, pt in enumerate(nodes):
+    Point = IOM.Geometry3D.Point3D()
+    Point.X = nodes[i][0]
+    Point.Y = nodes[i][1]
+    Point.Z = nodes[i][2]
+    Point.Name = &quot;N{0}&quot;.format(i+1)
+    Point.Id = i+1
+    model.AddObject(Point)
+    
+</code></pre>
+<h2 id="add-members-to-the-model">Add Members to the Model</h2>
+<p><img src="images/first_member.png" alt="model members"></p>
+<p>Members are made up of one or more elements. Each element is to be created with a reference to a LineSegment3D. The LineSegment3D contains the local coordinate system of the member. <strong>By default a Z-up coordinate system is defined for all Line Segments.</strong></p>
+<h3 id="linesegment3d">LineSegment3D</h3>
+<p>The local coordinate system of members
+It its important to pay attantion to the correct setting of coordinate systems of members. It must correspond to coordinate systems which are used in your FEA model otherwise it can caused unbalanced internal forces in exported connections.</p>
+<pre><code class="lang-python"># The `transformCoordsystem` input says whether the member should be assigned based on a standard vertical member axis system or not.
+
+def CreateLineSegment3D(startNode, endNode, transformCoordSystem):
+    
+    segment3D = IOM.Geometry3D.LineSegment3D()
+    
+    segmentid = model.GetMaxId(segment3D) + 1
+    segment3D.Id = segmentid
+    
+    st = next((x for x in model.Point3D if x.Id == startNode), None)
+    end = next((x for x in model.Point3D if x.Id == endNode), None)
+    segment3D.StartPoint = IOM.ReferenceElement(st)
+    segment3D.EndPoint = IOM.ReferenceElement(end)
+
+    if transformCoordSystem:
+        system = IOM.Geometry3D.CoordSystemByPoint()
+        pointref =  IOM.Geometry3D.Point3D()
+        pointref.X = 100000
+        pointref.Y = 0
+        pointref.Z = 0
+        system.Point = pointref
+        system.InPlane = IOM.Geometry3D.Plane.ZX;
+        segment3D.LocalCoordinateSystem = system;
+
+    return segment3D;
+</code></pre>
+<h3 id="member-helper-functions">Member Helper Functions</h3>
+<p>Below are two helper functions that allow for the required elements of a member to be automatically created. The first helper function will create a member between two nodes only, while the second creates a continuous member with an intermediate node.</p>
+<pre><code class="lang-python">
+#Creates a member with only a start and end point
+def CreateSingleMember(memberType, startNode, endNode):
+    member = IOM.Model.Member1D()
+    
+    columnLCS = False
+    
+    if memberType == &quot;C&quot;:
+        columnLCS = True
+    
+    #create line segment
+    line = CreateLineSegment3D(startNode, endNode, columnLCS)
+    model.AddObject(line)
+    
+    #create Element
+    element = IOM.Model.Element1D()
+    elementid = model.GetMaxId(element) + 1
+    element.Id = elementid
+    element.Name = &quot;E{0}&quot;.format(elementid)
+    element.Segment = IOM.ReferenceElement(line)
+    
+    model.AddObject(element)
+    
+    #assign Elements
+    member.Elements1D.Add(IOM.ReferenceElement(element))
+    
+    return member
+    
+#Creates a member with a start an end and a middle point
+def CreateDoubleMember(memberType, startNode, middleNode, endNode):
+    member = IOM.Model.Member1D()
+    
+    columnLCS = False
+    
+    if memberType == &quot;C&quot;:
+        columnLCS = True                      
+                          
+    #create line segments
+    line1 = IOM.Geometry3D.LineSegment3D()
+    line2 = IOM.Geometry3D.LineSegment3D()
+    
+    line1 = CreateLineSegment3D(startNode, middleNode, columnLCS)
+    model.AddObject(line1)
+    
+    line2 = CreateLineSegment3D(middleNode, endNode, columnLCS)
+    model.AddObject(line2)
+    
+    #create Element 1
+    element1 = IOM.Model.Element1D()
+    elementid = model.GetMaxId(element1) + 1
+    element1.Id = elementid
+    element1.Name = &quot;E{0}&quot;.format(elementid)
+    element1.Segment = IOM.ReferenceElement(line1)
+    
+    model.AddObject(element1)
+    
+    #create Element 1
+    element2 = IOM.Model.Element1D()
+    elementid = model.GetMaxId(element2) + 1
+    element2.Id = elementid
+    element2.Name = &quot;E{0}&quot;.format(elementid)
+    element2.Segment = IOM.ReferenceElement(line2)
+    
+    model.AddObject(element2)
+    
+    #assign Elements
+    member.Elements1D.Add(IOM.ReferenceElement(element1))
+    member.Elements1D.Add(IOM.ReferenceElement(element2))
+    
+    return member
+    
+</code></pre>
+<h3 id="create-members">Create Members</h3>
+<p>Using the helper functions defined above we will create and add members to the model based on the basic input provided below. Here the 'B' defined at the start of the list denotes a beam and the 'C' denotes a column. The Integers denote the start, intermediate (if any) and end nodes.</p>
+<p><code>[[&quot;B&quot;,2,4],[&quot;B&quot;,4,6],[&quot;C&quot;,1,2,7],[&quot;C&quot;,3,4,8],[&quot;C&quot;,5,6,9],[&quot;B&quot;,7,8,9]]</code></p>
+<pre><code class="lang-python">
+#For simplicity create a List of List of the Member Type and Start, Middle and End Nodes
+memberNodeDefs = [[&quot;B&quot;,2,4],[&quot;B&quot;,4,6],[&quot;C&quot;,1,2,7],[&quot;C&quot;,3,4,8],[&quot;C&quot;,5,6,9],[&quot;B&quot;,7,8,9]]
+
+#We can retrieve the appropriate cross-sections from the Model that we want to apply to the beams and columns respectively.
+css_he_200b = next((x for x in model.CrossSection if x.Name == &quot;HE200B&quot;), None) 
+css_he_240b = next((x for x in model.CrossSection if x.Name == &quot;HE240B&quot;), None) 
+
+#create all members
+for i, memberDef in enumerate(memberNodeDefs):
+    memberType = memberDef[0]
+    memberid = i+1
+    
+    member = IOM.Model.Member1D()
+    
+    if len(memberDef) &lt; 4:
+        member = CreateSingleMember(memberType, memberDef[1], memberDef[2])
+    else:
+        member = CreateDoubleMember(memberType, memberDef[1], memberDef[2], memberDef[3])  
+    
+    member.Name = &quot;M{0}&quot;.format(i+1)
+    member.Id = i+1
+    
+    if memberType == &quot;C&quot;:
+        member.Member1DType = IOM.Model.Member1DType.Column
+        member.CrossSection = IOM.ReferenceElement(css_he_240b)
+    else:
+        member.Member1DType = IOM.Model.Member1DType.Beam
+        member.CrossSection = IOM.ReferenceElement(css_he_200b)
+        
+    model.AddObject(member)
+</code></pre>
+<h2 id="loading-of-the-steel-frame">Loading of the Steel Frame</h2>
+<h3 id="define-load-groups-and-load-cases">Define Load Groups and Load Cases</h3>
+<pre><code class="lang-python"># Create the load group for permanent load cases
+LG1 = IOM.Loading.LoadGroupEC()
+LG1.Id = 1
+LG1.Name = &quot;PERM1&quot;
+LG1.Relation = IOM.Loading.Relation.Standard
+LG1.GroupType = IOM.Loading.LoadGroupType.Permanent
+LG1.GammaQ = 1.35
+LG1.Dzeta = 0.85
+LG1.GammaGInf = 1
+LG1.GammaGSup = 1.35
+model.AddObject(LG1)
+
+# Create the second load group for variable loadcases
+LG2 = IOM.Loading.LoadGroupEC()
+LG2.Id = 2;
+LG2.Name = &quot;VAR1&quot;;
+LG2.Relation = IOM.Loading.Relation.Exclusive;
+LG2.GroupType = IOM.Loading.LoadGroupType.Variable;
+LG2.GammaQ = 1.5;
+LG2.Dzeta = 0.85;
+LG2.GammaGInf = 0;
+LG2.GammaGSup = 1.5;
+LG2.Psi0 = 0.7;
+LG2.Psi1 = 0.5;
+LG2.Psi2 = 0.3;
+model.AddObject(LG2);
+
+
+# Create the first load case representing SelfWeight
+LC1 = IOM.Loading.LoadCase()
+
+LC1.Id = 1
+LC1.Name = &quot;SelfWeight&quot;
+LC1.LoadType = IOM.Loading.LoadCaseType.Permanent
+LC1.Type = IOM.Loading.LoadCaseSubType.PermanentStandard
+LC1.Variable = IOM.Loading.VariableType.Standard
+LC1.LoadGroup = IOM.ReferenceElement(LG1)
+
+# Create the second load case representing Pernament Loading
+LC2 = IOM.Loading.LoadCase()
+
+LC2.Id = 2
+LC2.Name = &quot;PernamentLoading&quot;
+LC2.LoadType = IOM.Loading.LoadCaseType.Permanent
+LC2.Type = IOM.Loading.LoadCaseSubType.PermanentStandard
+LC2.Variable = IOM.Loading.VariableType.Standard
+LC2.LoadGroup = IOM.ReferenceElement(LG1)
+
+# Create the third load case representing LiveLoad
+LC3 = IOM.Loading.LoadCase()
+
+LC3.Id = 3
+LC3.Name = &quot;LiveLoad&quot;
+LC3.LoadType = IOM.Loading.LoadCaseType.Variable
+LC3.Type = IOM.Loading.LoadCaseSubType.VariableStatic
+LC3.Variable = IOM.Loading.VariableType.Standard
+LC3.LoadGroup = IOM.ReferenceElement(LG2)
+
+# Add load cases to the model
+model.AddObject(LC1);
+model.AddObject(LC2);
+model.AddObject(LC3);
+</code></pre>
+<h3 id="define-load-combinations">Define Load Combinations</h3>
+<pre><code class="lang-python"># create first combination input
+CI1 = IOM.Loading.CombiInputEC()
+
+CI1.Id = model.GetMaxId(CI1) + 1
+CI1.Name = &quot;Co.#1&quot;
+CI1.Description = &quot;SelfWeight + PernamentLoading + LiveLoad&quot;
+CI1.TypeCombiEC = IOM.Loading.TypeOfCombiEC.ULS
+CI1.TypeCalculationCombi = IOM.Loading.TypeCalculationCombiEC.Linear
+
+item = IOM.Loading.CombiItem()
+item.Id = 1;
+item.Coeff = 1.35;
+item.LoadCase = IOM.ReferenceElement(next((x for x in model.CrossSection if x.Name == &quot;SelfWeight&quot;), None));
+CI1.Items.Add(item);
+
+item = IOM.Loading.CombiItem();
+item.Id = 2;
+item.Coeff = 1.35;
+item.LoadCase = IOM.ReferenceElement(next((x for x in model.CrossSection if x.Name == &quot;PernamentLoading&quot;), None));
+CI1.Items.Add(item);
+
+item = IOM.Loading.CombiItem();
+item.Id = 3;
+item.Coeff = 1.5;
+item.LoadCase = IOM.ReferenceElement(next((x for x in model.CrossSection if x.Name == &quot;LiveLoad&quot;), None));
+CI1.Items.Add(item);
+
+model.AddObject(CI1);
+
+#create second combination input
+CI2 = IOM.Loading.CombiInputEC()
+
+CI2.Id = model.GetMaxId(CI2) + 1
+CI2.Name = &quot;Co.#2&quot;
+CI2.Description = &quot;SelfWeight&quot;
+CI2.TypeCombiEC = IOM.Loading.TypeOfCombiEC.ULS
+CI2.TypeCalculationCombi = IOM.Loading.TypeCalculationCombiEC.Linear
+
+item = IOM.Loading.CombiItem();
+item.Id = 1;
+item.Coeff = 1;
+item.LoadCase = IOM.ReferenceElement(next((x for x in model.CrossSection if x.Name == &quot;SelfWeight&quot;), None));
+CI2.Items.Add(item);
+
+model.AddObject(CI2);
+</code></pre>
+<h2 id="iom-model-results">IOM Model Results</h2>
+<p>We will not define the results here but results can also be created using this means. We will reference a previously defined result file for this example. You can find some further information here:</p>
+<p><a href="https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM">https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM</a></p>
+<p>Congratulations, you have created an IOM Model from Scratch. Now let's define a Connection Point to allow us to import into IDEA StatiCa Connection.</p>
+<h1 id="define-a-connection-within-the-model">Define a Connection within the Model</h1>
+<p>Now that the model has been created we should define a connection point and add the relevant members to it. A connection is defined by its reference node and connected members. A member can be ended or continuous.</p>
+<pre><code class="lang-python"># create a connection point
+CP1 = IOM.Connection.ConnectionPoint()
+
+CP1.Node = IOM.ReferenceElement(next((x for x in model.Point3D if x.Name == &quot;N2&quot;), None));
+conId = model.GetMaxId(CP1) + 1;
+CP1.Id = conId;
+CP1.Name = &quot;CON {0}&quot;.format(conId);
+
+# members from the previous section
+# Let's get the members we want to connect in the connection. These will be M1 and M3. M3 will be continuous in the Connection while M1 will be ended.
+
+connectedMem1 = IOM.Connection.ConnectedMember()
+connectedMem1.IsContinuous = False;
+connectedMem1.Id = 1;
+connectedMem1.MemberId = IOM.ReferenceElement(next((x for x in model.Member1D if x.Name == &quot;M1&quot;), None))
+
+connectedMem3 = IOM.Connection.ConnectedMember()
+connectedMem3.IsContinuous = True;
+connectedMem3.Id = 3;
+connectedMem3.MemberId = IOM.ReferenceElement(next((x for x in model.Member1D if x.Name == &quot;M3&quot;), None))
+
+CP1.ConnectedMembers.Add(connectedMem1);
+CP1.ConnectedMembers.Add(connectedMem3);
+
+model.AddObject(CP1);
+</code></pre>
+<h2 id="defining-the-connectiondata">Defining the ConnectionData</h2>
+<p>We can now add additional connection data such as beam information, Plate, Bolt, Weld, and Cut information. We will only add some basic beam information here. Further information on adding additional info is explained here: <a href="https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM">https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM</a></p>
+<pre><code class="lang-python">conData = IOM.Connection.ConnectionData()
+
+beamData = List[IOM.Connection.BeamData]()
+
+beamData1 = IOM.Connection.BeamData()
+beamData1.Id = 1
+beamData1.Name = &quot;M1&quot;
+beamData1.OriginalModelId = &quot;1&quot;
+
+beamData2 = IOM.Connection.BeamData()
+beamData2.Id = 3
+beamData2.Name = &quot;M3&quot;
+beamData2.OriginalModelId = &quot;3&quot;
+
+beamData.Add(beamData1)
+beamData.Add(beamData2)
+
+conData.Beams = beamData
+
+model.Connections.Add(conData)
+
+</code></pre>
+<h2 id="saving-the-model">Saving the Model</h2>
+<p>Let's save the final model to drive.</p>
+<pre><code class="lang-python">model.SaveToXmlFile('IOM-SteelFrame.xml')
+</code></pre>
+<p>Congratulations, you have successfully created an IOM model and a connection point that can be imported into IDEA StatiCa Connection.</p>
+<h1 id="using-idea-plugin-to-generate-the-connection">Using IDEA Plugin to Generate the Connection</h1>
+<p>Using the clr we need to reference the <code>IdeaStatiCa.Plugin</code> dll from the Idea Directory.</p>
+<p>Then Plugin <em>Namespace</em> we need to import the ConnHiddenClientFactory. The Client Factory allows us to safely <em>create</em> connection clients that we can use to interact with IDEA Connection.</p>
+<pre><code class="lang-python">clr.AddReference('IdeaStatiCa.Plugin')
+
+from IdeaStatiCa.Plugin import ConnHiddenClientFactory
+</code></pre>
+<p>We then again need to provide the path to the Client Factory and safely create a client.</p>
+<pre><code class="lang-python">factory = ConnHiddenClientFactory(idea_path)
+client = factory.Create()
+</code></pre>
+<p>Finally, create an Idea Connection file from an IOM referencing the saved filepath of the model, results and a new filepath to save the IDEA Connection (. IdeaCon) file to.</p>
+<pre><code class="lang-python">client.CreateConProjFromIOM('IOM-SteelFrame.xml', 'IOM-SteelFrame.xmlR', 'SteelFrame.ideaCon')
+
+# Ensure closing of any open project and flush the client.
+client.CloseProject()
+client.Close()
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/python/steel_frame_example_python/iom_steel_frame_example_python.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

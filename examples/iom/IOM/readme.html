@@ -1,0 +1,1222 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>IOM Example - SteelFrame | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="IOM Example - SteelFrame | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../docs/iom/toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/readme.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="iom-example---steelframe">IOM Example - SteelFrame</h1>
+
+<p>This example describes how to define a steel frame in IOM (IDEA StatiCa Open Model).
+The source code of this example is in the project <a href="https://github.com/idea-statica/ideastatica-public/tree/main/examples/iom/IOM/IOM.GeneratorExample">IOM.GeneratorExample</a></p>
+<p>The generated IOM can be used for creating IDEA StatiCa Connection project (ideacon). It can be done on a desktop PC where IDEA StatiCa is installed. More details how to do are in the project <a href="https://github.com/idea-statica/ideastatica-public/tree/main/examples/iom/IOM/IOM.SteelFrameDesktop">IOM.SteelFrameDesktop</a>. It requires the installation of IdeaStatiCa on PC.</p>
+<p>Idea Connection project can be also generated from IOM by the webservice which runs in IDEA Cloud. More details are in the project <a href="https://github.com/idea-statica/ideastatica-public/tree/main/examples/iom/IOM/IOM.SteelFrameWeb">IOM.SteelFrameWeb</a></p>
+<h1 id="creating-iom-for-steel-frame-step-by-step">Creating IOM for steel frame step by step</h1>
+<p>Let's create a standard console application in MS Visual Studio. Select <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Project</strong> from the menu bar. In the dialog, select the <strong>Visual C#</strong> node followed by the <strong>Get Started</strong> node. Then select the <strong>Console App</strong> project template.</p>
+<h2 id="add-the-idearsopenmodel-nuget-package">Add the IdeaRS.OpenModel NuGet package</h2>
+<p>OpenModel is published as <a href="https://www.nuget.org/packages/IdeaStatiCa.OpenModel/">the nuget package</a>. To install this package, you can use either the Package Manager UI or the Package Manager Console.</p>
+<p>For more information, see <a href="https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio">Install and use a package in Visual Studio</a></p>
+<p>There is also full documentation related to <a class="xref" href="api-iom/IdeaRS.OpenModel.html">IdeaRS.OpenModel</a>.</p>
+<h2 id="the-geometry-of-the-steel-frame">The geometry of the steel frame</h2>
+<p>The geometrical model of the steel structure which you can see in the picture below will be created in this step. The model consists of several columns and beams.</p>
+<p><img src="images/structure.PNG" alt="alt text" title="Structure"></p>
+<h3 id="the-project-settings">The project settings</h3>
+<p>A basic information about our project - such as a project name, a description etc.</p>
+<pre><code class="lang-csharp">// create new instance of the open model
+model.OriginSettings = new OriginSettings();
+
+model.OriginSettings.CrossSectionConversionTable = CrossSectionConversionTable.SCIA;
+model.OriginSettings.CountryCode = CountryCode.ECEN;
+model.OriginSettings.ProjectName = &quot;Project&quot;;
+model.OriginSettings.Author = &quot;IDEA StatiCa s.r.o.&quot;;
+model.OriginSettings.ProjectDescription = &quot;Training example&quot;;
+</code></pre>
+<p>More datails can be found here <a class="xref" href="api-iom/IdeaRS.OpenModel.OriginSettings.html">OriginSettings</a>.</p>
+<h3 id="definition-of-materials-in-our-model">Definition of materials in our model</h3>
+<p>*The type of materials corresponds to the selected design code for our project ! We can't mixed
+<em>Reference to the materials in open model is <a class="xref" href="api-iom/IdeaRS.OpenModel.Material.html">IdeaRS.OpenModel.Material</a></em></p>
+<pre><code class="lang-csharp">MatSteelEc2 material = new MatSteelEc2();
+
+// set properties
+material.Id = 1;
+material.Name = &quot;S355&quot;;
+material.E = 210000000000;
+material.G = material.E / (2 * (1 + 0.3));
+material.Poisson = 0.3;
+material.UnitMass = 7850;
+material.SpecificHeat = 0.6;
+material.ThermalExpansion = 0.000012;
+material.ThermalConductivity = 45;
+material.IsDefaultMaterial = false;
+material.OrderInCode = 0;
+material.StateOfThermalExpansion = ThermalExpansionState.Code;
+material.StateOfThermalConductivity = ThermalConductivityState.Code;
+material.StateOfThermalSpecificHeat = ThermalSpecificHeatState.Code;
+material.StateOfThermalStressStrain = ThermalStressStrainState.Code;
+material.StateOfThermalStrain = ThermalStrainState.Code;
+material.fy = 355000000;
+material.fu = 510000000;
+material.fy40 = 335000000;
+material.fu40 = 470000000;
+material.DiagramType = SteelDiagramType.Bilinear;
+
+// add material to the model
+model.AddObject(material);
+</code></pre>
+<h3 id="definition-of-cross-sections-in-our-model">Definition of cross sections in our model</h3>
+<p><em>Reference to the cross sections in open model is <a class="xref" href="api-iom/IdeaRS.OpenModel.CrossSection.html">IdeaRS.OpenModel.CrossSection</a>.</em></p>
+<p>Model has two types of cross sections: HE200B and HE240B. To create a single cross-section you need to know the material from previous section.</p>
+<pre><code class="lang-csharp">// only one material is in the model
+MatSteel material = model.MatSteel.FirstOrDefault();
+
+CrossSectionParameter css = new CrossSectionParameter();
+
+css.Id = 1;
+css.Name = &quot;HE200B&quot;;
+css.CrossSectionRotation = 0;
+css.CrossSectionType = CrossSectionType.RolledI;
+
+css.Parameters.Add(new ParameterString() { Name = &quot;UniqueName&quot;, Value = &quot;HE200B&quot; });
+css.Material = new ReferenceElement(material);
+
+// add cross sections to the model
+model.AddObject(css);
+</code></pre>
+<h3 id="nodes-in-the-geometrical-model">Nodes in the geometrical model</h3>
+<p>Individual nodes are placed in the structure as follows:</p>
+<p><img src="images/nodes.PNG" alt="alt text" title="Nodes"></p>
+<p>Table of all nodes with given coordinates:</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N1</td>
+<td>-2</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>N2</td>
+<td>-2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>N3</td>
+<td>2</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>N4</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>N5</td>
+<td>6</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>N6</td>
+<td>6</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>N7</td>
+<td>-2</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>N8</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>N9</td>
+<td>6</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Create 3D point and fill properties: id, name and coordinates.</p>
+<pre><code class="lang-csharp">// create N1
+Point3D N1 = new Point3D() { X = -2, Y = 3, Z = 0 };
+N1.Name = &quot;N1&quot;;
+N1.Id = 1;
+model.AddObject(N1);
+
+// create N2
+Point3D N2 = new Point3D() { X = -2, Y = 3, Z = 3 };
+N2.Name = &quot;N2&quot;;
+N2.Id = 2;
+model.AddObject(N2);
+
+// and so on...
+</code></pre>
+<h3 id="1d-members-in-our-model">1D members in our model</h3>
+<p>Each instace of Member1D has one ore more instances Element1D.</p>
+<p><strong>1. The example of an instance of Member1D which has only one Element1D and it is connected as an ended member into a connection.</strong></p>
+<p><img src="images/first_member.PNG" alt="alt text" title="Member"></p>
+<p>The code below describes how to create a member which has only one Element1D</p>
+<p><em>Please notice, for better readability there are also helper functions like <strong>CreateLineSegment3D</strong>, <strong>CreateElement1D</strong> and <strong>CreateMember1D</strong> that you can find <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/Helpers.cs">here</a>.</em></p>
+<pre><code class="lang-csharp">// set the appropriate cross section
+var css_he_200b = model.CrossSection.FirstOrDefault(item =&gt; item.Name == &quot;HE200B&quot;);
+
+// define the geometry of the member - the line segment connecting nodes N2 and N4
+LineSegment3D segment = CreateLineSegment3D(model, &quot;N2&quot;, &quot;N4&quot;);
+
+// create the polyline (polylines can consist of one ore more segments)
+PolyLine3D polyline = new PolyLine3D();
+polyline.Id = model.GetMaxId(polyline) + 1;
+polyline.Segments.Add(new ReferenceElement(segment));
+
+// add polylines and segments to the model
+model.AddObject(polyline);
+model.AddObject(segment);
+
+// create one 1D element
+Element1D element = CreateElement1D(model, css, segment);
+model.AddObject(element);
+
+// create one 1D member which has one element1D
+Member1D member = CreateMember1D(model, 1, Member1DType.Beam, element);
+model.Member1D.Add(member);
+
+// create the instance of a ConnectedMember - it defines the geometrical bahaviour of our Member1D in a connection. It can be ended or continouous.
+// Member1D can be part of more connections
+ConnectedMember M1 = new ConnectedMember();
+
+M1.Id = 1;
+M1.MemberId = new ReferenceElement(member);
+
+model.AddObject(M1);
+</code></pre>
+<p><strong>2. The example of an instance of Member1D which has two Element1Ds - it can be connected as an continuous member into a connection (by its middle node).</strong></p>
+<p><img src="images/second_member.PNG" alt="alt text" title="Continuous member"></p>
+<p>The code below describes the creation of second member - which connects 3 nodes the begin node (<strong>N1</strong>), the middle node (<strong>N2</strong>) and the end node (<strong>N7</strong>).</p>
+<pre><code class="lang-csharp">// set its cross sections
+var css_he_240b = model.CrossSection.FirstOrDefault(item =&gt; item.Name == &quot;HE240B&quot;);
+
+// define geometry 
+// create line segment from N1 to N2
+LineSegment3D segment1 = CreateLineSegment3D(model, &quot;N1&quot;, &quot;N2&quot;);
+model.AddObject(segment1);
+
+// create line segment from N2 to N7
+LineSegment3D segment2 = CreateLineSegment3D(model, &quot;N2&quot;, &quot;N7&quot;);
+model.AddObject(segment2);
+
+// create the polyline
+PolyLine3D polyline = new PolyLine3D();
+polyline.Id = model.GetMaxId(polyline) + 1;
+polyline.Segments.Add(new ReferenceElement(segment1));
+polyline.Segments.Add(new ReferenceElement(segment2));
+model.AddObject(polyline);
+
+// create 1D elements
+Element1D element1 = CreateElement1D(model, css, segment1);
+model.AddObject(element1);
+
+Element1D element2 = CreateElement1D(model, css, segment2);
+model.AddObject(element2);
+
+// create 1D members
+Member1D member = CreateMember1D(model, 2, Member1DType.Column, element1, element2);
+model.Member1D.Add(member);
+
+// create and return connected member
+ConnectedMember M2 = new ConnectedMember();
+
+M2.Id = id;
+M2.MemberId = new ReferenceElement(member);
+
+model.AddObject(M2);
+</code></pre>
+<h3 id="the-local-coordinate-system-of-members">The local coordinate system of members</h3>
+<p>It its important to pay attantion to the correct setting of <a href="../../../docs/docs/iom/iom_coordinate_systems.md">coordinate systems</a> of members. It must correspond to coordinate systems which are used in your FEA model otherwise it can caused unbalanced internal forces in exported connections.</p>
+<p><img src="images/members-lcs.PNG" alt="alt text" title="Members - local coordinate systems"></p>
+<p>There are 3 options how to define the coordinate system for member 1d :</p>
+<p><a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.CoordSystemByPoint.html">CoordSystemByPoint</a></p>
+<p><a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.CoordSystemByVector.html">CoordSystemByVector</a></p>
+<p><a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.CoordSystemByZup.html">CoordSystemByZup</a></p>
+<p>The coordinate system is a property of @&quot;IdeaRS.OpenModel.Geometry3D.Segement3D&quot;</p>
+<pre><code class="lang-csharp">	LineSegment3D segment3D = new LineSegment3D();
+
+	segment3D.StartPoint = new ReferenceElement(model.Point3D.FirstOrDefault(item =&gt; item.Name == startNode));
+
+	CoordSystemByPoint system = new CoordSystemByPoint();
+	system.Point = new Point3D() { X = 100000, Y = 0, Z = 0 };
+	system.InPlane = Plane.ZX;
+	segment3D.LocalCoordinateSystem = system;
+</code></pre>
+<h2 id="the-loading-of-the-steel-frame">The loading of the steel frame</h2>
+<h3 id="load-cases">Load cases</h3>
+<pre><code class="lang-csharp">// create the load group for pernament loadcases
+LoadGroupEC LG1 = new LoadGroupEC(); ;
+LG1.Id = 1;
+LG1.Name = &quot;PERM1&quot;;
+LG1.Relation = Relation.Standard;
+LG1.GroupType = LoadGroupType.Permanent;
+LG1.GammaQ = 1.35;
+LG1.Dzeta = 0.85;
+LG1.GammaGInf = 1;
+LG1.GammaGSup = 1.35;
+model.AddObject(LG1);
+
+// create the second load group for variable loadcases
+LoadGroupEC LG2 = new LoadGroupEC(); ;
+LG2.Id = 2;
+LG2.Name = &quot;VAR1&quot;;
+LG2.Relation = Relation.Exclusive;
+LG2.GroupType = LoadGroupType.Variable;
+LG2.GammaQ = 1.5;
+LG2.Dzeta = 0.85;
+LG2.GammaGInf = 0;
+LG2.GammaGSup = 1.5;
+LG2.Psi0 = 0.7;
+LG2.Psi1 = 0.5;
+LG2.Psi2 = 0.3;
+model.AddObject(LG2);
+
+
+// create the first load case representing SelfWeight
+LoadCase LC1 = new LoadCase();
+
+LC1.Id = 1;
+LC1.Name = &quot;SelfWeight&quot;;
+LC1.LoadType = LoadCaseType.Permanent;
+LC1.Type = LoadCaseSubType.PermanentStandard;
+LC1.Variable = VariableType.Standard;
+LC1.LoadGroup = new ReferenceElement(LG1);
+
+// create the second load case representing PernamentLoading
+LoadCase LC2 = new LoadCase();
+
+LC2.Id = 2;
+LC2.Name = &quot;PernamentLoading&quot;;
+LC2.LoadType = LoadCaseType.Permanent;
+LC2.Type = LoadCaseSubType.PermanentStandard;
+LC2.Variable = VariableType.Standard;
+LC2.LoadGroup = new ReferenceElement(LG1);
+
+// create the third load case representing LiveLoad
+LoadCase LC3 = new LoadCase();
+
+LC3.Id = 3;
+LC3.Name = &quot;LiveLoad&quot;;
+LC3.LoadType = LoadCaseType.Variable;
+LC3.Type = LoadCaseSubType.VariableStatic;
+LC3.Variable = VariableType.Standard;
+LC3.LoadGroup = new ReferenceElement(LG2);
+
+// add load cases to the model
+model.AddObject(LC1);
+model.AddObject(LC2);
+model.AddObject(LC3);
+</code></pre>
+<h3 id="define-load-combinations">Define Load Combinations</h3>
+<pre><code class="lang-csharp">// create first combination input
+CombiInputEC CI1 = new CombiInputEC();
+
+CI1.Id = model.GetMaxId(CI1) + 1;
+CI1.Name = &quot;Co.#1&quot;;
+CI1.Description = &quot;SelfWeight + PernamentLoading + LiveLoad&quot;;
+CI1.TypeCombiEC = TypeOfCombiEC.ULS;
+CI1.TypeCalculationCombi = TypeCalculationCombiEC.Linear;
+
+CombiItem item = new CombiItem();
+item.Id = 1;
+item.Coeff = 1;
+item.LoadCase = new ReferenceElement(model.LoadCase.FirstOrDefault(l =&gt; l.Name == &quot;SelfWeight&quot;));
+CI1.Items.Add(item);
+
+item = new CombiItem();
+item.Id = 2;
+item.Coeff = 1;
+item.LoadCase = new ReferenceElement(model.LoadCase.FirstOrDefault(l =&gt; l.Name == &quot;PernamentLoading&quot;));
+CI1.Items.Add(item);
+
+item = new CombiItem();
+item.Id = 3;
+item.Coeff = 1;
+item.LoadCase = new ReferenceElement(model.LoadCase.FirstOrDefault(l =&gt; l.Name == &quot;LiveLoad&quot;));
+CI1.Items.Add(item);
+
+model.AddObject(CI1);
+      
+// and so on...     
+</code></pre>
+<h3 id="connections">Connections</h3>
+<p>A connection is defined by its reference node and connected members. A member can be ended or continuous. From the design point of view the balance of loading in the node is required. Axis X of the local coordinate system of an ended member points out of a connection.</p>
+<p><img src="images/connection-n2.PNG" alt="alt text" title="Connection N2 - coordinate systems on imported members"></p>
+<pre><code class="lang-csharp">// create first connection point
+ConnectionPoint CP1 = new ConnectionPoint();
+
+CP1.Node = new ReferenceElement(model.Point3D.FirstOrDefault(n =&gt; n.Name == &quot;N2&quot;));
+CP1.Id = model.GetMaxId(CP1) + 1;
+CP1.Name = &quot;CON &quot; + CP1.Id.ToString();
+
+// members from previous section
+CP1.ConnectedMembers.Add(M1);
+CP1.ConnectedMembers.Add(M3);
+
+model.AddObject(CP1);
+</code></pre>
+<h2 id="loading-impulses-acting-on-mebers-in-a-connection-model">Loading impulses acting on mebers in a connection model</h2>
+<p>Loading impuses for our connection are determined  from results of FE analysis. IDEA OpenModel allowes to pass internal forces on members by OpenResuls class.</p>
+<h3 id="internal-forces-on-members">Internal forces on members</h3>
+<p>Results of internal forces which were generated by a FEA application can be optionally saved as in the format of <a class="xref" href="api-iom/IdeaRS.OpenModel.Result.OpenModelResult.html">OpenModelResult</a>. It contains internal forces on the Member1Ds. The relationships between the IOM and the IOM Results are defined by ID of objects.</p>
+<p>The file (<em>.xmlR</em>) with results can be found <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/IOM-SteelFrame.xmlR">here</a>. Format is as follows:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+&lt;OpenModelResult xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;ResultOnMembers&gt;
+    &lt;ResultOnMembers&gt;
+      &lt;Members&gt;
+        &lt;ResultOnMember&gt;
+          &lt;Member&gt;
+            &lt;MemberType&gt;Member1D&lt;/MemberType&gt;
+            &lt;Id&gt;1&lt;/Id&gt;
+          &lt;/Member&gt;
+          &lt;ResultType&gt;InternalForces&lt;/ResultType&gt;
+          &lt;Results&gt;
+            &lt;ResultBase xsi:type=&quot;ResultOnSection&quot;&gt;
+              &lt;AbsoluteRelative&gt;Absolute&lt;/AbsoluteRelative&gt;
+              &lt;Position&gt;0&lt;/Position&gt;
+              &lt;Results&gt;
+                &lt;SectionResultBase xsi:type=&quot;ResultOfInternalForces&quot;&gt;
+                  &lt;Loading&gt;
+                    &lt;LoadingType&gt;LoadCase&lt;/LoadingType&gt;
+                    &lt;Id&gt;1&lt;/Id&gt;
+                    &lt;Items&gt;
+                      &lt;ResultOfLoadingItem&gt;
+                        &lt;Coefficient&gt;1&lt;/Coefficient&gt;
+                      &lt;/ResultOfLoadingItem&gt;
+                    &lt;/Items&gt;
+                  &lt;/Loading&gt;
+                  &lt;N&gt;242.96484375&lt;/N&gt;
+                  &lt;Qy&gt;0&lt;/Qy&gt;
+                  &lt;Qz&gt;1176.9375&lt;/Qz&gt;
+                  &lt;Mx&gt;0&lt;/Mx&gt;
+                  &lt;My&gt;-727.5482177734375&lt;/My&gt;
+                  &lt;Mz&gt;0&lt;/Mz&gt;
+                &lt;/SectionResultBase&gt;
+                &lt;SectionResultBase xsi:type=&quot;ResultOfInternalForces&quot;&gt;
+                  &lt;Loading&gt;
+                    &lt;LoadingType&gt;LoadCase&lt;/LoadingType&gt;
+                    &lt;Id&gt;2&lt;/Id&gt;
+                    &lt;Items&gt;
+                      &lt;ResultOfLoadingItem&gt;
+                        &lt;Coefficient&gt;1&lt;/Coefficient&gt;
+                      &lt;/ResultOfLoadingItem&gt;
+                    &lt;/Items&gt;
+                  &lt;/Loading&gt;
+                  &lt;N&gt;20200.224609375&lt;/N&gt;
+                  &lt;Qy&gt;0&lt;/Qy&gt;
+                  &lt;Qz&gt;97851.2109375&lt;/Qz&gt;
+                  &lt;Mx&gt;0&lt;/Mx&gt;
+                  &lt;My&gt;-60488.7421875&lt;/My&gt;
+                  &lt;Mz&gt;0&lt;/Mz&gt;
+                &lt;/SectionResultBase&gt;
+              &lt;/Results&gt;
+            &lt;/ResultBase&gt;
+          &lt;Results&gt;
+        &lt;/ResultOnMember&gt;
+      &lt;Members&gt;
+    &lt;ResultOnMembers&gt;
+  &lt;ResultOnMembers&gt;
+&lt;/OpenModelResult&gt;
+</code></pre>
+<p><img src="images/LC1-N.PNG" alt="alt text" title="Axial forces N"></p>
+<p><img src="images/LC1-Vz.PNG" alt="alt text" title="Shear forces Vz"></p>
+<p><img src="images/LC1-My.PNG" alt="alt text" title="Bending moments My"></p>
+<h3 id="validation-of-the-exported-connection">Validation of the exported connection</h3>
+<p>If everything is set correctly loads are in equilibrium.</p>
+<p><img src="images/connection_loading.png" alt="alt text" title="Loads on connected memebers"></p>
+<p><img src="images/unbalanced_forces.PNG" alt="alt text" title="Unbalanced forces"></p>
+<p>You can download <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/connectionFromIOM-web.idea">idea project file</a> of our steel frame which can be open in IDEA StatiCa Designer.</p>
+<p>You can also download <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/con-n2.ideaCon">idea connection file</a> of the created connection which can be open in IDEA StatiCa Connection.</p>
+<h2 id="definition-of-a-geometry-of-a-connection">Definition of a geometry of a connection</h2>
+<p>The geometry of a connection can be defined for each connection point in IOM. Following data about connected members, their cutting (shortening) and components of the connection (plates, welds, bolts) are required for creating a connection.</p>
+<h4 id="additional-connection-data-in-the-connection-point">Additional connection data in the connection point:</h4>
+<pre><code class="lang-C#">IdeaRS.OpenModel.Connection.ConnectionPoint connection = new IdeaRS.OpenModel.Connection.ConnectionPoint();
+IdeaRS.OpenModel.Geometry3D.Point3D point = new IdeaRS.OpenModel.Geometry3D.Point3D() {
+  X = -2,
+  Y = 3,
+  Z = 3
+};
+point.Id = openModel.GetMaxId(point) + 1;
+point.Name = point.Id.ToString();
+
+openModel.Point3D.Add(point);
+//add connection to IOM
+connection.Node = new ReferenceElement(point);
+connection.Name = point.Name;
+connection.Id = openModel.GetMaxId(connection) + 1;
+
+openModel.Connections.Add(new IdeaRS.OpenModel.Connection.ConnectionData());
+openModel.AddObject(connection);
+</code></pre>
+<h2 id="connected-members">Connected members</h2>
+<p>There can be one or more connected mebers in a connection. The information about behaviour and properties of a connected member are passed by the instances of the class  <a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.BeamData.html">BeamData</a>.</p>
+<ul>
+<li><code>Id</code> - unique identificator [int]</li>
+<li><code>OriginalModelId</code> - unique identificator from original model [string]</li>
+<li><code>IsAdded</code> - beam is as stiffening member [bool]</li>
+<li><code>MirrorY</code> - mirror the cross-section acccording to its XY plane [bool]</li>
+<li><code>RefLineInCenterOfGravity</code> - the reference line of a cross-section is in center of gravity [bool]</li>
+</ul>
+<p>The instance of  <a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.ConnectedMember.html">ConnectedMember</a> has the reference of its 1D model and defines how the member is connected.</p>
+<ul>
+<li><code>Id</code> - unique identificator [int]</li>
+<li><code>MemberId</code> - reference to member1D represented beam <a class="xref" href="api-iom/IdeaRS.OpenModel.ReferenceElement.html">ReferenceElement</a></li>
+<li><code>IsContinuous</code> - a beam can be ended or continuous in a connection[bool]</li>
+</ul>
+<h4 id="the-example-how-to-create-a-beam">The Example how to create a beam:</h4>
+<pre><code class="lang-C#">// 
+openModel.Connections[0].Beams = new List&lt;IdeaRS.OpenModel.Connection.BeamData&gt;();
+
+//Add member1D 1
+IdeaRS.OpenModel.Connection.BeamData beam1Data = new IdeaRS.OpenModel.Connection.BeamData
+{
+  Id = 1,
+  OriginalModelId = &quot;1&quot;,
+  IsAdded = false,
+  MirrorY = false,
+  RefLineInCenterOfGravity = false,
+};
+openModel.Connections[0].Beams.Add(beam1Data);
+
+var member1 = openModel.Member1D.Find(x =&gt; x.Id == 1);
+IdeaRS.OpenModel.Connection.ConnectedMember conMb = new IdeaRS.OpenModel.Connection.ConnectedMember
+{
+  Id = member1.Id,
+  MemberId = new ReferenceElement(member1),
+  IsContinuous = false,
+};
+connection.ConnectedMembers.Add(conMb);
+
+//Add member1D 3
+
+var member3 = openModel.Member1D.Find(x =&gt; x.Id == 3);
+IdeaRS.OpenModel.Connection.ConnectedMember conMb3 = new IdeaRS.OpenModel.Connection.ConnectedMember
+{
+	Id = member3.Id,
+	MemberId = new ReferenceElement(member3),
+	IsContinuous = true,
+};
+connection.ConnectedMembers.Add(conMb3);
+
+IdeaRS.OpenModel.Connection.BeamData beam2Data = new IdeaRS.OpenModel.Connection.BeamData
+{
+	Id = 3,
+	OriginalModelId = &quot;3&quot;,
+	IsAdded = false,
+	MirrorY = false,
+	RefLineInCenterOfGravity = false,
+};
+openModel.Connections[0].Beams.Add(beam2Data);
+</code></pre>
+<p>![alt text][Beam]</p>
+<h2 id="platedata">PlateData</h2>
+<p><a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.PlateData.html">PlateData</a> includes data about geometry and material of the plate.</p>
+<ul>
+<li><code>Name</code>- name of plate [string]</li>
+<li><code>Id</code> - unique identificator [int]</li>
+<li><code>OriginalModelId</code> - unique identificator from original model [string]</li>
+<li><code>Material</code> - name of already defined material in IOM [string]</li>
+<li><code>Thickness</code> - thickness of plate defined in metric system(m) [double]</li>
+<li><code>Origin</code> - point of local coordinate system defined in global coordinate system <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Point3D.html">Point3D</a></li>
+<li><code>AxisX</code> <code>AxisY</code> <code>AxisZ</code> - axixs of local coordinate system <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Vector3D.html">Vector3D</a></li>
+<li><code>Region</code> - geometry of plate descript by <a href="https://www.w3.org/TR/SVG/paths.html">SVG path</a> [string]</li>
+</ul>
+<h4 id="the-example-how-to-create-a-plate">The example how to create a plate:</h4>
+<pre><code class="lang-C#">//add plate
+IdeaRS.OpenModel.Connection.PlateData plateData = new IdeaRS.OpenModel.Connection.PlateData
+{
+  Name = &quot;P1&quot;,
+  Thickness = 0.02,
+  Id = 11,
+  Material = &quot;S355&quot;,
+  OriginalModelId = &quot;11&quot;,
+  Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
+  {
+    X = -1.87,
+    Y = 2.88,
+    Z = 2.7
+  },
+  AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D
+  {
+    X = 0,
+    Y = 1,
+    Z = 0
+  },
+  AxisY = new IdeaRS.OpenModel.Geometry3D.Vector3D
+  {
+    X = 0,
+    Y = 0,
+    Z = 1
+  },
+  AxisZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
+  {
+    X = 1,
+    Y = 0,
+    Z = 0
+  },
+  Region = &quot;M 0 0 L 0.24 0 L 0.24 0.5 L 0 0.5 L 0 0&quot;,
+};
+
+(openModel.Connections[0].Plates ?? 
+  (openModel.Connections[0].Plates = new List&lt;IdeaRS.OpenModel.Connection.PlateData&gt;())).Add(plateData);
+</code></pre>
+<p><img src="images/plate.PNG" alt="alt text" title="Plate"></p>
+<h2 id="cutting-of-connected-members">Cutting of connected members</h2>
+<p>Connected mebers can be cut by a plate, other member or a work plane</p>
+<h3 id="cut-member-by-other-member-or-plate">Cut member by other member or plate</h3>
+<p>By <code>IdeaRS.OpenModel.Connection.CutBeamByBeamData</code> you can define cutting beam by other beam or plate.
+This object requires this values:</p>
+<ul>
+<li><code>CuttingObject</code>- reference of a member or plate which is cutting <a class="xref" href="api-iom/IdeaRS.OpenModel.ReferenceElement.html">ReferenceElement</a></li>
+<li><code>ModifiedObject</code>- reference of the modified member <a class="xref" href="api-iom/IdeaRS.OpenModel.ReferenceElement.html">ReferenceElement</a></li>
+<li><code>IsWeld</code>- flags for welding cut [bool]</li>
+</ul>
+<h4 id="the-example-of-cutting-a-beam-by-a-plate">The example of cutting a beam by a plate:</h4>
+<pre><code class="lang-#C">// add cut
+openModel.Connections[0].CutBeamByBeams = new List&lt;IdeaRS.OpenModel.Connection.CutBeamByBeamData&gt;
+{
+  new IdeaRS.OpenModel.Connection.CutBeamByBeamData
+  {
+    CuttingObject = new ReferenceElement(plateData),
+    ModifiedObject = new ReferenceElement(beam1Data),
+    IsWeld = true,
+  }
+};
+</code></pre>
+<p><img src="images/cutBeamByPlate.PNG" alt="alt text" title="Cut Beam By Beam"></p>
+<h3 id="cutting-a-member-by-a-workplane">Cutting a member by a workplane</h3>
+<p>Members can be also cut by a workplane. This cut is defined by properties of an instance of the class
+By <a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.CutData.html">CutData</a>
+This object requires this values:</p>
+<ul>
+<li><code>PlanePoint</code>- point on workplane in global coordinate system <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Point3D.html">Point3D</a></li>
+<li><code>NormalVector</code>- normal vector of workplane <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Vector3D.html">Vector3D</a></li>
+</ul>
+<h4 id="the-example-of-cutting-of-a-member-by-a-workplane">The example of cutting of a member by a workplane:</h4>
+<pre><code class="lang-#C">CutData cutData = new CutData(){
+	new IdeaRS.OpenModel.Geometry3D.Point3D() { X = 0, Y = 0, Z = 0 },
+	new IdeaRS.OpenModel.Geometry3D.Vector3D() { X = 1, Y = 0, Z = 0 },
+}
+(beam1Data.Cuts ?? (beam1Data.Cuts = new List&lt;CutData&gt;())).Add(cutData);
+</code></pre>
+<h2 id="bolt-grids">Bolt grids</h2>
+<p><a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.BoltGrid.html">BoltGrid</a> includes properties of the bolt grid.</p>
+<ul>
+<li><code>Id</code> - unique identificator [int]</li>
+<li><code>Diameter</code> - diameter of bolt(m) [double]</li>
+<li><code>DiagonalHeadDiameter</code> - head diameter of bolt(m) [double]</li>
+<li><code>HeadHeight</code> - height head of bolt(m) [double]</li>
+<li><code>BoreHole</code> - hole for bolt(m) [double]</li>
+<li><code>TensileStressArea</code> - tensile stress area(mm2) [double]</li>
+<li><code>NutThickness</code> - nut thickness(m) [double]</li>
+<li><code>AnchorLen</code> - lenght of bolt/anchor(m) [double]</li>
+<li><code>Material</code> - name of already defined material in IOM [string]</li>
+<li><code>Standard</code> - standard of bolt [string]</li>
+<li><code>Origin</code> - point of local coordinate system defined in global coordinate system</li>
+<li><code>AxisX</code> <code>AxisY</code> <code>AxisZ</code> - axis of local coordinate  system <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Vector3D.html">Vector3D</a></li>
+<li><code>Positions</code> - list of bolt positions define by points in global coordinate system List&lt;<a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Point3D.html">Point3D</a>&gt;</li>
+<li><code>ConnectedPartIds</code> - list of identificators object which want to connect together [string]</li>
+</ul>
+<h4 id="the-example-of-creating-of-a-boltgrid">The example of creating of a boltgrid:</h4>
+<pre><code class="lang-C#">IdeaRS.OpenModel.Connection.BoltGrid boltGrid = new IdeaRS.OpenModel.Connection.BoltGrid()
+{
+  Id = 41,
+  ConnectedPartIds = new List&lt;string&gt;(),
+  Diameter = 0.016,
+  HeadDiameter = 0.024,
+  DiagonalHeadDiameter = 0.026,
+  HeadHeight = 0.01,
+  BoreHole = 0.018,
+  TensileStressArea = 157,
+  NutThickness = 0.013,
+  AnchorLen = 0.05,
+  Material = &quot;8.8&quot;,
+  Standard = &quot;M 16&quot;,
+};
+
+boltGrid.Origin = new IdeaRS.OpenModel.Geometry3D.Point3D() { X = plateData.Origin.X, Y = plateData.Origin.Y, Z = plateData.Origin.Z };
+boltGrid.AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D() { X = plateData.AxisX.X, Y = plateData.AxisX.Y, Z = plateData.AxisX.Z };
+boltGrid.AxisY = new IdeaRS.OpenModel.Geometry3D.Vector3D() { X = plateData.AxisY.X, Y = plateData.AxisY.Y, Z = plateData.AxisY.Z };
+boltGrid.AxisZ = new IdeaRS.OpenModel.Geometry3D.Vector3D() { X = plateData.AxisZ.X, Y = plateData.AxisZ.Y, Z = plateData.AxisZ.Z };
+boltGrid.Positions = new List&lt;IdeaRS.OpenModel.Geometry3D.Point3D&gt;
+{
+  new IdeaRS.OpenModel.Geometry3D.Point3D()
+  {
+    X = -1.87,
+    Y = 2.92,
+    Z = 2.8
+  },
+  new IdeaRS.OpenModel.Geometry3D.Point3D()
+  {
+    X = -1.87,
+    Y = 3.08,
+    Z = 2.8
+  },
+  new IdeaRS.OpenModel.Geometry3D.Point3D()
+  {
+    X = -1.87,
+    Y = 2.92,
+    Z = 3.15
+  },
+  new IdeaRS.OpenModel.Geometry3D.Point3D()
+  {
+    X = -1.87,
+    Y = 3.08,
+    Z = 3.15
+  }
+};
+
+boltGrid.ConnectedPartIds = new List&lt;string&gt;() { beam2Data.OriginalModelId, plateData.OriginalModelId };
+
+(openModel.Connections[0].BoltGrids ?? (openModel.Connections[0].BoltGrids = new List&lt;IdeaRS.OpenModel.Connection.BoltGrid&gt;())).Add(boltGrid);
+</code></pre>
+<p><img src="images/bolts.PNG" alt="alt text" title="Bolts"></p>
+<h2 id="welds">Welds</h2>
+<h3 id="weld">Weld</h3>
+<p>By <a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.WeldData.html">WeldData</a> you can define weld.</p>
+<ul>
+<li><code>Id</code> - unique identificator [int]</li>
+<li><code>ConnectedPartIds</code> - list of identificators object which want to welded together [string]</li>
+<li><code>Start</code> - point of start weld defined in global coordinate system   <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Point3D.html">Point3D</a></li>
+<li><code>End</code> - point of end weld defined in global coordinate system  <a class="xref" href="api-iom/IdeaRS.OpenModel.Geometry3D.Point3D.html">Point3D</a></li>
+<li><code>Thickness</code> - thickness of weld defined in metric system(m) [double]</li>
+<li><code>WeldType</code> - type of weld <a class="xref" href="api-iom/IdeaRS.OpenModel.Connection.WeldType.html">WeldType</a></li>
+</ul>
+<h4 id="the-example-of-creating-stiffeners-with-welds">The example of creating stiffeners with welds:</h4>
+<pre><code class="lang-#C">IdeaRS.OpenModel.Connection.PlateData plateData2 = new IdeaRS.OpenModel.Connection.PlateData
+{
+	Name = &quot;P2&quot;,
+	Thickness = 0.02,
+	Id = 12,
+	Material = &quot;S355&quot;,
+	OriginalModelId = &quot;12&quot;,
+	Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
+	{
+		X = -2.103,
+		Y = 2.88,
+		Z = 2.75
+	},
+	AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D
+	{
+		X = 1,
+		Y = 0,
+		Z = 0
+	},
+	AxisY = new IdeaRS.OpenModel.Geometry3D.Vector3D
+	{
+		X = 0,
+		Y = 1,
+		Z = 0
+	},
+	AxisZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
+	{
+		X = 0,
+		Y = 0,
+		Z = 1
+	},
+	Region = &quot;M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0&quot;,
+};
+
+(openModel.Connections[0].Plates ?? (openModel.Connections[0].Plates = new List&lt;IdeaRS.OpenModel.Connection.PlateData&gt;())).Add(plateData2);
+//add weld between memeber 2 and plate 2 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 31,
+ConnectedPartIds = new List&lt;string&gt;() {  plateData2.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 2.995,
+	Z = 2.76
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 2.995,
+	Z = 2.76
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+(openModel.Connections[0].Welds ?? (openModel.Connections[0].Welds = new List&lt;IdeaRS.OpenModel.Connection.WeldData&gt;())).Add(weldData);
+
+//add weld3 between memeber 2 and plate 2 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData3 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 33,
+ConnectedPartIds = new List&lt;string&gt;() { plateData2.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 2.90,
+	Z = 2.76
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 2.90,
+	Z = 2.76
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData3);
+
+//add weld4 between memeber 2 and plate 2 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData4 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 34,
+ConnectedPartIds = new List&lt;string&gt;() { plateData2.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 2.90,
+	Z = 2.76
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 2.90,
+	Z = 2.76
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData4);
+
+//add plate 3
+IdeaRS.OpenModel.Connection.PlateData plateData3 = new IdeaRS.OpenModel.Connection.PlateData
+{
+Name = &quot;P3&quot;,
+Thickness = 0.02,
+Id = 13,
+Material = &quot;S355&quot;,
+OriginalModelId = &quot;13&quot;,
+Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
+{
+	X = -2.103,
+	Y = 2.88,
+	Z = 3.1
+},
+AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 1,
+	Y = 0,
+	Z = 0
+},
+AxisY = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 0,
+	Y = 1,
+	Z = 0
+},
+AxisZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 0,
+	Y = 0,
+	Z = 1
+},
+Region = &quot;M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0&quot;,
+};
+openModel.Connections[0].Plates.Add(plateData3);
+
+//add weld between memeber 2 and plate 3 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData2 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 32,
+ConnectedPartIds = new List&lt;string&gt;() { plateData3.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 2.995,
+	Z = 3.11
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 2.995,
+	Z = 3.11
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData2);
+
+//add weld5 between memeber 2 and plate 3 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData5 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 35,
+ConnectedPartIds = new List&lt;string&gt;() { plateData3.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 2.90,
+	Z = 3.11
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 2.90,
+	Z = 3.11
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData5);
+
+//add weld6 between memeber 2 and plate 3 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData6 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 36,
+ConnectedPartIds = new List&lt;string&gt;() { plateData3.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 2.90,
+	Z = 3.11
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 2.90,
+	Z = 3.11
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData6);
+
+//add plate 4
+IdeaRS.OpenModel.Connection.PlateData plateData4 = new IdeaRS.OpenModel.Connection.PlateData
+{
+Name = &quot;P4&quot;,
+Thickness = 0.02,
+Id = 14,
+Material = &quot;S355&quot;,
+OriginalModelId = &quot;14&quot;,
+Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
+{
+	X = -2.103,
+	Y = 3.12,
+	Z = 2.75
+},
+AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 1,
+	Y = 0,
+	Z = 0
+},
+AxisY = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 0,
+	Y = -1,
+	Z = 0
+},
+AxisZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 0,
+	Y = 0,
+	Z = 1
+},
+Region = &quot;M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0&quot;,
+};
+openModel.Connections[0].Plates.Add(plateData4);
+
+//add weld7 between memeber 2 and plate 4 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData7 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 37,
+ConnectedPartIds = new List&lt;string&gt;() { plateData4.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 3.005,
+	Z = 2.76
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 3.005,
+	Z = 2.76
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData7);
+
+//add weld8 between memeber 2 and plate 4 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData8 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 38,
+ConnectedPartIds = new List&lt;string&gt;() { plateData4.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 3.1,
+	Z = 2.76
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 3.1,
+	Z = 2.76
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData8);
+
+//add weld9 between memeber 2 and plate 4 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData9 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 39,
+ConnectedPartIds = new List&lt;string&gt;() { plateData4.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 3.1,
+	Z = 2.76
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 3.1,
+	Z = 2.76
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData9);
+
+//add plate 5
+IdeaRS.OpenModel.Connection.PlateData plateData5 = new IdeaRS.OpenModel.Connection.PlateData
+{
+Name = &quot;P5&quot;,
+Thickness = 0.02,
+Id = 15,
+Material = &quot;S355&quot;,
+OriginalModelId = &quot;15&quot;,
+Origin = new IdeaRS.OpenModel.Geometry3D.Point3D
+{
+	X = -2.103,
+	Y = 3.12,
+	Z = 3.1
+},
+AxisX = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 1,
+	Y = 0,
+	Z = 0
+},
+AxisY = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 0,
+	Y = -1,
+	Z = 0
+},
+AxisZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
+{
+	X = 0,
+	Y = 0,
+	Z = 1
+},
+Region = &quot;M 0 0 L 0.206 0 L 0.206 0.105 L 0.195 0.115 L 0.011 0.115 L 0.0 0.105 L 0 0&quot;,
+};
+openModel.Connections[0].Plates.Add(plateData5);
+
+//add weld10 between memeber 2 and plate 5 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData10 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 40,
+ConnectedPartIds = new List&lt;string&gt;() { plateData5.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 3.005,
+	Z = 3.11
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2,
+	Y = 3.005,
+	Z = 3.11
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData10);
+
+//add weld11 between memeber 2 and plate 5 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData11 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 41,
+ConnectedPartIds = new List&lt;string&gt;() { plateData5.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 3.10,
+	Z = 3.11
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -2.103,
+	Y = 3.10,
+	Z = 3.11
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData11);
+
+//add weld12 between memeber 2 and plate 5 - stiffener
+IdeaRS.OpenModel.Connection.WeldData weldData12 = new IdeaRS.OpenModel.Connection.WeldData()
+{
+Id = 46,
+ConnectedPartIds = new List&lt;string&gt;() { plateData5.OriginalModelId, beam2Data.OriginalModelId },
+Start = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 3.10,
+	Z = 3.11
+},
+End = new IdeaRS.OpenModel.Geometry3D.Point3D()
+{
+	X = -1.897,
+	Y = 3.10,
+	Z = 3.11
+},
+Thickness = 0.004,
+WeldType = IdeaRS.OpenModel.Connection.WeldType.DoubleFillet,
+};
+openModel.Connections[0].Welds.Add(weldData12);
+</code></pre>
+<p><img src="images/stiffenersWithWelds.PNG" alt="alt text" title="Stiffeners With Welds"></p>
+<p>The IOM (<em>.xml</em>) is <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/IOM.GeneratorExample/SampleFiles/IOM-SteelFrame.xml">here</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/iom/IOM/readme.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

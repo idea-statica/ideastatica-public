@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> | IDEA StatiCa API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" | IDEA StatiCa API ">
+      
+      <link rel="icon" href="../../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../../docs/api/toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/idea-statica/ideastatica-public/blob/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/readme.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../../../../../../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h3 id="connectionhiddencalculation">ConnectionHiddenCalculation</h3>
+<p>It is more complex example which presents more features which are provided by IDEA StaiCa API. To be able to run this example set the path to Idea StatiCa directory in the project settings.</p>
+<p><img src="images/conn-hidden-calculation.PNG" alt="ConnectionHiddenCalculation"></p>
+<p>Communication of a 3rd party application (the example ConnectionHiddenCalculation in this case) with ConnectionCalcService which runs in a another process.
+<img src="images/ConnectionHiddenCalculation.svg" alt="ConnectionHiddenCalculation"></p>
+<p>In the project <a href="https://github.com/idea-statica/ideastatica-public/tree/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/IdeaStatiCa.ConnectionClient">IdeaStatiCa.ConnectionClient</a> there are commands which control @&quot;IdeaStatiCa.Plugin.IConnHiddenCheck&quot; Service. These commands show how to  :</p>
+<ul>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/OpenProjectCommand.cs">Open IDEA Connection project</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ImportIOMCommand.cs">Import IDEA Connection from IOM</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CloseProjectCommand.cs">Close IDEA Connection project</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CalculateConnectionCommand.cs">Calculate a connection</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionGeometryCommand.cs">Get geometry of a connection</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ConnectionToTemplateCommand.cs">Create template from a connection</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplyTemplateCommand.cs">Apply template</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/DeleteAllOperationsCommand.cs">Delete all operations from the connection</a></li>
+</ul>
+<p>There are new methods for getting information about materials, cross-sections and bolt assemblies in idea connection project in <a href="https://github.com/idea-statica/ideastatica-plugin/blob/master/IdeaStatiCa.Plugin/IConnHiddenCheck.cs">IConnHiddenCheck</a> since version <strong>IDEA StatiCa v20.0.81</strong>. It is also possible to add new bolt assemblies into a connection project - see method :</p>
+<pre><code class="lang-C#">		/// &lt;summary&gt;
+		/// Add the new bolt assembly. Its type is defined by its name (e.g. 'M12 4.6')
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;boltAssemblyName&quot;&gt;&lt;/param&gt;
+		/// &lt;returns&gt;&lt;/returns&gt;
+		[OperationContract]
+		int AddBoltAssembly(string boltAssemblyName);
+</code></pre>
+<p>The method <em>ApplyTemplate</em> has the new parameter <em>connTemplateSetting</em>. It defines materials which are used when template is applied.</p>
+<p><img src="images/hidden-check-get_material.png" alt="Get materials from project"></p>
+<p>The examples of using these new <em>IConnHiddenCheck</em> methods can be found in examples :</p>
+<ul>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetMaterialsCommand.cs">GetMaterialsInProject</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetCrossSectionsCommand.cs">GetCrossSectionsInProject</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/GetBoltAssembliesCommand.cs">GetBoltAssembliesInProject</a></li>
+<li><a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/CreateBoltAssemblyCommand.cs">AddBoltAssembly</a></li>
+</ul>
+<h3 id="improvements-in-version-idea-statica-v-201">Improvements in version IDEA StatiCa v 20.1</h3>
+<p>API users can apply simple template to a connection.</p>
+<p><img src="images/apply-simple-template.PNG" alt="ConnectionHiddenCalculation"></p>
+<p>There is the example how to call the service in the command : <a href="../IdeaStatiCa.ConnectionClient/ConHiddenCalcCommands/ApplySimpleTemplateCommands.cs">Apply Simple template</a></p>
+<pre><code class="lang-C#">		/// &lt;summary&gt;
+		/// Apply the simple connectionsimple template from file &lt;paramref name=&quot;templateFilePath&quot;/&gt; on connection &lt;paramref name=&quot;connectionId&quot;/&gt;
+		/// &lt;/summary&gt;
+		/// &lt;param name=&quot;connectionId&quot;&gt;The id of the connection on which templete will be applied&lt;/param&gt;
+		/// &lt;param name=&quot;templateFilePath&quot;&gt;The path to the connection template&lt;/param&gt;
+		/// &lt;param name=&quot;connTemplateSetting&quot;&gt;The additional settings - e.g. default bolts&lt;/param&gt;
+		/// &lt;param name=&quot;mainMember&quot;&gt;Main (supporting member)&lt;/param&gt;
+		/// &lt;param name=&quot;attachedMembers&quot;&gt;The list of members which are supported by &lt;paramref name=&quot;mainMember&quot;/&gt;&lt;/param&gt;
+		/// &lt;returns&gt;Returns 'Ok' in case of the success otherwise 'Fail'&lt;/returns&gt;
+		[OperationContract]
+		string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List&lt;int&gt; attachedMembers);
+</code></pre>
+<p><em><strong>How to test applying single template step by step</strong></em></p>
+<ul>
+<li>Build project <em>ConnectionHiddenCalculation</em></li>
+<li>Open the empty connection project <a href="../../../../../../api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/SingleTemplateTstProjects/2-beams-to-column-empty.ideaCon">2-beams-to-column-empty.ideaCon</a> in app ConnectionHiddenCalculation</li>
+<li>Specify supporting member (in this cas <em>1</em>) and supported member (in this case <em>2</em>)</li>
+<li>Click on the button <em>Apply simple template</em></li>
+<li>Save project as and open it in ideaconnection.exe to check the result</li>
+<li>You can apply template twice - for member 2 anb 3 to get the complete connection</li>
+</ul>
+<p>There is the online <a href="https://idea-statica.github.io/iom/ideaconnections-api/latest/index.html">API Documentation</a> of manufacturing operations. It helps to set values of properties of operations. The best way is to create a connection model in <em>ideaconnection.exe</em> - save is as connection template - you can find this feature in this example. Then open it in a text editor and check the content. Then you can modify values in contemp file and apply it again.</p>
+<h3 id="improvements-in-version-idea-statica-v-210">Improvements in version IDEA StatiCa v 21.0</h3>
+<p>We added the method <strong>GetAllConnectionData</strong> to our API interface <strong>IConnHiddenCheck</strong>. This method returns the instance of <strong>IdeaRS.OpenModel.OpenModelTuple</strong> for a selected connection. This instance includes structural data and corresponding results of FE analysis.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/idea-statica/ideastatica-public/blob/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/readme.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
