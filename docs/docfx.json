@@ -9,6 +9,7 @@
           "src": "..\\src"
         }
       ],
+      "outputFormat": "apiPage",
       "dest": "api-iom",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
@@ -23,6 +24,7 @@
         }
       ],
       "dest": "api-bimapi",
+      "outputFormat": "apiPage",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     },
@@ -36,6 +38,7 @@
         }
       ],
       "dest": "api-bimapilink",
+      "outputFormat": "apiPage",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     },
@@ -49,6 +52,7 @@
         }
       ],
       "dest": "api-plugin",
+      "outputFormat": "apiPage",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     }
@@ -70,7 +74,7 @@
       { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
       { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
       { "files": ["toc.yml", "*.md"]},
-      { "files": "**/**/*.{md|yml}" , "src": "../examples", "dest":"examples"}
+      { "files": "**/*.{md|yml}" , "src": "../examples", "dest":"examples"}
     ],
     "resource": [
       { "files": ["**/images/**", "api-iom/Images/**"] },

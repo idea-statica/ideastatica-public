@@ -13,7 +13,5 @@
 - name: API Reference
 - name: IdeaStatiCa.BimApiLink
   href: ../../api-bimapilink/toc.yml
-  homepage: ../../api-bimapilink/index.md
 - name: IdeaStaiCa.BimApi
   href: ../../api-bimapi/toc.yml
-  homepage: ../../api-bimapi/index.md
