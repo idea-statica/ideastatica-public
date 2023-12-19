@@ -46,12 +46,12 @@ namespace RcsApiClient
 				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
 			});
 
-			services.AddTransient<IPluginLogger >(serviceProvider =>
+			services.AddSingleton<IPluginLogger >(serviceProvider =>
 			{
 				return LoggerProvider.GetLogger("rcsapiclient");
 			});
 
-			services.AddTransient<MainWindowViewModel>();
+			services.AddSingleton<MainWindowViewModel>();
 			services.AddTransient<IReinfCssSelector, DialogReinforcedCssSelector>();
 			services.AddTransient<IReinfCssTemplateProvider, DialogReinfCssTemplateProvider>();
 
