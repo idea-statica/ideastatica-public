@@ -220,7 +220,7 @@ namespace RcsApiClient.ViewModels
 
 					ApiMessage = "Opening RCS project";
 
-					if(selectedFilePath.EndsWith("xml"))
+					if(selectedFilePath.EndsWith("xml", StringComparison.InvariantCultureIgnoreCase))
 					{
 						ProjectOpened = await Controller.CreateProjectFromIOMFileAsync(selectedFilePath, cancellationTokenSource.Token);
 					}
