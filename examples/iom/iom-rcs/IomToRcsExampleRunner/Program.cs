@@ -22,7 +22,7 @@ namespace IomToRcsExampleRunner
 
 			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.0\\net6.0-windows";
 
-			RcsClientFactory rcsClientFactory = new RcsClientFactory(new IdeaStatiCa.Plugin.NullLogger(), null, directoryPath);
+			RcsClientFactory rcsClientFactory = new RcsClientFactory(directoryPath);
 
 			RcsApiClient? client = await rcsClientFactory.CreateRcsApiClient() as RcsApiClient;
 
