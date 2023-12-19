@@ -24,11 +24,11 @@ namespace IdeaStatiCa.RcsClient.Factory
 		public Action<string, int> StreamingLog { get; set; } = null;
 		public Action<string> HeartbeatLog { get; set; } = null;
 
-		public RcsClientFactory(IPluginLogger pluginLogger, IHttpClientWrapper httpClientWrapper = null, string directory = null)
+		public RcsClientFactory(string path, IPluginLogger pluginLogger = null, IHttpClientWrapper httpClientWrapper = null)
 		{
 			this.httpClientWrapper = httpClientWrapper;
-			this.pluginLogger = pluginLogger;
-			this.directory = directory;
+			this.pluginLogger = pluginLogger ?? new NullLogger();
+			this.directory = path;
 		}
 
 		/// <summary>
@@ -73,7 +73,6 @@ namespace IdeaStatiCa.RcsClient.Factory
 						rcsRestApiProcess.StartInfo.Arguments = arguments;
 						rcsRestApiProcess.StartInfo.UseShellExecute = false;
 #if !DEBUG
-						//rcsRestApiProcess.StartInfo.RedirectStandardOutput = true;
 						rcsRestApiProcess.StartInfo.CreateNoWindow = true;
 #endif
 						rcsRestApiProcess.Start();

@@ -5,10 +5,12 @@ using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RcsClient.Factory;
 using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using RcsApiClient.Services;
 using RcsApiClient.ViewModels;
 using System;
 using System.Windows;
+using System.IO;
 
 namespace RcsApiClient
 {
@@ -17,15 +19,29 @@ namespace RcsApiClient
 	/// </summary>
 	public partial class App : Application
 	{
-		private string ideaStatiCaDir = RcsApiClient.Properties.Settings.Default.IdeaStatiCaDir;
-
 		private readonly IServiceProvider serviceProvider;
 
 		public App()
 		{
 			SerilogFacade.Initialize();
 			IServiceCollection services = new ServiceCollection();
-			services.AddSingleton<MainWindow>(serviceProvider => new MainWindow
+
+			IConfiguration configuration = new ConfigurationBuilder()
+			.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+			.Build();
+
+			services.AddSingleton<RcsClientSettings>((serviceProvider) =>
+			{
+				RcsClientSettings rcsClientSettings = new RcsClientSettings();
+				configuration.GetSection("RcsClientSettings").Bind(rcsClientSettings);
+				if(!rcsClientSettings.IdeaStatiCaDir.EndsWith("net6.0-windows"))
+				{
+					rcsClientSettings.IdeaStatiCaDir = Path.Combine(rcsClientSettings.IdeaStatiCaDir, "net6.0-windows");
+				}
+				return rcsClientSettings;
+			});
+
+			services.AddTransient<MainWindow>(serviceProvider => new MainWindow
 			{
 				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
 			});
@@ -39,14 +55,13 @@ namespace RcsApiClient
 			services.AddTransient<IReinfCssSelector, DialogReinforcedCssSelector>();
 			services.AddTransient<IReinfCssTemplateProvider, DialogReinfCssTemplateProvider>();
 
-			services.AddSingleton<Func<Type, ObservableObject>>(serviceProvider => viewModelType => (ObservableObject)serviceProvider.GetRequiredService(viewModelType));
+			services.AddTransient<Func<Type, ObservableObject>>(serviceProvider => viewModelType => (ObservableObject)serviceProvider.GetRequiredService(viewModelType));
 
 			services.AddSingleton<IRcsClientFactory>(serviceProvider =>
 			{
-				var rcsClient =  new RcsClientFactory(serviceProvider.GetService<IPluginLogger>(), httpClientWrapper: null, ideaStatiCaDir);
-				return rcsClient;
+				var rcsSettings = serviceProvider.GetRequiredService<RcsClientSettings>();
+				return new RcsClientFactory(rcsSettings.IdeaStatiCaDir, serviceProvider.GetService<IPluginLogger>(), httpClientWrapper: null);
 			});
-
 
 			serviceProvider = services.BuildServiceProvider();
 		}

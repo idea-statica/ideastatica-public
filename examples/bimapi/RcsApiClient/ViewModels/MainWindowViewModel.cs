@@ -14,6 +14,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace RcsApiClient.ViewModels
 {
@@ -217,8 +219,8 @@ namespace RcsApiClient.ViewModels
 					string selectedFilePath = openFileDialog.FileName;
 
 					ApiMessage = "Opening RCS project";
-					ProjectOpened = await Controller.OpenProjectAsync(selectedFilePath, cancellationTokenSource.Token);
-					if(selectedFilePath.EndsWith("xml"))
+
+					if(selectedFilePath.EndsWith("xml", StringComparison.InvariantCultureIgnoreCase))
 					{
 						ProjectOpened = await Controller.CreateProjectFromIOMFileAsync(selectedFilePath, cancellationTokenSource.Token);
 					}
@@ -573,7 +575,10 @@ namespace RcsApiClient.ViewModels
 			{
 				throw new NullReferenceException("Service is not running");
 			}
-			CalculationResult = await Controller.GetCodeSettings(cancellationTokenSource.Token);
+			var xml = await Controller.GetCodeSettings(cancellationTokenSource.Token);
+
+			XDocument xmlDoc = XDocument.Parse(xml);
+			CalculationResult = xmlDoc.ToString();
 		}
 
 		private async Task GetSections()
@@ -585,6 +590,7 @@ namespace RcsApiClient.ViewModels
 			}
 
 			var result = await Controller.GetProjectSectionsAsync(cancellationTokenSource.Token);
+
 
 			CalculationResult = Tools.FormatJson(JsonConvert.SerializeObject(result));
 		}
