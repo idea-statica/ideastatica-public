@@ -3,6 +3,7 @@ import requests
 import subprocess
 import time
 import xmltodict
+import rcsproject
 
 class ideastatica_rcs_client:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
@@ -38,19 +39,30 @@ class ideastatica_rcs_client:
         if response.status_code == 200:
             self.projectId = response.text.replace('"', '')
             print(f'Project opened with id: {self.projectId}')
+            self.SetProjectSummary()
             return self.projectId
         else:
             raise ValueError(f'file {ideaPath} can not be open {response.content}')
         
-    def ProjectSummary(self):
+    def SetProjectSummary(self):
         if self.projectId is None:
             raise Exception(r'Any project is not open')
         
-        self.ProjectSummary = None
+        self.projectSummaryData = None
+        self.Project = None
         
         response = requests.get(f'http://localhost:{self.tcpPort}/Project/{self.projectId}/ProjectSummary', headers={"Content-Type": "application/json"})
         if response.status_code == 200:
             parsed_data = xmltodict.parse(response.text)
 
-            self.ProjectSummary = parsed_data[r'RcsProjectSummaryModel']
-            return self.ProjectSummary
+            self.projectSummaryData = parsed_data[r'RcsProjectSummaryModel']
+
+            self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummaryModel'])
+        
+    @property
+    def Project(self) -> rcsproject.RcsProject:
+        return self._project
+        
+    @Project.setter
+    def Project(self, value : rcsproject.RcsProject):
+        self._project = value

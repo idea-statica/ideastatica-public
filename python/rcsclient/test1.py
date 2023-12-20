@@ -1,5 +1,6 @@
 import idea_statica_setup
 import ideastatica_rcs_client
+import os
 
 ideaStatiCa_Version = r'23.1'
 
@@ -15,11 +16,16 @@ try:
     print(rcsClient.printServiceDetails())
 
     # try to open an project
-    projectId = rcsClient.OpenProject(r'C:\\x\\rcs-optim\\ToOptim.IdeaRcs')
-    print(f'open project id = {projectId}')
 
-    summary = rcsClient.ProjectSummary();
-    print(summary)
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    rcs_project_file_path = os.path.join(dir_path, 'projects', 'Project1.IdeaRcs')
+    print(rcs_project_file_path)
+
+    projectId = rcsClient.OpenProject(rcs_project_file_path)
+    # Calculate all sections
+    # sections = rcsClient.Project.Sections['RcsSectionModel']
+    # for sect in sections:
+    #     print(sect['Id'])
 
 except Exception as e:
     message  = str(e)
