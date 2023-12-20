@@ -4,6 +4,7 @@ import subprocess
 import time
 import xmltodict
 import rcsproject
+import json
 
 class ideastatica_rcs_client:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
@@ -58,6 +59,23 @@ class ideastatica_rcs_client:
             self.projectSummaryData = parsed_data[r'RcsProjectSummaryModel']
 
             self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummaryModel'])
+
+    def Calculate(self, sectionList):
+        calculationParameters = { "Sections": sectionList }
+        json_data = json.dumps(calculationParameters)
+        response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/Calculate', json_data,
+            headers={
+                'Accept': 'application/xml',
+                'Content-Type': 'application/json'
+            })
+        if response.status_code == 200:
+            parsed_data = xmltodict.parse(response.text)
+            return parsed_data
+        else:
+            raise Exception('Calculation failed')
+
+
+
         
     @property
     def Project(self) -> rcsproject.RcsProject:

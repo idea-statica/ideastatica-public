@@ -5,7 +5,8 @@ class RcsSection:
         self.Id = sectionData['Id']
         self.Description = sectionData['Description']
         self.RfCssId = sectionData['RCSId']
-        
+        self.CheckMemberId = sectionData['CheckMemberId']
+
     @property
     def Id(self) -> int:
         return self._id
@@ -29,6 +30,14 @@ class RcsSection:
     @RfCssId.setter
     def RfCssId(self, value : int):
         self._rfCssId = value
+
+    @property
+    def CheckMemberId(self) -> int:
+        return self._checkMemberId
+            
+    @CheckMemberId.setter
+    def CheckMemberId(self, value : int):
+        self._checkMemberId = value        
 
 class ReinforcedCss:
     def __init__(self, rfCssData):  

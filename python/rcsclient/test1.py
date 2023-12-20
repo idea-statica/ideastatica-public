@@ -22,10 +22,25 @@ try:
     print(rcs_project_file_path)
 
     projectId = rcsClient.OpenProject(rcs_project_file_path)
-    # Calculate all sections
-    # sections = rcsClient.Project.Sections['RcsSectionModel']
-    # for sect in sections:
-    #     print(sect['Id'])
+
+    # print all sections in the rcs project
+    print('Sections')
+    for sec in rcsClient.Project.Sections.values():
+        print(f'secId = {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
+
+    # print all reinforced cross-sections in the rcs project
+    print('Reinforced cross-sections')
+    for rfCss in rcsClient.Project.ReinfCrossSections.values():
+        print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
+
+    # calculate all sections in the rcs project
+    secIds = []
+    for s in rcsClient.Project.Sections.values():
+        secIds.append(s.Id)
+
+    briefResults = rcsClient.Calculate(secIds)
+    print(briefResults)
+
 
 except Exception as e:
     message  = str(e)
