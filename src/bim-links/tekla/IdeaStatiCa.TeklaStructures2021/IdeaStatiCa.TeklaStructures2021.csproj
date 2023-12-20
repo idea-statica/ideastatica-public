@@ -12,9 +12,26 @@
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
 		<PackageReference Include="morelinq" Version="3.3.2" />
 		<PackageReference Include="System.Management" Version="6.0.0" />
-		<PackageReference Include="Tekla.Structures.Catalogs" Version="2021.0.0" />
-		<PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
-		<PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
+		<PackageReference Include="Tekla.Structures" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Catalogs" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
