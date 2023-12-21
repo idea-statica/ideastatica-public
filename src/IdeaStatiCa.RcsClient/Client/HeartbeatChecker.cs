@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.Rcs;
+using IdeaStatiCa.Plugin.Api.RCS;
 
 namespace IdeaStatiCa.RcsClient.Client
 {
