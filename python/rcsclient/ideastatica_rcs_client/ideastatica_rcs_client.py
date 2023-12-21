@@ -20,11 +20,13 @@ class ideastatica_rcs_client:
             self.rcsApiProcess.kill()
 
     def printServiceDetails(self):
+        # print details of the connection to RCS service
         print(f"TcpPort : {self.tcpPort}")
         print(f"IdeaStatiCaSetupDir : {self.ideaStatiCaSetupDir}")
         print(f"RcsApiServicePath : {self.rcsApiServicePath}")
 
     def OpenProject(self, ideaPath):
+        # Open IdeaRcs project. ideaPath is path to the project file on a disk to open
         binaryData = None
         with open(ideaPath, 'rb') as f:
             binaryData = f.read()
@@ -43,6 +45,7 @@ class ideastatica_rcs_client:
             raise ValueError(f'file {ideaPath} can not be open {response.content}')
         
     def SetProjectSummary(self):
+        # Get a project summary of the active project and store it locally 
         if self.projectId is None:
             raise Exception(r'Any project is not open')
         
@@ -58,6 +61,7 @@ class ideastatica_rcs_client:
             self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummaryModel'])
 
     def Calculate(self, sectionList):
+        # Calculate selection of rcs sections. IDs of the sections to calculate are passed in the parameter sectionList
         calculationParameters = { "Sections": sectionList }
         json_data = json.dumps(calculationParameters)
         response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/Calculate', json_data,
@@ -71,8 +75,20 @@ class ideastatica_rcs_client:
         else:
             raise Exception('Calculation failed')
 
-
-
+    def GetResults(self, sectionList):
+        # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
+        calculationParameters = { "Sections": sectionList }
+        json_data = json.dumps(calculationParameters)
+        response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/GetResults', json_data,
+            headers={
+                'Accept': 'application/xml',
+                'Content-Type': 'application/json'
+            })
+        if response.status_code == 200:
+            parsed_data = xmltodict.parse(response.text)
+            return parsed_data
+        else:
+            raise Exception('Calculation failed')
         
     @property
     def Project(self) -> rcsproject.RcsProject:

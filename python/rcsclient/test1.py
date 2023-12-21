@@ -33,14 +33,19 @@ try:
     for rfCss in rcsClient.Project.ReinfCrossSections.values():
         print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
 
-    # calculate all sections in the rcs project
+    
+    # get IDs of all sections in the rcs project
     secIds = []
     for s in rcsClient.Project.Sections.values():
         secIds.append(s.Id)
 
+    # calculate all sections in the rcs project
     briefResults = rcsClient.Calculate(secIds)
     print(briefResults)
 
+    # get detail results of all calculated rcs sections
+    detailResults = rcsClient.GetResults(secIds)
+    print(detailResults)
 
 except Exception as e:
     message  = str(e)
