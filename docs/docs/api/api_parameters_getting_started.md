@@ -18,7 +18,7 @@ Parameters are specific to one item in a connection project. This allows paramet
 
 ### Accessing parameters
 
-Parameters can be accessed through the [Developer Tab](https://github.com/idea-statica/ideastatica-public/wiki/Developer-Tools-in-IDEA-StatiCa-Connection).
+Parameters can be accessed through the [Developer Tab](https://www.ideastatica.com/support-center/setting-up-parametric-design-with-developer-tab).
 
 ### Parameters vs API
 

@@ -3,33 +3,122 @@ using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.Factory;
+using System.Threading;
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IdeaRS.OpenModel;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
-namespace RcsConsoleApp
+namespace RcsApiConsoleApp
 {
 	internal class Program
 	{
-		static void Main(string[] args)
+		static async Task Main(string[] args)
 		{
+			#region createclient
+			//Directory to IDEA StatiCa installation on your computer.
+			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1";
 
-			//RcsClientFactory factory = new RcsClientFactory(new NullLogger());
+			//Pass path to a new RCS Client Factory
+			var rcsClientFactory = new RcsClientFactory(directoryPath);
 
-			//RcsApiClient? client = factory.CreateRcsApiClient() as RcsApiClient;
+			//Create the client from the Factory
+			IRcsApiController client = await rcsClientFactory.CreateRcsApiClient();
+			#endregion
 
-			//string filepath = "myCrossSectionFile.ideaRcs";
+			bool existingproject = true;
 
-			//var project = client.OpenProject(filepath, System.Threading.CancellationToken.None);
+			if (existingproject)
+			{
+				#region openexisting
+				//filepath to existing .ideaRcs project
+				string rcsFilePath = "";
 
-			////List<RcsCrossSectionOverviewModel> sections = client.GetSectionItems(project);
-			
-			//List<RcsCheckMemberModel> members = client.GetDesignMemberItems(project)[1].Sections();
+				//Opens project on the server side to start performing operations
+				bool okay = await client.OpenProjectAsync(rcsFilePath, CancellationToken.None);
+				#endregion
+			}
+			else
+			{
+				bool fromIomModel = true;
 
-			////Get Cross-sections on Member
-			//List<int> check = sections.Select(x=>x.Id).Where(x=> x.id;
+				if (fromIomModel)
+				{
+					#region openfrommodel
 
-			//client.CalculateProjectAsync(project, )
+					//OpenModel defined in Memory
+					OpenModel model = new OpenModel();
+
+					await client.CreateProjectFromIOMAsync(model, CancellationToken.None);
+
+					#endregion
+				}
+
+				else
+				{
+					#region openfromiomfile
+
+					//Filepath to existing Iom XML file to be convert to an RCS Project
+					string iomFilePath = "pathToIoM.xml";
+
+					await client.CreateProjectFromIOMFileAsync(iomFilePath, CancellationToken.None);
+
+					#endregion
+				}
+			}
+
+			#region calculateproject
+
+			List<RcsSectionResultOverview> briefResults = await client.CalculateAsync(new RcsCalculationParameters(), CancellationToken.None);
+
+			JToken parsedJson = JToken.Parse(JsonConvert.SerializeObject(briefResults));
+			string output = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
+
+			//Print brief results to the Console
+			Console.Write(output);
+
+			#endregion
+
+			#region sectionresults
+
+			//Get List of Sections
+			List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+
+			//Set Detailed Result Parameters
+			//Selecting only the first section in the Project
+			RcsResultParameters resultParams = new RcsResultParameters()
+			{
+				Sections = new List<int>() { sections[0].Id }
+			};
+
+			List<RcsDetailedResultForSection> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
+
+			JToken parsedJsonResult = JToken.Parse(JsonConvert.SerializeObject(briefResults));
+			string outputresults = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
+
+			//Print brief results to the Console
+			Console.Write(outputresults);
+
+			#endregion
+
+			#region saveproject
+
+			string saveFilePath = "newSavePath.ideaRcs";
+
+			//Save project - either provide opened path or provide a new path.
+			await client.SaveProjectAsync(saveFilePath, CancellationToken.None);
+
+			#endregion
+
+			#region dispose
+
+			client.Dispose();
+			rcsClientFactory.Dispose();
+
+			#endregion
 		}
 	}
 }

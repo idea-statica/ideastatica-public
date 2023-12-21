@@ -1,9 +1,0 @@
-- name: Getting Started .Net API
-  href: api_dotnet_getting_started.md
-- name: Examples
-- name: Connection API Examples
-  items:
-    - name: Hidden Client Console Tester
-      href: ../../../../examples\api\csharp\connection\Connection-API-Console-Tester\ConHiddenCheckConsole\readme.md
-    - name: Hidden Client WPF Tester
-      href: ../../../../examples\api\csharp\connection\Connection-API-WinForm-Tester\ConnectionHiddenCalculation\readme.md

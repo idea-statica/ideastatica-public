@@ -13,16 +13,16 @@ There are a number of tools that can create stub files for a .Net assembly: A go
 1. Clone the repository of [pythonstubs](https://github.com/mcneel/pythonstubs) to your computer. If you are a Github beginner, we recommend downloading Github desktop.
 2. Open the pythonstubs Repository folder and open the **PyStublerNet.sln** solution which is located in the 'builder' folder.   
 3. When open, go the the PyStubbler projects properties. Replace the command line arguments with the location of the Idea .dlls you want to create stubs for. 
-![properties](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/pythonstubs_setlinks.png) 
+![properties](images/pythonstubs_setlinks.png) 
 ```
 --dest=".\Idea" --search="C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1" "C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1\\IdeaStatiCa.Plugin.dll" "C:\\Program Files\\IDEA StatiCa\\StatiCa 21.1\\IdeaRS.OpenModel.dll"
 ```
 4. Build and then Run the PyStubbler project.
 5. The following folders will be generated in the project bin folder. 
-![stubs folders](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/folders.png) 
+![stubs folders](images/folders.png) 
 6. Copy and paste these folders into the folder you are setting as the system path directory for the Reference Assemblies. In the case of Python, this is likely the IDEA StatiCa Programs Files directory. 
 7. Restart Visual Studio Code to ensure the auto-completion takes effect. 
-![VSC auto-complete](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/VSCautocomplete.png) 
+![VSC auto-complete](images/VSCautocomplete.png) 
 
 
 > Note: For each update of the API or program the stubs should be updated to avoid conflicts or not provide auto-complete for new updates!

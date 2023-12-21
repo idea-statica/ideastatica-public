@@ -1,6 +1,6 @@
 Grasshopper is a great way to utilize the IDEA StatiCa API to perform optimization and retrieve connection results. Any of the scripting components available in out-of-the-box grasshopper can be used to Automate IDEA through the API. 
 
-![Grasshopper scripting components](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/gh_scripting_components.png)
+![Grasshopper scripting components](images/gh_scripting_components.png)
 
 As most of the output that is provided by the API can be serialized or represented in a JSON format it is easy to retrieve output by using available plug-ins in Grasshopper. [jSwan](https://www.food4rhino.com/en/app/jswan) is a great plugin for working with JSON strings.
 
@@ -10,11 +10,11 @@ GhPython is a powerful scripting component that allows a user to run python code
 
 The example code below provides an example of how an IDEA Connection file can be run and the bolt forces extracted using GhPython. jSwan is then used to filter specific results from the JSON output.
 
-![bolt forces](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/gh_scripting_python_complete.png)
+![bolt forces](images/gh_scripting_python_complete.png)
 
 Copy and paste the following code into a GhPython component. Note: The trigger component is used to stop the component from running consistently as calculation may take some time.
 
-![bolt forces code](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/gh_scripting_python.png)
+![bolt forces code](images/gh_scripting_python.png)
 
 Before running the script:
 * Change the `ideaCon_filename` to a prepared .ideaCon file which has some bolts in it. Make sure the Connection file is located in the same folder as the Grasshopper script and the grasshopper script is saved. The GH script is used to find the file automatically.

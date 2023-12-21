@@ -15,7 +15,7 @@ As the IDEA IOM and API are provided as .NET modules we will need to install pyt
 ```
 conda install -c conda-forge pythonnet
 ```
-![Open Anaconda Shell](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/anaconda_install_python_net.png)
+![Open Anaconda Shell](images/anaconda_install_python_net.png)
 1. ENURE that python .Net Version 3 or greater is installed.
 2. Wait for confirmation python .Net has been installed and then close the Powershell window.
  
@@ -24,7 +24,7 @@ conda install -c conda-forge pythonnet
 
 We can now open JupyterLab directly from the Anaconda Navigator
 
-![Open Jupyter from Anaconda Navigator](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/anaconda_open_juypterlab.png)
+![Open Jupyter from Anaconda Navigator](images/anaconda_open_juypterlab.png)
 
 1. Start a new notebook and use the following code to test
 
