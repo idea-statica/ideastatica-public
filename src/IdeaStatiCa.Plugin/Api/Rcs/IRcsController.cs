@@ -6,7 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System;
 
-namespace IdeaStatiCa.Plugin.Api.Rcs
+namespace IdeaStatiCa.Plugin.Api.RCS
 {
 	public interface IRcsController : IDisposable
 	{

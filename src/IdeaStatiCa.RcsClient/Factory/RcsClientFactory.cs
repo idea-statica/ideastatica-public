@@ -1,5 +1,5 @@
 ﻿using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.Rcs;
+using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.HttpWrapper;
 using System;

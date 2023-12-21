@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.Rcs;
+using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RcsClient.Factory;
 using IdeaStatiCa.RcsClient.Services;

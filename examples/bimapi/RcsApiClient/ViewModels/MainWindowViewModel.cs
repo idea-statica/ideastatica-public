@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.Rcs;
+using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Services;
 using Microsoft.Win32;
