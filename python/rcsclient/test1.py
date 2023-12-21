@@ -1,7 +1,6 @@
 import os
 from ideastatica_rcs_client import idea_statica_setup
 from ideastatica_rcs_client import ideastatica_rcs_client
-from ideastatica_rcs_client import rcsproject
 
 ideaStatiCa_Version = r'23.1'
 

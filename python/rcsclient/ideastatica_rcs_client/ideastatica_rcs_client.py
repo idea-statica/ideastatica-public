@@ -3,8 +3,8 @@ import requests
 import subprocess
 import time
 import xmltodict
-import rcsproject
 import json
+from . import rcsproject 
 
 class ideastatica_rcs_client:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
@@ -18,8 +18,6 @@ class ideastatica_rcs_client:
     def __del__(self):
         if not self.rcsApiProcess is None:
             self.rcsApiProcess.kill()
-
-        print("Object destroyed")
 
     def printServiceDetails(self):
         print(f"TcpPort : {self.tcpPort}")
@@ -39,7 +37,6 @@ class ideastatica_rcs_client:
         response = requests.post(f'http://localhost:{self.tcpPort}/Project/OpenProject', data=binaryData, headers=headers)
         if response.status_code == 200:
             self.projectId = response.text.replace('"', '')
-            print(f'Project opened with id: {self.projectId}')
             self.SetProjectSummary()
             return self.projectId
         else:
