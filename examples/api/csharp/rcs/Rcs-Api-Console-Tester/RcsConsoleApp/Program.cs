@@ -11,6 +11,8 @@ using System.Linq;
 using IdeaRS.OpenModel;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Reflection;
+using System.IO;
 
 namespace RcsApiConsoleApp
 {
@@ -34,11 +36,16 @@ namespace RcsApiConsoleApp
 			if (existingproject)
 			{
 				#region openexisting
+				
+				//Getting the directory path to the sample file in example project.
+				string samplePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
 				//filepath to existing .ideaRcs project
-				string rcsFilePath = "";
+				string rcsFilePath = Path.Combine(samplePath, "SampleFiles\\Reinforced concrete T-section.IdeaRcs");
 
 				//Opens project on the server side to start performing operations
 				bool okay = await client.OpenProjectAsync(rcsFilePath, CancellationToken.None);
+				
 				#endregion
 			}
 			else
