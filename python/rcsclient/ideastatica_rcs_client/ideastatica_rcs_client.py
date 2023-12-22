@@ -89,7 +89,22 @@ class ideastatica_rcs_client:
             return parsed_data
         else:
             raise Exception('Calculation failed')
-        
+
+    def UpdateReinfCssInSection(self, sectionId, newReinfCssId):
+        # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
+        calculationParameters = { "Id": sectionId, "RCSId" : newReinfCssId}
+        json_data = json.dumps(calculationParameters)
+        response = requests.put(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/UpdateSection', json_data,
+            headers={
+                'Content-Type': 'application/json'
+            })
+        if response.status_code == 200:
+            parsed_data = xmltodict.parse(response.text)
+            self.SetProjectSummary()
+            return parsed_data
+        else:
+            raise Exception('Calculation failed')  
+
     @property
     def Project(self) -> rcsproject.RcsProject:
         return self._project
