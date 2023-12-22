@@ -172,14 +172,14 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <inheritdoc cref="IRcsApiController.SaveProjectAsync(string, CancellationToken)"/>
 		public async Task SaveProjectAsync(string outputPath, CancellationToken token = default)
 		{
-			var memoryStream = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/DownloadProject", token);
-			// Ensure the MemoryStream is at the beginning
-			memoryStream.Seek(0, SeekOrigin.Begin);
-
-			// Create a FileStream and copy the MemoryStream data to it
-			using (FileStream fileStream = File.Create(outputPath))
+			using (var rcsProjectStream = await DownloadProjectAsync(token))
 			{
-				memoryStream.CopyTo(fileStream);
+				rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
+				using (FileStream fileStream = File.Create(outputPath))
+				{
+					await rcsProjectStream.CopyToAsync(fileStream);
+				}
+				
 			}
 		}
 
