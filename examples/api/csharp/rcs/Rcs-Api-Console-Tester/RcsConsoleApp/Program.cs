@@ -1,18 +1,14 @@
-﻿using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.Rcs;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
-using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.Factory;
-using System.Threading;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using IdeaRS.OpenModel;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Reflection;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RcsApiConsoleApp
 {

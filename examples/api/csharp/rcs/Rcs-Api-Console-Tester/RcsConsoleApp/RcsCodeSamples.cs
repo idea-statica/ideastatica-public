@@ -1,7 +1,5 @@
-﻿using Grpc.Core;
-#region rcsusings
+﻿#region rcsusings
 using IdeaStatiCa.Plugin.Api.RCS.Model;
-using IdeaStatiCa.Plugin.Api.Rcs;
 using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.Factory;
 #endregion
@@ -9,13 +7,12 @@ using IdeaRS.OpenModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using IdeaStatiCa.Plugin.Api.RCS;
 
 namespace RcsApiConsoleApp
 {
