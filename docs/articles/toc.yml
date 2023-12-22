@@ -5,7 +5,7 @@
   href: ../../examples/readme.md
 - name: NuGet Packages
   href: nugetpackages.md
-- name: Reference
+- name: References
 - name: Diagnostics in IDEA StatiCa Apps
   href: diagnostics.md  
 # Hide release notes as we do not have any yet

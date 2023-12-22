@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.Rcs;
+using IdeaStatiCa.Plugin.Api.RCS;
+using IdeaStatiCa.Plugin.Utilities;
 using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.HttpWrapper;
 using System;
@@ -58,7 +59,8 @@ namespace IdeaStatiCa.RcsClient.Factory
 			{
 				if (rcsRestApiProcess is null)
 				{
-					port = FindAvailablePort(5000, 5100);
+					
+					port = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort, pluginLogger);
 
 					while (port > 0)
 					{
@@ -98,36 +100,6 @@ namespace IdeaStatiCa.RcsClient.Factory
 				pluginLogger.LogDebug($"Created process with Id {rcsRestApiProcess.Id}");
 				return ($"{LOCALHOST_URL}:{port}", rcsRestApiProcess.Id);
 			});
-		}
-
-		// Function to find an available port within a range
-		static int FindAvailablePort(int startPort, int endPort)
-		{
-			for (int port = startPort; port <= endPort; port++)
-			{
-				if (IsPortAvailable(port))
-				{
-					return port;
-				}
-			}
-			return -1; // No available port found
-		}
-
-		// Function to check if a port is available
-		static bool IsPortAvailable(int port)
-		{
-			using (var client = new TcpClient())
-			{
-				try
-				{
-					client.Connect(IPAddress.Loopback, port);
-					return false;
-				}
-				catch (SocketException)
-				{
-					return true;
-				}
-			}
 		}
 
 		public void Dispose()

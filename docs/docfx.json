@@ -6,7 +6,7 @@
           "files": [
             "**IdeaRS.OpenModel.csproj"
           ],
-          "src": "..\\src"
+          "src": "../src"
         }
       ],
       "outputFormat": "apiPage",
@@ -20,7 +20,7 @@
           "files": [
             "**IdeaStatiCa.BimApi.csproj"
           ],
-          "src": "..\\src"
+          "src": "../src"
         }
       ],
       "dest": "api-bimapi",
@@ -34,7 +34,7 @@
           "files": [
             "**IdeaStatiCa.BimApiLink.csproj"
           ],
-          "src": "..\\src"
+          "src": "../src"
         }
       ],
       "dest": "api-bimapilink",
@@ -48,10 +48,24 @@
           "files": [
             "**IdeaStatiCa.Plugin.csproj"
           ],
-          "src": "..\\src"
+          "src": "../src"
         }
       ],
       "dest": "api-plugin",
+      "outputFormat": "apiPage",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    },
+    {
+      "src": [
+        {
+          "files": [
+            "**IdeaStatiCa.RcsClient.csproj"
+          ],
+          "src": "../src"
+        }
+      ],
+      "dest": "api-rcs",
       "outputFormat": "apiPage",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
@@ -73,6 +87,7 @@
       { "files": ["api-bimapi/**.yml", "api-bimapi/index.md" ]},
       { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
       { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
+      { "files": ["api-rcs/**.yml","api-rcs/index.md"]},
       { "files": ["toc.yml", "*.md"]},
       { "files": "**/*.{md|yml}" , "src": "../examples", "dest":"examples"}
     ],

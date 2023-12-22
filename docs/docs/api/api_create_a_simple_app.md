@@ -20,7 +20,7 @@ A simple app is defined by creating a 'one-time' IOM export or conversion from a
 
 The below provides a reference for the information contained below on the anatomy of options for simple app creation.
 
-![simple app diagram](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/simple_app_diagram.png)
+![simple app diagram](images/simple_app_diagram.png)
 
 # Simple App Creation
 
@@ -36,27 +36,27 @@ It is up to the developer to define what features they want to include in the ex
 
 The primary exercise is to convert the base application geometry schema to an IOM Model, which can be read by IDEA StatiCa Connection. 
 
-The [Steel Frame Example](https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM) walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure. 
+The [Steel Frame Example](../../../examples/iom/IOM/readme.md) walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure. 
 
 #### Notes on the Steel Frame Example
 * In the Steel Frame Example only **one** `ConnectionPoint` is defined within the Open Model output. IDEA StatiCa connection only allows for one connection to be imported through IOM (although the program itself does allow multiple connections). This is worth noting when trying to create multiple IDEA StatiCa connection files using this method. A separate IOM `.xml` file will need to be created with all relevant data. 
 
-The [IOM Wiki page](https://github.com/idea-statica/ideastatica-public/wiki/IDEA-OpenModel-(IOM)) provides some further in-depth documentation on more complex aspects of generating an IOM model. 
+The [IOM Wiki page](../iom/iom_getting_started.md) provides some further in-depth documentation on more complex aspects of generating an IOM model. 
 
 ### 3. Extract the IOM Open Model Results (For FEA Apps)
 
 For IOM coming from an FEA application, it is important that an IOM OpenModelResult `.xml/.xmlR` is created. This file provides all the result data required to provide load effects on the connection. 
 
-Again, [Steel Frame Example](https://github.com/idea-statica/ideastatica-public/tree/main/src/Examples/IOM) provides a brief explanation on how this is generated. 
+Again, [Steel Frame Example](../../../examples/iom/IOM/readme.md) provides a brief explanation on how this is generated. 
 
 #### Notes on the Steel Frame Example
 * In contrary to the above, you can reference one single result file for the creation of all connection IOM exports. Result Forces for members not in the connection file will be ignored.
 * The Steel Frame Example provides definitions of load groups, load cases, and load combinations. In practice, if the load combined effects for a load combination can be directly provided you can simply provide these results as a load case. 
 
 The IOM Wiki pages below provide some further in-depth documentation on helping to generate IOM Result Files:
-* [IOM Coordinate System](https://github.com/idea-statica/ideastatica-public/wiki/IOM-Coordinate-Systems)
-* [IOM Member Force Result Data](https://github.com/idea-statica/ideastatica-public/wiki/IOM-Member-Force-Result-Data)
-* [IOM Load Groups, Cases, Combinations](https://github.com/idea-statica/ideastatica-public/wiki/IOM-Load-Groups,-Cases-and-Combinations)
+* [IOM Coordinate System](../iom/iom_coordinate_systems.md)
+* [IOM Member Force Result Data](../iom/iom_open_model_result.md)
+* [IOM Load Groups, Cases, Combinations](../iom/iom_loading.md)
 
 ### 4. Create the IDEA StatiCa Connection file
 
@@ -145,7 +145,6 @@ public static void CreateOnServer(OpenModel model, OpenModelResult openModelResu
 
 ```
 
-
 #### Launching IDEA StatiCa from your App.
 
 Once the .ideaCon file has been created, you can choose to launch the IDEA StatiCa App directly from your application for editing and saving the user from having to open IDEA StatiCa and locate the file.
@@ -215,13 +214,3 @@ public static void SaveModelBIM(ModelBIM modelBim, string filePath)
 }
 
 ```
-
-
-# Further Resources
-
-
-# Simple App Case Studies
-
-* [SPACE GASS](https://github.com/idea-statica/ideastatica-public/wiki/Case-Study:-SPACE-GASS-Simple-App) - A simple FEA Connection App for SpaceGass Structural Analysis Software
-* [KarambaIDEA](https://github.com/BouwenmetStaal/KarambaIDEA) - An OpenSource App which generates IDEA StatiCa Connection files from Rhino and Grasshopper.
-

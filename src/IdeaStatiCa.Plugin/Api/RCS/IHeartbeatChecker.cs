@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace IdeaStatiCa.Plugin.Api.Rcs
+namespace IdeaStatiCa.Plugin.Api.RCS
 {
 	public interface IHeartbeatChecker
 	{
