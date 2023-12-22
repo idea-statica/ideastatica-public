@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.BimApiLink" Version="23.0.4.1320" />
+		<PackageReference Include="IdeaStatiCa.BimApiLink" Version="23.1.2.1027" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
