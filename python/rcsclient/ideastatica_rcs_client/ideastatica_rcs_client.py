@@ -92,14 +92,14 @@ class ideastatica_rcs_client:
 
     def UpdateReinfCssInSection(self, sectionId, newReinfCssId):
         # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
-        calculationParameters = { "Id": sectionId, "RCSId" : newReinfCssId}
-        json_data = json.dumps(calculationParameters)
+        rcsSectionModel = {"Id":sectionId, "RCSId":newReinfCssId}
+        json_data = json.dumps(rcsSectionModel)
         response = requests.put(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/UpdateSection', json_data,
             headers={
                 'Content-Type': 'application/json'
             })
-        if response.status_code == 200:
-            parsed_data = xmltodict.parse(response.text)
+        if response.status_code == 200:  
+            parsed_data = response.json()
             self.SetProjectSummary()
             return parsed_data
         else:

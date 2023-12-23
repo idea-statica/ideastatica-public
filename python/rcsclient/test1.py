@@ -49,12 +49,11 @@ try:
 
     #set reinforced cross-section 2 to the section 1
     updateRes = rcsClient.UpdateReinfCssInSection(1, 2)
-    print(updateRes)
     
     # print all sections in the rcs project
     print('Sections')
     for sec in rcsClient.Project.Sections.values():
-        print(f'secId = {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
+        print(f'secId: {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
 
 except Exception as e:
     message  = str(e)
