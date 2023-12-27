@@ -75,18 +75,26 @@ class RcsProject:
         sectModel = sections['RcsSectionModel']
 
         sectDict = {}
-        for sect in sectModel:
-            sec = RcsSection(sect)
-            sectDict[sec._id] = sec
+        if(type(sectModel) == list):
+            for sect in sectModel:
+                sec = RcsSection(sect)
+                sectDict[sec._id] = sec
+        else:
+            sec = sectModel 
+            sectDict[sec._id] = sec   
 
         self.Sections = sectDict
 
         reinfCss = projectData['ReinforcedCrossSections']
         reinfCssModel = reinfCss['ReinforcedCrossSectionModel']
         reinfCssDict = {}
-        for reinfCssData in reinfCssModel:
-            reinfCss = ReinforcedCss(reinfCssData)
-            reinfCssDict[reinfCss.Id] = reinfCss
+        if(type(reinfCssModel) == list):
+            for reinfCssData in reinfCssModel:
+                newReinfCss = ReinforcedCss(reinfCssData)
+                reinfCssDict[newReinfCss.Id] = newReinfCss
+        else:
+            newReinfCss = ReinforcedCss(reinfCssModel)   
+            reinfCssDict[newReinfCss.Id] = newReinfCss  
 
         self.ReinfCrossSections = reinfCssDict
 
@@ -105,3 +113,8 @@ class RcsProject:
     @ReinfCrossSections.setter
     def ReinfCrossSections(self, value : dict[int, ReinforcedCss]):
         self._reinfCrossSections = value
+
+class ReinfCssImportSetting:
+    def __init__(self, reinfCssId, partsToImport):  
+        self.reinfCssId = reinfCssId
+        self.partsToImport = partsToImport

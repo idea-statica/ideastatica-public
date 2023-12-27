@@ -55,9 +55,7 @@ class ideastatica_rcs_client:
         response = requests.get(f'http://localhost:{self.tcpPort}/Project/{self.projectId}/ProjectSummary', headers={"Content-Type": "application/json"})
         if response.status_code == 200:
             parsed_data = xmltodict.parse(response.text)
-
             self.projectSummaryData = parsed_data[r'RcsProjectSummaryModel']
-
             self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummaryModel'])
 
     def Calculate(self, sectionList):
@@ -103,7 +101,23 @@ class ideastatica_rcs_client:
             self.SetProjectSummary()
             return parsed_data
         else:
-            raise Exception('Calculation failed')  
+            raise Exception('Update failed')
+
+    def ImportReinfCssAsync(self, reinfCssImportSetting : rcsproject.ReinfCssImportSetting, template : str):
+
+        reinfCssImportData = None
+        if(reinfCssImportSetting.reinfCssId is None):
+            reinfCssImportData = {"PartsToImport":reinfCssImportSetting.partsToImport, "Template": template}
+        else:
+            reinfCssImportData = {"ReinfCssId":reinfCssImportSetting.reinfCssId, "PartsToImport":reinfCssImportSetting.partsToImport, "Template": template}
+        
+        json_data = json.dumps(reinfCssImportData)
+        response = requests.post(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/ImportReinfCss', json_data,
+            headers={
+                'Content-Type': 'application/json'
+            })
+        #var result = await httpClient.PostAsync<ReinforcedCrossSectionModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
+
 
     @property
     def Project(self) -> rcsproject.RcsProject:
