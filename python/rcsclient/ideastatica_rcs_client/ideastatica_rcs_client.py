@@ -88,7 +88,7 @@ class ideastatica_rcs_client:
             parsed_data = xmltodict.parse(response.text)
             return parsed_data
         else:
-            raise Exception('Calculation failed')
+            raise Exception('GetResults failed')
 
     def UpdateReinfCssInSection(self, sectionId, newReinfCssId):
         # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
