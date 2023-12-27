@@ -1,6 +1,19 @@
 import os
 from ideastatica_rcs_client import idea_statica_setup
 from ideastatica_rcs_client import ideastatica_rcs_client
+from ideastatica_rcs_client import rcsproject
+
+def print_sections_in_project():
+     # print all sections in the rcs project
+    print("Sections")
+    for sec in rcsClient.Project.Sections.values():
+        print(f'secId: {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
+
+def print_reinfcss_in_project():
+    # print all reinforced cross-sections in the rcs project
+    print('Reinforced cross-sections')
+    for rfCss in rcsClient.Project.ReinfCrossSections.values():
+        print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
 
 ideaStatiCa_Version = r'23.1'
 
@@ -24,16 +37,11 @@ try:
     projectId = rcsClient.OpenProject(rcs_project_file_path)
 
     # print all sections in the rcs project
-    print('Sections')
-    for sec in rcsClient.Project.Sections.values():
-        print(f'secId = {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
+    print_sections_in_project()
 
     # print all reinforced cross-sections in the rcs project
-    print('Reinforced cross-sections')
-    for rfCss in rcsClient.Project.ReinfCrossSections.values():
-        print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
-
-    
+    print_reinfcss_in_project()
+   
     # get IDs of all sections in the rcs project
     secIds = []
     for s in rcsClient.Project.Sections.values():
@@ -47,13 +55,31 @@ try:
     detailResults = rcsClient.GetResults(secIds)
     print(detailResults)
 
-    #set reinforced cross-section 2 to the section 1
-    updateRes = rcsClient.UpdateReinfCssInSection(1, 2)
-    
+    #read a rcs template from NAV file
+    rcs_template_file_path = os.path.join(dir_path, 'templates', 'rect-L-3-2.nav')
+    print(rcs_template_file_path)
+
+    reinfCssTemplate = None
+    with open(rcs_template_file_path, 'r') as file:
+        reinfCssTemplate = file.read()
+
+    # if reinfCssId is None a new reinforced cross-section will be created 
+    importSetting = rcsproject.ReinfCssImportSetting(None, "Complete")
+
+    newReinSect = rcsClient.ImportReinfCss(importSetting, reinfCssTemplate)
+    print("Id of a new reinfoced cross-section", newReinSect.Id)
+
     # print all sections in the rcs project
-    print('Sections')
-    for sec in rcsClient.Project.Sections.values():
-        print(f'secId: {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
+    print_sections_in_project()
+
+    # print all reinforced cross-sections in the rcs project
+    print_reinfcss_in_project()
+
+    #set reinforced cross-section 2 to the section 1
+    updateRes = rcsClient.UpdateReinfCssInSection(1, newReinSect.Id)
+    
+    # print all sections in the rcs project - sect 1 should be changed
+    print_sections_in_project()
 
 except Exception as e:
     message  = str(e)
@@ -63,5 +89,6 @@ except Exception as e:
 finally:
     if not rcsClient is None:
         del rcsClient
+
 
 

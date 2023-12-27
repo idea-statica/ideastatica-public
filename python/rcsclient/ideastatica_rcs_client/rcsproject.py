@@ -115,6 +115,6 @@ class RcsProject:
         self._reinfCrossSections = value
 
 class ReinfCssImportSetting:
-    def __init__(self, reinfCssId, partsToImport):  
+    def __init__(self, reinfCssId, partsToImport):
         self.reinfCssId = reinfCssId
         self.partsToImport = partsToImport
