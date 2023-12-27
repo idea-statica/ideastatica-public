@@ -96,7 +96,7 @@ namespace RcsApiConsoleApp
 				Sections = new List<int>() { sections[0].Id }
 			};
 
-			List<RcsDetailedResultForSection> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
+			List<RcsSectionResultDetailed> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
 
 			JToken parsedJsonResult = JToken.Parse(JsonConvert.SerializeObject(briefResults));
 			string outputresults = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
@@ -127,7 +127,7 @@ namespace RcsApiConsoleApp
 		{
 			#region changereinforcedcrosssection
 			//Get the list of avaliable reinforced cross-sections in the project
-			List<ReinforcedCrossSectionModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
+			List<RcsReinfCssModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
 
 			//Get the list of avaliable sections in the project
 			List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
@@ -147,13 +147,13 @@ namespace RcsApiConsoleApp
 		{
 			#region changereinforcedcsslayout
 			//Get the list of avaliable reinforced cross-sections in the project
-			List<ReinforcedCrossSectionModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
+			List<RcsReinfCssModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
 
 			//Find the reinforced cross-section which we want to update in the project.
-			ReinforcedCrossSectionModel reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
+			RcsReinfCssModel reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
 
 			//Define the import settings
-			ReinfCssImportSetting importSetting = new ReinfCssImportSetting();
+			RcsReinfCssImportSetting importSetting = new RcsReinfCssImportSetting();
 
 			importSetting.ReinfCssId = reinforcedCrossSection.Id;
 			
@@ -171,7 +171,7 @@ namespace RcsApiConsoleApp
 			}
 
 			//Reinforced Cross-section is updated and returned
-			ReinforcedCrossSectionModel updatedSection = await client.ImportReinfCssAsync(importSetting, templateXML, CancellationToken.None); 
+			RcsReinfCssModel updatedSection = await client.ImportReinfCssAsync(importSetting, templateXML, CancellationToken.None); 
 			#endregion
 		}
 
@@ -179,13 +179,13 @@ namespace RcsApiConsoleApp
 		{
 			#region addreinforcedcss
 			//Get the list of avaliable reinforced cross-sections in the project
-			List<ReinforcedCrossSectionModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
+			List<RcsReinfCssModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
 
 			//Find the reinforced cross-section which we want to update in the project.
-			ReinforcedCrossSectionModel reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
+			RcsReinfCssModel reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
 
 			//Define the import settings
-			ReinfCssImportSetting importSetting = new ReinfCssImportSetting();
+			RcsReinfCssImportSetting importSetting = new RcsReinfCssImportSetting();
 
 			//Provide Id of new Refinforced Cross-section
 			importSetting.ReinfCssId = 30;
@@ -203,7 +203,7 @@ namespace RcsApiConsoleApp
 			}
 
 			//Reinforced Cross-section is updated and returned
-			ReinforcedCrossSectionModel newReinforcedCrossSection = await client.ImportReinfCssAsync(importSetting, templateXML, CancellationToken.None);
+			RcsReinfCssModel newReinforcedCrossSection = await client.ImportReinfCssAsync(importSetting, templateXML, CancellationToken.None);
 
 			//We will now want to assign the new reinforced cross-section to a Section.
 

@@ -49,7 +49,7 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="parameters"></param>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<List<RcsDetailedResultForSection>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default);
+		Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default);
 
 		/// <summary>
 		/// Get information summary about the Project
@@ -84,7 +84,7 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<List<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default);
+		Task<List<RcsReinfCssModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default);
 
 		/// <summary>
 		/// Return open project as file stream (*.idearcs)
@@ -132,6 +132,6 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="reinfCssTemplate">Template to import</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Data of the updated reinforced cross-section</returns>
-		Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default);
+		Task<RcsReinfCssModel> ImportReinfCssAsync(RcsReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default);
 	}
 }

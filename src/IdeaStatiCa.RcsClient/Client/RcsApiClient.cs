@@ -125,9 +125,9 @@ namespace IdeaStatiCa.RcsClient.Client
 		}
 		
 		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsResultParameters, CancellationToken)"/>
-		public async Task<List<RcsDetailedResultForSection>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
+		public async Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
 		{
-			return await httpClient.PostAsync<List<RcsDetailedResultForSection>>($"Calculations/{ActiveProjectId}/GetResults", parameters, token, "application/xml");
+			return await httpClient.PostAsync<List<RcsSectionResultDetailed>>($"Calculations/{ActiveProjectId}/GetResults", parameters, token, "application/xml");
 		}
 
 		/// <inheritdoc cref="IRcsApiController.GetProjectSectionsAsync(CancellationToken)  "/>
@@ -145,10 +145,10 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 		/// <inheritdoc cref="IRcsApiController.GetProjectReinforcedCrossSectionsAsync(CancellationToken) "/>
-		public async Task<List<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default)
+		public async Task<List<RcsReinfCssModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectReinforcedCrossSectionsAsync projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<List<ReinforcedCrossSectionModel>>($"Project/{ActiveProjectId}/ProjectReinforcedCrossSections", token);
+			var result = await httpClient.GetAsync<List<RcsReinfCssModel>>($"Project/{ActiveProjectId}/ProjectReinforcedCrossSections", token);
 			return result;
 		}
 
@@ -160,12 +160,12 @@ namespace IdeaStatiCa.RcsClient.Client
 			return result;
 		}
 
-		/// <inheritdoc cref="IRcsApiController.ImportReinfCssAsync(ReinfCssImportSetting, string)"/>
-		public async Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
+		/// <inheritdoc cref="IRcsApiController.ImportReinfCssAsync(RcsReinfCssImportSetting, string)"/>
+		public async Task<RcsReinfCssModel> ImportReinfCssAsync(RcsReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
 		{
-			var data = new ReinfCssImportData(){Setting = importSetting, Template = reinfCssTemplate };
+			var data = new RcsReinfCssImportData(){Setting = importSetting, Template = reinfCssTemplate };
 			pluginLogger.LogDebug($"RcsApiClient.ImportReinfCssAsync projectId = {ActiveProjectId} reinfCssId = {importSetting?.ReinfCssId}");
-			var result = await httpClient.PostAsync<ReinforcedCrossSectionModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
+			var result = await httpClient.PostAsync<RcsReinfCssModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
 			return result;
 		}
 

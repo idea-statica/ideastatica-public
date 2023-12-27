@@ -3,9 +3,9 @@
 	/// <summary>
 	/// A setting of an import of a reinforced css template
 	/// </summary>
-	public class ReinfCssImportSetting
+	public class RcsReinfCssImportSetting
 	{
-		public ReinfCssImportSetting()
+		public RcsReinfCssImportSetting()
 		{
 			PartsToImport = "Complete";
 		}

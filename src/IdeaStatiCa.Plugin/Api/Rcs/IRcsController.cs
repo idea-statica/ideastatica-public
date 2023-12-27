@@ -40,6 +40,6 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="importSetting"></param>
 		/// <param name="reinfCssTemplate"></param>
 		/// <returns></returns>
-		ReinforcedCrossSectionModel ImportReinfCss(ReinfCssImportSetting importSetting, string reinfCssTemplate);
+		RcsReinfCssModel ImportReinfCss(RcsReinfCssImportSetting importSetting, string reinfCssTemplate);
 	}
 }

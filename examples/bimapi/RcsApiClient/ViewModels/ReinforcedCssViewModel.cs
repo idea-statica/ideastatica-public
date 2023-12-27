@@ -8,7 +8,7 @@ namespace RcsApiClient.ViewModels
 		public ReinforcedCssViewModel()
 		{ }
 
-		public ReinforcedCssViewModel(ReinforcedCrossSectionModel reinfCssModel)
+		public ReinforcedCssViewModel(RcsReinfCssModel reinfCssModel)
 		{
 			Id = reinfCssModel.Id;
 			Name = reinfCssModel.Name;

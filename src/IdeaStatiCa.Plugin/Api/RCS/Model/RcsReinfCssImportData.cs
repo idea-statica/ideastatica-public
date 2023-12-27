@@ -3,9 +3,9 @@
 	/// <summary>
 	/// 
 	/// </summary>
-	public class ReinfCssImportData
+	public class RcsReinfCssImportData
 	{
-		public ReinfCssImportSetting Setting { get; set; }
+		public RcsReinfCssImportSetting Setting { get; set; }
 		public string Template { get; set; }
 	}
 }

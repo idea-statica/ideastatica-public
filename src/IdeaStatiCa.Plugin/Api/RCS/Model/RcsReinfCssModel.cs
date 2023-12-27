@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Reinforced cross-section in RCS project
 	/// </summary>
-	public class ReinforcedCrossSectionModel
+	public class RcsReinfCssModel
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

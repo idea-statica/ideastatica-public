@@ -508,7 +508,7 @@ namespace RcsApiClient.ViewModels
 					return;
 				}
 
-				var importSetting = new ReinfCssImportSetting();
+				var importSetting = new RcsReinfCssImportSetting();
 				if (param != null && "New".Equals(param.ToString(), StringComparison.InvariantCultureIgnoreCase))
 				{
 					// create a new reinforced cross-section
