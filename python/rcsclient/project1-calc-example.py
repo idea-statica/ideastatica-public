@@ -16,17 +16,21 @@ def print_reinfcss_in_project():
     for rfCss in rcsClient.Project.ReinfCrossSections.values():
         print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
 
+def get_capacity_check_val(secId, br):
+    capacity = br[str(secId)]["Capacity"]
+    return capacity["CheckValue"]
+
 def print_capacity_check_vals(sectionIds, br):
     for secId in sectionIds:
         try:
-            capacity = br[str(secId)]["Capacity"]
-            print("Section \'{0}\' capacity {1}".format( rcsClient.Project.Sections[secId].Description, capacity["CheckValue"]))
+            print("Section \'{0}\' capacity {1}".format( rcsClient.Project.Sections[secId].Description, get_capacity_check_val(secId, br)))
         except:
             print("No results of capacity check in section", secId)
 
 ideaStatiCa_Version = r'23.1'
 
 ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
+
 
 print(ideaSetupDir)
 
@@ -92,7 +96,12 @@ try:
 
     # re-calculate all sections in the rcs project
     calc2_briefResults = rcsClient.Calculate(secIds)
-    print_capacity_check_vals(secIds, calc2_briefResults)    
+    print_capacity_check_vals(secIds, calc2_briefResults)
+
+    try:
+        print("Calc 1 :", get_capacity_check_val(1, calc1_briefResults), "Calc 2 : ", get_capacity_check_val(1, calc2_briefResults))
+    except Exception as ee:
+        print("error", str(ee) )    
 
 except Exception as e:
     message  = str(e)
