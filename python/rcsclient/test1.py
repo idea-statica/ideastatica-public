@@ -2,6 +2,7 @@ import os
 from ideastatica_rcs_client import idea_statica_setup
 from ideastatica_rcs_client import ideastatica_rcs_client
 from ideastatica_rcs_client import rcsproject
+from ideastatica_rcs_client import brief_result_tools
 
 def print_sections_in_project():
      # print all sections in the rcs project
@@ -14,6 +15,14 @@ def print_reinfcss_in_project():
     print('Reinforced cross-sections')
     for rfCss in rcsClient.Project.ReinfCrossSections.values():
         print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
+
+def print_capacity_check_vals(sectionIds, br):
+    for secId in sectionIds:
+        try:
+            capacity = br[str(secId)]["Capacity"]
+            print("Section \'{0}\' capacity {1}".format( rcsClient.Project.Sections[secId].Description, capacity["CheckValue"]))
+        except:
+            print("No results of capacity check in section", secId)
 
 ideaStatiCa_Version = r'23.1'
 
@@ -48,12 +57,12 @@ try:
         secIds.append(s.Id)
 
     # calculate all sections in the rcs project
-    briefResults = rcsClient.Calculate(secIds)
-    print(briefResults)
+    calc1_briefResults = rcsClient.Calculate(secIds)
+    print_capacity_check_vals(secIds, calc1_briefResults)
 
     # get detail results of all calculated rcs sections
     detailResults = rcsClient.GetResults(secIds)
-    print(detailResults)
+    #print(detailResults)
 
     #read a rcs template from NAV file
     rcs_template_file_path = os.path.join(dir_path, 'templates', 'rect-L-3-2.nav')
@@ -77,9 +86,13 @@ try:
 
     #set reinforced cross-section 2 to the section 1
     updateRes = rcsClient.UpdateReinfCssInSection(1, newReinSect.Id)
-    
+   
     # print all sections in the rcs project - sect 1 should be changed
     print_sections_in_project()
+
+    # re-calculate all sections in the rcs project
+    calc2_briefResults = rcsClient.Calculate(secIds)
+    print_capacity_check_vals(secIds, calc2_briefResults)    
 
 except Exception as e:
     message  = str(e)
@@ -89,6 +102,4 @@ except Exception as e:
 finally:
     if not rcsClient is None:
         del rcsClient
-
-
 

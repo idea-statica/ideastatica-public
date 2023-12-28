@@ -5,6 +5,7 @@ import time
 import xmltodict
 import json
 from . import rcsproject 
+from . import brief_result_tools
 
 class ideastatica_rcs_client:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
@@ -69,7 +70,8 @@ class ideastatica_rcs_client:
             })
         if response.status_code == 200:
             parsed_data = xmltodict.parse(response.text)
-            return parsed_data
+            brief_results = brief_result_tools.get_checks_in_section(parsed_data)
+            return brief_results
         else:
             raise Exception('Calculation failed')
 
