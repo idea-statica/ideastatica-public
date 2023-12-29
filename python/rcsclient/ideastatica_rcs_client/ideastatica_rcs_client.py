@@ -17,6 +17,7 @@ class ideastatica_rcs_client:
         time.sleep(5)
 
     def __del__(self):
+        # stop a process IdeaStatiCa.RcsRestApi.exe if it is running  
         if not self.rcsApiProcess is None:
             self.rcsApiProcess.kill()
 
@@ -106,7 +107,7 @@ class ideastatica_rcs_client:
             raise Exception('Update failed')
 
     def ImportReinfCss(self, reinfCssImportSetting : rcsproject.ReinfCssImportSetting, template : str):
-
+        # import an rcs template into the active project
         reinfCssImportData = None
         if(reinfCssImportSetting.reinfCssId is None):
             reinfCssImportData = {"Setting": {"PartsToImport":reinfCssImportSetting.partsToImport}, "Template": template}
@@ -131,6 +132,7 @@ class ideastatica_rcs_client:
 
     @property
     def Project(self) -> rcsproject.RcsProject:
+        # get the active RCS project
         return self._project
         
     @Project.setter
