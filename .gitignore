@@ -359,3 +359,5 @@ src/Examples/ConnHiddenCalc/ConnectionAutomationApp/Properties/Resources.*.resx
 src/Examples/ConnHiddenCalc/ConnectionHiddenCalculation/Properties/Resources.*.resx
 
 !FolderProfile.pubxml
+python/rcsclient/ideastatica_rcs_client/ideastatica_rcs_client.egg-info
+python/rcsclient/dist
