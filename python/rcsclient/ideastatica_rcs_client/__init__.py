@@ -1,0 +1,1 @@
+print("ideastatica_rcs_client package initialized")
