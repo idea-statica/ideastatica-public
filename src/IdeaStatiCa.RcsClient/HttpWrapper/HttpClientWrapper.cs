@@ -49,7 +49,8 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 		{
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
-				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
+				var json = JsonConvert.SerializeObject(requestData);
+				using (var content = new StringContent(json, encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";
 					var url = baseUrl + "/" + requestUri;
