@@ -71,7 +71,7 @@ namespace IdeaStatiCa.RcsClient.Client
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
 
 			ActiveProjectId = await httpClient.PostAsyncStream<Guid>("Project/CreateProjectFromIOMFile", streamContent, token);
-			pluginLogger.LogDebug($"RcsApiClient.OpenProjectAsync projectId = {ActiveProjectId}");
+			pluginLogger.LogDebug($"RcsApiClient.CreateProjectFromIOMFile projectId = {ActiveProjectId}");
 
 			return true;
 		}
@@ -79,8 +79,8 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <inheritdoc cref="IRcsApiController.CreateProjectFromIOMAsync(OpenModel, CancellationToken) "/>
 		public async Task<bool> CreateProjectFromIOMAsync(OpenModel model, CancellationToken token = default)
 		{
-			pluginLogger.LogDebug("RcsApiClient.OpenProjectFromModelAsync");
-			ActiveProjectId = await httpClient.PostAsync<Guid>("Project/OpenProjectFromModel", model, token);
+			pluginLogger.LogDebug("RcsApiClient.CreateProjectFromIOM");
+			ActiveProjectId = await httpClient.PostAsync<Guid>("Project/CreateProjectFromIOM", model, token);
 			return true;
 		}
 
