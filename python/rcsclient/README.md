@@ -1,4 +1,4 @@
-# Python client id IDEA StatiCa RCS API
+# Python client of IDEA StatiCa RCS API
 
 the example __project1-calc-example.py__ shows how to open an RCS project [Project1.IdeaRcs](projects/Project1.IdeaRcs), calculate it, import a new reinforced cross-section from a NAF template and recalculate the rcs project
 
