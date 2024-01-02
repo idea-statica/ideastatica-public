@@ -8,8 +8,9 @@ def get_checks_in_section(briefResults):
 
 def get_check_value(briefResults, checkType, sectionId):
     # extract a check value from a check from an instance of brief results (brief results are provided by function Calculate)
-    capacity = briefResults[str(sectionId)][checkType]
-    capacity_check_val = float(capacity["CheckValue"]) 
+    check = briefResults[str(sectionId)][checkType]
+    capacity_check_val = float(check["CheckValue"])
+    return capacity_check_val
 
 def print_sections_in_project(rcs_project):
      # print all sections in the rcs project
