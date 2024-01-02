@@ -20,7 +20,7 @@ try:
     # try to open an project
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    rcs_project_file_path = r"..\\..\\..\\..\\python\\rcsclient\\projects\\Project1.IdeaRcs"
+    rcs_project_file_path = os.path.join(dir_path, "Project1.IdeaRcs")
     print(rcs_project_file_path)
 
     projectId = rcsClient.OpenProject(rcs_project_file_path)
