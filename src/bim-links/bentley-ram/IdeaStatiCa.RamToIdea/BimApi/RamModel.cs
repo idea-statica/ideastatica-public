@@ -47,6 +47,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			return new OriginSettings()
 			{
+				CheckEquilibrium = true,
 				CountryCode = _countryCode,
 				ProjectName = _model.strProjectName
 			};
