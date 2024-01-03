@@ -9,12 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Public" Version="23.1.3.437" />
-    <PackageReference Include="IdeaStatiCa.SAF2IOM" Version="23.1.3.437" />
+    <PackageReference Include="IdeaStatiCa.Public" Version="23.1.3.685" />
+    <PackageReference Include="IdeaStatiCa.SAF2IOM" Version="23.1.3.685" />
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.PluginLogger" Version="23.1.3.437" />
+	<PackageReference Include="IdeaStatiCa.PluginLogger" Version="23.1.3.685" />
   </ItemGroup>
 	
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
