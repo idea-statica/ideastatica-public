@@ -4,33 +4,9 @@ from ideastatica_rcs_client import ideastatica_rcs_client
 from ideastatica_rcs_client import rcsproject
 from ideastatica_rcs_client import brief_result_tools
 
-def print_sections_in_project():
-     # print all sections in the rcs project
-    print("Sections")
-    for sec in rcsClient.Project.Sections.values():
-        print(f'secId: {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
-
-def print_reinfcss_in_project():
-    # print all reinforced cross-sections in the rcs project
-    print('Reinforced cross-sections')
-    for rfCss in rcsClient.Project.ReinfCrossSections.values():
-        print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')
-
-def get_capacity_check_val(secId, br):
-    capacity = br[str(secId)]["Capacity"]
-    return capacity["CheckValue"]
-
-def print_capacity_check_vals(sectionIds, br):
-    for secId in sectionIds:
-        try:
-            print("Section \'{0}\' capacity {1}".format( rcsClient.Project.Sections[secId].Description, get_capacity_check_val(secId, br)))
-        except:
-            print("No results of capacity check in section", secId)
-
 ideaStatiCa_Version = r'23.1'
 
 ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
-
 
 print(ideaSetupDir)
 
@@ -50,10 +26,10 @@ try:
     projectId = rcsClient.OpenProject(rcs_project_file_path)
 
     # print all sections in the rcs project
-    print_sections_in_project()
+    brief_result_tools.print_sections_in_project(rcsClient.Project)
 
     # print all reinforced cross-sections in the rcs project
-    print_reinfcss_in_project()
+    brief_result_tools.print_reinfcss_in_project(rcsClient.Project)
    
     # get IDs of all sections in the rcs project
     secIds = []
@@ -62,7 +38,7 @@ try:
 
     # calculate all sections in the rcs project
     calc1_briefResults = rcsClient.Calculate(secIds)
-    print_capacity_check_vals(secIds, calc1_briefResults)
+    brief_result_tools.print_capacity_check_vals(rcsClient.Project, secIds, calc1_briefResults)
 
     # get detail results of all calculated rcs sections
     detailResults = rcsClient.GetResults(secIds)
@@ -83,23 +59,23 @@ try:
     print("Id of a new reinfoced cross-section", newReinSect.Id)
 
     # print all sections in the rcs project
-    print_sections_in_project()
+    brief_result_tools.print_sections_in_project(rcsClient.Project)
 
     # print all reinforced cross-sections in the rcs project
-    print_reinfcss_in_project()
+    brief_result_tools.print_reinfcss_in_project(rcsClient.Project)
 
     #set reinforced cross-section 2 to the section 1
     updateRes = rcsClient.UpdateReinfCssInSection(1, newReinSect.Id)
    
     # print all sections in the rcs project - sect 1 should be changed
-    print_sections_in_project()
+    brief_result_tools.print_sections_in_project(rcsClient.Project)
 
     # re-calculate all sections in the rcs project
     calc2_briefResults = rcsClient.Calculate(secIds)
-    print_capacity_check_vals(secIds, calc2_briefResults)
+    brief_result_tools.print_capacity_check_vals(rcsClient.Project, secIds, calc2_briefResults)
 
     try:
-        print("Calc 1 :", get_capacity_check_val(1, calc1_briefResults), "Calc 2 : ", get_capacity_check_val(1, calc2_briefResults))
+        print("Calc 1 :", brief_result_tools.get_check_value(calc1_briefResults, "Capacity", 1), "Calc 2 : ", brief_result_tools.get_check_value(calc2_briefResults, "Capacity", 1))
     except Exception as ee:
         print("error", str(ee) )    
 
