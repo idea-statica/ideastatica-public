@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 using PluginConstants = IdeaStatiCa.Plugin.Constants;
 using IdeaStatiCa.RcsClient.Client;
 using System.Threading;
+using IdeaRS.OpenModel;
+using System.Xml;
 
 namespace IdeaStatiCa.RcsClient.HttpWrapper
 {
@@ -88,9 +90,8 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
-				using (var content = new StringContent(JsonConvert.SerializeObject(requestData), encoding: Encoding.UTF8, "application/json"))
+				using (var content = GetStringContent(requestData))
 				{
-					content.Headers.ContentType.CharSet = "";
 					var url = baseUrl + "/" + requestUri;
 					try
 					{
@@ -201,6 +202,26 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			{
 				return (TResult)serializer.Deserialize(reader);
 			}
+		}
+
+		private StringContent GetStringContent(object requestContent)
+		{
+			if (requestContent is OpenModel openModel)
+			{
+				XmlSerializer serializer = new XmlSerializer(typeof(OpenModel));
+				StringWriter stringWriter = new StringWriter();
+				using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { Encoding = Encoding.UTF8 }))
+				{
+					serializer.Serialize(xmlWriter, openModel);
+				}
+
+				string serializedXml = stringWriter.ToString().Replace("utf-16", "utf-8");
+				return new StringContent(serializedXml, encoding: Encoding.UTF8, "application/xml");
+			}
+
+			var content = new StringContent(JsonConvert.SerializeObject(requestContent), encoding: Encoding.UTF8, "application/json");
+			content.Headers.ContentType.CharSet = "";
+			return content;
 		}
 	}
 }

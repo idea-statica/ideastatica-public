@@ -27,7 +27,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			_loadsProvider = loadsProvider;
 			_geometry = geometry;
 			_countryCode = countryCode;
-
+			
 			_members = GetAllMembers().ToHashSet();
 		}
 
