@@ -27,7 +27,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 			_loadsProvider = loadsProvider;
 			_geometry = geometry;
 			_countryCode = countryCode;
-
+			
 			_members = GetAllMembers().ToHashSet();
 		}
 
@@ -47,6 +47,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			return new OriginSettings()
 			{
+				CheckEquilibrium = true,
 				CountryCode = _countryCode,
 				ProjectName = _model.strProjectName
 			};
