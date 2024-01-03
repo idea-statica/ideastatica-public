@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.RcsClient.Factory;
 using IomToRcsExamples;
 
@@ -8,36 +9,49 @@ namespace IomToRcsExampleRunner
 	{
 		static async Task Main(string[] args)
 		{
-			//Lets Create the Open Model 
+			IRcsApiController? client = null;
+			try
+			{
+				//Lets Create the Open Model 
 
-			var exampleToSave = RcsExampleBuilder.Example.ReinforcedBeam;
+				var exampleToSave = RcsExampleBuilder.Example.ReinforcedBeam;
 
-			OpenModel openModel = RcsExampleBuilder.BuildExampleModel(exampleToSave);
+				OpenModel openModel = RcsExampleBuilder.BuildExampleModel(exampleToSave);
 
-			string path = Path.Combine(exampleToSave.ToString() + ".xml");
+				string path = Path.Combine(exampleToSave.ToString() + ".xml");
 
-			openModel.SaveToXmlFile(path);
+				openModel.SaveToXmlFile(path);
 
-			#region Create Rcs Project
+				#region Create Rcs Project
 
-			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\net6.0-windows";
+				//string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\net6.0-windows";
+				string directoryPath = "C:\\Dev\\IdeaStatiCa\\bin\\Debug\\net6.0-windows";
 
-			var rcsClientFactory = new RcsClientFactory(directoryPath);
+				var rcsClientFactory = new RcsClientFactory(directoryPath);
 
-			var client = await rcsClientFactory.CreateRcsApiClient();
+				client = await rcsClientFactory.CreateRcsApiClient();
 
-			var created = client.CreateProjectFromIOMAsync(openModel, CancellationToken.None);
+				var created = await client.CreateProjectFromIOMAsync(openModel, CancellationToken.None);
 
-			//var created2 = await client.CreateProjectFromIOMFileAsync("IomToRcsExampleRunner.xml", CancellationToken.None);
-			//"IomToRcsExampleRunner.xml"
+				//var created2 = await client.CreateProjectFromIOMFileAsync("IomToRcsExampleRunner.xml", CancellationToken.None);
+				//"IomToRcsExampleRunner.xml"
 
-			string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+				string savePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-		
-			//await client.SaveProjectAsync(Path.Combine(savePath, exampleToSave.ToString() + ".ideaRcs"), CancellationToken.None);
 
-			//client.OpenProjectAsync();
-			#endregion
+				await client.SaveProjectAsync(Path.Combine(savePath, exampleToSave.ToString() + ".ideaRcs"), CancellationToken.None);
+
+				//client.OpenProjectAsync();
+				#endregion
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
+			}
+			finally
+			{
+				client?.Dispose();
+			}
 		}
 
 	}
