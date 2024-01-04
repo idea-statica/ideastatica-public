@@ -1,0 +1,53 @@
+name: Deploy
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  BuildAndTest:
+    name: "Build and Create IOM"
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ 'refs/tags/<tag_name>' }}
+        
+    - name: Setup .NET
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Setup nuget.exe
+      uses: NuGet/setup-nuget@v1
+      
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1.2
+
+    - name: Nuget restore dependencies
+      run: nuget restore ./src/IdeaStatiCa.Public.sln
+      working-directory: main
+
+    - name: Build
+      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+      working-directory: main
+
+    - name: 'Upload RcsApiClient'
+      uses: actions/upload-artifact@v3
+      with:
+        name: RcsApiClient
+        path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
+    
+    - name: Create release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ 'refs/tags/<tag_name>' }}
+        prerelease: false
+    
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1
+      with:
+        asset_path: path/to/artifact
+        asset_name: RcsApiClient
+        asset_content_type: application/zip
+        release_tag: ${{ 'refs/tags/<tag_name>' }}
+      
