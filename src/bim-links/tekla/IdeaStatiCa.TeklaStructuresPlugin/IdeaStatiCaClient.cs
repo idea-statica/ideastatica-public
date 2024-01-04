@@ -32,7 +32,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			builder.RegisterType<MemberImporter>().SingleInstance().AsImplementedInterfaces();
 			builder.RegisterType<ConnectedMemberImporter>().SingleInstance().AsImplementedInterfaces();
 			builder.RegisterType<ConnectionImporter>().SingleInstance().AsImplementedInterfaces();
-			//builder.RegisterType<PlateImporter>().SingleInstance().AsImplementedInterfaces();
+			builder.RegisterType<PlateImporter>().SingleInstance().AsImplementedInterfaces();
+
 			//builder.RegisterType<FoldedPlateImporter>().SingleInstance().AsImplementedInterfaces();
 			//builder.RegisterType<NegativePlateImporter>().SingleInstance().AsImplementedInterfaces();
 			//builder.RegisterType<WeldImporter>().SingleInstance().AsImplementedInterfaces();

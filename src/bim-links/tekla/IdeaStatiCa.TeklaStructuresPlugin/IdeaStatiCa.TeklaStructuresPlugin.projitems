@@ -9,6 +9,7 @@
     <Import_RootNamespace>IdeaStatiCa.TeklaStructuresPlugin</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Plate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\BaseImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\ConnectedMemberImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\ConnectionImporter.cs" />
@@ -16,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Importers\MaterialImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\MemberImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\NodeImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\PlateImporter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModelClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TeklaStructuresApplication.cs" />

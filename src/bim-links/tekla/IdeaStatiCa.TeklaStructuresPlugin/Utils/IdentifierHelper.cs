@@ -42,13 +42,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			}
 			else if (teklaObject is TS.ContourPlate plate)
 			{
-				//AddIdentifier<IIdeaPlate>(identifiers, teklaObject, plate.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaPlate>(identifiers, teklaObject, plate.Identifier.GUID.ToString());
 			}
 			else if ((teklaObject is TS.Beam beamAsPlate
 						&& StiffeningMemberFilterl(beamAsPlate)
 						&& BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate)))
 			{
-				//AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
 
 			}
 			if (teklaObject is BoltGroup)
