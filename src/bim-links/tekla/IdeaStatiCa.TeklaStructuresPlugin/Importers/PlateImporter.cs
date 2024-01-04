@@ -1,17 +1,17 @@
-﻿using IdeaStatiCa.BimApi;
+﻿using CI.Geometry3D;
+using IdeaRS.OpenModel.Geometry2D;
+using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
-using IdeaRS.OpenModel.Geometry2D;
 using System;
 using System.Collections;
-using TSM = Tekla.Structures.Model;
-using TSG = Tekla.Structures.Geometry3d;
-using TS = Tekla.Structures;
-using WM = System.Windows.Media.Media3D;
 using System.Collections.Generic;
-using CI.Geometry3D;
-using IdeaStatiCa.BimApiLink.Utils;
-using IdeaStatiCa.TeklaStructuresPlugin.Utilities;
+using Tekla.Structures.Catalogs;
+using TS = Tekla.Structures;
+using TSG = Tekla.Structures.Geometry3d;
+using TSM = Tekla.Structures.Model;
+using WM = System.Windows.Media.Media3D;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 {
@@ -30,9 +30,23 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			PlugInLogger.LogInformation($"PlateImporter create '{id}'");
 			var item = Model.GetItemByHandler(id);
 
-			if (item is Tekla.Structures.Model.Part part)
+			//BooleanPart OperativePart id aways point again on booleanPart so now rewrite item by operative part (real ContourPlate/beam)
+			if (item is TSM.BooleanPart boolean)
+			{
+				item = boolean.OperativePart;
+			}
+
+			if (item is Tekla.Structures.Model.ContourPlate part)
 			{
 				return CreatePlateFromSolid(part);
+			}
+			else if (item is TSM.Beam beamPart)
+			{
+				return AddBeamPart(beamPart);
+			}
+			else if (item is TSM.PolyBeam polyBeamPart)
+			{
+				return AddBeamPart(polyBeamPart);
 			}
 
 			return null;
@@ -41,6 +55,49 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		internal WM.Vector3D ToMediaVector(TSG.Vector src)
 		{
 			return new WM.Vector3D(src.X, src.Y, src.Z);
+		}
+
+		private Plate AddBeamPart(TSM.Beam beam)
+		{
+			LibraryProfileItem profileItem = new LibraryProfileItem();
+			profileItem.Select(beam.Profile.ProfileString);
+			switch (profileItem.ProfileItemType)
+			{
+				case ProfileItem.ProfileItemTypeEnum.PROFILE_UNKNOWN:
+					{
+						ParametricProfileItem paramProfileItem = new ParametricProfileItem();
+						if (paramProfileItem.Select(beam.Profile.ProfileString))
+						{
+							ProfileItem.ProfileItemTypeEnum paramProfItemType = paramProfileItem.ProfileItemType;
+
+							if (paramProfItemType == ProfileItem.ProfileItemTypeEnum.PROFILE_PL)
+							{
+								return CreatePlateFromSolid(beam);
+							}
+
+						}
+
+						return null;
+					}
+				default:
+					return null;
+			}
+		}
+
+		private Plate AddBeamPart(TSM.PolyBeam beam)
+		{
+			LibraryProfileItem profileItem = new LibraryProfileItem();
+			profileItem.Select(beam.Profile.ProfileString);
+			switch (profileItem.ProfileItemType)
+			{
+				case ProfileItem.ProfileItemTypeEnum.PROFILE_UNKNOWN:
+					{
+						return CreatePlateFromSolid(beam);
+
+					}
+				default:
+					return null;
+			}
 		}
 
 		private Plate CreatePlateFromSolid(TSM.Part part)
@@ -110,7 +167,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 				origin = new TSG.Point((centLineStart.X + centLineEnd.X) / 2, (centLineStart.Y + centLineEnd.Y) / 2, (centLineStart.Z + centLineEnd.Z) / 2);
 			}
-	
+
 			plate.OriginNo = Model.GetPointId(origin);
 
 			WM.Vector3D pltAxisX = ToMediaVector(partCs.AxisX);

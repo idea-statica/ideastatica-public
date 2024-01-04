@@ -26,21 +26,37 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		public override IIdeaMember1D Create(string id)
 		{
 			PlugInLogger.LogInformation($"MemberImporter create {id}");
-			Part member = (Part)Model.GetItemByHandler(id);
+			var member = Model.GetItemByHandler(id);
 			if (member == null)
 			{
 				PlugInLogger.LogInformation($"MemberImporter not found member {id}");
 				return null;
 			}
 
-			return new BimApi.Member1D(id)
+			//BooleanPart OperativePart id aways point again on booleanPart so now rewrite item by operative part (real ContourPlate/beam)
+			if (member is BooleanPart boolean)
 			{
-				Type = GetMemberType(member),
-				CrossSectionNo = $"{member.Profile.ProfileString};{member.Material.MaterialString}",
-				Elements = new System.Collections.Generic.List<IIdeaElement1D>() { CreateElements(member) },
-				Length = GetMemberLength(member),
-				Name = $"{member.Name} {member.AssemblyNumber.Prefix}{member.AssemblyNumber.StartNumber} {member.PartNumber.Prefix}{member.AssemblyNumber.StartNumber}",
-			};
+				member = boolean.OperativePart;
+			}
+
+			if (member is Part beam)
+			{
+				return new BimApi.Member1D(id)
+				{
+					Type = GetMemberType(beam),
+					CrossSectionNo = $"{beam.Profile.ProfileString};{beam.Material.MaterialString}",
+					Elements = new System.Collections.Generic.List<IIdeaElement1D>() { CreateElements(beam) },
+					Length = GetMemberLength(beam),
+					Name = $"{beam.Name} {beam.AssemblyNumber.Prefix}{beam.AssemblyNumber.StartNumber} {beam.PartNumber.Prefix}{beam.AssemblyNumber.StartNumber}",
+				};
+			}
+			else
+			{
+				PlugInLogger.LogInformation($"MemberImporter not found member {id}");
+				return null;
+			}
+
+
 		}
 		protected (CoordSystemByVector LCS, double Rotation) GetLCSAndRotation(Part member)
 		{

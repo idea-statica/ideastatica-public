@@ -27,7 +27,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 						identifiers.Add(new ConnectedMemberIdentifier<IIdeaConnectedMember>(beamPart.Identifier.GUID.ToString()));
 					}
 				}
-				return identifiers;
 			}
 			else if (teklaObject is TS.PolyBeam polybeamPart)
 			{
@@ -65,15 +64,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			}
 			else if (teklaObject is TS.CutPlane cutPlane)
 			{
-				//AddIdentifier<IIdeaCut>(identifiers, teklaObject, cutPlane.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaCut>(identifiers, teklaObject, cutPlane.Identifier.GUID.ToString());
 			}
 			else if (teklaObject is TS.Fitting fitting)
 			{
-				//AddIdentifier<IIdeaCut>(identifiers, teklaObject, fitting.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaCut>(identifiers, teklaObject, fitting.Identifier.GUID.ToString());
 			}
 			else if (teklaObject is TS.BooleanPart booleanPart && booleanPart.Type == TS.BooleanPart.BooleanTypeEnum.BOOLEAN_CUT)
 			{
-				//AddIdentifier<IIdeaCut>(identifiers, teklaObject, booleanPart.Identifier.GUID.ToString());
+				AddIdentifier<IIdeaCut>(identifiers, teklaObject, booleanPart.Identifier.GUID.ToString());
 			}
 
 
