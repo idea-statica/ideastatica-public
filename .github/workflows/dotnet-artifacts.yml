@@ -32,7 +32,7 @@ jobs:
       working-directory: main
 
     - name: 'Upload ConnectionHiddenCalculation'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ConnectionHiddenCalculation
         path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/bin/Release/net48
@@ -40,7 +40,7 @@ jobs:
         if-no-files-found: error
 
     - name: 'Upload ConnectionAutomationApp'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ConnectionAutomationApp
         path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionAutomationApp/bin/Release/net48
@@ -48,7 +48,7 @@ jobs:
         if-no-files-found: error
 
     - name: 'Upload FEAppExample'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: FEAppExample
         path: ${{ github.workspace }}/main/src/Examples/CCM/FEAppExample_1/bin/Release
@@ -56,7 +56,7 @@ jobs:
         if-no-files-found: error
 
     - name: 'Upload IdeaRstabPlugin'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: IdeaRstabPlugin
         path: ${{ github.workspace }}/main/src/bim-links/rstab/IdeaRstabPlugin/bin/Release
@@ -64,7 +64,7 @@ jobs:
         if-no-files-found: error
 
     - name: 'Upload SAF2IOM'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: SAF2IOM
         path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/bin/Release/net48/
@@ -72,7 +72,7 @@ jobs:
         if-no-files-found: error
 
     - name: 'Upload RcsApiClient'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: RcsApiClient
         path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
@@ -88,7 +88,7 @@ jobs:
     #  working-directory: main
 
     #- name: 'Upload SAF2IOM'
-    #  uses: actions/upload-artifact@v2
+    #  uses: actions/upload-artifact@v3
     #  with:
     #    name: SAF2IOM
     #    path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/bin/Release
