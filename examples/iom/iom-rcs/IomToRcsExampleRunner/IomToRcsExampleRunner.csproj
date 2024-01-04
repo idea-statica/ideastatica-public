@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.PluginLogger.csproj" />
+		<ProjectReference Include="..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
 		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
 	</ItemGroup>
