@@ -36,7 +36,6 @@ jobs:
       with:
         name: ConnectionHiddenCalculation
         path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionHiddenCalculation/bin/Release/net48
-        permissions: read
         if-no-files-found: error
 
     - name: 'Upload ConnectionAutomationApp'
@@ -44,7 +43,6 @@ jobs:
       with:
         name: ConnectionAutomationApp
         path: ${{ github.workspace }}/main/examples/api/csharp/connection/Connection-API-WinForm-Tester/ConnectionAutomationApp/bin/Release/net48
-        permissions: read
         if-no-files-found: error
 
     - name: 'Upload FEAppExample'
@@ -52,7 +50,6 @@ jobs:
       with:
         name: FEAppExample
         path: ${{ github.workspace }}/main/src/Examples/CCM/FEAppExample_1/bin/Release
-        permissions: read
         if-no-files-found: error
 
     - name: 'Upload IdeaRstabPlugin'
@@ -60,7 +57,6 @@ jobs:
       with:
         name: IdeaRstabPlugin
         path: ${{ github.workspace }}/main/src/bim-links/rstab/IdeaRstabPlugin/bin/Release
-        permissions: read
         if-no-files-found: error
 
     - name: 'Upload SAF2IOM'
@@ -68,7 +64,6 @@ jobs:
       with:
         name: SAF2IOM
         path: ${{ github.workspace }}/main/examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/bin/Release/net48/
-        permissions: read
         if-no-files-found: error
 
     - name: 'Upload RcsApiClient'
@@ -76,7 +71,6 @@ jobs:
       with:
         name: RcsApiClient
         path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
-        permissions: read
         if-no-files-found: error
 
     #- name: Nuget restore dependencies
