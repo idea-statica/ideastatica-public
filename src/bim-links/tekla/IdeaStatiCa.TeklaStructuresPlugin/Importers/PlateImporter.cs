@@ -260,7 +260,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		public virtual Plate GetPlateInstace(TSM.Part part)
 		{
-			return new Plate(part.Identifier.GUID.ToString());
+			return new Plate(part.Identifier.ID)
+			{
+				
+			};
 		}
 	}
 }

@@ -23,5 +23,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 			No = no;
 			Name = $"P{No}";
 		}
+
+		public Plate(int no)
+			:base(no)
+		{
+			No = no.ToString();
+			Name = $"P{no}";
+		}
 	}
 }
