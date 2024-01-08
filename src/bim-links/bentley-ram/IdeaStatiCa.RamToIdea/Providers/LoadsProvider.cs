@@ -23,6 +23,12 @@ namespace IdeaStatiCa.RamToIdea.Providers
 			for (int i = 0; i < count; i++)
 			{
 				var lc = ramLoadCases.GetAt(i);
+				if(lc.eAnalyzedState == EStateStatus.eStateNotAvail || lc.eAnalyzedState == EStateStatus.eStateNotCurrent || lc.lAnalyzeNo == -1)
+				{
+					System.Diagnostics.Debug.WriteLine($"Skipping load case {lc.lUID}");
+					continue;
+				}
+
 				System.Diagnostics.Debug.WriteLine($"Load case {lc.lUID} - {lc.eAnalyzedState}");
 				loadCases.Add(lc);
 			}
