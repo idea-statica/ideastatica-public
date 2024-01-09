@@ -87,7 +87,7 @@ namespace RcsApiConsoleApp
 			#region sectionresults
 			
 			//Get List of Sections
-			List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+			List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
 
 			//Set Detailed Result Parameters
 			//Selecting only the first section in the Project
@@ -127,19 +127,19 @@ namespace RcsApiConsoleApp
 		{
 			#region changereinforcedcrosssection
 			//Get the list of avaliable reinforced cross-sections in the project
-			List<RcsReinfCssModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
+			List<RcsReinforcedCrossSection> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
 
 			//Get the list of avaliable sections in the project
-			List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+			List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
 
 			//Find the section inwhich we want to update. In this case there is a Section with the Name 'SectionA'
-			RcsSectionModel sectionToUpdate = sections.Where(x => x.Name == "SectionA").First();
+			RcsSection sectionToUpdate = sections.Where(x => x.Name == "SectionA").First();
 
 			//Find the reinforced cross-section which we want to set to the section.
 			sectionToUpdate.RCSId = reinforcedCrossSections.Where(x => x.Name == "RCS2").First().Id;
 
 			//Section is updated and returned
-			RcsSectionModel updatedSection = await client.UpdateSectionAsync(sectionToUpdate, CancellationToken.None);
+			RcsSection updatedSection = await client.UpdateSectionAsync(sectionToUpdate, CancellationToken.None);
 			#endregion
 		}
 
@@ -147,19 +147,19 @@ namespace RcsApiConsoleApp
 		{
 			#region changereinforcedcsslayout
 			//Get the list of avaliable reinforced cross-sections in the project
-			List<RcsReinfCssModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
+			List<RcsReinforcedCrossSection> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
 
 			//Find the reinforced cross-section which we want to update in the project.
-			RcsReinfCssModel reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
+			var reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
 
 			//Define the import settings
-			RcsReinfCssImportSetting importSetting = new RcsReinfCssImportSetting();
-
-			importSetting.ReinfCssId = reinforcedCrossSection.Id;
-			
-			//We can choose between 'Reinf', 'Css' or 'Tendon' or 'Complete'
-			importSetting.PartsToImport = "Reinf";
-
+			var importSetting = new RcsReinforcedCrosssSectionImportSetting
+			{
+				ReinforcedCrossSectionId = reinforcedCrossSection.Id,
+				//We can choose between 'Reinf', 'Css' or 'Tendon' or 'Complete'
+				PartsToImport = "Reinf"
+			};
+		
 			//Filepath to nav file
 			string navFilePath = "templatePath.nav";
 			string templateXML = "";
@@ -171,7 +171,7 @@ namespace RcsApiConsoleApp
 			}
 
 			//Reinforced Cross-section is updated and returned
-			RcsReinfCssModel updatedSection = await client.ImportReinfCssAsync(importSetting, templateXML, CancellationToken.None); 
+			var updatedSection = await client.ImportReinforcedCrossSectionAsync(importSetting, templateXML, CancellationToken.None); 
 			#endregion
 		}
 
@@ -179,19 +179,18 @@ namespace RcsApiConsoleApp
 		{
 			#region addreinforcedcss
 			//Get the list of avaliable reinforced cross-sections in the project
-			List<RcsReinfCssModel> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
+			List<RcsReinforcedCrossSection> reinforcedCrossSections = await client.GetProjectReinforcedCrossSectionsAsync(CancellationToken.None);
 
 			//Find the reinforced cross-section which we want to update in the project.
-			RcsReinfCssModel reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
+			RcsReinforcedCrossSection reinforcedCrossSection = reinforcedCrossSections.Where(x => x.Name == "RCS2").First();
 
 			//Define the import settings
-			RcsReinfCssImportSetting importSetting = new RcsReinfCssImportSetting();
-
-			//Provide Id of new Refinforced Cross-section
-			importSetting.ReinfCssId = 30;
-			
-			//Set the Type to Complete
-			importSetting.PartsToImport = "Complete";
+			RcsReinforcedCrosssSectionImportSetting importSetting = new RcsReinforcedCrosssSectionImportSetting
+			{
+				//Provide Id of new Refinforced Cross-section
+				ReinforcedCrossSectionId = 30,
+				PartsToImport = "Complete"
+			};
 
 			string navFilePath = "templatePath.nav";
 			string templateXML = "";
@@ -203,21 +202,21 @@ namespace RcsApiConsoleApp
 			}
 
 			//Reinforced Cross-section is updated and returned
-			RcsReinfCssModel newReinforcedCrossSection = await client.ImportReinfCssAsync(importSetting, templateXML, CancellationToken.None);
+			RcsReinforcedCrossSection newReinforcedCrossSection = await client.ImportReinforcedCrossSectionAsync(importSetting, templateXML, CancellationToken.None);
 
 			//We will now want to assign the new reinforced cross-section to a Section.
 
 			//Get the list of avaliable sections in the project
-			List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+			List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
 
 			//Find the section inwhich we want to update. In this case there is a Section with the Name 'SectionA'
-			RcsSectionModel sectionToUpdate = sections.Where(x => x.Name == "SectionA").First();
+			RcsSection sectionToUpdate = sections.Where(x => x.Name == "SectionA").First();
 
 			//Find the reinforced cross-section which we want to set to the section.
 			sectionToUpdate.RCSId = newReinforcedCrossSection.Id;
 
 			//Section is updated and returned
-			RcsSectionModel updatedSection = await client.UpdateSectionAsync(sectionToUpdate, CancellationToken.None);
+			RcsSection updatedSection = await client.UpdateSectionAsync(sectionToUpdate, CancellationToken.None);
 
 			#endregion
 		}

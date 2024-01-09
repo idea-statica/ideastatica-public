@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.RcsClient.Services
 {
-	public interface IReinfCssTemplateProvider
+	public interface IReinforcedCrossSectionTemplateProvider
 	{
 		Task<string> GetTemplateAsync();
 	}

@@ -86,7 +86,7 @@ namespace RcsApiConsoleApp
 					#region sectionresults
 
 					//Get List of Sections
-					List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+					List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
 
 					//Set Detailed Result Parameters
 					//Selecting only the first section in the Project

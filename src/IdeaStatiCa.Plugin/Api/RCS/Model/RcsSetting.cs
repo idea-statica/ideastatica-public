@@ -1,6 +1,6 @@
 ﻿namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
-	public class RcsSettingModel
+	public class RcsSetting
 	{
 		public int Id { get; set; }
 
