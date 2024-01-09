@@ -3,9 +3,9 @@
 	/// <summary>
 	/// 
 	/// </summary>
-	public class ReinfCssImportData
+	public class RcsReinforcedCrossSectionImportData
 	{
-		public ReinfCssImportSetting Setting { get; set; }
+		public RcsReinforcedCrosssSectionImportSetting Setting { get; set; }
 		public string Template { get; set; }
 	}
 }

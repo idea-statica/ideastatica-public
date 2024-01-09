@@ -52,8 +52,8 @@ namespace RcsApiClient
 			});
 
 			services.AddSingleton<MainWindowViewModel>();
-			services.AddTransient<IReinfCssSelector, DialogReinforcedCssSelector>();
-			services.AddTransient<IReinfCssTemplateProvider, DialogReinfCssTemplateProvider>();
+			services.AddTransient<IReinforcedCrosssSectionSelector, DialogReinforcedCrossSectionSelector>();
+			services.AddTransient<IReinforcedCrossSectionTemplateProvider, DialogReinforcedCrossSectionTemplateProvider>();
 
 			services.AddTransient<Func<Type, ObservableObject>>(serviceProvider => viewModelType => (ObservableObject)serviceProvider.GetRequiredService(viewModelType));
 

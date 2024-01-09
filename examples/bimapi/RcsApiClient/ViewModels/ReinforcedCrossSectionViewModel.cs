@@ -3,12 +3,12 @@ using IdeaStatiCa.Plugin.Api.RCS.Model;
 
 namespace RcsApiClient.ViewModels
 {
-	public class ReinforcedCssViewModel : ObservableObject
+	public class ReinforcedCrossSectionViewModel : ObservableObject
 	{
-		public ReinforcedCssViewModel()
+		public ReinforcedCrossSectionViewModel()
 		{ }
 
-		public ReinforcedCssViewModel(ReinforcedCrossSectionModel reinfCssModel)
+		public ReinforcedCrossSectionViewModel(RcsReinforcedCrossSection reinfCssModel)
 		{
 			Id = reinfCssModel.Id;
 			Name = reinfCssModel.Name;

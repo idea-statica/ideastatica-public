@@ -101,10 +101,10 @@ namespace IdeaStatiCa.RcsClient.Client
 		}
 
 		/// <inheritdoc cref="IRcsApiController.GetProjectSummaryAsync(CancellationToken) "/>
-		public async Task<RcsProjectSummaryModel> GetProjectSummaryAsync(CancellationToken token = default)
+		public async Task<RcsProjectSummary> GetProjectSummaryAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectSummaryAsync projectId = {ActiveProjectId}");
-			var res=  await httpClient.GetAsync<RcsProjectSummaryModel>($"Project/{ActiveProjectId}/ProjectSummary", token);
+			var res=  await httpClient.GetAsync<RcsProjectSummary>($"Project/{ActiveProjectId}/ProjectSummary", token);
 			return res;
 		}
 
@@ -125,47 +125,47 @@ namespace IdeaStatiCa.RcsClient.Client
 		}
 		
 		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsResultParameters, CancellationToken)"/>
-		public async Task<List<RcsDetailedResultForSection>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
+		public async Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
 		{
-			return await httpClient.PostAsync<List<RcsDetailedResultForSection>>($"Calculations/{ActiveProjectId}/GetResults", parameters, token, "application/xml");
+			return await httpClient.PostAsync<List<RcsSectionResultDetailed>>($"Calculations/{ActiveProjectId}/GetResults", parameters, token, "application/xml");
 		}
 
 		/// <inheritdoc cref="IRcsApiController.GetProjectSectionsAsync(CancellationToken)  "/>
-		public async Task<List<RcsSectionModel>> GetProjectSectionsAsync(CancellationToken token = default)
+		public async Task<List<RcsSection>> GetProjectSectionsAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectSectionsAsync projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<List<RcsSectionModel>>($"Project/{ActiveProjectId}/ProjectSections", token);
+			var result = await httpClient.GetAsync<List<RcsSection>>($"Project/{ActiveProjectId}/ProjectSections", token);
 			return result;
 		}
 		/// <inheritdoc cref="IRcsApiController.GetProjectMembersAsync(CancellationToken) "/>
-		public async Task<List<RcsCheckMemberModel>> GetProjectMembersAsync(CancellationToken token = default)
+		public async Task<List<RcsCheckMember>> GetProjectMembersAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectMembersAsync projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<List<RcsCheckMemberModel>>($"Project/{ActiveProjectId}/ProjectSections", token);
+			var result = await httpClient.GetAsync<List<RcsCheckMember>>($"Project/{ActiveProjectId}/ProjectSections", token);
 			return result;
 		}
 		/// <inheritdoc cref="IRcsApiController.GetProjectReinforcedCrossSectionsAsync(CancellationToken) "/>
-		public async Task<List<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default)
+		public async Task<List<RcsReinforcedCrossSection>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectReinforcedCrossSectionsAsync projectId = {ActiveProjectId}");
-			var result = await httpClient.GetAsync<List<ReinforcedCrossSectionModel>>($"Project/{ActiveProjectId}/ProjectReinforcedCrossSections", token);
+			var result = await httpClient.GetAsync<List<RcsReinforcedCrossSection>>($"Project/{ActiveProjectId}/ProjectReinforcedCrossSections", token);
 			return result;
 		}
 
-		/// <inheritdoc cref="IRcsApiController.UpdateSectionAsync(RcsSectionModel, CancellationToken)"/>
-		public async Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token = default)
+		/// <inheritdoc cref="IRcsApiController.UpdateSectionAsync(RcsSection, CancellationToken)"/>
+		public async Task<RcsSection> UpdateSectionAsync(RcsSection newSectionData, CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.UpdateSectionAsync projectId = {ActiveProjectId} sectionId = {newSectionData.Id} reinforcedSectionId = {newSectionData.RCSId}");
-			var result = await httpClient.PutAsync<RcsSectionModel>($"Section/{ActiveProjectId}/UpdateSection", newSectionData, token);
+			var result = await httpClient.PutAsync<RcsSection>($"Section/{ActiveProjectId}/UpdateSection", newSectionData, token);
 			return result;
 		}
 
-		/// <inheritdoc cref="IRcsApiController.ImportReinfCssAsync(ReinfCssImportSetting, string)"/>
-		public async Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
+		/// <inheritdoc cref="IRcsApiController.ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting, string)"/>
+		public async Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
 		{
-			var data = new ReinfCssImportData(){Setting = importSetting, Template = reinfCssTemplate };
-			pluginLogger.LogDebug($"RcsApiClient.ImportReinfCssAsync projectId = {ActiveProjectId} reinfCssId = {importSetting?.ReinfCssId}");
-			var result = await httpClient.PostAsync<ReinforcedCrossSectionModel>($"Section/{ActiveProjectId}/ImportReinfCss", data, token);
+			var data = new RcsReinforcedCrossSectionImportData(){Setting = importSetting, Template = reinfCssTemplate };
+			pluginLogger.LogDebug($"RcsApiClient.ImportReinforcedCrossSectionAsync projectId = {ActiveProjectId} reinfCssId = {importSetting?.ReinforcedCrossSectionId}");
+			var result = await httpClient.PostAsync<RcsReinforcedCrossSection>($"Section/{ActiveProjectId}/ImportReinforcedCrossSection", data, token);
 			return result;
 		}
 
@@ -189,8 +189,8 @@ namespace IdeaStatiCa.RcsClient.Client
 			return await httpClient.GetAsync<string>($"Project/{ActiveProjectId}/GetCodeSettings", token, "text/plain");
 		}
 
-		/// <inheritdoc cref="IRcsApiController.UpdateCodeSettings(List{RcsSettingModel}, CancellationToken)"/>
-		public async Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup, CancellationToken token = default)
+		/// <inheritdoc cref="IRcsApiController.UpdateCodeSettings(List{RcsSetting}, CancellationToken)"/>
+		public async Task<bool> UpdateCodeSettings(List<RcsSetting> setup, CancellationToken token = default)
 		{
 			return await httpClient.PutAsync<bool>($"Project/{ActiveProjectId}/UpdateCodeSettings", setup, token);
 		}

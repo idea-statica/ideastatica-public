@@ -5,13 +5,13 @@ namespace IdeaStatiCa.RcsClient.Services
 	/// <summary>
 	/// Provide  reinforced cross-section from RCS project
 	/// </summary>
-	public interface IReinfCssSelector
+	public interface IReinforcedCrosssSectionSelector
 	{
 		/// <summary>
 		/// Returns ID of a selected reinforced cross-section from <paramref name="rcsProject"/>
 		/// </summary>
 		/// <param name="rcsProject">RCS project</param>
 		/// <returns>Id of a selecte reinforced cross-section. The retun valu -1 means that nothing was selected</returns>
-		int Select(RcsProjectSummaryModel rcsProject);
+		int Select(RcsProjectSummary rcsProject);
 	}
 }

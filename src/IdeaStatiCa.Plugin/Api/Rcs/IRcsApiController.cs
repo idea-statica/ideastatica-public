@@ -49,14 +49,14 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="parameters"></param>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<List<RcsDetailedResultForSection>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default);
+		Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default);
 
 		/// <summary>
 		/// Get information summary about the Project
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<RcsProjectSummaryModel> GetProjectSummaryAsync(CancellationToken token = default);
+		Task<RcsProjectSummary> GetProjectSummaryAsync(CancellationToken token = default);
 
 		/// <summary>
 		/// Get project data
@@ -70,21 +70,21 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<List<RcsSectionModel>> GetProjectSectionsAsync(CancellationToken token = default);
+		Task<List<RcsSection>> GetProjectSectionsAsync(CancellationToken token = default);
 
 		/// <summary>
 		/// Get information about members in Project
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<List<RcsCheckMemberModel>> GetProjectMembersAsync(CancellationToken token = default);
+		Task<List<RcsCheckMember>> GetProjectMembersAsync(CancellationToken token = default);
 
 		/// <summary>
 		/// Get information about reinforced cross sections in Project
 		/// </summary>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
-		Task<List<ReinforcedCrossSectionModel>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default);
+		Task<List<RcsReinforcedCrossSection>> GetProjectReinforcedCrossSectionsAsync(CancellationToken token = default);
 
 		/// <summary>
 		/// Return open project as file stream (*.idearcs)
@@ -113,7 +113,7 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// </summary>
 		/// <param name="token"></param>
 		/// <returns></returns>
-		Task<bool> UpdateCodeSettings(List<RcsSettingModel> setup, CancellationToken token = default);
+		Task<bool> UpdateCodeSettings(List<RcsSetting> setup, CancellationToken token = default);
 
 		/// <summary>
 		/// Update data of the section in the RCS project.
@@ -122,7 +122,7 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="newSectionData">New data of the section. A valid value of the section Id is requiered.</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Chanded data</returns>
-		Task<RcsSectionModel> UpdateSectionAsync(RcsSectionModel newSectionData, CancellationToken token = default);
+		Task<RcsSection> UpdateSectionAsync(RcsSection newSectionData, CancellationToken token = default);
 
 		/// <summary>
 		/// Update the active RCS project. According to <paramref name="importSetting"/> a new reinforced section can be added to the project
@@ -132,6 +132,6 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="reinfCssTemplate">Template to import</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Data of the updated reinforced cross-section</returns>
-		Task<ReinforcedCrossSectionModel> ImportReinfCssAsync(ReinfCssImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default);
+		Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default);
 	}
 }

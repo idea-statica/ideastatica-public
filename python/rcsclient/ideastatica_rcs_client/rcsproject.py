@@ -4,7 +4,7 @@ class RcsSection:
     def __init__(self, sectionData): 
         self.Id = sectionData['Id']
         self.Description = sectionData['Description']
-        self.RfCssId = sectionData['RCSId']
+        self.ReinforcedCrossSectionId = sectionData['RCSId']
         self.CheckMemberId = sectionData['CheckMemberId']
 
     @property
@@ -39,7 +39,7 @@ class RcsSection:
     def CheckMemberId(self, value : int):
         self._checkMemberId = value        
 
-class ReinforcedCss:
+class ReinforcedCrossSection:
     def __init__(self, rfCssData):  
         self.Id =  rfCssData['Id']
         self.Name = rfCssData['Name']
@@ -72,28 +72,28 @@ class ReinforcedCss:
 class RcsProject:
     def __init__(self, projectData):
         sections = projectData['Sections']
-        sectModel = sections['RcsSectionModel']
+        sect = sections['RcsSection']
 
         sectDict = {}
-        if(type(sectModel) == list):
-            for sect in sectModel:
+        if(type(sect) == list):
+            for sect in sect:
                 sec = RcsSection(sect)
                 sectDict[sec._id] = sec
         else:
-            sec = sectModel 
+            sec = sect 
             sectDict[sec._id] = sec   
 
         self.Sections = sectDict
 
         reinfCss = projectData['ReinforcedCrossSections']
-        reinfCssModel = reinfCss['ReinforcedCrossSectionModel']
+        reinfCssModel = reinfCss['ReinforcedCrossSection']
         reinfCssDict = {}
         if(type(reinfCssModel) == list):
             for reinfCssData in reinfCssModel:
-                newReinfCss = ReinforcedCss(reinfCssData)
+                newReinfCss = ReinforcedCrossSection(reinfCssData)
                 reinfCssDict[newReinfCss.Id] = newReinfCss
         else:
-            newReinfCss = ReinforcedCss(reinfCssModel)   
+            newReinfCss = ReinforcedCrossSection(reinfCssModel)   
             reinfCssDict[newReinfCss.Id] = newReinfCss  
 
         self.ReinfCrossSections = reinfCssDict
@@ -107,14 +107,14 @@ class RcsProject:
         self._sections = value
 
     @property
-    def ReinfCrossSections(self) -> dict[int, ReinforcedCss]:
+    def ReinfCrossSections(self) -> dict[int, ReinforcedCrossSection]:
         return self._reinfCrossSections
         
     @ReinfCrossSections.setter
-    def ReinfCrossSections(self, value : dict[int, ReinforcedCss]):
+    def ReinfCrossSections(self, value : dict[int, ReinforcedCrossSection]):
         self._reinfCrossSections = value
 
-class ReinfCssImportSetting:
+class ReinforcedCrossSectionImportSetting:
     def __init__(self, reinfCssId, partsToImport):
         self.reinfCssId = reinfCssId
         self.partsToImport = partsToImport

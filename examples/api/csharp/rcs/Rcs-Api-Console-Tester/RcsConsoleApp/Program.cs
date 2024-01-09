@@ -86,7 +86,7 @@ namespace RcsApiConsoleApp
 					#region sectionresults
 
 					//Get List of Sections
-					List<RcsSectionModel> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+					List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
 
 					//Set Detailed Result Parameters
 					//Selecting only the first section in the Project
@@ -95,7 +95,7 @@ namespace RcsApiConsoleApp
 						Sections = new List<int>() { sections[0].Id }
 					};
 
-					List<RcsDetailedResultForSection> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
+					List<RcsSectionResultDetailed> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
 
 					JToken parsedJsonResult = JToken.Parse(JsonConvert.SerializeObject(briefResults));
 					string outputresults = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);

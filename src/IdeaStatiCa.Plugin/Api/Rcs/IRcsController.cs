@@ -14,11 +14,11 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		bool OpenIdeaProjectFromIdeaOpenModel(string ideaOpenModelProjectPath, string projectName, string ideaOpenMessagesPath);
 		bool OpenIdeaProjectFromIdeaOpenModel(OpenModel ideaOpenModel, string projectName, out OpenMessages messages);
 
-		RcsProjectSummaryModel GetProjectSummary(RcsProjectEnum projectEnum);
+		RcsProjectSummary GetProjectSummary(RcsProjectEnum projectEnum);
 		RcsProjectData GetProjectData();
 
 		object GetSettings();
-		object SetSettings(List<RcsSettingModel> changes);
+		object SetSettings(List<RcsSetting> changes);
 
 		void SaveAsIdeaProjectFile(string ideaProjectPath);
 
@@ -28,11 +28,11 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 
 		/// <summary>
 		/// Update data of a RCS section in the RCS project. The section is taken according to pass value in <paramref name="modifiedSectionData"/>
-		/// <see cref="RcsSectionModel.Id"/>
+		/// <see cref="RcsSection.Id"/>
 		/// </summary>
 		/// <param name="modifiedData">Data to set</param>
 		/// <returns>Data of the modified section</returns>
-		RcsSectionModel UpdateSection(RcsSectionModel modifiedSectionData);
+		RcsSection UpdateSection(RcsSection modifiedSectionData);
 
 		/// <summary>
 		/// 
@@ -40,6 +40,6 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="importSetting"></param>
 		/// <param name="reinfCssTemplate"></param>
 		/// <returns></returns>
-		ReinforcedCrossSectionModel ImportReinfCss(ReinfCssImportSetting importSetting, string reinfCssTemplate);
+		RcsReinforcedCrossSection ImportReinforcedCrossSection(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate);
 	}
 }
