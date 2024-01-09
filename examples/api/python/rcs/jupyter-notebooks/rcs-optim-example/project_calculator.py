@@ -40,7 +40,7 @@ def get_section_details(rcs_project_filename):
         for sec in rcsClient.Project.Sections.values():
             ids.append(sec.Id)
             names.append(sec.Description)
-            rfCssIds.append(sec.RfCssId)
+            rfCssIds.append(sec.ReinforcedCrossSectionId)
             dmIds.append(sec.CheckMemberId)
         
         data = {"Id" : ids, "Name" : names, "RfCssId" : rfCssIds, "Member" : dmIds}
@@ -94,7 +94,7 @@ def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforce
   
             newReinSect = rcsClient.ImportReinforcedCrossSection(importSetting, reinforcedCrossSectionTemplate)
             #print(newReinSect.Id)
-            updateRes = rcsClient.UpdateReinfCrossSectionInSection(section_to_calculate, newReinSect.Id)
+            updateRes = rcsClient.UpdateReinforcedCrossSectionInSection(section_to_calculate, newReinSect.Id)
             briefResult1 = rcsClient.Calculate(secIds)
         
             capacity_check_val = brief_result_tools.get_check_value(briefResult1, "Capacity", section_to_calculate)
