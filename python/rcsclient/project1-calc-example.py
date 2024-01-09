@@ -29,7 +29,7 @@ try:
     brief_result_tools.print_sections_in_project(rcsClient.Project)
 
     # print all reinforced cross-sections in the rcs project
-    brief_result_tools.print_reinfcss_in_project(rcsClient.Project)
+    brief_result_tools.print_reinforced_cross_sections_in_project(rcsClient.Project)
    
     # get IDs of all sections in the rcs project
     secIds = []
@@ -53,16 +53,16 @@ try:
         reinfCssTemplate = file.read()
 
     # if reinfCssId is None a new reinforced cross-section will be created 
-    importSetting = rcsproject.ReinfCssImportSetting(None, "Complete")
+    importSetting = rcsproject.ReinforcedCrossSectionImportSetting(None, "Complete")
 
     newReinSect = rcsClient.ImportReinfCss(importSetting, reinfCssTemplate)
-    print("Id of a new reinfoced cross-section", newReinSect.Id)
+    print("Id of a new reinforced cross-section", newReinSect.Id)
 
     # print all sections in the rcs project
     brief_result_tools.print_sections_in_project(rcsClient.Project)
 
     # print all reinforced cross-sections in the rcs project
-    brief_result_tools.print_reinfcss_in_project(rcsClient.Project)
+    brief_result_tools.print_reinforced_cross_sections_in_project(rcsClient.Project)
 
     #set reinforced cross-section 2 to the section 1
     updateRes = rcsClient.UpdateReinfCssInSection(1, newReinSect.Id)

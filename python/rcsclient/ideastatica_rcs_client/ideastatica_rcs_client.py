@@ -57,8 +57,8 @@ class ideastatica_rcs_client:
         response = requests.get(f'http://localhost:{self.tcpPort}/Project/{self.projectId}/ProjectSummary', headers={"Content-Type": "application/json"})
         if response.status_code == 200:
             parsed_data = xmltodict.parse(response.text)
-            self.projectSummaryData = parsed_data[r'RcsProjectSummaryModel']
-            self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummaryModel'])
+            self.projectSummaryData = parsed_data[r'RcsProjectSummary']
+            self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummary'])
 
     def Calculate(self, sectionList):
         # Calculate selection of rcs sections. IDs of the sections to calculate are passed in the parameter sectionList
@@ -91,10 +91,10 @@ class ideastatica_rcs_client:
         else:
             raise Exception('GetResults failed')
 
-    def UpdateReinfCssInSection(self, sectionId, newReinfCssId):
+    def UpdateReinforcedCrossSectionInSection(self, sectionId, newReinforcedCrossSectionId):
         # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
-        rcsSectionModel = {"Id":sectionId, "RCSId":newReinfCssId}
-        json_data = json.dumps(rcsSectionModel)
+        rcsSection = {"Id":sectionId, "RCSId":newReinforcedCrossSectionId}
+        json_data = json.dumps(rcsSection)
         response = requests.put(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/UpdateSection', json_data,
             headers={
                 'Content-Type': 'application/json'
@@ -106,17 +106,17 @@ class ideastatica_rcs_client:
         else:
             raise Exception('Update failed')
 
-    def ImportReinfCss(self, reinfCssImportSetting : rcsproject.ReinfCssImportSetting, template : str):
+    def ImportReinforcedCrossSection(self, reinforcedCrossSectionImportSetting : rcsproject.ReinforcedCrossSectionImportSetting, template : str):
         # import an rcs template into the active project
-        reinfCssImportData = None
-        if(reinfCssImportSetting.reinfCssId is None):
-            reinfCssImportData = {"Setting": {"PartsToImport":reinfCssImportSetting.partsToImport}, "Template": template}
+        reinforcedCrossSectionImportData = None
+        if(reinforcedCrossSectionImportSetting.reinforcedCrossSectionId is None):
+            reinforcedCrossSectionImportData = {"Setting": {"PartsToImport":reinforcedCrossSectionImportSetting.partsToImport}, "Template": template}
         else:
-            reinfCssImportData = {"Setting": {"ReinfCssId":reinfCssImportSetting.reinfCssId, "PartsToImport":reinfCssImportSetting.partsToImport}, "Template": template}
+            reinforcedCrossSectionImportData = {"Setting": {"ReinforcedCrossSectionId":reinforcedCrossSectionImportSetting.reinforcedCrossSectionId, "PartsToImport":reinforcedCrossSectionImportSetting.partsToImport}, "Template": template}
         
-        json_data = json.dumps(reinfCssImportData)
+        json_data = json.dumps(reinforcedCrossSectionImportData)
 
-        response = requests.post(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/ImportReinfCss', json_data,
+        response = requests.post(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/ImportReinforcedCrossSection', json_data,
             headers={
                 'Content-Type': 'application/json'
             })
@@ -125,9 +125,9 @@ class ideastatica_rcs_client:
             parsed_data = response.json()
             rfCssId = parsed_data['id']
             self.SetProjectSummary()
-            return self.Project.ReinfCrossSections[str(rfCssId)]
+            return self.Project.ReinforcedCrossSections[str(rfCssId)]
         else:
-            raise Exception('ImportReinfCss failed')
+            raise Exception('ImportReinforcedCrossSection failed')
 
 
     @property
