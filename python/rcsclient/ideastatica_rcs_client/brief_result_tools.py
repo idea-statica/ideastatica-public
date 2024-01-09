@@ -16,12 +16,12 @@ def print_sections_in_project(rcs_project):
      # print all sections in the rcs project
     print("Sections in the project")
     for sec in rcs_project.Sections.values():
-        print(f'secId: {sec.Id} \'{sec.Description}\' rfCssId = {sec.RfCssId} memberId = {sec.CheckMemberId}')
+        print(f'secId: {sec.Id} \'{sec.Description}\' rfCssId = {sec.ReinforcedCrossSectionId} memberId = {sec.CheckMemberId}')
 
 def print_reinforced_cross_sections_in_project(rcs_project):
     # print all reinforced cross-sections in the rcs project
     print('Reinforced cross-sections in the project')
-    for rfCss in rcs_project.ReinforcedCrossSections.values():
+    for rfCss in rcs_project.ReinfCrossSections.values():
         print(f'{rfCss.Id} \'{rfCss.Name}\' {rfCss.CssId}')   
 
 def print_capacity_check_vals(rcsProject, sectionIds, br):

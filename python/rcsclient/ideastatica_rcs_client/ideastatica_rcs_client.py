@@ -125,7 +125,7 @@ class ideastatica_rcs_client:
             parsed_data = response.json()
             rfCssId = parsed_data['id']
             self.SetProjectSummary()
-            return self.Project.ReinforcedCrossSections[str(rfCssId)]
+            return self.Project.ReinfCrossSections[str(rfCssId)]
         else:
             raise Exception('ImportReinforcedCrossSection failed')
 

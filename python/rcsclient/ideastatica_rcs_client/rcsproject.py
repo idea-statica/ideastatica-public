@@ -86,7 +86,7 @@ class RcsProject:
         self.Sections = sectDict
 
         reinfCss = projectData['ReinforcedCrossSections']
-        reinfCssModel = reinfCss['ReinforcedCrossSection']
+        reinfCssModel = reinfCss['RcsReinforcedCrossSection']
         reinfCssDict = {}
         if(type(reinfCssModel) == list):
             for reinfCssData in reinfCssModel:
@@ -115,6 +115,6 @@ class RcsProject:
         self._reinfCrossSections = value
 
 class ReinforcedCrossSectionImportSetting:
-    def __init__(self, reinfCssId, partsToImport):
-        self.reinfCssId = reinfCssId
+    def __init__(self, reinforcedCrossSectionId, partsToImport):
+        self.reinforcedCrossSectionId = reinforcedCrossSectionId
         self.partsToImport = partsToImport
