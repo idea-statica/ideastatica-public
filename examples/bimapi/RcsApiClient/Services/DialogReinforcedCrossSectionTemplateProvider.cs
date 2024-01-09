@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace RcsApiClient.Services
 {
-	public class DialogReinfCssTemplateProvider : IReinfCssTemplateProvider
+	public class DialogReinforcedCrossSectionTemplateProvider : IReinforcedCrossSectionTemplateProvider
 	{
 		public async Task<string> GetTemplateAsync()
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-
-			// Set properties for the OpenFileDialog
-			openFileDialog.Title = "Select a reinforced cross-section template";
-			openFileDialog.Filter = "Reinforced Css template (*.nav)|*.nav";
+			OpenFileDialog openFileDialog = new OpenFileDialog
+			{
+				// Set properties for the OpenFileDialog
+				Title = "Select a reinforced cross-section template",
+				Filter = "Reinforced Css template (*.nav)|*.nav"
+			};
 
 			// Show the file dialog and get the selected file
 			if (openFileDialog.ShowDialog() == true)

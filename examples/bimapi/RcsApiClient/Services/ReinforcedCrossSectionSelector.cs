@@ -5,13 +5,13 @@ using System.Linq;
 namespace RcsApiClient.Services
 {
 	/// <summary>
-	/// Implementation of <see cref="IReinfCssSelector"/>
+	/// Implementation of <see cref="IReinforcedCrosssSectionSelector"/>
 	/// It allows to select a reinforced cross-section in a dialog
 	/// </summary>
-	public class DialogReinforcedCssSelector : IReinfCssSelector
+	public class DialogReinforcedCrossSectionSelector : IReinforcedCrosssSectionSelector
 	{
-		/// <inheritdoc cref="IReinfCssSelector.Select(RcsProjectModel)"/>
-		public int Select(RcsProjectSummaryModel rcsProject)
+		/// <inheritdoc cref="IReinforcedCrosssSectionSelector.Select(RcsProjectModel)"/>
+		public int Select(RcsProjectSummary rcsProject)
 		{
 			return rcsProject.ReinforcedCrossSections.First().Id;
 

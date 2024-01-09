@@ -54,7 +54,7 @@ def get_section_details(rcs_project_filename):
             del rcsClient
             
 
-def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforced_css_templates):
+def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforced_cross_section_templates):
     ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
     freeTcp = idea_statica_setup.get_free_port()
     
@@ -71,8 +71,8 @@ def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforce
 
     
         # update existing reinforced cross-section by template in the project
-        #importSetting = rcsproject.ReinfCssImportSetting(section_detail.RfCssId, "Complete")        
-        importSetting = rcsproject.ReinfCssImportSetting(None, "Complete") 
+        #importSetting = rcsproject.ReinforcedCrossSectionImportSetting(section_detail.RfCssId, "Complete")        
+        importSetting = rcsproject.ReinforcedCrossSectionImportSetting(None, "Complete") 
         
         secIDs = []
         secNames = []
@@ -86,15 +86,15 @@ def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforce
         stresslimitation_checks = []
         response_checks = []
 
-        for template in reinforced_css_templates:
+        for template in reinforced_cross_section_templates:
             #print(template)
-            reinfCssTemplate = None
+            reinforcedCrossSectionTemplate = None
             with open(template, 'r') as file:
-                reinfCssTemplate = file.read()
+                reinforcedCrossSectionTemplate = file.read()
   
-            newReinSect = rcsClient.ImportReinfCss(importSetting, reinfCssTemplate)
+            newReinSect = rcsClient.ImportReinforcedCrossSection(importSetting, reinforcedCrossSectionTemplate)
             #print(newReinSect.Id)
-            updateRes = rcsClient.UpdateReinfCssInSection(section_to_calculate, newReinSect.Id)
+            updateRes = rcsClient.UpdateReinfCrossSectionInSection(section_to_calculate, newReinSect.Id)
             briefResult1 = rcsClient.Calculate(secIds)
         
             capacity_check_val = brief_result_tools.get_check_value(briefResult1, "Capacity", section_to_calculate)

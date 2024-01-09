@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Section in a RCS project
 	/// </summary>
-	public class RcsSectionModel
+	public class RcsSection
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

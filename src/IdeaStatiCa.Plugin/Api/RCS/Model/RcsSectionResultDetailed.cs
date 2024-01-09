@@ -4,7 +4,7 @@ using IdeaRS.OpenModel.Message;
 
 namespace IdeaStatiCa.Plugin.Api.RCS.Model
 {
-	public class RcsDetailedResultForSection
+	public class RcsSectionResultDetailed
 	{
 		public int Id { get; set; }
 

@@ -9,16 +9,16 @@ namespace RcsApiClient.ViewModels
 		public SectionViewModel()
 		{ }
 
-		public SectionViewModel(RcsSectionModel rcsSectionModel)
+		public SectionViewModel(RcsSection rcsSection)
 		{
-			if (rcsSectionModel == null || rcsSectionModel?.RCSId == null)
+			if (rcsSection?.RCSId is null)
 			{
 				throw new ArgumentException("SectionViewModel() : invalid rcsSectionModel");
 			}
 
-			Id = rcsSectionModel.Id;
-			Description = rcsSectionModel.Description;
-			ReinforcedCssId = rcsSectionModel.RCSId.Value;
+			Id = rcsSection.Id;
+			Description = rcsSection.Description;
+			ReinforcedCssId = rcsSection.RCSId.Value;
 		}
 
 		private int id;
