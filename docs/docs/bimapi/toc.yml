@@ -10,6 +10,9 @@
   href: https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink
 - name: CAD App BIM Link Example
   href: https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink
+- name: Versioning
+- name: BIM API Breaking Changes
+  href: bim_api_breaking_changes.md
 - name: API Reference
 - name: IdeaStatiCa.BimApiLink
   href: ../../api-bimapilink/toc.yml
