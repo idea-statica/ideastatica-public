@@ -4,7 +4,9 @@ using IdeaRS.OpenModel.Geometry3D;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Extensions;
 using IdeaStatiCa.Plugin;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.BimImporter.Importers
 {
@@ -27,25 +29,25 @@ namespace IdeaStatiCa.BimImporter.Importers
 					PlanePoint = ctx.Import(workPlane.Origin).Element as Point3D,
 
 				};
-				BeamData beamIOM = FindBeamData(cut, connectionData);
+				var beamIOM = FindIOMObjectData(cut, connectionData);
 
-				if (beamIOM != null)
+				if (beamIOM is BeamData beam)
 				{
-					(beamIOM.Cuts ?? (beamIOM.Cuts = new List<CutData>())).Add(cutData);
+					(beam.Cuts ?? (beam.Cuts = new List<CutData>())).Add(cutData);
 				}
 
 				return cutData;
 			}
 			else
 			{
-				BeamData beamIOM = FindBeamData(cut, connectionData);
+				OpenElementId itemIOM = FindIOMObjectData(cut, connectionData);
 
-				if (beamIOM != null)
+				if (itemIOM != null)
 				{
 					var cutIOM = new IdeaRS.OpenModel.Connection.CutBeamByBeamData
 					{
 						CuttingObject = new ReferenceElement(ctx.ImportConnectionItem(cut.CuttingObject, connectionData) as OpenElementId),
-						ModifiedObject = new ReferenceElement(beamIOM),
+						ModifiedObject = new ReferenceElement(itemIOM),
 						IsWeld = cut.Weld != null,
 						Method = cut.CutMethod,
 						Orientation = cut.CutOrientation,
@@ -63,21 +65,35 @@ namespace IdeaStatiCa.BimImporter.Importers
 			}
 		}
 
-		private static BeamData FindBeamData(IIdeaCut cut, ConnectionData connectionData)
+		private static OpenElementId FindIOMObjectData(IIdeaCut cut, ConnectionData connectionData)
 		{
-			return connectionData.Beams.Find(b =>
+			var modifiedObject = cut.ModifiedObject;
+
+			// Find a beam based on the modified object
+			var beam = FindElement(connectionData.Beams, modifiedObject, (b, m) =>
 			{
-				//modified member can be IIdeaConnectedMember or IIdeaMember1D
-				if (cut.ModifiedObject is IIdeaConnectedMember cm)
-				{
+				if (m is IIdeaConnectedMember cm)
 					return b.OriginalModelId == cm.IdeaMember.Id;
-				}
 				else
-				{
-					return b.OriginalModelId == cut.ModifiedObject.Id;
-				}
-			}
-			);
+					return b.OriginalModelId == m.Id;
+			});
+
+			if (beam != null)
+				return beam;
+
+			// Find a plate based on the modified object
+			var plate = FindElement(connectionData.Plates, modifiedObject, (p, m) =>
+			{
+				return m is IIdeaPlate pl && p.OriginalModelId == pl.Id;
+			});
+
+			return plate;
+		}
+
+		// Generic method to find an element in a list based on a condition
+		private static T FindElement<T>(IEnumerable<T> elements, IIdeaObject modifiedObject, Func<T, IIdeaObject, bool> condition)
+		{
+			return elements.FirstOrDefault(element => condition(element, modifiedObject));
 		}
 
 		protected override OpenElementId ImportInternal(IImportContext ctx, IIdeaCut cut)

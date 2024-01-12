@@ -28,8 +28,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 				WeldType = weld.WeldType
 			};
 
-
-
 			(connectionData.Welds ?? (connectionData.Welds = new List<WeldData>())).Add(weldIOM);
 
 			//set correct Id
