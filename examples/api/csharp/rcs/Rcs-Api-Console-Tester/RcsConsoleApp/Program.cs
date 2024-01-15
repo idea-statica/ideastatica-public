@@ -16,8 +16,14 @@ namespace RcsApiConsoleApp
 	{
 		static async Task Main(string[] args)
 		{
+			///WARNING!!!
+			///DO NOT MODIFY REGIONS IN THIS FILE AS THEY ARE USED IN BUILDING DOCUMENTATION.
+			///WARNING!!!
+
+			#region create_client
+
 			//Directory to IDEA StatiCa installation on your computer.
-			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\net6.0-windows";
+			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1";
 
 			//Pass path to a new RCS Client Factory
 			using (var rcsClientFactory = new RcsClientFactory(directoryPath))
@@ -25,11 +31,13 @@ namespace RcsApiConsoleApp
 				//Create the client from the Factory
 				using (IRcsApiController client = await rcsClientFactory.CreateRcsApiClient())
 				{
+					#endregion
+
 					bool existingproject = true;
 
 					if (existingproject)
 					{
-						#region openexisting
+						#region open_existing
 
 						//Getting the directory path to the sample file in example project.
 						string samplePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -48,7 +56,7 @@ namespace RcsApiConsoleApp
 
 						if (fromIomModel)
 						{
-							#region openfrommodel
+							#region open_from_model
 
 							//OpenModel defined in Memory
 							OpenModel model = new OpenModel();
@@ -60,7 +68,7 @@ namespace RcsApiConsoleApp
 
 						else
 						{
-							#region openfromiomfile
+							#region open_from_iom_file
 
 							//Filepath to existing Iom XML file to be convert to an RCS Project
 							string iomFilePath = "pathToIoM.xml";
@@ -71,7 +79,7 @@ namespace RcsApiConsoleApp
 						}
 					}
 
-					#region calculateproject
+					#region calculate_project
 
 					List<RcsSectionResultOverview> briefResults = await client.CalculateAsync(new RcsCalculationParameters(), CancellationToken.None);
 
@@ -83,7 +91,7 @@ namespace RcsApiConsoleApp
 
 					#endregion
 
-					#region sectionresults
+					#region section_results
 
 					//Get List of Sections
 					List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
@@ -105,7 +113,7 @@ namespace RcsApiConsoleApp
 
 					#endregion
 
-					#region saveproject
+					#region save_project
 
 					string saveFilePath = "newSavePath.ideaRcs";
 
@@ -114,13 +122,8 @@ namespace RcsApiConsoleApp
 
 					#endregion
 
-					#region dispose
-
 				}
-
 			}
-
-			#endregion
 		}
 	}
 }

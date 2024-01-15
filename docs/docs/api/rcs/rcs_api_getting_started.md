@@ -30,6 +30,23 @@ Once the NuGet packages are referenced in your project the following using state
 
 # [Python](#tab/python)
 
-TO DO 
+To use the RCS API in your Python project first install the IDEA StatiCa RCS Python client into your python environment.
 
+The python client can be installed using `pip` install the [ideastatica-rcs-client](https://pypi.org/project/ideastatica-rcs-client/) for Python
+
+To install the python client open the command line and type the following.
+
+```powershell
+
+pip install ideastatica-rcs-client
+```
+
+Once installed in the python environment we can use the follow import statements to install in our python project
+
+```python
+
+from ideastatica_rcs_client import idea_statica_setup
+from ideastatica_rcs_client import ideastatica_rcs_client
+
+```
 ---
