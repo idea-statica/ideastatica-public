@@ -8,3 +8,9 @@ Each official release is tagged with its version number. This tag not only indic
 
 ### Selecting the Right Version:
 We encourage you to pay close attention to the version tags. Whether you're using our code for testing (beta) or deploying it in a production environment, selecting the correct version tag is crucial. This ensures compatibility and optimizes the effectiveness of your development endeavors.
+
+### Useful commands
+- '**git tag**' for list all tags
+- '**git checkout <tagname>**' to checkout to specific commit by tag name
+- '**git show <tag name>**' to show tag information like message etc.
+
