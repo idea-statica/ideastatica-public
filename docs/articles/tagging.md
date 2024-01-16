@@ -11,6 +11,6 @@ We encourage you to pay close attention to the version tags. Whether you're usin
 
 ### Useful commands
 - **git tag** for list all tags
-- **git checkout 'tagname'** to checkout to specific commit by tag name
-- **git show 'tag name'** to show tag information like message etc.
+- **git checkout 'tag_name'** to checkout to specific commit by tag name
+- **git show 'tag_name'** to show tag information like message etc.
 
