@@ -44,6 +44,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			}
 			else
 			{
+				PlugInLogger.LogInformation($"WorkPlaneImporter unknown workplane {teklaWorkPlaneItem.GetType()}");
 				return null;
 			}
 		}

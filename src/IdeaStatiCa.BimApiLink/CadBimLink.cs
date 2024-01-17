@@ -48,10 +48,10 @@ namespace IdeaStatiCa.BimApiLink
 				remoteApp,
 				resultsProvider);
 
-			return CreateApplicationInstace(logger, bimApiImporter, pluginHook, scopeHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
+			return CreateApplicationInstance(logger, bimApiImporter, pluginHook, scopeHook, userDataSource, projectStorage, projectAdapter, bimImporter, taskScheduler);
 		}
 
-		protected virtual IApplicationBIM CreateApplicationInstace(
+		protected virtual IApplicationBIM CreateApplicationInstance(
 			IPluginLogger logger,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,

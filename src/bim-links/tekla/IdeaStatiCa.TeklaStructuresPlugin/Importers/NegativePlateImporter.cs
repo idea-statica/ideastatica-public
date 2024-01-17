@@ -31,7 +31,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				};
 			}
 
-			PlugInLogger.LogInformation($"NegativePlateImporter not created plate{id}");
+			PlugInLogger.LogInformation($"NegativePlateImporter not created plate {id}");
 			return null;
 		}
 	}

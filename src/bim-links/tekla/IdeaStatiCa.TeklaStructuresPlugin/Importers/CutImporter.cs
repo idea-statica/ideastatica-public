@@ -53,6 +53,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			}
 			else
 			{
+				PlugInLogger.LogInformation($"CutImporter unknown cut {teklaCut.GetType()}");
 				return null;
 			}
 		}

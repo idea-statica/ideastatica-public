@@ -21,7 +21,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		public override IIdeaWeld Create(string id)
 		{
+			PlugInLogger.LogInformation($"WeldImporter create {id}");
 			var item = Model.GetItemByHandler(id);
+			if (item == null)
+			{
+				PlugInLogger.LogInformation($"WeldImporter not found weld {id}");
+				return null;
+			}
+
 			if (item is TSM.BaseWeld teklaWeld)
 			{
 				var weld = new BimApi.Weld(teklaWeld.Identifier.GUID.ToString());
@@ -96,6 +103,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			}
 			else
 			{
+				PlugInLogger.LogInformation($"WeldImporter unknown weld {item.GetType()}");
 				return null;
 			}
 		}
