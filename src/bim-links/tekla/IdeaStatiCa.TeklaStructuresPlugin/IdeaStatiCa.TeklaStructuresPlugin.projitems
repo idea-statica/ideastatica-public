@@ -9,7 +9,7 @@
     <Import_RootNamespace>IdeaStatiCa.TeklaStructuresPlugin</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)bimapi\FoldedPlateI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)bimapi\FoldedPlate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\NegativePlate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\Plate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IModelClient.cs" />

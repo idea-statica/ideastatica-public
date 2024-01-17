@@ -54,9 +54,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				PlugInLogger.LogInformation($"MemberImporter not found member {id}");
 				return null;
 			}
-
-
 		}
+
 		protected (CoordSystemByVector LCS, double Rotation) GetLCSAndRotation(Part member)
 		{
 			PlugInLogger.LogInformation($"MemberImporter GetLCSAndRotation");
@@ -69,7 +68,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		}
 		private CoordSystemByVector GetMemberLCS(Part member)
 		{
-
 			PlugInLogger.LogInformation($"MemberImporter GetMemberLCS");
 			var beamCs = member.GetCoordinateSystem();
 
@@ -155,6 +153,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		private double GetMemberLength(Part member)
 		{
+			PlugInLogger.LogInformation($"MemberImporter GetMemberLength");
 			var centLine = member.GetCenterLine(false);
 
 			Point begNode = centLine[0] as Point;
@@ -173,7 +172,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			var z = 0.0;
 			var y = 0.0;
-			//Tekla ma divne mapovani T profilu na lcs
+
+			//RolledT section has different mapping on centerline
 			if (css is CrossSectionByParameters cssParam && cssParam.Type == IdeaRS.OpenModel.CrossSection.CrossSectionType.RolledT && beam is Tekla.Structures.Model.Beam teklaBeam)
 			{
 				var height = cssParam.Parameters.ToList().Find(x => x.Name == "H") as ParameterDouble;

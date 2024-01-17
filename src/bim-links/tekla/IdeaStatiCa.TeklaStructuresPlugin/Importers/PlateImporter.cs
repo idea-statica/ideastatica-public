@@ -38,14 +38,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			if (item is Tekla.Structures.Model.ContourPlate part)
 			{
+				PlugInLogger.LogInformation($"PlateImporter create contour plate'{id}'");
 				return CreatePlateFromSolid(part);
 			}
 			else if (item is TSM.Beam beamPart)
 			{
+				PlugInLogger.LogInformation($"PlateImporter create plate from beam '{id}'");
 				return AddBeamPart(beamPart);
 			}
 			else if (item is TSM.PolyBeam polyBeamPart)
 			{
+				PlugInLogger.LogInformation($"PlateImporter create plate from beam '{id}'");
 				return AddBeamPart(polyBeamPart);
 			}
 
@@ -77,9 +80,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 						}
 
+						PlugInLogger.LogInformation($"PlateImporter AddBeamPart beam profile is not plate '{beam.Profile.ProfileString}'");
 						return null;
 					}
 				default:
+					PlugInLogger.LogInformation($"PlateImporter AddBeamPart beam profile is not plate '{profileItem.ProfileItemType}'");
 					return null;
 			}
 		}
@@ -96,25 +101,27 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 					}
 				default:
+					PlugInLogger.LogInformation($"PlateImporter AddBeamPart polybeam profile is not plate '{profileItem.ProfileItemType}'");
 					return null;
 			}
 		}
 
 		private Plate CreatePlateFromSolid(TSM.Part part)
 		{
+			PlugInLogger.LogInformation($"PlateImporter CreatePlateFromSolid");
 			string pltMaterial = part.Material.MaterialString;
-
 
 			var propTable = new Hashtable();
 			part.GetDoubleReportProperties(new ArrayList
 				{
 					WidthKey
 				}, ref propTable);
-			Plate plate = GetPlateInstace(part);
 
-			plate.Thickness = ((double)propTable[WidthKey]).MilimetersToMeters();
-			plate.MaterialNo = pltMaterial;
-
+			Plate plate = new Plate(part.Identifier.GUID.ToString())
+			{
+				Thickness = ((double)propTable[WidthKey]).MilimetersToMeters(),
+				MaterialNo = pltMaterial
+			};
 
 			var solid = part.GetSolid(TSM.Solid.SolidCreationTypeEnum.NORMAL);
 			TSG.CoordinateSystem partCs = part.GetCoordinateSystem();
@@ -123,7 +130,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			pltAxisZ.Normalize();
 
 			var faceEnum = solid.GetFaceEnumerator();
-			ArrayList faces = new ArrayList();
 
 			TS.Solid.Face foundFace = null;
 			while (faceEnum.MoveNext())
@@ -146,6 +152,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			var loopEnumerator = foundFace.GetLoopEnumerator();
 			if (!loopEnumerator.MoveNext())
 			{
+				PlugInLogger.LogInformation($"PlateImporter CreatePlateFromSolid Invalid loop");
 				throw new ArgumentException("Invalid loop");
 			}
 
@@ -222,11 +229,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			System.Windows.Point prevStartPoint = new System.Windows.Point(firstPt.X, firstPt.Y);
 
-			Region2D region = new Region2D();
-			region.Outline = new PolyLine2D();
-			region.Outline.StartPoint = new Point2D();
-			region.Outline.StartPoint.X = prevStartPoint.X;
-			region.Outline.StartPoint.Y = prevStartPoint.Y;
+			Region2D region = new Region2D
+			{
+				Outline = new PolyLine2D()
+			};
+
+			region.Outline.StartPoint = new Point2D
+			{
+				X = prevStartPoint.X,
+				Y = prevStartPoint.Y
+			};
 
 			plate.Geometry = region;
 
@@ -256,11 +268,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			region.Outline.Segments.Add(new LineSegment2D() { EndPoint = new Point2D() { X = lastPoint.X, Y = lastPoint.Y } });
 
 			return plate;
-		}
-
-		public virtual Plate GetPlateInstace(TSM.Part part)
-		{
-			return new Plate(part.Identifier.GUID.ToString());
 		}
 	}
 }

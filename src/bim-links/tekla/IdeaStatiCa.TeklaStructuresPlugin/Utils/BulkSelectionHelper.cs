@@ -39,7 +39,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			{
 				if (partsEnumerator.Current is Beam beam)
 				{
-					//skip cooncrete block
+					//skip concrete block
 					if ((beam.Type == Beam.BeamTypeEnum.PAD_FOOTING || beam.Type == Beam.BeamTypeEnum.STRIP_FOOTING))
 					{
 						continue;

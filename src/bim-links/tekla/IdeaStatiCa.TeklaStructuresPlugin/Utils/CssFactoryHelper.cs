@@ -14,7 +14,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		public static readonly string TubeDiameterKey = "DIAMETER";
 		private static readonly string FlangeThicknessKey = "FLANGE_THICKNESS";
 		private static readonly string FlangeThicknessKey1 = "FLANGE_THICKNESS_1";
-		private static readonly string FlangeThicknessKey2 = "FLANGE_THICKNESS_2";
 		private static readonly string FlangeWidthKey1 = "FLANGE_WIDTH_1";
 		private static readonly string FlangeWidthKey2 = "FLANGE_WIDTH_2";
 		private static readonly string WebThicknessKey = "WEB_THICKNESS";
@@ -25,7 +24,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		private static readonly string PlateThicknessKey = "PLATE_THICKNESS";
 		private static readonly string RoundingRadiusKey = "ROUNDING_RADIUS";
 		private static readonly string EdgeFoldKey = "EDGE_FOLD";
-		//private static readonly string AngleKey = "ANGLE";
 
 		private static readonly string EdgeFold1Key = "EDGE_FOLD_1";
 		private static readonly string EdgeFold2Key = "EDGE_FOLD_2";
@@ -48,8 +46,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			return cssProperties;
 		}
 
-		// zde zkousim poprve spravne naplnit CF general profil
-		// subprofile PROFILE_CC		
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamCCProfile(ParametricProfileItem paramProfileItem,
 			ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -86,7 +82,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double widthT = par4Item.Value.MilimetersToMeters();
 				double lipB = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
-				var dWidth = Math.Max(widthB, widthT);
 
 				Region2D region2D = CreateCenterline_CC(dHeight, widthT, widthB, pltThickness, lipT, lipB);
 				CrossSectionGeneralColdFormed crossSectionGeneralColdFormed = new CrossSectionGeneralColdFormed()
@@ -105,8 +100,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
@@ -117,9 +110,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			if (profileItem.ProfileItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_SYMMETRICAL)
 			{
-				string flangePltName = string.Format("T {0}", (dFlange.MilimetersToMeters()).ToString("F0"));
-				string webPltName = string.Format("T {0}", (dWeb.MilimetersToMeters()).ToString("F0"));
-
 				dHeight -= (dFlange * 2);
 				CrossSectionFactory.FillWeldedI(cssParameter, dWidth, dHeight, dWeb, dFlange);
 			}
@@ -158,8 +148,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
@@ -184,15 +172,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
 			var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();        //Section width
 			var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();      //Section height
 			double dFlangeThickness1 = ((double)cssProperties[FlangeThicknessKey1]).MilimetersToMeters();       //Flange thickness
-			double dFlangeThickness2 = ((double)cssProperties[FlangeThicknessKey2]).MilimetersToMeters();       //Flange thickness
 			double dWebRadius = ((double)cssProperties[WebRadiusKey]).MilimetersToMeters();     //Flange thickness
 			double dFlangeRadius = ((double)cssProperties[FlangeRadiusKey]).MilimetersToMeters();       //Flange thickness
 
@@ -200,20 +185,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			return cssParameter;
 		}
 
-		// PROFILE_PD - snad je to dobre - FillRolledCHS
+		// PROFILE_PD
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertPDProfile(LibraryProfileItem profileItem)
 		{
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
 			var dWidth = ((double)cssProperties[TubeDiameterKey]).MilimetersToMeters();
 			double thick = ((double)cssProperties[PltThicknessKey]).MilimetersToMeters();
-			var dHeight = dWidth;
 
 			CrossSectionFactory.FillRolledCHS(cssParameter, 0.5 * dWidth, thick);
 			return cssParameter;
@@ -225,8 +207,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
@@ -247,13 +227,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
 			var dWidth = ((double)cssProperties[TubeDiameterKey]).MilimetersToMeters();
-			var dHeight = dWidth;
 
 			//test min width 
 			dWidth = (dWidth >= MinCssDimension ? dWidth : MinCssDimension + 0.0001);
@@ -268,8 +245,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			Hashtable cssProperties = GetCssProperties(profileItem);
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = profileItem.ProfileName,
 			};
 
@@ -301,9 +276,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			double diam = par1Item.Value.MilimetersToMeters();
 			double thick = par2Item.Value.MilimetersToMeters();
 
-			var dWidth = diam;
-			var dHeight = diam;
-
 			CrossSectionFactory.FillRolledCHS(cssParameter, 0.5 * diam, thick);
 			return cssParameter;
 		}
@@ -314,8 +286,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		{
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = paramProfileItem.ProfilePrefix,
 			};
 
@@ -357,14 +327,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		{
 			CrossSectionParameter cssParameter = new CrossSectionParameter
 			{
-
-
 				Name = paramProfileItem.ProfilePrefix,
 			};
 
 			var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 			var dWidth = par1Item.Value.MilimetersToMeters();
-			var dHeight = dWidth;
 			//test min width 
 			dWidth = (dWidth > MinCssDimension ? dWidth : MinCssDimension + 0.0001);
 			CrossSectionFactory.FillCircle(cssParameter, dWidth);
@@ -375,13 +342,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamPLProfile(
 			ParametricProfileItem paramProfileItem)
 		{
-			//Tekla has different convetion of plate 
+			//Tekla has different convention of plate 
 			var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 			var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 			var dHeight = 0.0;
 			var dWidth = 0.0;
 
-			//due too tekla diferent convetion swap width and Height + add rotation
+			//due too tekla different convention swap width and Height + add rotation
 			if (par1Item.Property == HeightKey)
 			{
 				dHeight = par1Item.Value.MilimetersToMeters();
@@ -454,8 +421,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			double dbw = 0.0;
 			double dhf = 0.0;
-			double rh = 0.0;
-			double rv = 0.0;
 			var dHeight = 0.0;
 			var dWidth = 0.0;
 			foreach (ProfileItemParameter parItem in paramProfileItem.aProfileItemParameters)
@@ -475,14 +440,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				else if (parItem.Property == "albl_Web")
 				{
 					dbw = parItem.Value.MilimetersToMeters();
-				}
-				else if (parItem.Property == "albl_ChamferB")
-				{
-					rh = parItem.Value.MilimetersToMeters();
-				}
-				else if (parItem.Property == "albl_ChamferA")
-				{
-					rv = parItem.Value.MilimetersToMeters();
 				}
 			}
 
@@ -548,13 +505,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			}
 
 			cssParameter.CrossSectionRotation = 0.0;
-
-			var dWidth = Math.Max(dtf, dbf);
 			CrossSectionFactory.FillShapeI(cssParameter, dHeight, dtf, dbf, htf, hbf, tw);
 			return cssParameter;
 		}
 
-		// subprofile PROFILE_L - ten jedluzetiejsi wingel
+		// subprofile PROFILE_L
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamLProfile(
 			ParametricProfileItem paramProfileItem)
 		{
@@ -578,7 +533,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		}
 
 		// subprofile PROFILE_I
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamIProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -591,25 +545,18 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 														|| paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_UNSYMMETRICAL2)
 			{
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
-				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
 				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-				var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
 
 				var dHeight = par1Item.Value.MilimetersToMeters();
-				double wt = par2Item.Value.MilimetersToMeters();
 				double fl1t = par3Item.Value.MilimetersToMeters();
 				double fl1w = par4Item.Value.MilimetersToMeters();
 				double fl2t = par5Item.Value.MilimetersToMeters();
 				double fl2w = par6Item.Value.MilimetersToMeters();
-				var dWidth = Math.Max(fl1w, fl2w);
 
-				string flange1PltName = string.Format("T {0}", (fl1t.MilimetersToMeters()).ToString("F0"));
-				string webPltName = string.Format("T {0}", (wt.MilimetersToMeters()).ToString("F0"));
-				string flange2PltName = string.Format("T {0}", (fl2t.MilimetersToMeters()).ToString("F0"));
-				CrossSectionFactory.FillWeldedAsymI(cssParameter, fl1w, fl2w, dHeight - fl1t - fl2t, 0.014, 0.014, 0.014); // tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty
+				CrossSectionFactory.FillWeldedAsymI(cssParameter, fl1w, fl2w, dHeight - fl1t - fl2t, 0.014, 0.014, 0.014);
 			}
 			else
 			{
@@ -629,13 +576,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_SYMMETRICAL
 					|| paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_I_WELDED_SYMMETRICAL2)
 				{
-					string flangePltName = string.Format("T {0}", (dFlange.MilimetersToMeters()).ToString("F0"));
-					string webPltName = string.Format("T {0}", (dWeb.MilimetersToMeters()).ToString("F0"));
-					CrossSectionFactory.FillWeldedI(cssParameter, dWidth, dHeight - 2 * dFlange, dWeb, dFlange); // tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty			
+					CrossSectionFactory.FillWeldedI(cssParameter, dWidth, dHeight - 2 * dFlange, dWeb, dFlange);
 				}
 				else
 				{
-					CrossSectionFactory.FillRolledI(cssParameter, dHeight, dWeb, dFlange, dRounding, 0.1e-2, dRounding, 0); // tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty	
+					CrossSectionFactory.FillRolledI(cssParameter, dHeight, dWeb, dFlange, dRounding, 0.1e-2, dRounding, 0);
 				}
 			}
 
@@ -643,7 +588,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		}
 
 		// subprofile PROFILE_HK
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamHKProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -670,14 +614,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double fl2t = par5Item.Value.MilimetersToMeters();
 				double fl2w = par6Item.Value.MilimetersToMeters();
 				double cant = par7Item.Value.MilimetersToMeters();
-				var dWidth = Math.Max(fl1w, fl2w);
 
-				string flange1PltName = string.Format("T {0}", (fl1t.MilimetersToMeters()).ToString("F0"));
-				string flange2PltName = string.Format("T {0}", (fl2t.MilimetersToMeters()).ToString("F0"));
-
-				string webPltName = string.Format("T {0}", (wt.MilimetersToMeters()).ToString("F0"));
-
-				CrossSectionFactory.FillWeldedBoxFlange(cssParameter, fl1w, fl2w, dHeight - (fl1t + fl2t), fl2w - (2 * (cant + wt)), wt, fl1t, fl2t); // tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno fixnout
+				CrossSectionFactory.FillWeldedBoxFlange(cssParameter, fl1w, fl2w, dHeight - (fl1t + fl2t), fl2w - (2 * (cant + wt)), wt, fl1t, fl2t);
 			}
 			else if (paramProfItemSubType == ProfileItem.ProfileItemSubTypeEnum.PROFILE_HK_SYMMETRICAL)
 			{
@@ -694,10 +632,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				double wt = par2Item.Value.MilimetersToMeters();
 				double flt = par3Item.Value.MilimetersToMeters();
 				double cant = par5Item.Value.MilimetersToMeters();
-
-				string flangePltName = string.Format("T {0}", (flt.MilimetersToMeters()).ToString("F0"));
-				string webPltName = string.Format("T {0}", (wt.MilimetersToMeters()).ToString("F0"));
-				CrossSectionFactory.FillWeldedBoxFlange(cssParameter, dWidth, dWidth, dHeight - (flt + flt), dWidth - (2 * (cant + wt)), wt, flt, flt);// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno fixnout		
+				CrossSectionFactory.FillWeldedBoxFlange(cssParameter, dWidth, dWidth, dHeight - (flt + flt), dWidth - (2 * (cant + wt)), wt, flt, flt);
 			}
 			else
 			{
@@ -709,7 +644,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		}
 
 		// subprofile PROFILE_ZZ
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamZZProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -730,33 +664,28 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var dWidth = par4Item.Value.MilimetersToMeters();
 				const bool mirror = false;
 
-				CrossSectionFactory.FillColdFormedZed(cssParameter, dWidth, dHeight, pltThickness, 0.001, lip, mirror); // nutna kontrola
+				CrossSectionFactory.FillColdFormedZed(cssParameter, dWidth, dHeight, pltThickness, 0.001, lip, mirror);
 			}
 			else
 			{
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
-				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
-				double lipB = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
 				var dWidth = Math.Max(widthB, widthT);
 				const bool mirror = false;
 
-				CrossSectionFactory.FillColdFormedZ(cssParameter, dWidth, dHeight, pltThickness, 0.001, mirror); // nutna kontrola				
+				CrossSectionFactory.FillColdFormedZ(cssParameter, dWidth, dHeight, pltThickness, 0.001, mirror);
 			}
 
 			return cssParameter;
 		}
 
 		// subprofile PROFILE_CW
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamCWProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -771,16 +700,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lip = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
-				double f1 = par5Item.Value.MilimetersToMeters();
-				double f2 = par6Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola	
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			}
 			else
 			{
@@ -788,28 +713,21 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-				var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
 				var par8Item = paramProfileItem.aProfileItemParameters[7] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
-				double f1 = par5Item.Value.MilimetersToMeters();
-				double f2 = par6Item.Value.MilimetersToMeters();
-				double lipB = par7Item.Value.MilimetersToMeters();
 				double widthB = par8Item.Value.MilimetersToMeters();
 				var dWidth = Math.Max(widthB, widthT);
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT); // nutna kontrola	
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT);
 			}
 
 			return cssParameter;
 		}
 
 		// subprofile PROFILE_CU
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamCUProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -822,43 +740,36 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			{
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
 				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
-				double h1 = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
 				double lip = par5Item.Value.MilimetersToMeters();
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola	
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			}
 			else
 			{
 				var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
 				var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
-				double h1 = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
-				double h2 = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
 				double lip = par7Item.Value.MilimetersToMeters();
 				var dWidth = Math.Max(widthB, widthT);
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			}
 
 			return cssParameter;
 		}
 
 		// subprofile PROFILE_EB
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEBProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -873,14 +784,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lip = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
-				double alpha = par5Item.Value * Math.PI / 180.0;
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			}
 			else
 			{
@@ -888,19 +797,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-				var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
-				double lipB = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
-				double alpha = par7Item.Value * Math.PI / 180.0;
 				var dWidth = Math.Max(widthB, widthT);
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT); // nutna kontrola
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT);
 			}
 
 			return cssParameter;
@@ -978,7 +883,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 
 		// subprofile PROFILE_EC
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamECProfile(
 			ParametricProfileItem paramProfileItem, ProfileItem.ProfileItemSubTypeEnum paramProfItemSubType)
 		{
@@ -993,14 +897,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lip = par3Item.Value.MilimetersToMeters();
 				var dWidth = par4Item.Value.MilimetersToMeters();
-				double alpha = par5Item.Value * Math.PI / 180.0;
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			}
 			else
 			{
@@ -1008,27 +910,24 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 				var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 				var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-				var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
 				var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-				var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
 				var dHeight = par1Item.Value.MilimetersToMeters();
 				double pltThickness = par2Item.Value.MilimetersToMeters();
 				double lipT = par3Item.Value.MilimetersToMeters();
 				double widthT = par4Item.Value.MilimetersToMeters();
-				double lipB = par5Item.Value.MilimetersToMeters();
 				double widthB = par6Item.Value.MilimetersToMeters();
-				double alpha = par7Item.Value * Math.PI / 180.0;
 				var dWidth = Math.Max(widthB, widthT);
 
-				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT); // nutna kontrola
+				CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lipT);
 			}
 
 			return cssParameter;
 		}
 
+		// subprofile PROFILE_EE
+		// subprofile PROFILE_EF
 		// subprofile PROFILE_ED
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
-		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEDProfile(
+		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEDOrEEOrEFProfile(
 			ParametricProfileItem paramProfileItem)
 		{
 			CrossSectionParameter cssParameter = new CrossSectionParameter
@@ -1040,27 +939,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 			var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 			var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-			var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-			var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-			var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
-			var par8Item = paramProfileItem.aProfileItemParameters[7] as ProfileItemParameter;
-			var par9Item = paramProfileItem.aProfileItemParameters[8] as ProfileItemParameter;
 			var dHeight = par1Item.Value.MilimetersToMeters();
 			double pltThickness = par2Item.Value.MilimetersToMeters();
 			double lip = par3Item.Value.MilimetersToMeters();
 			var dWidth = par4Item.Value.MilimetersToMeters();
-			double f1 = par5Item.Value.MilimetersToMeters();
-			double f2 = par6Item.Value.MilimetersToMeters();
-			double h2 = par7Item.Value.MilimetersToMeters();
-			double h1 = par8Item.Value.MilimetersToMeters();
-			double alpha = par9Item.Value * Math.PI / 180.0;
 
-			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
+			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			return cssParameter;
 		}
 
 		// subprofile PROFILE_EW
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEWProfile(
 			ParametricProfileItem paramProfileItem)
 		{
@@ -1073,96 +961,20 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 			var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
 			var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-			var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-			var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
-			var par8Item = paramProfileItem.aProfileItemParameters[7] as ProfileItemParameter;
-			var par9Item = paramProfileItem.aProfileItemParameters[8] as ProfileItemParameter;
-			var par10Item = paramProfileItem.aProfileItemParameters[9] as ProfileItemParameter;
 			var dHeight = par1Item.Value.MilimetersToMeters();
 			double pltThickness = par2Item.Value.MilimetersToMeters();
 			double lip = par3Item.Value.MilimetersToMeters();
 			double widthT = par4Item.Value.MilimetersToMeters();
 			double widthB = par5Item.Value.MilimetersToMeters();
-			double f1 = par6Item.Value.MilimetersToMeters();
-			double f2 = par7Item.Value.MilimetersToMeters();
-			double h2 = par8Item.Value.MilimetersToMeters();
-			double h1 = par9Item.Value.MilimetersToMeters();
-			double alpha = par10Item.Value * Math.PI / 180.0;
 			var dWidth = Math.Max(widthB, widthT);
 
-			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
+			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip);
 			return cssParameter;
 		}
 
-		// subprofile PROFILE_EE
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
-		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEEProfile(
-			ParametricProfileItem paramProfileItem)
-		{
-			CrossSectionParameter cssParameter = new CrossSectionParameter
-			{
-				Name = paramProfileItem.ProfilePrefix,
-			};
 
-			var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
-			var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-			var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
-			var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-			var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-			var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-			var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
-			var par8Item = paramProfileItem.aProfileItemParameters[7] as ProfileItemParameter;
-			var par9Item = paramProfileItem.aProfileItemParameters[8] as ProfileItemParameter;
-			var dHeight = par1Item.Value.MilimetersToMeters();
-			double pltThickness = par2Item.Value.MilimetersToMeters();
-			double lip = par3Item.Value.MilimetersToMeters();
-			var dWidth = par4Item.Value.MilimetersToMeters();
-			double f1 = par5Item.Value.MilimetersToMeters();
-			double f3 = par6Item.Value.MilimetersToMeters();
-			double h1 = par7Item.Value.MilimetersToMeters();
-			double f2 = par8Item.Value.MilimetersToMeters();
-			double alpha = par9Item.Value * Math.PI / 180.0;
-
-			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
-			return cssParameter;
-		}
-
-		// subprofile PROFILE_EF
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
-		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEFProfile(
-			ParametricProfileItem paramProfileItem)
-		{
-			CrossSectionParameter cssParameter = new CrossSectionParameter
-			{
-				Name = paramProfileItem.ProfilePrefix,
-			};
-
-			var par1Item = paramProfileItem.aProfileItemParameters[0] as ProfileItemParameter;
-			var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
-			var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
-			var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-			var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-			var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-			var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
-			var par8Item = paramProfileItem.aProfileItemParameters[7] as ProfileItemParameter;
-			var par9Item = paramProfileItem.aProfileItemParameters[8] as ProfileItemParameter;
-			var dHeight = par1Item.Value.MilimetersToMeters();
-			double pltThickness = par2Item.Value.MilimetersToMeters();
-			double lip = par3Item.Value.MilimetersToMeters();
-			double widthT = par4Item.Value.MilimetersToMeters();
-			double widthB = par5Item.Value.MilimetersToMeters();
-			double f1 = par6Item.Value.MilimetersToMeters();
-			double f2 = par7Item.Value.MilimetersToMeters();
-			double h1 = par8Item.Value.MilimetersToMeters();
-			double alpha = par9Item.Value * Math.PI / 180.0;
-			var dWidth = Math.Max(widthB, widthT);
-
-			CrossSectionFactory.FillColdFormedRHS(cssParameter, dHeight, dWidth, pltThickness, lip); // nutna kontrola
-			return cssParameter;
-		}
 
 		// subprofile PROFILE_EZ
-		// tohle neslo prevest z puvodni konverze v TeklaLink, nastavil jsem proto fixni hodnoty, nutno zkontrolovat podle Tekla
 		internal static IdeaRS.OpenModel.CrossSection.CrossSection ConvertParamEZProfile(
 			ParametricProfileItem paramProfileItem)
 		{
@@ -1175,22 +987,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 			var par2Item = paramProfileItem.aProfileItemParameters[1] as ProfileItemParameter;
 			var par3Item = paramProfileItem.aProfileItemParameters[2] as ProfileItemParameter;
 			var par4Item = paramProfileItem.aProfileItemParameters[3] as ProfileItemParameter;
-			var par5Item = paramProfileItem.aProfileItemParameters[4] as ProfileItemParameter;
-			var par6Item = paramProfileItem.aProfileItemParameters[5] as ProfileItemParameter;
-			var par7Item = paramProfileItem.aProfileItemParameters[6] as ProfileItemParameter;
-			var par8Item = paramProfileItem.aProfileItemParameters[7] as ProfileItemParameter;
-			var par9Item = paramProfileItem.aProfileItemParameters[8] as ProfileItemParameter;
 			var dHeight = par1Item.Value.MilimetersToMeters();
 			double pltThickness = par2Item.Value.MilimetersToMeters();
 			double lip = par3Item.Value.MilimetersToMeters();
 			var dWidth = par4Item.Value.MilimetersToMeters();
-			double f1 = par5Item.Value.MilimetersToMeters();
-			double f3 = par6Item.Value.MilimetersToMeters();
-			double h1 = par7Item.Value.MilimetersToMeters();
-			double f2 = par8Item.Value.MilimetersToMeters();
-			double alpha = par9Item.Value * Math.PI / 180.0;
 
-			CrossSectionFactory.FillColdFormedZed(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, false); // nutna kontrola
+			CrossSectionFactory.FillColdFormedZed(cssParameter, dWidth, dHeight, pltThickness, 0.1e-2, lip, false);
 			return cssParameter;
 		}
 

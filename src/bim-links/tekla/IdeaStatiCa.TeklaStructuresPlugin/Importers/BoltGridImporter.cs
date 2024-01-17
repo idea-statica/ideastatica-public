@@ -33,7 +33,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					Positions = new List<IIdeaNode>(),
 				};
 
-				//This stupid test due to plate as member and we are not sure if its imported as plate or member
+				//This test due to plate as member and we are not sure if its imported as plate or member
 				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBoltTo, boltgrid);
 				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBoltTo, boltgrid);
 

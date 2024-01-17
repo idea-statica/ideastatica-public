@@ -110,7 +110,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		}
 
-
 		private IdeaRS.OpenModel.CrossSection.CrossSection ProcessLibraryCss(LibraryProfileItem profileItem)
 		{
 			switch (profileItem.ProfileItemType)
@@ -217,7 +216,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_CC: // cold formed CFC a take CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamCCProfile(paramProfileItem, paramProfItemSubType);  // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamCCProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_PL:
@@ -232,67 +231,67 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_I:
 					{
-						return CssFactoryHelper.ConvertParamIProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamIProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_HK:
 					{
-						return CssFactoryHelper.ConvertParamHKProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamHKProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_ZZ: // cold formed CFZed a take CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamZZProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamZZProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_CW: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamCWProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamCWProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_CU: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamCUProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamCUProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_EB: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamEBProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamEBProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_EC: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamECProfile(paramProfileItem, paramProfItemSubType); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamECProfile(paramProfileItem, paramProfItemSubType);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_ED: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamEDProfile(paramProfileItem); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamEDOrEEOrEFProfile(paramProfileItem);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_EW: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamEWProfile(paramProfileItem); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamEWProfile(paramProfileItem);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_EE: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamEEProfile(paramProfileItem); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamEDOrEEOrEFProfile(paramProfileItem);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_EF: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamEFProfile(paramProfileItem); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamEDOrEEOrEFProfile(paramProfileItem);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_EZ: // cold formed CFGeneral
 					{
-						return CssFactoryHelper.ConvertParamEZProfile(paramProfileItem); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamEZProfile(paramProfileItem);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_Z: // cold formed CFZ
 					{
-						return CssFactoryHelper.ConvertParamZProfile(paramProfileItem); // nutno bug fix, neslo nastavit hodnoty pro CSS
+						return CssFactoryHelper.ConvertParamZProfile(paramProfileItem);
 
 					}
 				case ProfileItem.ProfileItemTypeEnum.PROFILE_T: // cold formed T

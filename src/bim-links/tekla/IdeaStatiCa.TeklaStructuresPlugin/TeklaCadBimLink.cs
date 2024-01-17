@@ -15,7 +15,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		}
 		public static new BimLink Create(string applicationName, string checkbotProjectPath) => new TeklaCadBimLink(applicationName, checkbotProjectPath);
 
-		protected override IApplicationBIM CreateApplicationInstace(
+		protected override IApplicationBIM CreateApplicationInstance(
 			IPluginLogger pluginLogger,
 			IBimApiImporter bimApiImporter,
 			IPluginHook pluginHook,

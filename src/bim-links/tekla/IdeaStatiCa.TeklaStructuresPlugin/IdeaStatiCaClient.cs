@@ -38,7 +38,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			builder.RegisterType<NegativePlateImporter>().SingleInstance().AsImplementedInterfaces();
 			builder.RegisterType<WeldImporter>().SingleInstance().AsImplementedInterfaces();
 			builder.RegisterType<BoltGridImporter>().SingleInstance().AsImplementedInterfaces();
-			//builder.RegisterType<AnchorGridImporter>().SingleInstance().AsImplementedInterfaces();
 
 			builder.RegisterType<WorkPlaneImporter>().SingleInstance().AsImplementedInterfaces();
 			builder.RegisterType<CutImporter>().SingleInstance().AsImplementedInterfaces();
