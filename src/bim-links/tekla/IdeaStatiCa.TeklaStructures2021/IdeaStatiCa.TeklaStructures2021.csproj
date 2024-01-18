@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\..\Common.props" />
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
+		<Platforms>x64</Platforms>
+		<PlatformTarget>x64</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.4.0" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+		<PackageReference Include="morelinq" Version="3.3.2" />
+		<PackageReference Include="System.Management" Version="6.0.0" />
+		<PackageReference Include="Tekla.Structures" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Catalogs" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApiLink\IdeaStatiCa.BimApiLink.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+		<ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />		
+		<ProjectReference Include="..\IdeaStatiCa.TeklaStructuresResources\IdeaStatiCa.TeklaStructuresResources.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="PresentationCore" />		
+		<Reference Include="PresentationFramework" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
+	<Import Project="..\IdeaStatiCa.TeklaStructuresPlugin\IdeaStatiCa.TeklaStructuresPlugin.projitems" Label="Shared" />
+	<Import Project="..\..\..\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems" Label="Shared" />
+</Project>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>49c9086c-9a4a-4f9f-8246-d1093668e806</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>IdeaStatiCa.TeklaStructuresPlugin</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)bimapi\FoldedPlate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\NegativePlate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Plate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IModelClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\BaseImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\BoltGridImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\ConnectedMemberImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\ConnectionImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\CrossSectionImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)importers\CutImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)importers\FoldedPlateImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\MaterialImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\MemberImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\NegativePlateImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\NodeImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\PlateImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\WeldImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Importers\WorkPlaneImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModelClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TeklaStructuresApplication.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TeklaCadBimLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\BoltAssembly.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\BoltGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\ConnectionPoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Cut.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Library\CrossSectionByComoponets.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Library\CrossSectionByName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Library\CrossSectionByParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Member1D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Segment3D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\Weld.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BimApi\WorkPlane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hooks\AppVisibilityHook.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IdeaStatiCaClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserData\ImportContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserData\UserDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\BulkSelectionHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\CssFactoryHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\TeklaGeometryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VectorExtension.cs" />
+  </ItemGroup>
+</Project>

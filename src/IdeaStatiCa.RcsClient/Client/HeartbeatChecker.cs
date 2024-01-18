@@ -33,7 +33,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <returns></returns>
 		public async Task StartAsync()
 		{
-			while (!cancellationTokenSource.Token.IsCancellationRequested)
+			while (!cancellationTokenSource.IsCancellationRequested)
 			{
 				try
 				{
