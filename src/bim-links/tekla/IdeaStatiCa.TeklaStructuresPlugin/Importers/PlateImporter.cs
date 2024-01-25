@@ -149,6 +149,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				foundFace = faceEnum.Current;
 			}
 
+			if (foundFace == null)
+			{
+				//not found face skip it
+				return null;
+			}
+
 			var loopEnumerator = foundFace.GetLoopEnumerator();
 			if (!loopEnumerator.MoveNext())
 			{
