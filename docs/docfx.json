@@ -109,7 +109,8 @@
     ],
     "globalMetadata": {
       "_appTitle": "IDEA StatiCa API",
-      "_enableSearch": true
+      "_enableSearch": true,
+      "_appFaviconPath": "images/IDEA_StatiCa_main_icon_52x52.png" 
     },
     "dest": "_site",
     "postProcessors": [],

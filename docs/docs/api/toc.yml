@@ -1,4 +1,3 @@
-- name: Docs
 - name: IDEA StatiCa API
   href: api_overview.md
 - name: Connection API
@@ -6,8 +5,6 @@
   href: connection/connection_api_getting_started.md
 - name: API Client Basics
   href: connection/connection_api_client_basics.md
-- name: Code Samples
-  href: connection/connection_api_code_samples.md
 - name: Examples
   href: connection/examples/toc.yml
 - name: API Reference
@@ -19,16 +16,13 @@
   href: rcs/rcs_api_client_basics.md
 - name: Section Optimization
   href: rcs/rcs_api_section_optimization.md
-- name: Code Samples
-  href: rcs/rcs_api_code_samples.md
 - name: Examples
   href: rcs/examples/toc.yml
 - name: API Reference
   href: ../../api-rcs/toc.yml
-- name: Articles
+- name: References
 - name: Creating a simple app
   href: api_create_a_simple_app.md
-- name: References
 - name: Using Python with IDEA Packages
   href: api_using_python_with_idea_packages.md
 - name: Install Pyhon and JupyterLab using Anaconda
