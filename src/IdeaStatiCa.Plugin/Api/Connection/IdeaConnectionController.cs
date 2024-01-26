@@ -99,16 +99,16 @@ namespace IdeaStatiCa.Plugin
 			return blobStorage;
 		}
 
-		/// <inheritdoc cref="IConnectionController.GenerateWordReport(int, ConnReportSettings)"/>
-		public byte[] GenerateWordReport(int conId, ConnReportSettings settings)
+		/// <inheritdoc cref="IConnectionController.GenerateWordReport(int, string, ConnReportSettings)"/>
+		public void GenerateWordReport(int conId, string filePath, ConnReportSettings settings)
 		{
-			return ConnectionAutomation.GenerateWordReport(conId, settings);
+			ConnectionAutomation.GenerateWordReport(conId, filePath, settings);
 		}
 
-		/// <inheritdoc cref="IConnectionController.GeneratePdfReport(int, ConnReportSettings)"/>
-		public byte[] GeneratePdfReport(int conId, ConnReportSettings settings)
+		/// <inheritdoc cref="IConnectionController.GeneratePdfReport(int, string, ConnReportSettings)"/>
+		public void GeneratePdfReport(int conId, string filePath, ConnReportSettings settings)
 		{
-			return ConnectionAutomation.GeneratePdfReport(conId, settings);
+			ConnectionAutomation.GeneratePdfReport(conId, filePath, settings);
 		}
 
 		protected void OpenConnectionClient()
