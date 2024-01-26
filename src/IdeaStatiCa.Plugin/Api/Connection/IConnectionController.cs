@@ -41,19 +41,19 @@ namespace IdeaStatiCa.Plugin
 		IBlobStorage GenerateReport(int conId, ConnReportSettings settings);
 
 		/// <summary>
-		/// Send a request to generate connection report and return word document with its data
+		/// Send a request to generate connection report as Word document
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
 		/// <param name="settings">Report settings</param>
-		/// <returns>Byte array of report content in docs format</returns>
-		byte[] GenerateWordReport(int conId, ConnReportSettings settings);
+		/// <param name="filePath">File path of exported word report</param>
+		void GenerateWordReport(int conId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
-		/// Send a request to generate connection report and return PDF document with its data
+		/// Send a request to generate connection report in PDF document
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
 		/// <param name="settings">Report settings</param>
-		/// <returns>Byte array of report content in PDF format</returns>
-		byte[] GeneratePdfReport(int conId, ConnReportSettings settings);
+		/// <param name="filePath">File path of exported pdf report</param>
+		void GeneratePdfReport(int conId, string filePath, ConnReportSettings settings);
 	}
 }
