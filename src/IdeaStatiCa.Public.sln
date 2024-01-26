@@ -145,6 +145,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IomToRcsExampleRunner", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiConsoleApp", "..\examples\api\csharp\rcs\Rcs-Api-Console-Tester\RcsConsoleApp\RcsApiConsoleApp.csproj", "{408349C0-204C-4381-9DB9-1C76F0F0676A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.IntermediateModel", "IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj", "{721CC413-36D5-4259-81A2-7C62E472B95C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.IntermediateModel.Tests", "IdeaStatiCa.IntermediateModel.Tests\IdeaStatiCa.IntermediateModel.Tests.csproj", "{BD874C78-689A-451C-901D-24DDB3439497}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -343,6 +347,14 @@ Global
 		{408349C0-204C-4381-9DB9-1C76F0F0676A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{408349C0-204C-4381-9DB9-1C76F0F0676A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{408349C0-204C-4381-9DB9-1C76F0F0676A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721CC413-36D5-4259-81A2-7C62E472B95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721CC413-36D5-4259-81A2-7C62E472B95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721CC413-36D5-4259-81A2-7C62E472B95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721CC413-36D5-4259-81A2-7C62E472B95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD874C78-689A-451C-901D-24DDB3439497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD874C78-689A-451C-901D-24DDB3439497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD874C78-689A-451C-901D-24DDB3439497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD874C78-689A-451C-901D-24DDB3439497}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
