@@ -288,10 +288,24 @@ namespace ConnectionHiddenCalculation
 
 			if (connectionController != null)
 			{
-				connectionController.CloseProject();
+				try
+				{
+					connectionController.CloseProject();
+				}
+				catch (Exception ex)
+				{
+					Logger.LogWarning("MainVM.CloseConnectionService : connectionController.CloseProject() failed ", ex);
+				}
 			}
 
-			DeleteTempProjectFile();
+			try
+			{
+				DeleteTempProjectFile();
+			}
+			catch(Exception ex)
+			{
+				Logger.LogWarning("MainVM.CloseConnectionService : DeleteTempProjectFile() failed ", ex);
+			}
 		}
 
 		private void DeleteTempProjectFile()
