@@ -262,8 +262,24 @@ namespace ConnectionHiddenCalculation
 				return;
 			}
 
-			IdeaConnectionClient.CloseProject();
-			IdeaConnectionClient.Close();
+			try
+			{
+				IdeaConnectionClient.CloseProject();
+			}
+			catch(Exception ex)
+			{
+				Logger.LogWarning("MainVM.CloseConnectionService : IdeaConnectionClient.CloseProject() failed ", ex);
+			}
+
+			try
+			{
+				IdeaConnectionClient.Close();
+			}
+			catch(Exception ex)
+			{
+				Logger.LogWarning("MainVM.CloseConnectionService : IdeaConnectionClient.Close() failed ", ex);
+			}
+
 			IdeaConnectionClient = null;
 			Service = null;
 
