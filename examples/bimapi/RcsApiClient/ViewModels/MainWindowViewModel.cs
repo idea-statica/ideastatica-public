@@ -13,9 +13,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace RcsApiClient.ViewModels
 {
@@ -54,6 +52,8 @@ namespace RcsApiClient.ViewModels
 			CreateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanCreateReinforcedCss(p));
 			UpdateReinfCssCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
 			UpdateReinforcementCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
+
+			GetLoadingXmlCmdAsync = new AsyncRelayCommand(GetLoadingXmlAsync, CanGetLoadingXml);
 
 
 			this.pluginLogger = pluginLogger;
@@ -185,6 +185,11 @@ namespace RcsApiClient.ViewModels
 		public IAsyncRelayCommand UpdateSettingsCmdAsync
 		{
 			get;		
+			private set;
+		}
+		public IAsyncRelayCommand GetLoadingXmlCmdAsync
+		{
+			get;
 			private set;
 		}
 
@@ -689,6 +694,36 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
+		private bool CanGetLoadingXml()
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private async Task GetLoadingXmlAsync()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.GetProjectSummaryAsync");
+			try
+			{
+				if (Controller is null || SelectedSection == null)
+				{
+					throw new NullReferenceException("Service is not running");
+				}
+
+				// selected section
+				int sectionId = SelectedSection.Id;
+
+				var loadingXml = await Controller.GetLoadingInSectionAsync(sectionId, cancellationTokenSource.Token);
+
+				CalculationResult = loadingXml;
+
+			}
+			catch (Exception ex)
+			{
+				pluginLogger.LogWarning(ex.Message);
+				ApiMessage = ex.Message;
+			}
+		}
+
 		private async Task GetResultsAsync()
 		{
 			if (Controller == null)
@@ -750,6 +785,7 @@ namespace RcsApiClient.ViewModels
 				CreateReinfCssCmdAsync.NotifyCanExecuteChanged();
 				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 				UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
+				GetLoadingXmlCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
