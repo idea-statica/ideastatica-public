@@ -3,7 +3,6 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.HttpWrapper;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -193,6 +192,12 @@ namespace IdeaStatiCa.RcsClient.Client
 		public async Task<bool> UpdateCodeSettings(List<RcsSetting> setup, CancellationToken token = default)
 		{
 			return await httpClient.PutAsync<bool>($"Project/{ActiveProjectId}/UpdateCodeSettings", setup, token);
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetLoadingInSectionAsync(int, CancellationToken)"/>
+		public async Task<string> GetLoadingInSectionAsync(int sectionId, CancellationToken token = default)
+		{
+			return await httpClient.GetAsync<string>($"Section/{ActiveProjectId}/GetLoadingInSection?sectionId={sectionId}", token, "text/plain");
 		}
 	}
 }
