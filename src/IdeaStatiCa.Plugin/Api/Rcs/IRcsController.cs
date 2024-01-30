@@ -43,10 +43,17 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		RcsReinforcedCrossSection ImportReinforcedCrossSection(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate);
 
 		/// <summary>
-		/// 
+		/// Get loading in <paramref name="sectionId"/> in XML format
 		/// </summary>
-		/// <param name="sectionId"></param>
-		/// <returns></returns>
+		/// <param name="sectionId">Section ID</param>
+		/// <returns>XML string which represent loading in a section</returns>
 		string GetLoadingInSectionXML(int sectionId);
+
+		/// <summary>
+		/// Set loading from <paramref name="loadingXML"/> to section <paramref name="sectionId"/>
+		/// </summary>
+		/// <param name="sectionId">Id of a section to update</param>
+		/// <param name="loadingXML">New loading data</param>
+		void SetLoadingInSectionXML(string sectionId, string loadingXML);
 	}
 }
