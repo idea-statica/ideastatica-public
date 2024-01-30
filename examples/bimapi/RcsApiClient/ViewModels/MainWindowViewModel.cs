@@ -54,7 +54,7 @@ namespace RcsApiClient.ViewModels
 			UpdateReinforcementCmdAsync = new AsyncRelayCommand<object?>((p) => ImportReinforcedCssAsync(p), (p) => CanUpdateReinforcedCss(p));
 
 			GetLoadingXmlCmdAsync = new AsyncRelayCommand(GetLoadingXmlAsync, CanGetLoadingXml);
-
+			SetLoadingXmlCmdAsync = new AsyncRelayCommand(SetLoadingXmlAsync, CanSetLoadingXml);
 
 			this.pluginLogger = pluginLogger;
 			this.rcsClientFactory = rcsClientFactory;
@@ -188,6 +188,12 @@ namespace RcsApiClient.ViewModels
 			private set;
 		}
 		public IAsyncRelayCommand GetLoadingXmlCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand SetLoadingXmlCmdAsync
 		{
 			get;
 			private set;
@@ -724,6 +730,38 @@ namespace RcsApiClient.ViewModels
 			}
 		}
 
+		private bool CanSetLoadingXml()
+		{
+			return IsRcsProjectOpen();
+		}
+
+		private async Task SetLoadingXmlAsync()
+		{
+			pluginLogger.LogDebug("MainWindowViewModel.SetLoadingXmlAsync");
+			try
+			{
+				if (Controller is null || SelectedSection == null)
+				{
+					throw new NullReferenceException("Service is not running");
+				}
+
+				string xmlLoading = this.CalculationResult;
+
+				// selected section
+				int sectionId = SelectedSection.Id;
+
+				await Controller.SetLoadingInSectionAsync(sectionId, xmlLoading, cancellationTokenSource.Token);
+
+				CalculationResult = $"Loading in the section {sectionId} is modified";
+
+			}
+			catch (Exception ex)
+			{
+				pluginLogger.LogWarning(ex.Message);
+				ApiMessage = ex.Message;
+			}
+		}
+
 		private async Task GetResultsAsync()
 		{
 			if (Controller == null)
@@ -786,6 +824,7 @@ namespace RcsApiClient.ViewModels
 				UpdateReinfCssCmdAsync.NotifyCanExecuteChanged();
 				UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
 				GetLoadingXmlCmdAsync.NotifyCanExecuteChanged();
+				SetLoadingXmlCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 

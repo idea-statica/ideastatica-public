@@ -25,7 +25,8 @@
 				<Button x:Name="Calculate" HorizontalAlignment="Left"  Content="Calculate" Command="{Binding CalculateResultsCmdAsync}" Width="200" Height="30"/>
 				<Button x:Name="GetResults" HorizontalAlignment="Left"  Content="Results" Command="{Binding GetResultsCmdAsync}" Width="200" Height="30"/>
 				<Button x:Name="UpdateSettings" Content="Update Settings" Command="{Binding UpdateSettingsCmdAsync}" Width="200" Height="30"/>
-				<Button x:Name="GetLoading" Content="Get loading XML" Command="{Binding GetLoadingXmlCmdAsync}" Width="200" Height="30"/>
+				<Button x:Name="GetLoading" Content="Get loading XML" Command="{Binding GetLoadingXmlCmdAsync}" ToolTip="Get loading in xml format in the selected section" Width="200" Height="30"/>
+				<Button x:Name="SetLoading" Content="Set loading XML" Command="{Binding SetLoadingXmlCmdAsync}" ToolTip="Set loading to the selected section" Width="200" Height="30"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Button x:Name="GetSections" HorizontalAlignment="Left"  Content="Sections" Command="{Binding GetSectionsCmdAsync}" Width="200" Height="30"/>
