@@ -1,10 +1,10 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Concrete.CheckResult;
 using IdeaRS.OpenModel.Message;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
-using IdeaRS.OpenModel.Concrete.CheckResult;
-using System.Threading;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace IdeaStatiCa.Plugin.Api.RCS
 {
@@ -41,5 +41,12 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="reinfCssTemplate"></param>
 		/// <returns></returns>
 		RcsReinforcedCrossSection ImportReinforcedCrossSection(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sectionId"></param>
+		/// <returns></returns>
+		string GetLoadingInSectionXML(int sectionId);
 	}
 }
