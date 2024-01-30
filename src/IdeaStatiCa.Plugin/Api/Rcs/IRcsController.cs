@@ -54,6 +54,6 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// </summary>
 		/// <param name="sectionId">Id of a section to update</param>
 		/// <param name="loadingXML">New loading data</param>
-		void SetLoadingInSectionXML(string sectionId, string loadingXML);
+		void SetLoadingInSectionXML(int sectionId, string loadingXML);
 	}
 }
