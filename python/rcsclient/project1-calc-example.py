@@ -80,21 +80,6 @@ try:
     except Exception as ee:
         print("error", str(ee) )    
 
-    # get loading in the first section
-    loadingInSection = rcsClient.GetLoadingInSection(1)
-
-    intForce = loading_tools.get_internalForce(loadingInSection, 0, 0)
-    intForce['My'] = str(80000)
-
-    rcsClient.SetLoadingInSection(1, loadingInSection)
-
-    calc3_briefResults = rcsClient.Calculate(secIds)
-    
-    try:
-        print("Calc 2 :", brief_result_tools.get_check_value(calc2_briefResults, "Capacity", 1), "Calc 3 :", brief_result_tools.get_check_value(calc3_briefResults, "Capacity", 1))
-    except Exception as ee:
-        print("error", str(ee) )  
-
 except Exception as e:
     message  = str(e)
     print(f"An error occurred: {message}")

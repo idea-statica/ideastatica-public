@@ -9,7 +9,6 @@ from ideastatica_rcs_client import detail_results_tools
 ideaStatiCa_Version = r'23.1'
 
 ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
-ideaSetupDir = r"C:\\git\\is2\\bin\\Debug"
 
 print(ideaSetupDir)
 
