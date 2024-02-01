@@ -80,7 +80,7 @@ class RcsProject:
                 sec = RcsSection(sect)
                 sectDict[sec._id] = sec
         else:
-            sec = sect 
+            sec = RcsSection(sect)
             sectDict[sec._id] = sec   
 
         self.Sections = sectDict
