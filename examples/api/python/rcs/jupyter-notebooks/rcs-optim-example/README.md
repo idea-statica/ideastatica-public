@@ -7,7 +7,7 @@ We can use this type of analysis to understand how changing reinforcement can ef
 # Calculation of crack width example - crack-width-ex.ipynb
 
 In this examples a capacity of a reinforced cross-section is calculated.
-Loading is increases up to 100% of its capacity and crack width is calculated at each step. 
+Loading is increasing up to 100% of the capacity of the reinforces cross-section and crack width is calculated at each step. 
 
 ## Requirements 
 
