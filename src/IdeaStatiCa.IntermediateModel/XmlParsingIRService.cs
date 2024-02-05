@@ -11,6 +11,7 @@ namespace IdeaStatiCa.IntermediateModel
 			var processItemStack = new Stack<SObject>();
 			var model = new SModel();
 
+
 			using (XmlReader reader = XmlReader.Create(new System.IO.StringReader(xmlContent)))
 			{
 				while (reader.MoveToNextAttribute() || reader.Read())
@@ -24,16 +25,27 @@ namespace IdeaStatiCa.IntermediateModel
 							ProcessText(reader, processItemStack);
 							break;
 						case XmlNodeType.Attribute:
-							ProcessAttribute(reader, processItemStack);
+							ProcessAttribute(reader, processItemStack, model);
 							break;
 						case XmlNodeType.EndElement:
 							ProcessEndElement(processItemStack);
 							break;
+						case XmlNodeType.XmlDeclaration:
+							ProcessDeclaration(reader, model);
+							break;
+
 					}
 				}
 			}
 
 			return model;
+		}
+
+		private void ProcessDeclaration(XmlReader reader, SModel model)
+		{
+			var element = new SObject { TypeName = reader.Name };
+			model.ModelDeclaration = element;
+
 		}
 
 		private void ProcessStartElement(XmlReader reader, Stack<SObject> processItemStack, SModel model)
@@ -46,8 +58,13 @@ namespace IdeaStatiCa.IntermediateModel
 				var parent = processItemStack.Peek();
 				AddToParent(element, parent);
 			}
-			//new parent
-			processItemStack.Push(element);
+
+			//if its not empty element
+			if (!reader.IsEmptyElement)
+			{
+				//new parent
+				processItemStack.Push(element);
+			}
 
 			if (model.RootItem == null)
 			{
@@ -61,13 +78,13 @@ namespace IdeaStatiCa.IntermediateModel
 			{
 				if (parent.Properties[element.TypeName] is SList sList)
 				{
-					sList.Items.Add(element);
+					sList.Add(element);
 				}
 			}
 			else
 			{
 				// set reference as potential collection it will be fixed on the end of parent element
-				parent.Properties[element.TypeName] = new SList { Items = new List<ISIntermediate> { element } };
+				parent.Properties[element.TypeName] = new SList(element);
 			}
 		}
 
@@ -79,11 +96,22 @@ namespace IdeaStatiCa.IntermediateModel
 			}
 		}
 
-		private void ProcessAttribute(XmlReader reader, Stack<SObject> processItemStack)
+		private void ProcessAttribute(XmlReader reader, Stack<SObject> processItemStack, SModel model)
 		{
+			var attribute = new SAttribute { LocalName = reader.LocalName, Prefix = reader.Prefix, Value = reader.Value, NameSpace = reader.NamespaceURI };
+
 			if (processItemStack.Count > 0)
 			{
-				processItemStack.Peek().Properties[reader.Name] = new SAttribute { Key = reader.Name, Value = reader.Value };
+				processItemStack.Peek().Properties[reader.Name] = attribute;
+
+				if (!model.RootNameSpaces.ContainsKey(reader.Prefix))
+				{
+					model.RootNameSpaces.Add(reader.LocalName, attribute);
+				}
+			}
+			else if (model.ModelDeclaration is SObject declaration)
+			{
+				declaration.Properties[reader.Name] = attribute;
 			}
 		}
 
@@ -102,9 +130,9 @@ namespace IdeaStatiCa.IntermediateModel
 
 			foreach (var item in element.Properties)
 			{
-				if (item.Value is SList sList && sList.Items.Count == 1)
+				if (item.Value is SList sList && sList.Count == 1)
 				{
-					properties[item.Key] = sList.Items.First();
+					properties[item.Key] = sList.First();
 				}
 				else
 				{

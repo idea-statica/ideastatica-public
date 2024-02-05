@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\Common.props" />
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -20,6 +20,22 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="TestData\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="TestData\ModelBIM-AS_Black_Point.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="TestData\OpenModel-Simple.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="TestData\OpenModel-Vantaa.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>
