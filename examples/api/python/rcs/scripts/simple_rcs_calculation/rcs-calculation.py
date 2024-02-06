@@ -6,7 +6,7 @@ import logging
 ideaStatiCa_Version = r'23.1'
 rcs_project_name = r"Project1.IdeaRcs"
 
-logging.basicConfig()
+logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger('rcs-calculation')
 logger.setLevel(logging.INFO)
 
