@@ -221,7 +221,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the parameter</param>
 		/// <param name="parametersJSON">JSON string including parameters</param>
-		/// <returns></returns>
+		/// <returns>True if success | False if apply of parameters failed OR model contain some nonconformity</returns>
 		[OperationContract]
 		string ApplyParameters(string connectionId, string parametersJSON);
 
