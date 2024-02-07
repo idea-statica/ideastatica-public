@@ -51,7 +51,7 @@ try:
     calc1_briefResults = rcsClient.Calculate(secIds)
 
     #Print the brief results.
-    logger.info(calc1_briefResults)
+    print(calc1_briefResults)
  
 except Exception as e:
     message  = str(e)
