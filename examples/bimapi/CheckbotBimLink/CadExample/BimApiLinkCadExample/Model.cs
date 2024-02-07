@@ -1,9 +1,12 @@
-﻿using BimApiLinkCadExample.CadExampleApi;
+﻿using BimApiLinkCadExample.CadBulkSelection;
+using BimApiLinkCadExample.CadExampleApi;
 using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.BIM;
+using IdeaStatiCa.BIM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,20 +63,17 @@ namespace BimApiLinkCadExample
 
 		/// <summary>
 		/// Get User Selection - bulk
-		/// TODO Bulk Selection Not Currently Implemented - return the result of the single selection.
 		/// </summary>
 		public IEnumerable<CadUserSelection> GetUserSelections()
 		{
-			return new List<CadUserSelection>() { GetUserSelection() };
+			var selections = new List<CadUserSelection>();
 
-			//var selections = new List<CadUserSelection>();
+			foreach (var joint in GetBulkSelection())
+			{
+				selections.Add(GetCadUserSelection(joint.Item1, joint.Item2, joint.Item3));
+			}
 
-			//foreach (var joint in _model.GetBulkSelection())
-			//{
-			//	selections.Add(GetCadUserSelection(joint.Item1, joint.Item2, joint.Item3));
-			//}
-
-			//return selections;
+			return selections;
 		}
 
 		public IEnumerable<CadUserSelection> GetSelectionOfWholeModel()
@@ -124,6 +124,87 @@ namespace BimApiLinkCadExample
 				return new IntIdentifier<IIdeaBoltGrid>(item.Id);
 			else
 				throw new NotImplementedException(item.GetType().Name);
+		}
+
+
+
+		/// <summary>
+		/// User select bulk selection
+		/// </summary>
+		/// <returns></returns>
+		public List<(CadPoint3D, List<CadMember>, List<CadObject>)> GetBulkSelection(bool selectWholeModel = false)
+		{
+			//_plugInLogger.LogInformation("GetBulkSelection");
+
+			List<(CadPoint3D, List<CadMember>, List<CadObject>)> selections = new List<(CadPoint3D, List<CadMember>, List<CadObject>)>();
+			{
+				//Here we will get all the objects in the Geometry API.
+				//This would be where you would call your program to get the selection from the UI of your program.
+
+				List<int> allitems = _model.GetAllGeometricalItems().ConvertAll(x => x.Id);
+
+				SorterResult sortedJoints = BulkSelectionHelper.FindJoints(allitems, _model);
+
+				//_plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");
+
+				foreach (var joint in sortedJoints.Joints)
+				{
+					//_plugInLogger.LogInformation($"GetBulkSelection joint {joint.Location.X} {joint.Location.Y} {joint.Location.Z}");
+
+					List<CadMember> beams = new List<CadMember>();
+					List<CadObject> parts = new List<CadObject>();
+
+					var structuralMembers = joint.Members;
+					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.HaunchMemberName)
+					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorRodName)
+					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorWasherName)
+					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorNutName);
+
+					structuralMembers.ToList().ForEach(sm => beams.Add(sm.Parent as CadMember));
+
+					//_plugInLogger.LogInformation($"GetBulkSelection joint number of members {beams.Count}");
+
+					//_plugInLogger.LogInformation($"GetBulkSelection joint number of plates {joint.Plates.Count}");
+					foreach (var plate in joint.Plates)
+					{
+						if (plate.Parent is CadPlate pl)
+						{
+							parts.Add(pl);
+						}
+					}
+
+					//EXAMPLE IS NOT CURRENTLY SET UP FOR STIFFENING MEMBERS
+					//_plugInLogger.LogInformation($"GetBulkSelection joint number of stiffening members {joint.StiffeningMembers.Count}");
+					//foreach (var stiffeningmember in joint.StiffeningMembers)
+					//{
+					//	if (stiffeningmember.Parent is TS.ModelObject tsObject)
+					//	{
+					//		parts.Add(tsObject);
+					//	}
+					//}
+
+					//_plugInLogger.LogInformation($"GetBulkSelection joint number of fasteners {joint.Fasteners.Count}");
+					foreach (var jointFastener in joint.Fasteners)
+					{
+						if (jointFastener.Parent is CadBoltGrid bg)
+						{
+							parts.Add(bg);
+						}
+					}
+
+					//_plugInLogger.LogInformation($"GetBulkSelection joint number of welds {joint.Welds.Count}");
+					foreach (var jointWeld in joint.Welds)
+					{
+						if (jointWeld.Parent is CadWeld weld)
+						{
+							parts.Add(weld);
+						}
+					}
+
+					selections?.Add((new CadPoint3D(joint.Location.X, joint.Location.Y, joint.Location.Z), beams, parts));
+				}
+			}
+			return selections;
 		}
 	}
 }
