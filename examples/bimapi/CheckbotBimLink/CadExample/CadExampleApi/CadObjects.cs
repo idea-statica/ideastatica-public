@@ -33,10 +33,16 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 		public string MaterialId { get; set; }
 
-		public CadCrossSection(string sectionName, string material, int id) : base(id)
+		public double CrossSectionWidth { get; }
+
+		public double CrossSectionHeight { get; }
+
+		public CadCrossSection(string sectionName, string material, double crossSectionWidth, double crossSectionHeight, int id) : base(id)
 		{
 			Name = sectionName;
 			MaterialId = material;
+			CrossSectionWidth = crossSectionWidth;
+			CrossSectionHeight = crossSectionHeight;
 		}
 	}
 

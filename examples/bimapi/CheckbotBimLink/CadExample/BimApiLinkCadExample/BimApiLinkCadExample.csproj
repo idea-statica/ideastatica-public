@@ -25,6 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+  <ProjectReference Include="..\CadBulkSelection\CadBulkSelection.csproj" />
   <ProjectReference Include="..\CadExampleApi\CadExampleApi.csproj" />
   </ItemGroup>
     

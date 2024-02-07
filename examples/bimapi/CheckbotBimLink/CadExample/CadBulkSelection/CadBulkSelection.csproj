@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\..\..\..\..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems" Label="Shared" />  
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+    <ProjectReference Include="..\CadExampleApi\CadExampleApi.csproj" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Windows" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+	
+	
+</Project>

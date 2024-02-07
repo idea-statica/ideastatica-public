@@ -24,6 +24,8 @@ namespace BimApiLinkCadExample.CadExampleApi
 		//This would be called on single connection import.
 		CadPoint3D GetConnectionPoint();
 
+		List<CadObject> GetAllGeometricalItems();
+
 		IEnumerable<CadWeld> GetAllWelds();
 
 		IEnumerable<CadCutByPart> GetAllCuts();
@@ -70,6 +72,19 @@ namespace BimApiLinkCadExample.CadExampleApi
 			//Replace 'Get' methods here with API methods to Geometry objects from your Application.
 
 			InitilizeTestGeometry(); 
+		}
+
+		public List<CadObject> GetAllGeometricalItems()
+		{
+			List<CadObject> items = new List<CadObject>();
+
+			items.AddRange(GetAllMembers());
+			items.AddRange(GetAllPlates());
+			items.AddRange(GetAllWelds());
+			items.AddRange(GetAllBoltGrids());
+			items.AddRange(GetAllCuts());
+
+			return items;
 		}
 
 		public CadMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
@@ -132,8 +147,8 @@ namespace BimApiLinkCadExample.CadExampleApi
 			_materials.Add(new CadMaterial("S500", id++));
 
 			//ADDING CROSS-SECTIONS
-			_crossSections.Add(new CadCrossSection("HE240B", "S 355", id++));
-			_crossSections.Add(new CadCrossSection("HE200B", "S 355", id++));
+			_crossSections.Add(new CadCrossSection("HE240B", "S 355", 0.240, 0.240, id++));
+			_crossSections.Add(new CadCrossSection("HE200B", "S 355", 0.200, 0.200, id++));
 
 			//ADDING MEMBERS
 			CadMember column = new CadMember(new CadPoint3D(-2.0, 3.0, 0), new CadPoint3D(-2, 3, 6), "HE240B", id++);
@@ -216,7 +231,27 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 		public CadObject GetObjectById(int id)
 		{
-			throw new System.NotImplementedException();
+			CadMember member = GetMember(id);
+			if (member != null)
+				return member;
+
+			CadPlate plate = GetPlate(id);
+			if(plate != null) 
+				return plate;
+			
+			CadWeld weld = GetWeld(id);
+			if (weld != null)
+				return weld;
+			
+			CadBoltGrid boltgrid = GetBoltGrid(id);
+			if(boltgrid != null)
+				return boltgrid;
+
+			CadCutByPart cutByPart = GetCutByPart(id);
+			if (cutByPart != null)
+				return cutByPart;
+
+			throw new System.Exception("Item was not found for id: " + id);
 		}
 	}
 }
