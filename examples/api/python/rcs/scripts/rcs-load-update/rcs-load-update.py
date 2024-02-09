@@ -4,38 +4,43 @@ from ideastatica_rcs_client import brief_result_tools
 from ideastatica_rcs_client import detail_results_tools
 from ideastatica_rcs_client import loading_tools
 import os
+import logging
 
 ideaStatiCa_Version = r'23.1'
+rcs_project_name = r"Project2.IdeaRcs"
+
+logging.basicConfig(level = logging.INFO)
+logger = logging.getLogger('rcs-load-update')
+logger.setLevel(logging.INFO)
 
 # Use the avaliable set-up tools to automatically find the IDEA StatiCa install path
 # Alternatively we can provide a direct path
 ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
 
 #Print found setup directory
-print(ideaSetupDir)
+logger.info(f"ideaSetupDir = '{ideaSetupDir}'")
 
 #Use set-up tools to dind an avaliable port on the local machine to run communication 
 freeTcp = idea_statica_setup.get_free_port()
-print(freeTcp)
+logger.info(f"freeTcp = {freeTcp}")
 
 #Create the client and establish communication with RCS.
 rcsClient = ideastatica_rcs_client.ideastatica_rcs_client(ideaSetupDir, freeTcp)
 
 #We can retrieve and print the details of the RCS communication. 
-print(rcsClient.printServiceDetails())
+logger.info(rcsClient.printServiceDetails())
 
 try:
-
     # Get path of an existing RCS project on disk.
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    rcs_project_file_path = os.path.join(dir_path, "Project2.IdeaRcs")
-    print(rcs_project_file_path)
+    rcs_project_file_path = os.path.join(dir_path, rcs_project_name)
+    logger.info(f"rcs_project_file_path = '{rcs_project_file_path}'")
 
     #Use the RCS API Client to open/load the project.
     projectId = rcsClient.OpenProject(rcs_project_file_path)
 
     #print the Id of the avaliable project.
-    print(projectId)
+    logger.info(f"projectId = '{projectId}")
 
     # print all sections in the rcs project
     brief_result_tools.print_sections_in_project(rcsClient.Project)
