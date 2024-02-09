@@ -4,8 +4,11 @@ import subprocess
 import time
 import xmltodict
 import json
+import logging
 from . import rcsproject 
 from . import brief_result_tools
+
+logger = logging.getLogger('ideastatica_rcs_client')
 
 class ideastatica_rcs_client:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
@@ -21,14 +24,23 @@ class ideastatica_rcs_client:
         if not self.rcsApiProcess is None:
             self.rcsApiProcess.kill()
 
+    def getServiceDetails(self):
+        # returns details of the connection to RCS service
+        logger.info("getServiceDetails")
+        res = {}
+        res['TcpPort'] = self.tcpPort
+        res['IdeaStatiCaSetupDir'] = self.ideaStatiCaSetupDir
+        res['RcsApiServicePath'] = self.rcsApiServicePath
+        return res
+
     def printServiceDetails(self):
         # print details of the connection to RCS service
-        print(f"TcpPort : {self.tcpPort}")
-        print(f"IdeaStatiCaSetupDir : {self.ideaStatiCaSetupDir}")
-        print(f"RcsApiServicePath : {self.rcsApiServicePath}")
+        logger.info("printServiceDetails")
+        print(getServiceDetails())
 
     def OpenProject(self, ideaPath):
         # Open IdeaRcs project. ideaPath is path to the project file on a disk to open
+        logger.info(f"OpenProject ideaPath = '{ideaPath}'")
         binaryData = None
         with open(ideaPath, 'rb') as f:
             binaryData = f.read()
@@ -42,13 +54,17 @@ class ideastatica_rcs_client:
         if response.status_code == 200:
             self.projectId = response.text.replace('"', '')
             self.SetProjectSummary()
+            logger.info(f"OpenProject passed projectId = '{self.projectId}'")
             return self.projectId
         else:
+            logger.warn(f"OpenProject failed  {ideaPath} can not be open {response.content}")
             raise ValueError(f'file {ideaPath} can not be open {response.content}')
         
-    def SetProjectSummary(self):
-        # Get a project summary of the active project and store it locally 
+    def response.content(self):
+        # Get a project summary of the active project and store it locally
+        logger.info("SetProjectSummary")
         if self.projectId is None:
+            logger.warning("Any project is not open - projectId is None")
             raise Exception(r'Any project is not open')
         
         self.projectSummaryData = None
@@ -59,9 +75,14 @@ class ideastatica_rcs_client:
             parsed_data = xmltodict.parse(response.text)
             self.projectSummaryData = parsed_data[r'RcsProjectSummary']
             self.Project = rcsproject.RcsProject(parsed_data[r'RcsProjectSummary'])
+            logger.info("SetProjectSummary passed projectId")
+        else:
+            logger.warning("SetProjectSummary FAILED")
+            raise Exception(f'SetProjectSummary {response.content}')            
 
     def Calculate(self, sectionList):
         # Calculate selection of rcs sections. IDs of the sections to calculate are passed in the parameter sectionList
+        logger.info(f"Calculate sectionList = '{sectionList}'")
         calculationParameters = { "Sections": sectionList }
         json_data = json.dumps(calculationParameters)
         response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/Calculate', json_data,
@@ -72,12 +93,16 @@ class ideastatica_rcs_client:
         if response.status_code == 200:
             parsed_data = xmltodict.parse(response.text)
             brief_results = brief_result_tools.get_checks_in_section(parsed_data)
+            
+        
             return brief_results
         else:
-            raise Exception('Calculation failed')
+            logger.warning(f"Calculate failed '{response.text}'")
+            raise Exception(f"Calculation failed '{response.text}'")
 
     def GetResults(self, sectionList):
         # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
+        logger.info(f"GetResults sectionList = '{sectionList}'")
         calculationParameters = { "Sections": sectionList }
         json_data = json.dumps(calculationParameters)
         response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/GetResults', json_data,
@@ -89,10 +114,12 @@ class ideastatica_rcs_client:
             parsed_data = xmltodict.parse(response.text)
             return parsed_data
         else:
+            logger.warning(f"GetResults failed '{response.text}'")
             raise Exception('GetResults failed')
 
     def UpdateReinforcedCrossSectionInSection(self, sectionId, newReinforcedCrossSectionId):
         # Get detailed check results for a selection of rcs sections. IDs of sections are passed in the parameter sectionList 
+        logger.info(f"UpdateReinforcedCrossSectionInSection sectionId = '{sectionId}' newReinforcedCrossSectionId = {newReinforcedCrossSectionId}")
         rcsSection = {"Id":sectionId, "RCSId":newReinforcedCrossSectionId}
         json_data = json.dumps(rcsSection)
         response = requests.put(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/UpdateSection', json_data,
@@ -104,10 +131,12 @@ class ideastatica_rcs_client:
             self.SetProjectSummary()
             return parsed_data
         else:
-            raise Exception('Update failed')
+            logger.warning(f"UpdateReinforcedCrossSectionInSection failed '{response.text}'")
+            raise Exception('UpdateReinforcedCrossSectionInSection failed')
 
     def ImportReinforcedCrossSection(self, reinforcedCrossSectionImportSetting : rcsproject.ReinforcedCrossSectionImportSetting, template : str):
         # import an rcs template into the active project
+        logger.info("ImportReinforcedCrossSection")
         reinforcedCrossSectionImportData = None
         if(reinforcedCrossSectionImportSetting.reinforcedCrossSectionId is None):
             reinforcedCrossSectionImportData = {"Setting": {"PartsToImport":reinforcedCrossSectionImportSetting.partsToImport}, "Template": template}
@@ -127,10 +156,12 @@ class ideastatica_rcs_client:
             self.SetProjectSummary()
             return self.Project.ReinfCrossSections[str(rfCssId)]
         else:
+            logger.warning(f"ImportReinforcedCrossSection failed '{response.text}'")
             raise Exception('ImportReinforcedCrossSection failed')
 
     def GetLoadingInSection(self, sectionId):
-        # Get loading in the section sectionId 
+        # Get loading in the section sectionId
+        logger.info(f"GetLoadingInSection sectionId = '{sectionId}'")
         response = requests.get(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/GetLoadingInSection?sectionId={sectionId}', 
             headers={
                 'Content-Type': 'text/plain'
@@ -139,10 +170,12 @@ class ideastatica_rcs_client:
             parsed_data = xmltodict.parse(response.text)
             return parsed_data
         else:
-            raise Exception('Update failed')
+            logger.warning(f"GetLoadingInSection failed '{response.text}'")
+            raise Exception('GetLoadingInSection failed')
 
     def SetLoadingInSection(self, sectionId, loadingDict):
         # Set loading in the section sectionId 
+        logger.info(f"SetLoadingInSection sectionId = '{sectionId}'")
         loadingXml = xmltodict.unparse(loadingDict)
         rcsSection = {"SectionId":sectionId, "LoadingXml":loadingXml}
         json_data = json.dumps(rcsSection)
@@ -155,6 +188,7 @@ class ideastatica_rcs_client:
         if response.status_code == 200:  
             return "Ok"
         else:
+            logger.warning(f"GetLoadingInSection failed '{response.text}'")
             raise Exception('Update failed')
 
     @property
