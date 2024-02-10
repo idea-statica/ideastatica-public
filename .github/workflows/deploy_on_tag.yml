@@ -9,13 +9,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Print
-      run: echo "$github.ref"
-
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        ref: ${{ github.ref }}
+        ref: ${{ 'refs/tags/<tag_name>' }}
         
     - name: Setup .NET
       uses: microsoft/setup-msbuild@v1
