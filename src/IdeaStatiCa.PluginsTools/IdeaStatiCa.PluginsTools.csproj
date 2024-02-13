@@ -1,22 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Common.props" />
-  <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
-    <AssemblyTitle>IdeaStatiCa.PluginsTools</AssemblyTitle>
-    <Product>IdeaStatiCa.PluginsTools</Product>
-    <Description>It is the gateway to IDEA StatiCa. It includes classes which allows communication and controlling IDEA StatiCa applications. It also includes classes which provides IDEA StatiCa services to other applications.</Description>
-    <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-    <ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
+	<Import Project="..\Common.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
+		<AssemblyTitle>IdeaStatiCa.PluginsTools</AssemblyTitle>
+		<Product>IdeaStatiCa.PluginsTools</Product>
+		<Description>Tools for IDEA Statica plugins</Description>
+		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net48|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net48|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
+	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\ideastatica-public\README.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	</ItemGroup>
 </Project>
