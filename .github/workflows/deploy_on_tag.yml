@@ -21,11 +21,14 @@ jobs:
       run: echo ${{ env.working_dir }}
 
     - name: Extract tag value
+      shell: pwsh
       run: |
-        for /f %%i in ('echo %GITHUB_REF%') do set TAG_VALUE=%%i
-        set TAG_VALUE=%TAG_VALUE:refs/tags=%
+        $tagValue = $env:GITHUB_REF -replace 'refs/tags/', ''
+        Write-Host "TAG_VALUE=$tagValue"
+        echo "TAG_VALUE=$tagValue" >> $env:GITHUB_ENV
 
-        echo "TAG_VALUE=%TAG_VALUE%" >> $GITHUB_ENV
+    - name: Use the tag value
+      run: echo The extracted tag value is $env:TAG_VALUE
 
     - name: Checkout
       uses: actions/checkout@v3
