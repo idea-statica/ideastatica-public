@@ -47,10 +47,13 @@ jobs:
       run: dotnet build DotnetBuildTools.sln /p:Configuration=Release
       working-directory: main/tools/DotnetBuildTools
 
+    - name: Update nuget package
+      run: dotnet DotnetBuildTools.dll 
+      working-directory: main/tools/DotnetBuildTools/bin/Release/net6.0
 
     - name: Nuget restore dependencies
       run: nuget restore IdeaStatiCa-SDK-Examples.sln
-      working-directory: main/examples    
+      working-directory: main/tools/DotnetBuildTools
 
     # - name: 'Upload updated examples'
     #   uses: actions/upload-artifact@v3
