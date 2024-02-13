@@ -22,7 +22,7 @@ jobs:
 
     - name: Extract tag value
       run: |
-        for /f "delims=" %%i in ('echo %GITHUB_REF%') do set TAG_VALUE=%%i
+        for /f %%i in ('echo %GITHUB_REF%') do set TAG_VALUE=%%i
         set TAG_VALUE=%TAG_VALUE:refs/tags=%
 
         echo "TAG_VALUE=%TAG_VALUE%" >> $GITHUB_ENV
