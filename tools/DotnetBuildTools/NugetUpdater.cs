@@ -84,11 +84,11 @@ namespace DotnetBuildTools
 			return version;
 		}
 
-		internal void UpdateNugetInCsproj(string currentVersion, string newVersion)
+		internal bool UpdateNugetInCsproj(string currentVersion, string newVersion)
 		{
 			Logger.LogDebug($"NugetUpdater.Update : currentVersion = '{currentVersion}' newVersion = '{newVersion}'");
 			var csProjFiles = Directory.EnumerateFiles(RepositoryPath, "*.csproj", SearchOption.AllDirectories);
-
+			bool isChange = false;
 			foreach(var csprojFile in csProjFiles )
 			{
 				Logger.LogDebug($"NugetUpdater.Update : opening file '{csprojFile}'");
@@ -108,6 +108,7 @@ namespace DotnetBuildTools
 				}
 				else
 				{
+					isChange = true;
 					using (TextWriter writer = new StreamWriter(csprojFile, false))
 					{
 						writer.Write(updated);
@@ -116,7 +117,7 @@ namespace DotnetBuildTools
 					Logger.LogInformation($"NugetUpdater.Update : '{csprojFile}' has been updated");
 				}
 			}
-
+			return isChange;
 		}
 	}
 }
