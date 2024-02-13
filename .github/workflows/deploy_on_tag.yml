@@ -62,22 +62,6 @@ jobs:
       run: nuget restore IdeaStatiCa-SDK-Examples.sln
       working-directory: main/examples   
 
-    # - name: 'Upload updated examples'
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: Updated examples
-    #     path: ${{ github.workspace }}/main/examples
-    #     if-no-files-found: error
-
-
-    # - name: Nuget restore dependencies
-    #   run: nuget restore IdeaStatiCa-SDK-Examples.sln
-    #   working-directory: main/examples   
-
-    # - name: Build
-    #   run: dotnet build ${{ env.sln_filename }} /p:Configuration=Release
-    #   working-directory:  ${{ env.working_dir }}
-
     - name: Build IdeaStatiCa-SDK-Examples.sln
       run: dotnet build IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release
       working-directory:  main/examples
@@ -92,17 +76,6 @@ jobs:
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
-    
-    # - name: Upload Release Asset
-    #   id: upload-release-asset 
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GH_RELEASE }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-    #     asset_path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
-    #     asset_name: RcsApiClient.zip
-    #     asset_content_type: application/zip
 
 
       
