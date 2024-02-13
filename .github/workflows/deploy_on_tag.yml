@@ -33,15 +33,19 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
-    - name: Tools
-      id: tools      
-      run: dotnet tool install --global dotnet-outdated-tool     
-
     - name: Setup nuget.exe
       uses: NuGet/setup-nuget@v2
       
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1.2
+
+    - name: Nuget restore dependencies DotnetBuildTools.sln
+      run: nuget restore DotnetBuildTools.sln
+      working-directory: main/tools/DotnetBuildTools
+
+    - name: Build
+      run: dotnet build DotnetBuildTools.sln /p:Configuration=Release
+      working-directory: main/tools/DotnetBuildTools
 
     - name: Nuget restore dependencies
       run: nuget restore IdeaStatiCa-SDK-Examples.sln
