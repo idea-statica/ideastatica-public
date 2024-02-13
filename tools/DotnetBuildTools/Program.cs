@@ -64,13 +64,14 @@ namespace DotnetBuildTools
 			string versionToUpdate = programOptions.verToUpdate;
 			var repositoryDir = programOptions.repository;
 			logger.LogInformation($"RunUpdateAsync repositoryDir = '{repositoryDir}' versionToUpdate = '{versionToUpdate}'");
+			string currentVer = string.Empty;
 
 			try
 			{
 				
 				var updater = new NugetUpdater(logger, repositoryDir);
 
-				var currentVer = updater.GetCurrentVersion();
+				currentVer = updater.GetCurrentVersion();
 				logger.LogInformation($"RunUpdateAsync current IS nuget version = '{currentVer}' required IS nuget version = '{versionToUpdate}'");
 
 				if (!currentVer.Equals(versionToUpdate))
@@ -92,7 +93,11 @@ namespace DotnetBuildTools
 			{
 				if (isChange)
 				{
-					logger.LogInformation($"RunUpdateAsync IS nuget was updated to version {}");
+					logger.LogInformation($"RunUpdateAsync : IS nuget was updated to version {versionToUpdate}");
+				}
+				else
+				{
+					logger.LogInformation($"RunUpdateAsync :No nee to update. Actual version is {currentVer}");
 				}
 
 
