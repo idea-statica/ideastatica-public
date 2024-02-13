@@ -2,7 +2,7 @@
   "profiles": {
     "DotnetBuildTools": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\git\\pos-ideastatica-public\\"
+      "commandLineArgs": "nuget_update --repository: \"C:\\\\git\\\\pos-ideastatica-public\\\\\" --verToUpdate: \"23.6.1\""
     }
   }
 }
