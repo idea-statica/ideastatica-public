@@ -23,107 +23,118 @@ namespace RcsApiConsoleApp
 			#region create_client
 
 			//Directory to IDEA StatiCa installation on your computer.
-			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1";
-
-			//Pass path to a new RCS Client Factory
-			using (var rcsClientFactory = new RcsClientFactory(directoryPath))
+			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\net6.0-windows";
+			try
 			{
-				//Create the client from the Factory
-				using (IRcsApiController client = await rcsClientFactory.CreateRcsApiClient())
+				//Pass path to a new RCS Client Factory
+				using (var rcsClientFactory = new RcsClientFactory(directoryPath))
 				{
-					#endregion
-
-					bool existingproject = true;
-
-					if (existingproject)
+					//Create the client from the Factory
+					using (IRcsApiController client = await rcsClientFactory.CreateRcsApiClient())
 					{
-						#region open_existing
-
-						//Getting the directory path to the sample file in example project.
-						string samplePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-
-						//filepath to existing .ideaRcs project
-						string rcsFilePath = Path.Combine(samplePath, "SampleFiles\\Reinforced concrete T-section.IdeaRcs");
-
-						//Opens project on the server side to start performing operations
-						bool okay = await client.OpenProjectAsync(rcsFilePath, CancellationToken.None);
-
 						#endregion
-					}
-					else
-					{
-						bool fromIomModel = true;
 
-						if (fromIomModel)
+						bool existingproject = true;
+
+						if (existingproject)
 						{
-							#region open_from_model
+							#region open_existing
 
-							//OpenModel defined in Memory
-							OpenModel model = new OpenModel();
+							//Getting the directory path to the sample file in example project.
+							string samplePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
-							await client.CreateProjectFromIOMAsync(model, CancellationToken.None);
+							//filepath to existing .ideaRcs project
+							string rcsFilePath = Path.Combine(samplePath, "SampleFiles\\Reinforced concrete T-section.IdeaRcs");
+
+							//Opens project on the server side to start performing operations
+							bool okay = await client.OpenProjectAsync(rcsFilePath, CancellationToken.None);
 
 							#endregion
 						}
-
 						else
 						{
-							#region open_from_iom_file
+							bool fromIomModel = true;
 
-							//Filepath to existing Iom XML file to be convert to an RCS Project
-							string iomFilePath = "pathToIoM.xml";
+							if (fromIomModel)
+							{
+								#region open_from_model
 
-							await client.CreateProjectFromIOMFileAsync(iomFilePath, CancellationToken.None);
+								//OpenModel defined in Memory
+								OpenModel model = new OpenModel();
 
-							#endregion
+								await client.CreateProjectFromIOMAsync(model, CancellationToken.None);
+
+								#endregion
+							}
+
+							else
+							{
+								#region open_from_iom_file
+
+								//Filepath to existing Iom XML file to be convert to an RCS Project
+								string iomFilePath = "pathToIoM.xml";
+
+								await client.CreateProjectFromIOMFileAsync(iomFilePath, CancellationToken.None);
+
+								#endregion
+							}
 						}
+
+						#region calculate_project
+
+						List<RcsSectionResultOverview> briefResults = await client.CalculateAsync(new RcsCalculationParameters(), CancellationToken.None);
+
+						JToken parsedJson = JToken.Parse(JsonConvert.SerializeObject(briefResults));
+						string output = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
+
+						//Print brief results to the Console
+						Console.Write(output);
+
+						#endregion
+
+						#region section_results
+
+						//Get List of Sections
+						List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
+
+						//Set Detailed Result Parameters
+						//Selecting only the first section in the Project
+						RcsResultParameters resultParams = new RcsResultParameters()
+						{
+							Sections = new List<int>() { sections[0].Id }
+						};
+
+						List<RcsSectionResultDetailed> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
+
+						JToken parsedJsonResult = JToken.Parse(JsonConvert.SerializeObject(briefResults));
+						string outputresults = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
+
+						//Print brief results to the Console
+						Console.Write(outputresults);
+
+						#endregion
+
+						#region save_project
+
+						string saveFilePath = "newSavePath.ideaRcs";
+
+						//Save project - either provide opened path or provide a new path.
+						await client.SaveProjectAsync(saveFilePath, CancellationToken.None);
+
+						#endregion
+
 					}
-
-					#region calculate_project
-
-					List<RcsSectionResultOverview> briefResults = await client.CalculateAsync(new RcsCalculationParameters(), CancellationToken.None);
-
-					JToken parsedJson = JToken.Parse(JsonConvert.SerializeObject(briefResults));
-					string output = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
-
-					//Print brief results to the Console
-					Console.Write(output);
-
-					#endregion
-
-					#region section_results
-
-					//Get List of Sections
-					List<RcsSection> sections = await client.GetProjectSectionsAsync(CancellationToken.None);
-
-					//Set Detailed Result Parameters
-					//Selecting only the first section in the Project
-					RcsResultParameters resultParams = new RcsResultParameters()
-					{
-						Sections = new List<int>() { sections[0].Id }
-					};
-
-					List<RcsSectionResultDetailed> detailedResult = client.GetResultsAsync(resultParams, CancellationToken.None).Result;
-
-					JToken parsedJsonResult = JToken.Parse(JsonConvert.SerializeObject(briefResults));
-					string outputresults = parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
-
-					//Print brief results to the Console
-					Console.Write(outputresults);
-
-					#endregion
-
-					#region save_project
-
-					string saveFilePath = "newSavePath.ideaRcs";
-
-					//Save project - either provide opened path or provide a new path.
-					await client.SaveProjectAsync(saveFilePath, CancellationToken.None);
-
-					#endregion
-
 				}
 			}
+			catch(Exception ex)
+			{
+				// report an error and return error
+				Console.WriteLine($"RcsApiConsoleApp failed : {ex.Message}");
+				Environment.Exit(1);
+			}
+
+			// success
+			Environment.Exit(0);
 		}
 	}
 }
