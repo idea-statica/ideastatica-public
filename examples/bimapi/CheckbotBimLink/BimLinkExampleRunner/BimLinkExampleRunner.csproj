@@ -52,6 +52,7 @@
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 		<PackageReference Include="IdeaStatiCa.Plugin" Version="23.1.4.1104" />
 	</ItemGroup>
+
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
 		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 	</ItemGroup>
