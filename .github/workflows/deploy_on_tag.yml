@@ -48,7 +48,7 @@ jobs:
       working-directory: main/tools/DotnetBuildTools
 
     - name: Update nuget package
-      run: dotnet DotnetBuildTools.dll 
+      run: dotnet DotnetBuildTools.dll nuget_update --repository ${{ env.working_dir }} --verToUpdate ${{ github.ref }}
       working-directory: main/tools/DotnetBuildTools/bin/Release/net6.0
 
     - name: Nuget restore dependencies
