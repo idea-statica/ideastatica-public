@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetBuildTools", "DotnetBuildTools.csproj", "{D0FDF2E5-E57B-4529-BEF1-56BD82348433}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginLogger", "..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{BBC1065A-4E86-44D6-9382-A4AEA786CC70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetBuildTools", "DotnetBuildTools.csproj", "{D0FDF2E5-E57B-4529-BEF1-56BD82348433}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Public", "..\..\src\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj", "{0F4CA773-7C8D-42CC-896B-E745E593987B}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "..\..\src\Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,14 +23,6 @@ Global
 		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
 		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug_IdeaStatiCa_Internal|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug_IdeaStatiCa_Internal|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release_IdeaStatiCa_Internal|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release_IdeaStatiCa_Internal|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBC1065A-4E86-44D6-9382-A4AEA786CC70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug_IdeaStatiCa_Internal|Any CPU
 		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug_IdeaStatiCa_Internal|Any CPU
 		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -49,9 +37,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A0783B-323E-48FE-A973-1E95FFB0E2BC}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\src\Logger\SerilogFacade\SerilogFacade.projitems*{bbc1065a-4e86-44d6-9382-a4aea786cc70}*SharedItemsImports = 5
-		..\..\src\Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
