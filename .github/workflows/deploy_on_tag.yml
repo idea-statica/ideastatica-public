@@ -20,6 +20,13 @@ jobs:
     - name: Print 2
       run: echo ${{ env.working_dir }}
 
+    - name: Extract tag value
+      run: |
+        for /f "delims=" %%i in ('echo %GITHUB_REF%') do set TAG_VALUE=%%i
+        set TAG_VALUE=%TAG_VALUE:refs/tags=%
+
+        echo "TAG_VALUE=%TAG_VALUE%" >> $GITHUB_ENV
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
@@ -48,7 +55,7 @@ jobs:
       working-directory: main/tools/DotnetBuildTools
 
     - name: Update nuget package
-      run: dotnet DotnetBuildTools.dll nuget_update --repository ${{ env.working_dir }} --verToUpdate ${{ github.ref }}
+      run: dotnet DotnetBuildTools.dll nuget_update --repository ${{ env.working_dir }} --verToUpdate ${{ env.TAG_VALUE }}
       working-directory: main/tools/DotnetBuildTools/bin/Release/net6.0
 
     - name: Nuget restore dependencies IdeaStatiCa-SDK-Examples.sln
