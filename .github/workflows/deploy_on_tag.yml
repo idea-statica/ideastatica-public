@@ -27,9 +27,6 @@ jobs:
         Write-Host "TAG_VALUE=$tagValue"
         echo "TAG_VALUE=$tagValue" >> $env:GITHUB_ENV
 
-    - name: Use the tag value
-      run: echo The extracted tag value is $env:TAG_VALUE
-
     - name: Checkout
       uses: actions/checkout@v3
       with:
