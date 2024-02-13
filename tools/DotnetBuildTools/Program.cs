@@ -57,29 +57,29 @@ namespace DotnetBuildTools
 			return new CommandLineBuilder(root);
 		}
 
-		private static async Task<string> RunUpdateAsync(ProgramOptions programOptions, IHost host)
+		private static async Task<bool> RunUpdateAsync(ProgramOptions programOptions, IHost host)
 		{
 			var logger = host.Services.GetRequiredService<ILogger<NugetUpdater>>();
+			bool isChange = false;
+			string versionToUpdate = programOptions.verToUpdate;
+			var repositoryDir = programOptions.repository;
+			logger.LogInformation($"RunUpdateAsync repositoryDir = '{repositoryDir}' versionToUpdate = '{versionToUpdate}'");
 
 			try
 			{
-
-				string versionToUpdate = programOptions.verToUpdate;
-
-				var repositoryDir = programOptions.repository;
-				logger.LogInformation($"Main {repositoryDir}");
+				
 				var updater = new NugetUpdater(logger, repositoryDir);
 
 				var currentVer = updater.GetCurrentVersion();
-				logger.LogInformation($"Main current IS nuget version = '{currentVer}' required IS nuget version = '{versionToUpdate}'");
+				logger.LogInformation($"RunUpdateAsync current IS nuget version = '{currentVer}' required IS nuget version = '{versionToUpdate}'");
 
 				if (!currentVer.Equals(versionToUpdate))
 				{
-					updater.UpdateNugetInCsproj(currentVer, versionToUpdate);
+					isChange = updater.UpdateNugetInCsproj(currentVer, versionToUpdate);
 				}
 				else
 				{
-					logger.LogInformation("Main : no need to update");
+					logger.LogInformation("RunUpdateAsync : no need to update");
 				}
 			}
 			catch (Exception e)
@@ -90,15 +90,19 @@ namespace DotnetBuildTools
 			}
 			finally
 			{
-				logger.LogInformation("Done");
+				if (isChange)
+				{
+					logger.LogInformation($"RunUpdateAsync IS nuget was updated to version {}");
+				}
+
+
 				if (logger != null && logger is IDisposable disp)
 				{
-					disp.Dispose();
+					disp.Dispose(); 
 				}
 			}
 
-
-			return await Task.FromResult("xxxxx");
+			return await Task.FromResult(isChange);
 		}
 
 
