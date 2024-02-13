@@ -1,4 +1,4 @@
-﻿using IdeaStatiCa.Plugin;
+﻿using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Xml.Linq;
 
@@ -7,9 +7,9 @@ namespace DotnetBuildTools
 	internal class NugetUpdater
 	{
 		readonly string RepositoryPath;
-		readonly IPluginLogger Logger;
+		readonly ILogger<NugetUpdater> Logger;
 
-		internal NugetUpdater(IPluginLogger? logger, string? repositoryPath)
+		internal NugetUpdater(ILogger<NugetUpdater>? logger, string? repositoryPath)
 		{
 			if (logger == null)
 			{
