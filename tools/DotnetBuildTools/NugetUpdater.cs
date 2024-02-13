@@ -98,8 +98,11 @@ namespace DotnetBuildTools
 					existing_csproj = new StringBuilder(reader.ReadToEnd());
 				}
 
-				var updated_csproj = existing_csproj.Replace("currentVersion", "newVersion");
-				if(updated_csproj.Equals(existing_csproj))
+				string existing = existing_csproj.ToString();
+				var updated_csproj = existing_csproj.Replace(currentVersion, newVersion);
+				string updated = updated_csproj.ToString();
+				
+				if(updated.Equals(existing))
 				{
 					Logger.LogInformation($"NugetUpdater.Update : '{csprojFile}' has not been changed");
 				}
@@ -107,7 +110,7 @@ namespace DotnetBuildTools
 				{
 					using (TextWriter writer = new StreamWriter(csprojFile, false))
 					{
-						writer.Write(updated_csproj);
+						writer.Write(updated);
 					}
 
 					Logger.LogInformation($"NugetUpdater.Update : '{csprojFile}' has been updated");
