@@ -43,9 +43,12 @@ jobs:
       run: nuget restore DotnetBuildTools.sln
       working-directory: main/tools/DotnetBuildTools
 
-    - name: Build
+    - name: Build DotnetBuildTools.sln
       run: dotnet build DotnetBuildTools.sln /p:Configuration=Release
       working-directory: main/tools/DotnetBuildTools
+
+    - name: Update nuget packages
+      run: ${{ github.workspace }}/main/tools/DotnetBuildTools/bin/Release/net6.0/DotnetBuildTools.exe nuget_update --repository: ${{ env.working_dir }} --verToUpdate: ${{ github.ref }}
 
     - name: Nuget restore dependencies
       run: nuget restore IdeaStatiCa-SDK-Examples.sln
