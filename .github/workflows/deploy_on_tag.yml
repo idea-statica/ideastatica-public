@@ -51,9 +51,9 @@ jobs:
       run: dotnet DotnetBuildTools.dll nuget_update --repository ${{ env.working_dir }} --verToUpdate ${{ github.ref }}
       working-directory: main/tools/DotnetBuildTools/bin/Release/net6.0
 
-    - name: Nuget restore dependencies
+    - name: Nuget restore dependencies IdeaStatiCa-SDK-Examples.sln
       run: nuget restore IdeaStatiCa-SDK-Examples.sln
-      working-directory: main/tools/DotnetBuildTools
+      working-directory: main/examples   
 
     # - name: 'Upload updated examples'
     #   uses: actions/upload-artifact@v3
@@ -67,9 +67,13 @@ jobs:
     #   run: nuget restore IdeaStatiCa-SDK-Examples.sln
     #   working-directory: main/examples   
 
-    - name: Build
-      run: dotnet build ${{ env.sln_filename }} /p:Configuration=Release
-      working-directory:  ${{ env.working_dir }}
+    # - name: Build
+    #   run: dotnet build ${{ env.sln_filename }} /p:Configuration=Release
+    #   working-directory:  ${{ env.working_dir }}
+
+    - name: Build IdeaStatiCa-SDK-Examples.sln
+      run: dotnet build IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release
+      working-directory:  main/examples
 
     - name: Create Release
       id: create_release
