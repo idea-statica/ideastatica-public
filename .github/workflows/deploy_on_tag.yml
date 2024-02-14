@@ -117,6 +117,25 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_RELEASE }}
       working-directory:  main 
 
+    - name: Create Pull Request
+      run: |
+        $token = $env:GITHUB_TOKEN
+        $repo = $env:GITHUB_REPOSITORY
+        $branch = "nuget-update-${{ env.TAG_VALUE }}"
+
+        $url = "https://api.github.com/repos/$repo/pulls"
+        $headers = @{
+          Authorization = "Bearer $token"
+        }
+        $body = @{
+          title = "Automated PR - updating nugets"
+          body = "Automated pull request from GitHub Actions"
+          head = $branch
+          base = "main"
+        } | ConvertTo-Json
+
+        Invoke-RestMethod -Uri $url -Headers $headers -Method Post -Body $body -ContentType "application/json"
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
