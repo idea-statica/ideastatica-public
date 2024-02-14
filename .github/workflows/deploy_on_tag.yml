@@ -32,7 +32,11 @@ jobs:
       with:
         ref: ${{ github.ref }}
         path: main
-        
+      
+    - name: Create Local Branch
+      run: |
+        git checkout -b nuget-update-${{ env.TAG_VALUE }}        
+
     - name: Setup .NET
       uses: microsoft/setup-msbuild@v1
 
@@ -104,8 +108,8 @@ jobs:
         git config user.name "IdeaStatiCa Robot"
         git config user.email "robot@ideastatica.com"
         git add .
-        git commit -m "Idea StaticaNuget update"
-        git push origin main
+        git commit -m "Idea Statica nuget update ${{ env.TAG_VALUE }}"
+        git push origin nuget-update-${{ env.TAG_VALUE }}
       env:
         GH_TOKEN: ${{ secrets.GH_RELEASE }}
       working-directory:  main 
