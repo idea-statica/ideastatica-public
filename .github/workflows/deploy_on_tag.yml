@@ -3,51 +3,171 @@ on:
   push:
     tags:
       - '*'
+
+env:
+   sln_filename: ${{ github.workspace }}\main\examples\IdeaStatiCa-SDK-Examples.sln
+   working_dir: ${{ github.workspace }}\main\examples
+
 jobs:
   BuildAndTest:
-    name: "Build and Create IOM"
+    name: "Update and build IdeaStatiCa-SDK-Examples"
     runs-on: windows-latest
 
     steps:
+    - name: Print 1
+      run: echo ${{ github.ref }}
+
+    - name: Print 2
+      run: echo ${{ env.working_dir }}
+
+    - name: Extract tag value
+      shell: pwsh
+      run: |
+        $tagValue = $env:GITHUB_REF -replace 'refs/tags/', ''
+        Write-Host "TAG_VALUE=$tagValue"
+        echo "TAG_VALUE=$tagValue" >> $env:GITHUB_ENV
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        ref: ${{ 'refs/tags/<tag_name>' }}
-        
+        ref: ${{ github.ref }}
+        path: main
+      
+    - name: Create Local Branch
+      run: |
+        git checkout -b nuget-update-${{ env.TAG_VALUE }}        
+      env:
+        GH_TOKEN: ${{ secrets.GH_RELEASE }}
+      working-directory:  main 
+
     - name: Setup .NET
       uses: microsoft/setup-msbuild@v1
 
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '6.0.x'
+
     - name: Setup nuget.exe
-      uses: NuGet/setup-nuget@v1
+      uses: NuGet/setup-nuget@v2
       
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1.2
 
-    - name: Nuget restore dependencies
-      run: nuget restore ./src/IdeaStatiCa.Public.sln
-      working-directory: main
+    - name: Nuget restore dependencies DotnetBuildTools.sln
+      run: nuget restore DotnetBuildTools.sln
+      working-directory: main/tools/DotnetBuildTools
 
-    - name: Build
-      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
-      working-directory: main
+    - name: Build DotnetBuildTools.sln
+      run: dotnet build DotnetBuildTools.sln /p:Configuration=Release
+      working-directory: main/tools/DotnetBuildTools
 
-    - name: 'Upload RcsApiClient'
-      uses: actions/upload-artifact@v3
-      with:
-        name: RcsApiClient
-        path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
-    
-    - name: Create release
+    - name: Update nuget package
+      run: dotnet DotnetBuildTools.dll nuget_update --repository ${{ env.working_dir }} --verToUpdate ${{ env.TAG_VALUE }}
+      working-directory: main/tools/DotnetBuildTools/bin/Release/net6.0
+
+    - name: Nuget restore dependencies IdeaStatiCa-SDK-Examples.sln
+      run: nuget restore IdeaStatiCa-SDK-Examples.sln
+      working-directory: main/examples   
+
+    - name: Build IdeaStatiCa-SDK-Examples.sln
+      run: dotnet build IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release
+      working-directory:  main/examples
+
+    - name: publish RcsApiClient.csproj
+      run: dotnet publish api\csharp\rcs\RcsApiClient\RcsApiClient.csproj --configuration Release --framework net6.0-windows --runtime win-x64 --output publish\RcsApiClient --no-self-contained
+      working-directory:  main/examples
+      
+    - name: create RcsApiClient.zip
+      run: |
+        # Navigate to the directory containing the files you want to zip
+        # cd path/to/your/directory
+
+        # Compress the files into a zip archive
+        Compress-Archive -Path ./RcsApiClient/* -DestinationPath RcsApiClient.zip
+      working-directory:  main/examples/publish   
+
+    - name: publish ConnectionHiddenCalculation.csproj
+      run: dotnet publish api\csharp\connection\Connection-API-WinForm-Tester\ConnectionHiddenCalculation\ConnectionHiddenCalculation.csproj --configuration Release --framework net48 --runtime win-x64 --output publish\ConnectionHiddenCalculation --no-self-contained
+      working-directory:  main/examples  
+
+    - name: create ConnectionHiddenCalculation.zip
+      run: |
+        # Navigate to the directory containing the files you want to zip
+        # cd path/to/your/directory
+
+        # Compress the files into a zip archive
+        Compress-Archive -Path ./ConnectionHiddenCalculation/* -DestinationPath ConnectionHiddenCalculation.zip
+      working-directory:  main/examples/publish   
+
+    # - name: 'Upload publish'
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: publish
+    #     path: ${{ github.workspace }}/main/examples/publish
+    #     if-no-files-found: error
+
+    - name: Commit and Push Changes
+      run: |
+        git config user.name "IdeaStatiCa Robot"
+        git config user.email "robot@ideastatica.com"
+        git add .
+        git commit -m "Idea Statica nuget update ${{ env.TAG_VALUE }}"
+        git push origin nuget-update-${{ env.TAG_VALUE }}
+      env:
+        GH_TOKEN: ${{ secrets.GH_RELEASE }}
+      working-directory:  main 
+
+    - name: Create Pull Request
+      run: |
+        $token = $env:YOUR_PAT_SECRET
+        $repo = $env:GITHUB_REPOSITORY
+        $branch = "nuget-update-${{ env.TAG_VALUE }}"
+
+        $url = "https://api.github.com/repos/$repo/pulls"
+        $headers = @{
+          Authorization = "Bearer $token"
+        }
+        $body = @{
+          title = "Automated PR - updating nugets to ${{ env.TAG_VALUE }}"
+          body = "Automated pull request from GitHub Actions"
+          head = $branch
+          base = "main"
+        } | ConvertTo-Json
+
+        Invoke-RestMethod -Uri $url -Headers $headers -Method Post -Body $body -ContentType "application/json"
+      env:
+        YOUR_PAT_SECRET: ${{ secrets.GH_RELEASE }}
+
+    - name: Create Release
+      id: create_release
       uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_RELEASE }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ 'refs/tags/<tag_name>' }}
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
         prerelease: false
-    
-    - name: Upload release asset
+
+    - name: Upload Release Asset RcsApiClient.zip
+      id: upload-release-asset-RcsApiClient 
       uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_RELEASE }}
       with:
-        asset_path: path/to/artifact
-        asset_name: RcsApiClient
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./main/examples/publish/RcsApiClient.zip
+        asset_name: RcsApiClient.zip
         asset_content_type: application/zip
-        release_tag: ${{ 'refs/tags/<tag_name>' }}
+
+    - name: Upload Release Asset ConnectionHiddenCalculation.zip
+      id: upload-release-asset-ConnectionHiddenCalculation 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_RELEASE }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./main/examples/publish/ConnectionHiddenCalculation.zip
+        asset_name: ConnectionHiddenCalculation.zip
+        asset_content_type: application/zip
       
