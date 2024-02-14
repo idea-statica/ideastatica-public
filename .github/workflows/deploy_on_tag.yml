@@ -70,6 +70,10 @@ jobs:
       run: dotnet publish api\csharp\rcs\RcsApiClient\RcsApiClient.csproj --configuration Release --framework net6.0-windows --runtime win-x64 --output publish\RcsApiClient --no-self-contained
       working-directory:  main/examples      
 
+    - name: publish ConnectionHiddenCalculation.csproj
+      run: dotnet publish api\csharp\connection\Connection-API-WinForm-Tester\ConnectionHiddenCalculation\ConnectionHiddenCalculation.csproj --configuration Release --framework net48 --runtime win-x64 --output publish\ConnectionHiddenCalculation --no-self-contained
+      working-directory:  main/examples  
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
