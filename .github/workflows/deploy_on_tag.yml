@@ -66,6 +66,10 @@ jobs:
       run: dotnet build IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release
       working-directory:  main/examples
 
+    - name: publish RcsApiClient.csproj
+      run: dotnet publish api\csharp\rcs\RcsApiClient\RcsApiClient.csproj --configuration Release --framework net6.0-windows --runtime win-x64 --output publish\RcsApiClient --no-self-contained
+      working-directory:  main/examples      
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -77,5 +81,14 @@ jobs:
         draft: false
         prerelease: false
 
-
+    # - name: Upload Release Asset
+    #   id: upload-release-asset 
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GH_RELEASE }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+    #     asset_path: ./my-artifact.zip
+    #     asset_name: my-artifact.zip
+    #     asset_content_type: application/zip
       
