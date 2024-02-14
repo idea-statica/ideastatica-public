@@ -19,9 +19,9 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 
-		<ProjectReference Include="..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-		<ProjectReference Include="..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
-		<ProjectReference Include="..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
+		<ProjectReference Include="..\..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
 	</ItemGroup>
 
 </Project>
