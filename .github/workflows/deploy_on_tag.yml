@@ -108,6 +108,7 @@ jobs:
         git push origin main
       env:
         GH_TOKEN: ${{ secrets.GH_RELEASE }}
+      working-directory:  main 
 
     - name: Create Release
       id: create_release
