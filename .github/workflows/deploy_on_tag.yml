@@ -92,12 +92,12 @@ jobs:
         Compress-Archive -Path ./ConnectionHiddenCalculation/* -DestinationPath ConnectionHiddenCalculation.zip
       working-directory:  main/examples/publish   
 
-    - name: 'Upload publish'
-      uses: actions/upload-artifact@v3
-      with:
-        name: publish
-        path: ${{ github.workspace }}/main/examples/publish
-        if-no-files-found: error
+    # - name: 'Upload publish'
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: publish
+    #     path: ${{ github.workspace }}/main/examples/publish
+    #     if-no-files-found: error
 
     - name: Create Release
       id: create_release
