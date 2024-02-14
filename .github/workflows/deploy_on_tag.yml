@@ -68,11 +68,29 @@ jobs:
 
     - name: publish RcsApiClient.csproj
       run: dotnet publish api\csharp\rcs\RcsApiClient\RcsApiClient.csproj --configuration Release --framework net6.0-windows --runtime win-x64 --output publish\RcsApiClient --no-self-contained
-      working-directory:  main/examples      
+      working-directory:  main/examples
+      
+    - name: create RcsApiClient.zip
+      run: |
+        # Navigate to the directory containing the files you want to zip
+        # cd path/to/your/directory
+
+        # Compress the files into a zip archive
+        Compress-Archive -Path ./RcsApiClient/* -DestinationPath RcsApiClient.zip
+      working-directory:  main/examples/publish   
 
     - name: publish ConnectionHiddenCalculation.csproj
       run: dotnet publish api\csharp\connection\Connection-API-WinForm-Tester\ConnectionHiddenCalculation\ConnectionHiddenCalculation.csproj --configuration Release --framework net48 --runtime win-x64 --output publish\ConnectionHiddenCalculation --no-self-contained
       working-directory:  main/examples  
+
+    - name: create ConnectionHiddenCalculation.zip
+      run: |
+        # Navigate to the directory containing the files you want to zip
+        # cd path/to/your/directory
+
+        # Compress the files into a zip archive
+        Compress-Archive -Path ./ConnectionHiddenCalculation/* -DestinationPath ConnectionHiddenCalculation.zip
+      working-directory:  main/examples/publish   
 
     - name: Create Release
       id: create_release
