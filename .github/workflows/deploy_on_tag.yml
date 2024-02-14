@@ -36,6 +36,9 @@ jobs:
     - name: Create Local Branch
       run: |
         git checkout -b nuget-update-${{ env.TAG_VALUE }}        
+      env:
+        GH_TOKEN: ${{ secrets.GH_RELEASE }}
+      working-directory:  main 
 
     - name: Setup .NET
       uses: microsoft/setup-msbuild@v1
