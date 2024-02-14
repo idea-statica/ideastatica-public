@@ -119,7 +119,7 @@ jobs:
 
     - name: Create Pull Request
       run: |
-        $token = $env:GITHUB_TOKEN
+        $token = $env:YOUR_PAT_SECRET
         $repo = $env:GITHUB_REPOSITORY
         $branch = "nuget-update-${{ env.TAG_VALUE }}"
 
@@ -128,13 +128,15 @@ jobs:
           Authorization = "Bearer $token"
         }
         $body = @{
-          title = "Automated PR - updating nugets"
+          title = "Automated PR - updating nugets to ${{ env.TAG_VALUE }}"
           body = "Automated pull request from GitHub Actions"
           head = $branch
           base = "main"
         } | ConvertTo-Json
 
         Invoke-RestMethod -Uri $url -Headers $headers -Method Post -Body $body -ContentType "application/json"
+      env:
+        YOUR_PAT_SECRET: ${{ secrets.GH_RELEASE }}
 
     - name: Create Release
       id: create_release
