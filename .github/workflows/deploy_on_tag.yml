@@ -99,6 +99,16 @@ jobs:
     #     path: ${{ github.workspace }}/main/examples/publish
     #     if-no-files-found: error
 
+    - name: Commit and Push Changes
+      run: |
+        git config user.name "IdeaStatiCa Robot"
+        git config user.email "robot@ideastatica.com"
+        git add .
+        git commit -m "Idea StaticaNuget update"
+        git push origin main
+      env:
+        GH_TOKEN: ${{ secrets.GH_RELEASE }}
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
