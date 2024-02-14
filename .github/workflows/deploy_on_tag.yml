@@ -3,6 +3,8 @@ on:
   push:
     tags:
       - '*'
+    branches:
+      - main
 
 env:
    sln_filename: ${{ github.workspace }}\main\examples\IdeaStatiCa-SDK-Examples.sln
@@ -14,10 +16,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Print 1
+    - name: Print 'github.ref'
       run: echo ${{ github.ref }}
 
-    - name: Print 2
+    - name: Print 'env.working_dir'
       run: echo ${{ env.working_dir }}
 
     - name: Extract tag value
