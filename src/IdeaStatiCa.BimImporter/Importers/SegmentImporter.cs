@@ -11,7 +11,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 {
 	internal class SegmentImporter : AbstractImporter<IIdeaSegment3D>
 	{
-		private readonly IPluginLogger _logger;
+		private readonly IPluginLogger _logger;		
 
 		public SegmentImporter(IPluginLogger logger) : base(logger)
 		{
@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		{
 			double geometryPrecision = ctx.Configuration.GeometryPrecision;
 			double lcsPrecision = ctx.Configuration.LCSPrecision;
+			double lcsPrecisionForNormalization = ctx.Configuration.LCSPrecisionForNormalization;
 
 			if (segment.StartNode.IsAlmostEqual(segment.EndNode, geometryPrecision))
 			{
@@ -61,13 +62,15 @@ namespace IdeaStatiCa.BimImporter.Importers
 			iomSegment.EndPoint = ctx.Import(segment.EndNode);
 			if (segment.LocalCoordinateSystem != null)
 			{
-				iomSegment.LocalCoordinateSystem = ProcessCoordSystem(segment.LocalCoordinateSystem as CoordSystemByVector, lcsPrecision);
+				iomSegment.LocalCoordinateSystem = ProcessCoordSystem(segment.LocalCoordinateSystem as CoordSystemByVector, lcsPrecision, 
+																		lcsPrecisionForNormalization);
 			}
 
 			return iomSegment;
 		}
 
-		private CoordSystemByVector ProcessCoordSystem(CoordSystemByVector coordSystem, double lcsPrecision)
+		private CoordSystemByVector ProcessCoordSystem(CoordSystemByVector coordSystem, double lcsPrecision, 
+														double lcsPrecisionForNormalization)
 		{
 			CheckVectorSpaceConstraints(
 				Convert(coordSystem.VecX),
@@ -77,9 +80,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			return new CoordSystemByVector()
 			{
-				VecX = NormalizeVector(coordSystem.VecX, lcsPrecision),
-				VecY = NormalizeVector(coordSystem.VecY, lcsPrecision),
-				VecZ = NormalizeVector(coordSystem.VecZ, lcsPrecision),
+				VecX = NormalizeVector(coordSystem.VecX, lcsPrecisionForNormalization),
+				VecY = NormalizeVector(coordSystem.VecY, lcsPrecisionForNormalization),
+				VecZ = NormalizeVector(coordSystem.VecZ, lcsPrecisionForNormalization),
 			};
 		}
 
@@ -88,11 +91,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 			return new Vector(v.X, v.Y, v.Z);
 		}
 
-		private Vector3D NormalizeVector(Vector3D vector, double lcsPrecision)
+		private Vector3D NormalizeVector(Vector3D vector, double lcsPrecisionForNormalization)
 		{
-			double x = Normalize(vector.X, lcsPrecision);
-			double y = Normalize(vector.Y, lcsPrecision);
-			double z = Normalize(vector.Z, lcsPrecision);
+			double x = Normalize(vector.X, lcsPrecisionForNormalization);
+			double y = Normalize(vector.Y, lcsPrecisionForNormalization);
+			double z = Normalize(vector.Z, lcsPrecisionForNormalization);
 
 			double mag = Math.Sqrt(x * x + y * y + z * z);
 
@@ -104,9 +107,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 			};
 		}
 
-		private double Normalize(double value, double lcsPrecision)
+		private double Normalize(double value, double lcsPrecisionForNormalization)
 		{
-			double newValue = value.Round(lcsPrecision.LeadingDecimalZeros());
+			double newValue = value.Round(lcsPrecisionForNormalization.LeadingDecimalZeros());
 			if (value != newValue)
 			{
 				_logger.LogTrace($"Value {value} normalized to {newValue}.");
