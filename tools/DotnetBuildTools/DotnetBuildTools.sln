@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetBuildTools", "DotnetBuildTools.csproj", "{D0FDF2E5-E57B-4529-BEF1-56BD82348433}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Public", "..\..\src\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj", "{0F4CA773-7C8D-42CC-896B-E745E593987B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_IdeaStatiCa_Internal|Any CPU = Debug_IdeaStatiCa_Internal|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release_IdeaStatiCa_Internal|Any CPU = Release_IdeaStatiCa_Internal|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0FDF2E5-E57B-4529-BEF1-56BD82348433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug_IdeaStatiCa_Internal|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug_IdeaStatiCa_Internal|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release_IdeaStatiCa_Internal|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release_IdeaStatiCa_Internal|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F4CA773-7C8D-42CC-896B-E745E593987B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58A0783B-323E-48FE-A973-1E95FFB0E2BC}
+	EndGlobalSection
+EndGlobal

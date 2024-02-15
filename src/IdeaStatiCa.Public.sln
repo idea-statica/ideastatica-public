@@ -167,7 +167,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.TeklaStructures
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.TeklaStructuresTest", "bim-links\tekla\IdeaStatiCa.TeklaStructuresTest\IdeaStatiCa.TeklaStructuresTest.csproj", "{8CB29DA8-7874-410A-976F-8E88C9ED2785}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiClient", "..\examples\api\RcsApiClient\RcsApiClient.csproj", "{D8592C4A-B184-47CD-BA1B-6C23676EFC48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiClient", "..\examples\api\csharp\rcs\RcsApiClient\RcsApiClient.csproj", "{D8592C4A-B184-47CD-BA1B-6C23676EFC48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
