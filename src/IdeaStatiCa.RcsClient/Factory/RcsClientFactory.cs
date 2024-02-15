@@ -6,8 +6,6 @@ using IdeaStatiCa.RcsClient.HttpWrapper;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,16 +18,19 @@ namespace IdeaStatiCa.RcsClient.Factory
 		private IHttpClientWrapper httpClientWrapper;
 		private int port = -1;
 		private Process rcsRestApiProcess = null;
-		private string directory = null;
+		private readonly string setupDir = null;
 
 		public Action<string, int> StreamingLog { get; set; } = null;
 		public Action<string> HeartbeatLog { get; set; } = null;
 
-		public RcsClientFactory(string path, IPluginLogger pluginLogger = null, IHttpClientWrapper httpClientWrapper = null)
+		public RcsClientFactory(string isSetupDir, IPluginLogger pluginLogger = null, IHttpClientWrapper httpClientWrapper = null)
 		{
 			this.httpClientWrapper = httpClientWrapper;
 			this.pluginLogger = pluginLogger ?? new NullLogger();
-			this.directory = path;
+			
+			pluginLogger.LogDebug($"RcsClientFactory passed isSetupDir = '{isSetupDir}'");
+			this.setupDir = GetRcsRestApiPath(isSetupDir);
+			pluginLogger.LogDebug($"RcsClientFactory modified setupDir = '{setupDir}'");
 		}
 
 		/// <summary>
@@ -64,8 +65,13 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 					while (port > 0)
 					{
-						var directoryName = directory ?? Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+						var directoryName = !string.IsNullOrEmpty(setupDir) ? setupDir : Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 						string apiExecutablePath = Path.Combine(directoryName, "IdeaStatiCa.RcsRestApi.exe");
+
+						if(!File.Exists(apiExecutablePath))
+						{
+							pluginLogger.LogWarning($"RcsClientFactory.RunRcsRestApiService : '{apiExecutablePath}' doesn't exist");
+						}
 
 						pluginLogger.LogDebug($"Running {apiExecutablePath} on port {port}");
 						// Start the REST API executable with the chosen port
@@ -106,6 +112,37 @@ namespace IdeaStatiCa.RcsClient.Factory
 		{
 			rcsRestApiProcess?.Kill();
 			rcsRestApiProcess?.Dispose();
+		}
+
+		private string GetRcsRestApiPath(string directory)
+		{
+			if(string.IsNullOrEmpty(directory))
+			{
+				// setup dir is not passed
+				pluginLogger.LogDebug("GetRcsRestApiPath : setup dir is not passed");
+
+				return directory;
+			}
+
+			// IdeaStatiCa.RcsRestApi.exe is expected in net6.0-windows subdir. Do a chact and modified id if it is needed
+			string modifiedDir = directory;
+			if(!directory.ToLower().Contains("net6.0-windows"))
+			{
+				pluginLogger.LogDebug("GetRcsRestApiPath trying to find subdir 'net6.0-windows'");
+				var dir = Path.Combine(directory, "net6.0-windows");
+				if (Directory.Exists(dir))
+				{
+					pluginLogger.LogDebug($"GetRcsRestApiPath : '{dir}' exists ");
+					modifiedDir = dir;
+				}
+				else
+				{
+					pluginLogger.LogWarning($"GetRcsRestApiPath : '{dir}' doesn't exist");
+				}
+			}
+
+			pluginLogger.LogWarning($"GetRcsRestApiPath : returning '{modifiedDir}'");
+			return modifiedDir;
 		}
 	}
 }

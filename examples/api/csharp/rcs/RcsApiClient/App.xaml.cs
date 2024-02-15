@@ -34,10 +34,6 @@ namespace RcsApiClient
 			{
 				RcsClientSettings rcsClientSettings = new RcsClientSettings();
 				configuration.GetSection("RcsClientSettings").Bind(rcsClientSettings);
-				if(!rcsClientSettings.IdeaStatiCaDir.EndsWith("net6.0-windows"))
-				{
-					rcsClientSettings.IdeaStatiCaDir = Path.Combine(rcsClientSettings.IdeaStatiCaDir, "net6.0-windows");
-				}
 				return rcsClientSettings;
 			});
 

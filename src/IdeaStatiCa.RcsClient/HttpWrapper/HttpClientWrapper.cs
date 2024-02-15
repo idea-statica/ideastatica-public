@@ -143,17 +143,17 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
 					// Periodically check the heartbeat while the long operation is in progress
 					var heartbeatTask = heartbeatChecker.StartAsync();
-					logger.LogDebug($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
+					logger.LogTrace($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
 					using (HttpResponseMessage response = await clientCall(client))
 					{
 
 						// Stop the heartbeat checker
 						heartbeatChecker.Stop();
-						logger.LogDebug($"Stopping HeartbeatChecker");
+						logger.LogTrace($"Stopping HeartbeatChecker");
 
 						if (response is { IsSuccessStatusCode: true })
 						{
-							logger.LogDebug($"Response is successfull");
+							logger.LogTrace($"Response is successfull");
 
 							if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase))
 							{
