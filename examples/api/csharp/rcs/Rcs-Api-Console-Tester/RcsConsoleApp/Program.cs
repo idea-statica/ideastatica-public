@@ -23,7 +23,7 @@ namespace RcsApiConsoleApp
 			#region create_client
 
 			//Directory to IDEA StatiCa installation on your computer.
-			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\net6.0-windows";
+			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1";
 			try
 			{
 				//Pass path to a new RCS Client Factory
