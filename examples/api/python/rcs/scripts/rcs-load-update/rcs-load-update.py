@@ -1,11 +1,12 @@
+import os
+import logging
+import ideastatica_rcs_client
 from ideastatica_rcs_client import idea_statica_setup
 from ideastatica_rcs_client import rcs_client
 from ideastatica_rcs_client import brief_result_tools
 from ideastatica_rcs_client import detail_results_tools
 from ideastatica_rcs_client import loading_tools
-import os
-import logging
-
+ 
 ideaStatiCa_Version = r'23.1'
 rcs_project_name = r"Project2.IdeaRcs"
 
