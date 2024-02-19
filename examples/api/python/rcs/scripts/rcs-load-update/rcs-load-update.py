@@ -1,5 +1,5 @@
 from ideastatica_rcs_client import idea_statica_setup
-from ideastatica_rcs_client import ideastatica_rcs_client
+from ideastatica_rcs_client import rcs_client
 from ideastatica_rcs_client import brief_result_tools
 from ideastatica_rcs_client import detail_results_tools
 from ideastatica_rcs_client import loading_tools
@@ -25,7 +25,7 @@ freeTcp = idea_statica_setup.get_free_port()
 logger.info(f"freeTcp = {freeTcp}")
 
 #Create the client and establish communication with RCS.
-rcsClient = ideastatica_rcs_client.ideastatica_rcs_client(ideaSetupDir, freeTcp)
+rcsClient = rcs_client.RcsClient(ideaSetupDir, freeTcp)
 
 #We can retrieve and print the details of the RCS communication. 
 logger.info(rcsClient.printServiceDetails())
