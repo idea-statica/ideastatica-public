@@ -1,5 +1,5 @@
 from ideastatica_rcs_client import idea_statica_setup
-from ideastatica_rcs_client import ideastatica_rcs_client
+from ideastatica_rcs_client import rcs_client
 from ideastatica_rcs_client import rcsproject
 from ideastatica_rcs_client import brief_result_tools 
 from ideastatica_rcs_client import loading_tools
@@ -22,7 +22,7 @@ def get_section_details(rcs_project_filename):
     #print("Free tcp port on localhost :", freeTcp)
     
     try:
-        rcsClient = ideastatica_rcs_client.ideastatica_rcs_client(ideaSetupDir, freeTcp)
+        rcsClient = rcs_client.RcsClient(ideaSetupDir, freeTcp)
 
         print(rcsClient.printServiceDetails())
 
@@ -61,7 +61,7 @@ def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforce
     freeTcp = idea_statica_setup.get_free_port()
     
     try:
-        rcsClient = ideastatica_rcs_client.ideastatica_rcs_client(ideaSetupDir, freeTcp)
+        rcsClient = rcs_client.RcsClient(ideaSetupDir, freeTcp)
 
         #print(rcsClient.printServiceDetails())
 
@@ -139,7 +139,7 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate):
     freeTcp = idea_statica_setup.get_free_port()
     
     try:
-        rcsClient = ideastatica_rcs_client.ideastatica_rcs_client(ideaSetupDir, freeTcp)
+        rcsClient = rcs_client.RcsClient(ideaSetupDir, freeTcp)
 
         projectId = rcsClient.OpenProject(project_to_calculate)
 
