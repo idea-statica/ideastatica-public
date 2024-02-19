@@ -8,9 +8,9 @@ import logging
 from . import rcsproject 
 from . import brief_result_tools
 
-logger = logging.getLogger('ideastatica_rcs_client')
+logger = logging.getLogger('RcsClient')
 
-class ideastatica_rcs_client:
+class RcsClient:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
         self.tcpPort = tcpPort
         self.ideaStatiCaSetupDir = ideaStatiCaSetupDir
@@ -36,7 +36,7 @@ class ideastatica_rcs_client:
     def printServiceDetails(self):
         # print details of the connection to RCS service
         logger.info("printServiceDetails")
-        print(getServiceDetails())
+        print(self.getServiceDetails())
 
     def OpenProject(self, ideaPath):
         # Open IdeaRcs project. ideaPath is path to the project file on a disk to open
@@ -60,8 +60,8 @@ class ideastatica_rcs_client:
             logger.warn(f"OpenProject failed  {ideaPath} can not be open {response.content}")
             raise ValueError(f'file {ideaPath} can not be open {response.content}')
         
-    def response.content(self):
-        # Get a project summary of the active project and store it locally
+    def SetProjectSummary(self):
+        # Get a project summary of the active project and store it locally 
         logger.info("SetProjectSummary")
         if self.projectId is None:
             logger.warning("Any project is not open - projectId is None")
