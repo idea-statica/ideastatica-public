@@ -12,7 +12,7 @@ ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
 #Print found setup directory
 print(ideaSetupDir)
 
-#Use set-up tools to dind an avaliable port on the local machine to run communication 
+#Use set-up tools to find an avaliable port on the local machine to run communication 
 freeTcp = idea_statica_setup.get_free_port()
 print(freeTcp)
 
