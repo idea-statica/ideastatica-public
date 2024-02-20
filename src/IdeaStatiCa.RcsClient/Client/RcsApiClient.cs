@@ -3,7 +3,6 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.HttpWrapper;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -172,6 +171,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <inheritdoc cref="IRcsApiController.SaveProjectAsync(string, CancellationToken)"/>
 		public async Task SaveProjectAsync(string outputPath, CancellationToken token = default)
 		{
+			pluginLogger.LogDebug($"RcsApiClient.SaveProjectAsync projectId = {ActiveProjectId} outputPath = '{outputPath}'");
 			using (var rcsProjectStream = await DownloadProjectAsync(token))
 			{
 				rcsProjectStream.Seek(0, System.IO.SeekOrigin.Begin);
@@ -186,13 +186,30 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <inheritdoc cref="IRcsApiController.GetCodeSettings(CancellationToken)"/>
 		public async Task<string> GetCodeSettings(CancellationToken token = default)
 		{
+			pluginLogger.LogDebug($"RcsApiClient.GetCodeSettings projectId = {ActiveProjectId}");
 			return await httpClient.GetAsync<string>($"Project/{ActiveProjectId}/GetCodeSettings", token, "text/plain");
 		}
 
 		/// <inheritdoc cref="IRcsApiController.UpdateCodeSettings(List{RcsSetting}, CancellationToken)"/>
 		public async Task<bool> UpdateCodeSettings(List<RcsSetting> setup, CancellationToken token = default)
 		{
+			pluginLogger.LogDebug($"RcsApiClient.UpdateCodeSettings projectId = {ActiveProjectId}");
 			return await httpClient.PutAsync<bool>($"Project/{ActiveProjectId}/UpdateCodeSettings", setup, token);
+		}
+
+		/// <inheritdoc cref="IRcsApiController.GetLoadingInSectionAsync(int, CancellationToken)"/>
+		public async Task<string> GetLoadingInSectionAsync(int sectionId, CancellationToken token = default)
+		{
+			pluginLogger.LogDebug($"RcsApiClient.GetLoadingInSectionAsync projectId = {ActiveProjectId}, sectionId = {sectionId}");
+			return await httpClient.GetAsync<string>($"Section/{ActiveProjectId}/GetLoadingInSection?sectionId={sectionId}", token, "text/plain");
+		}
+
+		/// <inheritdoc cref="IRcsApiController.SetLoadingInSectionAsync(int, string, CancellationToken)"/>
+		public async Task SetLoadingInSectionAsync(int sectionId, string loadingXml, CancellationToken token = default)
+		{
+			var data = new RcsSectionLoading() { SectionId = sectionId, LoadingXml = loadingXml };
+			pluginLogger.LogDebug($"RcsApiClient.SetLoadingInSectionAsync projectId = {ActiveProjectId} sectionId = {sectionId}");
+			var result = await httpClient.PostAsync<string>($"Section/{ActiveProjectId}/SetLoadingInSection", data, token, "text/plain");
 		}
 	}
 }

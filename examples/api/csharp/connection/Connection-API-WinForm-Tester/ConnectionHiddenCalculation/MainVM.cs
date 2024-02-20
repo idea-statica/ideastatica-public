@@ -262,8 +262,24 @@ namespace ConnectionHiddenCalculation
 				return;
 			}
 
-			IdeaConnectionClient.CloseProject();
-			IdeaConnectionClient.Close();
+			try
+			{
+				IdeaConnectionClient.CloseProject();
+			}
+			catch(Exception ex)
+			{
+				Logger.LogWarning("MainVM.CloseConnectionService : IdeaConnectionClient.CloseProject() failed ", ex);
+			}
+
+			try
+			{
+				IdeaConnectionClient.Close();
+			}
+			catch(Exception ex)
+			{
+				Logger.LogWarning("MainVM.CloseConnectionService : IdeaConnectionClient.Close() failed ", ex);
+			}
+
 			IdeaConnectionClient = null;
 			Service = null;
 
@@ -272,10 +288,24 @@ namespace ConnectionHiddenCalculation
 
 			if (connectionController != null)
 			{
-				connectionController.CloseProject();
+				try
+				{
+					connectionController.CloseProject();
+				}
+				catch (Exception ex)
+				{
+					Logger.LogWarning("MainVM.CloseConnectionService : connectionController.CloseProject() failed ", ex);
+				}
 			}
 
-			DeleteTempProjectFile();
+			try
+			{
+				DeleteTempProjectFile();
+			}
+			catch(Exception ex)
+			{
+				Logger.LogWarning("MainVM.CloseConnectionService : DeleteTempProjectFile() failed ", ex);
+			}
 		}
 
 		private void DeleteTempProjectFile()

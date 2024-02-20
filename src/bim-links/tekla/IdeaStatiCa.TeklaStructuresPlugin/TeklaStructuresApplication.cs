@@ -75,8 +75,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
 		private bool AskImportRecommendedWelds()
 		{
-			/*string messageBoxText = IdeaStatica.Translation.Resources.AddRecommendedWelds;
-			string caption = IdeaStatica.Translation.Resources.RecommendedWelds;
+			string messageBoxText = IdeaStatiCa.TeklaStructuresResources.Properties.Resources.AddRecommendedWelds;
+			string caption = IdeaStatiCa.TeklaStructuresResources.Properties.Resources.RecommendedWelds;
 			System.Windows.MessageBoxButton button = System.Windows.MessageBoxButton.YesNo;
 			System.Windows.MessageBoxImage icon = System.Windows.MessageBoxImage.Question;
 			bool addRecommendedWelds;
@@ -91,9 +91,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					break;
 			}
 
-			(_logger as IdeaStatiCa.Diagnostics.PluginAdapter.PluginLogger)?.LogEventInformation(new BimPluginWeldRecomendationEvent(addRecommendedWelds));
-			return addRecommendedWelds;*/
-			return true;
+			return addRecommendedWelds;
 		}
 
 		protected override void ActivateMethod(List<BIMItemId> items)
@@ -101,10 +99,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			using (CreateScope(CountryCode.None))
 			{
 				IEnumerable<IIdeaObject> tokens = items
-					//.Where(x => x.Type != BIMItemType.BIMItemsGroup)
 					.Select(x =>
 					{
-						// due to automation creation connection in common code
 						try
 						{
 							return _project.GetBimObject(x.Id);

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DotnetBuildTools": {
+      "commandName": "Project",
+      "commandLineArgs": "nuget_update --repository: \"C:\\\\git\\\\pos-ideastatica-public\\\\\" --verToUpdate: \"23.6.1\""
+    }
+  }
+}

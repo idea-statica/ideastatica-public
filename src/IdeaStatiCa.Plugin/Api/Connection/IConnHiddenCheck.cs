@@ -221,7 +221,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the parameter</param>
 		/// <param name="parametersJSON">JSON string including parameters</param>
-		/// <returns></returns>
+		/// <returns>True if success | False if apply of parameters failed OR model contain some nonconformity</returns>
 		[OperationContract]
 		string ApplyParameters(string connectionId, string parametersJSON);
 
@@ -294,22 +294,22 @@ namespace IdeaStatiCa.Plugin
 		ReportResponse GenerateReport(string connectionId, ConnReportSettings settings);
 
 		/// <summary>
-		/// Generate a report for connection <paramref name="connectionId"/>
+		/// Generate a pdf report for connection <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
 		/// <param name="settings">Report settings</param>
-		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
+		/// <param name="filePath">File path of the exported pdf report </param>
 		[OperationContract]
-		byte[] GenerateReportPdf(string connectionId, ConnReportSettings settings);
+		void GenerateReportPdf(string connectionId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
-		/// Generate a report for connection <paramref name="connectionId"/>
+		/// Generate a word report for connection <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
 		/// <param name="settings">Report settings</param>
-		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
+		/// <param name="filePath">File path of the exported word report </param>
 		[OperationContract]
-		byte[] GenerateReportWord(string connectionId, ConnReportSettings settings);
+		void GenerateReportWord(string connectionId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
 		/// Open and select the connection <paramref name="connectionId"/> in an application

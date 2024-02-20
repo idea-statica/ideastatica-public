@@ -25,11 +25,13 @@
 		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
 		<ProjectReference Include="..\..\..\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
 		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-		<ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />		
+		<ProjectReference Include="..\IdeaStatiCa.TeklaStructuresResources\IdeaStatiCa.TeklaStructuresResources.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
 		<Reference Include="WindowsBase" />
 	</ItemGroup>
 	<Import Project="..\IdeaStatiCa.TeklaStructuresPlugin\IdeaStatiCa.TeklaStructuresPlugin.projitems" Label="Shared" />

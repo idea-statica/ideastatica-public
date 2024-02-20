@@ -21,7 +21,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 			: base(no)
 		{
 			No = no;
-			//Name = $"P{No}";
 		}
 	}
 }

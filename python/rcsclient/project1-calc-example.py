@@ -3,6 +3,7 @@ from ideastatica_rcs_client import idea_statica_setup
 from ideastatica_rcs_client import ideastatica_rcs_client
 from ideastatica_rcs_client import rcsproject
 from ideastatica_rcs_client import brief_result_tools
+from ideastatica_rcs_client import loading_tools
 
 ideaStatiCa_Version = r'23.1'
 

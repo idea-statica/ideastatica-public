@@ -151,23 +151,21 @@ namespace ConnectionAutomationApp
 			{
 				try
 				{
-					SaveFileDialog saveFileDialog = new SaveFileDialog();
-					byte[] fileContent = new byte[] { };
-
-					switch (reportType)
+					var settings = new ConnReportSettings();
+					var saveFileDialog = new SaveFileDialog
 					{
-						case ConnReportTypeEnum.Pdf:
-							saveFileDialog.Filter = "pdf | *.pdf";
-							fileContent = ConnectionController.GeneratePdfReport(1, new ConnReportSettings());
-							break;
-						case ConnReportTypeEnum.Word:
-							saveFileDialog.Filter = "doc | *.doc";
-							fileContent = ConnectionController.GenerateWordReport(1, new ConnReportSettings());
-							break;
-						case ConnReportTypeEnum.Zip:
-						default:
-							GenerateReportZipFolder();
-							return;
+						Filter = reportType switch
+						{
+							ConnReportTypeEnum.Pdf => "pdf | *.pdf",
+							ConnReportTypeEnum.Word => "doc | *.doc",
+							_ => throw new NotImplementedException($"Conversion for report type {reportType} is not implemented.")
+						}
+					};
+
+					if(reportType == ConnReportTypeEnum.Zip)
+					{
+						GenerateReportZipFolder();
+						return;
 					}
 
 					if (saveFileDialog.ShowDialog() != true)
@@ -175,10 +173,14 @@ namespace ConnectionAutomationApp
 						return;
 					}
 
-					using (var stream = saveFileDialog.OpenFile())
-					using (MemoryStream ms = new MemoryStream(fileContent))
+					switch (reportType)
 					{
-						ms.CopyTo(stream);
+						case ConnReportTypeEnum.Pdf:
+							ConnectionController.GeneratePdfReport(1, saveFileDialog.FileName, new ConnReportSettings());
+							break;
+						case ConnReportTypeEnum.Word:
+							ConnectionController.GenerateWordReport(1, saveFileDialog.FileName, new ConnReportSettings());
+							break;
 					}
 				}
 				catch (Exception e)

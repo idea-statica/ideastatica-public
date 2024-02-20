@@ -133,5 +133,21 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Data of the updated reinforced cross-section</returns>
 		Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default);
+
+		/// <summary>
+		/// Get loading in <paramref name="sectionId"/>
+		/// </summary>
+		/// <param name="sectionId">Id of a rcs section to get loading</param>
+		/// <param name="token">Cancellation token</param>
+		/// <returns>XML string which represents loading in <paramref name="sectionId"/></returns>
+		Task<string> GetLoadingInSectionAsync(int sectionId, CancellationToken token = default);
+
+		/// <summary>
+		/// Set loading to <paramref name="sectionId"/>
+		/// </summary>
+		/// <param name="sectionId">Id of a rcs section to set loading</param>
+		/// <param name="loadingXml">xml representation of loading in a section (list of extremes)</param>
+		/// <param name="token">Cancellation token</param>
+		Task SetLoadingInSectionAsync(int sectionId, string loadingXml, CancellationToken token = default);
 	}
 }

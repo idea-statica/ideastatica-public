@@ -109,36 +109,30 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 
 					// generate report for connection
 					var settings = new ConnReportSettings();
-
-					SaveFileDialog saveFileDialog = new SaveFileDialog();
-					byte[] fileContent = new byte[] { };
-
-					switch (reportType)
+					var saveFileDialog = new SaveFileDialog
 					{
-						case ConnReportTypeEnum.Pdf:
-							saveFileDialog.Filter = "pdf | *.pdf";
-							fileContent = service.GenerateReportPdf(connection.ConnectionId, new ConnReportSettings());
-							break;
-						case ConnReportTypeEnum.Word:
-							saveFileDialog.Filter = "doc | *.doc";
-							fileContent = service.GenerateReportWord(connection.ConnectionId, new ConnReportSettings());
-							break;
-						case ConnReportTypeEnum.Zip:
-						default:
-							break;
-							//return;
-					}
+						Filter = reportType switch 
+						{
+							ConnReportTypeEnum.Pdf => "pdf | *.pdf", 
+							ConnReportTypeEnum.Word => "doc | *.doc", 
+							_ => throw new NotImplementedException($"Conversion for report type {reportType} is not implemented.") 
+						}
+					};
 
 					if (saveFileDialog.ShowDialog() != true)
 					{
 						return;
 					}
 
-					using (var stream = saveFileDialog.OpenFile())
-					using (MemoryStream ms = new MemoryStream(fileContent))
+					switch(reportType)
 					{
-						ms.CopyTo(stream);
-					}
+						case ConnReportTypeEnum.Pdf:
+							service.GenerateReportPdf(connection.ConnectionId, saveFileDialog.FileName, new ConnReportSettings());
+							break;
+						case ConnReportTypeEnum.Word:
+							service.GenerateReportWord(connection.ConnectionId, saveFileDialog.FileName, new ConnReportSettings());
+							break;
+					}			
 				}
 				catch (Exception e)
 				{

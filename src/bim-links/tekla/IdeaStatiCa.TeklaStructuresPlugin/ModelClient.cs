@@ -72,8 +72,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			plugInLogger.LogInformation($"GetItemByHandler handle {handle}.");
 			var model = GetTeklaModel();
 
-
-
 			var handlers = handle.Split(';');
 			//skip construction 
 			var itemHandle = handlers[0];
@@ -82,12 +80,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				itemHandle = handlers[1];
 			}
 
-
 			var identifier = new Tekla.Structures.Identifier(itemHandle);
 			plugInLogger.LogDebug($"GetItemByHandler readItem by identifier {identifier.ToString()}.");
 
 			return model.SelectModelObject(identifier);
-
 		}
 
 		/// <summary>
@@ -143,11 +139,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			GetTeklaModel();
 
 			var picker = new Picker();
-			var connectionPoint = picker.PickPoint("Select Connection Point");
+			var connectionPoint = picker.PickPoint(TeklaStructuresResources.Properties.Resources.SelectCoonecntionPoint);
 			if (connectionPoint == null)
 			{
 				plugInLogger.LogDebug($"GetConnectionPoint - not selected point");
-				throw new Exception("InvalidPointMsg");
+				throw new InvalidOperationException("Invalid Point - not selected point");
 			}
 			plugInLogger.LogDebug($"GetConnectionPoint - selected point {connectionPoint.X} {connectionPoint.Y} {connectionPoint.Z}");
 			return connectionPoint;
@@ -168,7 +164,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			TS.ModelObjectEnumerator partsEnumerator;
 			try
 			{
-				partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, "Select connected beams");
+				partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, TeklaStructuresResources.Properties.Resources.SelectBeams);
 			}
 			catch (ApplicationException ex)
 			{
@@ -203,7 +199,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			TS.ModelObjectEnumerator partsEnumerator = null;
 			try
 			{
-				partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, "Select parts of the connection.");
+				partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, TeklaStructuresResources.Properties.Resources.SelectParts);
 			}
 			catch (ApplicationException)
 			{
@@ -244,7 +240,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					var picker = new Picker();
 					try
 					{
-						partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, "Create bulk selection");
+						partsEnumerator = picker.PickObjects(Picker.PickObjectsEnum.PICK_N_PARTS, TeklaStructuresResources.Properties.Resources.CreateBulkSelection);
 					}
 					catch (ApplicationException ex)
 					{

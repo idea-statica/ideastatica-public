@@ -86,7 +86,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			}
 			else
 			{
-				PlugInLogger.LogInformation($"FoldedPlateImporter not found foldedPlate {id}");
+				PlugInLogger.LogInformation($"FoldedPlateImporter not found foldedPlate {id} as {teklaItem.GetType()}");
 				return null;
 			}
 		}
@@ -108,11 +108,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				Thickness = ((double)propTable[WidthKey]).MilimetersToMeters(),
 				MaterialNo = pltMaterial
 			};
-
-			//TSG.CoordinateSystem partCs = bentPlate.GetCoordinateSystem();
-			//TSG.Vector axisZ = TSG.Vector.Cross(partCs.AxisX, partCs.AxisY);
-			//WM.Vector3D pltAxisZ = axisZ.ToMediaVector();
-			//pltAxisZ.Normalize();
 
 			List<TSG.Point> points = new List<TSG.Point>();
 			foreach (TSM.ContourPoint point in node.Contour.ContourPoints)

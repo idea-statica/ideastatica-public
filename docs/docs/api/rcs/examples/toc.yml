@@ -1,4 +1,10 @@
 - name: .Net
   items:
+  - name: Simple calc console app
+    href: ../../../../../examples/api/csharp/rcs/Rcs-Api-Console-Tester/RcsConsoleApp/README.md
 - name: Python 
   items:
+  - name: Simple calculation example
+    href: ../../../../../examples/api/python/rcs/scripts/simple_rcs_calculation/README.md
+  - name: Cross-section study example
+    href: ../../../../../examples/api/python/rcs/jupyter-notebooks/rcs-optim-example/README.md

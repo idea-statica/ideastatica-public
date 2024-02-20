@@ -22,6 +22,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		private IdeaVector3D GetNodePosition(Point node)
 		{
+			PlugInLogger.LogDebug($"GetNodePosition create '{node}'");
 			return new IdeaVector3D(
 						node.X.MilimetersToMeters(),
 						node.Y.MilimetersToMeters(),

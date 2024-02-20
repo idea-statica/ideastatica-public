@@ -129,6 +129,33 @@ class ideastatica_rcs_client:
         else:
             raise Exception('ImportReinforcedCrossSection failed')
 
+    def GetLoadingInSection(self, sectionId):
+        # Get loading in the section sectionId 
+        response = requests.get(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/GetLoadingInSection?sectionId={sectionId}', 
+            headers={
+                'Content-Type': 'text/plain'
+            })
+        if response.status_code == 200:  
+            parsed_data = xmltodict.parse(response.text)
+            return parsed_data
+        else:
+            raise Exception('Update failed')
+
+    def SetLoadingInSection(self, sectionId, loadingDict):
+        # Set loading in the section sectionId 
+        loadingXml = xmltodict.unparse(loadingDict)
+        rcsSection = {"SectionId":sectionId, "LoadingXml":loadingXml}
+        json_data = json.dumps(rcsSection)
+
+        response = requests.post(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/SetLoadingInSection', json_data,
+            headers={
+                'Content-Type': 'application/json'
+            })
+        
+        if response.status_code == 200:  
+            return "Ok"
+        else:
+            raise Exception('Update failed')
 
     @property
     def Project(self) -> rcsproject.RcsProject:

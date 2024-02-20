@@ -63,6 +63,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCS-API-Console-Tester", "R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiConsoleApp", "api\csharp\rcs\Rcs-Api-Console-Tester\RcsConsoleApp\RcsApiConsoleApp.csproj", "{46494D0A-4C83-47D9-A98F-5BFCECCABE16}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadBulkSelection", "bimapi\CheckbotBimLink\CadExample\CadBulkSelection\CadBulkSelection.csproj", "{1429419D-B1B4-4647-895D-383214FAF315}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IdeaStatiCa.BulkSelection", "..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.shproj", "{A9601B75-AD57-4BD1-A0B1-64329038B3EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RCS-API-WPF-Client", "RCS-API-WPF-Client", "{432EE794-72E2-4379-A4D8-847CBA1C81A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiClient", "api\csharp\rcs\RcsApiClient\RcsApiClient.csproj", "{EA45E62F-915B-44D8-A6F7-8F655CDB7EB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +141,14 @@ Global
 		{46494D0A-4C83-47D9-A98F-5BFCECCABE16}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
 		{46494D0A-4C83-47D9-A98F-5BFCECCABE16}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
 		{46494D0A-4C83-47D9-A98F-5BFCECCABE16}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{1429419D-B1B4-4647-895D-383214FAF315}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{1429419D-B1B4-4647-895D-383214FAF315}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{1429419D-B1B4-4647-895D-383214FAF315}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{1429419D-B1B4-4647-895D-383214FAF315}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{EA45E62F-915B-44D8-A6F7-8F655CDB7EB4}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
+		{EA45E62F-915B-44D8-A6F7-8F655CDB7EB4}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
+		{EA45E62F-915B-44D8-A6F7-8F655CDB7EB4}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
+		{EA45E62F-915B-44D8-A6F7-8F655CDB7EB4}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,8 +181,16 @@ Global
 		{E2485C64-F1B1-4B22-8963-0B099897C4F5} = {C8A256C4-281A-4B48-AD7A-9E1A4FF60AFA}
 		{CDA886EA-8D85-4CBF-B3E2-226D74C8FD42} = {8E07C411-191B-4B6A-A61C-3F88C2C3089B}
 		{46494D0A-4C83-47D9-A98F-5BFCECCABE16} = {CDA886EA-8D85-4CBF-B3E2-226D74C8FD42}
+		{1429419D-B1B4-4647-895D-383214FAF315} = {B3D5F771-005A-4053-B73C-632D305483DC}
+		{A9601B75-AD57-4BD1-A0B1-64329038B3EC} = {B3D5F771-005A-4053-B73C-632D305483DC}
+		{432EE794-72E2-4379-A4D8-847CBA1C81A9} = {8E07C411-191B-4B6A-A61C-3F88C2C3089B}
+		{EA45E62F-915B-44D8-A6F7-8F655CDB7EB4} = {432EE794-72E2-4379-A4D8-847CBA1C81A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {390F0CF4-59F4-444F-9602-87026AB46610}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{1429419d-b1b4-4647-895d-383214faf315}*SharedItemsImports = 5
+		..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{a9601b75-ad57-4bd1-a0b1-64329038b3ec}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

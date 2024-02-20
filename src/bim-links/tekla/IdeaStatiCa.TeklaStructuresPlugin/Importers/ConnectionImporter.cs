@@ -22,7 +22,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			var connectionPoint = new ConnectionPoint(id.GetStringId().ToString())
 			{
 				Node = Get(id.Node as Identifier<IIdeaNode>),
-				//ConnectedMembers = new List<IIdeaConnectedMember>(),
 				ConnectedMembers = id.ConnectedMembers?.Select(cm => GetMaybe(cm)).Where(x => x != null).ToList() ?? new List<IIdeaConnectedMember>(),
 				Plates = id.Plates?.Select(p => GetMaybe(p as Identifier<IIdeaPlate>)).Where(x => x != null).ToList() ?? new List<IIdeaPlate>(),
 				BoltGrids = id.BoltGrids?.Select(bg => GetMaybe(bg as Identifier<IIdeaBoltGrid>)).Where(x => x != null).ToList() ?? new List<IIdeaBoltGrid>(),

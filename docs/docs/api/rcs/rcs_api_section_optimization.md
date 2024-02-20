@@ -6,7 +6,7 @@ We currently provide three ways to do this:
 
 1. Changing the sections reinforced cross-section to another avaliable in the project.
 2. Importing reinforcement and/or tendon modifications to an already avaliable reinforced cross-section in the project by a .nav file. 
-3. Importing a new reinforced cross-section by .nav file import. 
+3. Importing a new reinforced cross-section by .nav file import.
 
 ## Changing a Sections Reinforced Cross-section
 
@@ -18,10 +18,22 @@ If we have multiple reinforced cross-sections avaliable in the RCS Project we ca
 
 # [Python](#tab/windows)
 
-TO DO
+```python
+
+    # First you may want to get avaliable reinforced cross-sections in project
+    # Get IDs of all reinforced cross-sections in the rcs project
+    rcsIds = []
+    for rcs in rcsClient.Project.ReinforcedCrossSections.values():
+        rcsIds.append(rcs.Id)
+    
+    sectionToUpdate = 1    
+
+    # Set reinforced cross-section 2 to the section 1
+    updateRes = rcsClient.UpdateReinforcedCrossSectionInSection(sectionToUpdate, rcsIds[1])
+
+```
 
 ---
-
 
 > [!NOTE]
 > In IOM we can define any number of avaliable reinforced cross-sections that will be created in the RCS project. We can then use the API to switch between.
@@ -44,7 +56,18 @@ Choose between the import options avaliable 'Reinf', 'Css' or 'Tendon' or 'Compl
 
 # [Python](#tab/windows)
 
-TO DO
+    #read a rcs template from NAV file
+    rcs_template_file_path = os.path.join(dir_path, 'templates', 'rect-L-3-2.nav')
+    print(rcs_template_file_path)
+
+    reinfCssTemplate = None
+    with open(rcs_template_file_path, 'r') as file:
+        reinfCssTemplate = file.read()
+
+    # The reinforcement of the provided Cross-section Id will be replaced with that provided in the .nav file 
+    importSetting = rcsproject.ReinforcedCrossSectionImportSetting(1, "Reinf")
+
+    newReinSect = rcsClient.ImportReinforcedCrossSection(importSetting, reinfCssTemplate)
 
 ---
 
@@ -60,6 +83,22 @@ After import you can again change the reinforced cross-section of the required s
 
 # [Python](#tab/windows)
 
-TO DO
+```python
+
+    #read a rcs template from NAV file
+    rcs_template_file_path = os.path.join(dir_path, 'templates', 'rect-L-3-2.nav')
+    print(rcs_template_file_path)
+
+    reinfCssTemplate = None
+    with open(rcs_template_file_path, 'r') as file:
+        reinfCssTemplate = file.read()
+
+    # if reinfCssId is None a new reinforced cross-section will be created 
+    importSetting = rcsproject.ReinforcedCrossSectionImportSetting(None, "Complete")
+
+    newReinSect = rcsClient.ImportReinforcedCrossSection(importSetting, reinfCssTemplate)
+    print("Id of a new reinforced cross-section", newReinSect.Id)
+
+```
 
 ---
