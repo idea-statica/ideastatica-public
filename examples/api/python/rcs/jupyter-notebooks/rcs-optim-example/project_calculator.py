@@ -134,7 +134,7 @@ def calc_rcs_proj_variants(project_to_calculate, section_to_calculate, reinforce
             print("closing IdeaStatiCa.RcsRestApi.exe")
             del rcsClient
             
-def calc_rcs_crack_width(project_to_calculate, section_to_calculate):
+def calc_rcs_crack_width(project_to_calculate, section_to_calculate, moment_step):
     ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
     freeTcp = idea_statica_setup.get_free_port()
     
@@ -157,23 +157,32 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate):
         # calculate all sections in the rcs project
         calc1_briefResults = rcsClient.Calculate(secIds)
         brief_result_tools.print_capacity_check_vals(rcsClient.Project, secIds, calc1_briefResults)
+        
         detailedResults = rcsClient.GetResults(secIds)
 
         sectionRes = detail_results_tools.get_section_results(detailedResults)
 
+        capacities = []
+        for sectId in secIds:
+            extreme = detail_results_tools.get_extreme_results(sectionRes, sectId, 1)
+
+            # get detailed results of a capacity check in  section
+            capacity_res = detail_results_tools.get_result_by_type(extreme, "Capacity")
+
+            # this is the max My bending moment for reinforced cross-section
+            fu_my =  float(capacity_res["Fu"]["My"])
+            print("sectId", sectId, "Fu.My = ", fu_my)
+            capacities.append({"SecId": sectId, "Fu.My" : fu_my});
+            
+        df_capacity = pd.DataFrame.from_records(capacities)
+        
+        df_capacity
+  
         extreme = detail_results_tools.get_extreme_results(sectionRes, firstSectionId, 1)
-
-        # get detailed results of a capacity check in the first section
-        capacity_res = detail_results_tools.get_result_by_type(extreme, "Capacity")
-
         # crack with for short term extreme
         crack_width_res = detail_results_tools.get_result_by_type(extreme, "CrackWidth")
         crackWidth_short_term = crack_width_res[0]
         crack_width = float(crackWidth_short_term["W"])
-
-        # this is the max My bending moment for reinforced cross-section
-        fu_my =  float(capacity_res["Fu"]["My"])
-        print("Fu.My = ", fu_my)
 
         # get loading in the first section
         loadingInSection = rcsClient.GetLoadingInSection(firstSectionId)
@@ -185,7 +194,7 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate):
         results = []
         results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(calc1_briefResults, "Capacity", firstSectionId), "CrackWidth" : crack_width });
 
-        my = my + 5000
+        my = my + moment_step
 
         # increase and recalculate loading up to max My
         while my < fu_my:
@@ -210,7 +219,7 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate):
             crack_width = float(crackWidth_short_term["W"])
 
             results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth" : crack_width});
-            my = my + 5000
+            my = my + moment_step
 
         # last calculation - capacity is 100%
         my = fu_my
