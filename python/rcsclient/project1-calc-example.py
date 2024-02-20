@@ -1,11 +1,13 @@
 import os
+import logging
 from ideastatica_rcs_client import idea_statica_setup
-from ideastatica_rcs_client import ideastatica_rcs_client
+from ideastatica_rcs_client import rcs_client
 from ideastatica_rcs_client import rcsproject
 from ideastatica_rcs_client import brief_result_tools
 from ideastatica_rcs_client import loading_tools
 
 ideaStatiCa_Version = r'23.1'
+logging.basicConfig(level = logging.INFO)
 
 ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)
 
@@ -14,7 +16,7 @@ print(ideaSetupDir)
 freeTcp = idea_statica_setup.get_free_port()
 print(freeTcp)
 
-rcsClient = ideastatica_rcs_client.ideastatica_rcs_client(ideaSetupDir, freeTcp)
+rcsClient = rcs_client.RcsClient(ideaSetupDir, freeTcp)
 try:
     print(rcsClient.printServiceDetails())
 

@@ -23,12 +23,13 @@ namespace RcsApiConsoleApp
 			#region create_client
 
 			//Directory to IDEA StatiCa installation on your computer.
-			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1";
+			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\net6.0-windows";
 			try
 			{
 				//Pass path to a new RCS Client Factory
 				using (var rcsClientFactory = new RcsClientFactory(directoryPath))
 				{
+
 					//Create the client from the Factory
 					using (IRcsApiController client = await rcsClientFactory.CreateRcsApiClient())
 					{
@@ -126,7 +127,7 @@ namespace RcsApiConsoleApp
 					}
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				// report an error and return error
 				Console.WriteLine($"RcsApiConsoleApp failed : {ex.Message}");
