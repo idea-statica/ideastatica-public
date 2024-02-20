@@ -8,6 +8,8 @@
 - name: References
 - name: Diagnostics in IDEA StatiCa Apps
   href: diagnostics.md  
+- name: Version Tagging in Our Repository
+  href: tagging.md
 # Hide release notes as we do not have any yet
 #- name: Release Notes
 #  href: releasenotes.md
