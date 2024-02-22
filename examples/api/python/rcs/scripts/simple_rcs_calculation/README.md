@@ -8,3 +8,12 @@ Below is the script
 
 [!code-python[](rcs-calculation.py)]
 
+To restore the dependencies from the requirements.txt file, use the following command:
+```
+pip install -r requirements.txt
+```
+
+The example can be run by :
+```
+py .\rcs-calculation.py
+```

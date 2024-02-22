@@ -9,3 +9,12 @@ Below is the script
 
 [!code-python[](rcs-load-update.py)]
 
+To restore the dependencies from the requirements.txt file, use the following command:
+```
+pip install -r requirements.txt
+```
+
+The example can be run by :
+```
+py .\update-loading-example.py
+```
