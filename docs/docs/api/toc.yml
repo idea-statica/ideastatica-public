@@ -18,8 +18,10 @@
   href: rcs/rcs_api_section_optimization.md
 - name: Examples
   href: rcs/examples/toc.yml
-- name: API Reference
+- name: API Reference (C#)
   href: ../../api-rcs/toc.yml
+- name: API Reference (REST)
+  href: rcs/RCSAPI-oa2.swagger.json
 - name: References
 - name: Creating a simple app
   href: api_create_a_simple_app.md
