@@ -7,7 +7,7 @@ This is an example - ULS loading and SLS loading is equal.
 
 Below is the script
 
-[!code-python[](rcs-load-update.py)]
+[rcs-load-update.py](rcs-load-update.py)
 
 To restore the dependencies from the requirements.txt file, use the following command:
 ```
