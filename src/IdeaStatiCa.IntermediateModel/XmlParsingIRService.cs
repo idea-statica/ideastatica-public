@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.IntermediateModel.IRModel;
+﻿using IdeaStatiCa.IntermediateModel.Extensions;
+using IdeaStatiCa.IntermediateModel.IRModel;
 using System.Xml;
 
 namespace IdeaStatiCa.IntermediateModel
@@ -74,9 +75,9 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void AddToParent(SObject element, SObject parent)
 		{
-			if (parent.Properties.ContainsKey(element.TypeName))
+			if (parent.Properties.ContainsKey(element.GetElementName()))
 			{
-				if (parent.Properties[element.TypeName] is SList sList)
+				if (parent.Properties[element.GetElementName()] is SList sList)
 				{
 					sList.Add(element);
 				}
@@ -84,7 +85,7 @@ namespace IdeaStatiCa.IntermediateModel
 			else
 			{
 				// set reference as potential collection it will be fixed on the end of parent element
-				parent.Properties[element.TypeName] = new SList(element);
+				parent.Properties[element.GetElementName()] = new SList(element);
 			}
 		}
 
@@ -92,7 +93,8 @@ namespace IdeaStatiCa.IntermediateModel
 		{
 			if (processItemStack.Count > 0)
 			{
-				processItemStack.Peek().Properties["Value"] = new SPrimitive { Value = reader.Value };
+				var primitive = new SPrimitive { Value = reader.Value };
+				processItemStack.Peek().Properties[primitive.GetElementName()] = primitive;
 			}
 		}
 

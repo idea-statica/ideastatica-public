@@ -10,5 +10,6 @@
 		public string Value { get; set; }
 
 		public string NameSpace { get; set; }
+
 	}
 }
