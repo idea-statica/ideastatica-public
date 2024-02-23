@@ -35,10 +35,7 @@ namespace IdeaStatiCa.BimImporter
 		/// <returns>Instance of <see cref="BimImporter"/></returns>
 		/// <exception cref="ArgumentNullException">Throws when some argument is null.</exception>
 		public static IBimImporter Create(IIdeaModel ideaModel, IProject project, IPluginLogger logger,
-			IGeometryProvider geometryProvider, BimImporterConfiguration configuration)
-		{
-			return Create(ideaModel, project, logger, geometryProvider, configuration, null, null);
-		}
+			IGeometryProvider geometryProvider, BimImporterConfiguration configuration) => Create(ideaModel, project, logger, geometryProvider, configuration, null, null);
 
 		public static IBimImporter Create(
 			IIdeaModel ideaModel,
@@ -92,37 +89,31 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
 
-			var selection = InitBulkImport();
+			BulkSelection selection = InitBulkImport();
 			return ProcessSelectedModel(countryCode, selection);
 		}
 
 		private ModelBIM ProcessSelectedModel(CountryCode countryCode, BulkSelection selection)
 		{
-			IGeometry geometry = _geometryProvider.GetGeometry();
-
 			List<Connection> connections = new List<Connection>();
 
-			bool skipAutoCreationOfConnection = false;
 			if (selection.ConnectionPoints != null)
 			{
-				foreach (var connectionPoint in selection.ConnectionPoints)
+				foreach (IIdeaConnectionPoint connectionPoint in selection.ConnectionPoints)
 				{
 					connections.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
 			}
 
-			if (selection.ConnectionPoints != null && selection.ConnectionPoints.Count > 0 && connections.Count > 0)
-			{
-				skipAutoCreationOfConnection = true;
-			}
+			bool skipAutoCreationOfConnection = connections.Count > 0;
 
 			if (!skipAutoCreationOfConnection)
 			{
-				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selection.Members, geometry))
+				foreach (KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> keyValue in GetConnections(selection.Members))
 				{
 					if (selection.Nodes.Contains(keyValue.Key) || keyValue.Value.Count >= 2)
 					{
-						var newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
+						Connection newConnection = Connection.FromNodeAndMembers(keyValue.Key, keyValue.Value);
 
 						if (!connections.Exists(
 							 c =>
@@ -148,7 +139,6 @@ namespace IdeaStatiCa.BimImporter
 			return CreateModelBIM(objects, connections, countryCode);
 		}
 
-
 		/// <inheritdoc cref="IBimImporter.ImportWholeModel"/>
 		/// <remarks>Nodes are marked as a connection by following rules:<br/>
 		///  - nodes specified in <see cref="IIdeaModel.GetSingleSelection"/> are connections,<br/>
@@ -158,7 +148,7 @@ namespace IdeaStatiCa.BimImporter
 		public ModelBIM ImportWholeModel(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
-			var selection = InitImportOfWholeModel();
+			BulkSelection selection = InitImportOfWholeModel();
 			return ProcessSelectedModel(countryCode, selection);
 		}
 
@@ -167,8 +157,7 @@ namespace IdeaStatiCa.BimImporter
 		public ModelBIM ImportSingleConnection(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingConnections);
-			var selection = InitSingleImport();
-			IGeometry geometry = _geometryProvider.GetGeometry();
+			SingleSelection selection = InitSingleImport();
 
 			List<Connection> connections = new List<Connection>();
 
@@ -189,14 +178,14 @@ namespace IdeaStatiCa.BimImporter
 		public ModelBIM ImportMembers(CountryCode countryCode)
 		{
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ImportingMembers);
-			var selection = InitBulkImport();
+			BulkSelection selection = InitBulkImport();
 			IGeometry geometry = _geometryProvider.GetGeometry();
 
 			List<IBimItem> bimItems = new List<IBimItem>();
-			var adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
+			HashSet<IIdeaNode> adjacentNodes = new HashSet<IIdeaNode>(_ideaObjectComparer);
 			if (selection.ConnectionPoints != null)
 			{
-				foreach (var connectionPoint in selection.ConnectionPoints)
+				foreach (IIdeaConnectionPoint connectionPoint in selection.ConnectionPoints)
 				{
 					bimItems.Add(Connection.FromConnectionPoint(connectionPoint));
 				}
@@ -215,7 +204,7 @@ namespace IdeaStatiCa.BimImporter
 				j++;
 			}
 
-			foreach (var node in adjacentNodes)
+			foreach (IIdeaNode node in adjacentNodes)
 			{
 				bimItems.Add(Connection.FromNodeAndMembers(node, new HashSet<IIdeaMember1D>(geometry.GetConnectedMembers(node))));
 			}
@@ -272,8 +261,6 @@ namespace IdeaStatiCa.BimImporter
 
 			if (group.Type == RequestedItemsType.Connections || group.Type == RequestedItemsType.SingleConnection)
 			{
-				IGeometry geometry = _geometryProvider.GetGeometry();
-
 				List<IIdeaObject> objects = group.Items
 					.Select(x => _project.GetBimObject(x.Id))
 					.Where(x => x != null)
@@ -288,7 +275,7 @@ namespace IdeaStatiCa.BimImporter
 
 				if (connectionPoints.Any())
 				{
-					var cp = connectionPoints.FirstOrDefault();
+					IIdeaConnectionPoint cp = connectionPoints.FirstOrDefault();
 					if (cp != null)
 					{
 						connections.Add(Connection.FromConnectionPoint(cp));
@@ -304,7 +291,7 @@ namespace IdeaStatiCa.BimImporter
 					IEnumerable<IIdeaMember1D> members = objects.OfType<IIdeaMember1D>();
 
 					// get all possible connections from current members
-					Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> allPossibleConnections = GetConnections(members, geometry);
+					Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> allPossibleConnections = GetConnections(members);
 					if (allPossibleConnections.Count > 0)
 					{
 						// find first connection that matches current node
@@ -338,7 +325,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			var selection = _ideaModel.GetBulkSelection();
+			BulkSelection selection = _ideaModel.GetBulkSelection();
 
 			CheckNodesAndMembers(selection);
 
@@ -349,7 +336,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			var selection = _ideaModel.GetWholeModel();
+			BulkSelection selection = _ideaModel.GetWholeModel();
 			CheckNodesAndMembers(selection);
 
 			return selection;
@@ -372,28 +359,22 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			var selection = _ideaModel.GetSingleSelection();
+			SingleSelection selection = _ideaModel.GetSingleSelection();
 
 			CheckNodesAndMembers(selection);
 
 			return selection;
 		}
 
-		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members, IGeometry geometry)
+		private Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> GetConnections(IEnumerable<IIdeaMember1D> members)
 		{
-			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-
 			Dictionary<IIdeaNode, HashSet<IIdeaMember1D>> connections =
 				new Dictionary<IIdeaNode, HashSet<IIdeaMember1D>>(new IIdeaObjectComparer());
 
 			foreach (IIdeaMember1D member in members)
 			{
-				var nodes = geometry.GetNodesOnMember(member).ToList();
-				for (int i = 0; i < nodes.Count; i++)
+				foreach (IIdeaNode node in GetNodesOnMember(member))
 				{
-					IIdeaNode node = nodes[i];
-					_remoteApp?.SetStageLocalised(i + 1, nodes.Count, LocalisedMessage.ImportingConnections); //  "Creating Connection"
-
 					if (!connections.TryGetValue(node, out HashSet<IIdeaMember1D> memberSet))
 					{
 						memberSet = new HashSet<IIdeaMember1D>();
@@ -422,6 +403,21 @@ namespace IdeaStatiCa.BimImporter
 			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 
 			return modelBIM;
+		}
+
+		private static IEnumerable<IIdeaNode> GetNodesOnMember(IIdeaMember1D member)
+		{
+			foreach (IIdeaSegment3D segment in member.Elements.Select(x => x.Segment))
+			{
+				yield return segment.StartNode;
+
+				if (segment is IIdeaArcSegment3D arcSegment)
+				{
+					yield return arcSegment.ArcPoint;
+				}
+
+				yield return segment.EndNode;
+			}
 		}
 	}
 }
