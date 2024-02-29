@@ -21,6 +21,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		private readonly IPluginLogger pluginLogger;
 
 		private Guid ActiveProjectId;
+		private bool disposedValue;
 
 		public RcsApiClient(int processId, IPluginLogger logger, IHttpClientWrapper httpClientWrapper)
 		{
@@ -29,21 +30,7 @@ namespace IdeaStatiCa.RcsClient.Client
 			this.httpClient = httpClientWrapper;
 		}
 
-		/// <summary>
-		/// Disposing the object along with related API instance
-		/// </summary>
-		public void Dispose()
-		{
-			var restApiProcess = Process.GetProcessById(restApiProcessId);
-			if (restApiProcess is { })
-			{
-				if (!restApiProcess.HasExited)
-				{
-					pluginLogger.LogInformation($"Cleaning the API process with ID {restApiProcessId}");
-					restApiProcess.Kill();
-				}
-			}
-		}
+
 
 		/// <inheritdoc cref="IRcsApiController.OpenProjectAsync(string, CancellationToken)"/>
 		public async Task<bool> OpenProjectAsync(string path, CancellationToken token = default)
@@ -92,7 +79,7 @@ namespace IdeaStatiCa.RcsClient.Client
 				var res = await httpClient.PostAsync<List<RcsSectionResultOverview>>($"Calculations/{ActiveProjectId}/Calculate", parameters, token, "application/xml");
 				return res;
 			}
-			catch(OperationCanceledException ex)
+			catch (OperationCanceledException ex)
 			{
 				pluginLogger.LogDebug($"{ex.Message}");
 				throw ex;
@@ -103,7 +90,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		public async Task<RcsProjectSummary> GetProjectSummaryAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectSummaryAsync projectId = {ActiveProjectId}");
-			var res=  await httpClient.GetAsync<RcsProjectSummary>($"Project/{ActiveProjectId}/ProjectSummary", token);
+			var res = await httpClient.GetAsync<RcsProjectSummary>($"Project/{ActiveProjectId}/ProjectSummary", token);
 			return res;
 		}
 
@@ -122,7 +109,7 @@ namespace IdeaStatiCa.RcsClient.Client
 			var result = await httpClient.GetAsync<MemoryStream>($"Project/{ActiveProjectId}/DownloadProject", token, "application/octet-stream");
 			return result;
 		}
-		
+
 		/// <inheritdoc cref="IRcsApiController.GetResultsAsync(RcsResultParameters, CancellationToken)"/>
 		public async Task<List<RcsSectionResultDetailed>> GetResultsAsync(RcsResultParameters parameters, CancellationToken token = default)
 		{
@@ -162,7 +149,7 @@ namespace IdeaStatiCa.RcsClient.Client
 		/// <inheritdoc cref="IRcsApiController.ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting, string)"/>
 		public async Task<RcsReinforcedCrossSection> ImportReinforcedCrossSectionAsync(RcsReinforcedCrosssSectionImportSetting importSetting, string reinfCssTemplate, CancellationToken token = default)
 		{
-			var data = new RcsReinforcedCrossSectionImportData(){Setting = importSetting, Template = reinfCssTemplate };
+			var data = new RcsReinforcedCrossSectionImportData() { Setting = importSetting, Template = reinfCssTemplate };
 			pluginLogger.LogDebug($"RcsApiClient.ImportReinforcedCrossSectionAsync projectId = {ActiveProjectId} reinfCssId = {importSetting?.ReinforcedCrossSectionId}");
 			var result = await httpClient.PostAsync<RcsReinforcedCrossSection>($"Section/{ActiveProjectId}/ImportReinforcedCrossSection", data, token);
 			return result;
@@ -179,7 +166,7 @@ namespace IdeaStatiCa.RcsClient.Client
 				{
 					await rcsProjectStream.CopyToAsync(fileStream);
 				}
-				
+
 			}
 		}
 
@@ -210,6 +197,53 @@ namespace IdeaStatiCa.RcsClient.Client
 			var data = new RcsSectionLoading() { SectionId = sectionId, LoadingXml = loadingXml };
 			pluginLogger.LogDebug($"RcsApiClient.SetLoadingInSectionAsync projectId = {ActiveProjectId} sectionId = {sectionId}");
 			var result = await httpClient.PostAsync<string>($"Section/{ActiveProjectId}/SetLoadingInSection", data, token, "text/plain");
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					if (restApiProcessId != -1)
+					{
+						var restApiProcess = Process.GetProcessById(restApiProcessId);
+						if (restApiProcess is { })
+						{
+							if (!restApiProcess.HasExited)
+							{
+								pluginLogger.LogInformation($"Cleaning the API process with ID {restApiProcessId}");
+								restApiProcess.Kill();
+							}
+						}
+					}
+					//else
+					//{
+					//	try
+					//	{
+
+					//	}
+					//}
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
+				// TODO: set large fields to null
+				disposedValue = true;
+			}
+		}
+
+		// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+		// ~RcsApiClient()
+		// {
+		//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+		//     Dispose(disposing: false);
+		// }
+
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }

@@ -31,12 +31,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			pluginLogger.LogDebug($"RcsClientFactory modified setupDir = '{setupDir}'");
 		}
 
-		/// <summary>
-		/// Create instance of IRcsApiController that is connected to locally hosted Rest API
-		/// URL = Url for the REST API service
-		/// ProcessId = For disposing the API process once the instance is disposed
-		/// </summary>
-		/// <returns>Instance of RcsApiController</returns>
+		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient()"/>
 		public async Task<IRcsApiController> CreateRcsApiClient()
 		{
 			var (url, processId) = await RunRcsRestApiService();
@@ -50,6 +45,22 @@ namespace IdeaStatiCa.RcsClient.Factory
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
 			return new RcsApiClient(processId, pluginLogger, wrapper);
+		}
+
+		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient(string)"/>
+		public async Task<IRcsApiController> CreateRcsApiClient(string url)
+		{
+			var wrapper = httpClientWrapper ?? new HttpClientWrapper(pluginLogger, url);
+			if (StreamingLog != null)
+			{
+				wrapper.ProgressLogAction = StreamingLog;
+			}
+			if (HeartbeatLog != null)
+			{
+				wrapper.HeartBeatLogAction = HeartbeatLog;
+			}
+			var client = new RcsApiClient(-1, pluginLogger, wrapper);
+			return await Task.FromResult<IRcsApiController>(client);
 		}
 
 		private async Task<(string, int)> RunRcsRestApiService()
