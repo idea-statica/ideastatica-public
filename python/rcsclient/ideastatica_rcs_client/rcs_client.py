@@ -12,11 +12,15 @@ logger = logging.getLogger('RcsClient')
 
 class RcsClient:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
-        logger.info(f"constructor {ideaStatiCaSetupDir} {tcpPort}")
         if(ideaStatiCaSetupDir.startswith('http')):
+            logger.info(f"constructor {ideaStatiCaSetupDir} {tcpPort} - attaching to the existing endpoint")
             self.tcpPort = tcpPort
             self.restApiUrl = ideaStatiCaSetupDir
+            self.rcsApiProcess = None
+            self.ideaStatiCaSetupDir = ""
+            self.rcsApiServicePath = f"{self.restApiUrl}:{self.tcpPort}"
         else:
+            logger.info(f"constructor {ideaStatiCaSetupDir} {tcpPort} - starting new RcsRestApi")
             self.tcpPort = tcpPort
             self.restApiUrl = 'http://localhost'
             self.ideaStatiCaSetupDir = ideaStatiCaSetupDir
