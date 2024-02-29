@@ -12,12 +12,18 @@ logger = logging.getLogger('RcsClient')
 
 class RcsClient:
     def __init__(self, ideaStatiCaSetupDir, tcpPort):
-        self.tcpPort = tcpPort
-        self.ideaStatiCaSetupDir = ideaStatiCaSetupDir
-        self.rcsApiServicePath =  full_path = os.path.join(ideaStatiCaSetupDir, r'net6.0-windows', r'IdeaStatiCa.RcsRestApi.exe')
-        self.rcsApiProcess = subprocess.Popen([self.rcsApiServicePath, f'-port={tcpPort}'])
-        # TODO synchronization - we need to wait till server is fully running
-        time.sleep(5)
+        logger.info(f"constructor {ideaStatiCaSetupDir} {tcpPort}")
+        if(ideaStatiCaSetupDir.startswith('http')):
+            self.tcpPort = tcpPort
+            self.restApiUrl = ideaStatiCaSetupDir
+        else:
+            self.tcpPort = tcpPort
+            self.restApiUrl = 'http://localhost'
+            self.ideaStatiCaSetupDir = ideaStatiCaSetupDir
+            self.rcsApiServicePath =  full_path = os.path.join(ideaStatiCaSetupDir, r'net6.0-windows', r'IdeaStatiCa.RcsRestApi.exe')
+            self.rcsApiProcess = subprocess.Popen([self.rcsApiServicePath, f'-port={tcpPort}'])
+            # TODO synchronization - we need to wait till server is fully running
+            time.sleep(5)
 
     def __del__(self):
         # stop a process IdeaStatiCa.RcsRestApi.exe if it is running  
@@ -50,7 +56,7 @@ class RcsClient:
         
         headers = {"Content-Type": "application/octet-stream"}   
         
-        response = requests.post(f'http://localhost:{self.tcpPort}/Project/OpenProject', data=binaryData, headers=headers)
+        response = requests.post(f'{self.restApiUrl}:{self.tcpPort}/Project/OpenProject', data=binaryData, headers=headers)
         if response.status_code == 200:
             self.projectId = response.text.replace('"', '')
             self.SetProjectSummary()
@@ -70,7 +76,7 @@ class RcsClient:
         self.projectSummaryData = None
         self.Project = None
         
-        response = requests.get(f'http://localhost:{self.tcpPort}/Project/{self.projectId}/ProjectSummary', headers={"Content-Type": "application/json"})
+        response = requests.get(f'{self.restApiUrl}:{self.tcpPort}/Project/{self.projectId}/ProjectSummary', headers={"Content-Type": "application/json"})
         if response.status_code == 200:
             parsed_data = xmltodict.parse(response.text)
             self.projectSummaryData = parsed_data[r'RcsProjectSummary']
@@ -85,7 +91,7 @@ class RcsClient:
         logger.info(f"Calculate sectionList = '{sectionList}'")
         calculationParameters = { "Sections": sectionList }
         json_data = json.dumps(calculationParameters)
-        response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/Calculate', json_data,
+        response = requests.post(f'{self.restApiUrl}:{self.tcpPort}/Calculations/{self.projectId}/Calculate', json_data,
             headers={
                 'Accept': 'application/xml',
                 'Content-Type': 'application/json'
@@ -105,7 +111,7 @@ class RcsClient:
         logger.info(f"GetResults sectionList = '{sectionList}'")
         calculationParameters = { "Sections": sectionList }
         json_data = json.dumps(calculationParameters)
-        response = requests.post(f'http://localhost:{self.tcpPort}/Calculations/{self.projectId}/GetResults', json_data,
+        response = requests.post(f'{self.restApiUrl}:{self.tcpPort}/Calculations/{self.projectId}/GetResults', json_data,
             headers={
                 'Accept': 'application/xml',
                 'Content-Type': 'application/json'
@@ -122,7 +128,7 @@ class RcsClient:
         logger.info(f"UpdateReinforcedCrossSectionInSection sectionId = '{sectionId}' newReinforcedCrossSectionId = {newReinforcedCrossSectionId}")
         rcsSection = {"Id":sectionId, "RCSId":newReinforcedCrossSectionId}
         json_data = json.dumps(rcsSection)
-        response = requests.put(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/UpdateSection', json_data,
+        response = requests.put(f'{self.restApiUrl}:{self.tcpPort}/Section/{self.projectId}/UpdateSection', json_data,
             headers={
                 'Content-Type': 'application/json'
             })
@@ -145,7 +151,7 @@ class RcsClient:
         
         json_data = json.dumps(reinforcedCrossSectionImportData)
 
-        response = requests.post(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/ImportReinforcedCrossSection', json_data,
+        response = requests.post(f'{self.restApiUrl}:{self.tcpPort}/Section/{self.projectId}/ImportReinforcedCrossSection', json_data,
             headers={
                 'Content-Type': 'application/json'
             })
@@ -162,7 +168,7 @@ class RcsClient:
     def GetLoadingInSection(self, sectionId):
         # Get loading in the section sectionId
         logger.info(f"GetLoadingInSection sectionId = '{sectionId}'")
-        response = requests.get(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/GetLoadingInSection?sectionId={sectionId}', 
+        response = requests.get(f'{self.restApiUrl}:{self.tcpPort}/Section/{self.projectId}/GetLoadingInSection?sectionId={sectionId}', 
             headers={
                 'Content-Type': 'text/plain'
             })
@@ -180,7 +186,7 @@ class RcsClient:
         rcsSection = {"SectionId":sectionId, "LoadingXml":loadingXml}
         json_data = json.dumps(rcsSection)
 
-        response = requests.post(f'http://localhost:{self.tcpPort}/Section/{self.projectId}/SetLoadingInSection', json_data,
+        response = requests.post(f'{self.restApiUrl}:{self.tcpPort}/Section/{self.projectId}/SetLoadingInSection', json_data,
             headers={
                 'Content-Type': 'application/json'
             })
