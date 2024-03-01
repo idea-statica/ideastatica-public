@@ -169,6 +169,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.TeklaStructures
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiClient", "..\examples\api\csharp\rcs\RcsApiClient\RcsApiClient.csproj", "{D8592C4A-B184-47CD-BA1B-6C23676EFC48}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IntermediateModel", "IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj", "{2AC104BD-4E78-4B63-8D8F-3828A0E98A07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IntermediateModel.Tests", "IdeaStatiCa.IntermediateModel.Tests\IdeaStatiCa.IntermediateModel.Tests.csproj", "{5C1E80D1-3021-45C6-ABBB-FE16537825F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.OpenModel.VersioningService", "IdeaStatiCa.OpenModel.VersioningService\IdeaStatiCa.OpenModel.VersioningService.csproj", "{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.OpenModel.VersioningServiceTests", "IdeaStatiCa.OpenModel.VersioningServiceTests\IdeaStatiCa.OpenModel.VersioningServiceTests.csproj", "{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -403,6 +411,22 @@ Global
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48}.Debug|x64.Build.0 = Debug|Any CPU
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48}.Release|x64.ActiveCfg = Release|Any CPU
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48}.Release|x64.Build.0 = Release|Any CPU
+		{2AC104BD-4E78-4B63-8D8F-3828A0E98A07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2AC104BD-4E78-4B63-8D8F-3828A0E98A07}.Debug|x64.Build.0 = Debug|Any CPU
+		{2AC104BD-4E78-4B63-8D8F-3828A0E98A07}.Release|x64.ActiveCfg = Release|Any CPU
+		{2AC104BD-4E78-4B63-8D8F-3828A0E98A07}.Release|x64.Build.0 = Release|Any CPU
+		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Debug|x64.Build.0 = Debug|Any CPU
+		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Release|x64.ActiveCfg = Release|Any CPU
+		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Release|x64.Build.0 = Release|Any CPU
+		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Debug|x64.Build.0 = Debug|Any CPU
+		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Release|x64.ActiveCfg = Release|Any CPU
+		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Release|x64.Build.0 = Release|Any CPU
+		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Debug|x64.Build.0 = Debug|Any CPU
+		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Release|x64.ActiveCfg = Release|Any CPU
+		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
