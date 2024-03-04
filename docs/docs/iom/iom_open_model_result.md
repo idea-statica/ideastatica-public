@@ -164,7 +164,7 @@ There are two options when defining a member result to a new `ResultOnMember`:
 
 Below shows the difference between creating result data from the two different methods:
 
-![result data](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/wiki/resultdata.png)
+![result data](images/resultdata.png)
 
 #### Result Data By MemberType = `Element1D`
 * Start and Endpoints can be defined **directly** at the start and endpoints. Therefore, IDEA StatiCa will interpret the end results on either side of the member by the endpoint values of the element.
@@ -190,7 +190,12 @@ b) **Interpolate** between the two closest defined values in the IOM Result Data
 For a continuous member, in order to read the "before" and "after" values in a connection point, we look for section results 1e-6 away from the connection point (relatively). This is why it is imperative that **two** result points (one on either side of the connection point) are defined when using the MemberType = Member1D option. It is almost certain that an interpolated value between the start and end node of a member which contains more than one element will yield unbalanced forces.
 
 ## Local vs Principle Axis system
-To do
+The `ResultOnMember` class allows for results to be specificied within the OpenModelResult in the Local, Principle or Global axis.  
+
+On import provided forces will be converted to the Local Co-ordinate system of the member.
+
+> [!IMPORTANT]
+> By default the Axis system is set to **Principle**.
 
 ## Defining forces Not in Equilibrium
 
