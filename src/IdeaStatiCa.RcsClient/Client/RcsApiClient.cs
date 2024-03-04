@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RcsClient.Client
 {
-	public class RcsApiClient : IRcsApiController, IDisposable
+	public class RcsApiClient : IRcsApiController
 	{
 		private readonly IHttpClientWrapper httpClient;
 		private readonly int restApiProcessId;
