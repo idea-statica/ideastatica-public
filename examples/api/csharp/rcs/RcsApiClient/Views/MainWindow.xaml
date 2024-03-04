@@ -13,6 +13,7 @@
 		<StackPanel DockPanel.Dock="Top">
 			<StackPanel Orientation="Horizontal">
 				<Button HorizontalAlignment="Left"  Content="Browse for RCS project" Command="{Binding OpenProjectCmdAsync}" Width="150" Height="30" />
+				<Button HorizontalAlignment="Left"  Content="Close RCS project" Command="{Binding CloseProjectCmdAsync}" Width="150" Height="30" />
 				<Button HorizontalAlignment="Left"  Content="Save RCS" Command="{Binding SaveProjectCmdAsync}" ToolTip="Get the current data of RCS project and save it" Width="150" Height="30" />
 				<TextBox x:Name="ProjectFileInputPath" Text="{Binding RcsProjectPath}" Margin="5" IsEnabled="False" />
 			</StackPanel>
