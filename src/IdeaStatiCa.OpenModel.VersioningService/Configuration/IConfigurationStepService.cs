@@ -2,6 +2,10 @@
 
 namespace IdeaStatiCa.OpenModel.VersioningService.Configuration
 {
+	/// <summary>
+	/// service responsible for registration of versioning steps
+	/// base on registration provide upgrade steps / downgrade steps
+	/// </summary>
 	public interface IConfigurationStepService
 	{
 		/// <summary>
