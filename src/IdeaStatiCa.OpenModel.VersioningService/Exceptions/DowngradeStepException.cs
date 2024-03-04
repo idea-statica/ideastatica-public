@@ -1,4 +1,6 @@
-﻿namespace IdeaStatiCa.OpenModel.VersioningService.Exceptions
+﻿using System;
+
+namespace IdeaStatiCa.OpenModel.VersioningService.Exceptions
 {
 	public class DowngradeStepException : Exception
 	{

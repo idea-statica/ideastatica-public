@@ -1,4 +1,6 @@
-﻿namespace IdeaStatiCa.IntermediateModel.IRModel
+﻿using System.Collections.Generic;
+
+namespace IdeaStatiCa.IntermediateModel.IRModel
 {
 	// Object intermediate object
 	public class SObject : ISIntermediate

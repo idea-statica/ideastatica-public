@@ -1,4 +1,7 @@
-﻿namespace IdeaStatiCa.IntermediateModel.IRModel
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace IdeaStatiCa.IntermediateModel.IRModel
 {
 	// List intermediate object
 	public class SList : ISIntermediate

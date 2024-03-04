@@ -1,4 +1,7 @@
 ﻿using IdeaStatiCa.IntermediateModel.IRModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.IntermediateModel.Extensions
 {
@@ -24,14 +27,22 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="intermediateItem"></param>
 		/// <param name="filter"></param>
 		/// <returns></returns>
-		static public IEnumerable<ISIntermediate> GetElements(this ISIntermediate intermediateItem, Queue<string> filter) => intermediateItem switch
+		static public IEnumerable<ISIntermediate> GetElements(this ISIntermediate intermediateItem, Queue<string> filter)
 		{
-			SObject sObject => sObject.GetElements(filter),
-			SList sList => sList.GetElements(filter),
-			SPrimitive sPrimitive => sPrimitive.GetElements(filter),
-			SAttribute sAttribute => sAttribute.GetElements(filter),
-			_ => new List<ISIntermediate>() { },
-		};
+			switch (intermediateItem)
+			{
+				case SObject sObject:
+					return sObject.GetElements(filter);
+				case SList sList:
+					return sList.GetElements(filter);
+				case SPrimitive sPrimitive:
+					return sPrimitive.GetElements(filter);
+				case SAttribute sAttribute:
+					return sAttribute.GetElements(filter);
+				default:
+					return new List<ISIntermediate>() { };
+			}
+		}
 
 		/// <summary>
 		/// Change Element name or Element Property Name
@@ -88,14 +99,22 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="intermediateItem"></param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public static string GetElementName(this ISIntermediate intermediateItem) => intermediateItem switch
+		public static string GetElementName(this ISIntermediate intermediateItem)
 		{
-			SObject sObject => sObject.GetElementName(),
-			SList sList => sList.GetElementName(),
-			SPrimitive sPrimitive => sPrimitive.GetElementName(),
-			SAttribute sAttribute => sAttribute.GetElementName(),
-			_ => throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}"),
-		};
+			switch (intermediateItem)
+			{
+				case SObject sObject:
+					return sObject.GetElementName();
+				case SList sList:
+					return sList.GetElementName();
+				case SPrimitive sPrimitive:
+					return sPrimitive.GetElementName();
+				case SAttribute sAttribute:
+					return sAttribute.GetElementName();
+				default:
+					throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}");
+			}
+		}
 
 
 		/// <summary>
@@ -105,13 +124,22 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="property"></param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public static string GetElementValue(this ISIntermediate intermediateItem, string property) => intermediateItem switch
+		public static string GetElementValue(this ISIntermediate intermediateItem, string property)
 		{
-			SObject sObject => sObject.GetElementValue(property),
-			SPrimitive sPrimitive => sPrimitive.GetElementValue(property),
-			SAttribute sAttribute => sAttribute.GetElementValue(property),
-			_ => throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}"),
-		};
+			switch (intermediateItem)
+			{
+				case SObject sObject:
+					return sObject.GetElementValue(property);
+				case SList sList:
+					return sList.GetElementValue(property);
+				case SPrimitive sPrimitive:
+					return sPrimitive.GetElementValue(property);
+				case SAttribute sAttribute:
+					return sAttribute.GetElementValue(property);
+				default:
+					throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}");
+			}
+		}
 
 		/// <summary>
 		/// Take (Get and Remove) Element Property
@@ -120,14 +148,22 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="property"></param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public static ISIntermediate TakeElementProperty(this ISIntermediate intermediateItem, string property) => intermediateItem switch
+		public static ISIntermediate TakeElementProperty(this ISIntermediate intermediateItem, string property)
 		{
-			SObject sObject => sObject.TakeElementProperty(property),
-			SList sList => sList.TakeElementProperty(property),
-			SPrimitive sPrimitive => sPrimitive.TakeElementProperty(property),
-			SAttribute sAttribute => sAttribute.TakeElementProperty(property),
-			_ => throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}"),
-		};
+			switch (intermediateItem)
+			{
+				case SObject sObject:
+					return sObject.TakeElementProperty(property);
+				case SList sList:
+					return sList.TakeElementProperty(property);
+				case SPrimitive sPrimitive:
+					return sPrimitive.TakeElementProperty(property);
+				case SAttribute sAttribute:
+					return sAttribute.TakeElementProperty(property);
+				default:
+					throw new InvalidOperationException($"Unknown type of intermediateItem {intermediateItem.GetType()}");
+			}
+		}
 
 
 
@@ -164,14 +200,22 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="property"></param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public static bool TryAddElementProperty(this ISIntermediate intermediateItem, ISIntermediate property) => intermediateItem switch
+		public static bool TryAddElementProperty(this ISIntermediate intermediateItem, ISIntermediate property)
 		{
-			SObject sObject => sObject.TryAddElementProperty(property),
-			SList sList => sList.TryAddElementProperty(property),
-			SPrimitive sPrimitive => sPrimitive.TryAddElementProperty(property),
-			SAttribute sAttribute => sAttribute.TryAddElementProperty(property),
-			_ => throw new InvalidOperationException($"Unsupported type of intermediateItem {intermediateItem.GetType()}"),
-		};
+			switch (intermediateItem)
+			{
+				case SObject sObject:
+					return sObject.TryAddElementProperty(property);
+				case SList sList:
+					return sList.TryAddElementProperty(property);
+				case SPrimitive sPrimitive:
+					return sPrimitive.TryAddElementProperty(property);
+				case SAttribute sAttribute:
+					return sAttribute.TryAddElementProperty(property);
+				default:
+					throw new InvalidOperationException($"Unsupported type of intermediateItem {intermediateItem.GetType()}");
+			}
+		}
 
 
 		private static Queue<string> PrepareFilter(string filter)
@@ -185,7 +229,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 
 		private static List<string> ExplodeFilter(string filterParh)
 		{
-			return filterParh.Split(";").ToList();
+			return filterParh.Split(';').ToList();
 		}
 
 		/// <summary>

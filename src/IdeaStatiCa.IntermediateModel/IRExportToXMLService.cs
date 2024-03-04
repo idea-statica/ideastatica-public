@@ -1,6 +1,10 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.Plugin;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -52,7 +56,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private Stack<IXmlLineInfo> ProcessModelItems(SModel irModel)
 		{
-			_logger.LogInformation("ProcessModelItems");
+			_logger.LogInformation("ProcessMoStack<ISIntermediate>Items");
 
 			var itemsTOProcess = new Stack<ISIntermediate>();
 			itemsTOProcess.Push(irModel.RootItem);
@@ -60,8 +64,9 @@ namespace IdeaStatiCa.IntermediateModel
 			Stack<IXmlLineInfo> xmlItems = new Stack<IXmlLineInfo>();
 
 			Dictionary<string, XNamespace> usedNamespaces = new Dictionary<string, XNamespace>();
-			while (itemsTOProcess.TryPop(out ISIntermediate item))
+			while (itemsTOProcess.Count > 0)
 			{
+				ISIntermediate item = itemsTOProcess.Pop();
 				switch (item)
 				{
 					case SPrimitive primitive:
@@ -88,7 +93,7 @@ namespace IdeaStatiCa.IntermediateModel
 							break;
 						}
 
-					case EndOfObject:
+					case EndOfObject _:
 						{
 							ProcessEndItem(xmlItems);
 
@@ -108,8 +113,10 @@ namespace IdeaStatiCa.IntermediateModel
 			_logger.LogDebug("Process End Of Object");
 			var closedItem = xmlItems.Pop();
 			//assign closed element to parent
-			if (xmlItems.TryPeek(out IXmlLineInfo parentXml))
+
+			if (xmlItems.Count > 0)
 			{
+				IXmlLineInfo parentXml = xmlItems.Peek();
 				if (parentXml is XElement parentElementXml)
 				{
 					parentElementXml.Add(closedItem);

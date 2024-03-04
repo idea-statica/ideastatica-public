@@ -2,6 +2,8 @@
 using IdeaStatiCa.OpenModel.VersioningService.Exceptions;
 using IdeaStatiCa.OpenModel.VersioningService.Tools;
 using IdeaStatiCa.Plugin;
+using System;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.OpenModel.VersioningService.Downgrade
 {

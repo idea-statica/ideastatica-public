@@ -1,4 +1,6 @@
 ﻿using IdeaStatiCa.OpenModel.VersioningService.VersionSteps;
+using System;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.OpenModel.VersioningService.Configuration
 {
@@ -12,20 +14,20 @@ namespace IdeaStatiCa.OpenModel.VersioningService.Configuration
 		/// Get sequence of downgrade steps
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<IDowngradeStep> DowngradeSteps();
+		IEnumerable<IDowngradeStep> DowngradeSteps();
 
 		/// <summary>
 		/// Get sequence of upgrade steps
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<IUpgradeStep> UpgradeSteps();
+		IEnumerable<IUpgradeStep> UpgradeSteps();
 
 
 		/// <summary>
 		/// Get version of latest step
 		/// </summary>
 		/// <returns></returns>
-		public Version GetLatestStepVersion();
+		Version GetLatestStepVersion();
 
 	}
 }

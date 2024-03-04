@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.Plugin;
+using System;
 
 namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps
 {
@@ -43,7 +44,7 @@ namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps
 
 		public virtual Version GetVersion()
 		{
-			return new(0, 0, 0);
+			return Version.Parse("0.0.0");
 		}
 	}
 }

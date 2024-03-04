@@ -1,4 +1,6 @@
 ﻿using IdeaStatiCa.IntermediateModel.IRModel;
+using System;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.IntermediateModel.Extensions
 {

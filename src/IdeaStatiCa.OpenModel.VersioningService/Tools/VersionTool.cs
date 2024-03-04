@@ -1,4 +1,8 @@
-﻿namespace IdeaStatiCa.OpenModel.VersioningService.Tools
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace IdeaStatiCa.OpenModel.VersioningService.Tools
 {
 	public static class VersionTool
 	{

@@ -1,4 +1,7 @@
-﻿namespace IdeaStatiCa.IntermediateModel.IRModel
+﻿using System;
+using System.Collections.Generic;
+
+namespace IdeaStatiCa.IntermediateModel.IRModel
 {
 	//This object is used only for exporting to the XML file 
 	class EndOfObject : ISIntermediate

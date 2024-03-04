@@ -1,6 +1,8 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.Plugin;
+using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace IdeaStatiCa.IntermediateModel

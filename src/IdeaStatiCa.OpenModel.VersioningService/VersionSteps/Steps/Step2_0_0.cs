@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.Plugin;
+using System;
 
 namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps.Steps
 {
@@ -12,7 +13,7 @@ namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps.Steps
 		{
 		}
 
-		public static Version Version => new(2, 0, 0);
+		public static Version Version => Version.Parse("2.0.0");
 
 		public override Version GetVersion()
 		{

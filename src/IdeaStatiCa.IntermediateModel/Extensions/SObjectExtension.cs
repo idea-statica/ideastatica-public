@@ -1,4 +1,7 @@
 ﻿using IdeaStatiCa.IntermediateModel.IRModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.IntermediateModel.Extensions
 {
@@ -51,13 +54,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			{
 				return Enumerable.Empty<ISIntermediate>();
 			}
-
-
-			///var filterPart = filter.Dequeue();
-			if (!filter.TryPeek(out string filterPart))
-			{
-				return Enumerable.Empty<ISIntermediate>();
-			}
+			string filterPart = filter.Peek();
 
 			//potentially here allow regex
 			//we found item

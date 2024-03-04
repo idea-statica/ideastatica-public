@@ -1,4 +1,7 @@
 ﻿using IdeaStatiCa.IntermediateModel.IRModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.IntermediateModel.Extensions
 {
@@ -12,7 +15,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <returns></returns>
 		public static IEnumerable<ISIntermediate> GetElements(this SList sList, Queue<string> filter)
 		{
-			if (filter == null || filter.Count == 0 || sList == null || sList.Items == null || sList.Items.Count == 0)
+			if (filter == null || filter.Count == 0 || sList == null || sList.Items == null || sList.Items.Count() == 0)
 			{
 				return new List<ISIntermediate>();
 			}
@@ -65,7 +68,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <exception cref="InvalidOperationException"></exception>
 		public static ISIntermediate TakeElementProperty(this SList sList, int index)
 		{
-			if (sList.Items.Count > index && index >= 0)
+			if (sList.Items.Count() > index && index >= 0)
 			{
 				var element = sList.Items.ToArray()[index];
 				sList.Items.Remove(element);
@@ -99,7 +102,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <returns></returns>
 		public static bool TryAddElementProperty(this SList sList, ISIntermediate property)
 		{
-			if (sList.Items.Count > 0 && sList.GetElementName() != property.GetElementName())
+			if (sList.Items.Count() > 0 && sList.GetElementName() != property.GetElementName())
 			{
 				return false;
 			}
