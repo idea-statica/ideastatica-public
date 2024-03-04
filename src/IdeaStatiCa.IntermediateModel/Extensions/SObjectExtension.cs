@@ -30,7 +30,6 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			if (sObject.Properties.ContainsKey(property.GetElementName()))
 			{
 				return false;
-				throw new InvalidOperationException($"Object {sObject.TypeName} already contains property {property.GetElementName()}");
 			}
 			else
 			{
@@ -50,13 +49,9 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 
 			if (filter == null || filter.Count == 0)
 			{
-				return new List<ISIntermediate>();
-			}
-
-			if (filter == null)
-			{
 				return Enumerable.Empty<ISIntermediate>();
 			}
+
 
 			///var filterPart = filter.Dequeue();
 			if (!filter.TryPeek(out string filterPart))
@@ -161,14 +156,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			{
 				sObject.TypeName = newName;
 			}
-			else
+			else if (sObject.Properties.ContainsKey(name))
 			{
-				if (sObject.Properties.ContainsKey(name))
-				{
-					sObject.Properties[name].ChangeElementPropertyName(name, newName);
-					sObject.Properties.RenameKey(name, newName);
-				}
+				sObject.Properties[name].ChangeElementPropertyName(name, newName);
+				sObject.Properties.RenameKey(name, newName);
 			}
+
 		}
 
 		/// <summary>

@@ -4,9 +4,14 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 {
 	public static class SListExtension
 	{
+		/// <summary>
+		/// Get Elements by filter
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="filter"></param>
+		/// <returns></returns>
 		public static IEnumerable<ISIntermediate> GetElements(this SList sList, Queue<string> filter)
 		{
-
 			if (filter == null || filter.Count == 0 || sList == null || sList.Items == null || sList.Items.Count == 0)
 			{
 				return new List<ISIntermediate>();
@@ -16,6 +21,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			return res;
 		}
 
+		/// <summary>
+		/// Change element property name for all items
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="name"></param>
+		/// <param name="newName"></param>
 		public static void ChangeElementPropertyName(this SList sList, string name, string newName)
 		{
 			foreach (var item in sList.Items)
@@ -24,6 +35,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			}
 		}
 
+		/// <summary>
+		/// Change element value for all items
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="newValue"></param>
+		/// <exception cref="InvalidOperationException"></exception>
 		public static void ChangeElementValue(this SList sList, string newValue)
 		{
 			if (sList.Items.ToList().TrueForAll(x => x is SPrimitive))
@@ -39,6 +56,13 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			}
 		}
 
+		/// <summary>
+		/// Take element property on index
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException"></exception>
 		public static ISIntermediate TakeElementProperty(this SList sList, int index)
 		{
 			if (sList.Items.Count > index && index >= 0)
@@ -53,6 +77,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			}
 		}
 
+		/// <summary>
+		/// Add same element property
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="property"></param>
+		/// <exception cref="InvalidOperationException"></exception>
 		public static void AddElementProperty(this SList sList, ISIntermediate property)
 		{
 			if (!sList.TryAddElementProperty(property))
@@ -61,6 +91,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			}
 		}
 
+		/// <summary>
+		/// Try Add Element Property
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <param name="property"></param>
+		/// <returns></returns>
 		public static bool TryAddElementProperty(this SList sList, ISIntermediate property)
 		{
 			if (sList.Items.Count > 0 && sList.GetElementName() != property.GetElementName())
@@ -71,6 +107,11 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			return true;
 		}
 
+		/// <summary>
+		/// Get first element name
+		/// </summary>
+		/// <param name="sList"></param>
+		/// <returns></returns>
 		public static string GetElementName(this SList sList)
 		{
 			return sList.Items.First().GetElementName();

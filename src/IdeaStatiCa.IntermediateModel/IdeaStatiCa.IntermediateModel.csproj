@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
+		<ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
 	</ItemGroup>
 
 </Project>

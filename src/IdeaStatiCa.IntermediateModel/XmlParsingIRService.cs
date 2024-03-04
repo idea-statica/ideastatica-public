@@ -14,6 +14,7 @@ namespace IdeaStatiCa.IntermediateModel
 			this._logger = logger;
 		}
 
+		/// <inheritdoc />
 		public SModel ParseXml(string xmlContent)
 		{
 			var processItemStack = new Stack<SObject>();

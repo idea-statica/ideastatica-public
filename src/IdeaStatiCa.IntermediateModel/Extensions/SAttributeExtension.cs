@@ -14,6 +14,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Get Elements 
+		/// </summary>
+		/// <param name="sAttribute"></param>
+		/// <param name="filter"></param>
+		/// <returns></returns>
 		public static IEnumerable<ISIntermediate> GetElements(this SAttribute sAttribute, Queue<string> filter)
 		{
 			if (filter == null || filter.Count == 0)
@@ -42,6 +48,12 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Get Attribute Value
+		/// </summary>
+		/// <param name="sAttribute"></param>
+		/// <param name="property"></param>
+		/// <returns></returns>
 		public static string GetElementValue(this SAttribute sAttribute, string property = null)
 		{
 			return sAttribute.Value;
@@ -52,6 +64,11 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Change Attribute Value
+		/// </summary>
+		/// <param name="sAttribute"></param>
+		/// <param name="newValue"></param>
 		public static void ChangeElementValue(this SAttribute sAttribute, string newValue)
 		{
 			sAttribute.Value = newValue;
