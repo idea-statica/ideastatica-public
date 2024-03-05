@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Downgrade
+namespace IdeaStatiCa.IOM.VersioningService.Downgrade
 {
 	public interface IDowngradeService : IVersioningService
 	{

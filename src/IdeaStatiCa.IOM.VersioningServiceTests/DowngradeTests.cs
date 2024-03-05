@@ -1,12 +1,12 @@
 ﻿using IdeaStatiCa.IntermediateModel;
 using IdeaStatiCa.IntermediateModel.IRModel;
-using IdeaStatiCa.OpenModel.VersioningService.Configuration;
-using IdeaStatiCa.OpenModel.VersioningService.Downgrade;
+using IdeaStatiCa.IOM.VersioningService.Configuration;
+using IdeaStatiCa.IOM.VersioningService.Downgrade;
 using IdeaStatiCa.Plugin;
 using NUnit.Framework;
 using System.Xml.Linq;
 
-namespace IdeaStatiCa.OpenModel.VersioningServiceTests
+namespace IdeaStatiCa.IOM.VersioningServiceTests
 {
 	[TestFixture]
 	public class DowngradeTests

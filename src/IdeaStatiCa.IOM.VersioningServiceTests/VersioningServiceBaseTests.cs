@@ -1,6 +1,6 @@
 ﻿using IdeaStatiCa.IntermediateModel;
-using IdeaStatiCa.OpenModel.VersioningService;
-using IdeaStatiCa.OpenModel.VersioningService.Configuration;
+using IdeaStatiCa.IOM.VersioningService;
+using IdeaStatiCa.IOM.VersioningService.Configuration;
 using IdeaStatiCa.Plugin;
 using NUnit.Framework;
 

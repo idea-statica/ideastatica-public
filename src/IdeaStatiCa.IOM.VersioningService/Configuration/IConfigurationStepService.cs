@@ -1,8 +1,8 @@
-﻿using IdeaStatiCa.OpenModel.VersioningService.VersionSteps;
+﻿using IdeaStatiCa.IOM.VersioningService.VersionSteps;
 using System;
 using System.Collections.Generic;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Configuration
+namespace IdeaStatiCa.IOM.VersioningService.Configuration
 {
 	/// <summary>
 	/// service responsible for registration of versioning steps

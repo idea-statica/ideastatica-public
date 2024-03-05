@@ -1,9 +1,9 @@
-﻿using IdeaStatiCa.OpenModel.VersioningService.Configuration;
-using IdeaStatiCa.OpenModel.VersioningService.Exceptions;
+﻿using IdeaStatiCa.IOM.VersioningService.Configuration;
+using IdeaStatiCa.IOM.VersioningService.Exceptions;
 using IdeaStatiCa.Plugin;
 using System;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Upgrade
+namespace IdeaStatiCa.IOM.VersioningService.Upgrade
 {
 	public class UpgradeService : VersioningServiceBase, IUpgradeService
 	{

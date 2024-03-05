@@ -1,7 +1,7 @@
 ﻿using IdeaStatiCa.Plugin;
 using System;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps.Steps
+namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 {
 	internal class Step200 : BaseStep
 	{

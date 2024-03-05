@@ -20,7 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj" />
-		<ProjectReference Include="..\IdeaStatiCa.OpenModel.VersioningService\IdeaStatiCa.OpenModel.VersioningService.csproj" />
+		<ProjectReference Include="..\IdeaStatiCa.IOM.VersioningService\IdeaStatiCa.IOM.VersioningService.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

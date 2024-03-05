@@ -1,11 +1,11 @@
-﻿using IdeaStatiCa.OpenModel.VersioningService.VersionSteps;
-using IdeaStatiCa.OpenModel.VersioningService.VersionSteps.Steps;
+﻿using IdeaStatiCa.IOM.VersioningService.VersionSteps;
+using IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Configuration
+namespace IdeaStatiCa.IOM.VersioningService.Configuration
 {
 	public class ConfigurationStepService : IConfigurationStepService
 	{

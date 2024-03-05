@@ -1,11 +1,11 @@
-﻿using IdeaStatiCa.OpenModel.VersioningService.Configuration;
-using IdeaStatiCa.OpenModel.VersioningService.Exceptions;
-using IdeaStatiCa.OpenModel.VersioningService.Tools;
+﻿using IdeaStatiCa.IOM.VersioningService.Configuration;
+using IdeaStatiCa.IOM.VersioningService.Exceptions;
+using IdeaStatiCa.IOM.VersioningService.Tools;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Downgrade
+namespace IdeaStatiCa.IOM.VersioningService.Downgrade
 {
 	public class DowngradeService : VersioningServiceBase, IDowngradeService
 	{

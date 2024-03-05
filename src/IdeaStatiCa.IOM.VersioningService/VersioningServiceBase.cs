@@ -1,12 +1,12 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
-using IdeaStatiCa.OpenModel.VersioningService.Configuration;
-using IdeaStatiCa.OpenModel.VersioningService.Extension;
-using IdeaStatiCa.OpenModel.VersioningService.Tools;
+using IdeaStatiCa.IOM.VersioningService.Configuration;
+using IdeaStatiCa.IOM.VersioningService.Extension;
+using IdeaStatiCa.IOM.VersioningService.Tools;
 using IdeaStatiCa.Plugin;
 using System;
 
-namespace IdeaStatiCa.OpenModel.VersioningService
+namespace IdeaStatiCa.IOM.VersioningService
 {
 	public class VersioningServiceBase : IVersioningService
 	{

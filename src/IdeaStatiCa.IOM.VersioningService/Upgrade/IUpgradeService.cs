@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.OpenModel.VersioningService.Upgrade
+﻿namespace IdeaStatiCa.IOM.VersioningService.Upgrade
 {
 	public interface IUpgradeService : IVersioningService
 	{

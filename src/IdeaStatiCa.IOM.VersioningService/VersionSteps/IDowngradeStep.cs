@@ -1,6 +1,6 @@
 ﻿using IdeaStatiCa.IntermediateModel.IRModel;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps
+namespace IdeaStatiCa.IOM.VersioningService.VersionSteps
 {
 	public interface IDowngradeStep : IStep
 	{

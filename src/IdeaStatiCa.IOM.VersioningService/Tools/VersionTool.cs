@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Tools
+namespace IdeaStatiCa.IOM.VersioningService.Tools
 {
 	public static class VersionTool
 	{

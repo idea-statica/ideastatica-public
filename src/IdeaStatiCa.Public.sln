@@ -173,9 +173,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IntermediateMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IntermediateModel.Tests", "IdeaStatiCa.IntermediateModel.Tests\IdeaStatiCa.IntermediateModel.Tests.csproj", "{5C1E80D1-3021-45C6-ABBB-FE16537825F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.OpenModel.VersioningService", "IdeaStatiCa.OpenModel.VersioningService\IdeaStatiCa.OpenModel.VersioningService.csproj", "{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IOM.VersioningService", "IdeaStatiCa.IOM.VersioningService\IdeaStatiCa.IOM.VersioningService.csproj", "{07472F67-E838-4861-8540-2C9DD4B697AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.OpenModel.VersioningServiceTests", "IdeaStatiCa.OpenModel.VersioningServiceTests\IdeaStatiCa.OpenModel.VersioningServiceTests.csproj", "{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IOM.VersioningServiceTests", "IdeaStatiCa.IOM.VersioningServiceTests\IdeaStatiCa.IOM.VersioningServiceTests.csproj", "{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -419,14 +419,14 @@ Global
 		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Debug|x64.Build.0 = Debug|Any CPU
 		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Release|x64.ActiveCfg = Release|Any CPU
 		{5C1E80D1-3021-45C6-ABBB-FE16537825F0}.Release|x64.Build.0 = Release|Any CPU
-		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Debug|x64.Build.0 = Debug|Any CPU
-		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Release|x64.ActiveCfg = Release|Any CPU
-		{07D5B91E-2DCA-4DF8-BBB0-0A2994BCA1EB}.Release|x64.Build.0 = Release|Any CPU
-		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Debug|x64.Build.0 = Debug|Any CPU
-		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Release|x64.ActiveCfg = Release|Any CPU
-		{BCBC74E9-FCD3-4C6B-95FA-1FF92FFE8460}.Release|x64.Build.0 = Release|Any CPU
+		{07472F67-E838-4861-8540-2C9DD4B697AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{07472F67-E838-4861-8540-2C9DD4B697AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{07472F67-E838-4861-8540-2C9DD4B697AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{07472F67-E838-4861-8540-2C9DD4B697AD}.Release|x64.Build.0 = Release|Any CPU
+		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Debug|x64.Build.0 = Debug|Any CPU
+		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Release|x64.ActiveCfg = Release|Any CPU
+		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

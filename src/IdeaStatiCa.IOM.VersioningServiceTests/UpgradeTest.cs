@@ -1,7 +1,7 @@
 ﻿using IdeaStatiCa.IntermediateModel;
 using IdeaStatiCa.IntermediateModel.IRModel;
-using IdeaStatiCa.OpenModel.VersioningService.Configuration;
-using IdeaStatiCa.OpenModel.VersioningService.Upgrade;
+using IdeaStatiCa.IOM.VersioningService.Configuration;
+using IdeaStatiCa.IOM.VersioningService.Upgrade;
 using IdeaStatiCa.Plugin;
 using NUnit.Framework;
 using System.Xml.Linq;

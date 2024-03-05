@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps
+namespace IdeaStatiCa.IOM.VersioningService.VersionSteps
 {
 	public interface IStep
 	{

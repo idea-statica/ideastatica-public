@@ -3,6 +3,7 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 namespace IdeaStatiCa.IntermediateModel
@@ -17,36 +18,50 @@ namespace IdeaStatiCa.IntermediateModel
 		}
 
 		/// <inheritdoc />
+		public SModel ParseXml(Stream streamContent)
+		{
+			using (XmlReader reader = XmlReader.Create(streamContent))
+			{
+				return ParseModel(reader);
+			}
+		}
+
+		/// <inheritdoc />
 		public SModel ParseXml(string xmlContent)
+		{
+			using (XmlReader reader = XmlReader.Create(new System.IO.StringReader(xmlContent)))
+			{
+				return ParseModel(reader);
+			}
+		}
+
+		private SModel ParseModel(XmlReader reader)
 		{
 			var processItemStack = new Stack<SObject>();
 			var model = new SModel();
 
-			using (XmlReader reader = XmlReader.Create(new System.IO.StringReader(xmlContent)))
+
+			while (reader.MoveToNextAttribute() || reader.Read())
 			{
-				while (reader.MoveToNextAttribute() || reader.Read())
+				switch (reader.NodeType)
 				{
-					switch (reader.NodeType)
-					{
-						case XmlNodeType.Element:
-							ProcessStartElement(reader, processItemStack, model);
-							break;
-						case XmlNodeType.Text:
-							ProcessPrimitiveValue(reader, processItemStack);
-							break;
-						case XmlNodeType.Attribute:
-							ProcessAttribute(reader, processItemStack, model);
-							break;
-						case XmlNodeType.EndElement:
-							ProcessEndElement(processItemStack);
-							break;
-						case XmlNodeType.XmlDeclaration:
-							ProcessDeclaration(reader, model);
-							break;
-					}
+					case XmlNodeType.Element:
+						ProcessStartElement(reader, processItemStack, model);
+						break;
+					case XmlNodeType.Text:
+						ProcessPrimitiveValue(reader, processItemStack);
+						break;
+					case XmlNodeType.Attribute:
+						ProcessAttribute(reader, processItemStack, model);
+						break;
+					case XmlNodeType.EndElement:
+						ProcessEndElement(processItemStack);
+						break;
+					case XmlNodeType.XmlDeclaration:
+						ProcessDeclaration(reader, model);
+						break;
 				}
 			}
-
 			return model;
 		}
 
@@ -180,5 +195,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 			element.Properties = properties;
 		}
+
+
 	}
 }

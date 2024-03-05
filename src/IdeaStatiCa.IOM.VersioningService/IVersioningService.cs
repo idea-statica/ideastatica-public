@@ -1,6 +1,6 @@
 ﻿using IdeaStatiCa.IntermediateModel.IRModel;
 
-namespace IdeaStatiCa.OpenModel.VersioningService
+namespace IdeaStatiCa.IOM.VersioningService
 {
 	public interface IVersioningService
 	{

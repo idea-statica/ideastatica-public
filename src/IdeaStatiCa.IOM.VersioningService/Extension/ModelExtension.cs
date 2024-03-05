@@ -3,7 +3,7 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using System;
 using System.Linq;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.Extension
+namespace IdeaStatiCa.IOM.VersioningService.Extension
 {
 	static public class ModelExtension
 	{

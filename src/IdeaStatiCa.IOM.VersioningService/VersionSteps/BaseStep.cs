@@ -3,7 +3,7 @@ using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.Plugin;
 using System;
 
-namespace IdeaStatiCa.OpenModel.VersioningService.VersionSteps
+namespace IdeaStatiCa.IOM.VersioningService.VersionSteps
 {
 	internal abstract class BaseStep : IUpgradeStep, IDowngradeStep
 	{
