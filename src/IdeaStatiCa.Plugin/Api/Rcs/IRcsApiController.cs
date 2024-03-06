@@ -11,12 +11,19 @@ namespace IdeaStatiCa.Plugin.Api.RCS
 	public interface IRcsApiController : IDisposable
 	{
 		/// <summary>
+		/// Identifier of the active RCS project on the backend
+		/// </summary>
+		Guid ActiveProjectId {  get; }
+
+		/// <summary>
 		/// Open project from IdeaRcs file
 		/// </summary>
 		/// <param name="rscFilePath">Local path of the IdeaRcs file</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns></returns>
 		Task<bool> OpenProjectAsync(string rscFilePath, CancellationToken token = default);
+
+		Task CloseProjectAsync(CancellationToken token = default);
 
 		/// <summary>
 		/// Create project from Open Model object

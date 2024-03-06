@@ -121,6 +121,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 		{
 			rcsRestApiProcess?.Kill();
 			rcsRestApiProcess?.Dispose();
+			rcsRestApiProcess = null;
 		}
 
 		private string GetRcsRestApiPath(string directory)
