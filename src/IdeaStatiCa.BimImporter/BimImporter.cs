@@ -295,8 +295,11 @@ namespace IdeaStatiCa.BimImporter
 					if (allPossibleConnections.Count > 0)
 					{
 						// find first connection that matches current node
-						KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> con = allPossibleConnections.First(x => x.Key.Id == node.Id);
-						connections.Add(Connection.FromNodeAndMembers(node, con.Value));
+						KeyValuePair<IIdeaNode, HashSet<IIdeaMember1D>> con = allPossibleConnections.FirstOrDefault(x => x.Key.Id == node.Id);
+						if (con.Value != null && con.Key != null)
+						{
+							connections.Add(Connection.FromNodeAndMembers(node, con.Value));
+						}
 					}
 				}
 
