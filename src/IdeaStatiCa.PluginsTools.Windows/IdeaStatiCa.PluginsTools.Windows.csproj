@@ -1,20 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\Common.props" />
-
-	<PropertyGroup>
-		<TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
-		<AssemblyTitle>IdeaStatiCa.PluginsTools.Windows</AssemblyTitle>
-		<Product>IdeaStatiCa.PluginsTools.Windows</Product>
-		<PackageLicenseFile>README.md</PackageLicenseFile>
-		<PackageTags>IdeaStatiCa;Setup</PackageTags>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright (c) IDEA StatiCa, 2023</Copyright>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="..\..\..\ideastatica-public\README.md">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
-	</ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Common.props" />
+  
+  <PropertyGroup>
+    <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
+    <AssemblyTitle>IdeaStatiCa.PluginsTools.Windows</AssemblyTitle>
+    <Product>IdeaStatiCa.PluginsTools.Windows</Product>
+  </PropertyGroup>
 </Project>
