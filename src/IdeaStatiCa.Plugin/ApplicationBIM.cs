@@ -94,7 +94,7 @@ namespace IdeaStatiCa.Plugin
 			ideaLogger.LogDebug($"Importing selection: county code: {countryCode}, {items.Count} item(s).");
 			var res = ImportSelection(countryCode, items);
 
-			ideaLogger.LogTrace($"Obtained {res.Count} model(s).");
+			ideaLogger.LogTrace($"Obtained {res?.Count} model(s).");
 			return res;
 		}
 
@@ -124,7 +124,7 @@ namespace IdeaStatiCa.Plugin
 
 		public virtual bool IsCAD() => false;
 
-		public Task SelectAsync(List<BIMItemId> items) => Task.Run(() => ActivateInBIM(items)); 
+		public Task SelectAsync(List<BIMItemId> items) => Task.Run(() => ActivateInBIM(items));
 
 		public virtual bool IsDataUpToDate()
 			=> true;
