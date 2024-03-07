@@ -149,9 +149,15 @@ dotnet build .\MyFeaBIMApp.sln -c Release
 MyFeaBIMApp\bin\Release\net6.0-windows\MyFeaBIMApp.exe
 ```
 
-It can be done also by a wizard in Visual Studio
+__Creating FEA BIM in Visual Studio__
 
 ![VS Wizard](../../..//docs/Images/vs-idea-templates.png?raw=true "VS Wizard")
+
+![Project name](../../..//docs/Images/sln-fea-configuration.png?raw=true "Project name")
+
+![Framework definition](../../..//docs/Images/framework-definition.png?raw=true "Framework definition")
+
+![fea-running-example](../../..//docs/Images/fea-running-example.png?raw=true "fea-running-example")
 
 #### Further Information
 
