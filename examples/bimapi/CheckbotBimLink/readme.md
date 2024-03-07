@@ -106,6 +106,14 @@ Simply double click on your project in the solution explorer and modify the xml 
 
 You should also remove the current reference to the FeaExampleApi and inject your own applications Api DLLs. 
 
+#### Creating BIM Link by IDEA StatiCa project templates
+
+Since the version of IDEA StatiCa v24 BIM links projects can be created by dotnet CLI or by our project templates. Templates help users to create a IDEA StatiCa BIM link. Users only need to install our templates by 
+
+
+
+
+
 #### Further Information
 
 In a fully functioning link, there are typically a number of different importers and further conversion utilities which are outside the scope of this example. We will continue to improve on this example where required. 
