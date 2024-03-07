@@ -20,7 +20,7 @@ namespace IdeaStatiCa.IntermediateModel
 		/// <inheritdoc />
 		public SModel ParseXml(Stream streamContent)
 		{
-			using (XmlReader reader = XmlReader.Create(streamContent))
+			using (XmlReader reader = XmlReader.Create(streamContent, GetReaderSettings()))
 			{
 				return ParseModel(reader);
 			}
@@ -29,9 +29,20 @@ namespace IdeaStatiCa.IntermediateModel
 		/// <inheritdoc />
 		public SModel ParseXml(string xmlContent)
 		{
-			using (XmlReader reader = XmlReader.Create(new System.IO.StringReader(xmlContent)))
+
+			using (StringReader stringReader = new StringReader(xmlContent))
 			{
-				return ParseModel(reader);
+				// Try skipping utf-16 BOM for backwards compatibility
+				int ch = stringReader.Peek();
+				if (ch == 0xfeff || ch == 0xffef)
+				{
+					stringReader.Read();
+				}
+
+				using (XmlReader reader = XmlReader.Create(stringReader, GetReaderSettings()))
+				{
+					return ParseModel(reader);
+				}
 			}
 		}
 
@@ -63,6 +74,15 @@ namespace IdeaStatiCa.IntermediateModel
 				}
 			}
 			return model;
+		}
+
+		private static XmlReaderSettings GetReaderSettings()
+		{
+			return new XmlReaderSettings()
+			{
+				IgnoreWhitespace = true,
+				CheckCharacters = false
+			};
 		}
 
 		private void ProcessDeclaration(XmlReader reader, SModel model)
