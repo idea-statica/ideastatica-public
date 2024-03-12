@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.Plugin" Version="23.1.4.1104" />
+	<PackageReference Include="IdeaStatiCa.Plugin" Version="23.1.5.0979" />
   </ItemGroup>	
 	
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
