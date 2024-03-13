@@ -219,9 +219,7 @@ namespace RcsApiClient.ViewModels
 			}
 			try
 			{
-				await Task.CompletedTask;
-				//await Controller.CloseProjectAsync();
-
+				await Controller.CloseProjectAsync();
 				ResetProperties();
 			}
 			catch (Exception ex)
