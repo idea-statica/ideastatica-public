@@ -8,7 +8,7 @@ Below is the primary Program.cs file of the Console Application.
 
 [code-csharp](Program.cs)
 
-The solution for can be created by [.NET CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/) or in Microsoft Visual Studio. It requires to install 
+The solution for this example can be also created by [.NET CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/) or in Microsoft Visual Studio. It requires to install 
 
 It installs nuget package
 [IdeaStatiCa.Dotnet.Templates](https://www.nuget.org/packages/IdeaStatiCa.Dotnet.Templates/)
