@@ -22,9 +22,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="23.1.5.0979" />
-		<PackageReference Include="IdeaStatiCa.RcsClient" Version="23.1.5.0979" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="23.1.5.0979" />
+		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.0.1979" />
+		<PackageReference Include="IdeaStatiCa.RcsClient" Version="24.0.0.1979" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.0.0.1979" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
