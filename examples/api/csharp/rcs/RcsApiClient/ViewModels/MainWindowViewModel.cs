@@ -37,6 +37,7 @@ namespace RcsApiClient.ViewModels
 			this.rcsClientSettings = rcsClientSettings;
 
 			OpenProjectCmdAsync = new AsyncRelayCommand(OpenProjectAsync, CanOpenProject);
+			CloseProjectCmdAsync = new AsyncRelayCommand(CloseProjectAsync, CanCloseProject);
 			SaveProjectCmdAsync = new AsyncRelayCommand(SaveProjectAsync, CanSaveProject);
 			CancelCalculationCmd = new RelayCommand(CancelCalculation, CanCancel);
 
@@ -87,6 +88,12 @@ namespace RcsApiClient.ViewModels
 		}
 
 		public IAsyncRelayCommand OpenProjectCmdAsync
+		{
+			get;
+			private set;
+		}
+
+		public IAsyncRelayCommand CloseProjectCmdAsync
 		{
 			get;
 			private set;
@@ -202,6 +209,30 @@ namespace RcsApiClient.ViewModels
 		{
 			get;
 			private set;
+		}
+
+		private async Task CloseProjectAsync()
+		{
+			if (Controller == null)
+			{
+				throw new Exception("Service is not running");
+			}
+			try
+			{
+				await Task.CompletedTask;
+				//await Controller.CloseProjectAsync();
+
+				ResetProperties();
+			}
+			catch (Exception ex)
+			{
+				ApiMessage = ex.Message;
+			}
+		}
+
+		private bool CanCloseProject()
+		{
+			return (this.Controller != null && IsRcsProjectOpen());
 		}
 
 		private bool CanOpenProject()
@@ -805,14 +836,17 @@ namespace RcsApiClient.ViewModels
 
 			if (rcsClientSettings.UseExistingService)
 			{
+				pluginLogger.LogDebug($"MainWindowViewModel.CreateClientAsync - attaching to an existing endpoint'{rcsClientSettings.RcsApiUrl}'");
 				var apiController = await rcsClientFactory.CreateRcsApiClient(rcsClientSettings.RcsApiUrl);
 				this.Controller = apiController;
 			}
 			else
 			{
+				pluginLogger.LogDebug("MainWindowViewModel.CreateClientAsync - starting new RcsRestAPI");
 				var apiController = await rcsClientFactory.CreateRcsApiClient();
 				this.Controller = apiController;
 			}
+
 			ApiMessage = "RCS Service is running";
 		}
 
@@ -839,6 +873,7 @@ namespace RcsApiClient.ViewModels
 				UpdateReinforcementCmdAsync.NotifyCanExecuteChanged();
 				GetLoadingXmlCmdAsync.NotifyCanExecuteChanged();
 				SetLoadingXmlCmdAsync.NotifyCanExecuteChanged();
+				CloseProjectCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -895,6 +930,7 @@ namespace RcsApiClient.ViewModels
 				controller = value;
 				OnPropertyChanged(nameof(Controller));
 				OpenProjectCmdAsync.NotifyCanExecuteChanged();
+				CloseProjectCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -908,6 +944,7 @@ namespace RcsApiClient.ViewModels
 				rcsProjectPath = value;
 				OnPropertyChanged(nameof(RcsProjectPath));
 				OpenProjectCmdAsync.NotifyCanExecuteChanged();
+				CloseProjectCmdAsync.NotifyCanExecuteChanged();
 			}
 		}
 
@@ -935,6 +972,17 @@ namespace RcsApiClient.ViewModels
 		{
 			UpdateProgress(msg);
 			UpdateProgressbar(percentage);
+		}
+
+		private void ResetProperties()
+		{
+			ProjectOpened = false;
+			SelectedReinforcedCss = null;
+			ReinforcedCrossSections = new ObservableCollection<ReinforcedCrossSectionViewModel>();
+			Sections = new ObservableCollection<SectionViewModel>();
+			SelectedSection = Sections?.FirstOrDefault();
+			RcsProjectPath = string.Empty;
+			CalculationResult = string.Empty;
 		}
 	}
 }
