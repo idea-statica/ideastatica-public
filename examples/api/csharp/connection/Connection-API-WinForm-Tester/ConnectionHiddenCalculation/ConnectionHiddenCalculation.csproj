@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net48</TargetFramework>
@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.PluginLogger" Version="23.1.4.1104" />
+	<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.0.0.1979" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">

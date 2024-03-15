@@ -220,7 +220,6 @@ namespace RcsApiClient.ViewModels
 			try
 			{
 				await Controller.CloseProjectAsync();
-
 				ResetProperties();
 			}
 			catch (Exception ex)

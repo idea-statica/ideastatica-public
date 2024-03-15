@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{8B5CEAF9-0553-4156-ABFA-B8A27E251514}</ProjectGuid>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.OpenModel" Version="23.1.4.1104" />
+	<PackageReference Include="IdeaStatiCa.OpenModel" Version="24.0.0.1979" />
   </ItemGroup>	
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
     <ProjectReference Include="..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />

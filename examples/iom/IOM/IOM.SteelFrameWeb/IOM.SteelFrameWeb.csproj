@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-	<PackageReference Include="IdeaStatiCa.OpenModel" Version="23.1.4.1104" />
+	<PackageReference Include="IdeaStatiCa.OpenModel" Version="24.0.0.1979" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">

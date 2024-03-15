@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
 	<LangVersion>8.0</LangVersion>
@@ -28,8 +28,8 @@
     <ProjectReference Include="..\..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="23.1.4.1104" />
-    <PackageReference Include="IdeaStatiCa.Plugin" Version="23.1.4.1104" />
+    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.0.0.1979" />
+    <PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.0.1979" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
