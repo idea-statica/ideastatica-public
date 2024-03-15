@@ -36,7 +36,7 @@ namespace IdeaRS.OpenModel.Detail
 	/// <summary>
 	/// Direction of load
 	/// </summary>
-	public enum LoadDirection
+	public enum LoadSupportDirection
 	{
 		/// <summary>
 		/// Direction in Local coordinate system
@@ -66,7 +66,7 @@ namespace IdeaRS.OpenModel.Detail
 			IsPressureOnlyY = true;
 			Y = true;
 			Rz = false;
-			Direction = LoadDirection.InLcs;
+			Direction = LoadSupportDirection.InLcs;
 			GeometryPointsPath = null;
 			OnWallEdge = true;
 			MasterEdge = 0;
@@ -133,7 +133,7 @@ namespace IdeaRS.OpenModel.Detail
 		/// <summary>
 		/// local / global
 		/// </summary>
-		public LoadDirection Direction { get; set; }
+		public LoadSupportDirection Direction { get; set; }
 
 		/// <summary>
 		/// list of line load points

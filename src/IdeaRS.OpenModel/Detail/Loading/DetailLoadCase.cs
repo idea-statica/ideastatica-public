@@ -9,7 +9,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// <summary>
 	/// Type of load case
 	/// </summary>
-	public enum LoadCaseType
+	public enum DetailLoadCaseType
 	{
 		/// <summary>
 		/// Permanent
@@ -25,12 +25,12 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// <summary>
 	/// Load case
 	/// </summary>
-	public class LoadCase : CalculationCase
+	public class DetailLoadCase : CalculationCase
 	{
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public LoadCase()
+		public DetailLoadCase()
 		{
 			Load = new List<LoadBase>();
 		}
@@ -38,7 +38,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 		/// <summary>
 		/// Type of load case
 		/// </summary>
-		public LoadCaseType LoadCaseType { get; set; }
+		public DetailLoadCaseType LoadCaseType { get; set; }
 
 		/// <summary>
 		/// Load
