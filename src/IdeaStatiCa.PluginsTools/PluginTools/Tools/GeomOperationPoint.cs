@@ -61,11 +61,6 @@ namespace CI.Geometry3D
 		/// <returns>Geometry3D.IPoint3D</returns>
 		public static IPoint3D ConvertTo3D(Geometry2D.IdaComPoint2D point2D)
 		{
-			if (point2D == null)
-			{
-				return null;
-			}
-
 			return new Point3D(point2D.X, point2D.Y, 0);
 		}
 
@@ -77,11 +72,6 @@ namespace CI.Geometry3D
 		/// <returns>Geometry3D.IPoint3D</returns>
 		public static IPoint3D ConvertTo3D(Geometry2D.IdaComPoint2D point2D, double Yvalue)
 		{
-			if (point2D == null)
-			{
-				return null;
-			}
-
 			return new Point3D(point2D.X, Yvalue, point2D.Y);
 		}
 

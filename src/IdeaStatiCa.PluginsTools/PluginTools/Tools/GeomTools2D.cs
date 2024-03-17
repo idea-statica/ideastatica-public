@@ -1758,11 +1758,6 @@ namespace CI.Geometry2D
 		/// <returns>Returns the resultant difference vector</returns>
 		public static Vector Subtract(ref Point point1, ref Point point2)
 		{
-			if (point1 == null || point2 == null)
-			{
-				return new Vector();
-			}
-
 			Vector vector = new Vector(point1.X - point2.X, point1.Y - point2.Y);
 			return vector;
 		}
