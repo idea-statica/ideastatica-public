@@ -1,26 +1,8 @@
-﻿using System;
+﻿using IdeaRS.OpenModel.Loading;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeaRS.OpenModel.Detail.Loading
 {
-	/// <summary>
-	/// Type of load case
-	/// </summary>
-	public enum DetailLoadCaseType
-	{
-		/// <summary>
-		/// Permanent
-		/// </summary>
-		Permanent,
-
-		/// <summary>
-		/// Variable
-		/// </summary>
-		Variable
-	}
 
 	/// <summary>
 	/// Load case
@@ -38,7 +20,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 		/// <summary>
 		/// Type of load case
 		/// </summary>
-		public DetailLoadCaseType LoadCaseType { get; set; }
+		public LoadCaseType LoadCaseType { get; set; }
 
 		/// <summary>
 		/// Load

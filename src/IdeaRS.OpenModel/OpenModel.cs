@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel.Concrete;
 using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Detail;
+using IdeaRS.OpenModel.Detail.Loading;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Loading;
 using IdeaRS.OpenModel.Material;
@@ -97,6 +98,7 @@ namespace IdeaRS.OpenModel
 			SurfaceSupports3D = new List<SurfaceSupport3D>();
 			BasePlates3D = new List<BasePlate3D>();
 			Anchors3D = new List<Anchor3D>();
+			DetailLoadCase = new List<DetailLoadCase>();
 		}
 
 		/// <summary>
@@ -414,6 +416,11 @@ namespace IdeaRS.OpenModel
 		public List<Anchor3D> Anchors3D { get; set; }
 
 		/// <summary>
+		/// List of Load cases
+		/// </summary>
+		public List<DetailLoadCase> DetailLoadCase { get; set; }
+
+		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
 		/// <param name="typeName">Name of type</param>
@@ -700,6 +707,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(SurfaceSupport3D).Name, SurfaceSupports3D },
 					{ typeof(BasePlate3D).Name, BasePlates3D },
 					{ typeof(Anchor3D).Name, Anchors3D },
+					{ typeof(DetailLoadCase).Name, DetailLoadCase },
 				};
 			}
 

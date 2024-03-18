@@ -26,7 +26,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 		/// <summary>
 		/// direction type of load - local/global
 		/// </summary>
-		public LoadSupportDirection Direction { get; set; }
+		public IdeaRS.OpenModel.Loading.LoadDirection Direction { get; set; }
 
 		/// <summary>
 		/// Gets or sets the master component
