@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<Import Project="..\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems" Label="Shared" />
+
+	<ItemGroup>
+	  <ProjectReference Include="..\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+	</ItemGroup>
+
+	<!--<ItemGroup>
+		<ProjectReference Include="..\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+	</ItemGroup>-->
+
+</Project>

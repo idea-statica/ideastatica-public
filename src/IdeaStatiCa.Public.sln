@@ -177,6 +177,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IOM.VersioningS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.IOM.VersioningServiceTests", "IdeaStatiCa.IOM.VersioningServiceTests\IdeaStatiCa.IOM.VersioningServiceTests.csproj", "{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BulkSelection", "BulkSelection", "{A3D7AABE-EDFE-460B-87B2-2B69914D4E04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ItemsSorter", "IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj", "{FA10298F-F62D-4B09-80EB-B41D04408FB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -427,6 +431,10 @@ Global
 		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Debug|x64.Build.0 = Debug|Any CPU
 		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Release|x64.ActiveCfg = Release|Any CPU
 		{627FFE81-CB97-4034-B28E-9B28CF3C9FB9}.Release|x64.Build.0 = Release|Any CPU
+		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.ActiveCfg = Release|Any CPU
+		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,6 +490,7 @@ Global
 		{728A8DE5-BDB9-4526-9327-24C5814F7B5A} = {B0FB0B0E-C89F-4B0B-9EA2-13428F46C726}
 		{408349C0-204C-4381-9DB9-1C76F0F0676A} = {AD9AA2F4-2BB8-4AA0-8DFC-FAB7A5CCE3FD}
 		{0436D7F5-6CD4-43D7-9634-1FAB481B23FB} = {D7D5B0CF-C92B-4DA4-9938-3C026B256F83}
+		{A9601B75-AD57-4BD1-A0B1-64329038B3EC} = {A3D7AABE-EDFE-460B-87B2-2B69914D4E04}
 		{06042D21-4243-4E10-B88D-C195ACAD2BFC} = {2B90DD40-F065-4518-BEA5-188E150DD004}
 		{3EF1C0F3-6578-4291-AF89-D7EA4A97D907} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{CB1658EE-6B48-4B53-9E92-E889F5E5DEAD} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
@@ -493,6 +502,7 @@ Global
 		{31BB5228-B7E2-4700-855D-636BB937A4A4} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{8CB29DA8-7874-410A-976F-8E88C9ED2785} = {06042D21-4243-4E10-B88D-C195ACAD2BFC}
 		{D8592C4A-B184-47CD-BA1B-6C23676EFC48} = {AD9AA2F4-2BB8-4AA0-8DFC-FAB7A5CCE3FD}
+		{FA10298F-F62D-4B09-80EB-B41D04408FB6} = {A3D7AABE-EDFE-460B-87B2-2B69914D4E04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
@@ -517,5 +527,6 @@ Global
 		IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{cb1658ee-6b48-4b53-9e92-e889f5e5dead}*SharedItemsImports = 5
 		Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
 		bim-links\bentley-ram\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems*{ec8df878-7ce5-458d-bf3e-fec30768a104}*SharedItemsImports = 5
+		IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{fa10298f-f62d-4b09-80eb-b41d04408fb6}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
