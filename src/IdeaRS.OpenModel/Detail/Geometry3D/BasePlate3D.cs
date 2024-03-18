@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using IdeaRS.OpenModel.Geometry2D;
+using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Detail
 {
@@ -21,6 +22,13 @@ namespace IdeaRS.OpenModel.Detail
 			: base()
 		{
 		}
+
+		/// <summary>
+		/// Gets or sets the code of the base plate block:
+		/// 1 - general
+		/// 2 - rectangle
+		/// </summary>
+		public SolidBlockShapeCode ShapeCode { get; set; }
 
 		/// <summary>
 		/// Name of 3D element
@@ -66,6 +74,11 @@ namespace IdeaRS.OpenModel.Detail
 		/// Depth of base plate
 		/// </summary>
 		public double Depth { get; set; }
+
+		/// <summary>
+		/// Geometry region of element3D
+		/// </summary>
+		public PolyLine2D GeneralShape { get; set; }
 
 		/// <summary>
 		/// Base plate Type:

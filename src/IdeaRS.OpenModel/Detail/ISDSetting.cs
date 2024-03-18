@@ -18,5 +18,9 @@
 		/// </summary>
 		public double Cover { get; set; }
 
+		/// <summary>
+		/// 3D solution
+		/// </summary>
+		public bool Is3D { get; set; }
 	}
 }
