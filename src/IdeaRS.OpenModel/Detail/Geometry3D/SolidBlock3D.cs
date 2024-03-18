@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Detail
 {
-	public enum SolidBlockShapeCode : int
+	public enum SolidShapeCode : int
 	{
 		General = 1,
 		Rectangular = 2,
@@ -26,7 +26,7 @@ namespace IdeaRS.OpenModel.Detail
 		/// 1 - general
 		/// 2 - rectangle
 		/// </summary>
-		public SolidBlockShapeCode ShapeCode { get; set; }
+		public SolidShapeCode ShapeCode { get; set; }
 
 		/// <summary>
 		/// Name of 3D element
