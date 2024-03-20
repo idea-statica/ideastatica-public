@@ -99,6 +99,7 @@ namespace IdeaRS.OpenModel
 			BasePlates3D = new List<BasePlate3D>();
 			Anchors3D = new List<Anchor3D>();
 			DetailLoadCase = new List<DetailLoadCase>();
+			DetailCombination = new List<DetailCombination>();
 		}
 
 		/// <summary>
@@ -421,6 +422,11 @@ namespace IdeaRS.OpenModel
 		public List<DetailLoadCase> DetailLoadCase { get; set; }
 
 		/// <summary>
+		/// List of Combinations
+		/// </summary>
+		public List<DetailCombination> DetailCombination { get; set; }
+
+		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
 		/// <param name="typeName">Name of type</param>
@@ -708,6 +714,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(BasePlate3D).Name, BasePlates3D },
 					{ typeof(Anchor3D).Name, Anchors3D },
 					{ typeof(DetailLoadCase).Name, DetailLoadCase },
+					{ typeof(DetailCombination).Name, DetailCombination },
 				};
 			}
 

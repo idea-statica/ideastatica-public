@@ -6,6 +6,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 	/// load case/combination data
 	/// </summary>
 	[XmlInclude(typeof(DetailLoadCase))]
+	[XmlInclude(typeof(DetailCombination))]
 	public abstract class CalculationCase : OpenElementId
 	{
 		/// <summary>

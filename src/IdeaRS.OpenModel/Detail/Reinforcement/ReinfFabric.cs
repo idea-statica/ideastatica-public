@@ -70,6 +70,5 @@ namespace IdeaRS.OpenModel.Detail
 		/// Rotation of fabric reinforcement related to global X coordinate
 		/// </summary>
 		public double Angle { get; set; }
-
 	}
 }
