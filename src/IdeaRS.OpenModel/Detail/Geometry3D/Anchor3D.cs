@@ -63,7 +63,7 @@ namespace IdeaRS.OpenModel.Detail
 		/// <summary>
 		/// hanging name
 		/// </summary>
-		public string MaterialName { get; set; }
+		public ReferenceElement Material { get; set; }
 
 		/// <summary>
 		/// master component surface
