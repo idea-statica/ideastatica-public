@@ -25,6 +25,11 @@
 		/// Diaphragm
 		/// </summary>
 		Diaphragm,
+
+		/// <summary>
+		/// Solid Block 3D
+		/// </summary>
+		SolidBlock,
 	}
 
 	/// <summary>

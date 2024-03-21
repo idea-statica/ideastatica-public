@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel.Concrete;
 using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Detail;
+using IdeaRS.OpenModel.Detail.Loading;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Loading;
 using IdeaRS.OpenModel.Material;
@@ -92,6 +93,13 @@ namespace IdeaRS.OpenModel
 
 			Taper = new List<Taper>();
 			Span = new List<Span>();
+
+			SolidBlocks3D = new List<SolidBlock3D>();
+			SurfaceSupports3D = new List<SurfaceSupport3D>();
+			BasePlates3D = new List<BasePlate3D>();
+			Anchors3D = new List<Anchor3D>();
+			DetailLoadCase = new List<DetailLoadCase>();
+			DetailCombination = new List<DetailCombination>();
 		}
 
 		/// <summary>
@@ -389,6 +397,36 @@ namespace IdeaRS.OpenModel
 		public List<Span> Span { get; set; }
 
 		/// <summary>
+		/// List of Solid Blocks 3D
+		/// </summary>
+		public List<SolidBlock3D> SolidBlocks3D { get; set; }
+
+		/// <summary>
+		/// List of Surface Supports 3D
+		/// </summary>
+		public List<SurfaceSupport3D> SurfaceSupports3D { get; set; }
+
+		/// <summary>
+		/// List of Base Plates 3D
+		/// </summary>
+		public List<BasePlate3D> BasePlates3D { get; set; }
+
+		/// <summary>
+		/// List of Anchors 3D
+		/// </summary>
+		public List<Anchor3D> Anchors3D { get; set; }
+
+		/// <summary>
+		/// List of Load cases
+		/// </summary>
+		public List<DetailLoadCase> DetailLoadCase { get; set; }
+
+		/// <summary>
+		/// List of Combinations
+		/// </summary>
+		public List<DetailCombination> DetailCombination { get; set; }
+
+		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
 		/// <param name="typeName">Name of type</param>
@@ -671,6 +709,12 @@ namespace IdeaRS.OpenModel
 					{ typeof(RebarStirrups).Name, RebarStirrups },
 					{ typeof(Taper).Name, Taper },
 					{ typeof(Span).Name, Span },
+					{ typeof(SolidBlock3D).Name, SolidBlocks3D },
+					{ typeof(SurfaceSupport3D).Name, SurfaceSupports3D },
+					{ typeof(BasePlate3D).Name, BasePlates3D },
+					{ typeof(Anchor3D).Name, Anchors3D },
+					{ typeof(DetailLoadCase).Name, DetailLoadCase },
+					{ typeof(DetailCombination).Name, DetailCombination },
 				};
 			}
 

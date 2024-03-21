@@ -1,36 +1,18 @@
-﻿using System;
+﻿using IdeaRS.OpenModel.Loading;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeaRS.OpenModel.Detail.Loading
 {
-	/// <summary>
-	/// Type of load case
-	/// </summary>
-	public enum LoadCaseType
-	{
-		/// <summary>
-		/// Permanent
-		/// </summary>
-		Permanent,
-
-		/// <summary>
-		/// Variable
-		/// </summary>
-		Variable
-	}
 
 	/// <summary>
 	/// Load case
 	/// </summary>
-	public class LoadCase : CalculationCase
+	public class DetailLoadCase : CalculationCase
 	{
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public LoadCase()
+		public DetailLoadCase()
 		{
 			Load = new List<LoadBase>();
 		}

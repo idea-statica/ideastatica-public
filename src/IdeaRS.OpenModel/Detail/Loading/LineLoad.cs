@@ -74,7 +74,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 			BegFy = 0.0;
 			BegFy = 0.0;
 			ResultantForces = "-10000";
-			Direction = LoadDirection.InGcs;
+			Direction = IdeaRS.OpenModel.Loading.LoadDirection.InGcs;
 			GeometryPointsPath = null;
 			TypeLinePosition = TypeLinePosition.OnWallEdge;
 			//MasterComponentPath = string.Empty;
@@ -115,7 +115,7 @@ namespace IdeaRS.OpenModel.Detail.Loading
 		/// <summary>
 		/// local / global
 		/// </summary>
-		public LoadDirection Direction { get; set; }
+		public IdeaRS.OpenModel.Loading.LoadDirection Direction { get; set; }
 
 		/// <summary>
 		/// list of line load points
