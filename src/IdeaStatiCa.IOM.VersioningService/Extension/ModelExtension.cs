@@ -25,7 +25,22 @@ namespace IdeaStatiCa.IOM.VersioningService.Extension
 				return modelCollection.First();
 			}
 
-			throw new InvalidOperationException("GetModelElement - model not found.");
+			var modelBIMCollection = model.GetElements("ArrayOfModelBIM;ModelBIM");
+			if (modelBIMCollection != null && modelBIMCollection.Any())
+			{
+				var modelBIM = modelBIMCollection.First();
+
+				if (modelBIM != null)
+				{
+					var arraymodelCollection = modelBIM.GetElements("Model");
+					if (arraymodelCollection != null && arraymodelCollection.Count() == 1)
+					{
+						return arraymodelCollection.First();
+					}
+				}
+			}
+
+			throw new InvalidOperationException($"VersioningService GetModelElement - model not found. Root item: {model?.RootItem?.GetElementName()}");
 		}
 	}
 }
