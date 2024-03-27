@@ -1,4 +1,6 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Models;
+﻿using System;
+using System.Threading.Tasks;
+using IdeaStatiCa.CheckbotPlugin.Models;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
 {

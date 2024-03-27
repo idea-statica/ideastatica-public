@@ -1,12 +1,10 @@
 ﻿using FluentAssertions;
-using IdeaStatiCa.CheckbotPlugin.Common;
-using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
-using IdeaStatiCa.PluginSystem.PluginList.Storage;
-using Newtonsoft.Json.Linq;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Storage;
 using NUnit.Framework;
 using System.Text;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Tests.Integration
 {
 	[TestFixture]
 	public class PluginListTest
@@ -113,14 +111,14 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Integration
 
 		public string GetData() => Encoding.UTF8.GetString(_data);
 
-		public Maybe<Stream> GetReadStream()
+		public Stream GetReadStream()
 		{
 			if (_data is null)
 			{
-				return Maybe<Stream>.Empty();
+				return null;
 			}
 
-			return new StubStream(_data, x => _data = x).ToMaybe<Stream>();
+			return new StubStream(_data, x => _data = x);
 		}
 
 		public Stream GetWriteStream()

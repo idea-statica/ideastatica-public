@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.CheckbotPlugin.Models;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
 {

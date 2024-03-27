@@ -1,6 +1,6 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Utils;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 {
 	public sealed class PluginDescriptor : IEquatable<PluginDescriptor>
 	{
@@ -39,8 +39,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 			SystemActionsDescriptor? systemActionsDescriptor = null,
 			ActionButtonDescriptor[]? customActionDescriptors = null)
 		{
-			Ensure.NotEmpty(name, nameof(name));
-			Ensure.NotNull(driverDescriptor, nameof(driverDescriptor));
+			Ensure.NotEmpty(name);
+			Ensure.NotNull(driverDescriptor);
 
 			Name = name;
 			Type = type;
@@ -67,15 +67,23 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		}
 
 		public override bool Equals(object? obj)
-			 => Equals(obj as PluginDescriptor);
+		{
+			return Equals(obj as PluginDescriptor);
+		}
 
 		public override int GetHashCode()
-			=> HashCode.Combine(Name, Type, DriverDescriptor);
+		{
+			return HashCode.Combine(Name, Type, DriverDescriptor);
+		}
 
 		public static bool operator ==(PluginDescriptor left, PluginDescriptor right)
-			=> Equals(left, right);
+		{
+			return Equals(left, right);
+		}
 
 		public static bool operator !=(PluginDescriptor left, PluginDescriptor right)
-			=> !Equals(left, right);
+		{
+			return !Equals(left, right);
+		}
 	}
 }

@@ -1,6 +1,6 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Utils;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 {
 	public sealed class ExecutableDriverDescriptor : PluginDriverDescriptor, IEquatable<ExecutableDriverDescriptor>
 	{
@@ -10,10 +10,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 
 		public ExecutableDriverDescriptor(string path, string[] additionalArguments)
 		{
-			Ensure.NotEmpty(path, nameof(path));
+			Ensure.NotEmpty(path);
 
 			Path = path;
-			AdditionalArguments = additionalArguments ?? new string[0];
+			AdditionalArguments = additionalArguments ?? [];
 		}
 
 		public override bool Equals(object? obj)
@@ -43,6 +43,8 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		}
 
 		public override int GetHashCode()
-			=> HashCode.Combine(Path, AdditionalArguments);
+		{
+			return HashCode.Combine(Path, AdditionalArguments);
+		}
 	}
 }

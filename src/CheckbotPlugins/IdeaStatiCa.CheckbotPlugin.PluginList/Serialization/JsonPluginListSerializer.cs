@@ -1,16 +1,12 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
-using IdeaStatiCa.PluginSystem.PluginList.Json;
-using IdeaStatiCa.PluginSystem.PluginList.Mappers;
-using IdeaStatiCa.PluginSystem.PluginList.Storage;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Json;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Mappers;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Storage;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Utils;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 {
 	internal class JsonPluginListSerializer
 	{
@@ -24,35 +20,32 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 		public Task<List<PluginDescriptor>> Read()
 		{
 			return _storage.GetReadStream()
+				.ToMaybe()
 				.Map(ReadStream)
 				.GetOrElse(Task.FromResult(new List<PluginDescriptor>()));
 		}
 
 		public async Task Write(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
 		{
-			using (Stream stream = _storage.GetWriteStream())
-			{
-				List<Plugin> plugins = pluginDescriptors.Select(Mapper.Map).ToList();
-				await JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
-			}
+			using Stream stream = _storage.GetWriteStream();
+			List<Plugin> plugins = pluginDescriptors.Select(Mapper.Map).ToList();
+			await JsonSerializer.SerializeAsync(stream, plugins, GetOptions());
 		}
 
 		private static Task<List<PluginDescriptor>> ReadStream(Stream stream)
 		{
-			using (StreamReader streamReader = new StreamReader(stream))
-			{
-				string content = streamReader.ReadToEnd();
+			using StreamReader streamReader = new(stream);
+			string content = streamReader.ReadToEnd();
 
-				return Task.FromResult(JsonSerializer.Deserialize<List<Plugin>>(content, GetOptions())
-					.ToMaybe()
-					.Map(x => x.Select(Mapper.Map).ToList())
-					.GetOrElse(new List<PluginDescriptor>()));
-			}
+			return Task.FromResult(JsonSerializer.Deserialize<List<Plugin>>(content, GetOptions())
+				.ToMaybe()
+				.Map(x => x.Select(Mapper.Map).ToList())
+				.GetOrElse([]));
 		}
 
 		private static JsonSerializerOptions GetOptions()
 		{
-			JsonSerializerOptions options = new JsonSerializerOptions()
+			JsonSerializerOptions options = new()
 			{
 				WriteIndented = true,
 				AllowTrailingCommas = true,
