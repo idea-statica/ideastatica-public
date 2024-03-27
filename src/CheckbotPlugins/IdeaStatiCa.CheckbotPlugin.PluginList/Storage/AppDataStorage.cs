@@ -1,19 +1,15 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using System;
-using System.IO;
-
-namespace IdeaStatiCa.PluginSystem.PluginList.Storage
+﻿namespace IdeaStatiCa.CheckbotPlugin.PluginList.Storage
 {
 	internal class AppDataStorage : IStorage
 	{
-		public Maybe<Stream> GetReadStream()
+		public Stream? GetReadStream()
 		{
 			if (!File.Exists(GetPath()))
 			{
-				return Maybe<Stream>.Empty();
+				return null;
 			}
 
-			return File.OpenRead(GetPath()).ToMaybe<Stream>();
+			return File.OpenRead(GetPath());
 		}
 
 		public Stream GetWriteStream()

@@ -1,8 +1,8 @@
-﻿using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
-using IdeaStatiCa.PluginSystem.PluginList.Json;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Json;
 using System;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Mappers
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Mappers
 {
 	internal static partial class Mapper
 	{

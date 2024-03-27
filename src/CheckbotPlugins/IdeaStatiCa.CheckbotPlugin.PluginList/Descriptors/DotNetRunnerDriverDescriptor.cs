@@ -1,7 +1,6 @@
-﻿using IdeaStatiCa.CheckbotPlugin;
-using IdeaStatiCa.CheckbotPlugin.Common;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Utils;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 {
 	/// <summary>
 	/// Plugins with <see cref="DotNetRunnerDriverDescriptor"/> are started by the Plugin Runner.
@@ -14,15 +13,15 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 		public string Path { get; }
 
 		/// <summary>
-		/// Full name (namespace + class name) a class that implements <see cref="IPlugin"/>.
+		/// Full name (namespace + class name) a class that implements <c>IdeaStatiCa.CheckbotPlugin.IPlugin</c>.
 		/// Optional, is set to null when not used.
-		/// When null, the plugin runner will use an public class implementing <see cref="IPlugin"/>.
+		/// When null, the plugin runner will use an public class implementing <c>IdeaStatiCa.CheckbotPlugin.IPlugin</c>.
 		/// </summary>
 		public string? ClassName { get; }
 
 		public DotNetRunnerDriverDescriptor(string path)
 		{
-			Ensure.NotEmpty(path, nameof(path));
+			Ensure.NotEmpty(path);
 
 			Path = path;
 			ClassName = null;
@@ -30,7 +29,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 
 		public DotNetRunnerDriverDescriptor(string path, string? className)
 		{
-			Ensure.NotEmpty(path, nameof(path));
+			Ensure.NotEmpty(path);
 
 			Path = path;
 			ClassName = string.IsNullOrEmpty(className) ? null : className;
@@ -62,7 +61,9 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
 				&& ClassName == other.ClassName;
 		}
 
-		public override int GetHashCode() 
-			=> HashCode.Combine(Path, ClassName);
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(Path, ClassName);
+		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.CheckbotPlugin.Common
 {
-	public abstract class Maybe<T>
+	internal abstract class Maybe<T>
 	{
 		internal sealed class None : Maybe<T>
 		{

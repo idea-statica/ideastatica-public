@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
+﻿namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 {
 	/// <summary>
 	/// Describes how the plugin is launched.

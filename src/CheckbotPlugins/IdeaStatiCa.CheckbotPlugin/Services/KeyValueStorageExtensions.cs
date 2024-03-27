@@ -29,6 +29,8 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		public static Task Set(this IKeyValueStorage storage, string key, string value)
 			=> storage.Set(key, Encoding.UTF8.GetBytes(value));
 
+#if NET6_0_OR_GREATER
+
 		public static Task<short> GetShort(this IKeyValueStorage storage, string key)
 			=> storage.Get(key).Then(x => BitConverter.ToInt16(x.Span));
 
@@ -52,5 +54,6 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 
 		public static Task<string> GetString(this IKeyValueStorage storage, string key)
 			=> storage.Get(key).Then(x => Encoding.UTF8.GetString(x.Span));
+#endif
 	}
 }

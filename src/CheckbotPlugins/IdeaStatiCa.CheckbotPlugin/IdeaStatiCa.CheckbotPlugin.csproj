@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>1591</NoWarn>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="Google.Protobuf" Version="3.21.3" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.47.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PolySharp" Version="1.13.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\application_service.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\event_service.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\health_check.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\plugin_service.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\project_service.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\storage_service.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\country_code.proto" GrpcServices="Both" />
+  </ItemGroup>
+
+</Project>

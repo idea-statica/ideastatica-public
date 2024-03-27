@@ -1,6 +1,6 @@
 ﻿namespace IdeaStatiCa.CheckbotPlugin.Common
 {
-	public static class MaybeExtension
+	internal static class MaybeExtension
 	{
 #if NET5_0_OR_GREATER
 

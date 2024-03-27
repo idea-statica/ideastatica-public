@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace IdeaStatiCa.CheckbotPlugin.Common
 {
-	public static class Ensure
+	internal static class Ensure
 	{
 		public static void NotNull([NotNull] object? value, [CallerArgumentExpression("value")] string argName = "")
 		{

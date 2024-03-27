@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace IdeaStatiCa.CheckbotPlugin.Common
 {
-	public static class Ensure
+	internal static class Ensure
 	{
 		public static void NotNull(object value, string argName)
 		{

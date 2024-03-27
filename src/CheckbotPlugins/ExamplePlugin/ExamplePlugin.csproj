@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj" />
-    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Tools\IdeaStatiCa.CheckbotPlugin.Tools.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin\IdeaStatiCa.CheckbotPlugin.csproj" />
   </ItemGroup>
 
 

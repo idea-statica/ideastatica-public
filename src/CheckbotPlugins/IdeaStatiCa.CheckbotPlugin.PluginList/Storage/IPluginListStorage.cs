@@ -1,7 +1,4 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using System.IO;
-
-namespace IdeaStatiCa.PluginSystem.PluginList.Storage
+﻿namespace IdeaStatiCa.CheckbotPlugin.PluginList.Storage
 {
 	public interface IStorage
 	{
@@ -9,7 +6,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Storage
 		///
 		/// </summary>
 		/// <returns></returns>
-		Maybe<Stream> GetReadStream();
+		Stream? GetReadStream();
 
 		/// <summary>
 		///

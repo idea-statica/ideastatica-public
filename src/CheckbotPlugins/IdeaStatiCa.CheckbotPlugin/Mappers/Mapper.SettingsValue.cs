@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.CheckbotPlugin.Common.Mappers
+﻿namespace IdeaStatiCa.CheckbotPlugin.Mappers
 {
 	public static partial class Mapper
 	{

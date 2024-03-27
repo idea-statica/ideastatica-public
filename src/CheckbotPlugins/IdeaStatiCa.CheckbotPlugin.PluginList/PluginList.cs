@@ -1,13 +1,9 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
-using IdeaStatiCa.PluginSystem.PluginList.Serialization;
-using IdeaStatiCa.PluginSystem.PluginList.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Serialization;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Storage;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Utils;
 
-namespace IdeaStatiCa.PluginSystem.PluginList
+namespace IdeaStatiCa.CheckbotPlugin.PluginList
 {
 	/// <summary>
 	/// Represents list of all plugins integrated into Checkbot.
@@ -20,7 +16,10 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// Creates a default instance of <see cref="PluginList"/>.
 		/// </summary>
 		/// <returns></returns>
-		public static PluginList Create() => new PluginList(new AppDataStorage());
+		public static PluginList Create()
+		{
+			return new PluginList(new AppDataStorage());
+		}
 
 		/// <summary>
 		/// Ctor.
@@ -28,7 +27,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// <param name="storage"></param>
 		public PluginList(IStorage storage)
 		{
-			Ensure.NotNull(storage, nameof(storage));
+			Ensure.NotNull(storage);
 
 			_list = new JsonPluginListSerializer(storage);
 		}
@@ -40,7 +39,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// <returns></returns>
 		public async Task<PluginDescriptor?> Get(string name)
 		{
-			Ensure.NotEmpty(name, nameof(name));
+			Ensure.NotEmpty(name);
 
 			List<PluginDescriptor> pluginList = await Load();
 			return pluginList
@@ -54,7 +53,9 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// </summary>
 		/// <returns>List of <see cref="PluginDescriptor"/></returns>
 		public async Task<IReadOnlyList<PluginDescriptor>> GetAll()
-			=> await Load();
+		{
+			return await Load();
+		}
 
 		/// <summary>
 		/// Adds a new plugin.
@@ -64,11 +65,11 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// <exception cref="ArgumentNullException">An argument is null.</exception>
 		public async Task Add(PluginDescriptor pluginDescriptor)
 		{
-			Ensure.NotNull(pluginDescriptor, nameof(pluginDescriptor));
+			Ensure.NotNull(pluginDescriptor);
 
 			List<PluginDescriptor> pluginList = await Load();
 
-			if (pluginList.Any(x => x.Name == pluginDescriptor.Name))
+			if (pluginList.Exists(x => x.Name == pluginDescriptor.Name))
 			{
 				throw new ArgumentException("A plugin with the same name already exists.");
 			}
@@ -85,7 +86,7 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		/// <returns></returns>
 		public async Task<bool> Remove(PluginDescriptor pluginDescriptor)
 		{
-			Ensure.NotNull(pluginDescriptor, nameof(pluginDescriptor));
+			Ensure.NotNull(pluginDescriptor);
 
 			List<PluginDescriptor> pluginList = await Load();
 			bool result = pluginList.Remove(pluginDescriptor);
@@ -96,14 +97,14 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 
 		public async Task<bool> Remove(string name)
 		{
-			Ensure.NotEmpty(name, nameof(name));
+			Ensure.NotEmpty(name);
 
 			List<PluginDescriptor> pluginList = await Load();
 
 			int removed = pluginList.RemoveAll(x => x.Name == name);
 			if (removed > 1)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException("More than one plugin match the name", nameof(name));
 			}
 
 			await Store(pluginList);
@@ -112,9 +113,13 @@ namespace IdeaStatiCa.PluginSystem.PluginList
 		}
 
 		private async Task<List<PluginDescriptor>> Load()
-			=> await _list.Read().ConfigureAwait(false);
+		{
+			return await _list.Read().ConfigureAwait(false);
+		}
 
 		private async Task Store(IReadOnlyCollection<PluginDescriptor> pluginDescriptors)
-			=> await _list.Write(pluginDescriptors).ConfigureAwait(false);
+		{
+			await _list.Write(pluginDescriptors).ConfigureAwait(false);
+		}
 	}
 }

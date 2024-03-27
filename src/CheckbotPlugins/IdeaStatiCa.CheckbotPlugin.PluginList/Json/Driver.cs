@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Json
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Json
 {
 	internal class Driver
 	{
