@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.PluginSystem.PluginList.Descriptors
+﻿namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 {
 	public sealed class ActionButtonDescriptor
 	{

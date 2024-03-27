@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
-using IdeaStatiCa.PluginSystem.PluginList.Descriptors;
-using IdeaStatiCa.PluginSystem.PluginList.Storage;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Storage;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Tests.Unit
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Tests.Unit
 {
 	[TestFixture]
 	public class PluginListTest
