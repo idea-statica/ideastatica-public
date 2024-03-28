@@ -3,9 +3,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
-    <RootNamespace>IdeaStatiCa.PluginSystem.PluginList</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>11</LangVersion>
+    <LangVersion>latest</LangVersion>
     <NoWarn>1591</NoWarn>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -26,8 +25,4 @@
   <PropertyGroup>
     <PolySharpIncludeRuntimeSupportedAttributes>false</PolySharpIncludeRuntimeSupportedAttributes>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Common\IdeaStatiCa.CheckbotPlugin.Common.csproj" />
-  </ItemGroup>
 </Project>

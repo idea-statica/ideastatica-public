@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Api\IdeaStatiCa.CheckbotPlugin.Api.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin\IdeaStatiCa.CheckbotPlugin.csproj" />
     <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin.Protos\IdeaStatiCa.CheckbotPlugin.Protos.csproj" />
   </ItemGroup>
 

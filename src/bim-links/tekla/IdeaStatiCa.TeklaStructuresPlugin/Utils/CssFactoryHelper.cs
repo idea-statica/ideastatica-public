@@ -210,8 +210,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				Name = profileItem.ProfileName,
 			};
 
-			var dWidth = ((double)cssProperties[HeightKey]).MilimetersToMeters();
-			var dHeight = ((double)cssProperties[WidthKey]).MilimetersToMeters();
+			//for DE env it shoud be like this. If next bugfix will need to change it. new solution how to read sizes need to be found
+			var dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();
+			var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
 
 			CrossSectionFactory.FillRectangle(cssParameter, dWidth, dHeight);
 

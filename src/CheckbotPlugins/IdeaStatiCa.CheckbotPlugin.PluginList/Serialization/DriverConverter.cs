@@ -1,10 +1,9 @@
-﻿using IdeaStatiCa.CheckbotPlugin.Common;
-using IdeaStatiCa.PluginSystem.PluginList.Json;
-using System;
+﻿using IdeaStatiCa.CheckbotPlugin.PluginList.Json;
+using IdeaStatiCa.CheckbotPlugin.PluginList.Utils;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
+namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 {
 	internal class DriverConverter : JsonConverter<Driver>
 	{
@@ -25,16 +24,12 @@ namespace IdeaStatiCa.PluginSystem.PluginList.Serialization
 
 		private static Maybe<Driver> DeserializeDriver(string type, JsonDocument doc, JsonSerializerOptions options)
 		{
-			switch (type.ToLower())
+			return type.ToLower() switch
 			{
-				case DotNetRunnerDriver.TypeName:
-					return JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options)!.ToMaybe<Driver>();
-
-				case ExecutableDriver.TypeValue:
-					return JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options)!.ToMaybe<Driver>();
-			}
-
-			return Maybe<Driver>.Empty();
+				DotNetRunnerDriver.TypeName => JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options)!.ToMaybe<Driver>(),
+				ExecutableDriver.TypeValue => JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options)!.ToMaybe<Driver>(),
+				_ => Maybe<Driver>.Empty(),
+			};
 		}
 	}
 }
