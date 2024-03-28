@@ -87,7 +87,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessDeclaration(XmlReader reader, SModel model)
 		{
-			_logger.LogDebug("ProcessDeclaration TypeName {reader.Name}");
+			_logger.LogTrace("ProcessDeclaration TypeName {reader.Name}");
 			var element = new SObject { TypeName = reader.Name };
 			model.ModelDeclaration = element;
 
@@ -95,7 +95,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessStartElement(XmlReader reader, Stack<SObject> processItemStack, SModel model)
 		{
-			_logger.LogDebug("ProcessStartElement TypeName {reader.Name}");
+			_logger.LogTrace("ProcessStartElement TypeName {reader.Name}");
 			var element = new SObject { TypeName = reader.Name };
 
 			//if its not root element assign element to the parent
@@ -108,7 +108,7 @@ namespace IdeaStatiCa.IntermediateModel
 			//if its not empty element
 			if (!reader.IsEmptyElement)
 			{
-				_logger.LogDebug("ProcessStartElement add to fuhrer proses");
+				_logger.LogTrace("ProcessStartElement add to fuhrer proses");
 				//new parent
 				processItemStack.Push(element);
 			}
@@ -116,14 +116,14 @@ namespace IdeaStatiCa.IntermediateModel
 			//if its root item set as model root
 			if (model.RootItem == null)
 			{
-				_logger.LogDebug("ProcessStartElement set as root item");
+				_logger.LogTrace("ProcessStartElement set as root item");
 				model.RootItem = element;
 			}
 		}
 
 		private void AddToParent(SObject element, SObject parent)
 		{
-			_logger.LogDebug($"AddToParent add element {element.GetElementName()} in to {parent.GetElementName()}");
+			_logger.LogTrace($"AddToParent add element {element.GetElementName()} in to {parent.GetElementName()}");
 
 			if (parent.Properties.ContainsKey(element.GetElementName()))
 			{
@@ -141,7 +141,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessPrimitiveValue(XmlReader reader, Stack<SObject> processItemStack)
 		{
-			_logger.LogDebug($"ProcessPrimitiveValue value {reader.Value}");
+			_logger.LogTrace($"ProcessPrimitiveValue value {reader.Value}");
 
 			if (processItemStack.Count > 0)
 			{
@@ -157,7 +157,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessAttribute(XmlReader reader, Stack<SObject> processItemStack, SModel model)
 		{
-			_logger.LogDebug($"ProcessAttribute LocalName = {reader.LocalName}, Prefix = {reader.Prefix}, Value = {reader.Value}, NameSpace = {reader.NamespaceURI}");
+			_logger.LogTrace($"ProcessAttribute LocalName = {reader.LocalName}, Prefix = {reader.Prefix}, Value = {reader.Value}, NameSpace = {reader.NamespaceURI}");
 			var attribute = new SAttribute { LocalName = reader.LocalName, Prefix = reader.Prefix, Value = reader.Value, NameSpace = reader.NamespaceURI };
 
 			//test if its root namespace or standard element
@@ -171,7 +171,7 @@ namespace IdeaStatiCa.IntermediateModel
 				}
 				else
 				{
-					_logger.LogDebug($"ProcessAttribute root attribute {reader.Name} exist");
+					_logger.LogTrace($"ProcessAttribute root attribute {reader.Name} exist");
 				}
 			}
 			else if (model.ModelDeclaration is SObject declaration)
@@ -182,11 +182,11 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessEndElement(Stack<SObject> processItemStack)
 		{
-			_logger.LogDebug("ProcessEndElement");
+			_logger.LogTrace("ProcessEndElement");
 			if (processItemStack.Count > 0)
 			{
 				var filled = processItemStack.Pop();
-				_logger.LogDebug($"ProcessEndElement {filled.GetElementName()}");
+				_logger.LogTrace($"ProcessEndElement {filled.GetElementName()}");
 				FixReferences(filled);
 			}
 		}
@@ -197,14 +197,14 @@ namespace IdeaStatiCa.IntermediateModel
 		/// <param name="element"></param>
 		private void FixReferences(SObject element)
 		{
-			_logger.LogDebug($"FixReferences {element.GetElementName()}");
+			_logger.LogTrace($"FixReferences {element.GetElementName()}");
 			var properties = new Dictionary<string, ISIntermediate>();
 
 			foreach (var item in element.Properties)
 			{
 				if (item.Value is SList sList && sList.Count == 1)
 				{
-					_logger.LogDebug($"FixReferences remove list reference");
+					_logger.LogTrace($"FixReferences remove list reference");
 					properties[item.Key] = sList.First();
 				}
 				else
