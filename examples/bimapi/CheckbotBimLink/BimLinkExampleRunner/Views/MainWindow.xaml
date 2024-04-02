@@ -5,6 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:b="clr-namespace:BimLinkExampleRunner.Behaviours"
+	xmlns:converters="clr-namespace:BimLinkExampleRunner.Converters"
 	xmlns:local="clr-namespace:BimLinkExampleRunner.Views"
 	xmlns:vm="clr-namespace:BimLinkExampleRunner.ViewModels"
 	mc:Ignorable="d"
@@ -64,7 +65,14 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 			<StackPanel Orientation="Horizontal">
+				<StackPanel.Resources>
+					<Style BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="RadioButton">
+						<Setter Property="Margin" Value="5,0" />
+					</Style>
+				</StackPanel.Resources>
 				<Button Content="Run IDEA StatiCa Checkbot" Command="{Binding RunCheckbotCommand}" />
+				<RadioButton Content="CAD" GroupName="AppType" IsChecked="{Binding ApplicationType, Converter={x:Static converters:EnumToBooleanConverter.Instance}, ConverterParameter={x:Static vm:ApplicationType.CAD}}" />
+				<RadioButton Content="FEA" GroupName="AppType" IsChecked="{Binding ApplicationType, Converter={x:Static converters:EnumToBooleanConverter.Instance}, ConverterParameter={x:Static vm:ApplicationType.FEA}}" />
 			</StackPanel>
 			<Button Content="Clear log" Command="{Binding Logger.ClearCommand}" Grid.Column="1" />
 		</Grid>
