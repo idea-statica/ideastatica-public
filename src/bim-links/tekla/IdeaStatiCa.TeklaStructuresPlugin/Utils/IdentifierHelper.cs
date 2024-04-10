@@ -48,8 +48,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 						&& StiffeningMemberFilterl(beamAsPlate)
 						&& BulkSelectionHelper.IsRectangularCssBeam(beamAsPlate)))
 			{
-				AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
-
+				if (addToCollection)
+				{
+					AddIdentifier<IIdeaPlate>(identifiers, teklaObject, beamAsPlate.Identifier.GUID.ToString());
+				}
 			}
 			if (teklaObject is BoltGroup)
 			{
