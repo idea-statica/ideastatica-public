@@ -28,8 +28,8 @@
     <ProjectReference Include="..\..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
   <ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.0.0.3745" />
-    <PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.0.3745" />
+    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.0.0.3084" />
+    <PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.0.3084" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
