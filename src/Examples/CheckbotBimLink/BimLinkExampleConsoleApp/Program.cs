@@ -14,7 +14,7 @@ namespace BimLinkExampleConsoleApp
 			ICadApi cadApi = new CadApi();
 
 			//start checkbot app 
-			Task.Run(() => TestPlugin.Run("C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\\IdeaCheckbot.exe", cadApi, Logger)).Wait();
+			Task.Run(() => TestPlugin.Run("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.0\\IdeaCheckbot.exe", cadApi, Logger)).Wait();
 		}
 	}
 }
