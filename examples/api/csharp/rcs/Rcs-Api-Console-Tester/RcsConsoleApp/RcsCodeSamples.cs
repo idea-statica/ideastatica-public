@@ -54,7 +54,7 @@ namespace RcsApiConsoleApp
 					//OpenModel defined in Memory
 					OpenModel model = new OpenModel();
 
-					client.CreateProjectFromIOMAsync(model, CancellationToken.None);
+					await client.CreateProjectFromIOMAsync(model, CancellationToken.None);
 
 					#endregion
 				}
