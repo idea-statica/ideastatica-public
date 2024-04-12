@@ -5,6 +5,7 @@
 		<TargetFrameworks>net6.0-windows;net48</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<ProjectGuid>{669835E3-E2A5-48E5-8CF4-752370CB7051}</ProjectGuid>
+		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
