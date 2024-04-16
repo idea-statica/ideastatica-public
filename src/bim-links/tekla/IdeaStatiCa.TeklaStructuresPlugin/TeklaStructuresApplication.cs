@@ -8,10 +8,12 @@ using IdeaStatiCa.BimApiLink.Persistence;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using MoreLinq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Tekla.Structures;
@@ -25,9 +27,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		protected readonly IBimImporter _bimImporter;
 		TaskScheduler _taskScheduler;
 		IPluginLogger _logger;
+		IProjectStorage _projectStorage;
+		private string _projectPath;
+		private const string PersistencyStorage = "bimapi-data.json";
 
 		public TeklaStructuresApplication(
 			string applicationName,
+			string projectPath,
 			IPluginLogger logger,
 			IProject project,
 			IProjectStorage projectStorage,
@@ -43,6 +49,27 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			_bimImporter = bimImporter;
 			_project = project;
 			_taskScheduler = taskScheduler;
+			_projectStorage = projectStorage;
+			_projectPath = projectPath;
+		}
+
+
+		public override bool IsDataUpToDate()
+		{
+			var isValid = _projectStorage.IsValid();
+			var projectStoragePath = Path.Combine(_projectPath, PersistencyStorage);
+
+			if (isValid && File.Exists(projectStoragePath))
+			{
+				//check if project is created in old link IdeaStatiCa.TeklaCBFEM202X
+				if (System.IO.File.ReadAllText(projectStoragePath).Contains("IdeaStatiCa.TeklaCBFEM", StringComparison.CurrentCultureIgnoreCase))
+				{
+					return false;
+				}
+			}
+
+			return isValid;
+
 		}
 
 		protected override ModelBIM ImportSelection(CountryCode countryCode, RequestedItemsType requestedType)

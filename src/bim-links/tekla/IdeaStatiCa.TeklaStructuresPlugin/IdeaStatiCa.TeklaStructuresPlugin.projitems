@@ -49,6 +49,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\BulkSelectionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CssFactoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TeklaGeometryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\VectorExtension.cs" />
   </ItemGroup>
