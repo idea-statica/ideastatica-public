@@ -16,7 +16,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		public override IIdeaNode Create(string id) => new IdeaNode(id)
 		{
-			Name = id.ToString(),
 			Vector = GetNodePosition(Model.GetPoint3D(id))
 		};
 
