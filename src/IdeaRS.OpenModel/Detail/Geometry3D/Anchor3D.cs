@@ -2,6 +2,23 @@
 
 namespace IdeaRS.OpenModel.Detail
 {
+
+	/// <summary>
+	/// Anchor type
+	/// </summary>
+	public enum TypeOfAnchor : int
+	{
+		/// <summary>
+		/// Adhesice anchor
+		/// </summary>
+		Adhesive,
+
+		/// <summary>
+		/// Cast-in place - Reinforcement
+		/// </summary>
+		CastInReinforcement,
+	}
+
 	/// <summary>
 	/// Representation of Anchor 3D in IDEA StatiCa Detail
 	/// </summary>
@@ -17,6 +34,11 @@ namespace IdeaRS.OpenModel.Detail
 		/// <summary>
 		/// Name of 3D element
 		/// </summary>
+		public TypeOfAnchor AnchorType { get; set; }
+
+		/// <summary>
+		/// Name of 3D element
+		/// </summary>
 		public string Name { get; set; }
 
 		/// <summary>
@@ -28,6 +50,11 @@ namespace IdeaRS.OpenModel.Detail
 		/// hanging name
 		/// </summary>
 		public ReferenceElement Material { get; set; }
+
+		/// <summary>
+		/// Bond strength for Adhesive anchor type only
+		/// </summary>
+		public double BondStrength { get; set; }
 
 		/// <summary>
 		/// master component surface
@@ -68,5 +95,10 @@ namespace IdeaRS.OpenModel.Detail
 		/// end type
 		/// </summary>
 		public LongReinfEndType EndsType { get; set; }
+
+		/// <summary>
+		/// Interconnection between plate and anchor
+		/// </summary>
+		public bool BasePlateInterconnect { get; set; }
 	}
 }
