@@ -3,9 +3,19 @@ using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Detail
 {
+	/// <summary>
+	/// Solid shape type
+	/// </summary>
 	public enum SolidShapeCode : int
 	{
+		/// <summary>
+		/// General shape
+		/// </summary>
 		General = 1,
+
+		/// <summary>
+		/// Rectangular shape
+		/// </summary>
 		Rectangular = 2,
 	}
 
@@ -98,5 +108,11 @@ namespace IdeaRS.OpenModel.Detail
 		/// If MasterPoint is null, position is from origin of coordinate system
 		/// </summary>
 		public IdeaRS.OpenModel.Geometry3D.Vector3D Position { get; set; }
+
+		/// <summary>
+		/// Rotation between MasterComponent axes and solid axes
+		/// If MasterComponent is null, rotation is from global coordinate system
+		/// </summary>
+		public IdeaRS.OpenModel.Geometry3D.Vector3D Rotation { get; set; }
 	}
 }

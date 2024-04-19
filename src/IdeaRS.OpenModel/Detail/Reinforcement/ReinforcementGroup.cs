@@ -48,7 +48,12 @@
 		/// <summary>
 		/// 180 degree hook for ACI
 		/// </summary>
-		Hook180DegreeACI
+		Hook180DegreeACI,
+
+		/// <summary>
+		/// Perfect bond
+		/// </summary>
+		PerfectBond
 	}
 
 	/// <summary>
