@@ -21,27 +21,27 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			var cssMat = id.Split(';');
 			ProfileItem profileType = Model.GetCrossSection(cssMat[0]);
 
-			IIdeaCrossSection css = GetCrossSectionByLibraryItem(profileType, cssMat[1]);
+			IIdeaCrossSection css = GetCrossSectionByLibraryItem(profileType, cssMat[0], cssMat[1]);
 
 			if (css != null)
 			{
 				return css;
 			}
 
-			css = GetCrossSectionByParametricItem(profileType, cssMat[1]);
-			return css ?? GetCrossSectionByName(cssMat[1]);
+			css = GetCrossSectionByParametricItem(profileType, cssMat[0], cssMat[1]);
+			return css ?? GetCrossSectionByName(cssMat[0], cssMat[1]);
 		}
 
-		private static CrossSectionByName GetCrossSectionByName(string materialNo)
+		private static CrossSectionByName GetCrossSectionByName(string cssName, string materialNo)
 		{
-			return new CrossSectionByName(materialNo)
+			return new CrossSectionByName(cssName)
 			{
 				MaterialNo = materialNo,
-				Name = materialNo,
+				Name = cssName,
 			};
 		}
 
-		public CrossSectionByParameters GetCrossSectionByLibraryItem(ProfileItem profile, string materialNo)
+		public CrossSectionByParameters GetCrossSectionByLibraryItem(ProfileItem profile, string cssId, string materialNo)
 		{
 			if (profile is LibraryProfileItem libraryProfileItem)
 			{
@@ -49,7 +49,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionParameter cssParam)
 				{
 					PlugInLogger.LogDebug($"Create CrossSectionByParameters {libraryProfileItem.ProfileName}");
-					return new CrossSectionByParameters(libraryProfileItem.ProfileName)
+					return new CrossSectionByParameters(cssId)
 					{
 						MaterialNo = materialNo,
 						Name = libraryProfileItem.ProfileName,
@@ -67,7 +67,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		}
 
-		private IIdeaCrossSection GetCrossSectionByParametricItem(ProfileItem profile, string materialNo)
+		private IIdeaCrossSection GetCrossSectionByParametricItem(ProfileItem profile, string cssName, string materialNo)
 		{
 			if (profile is ParametricProfileItem parametricProfileItem)
 			{
@@ -75,20 +75,20 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionParameter cssParam)
 				{
 					PlugInLogger.LogDebug($"Create CrossSectionByParameters {parametricProfileItem.ProfilePrefix}");
-					return new CrossSectionByParameters(parametricProfileItem.ProfilePrefix)
+					return new CrossSectionByParameters(cssName)
 					{
 						MaterialNo = materialNo,
-						Name = parametricProfileItem.ProfilePrefix,
+						Name = cssName,
 						Parameters = new HashSet<IdeaRS.OpenModel.CrossSection.Parameter>(cssParam.Parameters),
 						Type = cssParam.CrossSectionType
 					};
 				}
 				else if (iomCss is IdeaRS.OpenModel.CrossSection.CrossSectionComponent cssComponent)
 				{
-					PlugInLogger.LogDebug($"Create CrossSectionComponent {parametricProfileItem.ProfilePrefix}");
-					var ideaCssComponent = new CrossSectionByComoponets(parametricProfileItem.ProfilePrefix)
+					PlugInLogger.LogDebug($"Create CrossSectionComponent {cssName}");
+					var ideaCssComponent = new CrossSectionByComoponets(cssName)
 					{
-						Name = parametricProfileItem.ProfilePrefix
+						Name = cssName
 					};
 					cssComponent.Components.ForEach(cp =>
 					{
