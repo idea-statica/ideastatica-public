@@ -35,7 +35,7 @@ jobs:
       uses: trstringer/manual-approval@v1
       with:
         secret: ${{ secrets.GH_RELEASE }}
-        # approvers: user1,user2
+        approvers: IDEA StatiCa Development
         minimum-approvals: 1
         issue-title: "Creating release"
         issue-body: "Please approve or creating a new release"
