@@ -7,7 +7,7 @@ from ideastatica_rcs_client import brief_result_tools
 from ideastatica_rcs_client import loading_tools
 from ideastatica_rcs_client import detail_results_tools
 
-ideaStatiCa_Version = r'23.1'
+ideaStatiCa_Version = r'24.0'
 logging.basicConfig(level = logging.INFO)
 
 ideaSetupDir = idea_statica_setup.get_ideasetup_path(ideaStatiCa_Version)

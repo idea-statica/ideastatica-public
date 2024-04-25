@@ -7,7 +7,7 @@ from ideastatica_rcs_client import detail_results_tools
 import os
 import pandas as pd
 
-ideaStatiCa_Version = r'23.1'
+ideaStatiCa_Version = r'24.0'
 
 def get_capacity_check_val(secId, br):
     capacity = br[str(secId)]["Capacity"]

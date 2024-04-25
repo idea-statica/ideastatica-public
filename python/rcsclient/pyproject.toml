@@ -1,6 +1,6 @@
 [project]
 name = "ideastatica_rcs_client"
-version = "23.1.4.1107"
+version = "24.0.0.4380"
 authors = [
   { name="Martin Pospisil", email="martin.pospisil@ideastatica.com" },
 ]
