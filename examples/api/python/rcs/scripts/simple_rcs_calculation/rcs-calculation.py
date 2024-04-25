@@ -3,7 +3,7 @@ from ideastatica_rcs_client import rcs_client
 import os
 import logging
 
-ideaStatiCa_Version = r'23.1'
+ideaStatiCa_Version = r'24.0'
 rcs_project_name = r"Project1.IdeaRcs"
 
 logging.basicConfig(level = logging.INFO)

@@ -6,7 +6,7 @@ from ideastatica_rcs_client import idea_statica_setup
 from ideastatica_rcs_client import ideastatica_rcs_client
 import os
 
-ideaStatiCa_Version = r'23.1'
+ideaStatiCa_Version = r'24.0'
 
 # Use the avaliable set-up tools to automatically find the IDEA StatiCa install path
 # Alternatively we can provide a direct path
