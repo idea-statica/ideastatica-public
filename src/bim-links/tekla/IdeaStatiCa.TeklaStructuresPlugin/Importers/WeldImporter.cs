@@ -53,7 +53,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 				// WELD TYPE
 				WeldType weldTypeCode;
-				if (teklaWeld.TypeAbove != TSM.BaseWeld.WeldTypeEnum.WELD_TYPE_NONE && teklaWeld.TypeBelow != TSM.BaseWeld.WeldTypeEnum.WELD_TYPE_NONE)
+				if (teklaWeld.AroundWeld || (teklaWeld.TypeAbove != TSM.BaseWeld.WeldTypeEnum.WELD_TYPE_NONE && teklaWeld.TypeBelow != TSM.BaseWeld.WeldTypeEnum.WELD_TYPE_NONE))
 				{
 					weldTypeCode = WeldType.DoubleFillet;
 				}
