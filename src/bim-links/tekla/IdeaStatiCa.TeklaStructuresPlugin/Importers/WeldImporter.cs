@@ -38,11 +38,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				TSV.GetAdvancedOption("XS_AISC_WELD_MARK", ref aiscWeldMark);
 				TSV.GetAdvancedOption("XS_ISO_LEG_LENGTH_AS_WELDSIZE", ref IsoLegLengthAsWeldsize);
 
-				var solid = teklaWeld.GetSolid();
+				var cs = teklaWeld.GetCoordinateSystem();
 
-				weld.StartNo = Model.GetPointId(solid.MinimumPoint);
-				weld.EndNo = Model.GetPointId(solid.MaximumPoint);
-
+				weld.StartNo = Model.GetPointId(cs.Origin);
+				weld.EndNo = Model.GetPointId(cs.Origin);
 				//This stupid test due to plate as member and we are not sure if its imported as plate or member
 
 				CheckAndAddConnectedObject<IIdeaPlate>(teklaWeld.MainObject, weld);
