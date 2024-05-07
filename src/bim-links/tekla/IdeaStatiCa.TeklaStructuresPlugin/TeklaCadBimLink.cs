@@ -10,8 +10,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 {
 	public class TeklaCadBimLink : CadBimLink
 	{
+		private string _projectPath;
 		public TeklaCadBimLink(string applicationName, string projectPath) : base(applicationName, projectPath)
 		{
+			_projectPath = projectPath;
 		}
 		public static new BimLink Create(string applicationName, string checkbotProjectPath) => new TeklaCadBimLink(applicationName, checkbotProjectPath);
 
@@ -28,6 +30,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		{
 			return new TeklaStructuresApplication(
 							ApplicationName,
+							_projectPath,
 							pluginLogger,
 							projectAdapter,
 							projectStorage,

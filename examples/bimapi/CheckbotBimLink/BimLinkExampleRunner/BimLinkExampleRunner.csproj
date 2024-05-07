@@ -8,38 +8,6 @@
 		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_NuGet|net6.0-windows|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_NuGet|net48|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_NuGet|net6.0-windows|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_NuGet|net48|AnyCPU'">
-	  <DefineConstants>$(DefineConstants);CAD</DefineConstants>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
@@ -47,10 +15,11 @@
 	
 	<ItemGroup>
 		<ProjectReference Include="..\CadExample\BimApiLinkCadExample\BimApiLinkCadExample.csproj" />
+		<ProjectReference Include="..\FeaExample\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj" />
 	</ItemGroup>
 		
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.0.3084" />
+		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.0.4380" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">

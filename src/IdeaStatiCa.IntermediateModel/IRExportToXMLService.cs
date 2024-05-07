@@ -110,7 +110,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessEndItem(Stack<IXmlLineInfo> xmlItems)
 		{
-			_logger.LogDebug("Process End Of Object");
+			_logger.LogTrace("Process End Of Object");
 			var closedItem = xmlItems.Pop();
 			//assign closed element to parent
 
@@ -135,7 +135,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessObjectItem(SModel irModel, Stack<ISIntermediate> itemsTOProcess, Stack<IXmlLineInfo> xmlItems, Dictionary<string, XNamespace> usedNamespaces, SObject sObject)
 		{
-			_logger.LogDebug($"Process object {sObject.GetElementName()}");
+			_logger.LogTrace($"Process object {sObject.GetElementName()}");
 			//add information about closing tag
 			itemsTOProcess.Push(new EndOfObject());
 
@@ -152,7 +152,7 @@ namespace IdeaStatiCa.IntermediateModel
 			{
 				foreach (var namespaceItem in irModel.RootNameSpaces)
 				{
-					_logger.LogDebug($"Process object set root Namespace {namespaceItem.Value.NameSpace} Namespace value {namespaceItem.Value.Value}");
+					_logger.LogTrace($"Process object set root Namespace {namespaceItem.Value.NameSpace} Namespace value {namespaceItem.Value.Value}");
 					XNamespace xNamespace = namespaceItem.Value.NameSpace;
 					XNamespace @namespaceValue = namespaceItem.Value.Value;
 					newXmlItem.Add(new XAttribute(xNamespace + namespaceItem.Value.LocalName, @namespaceValue.NamespaceName));
@@ -166,7 +166,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessListItem(Stack<ISIntermediate> itemsTOProcess, SList list)
 		{
-			_logger.LogDebug($"Process list {list.GetElementName()}");
+			_logger.LogTrace($"Process list {list.GetElementName()}");
 			foreach (var listItem in list.AsEnumerable().Reverse())
 			{
 				itemsTOProcess.Push(listItem);
@@ -175,7 +175,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessAttributeItem(Stack<IXmlLineInfo> xmlItems, Dictionary<string, XNamespace> usedNamespaces, SAttribute attribute)
 		{
-			_logger.LogDebug($"Process attribute {attribute.GetElementValue()}");
+			_logger.LogTrace($"Process attribute {attribute.GetElementValue()}");
 			var parentXml = xmlItems.Peek();
 			if (parentXml is XElement parentElementXml)
 			{
@@ -193,7 +193,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 		private void ProcessPrimitiveItem(Stack<IXmlLineInfo> xmlItems, SPrimitive primitive)
 		{
-			_logger.LogDebug($"Process primitive {primitive.GetElementValue()}");
+			_logger.LogTrace($"Process primitive {primitive.GetElementValue()}");
 			var parentXml = xmlItems.Peek();
 
 			if (parentXml is XElement parentElementXml)

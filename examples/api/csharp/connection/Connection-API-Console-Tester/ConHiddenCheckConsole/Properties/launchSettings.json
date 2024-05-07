@@ -2,7 +2,7 @@
   "profiles": {
     "ConHiddenCheckConsole": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Program Files\\IDEA StatiCa\\StatiCa 23.1\""
+      "commandLineArgs": "\"C:\\Program Files\\IDEA StatiCa\\StatiCa 24.0\""
     }
   }
 }

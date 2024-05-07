@@ -22,5 +22,11 @@
 		/// Invalidates changes in all blob storages
 		/// </summary>
 		void CleanBlobStorages();
+
+		/// <summary>
+		/// Delete blob storage
+		/// </summary>
+		/// <param name="blobStorageName">The name of the blob storage to delete</param>
+		void DeleteBlobStorage(string blobStorageName);
 	}
 }

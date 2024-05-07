@@ -9,7 +9,7 @@ env:
    working_dir: ${{ github.workspace }}\main\examples
 
 jobs:
-  BuildAndTest:
+  deploy:
     name: "Update and build IdeaStatiCa-SDK-Examples"
     runs-on: windows-latest
 
@@ -27,6 +27,23 @@ jobs:
         Write-Host "TAG_VALUE=$tagValue"
         echo "TAG_VALUE=$tagValue" >> $env:GITHUB_ENV
 
+  manual-approval:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Manual Release Approval
+      uses: trstringer/manual-approval@v1
+      with:
+        secret: ${{ secrets.GH_RELEASE }}
+        approvers: IDEA StatiCa Development
+        minimum-approvals: 1
+        issue-title: "Creating release"
+        issue-body: "Please approve or creating a new release"
+
+  finish-release:
+    needs: manual-approval
+    runs-on: ubuntu-latest
+    steps:      
     - name: Checkout
       uses: actions/checkout@v3
       with:
