@@ -92,34 +92,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					throw new NotImplementedException();
 			}
 
-			//ask for welds
-			if (modelBIM != null)
-			{
-				modelBIM.Model.OriginSettings.ImportRecommendedWelds = AskImportRecommendedWelds();
-			}
 			return modelBIM;
 		}
 
-		private bool AskImportRecommendedWelds()
-		{
-			string messageBoxText = IdeaStatiCa.TeklaStructuresResources.Properties.Resources.AddRecommendedWelds;
-			string caption = IdeaStatiCa.TeklaStructuresResources.Properties.Resources.RecommendedWelds;
-			System.Windows.MessageBoxButton button = System.Windows.MessageBoxButton.YesNo;
-			System.Windows.MessageBoxImage icon = System.Windows.MessageBoxImage.Question;
-			bool addRecommendedWelds;
-			// Process message box results
-			switch (System.Windows.MessageBox.Show(messageBoxText, caption, button, icon))
-			{
-				case System.Windows.MessageBoxResult.Yes:
-					addRecommendedWelds = true;
-					break;
-				default:
-					addRecommendedWelds = false;
-					break;
-			}
-
-			return addRecommendedWelds;
-		}
 
 		protected override void ActivateMethod(List<BIMItemId> items)
 		{
