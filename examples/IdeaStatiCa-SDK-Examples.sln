@@ -190,7 +190,6 @@ Global
 		SolutionGuid = {390F0CF4-59F4-444F-9602-87026AB46610}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{1429419d-b1b4-4647-895d-383214faf315}*SharedItemsImports = 5
 		..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{a9601b75-ad57-4bd1-a0b1-64329038b3ec}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
