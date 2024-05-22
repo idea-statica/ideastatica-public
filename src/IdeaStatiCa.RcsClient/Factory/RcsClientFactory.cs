@@ -28,7 +28,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			this.httpClientWrapper = httpClientWrapper;
 			this.pluginLogger = pluginLogger == null ? new NullLogger() : pluginLogger;
 			this.setupDir = GetRcsRestApiPath(isSetupDir);
-			pluginLogger.LogDebug($"RcsClientFactory modified setupDir = '{setupDir}'");
+			this.pluginLogger.LogDebug($"RcsClientFactory modified setupDir = '{setupDir}'");
 		}
 
 		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient()"/>
