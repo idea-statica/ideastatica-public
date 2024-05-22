@@ -501,7 +501,6 @@ Global
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{0436d7f5-6cd4-43d7-9634-1fab481b23fb}*SharedItemsImports = 5
 		bim-links\tekla\IdeaStatiCa.TeklaStructuresPlugin\IdeaStatiCa.TeklaStructuresPlugin.projitems*{18713f20-462d-427e-8b7c-07046a62df8a}*SharedItemsImports = 5
 		IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{18713f20-462d-427e-8b7c-07046a62df8a}*SharedItemsImports = 5
 		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5
