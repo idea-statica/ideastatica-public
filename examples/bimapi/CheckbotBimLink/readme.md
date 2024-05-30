@@ -149,7 +149,7 @@ dotnet build .\MyFeaBIMApp.sln -c Release
 MyFeaBIMApp\bin\Release\net6.0-windows\MyFeaBIMApp.exe
 ```
 
-__Creating FEA BIM in Visual Studio__
+__Creating BIM Link in Visual Studio__
 
 ![VS Wizard](../../..//docs/Images/vs-idea-templates.png?raw=true "VS Wizard")
 
