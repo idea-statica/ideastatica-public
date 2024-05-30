@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>BimApiFeaLink</RootNamespace>
+    <AssemblyName>BimApiFeaLink</AssemblyName>    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdeaStatica.BimApi" Version="*" />
+    <PackageReference Include="IdeaStatica.BimApiLink" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FeaApi\FeaApi.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>FeaApi</RootNamespace>
+    <AssemblyName>FeaApi</AssemblyName>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MathNet.Spatial" Version="0.6.0" />
+	</ItemGroup>	
+</Project>
