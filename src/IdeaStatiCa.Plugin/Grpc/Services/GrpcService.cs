@@ -58,60 +58,70 @@ namespace IdeaStatiCa.Plugin.Grpc.Services
 		{
 			logger.LogDebug("GrpcService.ConnectAsync");
 
-			if (!await requestStream.MoveNext())
+			try
 			{
-				logger.LogDebug("GrpcService.ConnectAsync MoveNext returned false");
-				return;
-			}
-
-			do
-			{
-				// do not allow connection from multiple clients.
-				if (IsConnected && currentClientId != requestStream.Current.ClientId)
+				if (!await requestStream.MoveNext())
 				{
-
-					logger.LogDebug($"GrpcService.ConnectAsync error = Client already connected currentClientId = {currentClientId}");
-					var errorMsg = new GrpcMessage()
-					{
-						OperationId = "Error",
-						MessageName = "Client already connected",
-						MessageType = GrpcMessage.Types.MessageType.Response,
-						DataType = typeof(string).Name
-					};
-
-					await SendMessageAsync(errorMsg);
+					logger.LogDebug("GrpcService.ConnectAsync MoveNext returned false");
+					return;
 				}
-				else
+
+				do
 				{
-					// Handle first connection
-					if (!IsConnected)
+					// do not allow connection from multiple clients.
+					if (IsConnected && currentClientId != requestStream.Current.ClientId)
 					{
-						currentClientId = requestStream.Current.ClientId;
-						logger.LogDebug($"GrpcService.ConnectAsync - first connection currentClientId = {currentClientId}, ");
-						currentClientStream = responseStream;
 
-						IsConnected = true;
+						logger.LogDebug($"GrpcService.ConnectAsync error = Client already connected currentClientId = {currentClientId}");
+						var errorMsg = new GrpcMessage()
+						{
+							OperationId = "Error",
+							MessageName = "Client already connected",
+							MessageType = GrpcMessage.Types.MessageType.Response,
+							DataType = typeof(string).Name
+						};
 
-						ClientConnected?.Invoke(this, currentClientId);
+						await SendMessageAsync(errorMsg);
+					}
+					else
+					{
+						// Handle first connection
+						if (!IsConnected)
+						{
+							currentClientId = requestStream.Current.ClientId;
+							logger.LogDebug($"GrpcService.ConnectAsync - first connection currentClientId = {currentClientId}, ");
+							currentClientStream = responseStream;
+
+							IsConnected = true;
+
+							ClientConnected?.Invoke(this, currentClientId);
+						}
+
+						logger.LogTrace($"GrpcService.ConnectAsync - reading message ");
+
+						var message = requestStream.Current;
+
+
+						logger.LogTrace($"GrpcService.ConnectAsync - calling RunHandler");
+						RunHandler(message);
 					}
 
-					logger.LogTrace($"GrpcService.ConnectAsync - reading message ");
+				} while (await requestStream.MoveNext());
+			}
+			catch (Exception ex)
+			{
+				logger.LogDebug("GrpcService.ConnectAsync Communication failed", ex);
+			}
+			finally
+			{
 
-					var message = requestStream.Current;
+				ClientDisconnected?.Invoke(this, currentClientId);
 
+				IsConnected = false;
 
-					logger.LogTrace($"GrpcService.ConnectAsync - calling RunHandler");
-					RunHandler(message);
-				}
-
-			} while (await requestStream.MoveNext());
-
-			ClientDisconnected?.Invoke(this, currentClientId);
-
-			IsConnected = false;
-
-			currentClientStream = null;
-			currentClientId = null;
+				currentClientStream = null;
+				currentClientId = null;
+			}
 		}
 
 		/// <summary>
