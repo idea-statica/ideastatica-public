@@ -126,8 +126,8 @@ dotnet new list
 If templates are correctly these templates should be in the list
 
 ```
-IDEA StatiCa Checkbot Client                  bimapifeaclient             [C#]        ideastatica/checkbot
-IDEA StatiCa Checkbot Client FEA App          bimapifeaapp                [C#]        ideastatica/checkbot
+IDEA StatiCa Checkbot Client CAD App          bimapicadapp                [C#]        ideastatica/checkbot/cad
+IDEA StatiCa Checkbot Client FEA App          bimapifeaapp                [C#]        ideastatica/checkbot/fea
 IDEA StatiCa RCS Rest API client console App  rcsclientconsole            [C#]        ideastatica/rcs/api
 ```
 
