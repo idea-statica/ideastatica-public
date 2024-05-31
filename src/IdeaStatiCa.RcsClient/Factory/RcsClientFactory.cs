@@ -37,9 +37,6 @@ namespace IdeaStatiCa.RcsClient.Factory
 		{
 			var (url, processId) = await RunRcsRestApiService();
 			pluginLogger?.LogInformation($"Service is running on {url} with process ID {processId}");
-
-			httpClientWrapper = new HttpClientWrapper(pluginLogger, url);
-
 			var wrapper = httpClientWrapper ?? new HttpClientWrapper(pluginLogger, url);
 			if(StreamingLog != null)
 			{

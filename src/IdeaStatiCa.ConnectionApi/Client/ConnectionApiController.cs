@@ -9,6 +9,9 @@ using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Generic;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
@@ -29,8 +32,8 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger = pluginLogger ?? new NullLogger();
 		}
 
-		/// <inheritdoc cref="OpenProjectAsync(string)" />
-		public async Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken token = default)
+		/// <inheritdoc cref="OpenProjectAsync(string, CancellationToken)" />
+		public async Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject path = '{ideaConProject}'");
 
@@ -38,9 +41,19 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-			var response = await _httpClient.PostAsyncStream<ConProject>("api/1/project/OpenProject", streamContent, token);
+			var response = await _httpClient.PostAsyncStream<ConProject>("api/1/project/OpenProject", streamContent, cancellationToken);
 			activeProjectId = response.ProjectId;
 			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject projectId = {response.ProjectId}");
+
+			return response;
+		}
+
+		/// <inheritdoc cref="CalculateAsync(ConCalculationParameter, CancellationToken)" />
+		public async Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync");
+
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/1/connection/{activeProjectId}/calculate", calculationParameters, cancellationToken);
 
 			return response;
 		}
@@ -77,5 +90,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
+
+
 	}
 }

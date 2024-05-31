@@ -180,8 +180,8 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			}
 			catch (HttpRequestException ex)
 			{
-				logger.LogError("API Request for RCS failed.", ex);
-				throw new Exception("API Request for RCS failed", ex);
+				logger.LogError("API Request has failed.", ex);
+				throw new Exception("API Request has failed", ex);
 			}
 		}
 		private TResult Deserialize<TResult>(string acceptHeader, string data)

@@ -17,18 +17,17 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 		private readonly IPluginLogger _pluginLogger;
 		private IHttpClientWrapper _httpClientWrapper;
 		private int port = -1;
-		private Process _rcsRestApiProcess = null;
+		private Process _restApiProcess = null;
 		private readonly string _setupDir = null;
 
 
 		public Action<string, int> StreamingLog { get; set; }
 		public Action<string> HeartbeatLog { get; set; }
 
-		public ConnectionApiClientFactory(IPluginLogger pluginLogger, 
-			IHttpClientWrapper httpClientWrapper, 
-			string setupDir)
+		public ConnectionApiClientFactory(string setupDir, IPluginLogger? pluginLogger = null, 
+			IHttpClientWrapper? httpClientWrapper = null)
 		{
-			_pluginLogger = pluginLogger;
+			_pluginLogger = pluginLogger ?? new NullLogger();
 			_httpClientWrapper = httpClientWrapper;
 			_setupDir = GetConnectionRestApiPath(setupDir);
 		}
@@ -37,7 +36,7 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 		{
 			return await Task.Run<(string, int)>(async () =>
 			{
-				if (_rcsRestApiProcess is null)
+				if (_restApiProcess is null)
 				{
 
 					port = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort, _pluginLogger);
@@ -49,29 +48,29 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 
 						if (!File.Exists(apiExecutablePath))
 						{
-							_pluginLogger.LogWarning($"RcsClientFactory.RunRcsRestApiService : '{apiExecutablePath}' doesn't exist");
+							_pluginLogger.LogWarning($"ConnectionApiController.RunConnectionRestApiService : '{apiExecutablePath}' doesn't exist");
 						}
 
 						_pluginLogger.LogDebug($"Running {apiExecutablePath} on port {port}");
 						// Start the REST API executable with the chosen port
 						string arguments = $"-port={port}";
-						_rcsRestApiProcess = new Process();
-						_rcsRestApiProcess.StartInfo.FileName = apiExecutablePath;
-						//_rcsRestApiProcess.StartInfo.Arguments = arguments;
-						_rcsRestApiProcess.StartInfo.UseShellExecute = false;
+						_restApiProcess = new Process();
+						_restApiProcess.StartInfo.FileName = apiExecutablePath;
+						_restApiProcess.StartInfo.Arguments = arguments;
+						_restApiProcess.StartInfo.UseShellExecute = false;
 #if !DEBUG
-						//_rcsRestApiProcess.StartInfo.CreateNoWindow = true;
+						_restApiProcess.StartInfo.CreateNoWindow = true;
 #endif
-						_rcsRestApiProcess.Start();
+						_restApiProcess.Start();
 
 						// Wait for the API to start (you might need a more robust way to determine this)
 						await Task.Delay(5000);
 
 						// Check if the API process is still running
 
-						if (!_rcsRestApiProcess.HasExited)
+						if (!_restApiProcess.HasExited)
 						{
-							_rcsRestApiProcess.CloseMainWindow();
+							_restApiProcess.CloseMainWindow();
 							_pluginLogger.LogInformation($"REST API process started on port {port}.");
 							break;
 						}
@@ -83,16 +82,16 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 					}
 				}
 
-				_pluginLogger.LogDebug($"Created process with Id {_rcsRestApiProcess?.Id}");
-				return ($"{LOCALHOST_URL}:{port}", _rcsRestApiProcess.Id);
+				_pluginLogger.LogDebug($"Created process with Id {_restApiProcess?.Id}");
+				return ($"{LOCALHOST_URL}:{port}", _restApiProcess.Id);
 			});
 		}
 
 		public void Dispose()
 		{
-			_rcsRestApiProcess?.Kill();
-			_rcsRestApiProcess?.Dispose();
-			_rcsRestApiProcess = null;
+			_restApiProcess?.Kill();
+			_restApiProcess?.Dispose();
+			_restApiProcess = null;
 		}
 
 		private string GetConnectionRestApiPath(string directory)
@@ -122,14 +121,14 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 				}
 			}
 
-			_pluginLogger.LogWarning($"GetRcsRestApiPath : returning '{modifiedDir}'");
+			_pluginLogger.LogWarning($"GetConnectionRestApiPath : returning '{modifiedDir}'");
 			return modifiedDir;
 		}
 
 		public async Task<IConnectionApiController> CreateConnectionApiClient()
 		{
 			var (url, processId) = await RunConnectionRestApiService();
-			_pluginLogger?.LogInformation($"Service is running on {url} with process ID {processId}");
+			_pluginLogger.LogInformation($"Service is running on {url} with process ID {processId}");
 
 			var wrapper = _httpClientWrapper ?? new HttpClientWrapper(_pluginLogger, url);
 			if (StreamingLog != null)
