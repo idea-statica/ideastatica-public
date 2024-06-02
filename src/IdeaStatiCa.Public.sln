@@ -179,6 +179,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BulkSelection", "BulkSelect
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ItemsSorter", "IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj", "{FA10298F-F62D-4B09-80EB-B41D04408FB6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ConnectionApi", "IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj", "{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -429,6 +431,10 @@ Global
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Debug|x64.Build.0 = Debug|Any CPU
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.ActiveCfg = Release|Any CPU
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.Build.0 = Release|Any CPU
+		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Debug|x64.Build.0 = Debug|Any CPU
+		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Release|x64.ActiveCfg = Release|Any CPU
+		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -501,7 +507,6 @@ Global
 		SolutionGuid = {3617D4BC-10AC-4371-A892-4F4A1D848DF5}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{0436d7f5-6cd4-43d7-9634-1fab481b23fb}*SharedItemsImports = 5
 		bim-links\tekla\IdeaStatiCa.TeklaStructuresPlugin\IdeaStatiCa.TeklaStructuresPlugin.projitems*{18713f20-462d-427e-8b7c-07046a62df8a}*SharedItemsImports = 5
 		IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems*{18713f20-462d-427e-8b7c-07046a62df8a}*SharedItemsImports = 5
 		Logger\SerilogFacade\SerilogFacade.projitems*{3814f9b8-46de-4343-94a7-e7a81d371007}*SharedItemsImports = 5

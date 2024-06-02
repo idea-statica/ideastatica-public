@@ -1,8 +1,9 @@
 ﻿using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Utilities;
+using IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper;
 using IdeaStatiCa.RcsClient.Client;
-using IdeaStatiCa.RcsClient.HttpWrapper;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +14,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 {
 	public class RcsClientFactory : IRcsClientFactory
 	{
-		private const string LOCALHOST_URL = "http://localhost";
+		private const string LOCALHOST_URL = "http://127.0.0.1";
 		private readonly IPluginLogger pluginLogger;
 		private IHttpClientWrapper httpClientWrapper;
 		private int port = -1;
@@ -28,13 +29,14 @@ namespace IdeaStatiCa.RcsClient.Factory
 			this.httpClientWrapper = httpClientWrapper;
 			this.pluginLogger = pluginLogger == null ? new NullLogger() : pluginLogger;
 			this.setupDir = GetRcsRestApiPath(isSetupDir);
-			pluginLogger.LogDebug($"RcsClientFactory modified setupDir = '{setupDir}'");
+			this.pluginLogger.LogDebug($"RcsClientFactory modified setupDir = '{setupDir}'");
 		}
 
 		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient()"/>
 		public async Task<IRcsApiController> CreateRcsApiClient()
 		{
 			var (url, processId) = await RunRcsRestApiService();
+			pluginLogger?.LogInformation($"Service is running on {url} with process ID {processId}");
 			var wrapper = httpClientWrapper ?? new HttpClientWrapper(pluginLogger, url);
 			if(StreamingLog != null)
 			{
@@ -98,6 +100,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 						Thread.Sleep(5000);
 
 						// Check if the API process is still running
+						
 						if (!rcsRestApiProcess.HasExited)
 						{
 							rcsRestApiProcess.CloseMainWindow();

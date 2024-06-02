@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net48</TargetFramework>
+		<TargetFrameworks>net6.0-windows;net48</TargetFrameworks>
 		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
@@ -26,19 +26,16 @@
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	</PropertyGroup>
 
-
-	<Import Project="..\..\..\..\..\src\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems" Label="Shared" />
-
 	<ItemGroup>
 		<ProjectReference Include="..\CadExampleApi\CadExampleApi.csproj" />
 	</ItemGroup>
-
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.PluginsTools" Version="20.1.1" />
+	
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+		<PackageReference Include="IdeaStatiCa.ItemsSorter" Version="24.0.0.3084" />
 	</ItemGroup>
 
 </Project>

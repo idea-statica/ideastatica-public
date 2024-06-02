@@ -14,7 +14,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps
 			this._logger = logger;
 		}
 
-		public void DoDownStep(SModel _model)
+		public virtual void DoDownStep(SModel _model)
 		{
 			throw new NotImplementedException();
 		}
