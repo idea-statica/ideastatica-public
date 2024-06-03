@@ -1,13 +1,13 @@
-﻿using System;
+﻿using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Api.Common;
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.RCS;
 
-namespace IdeaStatiCa.RcsClient.Client
+namespace IdeaStatiCa.PluginsTools.PluginTools.ApiTools
 {
-	internal class HeartbeatChecker : IHeartbeatChecker
+	public class HeartbeatChecker : IHeartbeatChecker
 	{
 		private readonly string heartbeatEndpoint;
 		private readonly HttpClient client;
