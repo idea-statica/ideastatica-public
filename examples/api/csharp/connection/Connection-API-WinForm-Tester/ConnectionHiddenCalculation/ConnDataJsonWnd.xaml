@@ -16,7 +16,7 @@
         </StackPanel>
         <Grid>
             <ScrollViewer>
-                <TextBox Text="{Binding DataJson}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
+                <TextBox Text="{Binding DataJson}" IsReadOnly="False" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"></TextBox>
             </ScrollViewer>
         </Grid>
     </DockPanel>
