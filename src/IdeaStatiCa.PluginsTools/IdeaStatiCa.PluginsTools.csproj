@@ -4,6 +4,7 @@
 		<TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
 		<AssemblyTitle>IdeaStatiCa.PluginsTools</AssemblyTitle>
 		<Product>IdeaStatiCa.PluginsTools</Product>
+		<LangVersion>8.0</LangVersion>
 		<Description>Tools for IDEA Statica plugins</Description>
 		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 		<UseWPF>true</UseWPF>
@@ -47,5 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.13" />
 	</ItemGroup>
+	
 </Project>

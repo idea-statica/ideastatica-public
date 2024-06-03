@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.IntermediateModel.IRModel;
+using IdeaStatiCa.Plugin;
 using System;
 
 namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
@@ -18,6 +19,16 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		public override Version GetVersion()
 		{
 			return Step200.Version;
+		}
+
+		public override void DoDownStep(SModel _model)
+		{
+			// Method intentionally left empty.
+		}
+
+		public override void DoUpStep(SModel _model)
+		{
+			// Method intentionally left empty.
 		}
 	}
 }

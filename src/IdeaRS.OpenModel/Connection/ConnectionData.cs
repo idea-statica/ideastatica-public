@@ -1,5 +1,4 @@
 using IdeaRS.OpenModel.Geometry2D;
-using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Parameters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -416,14 +415,13 @@ namespace IdeaRS.OpenModel.Connection
 		Bevel = 4,
 
 		/// <summary>
-		/// Square
+		/// Partial joint penetration butt weld
 		/// </summary>
-		Square = 8,
-
+		PJP = 8,
 		/// <summary>
-		/// Plug
+		/// Partial joint penetration butt weld rear side
 		/// </summary>
-		Plug = 16,
+		PJPRear = 16,
 
 		/// <summary>
 		/// LengthAtHaunch

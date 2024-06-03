@@ -8,12 +8,13 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.SignalR.Client;
 using PluginConstants = IdeaStatiCa.Plugin.Constants;
-using IdeaStatiCa.RcsClient.Client;
 using System.Threading;
 using IdeaRS.OpenModel;
 using System.Xml;
+using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
+using IdeaStatiCa.Plugin.Api.Common;
 
-namespace IdeaStatiCa.RcsClient.HttpWrapper
+namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 {
 	/// <summary>
 	/// Class to wrap HttpClient for REST calls
@@ -100,7 +101,7 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 					catch (OperationCanceledException ex)
 					{
 						logger.LogDebug("Operation was cancelled", ex);
-						throw ex;
+						throw;
 					}
 
 				}
@@ -179,8 +180,8 @@ namespace IdeaStatiCa.RcsClient.HttpWrapper
 			}
 			catch (HttpRequestException ex)
 			{
-				logger.LogError("API Request for RCS failed.", ex);
-				throw new Exception("API Request for RCS failed", ex);
+				logger.LogError("API Request has failed.", ex);
+				throw new Exception("API Request has failed", ex);
 			}
 		}
 		private TResult Deserialize<TResult>(string acceptHeader, string data)

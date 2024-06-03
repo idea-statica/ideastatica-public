@@ -55,7 +55,7 @@ namespace IdeaStatiCa.IOM.VersioningServiceTests
 
 		}
 
-		[TestCase("OpenModel-SimpleUpgraded.xml", "OpenModel-Simple.xml")]
+		[TestCase("OpenModel-Simple.xml", "OpenModel-Simple.xml")]
 		[TestCase("OpenModel-LargeUpgraded.xml", "OpenModel-Large.xml")]
 		[TestCase("ModelBIM-AS_Black_PointUpgraded.xml", "ModelBIM-AS_Black_Point.xml")]
 		public void FromParsedXml_Downgrade_LargeFile(string fileName, string expectedFile)
