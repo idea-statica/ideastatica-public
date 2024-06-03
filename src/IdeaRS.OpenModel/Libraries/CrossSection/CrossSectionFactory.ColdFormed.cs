@@ -198,9 +198,9 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="InsideRadius">Inside radius</param>
 		public static void FillColdFormedRHS(CrossSectionParameter css, double Height, double Width, double Thickness, double InsideRadius)
 		{
-			css.CrossSectionType = CrossSectionType.RolledRHS;
-			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = Height });
-			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = Width });
+			css.CrossSectionType = CrossSectionType.CFRhs;
+			css.Parameters.Add(new ParameterDouble() { Name = "D", Value = Height });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = Width });
 			css.Parameters.Add(new ParameterDouble() { Name = "t", Value = Thickness });
 			css.Parameters.Add(new ParameterDouble() { Name = "r1", Value = InsideRadius });
 			css.Parameters.Add(new ParameterDouble() { Name = "r2", Value = InsideRadius * 2 });
