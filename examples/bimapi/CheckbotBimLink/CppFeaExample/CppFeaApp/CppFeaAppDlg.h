@@ -1,6 +1,6 @@
 #include "..\CppFeaApi\NativeFeaApi.h"
 
-// CppFeaDlg.h : header file
+// CppFeaAppDlg.h : header file
 //
 
 #pragma once

@@ -14,7 +14,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <RootNamespace>CppFea</RootNamespace>
+    <RootNamespace>CppFeaApp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -100,29 +100,29 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CppFea.h" />
-    <ClInclude Include="CppFeaDlg.h" />
+    <ClInclude Include="CppFeaApp.h" />
+    <ClInclude Include="CppFeaAppDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CppFea.cpp" />
-    <ClCompile Include="CppFeaDlg.cpp" />
+    <ClCompile Include="CppFeaApp.cpp" />
+    <ClCompile Include="CppFeaAppDlg.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="CppFea.rc" />
+    <ResourceCompile Include="CppFeaApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\CppFea.rc2" />
+    <None Include="res\CppFeaApp.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\CppFea.ico" />
+    <Image Include="res\CppFeaApp.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CppFeaApi\CppFeaApi.vcxproj">

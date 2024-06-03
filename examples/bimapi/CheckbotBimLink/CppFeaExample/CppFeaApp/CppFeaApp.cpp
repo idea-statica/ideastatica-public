@@ -1,11 +1,11 @@
 
-// CppFea.cpp : Defines the class behaviors for the application.
+// CppFeaApp.cpp : Defines the class behaviors for the application.
 //
 
 #include "pch.h"
 #include "framework.h"
-#include "CppFea.h"
-#include "CppFeaDlg.h"
+#include "CppFeaApp.h"
+#include "CppFeaAppDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

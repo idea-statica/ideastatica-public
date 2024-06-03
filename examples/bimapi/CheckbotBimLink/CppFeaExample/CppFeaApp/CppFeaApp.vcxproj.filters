@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CppFea.h">
+    <ClInclude Include="CppFeaApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CppFeaDlg.h">
+    <ClInclude Include="CppFeaAppDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
@@ -35,10 +35,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CppFea.cpp">
+    <ClCompile Include="CppFeaApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CppFeaDlg.cpp">
+    <ClCompile Include="CppFeaAppDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -46,17 +46,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="CppFea.rc">
+    <ResourceCompile Include="CppFeaApp.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\CppFea.rc2">
+    <None Include="res\CppFeaApp.rc2">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\CppFea.ico">
+    <Image Include="res\CppFeaApp.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

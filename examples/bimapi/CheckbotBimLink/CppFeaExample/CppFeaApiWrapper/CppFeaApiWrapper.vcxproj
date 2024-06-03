@@ -101,9 +101,6 @@
     <ProjectReference Include="..\CheckbotClient\CheckbotClient.csproj">
       <Project>{26027c84-abc7-49b7-9412-fd348b32f424}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\CppFea\CppFea.vcxproj">
-      <Project>{0b26f988-5b17-478d-8fdb-4c9a0a201efb}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

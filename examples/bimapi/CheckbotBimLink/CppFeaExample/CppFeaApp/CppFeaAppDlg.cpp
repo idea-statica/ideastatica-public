@@ -1,11 +1,11 @@
 
-// CppFeaDlg.cpp : implementation file
+// CppFeaAppDlg.cpp : implementation file
 //
 
 #include "pch.h"
 #include "framework.h"
-#include "CppFea.h"
-#include "CppFeaDlg.h"
+#include "CppFeaApp.h"
+#include "CppFeaAppDlg.h"
 #include "afxdialogex.h"
 #include "..\CppFeaApi\NativeFeaApi.h"
 #include "..\CppFeaApiWrapper\CheckBotControlFunctions.h"

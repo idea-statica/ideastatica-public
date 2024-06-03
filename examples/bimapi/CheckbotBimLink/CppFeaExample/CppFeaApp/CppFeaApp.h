@@ -1,5 +1,5 @@
 
-// CppFea.h : main header file for the PROJECT_NAME application
+// CppFeaApp.h : main header file for the PROJECT_NAME application
 //
 
 #pragma once
@@ -12,7 +12,7 @@
 
 
 // CCppFeaApp:
-// See CppFea.cpp for the implementation of this class
+// See CppFeaApp.cpp for the implementation of this class
 //
 
 class CCppFeaApp : public CWinApp
