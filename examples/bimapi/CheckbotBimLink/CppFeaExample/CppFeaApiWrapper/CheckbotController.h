@@ -5,8 +5,12 @@
 
 ref class CheckbotController
 {
-public:
-	void Run(NativeFeaApi* pFeaApi);
-
+private:
+	static CheckbotController^ _instance;
 	NativeFeaApi* pApi;
+
+public:
+	static CheckbotController^ Run(NativeFeaApi* pFeaApi);
+
+	
 };

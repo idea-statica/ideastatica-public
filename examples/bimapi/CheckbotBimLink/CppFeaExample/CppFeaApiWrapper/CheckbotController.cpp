@@ -3,12 +3,21 @@
 #include "..\CppFeaApi\NativeFeaApi.h"
 #include "CheckBotControlFunctions.h"
 
+
 extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi)
 {
-  return pApi->GetNodeCount();
+	CheckbotController::Run(pApi);
+  return 1;
 }
 
-void CheckbotController::Run(NativeFeaApi* pFeaApi)
+CheckbotController^ CheckbotController::Run(NativeFeaApi* pFeaApi)
 {
-	pApi = pFeaApi;
+	if (_instance != nullptr)
+	{
+		throw gcnew System::Exception("CheckbotController is already running");
+	}
+
+	_instance = gcnew CheckbotController();
+	_instance->pApi = pFeaApi;
+	return _instance;
 }
