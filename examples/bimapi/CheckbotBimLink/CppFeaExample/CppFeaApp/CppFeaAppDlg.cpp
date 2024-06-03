@@ -13,6 +13,7 @@
 #define new DEBUG_NEW
 #endif
 
+extern "C" __declspec(dllimport) int RunCheckbot(NativeFeaApi * pApi);
 
 // CAboutDlg dialog used for App About
 
@@ -160,6 +161,8 @@ void CCppFeaDlg::OnBnClickedButton1()
 	NativeFeaApi* pApi = new NativeFeaApi();
 
 	int nodeCount = pApi->GetNodeCount();
+
+	int r = RunCheckbot(pApi);
 
 	delete pApi;
 }

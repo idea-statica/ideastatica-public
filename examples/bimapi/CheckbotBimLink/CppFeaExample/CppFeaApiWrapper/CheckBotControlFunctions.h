@@ -1,8 +1,7 @@
+#pragma once
 #include "CppFeaApiWrapperDll.h"
 #include "..\CppFeaApi\NativeFeaApi.h"
 
-#pragma once
-
 extern "C" {
-	DLLEXPORT int RunCheckbot(NativeFeaApi* pApi);
+  CPPFEAAPIWRAPPER_EXPORT int RunCheckbot(NativeFeaApi* pApi);
 }

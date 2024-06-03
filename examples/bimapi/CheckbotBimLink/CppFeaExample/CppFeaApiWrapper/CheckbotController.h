@@ -3,7 +3,7 @@
 
 #pragma once
 
-class CheckbotController
+ref class CheckbotController
 {
 public:
 	void Run(NativeFeaApi* pFeaApi);
