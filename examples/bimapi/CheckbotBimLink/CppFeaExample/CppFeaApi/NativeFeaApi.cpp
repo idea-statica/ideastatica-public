@@ -14,3 +14,8 @@ NativeFeaApi::~NativeFeaApi()
 {
 	delete pNodes;
 }
+
+int NativeFeaApi::GetNodeCount()
+{
+	return 5;
+}

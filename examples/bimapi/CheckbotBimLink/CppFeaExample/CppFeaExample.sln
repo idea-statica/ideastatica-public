@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppFeaApi", "CppFeaApi\CppF
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppFeaApiWrapper", "CppFeaApiWrapper\CppFeaApiWrapper.vcxproj", "{5794D7F5-C9BB-428B-A070-056717BBB58B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppFeaApp", "CppFeaApp\CppFeaApp.vcxproj", "{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,10 @@ Global
 		{5794D7F5-C9BB-428B-A070-056717BBB58B}.Debug|x64.Build.0 = Debug|x64
 		{5794D7F5-C9BB-428B-A070-056717BBB58B}.Release|x64.ActiveCfg = Release|x64
 		{5794D7F5-C9BB-428B-A070-056717BBB58B}.Release|x64.Build.0 = Release|x64
+		{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}.Debug|x64.ActiveCfg = Debug|x64
+		{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}.Debug|x64.Build.0 = Debug|x64
+		{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}.Release|x64.ActiveCfg = Release|x64
+		{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,5 +9,7 @@ public:
 	~NativeFeaApi();
 
 	NativeFeaNode* pNodes;
+
+	int GetNodeCount();
 };
 

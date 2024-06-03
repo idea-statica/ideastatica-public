@@ -8,7 +8,6 @@
 #include "CppFeaAppDlg.h"
 #include "afxdialogex.h"
 #include "..\CppFeaApi\NativeFeaApi.h"
-#include "..\CppFeaApiWrapper\CheckBotControlFunctions.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -156,33 +155,11 @@ HCURSOR CCppFeaDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
-
 void CCppFeaDlg::OnBnClickedButton1()
 {
 	NativeFeaApi* pApi = new NativeFeaApi();
 
-	HINSTANCE hModule = LoadLibrary(L"CppFeaApiWrapper.dll");
+	int nodeCount = pApi->GetNodeCount();
 
-	if (hModule != NULL) {
-		typedef void* (*CreateMyClassInstancePtr)(NativeFeaApi*);
-		CreateMyClassInstancePtr createInstanceFunc =
-			(CreateMyClassInstancePtr)GetProcAddress(hModule, "RunCheckbot");
-
-		if (createInstanceFunc != NULL) {
-			createInstanceFunc(pApi);
-		}
-
-	}
-
-
-	// TODO: Add your control notification handler code here
-	
-
-	//CheckbotController* pCheckbotController = new CheckbotController();
-	//pCheckbotController->Run(pApi);
-	//pCheckbotController->Run();
-
-	//delete pCheckbotController;
 	delete pApi;
 }
