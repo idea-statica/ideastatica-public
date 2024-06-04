@@ -5,12 +5,12 @@ namespace CppFeaApiWrapper
 {
 	namespace Importers
 	{
-		MatrialImporter::MatrialImporter(ImporterContext^ context)
+		MaterialImporter::MaterialImporter(ImporterContext^ context)
 		{
 			this->context = context;
 		}
 
-		IIdeaMaterial^ MatrialImporter::Create(int id)
+		IIdeaMaterial^ MaterialImporter::Create(int id)
 		{
 			IdeaMaterialByName^ mat = gcnew IdeaMaterialByName(id);
 			mat->Name = "S 355";

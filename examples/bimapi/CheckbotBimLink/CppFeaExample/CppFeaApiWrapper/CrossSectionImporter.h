@@ -12,15 +12,15 @@ namespace CppFeaApiWrapper
 {
 	namespace Importers
 	{
-		public ref class MaterialImporter : MaterialImporterBase
+		public ref class CrossSectionImporter : CrossSectionImporterBase
 		{
 		private:
 			ImporterContext^ context;
 
 		public:
-			MaterialImporter(ImporterContext^ context);
+			CrossSectionImporter(ImporterContext^ context);
 
-			virtual IIdeaMaterial^ Create(int id) override;
+			virtual IIdeaCrossSection^ Create(int id) override;
 		};
 	}
 }
