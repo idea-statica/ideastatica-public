@@ -105,6 +105,9 @@
     <ProjectReference Include="..\CppFeaApi\CppFeaApi.vcxproj">
       <Project>{ec43c2b9-143e-4dda-8b27-f52046f7564e}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ImporterWrappers\ImporterWrappers.csproj">
+      <Project>{17f08c67-2861-4b5c-9c87-ee0691d0d62f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="IdeaStatica.BimApiLink">

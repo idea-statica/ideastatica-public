@@ -5,13 +5,6 @@ namespace CppFeaApiWrapper
 {
 	namespace Importers
 	{
-		//IdeaStatiCa::BimApi::IIdeaNode^ NodeImporter::Create(int id)
-		//{
-		//	base::Create(id);
-		//	throw gcnew System::NotImplementedException();
-		//	// TODO: insert return statement here
-		//}
-
 		NodeImporter::NodeImporter(ImporterContext^ context)
 		{
 			this->context = context;
@@ -30,14 +23,6 @@ namespace CppFeaApiWrapper
 			IdeaNode^ node = gcnew IdeaNode(id);
 			node->Vector = v;
 			return node;
-		}
-
-
-		
-
-		IIdeaNode^ Create(IdeaStatiCa::BimApiLink::Identifiers::Identifier<IIdeaNode^>^ identifier)
-		{
-			return nullptr;
 		}
 	}
 }

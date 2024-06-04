@@ -7,6 +7,7 @@ using namespace IdeaStatiCa::BimApiLink;
 using namespace IdeaStatiCa::BimApiLink::Importers;
 using namespace IdeaStatiCa::BimApiLink::BimApi;
 using namespace IdeaStatiCa::BimApiLink::Identifiers;
+using namespace ImporterWrappers;
 
 namespace CppFeaApiWrapper
 {
@@ -20,7 +21,7 @@ namespace CppFeaApiWrapper
     //};
 
 
-    public ref class NodeImporter : public IntIdentifierImporter<IIdeaNode^>
+    public ref class NodeImporter : public NodeImporterBase
     {
     private:
       ImporterContext^ context;
@@ -29,10 +30,7 @@ namespace CppFeaApiWrapper
     public:
       NodeImporter(ImporterContext^ context);
 
-      
       virtual IIdeaNode^ Create(int id) override;
-
-      virtual IIdeaNode^ Create(IdeaStatiCa::BimApiLink::Identifiers::Identifier<IIdeaNode^>^) override;
     };
   }
 }
