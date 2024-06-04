@@ -87,6 +87,7 @@
     <ClInclude Include="CheckBotControlFunctions.h" />
     <ClInclude Include="CheckbotController.h" />
     <ClInclude Include="CppFeaApiWrapperDll.h" />
+    <ClInclude Include="CrossSectionByName.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ImporterContext.h" />
     <ClInclude Include="Member1D.h" />
@@ -96,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CheckbotController.cpp" />
+    <ClCompile Include="CrossSectionByName.cpp" />
     <ClCompile Include="ImporterContext.cpp" />
     <ClCompile Include="Member1D.cpp" />
     <ClCompile Include="NodeImporter.cpp" />
