@@ -1,16 +1,17 @@
-#include "CppFeaApiWrapperDll.h"
-#include "..\CppFeaApi\NativeFeaApi.h"
-
 #pragma once
 
-ref class CheckbotController
+#include "..\CppFeaApi\NativeFeaApi.h"
+
+
+namespace CppFeaApiWrapper
 {
-private:
-	static CheckbotController^ _instance;
-	NativeFeaApi* pApi;
+	ref class CheckbotController
+	{
+	private:
+		static CheckbotController^ _instance;
+		NativeFeaApi* pApi;
 
-public:
-	static CheckbotController^ Run(NativeFeaApi* pFeaApi);
-
-	
-};
+	public:
+		static CheckbotController^ Run(NativeFeaApi* pFeaApi);
+	};
+}

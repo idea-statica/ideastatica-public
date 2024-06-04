@@ -159,15 +159,16 @@ HCURSOR CCppFeaDlg::OnQueryDragIcon()
 
 void CCppFeaDlg::OnBnClickedButton1()
 {
+	// create an instance of FEA API (it represents model from native FEA application)
 	NativeFeaApi* pApi = new NativeFeaApi();
 
-	NativeFeaGeometry* geom = pApi->GetGeometry();
-	std::vector<int> memberIds = geom->GetMembersIdentifiers();
-	std::vector<int> nodesIds = geom->GetNodesIdentifiers();
+	//NativeFeaGeometry* geom = pApi->GetGeometry();
+	//std::vector<int> memberIds = geom->GetMembersIdentifiers();
+	//std::vector<int> nodesIds = geom->GetNodesIdentifiers();
 
-	NativeFeaNode* node = geom->GetNode(3);
+	//NativeFeaNode* node = geom->GetNode(3);
 
-
+	// run checkbot and pass API of the native FEA application
 	int r = RunCheckbot(pApi);
 
 	delete pApi;
