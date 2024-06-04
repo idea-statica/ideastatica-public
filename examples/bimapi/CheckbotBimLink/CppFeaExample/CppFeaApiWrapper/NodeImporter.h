@@ -13,14 +13,6 @@ namespace CppFeaApiWrapper
 {
   namespace Importers
   {
-    //public ref class NodeImporter : public IntIdentifierImporter<IIdeaNode^>
-    //{
-    //public:
-    //  // Inherited via IntIdentifierImporter
-    //  IdeaStatiCa::BimApi::IIdeaNode^ Create(int id) override;
-    //};
-
-
     public ref class NodeImporter : public NodeImporterBase
     {
     private:

@@ -45,6 +45,9 @@
     <ClInclude Include="ImporterContext.h">
       <Filter>CheckbotController</Filter>
     </ClInclude>
+    <ClInclude Include="Segment3D.h">
+      <Filter>BimApi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -58,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="ImporterContext.cpp">
       <Filter>CheckbotController</Filter>
+    </ClCompile>
+    <ClCompile Include="Segment3D.cpp">
+      <Filter>BimApi</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
