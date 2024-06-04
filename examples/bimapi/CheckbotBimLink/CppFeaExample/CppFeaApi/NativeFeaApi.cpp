@@ -6,16 +6,15 @@ using namespace std;
 
 NativeFeaApi::NativeFeaApi()
 {
-	pNodes = new NativeFeaNode[5];
-
+	pFeaGeometry = new NativeFeaGeometry();
 }
 
 NativeFeaApi::~NativeFeaApi()
 {
-	delete pNodes;
+	delete pFeaGeometry;
 }
 
-int NativeFeaApi::GetNodeCount()
+NativeFeaGeometry* NativeFeaApi::GetGeometry()
 {
-	return 5;
+	return pFeaGeometry;
 }

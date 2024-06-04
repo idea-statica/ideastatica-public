@@ -55,6 +55,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -72,6 +73,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -99,6 +101,17 @@
     <ProjectReference Include="..\CppFeaApi\CppFeaApi.vcxproj">
       <Project>{ec43c2b9-143e-4dda-8b27-f52046f7564e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="IdeaStatica.BimApiLink">
+      <Version>24.0.1.1243</Version>
+    </PackageReference>
+    <PackageReference Include="IdeaStatiCa.Plugin">
+      <Version>24.0.1.1243</Version>
+    </PackageReference>
+    <PackageReference Include="MathNet.Spatial">
+      <Version>0.6.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

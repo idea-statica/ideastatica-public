@@ -1,7 +1,8 @@
+#pragma once
 #include "CppFeaApiDll.h"
 
-#pragma once
-class DLLEXPORT NativeFeaNode
+
+class CPPFEAAPIDLL_EXPORT NativeFeaNode
 {
 public:
 	NativeFeaNode();
@@ -12,4 +13,3 @@ public:
 	double Y;
 	double Z;
 };
-

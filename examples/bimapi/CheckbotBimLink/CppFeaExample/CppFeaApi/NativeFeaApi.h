@@ -1,15 +1,17 @@
-#include "CppFeaApiDll.h"
-#include "NativeFeaNode.h"
 #pragma once
+#include "CppFeaApiDll.h"
+#include "NativeFeaGeometry.h"
 
-class DLLEXPORT NativeFeaApi
+
+class CPPFEAAPIDLL_EXPORT NativeFeaApi
 {
+private:
+	NativeFeaGeometry* pFeaGeometry;
+
 public:
 	NativeFeaApi();
 	~NativeFeaApi();
 
-	NativeFeaNode* pNodes;
-
-	int GetNodeCount();
+	NativeFeaGeometry* GetGeometry();
 };
 

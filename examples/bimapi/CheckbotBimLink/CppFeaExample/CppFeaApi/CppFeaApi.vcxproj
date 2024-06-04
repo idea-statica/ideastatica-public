@@ -55,6 +55,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -72,6 +73,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -85,12 +87,16 @@
     <ClInclude Include="CppFeaApiDll.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="NativeFeaApi.h" />
+    <ClInclude Include="NativeFeaGeometry.h" />
+    <ClInclude Include="NativeFeaMember.h" />
     <ClInclude Include="NativeFeaNode.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="NativeFeaApi.cpp" />
+    <ClCompile Include="NativeFeaGeometry.cpp" />
+    <ClCompile Include="NativeFeaMember.cpp" />
     <ClCompile Include="NativeFeaNode.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

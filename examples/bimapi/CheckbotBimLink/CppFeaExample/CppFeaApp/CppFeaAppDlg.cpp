@@ -8,6 +8,7 @@
 #include "CppFeaAppDlg.h"
 #include "afxdialogex.h"
 #include "..\CppFeaApi\NativeFeaApi.h"
+#include <vector>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -160,7 +161,12 @@ void CCppFeaDlg::OnBnClickedButton1()
 {
 	NativeFeaApi* pApi = new NativeFeaApi();
 
-	int nodeCount = pApi->GetNodeCount();
+	NativeFeaGeometry* geom = pApi->GetGeometry();
+	std::vector<int> memberIds = geom->GetMembersIdentifiers();
+	std::vector<int> nodesIds = geom->GetNodesIdentifiers();
+
+	NativeFeaNode* node = geom->GetNode(3);
+
 
 	int r = RunCheckbot(pApi);
 
