@@ -2,8 +2,10 @@
 #include "..\CppFeaApi\NativeFeaApi.h"
 #include "ImporterContext.h"
 
+using namespace System;
 using namespace Autofac;
 using namespace IdeaStatiCa::Plugin;
+
 
 namespace CppFeaApiWrapper
 {
@@ -11,11 +13,16 @@ namespace CppFeaApiWrapper
 	{
 	private:
 		static CheckbotController^ _instance;
-		NativeFeaApi* pApi;
+		static NativeFeaApi* pApi;
+		static IContainer^ container;
 
 	public:
 		static CheckbotController^ Run(NativeFeaApi* pFeaApi);
 
 		static IContainer^ BuildContainer(IProgressMessaging^ messagingService, ImporterContext^ feaApi);
+
+		static void RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger);
+
+		static void RegisterImporters(IdeaStatiCa::BimApiLink::ImportersConfiguration^ config);
 	};
 }

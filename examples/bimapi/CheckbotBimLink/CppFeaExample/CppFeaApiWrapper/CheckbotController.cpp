@@ -32,6 +32,69 @@ namespace CppFeaApiWrapper
 		return _instance;
 	}
 
+	void CheckbotController::RegisterImporters(IdeaStatiCa::BimApiLink::ImportersConfiguration^ config)
+	{
+		config->RegisterContainer(gcnew AutofacServiceProvider(container));
+	}
+
+	void CheckbotController::RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger)
+	{
+		if (logger == nullptr)
+		{
+			throw gcnew System::ArgumentNullException("logger");
+		}
+
+		logger->LogInformation("Starting plugin with checkbot location " + checkbotLocation);
+
+		System::String^ workingDirectory = "c:\\x";
+
+		if (!System::IO::Directory::Exists(workingDirectory))
+		{
+			logger->LogInformation("Creating a new project dir '" + workingDirectory + "'");
+			System::IO::Directory::CreateDirectory(workingDirectory);
+		}
+		else
+		{
+			logger->LogInformation("Using an existing project dir '" + workingDirectory + "'");
+		}
+
+		try
+		{
+			GrpcBimHostingFactory^ bimHostingFactory = gcnew GrpcBimHostingFactory();
+
+			IProgressMessaging^ messagingService = bimHostingFactory->InitGrpcClient(logger);
+
+			container = BuildContainer(messagingService, nullptr);
+
+			Model::Model^ model = ResolutionExtensions::Resolve<Model::Model^>(container);
+
+			AutofacServiceProvider^ provider = gcnew AutofacServiceProvider(container);
+
+			Action<ImportersConfiguration^>^ registerImportersAction = nullptr;
+			registerImportersAction = gcnew Action<IdeaStatiCa::BimApiLink::ImportersConfiguration^>(&CheckbotController::RegisterImporters);
+
+			BimLink^ bimLink = FeaBimLink::Create("My application name", workingDirectory)
+				->WithIdeaStatiCa(checkbotLocation)
+				->WithImporters(registerImportersAction)
+				->WithLogger(logger)
+				->WithBimHostingFactory(bimHostingFactory);
+
+			BimLinkExtension::Run(bimLink, model);
+
+			//FeaBimLink::Create("My application name", workingDirectory)
+			//	->WithIdeaStatiCa(checkbotLocation)
+			//	->WithImporters(gcnew System::Action<Autofac::ContainerBuilder^>([&](Autofac::ContainerBuilder^ x) { x->RegisterContainer(gcnew Autofac::ServiceProvider(container)); }))
+			//	->WithLogger(logger)
+			//	->WithBimHostingFactory(bimHostingFactory)
+			//	->Run(model);
+		}
+		catch (System::Exception^ ex)
+		{
+			logger->LogError("BimApi failed", ex);
+			throw;
+		}
+	}
+
 	IContainer^ CheckbotController::BuildContainer(IProgressMessaging^ messagingService, ImporterContext^ context)
 	{
 		ContainerBuilder^ builder = gcnew ContainerBuilder();
