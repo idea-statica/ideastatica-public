@@ -48,6 +48,15 @@
     <ClInclude Include="Segment3D.h">
       <Filter>BimApi</Filter>
     </ClInclude>
+    <ClInclude Include="CrossSectionByName.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Member1D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -64,6 +73,15 @@
     </ClCompile>
     <ClCompile Include="Segment3D.cpp">
       <Filter>BimApi</Filter>
+    </ClCompile>
+    <ClCompile Include="CrossSectionByName.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Member1D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialImporter.cpp">
+      <Filter>Importers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
