@@ -93,6 +93,7 @@
     <ClInclude Include="ImporterContext.h" />
     <ClInclude Include="MaterialImporter.h" />
     <ClInclude Include="Member1D.h" />
+    <ClInclude Include="MemberImporter.h" />
     <ClInclude Include="NodeImporter.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Segment3D.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="ImporterContext.cpp" />
     <ClCompile Include="MaterialImporter.cpp" />
     <ClCompile Include="Member1D.cpp" />
+    <ClCompile Include="MemberImporter.cpp" />
     <ClCompile Include="NodeImporter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

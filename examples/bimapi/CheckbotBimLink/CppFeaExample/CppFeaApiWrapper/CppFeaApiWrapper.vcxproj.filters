@@ -60,6 +60,9 @@
     <ClInclude Include="Member1D.h">
       <Filter>BimApi</Filter>
     </ClInclude>
+    <ClInclude Include="MemberImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="Member1D.cpp">
       <Filter>BimApi</Filter>
+    </ClCompile>
+    <ClCompile Include="MemberImporter.cpp">
+      <Filter>Importers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
