@@ -129,6 +129,9 @@
     <Image Include="res\CppFeaApp.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CppFeaApiWrapper\CppFeaApiWrapper.vcxproj">
+      <Project>{5794d7f5-c9bb-428b-a070-056717bbb58b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\CppFeaApi\CppFeaApi.vcxproj">
       <Project>{ec43c2b9-143e-4dda-8b27-f52046f7564e}</Project>
     </ProjectReference>
