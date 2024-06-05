@@ -16,6 +16,7 @@
 #endif
 
 extern "C" __declspec(dllimport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath);
+extern "C" __declspec(dllimport) int ReleaseCheckbot();
 
 // CAboutDlg dialog used for App About
 
@@ -159,7 +160,15 @@ void CCppFeaDlg::OnPaint()
 
 void CCppFeaDlg::OnClose()
 {
-	
+	if (m_checkbotStatus == 1)
+	{
+		ReleaseCheckbot();
+		delete pApi;
+		pApi = nullptr;
+
+		m_checkbotStatus = 0;
+	}
+
 	CDialogEx::OnClose();
 }
 
@@ -173,6 +182,12 @@ HCURSOR CCppFeaDlg::OnQueryDragIcon()
 
 void CCppFeaDlg::OnBnClickedButton1()
 {
+	if (m_checkbotStatus == 1)
+	{
+		// checkbot is already running
+		return;
+	}
+
 	// create an instance of FEA API (it represents model from native FEA application)
 	NativeFeaApi* pApi = new NativeFeaApi();
 
@@ -181,7 +196,6 @@ void CCppFeaDlg::OnBnClickedButton1()
 
 	std::wstring checkBotPath(m_checkbotPath.GetString());
 
-
 	//NativeFeaGeometry* geom = pApi->GetGeometry();
 	//std::vector<int> memberIds = geom->GetMembersIdentifiers();
 	//std::vector<int> nodesIds = geom->GetNodesIdentifiers();
@@ -189,5 +203,5 @@ void CCppFeaDlg::OnBnClickedButton1()
 	//NativeFeaNode* node = geom->GetNode(3);
 
 	// run checkbot and pass API of the native FEA application
-	int r = RunCheckbot(pApi, checkBotPath);
+	m_checkbotStatus = RunCheckbot(pApi, checkBotPath);
 }

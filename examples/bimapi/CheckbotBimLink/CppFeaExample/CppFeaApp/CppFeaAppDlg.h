@@ -28,6 +28,7 @@ protected:
 	NativeFeaApi* pApi;
 	CString m_checkbotPath;
 	CString m_feaProjectPath;
+	int m_checkbotStatus = 0;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();

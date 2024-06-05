@@ -5,4 +5,5 @@
 
 extern "C" {
   CPPFEAAPIWRAPPER_EXPORT int RunCheckbot(NativeFeaApi* pApi, std::wstring checkBotPath);
+  CPPFEAAPIWRAPPER_EXPORT int ReleaseCheckbot();
 }

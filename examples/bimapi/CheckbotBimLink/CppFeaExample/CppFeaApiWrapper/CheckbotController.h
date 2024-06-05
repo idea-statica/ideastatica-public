@@ -9,20 +9,25 @@ using namespace IdeaStatiCa::Plugin;
 
 namespace CppFeaApiWrapper
 {
-	ref class CheckbotController
+	ref class CheckbotController 
 	{
 	private:
 		static CheckbotController^ _instance;
-		static NativeFeaApi* pApi;
-		static IContainer^ container;
+		IContainer^ container;
+		ImporterContext^ context;
+		IdeaStatiCa::BimApiLink::BimLink^ bimLink;
+		bool disposed; // to detect redundant calls
 
-	public:
-		static CheckbotController^ Run(String^ checkbotLocation, NativeFeaApi* pFeaApi);
-
+		void RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger);
+		void RegisterImporters(IdeaStatiCa::BimApiLink::ImportersConfiguration^ config);
 		static IContainer^ BuildContainer(IProgressMessaging^ messagingService, ImporterContext^ feaApi);
 
-		static void RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger);
+	public:
+		CheckbotController();
+		~CheckbotController();
 
-		static void RegisterImporters(IdeaStatiCa::BimApiLink::ImportersConfiguration^ config);
+		static CheckbotController^ Run(String^ checkbotLocation, NativeFeaApi* pFeaApi);
+		static void Release();
+
 	};
 }

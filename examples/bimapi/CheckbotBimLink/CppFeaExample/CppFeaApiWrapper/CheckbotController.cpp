@@ -14,14 +14,46 @@ using namespace Autofac::Extensions::DependencyInjection;
 
 extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath)
 {
-	String^ checkbotPath = gcnew System::String(checkBotPath.c_str());
+	try
+	{
+		String^ checkbotPath = gcnew System::String(checkBotPath.c_str());
 
-	CppFeaApiWrapper::CheckbotController::Run(checkbotPath, pApi);
-  return 1;
+		CppFeaApiWrapper::CheckbotController::Run(checkbotPath, pApi);
+		return 1;
+	}
+	catch (System::Exception^ ex)
+	{
+
+		return 0;
+	}
+}
+
+extern "C" __declspec(dllexport) int ReleaseCheckbot()
+{
+	try
+	{
+		CppFeaApiWrapper::CheckbotController::Release();
+		return 1;
+	}
+	catch (System::Exception^ ex)
+	{
+
+		return 0;
+	}
 }
 
 namespace CppFeaApiWrapper
 {
+
+	CheckbotController::CheckbotController()
+	{
+	}
+
+	CheckbotController::~CheckbotController()
+	{
+	}
+
+
 	CheckbotController^ CheckbotController::Run(String^ checkbotLocation, NativeFeaApi* pFeaApi)
 	{
 		if (_instance != nullptr)
@@ -29,14 +61,21 @@ namespace CppFeaApiWrapper
 			throw gcnew System::Exception("CheckbotController is already running");
 		}
 
+		ImporterContext^ context = gcnew ImporterContext(pFeaApi);
+
 		_instance = gcnew CheckbotController();
-		_instance->pApi = pFeaApi;
-
-		ImporterContext^ context = gcnew ImporterContext(pApi);
-
-		CheckbotController::RunCheckbot(checkbotLocation, context, nullptr);
+		_instance->RunCheckbot(checkbotLocation, context, nullptr);
 
 		return _instance;
+	}
+
+	void CheckbotController::Release()
+	{
+		if (_instance != nullptr)
+		{
+			delete _instance;
+			_instance = nullptr;
+		}
 	}
 
 	void CheckbotController::RegisterImporters(IdeaStatiCa::BimApiLink::ImportersConfiguration^ config)
@@ -46,6 +85,8 @@ namespace CppFeaApiWrapper
 
 	void CheckbotController::RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger)
 	{
+		this->context = context;
+
 		if(logger == nullptr)
 		{
 			logger = gcnew NullLogger();
@@ -78,15 +119,17 @@ namespace CppFeaApiWrapper
 			AutofacServiceProvider^ provider = gcnew AutofacServiceProvider(container);
 
 			Action<ImportersConfiguration^>^ registerImportersAction = nullptr;
-			registerImportersAction = gcnew Action<IdeaStatiCa::BimApiLink::ImportersConfiguration^>(&CheckbotController::RegisterImporters);
+			registerImportersAction = gcnew Action<IdeaStatiCa::BimApiLink::ImportersConfiguration^>(this, &CheckbotController::RegisterImporters);
 
-			BimLink^ bimLink = FeaBimLink::Create("My application name", workingDirectory)
+			String^ feaName = gcnew System::String(context->GetApi()->GetFeaName().c_str());
+
+			this->bimLink = FeaBimLink::Create(feaName, workingDirectory)
 				->WithIdeaStatiCa(checkbotLocation)
 				->WithImporters(registerImportersAction)
 				->WithLogger(logger)
 				->WithBimHostingFactory(bimHostingFactory);
 
-			BimLinkExtension::Run(bimLink, model);
+			BimLinkExtension::Run(this->bimLink, model);
 		}
 		catch (System::Exception^ ex)
 		{

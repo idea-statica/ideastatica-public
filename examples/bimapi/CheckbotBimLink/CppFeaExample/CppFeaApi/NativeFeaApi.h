@@ -18,5 +18,6 @@ public:
 
 	std::wstring GetProjectPath();
 	void SetProjectPath(std::wstring path);
+	std::wstring GetFeaName();
 };
 

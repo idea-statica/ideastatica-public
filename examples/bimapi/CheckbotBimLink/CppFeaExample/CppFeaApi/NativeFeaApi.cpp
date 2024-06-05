@@ -28,3 +28,8 @@ void NativeFeaApi::SetProjectPath(std::wstring path)
 {
 	projectPath = path;
 }
+
+std::wstring NativeFeaApi::GetFeaName()
+{
+	return L"NativeFeaApi";
+}
