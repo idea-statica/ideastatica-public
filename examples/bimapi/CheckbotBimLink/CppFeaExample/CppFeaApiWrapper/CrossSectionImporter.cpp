@@ -15,8 +15,10 @@ namespace CppFeaApiWrapper
 		IIdeaCrossSection^ CrossSectionImporter::Create(int id)
 		{
 			CppFeaApiWrapper::BimApi::CrossSectionByName^ css = gcnew CppFeaApiWrapper::BimApi::CrossSectionByName(id);
-			return css;
+			css->MaterialNo = 1;
+			css->Name = "IPE200";
 
+			return css;
 		}
 	}
 }

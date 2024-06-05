@@ -14,7 +14,8 @@ namespace CppFeaApiWrapper
 		public:
 			CrossSectionByName(int no);
 
-			property IdeaStatiCa::BimApi::IIdeaMaterial^ Material {
+			property IdeaStatiCa::BimApi::IIdeaMaterial^ Material
+			{
 				IdeaStatiCa::BimApi::IIdeaMaterial^ get() override {
 					return Get<IIdeaMaterial^>(MaterialNo);
 				}

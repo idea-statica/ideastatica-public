@@ -8,5 +8,7 @@ namespace CppFeaApiWrapper
 		Member1D::Member1D(int id) : IdeaMember1D(id)
 		{
 		}
+
+
 	}
 }

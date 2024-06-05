@@ -8,13 +8,21 @@ namespace CppFeaApiWrapper
 	{
 		public ref class Member1D : IdeaMember1D
 		{
+		private:
+			int crossSectionNo;
+
 		public:
 			Member1D(int no);
 
 		public:
-			property int CrossSectionNo;
+			property int CrossSectionNo
+			{
+				int get() { return crossSectionNo; }
+				void set(int value) { crossSectionNo = value; }
+			}
 
-			virtual property IdeaStatiCa::BimApi::IIdeaCrossSection^ CrossSection {
+			virtual property IdeaStatiCa::BimApi::IIdeaCrossSection^ CrossSection
+			{
 				IdeaStatiCa::BimApi::IIdeaCrossSection^ get() override {
 					return Get<IdeaStatiCa::BimApi::IIdeaCrossSection^>(CrossSectionNo);
 				}
