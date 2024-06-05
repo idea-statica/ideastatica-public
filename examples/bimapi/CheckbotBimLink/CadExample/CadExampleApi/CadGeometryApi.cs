@@ -2,6 +2,7 @@
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Spatial.Euclidean;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace BimApiLinkCadExample.CadExampleApi
@@ -29,6 +30,10 @@ namespace BimApiLinkCadExample.CadExampleApi
 		IEnumerable<CadWeld> GetAllWelds();
 
 		IEnumerable<CadCutByPart> GetAllCuts();
+
+		IEnumerable<CadCutByPart> GetMemberCuts(int memberId);
+
+		IEnumerable<CadCutByPart> GetPlateCuts(int plateId);
 
 		IEnumerable<CadBoltGrid> GetAllBoltGrids();
 
@@ -60,9 +65,7 @@ namespace BimApiLinkCadExample.CadExampleApi
 		private List<CadPlate> _plates = new List<CadPlate>();
 		private List<CadWeld> _welds = new List<CadWeld>();
 		private List<CadBoltGrid> _boltGrids = new List<CadBoltGrid>();
-		private List<CadCutByPart> _cutByPart = new List<CadCutByPart>();
-		
-		
+		private List<CadCutByPart> _cutByParts = new List<CadCutByPart>();
 		private List<CadMaterial> _materials = new List<CadMaterial>();
 		private List<CadCrossSection> _crossSections = new List<CadCrossSection>();
 
@@ -174,6 +177,31 @@ namespace BimApiLinkCadExample.CadExampleApi
 			CadPlate plate = new CadPlate(outline, "S 355", 0.020, id++);
 
 			_plates.Add(plate);
+			//Add the cut of the plate and the member
+			_cutByParts.Add(new CadCutByPart(beam, plate, id++) { IsMemberYAxisContourCut = false });
+
+			//ADDING NEGATIVE PLATE FOR CUT THROUGH MEMBER
+			CadPlane3D np_plane = new CadPlane3D(new CadPoint3D(-1.75, 3.0, 3.0),
+				new CadVector3D(0, 0, 1),
+				new CadVector3D(-1, 0, 0),
+				new CadVector3D(0, -1, 0));
+
+			List<CadPoint2D> np_polyLine = new List<CadPoint2D>
+			{
+				new CadPoint2D(-0.05, -0.05),
+				new CadPoint2D(0.05, -0.05),
+				new CadPoint2D(0.05, 0.05),
+				new CadPoint2D(-0.05, 0.05),
+				new CadPoint2D(-0.05, -0.05)
+			};
+			CadOutline2D np_outline = new CadOutline2D(np_plane, np_polyLine);
+
+			//Material is set as dumby but is not required.
+			CadPlate np_plate = new CadPlate(np_outline, "S 355", 0.050, id++) { IsNegativeObject = true };
+
+			//Add the plate and the cut aswell
+			_plates.Add(np_plate);
+			_cutByParts.Add(new CadCutByPart(beam, np_plate, id++) { IsMemberYAxisContourCut = true });
 
 			//ADDING BOLT GRIDS
 			var positions = new List<CadPoint2D>() {
@@ -184,9 +212,6 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 			var connectedItems = new List<IConnectedPart>() { column, plate };
 			_boltGrids.Add(new CadBoltGrid("S500", "M16", plane, positions, connectedItems, id++));
-
-			//ADD CUTS
-			_cutByPart.Add(new CadCutByPart(beam, plate, id++));
 
 		}
 
@@ -203,7 +228,7 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 			connectionItems.AddRange(_plates);
 			connectionItems.AddRange(_boltGrids);
-			connectionItems.AddRange(_cutByPart);
+			connectionItems.AddRange(_cutByParts);
 
 			return connectionItems;
 		}
@@ -212,7 +237,7 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 		public IEnumerable<CadBoltGrid> GetAllBoltGrids() => _boltGrids;
 
-		public IEnumerable<CadCutByPart> GetAllCuts() => _cutByPart;
+		public IEnumerable<CadCutByPart> GetAllCuts() => _cutByParts;
 
 		public IEnumerable<CadPlate> GetAllPlates() => _plates;
 
@@ -227,7 +252,7 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 		public CadWeld GetWeld(int id) => _welds.FirstOrDefault(m => m.Id == id);
 
-		public CadCutByPart GetCutByPart(int id) => _cutByPart.FirstOrDefault(m => m.Id == id);
+		public CadCutByPart GetCutByPart(int id) => _cutByParts.FirstOrDefault(m => m.Id == id);
 
 		public CadObject GetObjectById(int id)
 		{
@@ -252,6 +277,32 @@ namespace BimApiLinkCadExample.CadExampleApi
 				return cutByPart;
 
 			throw new System.Exception("Item was not found for id: " + id);
+		}
+
+		public IEnumerable<CadCutByPart> GetMemberCuts(int memberId)
+		{
+			List<CadCutByPart> cutsOnMember = new List<CadCutByPart>();
+
+			foreach (var cut in _cutByParts)
+			{
+				if(cut.PartToCut.PartId == memberId)
+					cutsOnMember.Add(cut);
+			}
+
+			return cutsOnMember;
+		}
+
+		public IEnumerable<CadCutByPart> GetPlateCuts(int plateId)
+		{
+			List<CadCutByPart> cutsOnPlate = new List<CadCutByPart>();
+
+			foreach (var cut in _cutByParts)
+			{
+				if (cut.PartToCut.PartId == plateId)
+					cutsOnPlate.Add(cut);
+			}
+
+			return cutsOnPlate;
 		}
 	}
 }
