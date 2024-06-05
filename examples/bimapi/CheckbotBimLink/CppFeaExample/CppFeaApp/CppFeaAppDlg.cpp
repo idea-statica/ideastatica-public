@@ -9,12 +9,13 @@
 #include "afxdialogex.h"
 #include "..\CppFeaApi\NativeFeaApi.h"
 #include <vector>
+#include <string>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-extern "C" __declspec(dllimport) int RunCheckbot(NativeFeaApi * pApi);
+extern "C" __declspec(dllimport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath);
 
 // CAboutDlg dialog used for App About
 
@@ -57,11 +58,16 @@ CCppFeaDlg::CCppFeaDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_CPPFEA_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_checkbotPath = _T("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.0\\IdeaCheckbot.exe");
+	m_feaProjectPath = _T("C:\\x\\CppProject");
 }
 
 void CCppFeaDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+
+	DDX_Text(pDX, IDC_CHECKBOT_PATH, m_checkbotPath);
+	DDX_Text(pDX, IDC_FEA_PROJECT_PATH, m_feaProjectPath);
 }
 
 BEGIN_MESSAGE_MAP(CCppFeaDlg, CDialogEx)
@@ -162,6 +168,12 @@ void CCppFeaDlg::OnBnClickedButton1()
 	// create an instance of FEA API (it represents model from native FEA application)
 	NativeFeaApi* pApi = new NativeFeaApi();
 
+	std::wstring feaProject(m_feaProjectPath.GetString());
+	pApi->SetProjectPath(feaProject);
+
+	std::wstring checkBotPath(m_checkbotPath.GetString());
+
+
 	//NativeFeaGeometry* geom = pApi->GetGeometry();
 	//std::vector<int> memberIds = geom->GetMembersIdentifiers();
 	//std::vector<int> nodesIds = geom->GetNodesIdentifiers();
@@ -169,7 +181,7 @@ void CCppFeaDlg::OnBnClickedButton1()
 	//NativeFeaNode* node = geom->GetNode(3);
 
 	// run checkbot and pass API of the native FEA application
-	int r = RunCheckbot(pApi);
+	int r = RunCheckbot(pApi, checkBotPath);
 
 	delete pApi;
 }

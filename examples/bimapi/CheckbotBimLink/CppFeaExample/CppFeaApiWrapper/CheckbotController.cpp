@@ -12,15 +12,17 @@ using namespace CppFeaApiWrapper::Importers;
 using namespace Autofac;
 using namespace Autofac::Extensions::DependencyInjection;
 
-extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi)
+extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath)
 {
-	CppFeaApiWrapper::CheckbotController::Run(pApi);
+	String^ checkbotPath = gcnew System::String(checkBotPath.c_str());
+
+	CppFeaApiWrapper::CheckbotController::Run(checkbotPath, pApi);
   return 1;
 }
 
 namespace CppFeaApiWrapper
 {
-	CheckbotController^ CheckbotController::Run(NativeFeaApi* pFeaApi)
+	CheckbotController^ CheckbotController::Run(String^ checkbotLocation, NativeFeaApi* pFeaApi)
 	{
 		if (_instance != nullptr)
 		{
@@ -29,6 +31,11 @@ namespace CppFeaApiWrapper
 
 		_instance = gcnew CheckbotController();
 		_instance->pApi = pFeaApi;
+
+		ImporterContext^ context = gcnew ImporterContext(pApi);
+
+		CheckbotController::RunCheckbot(checkbotLocation, context, nullptr);
+
 		return _instance;
 	}
 
@@ -39,23 +46,23 @@ namespace CppFeaApiWrapper
 
 	void CheckbotController::RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger)
 	{
-		if (logger == nullptr)
+		if(logger == nullptr)
 		{
-			throw gcnew System::ArgumentNullException("logger");
+			logger = gcnew NullLogger();
 		}
 
-		logger->LogInformation("Starting plugin with checkbot location " + checkbotLocation);
+		logger->LogInformation(String::Format("Starting plugin with checkbot location {0}", checkbotLocation));
 
 		System::String^ workingDirectory = "c:\\x";
 
 		if (!System::IO::Directory::Exists(workingDirectory))
 		{
-			logger->LogInformation("Creating a new project dir '" + workingDirectory + "'");
+			logger->LogInformation(String::Format("Creating a new project dir '{0}'", workingDirectory));
 			System::IO::Directory::CreateDirectory(workingDirectory);
 		}
 		else
 		{
-			logger->LogInformation("Using an existing project dir '" + workingDirectory + "'");
+			logger->LogInformation(String::Format("Using an existing project dir '{0}'", workingDirectory));
 		}
 
 		try
@@ -80,13 +87,6 @@ namespace CppFeaApiWrapper
 				->WithBimHostingFactory(bimHostingFactory);
 
 			BimLinkExtension::Run(bimLink, model);
-
-			//FeaBimLink::Create("My application name", workingDirectory)
-			//	->WithIdeaStatiCa(checkbotLocation)
-			//	->WithImporters(gcnew System::Action<Autofac::ContainerBuilder^>([&](Autofac::ContainerBuilder^ x) { x->RegisterContainer(gcnew Autofac::ServiceProvider(container)); }))
-			//	->WithLogger(logger)
-			//	->WithBimHostingFactory(bimHostingFactory)
-			//	->Run(model);
 		}
 		catch (System::Exception^ ex)
 		{

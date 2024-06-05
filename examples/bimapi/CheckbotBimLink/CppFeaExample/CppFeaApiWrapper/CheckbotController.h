@@ -17,7 +17,7 @@ namespace CppFeaApiWrapper
 		static IContainer^ container;
 
 	public:
-		static CheckbotController^ Run(NativeFeaApi* pFeaApi);
+		static CheckbotController^ Run(String^ checkbotLocation, NativeFeaApi* pFeaApi);
 
 		static IContainer^ BuildContainer(IProgressMessaging^ messagingService, ImporterContext^ feaApi);
 

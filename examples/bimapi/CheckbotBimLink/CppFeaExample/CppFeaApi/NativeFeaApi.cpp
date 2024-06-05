@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "NativeFeaApi.h"
-#include<iostream>
+
 
 using namespace std;
 
@@ -17,4 +17,14 @@ NativeFeaApi::~NativeFeaApi()
 NativeFeaGeometry* NativeFeaApi::GetGeometry()
 {
 	return pFeaGeometry;
+}
+
+std::wstring NativeFeaApi::GetProjectPath()
+{
+	return projectPath;
+}
+
+void NativeFeaApi::SetProjectPath(std::wstring path)
+{
+	projectPath = path;
 }

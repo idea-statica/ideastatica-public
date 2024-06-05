@@ -9,7 +9,9 @@
 #define IDR_MAINFRAME                   128
 #define IDC_BUTTON1                     1000
 #define IDC_EDIT1                       1001
+#define IDC_CHECKBOT_PATH               1001
 #define IDC_EDIT2                       1002
+#define IDC_FEA_PROJECT_PATH            1002
 
 // Next default values for new objects
 // 

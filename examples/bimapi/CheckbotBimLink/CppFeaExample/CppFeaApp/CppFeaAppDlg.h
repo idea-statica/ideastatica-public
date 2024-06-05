@@ -26,6 +26,8 @@ public:
 protected:
 	HICON m_hIcon;
 	NativeFeaApi* pApi;
+	CString m_checkbotPath;
+	CString m_feaProjectPath;
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
