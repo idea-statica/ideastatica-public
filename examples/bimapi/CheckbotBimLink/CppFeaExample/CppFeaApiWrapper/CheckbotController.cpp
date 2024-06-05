@@ -94,7 +94,8 @@ namespace CppFeaApiWrapper
 
 		logger->LogInformation(String::Format("Starting plugin with checkbot location {0}", checkbotLocation));
 
-		System::String^ workingDirectory = "c:\\x";
+		// project directory
+		System::String^ workingDirectory = gcnew System::String(context->GetApi()->GetProjectPath().c_str());
 
 		if (!System::IO::Directory::Exists(workingDirectory))
 		{
