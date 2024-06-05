@@ -41,14 +41,14 @@ namespace BimApiLinkCadExample.BimApi
 			//	return ideaObject;
 			//}
 
-			//ideaObject = GetMaybe<IIdeaNegativePlate>(CuttingObjectNo);
+			IIdeaObject ideaObject = GetMaybe<IIdeaNegativePlate>(CuttingObjectNo);
 
-			//if (ideaObject != null)
-			//{
-			//	return ideaObject;
-			//}
+			if (ideaObject != null)
+			{
+				return ideaObject;
+			}
 
-			IIdeaObject ideaObject = GetMaybe<IIdeaPlate>(CuttingObjectNo);
+			ideaObject = GetMaybe<IIdeaPlate>(CuttingObjectNo);
 
 			if (ideaObject != null)
 			{

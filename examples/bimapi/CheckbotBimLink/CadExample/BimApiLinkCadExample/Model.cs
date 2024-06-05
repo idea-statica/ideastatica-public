@@ -10,6 +10,7 @@ using IdeaStatiCa.BIM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CI;
 
 namespace BimApiLinkCadExample
 {
@@ -70,7 +71,21 @@ namespace BimApiLinkCadExample
 
 			foreach (var joint in GetBulkSelection())
 			{
-				selections.Add(GetCadUserSelection(joint.Item1, joint.Item2, joint.Item3));
+				//Bulk selection is not searching for cuts between objects,
+				//Lets search them from the model and add them to the objects list.
+				List<CadObject> itemsWithCuts = new List<CadObject>(joint.Item3);
+				
+				foreach (var member in joint.Item2)
+				{
+					itemsWithCuts.AddRange(_model.GetMemberCuts(member.Id));
+				}
+				foreach (var item in joint.Item3)
+				{
+					if(item is CadPlate)
+						itemsWithCuts.AddRange(_model.GetPlateCuts(item.Id));
+				}
+
+				selections.Add(GetCadUserSelection(joint.Item1, joint.Item2, itemsWithCuts));
 			}
 
 			return selections;
@@ -109,6 +124,35 @@ namespace BimApiLinkCadExample
 
 			return selection;
 		}
+
+		//private CadUserSelection GetCadUserSelection(Point point, IEnumerable<TS.ModelObject> members, IEnumerable<TS.ModelObject> selectedObject)
+		//{
+		//	CadUserSelection selection = new CadUserSelection()
+		//	{
+		//		ConnectionPoint = new ConnectionIdentifier<IIdeaConnectionPoint>(point.X, point.Y, point.Z),
+		//		Members = members
+		//						.Select(x => new ConnectedMemberIdentifier<IIdeaConnectedMember>(x.Identifier.GUID.ToString()))
+		//						.Cast<Identifier<IIdeaConnectedMember>>()
+		//						.ToList(),
+		//		Objects = new List<IIdentifier>(),
+		//	};
+
+		//	List<IIdentifier> identifiers = new List<IIdentifier>();
+
+		//	selectedObject.ForEach(teklaObject => identifiers = IdentifierHelper.GetIdentifier(teklaObject, ref identifiers, connectionPoint: point));
+
+		//	members.ForEach(teklaObject =>
+		//	{
+		//		if (teklaObject is TS.Beam beam)
+		//		{
+		//			identifiers = IdentifierHelper.GetIdentifier(beam, ref identifiers, false, point);
+		//		}
+		//	});
+
+		//	identifiers.ForEach(id => (selection.Objects as List<IIdentifier>).Add(id));
+		//	return selection;
+		//}
+
 
 		private IIdentifier GetIdentifier(CadObject item)
 		{

@@ -22,7 +22,12 @@ namespace BimApiLinkCadExample.BimApi
 			ideaCut.CuttingObjectNo = item.CuttingPart.PartId;
 			ideaCut.ModifiedObjectNo = item.PartToCut.PartId;
 
-			ideaCut.CutMethod = IdeaRS.OpenModel.Connection.CutMethod.BoundingBox;
+
+			if (item.IsMemberYAxisContourCut)
+				ideaCut.CutMethod = IdeaRS.OpenModel.Connection.CutMethod.Surface;
+			else
+				ideaCut.CutMethod = IdeaRS.OpenModel.Connection.CutMethod.BoundingBox;
+
 			ideaCut.CutOrientation = IdeaRS.OpenModel.Connection.CutOrientation.Parallel;
 			ideaCut.DistanceComparison = IdeaRS.OpenModel.Connection.DistanceComparison.Closer;
 
