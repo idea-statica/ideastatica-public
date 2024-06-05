@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{5794d7f5-c9bb-428b-a070-056717bbb58b}</ProjectGuid>
+    <RootNamespace>CppFeaApiWrapper</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
+    <EnableManagedPackageReferenceSupport>true</EnableManagedPackageReferenceSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>NetCore</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>NetCore</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>CPPFEAAPIWRAPPER_EXPORTS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>CPPFEAAPIWRAPPER_EXPORTS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="CheckBotControlFunctions.h" />
+    <ClInclude Include="CheckbotController.h" />
+    <ClInclude Include="CppFeaApiWrapperDll.h" />
+    <ClInclude Include="CrossSectionByName.h" />
+    <ClInclude Include="CrossSectionImporter.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="ImporterContext.h" />
+    <ClInclude Include="MaterialImporter.h" />
+    <ClInclude Include="Member1D.h" />
+    <ClInclude Include="MemberImporter.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="NodeImporter.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Segment3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CheckbotController.cpp" />
+    <ClCompile Include="CrossSectionByName.cpp" />
+    <ClCompile Include="CrossSectionImporter.cpp" />
+    <ClCompile Include="ImporterContext.cpp" />
+    <ClCompile Include="MaterialImporter.cpp" />
+    <ClCompile Include="Member1D.cpp" />
+    <ClCompile Include="MemberImporter.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="NodeImporter.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Segment3D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CppFeaApi\CppFeaApi.vcxproj">
+      <Project>{ec43c2b9-143e-4dda-8b27-f52046f7564e}</Project>
+      <Private>true</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ImporterWrappers\ImporterWrappers.csproj">
+      <Project>{17f08c67-2861-4b5c-9c87-ee0691d0d62f}</Project>
+      <Private>true</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>8.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection">
+      <Version>9.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="IdeaStatica.BimApiLink">
+      <Version>24.0.1.1243</Version>
+    </PackageReference>
+    <PackageReference Include="IdeaStatiCa.Plugin">
+      <Version>24.0.1.1243</Version>
+    </PackageReference>
+    <PackageReference Include="MathNet.Spatial">
+      <Version>0.6.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Target Name="CopyNuGetDependencies" AfterTargets="Build">
+    <Copy SourceFiles="@(PackageReference->'%(PackageDirectory)%(PackageFileName)')" DestinationFolder="$(OutputPath)\Dependencies" />
+  </Target>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
