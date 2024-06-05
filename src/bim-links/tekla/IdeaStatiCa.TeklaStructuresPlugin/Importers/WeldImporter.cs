@@ -110,10 +110,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		private void CheckAndAddConnectedObject<T>(TSM.ModelObject part, BimApi.Weld weld)
 			where T : IIdeaObjectConnectable
 		{
-			IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
-			if (mainObject != null)
+			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
+			if (ideaObject != null)
 			{
-				(weld.ConnectedParts as List<IIdeaObjectConnectable>)?.Add(mainObject);
+
+				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
+				if (mainObject != null)
+				{
+					(weld.ConnectedParts as List<IIdeaObjectConnectable>)?.Add(mainObject);
+				}
 			}
 		}
 	}

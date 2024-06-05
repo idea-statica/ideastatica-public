@@ -1,5 +1,5 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 
 namespace IdeaStatiCa.BimApiLink.Importers
 {
@@ -9,11 +9,18 @@ namespace IdeaStatiCa.BimApiLink.Importers
 			where T : IIdeaObject;
 
 		IIdeaObject Create(IIdentifier identifier);
+
+		T Check<T>(Identifier<T> identifier)
+			where T : IIdeaObject;
+
+		IIdeaObject Check(IIdentifier identifier);
 	}
 
 	public interface IImporter<T> : IImporter
 		where T : IIdeaObject
 	{
 		T Create(Identifier<T> identifier);
+
+		T Check(Identifier<T> identifier);
 	}
 }

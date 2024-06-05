@@ -1,4 +1,5 @@
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
 using Tekla.Structures.Model;
@@ -13,6 +14,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		}
 
 		public override IIdeaCut Create(string id)
+		{
+			var ideaObject = CreateInternal(id);
+			if (ideaObject != null)
+			{
+				Model.CacheCreatedObject(new StringIdentifier<IIdeaCut>(id), ideaObject);
+			}
+			return ideaObject;
+		}
+
+		private IIdeaCut CreateInternal(string id)
 		{
 			PlugInLogger.LogInformation($"CutImporter create {id}");
 			var teklaCut = Model.GetItemByHandler(id);

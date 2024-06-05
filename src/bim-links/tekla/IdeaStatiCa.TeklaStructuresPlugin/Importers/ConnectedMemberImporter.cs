@@ -14,6 +14,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		{
 			Model = model;
 		}
+		public override IIdeaConnectedMember Check(ConnectedMemberIdentifier<IIdeaConnectedMember> id)
+		{
+			var cachedOject = Model.GetCachedObject(id);
+			return cachedOject is IIdeaConnectedMember ? cachedOject as IIdeaConnectedMember : null;
+		}
 
 		public override IIdeaConnectedMember Create(ConnectedMemberIdentifier<IIdeaConnectedMember> id)
 		{
@@ -36,6 +41,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				Name = "",
 				MemberSegmentType = IdeaBeamSegmentModelType.LoadedInXYZ,
 			};
+
+			Model.CacheCreatedObject(id, connectedMember);
+
 			return connectedMember;
 		}
 	}

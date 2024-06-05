@@ -98,10 +98,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		private void CheckAndAddConnectedObject<T>(TS.Part part, BoltGrid boltgrid)
 			where T : IIdeaObjectConnectable
 		{
-			IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
-			if (mainObject != null)
+			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
+			if (ideaObject != null)
 			{
-				(boltgrid.ConnectedParts as List<IIdeaObjectConnectable>).Add(mainObject);
+				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
+				if (mainObject != null)
+				{
+					(boltgrid.ConnectedParts as List<IIdeaObjectConnectable>).Add(mainObject);
+				}
 			}
 		}
 

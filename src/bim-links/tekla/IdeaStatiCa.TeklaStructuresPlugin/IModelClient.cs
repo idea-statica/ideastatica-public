@@ -1,3 +1,5 @@
+using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using System.Collections.Generic;
 using Tekla.Structures.Catalogs;
 using Tekla.Structures.Geometry3d;
@@ -86,6 +88,25 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// </summary>
 		/// <returns></returns>
 		IEnumerable<ModelObject> GetSelectObjects();
+
+		/// <summary>
+		/// Cache Created Object
+		/// </summary>
+		/// <param name="identifier"></param>
+		/// <param name="createdObject"></param>
+		void CacheCreatedObject(IIdentifier identifier, IIdeaObject createdObject);
+
+		/// <summary>
+		/// Get Cached Object
+		/// </summary>
+		/// <param name="identifier"></param>
+		/// <returns></returns>
+		IIdeaObject GetCachedObject(IIdentifier identifier);
+
+		/// <summary>
+		/// Clear cached items
+		/// </summary>
+		void ClearCache();
 	}
 
 }

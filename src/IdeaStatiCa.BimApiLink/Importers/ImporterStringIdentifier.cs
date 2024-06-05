@@ -1,5 +1,5 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 
 namespace IdeaStatiCa.BimApiLink.Importers
 {
@@ -12,5 +12,16 @@ namespace IdeaStatiCa.BimApiLink.Importers
 		}
 
 		public abstract T Create(string id);
+
+		public override T Check(Identifier<T> identifier)
+		{
+			return Check(((StringIdentifier<T>)identifier).Id);
+		}
+
+		//public abstract T Check(string id);
+		public virtual T Check(string id)
+		{
+			return default(T);
+		}
 	}
 }
