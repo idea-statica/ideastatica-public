@@ -4,7 +4,7 @@
 
 [CppFeaApi](./CppFeaApi/) - sample implementation of a fake FEA API (native c++ dll project)
 
-[CppFeaApiWrapper](./CppFeaApiWrapper/) - implementation of BIM API, Importers anf Checkbot controller (c++/cli project which generates BIM API model from data provided by CppFeaApi, controlling of Checkbot)
+[CppFeaApiWrapper](./CppFeaApiWrapper/) - implementation of BIM API classes,  BIM API Importers and Checkbot controller (c++/cli project which generates BIM API model from data provided by CppFeaApi, controlling of Checkbot)
 
 [CopyToOutputApp](./CopyToOutputApp/) - .net app which is responsible for copying all needed files to output (MFC project doesn't do it)
 
