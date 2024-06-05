@@ -1,8 +1,8 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Api.RCS.Model;
-using IdeaStatiCa.RcsClient.HttpWrapper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

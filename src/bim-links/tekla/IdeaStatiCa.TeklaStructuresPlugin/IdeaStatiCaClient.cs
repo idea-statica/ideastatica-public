@@ -43,7 +43,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			builder.RegisterType<CutImporter>().SingleInstance().AsImplementedInterfaces();
 
 			builder.RegisterType<Model>();
-			builder.RegisterType<ModelClient>().WithParameter(new TypedParameter(typeof(Tekla.Structures.Model.Model), new Tekla.Structures.Model.Model())).AsImplementedInterfaces();
+			builder.RegisterType<ModelClient>().WithParameter(new TypedParameter(typeof(Tekla.Structures.Model.Model), new Tekla.Structures.Model.Model())).AsImplementedInterfaces().SingleInstance();
 
 			builder.RegisterInstance(pluginLogger).As<IPluginLogger>().SingleInstance();
 

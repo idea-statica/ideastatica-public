@@ -1,5 +1,6 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
+using System;
 
 namespace IdeaStatiCa.BimApiLink.Importers
 {
@@ -17,6 +18,24 @@ namespace IdeaStatiCa.BimApiLink.Importers
 #nullable disable
 #else
 		public abstract T Create(int id);
+#endif
+		public override T Check(Identifier<T> identifier)
+		{
+			return Check(((IntIdentifier<T>)identifier).Id);
+		}
+
+#if NET6_0_OR_GREATER
+#nullable enable
+		public virtual T? Check(int id)
+		{
+			throw new NotImplementedException();
+		}
+#nullable disable
+#else
+		public virtual T Check(int id)
+		{
+			throw new NotImplementedException();
+		}
 #endif
 	}
 }

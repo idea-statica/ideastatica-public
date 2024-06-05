@@ -1,6 +1,6 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
-using IdeaStatiCa.BimApi;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApiLink.Scoping
@@ -14,6 +14,19 @@ namespace IdeaStatiCa.BimApiLink.Scoping
 		public BimApiImporterCacheAdapter(IBimApiImporter bimApiImporter)
 		{
 			_bimApiImporter = bimApiImporter;
+		}
+
+		public T Check<T>(Identifier<T> identifier) where T : IIdeaObject
+		{
+			T newObj = _bimApiImporter.Check(identifier);
+
+			return newObj;
+		}
+
+		public IIdeaObject Check(IIdentifier identifier)
+		{
+			IIdeaObject newObj = _bimApiImporter.Check(identifier);
+			return newObj;
 		}
 
 		public T Get<T>(Identifier<T> identifier)

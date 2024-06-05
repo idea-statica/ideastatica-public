@@ -1,5 +1,6 @@
 ﻿
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
 using Tekla.Structures.Geometry3d;
@@ -32,6 +33,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				var normalVector = plane.Normal.GetNormal();
 				ideaWorkPlane.OriginNo = Model.GetPointId(cutPlane.Plane.Origin);
 				ideaWorkPlane.Normal = new IdeaVector3D(normalVector.X, normalVector.Y, normalVector.Z);
+				Model.CacheCreatedObject(new StringIdentifier<IIdeaWorkPlane>(id), ideaWorkPlane);
 				return ideaWorkPlane;
 			}
 			else if (teklaWorkPlaneItem is Fitting fitting)
@@ -40,6 +42,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				var normalVector = plane.Normal.GetNormal();
 				ideaWorkPlane.OriginNo = Model.GetPointId(fitting.Plane.Origin);
 				ideaWorkPlane.Normal = new IdeaVector3D(normalVector.X, normalVector.Y, normalVector.Z);
+				Model.CacheCreatedObject(new StringIdentifier<IIdeaWorkPlane>(id), ideaWorkPlane);
 				return ideaWorkPlane;
 			}
 			else

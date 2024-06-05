@@ -79,6 +79,8 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 		public double Thickness { get; set; }
 
+		public bool IsNegativeObject { get; set; }
+
 		public string PartType { get { return this.GetType().Name; } }
 		
 		public int PartId { get { return this.Id; } }
@@ -117,8 +119,11 @@ namespace BimApiLinkCadExample.CadExampleApi
 
 	public class CadCutByPart : CadObject
 	{
-		public IConnectedPart PartToCut { get; set;}
-		public IConnectedPart CuttingPart { get; set;}
+		public IConnectedPart PartToCut { get; set; }
+		public IConnectedPart CuttingPart { get; set; }
+
+		//Provide additional properties of different avaliable cuts to drive the IDEA StatiCa cut settings. 
+		public bool IsMemberYAxisContourCut { get; set; } = false;
 
 		public CadCutByPart(IConnectedPart partToCut, IConnectedPart cutter, int id) : base(id)
 		{

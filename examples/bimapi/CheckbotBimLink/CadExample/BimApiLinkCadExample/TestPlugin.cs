@@ -74,7 +74,7 @@ namespace BimApiLinkCadExample
 			builder.RegisterType<ConnectionImporter>().AsImplementedInterfaces().SingleInstance();
 			builder.RegisterType<PlateImporter>().SingleInstance().AsImplementedInterfaces();
 			//builder.RegisterType<FoldedPlateImporter>().SingleInstance().AsImplementedInterfaces();
-			//builder.RegisterType<NegativePlateImporter>().SingleInstance().AsImplementedInterfaces();
+			builder.RegisterType<NegativePlateImporter>().SingleInstance().AsImplementedInterfaces();
 			//builder.RegisterType<WeldImporter>().SingleInstance().AsImplementedInterfaces();
 			builder.RegisterType<BoltGridImporter>().SingleInstance().AsImplementedInterfaces();
 			//builder.RegisterType<AnchorGridImporter>().SingleInstance().AsImplementedInterfaces();

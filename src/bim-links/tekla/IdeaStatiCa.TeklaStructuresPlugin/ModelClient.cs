@@ -1,4 +1,6 @@
-﻿using IdeaStatiCa.Plugin;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,10 +23,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		private readonly TS.Model teklaModel;
 		private readonly IPluginLogger plugInLogger;
 
+		private readonly Dictionary<IIdentifier, IIdeaObject> cachedObjects;
+
 		public ModelClient(TS.Model teklaModel, IPluginLogger plugInLogger)
 		{
 			this.teklaModel = teklaModel;
 			this.plugInLogger = plugInLogger;
+			cachedObjects = new Dictionary<IIdentifier, IIdeaObject>();
 		}
 
 		private TS.Model GetTeklaModel()
@@ -520,6 +525,31 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				sb.Append(b.ToString("X2"));
 
 			return sb.ToString();
+		}
+
+		public void CacheCreatedObject(IIdentifier identifier, IIdeaObject createdObject)
+		{
+			if (GetCachedObject(identifier) == null)
+			{
+				cachedObjects.Add(identifier, createdObject);
+			}
+		}
+
+		public IIdeaObject GetCachedObject(IIdentifier identifier)
+		{
+			if (cachedObjects.TryGetValue(identifier, out IIdeaObject ideaObject))
+			{
+				return ideaObject;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public void ClearCache()
+		{
+			cachedObjects.Clear();
 		}
 	}
 }

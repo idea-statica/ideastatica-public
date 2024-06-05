@@ -45,6 +45,11 @@ namespace BimApiLinkCadExample.CadBulkSelection
 				}
 				else if (obj is CadPlate pl)
 				{
+					//Do not add negative plates to the selection.
+					//We add them based on the cuts present in the project
+					if (pl.IsNegativeObject)
+						continue;
+
 					var plate = GetPlateItem(pl);
 					plates.Add(plate);
 					continue;
@@ -96,6 +101,13 @@ namespace BimApiLinkCadExample.CadBulkSelection
 
 			var sorter = new ItemsSorter();
 			var settings = new SorterSettings();
+			
+			//Settings to drive the sorter process.
+			settings.EnlargeNodeXin = 1.6;
+			settings.EnlargeNodeXout = 1.6;
+			settings.EnlargeNodeY = 1.7;
+			settings.EnlargeNodeZ = 1.7;
+
 			var sortedJoints = sorter.Sort(sorterData, settings);
 			return sortedJoints;
 				
@@ -137,8 +149,9 @@ namespace BimApiLinkCadExample.CadBulkSelection
 			Matrix44 lcs = CreateMatrix(plate);
 
 			var points = GetContourPlatePoints(plate);
+			double maxBoundingWidth = GetCountourPlateMaxBoundingWidth(plate);
 
-			return new Plate(plate, lcs, points, plate.Thickness);
+			return new Plate(plate, lcs, points, maxBoundingWidth);
 		}
 
 		private static List<CI.Geometry3D.IPoint3D> GetContourPlatePoints(CadPlate plate)
@@ -151,11 +164,32 @@ namespace BimApiLinkCadExample.CadBulkSelection
 			{
 				CadPoint3D globalPt = CadPoint2D.Get2DPointInWorldCoords(point, plate.CadOutline2D.Plane);
 
-				points.Add(new CI.Geometry3D.Point3D(globalPt.X, globalPt.X, globalPt.Z));
+				points.Add(new CI.Geometry3D.Point3D(globalPt.X, globalPt.Y, globalPt.Z));
 			}
 
 			return points;
 		}
+
+		private static double GetCountourPlateMaxBoundingWidth(CadPlate plate)
+		{
+			List<CadPoint2D> points = plate.CadOutline2D.Points;
+
+			if (points == null || points.Count == 0)
+			{
+				throw new ArgumentException("The list of points cannot be null or empty.");
+			}
+
+			double minX = points.Min(p => p.X);
+			double maxX = points.Max(p => p.X);
+			double minY = points.Min(p => p.Y);
+			double maxY = points.Max(p => p.Y);
+
+			double width = maxX - minX;
+			double height = maxY - minY;
+
+			return Math.Max(width, height);
+		}
+
 
 		private static Member GetMemberItem(CadMember member, ICadGeometryApi geometryApi)
 		{

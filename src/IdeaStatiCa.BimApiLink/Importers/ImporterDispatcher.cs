@@ -1,6 +1,6 @@
-﻿using IdeaStatiCa.BimApiLink.Hooks;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Hooks;
 using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +69,41 @@ namespace IdeaStatiCa.BimApiLink.Importers
 						_importerHookManager.ExitCreate(identifier, null);
 						throw;
 					}
+
+					return obj;
+				}
+			}
+
+			throw new ArgumentException();
+		}
+
+		public T Check<T>(Identifier<T> identifier)
+			where T : IIdeaObject
+		{
+			foreach (Type type in GetSortedInterfaces(typeof(T)))
+			{
+				if (_importerManager.TryResolve(type, out IImporter importer))
+				{
+					T obj;
+
+					obj = importer.Check(identifier);
+
+					return obj;
+				}
+			}
+
+			throw new ArgumentException();
+		}
+
+		public IIdeaObject Check(IIdentifier identifier)
+		{
+			foreach (Type type in GetSortedInterfaces(identifier.ObjectType))
+			{
+				if (_importerManager.TryResolve(type, out IImporter importer))
+				{
+					IIdeaObject obj;
+
+					obj = importer.Check(identifier);
 
 					return obj;
 				}

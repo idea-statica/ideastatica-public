@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Geometry2D;
 using IdeaStatica.TeklaStructuresPlugin.Utils;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
@@ -82,6 +83,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 						}
 					}
 				}
+
+				Model.CacheCreatedObject(new StringIdentifier<IIdeaFoldedPlate>(id), foldedPlate);
 				return foldedPlate;
 			}
 			else

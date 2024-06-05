@@ -192,7 +192,7 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate, moment_step
 
         my = float(capacity_res["InternalFores"]["My"])
         results = []
-        results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(calc1_briefResults, "Capacity", firstSectionId), "CrackWidth" : crack_width });
+        results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(calc1_briefResults, "Capacity", firstSectionId), "CrackWidth [mm]" : crack_width*1000});
 
         my = my + moment_step
 
@@ -218,7 +218,7 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate, moment_step
             crackWidth_short_term = crack_width_res[0]
             crack_width = float(crackWidth_short_term["W"])
 
-            results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth" : crack_width});
+            results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth [mm]" : crack_width*1000});
             my = my + moment_step
 
         # last calculation - capacity is 100%
@@ -240,7 +240,7 @@ def calc_rcs_crack_width(project_to_calculate, section_to_calculate, moment_step
         crackWidth_short_term = crack_width_res[0]
         crack_width = float(crackWidth_short_term["W"])
 
-        results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth" : crack_width });
+        results.append({"my": my, "capacity" :  brief_result_tools.get_check_value(briefResults, "Capacity", firstSectionId), "CrackWidth [mm]" : crack_width*1000 });
 
         df_check = pd.DataFrame.from_records(results)
         return df_check       
