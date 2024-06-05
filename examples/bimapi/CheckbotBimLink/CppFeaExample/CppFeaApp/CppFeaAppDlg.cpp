@@ -60,7 +60,20 @@ CCppFeaDlg::CCppFeaDlg(CWnd* pParent /*=nullptr*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_checkbotPath = _T("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.0\\IdeaCheckbot.exe");
-	m_feaProjectPath = _T("C:\\x\\CppProject");
+
+	DWORD bufferLength = MAX_PATH + 1;
+	TCHAR buffer[MAX_PATH + 1];
+
+	if (GetCurrentDirectory(bufferLength, buffer))
+	{
+		m_feaProjectPath = CString(buffer);
+		m_feaProjectPath += _T("\\CppFeaProject");
+	}
+	else
+	{
+		m_feaProjectPath = _T("");
+	}
+
 }
 
 void CCppFeaDlg::DoDataExchange(CDataExchange* pDX)
