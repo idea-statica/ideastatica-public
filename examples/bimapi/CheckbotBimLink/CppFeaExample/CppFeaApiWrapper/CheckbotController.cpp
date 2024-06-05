@@ -71,7 +71,7 @@ namespace CppFeaApiWrapper
 
 			IProgressMessaging^ messagingService = bimHostingFactory->InitGrpcClient(logger);
 
-			container = BuildContainer(messagingService, nullptr);
+			container = BuildContainer(messagingService, context);
 
 			Model::Model^ model = ResolutionExtensions::Resolve<Model::Model^>(container);
 

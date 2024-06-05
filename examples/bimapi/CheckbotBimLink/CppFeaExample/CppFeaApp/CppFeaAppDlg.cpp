@@ -75,6 +75,7 @@ BEGIN_MESSAGE_MAP(CCppFeaDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CCppFeaDlg::OnBnClickedButton1)
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -156,6 +157,13 @@ void CCppFeaDlg::OnPaint()
 	}
 }
 
+void CCppFeaDlg::OnClose()
+{
+	
+	CDialogEx::OnClose();
+}
+
+
 // The system calls this function to obtain the cursor to display while the user drags
 //  the minimized window.
 HCURSOR CCppFeaDlg::OnQueryDragIcon()
@@ -182,6 +190,4 @@ void CCppFeaDlg::OnBnClickedButton1()
 
 	// run checkbot and pass API of the native FEA application
 	int r = RunCheckbot(pApi, checkBotPath);
-
-	delete pApi;
 }
