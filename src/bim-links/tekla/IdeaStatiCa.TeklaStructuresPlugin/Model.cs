@@ -50,6 +50,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		{
 			try
 			{
+				_model.ClearCache();
 				var point = _model.GetConnectionPoint();
 				var members = _model.GetSelectBeams();
 				var selectedObject = _model.GetSelectObjects().Distinct();
@@ -97,6 +98,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// <returns></returns>
 		public IEnumerable<CadUserSelection> GetUserSelections()
 		{
+			_model.ClearCache();
 			var selections = new List<CadUserSelection>();
 
 			foreach (var joint in _model.GetBulkSelection())
@@ -113,6 +115,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		/// <returns></returns>
 		public IEnumerable<CadUserSelection> GetSelectionOfWholeModel()
 		{
+			_model.ClearCache();
 			var selections = new List<CadUserSelection>();
 
 			foreach (var joint in _model.GetBulkSelection(true))

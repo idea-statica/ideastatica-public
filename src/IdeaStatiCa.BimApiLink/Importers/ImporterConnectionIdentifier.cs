@@ -1,5 +1,6 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
+using System;
 
 namespace IdeaStatiCa.BimApiLink.Importers
 {
@@ -12,5 +13,15 @@ namespace IdeaStatiCa.BimApiLink.Importers
 		}
 
 		public abstract T Create(ConnectionIdentifier<T> id);
+
+		public override T Check(Identifier<T> identifier)
+		{
+			return Check(((ConnectionIdentifier<T>)identifier));
+		}
+
+		public virtual T Check(ConnectionIdentifier<T> id)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

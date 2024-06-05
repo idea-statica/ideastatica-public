@@ -1,4 +1,5 @@
 ﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
 
@@ -21,7 +22,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			if (ideaPlate is Plate plate)
 			{
 				PlugInLogger.LogInformation("NegativePlateImporter created plate");
-				return new NegativePlate(plate.No)
+				var negativePlate = new NegativePlate(plate.No)
 				{
 					Thickness = plate.Thickness,
 					MaterialNo = plate.MaterialNo,
@@ -29,6 +30,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					LocalCoordinateSystem = plate.LocalCoordinateSystem,
 					Geometry = plate.Geometry,
 				};
+
+				Model.CacheCreatedObject(new StringIdentifier<IIdeaNegativePlate>(id), negativePlate);
+
+				return negativePlate;
 			}
 
 			PlugInLogger.LogInformation($"NegativePlateImporter not created plate {id}");

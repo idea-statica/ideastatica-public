@@ -30,7 +30,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				Cuts = id.Cuts?.Select(bg => GetMaybe(bg as Identifier<IIdeaCut>)).Where(x => x != null).ToList() ?? new List<IIdeaCut>(),
 				FoldedPlates = id.FoldedPlates?.Select(bg => GetMaybe(bg as Identifier<IIdeaFoldedPlate>)).Where(x => x != null).ToList() ?? new List<IIdeaFoldedPlate>(),
 			};
+
+			Model.CacheCreatedObject(id, connectionPoint);
 			return connectionPoint;
+		}
+
+		public override IIdeaConnectionPoint Check(ConnectionIdentifier<IIdeaConnectionPoint> id)
+		{
+			var cachedOject = Model.GetCachedObject(id);
+			return cachedOject is IIdeaConnectionPoint ? cachedOject as IIdeaConnectionPoint : null;
 		}
 	}
 }

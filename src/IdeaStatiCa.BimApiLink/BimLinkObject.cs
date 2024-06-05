@@ -1,8 +1,8 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApiLink.Scoping;
-using IdeaStatiCa.BimApi;
 using System;
 
 namespace IdeaStatiCa.BimApiLink
@@ -56,6 +56,18 @@ namespace IdeaStatiCa.BimApiLink
 		protected T GetMaybe<T>(string id)
 			where T : IIdeaObject
 			=> GetMaybe(new StringIdentifier<T>(id));
+
+		protected T CheckMaybe<T>(Identifier<T> identifier)
+			where T : IIdeaObject
+			=> BimApiImporter.Check(identifier);
+
+		protected T CheckMaybe<T>(int id)
+			where T : IIdeaObject
+			=> CheckMaybe(new IntIdentifier<T>(id));
+
+		protected T CheckMaybe<T>(string id)
+			where T : IIdeaObject
+			=> CheckMaybe(new StringIdentifier<T>(id));
 
 		protected CountryCode CountryCode
 			=> Scope.CountryCode;

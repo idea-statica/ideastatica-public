@@ -1,6 +1,7 @@
 ﻿using CI.Geometry3D;
 using IdeaRS.OpenModel.Geometry2D;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
@@ -26,6 +27,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 		}
 
 		public override IIdeaPlate Create(string id)
+		{
+			var ideaObject = CreateInternal(id);
+			if (ideaObject != null)
+			{
+				Model.CacheCreatedObject(new StringIdentifier<IIdeaPlate>(id), ideaObject);
+			}
+			return ideaObject;
+		}
+
+		private IIdeaPlate CreateInternal(string id)
 		{
 			PlugInLogger.LogInformation($"PlateImporter create '{id}'");
 			var item = Model.GetItemByHandler(id);

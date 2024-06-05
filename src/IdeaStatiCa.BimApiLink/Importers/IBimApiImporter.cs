@@ -8,5 +8,9 @@ namespace IdeaStatiCa.BimApiLink.Importers
 		T Get<T>(Identifier<T> identifier) where T : IIdeaObject;
 
 		IIdeaObject Get(IIdentifier identifier);
+
+		T Check<T>(Identifier<T> identifier) where T : IIdeaObject;
+
+		IIdeaObject Check(IIdentifier identifier);
 	}
 }
