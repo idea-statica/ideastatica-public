@@ -21,6 +21,8 @@ The instance is passed to [CheckbotController](examples/bimapi/CheckbotBimLink/C
 BIM API importers are registered in [CheckbotController::BuildContainer](https://github.com/idea-statica/ideastatica-public/blob/1c1f9daf523099e0582672eeafb3fdfb21de2c8c/examples/bimapi/CheckbotBimLink/CppFeaExample/CppFeaApiWrapper/CheckbotController.cpp#L173). Finally Checkbot is started.
 
 After clicking on the button 'Connections'
+
 ![Import connections button](https://github.com/idea-statica/ideastatica-public/blob/main/docs/Images/Checkbot-Import-Connections.png?raw=true)
+
 
 [Model::GetUserSelection()](https://github.com/idea-statica/ideastatica-public/blob/b82b74f7b83f6e8f4649295ac3244131fd07a9c9/examples/bimapi/CheckbotBimLink/CppFeaExample/CppFeaApiWrapper/Model.cpp#L45) is called to prepare and send data to Checkbot.
