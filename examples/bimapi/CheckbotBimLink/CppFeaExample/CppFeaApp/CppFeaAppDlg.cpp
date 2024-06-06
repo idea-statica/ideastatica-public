@@ -88,7 +88,7 @@ BEGIN_MESSAGE_MAP(CCppFeaDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON1, &CCppFeaDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON1, &CCppFeaDlg::OnRunCheckbotClick)
 	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
@@ -193,7 +193,10 @@ HCURSOR CCppFeaDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CCppFeaDlg::OnBnClickedButton1()
+/// <summary>
+/// Start IDEA StatiCa Checkbot
+/// </summary>
+void CCppFeaDlg::OnRunCheckbotClick()
 {
 	if (m_checkbotStatus == 1)
 	{
@@ -204,16 +207,12 @@ void CCppFeaDlg::OnBnClickedButton1()
 	// create an instance of FEA API (it represents model from native FEA application)
 	NativeFeaApi* pApi = new NativeFeaApi();
 
+	// set the path do directory for Checkbot project
 	std::wstring feaProject(m_feaProjectPath.GetString());
 	pApi->SetProjectPath(feaProject);
 
+	// set the path to Checkbot executable
 	std::wstring checkBotPath(m_checkbotPath.GetString());
-
-	//NativeFeaGeometry* geom = pApi->GetGeometry();
-	//std::vector<int> memberIds = geom->GetMembersIdentifiers();
-	//std::vector<int> nodesIds = geom->GetNodesIdentifiers();
-
-	//NativeFeaNode* node = geom->GetNode(3);
 
 	// run checkbot and pass API of the native FEA application
 	m_checkbotStatus = RunCheckbot(pApi, checkBotPath);

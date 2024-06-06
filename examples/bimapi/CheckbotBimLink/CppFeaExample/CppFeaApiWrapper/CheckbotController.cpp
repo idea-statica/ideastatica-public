@@ -12,6 +12,12 @@ using namespace CppFeaApiWrapper::Importers;
 using namespace Autofac;
 using namespace Autofac::Extensions::DependencyInjection;
 
+/// <summary>
+/// Function to run the checkbot
+/// </summary>
+/// <param name="pApi">NativeFeaApi represents the model from the source FEA</param>
+/// <param name="checkBotPath">The path to Checkbot.exe (IDEA StatiCa setup)</param>
+/// <returns>Returns 1 if success</returns>
 extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath)
 {
 	try
@@ -28,6 +34,10 @@ extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi, std::wstri
 	}
 }
 
+/// <summary>
+/// Release Checkbot
+/// </summary>
+/// <returns></returns>
 extern "C" __declspec(dllexport) int ReleaseCheckbot()
 {
 	try
@@ -44,16 +54,26 @@ extern "C" __declspec(dllexport) int ReleaseCheckbot()
 
 namespace CppFeaApiWrapper
 {
-
+	/// <summary>
+	/// Constructor
+	/// </summary>
 	CheckbotController::CheckbotController()
 	{
 	}
 
+	/// <summary>
+	/// Destructor
+	/// </summary>
 	CheckbotController::~CheckbotController()
 	{
 	}
 
-
+	/// <summary>
+	/// Create an instance of CheckbotController and run the Checkbot
+	/// </summary>
+	/// <param name="checkbotLocation"></param>
+	/// <param name="pFeaApi"></param>
+	/// <returns></returns>
 	CheckbotController^ CheckbotController::Run(String^ checkbotLocation, NativeFeaApi* pFeaApi)
 	{
 		if (_instance != nullptr)
@@ -94,9 +114,10 @@ namespace CppFeaApiWrapper
 
 		logger->LogInformation(String::Format("Starting plugin with checkbot location {0}", checkbotLocation));
 
-		// project directory
+		// get project directory
 		System::String^ workingDirectory = gcnew System::String(context->GetApi()->GetProjectPath().c_str());
 
+		// create it on the disk if it does not exist
 		if (!System::IO::Directory::Exists(workingDirectory))
 		{
 			logger->LogInformation(String::Format("Creating a new project dir '{0}'", workingDirectory));
@@ -113,6 +134,7 @@ namespace CppFeaApiWrapper
 
 			IProgressMessaging^ messagingService = bimHostingFactory->InitGrpcClient(logger);
 
+			// register importers to container
 			container = BuildContainer(messagingService, context);
 
 			Model::Model^ model = ResolutionExtensions::Resolve<Model::Model^>(container);
@@ -122,14 +144,17 @@ namespace CppFeaApiWrapper
 			Action<ImportersConfiguration^>^ registerImportersAction = nullptr;
 			registerImportersAction = gcnew Action<IdeaStatiCa::BimApiLink::ImportersConfiguration^>(this, &CheckbotController::RegisterImporters);
 
+			// Name of the FEA application which calls Checkbot
 			String^ feaName = gcnew System::String(context->GetApi()->GetFeaName().c_str());
 
+			// create BimLink
 			this->bimLink = FeaBimLink::Create(feaName, workingDirectory)
 				->WithIdeaStatiCa(checkbotLocation)
 				->WithImporters(registerImportersAction)
 				->WithLogger(logger)
 				->WithBimHostingFactory(bimHostingFactory);
 
+			// start Checkbot
 			BimLinkExtension::Run(this->bimLink, model);
 		}
 		catch (System::Exception^ ex)
@@ -139,6 +164,12 @@ namespace CppFeaApiWrapper
 		}
 	}
 
+	/// <summary>
+	/// Registration of importers which are responsible for converion FEA instances to BIM API instances
+	/// </summary>
+	/// <param name="messagingService">Callback fonction for interaction with Checkbot</param>
+	/// <param name="context">Import context - it contains the reference to NativeFeaApi</param>
+	/// <returns>Autofac container</returns>
 	IContainer^ CheckbotController::BuildContainer(IProgressMessaging^ messagingService, ImporterContext^ context)
 	{
 		ContainerBuilder^ builder = gcnew ContainerBuilder();
