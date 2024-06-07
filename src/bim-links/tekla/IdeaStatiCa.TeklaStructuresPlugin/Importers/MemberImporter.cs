@@ -4,10 +4,12 @@ using IdeaRS.OpenModel.Model;
 using IdeaStatica.TeklaStructuresPlugin.Utils;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Utils;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
 using IdeaStatiCa.TeklaStructuresPlugin.BimApi.Library;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
 using System;
 using System.Linq;
 using Tekla.Structures.Geometry3d;
@@ -41,13 +43,22 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			if (member is Part beam)
 			{
-				return new BimApi.Member1D(id)
+				var ideaMember = new BimApi.Member1D(id)
 				{
 					Type = GetMemberType(beam),
 					CrossSectionNo = $"{beam.Profile.ProfileString};{beam.Material.MaterialString}",
 					Elements = new System.Collections.Generic.List<IIdeaElement1D>() { CreateElements(beam) },
 					Length = GetMemberLength(beam),
 				};
+
+				MemberHelper.AdjustAngleMember(beam, ideaMember);
+
+				if (ideaMember != null)
+				{
+					Model.CacheCreatedObject(new StringIdentifier<IIdeaMember1D>(id), ideaMember);
+				}
+
+				return ideaMember;
 			}
 			else
 			{
