@@ -71,37 +71,33 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 				}
 			}
 
-			ideaObject = CheckMaybe<IIdeaConnectedMember>(new ConnectedMemberIdentifier<IIdeaConnectedMember>(CuttingObjectNo));
-			if (ideaObject != null)
+			ideaObject = GetMaybe<IIdeaConnectedMember>(new ConnectedMemberIdentifier<IIdeaConnectedMember>(CuttingObjectNo));
+
+			if (ideaObject is IdeaConnectedMember connectedMember)
 			{
-				ideaObject = GetMaybe<IIdeaConnectedMember>(new ConnectedMemberIdentifier<IIdeaConnectedMember>(CuttingObjectNo));
+				connectedMember.ConnectedMemberType = IdeaConnectedMemberType.Negative;
+				connectedMember.AutoAddCutByWorkplane = false;
 
-				if (ideaObject is IdeaConnectedMember connectedMember)
+				//we cant cut by rod so rod transfer in to pipe
+				if (connectedMember.IdeaMember is IIdeaMember1D mem
+					&& mem.CrossSection is IdeaStatiCa.TeklaStructuresPlugin.BimApi.Library.CrossSectionByParameters cssParam
+					&& cssParam.Type == IdeaRS.OpenModel.CrossSection.CrossSectionType.O)
 				{
-					connectedMember.ConnectedMemberType = IdeaConnectedMemberType.Negative;
-					connectedMember.AutoAddCutByWorkplane = false;
 
-					//we cant cut by rod so rod transfer in to pipe
-					if (connectedMember.IdeaMember is IIdeaMember1D mem
-						&& mem.CrossSection is IdeaStatiCa.TeklaStructuresPlugin.BimApi.Library.CrossSectionByParameters cssParam
-						&& cssParam.Type == IdeaRS.OpenModel.CrossSection.CrossSectionType.O)
+					var diam = (cssParam.Parameters.Single() as ParameterDouble).Value;
+
+					CrossSectionParameter cssParameter = new CrossSectionParameter
 					{
+						Name = cssParam.Name,
+					};
 
-						var diam = (cssParam.Parameters.Single() as ParameterDouble).Value;
-
-						CrossSectionParameter cssParameter = new CrossSectionParameter
-						{
-							Name = cssParam.Name,
-						};
-
-						cssParam.Parameters.Clear();
-						IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledCHS(cssParameter, 0.5 * diam, 0.001);
-						cssParam.Type = CrossSectionType.RolledCHS;
-						cssParam.Parameters = new System.Collections.Generic.HashSet<Parameter>(cssParameter.Parameters);
-					}
-
-					return ideaObject;
+					cssParam.Parameters.Clear();
+					IdeaRS.OpenModel.CrossSection.CrossSectionFactory.FillRolledCHS(cssParameter, 0.5 * diam, 0.001);
+					cssParam.Type = CrossSectionType.RolledCHS;
+					cssParam.Parameters = new System.Collections.Generic.HashSet<Parameter>(cssParameter.Parameters);
 				}
+
+				return ideaObject;
 			}
 
 			return null;
