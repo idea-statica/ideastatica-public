@@ -12,35 +12,27 @@
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net48|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net48|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
 	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
-	  <NoWarn>1701;1702;8073</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
