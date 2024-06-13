@@ -58,6 +58,11 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		public async Task CloseProjectAsync(CancellationToken cancellationToken)
+		{
+			await Task.CompletedTask;
+		}
+
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
@@ -90,7 +95,5 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
-
-
 	}
 }

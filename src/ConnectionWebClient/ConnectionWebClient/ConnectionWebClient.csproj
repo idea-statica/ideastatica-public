@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdeaStatiCa.ConnectionClient\IdeaStatiCa.ConnectionClient.csproj" />
+    <ProjectReference Include="..\..\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

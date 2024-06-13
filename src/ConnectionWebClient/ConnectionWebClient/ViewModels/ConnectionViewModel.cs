@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.Connection;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using System;
 
 namespace ConnectionWebClient.ViewModels
@@ -9,11 +10,11 @@ namespace ConnectionWebClient.ViewModels
 		int _id;
 		string? _identifier;
 
-		public ConnectionViewModel(ConnectionInfo ci)
+		public ConnectionViewModel(ConConnection con)
 		{
-			Id = ci.Id;
-			Name = ci.Name;
-			Identifier = ci.Identifier;
+			Id = con.Id;
+			Name = con.Name;
+			Identifier = con.Identifier;
 		}
 
 

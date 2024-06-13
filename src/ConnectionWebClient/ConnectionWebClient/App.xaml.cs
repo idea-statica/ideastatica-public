@@ -1,5 +1,6 @@
 ﻿using ConnectionWebClient.ViewModels;
-using IdeaStatiCa.ConnectionClient;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,7 +29,7 @@ namespace ConnectionWebClient
 
 			services.AddTransient<HttpClient>(serviceProvider => new HttpClient() { BaseAddress = new Uri(configuration["CONNECTION_API_ENDPOINT"]!) });
 
-			services.AddTransient<IConnectionClient, ConnectionClientHTTP>();
+			services.AddTransient<IConnectionApiController, ConnectionApiController>();
 
 			serviceProvider = services.BuildServiceProvider();
 		}
