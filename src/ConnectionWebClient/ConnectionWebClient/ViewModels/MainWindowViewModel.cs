@@ -3,6 +3,7 @@ using ConnectionWebClient.Tools;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -10,19 +11,21 @@ using System.Threading.Tasks;
 
 namespace ConnectionWebClient.ViewModels
 {
-	public class MainWindowViewModel : ViewModelBase
+	public class MainWindowViewModel : ViewModelBase, IDisposable
 	{
-		public readonly IConnectionApiController? connectionClient;
+		public IConnectionApiController? connectionClient;
+		private readonly IConnectionApiClientFactory _connectionApiClientFactory;
 		private bool _isBusy;
 		private string? outputText; 
 		ObservableCollection<ConnectionViewModel>? connectionsVM;
 		ConnectionViewModel? selectedConnection;
 		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
-		
+		private bool disposedValue;
 
-		public MainWindowViewModel()
+		public MainWindowViewModel(IConnectionApiClientFactory apiClientFactory)
 		{
+			this._connectionApiClientFactory = apiClientFactory;
 			this.cts = new CancellationTokenSource();
 			//this.connectionClient = connectionClient;
 
@@ -119,16 +122,10 @@ namespace ConnectionWebClient.ViewModels
 
 		private async Task ConnectAsync()
 		{
-			//if (SelectedConnection == null)
-			//{
-			//	return;
-			//}
-
 			IsBusy = true;
 			try
 			{
-				//var chekRes = await connectionClient.GetPlasticBriefResultsAsync(SelectedConnection.Id, cts.Token);
-				//OutputText = JsonTools.ToFormatedJson(chekRes);
+				connectionClient = await _connectionApiClientFactory.CreateConnectionApiClient();
 			}
 			finally
 			{
@@ -223,7 +220,9 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				await connectionClient.CloseProjectAsync(cts.Token);
+				connectionClient?.Dispose();
+				connectionClient = null;
+				//await connectionClient.CloseProjectAsync(cts.Token);
 				ProjectInfo = null;
 				SelectedConnection = null;
 				Connections = new ObservableCollection<ConnectionViewModel>();
@@ -233,6 +232,32 @@ namespace ConnectionWebClient.ViewModels
 			{
 				IsBusy = false;
 			}
+
+			await Task.CompletedTask;
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					if(connectionClient != null)
+					{
+						connectionClient.Dispose();
+						connectionClient = null;
+					}
+				}
+
+				disposedValue = true;
+			}
+		}
+
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 	}
 

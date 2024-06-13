@@ -15,16 +15,16 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 	{
 		private const string LOCALHOST_URL = "http://localhost";
 		private readonly IPluginLogger _pluginLogger;
-		private IHttpClientWrapper _httpClientWrapper;
+		private IHttpClientWrapper? _httpClientWrapper;
 		private int port = -1;
 		private Process _restApiProcess = null;
-		private readonly string _setupDir = null;
+		private readonly string? _setupDir = null;
 
 
 		public Action<string, int> StreamingLog { get; set; }
 		public Action<string> HeartbeatLog { get; set; }
 
-		public ConnectionApiClientFactory(string setupDir, IPluginLogger? pluginLogger = null, 
+		public ConnectionApiClientFactory(string? setupDir, IPluginLogger? pluginLogger = null, 
 			IHttpClientWrapper? httpClientWrapper = null)
 		{
 			_pluginLogger = pluginLogger ?? new NullLogger();
@@ -94,7 +94,7 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 			_restApiProcess = null;
 		}
 
-		private string GetConnectionRestApiPath(string directory)
+		private string? GetConnectionRestApiPath(string? directory)
 		{
 			if (string.IsNullOrEmpty(directory))
 			{

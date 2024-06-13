@@ -18,6 +18,7 @@ namespace ConnectionWebClient
 	public partial class App : Application
 	{
 		private readonly IServiceProvider serviceProvider;
+		private MainWindowViewModel? mainWindowViewModel;
 
 		public App()
 		{
@@ -42,20 +43,28 @@ namespace ConnectionWebClient
 
 			services.AddTransient<IConnectionApiClientFactory, ConnectionApiClientFactory>(serviceProvider =>
 			{
-				return new ConnectionApiClientFactory(string.Empty, null, null);
+				var setupDir = configuration["IdeaStatiCaSetupPath"];
+				return new ConnectionApiClientFactory(setupDir, serviceProvider.GetRequiredService<IPluginLogger>());
 			});
 
 			serviceProvider = services.BuildServiceProvider();
 		}
 
-		private void Application_Exit(object sender, ExitEventArgs e)
+		protected override void OnExit(ExitEventArgs e)
 		{
+			if (this.mainWindowViewModel is IDisposable disp)
+			{
+				disp.Dispose();
+			}
+			this.mainWindowViewModel = null;
+			base.OnExit(e);
 		}
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
 			mainWindow.Show();
+			this.mainWindowViewModel = mainWindow.DataContext as MainWindowViewModel;
 			base.OnStartup(e);
 		}
 
