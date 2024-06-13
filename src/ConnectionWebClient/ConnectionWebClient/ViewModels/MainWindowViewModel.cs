@@ -12,7 +12,7 @@ namespace ConnectionWebClient.ViewModels
 {
 	public class MainWindowViewModel : ViewModelBase
 	{
-		public readonly IConnectionApiController connectionClient;
+		public readonly IConnectionApiController? connectionClient;
 		private bool _isBusy;
 		private string? outputText; 
 		ObservableCollection<ConnectionViewModel>? connectionsVM;
@@ -21,10 +21,13 @@ namespace ConnectionWebClient.ViewModels
 		private CancellationTokenSource cts;
 		
 
-		public MainWindowViewModel(IConnectionApiController connectionClient)
+		public MainWindowViewModel()
 		{
 			this.cts = new CancellationTokenSource();
-			this.connectionClient = connectionClient;
+			//this.connectionClient = connectionClient;
+
+
+			ConnectCommand = new AsyncRelayCommand(ConnectAsync);
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
 
@@ -77,6 +80,8 @@ namespace ConnectionWebClient.ViewModels
 			}
 		}
 
+		public AsyncRelayCommand ConnectCommand { get; }
+
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
@@ -105,6 +110,25 @@ namespace ConnectionWebClient.ViewModels
 
 				OutputText =JsonTools.ToFormatedJson(ProjectInfo);
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		private async Task ConnectAsync()
+		{
+			//if (SelectedConnection == null)
+			//{
+			//	return;
+			//}
+
+			IsBusy = true;
+			try
+			{
+				//var chekRes = await connectionClient.GetPlasticBriefResultsAsync(SelectedConnection.Id, cts.Token);
+				//OutputText = JsonTools.ToFormatedJson(chekRes);
 			}
 			finally
 			{

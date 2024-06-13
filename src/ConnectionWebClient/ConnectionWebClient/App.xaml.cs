@@ -1,6 +1,9 @@
 ﻿using ConnectionWebClient.ViewModels;
 using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Factory;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
+using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -21,15 +24,26 @@ namespace ConnectionWebClient
 			IConfiguration configuration = BuildConfiguration();
 			var services = new ServiceCollection();
 
+			services.AddSingleton<IConfiguration>(configuration);
+
+			services.AddSingleton<IPluginLogger>(serviceProvider =>
+			{
+				SerilogFacade.Initialize();
+				return LoggerProvider.GetLogger("con.restapi.client");
+			});
+
 			services.AddTransient<MainWindow>(serviceProvider => new MainWindow
 			{
 				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
 			});
 			services.AddTransient<MainWindowViewModel>();
 
-			services.AddTransient<HttpClient>(serviceProvider => new HttpClient() { BaseAddress = new Uri(configuration["CONNECTION_API_ENDPOINT"]!) });
+			//services.AddTransient<HttpClient>(serviceProvider => new HttpClient() { BaseAddress = new Uri(configuration["CONNECTION_API_ENDPOINT"]!) });
 
-			services.AddTransient<IConnectionApiController, ConnectionApiController>();
+			services.AddTransient<IConnectionApiClientFactory, ConnectionApiClientFactory>(serviceProvider =>
+			{
+				return new ConnectionApiClientFactory(string.Empty, null, null);
+			});
 
 			serviceProvider = services.BuildServiceProvider();
 		}

@@ -9,6 +9,7 @@
 	<DockPanel LastChildFill="True">
 		<ToolBarTray DockPanel.Dock="Top">
 			<ToolBar Band="1" DockPanel.Dock="Top">
+				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Connect</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
 				<!--<Button Command="{Binding GetBriefResultsCommand, Mode=OneWay}">Plastic Brief results</Button>

@@ -17,6 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Public", "..\Id
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.NetFrameworkPort", "..\IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj", "{451A4B11-D721-4731-AFF5-B9E670B4B4A2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.PluginLogger", "..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{E6CD2C4B-935E-40E5-8549-437328B7CB69}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SerilogFacade", "..\Logger\SerilogFacade\SerilogFacade.shproj", "{D09CA0D0-737E-4481-8D89-371388E70F03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logger", "Logger", "{A46DFE34-F032-4EA0-9EB6-C7E99004061D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_IdeaStatiCa_Internal|Any CPU = Debug_IdeaStatiCa_Internal|Any CPU
@@ -81,11 +87,27 @@ Global
 		{451A4B11-D721-4731-AFF5-B9E670B4B4A2}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release|Any CPU
 		{451A4B11-D721-4731-AFF5-B9E670B4B4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{451A4B11-D721-4731-AFF5-B9E670B4B4A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Debug_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Debug_IdeaStatiCa_Internal|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Debug_IdeaStatiCa_Internal|Any CPU.Build.0 = Debug_IdeaStatiCa_Internal|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Release_IdeaStatiCa_Internal|Any CPU.ActiveCfg = Release_IdeaStatiCa_Internal|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Release_IdeaStatiCa_Internal|Any CPU.Build.0 = Release_IdeaStatiCa_Internal|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6CD2C4B-935E-40E5-8549-437328B7CB69} = {A46DFE34-F032-4EA0-9EB6-C7E99004061D}
+		{D09CA0D0-737E-4481-8D89-371388E70F03} = {A46DFE34-F032-4EA0-9EB6-C7E99004061D}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D57E4919-7909-4267-BCA2-36C956858D5E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Logger\SerilogFacade\SerilogFacade.projitems*{d09ca0d0-737e-4481-8d89-371388e70f03}*SharedItemsImports = 13
+		..\Logger\SerilogFacade\SerilogFacade.projitems*{e6cd2c4b-935e-40e5-8549-437328b7cb69}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

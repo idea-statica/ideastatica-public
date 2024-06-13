@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
+    <ProjectReference Include="..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
   </ItemGroup>
 
   <ItemGroup>
