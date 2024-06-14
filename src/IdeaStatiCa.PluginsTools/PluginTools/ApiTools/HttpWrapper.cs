@@ -13,6 +13,7 @@ using IdeaRS.OpenModel;
 using System.Xml;
 using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
 using IdeaStatiCa.Plugin.Api.Common;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 {
@@ -25,6 +26,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		private string baseUrl;
 		public Action<string, int> ProgressLogAction { get; set; } = null;
 		public Action<string> HeartBeatLogAction { get; set; } = null;
+		public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
 
 		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
 		{
@@ -43,7 +45,10 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		{
 			var url = baseUrl + "/" + requestUri;
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
-			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url, token); }
+			return await ExecuteClientCallAsync<TResult>(async (client) => 
+			{		
+				return await client.GetAsync(url, token); 
+			}
 			, acceptHeader);
 		}
 
@@ -145,6 +150,12 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 					// Periodically check the heartbeat while the long operation is in progress
 					var heartbeatTask = heartbeatChecker.StartAsync();
 					logger.LogTrace($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
+
+					foreach (KeyValuePair<string, string> header in Headers)
+					{
+						client.DefaultRequestHeaders.Add(header.Key, header.Value);
+					}
+
 					using (HttpResponseMessage response = await clientCall(client))
 					{
 
@@ -223,6 +234,11 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			var content = new StringContent(JsonConvert.SerializeObject(requestContent), encoding: Encoding.UTF8, "application/json");
 			content.Headers.ContentType.CharSet = "";
 			return content;
+		}
+
+		public void AddRequestHeader(string header, string value)
+		{
+			Headers.Add(header, value);
 		}
 	}
 }
