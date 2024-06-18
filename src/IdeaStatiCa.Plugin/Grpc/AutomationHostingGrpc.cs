@@ -1,7 +1,6 @@
 ﻿using IdeaStatica.Communication;
 using IdeaStatiCa.Plugin.Grpc;
 using IdeaStatiCa.Plugin.Grpc.Reflection;
-using Nito.AsyncEx.Synchronous;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -126,11 +125,11 @@ namespace IdeaStatiCa.Plugin
 			NotifyBIMStatusChanged(AppStatus.Started);
 
 			ideaLogger.LogDebug($"AutomationHostingGrpc.RunServer - starting hosting task");
-			hostingTask = Task.Run(() =>
+			hostingTask = Task.Run(async () =>
 			{
 				try
 				{
-					RunServer(id, token);
+					await RunServerAsync(id, token);
 				}
 				catch (Exception e)
 				{
@@ -162,7 +161,7 @@ namespace IdeaStatiCa.Plugin
 			}
 		}
 
-		protected virtual void RunServer(string id, System.Threading.CancellationToken cancellationToken)
+		protected virtual async Task RunServerAsync(string id, System.Threading.CancellationToken cancellationToken)
 		{
 			ideaLogger.LogDebug($"AutomationHostingGrpc.RunServer id = {id}");
 
@@ -181,7 +180,7 @@ namespace IdeaStatiCa.Plugin
 			}
 			finally
 			{
-				GrpcClient?.StopAsync().WaitAndUnwrapException();
+				await GrpcClient?.StopAsync();
 
 				NotifyBIMStatusChanged(AppStatus.Finished);
 
