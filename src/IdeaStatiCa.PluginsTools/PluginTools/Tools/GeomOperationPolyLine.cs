@@ -427,11 +427,17 @@ namespace CI.Geometry3D
 			IPoint3D startPoint = ConvertTo3D(polyline2D.StartPoint);
 			foreach (Geometry2D.ISegment2D segment2D in polyline2D.Segments)
 			{
+#if NET48
 				if (segment2D == null || segment2D.EndPoint == null)
 				{
 					continue;
 				}
-
+#else
+				if (segment2D == null)
+				{
+					continue;
+				}
+#endif
 				IPoint3D endPoint = ConvertTo3D(segment2D.EndPoint);
 
 				if (segment2D is Geometry2D.LineSegment2D)
@@ -477,11 +483,17 @@ namespace CI.Geometry3D
 			IPoint3D startPoint = ConvertTo3D(polyline2D.StartPoint, Yvalue);
 			foreach (Geometry2D.ISegment2D segment2D in polyline2D.Segments)
 			{
+#if NET48
 				if (segment2D == null || segment2D.EndPoint == null)
 				{
 					continue;
 				}
-
+#else
+				if (segment2D == null)
+				{
+					continue;
+				}
+#endif
 				IPoint3D endPoint = ConvertTo3D(segment2D.EndPoint, Yvalue);
 
 				if (segment2D is Geometry2D.LineSegment2D)
