@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -58,7 +59,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connTemplateSetting">Additional setting for application of the template.</param>
 		/// <returns>returns 'OK' if success otherwise an error message</returns>
 		[OperationContract]
-		string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
+		Task<string> ApplyTemplateAsync(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
 
 		/// <summary>
 		/// Apply the simple connectionsimple template from file <paramref name="templateFilePath"/> on connection <paramref name="connectionId"/>
@@ -70,7 +71,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="attachedMembers">The list of members which are supported by <paramref name="mainMember"/></param>
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
 		[OperationContract]
-		string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
+		Task<string> ApplySimpleTemplateAsync(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
 
 		/// <summary>
 		/// Get the geometry of the <paramref name="connectionId"/>
@@ -196,7 +197,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="boltAssemblyName"></param>
 		/// <returns></returns>
 		[OperationContract]
-		int AddBoltAssembly(string boltAssemblyName);
+		Task<int> AddBoltAssemblyAsync(string boltAssemblyName);
 
 		/// <summary>
 		/// Get list of parameters in JSON format for <paramref name="connectionId"/>
@@ -223,7 +224,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="parametersJSON">JSON string including parameters</param>
 		/// <returns>True if success | False if apply of parameters failed OR model contain some nonconformity</returns>
 		[OperationContract]
-		string ApplyParameters(string connectionId, string parametersJSON);
+		Task<string> ApplyParametersAsync(string connectionId, string parametersJSON);
 
 		/// <summary>
 		/// Get loading for connection <paramref name="connectionId"/> (List of CalcCaseData)
@@ -240,7 +241,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="loadingJSON">JSON including list of CalcCaseData</param>
 		/// <returns></returns>
 		[OperationContract]
-		string UpdateLoadingFromJson(string connectionId, string loadingJSON);
+		Task<string> UpdateLoadingFromJsonAsync(string connectionId, string loadingJSON);
 
 
 		/// <summary>
@@ -249,7 +250,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionSetupJSON">connection setup in JSON format</param>
 		/// <returns></returns>
 		[OperationContract]
-		string UpdateCodeSetupJSON(string connectionSetupJSON);
+		Task<string> UpdateCodeSetupJsonAsync(string connectionSetupJSON);
 
 		/// <summary>
 		/// Get the details results of the connection <paramref name="connectionId"/>
@@ -265,7 +266,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the connection</param>
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
 		[OperationContract]
-		string DeleteAllOperations(string connectionId);
+		Task<string> DeleteAllOperationsAsync(string connectionId);
 
 		/// <summary>
 		/// Change the material of a cross-section currently available in the Project
@@ -282,7 +283,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="memberId">Id of the member</param>
 		/// <param name="crossSectionId">Id of the cross-section</param>
 		[OperationContract]
-		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
+		Task SetMemberCrossSectionAsync(string connectionId, int memberId, int crossSectionId);
 
 		/// <summary>
 		/// Generate a report for connection <paramref name="connectionId"/>

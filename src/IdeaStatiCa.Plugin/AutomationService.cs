@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -17,9 +18,10 @@ namespace IdeaStatiCa.Plugin
 
 		public virtual string ProjectDir => throw new NotImplementedException();
 
-		public virtual void OpenProject(string fileName)
+		public virtual Task OpenProjectAsync(string fileName)
 		{
 			Debug.Fail("Not implemented");
+			return Task.CompletedTask;
 		}
 
 		public virtual void SelectItem(string itemId)
@@ -27,9 +29,11 @@ namespace IdeaStatiCa.Plugin
 			Debug.Fail("Not implemented");
 		}
 
-		public virtual void RefreshProject()
+		public virtual Task RefreshProjectAsync()
 		{
 			Debug.Fail("Not implemented");
+
+			return Task.CompletedTask;
 		}
 
 		public virtual void CloseProject()
@@ -42,9 +46,11 @@ namespace IdeaStatiCa.Plugin
 			Debug.Fail("Not implemented");
 		}
 
-		public virtual void Refresh()
+		public virtual Task RefreshAsync()
 		{
 			Debug.Fail("Not implemented");
+
+			return Task.CompletedTask;
 		}
 
 		public virtual void NotifyChange()

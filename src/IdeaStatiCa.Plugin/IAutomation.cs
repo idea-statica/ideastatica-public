@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
 using System;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -21,7 +22,7 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
 		[OperationContract]
-		void OpenProject(string fileName);
+		Task OpenProjectAsync(string fileName);
 
 		/// <summary>
 		/// Select item with <paramref name="itemId"/> in the project
@@ -34,7 +35,7 @@ namespace IdeaStatiCa.Plugin
 		/// Refresh the currently open project
 		/// </summary>
 		[OperationContract]
-		void RefreshProject();
+		Task RefreshProjectAsync();
 
 		/// <summary>
 		/// Close the
@@ -46,7 +47,7 @@ namespace IdeaStatiCa.Plugin
 		void Shutdown();
 
 		[OperationContract]
-		void Refresh();
+		Task RefreshAsync();
 
 		void NotifyChange();
 

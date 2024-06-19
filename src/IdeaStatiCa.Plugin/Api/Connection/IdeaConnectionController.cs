@@ -80,7 +80,7 @@ namespace IdeaStatiCa.Plugin
 		/// <inheritdoc cref="IConnectionController.OpenProject(string)"/>
 		public int OpenProject(string fileName)
 		{
-			GrpcClient.MyBIM.OpenProject(fileName);
+			GrpcClient.MyBIM.OpenProjectAsync(fileName);
 			return 1;
 		}
 
