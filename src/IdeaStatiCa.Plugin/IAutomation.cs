@@ -25,6 +25,13 @@ namespace IdeaStatiCa.Plugin
 		Task OpenProjectAsync(string fileName);
 
 		/// <summary>
+		/// Open <paramref name="fileName"/>
+		/// </summary>
+		/// <param name="fileName">Project to open</param>
+		[OperationContract]
+		void OpenProject(string fileName);
+
+		/// <summary>
 		/// Select item with <paramref name="itemId"/> in the project
 		/// </summary>
 		/// <param name="itemId">The identifier of the requested item</param>
@@ -38,6 +45,12 @@ namespace IdeaStatiCa.Plugin
 		Task RefreshProjectAsync();
 
 		/// <summary>
+		/// Refresh the currently open project
+		/// </summary>
+		[OperationContract]
+		void RefreshProject();
+
+		/// <summary>
 		/// Close the
 		/// </summary>
 		[OperationContract]
@@ -48,6 +61,10 @@ namespace IdeaStatiCa.Plugin
 
 		[OperationContract]
 		Task RefreshAsync();
+
+
+		[OperationContract]
+		void Refresh();
 
 		void NotifyChange();
 

@@ -205,7 +205,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.UpdateLoadingFromJsonAsync(connectionId, loadingJSON);
 		}
 
-		public string UpdateLoadingFromJSON(string connectionId, string loadingJSON)
+		public string UpdateLoadingFromJson(string connectionId, string loadingJSON)
 		{
 			return UpdateLoadingFromJsonAsync(connectionId, loadingJSON).Result;
 		}

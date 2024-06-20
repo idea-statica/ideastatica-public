@@ -24,6 +24,11 @@ namespace IdeaStatiCa.Plugin
 			return Task.CompletedTask;
 		}
 
+		public void OpenProject(string fileName)
+		{
+			OpenProjectAsync(fileName).Wait();
+		}
+
 		public virtual void SelectItem(string itemId)
 		{
 			Debug.Fail("Not implemented");
@@ -34,6 +39,11 @@ namespace IdeaStatiCa.Plugin
 			Debug.Fail("Not implemented");
 
 			return Task.CompletedTask;
+		}
+
+		public void RefreshProject()
+		{
+			RefreshProjectAsync().Wait();
 		}
 
 		public virtual void CloseProject()
@@ -51,6 +61,11 @@ namespace IdeaStatiCa.Plugin
 			Debug.Fail("Not implemented");
 
 			return Task.CompletedTask;
+		}
+
+		public void Refresh()
+		{
+			RefreshAsync().Wait();
 		}
 
 		public virtual void NotifyChange()

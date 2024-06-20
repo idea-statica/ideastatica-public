@@ -68,6 +68,9 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="conTemplateFileName">contemp filename including connection template</param>
 		/// <param name="connTemplateSetting">Additional setting for application of the template.</param>
 		/// <returns>returns 'OK' if success otherwise an error message</returns>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
 		string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
 
@@ -92,6 +95,9 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="mainMember">Main (supporting member)</param>
 		/// <param name="attachedMembers">The list of members which are supported by <paramref name="mainMember"/></param>
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
 		string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
 
@@ -226,6 +232,9 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="boltAssemblyName"></param>
 		/// <returns></returns>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
 		int AddBoltAssembly(string boltAssemblyName);
 
@@ -263,6 +272,9 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the parameter</param>
 		/// <param name="parametersJSON">JSON string including parameters</param>
 		/// <returns>True if success | False if apply of parameters failed OR model contain some nonconformity</returns>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
 		string ApplyParameters(string connectionId, string parametersJSON);
 
@@ -289,8 +301,11 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the connection</param>
 		/// <param name="loadingJSON">JSON including list of CalcCaseData</param>
 		/// <returns></returns>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
-		string UpdateLoadingFromJSON(string connectionId, string loadingJSON);
+		string UpdateLoadingFromJson(string connectionId, string loadingJSON);
 
 		/// <summary>
 		/// Set codesetup for the connection
@@ -329,6 +344,9 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <param name="connectionId">Id of the connection</param>
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
 		string DeleteAllOperations(string connectionId);
 
@@ -355,6 +373,9 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionId">Id of the connection</param>
 		/// <param name="memberId">Id of the member</param>
 		/// <param name="crossSectionId">Id of the cross-section</param>
+		/// <remarks>This synchronous method internally invokes the asynchronous code, which might cause application freezes and failures
+		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
+		/// using the await keyword.</remarks>
 		[OperationContract]
 		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
 
