@@ -54,6 +54,11 @@ namespace IdeaStatiCa.Plugin
 			return await Service.ApplySimpleTemplateAsync(connectionId, templateFilePath, connTemplateSetting, mainMember, attachedMembers);
 		}
 
+		public string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers)
+		{
+			return ApplySimpleTemplateAsync(connectionId, templateFilePath, connTemplateSetting, mainMember, attachedMembers).Result;
+		}
+
 		public void OpenProject(string ideaConFileName)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenProjectAsync ideaConFileName = '{ideaConFileName}'");
@@ -76,6 +81,11 @@ namespace IdeaStatiCa.Plugin
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.ApplyTemplate connectionId = '{connectionId}' conTemplateFileName ='{conTemplateFileName}'");
 			return await Service.ApplyTemplateAsync(connectionId, conTemplateFileName, connTemplateSetting);
+		}
+
+		public string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)
+		{
+			return ApplyTemplateAsync(connectionId, conTemplateFileName, connTemplateSetting).Result;
 		}
 
 		public string ExportToTemplate(string connectionId, string conTemplateFileName)
@@ -161,6 +171,11 @@ namespace IdeaStatiCa.Plugin
 			return await Service.AddBoltAssemblyAsync(boltAssemblyName);
 		}
 
+		public int AddBoltAssembly(string boltAssemblyName)
+		{
+			return AddBoltAssemblyAsync(boltAssemblyName).Result;
+		}
+
 		public string GetParametersJSON(string connectionId)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.GetParametersJSON connectionId = '{connectionId}'");
@@ -173,6 +188,11 @@ namespace IdeaStatiCa.Plugin
 			return await Service.ApplyParametersAsync(connectionId, parametersJSON);
 		}
 
+		public string ApplyParameters(string connectionId, string parametersJSON)
+		{
+			return ApplyParametersAsync(connectionId, parametersJSON).Result;
+		}
+
 		public string GetConnectionLoadingJSON(string connectionId)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.GetConnectionLoadingJSON connectionId = '{connectionId}'");
@@ -183,6 +203,11 @@ namespace IdeaStatiCa.Plugin
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.UpdateLoadingFromJson connectionId = '{connectionId}'");
 			return await Service.UpdateLoadingFromJsonAsync(connectionId, loadingJSON);
+		}
+
+		public string UpdateLoadingFromJSON(string connectionId, string loadingJSON)
+		{
+			return UpdateLoadingFromJsonAsync(connectionId, loadingJSON).Result;
 		}
 
 		public string GetCheckResultsJSON(string connectionId)
@@ -203,6 +228,11 @@ namespace IdeaStatiCa.Plugin
 			return await Service.DeleteAllOperationsAsync(connectionId);
 		}
 
+		public string DeleteAllOperations(string connectionId)
+		{
+			return DeleteAllOperationsAsync(connectionId).Result;
+		}
+
 		public string GetCodeSetupJSON()
 		{
 			Logger.LogInformation("ConnectionHiddenCheckClient.GetCodeSetupJSON");
@@ -215,6 +245,11 @@ namespace IdeaStatiCa.Plugin
 			return await Service.UpdateCodeSetupJsonAsync(connectionSetupJSON);
 		}
 
+		public string UpdateCodeSetupJSON(string connectionSetupJSON)
+		{
+			return UpdateCodeSetupJsonAsync(connectionSetupJSON).Result;
+		}
+
 		public void SetCrossSectionMaterial(int crossSectionId, int materialId)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.SetCrossSectionMaterial crossSectionId = {crossSectionId} materialId = {materialId}");
@@ -225,6 +260,12 @@ namespace IdeaStatiCa.Plugin
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.SetMemberCrossSection connectionId = '{connectionId}' memberId = {memberId} crossSectionId = {crossSectionId}");
 			await Service.SetMemberCrossSectionAsync(connectionId, memberId, crossSectionId);
+		}
+
+		public void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.SetMemberCrossSection connectionId = '{connectionId}' memberId = {memberId} crossSectionId = {crossSectionId}");
+			SetMemberCrossSectionAsync(connectionId, memberId, crossSectionId).Wait();
 		}
 
 		/// <inheritdoc cref="IConnHiddenCheck.GenerateReport(string, ConnReportSettings)"/>

@@ -62,6 +62,16 @@ namespace IdeaStatiCa.Plugin
 		Task<string> ApplyTemplateAsync(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
 
 		/// <summary>
+		/// Apply the selected template in file <paramref name="conTemplateFileName"/> on connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">Identifier of the connection in the project, empty guid means the first connection in the project</param>
+		/// <param name="conTemplateFileName">contemp filename including connection template</param>
+		/// <param name="connTemplateSetting">Additional setting for application of the template.</param>
+		/// <returns>returns 'OK' if success otherwise an error message</returns>
+		[OperationContract]
+		string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
+
+		/// <summary>
 		/// Apply the simple connectionsimple template from file <paramref name="templateFilePath"/> on connection <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">The id of the connection on which templete will be applied</param>
@@ -72,6 +82,18 @@ namespace IdeaStatiCa.Plugin
 		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
 		[OperationContract]
 		Task<string> ApplySimpleTemplateAsync(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
+
+		/// <summary>
+		/// Apply the simple connectionsimple template from file <paramref name="templateFilePath"/> on connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The id of the connection on which templete will be applied</param>
+		/// <param name="templateFilePath">The path to the connection teplate</param>
+		/// <param name="connTemplateSetting">The additional settings - e.g. default bolts</param>
+		/// <param name="mainMember">Main (supporting member)</param>
+		/// <param name="attachedMembers">The list of members which are supported by <paramref name="mainMember"/></param>
+		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
+		[OperationContract]
+		string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
 
 		/// <summary>
 		/// Get the geometry of the <paramref name="connectionId"/>
@@ -200,6 +222,14 @@ namespace IdeaStatiCa.Plugin
 		Task<int> AddBoltAssemblyAsync(string boltAssemblyName);
 
 		/// <summary>
+		/// Add the new bolt assembly. Its type is defined by its name (e.g. 'M12 4.6')
+		/// </summary>
+		/// <param name="boltAssemblyName"></param>
+		/// <returns></returns>
+		[OperationContract]
+		int AddBoltAssembly(string boltAssemblyName);
+
+		/// <summary>
 		/// Get list of parameters in JSON format for <paramref name="connectionId"/>
 		/// <see href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</see>
 		/// </summary>
@@ -227,6 +257,16 @@ namespace IdeaStatiCa.Plugin
 		Task<string> ApplyParametersAsync(string connectionId, string parametersJSON);
 
 		/// <summary>
+		/// Apply <paramref name="parametersJSON"/> on connection<paramref name="connectionId"/>
+		/// <see href="https://idea-statica.github.io/iom/iom-api/latest/html/N_IdeaRS_OpenModel_Parameters.htm">IOM Parameters</see>
+		/// </summary>
+		/// <param name="connectionId">Id of the parameter</param>
+		/// <param name="parametersJSON">JSON string including parameters</param>
+		/// <returns>True if success | False if apply of parameters failed OR model contain some nonconformity</returns>
+		[OperationContract]
+		string ApplyParameters(string connectionId, string parametersJSON);
+
+		/// <summary>
 		/// Get loading for connection <paramref name="connectionId"/> (List of CalcCaseData)
 		/// </summary>
 		/// <param name="connectionId">Id of the parameter</param>
@@ -243,6 +283,14 @@ namespace IdeaStatiCa.Plugin
 		[OperationContract]
 		Task<string> UpdateLoadingFromJsonAsync(string connectionId, string loadingJSON);
 
+		/// <summary>
+		/// Set loading for the connection
+		/// </summary>
+		/// <param name="connectionId">Id of the connection</param>
+		/// <param name="loadingJSON">JSON including list of CalcCaseData</param>
+		/// <returns></returns>
+		[OperationContract]
+		string UpdateLoadingFromJSON(string connectionId, string loadingJSON);
 
 		/// <summary>
 		/// Set codesetup for the connection
@@ -251,6 +299,14 @@ namespace IdeaStatiCa.Plugin
 		/// <returns></returns>
 		[OperationContract]
 		Task<string> UpdateCodeSetupJsonAsync(string connectionSetupJSON);
+
+		/// <summary>
+		/// Set codesetup for the connection
+		/// </summary>
+		/// <param name="connectionSetupJSON">connection setup in JSON format</param>
+		/// <returns></returns>
+		[OperationContract]
+		string UpdateCodeSetupJSON(string connectionSetupJSON);
 
 		/// <summary>
 		/// Get the details results of the connection <paramref name="connectionId"/>
@@ -269,6 +325,14 @@ namespace IdeaStatiCa.Plugin
 		Task<string> DeleteAllOperationsAsync(string connectionId);
 
 		/// <summary>
+		/// Delete all manufacturing operations in <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">Id of the connection</param>
+		/// <returns>Returns 'Ok' in case of the success otherwise 'Fail'</returns>
+		[OperationContract]
+		string DeleteAllOperations(string connectionId);
+
+		/// <summary>
 		/// Change the material of a cross-section currently available in the Project
 		/// </summary>
 		/// <param name="crossSectionId">Id of the cross-section</param>
@@ -284,6 +348,15 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="crossSectionId">Id of the cross-section</param>
 		[OperationContract]
 		Task SetMemberCrossSectionAsync(string connectionId, int memberId, int crossSectionId);
+
+		/// <summary>
+		/// Change the cross-section of a member in a connection in the Project through
+		/// </summary>
+		/// <param name="connectionId">Id of the connection</param>
+		/// <param name="memberId">Id of the member</param>
+		/// <param name="crossSectionId">Id of the cross-section</param>
+		[OperationContract]
+		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
 
 		/// <summary>
 		/// Generate a report for connection <paramref name="connectionId"/>
