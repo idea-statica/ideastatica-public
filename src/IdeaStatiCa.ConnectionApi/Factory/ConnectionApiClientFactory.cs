@@ -7,6 +7,7 @@ using IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi.Factory
@@ -131,6 +132,7 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 			_pluginLogger.LogInformation($"Service is running on {url} with process ID {processId}");
 
 			var wrapper = _httpClientWrapper ?? new HttpClientWrapper(_pluginLogger, url);
+
 			if (StreamingLog != null)
 			{
 				wrapper.ProgressLogAction = StreamingLog;
@@ -139,7 +141,9 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 			{
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
-			return new ConnectionApiController(processId, wrapper, _pluginLogger);
+			var client = new ConnectionApiController(processId, wrapper, _pluginLogger);
+			await client.InitializeClientIdAsync(CancellationToken.None);
+			return client;
 		}
 	}
 }

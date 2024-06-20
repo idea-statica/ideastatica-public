@@ -1,7 +1,6 @@
 ﻿using Grpc.Core;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin.Grpc.Services

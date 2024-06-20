@@ -20,6 +20,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		private bool disposedValue = false;
 		private readonly int restApiProcessId;
 		private Guid activeProjectId;
+		private Guid ClientId;
 
 		private readonly IHttpClientWrapper _httpClient;
 		private readonly IPluginLogger _pluginLogger;
@@ -52,7 +53,6 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync");
-
 			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/1/connection/{activeProjectId}/calculate", calculationParameters, cancellationToken);
 
 			return response;
@@ -94,6 +94,16 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
+		}
+
+		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
+		{
+			if(ClientId == Guid.Empty)
+			{
+				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>("api/1/project/ConnectClient", cancellationToken);
+				ClientId = clientIdResponse.ClientId;
+				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
+			}
 		}
 	}
 }
