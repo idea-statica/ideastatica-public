@@ -7,6 +7,8 @@ namespace IdeaStatiCa.Plugin.Api.Common
 {
 	public interface IHttpClientWrapper
 	{
+		void AddRequestHeader(string header, string value);
+
 		Action<string, int> ProgressLogAction { get; set; }
 		Action<string> HeartBeatLogAction { get; set; }
 
