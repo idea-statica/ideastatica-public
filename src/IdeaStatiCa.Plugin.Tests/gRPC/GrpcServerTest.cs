@@ -27,7 +27,8 @@ namespace IdeaStatiCa.Plugin.Tests.gRPC
 		[Test]
 		public async Task GrpcServerHandleMessagesTest()
 		{
-			var grpcServer = new GrpcServer(new NullLogger());
+			var pluginLogger = new NullLogger();
+			var grpcServer = new GrpcServer(pluginLogger, new IdeaStatiCa.Plugin.Grpc.Services.GrpcService(pluginLogger));
 
 			var streamReader = Substitute.For<IAsyncStreamReader<GrpcMessage>>();
 			var streamWriter = Substitute.For<IServerStreamWriter<GrpcMessage>>();
