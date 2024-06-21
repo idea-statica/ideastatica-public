@@ -1,25 +1,28 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using System.Threading;
-using System.Collections.Generic;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
 	public class ConnectionApiController : IConnectionApiController
 	{
+		public static readonly string ApiVersion = "1";
+
 		private bool disposedValue = false;
 		private readonly int restApiProcessId;
 		private Guid activeProjectId;
+		private Guid ClientId;
 
 		private readonly IHttpClientWrapper _httpClient;
 		private readonly IPluginLogger _pluginLogger;
@@ -41,21 +44,39 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-			var response = await _httpClient.PostAsyncStream<ConProject>("api/1/project/OpenProject", streamContent, cancellationToken);
+			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/project/OpenProject", streamContent, cancellationToken);
 			activeProjectId = response.ProjectId;
 			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject projectId = {response.ProjectId}");
 
 			return response;
 		}
 
+		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
+		{
+			if (ClientId == Guid.Empty)
+			{
+				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>($"api/{ApiVersion}/project/ConnectClient", cancellationToken);
+				ClientId = clientIdResponse.ClientId;
+				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
+			}
+		}
+
 		/// <inheritdoc cref="CalculateAsync(ConCalculationParameter, CancellationToken)" />
 		public async Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync");
-
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/1/connection/{activeProjectId}/calculate", calculationParameters, cancellationToken);
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/connection/{activeProjectId}/calculate", calculationParameters, cancellationToken);
 
 			return response;
+		}
+
+		public async Task CloseProjectAsync(CancellationToken cancellationToken)
+		{
+			throw new NotImplementedException();
+			//_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
+			//var response = await _httpClient.GetAsync<List<ConResultSummary>>($"/api/{ApiVersion}/project/{activeProjectId}/close", cancellationToken);
+
+			//return response;
 		}
 
 		protected virtual void Dispose(bool disposing)
@@ -90,7 +111,5 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
-
-
 	}
 }

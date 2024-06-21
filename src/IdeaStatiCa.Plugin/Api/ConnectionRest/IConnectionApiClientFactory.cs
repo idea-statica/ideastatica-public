@@ -20,7 +20,14 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <summary>
 		/// Run a new ConnectionRestAPI server and create an instance of IConnectionApiController that is connected to it
 		/// </summary>
-		/// <returns>Instance of RcsApiController</returns>eturns>
+		/// <returns>Instance of <see cref="IConnectionApiController"/></returns>
 		Task<IConnectionApiController> CreateConnectionApiClient();
+
+		/// <summary>
+		/// Create an instance of IConnectionApiController that is connected to the service which listens on <paramref name="uri"/>
+		/// </summary>
+		/// <param name="uri">Uri of the ConnectionRestAPI service</param>
+		/// <returns>Instance of <see cref="IConnectionApiController"/></returns>
+		Task<IConnectionApiController> CreateConnectionApiClient(Uri uri);
 	}
 }

@@ -9,12 +9,13 @@
 	<DockPanel LastChildFill="True">
 		<ToolBarTray DockPanel.Dock="Top">
 			<ToolBar Band="1" DockPanel.Dock="Top">
-				<Button Command="{Binding UploadProjectCommand, Mode=OneWay}">Upload Project</Button>
+				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Connect</Button>
+				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
-				<Button Command="{Binding GetBriefResultsCommand, Mode=OneWay}">Plastic Brief results</Button>
+				<!--<Button Command="{Binding GetBriefResultsCommand, Mode=OneWay}">Plastic Brief results</Button>
 				<Button Command="{Binding GetDetailedResultsCommand, Mode=OneWay}">Plastic Detailed results</Button>
 				<Button Command="{Binding GetBucklingBriefResultsCommand, Mode=OneWay}">Buckling Brief results</Button>
-				<Button Command="{Binding GetBucklingDetailedResultsCommand, Mode=OneWay}">Buckling Detailed results</Button>
+				<Button Command="{Binding GetBucklingDetailedResultsCommand, Mode=OneWay}">Buckling Detailed results</Button>-->
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
