@@ -72,11 +72,15 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
 		public async Task CloseProjectAsync(CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
-			//_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
-			//var response = await _httpClient.GetAsync<List<ConResultSummary>>($"/api/{ApiVersion}/project/{activeProjectId}/close", cancellationToken);
-
-			//return response;
+			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
+			try
+			{
+				var result = await _httpClient.PutAsync<string>($"api/{ApiVersion}/project/{activeProjectId}/close", "X", cancellationToken, "text/plain");
+			}
+			finally
+			{
+				activeProjectId = Guid.Empty;
+			}
 		}
 
 		protected virtual void Dispose(bool disposing)
@@ -92,7 +96,10 @@ namespace IdeaStatiCa.ConnectionApi.Client
 						{
 							if (!restApiProcess.HasExited)
 							{
+								
 								_pluginLogger.LogInformation($"Cleaning the API process with ID {restApiProcessId}");
+
+								// TODO - I suppose Kill process does't release resources properly (temp files on a disk)
 								restApiProcess.Kill();
 							}
 						}

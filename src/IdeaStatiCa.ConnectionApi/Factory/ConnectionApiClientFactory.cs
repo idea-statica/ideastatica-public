@@ -66,6 +66,7 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 #endif
 					_restApiProcess.Start();
 
+
 					// Wait for the API to start (you might need a more robust way to determine this)
 					await Task.Delay(5000);
 
@@ -85,7 +86,7 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 				}
 
 				_pluginLogger.LogDebug($"Created process with Id {_restApiProcess?.Id}");
-				return ($"{LOCALHOST_URL}:{port}", _restApiProcess != null ? -1 : _restApiProcess.Id);
+				return ($"{LOCALHOST_URL}:{port}", _restApiProcess == null ? -1 : _restApiProcess.Id);
 			});
 		}
 

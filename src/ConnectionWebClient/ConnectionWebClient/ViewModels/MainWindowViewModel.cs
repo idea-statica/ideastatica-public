@@ -104,15 +104,6 @@ namespace ConnectionWebClient.ViewModels
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
-
-		//public AsyncRelayCommand GetBriefResultsCommand { get; }
-
-		//public AsyncRelayCommand GetDetailedResultsCommand { get; }
-
-		//public AsyncRelayCommand GetBucklingBriefResultsCommand { get; }
-
-		//public AsyncRelayCommand GetBucklingDetailedResultsCommand { get; }
-
 		private async Task OpenProjectAsync()
 		{
 			_logger.LogInformation("OpenProjectAsync");
@@ -145,7 +136,7 @@ namespace ConnectionWebClient.ViewModels
 			finally
 			{
 				IsBusy = false;
-				RefreshCommangs();
+				RefreshCommands();
 			}
 		}
 
@@ -183,100 +174,26 @@ namespace ConnectionWebClient.ViewModels
 			finally
 			{
 				IsBusy = false;
-				RefreshCommangs();
+				RefreshCommands();
 			}
 		}
 
-		//private async Task GetBriefResultsAsync()
-		//{
-		//	if (SelectedConnection == null)
-		//	{
-		//		return;
-		//	}
-
-		//	IsBusy = true;
-		//	try
-		//	{
-		//		var chekRes = await connectionClient.GetPlasticBriefResultsAsync(SelectedConnection.Id, cts.Token);
-		//		OutputText = JsonTools.ToFormatedJson(chekRes);
-		//	}
-		//	finally
-		//	{
-		//		IsBusy = false;
-		//	}
-		//}
-
-		//private async Task GetDetailedResultsAsync()
-		//{
-		//	if (SelectedConnection == null)
-		//	{
-		//		return;
-		//	}
-
-		//	IsBusy = true;
-		//	try
-		//	{
-		//		var res = await connectionClient.GetPlasticDetailedResultsJsonAsync(SelectedConnection.Id, cts.Token);
-		//		OutputText = JsonTools.FormatJson(res);
-		//	}
-		//	finally
-		//	{
-		//		IsBusy = false;
-		//	}
-		//}
-
-		//private async Task GetBucklingBriefResultsAsync()
-		//{
-		//	if (SelectedConnection == null)
-		//	{
-		//		return;
-		//	}
-
-		//	IsBusy = true;
-		//	try
-		//	{
-		//		var chekRes = await connectionClient.GetBucklingBriefResultsAsync(SelectedConnection.Id, cts.Token);
-		//		OutputText = JsonTools.ToFormatedJson(chekRes);
-		//	}
-		//	finally
-		//	{
-		//		IsBusy = false;
-		//	}
-		//}
-
-
-		//private async Task GetBucklingDetailedResultsAsync()
-		//{
-		//	if (SelectedConnection == null)
-		//	{
-		//		return;
-		//	}
-
-		//	IsBusy = true;
-		//	try
-		//	{
-		//		var json = await connectionClient.GetBucklingDetailedResultsJsonAsync(SelectedConnection.Id, cts.Token);
-		//		OutputText = JsonTools.FormatJson(json);
-		//	}
-		//	finally
-		//	{
-		//		IsBusy = false;
-		//	}
-		//}
-
-		private async Task CloseProjectAsync()
+		internal async Task CloseProjectAsync()
 		{
 			if(ProjectInfo == null)
 			{
 				return;
 			}
 
+			if(ConnectionController == null)
+			{
+				return;
+			}	
+
 			IsBusy = true;
 			try
 			{
-				ConnectionController?.Dispose();
-				ConnectionController = null;
-				//await connectionClient.CloseProjectAsync(cts.Token);
+				await ConnectionController.CloseProjectAsync(cts.Token);
 				ProjectInfo = null;
 				SelectedConnection = null;
 				Connections = new ObservableCollection<ConnectionViewModel>();
@@ -285,6 +202,7 @@ namespace ConnectionWebClient.ViewModels
 			finally
 			{
 				IsBusy = false;
+				RefreshCommands();
 			}
 
 			await Task.CompletedTask;
@@ -315,6 +233,12 @@ namespace ConnectionWebClient.ViewModels
 		}
 
 		private void RefreshCommangs()
+		{
+			this.ConnectCommand.NotifyCanExecuteChanged();
+			this.OpenProjectCommand.NotifyCanExecuteChanged();
+			this.CloseProjectCommand.NotifyCanExecuteChanged();
+		}
+		private void RefreshCommands()
 		{
 			this.ConnectCommand.NotifyCanExecuteChanged();
 			this.OpenProjectCommand.NotifyCanExecuteChanged();
