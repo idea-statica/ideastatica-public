@@ -52,11 +52,12 @@ namespace ConnectionWebClient
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			if (this.mainWindowViewModel is IDisposable disp)
+			if (this.mainWindowViewModel != null)
 			{
-				disp.Dispose();
+				this.mainWindowViewModel.Dispose();
+				this.mainWindowViewModel = null;
 			}
-			this.mainWindowViewModel = null;
+			
 			base.OnExit(e);
 		}
 
