@@ -161,7 +161,19 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient();
+				if (RunApiServer)
+				{
+					ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient();
+				}
+				else
+				{
+					if (ApiUri == null)
+					{
+						throw new Exception("ApiUri is not set");
+					}
+
+					ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient(ApiUri);
+				}
 			}
 			catch (Exception ex)
 			{

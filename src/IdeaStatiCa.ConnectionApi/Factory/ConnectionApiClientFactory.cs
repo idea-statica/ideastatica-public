@@ -22,8 +22,8 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 		private readonly string? _setupDir = null;
 
 
-		public Action<string, int> StreamingLog { get; set; }
-		public Action<string> HeartbeatLog { get; set; }
+		public Action<string, int>? StreamingLog { get; set; }
+		public Action<string>? HeartbeatLog { get; set; }
 
 		public ConnectionApiClientFactory(string? setupDir, IPluginLogger? pluginLogger = null,
 			IHttpClientWrapper? httpClientWrapper = null)
@@ -85,7 +85,7 @@ namespace IdeaStatiCa.ConnectionApi.Factory
 				}
 
 				_pluginLogger.LogDebug($"Created process with Id {_restApiProcess?.Id}");
-				return ($"{LOCALHOST_URL}:{port}", _restApiProcess.Id);
+				return ($"{LOCALHOST_URL}:{port}", _restApiProcess != null ? -1 : _restApiProcess.Id);
 			});
 		}
 
