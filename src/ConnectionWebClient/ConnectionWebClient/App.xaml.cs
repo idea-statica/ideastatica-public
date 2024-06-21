@@ -50,7 +50,7 @@ namespace ConnectionWebClient
 			serviceProvider = services.BuildServiceProvider();
 		}
 
-		protected override async void OnExit(ExitEventArgs e)
+		protected override void OnExit(ExitEventArgs e)
 		{
 			if (this.mainWindowViewModel != null)
 			{
