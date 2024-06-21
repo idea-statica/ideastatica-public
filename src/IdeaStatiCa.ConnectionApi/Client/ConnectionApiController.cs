@@ -1,17 +1,17 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using System.Threading;
-using System.Collections.Generic;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
@@ -47,6 +47,16 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject projectId = {response.ProjectId}");
 
 			return response;
+		}
+
+		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
+		{
+			if (ClientId == Guid.Empty)
+			{
+				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>("api/1/project/ConnectClient", cancellationToken);
+				ClientId = clientIdResponse.ClientId;
+				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
+			}
 		}
 
 		/// <inheritdoc cref="CalculateAsync(ConCalculationParameter, CancellationToken)" />
@@ -94,16 +104,6 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
-		}
-
-		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
-		{
-			if(ClientId == Guid.Empty)
-			{
-				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>("api/1/project/ConnectClient", cancellationToken);
-				ClientId = clientIdResponse.ClientId;
-				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
-			}
 		}
 	}
 }
