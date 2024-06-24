@@ -53,7 +53,6 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			, acceptHeader);
 		}
 
-
 		public async Task<TResult> PutAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
 		{
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
@@ -79,21 +78,22 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		/// <returns>Deserialized object from Http response</returns>
 		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
 		{
-			var url = $"{baseUrl}{PluginConstants.RcsProgressEndpoint}";
-			logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 			HubConnection hubConnection = null;
 
 			if (ProgressLogAction != null)
 			{
+				var hubUrl = new Uri(baseUrl, PluginConstants.RcsProgressEndpoint);
+
 				hubConnection = new HubConnectionBuilder()
-					.WithUrl(url)
+					.WithUrl(hubUrl)
 					.Build();
 
 				hubConnection.On<string, int>(PluginConstants.RcsProgressMethod, (msg, num) => ProgressLogAction(msg, num));
 
-				logger.LogInformation($"Starting hub connection on {url} address");
+				logger.LogInformation($"Starting hub connection on {hubUrl} address");
 				await hubConnection.StartAsync();
 			}
+			
 
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
@@ -102,6 +102,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 					var url = new Uri(baseUrl, requestUri);
 					try
 					{
+						logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 						return await client.PostAsync(url, content, token);
 					}
 					catch (OperationCanceledException ex)
