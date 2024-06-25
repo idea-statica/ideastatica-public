@@ -37,7 +37,8 @@ namespace IdeaStatiCa.BimApiLink
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
 			Project project = new Project(logger, jsonPersistence);
 			ProjectAdapter projectAdapter = new ProjectAdapter(project, bimApiImporter);
-			CadModelAdapter cadModelAdapter = new CadModelAdapter(bimApiImporter, model as ICadModel, remoteApp, ApplicationName);
+
+			CadModelAdapter cadModelAdapter = new CadModelAdapter(bimApiImporter, model as ICadModel, remoteApp, ApplicationName, _itemsComparer);
 
 			IBimImporter bimImporter = BimImporter.BimImporter.Create(
 				cadModelAdapter,

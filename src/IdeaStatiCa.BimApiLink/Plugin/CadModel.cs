@@ -1,11 +1,11 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
-using IdeaStatiCa.BimApi;
+using IdeaStatiCa.Plugin;
 using Nito.Disposables.Internals;
 using System.Collections.Generic;
 using System.Linq;
-using IdeaStatiCa.Plugin;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
@@ -17,13 +17,15 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		private readonly ICadModel _cadModel;
 		private readonly IProgressMessaging _remoteApp;
 		private readonly string _applicationName;
+		private IComparer<IIdentifier> _itemsComparer;
 
-		public CadModelAdapter(IBimApiImporter bimApiImporter, ICadModel cadModel, IProgressMessaging remoteApp, string applicationName)
+		public CadModelAdapter(IBimApiImporter bimApiImporter, ICadModel cadModel, IProgressMessaging remoteApp, string applicationName, IComparer<IIdentifier> itemsComparer)
 		{
 			_bimApiImporter = bimApiImporter;
 			_cadModel = cadModel;
 			_remoteApp = remoteApp;
 			_applicationName = applicationName;
+			_itemsComparer = itemsComparer;
 		}
 
 		public ISet<IIdeaLoading> GetLoads()
@@ -139,7 +141,18 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		private void ProcessConnectionObjects(IIdeaConnectionPoint connectionPoint, CadUserSelection selection)
 		{
-			foreach (var item in selection.Objects)
+			//make sure first is process plates, members and than bolts weld (part witch should connect is known). 
+			ICollection<IIdentifier> sortedIdentifiers;
+			if (_itemsComparer == null)
+			{
+				sortedIdentifiers = selection.Objects.ToList();
+			}
+			else
+			{
+				sortedIdentifiers = selection.Objects.OrderBy(i => i, _itemsComparer).ToList();
+			}
+
+			foreach (var item in sortedIdentifiers)
 			{
 				switch (item.ObjectType.Name)
 				{

@@ -5,6 +5,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.TeklaStructuresPlugin.Hooks;
 using IdeaStatiCa.TeklaStructuresPlugin.Importers;
 using IdeaStatiCa.TeklaStructuresPlugin.UserData;
+using IdeaStatiCa.TeklaStructuresPlugin.Utilities;
 using System;
 using System.IO;
 using System.Reflection;
@@ -70,6 +71,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				.WithLogger(container.Resolve<IPluginLogger>())
 				.WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
 				.WithPluginHook(appVisibility)
+				.WithItemsComparer(new IdentifierComparer())
 				.WithUserDataSource(container.Resolve<UserDataSource>())
 				.Run(model);
 		}
