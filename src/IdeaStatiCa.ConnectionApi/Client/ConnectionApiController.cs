@@ -65,7 +65,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync");
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/Connection/{activeProjectId}/calculate", calculationParameters, cancellationToken, "application/json", true);
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/Connection/{activeProjectId}/calculate", calculationParameters, cancellationToken, "application/json", false);
 
 			return response;
 		}
