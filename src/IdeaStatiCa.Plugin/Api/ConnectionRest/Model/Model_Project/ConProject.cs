@@ -6,6 +6,10 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project
 {
 	public class ConProject
 	{
+		/// <summary>
+		/// Thw unique identifier of an open connection project.
+		/// It is assigned by Rest API ahen a project is uploaded.
+		/// </summary>
 		public Guid ProjectId { get; set; }
 
 		public ConProjectData ProjectInfo { get; set; }
