@@ -23,14 +23,14 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 			var res = string.Empty;
 			IsCommandRunning = true;
 			Model.SetResults("Updating loading of the connection");
-			var connCalculatorTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(async () =>
 			{
 				try
 				{
 					var updatedLoading = (IConnectionDataJson)parameter;
 					var Service = Model.GetConnectionService();
 
-					Service.UpdateLoadingFromJson(updatedLoading.ConnectionId.ToString(), updatedLoading.DataJson);
+					await Service.UpdateLoadingFromJsonAsync(updatedLoading.ConnectionId.ToString(), updatedLoading.DataJson);
 
 					NotifyCommandFinished();
 				}
