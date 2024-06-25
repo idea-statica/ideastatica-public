@@ -44,7 +44,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/project/OpenProject", streamContent, cancellationToken);
+			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/ConProject/OpenProject", streamContent, cancellationToken);
 			activeProjectId = response.ProjectId;
 			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject projectId = {response.ProjectId}");
 
@@ -55,7 +55,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			if (ClientId == Guid.Empty)
 			{
-				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>($"api/{ApiVersion}/project/ConnectClient", cancellationToken);
+				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>($"api/{ApiVersion}/ConProject/ConnectClient", cancellationToken);
 				ClientId = clientIdResponse.ClientId;
 				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
 			}
@@ -65,7 +65,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync");
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/connection/{activeProjectId}/calculate", calculationParameters, cancellationToken);
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/Connection/{activeProjectId}/calculate", calculationParameters, cancellationToken, "application/json", true);
 
 			return response;
 		}
@@ -75,7 +75,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
 			try
 			{
-				var result = await _httpClient.PutAsync<string>($"api/{ApiVersion}/project/{activeProjectId}/close", "X", cancellationToken, "text/plain");
+				var result = await _httpClient.PutAsync<string>($"api/{ApiVersion}/ConProject/{activeProjectId}/close", "X", cancellationToken, "text/plain");
 			}
 			finally
 			{
