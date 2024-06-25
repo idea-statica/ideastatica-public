@@ -147,11 +147,12 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			{
 				using (var client = new HttpClient() { Timeout = Timeout.InfiniteTimeSpan })
 				{
-					heartbeatChecker = new HeartbeatChecker(logger, client, baseUrl + PluginConstants.RcsApiHeartbeat);
+					var url = new Uri(baseUrl, PluginConstants.RcsApiHeartbeat);
+					heartbeatChecker = new HeartbeatChecker(logger, client, url.AbsoluteUri);
 					heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
 					// Periodically check the heartbeat while the long operation is in progress
 					var heartbeatTask = heartbeatChecker.StartAsync();
-					logger.LogTrace($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
+					logger.LogTrace($"Starting HeartbeatChecker on url {url.AbsoluteUri}");
 
 					foreach (KeyValuePair<string, string> header in Headers)
 					{
