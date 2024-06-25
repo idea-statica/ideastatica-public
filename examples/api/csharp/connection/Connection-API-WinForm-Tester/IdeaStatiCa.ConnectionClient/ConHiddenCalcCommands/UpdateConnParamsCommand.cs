@@ -26,14 +26,14 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 			var res = string.Empty;
 			IsCommandRunning = true;
 			Model.SetResults("Updating parameters of the connection");
-			var connCalculatorTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(async () =>
 			{
 				try
 				{
 					var updatedParameters = (IConnectionDataJson)parameter;
 					var Service = Model.GetConnectionService();
 
-					Service.ApplyParameters(updatedParameters.ConnectionId.ToString(), updatedParameters.DataJson);
+					await Service.ApplyParametersAsync(updatedParameters.ConnectionId.ToString(), updatedParameters.DataJson);
 
 					NotifyCommandFinished();
 				}
