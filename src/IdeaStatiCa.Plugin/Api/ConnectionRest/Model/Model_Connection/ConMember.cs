@@ -11,5 +11,10 @@
 		public bool MirrorY { get; set; }
 
 		public bool MirrorZ { get; set; }
+
+		public ConMember(int id):base(id)
+		{
+
+		}
 	}
 }
