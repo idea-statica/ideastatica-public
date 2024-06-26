@@ -4,8 +4,8 @@
 	{
 		public int MemberId { get; set; }
 
-		public ConLoadEffectSectionLoad Begin { get; set; }
+		public ConLoadEffectPositionEnum Position { get; set; }
 
-		public ConLoadEffectSectionLoad End { get; set; }
+		public ConLoadEffectSectionLoad SectionLoad { get; set; }
 	}
 }
