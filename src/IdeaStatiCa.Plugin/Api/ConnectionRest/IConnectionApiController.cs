@@ -1,6 +1,5 @@
 ﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -22,8 +21,12 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// </summary>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
-		Task CloseProjectAsync(CancellationToken cancellationToken);
+		Task CloseProjectAsync(CancellationToken cancellationToken = default);
 
-		Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken);
+		Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default);
+
+		Task<List<ConConnection>> GetConnectionsAsync(CancellationToken token = default);
+
+		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
 	}
 }
