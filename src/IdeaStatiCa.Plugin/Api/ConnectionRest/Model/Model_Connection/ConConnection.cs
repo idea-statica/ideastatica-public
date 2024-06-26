@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Parameter;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
+﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
 
 namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 {
@@ -26,18 +20,16 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 
 		public int BearingMemberId { get; set; }
 
-		public int AnalizedMemberId { get; set; }
-
 		public bool IsCalculated { get; }
 
-		//Decide whether to put this information in here or not.
+		////Decide whether to put this information in here or not.
 
-		public IEnumerable<ConLoadEffect> LoadEffects { get; set; } = new List<ConLoadEffect> { };
+		//public IEnumerable<ConLoadEffect> LoadEffects { get; set; } = new List<ConLoadEffect> { };
 
-		public IEnumerable<ConMember> Members { get; set; } = new List<ConMember> { };
+		//public IEnumerable<ConMember> Members { get; set; } = new List<ConMember> { };
 
-		public IEnumerable<ConOperation> Operations { get; set; } = new List<ConOperation> { };
+		//public IEnumerable<ConOperation> Operations { get; set; } = new List<ConOperation> { };
 
-		public IEnumerable<IdeaParameter> Parameters { get; set; } = new List<IdeaParameter> { };
+		//public IEnumerable<IdeaParameter> Parameters { get; set; } = new List<IdeaParameter> { };
 	}
 }
