@@ -43,9 +43,9 @@ namespace IdeaStatiCa.Public
 		void Delete(string contentId);
 
 		/// <summary>
-		/// The collection of relative paths of entries that are currently in the storage.
+		/// The collection of relative paths of entries that are currently in the storage with excluding the .lock files
 		/// </summary>
-		/// <returns>The ccollection of relative paths of entries that are currently in the storage</returns>
+		/// <returns>The collection of relative paths of entries that are currently in the storage, while the .lock files are excluded</returns>
 		IReadOnlyCollection<string> GetEntries();
 	}
 }
