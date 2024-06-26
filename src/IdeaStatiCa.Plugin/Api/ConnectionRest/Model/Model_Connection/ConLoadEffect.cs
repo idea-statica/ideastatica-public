@@ -6,9 +6,11 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 	{
 		public bool IsPercentage { get; set; }
 
-		//Maybe we should only provide one list here and retrieve based on the current connection setting.
-		public IEnumerable<ConLoadEffectMemberLoad> MemberLoadingsForce { get; set; } = new List<ConLoadEffectMemberLoad>();
+		public IEnumerable<ConLoadEffectMemberLoad> MemberLoadings { get; set; } = new List<ConLoadEffectMemberLoad>();
 
-		public IEnumerable<ConLoadEffectMemberLoad> MemberLoadingsPercentage { get; set; } = new List<ConLoadEffectMemberLoad>();
+		public ConLoadEffect(int id) : base(id)
+		{
+
+		}
 	}
 }
