@@ -13,17 +13,9 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <summary>
 		/// Open idea project in the service
 		/// </summary>
-		/// <param name="ideaConProject">Idea Connection project.</param>
+		/// <param name="ideaConProject">Idea Connection project filename</param>
 		/// <param name="cancellationToken"></param>
 		Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default);
-
-		/// <summary>
-		/// Calculate connections in active project
-		/// </summary>
-		/// <param name="calculationParameters"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Cloase the active project
@@ -31,5 +23,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task CloseProjectAsync(CancellationToken cancellationToken);
+
+		Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken);
 	}
 }

@@ -1,11 +1,8 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -35,6 +32,18 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger = pluginLogger ?? new NullLogger();
 		}
 
+		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
+		{
+			if (ClientId == Guid.Empty)
+			{
+				_pluginLogger.LogDebug("ConnectionApiController.InitializeClientIdAsync");
+
+				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>($"api/{ApiVersion}/ConProject/ConnectClient", cancellationToken);
+				ClientId = clientIdResponse.ClientId;
+				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
+			}
+		}
+
 		/// <inheritdoc cref="OpenProjectAsync(string, CancellationToken)" />
 		public async Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default)
 		{
@@ -51,36 +60,24 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
-		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
-		{
-			if (ClientId == Guid.Empty)
-			{
-				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>($"api/{ApiVersion}/ConProject/ConnectClient", cancellationToken);
-				ClientId = clientIdResponse.ClientId;
-				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
-			}
-		}
-
-		/// <inheritdoc cref="CalculateAsync(ConCalculationParameter, CancellationToken)" />
-		public async Task<List<ConResultSummary>> CalculateAsync(ConCalculationParameter calculationParameters, CancellationToken cancellationToken = default)
-		{
-			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync");
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/Connection/{activeProjectId}/calculate", calculationParameters, cancellationToken, "application/json", true);
-
-			return response;
-		}
-
 		public async Task CloseProjectAsync(CancellationToken cancellationToken)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
 			try
 			{
-				var result = await _httpClient.PutAsync<string>($"api/{ApiVersion}/ConProject/{activeProjectId}/close", "X", cancellationToken, "text/plain");
+				var result = await _httpClient.GetAsync<string>($"api/{ApiVersion}/ConProject/{activeProjectId}/CloseProject", cancellationToken, "text/plain");
 			}
 			finally
 			{
 				activeProjectId = Guid.Empty;
 			}
+		}
+
+		public async Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken)
+		{
+			_pluginLogger.LogDebug("ConnectionApiController.GetProjectDataAsync");
+			var response = await _httpClient.GetAsync<ConProjectData>($"api/{ApiVersion}/ConProject/{activeProjectId}/GetProjectData", cancellationToken);
+			return response;
 		}
 
 		protected virtual void Dispose(bool disposing)
