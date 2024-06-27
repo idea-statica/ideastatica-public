@@ -30,5 +30,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
+
+		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
 	}
 }
