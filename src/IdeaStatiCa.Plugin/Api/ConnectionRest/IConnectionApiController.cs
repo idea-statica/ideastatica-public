@@ -1,5 +1,8 @@
-﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
+﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Result;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,5 +33,31 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
+
+		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects saves into the <paramref name="newIdeaConFileName"/>
+		/// </summary>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
+		/// <param name="newIdeaConFileName">File name of idea connection project where generated project will be saved</param>
+
+		ConProject CreateProjectFromIomFile(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options);
+
+		/// <summary>
+		/// Creates an IDEA Connection project based on Open Model and Open Model Result)
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="result"></param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		ConProject CreateProjectFromIomModel(OpenModel model, OpenModelResult result, ConIomImportOptions options);
+
+		/// <summary>
+		/// Creates an IDEA Connection project based on OpenModelContainer (model and results)
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		ConProject CreateProjectFromIomContainer(OpenModelContainer model, ConIomImportOptions options);
+
 	}
 }
