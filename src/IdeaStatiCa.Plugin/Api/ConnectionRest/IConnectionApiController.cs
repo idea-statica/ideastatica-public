@@ -2,6 +2,7 @@
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,5 +29,6 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<List<ConConnection>> GetConnectionsAsync(CancellationToken token = default);
 
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
+		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
 	}
 }

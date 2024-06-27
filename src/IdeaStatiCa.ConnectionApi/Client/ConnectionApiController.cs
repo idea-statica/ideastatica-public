@@ -65,6 +65,13 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		public async Task<Stream> DownloadProjectAsync(CancellationToken token = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.DownloadProjectAsync projectId = {activeProjectId}");
+			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/DownloadProject", token, "application/octet-stream");
+			return result;
+		}
+
 		public async Task CloseProjectAsync(CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
