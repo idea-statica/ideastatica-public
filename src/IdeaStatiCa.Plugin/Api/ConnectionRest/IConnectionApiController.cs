@@ -40,7 +40,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
 		/// <param name="newIdeaConFileName">File name of idea connection project where generated project will be saved</param>
 
-		ConProject CreateProjectFromIomFile(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options);
+		Task<ConProject> CreateProjectFromIomFileAsyn(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options);
 
 		/// <summary>
 		/// Creates an IDEA Connection project based on Open Model and Open Model Result)
@@ -49,7 +49,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="result"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		ConProject CreateProjectFromIomModel(OpenModel model, OpenModelResult result, ConIomImportOptions options);
+		Task<ConProject> CreateProjectFromIomModelAsyn(OpenModel model, OpenModelResult result, ConIomImportOptions options);
 
 		/// <summary>
 		/// Creates an IDEA Connection project based on OpenModelContainer (model and results)
@@ -57,7 +57,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="model"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		ConProject CreateProjectFromIomContainer(OpenModelContainer model, ConIomImportOptions options);
+		Task<ConProject> CreateProjectFromIomContainerAsyn(OpenModelContainer model, ConIomImportOptions options);
 
 	}
 }
