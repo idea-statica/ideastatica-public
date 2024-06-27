@@ -48,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserData\UserDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\BulkSelectionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CssFactoryHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\IdentifierHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\MemberHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StringExtensions.cs" />

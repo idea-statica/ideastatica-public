@@ -20,13 +20,13 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 			string newBoltAssemblyName = parameter.ToString();
 			IsCommandRunning = true;
 			Model.SetResults("Adding a new bolt assemblis to the project");
-			var connCalculatorTask = Task.Run(() =>
+			var connCalculatorTask = Task.Run(async () =>
 			{
 				try
 				{
 					var Service = Model.GetConnectionService();
 
-					int newBoltAssemblyId = Service.AddBoltAssembly(newBoltAssemblyName);
+					int newBoltAssemblyId = await Service.AddBoltAssemblyAsync(newBoltAssemblyName);
 
 					if (newBoltAssemblyId == -1)
 					{

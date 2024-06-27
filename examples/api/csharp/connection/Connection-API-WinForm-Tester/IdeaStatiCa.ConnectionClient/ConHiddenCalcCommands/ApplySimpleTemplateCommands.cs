@@ -50,14 +50,14 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 				connTemplateFileName = openFileDialog.FileName;
 			}
 
-			var applySimpleTemplateTask = Task.Run(() =>
+			var applySimpleTemplateTask = Task.Run(async () =>
 			{
 				try
 				{
 					var connection = (IConnectionId)values[0];
 					var service = Model.GetConnectionService();
 
-					var resData = service.ApplySimpleTemplate(connection.ConnectionId, connTemplateFileName, Model.TemplateSetting, mainMember, attachedMembers);
+					var resData = await service.ApplySimpleTemplateAsync(connection.ConnectionId, connTemplateFileName, Model.TemplateSetting, mainMember, attachedMembers);
 
 					Model.SetResults(resData);
 				}

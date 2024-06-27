@@ -60,7 +60,8 @@ namespace IdeaRstabPlugin
 				int grpcPort = PortFinder.FindPort(Constants.MinGrpcPort, Constants.MaxGrpcPort);
 
 				// run gRPC server
-				var grpcServer = new GrpcServer(_logger);
+				var grpcServer = new GrpcServer(_logger, new IdeaStatiCa.Plugin.Grpc.Services.GrpcService(_logger), null);
+
 				var gRPCtask = grpcServer.StartAsync(clientId.ToString(), grpcPort);
 
 				var bimPluginHosting = new BIMPluginHostingGrpc(pluginFactory, grpcServer, _logger);

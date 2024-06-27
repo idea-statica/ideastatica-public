@@ -1,42 +1,59 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ConnectionWebClient.Tools;
-using IdeaRS.OpenModel.Connection;
-using IdeaStatiCa.ConnectionClient;
+using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Api.ConnectionRest;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConnectionWebClient.ViewModels
 {
-	public class MainWindowViewModel : ViewModelBase
+	public class MainWindowViewModel : ViewModelBase, IDisposable
 	{
-		public readonly IConnectionClient connectionClient;
+		private readonly IConnectionApiClientFactory _connectionApiClientFactory;
+		private readonly IConfiguration _configuration;
+		private readonly IPluginLogger _logger;
+
 		private bool _isBusy;
 		private string? outputText; 
 		ObservableCollection<ConnectionViewModel>? connectionsVM;
 		ConnectionViewModel? selectedConnection;
-		private ConProjectInfo? _projectInfo;
+		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
 		
+		private bool disposedValue;
 
-		public MainWindowViewModel(IConnectionClient connectionClient)
+		public MainWindowViewModel(IConfiguration configuration,
+			IPluginLogger logger,
+			IConnectionApiClientFactory apiClientFactory)
 		{
+			this._connectionApiClientFactory = apiClientFactory;
 			this.cts = new CancellationTokenSource();
-			this.connectionClient = connectionClient;
-			UploadProjectCommand = new AsyncRelayCommand(UploadProjectAsync);
-			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync);
+			this._configuration = configuration;
+			this._logger = logger;
 
-			GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
-			GetDetailedResultsCommand = new AsyncRelayCommand(GetDetailedResultsAsync);
+			RunApiServer = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? true : _configuration["CONNECTION_API_RUNSERVER"]! == "true";
+			ApiUri = string.IsNullOrEmpty(_configuration["CONNECTION_API_RUNSERVER"]) ? null : new Uri(_configuration["CONNECTION_API_ENDPOINT"]!);
 
-			GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
-			GetBucklingDetailedResultsCommand = new AsyncRelayCommand(GetBucklingDetailedResultsAsync);
+			ConnectCommand = new AsyncRelayCommand(ConnectAsync, () => ConnectionController == null);
+			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConnectionController != null && this.ProjectInfo == null);
+			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
+
+			//GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
+			//GetDetailedResultsCommand = new AsyncRelayCommand(GetDetailedResultsAsync);
+
+			//GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
+			//GetBucklingDetailedResultsCommand = new AsyncRelayCommand(GetBucklingDetailedResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
+
+		public IConnectionApiController? ConnectionController { get; set; }
 
 		public bool IsBusy
 		{
@@ -44,14 +61,18 @@ namespace ConnectionWebClient.ViewModels
 			set { SetProperty(ref _isBusy, value); }
 		}
 
-		public ConProjectInfo? ProjectInfo
+		public bool RunApiServer { get; set;}
+
+		public Uri? ApiUri { get; set; }
+
+		public ConProject? ProjectInfo
 		{
 			get { return _projectInfo; }
 			set { SetProperty(ref _projectInfo, value); }
 		}
 
 
-		public ObservableCollection<ConnectionViewModel> Connections
+		public ObservableCollection<ConnectionViewModel>? Connections
 		{
 			get => connectionsVM;
 			set
@@ -78,20 +99,20 @@ namespace ConnectionWebClient.ViewModels
 			}
 		}
 
-		public AsyncRelayCommand UploadProjectCommand { get; }
+		public AsyncRelayCommand ConnectCommand { get; }
+
+		public AsyncRelayCommand OpenProjectCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
-
-		public AsyncRelayCommand GetBriefResultsCommand { get; }
-
-		public AsyncRelayCommand GetDetailedResultsCommand { get; }
-
-		public AsyncRelayCommand GetBucklingBriefResultsCommand { get; }
-
-		public AsyncRelayCommand GetBucklingDetailedResultsCommand { get; }
-
-		private async Task UploadProjectAsync()
+		private async Task OpenProjectAsync()
 		{
+			_logger.LogInformation("OpenProjectAsync");
+
+			if (ConnectionController == null)
+			{
+				throw new Exception("IConnectionApiController is not connected");
+			}
+
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "IdeaConnection | *.ideacon";
 			if (openFileDialog.ShowDialog() != true)
@@ -102,108 +123,77 @@ namespace ConnectionWebClient.ViewModels
 			IsBusy = true;
 			try
 			{
-				using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
-				{
-					ProjectInfo = await connectionClient.OpenProjectAsync(fs, cts.Token);
+				ProjectInfo = await ConnectionController.OpenProjectAsync(openFileDialog.FileName, cts.Token);
 
-					OutputText =JsonTools.ToFormatedJson(ProjectInfo);
-					Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+				OutputText =JsonTools.ToFormatedJson(ProjectInfo);
+				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("OpenProjectAsync", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
+
+		private async Task ConnectAsync()
+		{
+			_logger.LogInformation("ConnectAsync");
+
+			if (ConnectionController != null)
+			{
+				throw new Exception("IConnectionApiController is already connected");
+			}
+
+			IsBusy = true;
+			try
+			{
+				if (RunApiServer)
+				{
+					ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient();
+				}
+				else
+				{
+					if (ApiUri == null)
+					{
+						throw new Exception("ApiUri is not set");
+					}
+
+					ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient(ApiUri);
 				}
 			}
-			finally
+			catch (Exception ex)
 			{
-				IsBusy = false;
-			}
-		}
-
-		private async Task GetBriefResultsAsync()
-		{
-			if (SelectedConnection == null)
-			{
-				return;
-			}
-
-			IsBusy = true;
-			try
-			{
-				var chekRes = await connectionClient.GetPlasticBriefResultsAsync(SelectedConnection.Id, cts.Token);
-				OutputText = JsonTools.ToFormatedJson(chekRes);
+				_logger.LogWarning("ConnectAsync", ex);
+				OutputText = ex.Message;
 			}
 			finally
 			{
 				IsBusy = false;
+				RefreshCommands();
 			}
 		}
 
-		private async Task GetDetailedResultsAsync()
-		{
-			if (SelectedConnection == null)
-			{
-				return;
-			}
-
-			IsBusy = true;
-			try
-			{
-				var res = await connectionClient.GetPlasticDetailedResultsJsonAsync(SelectedConnection.Id, cts.Token);
-				OutputText = JsonTools.FormatJson(res);
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
-
-		private async Task GetBucklingBriefResultsAsync()
-		{
-			if (SelectedConnection == null)
-			{
-				return;
-			}
-
-			IsBusy = true;
-			try
-			{
-				var chekRes = await connectionClient.GetBucklingBriefResultsAsync(SelectedConnection.Id, cts.Token);
-				OutputText = JsonTools.ToFormatedJson(chekRes);
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
-
-
-		private async Task GetBucklingDetailedResultsAsync()
-		{
-			if (SelectedConnection == null)
-			{
-				return;
-			}
-
-			IsBusy = true;
-			try
-			{
-				var json = await connectionClient.GetBucklingDetailedResultsJsonAsync(SelectedConnection.Id, cts.Token);
-				OutputText = JsonTools.FormatJson(json);
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
-
-		private async Task CloseProjectAsync()
+		internal async Task CloseProjectAsync()
 		{
 			if(ProjectInfo == null)
 			{
 				return;
 			}
 
+			if(ConnectionController == null)
+			{
+				return;
+			}	
+
 			IsBusy = true;
 			try
 			{
-				await connectionClient.CloseProjectAsync(cts.Token);
+				await ConnectionController.CloseProjectAsync(cts.Token);
 				ProjectInfo = null;
 				SelectedConnection = null;
 				Connections = new ObservableCollection<ConnectionViewModel>();
@@ -212,9 +202,47 @@ namespace ConnectionWebClient.ViewModels
 			finally
 			{
 				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					if(ConnectionController != null)
+					{
+						ConnectionController.Dispose();
+						ConnectionController = null;
+					}
+				}
+
+				disposedValue = true;
 			}
 		}
+
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void RefreshCommangs()
+		{
+			this.ConnectCommand.NotifyCanExecuteChanged();
+			this.OpenProjectCommand.NotifyCanExecuteChanged();
+			this.CloseProjectCommand.NotifyCanExecuteChanged();
+		}
+		private void RefreshCommands()
+		{
+			this.ConnectCommand.NotifyCanExecuteChanged();
+			this.OpenProjectCommand.NotifyCanExecuteChanged();
+			this.CloseProjectCommand.NotifyCanExecuteChanged();
+		}
 	}
-
-
 }

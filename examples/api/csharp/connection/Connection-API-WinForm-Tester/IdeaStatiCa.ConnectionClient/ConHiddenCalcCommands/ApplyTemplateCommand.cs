@@ -39,7 +39,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 
 			var service = Model.GetConnectionService();
 			var connection = (IConnectionId)parameter;
-			var res = service.ApplyTemplate(connection.ConnectionId, connTemplateFileName, Model.TemplateSetting);
+			var res = service.ApplyTemplateAsync(connection.ConnectionId, connTemplateFileName, Model.TemplateSetting).Result;
 
 			Model.SetStatusMessage(res);
 		}

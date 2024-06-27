@@ -13,6 +13,7 @@ using IdeaRS.OpenModel;
 using System.Xml;
 using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
 using IdeaStatiCa.Plugin.Api.Common;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 {
@@ -22,13 +23,14 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 	public class HttpClientWrapper : IHttpClientWrapper
 	{
 		private readonly IPluginLogger logger;
-		private string baseUrl;
+		private Uri baseUrl;
 		public Action<string, int> ProgressLogAction { get; set; } = null;
 		public Action<string> HeartBeatLogAction { get; set; } = null;
+		public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
 
 		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
 		{
-			baseUrl = baseAddress.ToString();
+			baseUrl = new Uri(baseAddress);
 			this.logger = logger;
 		}
 
@@ -38,17 +40,21 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		/// <typeparam name="TResult">Expected response object</typeparam>
 		/// <param name="requestUri">Request endpoint</param>
 		/// <param name="acceptHeader">Optional accept header</param>
+		/// <param name="useHeartbeatCheck">Optional heartbeat check</param>
 		/// <returns>Deserialized object from Http response</returns>
-		public async Task<TResult> GetAsync<TResult>(string requestUri, CancellationToken token, string acceptHeader = "application/json")
+		public async Task<TResult> GetAsync<TResult>(string requestUri, CancellationToken token, string acceptHeader = "application/json", bool useHeartbeatCheck = false)
 		{
-			var url = baseUrl + "/" + requestUri;
+			var url = new Uri(baseUrl, requestUri);
+
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
-			return await ExecuteClientCallAsync<TResult>(async (client) => { return await client.GetAsync(url, token); }
-			, acceptHeader);
+			return await ExecuteClientCallAsync<TResult>(async (client) => 
+			{		
+				return await client.GetAsync(url, token); 
+			}
+			, acceptHeader, useHeartbeatCheck);
 		}
 
-
-		public async Task<TResult> PutAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
+		public async Task<TResult> PutAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json", bool useHeartbeatCheck = false)
 		{
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
@@ -56,10 +62,10 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 				using (var content = new StringContent(json, encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";
-					var url = baseUrl + "/" + requestUri;
+					var url = new Uri(baseUrl, requestUri);
 					return await client.PutAsync(url, content, token);
 				}
-			}, acceptHeader);
+			}, acceptHeader, useHeartbeatCheck);
 			return result;
 		}
 
@@ -70,32 +76,35 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		/// <param name="requestUri">Request endpoint</param>
 		/// <param name="requestData">Request body object</param>
 		/// <param name="acceptHeader">Optional accept header</param>
+		/// <param name="useHeartbeatCheck">Optional heartbeat check</param>
 		/// <returns>Deserialized object from Http response</returns>
-		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json")
+		public async Task<TResult> PostAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json", bool useHeartbeatCheck = false)
 		{
-			var url = $"{baseUrl}{PluginConstants.RcsProgressEndpoint}";
-			logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 			HubConnection hubConnection = null;
 
 			if (ProgressLogAction != null)
 			{
+				var hubUrl = new Uri(baseUrl, PluginConstants.RcsProgressEndpoint);
+
 				hubConnection = new HubConnectionBuilder()
-					.WithUrl(url)
+					.WithUrl(hubUrl)
 					.Build();
 
 				hubConnection.On<string, int>(PluginConstants.RcsProgressMethod, (msg, num) => ProgressLogAction(msg, num));
 
-				logger.LogInformation($"Starting hub connection on {url} address");
+				logger.LogInformation($"Starting hub connection on {hubUrl} address");
 				await hubConnection.StartAsync();
 			}
+			
 
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
 				using (var content = GetStringContent(requestData))
 				{
-					var url = baseUrl + "/" + requestUri;
+					var url = new Uri(baseUrl, requestUri);
 					try
 					{
+						logger.LogInformation($"Calling {nameof(PostAsync)} method {url} with acceptHeader {acceptHeader}");
 						return await client.PostAsync(url, content, token);
 					}
 					catch (OperationCanceledException ex)
@@ -105,7 +114,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 					}
 
 				}
-			}, acceptHeader);
+			}, acceptHeader, useHeartbeatCheck);
 
 			if (hubConnection is { })
 			{
@@ -123,57 +132,78 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		/// <param name="requestUri"></param>
 		/// <param name="stream"></param>
 		/// <param name="token"></param>
+		/// <param name="useHeartbeatCheck">Optional heartbeat check</param>
 		/// <returns></returns>
-		public async Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream, CancellationToken token)
+		public async Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream, CancellationToken token, bool useHeartbeatCheck)
 		{
 			return await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
-				var url = baseUrl + "/" + requestUri;
+				var url = new Uri(baseUrl, requestUri);
 				return await client.PostAsync(url, stream, token);
-			}, "application/json");
+			}, "application/json", useHeartbeatCheck);
 		}
 
-		private async Task<TResult> ExecuteClientCallAsync<TResult>(Func<HttpClient, Task<HttpResponseMessage>> clientCall, string acceptHeader)
+		private async Task<TResult> ExecuteClientCallAsync<TResult>(Func<HttpClient, Task<HttpResponseMessage>> clientCall, string acceptHeader, bool useHeartbeatCheck)
 		{
 			HeartbeatChecker heartbeatChecker = null;
 			try
 			{
 				using (var client = new HttpClient() { Timeout = Timeout.InfiniteTimeSpan })
 				{
-					heartbeatChecker = new HeartbeatChecker(logger, client, baseUrl + PluginConstants.RcsApiHeartbeat);
-					heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
-					// Periodically check the heartbeat while the long operation is in progress
-					var heartbeatTask = heartbeatChecker.StartAsync();
-					logger.LogTrace($"Starting HeartbeatChecker on url {baseUrl + PluginConstants.RcsApiHeartbeat}");
-					using (HttpResponseMessage response = await clientCall(client))
+					try
 					{
-
-						// Stop the heartbeat checker
-						heartbeatChecker.Stop();
-						logger.LogTrace($"Stopping HeartbeatChecker");
-
-						if (response is { IsSuccessStatusCode: true })
+						if (useHeartbeatCheck)
 						{
-							logger.LogTrace($"Response is successfull");
+							// do not start heartbeat checker for this call
+							var hearBeatUrl = new Uri(baseUrl, PluginConstants.RcsApiHeartbeat);
+							heartbeatChecker = new HeartbeatChecker(logger, client, hearBeatUrl.AbsoluteUri);
+							heartbeatChecker.HeartBeatLogAction = HeartBeatLogAction;
+							// Periodically check the heartbeat while the long operation is in progress
+							var heartbeatTask = heartbeatChecker.StartAsync();
+							logger.LogTrace($"Starting HeartbeatChecker on url {hearBeatUrl.AbsoluteUri}");
+						}
 
-							if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase))
+						foreach (KeyValuePair<string, string> header in Headers)
+						{
+							client.DefaultRequestHeaders.Add(header.Key, header.Value);
+						}
+
+						using (HttpResponseMessage response = await clientCall(client))
+						{
+							// Stop the heartbeat checker
+							logger.LogTrace($"Stopping HeartbeatChecker");
+
+							if (response is { IsSuccessStatusCode: true })
 							{
-								logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
-								var ms = new MemoryStream();
-								await response.Content.CopyToAsync(ms);
-								return (TResult)Convert.ChangeType(ms, typeof(MemoryStream));
+								logger.LogTrace($"Response is successfull");
+
+								if (acceptHeader.Equals("application/octet-stream", StringComparison.InvariantCultureIgnoreCase))
+								{
+									logger.LogDebug("HttpClientWrapper.ExecuteClientCallAsync - response is 'application/octet-stream'");
+									var ms = new MemoryStream();
+									await response.Content.CopyToAsync(ms);
+									return (TResult)Convert.ChangeType(ms, typeof(MemoryStream));
+								}
+								else
+								{
+									var stringContent = await response.Content.ReadAsStringAsync();
+									logger.LogDebug($"HttpClientWrapper.ExecuteClientCallAsync - response is '{typeof(TResult).Name}'");
+									return Deserialize<TResult>(acceptHeader, stringContent);
+								}
 							}
 							else
 							{
-								var stringContent = await response.Content.ReadAsStringAsync();
-								logger.LogDebug($"HttpClientWrapper.ExecuteClientCallAsync - response is '{typeof(TResult).Name}'");
-								return Deserialize<TResult>(acceptHeader, stringContent);
+								logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
+								throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
 							}
 						}
-						else
+					}
+					finally
+					{
+						if(heartbeatChecker != null)
 						{
-							logger.LogError("Response code was not successfull: " + response.ReasonPhrase);
-							throw new HttpRequestException("Response code was not successfull: " + response.StatusCode + ":" + response.ReasonPhrase);
+							heartbeatChecker.Stop();
+							heartbeatChecker = null;
 						}
 					}
 				}
@@ -223,6 +253,11 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			var content = new StringContent(JsonConvert.SerializeObject(requestContent), encoding: Encoding.UTF8, "application/json");
 			content.Headers.ContentType.CharSet = "";
 			return content;
+		}
+
+		public void AddRequestHeader(string header, string value)
+		{
+			Headers.Add(header, value);
 		}
 	}
 }

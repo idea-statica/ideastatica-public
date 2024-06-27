@@ -34,28 +34,13 @@ namespace IdeaStatiCa.Plugin.Grpc
 		/// </summary>
 		public IGrpcService GrpcService { get; }
 
-		///// <summary>
-		///// Constructor
-		///// </summary>
-		///// <param name="pluginLogger">Logger</param>
-		public GrpcServer(IPluginLogger logger)
-		{
-			this.Logger = logger;
-			Logger.LogDebug("GrpcServer(IPluginLogger logger)");
-			this.blobStorageProvider = null;
-			MaxDataLength = Constants.GRPC_MAX_MSG_SIZE;
-			this.chunkSize = Constants.GRPC_CHUNK_SIZE;
-			Host = "localhost";
-			GrpcService = new Services.GrpcService(Logger);
-		}
-
 		/// <summary>
 		/// Initializes the IdeaStatiCa Grpc server.
 		/// </summary>
 		/// <param name="logger">Logger</param>
 		/// <param name="grpcService"></param>
 		/// <param name="blobStorageProvider">Provider of blob storages</param>
-		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider)
+		public GrpcServer(IPluginLogger logger, IGrpcService grpcService, IBlobStorageProvider blobStorageProvider = null)
 		{
 			Debug.Assert(logger != null);
 			this.Logger = logger;
