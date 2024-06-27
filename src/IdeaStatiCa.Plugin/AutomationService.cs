@@ -24,7 +24,7 @@ namespace IdeaStatiCa.Plugin
 			return Task.CompletedTask;
 		}
 
-		public void OpenProject(string fileName)
+		public virtual void OpenProject(string fileName)
 		{
 			OpenProjectAsync(fileName).Wait();
 		}
