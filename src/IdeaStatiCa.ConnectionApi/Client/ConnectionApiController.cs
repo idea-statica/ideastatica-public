@@ -1,8 +1,11 @@
-﻿using IdeaStatiCa.Plugin;
+﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Result;
+using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -65,6 +68,58 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		public async Task<ConProject> CreateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomFileAsyn path model = '{iomXmlFileName}'  path reult model = '{iomResXmlFileName}'");
+
+			var model = OpenModel.LoadFromXmlFile(iomXmlFileName);
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomFileAsyn path model = '{iomXmlFileName}' deserialized");
+			var result = OpenModelResult.LoadFromXmlFile(iomResXmlFileName);
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomFileAsyn path result model = '{iomResXmlFileName}' deserialized");
+
+			return await this.CreateProjectFromIomContainerAsync(new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, options, cancellationToken);
+		}
+
+		public async Task<ConProject> CreateProjectFromIomContainerFileAsync(string iomContainerXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomContainerFileAsync path model = '{iomContainerXmlFileName}'");
+
+			var model = IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(iomContainerXmlFileName);
+
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomContainerFileAsync path model = '{iomContainerXmlFileName}' deserialized");
+
+			return await this.CreateProjectFromIomContainerAsync(model, options, cancellationToken);
+		}
+
+		public async Task<ConProject> CreateProjectFromIomModelAsync(OpenModel model, OpenModelResult result, ConIomImportOptions options, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomModel");
+			return await this.CreateProjectFromIomContainerAsync(new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, options, cancellationToken);
+		}
+
+		public async Task<ConProject> CreateProjectFromIomContainerAsync(OpenModelContainer model, ConIomImportOptions options, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomContainer");
+
+			// Build the full URL with query parameters
+			var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
+
+			if (options.ConnectionsToCreate != null)
+			{
+				foreach (var connection in options.ConnectionsToCreate)
+				{
+					query.Add("ConnectionsToCreate", connection.ToString());
+				}
+			}
+
+			var response = await _httpClient.PostAsync<ConProject>($"api/{ApiVersion}/{ConProjectController}/CreateProjectFromIOM{query.ToString()}", model, cancellationToken, "application/xml");
+			activeProjectId = response.ProjectId;
+
+			_pluginLogger.LogDebug($"ConnectionApiController.CreateProjectFromIomContainer projectId = {response.ProjectId}");
+
+			return response;
+		}
+
 		public async Task<Stream> DownloadProjectAsync(CancellationToken token = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.DownloadProjectAsync projectId = {activeProjectId}");
@@ -119,7 +174,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 						{
 							if (!restApiProcess.HasExited)
 							{
-								
+
 								_pluginLogger.LogInformation($"Cleaning the API process with ID {restApiProcessId}");
 
 								// TODO - I suppose Kill process does't release resources properly (temp files on a disk)
@@ -141,5 +196,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
+
+
 	}
 }

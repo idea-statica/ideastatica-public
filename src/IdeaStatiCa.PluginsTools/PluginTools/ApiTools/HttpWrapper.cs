@@ -1,19 +1,19 @@
-﻿using System;
+﻿using IdeaRS.OpenModel;
+using IdeaStatiCa.Plugin;
+using IdeaStatiCa.Plugin.Api.Common;
+using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
+using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using IdeaStatiCa.Plugin;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.SignalR.Client;
-using PluginConstants = IdeaStatiCa.Plugin.Constants;
 using System.Threading;
-using IdeaRS.OpenModel;
+using System.Threading.Tasks;
 using System.Xml;
-using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
-using IdeaStatiCa.Plugin.Api.Common;
-using System.Collections.Generic;
+using System.Xml.Serialization;
+using PluginConstants = IdeaStatiCa.Plugin.Constants;
 
 namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 {
@@ -47,9 +47,9 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			var url = new Uri(baseUrl, requestUri);
 
 			logger.LogInformation($"Calling {nameof(GetAsync)} method {url} with acceptHeader {acceptHeader}");
-			return await ExecuteClientCallAsync<TResult>(async (client) => 
-			{		
-				return await client.GetAsync(url, token); 
+			return await ExecuteClientCallAsync<TResult>(async (client) =>
+			{
+				return await client.GetAsync(url, token);
 			}
 			, acceptHeader, useHeartbeatCheck);
 		}
@@ -95,7 +95,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 				logger.LogInformation($"Starting hub connection on {hubUrl} address");
 				await hubConnection.StartAsync();
 			}
-			
+
 
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
@@ -200,7 +200,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 					}
 					finally
 					{
-						if(heartbeatChecker != null)
+						if (heartbeatChecker != null)
 						{
 							heartbeatChecker.Stop();
 							heartbeatChecker = null;
@@ -248,6 +248,15 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 
 				string serializedXml = stringWriter.ToString().Replace("utf-16", "utf-8");
 				return new StringContent(serializedXml, encoding: Encoding.UTF8, "application/xml");
+			}
+			else if (requestContent is OpenModelContainer openModelContainer)
+			{
+				var xmlModel = IdeaRS.OpenModel.Tools.OpenModelContainerToXml(openModelContainer).Replace("utf-16", "utf-8");
+				return new StringContent(xmlModel, Encoding.UTF8, "application/xml");
+			}
+			else if (requestContent is StringContent stringContent)
+			{
+				return stringContent;
 			}
 
 			var content = new StringContent(JsonConvert.SerializeObject(requestContent), encoding: Encoding.UTF8, "application/json");

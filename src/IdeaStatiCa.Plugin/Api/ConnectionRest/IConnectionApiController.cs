@@ -34,13 +34,16 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
 
-		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects saves into the <paramref name="newIdeaConFileName"/>
+		/// Creates Idea connection project from given <paramref name="iomContainerXmlFileName"/> and projects
+		/// </summary>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		Task<ConProject> CreateProjectFromIomContainerFileAsync(string iomContainerXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default);
+
+		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects
 		/// </summary>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
 		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
-		/// <param name="newIdeaConFileName">File name of idea connection project where generated project will be saved</param>
-
-		Task<ConProject> CreateProjectFromIomFileAsyn(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options);
+		Task<ConProject> CreateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Creates an IDEA Connection project based on Open Model and Open Model Result)
@@ -49,7 +52,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="result"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		Task<ConProject> CreateProjectFromIomModelAsyn(OpenModel model, OpenModelResult result, ConIomImportOptions options);
+		Task<ConProject> CreateProjectFromIomModelAsync(OpenModel model, OpenModelResult result, ConIomImportOptions options, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Creates an IDEA Connection project based on OpenModelContainer (model and results)
@@ -57,7 +60,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="model"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		Task<ConProject> CreateProjectFromIomContainerAsyn(OpenModelContainer model, ConIomImportOptions options);
+		Task<ConProject> CreateProjectFromIomContainerAsync(OpenModelContainer model, ConIomImportOptions options, CancellationToken cancellationToken = default);
 
 	}
 }
