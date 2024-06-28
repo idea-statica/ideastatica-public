@@ -6,6 +6,7 @@ using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,7 +56,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		/// <inheritdoc cref="OpenProjectAsync(string, CancellationToken)" />
 		public async Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject path = '{ideaConProject}'");
+			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject clientId = {ClientId} path = '{ideaConProject}'");
 
 			byte[] fileData = File.ReadAllBytes(ideaConProject);
 			var streamContent = new StreamContent(new MemoryStream(fileData));
@@ -129,7 +130,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
 		public async Task CloseProjectAsync(CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync");
+			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync clientId = {ClientId} projectId = {activeProjectId}");
 			try
 			{
 				var result = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/CloseProject", cancellationToken, "text/plain");
@@ -142,23 +143,30 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
 		public async Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug("ConnectionApiController.GetProjectDataAsync");
+			_pluginLogger.LogDebug($"ConnectionApiController.GetProjectDataAsync clientId = {ClientId} projectId = {activeProjectId}");
 			var response = await _httpClient.GetAsync<ConProjectData>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/GetProjectData", cancellationToken);
 			return response;
 		}
 
 		public async Task<List<ConConnection>> GetConnectionsAsync(CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug("ConnectionApiController.GetConnectionsAsync");
+			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionsAsync clientId = {ClientId} projectId = {activeProjectId}");
 			var response = await _httpClient.GetAsync<List<ConConnection>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/GetConnections", cancellationToken);
 			return response;
 		}
 
 		public async Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync connectionId = {connectionId}");
+			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
 			var response = await _httpClient.GetAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/GetConnection", cancellationToken);
 			return response;
+		}
+
+		public async Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var result = await _httpClient.PutAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/UpdateConnection", connectionUpdate, cancellationToken);
+			return result;
 		}
 
 		protected virtual void Dispose(bool disposing)
