@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -28,7 +29,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		private readonly IPluginLogger _pluginLogger;
 
 		public static readonly string ConProjectController = "ConProject";
-		public static readonly string ConnectionController = "Connection";
+		public static readonly string ConnectionController = "ConConnection";
 		public static readonly string ConParameterController = "ConParameter";
 
 		public ConnectionApiController(int restApiProcessId, IHttpClientWrapper httpClient, IPluginLogger pluginLogger = null)
@@ -44,8 +45,8 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			{
 				_pluginLogger.LogDebug("ConnectionApiController.InitializeClientIdAsync");
 
-				var clientIdResponse = await _httpClient.GetAsync<ConApiClientId>($"api/{ApiVersion}/{ConProjectController}/ConnectClient", cancellationToken);
-				ClientId = clientIdResponse.ClientId;
+				var clientIdResponse = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConProjectController}/ConnectClient", cancellationToken, "text/plain");
+				ClientId = Guid.Parse(clientIdResponse);
 				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
 			}
 		}
@@ -59,7 +60,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/{ConProjectController}/OpenProject", streamContent, cancellationToken);
+			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/{ConProjectController}/Project", streamContent, cancellationToken);
 			activeProjectId = response.ProjectId;
 			_pluginLogger.LogDebug($"ConnectionApiController.OpenProject projectId = {response.ProjectId}");
 
@@ -69,7 +70,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<Stream> DownloadProjectAsync(CancellationToken token = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.DownloadProjectAsync projectId = {activeProjectId}");
-			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/DownloadProject", token, "application/octet-stream");
+			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/Download", token, "application/octet-stream");
 			return result;
 		}
 
@@ -78,7 +79,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger.LogDebug($"ConnectionApiController.CloseProjectAsync clientId = {ClientId} projectId = {activeProjectId}");
 			try
 			{
-				var result = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/CloseProject", cancellationToken, "text/plain");
+				var result = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/Close", cancellationToken, "text/plain");
 			}
 			finally
 			{
@@ -89,28 +90,28 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetProjectDataAsync clientId = {ClientId} projectId = {activeProjectId}");
-			var response = await _httpClient.GetAsync<ConProjectData>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/GetProjectData", cancellationToken);
+			var response = await _httpClient.GetAsync<ConProjectData>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/ProjectData", cancellationToken);
 			return response;
 		}
 
 		public async Task<List<ConConnection>> GetConnectionsAsync(CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionsAsync clientId = {ClientId} projectId = {activeProjectId}");
-			var response = await _httpClient.GetAsync<List<ConConnection>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/GetConnections", cancellationToken);
+			var response = await _httpClient.GetAsync<List<ConConnection>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/Connection", cancellationToken);
 			return response;
 		}
 
 		public async Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
-			var response = await _httpClient.GetAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/GetConnection", cancellationToken);
-			return response;
+			var response = await _httpClient.GetAsync<List<ConConnection>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/Connection?connectionId={connectionId}", cancellationToken);
+			return response.FirstOrDefault();
 		}
 
 		public async Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.UpdateConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
-			var result = await _httpClient.PutAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/UpdateConnection", connectionUpdate, cancellationToken);
+			var result = await _httpClient.PutAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/Connection", connectionUpdate, cancellationToken);
 			return result;
 		}
 
