@@ -16,13 +16,13 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Tests.Integration
 			 "testplugin",
 			 PluginType.Check,
 			 new DotNetRunnerDriverDescriptor(@"c:\plugin1.exe", "TestPlugin.Main"),
-			 new TabInfoDescriptor(),);
+			 new TabInfoDescriptor());
 
 		private static readonly PluginDescriptor pluginDescriptor2 = new(
 				"testplugin2",
 				PluginType.Check,
 				new DotNetRunnerDriverDescriptor(@"c:\plugin2.exe", "TestPlugin.Main"),
-				new TabInfoDescriptor(),);
+				new TabInfoDescriptor());
 
 		[SetUp]
 		public void SetUp()
