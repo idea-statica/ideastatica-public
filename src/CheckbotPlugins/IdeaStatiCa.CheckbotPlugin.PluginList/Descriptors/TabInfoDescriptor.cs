@@ -2,17 +2,18 @@
 {
 	public sealed class TabInfoDescriptor
 	{
-		public bool CreateSeparateTab { get; set; } = false;
+		private static readonly string _defaultTabName = "Plugins";
 
-		public string TabName { get; set; } = "Plugins";
+		public bool CreateSeparateTab => !TabName.Equals(_defaultTabName);
+
+		public string TabName { get; set; } = _defaultTabName;
 
 		public TabInfoDescriptor()
 		{
 		}
 
-		public TabInfoDescriptor(bool createSeparateTab, string tabName)
+		public TabInfoDescriptor(string tabName)
 		{
-			CreateSeparateTab = createSeparateTab;
 			TabName = tabName;
 		}
 
@@ -48,13 +49,12 @@
 				return true;
 			}
 
-			return CreateSeparateTab == other.CreateSeparateTab
-				&& TabName == other.TabName;
+			return TabName == other.TabName;
 		}
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(CreateSeparateTab, TabName);
+			return HashCode.Combine(TabName);
 		}
 	}
 }

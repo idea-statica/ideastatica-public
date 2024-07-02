@@ -4,10 +4,9 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Json
 {
 	internal class TabInfo
 	{
-		[JsonPropertyName("create_separate_tab")]
-		public bool CreateSeparateTab { get; set; } = false;
+		private static readonly string _defaultTabName = "Plugins";
 
 		[JsonPropertyName("tab_name")]
-		public string TabName { get; set; } = "Plugins";
+		public string TabName { get; set; } = _defaultTabName;
 	}
 }
