@@ -37,6 +37,8 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 
 		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
 
+		Task<ConTemplateMapping> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default);
+
 		/// Creates Idea connection project from given <paramref name="iomContainerXmlFileName"/> and projects
 		/// </summary>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
