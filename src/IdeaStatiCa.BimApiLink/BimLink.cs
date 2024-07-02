@@ -1,10 +1,12 @@
 ﻿using IdeaStatiCa.BimApiLink.Hooks;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.BimApiLink.Plugin;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.BimApiLink
@@ -22,6 +24,7 @@ namespace IdeaStatiCa.BimApiLink
 		private TaskScheduler _taskScheduler = TaskScheduler.Default;
 		private IBimHostingFactory _bimHostingFactory = new GrpcBimHostingFactory();
 		private IProgressMessaging _progressMessaging;
+		protected IComparer<IIdentifier> _itemsComparer = null;
 
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
 		private readonly HookManagers _hookManagers = new HookManagers();
@@ -104,6 +107,17 @@ namespace IdeaStatiCa.BimApiLink
 		public BimLink WithProgressMessaging(IProgressMessaging progressMessaging)
 		{
 			_progressMessaging = progressMessaging;
+			return this;
+		}
+
+		/// <summary>
+		/// Comparer influent order of processing imported items
+		/// </summary>
+		/// <param name="bimItemsComparer"></param>
+		/// <returns></returns>
+		public BimLink WithItemsComparer(IComparer<IIdentifier> itemsComparer)
+		{
+			_itemsComparer = itemsComparer;
 			return this;
 		}
 
