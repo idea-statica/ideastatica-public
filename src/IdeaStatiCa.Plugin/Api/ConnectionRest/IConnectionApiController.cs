@@ -4,6 +4,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,6 +37,8 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
 
 		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
+
+		Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default);
 
 		/// Creates Idea connection project from given <paramref name="iomContainerXmlFileName"/> and projects
 		/// </summary>

@@ -7,6 +7,7 @@ using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -168,6 +169,14 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger.LogDebug($"ConnectionApiController.UpdateConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
 			var result = await _httpClient.PutAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/Connection", connectionUpdate, cancellationToken);
 			return result;
+		}
+
+		public async Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetTemplateMappingAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			ConTemplateMappingGetParam getTempMappingParam = new ConTemplateMappingGetParam() { Template = templateXml };
+			var response = await _httpClient.PostAsync<TemplateConversions>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ConnectionTemplateMapping", getTempMappingParam, cancellationToken);
+			return response;
 		}
 
 		public async Task<OpenModel> ExportConnectionIomModel(int connectionId, CancellationToken cancellationToken = default)
