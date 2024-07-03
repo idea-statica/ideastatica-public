@@ -4,6 +4,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
 using System;
 using System.Collections.Generic;
 using System.IO;

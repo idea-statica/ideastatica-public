@@ -1,4 +1,4 @@
-﻿namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
+﻿namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template
 {
 	public class ConTemplateMappingGetParam
 	{
