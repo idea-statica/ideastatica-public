@@ -3,6 +3,6 @@
 	public class ConTemplateApplyParam
 	{
 		public string ConnectionTemplate { get; set; }
-		public ConTemplateMapping Mapping { get; set; }
+		public TemplateConversions Mapping { get; set; }
 	}
 }

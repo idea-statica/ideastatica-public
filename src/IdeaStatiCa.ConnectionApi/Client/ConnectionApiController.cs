@@ -171,11 +171,11 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return result;
 		}
 
-		public async Task<ConTemplateMapping> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
+		public async Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetTemplateMappingAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
 			ConTemplateMappingGetParam getTempMappingParam = new ConTemplateMappingGetParam() { Template = templateXml };
-			var response = await _httpClient.PostAsync<ConTemplateMapping>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ConnectionTemplateMapping", getTempMappingParam, cancellationToken);
+			var response = await _httpClient.PostAsync<TemplateConversions>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ConnectionTemplateMapping", getTempMappingParam, cancellationToken);
 			return response;
 		}
 
