@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
@@ -6,7 +7,6 @@ using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -170,6 +170,47 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return result;
 		}
 
+		public async Task<OpenModel> ExportConnectionIomModel(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var response = await _httpClient.GetAsync<OpenModelContainer>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMModel?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
+			return response.OpenModel;
+		}
+
+		public async Task<OpenModelResult> ExportConnectionIomResults(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var response = await _httpClient.GetAsync<OpenModelContainer>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMModel?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
+			return response.OpenModelResult;
+		}
+
+		public async Task<OpenModelContainer> ExportConnectionIomContainer(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var response = await _httpClient.GetAsync<OpenModelContainer>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMModel?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
+			return response;
+		}
+
+		public async Task<ConnectionData> ExportConnectionIomConnectionData(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var response = await _httpClient.GetAsync<ConnectionData>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMConnectionData", cancellationToken, "application/xml");
+			return response;
+		}
+
+		private Version GetOpenModelVersion()
+		{
+			var op = new OpenModel();
+
+			if (op.Version is int)
+			{
+				return Version.Parse($"{op.Version.ToString()}.0.0");
+			}
+			else
+			{
+				return Version.Parse(op.Version.ToString());
+			}
+		}
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)

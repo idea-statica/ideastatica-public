@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
@@ -63,6 +64,42 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="options"></param>
 		/// <returns></returns>
 		Task<ConProject> CreateProjectFromIomContainerAsync(OpenModelContainer model, ConIomImportOptions options, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Export Connection IomModel
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="version"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<OpenModel> ExportConnectionIomModel(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Export Connection IomResults
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="version"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<OpenModelResult> ExportConnectionIomResults(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Export Connection IomContainer
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="version"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<OpenModelContainer> ExportConnectionIomContainer(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Export Connection IomConnectionData
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="version"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConnectionData> ExportConnectionIomConnectionData(int connectionId, CancellationToken cancellationToken = default);
 
 	}
 }
