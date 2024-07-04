@@ -23,19 +23,42 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// Cloase the active project
+		/// Cloase the active project in the service
 		/// </summary>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task CloseProjectAsync(CancellationToken cancellationToken = default);
 
+		/// <summary>
+		/// Get project data from the active project
+		/// </summary>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
 		Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default);
 
+		/// <summary>
+		/// Gel list of all <see cref="ConConnection"> in the active project
+		/// </summary>
+		/// <param name="token"></param>
+		/// <returns>Connections in the project</returns>
 		Task<List<ConConnection>> GetConnectionsAsync(CancellationToken token = default);
 
+		/// <summary>
+		/// Geat data fro <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">Id of the requested connection in the active project</param>
+		/// <param name="token"></param>
+		/// <returns></returns>
 		Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken token = default);
 		Task<Stream> DownloadProjectAsync(CancellationToken token = default);
 
+		/// <summary>
+		/// Updates the data of the connection with <paramref name="connectionId"/> in the active project by <paramref name="connectionUpdate"/>
+		/// </summary>
+		/// <param name="connectionId">Id of the connection to update</param>
+		/// <param name="connectionUpdate">New connection data</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
 		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
 
 		Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default);
@@ -136,5 +159,12 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <returns></returns>
 		Task<bool> UpdateProjectFromIomContainerAsync(int connectionId, OpenModelContainer model, CancellationToken cancellationToken = default);
 
+		/// <summary>
+		/// Export <paramref name="connectionId"/> to IFC
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Strea of IFC data</returns>
+		Task<Stream> ExportToIfcAsyncAsync(int connectionId, CancellationToken cancellationToken = default);
 	}
 }

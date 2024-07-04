@@ -244,6 +244,11 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
 
 			return response;
+		public async Task<Stream> ExportToIfcAsyncAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.ExportToIfcAsyncAsync projectId = {activeProjectId} connectionId = {connectionId}");
+			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/{connectionId}/Ifc", cancellationToken, "application/octet-stream");
+			return result;
 		}
 
 		private Version GetOpenModelVersion()
