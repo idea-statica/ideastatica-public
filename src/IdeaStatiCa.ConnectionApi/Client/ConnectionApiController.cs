@@ -189,6 +189,14 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		public async Task<ConTemplateApplyResult> ApplyConnectionTemplateAsync(int connectionId, string templateXml, TemplateConversions templateMapping, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.ApplyConnectionTemplateAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var applyTemplateParam = new ConTemplateApplyParam() { ConnectionTemplate = templateXml, Mapping = templateMapping };
+			var response = await _httpClient.PostAsync<ConTemplateApplyResult>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ApplyConnectionTemplate", applyTemplateParam, cancellationToken);
+			return response;
+		}
+
 		public async Task<OpenModel> ExportConnectionIomModel(int connectionId, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetConnectionAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");

@@ -71,7 +71,18 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <returns></returns>
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
 
+		/// <summary>
+		/// Get mapping for connection template <paramref name="templateXml"/> on connection with <paramref name="connectionId"/>
+		/// in the active project.
+		/// </summary>
+		/// <param name="connectionId">Id of the connection to apply template</param>
+		/// <param name="templateXml">Connection template in xml string</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Mapping of the provided connection on the requested connection</returns>
 		Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default);
+
+		Task<ConTemplateApplyResult> ApplyConnectionTemplateAsync(int connectionId, string templateXml, TemplateConversions templateMapping, CancellationToken cancellationToken = default);
+
 
 		/// Creates Idea connection project from given <paramref name="iomContainerXmlFileName"/> and projects
 		/// </summary>
