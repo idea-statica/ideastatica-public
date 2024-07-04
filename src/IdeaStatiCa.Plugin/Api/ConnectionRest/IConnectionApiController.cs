@@ -104,5 +104,37 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <returns></returns>
 		Task<ConnectionData> ExportConnectionIomConnectionData(int connectionId, CancellationToken cancellationToken = default);
 
+		/// Update Idea connection project from given <paramref name="iomContainerXmlFileName"/> and projects
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		Task<bool> UpdateProjectFromIomContainerFileAsync(int connectionId, string iomContainerXmlFileName, CancellationToken cancellationToken = default);
+
+		/// Update Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
+		Task<bool> UpdateProjectFromIomFileAsync(int connectionId, string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Update an IDEA Connection project based on Open Model and Open Model Result)
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="model"></param>
+		/// <param name="result"></param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		Task<bool> UpdateProjectFromIomModelAsync(int connectionId, OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Update an IDEA Connection project based on OpenModelContainer (model and results)
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="model"></param>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		Task<bool> UpdateProjectFromIomContainerAsync(int connectionId, OpenModelContainer model, CancellationToken cancellationToken = default);
+
 	}
 }

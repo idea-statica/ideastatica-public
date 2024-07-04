@@ -207,6 +207,45 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		public async Task<bool> UpdateProjectFromIomFileAsync(int connectionId, string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateProjectFromIomFileAsync connection Id = '{connectionId}' path model = '{iomXmlFileName}'  path result model = '{iomResXmlFileName}'");
+
+			var model = OpenModel.LoadFromXmlFile(iomXmlFileName);
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateProjectFromIomFileAsync path model = '{iomXmlFileName}' deserialized");
+			var result = OpenModelResult.LoadFromXmlFile(iomResXmlFileName);
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateProjectFromIomFileAsync path result model = '{iomResXmlFileName}' deserialized");
+
+			return await this.UpdateProjectFromIomContainerAsync(connectionId, new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, cancellationToken);
+		}
+
+		public async Task<bool> UpdateProjectFromIomContainerFileAsync(int connectionId, string iomContainerXmlFileName, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateeProjectFromIomContainerFile path model = '{iomContainerXmlFileName}'");
+
+			var model = IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(iomContainerXmlFileName);
+
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateeProjectFromIomContainerFile path model = '{iomContainerXmlFileName}' deserialized");
+
+			return await this.UpdateProjectFromIomContainerAsync(connectionId, model, cancellationToken);
+		}
+
+		public async Task<bool> UpdateProjectFromIomModelAsync(int connectionId, OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateProjectFromIomModel");
+			return await this.UpdateProjectFromIomContainerAsync(connectionId, new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, cancellationToken);
+		}
+
+		public async Task<bool> UpdateProjectFromIomContainerAsync(int connectionId, OpenModelContainer model, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.UpdateProjectFromIomContainer");
+
+			var response = await _httpClient.PostAsync<bool>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/UpdateProjectFromIOM", model, cancellationToken, "application/xml");
+
+
+			return response;
+		}
+
 		private Version GetOpenModelVersion()
 		{
 			var op = new OpenModel();
