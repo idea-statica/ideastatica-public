@@ -6,6 +6,7 @@ using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
 using System;
@@ -171,6 +172,15 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return result;
 		}
 
+		/// <inheritdoc cref="IConnectionApiController.CalculateAsync(List{int}, ConAnalysisTypeEnum, CancellationToken)"/>
+		public async Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync clientId = {ClientId} projectId = {activeProjectId}");
+			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/Calculate", calculateParam, cancellationToken);
+			return response;
+		}
+
 		public async Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetTemplateMappingAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
@@ -239,11 +249,16 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<bool> UpdateProjectFromIomContainerAsync(int connectionId, OpenModelContainer model, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.UpdateProjectFromIomContainer");
-
 			var response = await _httpClient.PostAsync<bool>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/UpdateProjectFromIOM", model, cancellationToken, "application/xml");
-
-
 			return response;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.ExportToIfcAsync(int, CancellationToken)"/>
+		public async Task<Stream> ExportToIfcAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.ExportToIfcAsyncAsync projectId = {activeProjectId} connectionId = {connectionId}");
+			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/{connectionId}/Ifc", cancellationToken, "application/octet-stream");
+			return result;
 		}
 
 		private Version GetOpenModelVersion()
