@@ -3,6 +3,7 @@ using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
 using System;
@@ -60,6 +61,15 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Run requested tyoe of CBFEM analysis for <paramref name="conToCalculateIds"/>
+		/// </summary>
+		/// <param name="conToCalculateIds">Lits of connections in the active project to calculate</param>
+		/// <param name="analysisType">Type of CBFEM analysis to run</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
 
 		Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default);
 
@@ -165,6 +175,6 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="connectionId"></param>
 		/// <param name="cancellationToken"></param>
 		/// <returns>Strea of IFC data</returns>
-		Task<Stream> ExportToIfcAsyncAsync(int connectionId, CancellationToken cancellationToken = default);
+		Task<Stream> ExportToIfcAsync(int connectionId, CancellationToken cancellationToken = default);
 	}
 }
