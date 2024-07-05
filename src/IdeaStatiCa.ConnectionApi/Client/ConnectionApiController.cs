@@ -36,6 +36,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public static readonly string ConProjectController = "ConProject";
 		public static readonly string ConnectionController = "ConConnection";
 		public static readonly string ConParameterController = "ConParameter";
+		public static readonly string ConTemplateController = "ConTemplate";
 
 		public ConnectionApiController(int restApiProcessId, IHttpClientWrapper httpClient, IPluginLogger pluginLogger = null)
 		{
@@ -185,7 +186,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetTemplateMappingAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
 			ConTemplateMappingGetParam getTempMappingParam = new ConTemplateMappingGetParam() { Template = templateXml };
-			var response = await _httpClient.PostAsync<TemplateConversions>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ConnectionTemplateMapping", getTempMappingParam, cancellationToken);
+			var response = await _httpClient.PostAsync<TemplateConversions>($"api/{ApiVersion}/{ConTemplateController}/{activeProjectId}/{connectionId}/ConnectionTemplateMapping", getTempMappingParam, cancellationToken);
 			return response;
 		}
 
@@ -193,7 +194,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.ApplyConnectionTemplateAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
 			var applyTemplateParam = new ConTemplateApplyParam() { ConnectionTemplate = templateXml, Mapping = templateMapping };
-			var response = await _httpClient.PostAsync<ConTemplateApplyResult>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ApplyConnectionTemplate", applyTemplateParam, cancellationToken);
+			var response = await _httpClient.PostAsync<ConTemplateApplyResult>($"api/{ApiVersion}/{ConTemplateController}/{activeProjectId}/{connectionId}/ApplyConnectionTemplate", applyTemplateParam, cancellationToken);
 			return response;
 		}
 
