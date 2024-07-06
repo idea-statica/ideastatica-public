@@ -37,6 +37,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public static readonly string ConnectionController = "ConConnection";
 		public static readonly string ConParameterController = "ConParameter";
 		public static readonly string ConTemplateController = "ConTemplate";
+		public static readonly string ConCalculateController = "ConCalculate";
 
 		public ConnectionApiController(int restApiProcessId, IHttpClientWrapper httpClient, IPluginLogger pluginLogger = null)
 		{
@@ -178,7 +179,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.CalculateAsync clientId = {ClientId} projectId = {activeProjectId}");
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/Calculate", calculateParam, cancellationToken);
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Calculate", calculateParam, cancellationToken);
 			return response;
 		}
 
