@@ -37,7 +37,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public static readonly string ConnectionController = "ConConnection";
 		public static readonly string ConParameterController = "ConParameter";
 		public static readonly string ConTemplateController = "ConTemplate";
-		public static readonly string ConCalculateController = "ConCalculate";
+		public static readonly string ConCalculateController = "ConCalculation";
 
 		public ConnectionApiController(int restApiProcessId, IHttpClientWrapper httpClient, IPluginLogger pluginLogger = null)
 		{
