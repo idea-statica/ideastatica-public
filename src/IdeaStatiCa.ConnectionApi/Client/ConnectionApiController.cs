@@ -174,6 +174,13 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return result;
 		}
 
+		public async Task<List<ConOperation>> GetOperationsAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetOperationsAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
+			var response = await _httpClient.GetAsync<List<ConOperation>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/Operations", cancellationToken);
+			return response;
+		}
+
 		/// <inheritdoc cref="IConnectionApiController.CalculateAsync(List{int}, ConAnalysisTypeEnum, CancellationToken)"/>
 		public async Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default)
 		{
