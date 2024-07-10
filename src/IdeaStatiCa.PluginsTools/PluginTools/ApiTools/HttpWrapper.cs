@@ -28,6 +28,16 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		public Action<string> HeartBeatLogAction { get; set; } = null;
 		public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
 
+		protected static readonly JsonSerializerSettings _jsonSerializerSettings;
+
+		static HttpClientWrapper()
+		{
+			_jsonSerializerSettings = new JsonSerializerSettings
+			{
+				TypeNameHandling = TypeNameHandling.Objects
+			};
+		}
+
 		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
 		{
 			baseUrl = new Uri(baseAddress);
@@ -218,7 +228,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		{
 			return acceptHeader switch
 			{
-				"application/json" => JsonConvert.DeserializeObject<TResult>(data),
+				"application/json" => JsonConvert.DeserializeObject<TResult>(data, _jsonSerializerSettings),
 				"application/xml" => DeserializeXml<TResult>(data),
 				"text/plain" => (TResult)Convert.ChangeType(data, typeof(string)),
 				_ => throw new NotImplementedException($"Serialization for accept header {acceptHeader} is not supported.")
