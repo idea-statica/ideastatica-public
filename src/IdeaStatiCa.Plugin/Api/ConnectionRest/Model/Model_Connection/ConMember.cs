@@ -2,19 +2,19 @@
 {
 	public class ConMember : ConItem
 	{
-		public bool IsStiffening { get; set; }
-
 		public bool IsContinuous { get; set; }
 
-		public int CrossSectionId { get; set; }
+		public int? CrossSectionId { get; set; }
 
-		public bool MirrorY { get; set; }
+		public bool? MirrorY { get; set; }
 
-		public bool MirrorZ { get; set; }
+		public bool? MirrorZ { get; set; }
 
-		public ConMember(int id):base(id)
+		public bool IsBearing { get; }
+
+		public ConMember(int id, bool isBearing) : base(id)
 		{
-
+			IsBearing = isBearing;
 		}
 	}
 }

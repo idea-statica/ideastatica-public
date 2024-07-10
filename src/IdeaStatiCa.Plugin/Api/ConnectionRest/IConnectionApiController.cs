@@ -63,6 +63,14 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default);
 
 		/// <summary>
+		/// Get list of all operations for the connection with <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">Id of the requested connection</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>List of operations</returns>
+		Task<List<ConOperation>> GetOperationsAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
 		/// Run requested tyoe of CBFEM analysis for <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">Lits of connections in the active project to calculate</param>
