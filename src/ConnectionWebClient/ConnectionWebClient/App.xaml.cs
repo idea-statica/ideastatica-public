@@ -1,5 +1,4 @@
 ﻿using ConnectionWebClient.ViewModels;
-using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Factory;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
@@ -7,7 +6,6 @@ using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Net.Http;
 using System.Windows;
 
 namespace ConnectionWebClient

@@ -23,6 +23,12 @@ namespace IdeaStatiCa.ConnectionApi.Client
 {
 	public class ConnectionApiController : IConnectionApiController
 	{
+#if DEBUG
+		public static readonly int TimeOut = -1;
+#else
+		public static readonly int TimeOut = 20 * 1000;
+#endif
+
 		public static readonly string ApiVersion = "1";
 
 		private bool disposedValue = false;
@@ -297,6 +303,27 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			{
 				if (disposing)
 				{
+					if(activeProjectId != Guid.Empty)
+					{
+						try
+						{
+							var closeTask = Task.Run(async () => await CloseProjectAsync());
+
+							if (closeTask.Wait(TimeOut))
+							{
+								_pluginLogger.LogInformation($"Project with ID {activeProjectId} was closed successfully");
+							}
+							else
+							{
+								_pluginLogger.LogWarning($"Project with ID {activeProjectId} was not closed in time");
+							}
+						}
+						catch (Exception ex)
+						{
+							_pluginLogger.LogWarning("Error during closing the project", ex);
+						}
+
+					}
 					if (restApiProcessId != -1)
 					{
 						var restApiProcess = Process.GetProcessById(restApiProcessId);
