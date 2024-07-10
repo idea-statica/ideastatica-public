@@ -20,6 +20,11 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 		/// </summary>
 		public PluginDriverDescriptor DriverDescriptor { get; }
 
+		/// <summary>
+		/// Describe how the plugin tab should be displayed in the UI.
+		/// </summary>
+		public TabInfoDescriptor TabInfoDescriptor { get; }
+
 		public SystemActionsDescriptor? SystemActionsDescriptor { get; }
 
 		public ActionButtonDescriptor[]? CustomActionDescriptors { get; }
@@ -30,12 +35,14 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 		/// <param name="name"></param>
 		/// <param name="type"></param>
 		/// <param name="driverDescriptor"></param>
+		/// <param name="tabInfoDescriptor"></param>
 		/// <param name="systemActionsDescriptor"></param>
 		/// <param name="customActionDescriptors"></param>
 		public PluginDescriptor(
 			string name,
 			PluginType type,
 			PluginDriverDescriptor driverDescriptor,
+			TabInfoDescriptor tabInfoDescriptor,
 			SystemActionsDescriptor? systemActionsDescriptor = null,
 			ActionButtonDescriptor[]? customActionDescriptors = null)
 		{
@@ -45,6 +52,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 			Name = name;
 			Type = type;
 			DriverDescriptor = driverDescriptor;
+			TabInfoDescriptor = tabInfoDescriptor;
 			SystemActionsDescriptor = systemActionsDescriptor;
 			CustomActionDescriptors = customActionDescriptors;
 		}
@@ -63,7 +71,8 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 
 			return Name == other.Name
 				&& Type == other.Type
-				&& DriverDescriptor.Equals(other.DriverDescriptor);
+				&& DriverDescriptor.Equals(other.DriverDescriptor)
+				&& TabInfoDescriptor.Equals(other.TabInfoDescriptor);
 		}
 
 		public override bool Equals(object? obj)
@@ -73,7 +82,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 
 		public override int GetHashCode()
 		{
-			return HashCode.Combine(Name, Type, DriverDescriptor);
+			return HashCode.Combine(Name, Type, DriverDescriptor, TabInfoDescriptor);
 		}
 
 		public static bool operator ==(PluginDescriptor left, PluginDescriptor right)
