@@ -44,11 +44,9 @@ namespace ConnectionWebClient.ViewModels
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConnectionController != null && this.ProjectInfo == null);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
-			//GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
-			//GetDetailedResultsCommand = new AsyncRelayCommand(GetDetailedResultsAsync);
+			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
+			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
 
-			//GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
-			//GetBucklingDetailedResultsCommand = new AsyncRelayCommand(GetBucklingDetailedResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -87,6 +85,7 @@ namespace ConnectionWebClient.ViewModels
 			set
 			{
 				SetProperty(ref selectedConnection, value);
+				RefreshConnectionChanged();
 			}
 		}
 
@@ -104,6 +103,11 @@ namespace ConnectionWebClient.ViewModels
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
+
+		public AsyncRelayCommand DownloadProjectCommand { get; }
+
+		public AsyncRelayCommand ApplyTemplateCommand { get; }
+
 		private async Task OpenProjectAsync()
 		{
 			_logger.LogInformation("OpenProjectAsync");
@@ -127,6 +131,15 @@ namespace ConnectionWebClient.ViewModels
 
 				OutputText =JsonTools.ToFormatedJson(ProjectInfo);
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+
+				if(Connections.Any())
+				{
+					SelectedConnection = Connections.First();
+				}
+				else
+				{
+					SelectedConnection = null;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -208,6 +221,16 @@ namespace ConnectionWebClient.ViewModels
 			await Task.CompletedTask;
 		}
 
+		internal async Task DownloadProjectAsync()
+		{
+			await Task.CompletedTask;
+		}
+
+		internal async Task ApplyTemplateAsync()
+		{
+			await Task.CompletedTask;
+		}
+
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
@@ -232,17 +255,18 @@ namespace ConnectionWebClient.ViewModels
 			GC.SuppressFinalize(this);
 		}
 
-		private void RefreshCommangs()
-		{
-			this.ConnectCommand.NotifyCanExecuteChanged();
-			this.OpenProjectCommand.NotifyCanExecuteChanged();
-			this.CloseProjectCommand.NotifyCanExecuteChanged();
-		}
 		private void RefreshCommands()
 		{
 			this.ConnectCommand.NotifyCanExecuteChanged();
 			this.OpenProjectCommand.NotifyCanExecuteChanged();
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
+			this.DownloadProjectCommand.NotifyCanExecuteChanged();
+			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
+		}
+
+		private void RefreshConnectionChanged()
+		{
+			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 		}
 	}
 }

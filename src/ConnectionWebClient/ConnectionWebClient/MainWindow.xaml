@@ -12,6 +12,10 @@
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Connect</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
+
+				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
+				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
+		  
 				<!--<Button Command="{Binding GetBriefResultsCommand, Mode=OneWay}">Plastic Brief results</Button>
 				<Button Command="{Binding GetDetailedResultsCommand, Mode=OneWay}">Plastic Detailed results</Button>
 				<Button Command="{Binding GetBucklingBriefResultsCommand, Mode=OneWay}">Buckling Brief results</Button>
