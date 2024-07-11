@@ -136,6 +136,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.DownloadProjectAsync projectId = {activeProjectId}");
 			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/Download", token, "application/octet-stream");
+			result.Seek(0, SeekOrigin.Begin);
 			return result;
 		}
 

@@ -181,7 +181,7 @@ namespace ConnectionWebClient.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("ConnectAsync", ex);
+				_logger.LogWarning("ConnectAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -193,7 +193,9 @@ namespace ConnectionWebClient.ViewModels
 
 		internal async Task CloseProjectAsync()
 		{
-			if(ProjectInfo == null)
+			_logger.LogInformation("CloseProjectAsync");
+
+			if (ProjectInfo == null)
 			{
 				return;
 			}
@@ -212,6 +214,11 @@ namespace ConnectionWebClient.ViewModels
 				Connections = new ObservableCollection<ConnectionViewModel>();
 				OutputText = string.Empty;
 			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CloseProjectAsync failed", ex);
+				OutputText = ex.Message;
+			}
 			finally
 			{
 				IsBusy = false;
@@ -223,11 +230,95 @@ namespace ConnectionWebClient.ViewModels
 
 		internal async Task DownloadProjectAsync()
 		{
+			_logger.LogInformation("DownloadProjectAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var projectStream = await ConnectionController.DownloadProjectAsync(cts.Token);
+
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Filter = "IdeaConnection | *.ideacon";
+				if (saveFileDialog.ShowDialog() == true)
+				{
+					using (var fileStream = saveFileDialog.OpenFile())
+					{
+						await projectStream.CopyToAsync(fileStream);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("DownloadProjectAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
 			await Task.CompletedTask;
 		}
 
-		internal async Task ApplyTemplateAsync()
+		private async Task ApplyTemplateAsync()
 		{
+			_logger.LogInformation("ApplyTemplateAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				OpenFileDialog openFileDialog = new OpenFileDialog();
+				openFileDialog.Filter = "Connection Template | *.conTemp";
+				if (openFileDialog.ShowDialog() != true)
+				{
+					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
+					return;
+				}
+
+				var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
+
+				var templateMapping = await ConnectionController.GetTemplateMappingAsync(SelectedConnection!.Id, templateXml, cts.Token);
+				if (templateMapping == null)
+				{
+					throw new ArgumentException($"Invalid mapping for connection '{SelectedConnection.Name}'");
+				}
+
+				var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, templateMapping, cts.Token);
+
+				OutputText = "Template was applied";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("ApplyTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
 			await Task.CompletedTask;
 		}
 
