@@ -1,6 +1,6 @@
-using IdeaRS.OpenModel;
 using IdeaStatiCa.CheckbotPlugin.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.CheckbotPlugin.Services
@@ -20,8 +20,8 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// Returns IOM of the whole project.
 		/// </summary>
 		/// <param name="options"></param>
-		/// <returns></returns>
-		Task<OpenModelContainer> GetModel(ModelExportOptions options);
+		/// <returns>OpenModelContainer XML</returns>
+		TextReader GetModel(ModelExportOptions options);
 
 		/// <summary>
 		/// Returns list of all objects in the project.
@@ -34,7 +34,7 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// </summary>
 		/// <param name="objects"></param>
 		/// <param name="options"></param>
-		/// <returns></returns>
-		Task<OpenModelContainer> GetObjects(IEnumerable<ModelObject> objects, ModelExportOptions options);
+		/// <returns>OpenModelContainer XML</returns>
+		TextReader GetObjects(IEnumerable<ModelObject> objects, ModelExportOptions options);
 	}
 }
