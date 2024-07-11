@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -136,6 +137,27 @@ namespace IdeaRS.OpenModel
 		}
 
 		/// <summary>
+		/// Deserialize a model from XML
+		/// </summary>
+		/// <typeparam name="T">Type of model</typeparam>
+		/// <param name="stream">XML stream</param>
+		/// <returns>Deserialize instance model</returns>
+		public static T DeserializeModel<T>(Stream stream)
+			=> DeserializeModel<T>(new StreamReader(stream));
+
+		/// <summary>
+		/// Deserialize a model from XML
+		/// </summary>
+		/// <typeparam name="T">Type of model</typeparam>
+		/// <param name="textReader">XML stream reader</param>
+		/// <returns>Deserialize instance model</returns>
+		public static T DeserializeModel<T>(TextReader textReader)
+		{
+			XmlReader reader = XmlReader.Create(textReader, GetReaderSettings());
+			return DeserializeModel<T>(reader);
+		}
+
+		/// <summary>
 		/// Creates the instance from the XML file
 		/// </summary>
 		/// <param name="xmlFileName">XML file name</param>
@@ -154,10 +176,7 @@ namespace IdeaRS.OpenModel
 		/// <param name="stream"></param>
 		/// <returns>>Deserialize instance model</returns>
 		public static T DeserializeModelFromStream<T>(Stream stream)
-		{
-			XmlReader reader = XmlReader.Create(new StreamReader(stream), GetReaderSettings());
-			return DeserializeModel<T>(reader);
-		}
+			=> DeserializeModel<T>(stream);
 
 		private static void SerializeModel<T>(T model, XmlWriter writer)
 		{
