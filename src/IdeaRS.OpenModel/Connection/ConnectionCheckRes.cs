@@ -129,6 +129,12 @@ namespace IdeaRS.OpenModel.Connection
 		public Guid ConnectionID { get; set; }
 
 		/// <summary>
+		/// Integer Id of connection
+		/// </summary>
+		[DataMember]
+		public int Id { get; set; }
+
+		/// <summary>
 		/// Gets or sets the list of errors, that apears during validation and/or calculation.
 		/// </summary>
 		[DataMember]
