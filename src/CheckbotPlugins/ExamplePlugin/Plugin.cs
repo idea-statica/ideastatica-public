@@ -28,7 +28,7 @@ namespace ExamplePlugin
 				ModelExportOptions exportOptions = new ModelExportOptions();
 				exportOptions.WithResults = false;
 
-				OpenModelContainer iom = await _projectService.GetObjects(new[] { openCheckApplication.ModelObject }, exportOptions);
+				OpenModelContainer iom = Tools.DeserializeModel<OpenModelContainer>(_projectService.GetObjects(new[] { openCheckApplication.ModelObject }, ModelExportOptions.Default));
 				ConnectionPoint conn = iom.OpenModel.ConnectionPoint[0];
 
 				PrintConnectionInfo(iom, conn);
