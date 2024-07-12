@@ -2,6 +2,9 @@
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using IdeaStatiCa.Plugin.Utilities;
+using ConnectionWebClient.Views;
+using System.Windows;
+using ConnectionWebClient.ViewModels;
 
 namespace ConnectionWebClient.Services
 {
@@ -10,21 +13,42 @@ namespace ConnectionWebClient.Services
 		Task<TemplateConversions> SetAsync(TemplateConversions defaultConversions);
 	}
 
+
 	internal class TemplateMappingSetter : ITemplateMappingSetter
 	{
-		public async Task<TemplateConversions> SetAsync(TemplateConversions defaultConversions)
+		private readonly static JsonSerializerSettings _jsonSettings;
+
+		static TemplateMappingSetter()
 		{
-			var defaultConversionsJson = JsonConvert.SerializeObject(defaultConversions);
+			_jsonSettings = JsonTools.CreateIdeaRestJsonSettings();
+		}
 
-			await Task.CompletedTask;
+		public async Task<TemplateConversions?> SetAsync(TemplateConversions defaultConversions)
+		{
+			var defaultConversionsJson = JsonConvert.SerializeObject(defaultConversions, Formatting.Indented, _jsonSettings);
 
-			var modifiedConversions = JsonConvert.DeserializeObject<TemplateConversions>(defaultConversionsJson, JsonTools.CreateIdeaRestJsonSettings());
+			JsonEditorWindow jsonEditorWindow = new JsonEditorWindow();
+			jsonEditorWindow.Owner = Application.Current.MainWindow;
+			JsonEditorViewModel jsonEditorViewModel = new JsonEditorViewModel();
+			jsonEditorViewModel.EditedText = defaultConversionsJson;
+			jsonEditorWindow.DataContext = jsonEditorViewModel;
+			jsonEditorWindow.ShowDialog();
+
+			TemplateConversions? modifiedConversions = null;
+
+			if (jsonEditorWindow.DialogResult != true)
+			{
+
+				return await Task.FromResult(modifiedConversions);
+			}
+
+			modifiedConversions = JsonConvert.DeserializeObject<TemplateConversions>(jsonEditorViewModel.EditedText, _jsonSettings);
 			if(modifiedConversions == null)
 			{
 				throw new System.Exception("Failed to deserialize defaultConversions");
 			}
 
-			return modifiedConversions;
+			return await Task.FromResult(modifiedConversions);
 		}
 	}
 }

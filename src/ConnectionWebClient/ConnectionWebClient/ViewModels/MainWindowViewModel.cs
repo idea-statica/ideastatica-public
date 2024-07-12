@@ -306,6 +306,11 @@ namespace ConnectionWebClient.ViewModels
 
 				var mappingSetter = new Services.TemplateMappingSetter();
 				var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
+				if(modifiedTemplateMapping == null)
+				{
+					// operation was canceled
+					return;
+				}
 
 				var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, templateMapping, cts.Token);
 

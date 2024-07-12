@@ -1,4 +1,5 @@
 ﻿using ConnectionWebClient.ViewModels;
+using ConnectionWebClient.Views;
 using IdeaStatiCa.ConnectionApi.Factory;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
@@ -36,6 +37,12 @@ namespace ConnectionWebClient
 				DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
 			});
 			services.AddTransient<MainWindowViewModel>();
+
+			services.AddTransient<JsonEditorWindow>(serviceProvider => new JsonEditorWindow
+			{
+				DataContext = serviceProvider.GetRequiredService<JsonEditorViewModel>()
+			});
+			services.AddTransient<JsonEditorViewModel>();
 
 			//services.AddTransient<HttpClient>(serviceProvider => new HttpClient() { BaseAddress = new Uri(configuration["CONNECTION_API_ENDPOINT"]!) });
 
