@@ -1,6 +1,4 @@
-﻿using IdeaRS.OpenModel.Connection;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
-using System;
+﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
 
 namespace ConnectionWebClient.ViewModels
 {

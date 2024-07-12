@@ -44,11 +44,9 @@ namespace ConnectionWebClient.ViewModels
 			OpenProjectCommand = new AsyncRelayCommand(OpenProjectAsync, () => ConnectionController != null && this.ProjectInfo == null);
 			CloseProjectCommand = new AsyncRelayCommand(CloseProjectAsync, () => this.ProjectInfo != null);
 
-			//GetBriefResultsCommand = new AsyncRelayCommand(GetBriefResultsAsync);
-			//GetDetailedResultsCommand = new AsyncRelayCommand(GetDetailedResultsAsync);
+			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
+			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
 
-			//GetBucklingBriefResultsCommand = new AsyncRelayCommand(GetBucklingBriefResultsAsync);
-			//GetBucklingDetailedResultsCommand = new AsyncRelayCommand(GetBucklingDetailedResultsAsync);
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
@@ -87,6 +85,7 @@ namespace ConnectionWebClient.ViewModels
 			set
 			{
 				SetProperty(ref selectedConnection, value);
+				RefreshConnectionChanged();
 			}
 		}
 
@@ -104,6 +103,11 @@ namespace ConnectionWebClient.ViewModels
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
+
+		public AsyncRelayCommand DownloadProjectCommand { get; }
+
+		public AsyncRelayCommand ApplyTemplateCommand { get; }
+
 		private async Task OpenProjectAsync()
 		{
 			_logger.LogInformation("OpenProjectAsync");
@@ -127,6 +131,15 @@ namespace ConnectionWebClient.ViewModels
 
 				OutputText =JsonTools.ToFormatedJson(ProjectInfo);
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
+
+				if(Connections.Any())
+				{
+					SelectedConnection = Connections.First();
+				}
+				else
+				{
+					SelectedConnection = null;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -168,7 +181,7 @@ namespace ConnectionWebClient.ViewModels
 			}
 			catch (Exception ex)
 			{
-				_logger.LogWarning("ConnectAsync", ex);
+				_logger.LogWarning("ConnectAsync failed", ex);
 				OutputText = ex.Message;
 			}
 			finally
@@ -180,7 +193,9 @@ namespace ConnectionWebClient.ViewModels
 
 		internal async Task CloseProjectAsync()
 		{
-			if(ProjectInfo == null)
+			_logger.LogInformation("CloseProjectAsync");
+
+			if (ProjectInfo == null)
 			{
 				return;
 			}
@@ -198,6 +213,113 @@ namespace ConnectionWebClient.ViewModels
 				SelectedConnection = null;
 				Connections = new ObservableCollection<ConnectionViewModel>();
 				OutputText = string.Empty;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("CloseProjectAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		internal async Task DownloadProjectAsync()
+		{
+			_logger.LogInformation("DownloadProjectAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var projectStream = await ConnectionController.DownloadProjectAsync(cts.Token);
+
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Filter = "IdeaConnection | *.ideacon";
+				if (saveFileDialog.ShowDialog() == true)
+				{
+					using (var fileStream = saveFileDialog.OpenFile())
+					{
+						await projectStream.CopyToAsync(fileStream);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("DownloadProjectAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+
+			await Task.CompletedTask;
+		}
+
+		private async Task ApplyTemplateAsync()
+		{
+			_logger.LogInformation("ApplyTemplateAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				OpenFileDialog openFileDialog = new OpenFileDialog();
+				openFileDialog.Filter = "Connection Template | *.conTemp";
+				if (openFileDialog.ShowDialog() != true)
+				{
+					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
+					return;
+				}
+
+				var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
+
+				var templateMapping = await ConnectionController.GetTemplateMappingAsync(SelectedConnection!.Id, templateXml, cts.Token);
+				if (templateMapping == null)
+				{
+					throw new ArgumentException($"Invalid mapping for connection '{SelectedConnection.Name}'");
+				}
+
+				var mappingSetter = new Services.TemplateMappingSetter();
+				var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
+				if(modifiedTemplateMapping == null)
+				{
+					// operation was canceled
+					return;
+				}
+
+				var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, modifiedTemplateMapping, cts.Token);
+
+				OutputText = "Template was applied";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("ApplyTemplateAsync failed", ex);
+				OutputText = ex.Message;
 			}
 			finally
 			{
@@ -232,17 +354,18 @@ namespace ConnectionWebClient.ViewModels
 			GC.SuppressFinalize(this);
 		}
 
-		private void RefreshCommangs()
-		{
-			this.ConnectCommand.NotifyCanExecuteChanged();
-			this.OpenProjectCommand.NotifyCanExecuteChanged();
-			this.CloseProjectCommand.NotifyCanExecuteChanged();
-		}
 		private void RefreshCommands()
 		{
 			this.ConnectCommand.NotifyCanExecuteChanged();
 			this.OpenProjectCommand.NotifyCanExecuteChanged();
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
+			this.DownloadProjectCommand.NotifyCanExecuteChanged();
+			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
+		}
+
+		private void RefreshConnectionChanged()
+		{
+			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
+using IdeaStatiCa.Plugin.Utilities;
 using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
@@ -32,10 +33,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 
 		static HttpClientWrapper()
 		{
-			_jsonSerializerSettings = new JsonSerializerSettings
-			{
-				TypeNameHandling = TypeNameHandling.Objects
-			};
+			_jsonSerializerSettings = JsonTools.CreateIdeaRestJsonSettings();
 		}
 
 		public HttpClientWrapper(IPluginLogger logger, string baseAddress)
@@ -269,7 +267,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 				return stringContent;
 			}
 
-			var content = new StringContent(JsonConvert.SerializeObject(requestContent), encoding: Encoding.UTF8, "application/json");
+			var content = new StringContent(JsonConvert.SerializeObject(requestContent, _jsonSerializerSettings), encoding: Encoding.UTF8, "application/json");
 			content.Headers.ContentType.CharSet = "";
 			return content;
 		}
