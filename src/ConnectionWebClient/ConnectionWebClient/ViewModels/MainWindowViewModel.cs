@@ -312,7 +312,7 @@ namespace ConnectionWebClient.ViewModels
 					return;
 				}
 
-				var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, templateMapping, cts.Token);
+				var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, modifiedTemplateMapping, cts.Token);
 
 				OutputText = "Template was applied";
 			}
