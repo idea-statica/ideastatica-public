@@ -304,6 +304,9 @@ namespace ConnectionWebClient.ViewModels
 					throw new ArgumentException($"Invalid mapping for connection '{SelectedConnection.Name}'");
 				}
 
+				var mappingSetter = new Services.TemplateMappingSetter();
+				var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
+
 				var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, templateMapping, cts.Token);
 
 				OutputText = "Template was applied";

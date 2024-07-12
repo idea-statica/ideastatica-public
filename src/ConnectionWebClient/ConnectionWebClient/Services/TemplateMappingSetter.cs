@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using IdeaStatiCa.Plugin.Utilities;
 
 namespace ConnectionWebClient.Services
 {
@@ -17,7 +18,13 @@ namespace ConnectionWebClient.Services
 
 			await Task.CompletedTask;
 
-			var modifiedConversions = JsonConvert.DeserializeObject<TemplateConversions>(defaultConversionsJson);
+			var modifiedConversions = JsonConvert.DeserializeObject<TemplateConversions>(defaultConversionsJson, JsonTools.CreateIdeaRestJsonSettings());
+			if(modifiedConversions == null)
+			{
+				throw new System.Exception("Failed to deserialize defaultConversions");
+			}
+
+			return modifiedConversions;
 		}
 	}
 }
