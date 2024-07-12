@@ -9,6 +9,7 @@
 		Total_Design,
 		HorizontalTying,
 		CapacityLoadLevels,
-		FireRestance
+		FireRestance,
+		Buckling
 	}
 }
