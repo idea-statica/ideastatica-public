@@ -79,6 +79,8 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <returns></returns>
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
 
+		Task<string> GetRawResultsAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
+
 		/// <summary>
 		/// Get mapping for connection template <paramref name="templateXml"/> on connection with <paramref name="connectionId"/>
 		/// in the active project.

@@ -197,6 +197,14 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		public async Task<string> GetRawResultsAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetRawResultsAsync clientId = {ClientId} projectId = {activeProjectId}");
+			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
+			var response = await _httpClient.PostAsync<string>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/GetRawResultsText", calculateParam, cancellationToken, "text/plain");
+			return response;
+		}
+
 		public async Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetTemplateMappingAsync clientId = {ClientId} projectId = {activeProjectId} connectionId = {connectionId}");
