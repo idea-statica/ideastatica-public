@@ -195,5 +195,30 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns>Strea of IFC data</returns>
 		Task<Stream> ExportToIfcAsync(int connectionId, CancellationToken cancellationToken = default);
+		/// <summary>
+		/// Get all members in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<List<ConMember>> GetMembersAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get one member in connection
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConMember> GetMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Update connection's member values
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="memberId"></param>
+		/// <param name="member"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConMember> UpdateMemberAsync(int connectionId, int memberId, ConMember member, CancellationToken cancellationToken = default);
 	}
 }
