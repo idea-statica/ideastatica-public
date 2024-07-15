@@ -5,26 +5,26 @@ option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 package ideastatica.checkbotplugin.v1;
 
 service ApplicationService {
-    rpc GetSettings(GetSettingsReq) returns (GetSettingsResp);
-    rpc GetAllSettings(GetAllSettingsReq) returns (GetAllSettingsResp);
+	rpc GetSettings(GetSettingsReq) returns (GetSettingsResp);
+	rpc GetAllSettings(GetAllSettingsReq) returns (GetAllSettingsResp);
 }
 
 message GetSettingsReq {
-    string name = 1;
+	string name = 1;
 }
 
 message GetSettingsResp {
-    SettingsValue value = 1;
+	SettingsValue value = 1;
 }
 
 
 message GetAllSettingsReq { }
 
 message GetAllSettingsResp {
-    repeated SettingsValue values = 1;
+	repeated SettingsValue values = 1;
 }
 
 message SettingsValue {
-    string name = 1;
-    string value = 2;
+	string name = 1;
+	string value = 2;
 }
