@@ -346,7 +346,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		/// <inheritdoc cref="IConnectionApiController.GetProductionCostAsync(int, CancellationToken)"/>
 		public async Task<ConProductionCost> GetProductionCostAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.GetProductionCostAsync projectId = {activeProjectId} connectionId = {connectionId}");
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			var result = await _httpClient.GetAsync<ConProductionCost>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/production-cost", cancellationToken);
 			return result;
 		}
@@ -354,7 +354,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		/// <inheritdoc cref="IConnectionApiController.GetLoadEffectsAsync(int, bool, CancellationToken)(int, CancellationToken)" >
 		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int id, bool isPercentage = false, CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.GetLoadEffects projectId = {activeProjectId} connectionId = {id}");
+			LogMethodCallToDebug(ClientId, activeProjectId, id);
 			var result = await _httpClient.GetAsync<List<ConLoadEffect>>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect?IsPercentage={isPercentage}", cancellationToken);
 			return result;
 		}
@@ -362,7 +362,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		/// <inheritdoc cref="IConnectionApiController.AddLoadEffectAsync(int, ConLoadEffect, CancellationToken)" >
 		public async Task<ConLoadEffect> AddLoadEffectAsync(int id, ConLoadEffect loadEffect,CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.GetLoadEffects projectId = {activeProjectId} connectionId = {id}");
+			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Adding load effect = {loadEffect.Id}");
 			var result = await _httpClient.PostAsync<ConLoadEffect>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect", loadEffect, cancellationToken);
 			return result;
 		}
@@ -370,14 +370,14 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		/// <inheritdoc cref="IConnectionApiController.DeleteLoadEffectAsync(int, int)" >
 		public async Task DeleteLoadEffectAsync(int id, int loadEffectId)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.DeleteLoadEffect projectId = {activeProjectId} connectionId = {id}");
+			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Deleting {loadEffectId}");
 			await _httpClient.DeleteAsync<int>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect/{loadEffectId}");
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.UpdateLoadEffectAsync(int, ConLoadEffect)" >
 		public async Task<ConLoadEffect> UpdateLoadEffectAsync(int id, ConLoadEffect le1)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.UpdateLoadEffectAsync projectId = {activeProjectId} connectionId = {id}");
+			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Updating {le1.Id}");
 			return await _httpClient.PutAsync<ConLoadEffect>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect", le1, CancellationToken.None);
 		}
 
