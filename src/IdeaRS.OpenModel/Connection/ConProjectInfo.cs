@@ -41,12 +41,6 @@ namespace IdeaRS.OpenModel.Connection
 		public string DesignCode { get; set; }
 
 		/// <summary>
-		/// Source Application specify data source
-		/// </summary>
-		[DataMember]
-		public string SourceApplication { get; set; }
-
-		/// <summary>
 		/// Date
 		/// </summary>
 		[DataMember]
