@@ -36,19 +36,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 		}
 
 		public override bool Equals(object? obj)
-		{
-			if (obj is null)
-			{
-				return false;
-			}
-
-			if (ReferenceEquals(this, obj))
-			{
-				return true;
-			}
-
-			return Equals(obj as DotNetRunnerDriverDescriptor);
-		}
+			=> Equals(obj as DotNetRunnerDriverDescriptor);
 
 		public bool Equals(DotNetRunnerDriverDescriptor? other)
 		{
@@ -57,13 +45,16 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Descriptors
 				return false;
 			}
 
+			if (ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
 			return Path == other.Path
 				&& ClassName == other.ClassName;
 		}
 
 		public override int GetHashCode()
-		{
-			return HashCode.Combine(Path, ClassName);
-		}
+			=> HashCode.Combine(Path, ClassName);
 	}
 }

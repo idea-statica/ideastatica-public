@@ -5,7 +5,7 @@ option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 package ideastatica.checkbotplugin.v1;
 
 service HealthCheck {
-    rpc Watch(stream CheckReq) returns (stream CheckResp);
+	rpc Watch(stream CheckReq) returns (stream CheckResp);
 }
 
 message CheckReq { }
