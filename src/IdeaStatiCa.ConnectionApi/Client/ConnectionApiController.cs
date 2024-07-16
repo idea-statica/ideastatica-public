@@ -195,6 +195,15 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		/// <inheritdoc cref="IConnectionApiController.ResultsAsync(List{int}, CancellationToken)"/>
+		public async Task<List<ConnectionCheckRes>> ResultsAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.ResultsAsync clientId = {ClientId} projectId = {activeProjectId}");
+			var calculateParam = new ConCalculationParameter() { ConnectionIds = conToCalculateIds };
+			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Results", calculateParam, cancellationToken, "application/xml");
+			return response;
+		}
+
 		public async Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
@@ -333,6 +342,13 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			_pluginLogger.LogDebug(sb.ToString());
 		}
 
+		public async Task<ConProductionCost> GetProductionCostAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			_pluginLogger.LogDebug($"ConnectionApiController.GetProductionCostAsync projectId = {activeProjectId} connectionId = {connectionId}");
+			var result = await _httpClient.GetAsync<ConProductionCost>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/production-cost", cancellationToken);
+			return result;
+		}
+
 		private Version GetOpenModelVersion()
 		{
 			var op = new OpenModel();
@@ -402,7 +418,5 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
-
-
 	}
 }

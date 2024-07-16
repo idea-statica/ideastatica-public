@@ -71,13 +71,21 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<List<ConOperation>> GetOperationsAsync(int connectionId, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// Run requested tyoe of CBFEM analysis for <paramref name="conToCalculateIds"/>
+		/// Run requested type of CBFEM analysis for <paramref name="conToCalculateIds"/>
 		/// </summary>
 		/// <param name="conToCalculateIds">Lits of connections in the active project to calculate</param>
 		/// <param name="analysisType">Type of CBFEM analysis to run</param>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<List<ConResultSummary>> CalculateAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
+		/// </summary>
+		/// <param name="conToCalculateIds">Lits of connections in the active project</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>Detailed results if calculated, otherwise empty</returns>
+		Task<List<ConnectionCheckRes>> ResultsAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get mapping for connection template <paramref name="templateXml"/> on connection with <paramref name="connectionId"/>
@@ -220,5 +228,14 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConMember> UpdateMemberAsync(int connectionId, int memberId, ConMember member, CancellationToken cancellationToken = default);
+		
+		/// <summary>
+		/// Get production cost
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConProductionCost> GetProductionCostAsync(int connectionId, CancellationToken cancellationToken = default);
+
 	}
 }
