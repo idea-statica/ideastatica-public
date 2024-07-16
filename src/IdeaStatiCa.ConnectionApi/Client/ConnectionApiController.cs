@@ -199,7 +199,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		/// <inheritdoc cref="IConnectionApiController.ResultsAsync(List{int}, CancellationToken)"/>
 		public async Task<List<ConnectionCheckRes>> ResultsAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.ResultsAsync clientId = {ClientId} projectId = {activeProjectId}");
+			LogMethodCallToDebug(ClientId, activeProjectId, message: $"Connections {string.Join(",", conToCalculateIds.Select(x => x))}");
 			var calculateParam = new ConCalculationParameter() { ConnectionIds = conToCalculateIds };
 			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Results", calculateParam, cancellationToken, "application/xml");
 			return response;
