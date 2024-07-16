@@ -46,6 +46,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public static readonly string ConParameterController = "ConParameter";
 		public static readonly string ConTemplateController = "ConTemplate";
 		public static readonly string ConCalculateController = "ConCalculation";
+		public static readonly string ConLoadEffectController = "ConLoadEffect";
 
 		public ConnectionApiController(int restApiProcessId, IHttpClientWrapper httpClient, IPluginLogger pluginLogger = null)
 		{
@@ -195,6 +196,15 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		/// <inheritdoc cref="IConnectionApiController.ResultsAsync(List{int}, CancellationToken)"/>
+		public async Task<List<ConnectionCheckRes>> ResultsAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, message: $"Connections {string.Join(",", conToCalculateIds.Select(x => x))}");
+			var calculateParam = new ConCalculationParameter() { ConnectionIds = conToCalculateIds };
+			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Results", calculateParam, cancellationToken, "application/xml");
+			return response;
+		}
+
 		public async Task<TemplateConversions> GetTemplateMappingAsync(int connectionId, string templateXml, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
@@ -331,6 +341,44 @@ namespace IdeaStatiCa.ConnectionApi.Client
 				sb.Append(message);
 			}
 			_pluginLogger.LogDebug(sb.ToString());
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.GetProductionCostAsync(int, CancellationToken)"/>
+		public async Task<ConProductionCost> GetProductionCostAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
+			var result = await _httpClient.GetAsync<ConProductionCost>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/production-cost", cancellationToken);
+			return result;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.GetLoadEffectsAsync(int, bool, CancellationToken)(int, CancellationToken)" >
+		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int id, bool isPercentage = false, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, id);
+			var result = await _httpClient.GetAsync<List<ConLoadEffect>>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect?IsPercentage={isPercentage}", cancellationToken);
+			return result;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.AddLoadEffectAsync(int, ConLoadEffect, CancellationToken)" >
+		public async Task<ConLoadEffect> AddLoadEffectAsync(int id, ConLoadEffect loadEffect,CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Adding load effect = {loadEffect.Id}");
+			var result = await _httpClient.PostAsync<ConLoadEffect>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect", loadEffect, cancellationToken);
+			return result;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.DeleteLoadEffectAsync(int, int)" >
+		public async Task DeleteLoadEffectAsync(int id, int loadEffectId)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Deleting {loadEffectId}");
+			await _httpClient.DeleteAsync<int>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect/{loadEffectId}");
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.UpdateLoadEffectAsync(int, ConLoadEffect)" >
+		public async Task<ConLoadEffect> UpdateLoadEffectAsync(int id, ConLoadEffect le1)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Updating {le1.Id}");
+			return await _httpClient.PutAsync<ConLoadEffect>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect", le1, CancellationToken.None);
 		}
 
 		private Version GetOpenModelVersion()

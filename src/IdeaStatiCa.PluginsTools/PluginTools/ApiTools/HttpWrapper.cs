@@ -151,6 +151,22 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 			}, "application/json", useHeartbeatCheck);
 		}
 
+		/// <summary>
+		/// Delete call 
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="requestUri"></param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public async Task DeleteAsync<TResult>(string requestUri)
+		{
+			await ExecuteClientCallAsync<string>(async (client) =>
+			{
+				var url = new Uri(baseUrl, requestUri);
+				return await client.DeleteAsync(url);
+			}, "text/plain", false);
+		}
+
 		private async Task<TResult> ExecuteClientCallAsync<TResult>(Func<HttpClient, Task<HttpResponseMessage>> clientCall, string acceptHeader, bool useHeartbeatCheck)
 		{
 			HeartbeatChecker heartbeatChecker = null;
