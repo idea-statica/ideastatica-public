@@ -209,7 +209,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			_pluginLogger.LogDebug($"ConnectionApiController.GetRawResultsAsync clientId = {ClientId} projectId = {activeProjectId}");
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<string>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/GetRawResultsText", calculateParam, cancellationToken, "text/plain");
+			var response = await _httpClient.PostAsync<string>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/rawresults-text", calculateParam, cancellationToken, "text/plain");
 			return response;
 		}
 
