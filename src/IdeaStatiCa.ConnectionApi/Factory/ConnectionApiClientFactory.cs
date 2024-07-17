@@ -3,7 +3,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Utilities;
-using IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper;
+using IdeaStatiCa.PluginTools.RestApi;
 using System;
 using System.Diagnostics;
 using System.IO;

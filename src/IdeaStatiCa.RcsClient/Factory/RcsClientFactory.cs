@@ -2,7 +2,7 @@
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.Plugin.Utilities;
-using IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper;
+using IdeaStatiCa.PluginTools.RestApi;
 using IdeaStatiCa.RcsClient.Client;
 using System;
 using System.Diagnostics;

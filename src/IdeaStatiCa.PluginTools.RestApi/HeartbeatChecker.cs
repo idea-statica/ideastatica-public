@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IdeaStatiCa.PluginsTools.PluginTools.ApiTools
+namespace IdeaStatiCa.PluginTools.RestApi
 {
 	public class HeartbeatChecker : IHeartbeatChecker
 	{
