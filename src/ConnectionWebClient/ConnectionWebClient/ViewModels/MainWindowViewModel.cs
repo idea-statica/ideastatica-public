@@ -6,6 +6,7 @@ using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -47,8 +48,46 @@ namespace ConnectionWebClient.ViewModels
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
 			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
 
+			GetRawResultsCommand = new AsyncRelayCommand(GetRawResultsAsync, () => SelectedConnection != null);
+
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
+		}
+
+
+		private async Task GetRawResultsAsync()
+		{
+			_logger.LogInformation("ApplyTemplateAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var connectionIdList = new List<int>();
+				connectionIdList.Add(SelectedConnection!.Id);
+
+				var res = await ConnectionController.GetRawResultsAsync(connectionIdList, IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection.ConAnalysisTypeEnum.Stress_Strain, cts.Token);
+				OutputText = res;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
 
 		public IConnectionApiController? ConnectionController { get; set; }
@@ -101,6 +140,8 @@ namespace ConnectionWebClient.ViewModels
 		public AsyncRelayCommand ConnectCommand { get; }
 
 		public AsyncRelayCommand OpenProjectCommand { get; }
+
+		public AsyncRelayCommand GetRawResultsCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
 
@@ -326,8 +367,6 @@ namespace ConnectionWebClient.ViewModels
 				IsBusy = false;
 				RefreshCommands();
 			}
-
-			await Task.CompletedTask;
 		}
 
 		protected virtual void Dispose(bool disposing)
@@ -361,11 +400,13 @@ namespace ConnectionWebClient.ViewModels
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
+			this.GetRawResultsCommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
+			this.GetRawResultsCommand.NotifyCanExecuteChanged();
 		}
 	}
 }
