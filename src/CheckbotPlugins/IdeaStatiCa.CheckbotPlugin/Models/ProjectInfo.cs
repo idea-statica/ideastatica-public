@@ -21,12 +21,12 @@
 		/// <summary>
 		/// Source Application specify data source
 		/// </summary>
-		public string SourceApplication { get; set; }
+		public string SourceApplication { get; }
 
 		/// <summary>
 		/// Source Application Type [CAD|FEA|None] specify data source
 		/// </summary>
-		public string SourceApplicationType { get; set; }
+		public string SourceApplicationType { get; }
 
 		public ProjectInfo(string name, CountryCode countryCode, string sourceApplication = "", string sourceApplicationType = "")
 		{
