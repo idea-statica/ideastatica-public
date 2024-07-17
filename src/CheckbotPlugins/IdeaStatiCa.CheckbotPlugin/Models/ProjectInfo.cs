@@ -18,10 +18,22 @@
 
 		public CountryCode CountryCode { get; }
 
-		public ProjectInfo(string name, CountryCode countryCode)
+		/// <summary>
+		/// Source Application specify data source
+		/// </summary>
+		public string SourceApplication { get; }
+
+		/// <summary>
+		/// Source Application Type [CAD|FEA|None] specify data source
+		/// </summary>
+		public string SourceApplicationType { get; }
+
+		public ProjectInfo(string name, CountryCode countryCode, string sourceApplication = "", string sourceApplicationType = "")
 		{
 			Name = name;
 			CountryCode = countryCode;
+			SourceApplication = sourceApplication;
+			SourceApplicationType = sourceApplicationType;
 		}
 	}
 }
