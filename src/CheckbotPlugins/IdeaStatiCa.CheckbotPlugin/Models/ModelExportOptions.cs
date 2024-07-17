@@ -11,5 +11,10 @@
 
 		/// <remarks>Not implemented yet</remarks>
 		public bool AllCrossSectionsAsGeneral { get; set; } = false;
+
+		/// <summary>
+		/// By Version is possible do downgrade of OpenModelContainer
+		/// </summary>
+		public string Version { get; set; } = "";
 	}
 }
