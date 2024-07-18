@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.CheckbotPlugin;
 using IdeaStatiCa.CheckbotPlugin.Models;
 using IdeaStatiCa.CheckbotPlugin.Services;
+using System.Diagnostics;
 
 namespace ExamplePlugin
 {
@@ -14,6 +15,8 @@ namespace ExamplePlugin
 
 		public PluginMain()
 		{
+			Debugger.Launch();
+
 			_consoleManager = new ConsoleManager(true);
 		}
 
@@ -21,8 +24,16 @@ namespace ExamplePlugin
 		{
 			IEventService eventService = serviceProvider.GetService<IEventService>();
 			IProjectService projectService = serviceProvider.GetService<IProjectService>();
+			IApplicationService applicationService = serviceProvider.GetService<IApplicationService>();
 
-			_plugin = new Plugin(projectService, eventService);
+
+			var settings = applicationService.GetAllSettings().GetAwaiter().GetResult();
+			foreach (var set in settings)
+			{
+				Console.WriteLine($"{set.Name} = {set.Value}");
+			}
+
+			new Plugin(projectService, eventService).Run();
 		}
 	}
 }

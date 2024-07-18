@@ -131,24 +131,6 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		Task<ConProject> CreateProjectFromIomContainerAsync(OpenModelContainer model, ConIomImportOptions options, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// Export Connection IomModel
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="version"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<OpenModel> ExportConnectionIomModel(int connectionId, CancellationToken cancellationToken = default);
-
-		/// <summary>
-		/// Export Connection IomResults
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="version"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<OpenModelResult> ExportConnectionIomResults(int connectionId, CancellationToken cancellationToken = default);
-
-		/// <summary>
 		/// Export Connection IomContainer
 		/// </summary>
 		/// <param name="connectionId"></param>
@@ -170,14 +152,14 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// </summary>
 		/// <param name="connectionId"></param>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
-		Task<bool> UpdateProjectFromIomContainerFileAsync(int connectionId, string iomContainerXmlFileName, CancellationToken cancellationToken = default);
+		Task<bool> UpdateProjectFromIomContainerFileAsync(string iomContainerXmlFileName, CancellationToken cancellationToken = default);
 
 		/// Update Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects
 		/// </summary>
 		/// <param name="connectionId"></param>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
 		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
-		Task<bool> UpdateProjectFromIomFileAsync(int connectionId, string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default);
+		Task<bool> UpdateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Update an IDEA Connection project based on Open Model and Open Model Result)
@@ -187,7 +169,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="result"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		Task<bool> UpdateProjectFromIomModelAsync(int connectionId, OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default);
+		Task<bool> UpdateProjectFromIomModelAsync(OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Update an IDEA Connection project based on OpenModelContainer (model and results)
@@ -196,7 +178,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="model"></param>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		Task<bool> UpdateProjectFromIomContainerAsync(int connectionId, OpenModelContainer model, CancellationToken cancellationToken = default);
+		Task<bool> UpdateProjectFromIomContainerAsync(OpenModelContainer model, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Export <paramref name="connectionId"/> to IFC
@@ -238,40 +220,49 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConProductionCost> GetProductionCostAsync(int connectionId, CancellationToken cancellationToken = default);
-		
+
 		/// <summary>
 		/// Get load effects for connection
 		/// </summary>
-		/// <param name="id">Connection Id</param>
+		/// <param name="connectionId">Connection Id</param>
 		/// <param name="none"></param>
 		/// <returns></returns>
-		Task<List<ConLoadEffect>> GetLoadEffectsAsync(int id, bool isPercentage = false, CancellationToken cancellationToken = default);
-		
-		
+		Task<List<ConLoadEffect>> GetLoadEffectsAsync(int connectionId, bool isPercentage = false, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get connection's load effect specified by id
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="loadEffectId"></param>
+		/// <param name="isPercentage"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConLoadEffect> GetLoadEffectAsync(int connectionId, int loadEffectId, bool isPercentage = false, CancellationToken cancellationToken = default);
+
 		/// <summary>
 		/// Add Load effect for connection
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="connectionId"></param>
 		/// <param name="newLe"></param>
 		/// <param name="none"></param>
 		/// <returns></returns>
-		Task<ConLoadEffect> AddLoadEffectAsync(int id, ConLoadEffect newLe, CancellationToken none);
+		Task<ConLoadEffect> AddLoadEffectAsync(int connectionId, ConLoadEffect newLe, CancellationToken none);
 
 		/// <summary>
 		/// Delete load effect
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="connectionId"></param>
 		/// <param name="loadEffectId"></param>
 		/// <returns></returns>
-		Task DeleteLoadEffectAsync(int id, int loadEffectId);
+		Task DeleteLoadEffectAsync(int connectionId, int loadEffectId);
 
 
 		/// <summary>
 		/// Update existing load effect
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="connectionId"></param>
 		/// <param name="le1"></param>
 		/// <returns></returns>
-		Task<ConLoadEffect> UpdateLoadEffectAsync(int id, ConLoadEffect le1);
+		Task<ConLoadEffect> UpdateLoadEffectAsync(int connectionId, ConLoadEffect le1);
 	}
 }
