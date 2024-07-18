@@ -5,11 +5,6 @@
 	/// </summary>
 	public class ConItem
 	{
-		public ConItem()
-		{
-			Id = 0;
-		}
-
 		public ConItem(int id)
 		{
 			Id = id;

@@ -4,10 +4,6 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 {
 	public class ConLoadEffect : ConItem
 	{
-		public ConLoadEffect() : base()
-		{
-		}
-
 		public ConLoadEffect(int id) : base(id)
 		{
 		}

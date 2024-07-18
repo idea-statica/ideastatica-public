@@ -2,11 +2,6 @@
 {
 	public class ConMember : ConItem
 	{
-		public ConMember() : base()
-		{
-			IsBearing = false;
-		}
-
 		public ConMember(int id, bool isBearing) : base(id)
 		{
 			IsBearing = isBearing;

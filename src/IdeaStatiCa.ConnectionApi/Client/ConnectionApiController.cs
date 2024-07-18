@@ -192,7 +192,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Calculate", calculateParam, cancellationToken);
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Calculate", calculateParam, cancellationToken, "application/json");
 			return response;
 		}
 
@@ -201,7 +201,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, message: $"Connections {string.Join(",", conToCalculateIds.Select(x => x))}");
 			var calculateParam = new ConCalculationParameter() { ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Results", calculateParam, cancellationToken, "application/xml");
+			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Results", calculateParam, cancellationToken, "application/json");
 			return response;
 		}
 
