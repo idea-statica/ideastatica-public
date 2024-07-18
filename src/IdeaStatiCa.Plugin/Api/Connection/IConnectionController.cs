@@ -1,6 +1,7 @@
 ﻿using IdeaRS.OpenModel.Connection;
 using IdeaStatiCa.Public;
 using System;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -31,6 +32,12 @@ namespace IdeaStatiCa.Plugin
 		/// </summary>
 		/// <returns></returns>
 		int CloseProject();
+
+		/// <summary>
+		/// Close the open project
+		/// </summary>
+		/// <returns></returns>
+		Task<int> CloseProjectAsync();
 
 		/// <summary>
 		/// Send a request to generate a connection report and return a blobstorage with its data 
