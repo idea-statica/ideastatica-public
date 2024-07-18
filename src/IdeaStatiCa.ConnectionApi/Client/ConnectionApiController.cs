@@ -41,13 +41,6 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		private readonly IHttpClientWrapper _httpClient;
 		private readonly IPluginLogger _pluginLogger;
 
-		public static readonly string ConProjectController = "ConProject";
-		public static readonly string ConnectionController = "ConConnection";
-		public static readonly string ConParameterController = "ConParameter";
-		public static readonly string ConTemplateController = "ConTemplate";
-		public static readonly string ConCalculateController = "ConCalculation";
-		public static readonly string ConLoadEffectController = "ConLoadEffect";
-
 		public ConnectionApiController(int restApiProcessId, IHttpClientWrapper httpClient, IPluginLogger pluginLogger = null)
 		{
 			this.restApiProcessId = restApiProcessId;
@@ -60,7 +53,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			if (ClientId == Guid.Empty)
 			{
 				LogMethodCallToDebug();
-				var clientIdResponse = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConProjectController}/ConnectClient", cancellationToken, "text/plain");
+				var clientIdResponse = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConRestApiConstants.ConnectClient}", cancellationToken, "text/plain");
 				ClientId = Guid.Parse(clientIdResponse);
 				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
 			}
@@ -74,7 +67,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var streamContent = new StreamContent(new MemoryStream(fileData));
 			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/{ConProjectController}/Project", streamContent, cancellationToken);
+			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/{ConRestApiConstants.Projects}/open", streamContent, cancellationToken);
 			activeProjectId = response.ProjectId;
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			return response;
@@ -123,7 +116,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 				}
 			}
 
-			var response = await _httpClient.PostAsync<ConProject>($"api/{ApiVersion}/{ConProjectController}/CreateProjectFromIOM{query.ToString()}", model, cancellationToken, "application/xml");
+			var response = await _httpClient.PostAsync<ConProject>($"api/{ApiVersion}/{ConRestApiConstants.Projects}/import-iom{query.ToString()}", model, cancellationToken, "application/xml");
 			activeProjectId = response.ProjectId;
 
 			LogMethodCallToDebug(ClientId, activeProjectId);
@@ -134,7 +127,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<Stream> DownloadProjectAsync(CancellationToken token = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
-			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/Download", token, "application/octet-stream");
+			var result = await _httpClient.GetAsync<MemoryStream>($"{GetProjectRoute()}/download", token, "application/octet-stream");
 			result.Seek(0, SeekOrigin.Begin);
 			return result;
 		}
@@ -144,7 +137,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			try
 			{
-				await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/Close", cancellationToken, "text/plain");
+				await _httpClient.GetAsync<string>($"{GetProjectRoute()}/close", cancellationToken, "text/plain");
 			}
 			finally
 			{
@@ -155,35 +148,35 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
-			var response = await _httpClient.GetAsync<ConProjectData>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/ProjectData", cancellationToken);
+			var response = await _httpClient.GetAsync<ConProjectData>($"{GetProjectRoute()}/project-data", cancellationToken);
 			return response;
 		}
 
 		public async Task<List<ConConnection>> GetConnectionsAsync(CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
-			var response = await _httpClient.GetAsync<List<ConConnection>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/Connection", cancellationToken);
+			var response = await _httpClient.GetAsync<List<ConConnection>>($"{GetProjectRoute()}/{ConRestApiConstants.Connections}", cancellationToken);
 			return response;
 		}
 
 		public async Task<ConConnection> GetConnectionAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<List<ConConnection>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/Connection?connectionId={connectionId}", cancellationToken);
-			return response.FirstOrDefault();
+			var response = await _httpClient.GetAsync<ConConnection>(GetConnectionRoute(connectionId), cancellationToken);
+			return response;
 		}
 
 		public async Task<ConConnection> UpdateConnectionAsync(int connectionId, ConConnection connectionUpdate, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var result = await _httpClient.PutAsync<ConConnection>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/Connection", connectionUpdate, cancellationToken);
+			var result = await _httpClient.PutAsync<ConConnection>(GetConnectionRoute(connectionId), connectionUpdate, cancellationToken);
 			return result;
 		}
 
 		public async Task<List<ConOperation>> GetOperationsAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<List<ConOperation>>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/Operations", cancellationToken);
+			var response = await _httpClient.GetAsync<List<ConOperation>>($"{GetConnectionRoute(connectionId)}/operations", cancellationToken);
 			return response;
 		}
 
@@ -192,7 +185,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Calculate", calculateParam, cancellationToken);
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"{GetProjectRoute()}/calculate", calculateParam, cancellationToken);
 			return response;
 		}
 
@@ -201,15 +194,15 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, message: $"Connections {string.Join(",", conToCalculateIds.Select(x => x))}");
 			var calculateParam = new ConCalculationParameter() { ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/Results", calculateParam, cancellationToken, "application/xml");
+			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"{GetProjectRoute()}/results", calculateParam, cancellationToken, "application/xml");
 			return response;
 		}
 
 		public async Task<string> GetRawResultsAsync(List<int> conToCalculateIds, ConAnalysisTypeEnum analysisType = ConAnalysisTypeEnum.Stress_Strain, CancellationToken cancellationToken = default)
 		{
-			_pluginLogger.LogDebug($"ConnectionApiController.GetRawResultsAsync clientId = {ClientId} projectId = {activeProjectId}");
+			LogMethodCallToDebug(ClientId, activeProjectId);
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<string>($"api/{ApiVersion}/{ConCalculateController}/{activeProjectId}/rawresults-text", calculateParam, cancellationToken, "text/plain");
+			var response = await _httpClient.PostAsync<string>($"{ConRestApiConstants.Projects}/{{projectId}}/rawresults-text", calculateParam, cancellationToken, "text/plain");
 			return response;
 		}
 
@@ -217,7 +210,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			ConTemplateMappingGetParam getTempMappingParam = new ConTemplateMappingGetParam() { Template = templateXml };
-			var response = await _httpClient.PostAsync<TemplateConversions>($"api/{ApiVersion}/{ConTemplateController}/{activeProjectId}/{connectionId}/ConnectionTemplateMapping", getTempMappingParam, cancellationToken);
+			var response = await _httpClient.PostAsync<TemplateConversions>($"{GetConnectionRoute(connectionId)}/apply-mapping", getTempMappingParam, cancellationToken);
 			return response;
 		}
 
@@ -225,92 +218,35 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			var applyTemplateParam = new ConTemplateApplyParam() { ConnectionTemplate = templateXml, Mapping = templateMapping };
-			var response = await _httpClient.PostAsync<ConTemplateApplyResult>($"api/{ApiVersion}/{ConTemplateController}/{activeProjectId}/{connectionId}/ApplyConnectionTemplate", applyTemplateParam, cancellationToken);
+			var response = await _httpClient.PostAsync<ConTemplateApplyResult>($"{GetConnectionRoute(connectionId)}/apply-template", applyTemplateParam, cancellationToken);
 			return response;
 		}
 
 		public async Task<List<ConMember>> GetMembersAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<List<ConMember>>($"api/{ApiVersion}/projects/{activeProjectId}/connections/{connectionId}/members", cancellationToken);
+			var response = await _httpClient.GetAsync<List<ConMember>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Members}", cancellationToken);
 			return response;
 		}
 
 		public async Task<ConMember> GetMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, $"memberId = {memberId}");
-			var response = await _httpClient.GetAsync<ConMember>($"api/{ApiVersion}/projects/{activeProjectId}/connections/{connectionId}/members/{memberId}", cancellationToken);
+			var response = await _httpClient.GetAsync<ConMember>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Members}/{memberId}", cancellationToken);
 			return response;
 		}
 
 		public async Task<ConMember> UpdateMemberAsync(int connectionId, int memberId, ConMember member, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, $"memberId = {memberId}");
-			var response = await _httpClient.PutAsync<ConMember>($"api/{ApiVersion}/projects/{activeProjectId}/connections/{connectionId}/members/{memberId}", member, cancellationToken);
+			var response = await _httpClient.PutAsync<ConMember>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Members}/{memberId}", member, cancellationToken);
 			return response;
-		}
-
-		public async Task<OpenModel> ExportConnectionIomModel(int connectionId, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<OpenModelContainer>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMModel?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
-			return response.OpenModel;
-		}
-
-		public async Task<OpenModelResult> ExportConnectionIomResults(int connectionId, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<OpenModelContainer>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMModel?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
-			return response.OpenModelResult;
 		}
 
 		public async Task<OpenModelContainer> ExportConnectionIomContainer(int connectionId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<OpenModelContainer>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMModel?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
-			return response;
-		}
-
-		public async Task<ConnectionData> ExportConnectionIomConnectionData(int connectionId, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var response = await _httpClient.GetAsync<ConnectionData>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/ExportIOMConnectionData", cancellationToken, "application/xml");
-			return response;
-		}
-
-		public async Task<bool> UpdateProjectFromIomFileAsync(int connectionId, string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"path model = '{iomXmlFileName}'  path result model = '{iomResXmlFileName}'");
-
-			var model = OpenModel.LoadFromXmlFile(iomXmlFileName);
-			LogMethodCallToDebug(message: $"path model = '{iomXmlFileName}' deserialized");
-			var result = OpenModelResult.LoadFromXmlFile(iomResXmlFileName);
-			LogMethodCallToDebug(message: $"path result model = '{iomResXmlFileName}' deserialized");
-
-			return await this.UpdateProjectFromIomContainerAsync(connectionId, new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, cancellationToken);
-		}
-
-		public async Task<bool> UpdateProjectFromIomContainerFileAsync(int connectionId, string iomContainerXmlFileName, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, $"path model = '{iomContainerXmlFileName}'");
-
-			var model = IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(iomContainerXmlFileName);
-
-			LogMethodCallToDebug(message: $"path model = '{iomContainerXmlFileName}' deserialized");
-
-			return await this.UpdateProjectFromIomContainerAsync(connectionId, model, cancellationToken);
-		}
-
-		public async Task<bool> UpdateProjectFromIomModelAsync(int connectionId, OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug();
-			return await this.UpdateProjectFromIomContainerAsync(connectionId, new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, cancellationToken);
-		}
-
-		public async Task<bool> UpdateProjectFromIomContainerAsync(int connectionId, OpenModelContainer model, CancellationToken cancellationToken = default)
-		{
-			LogMethodCallToDebug();
-			var response = await _httpClient.PostAsync<bool>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/UpdateProjectFromIOM", model, cancellationToken, "application/xml");
+			var response = await ExportConnectionIomContainerInternal(connectionId, cancellationToken);
 			return response;
 		}
 
@@ -318,9 +254,59 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<Stream> ExportToIfcAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var result = await _httpClient.GetAsync<MemoryStream>($"api/{ApiVersion}/{ConProjectController}/{activeProjectId}/{connectionId}/Ifc", cancellationToken, "application/octet-stream");
+			var result = await _httpClient.GetAsync<MemoryStream>($"{GetConnectionRoute(connectionId)}/export-ifc", cancellationToken, "application/octet-stream");
 			return result;
 		}
+
+		private async Task<OpenModelContainer> ExportConnectionIomContainerInternal(int connectionId, CancellationToken cancellationToken = default)
+		{
+			return await _httpClient.GetAsync<OpenModelContainer>($"{GetConnectionRoute(connectionId)}/export-iom?Version={GetOpenModelVersion()}", cancellationToken, "application/xml");
+		}
+
+		public async Task<ConnectionData> ExportConnectionIomConnectionData(int connectionId, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
+			var response = await _httpClient.GetAsync<ConnectionData>($"{GetConnectionRoute(connectionId)}/export-iom-connection-data", cancellationToken, "application/xml");
+			return response;
+		}
+
+		public async Task<bool> UpdateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, message: $"path model = '{iomXmlFileName}'  path result model = '{iomResXmlFileName}'");
+
+			var model = OpenModel.LoadFromXmlFile(iomXmlFileName);
+			LogMethodCallToDebug(message: $"path model = '{iomXmlFileName}' deserialized");
+			var result = OpenModelResult.LoadFromXmlFile(iomResXmlFileName);
+			LogMethodCallToDebug(message: $"path result model = '{iomResXmlFileName}' deserialized");
+
+			var container = new OpenModelContainer() { OpenModel = model, OpenModelResult = result };
+			return await this.UpdateProjectFromIomContainerAsync(container, cancellationToken);
+		}
+
+		public async Task<bool> UpdateProjectFromIomContainerFileAsync(string iomContainerXmlFileName, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, message: $"path model = '{iomContainerXmlFileName}'");
+
+			var container = IdeaRS.OpenModel.Tools.OpenModelContainerFromFile(iomContainerXmlFileName);
+
+			LogMethodCallToDebug(message: $"path model = '{iomContainerXmlFileName}' deserialized");
+
+			return await this.UpdateProjectFromIomContainerAsync(container, cancellationToken);
+		}
+
+		public async Task<bool> UpdateProjectFromIomModelAsync(OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug();
+			return await this.UpdateProjectFromIomContainerAsync(new OpenModelContainer() { OpenModel = model, OpenModelResult = result }, cancellationToken);
+		}
+
+		public async Task<bool> UpdateProjectFromIomContainerAsync(OpenModelContainer model, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug();
+			var response = await _httpClient.PostAsync<bool>($"{GetProjectRoute()}/update-iom", model, cancellationToken, "application/xml");
+			return response;
+		}
+
 
 		private void LogMethodCallToDebug(
 			Guid? clientId = null, 
@@ -355,39 +341,54 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<ConProductionCost> GetProductionCostAsync(int connectionId, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			var result = await _httpClient.GetAsync<ConProductionCost>($"api/{ApiVersion}/{ConnectionController}/{activeProjectId}/{connectionId}/production-cost", cancellationToken);
+			var result = await _httpClient.GetAsync<ConProductionCost>($"{GetConnectionRoute(connectionId)}/production-cost", cancellationToken);
 			return result;
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetLoadEffectsAsync(int, bool, CancellationToken)(int, CancellationToken)" >
-		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int id, bool isPercentage = false, CancellationToken cancellationToken = default)
+		public async Task<List<ConLoadEffect>> GetLoadEffectsAsync(int connectionId, bool isPercentage = false, CancellationToken cancellationToken = default)
 		{
-			LogMethodCallToDebug(ClientId, activeProjectId, id);
-			var result = await _httpClient.GetAsync<List<ConLoadEffect>>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect?IsPercentage={isPercentage}", cancellationToken);
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
+			var result = await _httpClient.GetAsync<List<ConLoadEffect>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}?IsPercentage={isPercentage}", cancellationToken);
+			return result;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.GetLoadEffectAsync(int, bool, CancellationToken)(int, CancellationToken)" >
+		public async Task<ConLoadEffect> GetLoadEffectAsync(int connectionId, int loadEffectId,  bool isPercentage = false, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
+			var result = await _httpClient.GetAsync<ConLoadEffect>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/{loadEffectId}?IsPercentage={isPercentage}", cancellationToken);
 			return result;
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.AddLoadEffectAsync(int, ConLoadEffect, CancellationToken)" >
-		public async Task<ConLoadEffect> AddLoadEffectAsync(int id, ConLoadEffect loadEffect,CancellationToken cancellationToken = default)
+		public async Task<ConLoadEffect> AddLoadEffectAsync(int connectionId, ConLoadEffect loadEffect,CancellationToken cancellationToken = default)
 		{
-			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Adding load effect = {loadEffect.Id}");
-			var result = await _httpClient.PostAsync<ConLoadEffect>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect", loadEffect, cancellationToken);
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Adding load effect = {loadEffect.Id}");
+			var result = await _httpClient.PostAsync<ConLoadEffect>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}", loadEffect, cancellationToken);
 			return result;
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.DeleteLoadEffectAsync(int, int)" >
-		public async Task DeleteLoadEffectAsync(int id, int loadEffectId)
+		/// <inheritdoc cref="IConnectionApiController.UpdateLoadEffectAsync(int, ConLoadEffect)" >
+		public async Task<ConLoadEffect> UpdateLoadEffectAsync(int connectionId, ConLoadEffect le1)
 		{
-			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Deleting {loadEffectId}");
-			await _httpClient.DeleteAsync<int>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect/{loadEffectId}");
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Updating {le1.Id}");
+			return await _httpClient.PutAsync<ConLoadEffect>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/{le1.Id}", le1, CancellationToken.None);
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.UpdateLoadEffectAsync(int, ConLoadEffect)" >
-		public async Task<ConLoadEffect> UpdateLoadEffectAsync(int id, ConLoadEffect le1)
+		/// <inheritdoc cref="IConnectionApiController.DeleteLoadEffectAsync(int, int)" >
+		public async Task DeleteLoadEffectAsync(int connectionId, int loadEffectId)
 		{
-			LogMethodCallToDebug(ClientId, activeProjectId, id, message: $"Updating {le1.Id}");
-			return await _httpClient.PutAsync<ConLoadEffect>($"api/{ApiVersion}/{ConLoadEffectController}/{activeProjectId}/{id}/LoadEffect", le1, CancellationToken.None);
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Deleting {loadEffectId}");
+			await _httpClient.DeleteAsync<int>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/{loadEffectId}");
 		}
+
+
+		private string GetProjectRoute()
+		=> $"api/{ApiVersion}/{ConRestApiConstants.Projects}/{activeProjectId}";
+
+		private string GetConnectionRoute(int connectionId)
+		=> $"api/{ApiVersion}/{ConRestApiConstants.Projects}/{activeProjectId}/{ConRestApiConstants.Connections}/{connectionId}";
 
 		private Version GetOpenModelVersion()
 		{
