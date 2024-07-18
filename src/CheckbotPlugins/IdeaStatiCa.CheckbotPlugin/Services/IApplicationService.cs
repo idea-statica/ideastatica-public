@@ -22,5 +22,12 @@ namespace IdeaStatiCa.CheckbotPlugin.Services
 		/// </summary>
 		/// <returns>Collection of all application settings</returns>
 		Task<IReadOnlyCollection<SettingsValue>> GetAllSettings();
+
+		/// <summary>
+		/// Sets which typology of connections are allowed to be exported
+		/// </summary>
+		/// <param name="typologyCodes"></param>
+		/// <returns></returns>
+		Task SetAllowedTypology (IEnumerable<string> typologyCodes);
 	}
 }
