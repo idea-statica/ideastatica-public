@@ -9,6 +9,6 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result
 
 		public bool Passed { get; set; }
 
-		public ICollection<CheckResSummary> ResultSummary { get; set; }
+		public List<CheckResSummary> ResultSummary { get; set; }
 	}
 }
