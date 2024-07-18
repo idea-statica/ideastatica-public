@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
-	public partial class ConnectionApiController : IConnectionApiController
+	public class ConnectionApiController : IConnectionApiController
 	{
 #if DEBUG
 		public static readonly int TimeOut = -1;
