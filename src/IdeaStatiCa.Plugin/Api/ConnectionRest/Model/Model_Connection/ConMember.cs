@@ -2,6 +2,16 @@
 {
 	public class ConMember : ConItem
 	{
+		public ConMember() : base()
+		{
+			IsBearing = false;
+		}
+
+		public ConMember(int id, bool isBearing) : base(id)
+		{
+			IsBearing = isBearing;
+		}
+
 		public bool IsContinuous { get; set; }
 
 		public int? CrossSectionId { get; set; }
@@ -12,9 +22,5 @@
 
 		public bool IsBearing { get; }
 
-		public ConMember(int id, bool isBearing) : base(id)
-		{
-			IsBearing = isBearing;
-		}
 	}
 }

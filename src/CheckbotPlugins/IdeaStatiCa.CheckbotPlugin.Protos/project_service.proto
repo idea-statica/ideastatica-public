@@ -21,6 +21,8 @@ message ProjectInfoResp {
 	string name = 1;
 	CountryCode country_code = 2;
 	CountryCodeConfig country_code_config = 3;
+    string source_app = 4;
+    string source_app_type = 5;
 }
 
 
@@ -71,4 +73,5 @@ message ModelPacket {
 message ModelExportOptions {
 	bool with_results = 1;
 	bool all_cross_sections_as_general = 2;
+	string version = 3;
 }
