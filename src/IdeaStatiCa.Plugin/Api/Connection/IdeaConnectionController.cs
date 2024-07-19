@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -87,7 +88,14 @@ namespace IdeaStatiCa.Plugin
 		/// <inheritdoc cref="IConnectionController.CloseProject"/>
 		public int CloseProject()
 		{
-			GrpcClient.MyBIM.CloseProject();
+			// blocks the thread, might cause problems, when run on a UI thread
+			return CloseProjectAsync().Result;
+		}
+
+		/// <inheritdoc cref="IConnectionController.CloseProjectAsync"/>
+		public async Task<int> CloseProjectAsync()
+		{
+			await GrpcClient.MyBIM.CloseProjectAsync();
 			return 1;
 		}
 
