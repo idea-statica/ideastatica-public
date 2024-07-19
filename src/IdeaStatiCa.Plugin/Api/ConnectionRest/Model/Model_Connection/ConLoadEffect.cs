@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 {
@@ -8,6 +9,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 		{
 		}
 
+		[JsonConstructor]
 		public ConLoadEffect(int id) : base(id)
 		{
 		}
