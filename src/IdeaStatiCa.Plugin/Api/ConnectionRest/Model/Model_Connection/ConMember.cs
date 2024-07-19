@@ -1,7 +1,15 @@
-﻿namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
+﻿using Newtonsoft.Json;
+
+namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection
 {
 	public class ConMember : ConItem
 	{
+		public ConMember() : base()
+		{
+			IsBearing = false;
+		}
+
+		[JsonConstructor]
 		public ConMember(int id, bool isBearing) : base(id)
 		{
 			IsBearing = isBearing;
