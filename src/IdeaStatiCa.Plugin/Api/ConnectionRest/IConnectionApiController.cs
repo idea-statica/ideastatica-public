@@ -264,5 +264,20 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="le1"></param>
 		/// <returns></returns>
 		Task<ConLoadEffect> UpdateLoadEffectAsync(int connectionId, ConLoadEffect le1);
+
+		/// <summary>
+		/// Get the connection setup from the active project
+		/// </summary>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConnectionSetup> GetConnectionSetupAsync(CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Update the connection setup in the active project by <paramref name="connectionSetup"/>
+		/// </summary>
+		/// <param name="connectionSetup"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConnectionSetup> UpdateConnectionSetupAsync(ConnectionSetup connectionSetup, CancellationToken cancellationToken = default);
 	}
 }

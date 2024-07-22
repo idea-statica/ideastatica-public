@@ -66,7 +66,7 @@ namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
 		{
 			var result = await ExecuteClientCallAsync<TResult>(async (client) =>
 			{
-				var json = JsonConvert.SerializeObject(requestData);
+				var json = JsonConvert.SerializeObject(requestData, _jsonSerializerSettings);
 				using (var content = new StringContent(json, encoding: Encoding.UTF8, "application/json"))
 				{
 					content.Headers.ContentType.CharSet = "";

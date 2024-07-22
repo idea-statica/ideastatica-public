@@ -383,6 +383,21 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			await _httpClient.DeleteAsync<int>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/{loadEffectId}");
 		}
 
+		/// <inheritdoc cref="IConnectionApiController.GetConnectionSetupAsync(CancellationToken)"/>
+		public async Task<ConnectionSetup> GetConnectionSetupAsync(CancellationToken cancellationToken)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.GetAsync<ConnectionSetup>($"{GetProjectRoute()}/connection-setup", cancellationToken, "application/json");
+			return response;
+		}
+
+		/// <inheritdoc/>eritdoc cref="IConnectionApiController.UpdateConnectionSetupAsync(ConnectionSetup, CancellationToken)"/>
+		public async Task<ConnectionSetup> UpdateConnectionSetupAsync(ConnectionSetup connectionSetup, CancellationToken cancellationToken)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.PutAsync<ConnectionSetup>($"{GetProjectRoute()}/connection-setup", connectionSetup, cancellationToken);
+			return response;
+		}
 
 		private string GetProjectRoute()
 		=> $"api/{ApiVersion}/{ConRestApiConstants.Projects}/{activeProjectId}";
@@ -459,7 +474,5 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			Dispose(disposing: true);
 			GC.SuppressFinalize(this);
 		}
-
-
 	}
 }
