@@ -2,7 +2,6 @@
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Utilities;
-using IdeaStatiCa.PluginsTools.PluginTools.ApiTools;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using System;
@@ -16,7 +15,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using PluginConstants = IdeaStatiCa.Plugin.Constants;
 
-namespace IdeaStatiCa.PluginsTools.ApiTools.HttpWrapper
+namespace IdeaStatiCa.PluginTools.RestApi
 {
 	/// <summary>
 	/// Class to wrap HttpClient for REST calls
