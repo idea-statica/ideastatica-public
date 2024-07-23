@@ -1,23 +1,29 @@
-﻿#if NET48
-
+﻿using IdeaStatiCa.Plugin.Grpc;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.ServiceModel;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
 	public interface IMemberCalculatorFactory
 	{
-		MemberHiddenCheckClient Create();
+		Task<IMemberHiddenCheck> GetAsync();
 	}
 
 	public class MemberHiddenClientFactory : IMemberCalculatorFactory
 	{
 		private readonly string IdeaInstallDir;
 		private Process CalculatorProcess { get; set; }
-		private Uri CalculatorUrl { get; set; }
+
+		private int GrpcPort { get; set; }
+
+		private readonly IPluginLogger pluginLogger;
+
+		private readonly int myProcessId;
+
+		private AutomationHostingGrpc<IMemberHiddenCheck, IMemberHiddenCheck> memberCalculatorClientHosting;
 
 #if DEBUG
 		private int StartTimeout = -1;
@@ -25,21 +31,28 @@ namespace IdeaStatiCa.Plugin
 		int StartTimeout = 1000*20;
 #endif
 
-		public MemberHiddenClientFactory(string ideaInstallDir)
+		public MemberHiddenClientFactory(string ideaInstallDir, IPluginLogger pluginLogger)
 		{
+			this.pluginLogger = pluginLogger;
+			myProcessId = Process.GetCurrentProcess().Id;
 			IdeaInstallDir = ideaInstallDir;
 		}
 
-		public MemberHiddenCheckClient Create()
+		public async Task<IMemberHiddenCheck> GetAsync()
 		{
 			RunCalculatorProcess();
 
-			NetNamedPipeBinding pluginBinding = new NetNamedPipeBinding { MaxReceivedMessageSize = 2147483647, OpenTimeout = TimeSpan.MaxValue, CloseTimeout = TimeSpan.MaxValue, ReceiveTimeout = TimeSpan.MaxValue, SendTimeout = TimeSpan.MaxValue };
+			var grpcClient = new GrpcClient(pluginLogger);
+			await grpcClient.StartAsync(myProcessId.ToString(), GrpcPort);
 
-			MemberHiddenCheckClient calculatorClient = new MemberHiddenCheckClient(pluginBinding, new EndpointAddress(CalculatorUrl));
-			calculatorClient.Open();
+			memberCalculatorClientHosting = new AutomationHostingGrpc<IMemberHiddenCheck, IMemberHiddenCheck>(null, grpcClient);
+			_ = Task.Run(
+				async () =>
+				{
+					await memberCalculatorClientHosting.RunAsync(myProcessId.ToString());
+				});
 
-			return calculatorClient;
+			return memberCalculatorClientHosting.MyBIM;
 		}
 
 		private void RunCalculatorProcess()
@@ -49,15 +62,13 @@ namespace IdeaStatiCa.Plugin
 				return;
 			}
 
-			int myProcessId = Process.GetCurrentProcess().Id;
-
 			string eventName = string.Format(Constants.MemHiddenCalcChangedEventFormat, myProcessId);
 			using (EventWaitHandle syncEvent = new EventWaitHandle(false, EventResetMode.AutoReset, eventName))
 			{
 				string connChangedEventName = string.Format(Constants.MemHiddenCalcChangedEventFormat, myProcessId);
 				string applicationExePath = Path.Combine(IdeaInstallDir, "IdeaStatiCa.MemberHiddenCalculator.exe");
 
-				string cmdParams = $"-automation{myProcessId}";
+				string cmdParams = $"-automation{myProcessId} {Plugin.Constants.GrpcControlPortParam}:{GrpcPort}";
 				ProcessStartInfo psi = new ProcessStartInfo(applicationExePath, cmdParams);
 				psi.WindowStyle = ProcessWindowStyle.Normal;
 				psi.UseShellExecute = false;
@@ -79,8 +90,6 @@ namespace IdeaStatiCa.Plugin
 				}
 			}
 
-			MemberHiddenCheckClient.HiddenCalculatorId = CalculatorProcess.Id;
-			CalculatorUrl = new Uri(string.Format(Constants.MemberHiddenCalculatorUrlFormat, CalculatorProcess.Id));
 			CalculatorProcess.Exited += CalculatorProcess_Exited;
 		}
 
@@ -91,12 +100,11 @@ namespace IdeaStatiCa.Plugin
 				return;
 			}
 
-			MemberHiddenCheckClient.HiddenCalculatorId = -1;
 			CalculatorProcess.Dispose();
 			CalculatorProcess = null;
-			CalculatorUrl = null;
+
+			memberCalculatorClientHosting.Dispose();
+			memberCalculatorClientHosting = null;
 		}
 	}
 }
-
-#endif
