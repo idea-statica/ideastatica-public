@@ -3,7 +3,6 @@ using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.Plugin;
-using Nito.Disposables.Internals;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,7 +36,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		{
 			return _cadModel.GetAllMembers()
 				.Select(x => _bimApiImporter.Get(x))
-				.WhereNotNull()
+				.Where(x => x != null)
 				.ToHashSet();
 		}
 
@@ -78,11 +77,12 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 				var connectedMembers = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
-				.WhereNotNull()
+				.Where(x => x != null)
 				.ToHashSet();
+
 				var connectionMembers = connectedMembers
 				.Select(x => x.IdeaMember)
-				.WhereNotNull()
+				.Where(x => x != null)
 				.ToHashSet();
 
 				members.UnionWith(connectionMembers);
@@ -114,12 +114,12 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 			var connectedMembers = selection.Members
 				.Select(x => _bimApiImporter.Get(x))
-				.WhereNotNull()
+				.Where(x => x != null)
 				.ToHashSet();
 
 			var members = connectedMembers
 			.Select(x => x.IdeaMember)
-			.WhereNotNull()
+			.Where(x => x != null)
 			.ToHashSet();
 
 			ProcessConnectionMembers(nodes, connectedMembers, connectionPoint);

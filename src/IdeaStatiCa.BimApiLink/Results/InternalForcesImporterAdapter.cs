@@ -1,7 +1,6 @@
 ﻿using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter.Results;
-using Nito.Disposables.Internals;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +20,7 @@ namespace IdeaStatiCa.BimApiLink.Results
 		{
 			return _internalForcesImporter.GetResults(objects.OfType<T>().ToArray())
 				.Select(Convert)
-				.WhereNotNull();
+				.Where(x => x != null);
 		}
 
 		private ResultsData Convert(ResultsData<T> resultsData)
