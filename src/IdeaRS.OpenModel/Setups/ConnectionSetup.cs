@@ -494,6 +494,11 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public double GammaMu { get; set; }
 
+		/// <summary>
+		/// Limit plastic strain for high strength steel
+		/// </summary>
+		public double HssLimitPlasticStrain { get; set; }
+
 		/*
 		/// <summary>
 		/// True if bore holes
