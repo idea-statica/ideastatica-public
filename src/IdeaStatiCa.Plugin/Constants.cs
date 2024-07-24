@@ -24,8 +24,6 @@
 		public const string MemberChangedEventFormat = "IdeaStatiCaMemberChanged{0}";
 		public const string ConCalculatorChangedEventFormat = "IdeaStatiCa.ConnHiddenCalculator-{0}";
 		public const string ConCalculatorCancelEventFormat = "IdeaStatiCa.ConnHiddenCalculatorCancel-{0}";
-		public const string MemHiddenCalcChangedEventFormat = "IdeaStatiCa.MemberHiddenCalculator-{0}";
-		public const string MemHiddenCalcCancelEventFormat = "IdeaStatiCa.MemberHiddenCalculatorCancel-{0}";
 		public const string DetailChangedEventFormat = "IdeaStatiCaDetailChanged{0}";
 
 		#region Rcs client constants
@@ -53,9 +51,7 @@
 
 		public const string ConnHiddenCalculatorUrlFormat = "net.pipe://localhost/IdeaStatiCa.ConnHiddenCalculator{0}";
 
-		public const string MemberHiddenCalculatorUrlFormat = "net.pipe://localhost/IdeaStatiCa.MemberHiddenCalculator{0}";
-
-		#region grpc message handlers
+	#region grpc message handlers
 		public const int MinGrpcPort = 50000;
 		public const int MaxGrpcPort = 50500;
 		public const int GRPC_MAX_MSG_SIZE = 100 * 1024 * 1024; // 100MB max
