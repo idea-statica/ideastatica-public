@@ -69,15 +69,15 @@ namespace IdeaStatiCa.BimImporter
 			{
 				_logger.LogTrace($"Trying to import null object.");
 				return null;
-			}
-
-			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
+			}			
 
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))
 			{
 				_logger.LogTrace($"Object has been already imported with IOM id '{refElm.Id}'");
 				return refElm;
 			}
+
+			_logger.LogDebug($"Importing object '{obj.Id}', name '{obj.Name}'");
 
 			refElm = CreateAndStoreReferenceElement(obj);
 			Debug.Assert(_refElements[obj] == refElm);
