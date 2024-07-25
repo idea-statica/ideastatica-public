@@ -9,6 +9,7 @@
 		public const string Parameters = "parameters";
 		public const string Operations = "operations";
 		public const string ConnectionSetup = "connection-setup";
+		public const string Materials = "materials";
 
 		public const string ConnectClient = "connect-client";
 	}
