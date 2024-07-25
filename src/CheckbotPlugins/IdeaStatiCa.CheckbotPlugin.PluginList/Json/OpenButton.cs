@@ -18,6 +18,6 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Json
 		public string Tooltip { get; set; } = string.Empty;
 
 		[JsonPropertyName("typology")]
-		public IEnumerable<string> AllowedTypologyCodes { get; set; } = new List<string> { "X+" };
+		public IEnumerable<string> AllowedTypologyCodes { get; set; } = new List<string>();
 	}
 }
