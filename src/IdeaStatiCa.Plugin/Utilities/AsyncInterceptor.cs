@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using Nito.AsyncEx.Synchronous;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -72,7 +71,7 @@ namespace IdeaStatiCa.Plugin.Utilities
 		{
 			if (!typeof(Task).IsAssignableFrom(invocation.Method.ReturnType))
 			{
-				var returnValue = Intercept(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Method.ReturnType, invocation.Proceed).WaitAndUnwrapException();
+				var returnValue = Intercept(invocation.InvocationTarget, invocation.Method, invocation.Arguments, invocation.Method.ReturnType, invocation.Proceed).GetAwaiter().GetResult();
 				invocation.ReturnValue = returnValue;
 				return;
 			}

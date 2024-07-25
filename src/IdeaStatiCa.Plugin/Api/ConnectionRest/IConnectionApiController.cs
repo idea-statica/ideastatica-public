@@ -256,7 +256,6 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <returns></returns>
 		Task DeleteLoadEffectAsync(int connectionId, int loadEffectId);
 
-
 		/// <summary>
 		/// Update existing load effect
 		/// </summary>
@@ -264,5 +263,81 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="le1"></param>
 		/// <returns></returns>
 		Task<ConLoadEffect> UpdateLoadEffectAsync(int connectionId, ConLoadEffect le1);
+
+		/// <summary>
+		/// Get the connection setup from the active project
+		/// </summary>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConnectionSetup> GetConnectionSetupAsync(CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Update the connection setup in the active project by <paramref name="connectionSetup"/>
+		/// </summary>
+		/// <param name="connectionSetup"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConnectionSetup> UpdateConnectionSetupAsync(ConnectionSetup connectionSetup, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get the materials in project
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="type">Concrete, Steel, Reinforcement, Prestress, BoltGrade, WeldingMaterial, Timber, All  </param>
+		/// <returns></returns>
+		Task<List<ProjMaterial>> GetMaterialsAsync(int connectionId, string type = "All");
+
+		/// <summary>
+		/// Get project cross sections
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <returns></returns>
+		Task<List<ProjCrossSection>> GetCrossSectionsAsync(int connectionId);
+
+		/// <summary>
+		/// Get project pins
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <returns></returns>
+		Task<List<ProjPin>> GetPinsAsync(int connectionId);
+
+		/// <summary>
+		/// Get bolt assemblies from project
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <returns></returns>
+		Task<List<ProjBoltAssembly>> GetBoltAssembliesAsync(int connectionId);
+
+		/// <summary>
+		/// Add pin to project data
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="newPin"></param>
+		/// <returns></returns>
+		Task<ProjPin> AddPinAsync(int connectionId, ProjPin newPin);
+
+		/// <summary>
+		/// Add material to project data
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="newMaterial"></param>
+		/// <returns></returns>
+		Task<ProjMaterial> AddMaterialAsync(int connectionId, ProjMaterial newMaterial);
+
+		/// <summary>
+		/// Add cross section to project data
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="newCrossSection"></param>
+		/// <returns></returns>
+		Task<ProjCrossSection> AddCrossSectionAsync(int connectionId, ProjCrossSection newCrossSection);
+
+		/// <summary>
+		/// Add bolt assembly to project data
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="newBa"></param>
+		/// <returns></returns>
+		Task<ProjBoltAssembly> AddBoltAssemblyAsync(int id, ProjBoltAssembly newBa);
 	}
 }
