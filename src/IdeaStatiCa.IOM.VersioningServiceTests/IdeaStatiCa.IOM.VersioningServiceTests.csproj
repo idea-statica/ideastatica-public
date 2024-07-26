@@ -24,6 +24,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="TestData\CHK.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="TestData\CHKUpgraded.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="TestData\ModelBIM-AS_Black_Point.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
