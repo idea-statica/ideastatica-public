@@ -15,8 +15,7 @@ namespace IdeaStatiCa.Plugin.Utilities
 
 		public static void SetForIdea(this JsonSerializerSettings settings)
 		{
-
-			settings.Converters.Add(new StringEnumConverter());
+			settings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
 			settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 			// Equivalent of PropertyNamingPolicy = CamelCase
 			settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
