@@ -12,6 +12,7 @@ namespace IdeaStatiCa.IntermediateModel
 	public class XmlParsingService : IXmlParsingIRService
 	{
 		protected readonly IPluginLogger _logger;
+
 		public XmlParsingService(IPluginLogger logger)
 		{
 			this._logger = logger;
@@ -29,7 +30,6 @@ namespace IdeaStatiCa.IntermediateModel
 		/// <inheritdoc />
 		public SModel ParseXml(string xmlContent)
 		{
-
 			using (StringReader stringReader = new StringReader(xmlContent))
 			{
 				// Try skipping utf-16 BOM for backwards compatibility
@@ -51,29 +51,65 @@ namespace IdeaStatiCa.IntermediateModel
 			var processItemStack = new Stack<SObject>();
 			var model = new SModel();
 
-
-			while (reader.MoveToNextAttribute() || reader.Read())
+			while (reader.Read())
 			{
 				switch (reader.NodeType)
 				{
 					case XmlNodeType.Element:
 						ProcessStartElement(reader, processItemStack, model);
 						break;
+
 					case XmlNodeType.Text:
 						ProcessPrimitiveValue(reader, processItemStack);
 						break;
-					case XmlNodeType.Attribute:
-						ProcessAttribute(reader, processItemStack, model);
-						break;
+
 					case XmlNodeType.EndElement:
 						ProcessEndElement(processItemStack);
 						break;
+
 					case XmlNodeType.XmlDeclaration:
 						ProcessDeclaration(reader, model);
 						break;
 				}
 			}
 			return model;
+		}
+
+		private void ParseAttributes(XmlReader reader, SModel model, SObject obj)
+		{
+			if (!reader.MoveToFirstAttribute())
+			{
+				return;
+			}
+
+			do
+			{
+				_logger.LogTrace($"ProcessAttribute LocalName = {reader.LocalName}, Prefix = {reader.Prefix}, Value = {reader.Value}, NameSpace = {reader.NamespaceURI}");
+
+				var attribute = new SAttribute
+				{
+					LocalName = reader.LocalName,
+					Prefix = reader.Prefix,
+					Value = reader.Value,
+					NameSpace = reader.NamespaceURI
+				};
+
+				obj.Properties[reader.Name] = attribute;
+
+				if (!string.IsNullOrEmpty(reader.Prefix))
+				{
+					if (!model.RootNameSpaces.ContainsKey(reader.Prefix))
+					{
+						_logger.LogDebug($"Adding namespace {reader.LocalName} = {reader.Value}");
+						model.RootNameSpaces.Add(reader.LocalName, attribute);
+					}
+					else
+					{
+						_logger.LogTrace($"ProcessAttribute root attribute {reader.Name} exist");
+					}
+				}
+			}
+			while (reader.MoveToNextAttribute());
 		}
 
 		private static XmlReaderSettings GetReaderSettings()
@@ -91,6 +127,7 @@ namespace IdeaStatiCa.IntermediateModel
 			var element = new SObject { TypeName = reader.Name };
 			model.ModelDeclaration = element;
 
+			ParseAttributes(reader, model, element);
 		}
 
 		private void ProcessStartElement(XmlReader reader, Stack<SObject> processItemStack, SModel model)
@@ -119,6 +156,8 @@ namespace IdeaStatiCa.IntermediateModel
 				_logger.LogTrace("ProcessStartElement set as root item");
 				model.RootItem = element;
 			}
+
+			ParseAttributes(reader, model, element);
 		}
 
 		private void AddToParent(SObject element, SObject parent)
@@ -152,31 +191,6 @@ namespace IdeaStatiCa.IntermediateModel
 			{
 				_logger.LogError($"ProcessPrimitiveValue parent not exits for primitive value {reader.Value}");
 				throw new InvalidOperationException($"ProcessPrimitiveValue parent not exits for primitive value {reader.Value}");
-			}
-		}
-
-		private void ProcessAttribute(XmlReader reader, Stack<SObject> processItemStack, SModel model)
-		{
-			_logger.LogTrace($"ProcessAttribute LocalName = {reader.LocalName}, Prefix = {reader.Prefix}, Value = {reader.Value}, NameSpace = {reader.NamespaceURI}");
-			var attribute = new SAttribute { LocalName = reader.LocalName, Prefix = reader.Prefix, Value = reader.Value, NameSpace = reader.NamespaceURI };
-
-			//test if its root namespace or standard element
-			if (processItemStack.Count > 0)
-			{
-				processItemStack.Peek().Properties[reader.Name] = attribute;
-
-				if (!model.RootNameSpaces.ContainsKey(reader.Prefix))
-				{
-					model.RootNameSpaces.Add(reader.LocalName, attribute);
-				}
-				else
-				{
-					_logger.LogTrace($"ProcessAttribute root attribute {reader.Name} exist");
-				}
-			}
-			else if (model.ModelDeclaration is SObject declaration)
-			{
-				declaration.Properties[reader.Name] = attribute;
 			}
 		}
 
@@ -215,7 +229,5 @@ namespace IdeaStatiCa.IntermediateModel
 
 			element.Properties = properties;
 		}
-
-
 	}
 }
