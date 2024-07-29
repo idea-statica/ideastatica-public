@@ -66,7 +66,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template
 		public Guid? ElementId { get; private set; }
 
 		[DataMember]
-		public TableContainerType ContainerType { get; set; }
+		public TableContainerType? ContainerType { get; set; }
 
 		/// <summary>
 		/// Prefferred constructor with specific element Id & table Id
