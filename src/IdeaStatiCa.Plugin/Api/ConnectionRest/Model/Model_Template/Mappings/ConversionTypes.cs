@@ -5,6 +5,9 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template
 	[Flags]
 	public enum CssType
 	{
+		// NotSet
+		NotSet = 0,
+
 		/// <summary>
 		/// I sections
 		/// </summary>
@@ -59,11 +62,11 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template
 	[Flags]
 	public enum TableContainerType
 	{
+		NotSet = 0,
 		CrossSection = 1,
 		Material = 2,
 		PlateThickness = 4,
 		SteelStrands = 8,
 		Fastener = 16,
-
 	}
 }
