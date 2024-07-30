@@ -5,6 +5,7 @@ using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Plugin.Api.Common;
 using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Parameter;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
@@ -452,6 +453,13 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add bolt assembly {newBoltAssembly.Name}");
 			return await _httpClient.PostAsync<ProjBoltAssembly>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/bolt-assemblies", newBoltAssembly, CancellationToken.None);
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.GetParametersAsync(int)"/>
+		public async Task<List<IdeaParameter>> GetParametersAsync(int connectionId)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
+			return await _httpClient.GetAsync<List<IdeaParameter>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Parameters}", CancellationToken.None);
 		}
 
 		private string GetProjectRoute()
