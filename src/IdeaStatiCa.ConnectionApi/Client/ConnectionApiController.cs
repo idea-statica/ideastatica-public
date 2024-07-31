@@ -310,25 +310,25 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
 
 		private void LogMethodCallToDebug(
-			Guid? clientId = null, 
-			Guid? projectId = null, 
-			int? connectionId = null, 
+			Guid? clientId = null,
+			Guid? projectId = null,
+			int? connectionId = null,
 			string message = "",
 			[CallerMemberName] string methodName = "")
 		{
 			var sb = new StringBuilder();
 			sb.Append($"{GetType().Name}.{methodName}");
-			if(clientId != null) 
+			if (clientId != null)
 			{
-				sb.Append($" clientId = {clientId}"); 
+				sb.Append($" clientId = {clientId}");
 			}
-			if (projectId != null) 
-			{ 
+			if (projectId != null)
+			{
 				sb.Append($" projectId = {projectId}");
 			}
 			if (connectionId != null)
 			{
-				sb.Append($" connectionId = {connectionId}"); 
+				sb.Append($" connectionId = {connectionId}");
 			}
 			if (!string.IsNullOrWhiteSpace(message))
 			{
@@ -355,7 +355,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetLoadEffectAsync(int, bool, CancellationToken)(int, CancellationToken)" >
-		public async Task<ConLoadEffect> GetLoadEffectAsync(int connectionId, int loadEffectId,  bool isPercentage = false, CancellationToken cancellationToken = default)
+		public async Task<ConLoadEffect> GetLoadEffectAsync(int connectionId, int loadEffectId, bool isPercentage = false, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			var result = await _httpClient.GetAsync<ConLoadEffect>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/{loadEffectId}?IsPercentage={isPercentage}", cancellationToken);
@@ -363,7 +363,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.AddLoadEffectAsync(int, ConLoadEffect, CancellationToken)" >
-		public async Task<ConLoadEffect> AddLoadEffectAsync(int connectionId, ConLoadEffect loadEffect,CancellationToken cancellationToken = default)
+		public async Task<ConLoadEffect> AddLoadEffectAsync(int connectionId, ConLoadEffect loadEffect, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Adding load effect = {loadEffect.Id}");
 			var result = await _httpClient.PostAsync<ConLoadEffect>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}", loadEffect, cancellationToken);
@@ -399,7 +399,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			var response = await _httpClient.PutAsync<ConnectionSetup>($"{GetProjectRoute()}/connection-setup", connectionSetup, cancellationToken);
 			return response;
 		}
-		
+
 		/// <inheritdoc cref="IConnectionApiController.GetMaterialsAsync(int, string)(int, int)" >
 		public async Task<List<ProjMaterial>> GetMaterialsAsync(int connectionId, string type = "All")
 		{
@@ -413,7 +413,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get cross sections");
 			return await _httpClient.GetAsync<List<ProjCrossSection>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/cross-sections", CancellationToken.None);
 		}
-		
+
 		public async Task<List<ProjPin>> GetPinsAsync(int connectionId)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get pins");
@@ -456,10 +456,10 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetParametersAsync(int)"/>
-		public async Task<List<IdeaParameter>> GetParametersAsync(int connectionId)
+		public async Task<List<IdeaParameter>> GetParametersAsync(int connectionId, bool includeHidden)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
-			return await _httpClient.GetAsync<List<IdeaParameter>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Parameters}", CancellationToken.None);
+			return await _httpClient.GetAsync<List<IdeaParameter>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Parameters}?includeHidden={includeHidden.ToString()}", CancellationToken.None);
 		}
 
 		private string GetProjectRoute()
@@ -487,7 +487,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			{
 				if (disposing)
 				{
-					if(activeProjectId != Guid.Empty)
+					if (activeProjectId != Guid.Empty)
 					{
 						try
 						{

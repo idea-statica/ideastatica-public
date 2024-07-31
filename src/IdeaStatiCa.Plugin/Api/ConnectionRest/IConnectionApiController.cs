@@ -213,7 +213,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConMember> UpdateMemberAsync(int connectionId, int memberId, ConMember member, CancellationToken cancellationToken = default);
-		
+
 		/// <summary>
 		/// Get production cost
 		/// </summary>
@@ -345,7 +345,8 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// Get parameters
 		/// </summary>
 		/// <param name="connectionId"></param>
+		/// /// <param name="includeHidden">Include hidden parameters</param>
 		/// <returns></returns>
-		Task<List<IdeaParameter>> GetParametersAsync(int connectionId);
+		Task<List<IdeaParameter>> GetParametersAsync(int connectionId, bool includeHidden);
 	}
 }
