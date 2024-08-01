@@ -39,6 +39,13 @@ namespace IdeaStatiCa.Plugin
 		void OpenProject(string ideaConProject);
 
 		/// <summary>
+		/// Open idea project in the service
+		/// </summary>
+		/// <param name="ideaConProject">Idea Connection project.</param>
+		[OperationContract]
+		Task OpenProjectAsync(string ideaConProject);
+
+		/// <summary>
 		/// Save the current data in file <paramref name="newProjectFileName"/>
 		/// </summary>
 		/// <param name="newProjectFileName">File name of the new idea connection project</param>
@@ -176,6 +183,14 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
 		[OperationContract]
 		void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName);
+
+		/// <summary>
+		/// Update opened Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/>
+		/// </summary>
+		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
+		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
+		[OperationContract]
+		Task UpdateConProjFromIOMAsync(string iomXmlFileName, string iomResXmlFileName);
 
 		/// <summary>
 		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects saves into the <paramref name="newIdeaConFileName"/>
@@ -389,6 +404,15 @@ namespace IdeaStatiCa.Plugin
 		ReportResponse GenerateReport(string connectionId, ConnReportSettings settings);
 
 		/// <summary>
+		/// Generate a report for connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns>The identifier of the generated report. It will be used in <see cref="IdeaStatiCa.Plugin.Grpc.GrpcBlobStorageClient"/> requests</returns>
+		[OperationContract]
+		Task<ReportResponse> GenerateReportAsync(string connectionId, ConnReportSettings settings);
+
+		/// <summary>
 		/// Generate a pdf report for connection <paramref name="connectionId"/>
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
@@ -396,6 +420,15 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="filePath">File path of the exported pdf report </param>
 		[OperationContract]
 		void GenerateReportPdf(string connectionId, string filePath, ConnReportSettings settings);
+
+		/// <summary>
+		/// Generate a pdf report for connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <param name="filePath">File path of the exported pdf report </param>
+		[OperationContract]
+		Task GenerateReportPdfAsync(string connectionId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
 		/// Generate a word report for connection <paramref name="connectionId"/>
@@ -407,10 +440,26 @@ namespace IdeaStatiCa.Plugin
 		void GenerateReportWord(string connectionId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
+		/// Generate a word report for connection <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <param name="filePath">File path of the exported word report </param>
+		[OperationContract]
+		Task GenerateReportWordAsync(string connectionId, string filePath, ConnReportSettings settings);
+
+		/// <summary>
 		/// Open and select the connection <paramref name="connectionId"/> in an application
 		/// </summary>
 		/// <param name="connectionId">The unique identifier of the requested connection</param>
 		[OperationContract]
 		void OpenConnectionInApp(string connectionId);
+
+		/// <summary>
+		/// Open and select the connection <paramref name="connectionId"/> in an application
+		/// </summary>
+		/// <param name="connectionId">The unique identifier of the requested connection</param>
+		[OperationContract]
+		Task OpenConnectionInAppAsync(string connectionId);
 	}
 }

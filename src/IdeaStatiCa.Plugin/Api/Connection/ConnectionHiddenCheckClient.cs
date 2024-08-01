@@ -61,8 +61,14 @@ namespace IdeaStatiCa.Plugin
 
 		public void OpenProject(string ideaConFileName)
 		{
+			OpenProjectAsync(ideaConFileName)
+				.Wait();
+		}
+
+		public async Task OpenProjectAsync(string ideaConFileName)
+		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenProjectAsync ideaConFileName = '{ideaConFileName}'");
-			Service.OpenProject(ideaConFileName);
+			await Service.OpenProjectAsync(ideaConFileName);
 		}
 
 		public void SaveAsProject(string newProjectFileName)
@@ -120,8 +126,14 @@ namespace IdeaStatiCa.Plugin
 
 		public void UpdateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName)
 		{
+			UpdateConProjFromIOMAsync(iomXmlFileName, iomResXmlFileName)
+				.Wait();
+		}
+
+		public async Task UpdateConProjFromIOMAsync(string iomXmlFileName, string iomResXmlFileName)
+		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.UpdateConProjFromIOM iomXmlFileName ='{iomXmlFileName}'");
-			Service.UpdateConProjFromIOM(iomXmlFileName, iomResXmlFileName);
+			await Service.UpdateConProjFromIOMAsync(iomXmlFileName, iomResXmlFileName);
 		}
 
 		public void CreateConProjFromIOM(string iomXmlFileName, string iomResXmlFileName, string newIdeaConFileName)
@@ -268,32 +280,56 @@ namespace IdeaStatiCa.Plugin
 			SetMemberCrossSectionAsync(connectionId, memberId, crossSectionId).Wait();
 		}
 
-		/// <inheritdoc cref="IConnHiddenCheck.GenerateReport(string, ConnReportSettings)"/>
 		public ReportResponse GenerateReport(string connectionId, ConnReportSettings settings)
 		{
-			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
-			return Service.GenerateReport(connectionId, settings);
+			return GenerateReportAsync(connectionId, settings)
+				.Result;
 		}
 
-		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportPdf(string, ConnReportSettings)"/>
+		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportAsync(string, ConnReportSettings)"/>
+		public async Task<ReportResponse> GenerateReportAsync(string connectionId, ConnReportSettings settings)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
+			return await Service.GenerateReportAsync(connectionId, settings);
+		}
+
 		public void GenerateReportPdf(string connectionId, string filePath, ConnReportSettings settings)
 		{
-			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
-			Service.GenerateReportPdf(connectionId, filePath, settings);
+			GenerateReportPdfAsync(connectionId, filePath, settings)
+				.Wait();
 		}
 
-		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportWord(string, ConnReportSettings)"/>
+		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportPdfAsync(string, ConnReportSettings)"/>
+		public async Task GenerateReportPdfAsync(string connectionId, string filePath, ConnReportSettings settings)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
+			await Service.GenerateReportPdfAsync(connectionId, filePath, settings);
+		}
+
 		public void GenerateReportWord(string connectionId, string filePath, ConnReportSettings settings)
 		{
-			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
-			Service.GenerateReportWord(connectionId, filePath, settings);
+			GenerateReportWordAsync(connectionId, filePath, settings)
+				.Wait();
 		}
 
-		/// <inheritdoc cref="IConnHiddenCheck.OpenConnectionInApp(string)"/>
+		/// <inheritdoc cref="IConnHiddenCheck.GenerateReportWordAsync(string, string, ConnReportSettings)"/>
+		public async Task GenerateReportWordAsync(string connectionId, string filePath, ConnReportSettings settings)
+		{
+			Logger.LogInformation($"ConnectionHiddenCheckClient.GenerateReport connectionId = '{connectionId}'");
+			await Service.GenerateReportWordAsync(connectionId, filePath, settings);
+		}
+
 		public void OpenConnectionInApp(string connectionId)
 		{
+			OpenConnectionInAppAsync(connectionId)
+				.Wait();
+		}
+
+		/// <inheritdoc cref="IConnHiddenCheck.OpenConnectionInAppAsync(string)"/>
+		public async Task OpenConnectionInAppAsync(string connectionId)
+		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.OpenConnectionInApp connectionId = '{connectionId}'");
-			Service.OpenConnectionInApp(connectionId);
+			await Service.OpenConnectionInAppAsync(connectionId);
 		}
 
 		protected IConnHiddenCheck Service => base.Channel;
