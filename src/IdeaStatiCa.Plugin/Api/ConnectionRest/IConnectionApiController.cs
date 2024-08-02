@@ -2,6 +2,7 @@
 using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
+using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Parameter;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Result;
 using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Settings;
@@ -212,7 +213,7 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<ConMember> UpdateMemberAsync(int connectionId, int memberId, ConMember member, CancellationToken cancellationToken = default);
-		
+
 		/// <summary>
 		/// Get production cost
 		/// </summary>
@@ -339,5 +340,13 @@ namespace IdeaStatiCa.Plugin.Api.ConnectionRest
 		/// <param name="newBa"></param>
 		/// <returns></returns>
 		Task<ProjBoltAssembly> AddBoltAssemblyAsync(int id, ProjBoltAssembly newBa);
+
+		/// <summary>
+		/// Get parameters
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// /// <param name="includeHidden">Include hidden parameters</param>
+		/// <returns></returns>
+		Task<List<IdeaParameter>> GetParametersAsync(int connectionId, bool includeHidden);
 	}
 }
