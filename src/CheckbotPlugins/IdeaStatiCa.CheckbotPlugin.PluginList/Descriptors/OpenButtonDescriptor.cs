@@ -28,20 +28,20 @@
 		/// <summary>
 		/// Tooltip of the disable button in Checkbot.
 		/// </summary>
-		public string TooltipDisable { get; }
+		public string TooltipDisabled { get; }
 
 		/// <summary>
 		/// List of typologies, which are allowed to be used for export/open.
 		/// </summary>
 		public IEnumerable<string> AllowedTypology { get; }
 
-		public OpenButtonDescriptor(string name, string image, string text, string tooltip, string tooltipDisable, IEnumerable<string> allowedTypology)
+		public OpenButtonDescriptor(string name, string image, string text, string tooltip, string tooltipDisabled, IEnumerable<string> allowedTypology)
 		{
 			Name = name;
 			Image = image;
 			Text = text;
 			Tooltip = tooltip;
-			TooltipDisable = tooltipDisable;
+			TooltipDisabled = tooltipDisabled;
 			AllowedTypology = allowedTypology;
 		}
 	}

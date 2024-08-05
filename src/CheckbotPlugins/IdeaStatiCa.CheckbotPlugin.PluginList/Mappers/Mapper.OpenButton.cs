@@ -25,7 +25,7 @@
 				Image = source.Image,
 				Text = source.Text,
 				Tooltip = source.Tooltip,
-				TooltipDissable = source.TooltipDisable,
+				TooltipDissable = source.TooltipDisabled,
 				AllowedTypologyCodes = source.AllowedTypology,
 			};
 		}
