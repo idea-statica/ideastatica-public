@@ -9,7 +9,7 @@
 				return null;
 			}
 
-			return new Descriptors.OpenButtonDescriptor(source.Name, source.Image, source.Text, source.Tooltip, source.TooltipDissable, source.AllowedTypologyCodes);
+			return new Descriptors.OpenButtonDescriptor(source.Name, source.Image, source.Text, source.Tooltip, source.TooltipDisabled, source.AllowedTypologyCodes);
 		}
 
 		internal static Json.OpenButton? Map(Descriptors.OpenButtonDescriptor? source)
@@ -25,7 +25,7 @@
 				Image = source.Image,
 				Text = source.Text,
 				Tooltip = source.Tooltip,
-				TooltipDissable = source.TooltipDisabled,
+				TooltipDisabled = source.TooltipDisabled,
 				AllowedTypologyCodes = source.AllowedTypology,
 			};
 		}
