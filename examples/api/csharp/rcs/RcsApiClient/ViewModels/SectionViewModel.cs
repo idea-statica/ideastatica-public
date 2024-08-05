@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using IdeaStatiCa.Plugin.Api.RCS.Model;
+using IdeaStatiCa.Api.RCS.Model;
 using System;
 
 namespace RcsApiClient.ViewModels
