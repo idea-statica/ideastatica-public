@@ -26,7 +26,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 				{
 					var Service = Model.GetConnectionService();
 
-					int newBoltAssemblyId = await Service.AddBoltAssemblyAsync(newBoltAssemblyName);
+					int newBoltAssemblyId = await Service.AddBoltAssemblyAsynchronous(newBoltAssemblyName);
 
 					if (newBoltAssemblyId == -1)
 					{

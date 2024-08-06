@@ -3,9 +3,7 @@ using IdeaStatiCa.ConnectionClient.Model;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
-using System.Windows.Data;
 
 namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 {
@@ -57,7 +55,7 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 					var connection = (IConnectionId)values[0];
 					var service = Model.GetConnectionService();
 
-					var resData = await service.ApplySimpleTemplateAsync(connection.ConnectionId, connTemplateFileName, Model.TemplateSetting, mainMember, attachedMembers);
+					var resData = await service.ApplySimpleTemplateAsynchronous(connection.ConnectionId, connTemplateFileName, Model.TemplateSetting, mainMember, attachedMembers);
 
 					Model.SetResults(resData);
 				}

@@ -33,7 +33,7 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 					var updatedParameters = (IConnectionDataJson)parameter;
 					var Service = Model.GetConnectionService();
 
-					await Service.ApplyParametersAsync(updatedParameters.ConnectionId.ToString(), updatedParameters.DataJson);
+					await Service.ApplyParametersAsynchronous(updatedParameters.ConnectionId.ToString(), updatedParameters.DataJson);
 
 					NotifyCommandFinished();
 				}
