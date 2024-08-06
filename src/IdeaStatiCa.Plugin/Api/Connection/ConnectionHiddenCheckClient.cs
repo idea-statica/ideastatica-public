@@ -54,7 +54,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.ApplySimpleTemplateAsync(connectionId, templateFilePath, connTemplateSetting, mainMember, attachedMembers);
 		}
 
-		public string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers)
+		public string ApplySimpleTemplateObsolete(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers)
 		{
 			return ApplySimpleTemplateAsync(connectionId, templateFilePath, connTemplateSetting, mainMember, attachedMembers).Result;
 		}
@@ -83,7 +83,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.ApplyTemplateAsync(connectionId, conTemplateFileName, connTemplateSetting);
 		}
 
-		public string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)
+		public string ApplyTemplateObsolete(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting)
 		{
 			return ApplyTemplateAsync(connectionId, conTemplateFileName, connTemplateSetting).Result;
 		}
@@ -171,7 +171,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.AddBoltAssemblyAsync(boltAssemblyName);
 		}
 
-		public int AddBoltAssembly(string boltAssemblyName)
+		public int AddBoltAssemblyObsolete(string boltAssemblyName)
 		{
 			return AddBoltAssemblyAsync(boltAssemblyName).Result;
 		}
@@ -188,7 +188,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.ApplyParametersAsync(connectionId, parametersJSON);
 		}
 
-		public string ApplyParameters(string connectionId, string parametersJSON)
+		public string ApplyParametersObsolete(string connectionId, string parametersJSON)
 		{
 			return ApplyParametersAsync(connectionId, parametersJSON).Result;
 		}
@@ -205,7 +205,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.UpdateLoadingFromJsonAsync(connectionId, loadingJSON);
 		}
 
-		public string UpdateLoadingFromJson(string connectionId, string loadingJSON)
+		public string UpdateLoadingFromJsonObsolete(string connectionId, string loadingJSON)
 		{
 			return UpdateLoadingFromJsonAsync(connectionId, loadingJSON).Result;
 		}
@@ -228,7 +228,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.DeleteAllOperationsAsync(connectionId);
 		}
 
-		public string DeleteAllOperations(string connectionId)
+		public string DeleteAllOperationsObsolete(string connectionId)
 		{
 			return DeleteAllOperationsAsync(connectionId).Result;
 		}
@@ -245,7 +245,7 @@ namespace IdeaStatiCa.Plugin
 			return await Service.UpdateCodeSetupJsonAsync(connectionSetupJSON);
 		}
 
-		public string UpdateCodeSetupJSON(string connectionSetupJSON)
+		public string UpdateCodeSetupJSONObsolete(string connectionSetupJSON)
 		{
 			return UpdateCodeSetupJsonAsync(connectionSetupJSON).Result;
 		}
@@ -262,7 +262,7 @@ namespace IdeaStatiCa.Plugin
 			await Service.SetMemberCrossSectionAsync(connectionId, memberId, crossSectionId);
 		}
 
-		public void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId)
+		public void SetMemberCrossSectionObsolete(string connectionId, int memberId, int crossSectionId)
 		{
 			Logger.LogInformation($"ConnectionHiddenCheckClient.SetMemberCrossSection connectionId = '{connectionId}' memberId = {memberId} crossSectionId = {crossSectionId}");
 			SetMemberCrossSectionAsync(connectionId, memberId, crossSectionId).Wait();

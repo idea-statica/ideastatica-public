@@ -72,7 +72,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		string ApplyTemplate(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
+		string ApplyTemplateObsolete(string connectionId, string conTemplateFileName, ApplyConnTemplateSetting connTemplateSetting);
 
 		/// <summary>
 		/// Apply the simple connectionsimple template from file <paramref name="templateFilePath"/> on connection <paramref name="connectionId"/>
@@ -99,7 +99,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		string ApplySimpleTemplate(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
+		string ApplySimpleTemplateObsolete(string connectionId, string templateFilePath, ApplyConnTemplateSetting connTemplateSetting, int mainMember, List<int> attachedMembers);
 
 		/// <summary>
 		/// Get the geometry of the <paramref name="connectionId"/>
@@ -236,7 +236,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		int AddBoltAssembly(string boltAssemblyName);
+		int AddBoltAssemblyObsolete(string boltAssemblyName);
 
 		/// <summary>
 		/// Get list of parameters in JSON format for <paramref name="connectionId"/>
@@ -276,7 +276,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		string ApplyParameters(string connectionId, string parametersJSON);
+		string ApplyParametersObsolete(string connectionId, string parametersJSON);
 
 		/// <summary>
 		/// Get loading for connection <paramref name="connectionId"/> (List of CalcCaseData)
@@ -305,7 +305,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		string UpdateLoadingFromJson(string connectionId, string loadingJSON);
+		string UpdateLoadingFromJsonObsolete(string connectionId, string loadingJSON);
 
 		/// <summary>
 		/// Set codesetup for the connection
@@ -321,7 +321,7 @@ namespace IdeaStatiCa.Plugin
 		/// <param name="connectionSetupJSON">connection setup in JSON format</param>
 		/// <returns></returns>
 		[OperationContract]
-		string UpdateCodeSetupJSON(string connectionSetupJSON);
+		string UpdateCodeSetupJSONObsolete(string connectionSetupJSON);
 
 		/// <summary>
 		/// Get the details results of the connection <paramref name="connectionId"/>
@@ -348,7 +348,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		string DeleteAllOperations(string connectionId);
+		string DeleteAllOperationsObsolete(string connectionId);
 
 		/// <summary>
 		/// Change the material of a cross-section currently available in the Project
@@ -377,7 +377,7 @@ namespace IdeaStatiCa.Plugin
 		/// when run on the UI thread. When you attempt to run this method on the UI thread, run the asynchronous version of this method instead
 		/// using the await keyword.</remarks>
 		[OperationContract]
-		void SetMemberCrossSection(string connectionId, int memberId, int crossSectionId);
+		void SetMemberCrossSectionObsolete(string connectionId, int memberId, int crossSectionId);
 
 		/// <summary>
 		/// Generate a report for connection <paramref name="connectionId"/>
