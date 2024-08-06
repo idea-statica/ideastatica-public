@@ -17,7 +17,7 @@ namespace IdeaStatiCa.ConnectionClient.Commands
 		{
 			var service = Model.GetConnectionService();
 			var connection = (IConnectionId)parameter;
-			var res = service.DeleteAllOperationsAsync(connection.ConnectionId).Result;
+			var res = service.DeleteAllOperationsAsynchronous(connection.ConnectionId).Result;
 			Model.SetStatusMessage(res);
 		}
 	}
