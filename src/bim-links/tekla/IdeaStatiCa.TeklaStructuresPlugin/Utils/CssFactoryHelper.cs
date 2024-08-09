@@ -823,7 +823,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				Name = profileItem.ProfileName,
 			};
 
-			var dWidth = Math.Min(((double)cssProperties[FlangeWidthKey1]).MilimetersToMeters(), ((double)cssProperties[FlangeWidthKey2]).MilimetersToMeters());
+			double dWidth = 0.0;
+			if (cssProperties.ContainsKey(WidthKey))
+			{
+				dWidth = ((double)cssProperties[WidthKey]).MilimetersToMeters();
+			}
+			else
+			{
+				dWidth = Math.Min(((double)cssProperties[FlangeWidthKey1]).MilimetersToMeters(), ((double)cssProperties[FlangeWidthKey2]).MilimetersToMeters());
+			}
+
 			var dHeight = ((double)cssProperties[HeightKey]).MilimetersToMeters();
 			double plateThickness = ((double)cssProperties[PlateThicknessKey]).MilimetersToMeters();
 
