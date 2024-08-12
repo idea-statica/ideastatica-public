@@ -195,7 +195,7 @@ namespace IdeaStatiCa.Api.Common
 							// Stop the heartbeat checker
 							logger.LogTrace($"Stopping HeartbeatChecker");
 
-							if (response.IsSuccessStatusCode)
+							if (response is { IsSuccessStatusCode: true })
 							{
 								logger.LogTrace($"Response is successfull");
 
@@ -238,17 +238,13 @@ namespace IdeaStatiCa.Api.Common
 		}
 		private TResult Deserialize<TResult>(string acceptHeader, string data)
 		{
-			switch (acceptHeader)
+			return acceptHeader switch
 			{
-				case "application/json":
-					return JsonConvert.DeserializeObject<TResult>(data, _jsonSerializerSettings);
-				case "application/xml":
-					return DeserializeXml<TResult>(data);
-				case "text/plain":
-					return (TResult)Convert.ChangeType(data, typeof(string));
-				default:
-					throw new NotImplementedException($"Serialization for accept header {acceptHeader} is not supported.");
-			}
+				"application/json" => JsonConvert.DeserializeObject<TResult>(data, _jsonSerializerSettings),
+				"application/xml" => DeserializeXml<TResult>(data),
+				"text/plain" => (TResult)Convert.ChangeType(data, typeof(string)),
+				_ => throw new NotImplementedException($"Serialization for accept header {acceptHeader} is not supported.")
+			};
 		}
 
 		private TResult DeserializeXml<TResult>(string data)

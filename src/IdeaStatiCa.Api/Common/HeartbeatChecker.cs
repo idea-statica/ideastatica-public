@@ -57,7 +57,7 @@ namespace IdeaStatiCa.Api.Common
 		/// </summary>
 		public void Stop()
 		{
-			if (cancellationTokenSource != null)
+			if (cancellationTokenSource is { })
 			{
 				cancellationTokenSource.Cancel();
 				cancellationTokenSource.Dispose();

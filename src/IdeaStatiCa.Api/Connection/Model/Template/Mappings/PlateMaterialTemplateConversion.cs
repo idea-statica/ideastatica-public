@@ -4,8 +4,6 @@
 	{
 		public PlateMaterialTemplateConversion()
 		{	
-			//Description = IdeaStatica.Translation.Resources.Steel;
 		}
-		//YieldStrength
 	}
 }
