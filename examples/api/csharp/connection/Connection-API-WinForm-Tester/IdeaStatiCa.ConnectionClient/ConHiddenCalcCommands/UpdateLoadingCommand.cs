@@ -30,7 +30,7 @@ namespace IdeaStatiCa.ConnectionClient.ConHiddenCalcCommands
 					var updatedLoading = (IConnectionDataJson)parameter;
 					var Service = Model.GetConnectionService();
 
-					await Service.UpdateLoadingFromJsonAsync(updatedLoading.ConnectionId.ToString(), updatedLoading.DataJson);
+					await Service.UpdateLoadingFromJsonAsynchronous(updatedLoading.ConnectionId.ToString(), updatedLoading.DataJson);
 
 					NotifyCommandFinished();
 				}
