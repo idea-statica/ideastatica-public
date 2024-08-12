@@ -177,6 +177,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ItemsSorter", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ConnectionApi", "IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj", "{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Api", "IdeaStatiCa.Api\IdeaStatiCa.Api.csproj", "{CCA8A2DB-5D55-4669-828F-D08C915B649B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -423,6 +425,10 @@ Global
 		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Debug|x64.Build.0 = Debug|Any CPU
 		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Release|x64.ActiveCfg = Release|Any CPU
 		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Release|x64.Build.0 = Release|Any CPU
+		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Debug|x64.Build.0 = Debug|Any CPU
+		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Release|x64.ActiveCfg = Release|Any CPU
+		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

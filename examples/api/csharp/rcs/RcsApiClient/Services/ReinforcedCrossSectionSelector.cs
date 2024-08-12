@@ -1,4 +1,4 @@
-﻿using IdeaStatiCa.Plugin.Api.RCS.Model;
+﻿using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Services;
 using System.Linq;
 

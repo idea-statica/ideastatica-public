@@ -26,13 +26,6 @@
 		public const string ConCalculatorCancelEventFormat = "IdeaStatiCa.ConnHiddenCalculatorCancel-{0}";
 		public const string DetailChangedEventFormat = "IdeaStatiCaDetailChanged{0}";
 
-		#region Rcs client constants
-		public const string RestApiPortParam = "-port";
-		public const string RcsProgressEndpoint = "/progresshub";
-		public const string RcsProgressMethod = "ReceiveProgressUpdate";
-		public const string RcsApiHeartbeat = "/heartbeat";
-		#endregion
-
 		#region BIM Plugin default constants
 
 		public const string DefaultPluginEventName = "IdeaStatiCaBIMPluginEvent";
