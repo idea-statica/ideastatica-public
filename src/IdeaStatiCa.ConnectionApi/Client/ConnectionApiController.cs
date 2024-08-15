@@ -113,7 +113,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 				}
 			}
 
-			var response = await _httpClient.PostAsync<ConProject>($"api/{ApiVersion}/{ConRestApiConstants.Projects}/import-iom{query.ToString()}", model, cancellationToken, acceptHeader: "application/xml");
+			var response = await _httpClient.PostAsync<ConProject>($"api/{ApiVersion}/{ConRestApiConstants.Projects}/import-iom{query.ToString()}", model, cancellationToken);
 			activeProjectId = response.ProjectId;
 
 			LogMethodCallToDebug(ClientId, activeProjectId);
@@ -300,7 +300,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<bool> UpdateProjectFromIomContainerAsync(OpenModelContainer model, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug();
-			var response = await _httpClient.PostAsync<bool>($"{GetProjectRoute()}/update-iom", model, cancellationToken, acceptHeader: "application/xml");
+			var response = await _httpClient.PostAsync<bool>($"{GetProjectRoute()}/update-iom", model, cancellationToken);
 			return response;
 		}
 
