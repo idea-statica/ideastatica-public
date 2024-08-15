@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
@@ -133,6 +135,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.Services.Concrete.ReinforcedSection.ReinfSection,CI.ReinforcedSection", "CI.Services.Concrete.ReinforcedSection.IReinforcedSection,CI.ServiceTypes")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ReinforcedCrossSection : OpenElementId
 	{
 		/// <summary>

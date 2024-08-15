@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
 	/// <summary>
 	/// Thermal conductivity limit
 	/// </summary>
+	[DataContract]
 	public enum ThermalConductivityLimit
 	{
 		/// <summary>
@@ -42,6 +42,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentsThermalAttribute,CI.CrossSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionThermalAttribute : OpenAttribute
 	{
 		/// <summary>
@@ -62,6 +64,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Cross-section component thermal data
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentThermalDataItem,CI.CrossSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionComponentThermalData
 	{
 		/// <summary>
