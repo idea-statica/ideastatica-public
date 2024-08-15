@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -6,6 +8,8 @@ namespace IdeaRS.OpenModel.Material
 	/// Material bolt grade
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.MaterialBoltGrade,CI.Material", "CI.StructModel.Libraries.Material.IMatBoltGrade,CI.BasicTypes", typeof(Material))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MaterialBoltGrade : Material
 	{
 		#region Properties

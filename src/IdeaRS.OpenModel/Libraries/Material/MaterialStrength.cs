@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -9,6 +7,8 @@ namespace IdeaRS.OpenModel.Material
 	/// Strength of material with specific thickness range
 	/// </summary>
 	[OpenModelClass("IdeaRS.MprlModel.Material.MaterialStrength,CI.BasicTypes")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MaterialStrength : OpenObject
 	{
 		/// <summary>

@@ -16,6 +16,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using IdeaRS.OpenModel.Material;
+using IdeaRS.OpenModel.CrossSection;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
@@ -396,58 +398,59 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetMaterialsAsync(int, string)(int, int)" >
-		public async Task<List<ProjMaterial>> GetMaterialsAsync(int connectionId, string type = "All")
+		public async Task<List<Material>> GetMaterialsAsync(int connectionId, string type = "All")
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get material type {type}");
-			return await _httpClient.GetAsync<List<ProjMaterial>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}?type={type}", CancellationToken.None);
+			return await _httpClient.GetAsync<List<Material>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}?type={type}", CancellationToken.None);
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetCrossSectionsAsync(int)" >
-		public async Task<List<ProjCrossSection>> GetCrossSectionsAsync(int connectionId)
+		public async Task<List<CrossSection>> GetCrossSectionsAsync(int connectionId)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get cross sections");
-			return await _httpClient.GetAsync<List<ProjCrossSection>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/cross-sections", CancellationToken.None);
+			return await _httpClient.GetAsync<List<CrossSection>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/cross-sections", CancellationToken.None);
 		}
 
-		public async Task<List<ProjPin>> GetPinsAsync(int connectionId)
+		public async Task<List<Material>> GetPinsAsync(int connectionId)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get pins");
-			return await _httpClient.GetAsync<List<ProjPin>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/pins", CancellationToken.None);
+			return await _httpClient.GetAsync<List<Material>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/pins", CancellationToken.None);
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetBoltAssembliesAsync(int)" >
-		public async Task<List<ProjBoltAssembly>> GetBoltAssembliesAsync(int connectionId)
+		public async Task<List<BoltAssembly>> GetBoltAssembliesAsync(int connectionId)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get pins");
-			return await _httpClient.GetAsync<List<ProjBoltAssembly>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/bolt-assemblies", CancellationToken.None);
+			return await _httpClient.GetAsync<List<BoltAssembly>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/bolt-assemblies", CancellationToken.None);
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.AddPinAsync(int, ProjPin)" >
-		public async Task<ProjPin> AddPinAsync(int connectionId, ProjPin newPin)
+		/// <inheritdoc cref="IConnectionApiController.AddPinAsync(int, Material)" >
+		public async Task<Material> AddPinAsync(int connectionId, Material newPin)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add pin {newPin.Name}");
-			return await _httpClient.PostAsync<ProjPin>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/pins", newPin, CancellationToken.None);
+			return await _httpClient.PostAsync<Material>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/pins", newPin, CancellationToken.None);
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.AddMaterialAsync(int, ProjMaterial)" >
-		public async Task<ProjMaterial> AddMaterialAsync(int connectionId, ProjMaterial newMaterial)
+		/// <inheritdoc cref="IConnectionApiController.AddMaterialAsync(int, Material)" >
+		public async Task<Material> AddMaterialAsync(int connectionId, Material newMaterial)
 		{
-			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add material {newMaterial.MaterialType} - {newMaterial.Name}");
-			return await _httpClient.PostAsync<ProjMaterial>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}", newMaterial, CancellationToken.None);
+			//LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add material {newMaterial.MaterialType} - {newMaterial.Name}");
+			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add material - {newMaterial.Name}");
+			return await _httpClient.PostAsync<Material>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}", newMaterial, CancellationToken.None);
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.AddCrossSectionAsync(int, ProjCrossSection)" >
-		public async Task<ProjCrossSection> AddCrossSectionAsync(int connectionId, ProjCrossSection newCrossSection)
+		/// <inheritdoc cref="IConnectionApiController.AddCrossSectionAsync(int, CrossSection)" >
+		public async Task<CrossSection> AddCrossSectionAsync(int connectionId, CrossSection newCrossSection)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add cross section {newCrossSection.Name}");
-			return await _httpClient.PostAsync<ProjCrossSection>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/cross-sections", newCrossSection, CancellationToken.None);
+			return await _httpClient.PostAsync<CrossSection>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/cross-sections", newCrossSection, CancellationToken.None);
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.AddBoltAssemblyAsync(int, ProjBoltAssembly)"/>
-		public async Task<ProjBoltAssembly> AddBoltAssemblyAsync(int connectionId, ProjBoltAssembly newBoltAssembly)
+		/// <inheritdoc cref="IConnectionApiController.AddBoltAssemblyAsync(int, BoltAssembly)"/>
+		public async Task<BoltAssembly> AddBoltAssemblyAsync(int connectionId, BoltAssembly newBoltAssembly)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Add bolt assembly {newBoltAssembly.Name}");
-			return await _httpClient.PostAsync<ProjBoltAssembly>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/bolt-assemblies", newBoltAssembly, CancellationToken.None);
+			return await _httpClient.PostAsync<BoltAssembly>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}/bolt-assemblies", newBoltAssembly, CancellationToken.None);
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetParametersAsync(int)"/>

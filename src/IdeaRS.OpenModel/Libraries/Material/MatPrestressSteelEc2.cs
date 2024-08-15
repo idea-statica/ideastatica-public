@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -10,6 +7,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Type of prestress steel
 	/// </summary>
+	[DataContract]
 	public enum PrestressSteelType
 	{
 		/// <summary>
@@ -46,6 +44,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Surface characteristic
 	/// </summary>
+	[DataContract]
 	public enum SurfaceCharacteristicType
 	{
 		/// <summary>
@@ -67,6 +66,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Production type
 	/// </summary>
+	[DataContract]
 	public enum ProductionType
 	{
 		/// <summary>
@@ -99,6 +99,8 @@ namespace IdeaRS.OpenModel.Material
 	/// Material prestressing steel Ec2
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.ECEN.MatPrestressSteelECEN,CI.Material", "CI.StructModel.Libraries.Material.IMatPrestressSteel,CI.BasicTypes", typeof(MatPrestressSteel))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MatPrestressSteelEc2 : MatPrestressSteel
 	{
 
