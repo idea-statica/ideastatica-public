@@ -396,11 +396,12 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
-		/// <inheritdoc cref="IConnectionApiController.GetMaterialsAsync(int, string)(int, int)" >
-		public async Task<List<object>> GetMaterialsAsync(int connectionId, string type = "All")
+		/// <inheritdoc cref="IConnectionApiController.GetMaterialsAsync(int, string)" >
+		public async Task<List<object>> GetMaterialsAsync(int connectionId, string type = "all")
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId, message: $"Get material type {type}");
-			return await _httpClient.GetAsync<List<object>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}?type={type}", CancellationToken.None);
+			var materialType = type == "all" ? "" : $"/{type}";
+			return await _httpClient.GetAsync<List<object>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Materials}{materialType}", CancellationToken.None);
 		}
 
 		/// <inheritdoc cref="IConnectionApiController.GetCrossSectionsAsync(int)" >
