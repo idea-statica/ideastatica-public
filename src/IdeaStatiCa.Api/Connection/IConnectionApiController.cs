@@ -282,9 +282,9 @@ namespace IdeaStatiCa.Api.Connection
 		/// Get the materials in project
 		/// </summary>
 		/// <param name="connectionId"></param>
-		/// <param name="type">Concrete, Steel, Reinforcement, Prestress, BoltGrade, WeldingMaterial, Timber, All  </param>
+		/// <param name="type">steel, concrete, bolt-grade, welding, all  </param>
 		/// <returns></returns>
-		Task<List<object>> GetMaterialsAsync(int connectionId, string type = "All");
+		Task<List<object>> GetMaterialsAsync(int connectionId, string type = "all");
 
 		/// <summary>
 		/// Get project cross sections
