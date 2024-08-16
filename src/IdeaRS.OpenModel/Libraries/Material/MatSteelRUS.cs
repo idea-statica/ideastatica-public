@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,21 +11,25 @@ namespace IdeaRS.OpenModel.Material
 	/// Material steel RUS
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.RUS.MatSteelRUS,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatSteel))]
-    public class MatSteelRUS : MatSteel
+	[DataContract]
+	public class MatSteelRUS : MatSteel
 	{
-        /// <summary>
+		/// <summary>
 		/// Yield strength
 		/// </summary>
+		[DataMember]
 		public double fy { get; set; }
 
-        /// <summary>
-        /// Ultimate strength
-        /// </summary>
-        public double fu { get; set; }
+		/// <summary>
+		/// Ultimate strength
+		/// </summary>
+		[DataMember]
+		public double fu { get; set; }
 
 		/// <summary>
 		/// Safety coefficient
 		/// </summary>
+		[DataMember]
 		public double GammaM { get; set; }
 
 		///// <summary>

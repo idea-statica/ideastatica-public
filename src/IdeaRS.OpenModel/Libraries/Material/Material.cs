@@ -1,4 +1,6 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -110,6 +112,8 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Material base class
 	/// </summary>
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class Material : OpenElementId
 	{
 		/// <summary>

@@ -1,4 +1,6 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -7,7 +9,9 @@ namespace IdeaRS.OpenModel.Material
 	/// Material steel AISC
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.American.MatSteelASTM,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatSteel))]
-  public class MatSteelAISC : MatSteel
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
+	public class MatSteelAISC : MatSteel
 	{
 		/// <summary>
 		/// Yield strength for nominal thickness of the element &lt;= 40mm - f<sub>y</sub>

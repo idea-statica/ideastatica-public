@@ -1,5 +1,7 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 
 namespace IdeaRS.OpenModel.CrossSection
@@ -8,6 +10,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Creates one item cross-section of general cold formed profile defined by it´s center line
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.CrossSection,CI.CrossSection", "CI.StructModel.Libraries.CrossSection.ICrossSection,CI.BasicTypes", typeof(CrossSection))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionGeneralColdFormed : CrossSection
 	{
 		/// <summary>

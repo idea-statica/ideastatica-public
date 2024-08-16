@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using IdeaRS.OpenModel.Material;
+using IdeaRS.OpenModel.CrossSection;
+using IdeaStatiCa.Api.Connection.Model.Material;
 
 namespace IdeaStatiCa.Api.Connection
 {
@@ -281,44 +284,30 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="connectionId"></param>
 		/// <param name="type">Concrete, Steel, Reinforcement, Prestress, BoltGrade, WeldingMaterial, Timber, All  </param>
 		/// <returns></returns>
-		Task<List<ProjMaterial>> GetMaterialsAsync(int connectionId, string type = "All");
+		Task<List<object>> GetMaterialsAsync(int connectionId, string type = "All");
 
 		/// <summary>
 		/// Get project cross sections
 		/// </summary>
 		/// <param name="connectionId"></param>
 		/// <returns></returns>
-		Task<List<ProjCrossSection>> GetCrossSectionsAsync(int connectionId);
-
-		/// <summary>
-		/// Get project pins
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <returns></returns>
-		Task<List<ProjPin>> GetPinsAsync(int connectionId);
+		Task<List<object>> GetCrossSectionsAsync(int connectionId);
 
 		/// <summary>
 		/// Get bolt assemblies from project
 		/// </summary>
 		/// <param name="connectionId"></param>
 		/// <returns></returns>
-		Task<List<ProjBoltAssembly>> GetBoltAssembliesAsync(int connectionId);
-
-		/// <summary>
-		/// Add pin to project data
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="newPin"></param>
-		/// <returns></returns>
-		Task<ProjPin> AddPinAsync(int connectionId, ProjPin newPin);
+		Task<List<object>> GetBoltAssembliesAsync(int connectionId);
 
 		/// <summary>
 		/// Add material to project data
 		/// </summary>
 		/// <param name="connectionId"></param>
 		/// <param name="newMaterial"></param>
+		/// <param name="materialType"></param>
 		/// <returns></returns>
-		Task<ProjMaterial> AddMaterialAsync(int connectionId, ProjMaterial newMaterial);
+		Task<ConMprlElement> AddMaterialAsync(int connectionId, ConMprlElement newMaterial, string materialType);
 
 		/// <summary>
 		/// Add cross section to project data
@@ -326,7 +315,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="connectionId"></param>
 		/// <param name="newCrossSection"></param>
 		/// <returns></returns>
-		Task<ProjCrossSection> AddCrossSectionAsync(int connectionId, ProjCrossSection newCrossSection);
+		Task<ConMprlCrossSection> AddCrossSectionAsync(int connectionId, ConMprlCrossSection newCrossSection);
 
 		/// <summary>
 		/// Add bolt assembly to project data
@@ -334,7 +323,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="id"></param>
 		/// <param name="newBa"></param>
 		/// <returns></returns>
-		Task<ProjBoltAssembly> AddBoltAssemblyAsync(int id, ProjBoltAssembly newBa);
+		Task<ConMprlElement> AddBoltAssemblyAsync(int id, ConMprlElement newBa);
 
 		/// <summary>
 		/// Get parameters
