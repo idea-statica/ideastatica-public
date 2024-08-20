@@ -446,6 +446,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return await _httpClient.GetAsync<List<IdeaParameter>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Parameters}?includeHidden={includeHidden.ToString()}", CancellationToken.None);
 		}
 
+		/// <inheritdoc cref="IConnectionApiController.GetVersionAsync"/>
 		public async Task<string> GetVersionAsync()
 		{
 			return await _httpClient.GetAsync<string>($"api/{ApiVersion}/version", CancellationToken.None);
