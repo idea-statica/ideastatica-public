@@ -9,6 +9,23 @@
     <PackageLicenseFile>README.md</PackageLicenseFile>
     <PackageTags>IdeaStatiCa;BIM;C#;FEA;IOM;IdeaOpenModel</PackageTags>
     <Description>OpenModel used for IdeaStatiCa.Plugin, containing all base classes required for Plugin to fully work.</Description>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsNotAsErrors>1591</WarningsNotAsErrors>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningsNotAsErrors>1591</WarningsNotAsErrors>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_IdeaStatiCa_Internal|AnyCPU'">
+    <WarningsNotAsErrors>1591</WarningsNotAsErrors>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_IdeaStatiCa_Internal|AnyCPU'">
+    <WarningsNotAsErrors>1591</WarningsNotAsErrors>
   </PropertyGroup>
   
   <ItemGroup>
