@@ -37,10 +37,10 @@ namespace IdeaRS.OpenModel
 		}
 
 		/// <summary>
-		/// Serialize OpenModelContainer to File
+		/// Serialize OpenModelContainer to xml 
 		/// </summary>
 		/// <param name="model"></param>
-		/// <returns></returns>
+		/// <param name="filePath"></param>
 		public static void OpenModelContainerToFile(OpenModelContainer model, string filePath)
 		{
 			SerializeModelToFile(model, filePath);

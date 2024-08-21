@@ -207,7 +207,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			ConTemplateMappingGetParam getTempMappingParam = new ConTemplateMappingGetParam() { Template = templateXml };
-			var response = await _httpClient.PostAsync<TemplateConversions>($"{GetConnectionRoute(connectionId)}/apply-mapping", getTempMappingParam, cancellationToken);
+			var response = await _httpClient.PostAsync<TemplateConversions>($"{GetConnectionRoute(connectionId)}/get-template-mapping", getTempMappingParam, cancellationToken);
 			return response;
 		}
 
@@ -444,6 +444,12 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			return await _httpClient.GetAsync<List<IdeaParameter>>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Parameters}?includeHidden={includeHidden.ToString()}", CancellationToken.None);
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.GetVersionAsync"/>
+		public async Task<string> GetVersionAsync()
+		{
+			return await _httpClient.GetAsync<string>($"api/{ApiVersion}/version", CancellationToken.None);
 		}
 
 		private string GetProjectRoute()

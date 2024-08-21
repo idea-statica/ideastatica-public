@@ -25,5 +25,10 @@ namespace IdeaRS.OpenModel.Material
 		/// Tension strength
 		/// </summary>
 		public double Fu { get; set; }
+
+		/// <summary>
+		/// Design strength
+		/// </summary>
+		public double F { get; set; }
 	}
 }

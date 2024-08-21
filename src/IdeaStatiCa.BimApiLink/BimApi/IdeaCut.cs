@@ -1,6 +1,6 @@
 ﻿using IdeaRS.OpenModel.Connection;
-using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 
 namespace IdeaStatiCa.BimApiLink.BimApi
 {
@@ -23,6 +23,8 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 		public DistanceComparison DistanceComparison { get; set; }
 
 		public CutPart CutPart { get; set; }
+
+		public bool ExtendBeforeCut { get; set; }
 
 		protected IdeaCut(Identifier<IIdeaCut> identifer)
 			: base(identifer)

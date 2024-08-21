@@ -332,5 +332,11 @@ namespace IdeaStatiCa.Api.Connection
 		/// /// <param name="includeHidden">Include hidden parameters</param>
 		/// <returns></returns>
 		Task<List<IdeaParameter>> GetParametersAsync(int connectionId, bool includeHidden);
+
+		/// <summary>
+		/// Get service version
+		/// </summary>
+		/// <returns></returns>
+		Task<string> GetVersionAsync();
 	}
 }
