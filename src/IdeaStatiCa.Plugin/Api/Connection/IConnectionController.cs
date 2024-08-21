@@ -1,5 +1,4 @@
-﻿using IdeaRS.OpenModel.Connection;
-using IdeaStatiCa.Public;
+﻿using IdeaStatiCa.Public;
 using System;
 using System.Threading.Tasks;
 
@@ -56,11 +55,27 @@ namespace IdeaStatiCa.Plugin
 		void GenerateWordReport(int conId, string filePath, ConnReportSettings settings);
 
 		/// <summary>
+		/// Generate Word report blob storage
+		/// </summary>
+		/// <param name="conId">Id of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns></returns>
+		IBlobStorage GenerateWordReportStorage(int conId, ConnReportSettings settings);
+
+		/// <summary>
 		/// Send a request to generate connection report in PDF document
 		/// </summary>
 		/// <param name="conId">Id of the requested connection</param>
 		/// <param name="settings">Report settings</param>
 		/// <param name="filePath">File path of exported pdf report</param>
 		void GeneratePdfReport(int conId, string filePath, ConnReportSettings settings);
+
+		/// <summary>
+		/// Generate PDF report blob storage
+		/// </summary>
+		/// <param name="conId">Id of the requested connection</param>
+		/// <param name="settings">Report settings</param>
+		/// <returns></returns>
+		IBlobStorage GeneratePdfReportStorage(int conId, ConnReportSettings settings);
 	}
 }
