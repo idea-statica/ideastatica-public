@@ -119,6 +119,22 @@ namespace IdeaStatiCa.Plugin
 			ConnectionAutomation.GeneratePdfReport(conId, filePath, settings);
 		}
 
+		/// <inheritdoc cref="IConnectionController.GenerateWordReportStorage(int, ConnReportSettings)"/>
+		public IBlobStorage GenerateWordReportStorage(int conId, ConnReportSettings settings)
+		{
+			var reportId = ConnectionAutomation.GenerateWordReportIdentifier(conId, settings);
+			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
+			return blobStorage;
+		}
+
+		/// <inheritdoc cref="IConnectionController.GeneratePdfReportStorage(int, ConnReportSettings)"/>
+		public IBlobStorage GeneratePdfReportStorage(int conId, ConnReportSettings settings)
+		{
+			var reportId = ConnectionAutomation.GeneratePdfReportIdentifier(conId, settings);
+			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
+			return blobStorage;
+		}
+
 		protected void OpenConnectionClient()
 		{
 			OpenConnectionClientGrpc();
@@ -218,20 +234,6 @@ namespace IdeaStatiCa.Plugin
 			Dispose(true);
 			// TODO: uncomment the following line if the finalizer is overridden above.
 			// GC.SuppressFinalize(this);
-		}
-
-		public IBlobStorage GenerateWordReportStorage(int conId, ConnReportSettings settings)
-		{
-			var reportId = ConnectionAutomation.GenerateWordReportIdentifier(conId, settings);
-			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
-			return blobStorage;
-		}
-
-		public IBlobStorage GeneratePdfReportStorage(int conId, ConnReportSettings settings)
-		{
-			var reportId = ConnectionAutomation.GeneratePdfReportIdentifier(conId, settings);
-			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
-			return blobStorage;
 		}
 		#endregion
 	}
