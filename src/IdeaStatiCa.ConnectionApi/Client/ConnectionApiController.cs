@@ -207,7 +207,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, connectionId);
 			ConTemplateMappingGetParam getTempMappingParam = new ConTemplateMappingGetParam() { Template = templateXml };
-			var response = await _httpClient.PostAsync<TemplateConversions>($"{GetConnectionRoute(connectionId)}/get-template-mapping", getTempMappingParam, cancellationToken);
+			var response = await _httpClient.PostAsync<TemplateConversions>($"{GetConnectionRoute(connectionId)}/get-default-mapping", getTempMappingParam, cancellationToken);
 			return response;
 		}
 
