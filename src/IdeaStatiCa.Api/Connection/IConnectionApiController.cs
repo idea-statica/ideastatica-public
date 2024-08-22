@@ -281,54 +281,47 @@ namespace IdeaStatiCa.Api.Connection
 		/// <summary>
 		/// Get the materials in project
 		/// </summary>
-		/// <param name="connectionId"></param>
 		/// <param name="type">steel, concrete, bolt-grade, welding, all  </param>
 		/// <returns></returns>
-		Task<List<object>> GetMaterialsAsync(int connectionId, string type = "all");
+		Task<List<object>> GetMaterialsAsync(string type = "all");
 
 		/// <summary>
 		/// Get project cross sections
 		/// </summary>
-		/// <param name="connectionId"></param>
 		/// <returns></returns>
-		Task<List<object>> GetCrossSectionsAsync(int connectionId);
+		Task<List<object>> GetCrossSectionsAsync();
 
 		/// <summary>
 		/// Get bolt assemblies from project
 		/// </summary>
-		/// <param name="connectionId"></param>
 		/// <returns></returns>
-		Task<List<object>> GetBoltAssembliesAsync(int connectionId);
+		Task<List<object>> GetBoltAssembliesAsync();
 
 		/// <summary>
 		/// Add material to project data
 		/// </summary>
-		/// <param name="connectionId"></param>
 		/// <param name="newMaterial"></param>
 		/// <param name="materialType"></param>
 		/// <returns></returns>
-		Task<ConMprlElement> AddMaterialAsync(int connectionId, ConMprlElement newMaterial, string materialType);
+		Task<ConMprlElement> AddMaterialAsync(ConMprlElement newMaterial, string materialType);
 
 		/// <summary>
 		/// Add cross section to project data
 		/// </summary>
-		/// <param name="connectionId"></param>
 		/// <param name="newCrossSection"></param>
 		/// <returns></returns>
-		Task<ConMprlCrossSection> AddCrossSectionAsync(int connectionId, ConMprlCrossSection newCrossSection);
+		Task<ConMprlCrossSection> AddCrossSectionAsync(ConMprlCrossSection newCrossSection);
 
 		/// <summary>
 		/// Add bolt assembly to project data
 		/// </summary>
-		/// <param name="id"></param>
 		/// <param name="newBa"></param>
 		/// <returns></returns>
-		Task<ConMprlElement> AddBoltAssemblyAsync(int id, ConMprlElement newBa);
+		Task<ConMprlElement> AddBoltAssemblyAsync(ConMprlElement newBa);
 
 		/// <summary>
 		/// Get parameters
 		/// </summary>
-		/// <param name="connectionId"></param>
 		/// /// <param name="includeHidden">Include hidden parameters</param>
 		/// <returns></returns>
 		Task<List<IdeaParameter>> GetParametersAsync(int connectionId, bool includeHidden);
