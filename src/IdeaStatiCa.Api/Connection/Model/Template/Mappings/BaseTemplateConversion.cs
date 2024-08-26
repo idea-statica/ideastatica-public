@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace IdeaStatiCa.Api.Connection.Model
 {
@@ -34,7 +33,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// New value in the template after it's applied
 		/// </summary>
 		[DataMember]
-		public string NewValue { get => NewElement?.Name; set => NewElement = new SelectedElement(value); }
+		public string NewValue { get; set; }
 		/// <summary>
 		/// Description
 		/// </summary>
@@ -45,49 +44,5 @@ namespace IdeaStatiCa.Api.Connection.Model
 		/// </summary>
 		[DataMember]
 		public string NewTemplateId { get; set; }
-		/// <summary>
-		/// New element for conversion
-		/// It can be defined either as element Name, or with specific MPRL id
-		/// </summary>
-		[DataMember]
-		public SelectedElement NewElement { get; set; }
-	}
-
-	[DataContract]
-	public class SelectedElement
-	{
-		[DataMember]
-		public string Name { get; set; }
-
-		[DataMember]
-		public Guid? TableId { get; private set; }
-
-		[DataMember]
-		public Guid? ElementId { get; private set; }
-
-		[DataMember]
-		public TableContainerType ContainerType { get; set; }
-
-		/// <summary>
-		/// Prefferred constructor with specific element Id & table Id
-		/// </summary>
-		/// <param name="tableId"></param>
-		/// <param name="elementId"></param>
-		public SelectedElement(Guid tableId, Guid elementId)
-		{
-			TableId = tableId;
-			ElementId = elementId;
-		}
-
-		/// <summary>
-		/// Constructor for records in template where table & element ID is not available
-		/// </summary>
-		/// <param name="name"></param>
-		public SelectedElement(string name)
-		{
-			Name = name;
-			TableId = null;
-			ElementId = null;
-		}
 	}
 }
