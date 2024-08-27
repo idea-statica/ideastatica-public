@@ -388,7 +388,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
-		/// <inheritdoc/>eritdoc cref="IConnectionApiController.UpdateConnectionSetupAsync(ConnectionSetup, CancellationToken)"/>
+		/// <inheritdoc cref="IConnectionApiController.UpdateConnectionSetupAsync(ConnectionSetup, CancellationToken)"/>
 		public async Task<ConnectionSetup> UpdateConnectionSetupAsync(ConnectionSetup connectionSetup, CancellationToken cancellationToken)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
@@ -450,6 +450,13 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<string> GetVersionAsync()
 		{
 			return await _httpClient.GetAsync<string>($"api/{ApiVersion}/version", CancellationToken.None);
+		}
+
+		public async Task<string> GetDataScene3DAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.GetAsync<string>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Presentation}", cancellationToken, "text/plain");
+			return response;
 		}
 
 		private string GetProjectRoute()

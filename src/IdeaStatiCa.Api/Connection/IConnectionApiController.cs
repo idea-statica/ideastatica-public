@@ -2,14 +2,12 @@
 using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Connection.Model.Material;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using IdeaRS.OpenModel.Material;
-using IdeaRS.OpenModel.CrossSection;
-using IdeaStatiCa.Api.Connection.Model.Material;
 
 namespace IdeaStatiCa.Api.Connection
 {
@@ -23,7 +21,7 @@ namespace IdeaStatiCa.Api.Connection
 		Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// Cloase the active project in the service
+		/// Close the active project in the service
 		/// </summary>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
@@ -44,7 +42,7 @@ namespace IdeaStatiCa.Api.Connection
 		Task<List<ConConnection>> GetConnectionsAsync(CancellationToken token = default);
 
 		/// <summary>
-		/// Geat data fro <paramref name="connectionId"/>
+		/// Get <paramref name="connectionId"/> data
 		/// </summary>
 		/// <param name="connectionId">Id of the requested connection in the active project</param>
 		/// <param name="token"></param>
@@ -72,7 +70,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <summary>
 		/// Run requested type of CBFEM analysis for <paramref name="conToCalculateIds"/>
 		/// </summary>
-		/// <param name="conToCalculateIds">Lits of connections in the active project to calculate</param>
+		/// <param name="conToCalculateIds">List of connections in the active project to calculate</param>
 		/// <param name="analysisType">Type of CBFEM analysis to run</param>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
@@ -83,7 +81,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// <summary>
 		/// Get detailed calculation results for  <paramref name="conToCalculateIds"/>
 		/// </summary>
-		/// <param name="conToCalculateIds">Lits of connections in the active project</param>
+		/// <param name="conToCalculateIds">List of connections in the active project</param>
 		/// <param name="cancellationToken"></param>
 		/// <returns>Detailed results if calculated, otherwise empty</returns>
 		Task<List<ConnectionCheckRes>> ResultsAsync(List<int> conToCalculateIds, CancellationToken cancellationToken = default);
@@ -184,7 +182,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// </summary>
 		/// <param name="connectionId"></param>
 		/// <param name="cancellationToken"></param>
-		/// <returns>Strea of IFC data</returns>
+		/// <returns>Stream of IFC data</returns>
 		Task<Stream> ExportToIfcAsync(int connectionId, CancellationToken cancellationToken = default);
 		/// <summary>
 		/// Get all members in connection
@@ -331,5 +329,13 @@ namespace IdeaStatiCa.Api.Connection
 		/// </summary>
 		/// <returns></returns>
 		Task<string> GetVersionAsync();
+
+		/// <summary>
+		/// Get data for presentation in scene3D
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<string> GetDataScene3DAsync(int connectionId, CancellationToken cancellationToken = default);
 	}
 }
