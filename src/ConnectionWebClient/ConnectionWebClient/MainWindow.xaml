@@ -13,7 +13,6 @@
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Connect</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
-
 				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
 
 			</ToolBar>
@@ -21,6 +20,7 @@
 			<ToolBar Band="2">
 				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
+				<Button Command="{Binding PresentationCommand, Mode=OneWay}">Show</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>

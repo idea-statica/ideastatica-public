@@ -52,10 +52,47 @@ namespace ConnectionWebClient.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
+			PresentationCommand = new AsyncRelayCommand(PresentAsync, () => SelectedConnection != null);
+
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
 
+
+		
+
+		private async Task PresentAsync()
+		{
+			_logger.LogInformation("PresentAsync");
+
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			IsBusy = true;
+			try
+			{
+				var calculationResults = await ConnectionController.GetDataScene3DAsync(SelectedConnection!.Id, cts.Token);
+
+				OutputText = calculationResults;
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
+		}
 
 		private async Task CalculateAsync()
 		{
@@ -152,6 +189,8 @@ namespace ConnectionWebClient.ViewModels
 		public AsyncRelayCommand DownloadProjectCommand { get; }
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
+
+		public AsyncRelayCommand PresentationCommand { get; }
 
 		private async Task OpenProjectAsync()
 		{
@@ -405,12 +444,14 @@ namespace ConnectionWebClient.ViewModels
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
+			this.PresentationCommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
+			this.PresentationCommand.NotifyCanExecuteChanged();
 		}
 	}
 }
