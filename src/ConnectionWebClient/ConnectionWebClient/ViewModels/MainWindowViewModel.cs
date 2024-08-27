@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace ConnectionWebClient.ViewModels
 		ConnectionViewModel? selectedConnection;
 		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
+		private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true };
 		
 		private bool disposedValue;
 
@@ -48,14 +50,14 @@ namespace ConnectionWebClient.ViewModels
 			DownloadProjectCommand = new AsyncRelayCommand(DownloadProjectAsync, () => this.ProjectInfo != null);
 			ApplyTemplateCommand = new AsyncRelayCommand(ApplyTemplateAsync, () => SelectedConnection != null);
 
-			GetRawResultsCommand = new AsyncRelayCommand(GetRawResultsAsync, () => SelectedConnection != null);
+			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
 
 
-		private async Task GetRawResultsAsync()
+		private async Task CalculateAsync()
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
 
@@ -75,8 +77,10 @@ namespace ConnectionWebClient.ViewModels
 				var connectionIdList = new List<int>();
 				connectionIdList.Add(SelectedConnection!.Id);
 
-				var res = await ConnectionController.GetRawResultsAsync(connectionIdList, ConAnalysisTypeEnum.Stress_Strain, cts.Token);
-				OutputText = res;
+				var calculationResults = await ConnectionController.CalculateAsync(connectionIdList, ConAnalysisTypeEnum.Stress_Strain, cts.Token);
+
+				var calcResJson = JsonSerializer.Serialize(calculationResults, jsonPresentationOptions);
+				OutputText = calcResJson;
 			}
 			catch (Exception ex)
 			{
@@ -141,7 +145,7 @@ namespace ConnectionWebClient.ViewModels
 
 		public AsyncRelayCommand OpenProjectCommand { get; }
 
-		public AsyncRelayCommand GetRawResultsCommand { get; }
+		public AsyncRelayCommand CalculationCommand { get; }
 
 		public AsyncRelayCommand CloseProjectCommand { get; }
 
@@ -400,13 +404,13 @@ namespace ConnectionWebClient.ViewModels
 			this.CloseProjectCommand.NotifyCanExecuteChanged();
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
-			this.GetRawResultsCommand.NotifyCanExecuteChanged();
+			this.CalculationCommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
-			this.GetRawResultsCommand.NotifyCanExecuteChanged();
+			this.CalculationCommand.NotifyCanExecuteChanged();
 		}
 	}
 }

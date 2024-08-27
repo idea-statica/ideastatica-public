@@ -19,8 +19,8 @@
 			</ToolBar>
 
 			<ToolBar Band="2">
+				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
 				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
-				<Button Command="{Binding GetRawResultsCommand, Mode=OneWay}">Get raw results</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
