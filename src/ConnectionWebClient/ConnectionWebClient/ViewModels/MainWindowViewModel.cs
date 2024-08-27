@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ConnectionWebClient.Tools;
+using IdeaStatiCa.Api.Connection;
+using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.ConnectionRest;
-using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Project;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using System;
@@ -75,7 +75,7 @@ namespace ConnectionWebClient.ViewModels
 				var connectionIdList = new List<int>();
 				connectionIdList.Add(SelectedConnection!.Id);
 
-				var res = await ConnectionController.GetRawResultsAsync(connectionIdList, IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection.ConAnalysisTypeEnum.Stress_Strain, cts.Token);
+				var res = await ConnectionController.GetRawResultsAsync(connectionIdList, ConAnalysisTypeEnum.Stress_Strain, cts.Token);
 				OutputText = res;
 			}
 			catch (Exception ex)

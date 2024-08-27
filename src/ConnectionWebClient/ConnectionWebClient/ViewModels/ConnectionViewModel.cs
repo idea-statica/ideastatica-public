@@ -1,4 +1,4 @@
-﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Connection;
+﻿using IdeaStatiCa.Api.Connection.Model;
 
 namespace ConnectionWebClient.ViewModels
 {
