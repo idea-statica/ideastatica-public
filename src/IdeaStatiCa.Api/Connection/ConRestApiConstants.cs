@@ -12,6 +12,7 @@
 		public const string Materials = "materials";
 		public const string Reports = "reports";
 		public const string Version = "version";
+		public const string Presentation = "presentation";
 
 		public const string ConnectClient = "connect-client";
 	}

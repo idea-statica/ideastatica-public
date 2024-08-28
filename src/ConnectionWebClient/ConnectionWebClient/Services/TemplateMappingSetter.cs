@@ -1,10 +1,10 @@
-﻿using IdeaStatiCa.Plugin.Api.ConnectionRest.Model.Model_Template;
+﻿using ConnectionWebClient.ViewModels;
+using ConnectionWebClient.Views;
+using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Utilities;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using IdeaStatiCa.Plugin.Utilities;
-using ConnectionWebClient.Views;
 using System.Windows;
-using ConnectionWebClient.ViewModels;
 
 namespace ConnectionWebClient.Services
 {

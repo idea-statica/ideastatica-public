@@ -1,8 +1,8 @@
 ﻿using ConnectionWebClient.ViewModels;
 using ConnectionWebClient.Views;
+using IdeaStatiCa.Api.Connection;
 using IdeaStatiCa.ConnectionApi.Factory;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.ConnectionRest;
 using IdeaStatiCa.PluginLogger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
