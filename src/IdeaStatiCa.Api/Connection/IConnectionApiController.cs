@@ -335,5 +335,13 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
 		Task<string> GetDataScene3DAsync(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Create a connection template from <paramref name="connectionId"/>
+		/// </summary>
+		/// <param name="connectionId">The source of the requested template</param>
+		/// <param name="cancellationToken"></param>
+		/// <returns>contemp string</returns>
+		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
 	}
 }
