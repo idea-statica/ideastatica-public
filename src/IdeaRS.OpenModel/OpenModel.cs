@@ -19,6 +19,9 @@ using System.Xml.Serialization;
 namespace IdeaRS.OpenModel
 {
 	///Version history
+	/// V2.1 27.08 2024 Added Pins
+	/// V2.0.5 27.08 2024 Added separated Bold, Anchor, 
+	/// V2.0.1 27.08 2024 Version switch type from int to string
 	/// V2 15. 12. 2021 cad plugins have member id conversion table => member id must be lower than 32 768
 
 	/// <summary>
@@ -33,7 +36,7 @@ namespace IdeaRS.OpenModel
 		/// </summary>
 		public OpenModel()
 		{
-			Version = 2;
+			Version = "2.1.0";
 			OriginSettings = null;
 			Point3D = new List<Point3D>();
 			LineSegment3D = new List<LineSegment3D>();
@@ -100,12 +103,16 @@ namespace IdeaRS.OpenModel
 			Anchors3D = new List<Anchor3D>();
 			DetailLoadCase = new List<DetailLoadCase>();
 			DetailCombination = new List<DetailCombination>();
+
+			BoltAssembly = new List<BoltAssembly>();
+			BoltGrade = new List<MaterialBoltGrade>();
+			Pin = new List<Pin>();
 		}
 
 		/// <summary>
 		/// Data format version
 		/// </summary>
-		public int Version { get; set; }
+		public string Version { get; set; }
 
 		/// <summary>
 		/// Information about origin project
@@ -427,6 +434,21 @@ namespace IdeaRS.OpenModel
 		public List<DetailCombination> DetailCombination { get; set; }
 
 		/// <summary>
+		/// List of BoltAssemblys
+		/// </summary>
+		public List<BoltAssembly> BoltAssembly { get; set; }
+
+		/// <summary>
+		/// List of BoltGrades
+		/// </summary>
+		public List<MaterialBoltGrade> BoltGrade { get; set; }
+
+		/// <summary>
+		/// List of Pins
+		/// </summary>
+		public List<Pin> Pin { get; set; }
+
+		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
 		/// <param name="typeName">Name of type</param>
@@ -665,8 +687,11 @@ namespace IdeaRS.OpenModel
 					{ typeof(MatSteel).Name, MatSteel },
 					{ typeof(MatPrestressSteel).Name, MatPrestressSteel },
 					{ typeof(MatWelding).Name, MatWelding },
+					{ typeof(MaterialBoltGrade).Name, BoltGrade },
 					{ typeof(CrossSection.CrossSection).Name, CrossSection },
 					{ typeof(CrossSection.ReinforcedCrossSection).Name, ReinforcedCrossSection },
+					{ typeof(BoltAssembly).Name, BoltAssembly },
+					{ typeof(Pin).Name, Pin },
 					{ typeof(HingeElement1D).Name, HingeElement1D },
 					{ typeof(Opening).Name, Opening },
 					{ typeof(DappedEnd).Name, DappedEnd },
@@ -715,6 +740,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(Anchor3D).Name, Anchors3D },
 					{ typeof(DetailLoadCase).Name, DetailLoadCase },
 					{ typeof(DetailCombination).Name, DetailCombination },
+
 				};
 			}
 

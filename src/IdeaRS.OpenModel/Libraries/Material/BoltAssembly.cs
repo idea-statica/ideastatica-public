@@ -33,9 +33,9 @@ namespace IdeaRS.OpenModel.Material
 		}
 
 		/// <summary>
-		/// Size of borehole
+		/// Size of bore Hole
 		/// </summary>
-		public double Borehole
+		public double BoreHole
 		{
 			get;
 			set;
@@ -127,5 +127,19 @@ namespace IdeaRS.OpenModel.Material
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Length
+		/// </summary>
+		public double Length
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Load from library - try override properties from library find BoltAssembly by name
+		/// </summary>
+		public bool LoadFromLibrary { get; set; }
 	}
 }
