@@ -459,6 +459,14 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			return response;
 		}
 
+		/// <inheritdoc cref="IConnectionApiController.GetConnectionTemplateAsync(int, CancellationToken)"/>
+		public async Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.GetAsync<string>($"{GetConnectionRoute(connectionId)}/get-template", cancellationToken, "text/plain");
+			return response;
+		}
+
 		private string GetProjectRoute()
 		=> $"api/{ApiVersion}/{ConRestApiConstants.Projects}/{activeProjectId}";
 
@@ -515,7 +523,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 
 								_pluginLogger.LogInformation($"Cleaning the API process with ID {restApiProcessId}");
 
-								// TODO - I suppose Kill process does't release resources properly (temp files on a disk)
+								// TODO - I suppose Kill process doesn't release resources properly (temp files on a disk)
 								restApiProcess.Kill();
 							}
 						}
