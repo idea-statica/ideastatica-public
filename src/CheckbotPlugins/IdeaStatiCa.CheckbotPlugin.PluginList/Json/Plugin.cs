@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace IdeaStatiCa.CheckbotPlugin.PluginList.Json
 {
@@ -13,6 +12,9 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Json
 
 		[JsonPropertyName("name")]
 		public string Name { get; set; } = string.Empty;
+
+		[JsonPropertyName("tab_info")]
+		public TabInfo TabInfo { get; set; } = new TabInfo();
 
 		[JsonPropertyName("actions")]
 		public SystemActions? Actions { get; set; }

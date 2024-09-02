@@ -15,7 +15,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Height">Height of cross-section</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
-		/// <param name="Mirror">Mirrored shape</param>
+		/// <param name="mirrorZ">Mirrored shape - axis Z</param>
 		public static void FillColdFormedZ(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFZ;
@@ -26,6 +26,7 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
+
 		/// <summary>
 		/// Fill parameters for cold formed C section
 		/// </summary>
@@ -35,6 +36,8 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
 		/// <param name="lip">Lip length</param>
+		/// <param name="mirrorZ"></param>
+
 		public static void FillColdFormedC(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double lip, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFC;
@@ -46,6 +49,7 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
+
 		/// <summary>
 		/// Fill parameters for cold formed C channel
 		/// </summary>
@@ -54,6 +58,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Height">Height of cross-section</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
+		/// <param name="mirrorZ"></param>
 		public static void FillColdFormedChannel(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFU;
@@ -73,7 +78,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
 		/// <param name="Lip">Lip length</param>
-		/// <param name="Mirror">Mirrored shape</param>
+		/// <param name="mirrorZ">Mirrored shape</param>
 		public static void FillColdFormedZed(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, double Lip, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFZed;
@@ -85,6 +90,7 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
+
 		/// <summary>
 		/// Fill parameters for cold formed Omega section
 		/// </summary>
@@ -94,6 +100,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="FlangeWidth">Flange width</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
+		/// <param name="mirrorY"></param>
 		public static void FillColdFormedOmega(CrossSectionParameter css, double Width, double Height, double FlangeWidth, double Thickness, double Radius, bool mirrorY = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFOmega;
@@ -105,6 +112,7 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
 
+
 		/// <summary>
 		/// Fill parameters for cold formed L section
 		/// </summary>
@@ -113,6 +121,8 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Height">Vertical leg length</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
+		/// <param name="mirrorY"></param>
+		/// <param name="mirrorZ"></param>
 		public static void FillColdFormedL(CrossSectionParameter css, double Width, double Height, double Thickness, double Radius, bool mirrorY = false, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFL;
@@ -124,6 +134,7 @@ namespace IdeaRS.OpenModel.CrossSection
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorZ", Value = mirrorZ });
 		}
 
+
 		/// <summary>
 		/// Fill parameters for cold formed L - gen section
 		/// </summary>
@@ -133,6 +144,8 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="Angle">Angle between legs</param>
 		/// <param name="Thickness">Thickness</param>
 		/// <param name="Radius">Inside radius</param>
+		/// <param name="mirrorY"></param>
+		/// <param name="mirrorZ"></param>
 		public static void FillColdFormedLgen(CrossSectionParameter css, double Width, double Height, double Angle, double Thickness, double Radius, bool mirrorY = false, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFLgen;
@@ -174,6 +187,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="HeightMiddle">Height of middle part</param>
 		/// <param name="HeightEdge">Height of edge part</param>
 		/// <param name="Depth">Depth of web-fold</param>
+		/// <param name="mirrorZ"></param>
 		public static void FillColdFormedSigma(CrossSectionParameter css, double Height, double Width, double Lip, double Thickness, double InsideRadius, double HeightMiddle, double HeightEdge, double Depth, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFSigma;
@@ -222,6 +236,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		}
 
 
+
 		/// <summary>
 		/// Cold-formed C+ section
 		/// </summary>
@@ -233,6 +248,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		/// <param name="lip">Lenght of the first lip</param>
 		/// <param name="lip2">Lenght of the second lip</param>
 		/// <param name="lip2Angle">Angle between lips</param>
+		/// <param name="mirrorZ"></param>
 		public static void FillColdFormedCp(CrossSectionParameter css, double width, double height, double thickness, double radius, double lip, double lip2, double lip2Angle, bool mirrorZ = false)
 		{
 			css.CrossSectionType = CrossSectionType.CFCp;

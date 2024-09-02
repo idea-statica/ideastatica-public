@@ -1,10 +1,13 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
 	/// Reinforcement bar surface
 	/// </summary>
+	[DataContract]
 	public enum ReinfBarSurface
 	{
 		/// <summary>
@@ -21,6 +24,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Reinforcement stress-strain diagram
 	/// </summary>
+	[DataContract]
 	public enum ReinfDiagramType
 	{
 		/// <summary>
@@ -44,6 +48,8 @@ namespace IdeaRS.OpenModel.Material
 	/// </summary>
 	[XmlInclude(typeof(MatReinforcementEc2))]
 	[XmlInclude(typeof(MatReinforcementACI))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class MatReinforcement : Material
 	{
 		/// <summary>

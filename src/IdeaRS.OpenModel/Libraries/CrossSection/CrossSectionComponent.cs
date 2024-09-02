@@ -1,5 +1,7 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
@@ -88,6 +90,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.CrossSection,CI.CrossSection", "CI.StructModel.Libraries.CrossSection.ICrossSection,CI.BasicTypes", typeof(CrossSection))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionComponent : CrossSection
 	{
 		/// <summary>

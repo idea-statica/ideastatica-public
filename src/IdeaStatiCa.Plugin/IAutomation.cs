@@ -51,10 +51,16 @@ namespace IdeaStatiCa.Plugin
 		void RefreshProject();
 
 		/// <summary>
-		/// Close the
+		/// Close the project
 		/// </summary>
 		[OperationContract]
 		void CloseProject();
+
+		/// <summary>
+		/// Close the project
+		/// </summary>
+		[OperationContract]
+		Task CloseProjectAsync();
 
 		[OperationContract]
 		void Shutdown();

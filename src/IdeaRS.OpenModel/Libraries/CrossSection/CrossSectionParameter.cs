@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
 	/// <summary>
 	/// Type of cross-section
 	/// </summary>
+	[DataContract]
 	public enum CrossSectionType
 	{
 		/// <summary>
@@ -554,6 +557,7 @@ namespace IdeaRS.OpenModel.CrossSection
 		UniqueName = 1001,
 	}
 
+	[DataContract]
 	public enum BoxDeltaAligment
 	{
 		/// <summary>
@@ -576,6 +580,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Cross-section defined by parameters
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.CrossSection,CI.CrossSection", "CI.StructModel.Libraries.CrossSection.ICrossSection,CI.BasicTypes", typeof(CrossSection))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionParameter : CrossSection
 	{
 		/// <summary>

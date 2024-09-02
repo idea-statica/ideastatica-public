@@ -1,5 +1,5 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.Plugin.Api.RCS;
+using IdeaStatiCa.Api.RCS;
 using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RcsClient.Factory;
 using IomToRcsExamples;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
@@ -12,7 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-		<ProjectReference Include="..\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+		<ProjectReference Include="..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
 	</ItemGroup>

@@ -25,12 +25,18 @@
 		/// </summary>
 		public string Tooltip { get; }
 
-		public ActionButtonDescriptor(string name, string image, string text, string tooltip)
+		/// <summary>
+		/// Tooltip of the disable button in Checkbot.
+		/// </summary>
+		public string TooltipDisabled { get; }
+
+		public ActionButtonDescriptor(string name, string image, string text, string tooltip, string tooltipDisabled)
 		{
 			Name = name;
 			Image = image;
 			Text = text;
 			Tooltip = tooltip;
+			TooltipDisabled = tooltipDisabled;
 		}
 	}
 }

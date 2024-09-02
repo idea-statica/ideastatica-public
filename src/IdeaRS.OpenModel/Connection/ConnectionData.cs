@@ -670,6 +670,12 @@ namespace IdeaRS.OpenModel.Connection
 	public class CutBeamByBeamData
 	{
 		/// <summary>
+		/// Name of the cut
+		/// </summary>
+		[DataMember]
+		public string Name { get; set; }
+
+		/// <summary>
 		/// Modified object
 		/// </summary>
 		public ReferenceElement ModifiedObject { get; set; }
@@ -720,6 +726,12 @@ namespace IdeaRS.OpenModel.Connection
 		/// CutPart - The part of the stiffening member which is cut off
 		/// </summary>
 		public CutPart CutPart { get; set; }
+
+
+		/// <summary>
+		/// Extend before cut - for cuts where user can decide if modified beam will be extended or not
+		/// </summary>
+		public bool ExtendBeforeCut { get; set; }
 	}
 
 	/// <summary>

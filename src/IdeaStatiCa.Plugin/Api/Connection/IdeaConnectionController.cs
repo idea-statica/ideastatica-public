@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.Plugin
 {
@@ -87,7 +88,14 @@ namespace IdeaStatiCa.Plugin
 		/// <inheritdoc cref="IConnectionController.CloseProject"/>
 		public int CloseProject()
 		{
-			GrpcClient.MyBIM.CloseProject();
+			// blocks the thread, might cause problems, when run on a UI thread
+			return CloseProjectAsync().Result;
+		}
+
+		/// <inheritdoc cref="IConnectionController.CloseProjectAsync"/>
+		public async Task<int> CloseProjectAsync()
+		{
+			await GrpcClient.MyBIM.CloseProjectAsync();
 			return 1;
 		}
 
@@ -109,6 +117,22 @@ namespace IdeaStatiCa.Plugin
 		public void GeneratePdfReport(int conId, string filePath, ConnReportSettings settings)
 		{
 			ConnectionAutomation.GeneratePdfReport(conId, filePath, settings);
+		}
+
+		/// <inheritdoc cref="IConnectionController.GenerateWordReportStorage(int, ConnReportSettings)"/>
+		public IBlobStorage GenerateWordReportStorage(int conId, ConnReportSettings settings)
+		{
+			var reportId = ConnectionAutomation.GenerateWordReportIdentifier(conId, settings);
+			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
+			return blobStorage;
+		}
+
+		/// <inheritdoc cref="IConnectionController.GeneratePdfReportStorage(int, ConnReportSettings)"/>
+		public IBlobStorage GeneratePdfReportStorage(int conId, ConnReportSettings settings)
+		{
+			var reportId = ConnectionAutomation.GeneratePdfReportIdentifier(conId, settings);
+			var blobStorage = new BlobStorageGrpc(grpcBlobStorageClient, reportId);
+			return blobStorage;
 		}
 
 		protected void OpenConnectionClient()

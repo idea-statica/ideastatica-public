@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -13,6 +15,8 @@ namespace IdeaRS.OpenModel.Material
 	[XmlInclude(typeof(MatSteelCHN))]
 	[XmlInclude(typeof(MatSteelIND))]
 	[XmlInclude(typeof(MatSteelHKG))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class MatSteel : Material
 	{
 	}

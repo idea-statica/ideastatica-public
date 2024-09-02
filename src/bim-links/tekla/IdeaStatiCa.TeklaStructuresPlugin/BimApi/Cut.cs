@@ -36,6 +36,21 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 					return ideaObject;
 				}
 			}
+
+			//for some cases object is not created/imported yet
+			ideaObject = GetMaybe<IIdeaPlate>(ModifiedObjectNo);
+
+			if (ideaObject != null)
+			{
+				return ideaObject;
+			}
+
+			ideaObject = GetMaybe<IIdeaConnectedMember>(new ConnectedMemberIdentifier<IIdeaConnectedMember>(ModifiedObjectNo));
+
+			if (ideaObject != null)
+			{
+				return ideaObject;
+			}
 			return null;
 		}
 		public string ModifiedObjectNo { get; set; }

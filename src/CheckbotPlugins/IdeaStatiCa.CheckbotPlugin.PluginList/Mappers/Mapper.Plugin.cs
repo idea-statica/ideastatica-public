@@ -8,6 +8,7 @@
 				source.Name,
 				MapPluginType(source.Type),
 				Map(source.Driver),
+				Map(source.TabInfo),
 				Map(source.Actions),
 				MapActionButtons(source.CustomActions));
 		}
@@ -19,6 +20,7 @@
 				Type = MapPluginType(source.Type),
 				Driver = Map(source.DriverDescriptor),
 				Name = source.Name,
+				TabInfo = Map(source.TabInfoDescriptor),
 				Actions = Map(source.SystemActionsDescriptor),
 				CustomActions = MapActionButtons(source.CustomActionDescriptors)
 			};

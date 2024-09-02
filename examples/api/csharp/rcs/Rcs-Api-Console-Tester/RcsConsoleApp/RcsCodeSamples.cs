@@ -1,5 +1,4 @@
 ﻿#region rcsusings
-using IdeaStatiCa.Plugin.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Client;
 using IdeaStatiCa.RcsClient.Factory;
 #endregion
@@ -12,7 +11,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
-using IdeaStatiCa.Plugin.Api.RCS;
+using IdeaStatiCa.Api.RCS.Model;
+using IdeaStatiCa.Api.RCS;
 
 namespace RcsApiConsoleApp
 {

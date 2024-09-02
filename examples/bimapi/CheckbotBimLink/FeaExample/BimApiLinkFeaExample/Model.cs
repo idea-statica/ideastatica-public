@@ -12,11 +12,13 @@ namespace BimApiLinkFeaExample
 	internal class Model : IFeaModel
 	{
 		private readonly IFeaGeometryApi geometry;
+		private readonly IFeaLoadsApi loads;
 		private readonly IProgressMessaging messagingService;
 
-		public Model(IFeaGeometryApi geometry, IProgressMessaging messagingService)
+		public Model(IFeaGeometryApi geometry, IFeaLoadsApi loads, IProgressMessaging messagingService)
 		{
 			this.geometry = geometry;
+			this.loads = loads;
 			this.messagingService = messagingService;
 		}
 
@@ -57,10 +59,16 @@ namespace BimApiLinkFeaExample
 				.Cast<Identifier<IIdeaMember1D>>()
 				.ToList();
 
+			List<Identifier<IIdeaCombiInput>> loadCombinations = loads.GetLoadCombinationsIds()
+				.Select(x => new IntIdentifier<IIdeaCombiInput>(x))
+				.Cast<Identifier<IIdeaCombiInput>>()
+				.ToList();
+
 			return new FeaUserSelection()
 			{
 				Members = members,
-				Nodes = nodes
+				Nodes = nodes,
+				Combinations = loadCombinations				
 			};
 		}
 

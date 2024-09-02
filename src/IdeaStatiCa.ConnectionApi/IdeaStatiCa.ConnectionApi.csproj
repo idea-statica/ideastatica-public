@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\IdeaStatiCa.PluginsTools\IdeaStatiCa.PluginsTools.csproj" />
+		<ProjectReference Include="..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 	</ItemGroup>
 

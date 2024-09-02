@@ -1,10 +1,13 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
 	/// Cement class
 	/// </summary>
+	[DataContract]
 	public enum ConcCementClass
 	{
 		/// <summary>
@@ -26,6 +29,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Concrete aggreage type
 	/// </summary>
+	[DataContract]
 	public enum ConcAggregateType
 	{
 		/// <summary>
@@ -52,6 +56,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Concrete stress-strain diagram for fire
 	/// </summary>
+	[DataContract]
 	public enum ConcFireDiagramType
 	{
 		/// <summary>
@@ -68,6 +73,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Concrete stress-strain diagram
 	/// </summary>
+	[DataContract]
 	public enum ConcDiagramType
 	{
 		/// <summary>
@@ -140,6 +146,8 @@ namespace IdeaRS.OpenModel.Material
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.StructModel.Libraries.Material.ECEN.MatConcreteECEN,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatConcrete))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MatConcreteEc2 : MatConcrete
 	{
 		/// <summary>
