@@ -70,12 +70,6 @@
 		}
 
 		/// <summary>
-		/// Length of bolt
-		/// </summary>
-		double Length { get; }
-
-
-		/// <summary>
 		/// Material of the boltassembly
 		/// </summary>
 		IIdeaMaterial BoltGrade { get; }

@@ -43,5 +43,14 @@ namespace IdeaRS.OpenModel.Connection
 		/// Name
 		/// </summary>
 		public string Name { get; set; }
+
+		/// <summary>
+		/// Length
+		/// </summary>
+		public double Length
+		{
+			get;
+			set;
+		}
 	}
 }

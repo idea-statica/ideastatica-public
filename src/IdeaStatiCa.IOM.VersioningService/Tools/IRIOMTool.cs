@@ -19,5 +19,14 @@ namespace IdeaStatiCa.IOM.VersioningService.Tools
 				destination.CreateElementProperty(propertyName).ChangeElementValue(propertyValue);
 			}
 		}
+
+		public static void CopyProperty(ISIntermediate source, ISIntermediate destination, string sourcePropertyName, string destinationPropertyName)
+		{
+			var propertyValue = source.TryGetElementValue(sourcePropertyName);
+			if (!string.IsNullOrEmpty(propertyValue))
+			{
+				destination.CreateElementProperty(destinationPropertyName).ChangeElementValue(propertyValue);
+			}
+		}
 	}
 }

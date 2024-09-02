@@ -28,6 +28,14 @@ namespace IdeaStatiCa.BimApi
 		/// </summary>
 		IEnumerable<IIdeaObjectConnectable> ConnectedParts { get; }
 
+		/// <summary>
+		/// Length
+		/// </summary>
+		double Length
+		{
+			get;
+			set;
+		}
 	}
 }
 

@@ -35,6 +35,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 				AnchorType = anchotGrid.AnchorType,
 				WasherSize = anchotGrid.WasherSize,
 				ConcreteBlock = cb,
+				AnchoringLength = anchotGrid.AnchoringLength,
+				HookLength = anchotGrid.HookLength,
+				Length = anchotGrid.Length,
 			};
 			(connectionData.AnchorGrids ?? (connectionData.AnchorGrids = new List<AnchorGrid>())).Add(anchorGridIOM);
 

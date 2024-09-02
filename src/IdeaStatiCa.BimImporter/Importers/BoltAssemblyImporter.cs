@@ -44,7 +44,6 @@ namespace IdeaStatiCa.BimImporter.Importers
 				WasherThickness = boltAssemblyByParameters.WasherThickness,
 				WasherAtHead = boltAssemblyByParameters.WasherAtHead,
 				WasherAtNut = boltAssemblyByParameters.WasherAtNut,
-				Length = boltAssemblyByParameters.Length,
 				LoadFromLibrary = false,
 				BoltGrade = ctx.Import(boltAssemblyByParameters.BoltGrade),
 			};

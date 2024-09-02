@@ -128,14 +128,6 @@ namespace IdeaRS.OpenModel.Material
 
 		#endregion
 
-		/// <summary>
-		/// Length
-		/// </summary>
-		public double Length
-		{
-			get;
-			set;
-		}
 
 		/// <summary>
 		/// Load from library - try override properties from library find BoltAssembly by name

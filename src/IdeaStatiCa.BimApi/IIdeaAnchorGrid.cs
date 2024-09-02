@@ -37,5 +37,20 @@ namespace IdeaStatiCa.BimApi
 		/// Bolt Assembly
 		/// </summary>
 		IIdeaBoltAssembly BoltAssembly { get; }
+
+		/// <summary>
+		/// Anchoring Length
+		/// </summary>
+		double AnchoringLength
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Length of anchor hook<br/>
+		/// (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)
+		/// </summary>
+		double HookLength { get; set; }
 	}
 }

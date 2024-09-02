@@ -27,5 +27,20 @@ namespace IdeaRS.OpenModel.Connection
 		/// Washer Size used if AnchorType is washer
 		/// </summary>
 		public double WasherSize { get; set; }
+
+		/// <summary>
+		/// Anchoring Length
+		/// </summary>
+		public double AnchoringLength
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Length of anchor hook<br/>
+		/// (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)
+		/// </summary>
+		public double HookLength { get; set; }
 	}
 }
