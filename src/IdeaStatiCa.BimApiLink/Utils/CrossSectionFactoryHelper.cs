@@ -517,5 +517,24 @@ namespace IdeaStatiCa.BimApiLink.Utils
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = tf });
 			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
 		}
+
+		/// <summary>
+		/// T shape  - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Flange thickness</param>
+		/// <param name="bwT">Web thickness top</param>
+		/// <param name="bwB">Web thickness bottom</param>
+		public static void FillShapeTwh(IdeaCrossSectionByParameters css, double b, double h, double hf, double bwT, double bwB)
+		{
+			css.Type = CrossSectionType.Twh;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessTop", Value = bwT });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessBottom", Value = bwB });
+		}
 	}
 }
