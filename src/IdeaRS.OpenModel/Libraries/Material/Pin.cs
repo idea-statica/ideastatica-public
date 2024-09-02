@@ -78,5 +78,10 @@ namespace IdeaRS.OpenModel.Material
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Load from library - try override properties from library find Pin by name
+		/// </summary>
+		public bool LoadFromLibrary { get; set; }
 	}
 }
