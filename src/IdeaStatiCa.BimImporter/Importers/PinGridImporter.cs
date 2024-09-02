@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			PinGrid pinGridIOM = new PinGrid()
 			{
 				Id = 0,
+				Name = pinGrid.Name,
 				ConnectedPartIds = pinGrid.ConnectedParts.Select(cp => cp.Id).ToList(),
 				Assembly = ctx.Import(pinGrid.Pin),
 				AxisX = lcs.VecX,

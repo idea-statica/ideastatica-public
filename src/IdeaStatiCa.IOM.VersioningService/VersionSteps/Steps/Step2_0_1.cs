@@ -1,6 +1,7 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Extension;
+using IdeaStatiCa.IOM.VersioningService.Tools;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Linq;
@@ -42,7 +43,15 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				foreach (ISIntermediate connectionData in connectionDataList)
 				{
 					_logger.LogInformation("Change Element Property Name  ConenctionPointId => ConnectionPointId");
-					connectionData.ChangeElementPropertyName("ConnectionPointId", "ConenctionPointId");
+
+					var cpIds = connectionData.GetElements("ConnectionPoint;Id");
+					if (cpIds != null && cpIds.Any())
+					{
+						var conId = cpIds.First().GetElementValue(null);
+						connectionData.CreateElementProperty("ConenctionPointId").ChangeElementValue(conId);
+
+						connectionData.RemoveElementProperty("ConnectionPoint");
+					}
 				}
 			}
 		}
@@ -65,7 +74,12 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				foreach (ISIntermediate connectionData in connectionDataList)
 				{
 					_logger.LogInformation("Change Element Property Name ConnectionPointId => ConenctionPointId ");
-					connectionData.ChangeElementPropertyName("ConenctionPointId", "ConnectionPointId");
+					var conId = connectionData.GetElementValue("ConenctionPointId");
+
+					connectionData.RemoveElementProperty("ConenctionPointId");
+
+					var cpIRobj = connectionData.CreateElementProperty("ConnectionPoint");
+					IRIOMTool.CreateIOMReferenceElement(cpIRobj, "ConnectionPoint", conId);
 				}
 			}
 		}

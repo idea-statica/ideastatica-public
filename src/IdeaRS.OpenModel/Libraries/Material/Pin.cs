@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
-	/// Bolt assembly
+	/// Pin
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.Pin,CI.Material", "CI.StructModel.Libraries.Material.IPin,CI.BasicTypes", typeof(Pin))]
 	[DataContract]
@@ -12,11 +12,10 @@ namespace IdeaRS.OpenModel.Material
 	public class Pin : OpenElementId
 	{
 		/// <summary>
-		/// Name of bolt assembly
+		/// Name of pin
 		/// </summary>
 		public string Name { get; set; }
 
-		#region Bolt
 
 		/// <summary>
 		/// Pin Material
@@ -76,8 +75,6 @@ namespace IdeaRS.OpenModel.Material
 			get;
 			set;
 		}
-
-		#endregion
 
 		/// <summary>
 		/// Load from library - try override properties from library find Pin by name

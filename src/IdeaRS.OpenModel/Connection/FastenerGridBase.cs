@@ -25,7 +25,7 @@ namespace IdeaRS.OpenModel.Connection
 		public IdeaRS.OpenModel.Geometry3D.Vector3D AxisZ { get; set; }
 
 		/// <summary>
-		/// Positions of holes in the local coordinate system of the bolt grid
+		/// Positions of holes in the local coordinate system of the grid
 		/// </summary>
 		public List<IdeaRS.OpenModel.Geometry3D.Point3D> Positions { get; set; }
 
@@ -38,5 +38,10 @@ namespace IdeaRS.OpenModel.Connection
 		/// Assembly
 		/// </summary>
 		public ReferenceElement Assembly { get; set; }
+
+		/// <summary>
+		/// Name
+		/// </summary>
+		public string Name { get; set; }
 	}
 }

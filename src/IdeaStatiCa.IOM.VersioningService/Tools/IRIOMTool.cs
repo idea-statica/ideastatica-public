@@ -7,9 +7,8 @@ namespace IdeaStatiCa.IOM.VersioningService.Tools
 	{
 		public static void CreateIOMReferenceElement(SObject sourceObject, string referenceType, string referenceObjectId)
 		{
-			var referenceElement = sourceObject.CreateElementProperty("ReferenceElement");
-			referenceElement.CreateElementProperty("TypeName").ChangeElementValue(referenceType);
-			referenceElement.CreateElementProperty("Id").ChangeElementValue(referenceObjectId);
+			sourceObject.CreateElementProperty("TypeName").ChangeElementValue(referenceType);
+			sourceObject.CreateElementProperty("Id").ChangeElementValue(referenceObjectId);
 		}
 
 		public static void CreateProperty(ISIntermediate source, ISIntermediate destination, string propertyName)

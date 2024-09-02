@@ -22,6 +22,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			BoltGrid boltGridIOM = new BoltGrid()
 			{
 				Id = 0,
+				Name = boltGrid.Name,
 				ConnectedPartIds = boltGrid.ConnectedParts.Select(cp => cp.Id).ToList(),
 				Assembly = ctx.Import(boltGrid.BoltAssembly),
 				BoltInteraction = boltGrid.BoltShearType,

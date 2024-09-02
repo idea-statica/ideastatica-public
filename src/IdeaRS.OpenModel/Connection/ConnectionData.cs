@@ -11,10 +11,10 @@ namespace IdeaRS.OpenModel.Connection
 	public class ConnectionData
 	{
 		/// <summary>
-		/// Connection Point Id
+		/// Connection Point
 		/// </summary>
 		[DataMember]
-		public int ConnectionPointId { get; set; }
+		public ReferenceElement ConnectionPoint { get; set; }
 
 		/// <summary>
 		/// Connected beams

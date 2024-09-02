@@ -23,6 +23,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			AnchorGrid anchorGridIOM = new AnchorGrid()
 			{
 				Id = 0,
+				Name = anchotGrid.Name,
 				ConnectedPartIds = anchotGrid.ConnectedParts.Select(cp => cp.Id).ToList(),
 				Assembly = ctx.Import(anchotGrid.BoltAssembly),
 				ShearInThread = anchotGrid.ShearInThread,
