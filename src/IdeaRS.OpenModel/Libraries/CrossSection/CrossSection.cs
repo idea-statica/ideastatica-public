@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
@@ -8,6 +10,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	[XmlInclude(typeof(CrossSectionParameter))]
 	[XmlInclude(typeof(CrossSectionComponent))]
 	[XmlInclude(typeof(CrossSectionGeneralColdFormed))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class CrossSection : OpenElementId
 	{
 		/// <summary>

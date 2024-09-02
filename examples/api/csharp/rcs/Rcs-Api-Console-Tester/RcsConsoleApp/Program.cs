@@ -1,6 +1,6 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.Plugin.Api.RCS;
-using IdeaStatiCa.Plugin.Api.RCS.Model;
+using IdeaStatiCa.Api.RCS;
+using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsClient.Factory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

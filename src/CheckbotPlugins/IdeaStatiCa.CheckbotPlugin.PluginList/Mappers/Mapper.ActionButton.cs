@@ -4,12 +4,12 @@
 	{
 		internal static Descriptors.ActionButtonDescriptor? Map(Json.ActionButton? source)
 		{
-			if(source is null)
+			if (source is null)
 			{
 				return null;
 			}
 
-			return new Descriptors.ActionButtonDescriptor(source.Name, source.Image, source.Text, source.Tooltip);
+			return new Descriptors.ActionButtonDescriptor(source.Name, source.Image, source.Text, source.Tooltip, source.TooltipDisabled);
 		}
 
 		internal static Json.ActionButton? Map(Descriptors.ActionButtonDescriptor? source)
@@ -24,7 +24,8 @@
 				Name = source.Name,
 				Image = source.Image,
 				Text = source.Text,
-				Tooltip = source.Tooltip
+				Tooltip = source.Tooltip,
+				TooltipDisabled = source.TooltipDisabled,
 			};
 		}
 	}

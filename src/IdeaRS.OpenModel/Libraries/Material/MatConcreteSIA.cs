@@ -1,4 +1,5 @@
-﻿using IdeaRS.OpenModel.Geometry2D;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -79,6 +80,8 @@ namespace IdeaRS.OpenModel.Material
 	/// Material concrete SIA
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.SIA.MatConcreteSIA,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatConcrete))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MatConcreteSIA : MatConcrete
 	{
 		/// <summary>

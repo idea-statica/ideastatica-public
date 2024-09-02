@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -10,6 +7,8 @@ namespace IdeaRS.OpenModel.Material
 	/// Bolt assembly
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.Material.BoltAssembly,CI.Material", "CI.StructModel.Libraries.Material.BoltAssembly,CI.Material", typeof(BoltAssembly))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class BoltAssembly : OpenElementId
 	{
 		/// <summary>

@@ -1,10 +1,13 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
 	/// <summary>
 	/// Tendon ducts material type
 	/// </summary>
+	[DataContract]
 	public enum MaterialDuct
 	{
 		/// <summary>
@@ -22,6 +25,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Tendon duct
 	/// </summary>
 	[OpenModelClass("CI.Services.Concrete.ReinforcedSection.TendonDuct,CI.ReinforcedSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class TendonDuct : OpenObject
 	{
 		/// <summary>

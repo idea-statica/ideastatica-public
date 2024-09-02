@@ -46,9 +46,16 @@ namespace IdeaStatiCa.Plugin
 			RefreshProjectAsync().Wait();
 		}
 
-		public virtual void CloseProject()
+		public void CloseProject()
+		{
+			CloseProjectAsync().Wait();
+		}
+
+		public virtual Task CloseProjectAsync()
 		{
 			Debug.Fail("Not implemented");
+
+			return Task.CompletedTask;
 		}
 
 		public virtual void Shutdown()

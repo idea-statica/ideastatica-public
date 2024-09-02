@@ -1,4 +1,6 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
@@ -6,6 +8,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Stirrup
 	/// </summary>
 	[OpenModelClass("CI.Services.Concrete.ReinforcedSection.OneStirrup,CI.ReinforcedSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class Stirrup : OpenObject
 	{
 		/// <summary>

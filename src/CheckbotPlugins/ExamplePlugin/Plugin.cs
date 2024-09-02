@@ -11,6 +11,8 @@ namespace ExamplePlugin
 {
 	internal class Plugin
 	{
+		private TaskCompletionSource _tcs = new();
+
 		private readonly IProjectService _projectService;
 
 		public Plugin(IProjectService projectService, IEventService eventService)
@@ -18,6 +20,11 @@ namespace ExamplePlugin
 			_projectService = projectService;
 
 			eventService.Subscribe(OnEvent);
+		}
+
+		public void Run()
+		{
+			_tcs.Task.GetAwaiter().GetResult();
 		}
 
 		private async Task OnEvent(Event evt)
@@ -28,12 +35,15 @@ namespace ExamplePlugin
 				ModelExportOptions exportOptions = new ModelExportOptions();
 				exportOptions.WithResults = false;
 
-				OpenModelContainer iom = await _projectService.GetObjects(new[] { openCheckApplication.ModelObject }, exportOptions);
+				OpenModelContainer iom = Tools.DeserializeModel<OpenModelContainer>(_projectService.GetObjects(new[] { openCheckApplication.ModelObject }, ModelExportOptions.Default));
 				ConnectionPoint conn = iom.OpenModel.ConnectionPoint[0];
 
 				PrintConnectionInfo(iom, conn);
 
 				string path = SaveToTemp(iom);
+
+				var info = await _projectService.GetInfo();
+
 
 				ProcessStartInfo startInfo = new()
 				{
@@ -42,13 +52,17 @@ namespace ExamplePlugin
 				};
 				startInfo.ArgumentList.Add(path);
 
-				Process.Start(startInfo);
+				var proc = Process.Start(startInfo);
+				proc.EnableRaisingEvents = true;
+				proc.Exited += Proc_Exited;
 			}
 			if (evt is EventCustomButtonClicked customButtonClicked)
 			{
 				Console.WriteLine("Clicked on " + customButtonClicked.ButtonName);
 			}
 		}
+
+		private void Proc_Exited(object? sender, EventArgs e) => _tcs.SetResult();
 
 		private static void PrintConnectionInfo(OpenModelContainer iom, ConnectionPoint conn)
 		{

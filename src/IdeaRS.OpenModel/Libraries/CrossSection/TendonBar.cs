@@ -1,10 +1,13 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
 	/// <summary>
 	/// Posttensioned reinforcement type
 	/// </summary>
+	[DataContract]
 	public enum FatigueTypeOfPrestressingSteel
 	{
 		/// <summary>
@@ -41,6 +44,7 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// Tendon bar type
 	/// </summary>
+	[DataContract]
 	public enum TendonBarType
 	{
 		/// <summary>
@@ -58,6 +62,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Tendon bar
 	/// </summary>
 	[OpenModelClass("CI.Services.Concrete.ReinforcedSection.TendonBar,CI.ReinforcedSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class TendonBar : OpenObject
 	{
 		/// <summary>

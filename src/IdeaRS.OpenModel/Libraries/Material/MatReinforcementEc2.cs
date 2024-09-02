@@ -1,10 +1,13 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
 	/// Reinforcement class type
 	/// </summary>
+	[DataContract]
 	public enum ReinfClass
 	{
 		/// <summary>
@@ -26,6 +29,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Type of reinforcement
 	/// </summary>
+	[DataContract]
 	public enum ReinfType
 	{
 		/// <summary>
@@ -52,6 +56,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Reinforcement fabrication
 	/// </summary>
+	[DataContract]
 	public enum ReinfFabrication
 	{
 		/// <summary>
@@ -68,6 +73,7 @@ namespace IdeaRS.OpenModel.Material
 	/// <summary>
 	/// Stress-strain reeinforcemnt diagram for fire
 	/// </summary>
+	[DataContract]
 	public enum ReinfFireDiagramType
 	{
 		/// <summary>
@@ -119,6 +125,8 @@ namespace IdeaRS.OpenModel.Material
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.StructModel.Libraries.Material.ECEN.MatReinforcementECEN,CI.Material", "CI.StructModel.Libraries.Material.IMatReinforcement,CI.BasicTypes", typeof(MatReinforcement))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MatReinforcementEc2 : MatReinforcement
 	{
 		/// <summary>

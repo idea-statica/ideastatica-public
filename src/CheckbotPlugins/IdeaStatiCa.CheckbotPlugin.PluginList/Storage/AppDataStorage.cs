@@ -14,7 +14,8 @@
 
 		public Stream GetWriteStream()
 		{
-			return File.OpenWrite(GetPath());
+			//File.OpenWrite cant be used because not rewrite all data only stream part and longer old one keep there => create invalid file 
+			return File.Create(GetPath());
 		}
 
 		private static string GetPath()

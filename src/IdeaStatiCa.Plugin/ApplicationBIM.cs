@@ -1,5 +1,4 @@
-﻿using Nito.AsyncEx.Synchronous;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -68,7 +67,7 @@ namespace IdeaStatiCa.Plugin
 		{
 			try
 			{
-				return GetActiveSelectionModelXMLAsync(countryCode, requestedType).WaitAndUnwrapException();
+				return GetActiveSelectionModelXMLAsync(countryCode, requestedType).GetAwaiter().GetResult();
 			}
 			catch (Exception ex)
 			{
@@ -102,7 +101,7 @@ namespace IdeaStatiCa.Plugin
 		{
 			try
 			{
-				return GetModelForSelectionXMLAsync(countryCode, items).WaitAndUnwrapException();
+				return GetModelForSelectionXMLAsync(countryCode, items).GetAwaiter().GetResult();
 			}
 			catch (Exception ex)
 			{
