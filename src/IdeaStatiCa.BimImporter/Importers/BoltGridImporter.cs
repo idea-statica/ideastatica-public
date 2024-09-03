@@ -23,7 +23,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				Id = 0,
 				Name = boltGrid.Name,
-				ConnectedPartIds = boltGrid.ConnectedParts.Select(cp => cp.Id).ToList(),
+				ConnectedParts = boltGrid.ConnectedParts.Select(cp => new ReferenceElement(ctx.ImportConnectionItem(cp, connectionData) as OpenElementId)).ToList(),
 				Assembly = ctx.Import(boltGrid.BoltAssembly),
 				BoltInteraction = boltGrid.BoltShearType,
 				ShearInThread = boltGrid.ShearInThread,

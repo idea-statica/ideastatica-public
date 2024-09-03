@@ -193,7 +193,7 @@ namespace IOM.GeneratorExample
 			IdeaRS.OpenModel.Connection.BoltGrid boltGrid = new IdeaRS.OpenModel.Connection.BoltGrid()
 			{
 				Id = 41,
-				ConnectedPartIds = new List<string>(),
+				ConnectedParts = new List<ReferenceElement>(),
 				Assembly = new ReferenceElement(boltAssembly),
 				Length = 0.05,
 			};
@@ -230,7 +230,7 @@ namespace IOM.GeneratorExample
 				}
 			};
 
-			boltGrid.ConnectedPartIds = new List<string>() { beam2Data.OriginalModelId, plateData.OriginalModelId };
+			boltGrid.ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(beam2Data), new ReferenceElement(plateData) };
 
 			(openModel.Connections[0].BoltGrids ?? (openModel.Connections[0].BoltGrids = new List<IdeaRS.OpenModel.Connection.BoltGrid>())).Add(boltGrid);
 
