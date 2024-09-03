@@ -20,6 +20,7 @@ namespace IdeaRS.OpenModel
 {
 	///Version history
 	/// V2.1 27.08 2024 Added Pins
+	/// V2.0.6 27.08 2024 Grids connectedParts by reference => delete connectedParttIds
 	/// V2.0.5 27.08 2024 Added separated Bold, Anchor, 
 	/// V2.0.1 27.08 2024 Version switch type from int to string
 	/// V2 15. 12. 2021 cad plugins have member id conversion table => member id must be lower than 32 768

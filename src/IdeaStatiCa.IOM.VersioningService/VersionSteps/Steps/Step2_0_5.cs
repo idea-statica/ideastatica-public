@@ -15,7 +15,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		private readonly Dictionary<string, string> boltGradeDic;
 
 		/// <summary>
-		/// Change boltgids and anchor grids
+		/// Change bolt grids and anchor grids
 		/// </summary>
 		/// <param name="logger"></param>
 		public Step205(IPluginLogger logger) : base(logger)
@@ -206,7 +206,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		{
 			var newBoltGrade = new SObject() { TypeName = "MaterialBoltGrade" };
 			newBoltGrade.CreateElementProperty("Name").ChangeElementValue(material);
-			newBoltGrade.CreateElementProperty("LoadFromLibrary").ChangeElementValue("True");
+			newBoltGrade.CreateElementProperty("LoadFromLibrary").ChangeElementValue("true");
 
 			var idProperty = newBoltGrade.CreateElementProperty("Id");
 			idProperty.ChangeElementValue((boltGradeList.Count + 1).ToString());

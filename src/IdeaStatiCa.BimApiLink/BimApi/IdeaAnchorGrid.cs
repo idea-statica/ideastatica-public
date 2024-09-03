@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Parameters;
-using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using System.Collections.Generic;
 
 namespace IdeaStatiCa.BimApiLink.BimApi
@@ -43,5 +43,8 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 		public IIdeaBoltAssembly BoltAssembly { get; set; }
 
 		public IIdeaPersistenceToken Token { get; set; }
+		public double AnchoringLength { get; set; }
+		public double HookLength { get; set; }
+		public double Length { get; set; }
 	}
 }

@@ -21,7 +21,7 @@ namespace IdeaRS.OpenModel.Parameters
 		/// <summary>
 		/// Rectangular washer plate.
 		/// </summary>
-		WasherPlateRectangular
+		WasherPlateRectangular,
 
 		/// <summary>
 		/// Hook

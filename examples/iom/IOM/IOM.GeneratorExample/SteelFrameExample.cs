@@ -185,7 +185,6 @@ namespace IOM.GeneratorExample
 				BoreHole = 0.018,
 				TensileStressArea = 157,
 				NutThickness = 0.013,
-				Length = 0.05,
 				Id = 1,
 				BoltGrade = new ReferenceElement(materialBoltGrade)
 			};
@@ -196,6 +195,7 @@ namespace IOM.GeneratorExample
 				Id = 41,
 				ConnectedPartIds = new List<string>(),
 				Assembly = new ReferenceElement(boltAssembly),
+				Length = 0.05,
 			};
 
 			boltGrid.Origin = new IdeaRS.OpenModel.Geometry3D.Point3D() { X = plateData.Origin.X, Y = plateData.Origin.Y, Z = plateData.Origin.Z };
