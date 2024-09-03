@@ -213,7 +213,12 @@ namespace ConnectionWebClient.ViewModels
 			{
 				ProjectInfo = await ConnectionController.OpenProjectAsync(openFileDialog.FileName, cts.Token);
 
-				OutputText =JsonTools.ToFormatedJson(ProjectInfo);
+				var projectInfoJson =JsonTools.ToFormatedJson(ProjectInfo);
+
+
+				var connectionInfo = ConnectionController.GetConnectionInfo();
+				OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", connectionInfo.Item1, connectionInfo.Item2, projectInfoJson);
+				
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 
 				if(Connections.Any())
@@ -261,6 +266,9 @@ namespace ConnectionWebClient.ViewModels
 					}
 
 					ConnectionController = await _connectionApiClientFactory.CreateConnectionApiClient(ApiUri);
+
+					var connectionInfo = ConnectionController.GetConnectionInfo();
+					OutputText = $"ClientId = {connectionInfo.Item1}, ProjectId = {connectionInfo.Item2}";
 				}
 			}
 			catch (Exception ex)

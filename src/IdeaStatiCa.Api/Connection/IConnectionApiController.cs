@@ -14,6 +14,12 @@ namespace IdeaStatiCa.Api.Connection
 	public interface IConnectionApiController : IDisposable
 	{
 		/// <summary>
+		/// Get data about the active connection
+		/// </summary>
+		/// <returns></returns>
+		Tuple<string, string> GetConnectionInfo();
+
+		/// <summary>
 		/// Open idea project in the service
 		/// </summary>
 		/// <param name="ideaConProject">Idea Connection project filename</param>

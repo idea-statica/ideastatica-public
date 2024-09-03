@@ -34,7 +34,6 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		private readonly int restApiProcessId;
 		private Guid activeProjectId;
 		private Guid ClientId;
-
 		private readonly IHttpClientWrapper _httpClient;
 		private readonly IPluginLogger _pluginLogger;
 
@@ -43,6 +42,11 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			this.restApiProcessId = restApiProcessId;
 			_httpClient = httpClient;
 			_pluginLogger = pluginLogger ?? new NullLogger();
+		}
+
+		public Tuple<string, string> GetConnectionInfo()
+		{
+			return new Tuple<string, string>(ClientId.ToString(), activeProjectId.ToString());
 		}
 
 		public async Task InitializeClientIdAsync(CancellationToken cancellationToken)
