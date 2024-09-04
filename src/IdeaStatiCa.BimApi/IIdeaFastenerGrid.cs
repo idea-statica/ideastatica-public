@@ -3,9 +3,9 @@
 namespace IdeaStatiCa.BimApi
 {
 	/// <summary>
-	/// Represent base of grid
+	/// Represent base of fastener grid
 	/// </summary>
-	public interface IIdeaGrid : IIdeaPersistentObject
+	public interface IIdeaFastenerGrid : IIdeaPersistentObject
 	{
 		/// <summary>
 		/// Origin node of the bolt grid.

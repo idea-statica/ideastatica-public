@@ -5,5 +5,9 @@
 	/// </summary>
 	public class PinGrid : FastenerGridBase
 	{
+		/// <summary>
+		/// Replaceable pin
+		/// </summary>
+		public bool IsReplaceable { get; set; }
 	}
 }

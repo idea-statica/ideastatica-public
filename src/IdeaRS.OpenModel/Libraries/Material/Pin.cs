@@ -18,9 +18,9 @@ namespace IdeaRS.OpenModel.Material
 
 
 		/// <summary>
-		/// Pin Material
+		/// Material of pin
 		/// </summary>
-		public ReferenceElement PinMaterial { get; set; }
+		public ReferenceElement Material { get; set; }
 
 		/// <summary>
 		/// Pin diameter

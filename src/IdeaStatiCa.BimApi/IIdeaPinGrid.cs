@@ -1,9 +1,9 @@
 ﻿namespace IdeaStatiCa.BimApi
 {
 	/// <summary>
-	/// Represent pin grid extend IIdeaGrid
+	/// Represent pin grid extend IIdeaFastenerGrid
 	/// </summary>
-	public interface IIdeaPinGrid : IIdeaGrid
+	public interface IIdeaPinGrid : IIdeaFastenerGrid
 	{
 		/// <summary>
 		/// Pin

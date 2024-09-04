@@ -3,9 +3,9 @@
 namespace IdeaStatiCa.BimApi
 {
 	/// <summary>
-	/// Represent anchor grid extend IIdeaGrid
+	/// Represent anchor grid extend IIdeaFastenerGrid
 	/// </summary>
-	public interface IIdeaAnchorGrid : IIdeaGrid
+	public interface IIdeaAnchorGrid : IIdeaFastenerGrid
 	{
 
 		/// <summary>

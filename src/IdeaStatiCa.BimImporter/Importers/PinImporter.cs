@@ -41,7 +41,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				PinCapThickness = pinByParameters.PinCapThickness,
 				PinOverlap = pinByParameters.PinOverlap,
 				LoadFromLibrary = false,
-				PinMaterial = ctx.Import(pinByParameters.Material),
+				Material = ctx.Import(pinByParameters.Material),
 			};
 		}
 

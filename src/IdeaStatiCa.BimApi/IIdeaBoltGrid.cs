@@ -5,7 +5,7 @@ namespace IdeaStatiCa.BimApi
 	/// <summary>
 	/// Represent bolt grid
 	/// </summary>
-	public interface IIdeaBoltGrid : IIdeaGrid
+	public interface IIdeaBoltGrid : IIdeaFastenerGrid
 	{
 		/// <summary>
 		/// Shear in thread

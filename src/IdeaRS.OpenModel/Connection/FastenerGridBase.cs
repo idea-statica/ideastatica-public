@@ -29,11 +29,6 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		public List<IdeaRS.OpenModel.Geometry3D.Point3D> Positions { get; set; }
 
-		/*/// <summary>
-		/// Id of the connected parts
-		/// </summary>
-		public List<string> ConnectedPartIds { get; set; }*/
-
 		/// <summary>
 		/// List of the connected parts
 		/// </summary>
