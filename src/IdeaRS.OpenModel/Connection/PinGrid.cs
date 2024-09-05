@@ -9,5 +9,10 @@
 		/// Replaceable pin
 		/// </summary>
 		public bool IsReplaceable { get; set; }
+
+		/// <summary>
+		/// Pin
+		/// </summary>
+		public ReferenceElement Pin { get; set; }
 	}
 }

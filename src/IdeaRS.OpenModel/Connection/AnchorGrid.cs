@@ -42,5 +42,10 @@ namespace IdeaRS.OpenModel.Connection
 		/// (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)
 		/// </summary>
 		public double HookLength { get; set; }
+
+		/// <summary>
+		/// Assembly
+		/// </summary>
+		public ReferenceElement BoltAssembly { get; set; }
 	}
 }

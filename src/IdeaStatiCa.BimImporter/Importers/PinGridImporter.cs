@@ -24,7 +24,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Id = 0,
 				Name = pinGrid.Name,
 				ConnectedParts = pinGrid.ConnectedParts.Select(cp => new ReferenceElement(ctx.ImportConnectionItem(cp, connectionData) as OpenElementId)).ToList(),
-				Assembly = ctx.Import(pinGrid.Pin),
+				Pin = ctx.Import(pinGrid.Pin),
 				AxisX = lcs.VecX,
 				AxisY = lcs.VecY,
 				AxisZ = lcs.VecZ,

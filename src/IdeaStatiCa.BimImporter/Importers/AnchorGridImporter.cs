@@ -25,7 +25,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 				Id = 0,
 				Name = anchotGrid.Name,
 				ConnectedParts = anchotGrid.ConnectedParts.Select(cp => new ReferenceElement(ctx.ImportConnectionItem(cp, connectionData) as OpenElementId)).ToList(),
-				Assembly = ctx.Import(anchotGrid.BoltAssembly),
+				BoltAssembly = ctx.Import(anchotGrid.BoltAssembly),
 				ShearInThread = anchotGrid.ShearInThread,
 				AxisX = lcs.VecX,
 				AxisY = lcs.VecY,

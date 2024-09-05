@@ -13,5 +13,10 @@ namespace IdeaRS.OpenModel.Connection
 		/// Indicates type of shear transfer
 		/// </summary>
 		public BoltShearType BoltInteraction { get; set; }
+
+		/// <summary>
+		/// Assembly
+		/// </summary>
+		public ReferenceElement BoltAssembly { get; set; }
 	}
 }

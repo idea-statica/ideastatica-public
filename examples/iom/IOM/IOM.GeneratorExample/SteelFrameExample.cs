@@ -194,7 +194,7 @@ namespace IOM.GeneratorExample
 			{
 				Id = 41,
 				ConnectedParts = new List<ReferenceElement>(),
-				Assembly = new ReferenceElement(boltAssembly),
+				BoltAssembly = new ReferenceElement(boltAssembly),
 				Length = 0.05,
 			};
 

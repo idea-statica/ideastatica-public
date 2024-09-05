@@ -81,7 +81,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		{
 			foreach (var boltGrid in boltGrids)
 			{
-				var boltGridAssemblyId = boltGrid.TakeElementProperty("Assembly")
+				var boltGridAssemblyId = boltGrid.TakeElementProperty("BoltAssembly")
 					.GetElements("Id").FirstOrDefault()?.GetElementValue(null);
 
 				if (boltGridAssemblyId == null)
@@ -111,7 +111,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		{
 			foreach (var anchorGrid in anchorGrids)
 			{
-				var anchorGridAssemblyId = anchorGrid.TakeElementProperty("Assembly")
+				var anchorGridAssemblyId = anchorGrid.TakeElementProperty("BoltAssembly")
 					.GetElements("Id").FirstOrDefault()?.GetElementValue(null);
 
 				if (anchorGridAssemblyId == null)
@@ -145,7 +145,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			foreach (var boltGrid in boltGrids)
 			{
 				string boltAssemblyId = GetOrCreateBoltAssembly(boltGrid, boltAssemblyList, boltGradeList);
-				var assembly = boltGrid.CreateElementProperty("Assembly");
+				var assembly = boltGrid.CreateElementProperty("BoltAssembly");
 
 				RemoveAssemblyPropertiesFromGrid(boltGrid);
 				IRIOMTool.CreateIOMReferenceElement(assembly, "BoltAssembly", boltAssemblyId);
@@ -157,12 +157,12 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			foreach (var anchorGrid in anchorGrids)
 			{
 				string anchorAssemblyId = GetOrCreateBoltAssembly(anchorGrid, boltAssemblyList, boltGradeList);
-				var assembly = anchorGrid.CreateElementProperty("Assembly");
+				var assembly = anchorGrid.CreateElementProperty("BoltAssembly");
 
 				IRIOMTool.CopyProperty(anchorGrid, anchorGrid, "AnchorLen", "AnchoringLength");
 
 				RemoveAssemblyPropertiesFromGrid(anchorGrid);
-				IRIOMTool.CreateIOMReferenceElement(assembly, "AnchorAssembly", anchorAssemblyId);
+				IRIOMTool.CreateIOMReferenceElement(assembly, "BoltAssembly", anchorAssemblyId);
 			}
 		}
 

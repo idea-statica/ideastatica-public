@@ -35,11 +35,6 @@ namespace IdeaRS.OpenModel.Connection
 		public List<ReferenceElement> ConnectedParts { get; set; }
 
 		/// <summary>
-		/// Assembly
-		/// </summary>
-		public ReferenceElement Assembly { get; set; }
-
-		/// <summary>
 		/// Name
 		/// </summary>
 		public string Name { get; set; }
