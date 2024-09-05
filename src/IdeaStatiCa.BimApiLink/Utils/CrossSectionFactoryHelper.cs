@@ -305,5 +305,236 @@ namespace IdeaStatiCa.BimApiLink.Utils
 			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
 			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = tf });
 		}
+
+		/// <summary>
+		/// Creates a new L shape css - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">The height of css.</param>
+		/// <param name="b">The width of css.</param>
+		/// <param name="th">The bottom flange thisckness.</param>
+		/// <param name="sh">The wall thickness.</param>
+		public static void FillShapeL(IdeaCrossSectionByParameters css, double h, double b, double th, double sh)
+		{
+			css.Type = CrossSectionType.Lg;
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "SH", Value = sh });
+		}
+
+		/// <summary>
+		/// Fills a double channel steel section. They form an open/front-to-front ][ shape.
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">The width of css</param>
+		/// <param name="h">The height of css</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="th">Flange thickness</param>
+		/// <param name="distance">Distance between ][</param>
+		public static void FillComposedDblUo(IdeaCrossSectionByParameters css, double b, double h, double tw, double th, double distance)
+		{
+			css.Type = CrossSectionType.RolledDoubleUo;
+			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bw", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
+		}
+
+		/// <summary>
+		/// I shape - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">Total height</param>
+		/// <param name="btf">Width of the upper part</param>
+		/// <param name="bbf">Width of the bottom part</param>
+		/// <param name="htf">Thickness of the upper part</param>
+		/// <param name="hbf">Thickness of the bottom  part</param>
+		/// <param name="tw">Thinkness of the web</param>
+		public static void FillShapeI(IdeaCrossSectionByParameters css, double h, double btf, double bbf, double htf, double hbf, double tw)
+		{
+			css.Type = CrossSectionType.Ign;
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bh", Value = btf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bs", Value = bbf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Ts", Value = hbf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Th", Value = htf });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tw", Value = tw });
+		}
+
+		/// <summary>
+		/// T shape  - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Top flange width</param>
+		/// <param name="bw">Wall width</param>
+		public static void FillShapeT(IdeaCrossSectionByParameters css, double b, double h, double hf, double bw)
+		{
+			css.Type = CrossSectionType.Tg;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TopFlangeWidth", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WallWidth", Value = bw });
+		}
+
+		/// <summary>
+		/// T shape  - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Flange thickness</param>
+		/// <param name="bwT">Web thickness top</param>
+		/// <param name="bwB">Web thickness bottom</param>
+		public static void IdeaCrossSectionByParameters(IdeaCrossSectionByParameters css, double b, double h, double hf, double bwT, double bwB)
+		{
+			css.Type = CrossSectionType.Twh;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessTop", Value = bwT });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessBottom", Value = bwB });
+		}
+
+		/// <summary>
+		/// Creates a new L shape css
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="h">The height of css.</param>
+		/// <param name="b">The width of css.</param>
+		/// <param name="th">Thickness</param>
+		/// <param name="distance">Distance between _||_</param>
+		/// <param name="shortLegUp"></param>
+		/// <param name="mirrorY"></param>
+		public static void FillComposedDblLt(IdeaCrossSectionByParameters css, double h, double b, double th, double distance, bool shortLegUp = false, bool mirrorY = false)
+		{
+			css.Type = CrossSectionType.RolledDoubleLt;
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "B", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "TH", Value = th });
+			css.Parameters.Add(new ParameterDouble() { Name = "Distance", Value = distance });
+			css.Parameters.Add(new ParameterBool() { Name = "Mirror", Value = shortLegUp });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		/// <summary>
+		/// Fill massive pipe shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="r">The radius of circle.</param>
+		/// <param name="t">The thickness of wall.</param>
+		public static void FillOHollow(IdeaCrossSectionByParameters css, double r, double t)
+		{
+			css.Type = CrossSectionType.CHSg;
+			css.Parameters.Add(new ParameterDouble() { Name = "R", Value = r });
+			css.Parameters.Add(new ParameterDouble() { Name = "T", Value = t });
+		}
+
+		/// <summary>
+		/// Fill cross-section of shape rectangular for concrete sections
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="width">The width of css.</param>
+		/// <param name="height">The height of css.</param>
+		/// <param name="thickLeft">The thickness at the left side.</param>
+		/// <param name="thickRight">The thickness at the rigth side.</param>
+		/// <param name="thickTop">The thickness at the top.</param>
+		/// <param name="thickBottom">The thickness at the bottom.</param>
+		public static void FillCssRectangleHollow(IdeaCrossSectionByParameters css, double width, double height, double thickLeft, double thickRight, double thickTop, double thickBottom)
+		{
+			css.Type = CrossSectionType.RHSg;
+			css.Parameters.Add(new ParameterDouble() { Name = "W", Value = width });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = height });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tl", Value = thickLeft });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tr", Value = thickRight });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = thickTop });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tb", Value = thickBottom });
+		}
+
+		/// <summary>
+		/// Box 2 - steel shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="bu">Width of upper flange</param>
+		/// <param name="bb">Width of bottom flange</param>
+		/// <param name="hw">Height of web</param>
+		/// <param name="b1">Web distance</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="tfu">Upper flange thickness</param>
+		/// <param name="tfb">Bottom flange thickness</param>
+		public static void FillWeldedBoxFlange(IdeaCrossSectionByParameters css, double bu, double bb, double hw, double b1, double tw, double tfu, double tfb)
+		{
+			css.Type = CrossSectionType.BoxFl;
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeWidth", Value = bu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeWidth", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = hw });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebDistance", Value = b1 });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "UpperFlangeThickness", Value = tfu });
+			css.Parameters.Add(new ParameterDouble() { Name = "BottomFlangeThickness", Value = tfb });
+		}
+
+
+		/// <summary>
+		/// Creates a U shape of css.
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="bt">The width of U top flange.</param>
+		/// <param name="bb">The width of U bottom flange.</param>
+		/// <param name="h">The height of U shape.</param>
+		/// <param name="tb">The bottom deck thickness.</param>
+		/// <param name="tl">The left deck thickness.</param>
+		/// <param name="tr">The right deck thickness.</param>
+		public static void FillShapeU(IdeaCrossSectionByParameters css, double bt, double bb, double h, double tb, double tl, double tr)
+		{
+			css.Type = CrossSectionType.Ug;
+			css.Parameters.Add(new ParameterDouble() { Name = "Bt", Value = bt });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bb", Value = bb });
+			css.Parameters.Add(new ParameterDouble() { Name = "H", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Bw", Value = tb });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tt", Value = tl });
+			css.Parameters.Add(new ParameterDouble() { Name = "Tb", Value = tr });
+		}
+
+		/// <summary>
+		/// Fill steel section of welded T
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of flange</param>
+		/// <param name="h">Height of web</param>
+		/// <param name="tw">Web thickness</param>
+		/// <param name="tf">Flange thickness</param>
+		/// <param name="mirrorY"></param>
+		public static void FillWeldedT(IdeaCrossSectionByParameters css, double b, double h, double tw, double tf, bool mirrorY = false)
+		{
+			css.Type = CrossSectionType.Tw;
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeWidth", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebHeight", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThickness", Value = tw });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = tf });
+			css.Parameters.Add(new ParameterBool() { Name = "MirrorY", Value = mirrorY });
+		}
+
+		/// <summary>
+		/// T shape  - massive concrete shape
+		/// </summary>
+		/// <param name="css">Parameters of CrossSectionParameter will be filled</param>
+		/// <param name="b">Width of shape</param>
+		/// <param name="h">Height of shape</param>
+		/// <param name="hf">Flange thickness</param>
+		/// <param name="bwT">Web thickness top</param>
+		/// <param name="bwB">Web thickness bottom</param>
+		public static void FillShapeTwh(IdeaCrossSectionByParameters css, double b, double h, double hf, double bwT, double bwB)
+		{
+			css.Type = CrossSectionType.Twh;
+			css.Parameters.Add(new ParameterDouble() { Name = "Height", Value = h });
+			css.Parameters.Add(new ParameterDouble() { Name = "Width", Value = b });
+			css.Parameters.Add(new ParameterDouble() { Name = "FlangeThickness", Value = hf });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessTop", Value = bwT });
+			css.Parameters.Add(new ParameterDouble() { Name = "WebThicknessBottom", Value = bwB });
+		}
 	}
 }
