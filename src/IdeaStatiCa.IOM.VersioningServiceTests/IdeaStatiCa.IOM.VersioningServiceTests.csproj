@@ -19,12 +19,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.IntermediateModel\IdeaStatiCa.IntermediateModel.csproj" />
 		<ProjectReference Include="..\IdeaStatiCa.IOM.VersioningService\IdeaStatiCa.IOM.VersioningService.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="TestData\CHK.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="TestData\CHKDowngraded.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="TestData\CHKUpgraded.xml">
@@ -36,10 +40,16 @@
 		<None Update="TestData\ModelBIM-AS_Black_Point202.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="TestData\ModelBIM-AS_Black_PointDowngraded.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="TestData\ModelBIM-AS_Black_PointUpgraded.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="TestData\OpenModel-Large.xml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="TestData\OpenModel-LargeDowngraded.xml">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="TestData\OpenModel-LargeUpgraded.xml">

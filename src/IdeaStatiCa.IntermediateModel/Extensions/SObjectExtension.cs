@@ -200,7 +200,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		public static SObject CreateElementProperty(this SObject sObject, string name)
 		{
 			var element = new SObject() { TypeName = name };
-			sObject.Properties.Add(sObject.GetElementName(), element);
+			sObject.Properties.Add(element.GetElementName(), element);
 
 			return element;
 		}

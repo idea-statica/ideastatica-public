@@ -1,5 +1,4 @@
 using IdeaRS.OpenModel.Geometry2D;
-using IdeaRS.OpenModel.Parameters;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -12,10 +11,10 @@ namespace IdeaRS.OpenModel.Connection
 	public class ConnectionData
 	{
 		/// <summary>
-		/// Connection Point Id
+		/// Connection Point
 		/// </summary>
 		[DataMember]
-		public int ConenctionPointId { get; set; }
+		public ReferenceElement ConnectionPoint { get; set; }
 
 		/// <summary>
 		/// Connected beams
@@ -41,6 +40,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// Anchor grids which belongs to the connection
 		/// </summary>
 		public List<AnchorGrid> AnchorGrids { get; set; }
+
+		/// <summary>
+		/// Pin grids which belongs to the connection
+		/// </summary>
+		public List<PinGrid> PinGrids { get; set; }
 
 		/// <summary>
 		/// Welds of the connection
@@ -125,151 +129,7 @@ namespace IdeaRS.OpenModel.Connection
 		public string OriginalModelId { get; set; }
 	}
 
-	/// <summary>
-	/// Data of the bolt grid
-	/// </summary>
-	public class BoltGrid
-	{
 
-		public string BoltAssemblyRef { get; set; }
-		/// <summary>
-		/// Unique Id of the bolt grid
-		/// </summary>
-		public int Id { get; set; }
-
-		/// <summary>
-		/// Is Anchor
-		/// </summary>
-		public bool IsAnchor { get; set; }
-
-		/// <summary>
-		/// Anchor lenght
-		/// </summary>
-		public double AnchorLen { get; set; }
-
-		/// <summary>
-		/// The diameter of the hole
-		/// </summary>
-		public double HoleDiameter { get; set; }
-
-		/// <summary>
-		/// The diameter of bolt
-		/// </summary>
-		public double Diameter { get; set; }
-
-		/// <summary>
-		/// The head diameter of bolt
-		/// </summary>
-		public double HeadDiameter { get; set; }
-
-		/// <summary>
-		/// The Diagonal Head Diameter of bolt
-		/// </summary>
-		public double DiagonalHeadDiameter { get; set; }
-
-		/// <summary>
-		/// The Head Height of bolt
-		/// </summary>
-		public double HeadHeight { get; set; }
-
-		/// <summary>
-		/// The BoreHole of bolt
-		/// </summary>
-		public double BoreHole { get; set; }
-
-		/// <summary>
-		/// The Tensile Stress Area of bolt
-		/// </summary>
-		public double TensileStressArea { get; set; }
-
-		/// <summary>
-		/// The Nut Thickness of bolt
-		/// </summary>
-		public double NutThickness { get; set; }
-
-		/// <summary>
-		/// The description of the bolt assembly
-		/// </summary>
-		public string BoltAssemblyName { get; set; }
-
-		/// <summary>
-		/// The standard of the bolt assembly
-		/// </summary>
-		public string Standard { get; set; }
-
-		/// <summary>
-		/// The material of the bolt assembly
-		/// </summary>
-		public string Material { get; set; }
-
-		/// <summary>
-		/// Origin of the bolt grid LCS
-		/// </summary>
-		public IdeaRS.OpenModel.Geometry3D.Point3D Origin { get; set; }
-
-		/// <summary>
-		/// Bolt grid LCS - Axis X
-		/// </summary>
-		public IdeaRS.OpenModel.Geometry3D.Vector3D AxisX { get; set; }
-
-		/// <summary>
-		/// Bolt grid LCS - Axis Y
-		/// </summary>
-		public IdeaRS.OpenModel.Geometry3D.Vector3D AxisY { get; set; }
-
-		/// <summary>
-		/// Bolt grid LCS - Axis Z
-		/// </summary>
-		public IdeaRS.OpenModel.Geometry3D.Vector3D AxisZ { get; set; }
-
-		/// <summary>
-		/// Positions of holes in the local coodinate system of the bolt grid
-		/// </summary>
-		public List<IdeaRS.OpenModel.Geometry3D.Point3D> Positions { get; set; }
-
-		/// <summary>
-		/// Identifiers of the connected plates
-		/// </summary>
-		public List<int> ConnectedPlates { get; set; }
-
-		/// <summary>
-		/// Id of the weld
-		/// </summary>
-		public List<string> ConnectedPartIds { get; set; }
-
-		/// <summary>
-		/// Indicates, whether a shear plane is in the thread of a bolt.
-		/// </summary>
-		public bool ShearInThread { get; set; }
-
-		/// <summary>
-		/// Indicates type of shear transfer
-		/// </summary>
-		public BoltShearType BoltInteraction { get; set; }
-	}
-
-	/// <summary>
-	/// Data of the anchor grid
-	/// </summary>
-	public class AnchorGrid : BoltGrid
-	{
-		/// <summary>
-		/// Data of concrete block
-		/// </summary>
-		public ConcreteBlock ConcreteBlock { get; set; }
-
-		/// <summary>
-		/// Anchor Type - washer
-		/// </summary>
-		public AnchorType AnchorType { get; set; }
-
-
-		/// <summary>
-		/// Washer Size used if AnchorType is washer
-		/// </summary>
-		public double WasherSize { get; set; }
-
-	}
 
 	/// <summary>
 	/// Data of concrete block
