@@ -25,7 +25,15 @@ namespace IdeaStatiCa.Api.Utilities
 
 			// serialize type names for polymorphic types
 			settings.TypeNameHandling = TypeNameHandling.Auto;
+		}
 
+		// method to serialize data suitable for npm package https://www.npmjs.com/package/@ideastatica/scene
+		public static void SetFor3DScene(this JsonSerializerSettings settings)
+		{
+			settings.SetForIdea();
+			// Settings required for proper 3D Scene data to process with npm package
+			settings.NullValueHandling = NullValueHandling.Ignore;
+			settings.TypeNameHandling = TypeNameHandling.None;
 		}
 	}
 }
