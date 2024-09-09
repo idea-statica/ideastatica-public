@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
@@ -52,16 +53,44 @@ namespace ConnectionWebClient.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
-			PresentationCommand = new AsyncRelayCommand(PresentAsync, () => SelectedConnection != null);
+			GetSceneDataCommand = new AsyncRelayCommand(GetSceneDataAsync, () => SelectedConnection != null);
+
+			ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
 		}
 
 
-		
+		private void ShowClientUI()
+		{
+			_logger.LogInformation("ShowClientUI");
 
-		private async Task PresentAsync()
+			if (ProjectInfo == null)
+			{
+				return;
+			}
+
+			if (ConnectionController == null)
+			{
+				return;
+			}
+
+			try
+			{
+				// Open a URL in the default web browser
+				var connectionInfo = ConnectionController.GetConnectionInfo();
+				string url = string.Format("{0}/client-ui.html?clientId={1}&projectId={2}", ApiUri, connectionInfo.Item1, connectionInfo.Item2);
+				Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+		}
+
+		private async Task GetSceneDataAsync()
 		{
 			_logger.LogInformation("PresentAsync");
 
@@ -190,7 +219,10 @@ namespace ConnectionWebClient.ViewModels
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
 
-		public AsyncRelayCommand PresentationCommand { get; }
+		public AsyncRelayCommand GetSceneDataCommand { get; }
+
+		public RelayCommand ShowClientUICommand { get; }
+		
 
 		private async Task OpenProjectAsync()
 		{
@@ -452,14 +484,16 @@ namespace ConnectionWebClient.ViewModels
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			this.PresentationCommand.NotifyCanExecuteChanged();
+			this.GetSceneDataCommand.NotifyCanExecuteChanged();
+			this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			this.PresentationCommand.NotifyCanExecuteChanged();
+			this.GetSceneDataCommand.NotifyCanExecuteChanged();
+			this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 	}
 }
