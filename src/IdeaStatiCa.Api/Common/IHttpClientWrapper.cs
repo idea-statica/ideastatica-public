@@ -16,6 +16,7 @@ namespace IdeaStatiCa.Api.Common
 		Task<TResult> PutAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json", bool useHeartbeatCheck = false);
 		Task<TResult> PostAsync<TResult>(string requestUri, object requestData, CancellationToken token, string acceptHeader = "application/json", bool useHeartbeatCheck = false);
 		Task<TResult> PostAsyncStream<TResult>(string requestUri, StreamContent stream, CancellationToken token, bool useHeartbeatCheck = false);
+		Task<TResult> PostAsyncForm<TResult>(string requestUri, MultipartFormDataContent form, CancellationToken token, bool useHeartbeatCheck);
 		Task DeleteAsync<TResult>(string requestUri);
 	}
 }
