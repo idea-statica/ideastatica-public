@@ -176,7 +176,7 @@ namespace IdeaStatiCa.BimApiLink
 				model,
 				_bimUserDataSource,
 				_taskScheduler,
-				_selectionInThirdParty
+				_highlightSelection
 				);
 			return applicationBIM;
 		}
@@ -193,7 +193,7 @@ namespace IdeaStatiCa.BimApiLink
 			IModel model,
 			IBimUserDataSource userDataSource,
 			TaskScheduler taskScheduler,
-			bool selectionInThirdParty = true);
+			bool highlightSelection = true);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{
