@@ -38,7 +38,7 @@ namespace IdeaStatiCa.Api.Connection
 		/// </summary>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
-		Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default);
+		Task<ConProject> GetProjectDataAsync(CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Gel list of all <see cref="ConConnection"> in the active project

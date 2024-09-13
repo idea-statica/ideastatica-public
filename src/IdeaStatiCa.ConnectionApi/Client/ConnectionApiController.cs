@@ -159,10 +159,10 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			}
 		}
 
-		public async Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default)
+		public async Task<ConProject> GetProjectDataAsync(CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
-			var response = await _httpClient.GetAsync<ConProjectData>($"{GetProjectRoute()}/project-data", cancellationToken);
+			var response = await _httpClient.GetAsync<ConProject>($"{GetProjectRoute()}", cancellationToken);
 			return response;
 		}
 
