@@ -34,11 +34,11 @@ namespace IdeaStatiCa.Api.Connection
 		Task CloseProjectAsync(CancellationToken cancellationToken = default);
 
 		/// <summary>
-		/// Get project data from the active project
+		/// Get ConProject for the active project
 		/// </summary>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
-		Task<ConProject> GetProjectDataAsync(CancellationToken cancellationToken = default);
+		Task<ConProject> GetProjectAsync(CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Gel list of all <see cref="ConConnection"> in the active project

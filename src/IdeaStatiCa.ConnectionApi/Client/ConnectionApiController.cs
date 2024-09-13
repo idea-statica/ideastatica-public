@@ -17,7 +17,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaStatiCa.Api.Connection.Model.Material;
-using System.Net.Mime;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
@@ -159,7 +158,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			}
 		}
 
-		public async Task<ConProject> GetProjectDataAsync(CancellationToken cancellationToken = default)
+		public async Task<ConProject> GetProjectAsync(CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			var response = await _httpClient.GetAsync<ConProject>($"{GetProjectRoute()}", cancellationToken);
