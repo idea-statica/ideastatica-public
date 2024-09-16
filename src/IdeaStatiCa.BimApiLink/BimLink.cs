@@ -24,6 +24,7 @@ namespace IdeaStatiCa.BimApiLink
 		private TaskScheduler _taskScheduler = TaskScheduler.Default;
 		private IBimHostingFactory _bimHostingFactory = new GrpcBimHostingFactory();
 		private IProgressMessaging _progressMessaging;
+		private bool _highlightSelection = true;
 		protected IComparer<IIdentifier> _itemsComparer = null;
 
 		private readonly ImportersConfiguration _importersConfiguration = new ImportersConfiguration();
@@ -110,6 +111,12 @@ namespace IdeaStatiCa.BimApiLink
 			return this;
 		}
 
+		public BimLink WithHighlightingSelection(bool highlightSelection)
+		{ 
+			_highlightSelection = highlightSelection;
+			return this;
+		}
+
 		/// <summary>
 		/// Comparer influent order of processing imported items
 		/// </summary>
@@ -168,7 +175,9 @@ namespace IdeaStatiCa.BimApiLink
 				_hookManagers.ScopeHookManager,
 				model,
 				_bimUserDataSource,
-				_taskScheduler);
+				_taskScheduler,
+				_highlightSelection
+				);
 			return applicationBIM;
 		}
 
@@ -183,7 +192,8 @@ namespace IdeaStatiCa.BimApiLink
 			IScopeHook scopeHook,
 			IModel model,
 			IBimUserDataSource userDataSource,
-			TaskScheduler taskScheduler);
+			TaskScheduler taskScheduler,
+			bool highlightSelection = true);
 
 		private sealed class NullBimUserDataSource : IBimUserDataSource
 		{

@@ -30,7 +30,8 @@ namespace IdeaStatiCa.BimApiLink
 			IScopeHook scopeHook,
 			IModel model,
 			IBimUserDataSource userDataSource,
-			TaskScheduler taskScheduler)
+			TaskScheduler taskScheduler,
+			bool highlightSelection = true)
 		{
 			JsonPersistence jsonPersistence = new JsonPersistence(logger);
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);
@@ -56,7 +57,8 @@ namespace IdeaStatiCa.BimApiLink
 				projectStorage, 
 				projectAdapter, 
 				bimImporter,
-				model as IFeaModel);
+				model as IFeaModel,
+				highlightSelection);
 
 			return appBim;
 		}
@@ -70,7 +72,8 @@ namespace IdeaStatiCa.BimApiLink
 			IProjectStorage projectStorage,
 			IProject projectAdapter,
 			IBimImporter bimImporter,
-			IFeaModel model)
+			IFeaModel model,
+			bool highlightSelection)
 		{
 			return new FeaApplication(
 				ApplicationName,
@@ -82,7 +85,8 @@ namespace IdeaStatiCa.BimApiLink
 				pluginHook,
 				scopeHook,
 				userDataSource,
-				taskScheduler);
+				taskScheduler,
+				highlightSelection);
 		}
 	}
 }

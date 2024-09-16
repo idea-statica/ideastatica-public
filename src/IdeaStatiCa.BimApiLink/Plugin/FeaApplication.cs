@@ -26,8 +26,9 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
-			TaskScheduler taskScheduler)
-			: base(applicationName, logger, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler)
+			TaskScheduler taskScheduler,
+			bool highlightSelection = true)
+			: base(applicationName, logger, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler, highlightSelection)
 		{
 			_bimImporter = bimImporter;
 		}
