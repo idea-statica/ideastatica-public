@@ -11,9 +11,10 @@
 		public const string ConnectionSetup = "connection-setup";
 		public const string Materials = "materials";
 		public const string Reports = "reports";
-		public const string Version = "version";
-		public const string Presentation = "presentation";
+		public const string Presentation = "presentations";
+		public const string Client = "clients";
 
 		public const string ConnectClient = "connect-client";
+		public const string Version = "version";
 	}
 }

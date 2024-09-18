@@ -31,7 +31,8 @@ namespace IdeaStatiCa.BimApiLink
 			IScopeHook scopeHook,
 			IModel model,
 			IBimUserDataSource userDataSource,
-			TaskScheduler taskScheduler)
+			TaskScheduler taskScheduler,
+			bool highlightSelection = true)
 		{
 			JsonPersistence jsonPersistence = new JsonPersistence(logger);
 			JsonProjectStorage projectStorage = new JsonProjectStorage(jsonPersistence, projectPath);

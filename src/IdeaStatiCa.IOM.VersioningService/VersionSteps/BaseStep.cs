@@ -1,5 +1,6 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
+using IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps;
 using IdeaStatiCa.Plugin;
 using System;
 
@@ -39,7 +40,15 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps
 		private void ChangeVersion(SModel _model)
 		{
 			_logger.LogInformation($"ChangeVersion to {GetVersion()}");
-			_model.ChangeElementValue("Version", GetVersion().ToString());
+
+			var version = GetVersion().ToString();
+
+			//due to old approach where is in IOM model version as number not version string
+			if (version == Step200.Version.ToString())
+			{
+				version = "2";
+			}
+			_model.ChangeElementValue("Version", version);
 		}
 
 		public virtual Version GetVersion()

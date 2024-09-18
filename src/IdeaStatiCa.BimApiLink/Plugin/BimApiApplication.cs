@@ -26,6 +26,7 @@ namespace IdeaStatiCa.BimApiLink
 		private readonly IBimUserDataSource _userDataSource;
 		private readonly TaskScheduler _taskScheduler;
 		private readonly IPluginLogger _logger;
+		private readonly bool _highlightSelection;
 
 		protected override string ApplicationName { get; }
 
@@ -38,7 +39,8 @@ namespace IdeaStatiCa.BimApiLink
 			IPluginHook pluginHook,
 			IScopeHook scopeHook,
 			IBimUserDataSource userDataSource,
-			TaskScheduler taskScheduler):
+			TaskScheduler taskScheduler,
+			bool highlightSelection = true):
 			base(pluginLogger)
 		{
 			ApplicationName = applicationName;
@@ -51,21 +53,24 @@ namespace IdeaStatiCa.BimApiLink
 			_scopeHook = scopeHook;
 			_userDataSource = userDataSource;
 			_taskScheduler = taskScheduler;
-
+			_highlightSelection = highlightSelection;
 			_projectStorage.Load();
 		}
 
 		public override void ActivateInBIM(List<BIMItemId> items)
 		{
-			Task task = Task.Factory.StartNew(() =>
+			if (_highlightSelection) 
 			{
-				ActivateMethod(items);
-			},
-			CancellationToken.None,
-			TaskCreationOptions.None,
-			_taskScheduler);
+				Task task = Task.Factory.StartNew(() =>
+				{
+					ActivateMethod(items);
+				},
+				CancellationToken.None,
+				TaskCreationOptions.None,
+				_taskScheduler);
 
-			task.GetAwaiter().GetResult();
+				task.GetAwaiter().GetResult();
+			}					
 		}
 
 		protected virtual void ActivateMethod(List<BIMItemId> items)

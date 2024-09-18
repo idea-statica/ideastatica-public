@@ -54,7 +54,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			if (ClientId == Guid.Empty)
 			{
 				LogMethodCallToDebug();
-				var clientIdResponse = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConRestApiConstants.ConnectClient}", cancellationToken, "text/plain");
+				var clientIdResponse = await _httpClient.GetAsync<string>($"api/{ApiVersion}/{ConRestApiConstants.Client}/{ConRestApiConstants.ConnectClient}", cancellationToken, "text/plain");
 				ClientId = Guid.Parse(clientIdResponse);
 				_httpClient.AddRequestHeader("ClientId", ClientId.ToString());
 			}
@@ -64,14 +64,26 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		public async Task<ConProject> OpenProjectAsync(string ideaConProject, CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, message: $"path = '{ideaConProject}'");
-			byte[] fileData = File.ReadAllBytes(ideaConProject);
-			var streamContent = new StreamContent(new MemoryStream(fileData));
-			streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+			using (var formData = new MultipartFormDataContent())
+			{
+				// Add file content
+				using (var fileStream = new FileStream(ideaConProject, FileMode.Open, FileAccess.Read))
+				{
+					var streamContent = new StreamContent(fileStream);
+					streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-			var response = await _httpClient.PostAsyncStream<ConProject>($"api/{ApiVersion}/{ConRestApiConstants.Projects}/open", streamContent, cancellationToken);
-			activeProjectId = response.ProjectId;
-			LogMethodCallToDebug(ClientId, activeProjectId);
-			return response;
+					// Add the file stream content to the form data, with the form field name "ideaConFile"
+					formData.Add(streamContent, "ideaConFile", Path.GetFileName(ideaConProject));
+
+					// Send the POST request to the API
+					// Send the request
+					var response = await _httpClient.PostAsyncForm<ConProject>($"api/{ApiVersion}/{ConRestApiConstants.Projects}/open", formData, cancellationToken, false);
+					activeProjectId = response.ProjectId;
+					LogMethodCallToDebug(ClientId, activeProjectId);
+
+					return response;
+				}
+			}			
 		}
 
 		public async Task<ConProject> CreateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default)
@@ -146,10 +158,10 @@ namespace IdeaStatiCa.ConnectionApi.Client
 			}
 		}
 
-		public async Task<ConProjectData> GetProjectDataAsync(CancellationToken cancellationToken = default)
+		public async Task<ConProject> GetProjectAsync(CancellationToken cancellationToken = default)
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
-			var response = await _httpClient.GetAsync<ConProjectData>($"{GetProjectRoute()}/project-data", cancellationToken);
+			var response = await _httpClient.GetAsync<ConProject>($"{GetProjectRoute()}", cancellationToken);
 			return response;
 		}
 
@@ -186,7 +198,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"{GetProjectRoute()}/calculate", calculateParam, cancellationToken, "application/json");
+			var response = await _httpClient.PostAsync<List<ConResultSummary>>($"{GetProjectRoute()}/connections/calculate", calculateParam, cancellationToken, "application/json");
 			return response;
 		}
 
@@ -195,7 +207,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId, message: $"Connections {string.Join(",", conToCalculateIds.Select(x => x))}");
 			var calculateParam = new ConCalculationParameter() { ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"{GetProjectRoute()}/results", calculateParam, cancellationToken, "application/json");
+			var response = await _httpClient.PostAsync<List<ConnectionCheckRes>>($"{GetProjectRoute()}/connections/results", calculateParam, cancellationToken, "application/json");
 			return response;
 		}
 
@@ -203,7 +215,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			var calculateParam = new ConCalculationParameter() { AnalysisType = analysisType, ConnectionIds = conToCalculateIds };
-			var response = await _httpClient.PostAsync<string>($"{ConRestApiConstants.Projects}/{{projectId}}/rawresults-text", calculateParam, cancellationToken, "text/plain");
+			var response = await _httpClient.PostAsync<string>($"{ConRestApiConstants.Projects}/{{projectId}}/connections/rawresults-text", calculateParam, cancellationToken, "text/plain");
 			return response;
 		}
 

@@ -150,6 +150,25 @@ namespace IdeaStatiCa.Api.Common
 		}
 
 		/// <summary>
+		/// Post call that contains multipart form data content
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="requestUri"></param>
+		/// <param name="form"></param>
+		/// <param name="token"></param>
+		/// <param name="useHeartbeatCheck"></param>
+		/// <returns></returns>
+		public async Task<TResult> PostAsyncForm<TResult>(string requestUri, MultipartFormDataContent form, CancellationToken token, bool useHeartbeatCheck)
+		{
+			return await ExecuteClientCallAsync<TResult>(async (client) =>
+			{
+				var url = new Uri(baseUrl, requestUri);
+				var res = await client.PostAsync(url, form, token);
+				return res;
+			}, "application/json", useHeartbeatCheck);
+		}
+
+		/// <summary>
 		/// Delete call 
 		/// </summary>
 		/// <typeparam name="TResult"></typeparam>
