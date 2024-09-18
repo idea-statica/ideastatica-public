@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.Api.Connection.Model.Connection;
+using Castle.MicroKernel.Registration;
 
 namespace IdeaStatiCa.ConnectionApi.Client
 {
@@ -480,6 +482,30 @@ namespace IdeaStatiCa.ConnectionApi.Client
 		{
 			LogMethodCallToDebug(ClientId, activeProjectId);
 			var response = await _httpClient.GetAsync<string>($"{GetConnectionRoute(connectionId)}/get-template", cancellationToken, "text/plain");
+			return response;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.SetBearingMemberAsync(int, int, CancellationToken)"/>
+		public async Task<ConMember> SetBearingMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.PutAsync<ConMember>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.Members}/{memberId}/set-bearing-member", new { }, cancellationToken);
+			return response;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.GetLoadEffectLoadSettingsAsync(int, CancellationToken)"/>
+		public async Task<ConLoadSettings> GetLoadEffectLoadSettingsAsync(int connectionId, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.GetAsync<ConLoadSettings>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/get-load-settings", cancellationToken);
+			return response;
+		}
+
+		/// <inheritdoc cref="IConnectionApiController.SetLoadEffectLoadSettingsAsync(int, ConLoadSettings, CancellationToken)"/>
+		public async Task<ConLoadSettings> SetLoadEffectLoadSettingsAsync(int connectionId, ConLoadSettings settings, CancellationToken cancellationToken = default)
+		{
+			LogMethodCallToDebug(ClientId, activeProjectId);
+			var response = await _httpClient.PostAsync<ConLoadSettings>($"{GetConnectionRoute(connectionId)}/{ConRestApiConstants.LoadEffect}/set-load-settings", settings, cancellationToken);
 			return response;
 		}
 

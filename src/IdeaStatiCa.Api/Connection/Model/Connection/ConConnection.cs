@@ -14,20 +14,8 @@
 		//Related to connection?
 		public ConAnalysisTypeEnum AnalysisType { get; set; }
 
-		public ConLoadingOptions LoadOptions { get; set; }
-
 		public int BearingMemberId { get; set; }
 
 		public bool IsCalculated { get; }
-
-		////Decide whether to put this information in here or not.
-
-		//public IEnumerable<ConLoadEffect> LoadEffects { get; set; } = new List<ConLoadEffect> { };
-
-		//public IEnumerable<ConMember> Members { get; set; } = new List<ConMember> { };
-
-		//public IEnumerable<ConOperation> Operations { get; set; } = new List<ConOperation> { };
-
-		//public IEnumerable<IdeaParameter> Parameters { get; set; } = new List<IdeaParameter> { };
 	}
 }

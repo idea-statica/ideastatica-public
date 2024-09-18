@@ -2,6 +2,7 @@
 using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;
 using System;
 using System.Collections.Generic;
@@ -349,5 +350,31 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="cancellationToken"></param>
 		/// <returns>contemp string</returns>
 		Task<string> GetConnectionTemplateAsync(int connectionId, CancellationToken cancellationToken = default);
+		
+		
+		/// <summary>
+		/// Set bearing member
+		/// </summary>
+		/// <param name="v1"></param>
+		/// <param name="v2"></param>
+		/// <param name="none"></param>
+		/// <returns></returns>
+		Task<ConMember> SetBearingMemberAsync(int connectionId, int memberId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get load settings for given connection id
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="none"></param>
+		/// <returns></returns>
+		Task<ConLoadSettings> GetLoadEffectLoadSettingsAsync(int id, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Set load settings for given connection id
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="none"></param>
+		/// <returns></returns>
+		Task<ConLoadSettings> SetLoadEffectLoadSettingsAsync(int id, ConLoadSettings settings, CancellationToken cancellationToken = default);
 	}
 }
