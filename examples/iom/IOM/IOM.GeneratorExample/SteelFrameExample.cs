@@ -182,7 +182,7 @@ namespace IOM.GeneratorExample
 				HeadDiameter = 0.024,
 				DiagonalHeadDiameter = 0.026,
 				HeadHeight = 0.01,
-				BoreHole = 0.018,
+				Borehole = 0.018,
 				TensileStressArea = 157,
 				NutThickness = 0.013,
 				Id = 1,

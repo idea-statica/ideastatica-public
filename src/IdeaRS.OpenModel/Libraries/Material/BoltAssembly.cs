@@ -35,7 +35,7 @@ namespace IdeaRS.OpenModel.Material
 		/// <summary>
 		/// Size of bore Hole
 		/// </summary>
-		public double BoreHole
+		public double Borehole
 		{
 			get;
 			set;

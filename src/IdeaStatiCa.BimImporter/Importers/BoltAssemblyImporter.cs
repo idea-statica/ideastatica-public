@@ -34,7 +34,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			{
 				Name = boltAssemblyByParameters.Name,
 				Diameter = boltAssemblyByParameters.Diameter,
-				BoreHole = boltAssemblyByParameters.BoreHole,
+				Borehole = boltAssemblyByParameters.BoreHole,
 				HeadDiameter = boltAssemblyByParameters.HeadDiameter,
 				DiagonalHeadDiameter = boltAssemblyByParameters.DiagonalHeadDiameter,
 				HeadHeight = boltAssemblyByParameters.HeadHeight,
