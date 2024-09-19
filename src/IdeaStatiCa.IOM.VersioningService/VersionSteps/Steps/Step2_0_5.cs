@@ -95,6 +95,9 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 					// Copy properties from bolt assembly to bolt grid
 					CopyBoltAssemblyProperties(boltGridAssemblyItem, boltGrid);
 
+					boltGrid.RemoveElementProperty("BoreHole");
+					boltGrid.ChangeElementPropertyName("Borehole", "BoreHole");
+
 					var boltGradeId = boltGridAssemblyItem.GetElements("BoltGrade;ReferenceElement;Id")
 						.FirstOrDefault()?.GetElementValue(null);
 
@@ -124,6 +127,9 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				{
 					// Copy properties from anchor assembly to anchor grid
 					CopyBoltAssemblyProperties(anchorGridAssemblyItem, anchorGrid);
+
+					anchorGrid.RemoveElementProperty("BoreHole");
+					anchorGrid.ChangeElementPropertyName("Borehole", "BoreHole");
 
 					var boltGradeId = anchorGridAssemblyItem.GetElements("BoltGrade;ReferenceElement;Id")
 						.FirstOrDefault()?.GetElementValue(null);
@@ -194,6 +200,9 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			IRIOMTool.CreateIOMReferenceElement(boltGradeProperty, "BoltGrade", boltGradeId);
 			CopyBoltAssemblyProperties(grid, newBoltAssembly);
 
+			newBoltAssembly.RemoveElementProperty("Borehole");
+			newBoltAssembly.ChangeElementPropertyName("BoreHole", "Borehole");
+
 			var idProperty = newBoltAssembly.CreateElementProperty("Id");
 			idProperty.ChangeElementValue((boltAssemblyDic.Count + 1).ToString());
 
@@ -219,6 +228,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		private static void CopyBoltAssemblyProperties(ISIntermediate source, ISIntermediate target)
 		{
 			IRIOMTool.CreateProperty(source, target, "Diameter");
+			IRIOMTool.CreateProperty(source, target, "Borehole");
 			IRIOMTool.CreateProperty(source, target, "BoreHole");
 			IRIOMTool.CreateProperty(source, target, "HeadDiameter");
 			IRIOMTool.CreateProperty(source, target, "DiagonalHeadDiameter");
@@ -238,6 +248,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			grid.RemoveElementProperty("DiagonalHeadDiameter");
 			grid.RemoveElementProperty("HeadHeight");
 			grid.RemoveElementProperty("BoreHole");
+			grid.RemoveElementProperty("Borehole");
 			grid.RemoveElementProperty("TensileStressArea");
 			grid.RemoveElementProperty("NutThickness");
 			grid.RemoveElementProperty("BoltAssemblyName");
