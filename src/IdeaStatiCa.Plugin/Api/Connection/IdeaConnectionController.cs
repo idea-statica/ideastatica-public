@@ -81,7 +81,7 @@ namespace IdeaStatiCa.Plugin
 		/// <inheritdoc cref="IConnectionController.OpenProject(string)"/>
 		public int OpenProject(string fileName)
 		{
-			GrpcClient.MyBIM.OpenProject(fileName);
+			GrpcClient.MyBIM.OpenProject(fileName, string.Empty);
 			return 1;
 		}
 

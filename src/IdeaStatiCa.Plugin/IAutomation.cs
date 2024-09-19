@@ -18,18 +18,21 @@ namespace IdeaStatiCa.Plugin
 	public interface IAutomation
 	{
 		/// <summary>
-		/// Open <paramref name="fileName"/>
+		/// Open the project <paramref name="fileName"/>
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
+		/// <param name="optionalParamJson">json string which can include optional parameters for a module</param>
+		/// <returns>Task</returns>
 		[OperationContract]
-		Task OpenProjectAsync(string fileName);
+		Task OpenProjectAsync(string fileName, string optionalParamJson);
 
 		/// <summary>
-		/// Open <paramref name="fileName"/>
+		/// Open the project <paramref name="fileName"/>
 		/// </summary>
 		/// <param name="fileName">Project to open</param>
+		/// <param name="optionalParamJson">json string which can include optional parameters for a module</param>
 		[OperationContract]
-		void OpenProject(string fileName);
+		void OpenProject(string fileName, string optionalParamJson);
 
 		/// <summary>
 		/// Select item with <paramref name="itemId"/> in the project
