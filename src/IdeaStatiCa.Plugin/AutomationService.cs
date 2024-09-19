@@ -18,15 +18,26 @@ namespace IdeaStatiCa.Plugin
 
 		public virtual string ProjectDir => throw new NotImplementedException();
 
-		public virtual Task OpenProjectAsync(string fileName)
+		/// <summary>
+		/// Empty virtual implementation - does nothing
+		/// </summary>
+		/// <param name="fileName">Project to open</param>
+		/// <param name="optionalParamJson"></param>
+		/// <returns></returns>
+		public virtual Task OpenProjectAsync(string fileName, string optionalParamJson)
 		{
 			Debug.Fail("Not implemented");
 			return Task.CompletedTask;
 		}
 
-		public virtual void OpenProject(string fileName)
+		/// <summary>
+		/// It calls <see cref="OpenProjectAsync(string, string)"/>"/>
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <param name="optionalParamJson"></param>
+		public virtual void OpenProject(string fileName, string optionalParamJson)
 		{
-			OpenProjectAsync(fileName).Wait();
+			OpenProjectAsync(fileName, optionalParamJson).Wait();
 		}
 
 		public virtual void SelectItem(string itemId)
