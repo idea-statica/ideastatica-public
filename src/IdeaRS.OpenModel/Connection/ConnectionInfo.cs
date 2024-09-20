@@ -31,5 +31,11 @@ namespace IdeaRS.OpenModel.Connection
 		/// </summary>
 		[DataMember]
 		public string Identifier { get; set; }
+
+		/// <summary>
+		/// Position of connection point in wider context (i.e. checkbot model)
+		/// </summary>
+		[DataMember]
+		public Point3D ConnectionPoint { get; set; }
 	}
 }
