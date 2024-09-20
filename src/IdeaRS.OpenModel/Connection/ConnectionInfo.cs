@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using IdeaRS.OpenModel.Geometry3D;
 
 namespace IdeaRS.OpenModel.Connection
 {
