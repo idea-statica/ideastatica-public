@@ -1,12 +1,9 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApiLink.Utils;
-using BimApiLinkCadExample.BimApi;
-using IdeaStatiCa.BimApi;
-using System.Collections.Generic;
+﻿using BimApiLinkCadExample.BimApi;
 using BimApiLinkCadExample.CadExampleApi;
 using BimApiLinkCadExample.Utils;
-using System.Linq;
-using IdeaRS.OpenModel.Parameters;
+using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
+using System.Collections.Generic;
 
 namespace BimApiLinkCadExample.Importers
 {
@@ -28,7 +25,7 @@ namespace BimApiLinkCadExample.Importers
 			boltGrid.OriginNo = PointTranslator.GetPointId(item.BoltPlane.Origin);
 
 			var nodes = new List<IIdeaNode>();
-			
+
 			foreach (var point in item.BoltPositions)
 			{
 				var ptString = PointTranslator.GetPointId(CadPoint2D.Get2DPointInWorldCoords(point, item.BoltPlane));
@@ -38,6 +35,7 @@ namespace BimApiLinkCadExample.Importers
 
 			boltGrid.Positions = nodes;
 
+			boltGrid.Length = item.BoltLength;
 			// create bolt assembly
 			var ba = new BoltAssembly(item.BoltAssembly)
 			{
@@ -48,14 +46,13 @@ namespace BimApiLinkCadExample.Importers
 				BoreHole = 0.018,
 				TensileStressArea = 157,
 				NutThickness = 0.013,
-				MaterialNo = Model.GetMaterialByName(item.BoltGrade).Id,
-				Lenght = item.BoltLength,
+				BoltGradeNo = Model.GetMaterialByName(item.BoltGrade).Id,
 				Standard = item.BoltAssembly
 			};
 
 			// Get connected parts
 			var cp = new List<IIdeaObjectConnectable>();
-			
+
 			foreach (var obj in item.ConnectedParts)
 			{
 				if (obj is CadPlate plate)
@@ -69,7 +66,7 @@ namespace BimApiLinkCadExample.Importers
 			}
 
 			boltGrid.ConnectedParts = cp;
-			boltGrid.ShearInThread = false; 
+			boltGrid.ShearInThread = false;
 			boltGrid.BoltShearType = IdeaRS.OpenModel.Parameters.BoltShearType.Interaction;
 			boltGrid.BoltAssembly = ba;
 

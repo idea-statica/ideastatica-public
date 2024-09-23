@@ -1,20 +1,20 @@
-﻿using IdeaStatiCa.BimApiLink.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
 
 
 namespace BimApiLinkCadExample.BimApi
 {
-	internal class BoltAssembly : IdeaBoltAssembly
+	internal class BoltAssembly : IdeaBoltAssemblyByParameters
 	{
-		public BoltAssembly(Identifier<IIdeaBoltAssembly> identifier) : base(identifier)
+		public BoltAssembly(Identifier<IIdeaBoltAssemblyByParameters> identifier) : base(identifier)
 		{ }
 
 		public BoltAssembly(string id) : base(id)
 		{ }
 
-		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
+		public override IIdeaMaterial BoltGrade => Get<IIdeaMaterial>(BoltGradeNo);
 
-		public int MaterialNo { get; set; }
+		public int BoltGradeNo { get; set; }
 	}
 }
