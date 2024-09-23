@@ -162,6 +162,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _weldImporter.Import(ctx, weld, connectionData);
 				case IIdeaCut cut:
 					return _cutImporter.Import(ctx, cut, connectionData);
+				//this object should be already imported
+				case IIdeaMember1D member:
+					return connectionData.Beams.Find(b => b.OriginalModelId == member.Id);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
