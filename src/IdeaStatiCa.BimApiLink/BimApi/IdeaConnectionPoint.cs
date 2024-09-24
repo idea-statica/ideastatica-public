@@ -1,5 +1,5 @@
-﻿using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Identifiers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,6 +35,8 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 
 		public IEnumerable<IIdeaBoltGrid> BoltGrids { get; set; } = new List<IIdeaBoltGrid>();
 
+		public IEnumerable<IIdeaPinGrid> PinGrids { get; set; } = new List<IIdeaPinGrid>();
+
 		public IEnumerable<IIdeaWeld> Welds { get; set; } = new List<IIdeaWeld>();
 
 		public IEnumerable<IIdeaCut> Cuts { get; set; } = new List<IIdeaCut>();
@@ -48,9 +50,11 @@ namespace IdeaStatiCa.BimApiLink.BimApi
 				FoldedPlates = FoldedPlates?.Select(fp => fp.Token as ImmutableIdentifier<IIdeaFoldedPlate>).ToList(),
 				AnchorGrids = AnchorGrids?.Select(ag => ag.Token as ImmutableIdentifier<IIdeaAnchorGrid>).ToList(),
 				BoltGrids = BoltGrids?.Select(bg => bg.Token as ImmutableIdentifier<IIdeaBoltGrid>).ToList(),
+				PinGrids = PinGrids?.Select(pg => pg.Token as ImmutableIdentifier<IIdeaPinGrid>).ToList(),
 				Welds = Welds?.Select(w => w.Token as ImmutableIdentifier<IIdeaWeld>).ToList(),
 				Cuts = Cuts?.Select(c => c.Token as ImmutableIdentifier<IIdeaCut>).ToList(),
 			};
 		}
+
 	}
 }

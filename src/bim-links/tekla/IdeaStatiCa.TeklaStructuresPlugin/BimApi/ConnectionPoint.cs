@@ -26,6 +26,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 				FoldedPlates = FoldedPlates?.Select(fp => fp.Token as ImmutableIdentifier<IIdeaFoldedPlate>).ToList(),
 				AnchorGrids = AnchorGrids?.Select(ag => ag.Token as ImmutableIdentifier<IIdeaAnchorGrid>).ToList(),
 				BoltGrids = BoltGrids?.Select(bg => bg.Token as ImmutableIdentifier<IIdeaBoltGrid>).ToList(),
+				PinGrids = PinGrids?.Select(pg => pg.Token as ImmutableIdentifier<IIdeaPinGrid>).ToList(),
 				Welds = Welds?.Select(w => w.Token as ImmutableIdentifier<IIdeaWeld>).ToList(),
 				Cuts = Cuts?.Select(c => c.Token as ImmutableIdentifier<IIdeaCut>).ToList(),
 			};

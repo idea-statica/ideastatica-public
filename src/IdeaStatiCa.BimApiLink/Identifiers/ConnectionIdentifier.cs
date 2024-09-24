@@ -17,6 +17,8 @@ namespace IdeaStatiCa.BimApiLink.Identifiers
 
 		public IList<ImmutableIdentifier<IIdeaBoltGrid>> BoltGrids { get; set; }
 
+		public IList<ImmutableIdentifier<IIdeaPinGrid>> PinGrids { get; set; }
+
 		public IList<ImmutableIdentifier<IIdeaWeld>> Welds { get; set; }
 
 		public IList<ImmutableIdentifier<IIdeaCut>> Cuts { get; set; }
