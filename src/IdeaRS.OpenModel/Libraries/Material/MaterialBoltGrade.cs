@@ -60,17 +60,21 @@ namespace IdeaRS.OpenModel.Material
 			get; set;
 		}
 
+
 		/// <summary>
 		/// Name fo the bolt grade in MPRL database
 		/// </summary>
+		[XmlIgnore]
 		public Guid MprlElementID
 		{
 			get; set;
 		}
 
+
 		/// <summary>
 		/// Unique ID of MPRL database table where the bolt grade was taken from.
 		/// </summary>
+		[XmlIgnore]
 		public Guid MprlTableID
 		{
 			get; set;

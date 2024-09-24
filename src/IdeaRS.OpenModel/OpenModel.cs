@@ -49,7 +49,10 @@ namespace IdeaRS.OpenModel
 			MatSteel = new List<MatSteel>();
 			MatPrestressSteel = new List<MatPrestressSteel>();
 			MatWelding = new List<MatWelding>();
+			MatBoltGrade = new List<MaterialBoltGrade>();
 			CrossSection = new List<CrossSection.CrossSection>();
+			BoltAssembly = new List<BoltAssembly>();
+			Pin = new List<Pin>();
 			ReinforcedCrossSection = new List<CrossSection.ReinforcedCrossSection>();
 			HingeElement1D = new List<HingeElement1D>();
 			Opening = new List<Opening>();
@@ -105,9 +108,8 @@ namespace IdeaRS.OpenModel
 			DetailLoadCase = new List<DetailLoadCase>();
 			DetailCombination = new List<DetailCombination>();
 
-			BoltAssembly = new List<BoltAssembly>();
-			BoltGrade = new List<MaterialBoltGrade>();
-			Pin = new List<Pin>();
+
+
 		}
 
 		/// <summary>
@@ -171,9 +173,24 @@ namespace IdeaRS.OpenModel
 		public List<MatWelding> MatWelding { get; set; }
 
 		/// <summary>
+		/// List of BoltGrades
+		/// </summary>
+		public List<MaterialBoltGrade> MatBoltGrade { get; set; }
+
+		/// <summary>
 		/// List of CrossSection
 		/// </summary>
 		public List<CrossSection.CrossSection> CrossSection { get; set; }
+
+		/// <summary>
+		/// List of BoltAssemblys
+		/// </summary>
+		public List<BoltAssembly> BoltAssembly { get; set; }
+
+		/// <summary>
+		/// List of Pins
+		/// </summary>
+		public List<Pin> Pin { get; set; }
 
 		/// <summary>
 		/// List of Reinforced CrossSection
@@ -435,21 +452,6 @@ namespace IdeaRS.OpenModel
 		public List<DetailCombination> DetailCombination { get; set; }
 
 		/// <summary>
-		/// List of BoltAssemblys
-		/// </summary>
-		public List<BoltAssembly> BoltAssembly { get; set; }
-
-		/// <summary>
-		/// List of BoltGrades
-		/// </summary>
-		public List<MaterialBoltGrade> BoltGrade { get; set; }
-
-		/// <summary>
-		/// List of Pins
-		/// </summary>
-		public List<Pin> Pin { get; set; }
-
-		/// <summary>
 		/// Get max Id value for specified type
 		/// </summary>
 		/// <param name="typeName">Name of type</param>
@@ -688,7 +690,7 @@ namespace IdeaRS.OpenModel
 					{ typeof(MatSteel).Name, MatSteel },
 					{ typeof(MatPrestressSteel).Name, MatPrestressSteel },
 					{ typeof(MatWelding).Name, MatWelding },
-					{ typeof(MaterialBoltGrade).Name, BoltGrade },
+					{ typeof(MaterialBoltGrade).Name, MatBoltGrade },
 					{ typeof(CrossSection.CrossSection).Name, CrossSection },
 					{ typeof(CrossSection.ReinforcedCrossSection).Name, ReinforcedCrossSection },
 					{ typeof(BoltAssembly).Name, BoltAssembly },
