@@ -173,7 +173,7 @@ namespace IOM.GeneratorExample
 				LoadFromLibrary = true,
 				Id = 1,
 			};
-			openModel.BoltGrade.Add(materialBoltGrade);
+			openModel.MatBoltGrade.Add(materialBoltGrade);
 
 			BoltAssembly boltAssembly = new BoltAssembly()
 			{

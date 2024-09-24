@@ -47,14 +47,14 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			var boltAssemblyItemsDic = openModel.GetElements("BoltAssembly;BoltAssembly")
 				.ToDictionary(boltAssembly => boltAssembly.GetElementValue("Id"));
 
-			var boltGradesLookup = openModel.GetElements("BoltGrade;MaterialBoltGrade")
+			var boltGradesLookup = openModel.GetElements("MatBoltGrade;MaterialBoltGrade")
 				.ToDictionary(boltGrade => boltGrade.GetElementValue("Id"), boltGrade => boltGrade.GetElementValue("Name"));
 
 			ProcessBoltGrids(openModel.GetElements("Connections;ConnectionData;BoltGrids;BoltGrid"), boltAssemblyItemsDic, boltGradesLookup);
 			ProcessAnchorGrids(openModel.GetElements("Connections;ConnectionData;AnchorGrids;AnchorGrid"), boltAssemblyItemsDic, boltGradesLookup);
 
 			openModel.RemoveElementProperty("BoltAssembly");
-			openModel.RemoveElementProperty("BoltGrade");
+			openModel.RemoveElementProperty("MatBoltGrade");
 		}
 
 		public override void DoUpStep(SModel _model)
@@ -71,7 +71,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			}
 
 			var boltAssemblyList = openModel.CreateElementProperty("BoltAssembly").CreateListProperty("BoltAssembly");
-			var boltGradeList = openModel.CreateElementProperty("BoltGrade").CreateListProperty("BoltGrade");
+			var boltGradeList = openModel.CreateElementProperty("MatBoltGrade").CreateListProperty("MatBoltGrade");
 
 			ProcessBoltGridsForUpStep(openModel.GetElements("Connections;ConnectionData;BoltGrids;BoltGrid"), boltAssemblyList, boltGradeList);
 			ProcessAnchorGridsForUpStep(openModel.GetElements("Connections;ConnectionData;AnchorGrids;AnchorGrid"), boltAssemblyList, boltGradeList);
