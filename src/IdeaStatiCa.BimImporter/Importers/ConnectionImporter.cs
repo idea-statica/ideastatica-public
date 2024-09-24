@@ -66,6 +66,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			connectionData.ConcreteBlocks = new List<ConcreteBlockData>();
 
+			connection.PinGrids?.Where(e => e != null).ToList().ForEach(p => ctx.ImportConnectionItem(p, connectionData));
+
+			if (connectionData.PinGrids == null) { connectionData.PinGrids = new List<PinGrid>(); }
+
 			return connectionPoint;
 		}
 	}
