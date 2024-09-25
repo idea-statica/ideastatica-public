@@ -24,6 +24,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaConnectedMember> _connectedMemberImporter;
 		private readonly IImporter<IIdeaPlate> _plateImporter;
 		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
+		private readonly IImporter<IIdeaMember1D> _beamInConnectedPartsImporter;
 		private readonly IImporter<IIdeaWeld> _weldImporter;
 		private readonly IImporter<IIdeaBoltGrid> _boltGridImporter;
 		private readonly IImporter<IIdeaAnchorGrid> _anchorGridImporter;
@@ -58,6 +59,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_connectedMemberImporter = new ConnectedMemberImporter(logger);
 			_plateImporter = new PlateImporter(logger);
 			_beamImporter = new BeamImporter(logger);
+			_beamInConnectedPartsImporter = new BeamInConnectedPartsImporter(logger);
 			_boltGridImporter = new BoltGridImporter(logger);
 			_weldImporter = new WeldImporter(logger);
 			_cutImporter = new CutImporter(logger);
@@ -162,9 +164,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _weldImporter.Import(ctx, weld, connectionData);
 				case IIdeaCut cut:
 					return _cutImporter.Import(ctx, cut, connectionData);
-				//this object should be already imported
 				case IIdeaMember1D member:
-					return connectionData.Beams.Find(b => b.OriginalModelId == member.Id);
+					return _beamInConnectedPartsImporter.Import(ctx, member, connectionData);
+
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
