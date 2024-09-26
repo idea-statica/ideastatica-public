@@ -7,18 +7,18 @@ option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 package ideastatica.checkbotplugin.v1;
 
 service EventService {
-    rpc Subscribe(SubscribeReq) returns (stream Event);
+	rpc Subscribe(SubscribeReq) returns (stream Event);
 }
 
 message SubscribeReq { }
 
 message Event {
-    oneof event {
-        EventPluginStop plugin_stop = 1;
-        EventProcedureBegin procedure_begin = 2;
-        EventOpenCheckApplication open_check_application = 3;
-        EventCustomButtonClicked custom_button_clicked = 4;
-    }
+	oneof event {
+		EventPluginStop plugin_stop = 1;
+		EventProcedureBegin procedure_begin = 2;
+		EventOpenCheckApplication open_check_application = 3;
+		EventCustomButtonClicked custom_button_clicked = 4;
+	}
 }
 
 message EventPluginStop { }
@@ -26,9 +26,9 @@ message EventPluginStop { }
 message EventProcedureBegin { }
 
 message EventOpenCheckApplication { 
-    ModelObject object = 1;
+	ModelObject object = 1;
 }
 
 message EventCustomButtonClicked {
-    string button_name = 1;
+	string button_name = 1;
 }

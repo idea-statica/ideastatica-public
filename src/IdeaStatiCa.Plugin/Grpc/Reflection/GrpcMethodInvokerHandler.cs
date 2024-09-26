@@ -1,6 +1,5 @@
 ﻿using IdeaStatiCa.Plugin.Utilities;
 using Newtonsoft.Json;
-using Nito.AsyncEx.Synchronous;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -79,7 +78,7 @@ namespace IdeaStatiCa.Plugin.Grpc.Reflection
 				Logger.LogTrace($"MethodTask.SendMessageDataSync : returning = '{incomingMessage.OperationId}', MessageName = '{incomingMessage?.MessageName}', ClientId = '{incomingMessage.ClientId}'");
 
 				return incomingMessage;
-			}).WaitAndUnwrapException();
+			}).GetAwaiter().GetResult();
 		}
 
 		public void SetResult(GrpcMessage message)

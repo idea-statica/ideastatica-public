@@ -36,6 +36,7 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 		[TestCase("OpenModel-Simple.xml", "OpenModel-SimpleUpgraded.xml")]
 		[TestCase("OpenModel-Large.xml", "OpenModel-LargeUpgraded.xml")]
 		[TestCase("ModelBIM-AS_Black_Point.xml", "ModelBIM-AS_Black_PointUpgraded.xml")]
+		[TestCase("CHK.xml", "CHK.xml")]
 		public void FromParsedXml_Upgrade_LargeFile(string fileName, string expectedFile)
 		{
 			string xmlContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, fileName));

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Material
@@ -12,6 +9,8 @@ namespace IdeaRS.OpenModel.Material
 	/// </summary>
 	[XmlInclude(typeof(MatPrestressSteelEc2))]
 	[XmlInclude(typeof(MatPrestressSteelSIA))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class MatPrestressSteel : Material
 	{
 

@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
@@ -9,6 +11,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	[XmlInclude(typeof(ParameterInt))]
 	[XmlInclude(typeof(ParameterBool))]
 	[XmlInclude(typeof(ParameterString))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public abstract class Parameter : OpenObject
 	{
 		/// <summary>
@@ -20,6 +24,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// Double parameter of cross-section
 	/// </summary>
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ParameterDouble : Parameter
 	{
 		/// <summary>
@@ -31,6 +37,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// Integer parameter of cross-section
 	/// </summary>
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ParameterInt : Parameter
 	{
 		/// <summary>
@@ -42,6 +50,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// Boolean parameter of cross-section
 	/// </summary>
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ParameterBool : Parameter
 	{
 		/// <summary>
@@ -53,6 +63,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// String parameter of cross-section
 	/// </summary>
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ParameterString : Parameter
 	{
 		/// <summary>
@@ -64,6 +76,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// Reference element parameter of cross-section
 	/// </summary>
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ParameterReferenceElement : Parameter
 	{
 		/// <summary>

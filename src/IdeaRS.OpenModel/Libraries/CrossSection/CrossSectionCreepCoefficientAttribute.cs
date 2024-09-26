@@ -1,5 +1,7 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
@@ -26,6 +28,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentsCreepCoefficientAttribute,CI.CrossSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionCreepCoefficientAttribute : OpenAttribute
 	{
 		/// <summary>
@@ -45,6 +49,7 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// <summary>
 	/// Input value type
 	/// </summary>
+	[DataContract]
 	public enum InputValueType
 	{
 		/// <summary>
@@ -62,6 +67,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// Cross-section component creep coefficient data
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.ComponentCreepCoefficientDataItem,CI.CrossSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CrossSectionCreepCoefficientData
 	{
 		/// <summary>

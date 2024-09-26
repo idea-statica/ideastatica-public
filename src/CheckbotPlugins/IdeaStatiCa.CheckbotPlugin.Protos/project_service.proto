@@ -7,68 +7,71 @@ package ideastatica.checkbotplugin.v1;
 import "country_code.proto";
 
 service ProjectService {
-    rpc GetInfo(ProjectInfoReq) returns (ProjectInfoResp);
+	rpc GetInfo(ProjectInfoReq) returns (ProjectInfoResp);
 
-    rpc GetModel(GetModelReq) returns (stream GetModelResp);
+	rpc GetModel(GetModelReq) returns (stream GetModelResp);
 
-    rpc ListObjects(ListObjectsReq) returns (ListObjectsRes);
-    rpc GetObjects(GetObjectsReq) returns (stream GetObjectsResp);
+	rpc ListObjects(ListObjectsReq) returns (ListObjectsRes);
+	rpc GetObjects(GetObjectsReq) returns (stream GetObjectsResp);
 }
 
 message ProjectInfoReq { }
 
 message ProjectInfoResp {
-    string name = 1;
+	string name = 1;
 	CountryCode country_code = 2;
-    CountryCodeConfig country_code_config = 3;
+	CountryCodeConfig country_code_config = 3;
+    string source_app = 4;
+    string source_app_type = 5;
 }
 
 
 message GetModelReq { 
-    ModelExportOptions options = 1;
+	ModelExportOptions options = 1;
 }
 
 message GetModelResp { 
-    ModelPacket packet = 1;
+	ModelPacket packet = 1;
 }
 
 
 message ListObjectsReq { }
 
 message ListObjectsRes {
-    repeated ModelObject objects = 1;
+	repeated ModelObject objects = 1;
 }
 
 
 message GetObjectsReq {
-    ModelExportOptions options = 1;
-    repeated ModelObject objects = 2;
+	ModelExportOptions options = 1;
+	repeated ModelObject objects = 2;
 }
 
 message GetObjectsResp {
-    ModelPacket packet = 1;
+	ModelPacket packet = 1;
 }
 
 
 enum ModelObjectType {
-    CONNECTION_POINT = 0;
-    SUBSTRUCTURE = 1;
-    MEMBER = 2;
-    NODE = 3;
-    CROSS_SECTION = 4;
-    MATERIAL = 5;
+	CONNECTION_POINT = 0;
+	SUBSTRUCTURE = 1;
+	MEMBER = 2;
+	NODE = 3;
+	CROSS_SECTION = 4;
+	MATERIAL = 5;
 }
 
 message ModelObject {
-    ModelObjectType type = 1;
-    int32 id = 2;
+	ModelObjectType type = 1;
+	int32 id = 2;
 }
 
 message ModelPacket {
-    bytes data = 1;
+	bytes data = 1;
 }
 
 message ModelExportOptions {
-    bool with_results = 1;
-    bool all_cross_sections_as_general = 2;
+	bool with_results = 1;
+	bool all_cross_sections_as_general = 2;
+	string version = 3;
 }

@@ -70,7 +70,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: RcsApiClient
-        path: ${{ github.workspace }}/main/examples/bimapi/RcsApiClient/bin/Release/net6.0-windows/
+        path: ${{ github.workspace }}/main/examples/api/csharp/rcs/RcsApiClient/bin/Release/net6.0-windows
         if-no-files-found: error
 
     #- name: Nuget restore dependencies

@@ -5,13 +5,16 @@
 		public static readonly ModelExportOptions Default = new ModelExportOptions();
 
 		/// <summary>
-		/// When <see langword="true"/> <see cref="IdeaRS.OpenModel.OpenModelContainer"/> will contains results.
+		/// When <see langword="true"/> OpenModelContainer will contains results.
 		/// </summary>
 		public bool WithResults { get; set; } = true;
 
-		/// <summary>
-		/// When <see langword="true"/> all cross-section in the IOM will be specified as <see cref="IdeaRS.OpenModel.CrossSection.CrossSectionComponent"/>.
-		/// </summary>
+		/// <remarks>Not implemented yet</remarks>
 		public bool AllCrossSectionsAsGeneral { get; set; } = false;
+
+		/// <summary>
+		/// By Version is possible do downgrade of OpenModelContainer
+		/// </summary>
+		public string Version { get; set; } = "";
 	}
 }

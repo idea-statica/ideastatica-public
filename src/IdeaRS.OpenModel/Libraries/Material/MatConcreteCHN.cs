@@ -1,10 +1,15 @@
 ﻿
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
+
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
 	/// Material concrete CHN
 	/// </summary>
-	[OpenModelClass("CI.StructModel.Libraries.Material.IND.MatConcreteIND,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatConcrete))]
+	[OpenModelClass("CI.StructModel.Libraries.Material.CHN.MatConcreteCHN,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatConcrete))]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class MatConcreteCHN : MatConcrete
 	{
 		/// <summary>

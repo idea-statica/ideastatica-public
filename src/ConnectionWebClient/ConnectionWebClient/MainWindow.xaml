@@ -8,14 +8,19 @@
         Title="MainWindow" Height="450" Width="800">
 	<DockPanel LastChildFill="True">
 		<ToolBarTray DockPanel.Dock="Top">
-			<ToolBar Band="1" DockPanel.Dock="Top">
+		
+			<ToolBar Band="1">
 				<Button Command="{Binding ConnectCommand, Mode=OneWay}">Connect</Button>
 				<Button Command="{Binding OpenProjectCommand, Mode=OneWay}">Open Project</Button>
 				<Button Command="{Binding CloseProjectCommand, Mode=OneWay}">Close Project</Button>
-				<!--<Button Command="{Binding GetBriefResultsCommand, Mode=OneWay}">Plastic Brief results</Button>
-				<Button Command="{Binding GetDetailedResultsCommand, Mode=OneWay}">Plastic Detailed results</Button>
-				<Button Command="{Binding GetBucklingBriefResultsCommand, Mode=OneWay}">Buckling Brief results</Button>
-				<Button Command="{Binding GetBucklingDetailedResultsCommand, Mode=OneWay}">Buckling Detailed results</Button>-->
+				<Button Command="{Binding DownloadProjectCommand, Mode=OneWay}">Download</Button>
+				<Button Command="{Binding ShowClientUICommand, Mode=OneWay}">Show Client UI</Button>
+			</ToolBar>
+
+			<ToolBar Band="2">
+				<Button Command="{Binding CalculationCommand, Mode=OneWay}">Calculate</Button>
+				<Button Command="{Binding ApplyTemplateCommand, Mode=OneWay}">Apply template</Button>
+				<Button Command="{Binding GetSceneDataCommand, Mode=OneWay}">Scene3D Data</Button>
 			</ToolBar>
 		</ToolBarTray>
 		<Grid>
@@ -43,7 +48,11 @@
 					</GridView>
 				</ListView.View>
 			</ListView>
-			<TextBox Text="{Binding OutputText, Mode=TwoWay}" Grid.Column="1"></TextBox>
+			<Grid  Grid.Column="1">
+				<ScrollViewer VerticalScrollBarVisibility="Auto">
+					<TextBox Text="{Binding OutputText, Mode=TwoWay}"></TextBox>
+				</ScrollViewer>
+			</Grid>
 		</Grid>
 	</DockPanel>
 </Window>

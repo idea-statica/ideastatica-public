@@ -1,4 +1,6 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.CrossSection
 {
@@ -6,6 +8,8 @@ namespace IdeaRS.OpenModel.CrossSection
 	/// One component of cross-section
 	/// </summary>
 	[OpenModelClass("CI.StructModel.Libraries.CrossSection.CssComponent,CI.CrossSection")]
+	[DataContract]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class CssComponent : OpenObject
 	{
 		/// <summary>

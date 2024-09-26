@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using IdeaStatiCa.Plugin;
-using IdeaStatiCa.Plugin.Api.RCS;
 using IdeaStatiCa.PluginLogger;
 using IdeaStatiCa.RcsClient.Factory;
 using IdeaStatiCa.RcsClient.Services;
@@ -10,7 +9,7 @@ using RcsApiClient.Services;
 using RcsApiClient.ViewModels;
 using System;
 using System.Windows;
-using System.IO;
+using IdeaStatiCa.Api.RCS;
 
 namespace RcsApiClient
 {

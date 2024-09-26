@@ -1,20 +1,24 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using System.Runtime.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
 	/// <summary>
 	/// Steel stress-strain diagram
 	/// </summary>
+	[DataContract]
 	public enum SteelDiagramType
 	{
 		/// <summary>
 		/// Billinear
 		/// </summary>
+		[DataMember]
 		Bilinear = 0,
 
 		/// <summary>
 		/// Defined by user
 		/// </summary>
+		[DataMember]
 		DefinedByUser = 5
 	}
 
@@ -53,41 +57,49 @@ namespace IdeaRS.OpenModel.Material
 	/// </code>
 	/// </example>
 	[OpenModelClass("CI.StructModel.Libraries.Material.ECEN.MatSteelECEN,CI.Material", "CI.StructModel.Libraries.Material.IMaterial,CI.BasicTypes", typeof(MatSteel))]
+	[DataContract]
 	public class MatSteelEc2 : MatSteel
 	{
 		/// <summary>
 		/// Yield strength for nominal thickness of the element &lt;= 40mm - f<sub>y</sub>
 		/// </summary>
+		[DataMember]
 		public double fy { get; set; }
 
 		/// <summary>
 		/// Ultimate strength  for nominal thickness of the element &lt;= 40mm - f<sub>u</sub>
 		/// </summary>
+		[DataMember]
 		public double fu { get; set; }
 
 		/// <summary>
 		/// Yield strength for nominal thickness of the element &gt; 40mm and &lt;= 100mm - f<sub>y,(&gt;40)</sub>
 		/// </summary>
+		[DataMember]
 		public double fy40 { get; set; }
 
 		/// <summary>
 		/// Ultimate strength for nominal thickness of the element &gt; 40mm and &lt;= 100mm - f<sub>u,(&gt;40)</sub>
 		/// </summary>
+		[DataMember]
 		public double fu40 { get; set; }
 
 		/// <summary>
 		/// Type of material diagram
 		/// </summary>
+		[DataMember]
 		public SteelDiagramType DiagramType { get; set; }
 
 		/// <summary>
 		/// Stress-strain diagram defined by user
 		/// </summary>
+		[DataMember]
 		public Polygon2D UserDiagram { get; set; }
 
 		/// <summary>
 		/// Material strength for specific thickness of plate
 		/// </summary>
+		[DataMember]
 		public MaterialStrengthProperty MaterialStrength { get; set; }
 	}
 }

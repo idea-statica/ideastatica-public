@@ -54,7 +54,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 						PlaneOnCuttingObject = cut.DistanceComparison,
 						WeldThickness = (cut.Weld?.Thickness) ?? 0.0,
 						WeldType = cut.Weld != null ? cut.Weld.WeldType : WeldType.Fillet,
+						ExtendBeforeCut = cut.ExtendBeforeCut,
+						Name = cut.Name,
 					};
+
 
 					(connectionData.CutBeamByBeams ?? (connectionData.CutBeamByBeams = new List<CutBeamByBeamData>())).Add(cutIOM);
 

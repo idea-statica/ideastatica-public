@@ -47,5 +47,10 @@ namespace IdeaStatiCa.BimApi
 		/// Cut part
 		/// </summary>
 		CutPart CutPart { get; }
+
+		/// <summary>
+		/// Extend before cut - for cuts where user can decide if modified beam will be extended or not
+		/// </summary>
+		bool ExtendBeforeCut { get; }
 	}
 }
