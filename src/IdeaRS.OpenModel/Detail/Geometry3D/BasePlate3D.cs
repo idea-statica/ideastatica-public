@@ -1,4 +1,5 @@
 ﻿using IdeaRS.OpenModel.Geometry2D;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Detail
@@ -10,6 +11,16 @@ namespace IdeaRS.OpenModel.Detail
 	{
 		Column = 1,
 		Forces = 2,
+	}
+
+	/// <summary>
+	/// shear force transfer
+	/// </summary>
+	public enum ShearForceTransfer
+	{
+		Friction = 1,
+		ShearLug = 2,
+		Anchors = 3
 	}
 
 	/// <summary>
@@ -111,5 +122,48 @@ namespace IdeaRS.OpenModel.Detail
 		/// position Y on master component
 		/// </summary>
 		public double PositionY { get; set; }
+		
+		/// <summary>
+		/// Shear force transfer type:
+		/// 1 - friction
+		/// 2 - shear lug
+		/// 3 - anchors
+		/// </summary>
+		public ShearForceTransfer ShearForceTransfer { get; set; }
+
+		/// <summary>
+		/// friction coefficient base type
+		/// </summary>
+		public double FrictionCoefficient { get; set; }
+
+		/// <summary>
+		/// shear lug cross-section
+		/// </summary>
+		public string ShearLugCrossSectionName { get; set; }
+
+		/// <summary>
+		/// shear lug length
+		/// </summary>
+		public double ShearLugLength { get; set; }
+
+		/// <summary>
+		/// shear lug edge
+		/// </summary>
+		public int ShearLugEdge { get; set; }
+
+		/// <summary>
+		/// shear lug position X
+		/// </summary>
+		public double ShearLugPositionX { get; set; }
+
+		/// <summary>
+		/// shear lug position Y
+		/// </summary>
+		public double ShearLugPositionY { get; set; }
+
+		/// <summary>
+		/// shear lug rotation
+		/// </summary>
+		public double ShearLugRotation { get; set; }
 	}
 }
