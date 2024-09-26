@@ -24,6 +24,8 @@ namespace IdeaStatiCa.BimImporter
 		private readonly IProgressMessaging _remoteApp;
 		private readonly BimImporterConfiguration _configuration;
 
+		public IIdeaModel IdeaModel => _ideaModel;
+
 		/// <summary>
 		///Creates instance of <see cref="BimImporter"/>.
 		/// </summary>

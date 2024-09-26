@@ -14,6 +14,8 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 {
 	public class FeaApplication : BimApiApplication
 	{
+		public IBimImporter BimImporter => _bimImporter;
+
 		private readonly IBimImporter _bimImporter;
 
 		public FeaApplication(
