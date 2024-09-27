@@ -14,7 +14,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 {
 	public class FeaApplication : BimApiApplication
 	{
-		private readonly IBimImporter _bimImporter;
+		public readonly IBimImporter BimImporter;
 
 		public FeaApplication(
 			string applicationName,
@@ -30,7 +30,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			bool highlightSelection = true)
 			: base(applicationName, logger, project, projectStorage, bimApiImporter, pluginHook, scopeHook, userDataSource, taskScheduler, highlightSelection)
 		{
-			_bimImporter = bimImporter;
+			BimImporter = bimImporter;
 		}
 
 		protected override ModelBIM ImportSelection(CountryCode countryCode, RequestedItemsType requestedType)
@@ -38,10 +38,10 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 			switch (requestedType)
 			{
 				case RequestedItemsType.Connections:
-					return _bimImporter.ImportConnections(countryCode);
+					return BimImporter.ImportConnections(countryCode);
 
 				case RequestedItemsType.Substructure:
-					return _bimImporter.ImportMembers(countryCode);
+					return BimImporter.ImportMembers(countryCode);
 
 				default:
 					throw new NotImplementedException();
@@ -50,7 +50,7 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		protected override List<ModelBIM> Synchronize(CountryCode countryCode, List<BIMItemsGroup> items)
 		{
-			return _bimImporter.ImportSelected(items, countryCode);
+			return BimImporter.ImportSelected(items, countryCode);
 		}
 
 		protected override void Select(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members)
