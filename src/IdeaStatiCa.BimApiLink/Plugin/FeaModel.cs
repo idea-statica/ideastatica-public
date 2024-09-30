@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace IdeaStatiCa.BimApiLink.Plugin
 {
-	internal class FeaModelAdapter : IIdeaModel
+	public class FeaModelAdapter : IIdeaModel
 	{
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IFeaModel _feaModel;
@@ -70,6 +70,11 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public BulkSelection GetWholeModel()
 		{
 			throw new NotImplementedException();
+		}
+
+		public void SetLastSelection(FeaUserSelection feaUserSelection)
+		{
+			_lastSelection = feaUserSelection;
 		}
 	}
 }
