@@ -9,8 +9,6 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 {
 	internal class FeaModelAdapter : IIdeaModel
 	{
-		private FeaUserSelection _lastSelection;
-
 		private readonly IBimApiImporter _bimApiImporter;
 		private readonly IFeaModel _feaModel;
 
@@ -22,12 +20,8 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public ISet<IIdeaLoading> GetLoads()
 		{
-			if (_lastSelection is null)
-			{
-				return new HashSet<IIdeaLoading>();
-			}
 
-			return _lastSelection.Combinations
+			return _feaModel.GetAllCombinations()
 				.Select(x => _bimApiImporter.Get(x))
 				.Cast<IIdeaLoading>()
 				.ToHashSet();
@@ -47,7 +41,6 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		public BulkSelection GetBulkSelection()
 		{
 			FeaUserSelection selection = _feaModel.GetUserSelection();
-			_lastSelection = selection;
 
 			var nodes = selection.Nodes
 				.Select(x => _bimApiImporter.Get(x))
