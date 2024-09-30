@@ -16,9 +16,8 @@ namespace IdeaStatiCa.BimImporter
 	{
 		private static readonly IIdeaObjectComparer _ideaObjectComparer = new IIdeaObjectComparer();
 
-		public readonly IIdeaModel IdeaModel;
-  
-		private readonly IPluginLogger _logger;		
+		private readonly IPluginLogger _logger;
+		private readonly IIdeaModel _ideaModel;
 		private readonly IProject _project;
 		private readonly IGeometryProvider _geometryProvider;
 		private readonly IBimObjectImporter _bimObjectImporter;
@@ -71,7 +70,7 @@ namespace IdeaStatiCa.BimImporter
 			IBimObjectImporter bimObjectImporter,
 			IProgressMessaging remoteApp = null)
 		{
-			IdeaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
+			_ideaModel = ideaModel ?? throw new ArgumentNullException(nameof(ideaModel));
 			_project = project ?? throw new ArgumentNullException(nameof(project));
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 			_geometryProvider = geometryProvider ?? throw new ArgumentNullException(nameof(geometryProvider));
@@ -281,7 +280,7 @@ namespace IdeaStatiCa.BimImporter
 					{
 						connections.Add(Connection.FromConnectionPoint(cp));
 						//process connection
-						if (IdeaModel is IIdeaConnectionModel connectionModel)
+						if (_ideaModel is IIdeaConnectionModel connectionModel)
 						{
 							connectionModel.ProcessConnection(cp);
 						}
@@ -329,7 +328,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			BulkSelection selection = IdeaModel.GetBulkSelection();
+			BulkSelection selection = _ideaModel.GetBulkSelection();
 
 			CheckNodesAndMembers(selection);
 
@@ -340,7 +339,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			BulkSelection selection = IdeaModel.GetWholeModel();
+			BulkSelection selection = _ideaModel.GetWholeModel();
 			CheckNodesAndMembers(selection);
 
 			return selection;
@@ -363,7 +362,7 @@ namespace IdeaStatiCa.BimImporter
 		{
 			_remoteApp?.InitProgressDialog();
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.ModelImport);
-			SingleSelection selection = IdeaModel.GetSingleSelection();
+			SingleSelection selection = _ideaModel.GetSingleSelection();
 
 			CheckNodesAndMembers(selection);
 
@@ -403,8 +402,8 @@ namespace IdeaStatiCa.BimImporter
 
 			_remoteApp?.SendMessageLocalised(MessageSeverity.Info, LocalisedMessage.FinishingImport);
 
-			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(IdeaModel.GetLoads()), bimItems, _project, countryCode);
-			modelBIM.Model.OriginSettings = IdeaModel.GetOriginSettings();
+			ModelBIM modelBIM = _bimObjectImporter.Import(objects.Concat(_ideaModel.GetLoads()), bimItems, _project, countryCode);
+			modelBIM.Model.OriginSettings = _ideaModel.GetOriginSettings();
 
 			return modelBIM;
 		}
