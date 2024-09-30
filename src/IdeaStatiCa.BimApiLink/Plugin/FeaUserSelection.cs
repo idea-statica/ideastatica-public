@@ -15,8 +15,5 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 
 		public ICollection<Identifier<IIdeaMember2D>> Members2D { get; set; }
 			= Array.Empty<Identifier<IIdeaMember2D>>();
-
-		public ICollection<Identifier<IIdeaCombiInput>> Combinations { get; set; }
-			= Array.Empty<Identifier<IIdeaCombiInput>>();
 	}
 }
