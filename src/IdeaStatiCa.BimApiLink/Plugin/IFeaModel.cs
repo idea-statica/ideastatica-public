@@ -9,12 +9,6 @@ namespace IdeaStatiCa.BimApiLink.Plugin
 		FeaUserSelection GetUserSelection();
 
 		/// <summary>
-		/// Gets all load combinations in current model in Fea application
-		/// </summary>
-		/// <returns>Identifiers of load combinations</returns>
-		IEnumerable<Identifier<IIdeaCombiInput>> GetAllCombinations();
-
-		/// <summary>
 		/// Get's the user selected nodes and members as input parameters and projects the selection in connected Fea application
 		/// </summary>
 		/// <param name="nodes">Nodes to be selected</param>
