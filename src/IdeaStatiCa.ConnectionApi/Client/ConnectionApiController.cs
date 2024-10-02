@@ -72,7 +72,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
 				using (var fileStream = new FileStream(ideaConProject, FileMode.Open, FileAccess.Read))
 				{
 					var streamContent = new StreamContent(fileStream);
-					streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+					streamContent.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
 
 					// Add the file stream content to the form data, with the form field name "ideaConFile"
 					formData.Add(streamContent, "ideaConFile", Path.GetFileName(ideaConProject));
