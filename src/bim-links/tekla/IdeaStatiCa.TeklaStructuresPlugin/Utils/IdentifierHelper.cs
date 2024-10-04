@@ -90,7 +90,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 
 					if (teklaChildObject is CutPlane cutPlane)
 					{
-						if (!IsWorkPlaneInShereOfConnection(connectionPoint, teklaPart, cutPlane.Plane))
+						if (!IsWorkPlaneInSphereOfConnection(connectionPoint, teklaPart, cutPlane.Plane))
 						{
 							//skip cut its on other side of member
 							continue;
@@ -100,7 +100,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 					}
 					else if (teklaChildObject is Fitting fitting)
 					{
-						if (!IsWorkPlaneInShereOfConnection(connectionPoint, teklaPart, fitting.Plane))
+						if (!IsWorkPlaneInSphereOfConnection(connectionPoint, teklaPart, fitting.Plane))
 						{
 							//skip cut its on other side of member
 							continue;
@@ -158,7 +158,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			return identifiers;
 		}
 
-		private static bool IsWorkPlaneInShereOfConnection(Point connectionPoint, Part beam, Plane plane)
+		private static bool IsWorkPlaneInSphereOfConnection(Point connectionPoint, Part beam, Plane plane)
 		{
 			var originalCenterline = beam.GetCenterLine(false);
 			var tsWorkplanePoint = plane.Origin;
@@ -166,8 +166,19 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 				new Line(originalCenterline[0] as Point, originalCenterline[originalCenterline.Count - 1] as Point),
 				new GeometricPlane(tsWorkplanePoint, plane.AxisX, plane.AxisY)
 				);
+			var potentialIntersecPoint = Projection.PointToLine(connectionPoint, tsWokplanePointHitByReferenceLine);
 
-			return IsPointInShereOfConnection(connectionPoint, beam, tsWokplanePointHitByReferenceLine.Origin);
+
+			if (double.IsNaN(potentialIntersecPoint.X) || double.IsNaN(potentialIntersecPoint.Y) || double.IsNaN(potentialIntersecPoint.Z))
+			{
+				//very probably is plate out of sphere
+				return IsIntersectPointInSphereOfConnection(connectionPoint, beam, tsWokplanePointHitByReferenceLine.Origin);
+			}
+			else
+			{
+				return IsIntersectPointInSphereOfConnection(connectionPoint, beam, potentialIntersecPoint);
+			}
+
 		}
 
 		private static bool IsPointInShereOfConnection(Point connectionPoint, Part beam, Point workPlanePoint)
@@ -175,11 +186,19 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			var cuttedCenterline = beam.GetCenterLine(true);
 			var originalCenterline = beam.GetCenterLine(false);
 
+			var tsWorkplanePoint = Projection.PointToLine(workPlanePoint, new Line(originalCenterline[0] as Point, cuttedCenterline[cuttedCenterline.Count - 1] as Point));
+
+			return IsIntersectPointInSphereOfConnection(connectionPoint, beam, tsWorkplanePoint);
+		}
+
+		private static bool IsIntersectPointInSphereOfConnection(Point connectionPoint, Part beam, Point workPlanePoint)
+		{
+			var cuttedCenterline = beam.GetCenterLine(true);
+			var originalCenterline = beam.GetCenterLine(false);
+
 			//cuttedCenterline[0] as TSG.Point
 			var tsCpPoint = connectionPoint;
 			var tsWorkplanePoint = workPlanePoint;
-
-			tsWorkplanePoint = Projection.PointToLine(tsWorkplanePoint, new Line(originalCenterline[0] as Point, cuttedCenterline[cuttedCenterline.Count - 1] as Point));
 
 			var distanceToStart = Distance.PointToPoint(cuttedCenterline[0] as Point, tsCpPoint);
 			var distanceToEnd = Distance.PointToPoint(cuttedCenterline[cuttedCenterline.Count - 1] as Point, tsCpPoint);
