@@ -169,8 +169,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BulkSelection", "BulkSelect
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ItemsSorter", "IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj", "{FA10298F-F62D-4B09-80EB-B41D04408FB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.ConnectionApi", "IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj", "{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Api", "IdeaStatiCa.Api\IdeaStatiCa.Api.csproj", "{CCA8A2DB-5D55-4669-828F-D08C915B649B}"
 EndProject
 Global
@@ -407,10 +405,6 @@ Global
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Debug|x64.Build.0 = Debug|Any CPU
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.ActiveCfg = Release|Any CPU
 		{FA10298F-F62D-4B09-80EB-B41D04408FB6}.Release|x64.Build.0 = Release|Any CPU
-		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Debug|x64.Build.0 = Debug|Any CPU
-		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Release|x64.ActiveCfg = Release|Any CPU
-		{1EDF24F4-B6E7-4ABF-BCA4-82BA8816A3AE}.Release|x64.Build.0 = Release|Any CPU
 		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Debug|x64.Build.0 = Debug|Any CPU
 		{CCA8A2DB-5D55-4669-828F-D08C915B649B}.Release|x64.ActiveCfg = Release|Any CPU
