@@ -276,7 +276,7 @@ namespace IdeaStatiCa.Api.Common
 			}
 		}
 
-		private StringContent GetStringContent(object requestContent)
+		private HttpContent GetStringContent(object requestContent)
 		{
 			if (requestContent is OpenModel openModel)
 			{
@@ -295,9 +295,9 @@ namespace IdeaStatiCa.Api.Common
 				var xmlModel = IdeaRS.OpenModel.Tools.OpenModelContainerToXml(openModelContainer).Replace("utf-16", "utf-8");
 				return new StringContent(xmlModel, Encoding.UTF8, "application/xml");
 			}
-			else if (requestContent is StringContent stringContent)
+			else if (requestContent is HttpContent httpContent)
 			{
-				return stringContent;
+				return httpContent;
 			}
 
 			var content = new StringContent(JsonConvert.SerializeObject(requestContent, _jsonSerializerSettings), encoding: Encoding.UTF8, "application/json");
