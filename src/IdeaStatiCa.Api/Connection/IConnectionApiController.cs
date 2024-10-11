@@ -109,28 +109,6 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
 		Task<ConProject> CreateProjectFromIomContainerFileAsync(string iomContainerXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default);
 
-		/// Creates Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects
-		/// </summary>
-		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
-		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
-		Task<ConProject> CreateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, ConIomImportOptions options, CancellationToken cancellationToken = default);
-
-		/// <summary>
-		/// Creates an IDEA Connection project based on Open Model and Open Model Result)
-		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="result"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
-		Task<ConProject> CreateProjectFromIomModelAsync(OpenModel model, OpenModelResult result, ConIomImportOptions options, CancellationToken cancellationToken = default);
-
-		/// <summary>
-		/// Creates an IDEA Connection project based on OpenModelContainer (model and results)
-		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
-		Task<ConProject> CreateProjectFromIomContainerAsync(OpenModelContainer model, ConIomImportOptions options, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Export Connection IomContainer
@@ -155,32 +133,6 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="connectionId"></param>
 		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
 		Task<bool> UpdateProjectFromIomContainerFileAsync(string iomContainerXmlFileName, CancellationToken cancellationToken = default);
-
-		/// Update Idea connection project from given <paramref name="iomXmlFileName"/>, <paramref name="iomResXmlFileName"/> and projects
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="iomXmlFileName">Filename of a given IOM xml file</param>
-		/// <param name="iomResXmlFileName">Filename of a given IOM Result xml file</param>
-		Task<bool> UpdateProjectFromIomFileAsync(string iomXmlFileName, string iomResXmlFileName, CancellationToken cancellationToken = default);
-
-		/// <summary>
-		/// Update an IDEA Connection project based on Open Model and Open Model Result)
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="model"></param>
-		/// <param name="result"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
-		Task<bool> UpdateProjectFromIomModelAsync(OpenModel model, OpenModelResult result, CancellationToken cancellationToken = default);
-
-		/// <summary>
-		/// Update an IDEA Connection project based on OpenModelContainer (model and results)
-		/// </summary>
-		/// <param name="connectionId"></param>
-		/// <param name="model"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
-		Task<bool> UpdateProjectFromIomContainerAsync(OpenModelContainer model, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Export <paramref name="connectionId"/> to IFC
