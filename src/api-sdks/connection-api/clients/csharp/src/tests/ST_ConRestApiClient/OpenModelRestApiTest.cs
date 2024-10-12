@@ -1,4 +1,6 @@
-﻿namespace ST_ConnectionRestApi
+﻿using FluentAssertions;
+
+namespace ST_ConnectionRestApi
 {
 	public class OpenModelRestApiTest : ConRestApiBaseTest
 	{
@@ -29,21 +31,14 @@
 			}
 		}
 
+		[Test]
+		public async Task ShouldImportIOMTest()
+		{
+			string connProjectContainerFilePath = Path.Combine(ProjectPath, "OpenModelContainer.xml");
+			var conProject = await ConnectionApiClient!.Project.CreateProjectFromIomFileAsync(connProjectContainerFilePath);
 
-		//[Test]
-		//public async Task ShouldImportIOMTest()
-		//{
-		//	//var iomImportOption = new ConIomImportOptions();
-
-		//	//var connectionIds = new List<int>();
-		//	//iomImportOption.ConnectionsToCreate = connectionIds;
-
-		//	string connProjectContainerFilePath = Path.Combine(ProjectPath, "OpenModelContainer.xml");
-
-		//	var conProject = await ConnectionApiClient.OpenFromIomFileAsync(connProjectContainerFilePath);
-
-
-		//}
+			conProject.Should().NotBeNull();
+		}
 
 		//[Test]
 		//public async Task ShouldUpdateConnectionbyIOMModel()
@@ -65,32 +60,6 @@
 		//	var conProjectUpdated = await ConnApiController!.UpdateProjectFromIomContainerFileAsync(connProjectContainerFilePathUpdate, CancellationToken.None);
 		//	conProjectUpdated.Should().BeTrue();
 
-		//}
-
-		//[Test]
-		//public async Task ShouldImportIOMTestAndUpdateCodeSetup()
-		//{
-		//	var iomImportOption = new ConIomImportOptions();
-
-		//	var connectionIds = new List<int>();
-		//	iomImportOption.ConnectionsToCreate = connectionIds;
-
-		//	string connProjectContainerFilePath = Path.Combine(ProjectPath, "IomContainerFromPython.xml");
-
-		//	var conProject = await ConnApiController!.CreateProjectFromIomContainerFileAsync(connProjectContainerFilePath, iomImportOption, CancellationToken.None);
-		//	conProject.Should().NotBeNull();
-
-		//	var connectionSetup = await ConnApiController!.GetConnectionSetupAsync(CancellationToken.None);
-
-		//	connectionSetup.HssLimitPlasticStrain.Should().Be(0.01);
-
-		//	connectionSetup.HssLimitPlasticStrain = 0.02;
-
-		//	var updateResponse = await ConnApiController!.UpdateConnectionSetupAsync(connectionSetup, CancellationToken.None);
-
-		//	var updatedConnectionSetup = await ConnApiController!.GetConnectionSetupAsync(CancellationToken.None);
-
-		//	updatedConnectionSetup.HssLimitPlasticStrain.Should().Be(0.02);
 		//}
 	}
 }

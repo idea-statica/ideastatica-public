@@ -80,6 +80,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+	  <ProjectReference Include="..\..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
 	  <ProjectReference Include="..\..\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
 	</ItemGroup>
 

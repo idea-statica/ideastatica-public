@@ -91,20 +91,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 		public async Task<ConProject> CreateProjectFromIomFileAsync(string fileName, List<int> connectionsToCreate = null)
 		{
-			IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-			var localVarContentType = "application/xml";
-			localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-
-			string localVarAccept = "application/json";
-			localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-
-
-			//localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-
-			localVarRequestOptions.Operation = "ProjectApi.UpdateFromIOM";
-			localVarRequestOptions.OperationIndex = 0;
-
 			string xmlString = string.Empty;
 #if NETSTANDARD2_1_OR_GREATER
 			xmlString = await System.IO.File.ReadAllTextAsync(fileName);
@@ -112,38 +98,16 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			xmlString = System.IO.File.ReadAllText(fileName);
 
 #endif
-			localVarRequestOptions.Data = xmlString;
-
-
 			xmlString = xmlString.Replace("utf-16", "utf-8");
-			var contentString = new StringContent(xmlString, encoding: Encoding.UTF8, "application/xml");
 
-			//ConIomImportOptions 
-
-			//if (connectionsToCreate != null)
-			//{
-			//	localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("multi", "ConnectionsToCreate", connectionsToCreate));
-			//}
-
-			localVarRequestOptions.QueryParameters.Add(IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToMultiMap("multi", "ConnectionsToCreate", new List<int>()));
-			localVarRequestOptions.Data = contentString;
-
-			localVarRequestOptions.Operation = "ProjectApi.ImportIOMContainer";
-
-
-			// make the HTTP request
-			var localVarResponse = this.Client.Post<ConProject>("/api/1/projects/import-iom", localVarRequestOptions, this.Configuration);
-			if (this.ExceptionFactory != null)
+			using (var memoryStream = new System.IO.MemoryStream(Encoding.UTF8.GetBytes(xmlString)))
 			{
-				Exception _exception = this.ExceptionFactory("ImportIOMContainer", localVarResponse);
-				if (_exception != null)
-				{
-					throw _exception;
-				}
+				memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
+
+				var response = await ImportIOMWithHttpInfoAsync(memoryStream, connectionsToCreate);
+
+				return response.Data;
 			}
-
-			return localVarResponse.Data;
-
 		}
 
 		/// <inheritdoc cref="ProjectApi.GetSetupAsync(Guid, int, System.Threading.CancellationToken)"/>

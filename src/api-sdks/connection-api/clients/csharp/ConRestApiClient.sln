@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaRS.OpenModel", "..\..\.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Api", "..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj", "{8D171684-FBDA-42BE-80D0-E02E722594A3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaStatiCa.Public", "..\..\..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj", "{E3137DA1-5F8D-41F4-BDE8-36D5AF8CB77D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{8D171684-FBDA-42BE-80D0-E02E722594A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D171684-FBDA-42BE-80D0-E02E722594A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D171684-FBDA-42BE-80D0-E02E722594A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3137DA1-5F8D-41F4-BDE8-36D5AF8CB77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3137DA1-5F8D-41F4-BDE8-36D5AF8CB77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3137DA1-5F8D-41F4-BDE8-36D5AF8CB77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3137DA1-5F8D-41F4-BDE8-36D5AF8CB77D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
