@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenModelContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <OpenModel>
+    <Version>2</Version>
+    <OriginSettings>
+      <ProjectName>Project</ProjectName>
+      <ProjectDescription>Training example</ProjectDescription>
+      <Author>IDEA StatiCa s.r.o.</Author>
+      <DateOfCreate>0001-01-01T00:00:00</DateOfCreate>
+      <CrossSectionConversionTable>SCIA</CrossSectionConversionTable>
+      <CountryCode>ECEN</CountryCode>
+      <ImportRecommendedWelds>false</ImportRecommendedWelds>
+      <CheckEquilibrium>false</CheckEquilibrium>
+    </OriginSettings>
+    <Point3D>
+      <Point3D>
+        <Id>1</Id>
+        <Name>N1</Name>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Point3D>
+      <Point3D>
+        <Id>2</Id>
+        <Name>N2</Name>
+        <X>1</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Point3D>
+      <Point3D>
+        <Id>3</Id>
+        <Name>N3</Name>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>5</Z>
+      </Point3D>
+      <Point3D>
+        <Id>4</Id>
+        <Name>N4</Name>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-5</Z>
+      </Point3D>
+    </Point3D>
+    <LineSegment3D>
+      <LineSegment3D>
+        <Id>1</Id>
+        <StartPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>3</Id>
+        </StartPoint>
+        <EndPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>1</Id>
+        </EndPoint>
+        <LocalCoordinateSystem xsi:type="CoordSystemByPoint">
+          <Point>
+            <Id>0</Id>
+            <X>100000</X>
+            <Y>0</Y>
+            <Z>0</Z>
+          </Point>
+          <InPlane>ZX</InPlane>
+        </LocalCoordinateSystem>
+      </LineSegment3D>
+      <LineSegment3D>
+        <Id>2</Id>
+        <StartPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>1</Id>
+        </StartPoint>
+        <EndPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>4</Id>
+        </EndPoint>
+        <LocalCoordinateSystem xsi:type="CoordSystemByPoint">
+          <Point>
+            <Id>0</Id>
+            <X>100000</X>
+            <Y>0</Y>
+            <Z>0</Z>
+          </Point>
+          <InPlane>ZX</InPlane>
+        </LocalCoordinateSystem>
+      </LineSegment3D>
+      <LineSegment3D>
+        <Id>3</Id>
+        <StartPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>1</Id>
+        </StartPoint>
+        <EndPoint>
+          <TypeName>Point3D</TypeName>
+          <Id>2</Id>
+        </EndPoint>
+      </LineSegment3D>
+    </LineSegment3D>
+    <ArcSegment3D />
+    <PolyLine3D />
+    <Region3D />
+    <MatConcrete />
+    <MatReinforcement />
+    <MatSteel>
+      <MatSteel xsi:type="MatSteelEc2">
+        <Id>1</Id>
+        <Name>custom_material</Name>
+        <LoadFromLibrary>false</LoadFromLibrary>
+        <E>210000000000</E>
+        <G>80769230769.230774</G>
+        <Poisson>0.3</Poisson>
+        <UnitMass>7850</UnitMass>
+        <SpecificHeat>0.6</SpecificHeat>
+        <ThermalExpansion>1.2E-05</ThermalExpansion>
+        <ThermalConductivity>45</ThermalConductivity>
+        <IsDefaultMaterial>false</IsDefaultMaterial>
+        <OrderInCode>0</OrderInCode>
+        <StateOfThermalExpansion>Code</StateOfThermalExpansion>
+        <StateOfThermalConductivity>Code</StateOfThermalConductivity>
+        <StateOfThermalSpecificHeat>Code</StateOfThermalSpecificHeat>
+        <StateOfThermalStressStrain>Code</StateOfThermalStressStrain>
+        <StateOfThermalStrain>Code</StateOfThermalStrain>
+        <fy>355000000</fy>
+        <fu>510000000</fu>
+        <fy40>355000000</fy40>
+        <fu40>510000000</fu40>
+        <DiagramType>Bilinear</DiagramType>
+      </MatSteel>
+    </MatSteel>
+    <MatPrestressSteel />
+    <MatWelding />
+    <CrossSection>
+      <CrossSection xsi:type="CrossSectionParameter">
+        <Id>1</Id>
+        <Name>CS 1</Name>
+        <CrossSectionRotation>0</CrossSectionRotation>
+        <IsInPrincipal>false</IsInPrincipal>
+        <CrossSectionType>RolledI</CrossSectionType>
+        <Parameters>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>B</Name>
+            <Value>0.2</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>H</Name>
+            <Value>0.2</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>s</Name>
+            <Value>0.009</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>t</Name>
+            <Value>0.015</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r2</Name>
+            <Value>0.015</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>tapperF</Name>
+            <Value>0</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r1</Name>
+            <Value>0</Value>
+          </Parameter>
+        </Parameters>
+        <Material>
+          <TypeName>MatSteel</TypeName>
+          <Id>1</Id>
+        </Material>
+      </CrossSection>
+      <CrossSection xsi:type="CrossSectionParameter">
+        <Id>2</Id>
+        <Name>CS 2</Name>
+        <CrossSectionRotation>0</CrossSectionRotation>
+        <IsInPrincipal>false</IsInPrincipal>
+        <CrossSectionType>RolledI</CrossSectionType>
+        <Parameters>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>B</Name>
+            <Value>0.24</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>H</Name>
+            <Value>0.24</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>s</Name>
+            <Value>0.01</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>t</Name>
+            <Value>0.017</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r2</Name>
+            <Value>0.017</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>tapperF</Name>
+            <Value>0</Value>
+          </Parameter>
+          <Parameter xsi:type="ParameterDouble">
+            <Name>r1</Name>
+            <Value>0</Value>
+          </Parameter>
+        </Parameters>
+        <Material>
+          <TypeName>MatSteel</TypeName>
+          <Id>1</Id>
+        </Material>
+      </CrossSection>
+    </CrossSection>
+    <ReinforcedCrossSection />
+    <HingeElement1D />
+    <Opening />
+    <DappedEnd />
+    <PatchDevice />
+    <Element1D>
+      <Element1D>
+        <Id>1</Id>
+        <Name>E1</Name>
+        <Segment>
+          <TypeName>LineSegment3D</TypeName>
+          <Id>1</Id>
+        </Segment>
+        <RotationRx>0</RotationRx>
+        <EccentricityBeginX>0</EccentricityBeginX>
+        <EccentricityBeginY>0</EccentricityBeginY>
+        <EccentricityBeginZ>0</EccentricityBeginZ>
+        <EccentricityEndX>0</EccentricityEndX>
+        <EccentricityEndY>0</EccentricityEndY>
+        <EccentricityEndZ>0</EccentricityEndZ>
+      </Element1D>
+      <Element1D>
+        <Id>2</Id>
+        <Name>E2</Name>
+        <Segment>
+          <TypeName>LineSegment3D</TypeName>
+          <Id>2</Id>
+        </Segment>
+        <RotationRx>0</RotationRx>
+        <EccentricityBeginX>0</EccentricityBeginX>
+        <EccentricityBeginY>0</EccentricityBeginY>
+        <EccentricityBeginZ>0</EccentricityBeginZ>
+        <EccentricityEndX>0</EccentricityEndX>
+        <EccentricityEndY>0</EccentricityEndY>
+        <EccentricityEndZ>0</EccentricityEndZ>
+      </Element1D>
+      <Element1D>
+        <Id>3</Id>
+        <Name>E3</Name>
+        <Segment>
+          <TypeName>LineSegment3D</TypeName>
+          <Id>3</Id>
+        </Segment>
+        <RotationRx>0</RotationRx>
+        <EccentricityBeginX>0</EccentricityBeginX>
+        <EccentricityBeginY>0</EccentricityBeginY>
+        <EccentricityBeginZ>0</EccentricityBeginZ>
+        <EccentricityEndX>0</EccentricityEndX>
+        <EccentricityEndY>0</EccentricityEndY>
+        <EccentricityEndZ>0</EccentricityEndZ>
+      </Element1D>
+    </Element1D>
+    <Beam />
+    <Member1D>
+      <Member1D>
+        <Id>1</Id>
+        <Name>C</Name>
+        <Elements1D>
+          <ReferenceElement>
+            <TypeName>Element1D</TypeName>
+            <Id>1</Id>
+          </ReferenceElement>
+          <ReferenceElement>
+            <TypeName>Element1D</TypeName>
+            <Id>2</Id>
+          </ReferenceElement>
+        </Elements1D>
+        <Member1DType>Column</Member1DType>
+        <CrossSection>
+          <TypeName>CrossSection</TypeName>
+          <Id>1</Id>
+        </CrossSection>
+        <Alignment>Center</Alignment>
+        <MirrorY>false</MirrorY>
+        <MirrorZ>false</MirrorZ>
+      </Member1D>
+      <Member1D>
+        <Id>2</Id>
+        <Name>B</Name>
+        <Elements1D>
+          <ReferenceElement>
+            <TypeName>Element1D</TypeName>
+            <Id>3</Id>
+          </ReferenceElement>
+        </Elements1D>
+        <Member1DType>Beam</Member1DType>
+        <CrossSection>
+          <TypeName>CrossSection</TypeName>
+          <Id>2</Id>
+        </CrossSection>
+        <Alignment>Center</Alignment>
+        <MirrorY>false</MirrorY>
+        <MirrorZ>false</MirrorZ>
+      </Member1D>
+    </Member1D>
+    <Element2D />
+    <Wall />
+    <Member2D />
+    <RigidLink />
+    <PointOnLine3D />
+    <PointSupportNode />
+    <LineSupportSegment />
+    <LoadsInPoint />
+    <LoadsOnLine />
+    <StrainLoadsOnLine />
+    <PointLoadsOnLine />
+    <LoadsOnSurface />
+    <Settlements />
+    <TemperatureLoadsOnLine />
+    <LoadGroup>
+      <LoadGroup xsi:type="LoadGroupEC">
+        <Id>1</Id>
+        <Name>LG1</Name>
+        <Relation>Standard</Relation>
+        <GroupType>Permanent</GroupType>
+        <GammaQ>1.35</GammaQ>
+        <Dzeta>0.85</Dzeta>
+        <GammaGInf>1</GammaGInf>
+        <GammaGSup>1.35</GammaGSup>
+        <Psi0>0</Psi0>
+        <Psi1>0</Psi1>
+        <Psi2>0</Psi2>
+      </LoadGroup>
+    </LoadGroup>
+    <LoadCase>
+      <LoadCase>
+        <Id>1</Id>
+        <Name>LC1</Name>
+        <LoadType>Permanent</LoadType>
+        <Type>PermanentStandard</Type>
+        <Variable>Standard</Variable>
+        <LoadGroup>
+          <TypeName>LoadGroup</TypeName>
+          <Id>1</Id>
+        </LoadGroup>
+        <LoadsInPoint />
+        <LoadsOnLine />
+        <StrainLoadsOnLine />
+        <PointLoadsOnLine />
+        <LoadsOnSurface />
+        <Settlements />
+        <TemperatureLoadsOnLine />
+      </LoadCase>
+    </LoadCase>
+    <CombiInput />
+    <Attribute />
+    <ConnectionPoint>
+      <ConnectionPoint>
+        <Id>1</Id>
+        <Name>CP 1</Name>
+        <Node>
+          <TypeName>Point3D</TypeName>
+          <Id>1</Id>
+        </Node>
+        <ConnectedMembers>
+          <ConnectedMember>
+            <Id>1</Id>
+            <MemberId>
+              <TypeName>Member1D</TypeName>
+              <Id>1</Id>
+            </MemberId>
+            <IsContinuous>true</IsContinuous>
+            <Length>0</Length>
+          </ConnectedMember>
+          <ConnectedMember>
+            <Id>2</Id>
+            <MemberId>
+              <TypeName>Member1D</TypeName>
+              <Id>2</Id>
+            </MemberId>
+            <IsContinuous>false</IsContinuous>
+            <Length>0</Length>
+          </ConnectedMember>
+        </ConnectedMembers>
+        <NodeId>0</NodeId>
+      </ConnectionPoint>
+    </ConnectionPoint>
+    <Connections />
+    <Reinforcement />
+    <ISDModel />
+    <InitialImperfectionOfPoint />
+    <Tendon />
+    <ResultClass />
+    <DesignMember />
+    <SubStructure />
+    <CheckMember />
+    <ConcreteCheckSection />
+    <RebarShape />
+    <RebarGeneral />
+    <RebarSingle />
+    <RebarStirrups />
+    <Taper />
+    <Span />
+    <SolidBlocks3D />
+    <SurfaceSupports3D />
+    <BasePlates3D />
+    <Anchors3D />
+    <DetailLoadCase />
+    <DetailCombination />
+  </OpenModel>
+  <OpenModelResult>
+    <ResultOnMembers>
+      <ResultOnMembers>
+        <Members>
+          <ResultOnMember>
+            <Member>
+              <MemberType>Member1D</MemberType>
+              <Id>2</Id>
+            </Member>
+            <ResultType>InternalForces</ResultType>
+            <LocalSystemType>Principle</LocalSystemType>
+            <Results>
+              <ResultBase xsi:type="ResultOnSection">
+                <AbsoluteRelative>Relative</AbsoluteRelative>
+                <Position>0</Position>
+                <Results>
+                  <SectionResultBase xsi:type="ResultOfInternalForces">
+                    <Loading>
+                      <LoadingType>LoadCase</LoadingType>
+                      <Id>1</Id>
+                      <Items>
+                        <ResultOfLoadingItem>
+                          <Coefficient>1</Coefficient>
+                        </ResultOfLoadingItem>
+                      </Items>
+                    </Loading>
+                    <N>123</N>
+                    <Qy>456</Qy>
+                    <Qz>789</Qz>
+                    <Mx>111</Mx>
+                    <My>222</My>
+                    <Mz>333</Mz>
+                  </SectionResultBase>
+                </Results>
+              </ResultBase>
+            </Results>
+          </ResultOnMember>
+        </Members>
+      </ResultOnMembers>
+    </ResultOnMembers>
+  </OpenModelResult>
+</OpenModelContainer>

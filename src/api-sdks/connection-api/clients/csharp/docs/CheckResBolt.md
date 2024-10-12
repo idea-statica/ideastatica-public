@@ -1,0 +1,13 @@
+# IdeaStatiCa.ConnectionApi.Model.CheckResBolt
+Check value for Bolts
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Name** | **string** | Name | [optional] 
+**UnityCheck** | **double** | Unity Check | [optional] 
+**CheckStatus** | **bool** | Status of the Check | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
