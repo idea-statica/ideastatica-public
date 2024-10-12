@@ -27,7 +27,7 @@ configuration = ideastatica_connection_api.Configuration(
 )
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-project_file_path = os.path.join(dir_path, '..\projects', 'HSS_norm_cond.ideaCon')
+project_file_path = os.path.join(dir_path, '..\projects', 'OneConnectionImport.xml')
 print(project_file_path)
 
 # Get the Downloads folder path
