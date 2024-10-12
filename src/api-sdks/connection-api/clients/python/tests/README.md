@@ -14,4 +14,7 @@ pip install -r test-requirements.txt
 
 # Step 4: Verify installation
 pytest --version
+
+# Step 4: Run test
+pytest
 ```
