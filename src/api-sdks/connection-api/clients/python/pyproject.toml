@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ideastatica_connection_api"
-version = "24.0.6.1141"
+version = "24.0.6.1152"
 description = "Connection Rest API 1.0"
 authors = ["OpenAPI Generator Community <team@openapitools.org>"]
 license = "NoLicense"
