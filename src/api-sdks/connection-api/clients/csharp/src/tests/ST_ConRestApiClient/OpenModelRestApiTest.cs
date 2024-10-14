@@ -40,26 +40,23 @@ namespace ST_ConnectionRestApi
 			conProject.Should().NotBeNull();
 		}
 
-		//[Test]
-		//public async Task ShouldUpdateConnectionbyIOMModel()
-		//{
-		//	var iomImportOption = new ConIomImportOptions();
+		[Test]
+		public async Task ShouldUpdateConnectionbyIOMModel()
+		{
+			string connProjectContainerFilePath = Path.Combine(ProjectPath, "OneConnectionImport.xml");
 
-		//	var connectionIds = new List<int>();
-		//	iomImportOption.ConnectionsToCreate = connectionIds;
+			var conProject = await ConnectionApiClient!.Project.CreateProjectFromIomFileAsync(connProjectContainerFilePath);
+			conProject.Should().NotBeNull();
 
-		//	string connProjectContainerFilePath = Path.Combine(ProjectPath, "OneConnectionImport.xml");
-
-		//	var conProject = await ConnApiController!.CreateProjectFromIomContainerFileAsync(connProjectContainerFilePath, iomImportOption, CancellationToken.None);
-		//	conProject.Should().NotBeNull();
+			var projectId = conProject.ProjectId;
 
 
-		//	//update
-		//	string connProjectContainerFilePathUpdate = Path.Combine(ProjectPath, "OneConnectionUpdate.xml");
+			//update
+			string connProjectContainerFilePathUpdate = Path.Combine(ProjectPath, "OneConnectionUpdate.xml");
 
-		//	var conProjectUpdated = await ConnApiController!.UpdateProjectFromIomContainerFileAsync(connProjectContainerFilePathUpdate, CancellationToken.None);
-		//	conProjectUpdated.Should().BeTrue();
+			var conProjectUpdated = await ConnectionApiClient!.Project.UpdateProjectFromIomFileAsync(projectId, connProjectContainerFilePathUpdate);
+			conProjectUpdated.Should().NotBeNull();
 
-		//}
+		}
 	}
 }
