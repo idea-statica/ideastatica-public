@@ -27,4 +27,11 @@
     <PackageReference Include="Polly" Version="8.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\..\..\..\..\ideastatica-public\README.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 </Project>
