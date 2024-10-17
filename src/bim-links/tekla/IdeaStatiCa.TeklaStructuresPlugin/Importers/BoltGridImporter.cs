@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TS = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
+using TSV = Tekla.Structures.TeklaStructuresSettings;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 {
@@ -112,6 +113,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		private IIdeaBoltAssembly GetAssembly(TS.BoltGroup boltGroup)
 		{
+			bool isImperialUnitPresented = false;
+			TSV.GetAdvancedOption("XS_IMPERIAL", ref isImperialUnitPresented);
+
 			var stringPropTable = new Hashtable();
 			boltGroup.GetStringReportProperties(new ArrayList
 				{
@@ -142,6 +146,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				Standard = string.Empty,
 				TensileStressArea = 0.0,
 				BoltGradeNo = boltGrade,
+				Name = $"{(isImperialUnitPresented ? boltDiameter.MetersToInchesFormated() : doublePropTable[BoltDiameterKey])} {boltAssemblyName}"
 			};
 		}
 	}

@@ -36,6 +36,37 @@ namespace IdeaStatiCa.BimApiLink.Utils
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static string MetersToInchesFormated(this double meters)
+		{
+			// Conversion factor
+			double inches = meters * 39.3701;
+
+			// Get the whole number of inches (before the decimal)
+			int wholeInches = (int)inches;
+
+			// Convert the decimal portion to fractions for an imperial style
+			double fractionalPart = inches - wholeInches;
+			string fraction = ConvertDecimalToFraction(fractionalPart);
+
+			return $"{wholeInches}\" {fraction}";
+		}
+
+		// Optional: Helper method to convert decimal to a simple fraction (approximated for common use)
+		private static string ConvertDecimalToFraction(double decimalPart)
+		{
+			if (decimalPart == 0) return string.Empty;
+			// Common fraction approximations
+			if (Math.Abs(decimalPart - 0.125) < 0.01) return "1/8";
+			if (Math.Abs(decimalPart - 0.25) < 0.01) return "1/4";
+			if (Math.Abs(decimalPart - 0.375) < 0.01) return "3/8";
+			if (Math.Abs(decimalPart - 0.5) < 0.01) return "1/2";
+			if (Math.Abs(decimalPart - 0.625) < 0.01) return "5/8";
+			if (Math.Abs(decimalPart - 0.75) < 0.01) return "3/4";
+			if (Math.Abs(decimalPart - 0.875) < 0.01) return "7/8";
+			return string.Empty; // Default if no match
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static double KipsToNewtons(this double val)
 		{
 			return val * 4448.2216;
