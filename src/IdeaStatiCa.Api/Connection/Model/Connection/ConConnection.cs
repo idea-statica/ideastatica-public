@@ -14,8 +14,6 @@
 		//Related to connection?
 		public ConAnalysisTypeEnum AnalysisType { get; set; }
 
-		public int BearingMemberId { get; set; }
-
 		public bool IsCalculated { get; }
 	}
 }

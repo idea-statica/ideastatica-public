@@ -39,9 +39,9 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			_logger.LogInformation($"OpenModel remove pin collection");
 			var pinLists = openModel.GetElements("Pin");
 
-			if (pinLists != null && pinLists.Any())
+			if (pinLists != null)
 			{
-				foreach (var pin in pinLists)
+				foreach (var pin in pinLists.ToList())
 				{
 					openModel.RemoveElementProperty(pin);
 				}

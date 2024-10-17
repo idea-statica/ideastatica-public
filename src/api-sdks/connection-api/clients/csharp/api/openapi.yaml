@@ -1,0 +1,6136 @@
+openapi: 3.0.1
+info:
+  title: Connection Rest API 1.0
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /api/1/projects/{projectId}/connections/calculate:
+    post:
+      operationId: Calculate
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCalculationParameter'
+        description: List of connections to calculate and a type of CBFEM analysis
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConResultSummary'
+                type: array
+          description: Success
+      summary: Run CBFEM caluclation and return the summary of the results
+      tags:
+      - Calculation
+  /api/1/projects/{projectId}/connections/results:
+    post:
+      operationId: GetResults
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCalculationParameter'
+        description: List of connections to calculate and a type of CBFEM analysis
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConnectionCheckRes'
+                type: array
+          description: Success
+      summary: Get detailed results of the CBFEM analysis
+      tags:
+      - Calculation
+  /api/1/projects/{projectId}/connections/rawresults-text:
+    post:
+      operationId: GetRawJsonResults
+      parameters:
+      - description: The unique identifier of the opened connection in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConCalculationParameter'
+        description: Type of requested analysis and connection to calculate
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: Success
+      summary: Get json string which represents raw CBFEM results (an instance of
+        CheckResultsData)
+      tags:
+      - Calculation
+  /api/1/clients/connect-client:
+    get:
+      operationId: ConnectClient
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Connect a client to the ConnectionRestApi service. Method returns a
+        unique identifier of the client.
+      tags:
+      - Client
+  /api/1/clients/idea-service-version:
+    get:
+      operationId: GetVersion
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Get the IdeaStatica version
+      tags:
+      - Client
+  /api/1/projects/{projectId}/connections:
+    get:
+      operationId: GetAllConnectionsData
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConConnection'
+                type: array
+          description: Success
+      summary: Get data about all connections in the project
+      tags:
+      - Connection
+  /api/1/projects/{projectId}/connections/{connectionId}:
+    get:
+      operationId: GetConnectionData
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The id of the requested connection
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConConnection'
+          description: Success
+      summary: Get data about a specific connection in the project
+      tags:
+      - Connection
+    put:
+      operationId: UpdateConnectionData
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to be update
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConConnection'
+        description: New connection data to be set
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConConnection'
+          description: Success
+      summary: Update data of a specific connection in the project
+      tags:
+      - Connection
+  /api/1/projects/{projectId}/connections/{connectionId}/production-cost:
+    get:
+      operationId: GetProductionCost
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the requested connection
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProductionCost'
+          description: Success
+      summary: Get production cost of the connection
+      tags:
+      - Connection
+  /api/1/projects/{projectId}/connections/{connectionId}/export-iom:
+    get:
+      operationId: ExportIomXml
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: version
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          description: Success
+      summary: Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+      tags:
+      - Export
+  /api/1/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
+    get:
+      operationId: ExportConnectionData
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionData'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ConnectionData'
+          description: Success
+      summary: Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs
+        for required connection
+      tags:
+      - Export
+  /api/1/projects/{projectId}/connections/{connectionId}/export-ifc:
+    get:
+      operationId: ExportConnectionIFC
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Success
+      summary: Export connection to IFC format
+      tags:
+      - Export
+  /api/1/projects/{projectId}/connections/{connectionId}/load-effects:
+    get:
+      operationId: GetLoadEffects
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: isPercentage
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConLoadEffect'
+                type: array
+          description: Success
+      summary: Get all load effects which are defined in connectionId
+      tags:
+      - LoadEffect
+    post:
+      operationId: AddLoadEffect
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConLoadEffect'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoadEffectData'
+          description: Success
+      summary: Add new load effect to the connection
+      tags:
+      - LoadEffect
+  /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
+    delete:
+      operationId: DeleteLoadEffect
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: loadEffectId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: Success
+      summary: Delete load effect loadEffectId
+      tags:
+      - LoadEffect
+    get:
+      operationId: GetLoadEffect
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: loadEffectId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: true
+        in: query
+        name: isPercentage
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConLoadEffect'
+          description: Success
+      summary: Get load impulses from loadEffectId
+      tags:
+      - LoadEffect
+    put:
+      operationId: UpdateLoadEffect
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: loadEffectId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConLoadEffect'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConLoadEffect'
+          description: Success
+      summary: Update load impulses in loadEffectId
+      tags:
+      - LoadEffect
+  /api/1/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
+    get:
+      operationId: GetLoadSettings
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConLoadSettings'
+          description: Success
+      summary: Get Load settings for connection in project
+      tags:
+      - LoadEffect
+  /api/1/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings:
+    post:
+      operationId: SetLoadSettings
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConLoadSettings'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConLoadSettings'
+          description: Success
+      summary: Set Load settings for connection in project
+      tags:
+      - LoadEffect
+  /api/1/projects/{projectId}/materials:
+    get:
+      operationId: GetAllMaterials
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get materials which are used in the project projectId
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/steel:
+    get:
+      operationId: GetSteelMaterials
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get materials which are used in the project projectId
+      tags:
+      - Material
+    post:
+      operationId: AddMaterialSteel
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of a new material to be added to the project
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMprlElement'
+          description: Success
+      summary: Add material to the project
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/concrete:
+    get:
+      operationId: GetConcreteMaterials
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get materials which are used in the project projectId
+      tags:
+      - Material
+    post:
+      operationId: AddMaterialConcrete
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of a new material to be added to the project
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMprlElement'
+          description: Success
+      summary: Add material to the project
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/bolt-grade:
+    get:
+      operationId: GetBlotGradeMaterials
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get materials which are used in the project projectId
+      tags:
+      - Material
+    post:
+      operationId: AddMaterialBoltGrade
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of a new material to be added to the project
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMprlElement'
+          description: Success
+      summary: Add material to the project
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/welding:
+    get:
+      operationId: GetWeldingMaterials
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get materials which are used in the project projectId
+      tags:
+      - Material
+    post:
+      operationId: AddMaterialWeld
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of a new material to be added to the project
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMprlElement'
+          description: Success
+      summary: Add material to the project
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/cross-sections:
+    get:
+      operationId: GetCrossSections
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get cross sections which are used in the project projectId
+      tags:
+      - Material
+    post:
+      operationId: AddCrossSection
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlCrossSection'
+        description: Definition of a new cross-section to be added to the project
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMprlCrossSection'
+          description: Success
+      summary: Add cross section to the project
+      tags:
+      - Material
+  /api/1/projects/{projectId}/materials/bolt-assemblies:
+    get:
+      operationId: GetBoltAssemblies
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items: {}
+                type: array
+          description: Success
+      summary: Get bolt assemblies which are used in the project projectId
+      tags:
+      - Material
+    post:
+      operationId: AddBoltAssembly
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMprlElement'
+        description: Definition of a new bolt assemby to be added to the project
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMprlElement'
+          description: Success
+      summary: Add bolt assembly to the project
+      tags:
+      - Material
+  /api/1/projects/{projectId}/connections/{connectionId}/members:
+    get:
+      operationId: GetAllMemberData
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to get its members
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConMember'
+                type: array
+          description: Success
+      summary: Get information about all members in the connection
+      tags:
+      - Member
+  /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId}:
+    get:
+      operationId: GetMemberData
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to get its member
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Id of the requested member in the connection
+        explode: false
+        in: path
+        name: memberId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMember'
+          description: Success
+      summary: Get information about the requires member in the connection
+      tags:
+      - Member
+    put:
+      operationId: UpdateMember
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to to update is member memberId
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Id of the member to be updated in the connection
+        explode: false
+        in: path
+        name: memberId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMember'
+        description: New member data
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMember'
+          description: Success
+      summary: Update the member in the connection by newMemberData
+      tags:
+      - Member
+  /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
+    put:
+      operationId: SetBearingMember
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: memberId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMember'
+          description: Success
+      summary: Set bearing member for memberIt
+      tags:
+      - Member
+  /api/1/projects/{projectId}/connections/{connectionId}/operations:
+    delete:
+      operationId: DeleteOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to be modified
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Success
+      summary: Delete all operations for the connection
+      tags:
+      - Operation
+    get:
+      operationId: GetOperations
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the requested connection
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConOperation'
+                type: array
+          description: Success
+      summary: Get the list of operations for the connection
+      tags:
+      - Operation
+  /api/1/projects/{projectId}/connections/{connectionId}/parameters:
+    get:
+      operationId: GetParameters
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to get its parameters
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - description: Include also hidden parameters
+        explode: true
+        in: query
+        name: includeHidden
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IdeaParameter'
+                type: array
+          description: Success
+      summary: Get all parameters which are defined for projectId and connectionId
+      tags:
+      - Parameter
+    put:
+      operationId: UpdateParameters
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to apply template
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/IdeaParameterUpdate'
+              type: array
+        description: New values of parameters
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ParameterData'
+                type: array
+          description: Success
+      summary: Update parameters for the connection connectionId in the project projectId
+        by values passed in parameters
+      tags:
+      - Parameter
+  /api/1/projects/{projectId}/connections/{connectionId}/evaluate-expression:
+    post:
+      operationId: EvaluateExpression
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to use for evaluation expression
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        description: Expression to evaluate
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Evaluate the expression and return the result
+      tags:
+      - Parameter
+  /api/1/projects/{projectId}/connections/{connectionId}/presentations:
+    get:
+      operationId: GetDataScene3D
+      parameters:
+      - description: The unique identifier of the open project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to be presented to scene3D
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DrawData'
+          description: Success
+      summary: Returns data for scene3D
+      tags:
+      - Presentation
+  /api/1/projects/{projectId}/connections/{connectionId}/presentations/text:
+    get:
+      operationId: GetDataScene3DText
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Return serialized data for scene3D in json format
+      tags:
+      - Presentation
+  /api/1/projects/open:
+    post:
+      operationId: OpenProject
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              ideaConFile:
+                style: form
+            schema:
+              $ref: '#/components/schemas/OpenProject_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: Success
+      summary: Open ideacon project from ideaConFile
+      tags:
+      - Project
+  /api/1/projects/{projectId}/close:
+    get:
+      operationId: CloseProject
+      parameters:
+      - description: The unique identifier of the project to be closed
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Close the project. Needed for releasing resources in the service.
+      tags:
+      - Project
+  /api/1/projects:
+    get:
+      operationId: GetActiveProjects
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ConProject'
+                type: array
+          description: Success
+      summary: Get the list of projects in the service which were opened by the client
+        which was connected by M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient
+      tags:
+      - Project
+  /api/1/projects/{projectId}/download:
+    get:
+      operationId: DownloadProject
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Success
+      summary: Download the actual ideacon project from the service. It includes alle
+        changes which were made by previous API calls.
+      tags:
+      - Project
+  /api/1/projects/{projectId}:
+    get:
+      operationId: GetProjectData
+      parameters:
+      - description: The unique identifier of the requested project
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: Success
+      summary: Get data of the project.
+      tags:
+      - Project
+    put:
+      operationId: UpdateProjectData
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConProjectData'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: Success
+      summary: Updates ConProjectData of project
+      tags:
+      - Project
+  /api/1/projects/import-iom-file:
+    post:
+      operationId: ImportIOM
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              containerXmlFile:
+                style: form
+              ConnectionsToCreate:
+                style: form
+            schema:
+              $ref: '#/components/schemas/ImportIOM_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: Success
+      summary: "Create the IDEA Connection project from IOM provided in xml format.\r\
+        \nThe parameter 'containerXmlFile' passed in HTTP body represents :\r\n<see\
+        \ href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\"\
+        >IdeaRS.OpenModel.OpenModelContainer</see>\r\nwhich is serialized to XML string\
+        \ by  <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\"\
+        >IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see>"
+      tags:
+      - Project
+  /api/1/projects/{projectId}/update-iom-file:
+    post:
+      operationId: UpdateFromIOM
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service to be updated
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              containerXmlFile:
+                style: form
+            schema:
+              $ref: '#/components/schemas/UpdateFromIOM_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConProject'
+          description: Success
+      summary: "Update the IDEA Connection project by <see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs\"\
+        >IdeaRS.OpenModel.OpenModelContainer</see>  (model and results).\r\nIOM is\
+        \ passed in the body of the request as the xml string.\r\n<see href=\"https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs\"\
+        >IdeaRS.OpenModel.Tools.OpenModelContainerToXml</see> should be used to generate\
+        \ the valid xml string"
+      tags:
+      - Project
+  /api/1/projects/{projectId}/connection-setup:
+    get:
+      operationId: GetSetup
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service to get setup
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionSetup'
+          description: Success
+      summary: Get setup from project
+      tags:
+      - Project
+    put:
+      operationId: UpdateSetup
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service to update project setup
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionSetup'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionSetup'
+          description: Success
+      summary: Update setup of the project
+      tags:
+      - Project
+  /api/1/projects/{projectId}/reports/{connectionId}/pdf:
+    get:
+      operationId: GeneratePdf
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Success
+      summary: Generates report for projectId and connectionId
+      tags:
+      - Report
+  /api/1/projects/{projectId}/reports/{connectionId}/word:
+    get:
+      operationId: GenerateWord
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Success
+      summary: Generates report for projectId and connectionId
+      tags:
+      - Report
+  /api/1/projects/{projectId}/connections/{connectionId}/get-template:
+    get:
+      operationId: CreateConTemplate
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to be converted to a template
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Success
+      summary: Create a template for the connection connectionId in the project projectId
+      tags:
+      - Template
+  /api/1/projects/{projectId}/connections/{connectionId}/get-default-mapping:
+    post:
+      description: "The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault\
+        \ mapping to apply the passed template.\r\nIt can be modified by a user and\
+        \ used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam)\
+        \ method."
+      operationId: GetDefaultTemplateMapping
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to get default mapping
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConTemplateMappingGetParam'
+        description: Data of the template to get default mapping
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateConversions'
+          description: Success
+      summary: "Get the default mappings for the application of the connection template\
+        \ passed in templateToApply\r\non connectionId in the project projectId"
+      tags:
+      - Template
+  /api/1/projects/{projectId}/connections/{connectionId}/apply-template:
+    post:
+      operationId: ApplyTemplate
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection where to apply the template
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConTemplateApplyParam'
+        description: Template to apply
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConTemplateApplyResult'
+          description: Success
+      summary: Apply the connection template applyTemplateParam on the connection
+        connectionId in the project projectId
+      tags:
+      - Template
+components:
+  schemas:
+    AnchorGrid:
+      additionalProperties: false
+      description: Data of the anchor grid
+      example:
+        standard: standard
+        boltAssemblyRef: boltAssemblyRef
+        origin:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        isAnchor: true
+        headHeight: 4.652396432933246
+        diameter: 7.058770351582356
+        axisZ:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        axisY:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        axisX:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        id: 3
+        tensileStressArea: 7.740351818741173
+        boltAssemblyName: boltAssemblyName
+        anchorLen: 7.143538047012306
+        boreHole: 8.969578798196912
+        nutThickness: 3.0205796992916243
+        connectedPartIds:
+        - connectedPartIds
+        - connectedPartIds
+        washerSize: 3.353193347011243
+        headDiameter: 6.519180951018382
+        diagonalHeadDiameter: 0.10263654006109402
+        concreteBlock:
+          lenght: 6.878052220127876
+          material: material
+          width: 5.944895607614016
+          height: 6.704019297950036
+        shearInThread: true
+        holeDiameter: 0.8851374739011653
+        positions:
+        - x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        - x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        material: material
+        connectedPlates:
+        - 3
+        - 3
+        boltInteraction: null
+        anchorType: straight
+      properties:
+        concreteBlock:
+          $ref: '#/components/schemas/ConcreteBlock'
+        anchorType:
+          $ref: '#/components/schemas/AnchorType'
+        washerSize:
+          description: Washer Size used if AnchorType is washer
+          format: double
+          type: number
+        boltAssemblyRef:
+          nullable: true
+          type: string
+        id:
+          description: Unique Id of the bolt grid
+          format: int32
+          type: integer
+        isAnchor:
+          description: Is Anchor
+          type: boolean
+        anchorLen:
+          description: Anchor lenght
+          format: double
+          type: number
+        holeDiameter:
+          description: The diameter of the hole
+          format: double
+          type: number
+        diameter:
+          description: The diameter of bolt
+          format: double
+          type: number
+        headDiameter:
+          description: The head diameter of bolt
+          format: double
+          type: number
+        diagonalHeadDiameter:
+          description: The Diagonal Head Diameter of bolt
+          format: double
+          type: number
+        headHeight:
+          description: The Head Height of bolt
+          format: double
+          type: number
+        boreHole:
+          description: The BoreHole of bolt
+          format: double
+          type: number
+        tensileStressArea:
+          description: The Tensile Stress Area of bolt
+          format: double
+          type: number
+        nutThickness:
+          description: The Nut Thickness of bolt
+          format: double
+          type: number
+        boltAssemblyName:
+          description: The description of the bolt assembly
+          nullable: true
+          type: string
+        standard:
+          description: The standard of the bolt assembly
+          nullable: true
+          type: string
+        material:
+          description: The material of the bolt assembly
+          nullable: true
+          type: string
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
+          $ref: '#/components/schemas/Vector3D'
+        positions:
+          description: Positions of holes in the local coodinate system of the bolt
+            grid
+          items:
+            $ref: '#/components/schemas/Point3D'
+          nullable: true
+          type: array
+        connectedPlates:
+          description: Identifiers of the connected plates
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        connectedPartIds:
+          description: Id of the weld
+          items:
+            type: string
+          nullable: true
+          type: array
+        shearInThread:
+          description: "Indicates, whether a shear plane is in the thread of a bolt."
+          type: boolean
+        boltInteraction:
+          $ref: '#/components/schemas/BoltShearType'
+      type: object
+    AnchorType:
+      description: Defines a type of anchor end.
+      enum:
+      - straight
+      - washerPlateCircular
+      - washerPlateRectangular
+      type: string
+    BaseTemplateConversion:
+      additionalProperties: false
+      example:
+        newValue: newValue
+        newTemplateId: newTemplateId
+        originalValue: originalValue
+        description: description
+        originalTemplateId: originalTemplateId
+      properties:
+        originalValue:
+          nullable: true
+          type: string
+        originalTemplateId:
+          nullable: true
+          type: string
+        newValue:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        newTemplateId:
+          nullable: true
+          type: string
+      type: object
+    BeamData:
+      additionalProperties: false
+      description: Provides data of the connected beam
+      example:
+        crossSectionType: crossSectionType
+        plates:
+        - thickness: 6.027456183070403
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          originalModelId: originalModelId
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          isNegativeObject: true
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          geometry:
+            outline:
+              startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            openings:
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+          id: 7
+          region: region
+        - thickness: 6.027456183070403
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          originalModelId: originalModelId
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          isNegativeObject: true
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          geometry:
+            outline:
+              startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            openings:
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+          id: 7
+          region: region
+        isBearingMember: true
+        mirrorY: true
+        addedMemberLength: 1.0246457001441578
+        autoAddCutByWorkplane: true
+        refLineInCenterOfGravity: true
+        mprlName: mprlName
+        originalModelId: originalModelId
+        isNegativeObject: true
+        name: name
+        isAdded: true
+        addedMember:
+          typeName: typeName
+          id: 1
+          element:
+            id: 6
+        id: 7
+        cuts:
+        - planePoint:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          normalVector:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          offset: 1.2315135367772556
+          direction: default
+        - planePoint:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          normalVector:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          offset: 1.2315135367772556
+          direction: default
+      properties:
+        name:
+          description: Name of the beam
+          nullable: true
+          type: string
+        plates:
+          description: Plates of the beam
+          items:
+            $ref: '#/components/schemas/PlateData'
+          nullable: true
+          type: array
+        crossSectionType:
+          description: Type of cross section
+          nullable: true
+          type: string
+        mprlName:
+          description: MPRL name of beam
+          nullable: true
+          type: string
+        originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
+          nullable: true
+          type: string
+        cuts:
+          description: Cuts on the beam
+          items:
+            $ref: '#/components/schemas/CutData'
+          nullable: true
+          type: array
+        isAdded:
+          description: Is added beam
+          type: boolean
+        addedMemberLength:
+          description: Added beam lenght
+          format: double
+          type: number
+        isNegativeObject:
+          description: Is negative object
+          type: boolean
+        addedMember:
+          $ref: '#/components/schemas/ReferenceElement'
+        mirrorY:
+          description: Mirror by Y
+          type: boolean
+        refLineInCenterOfGravity:
+          description: The reference line of the member is in the center of gravity
+            of the cross-section
+          type: boolean
+        isBearingMember:
+          description: Is beam bearing member
+          type: boolean
+        autoAddCutByWorkplane:
+          description: Automaticali add cut by workplane if it not defined
+          type: boolean
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    BendData:
+      additionalProperties: false
+      description: Provides data of bend
+      example:
+        point1OfSideBoundary1:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        point1OfSideBoundary2:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        point2OfSideBoundary2:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        endFaceNormal1:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        point2OfSideBoundary1:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        plate1Id: 1
+        plate2Id: 4
+        radius: 5.025004791520295
+      properties:
+        plate1Id:
+          description: First plate
+          format: int32
+          type: integer
+        plate2Id:
+          description: Second plate
+          format: int32
+          type: integer
+        radius:
+          description: Radius of bend
+          format: double
+          type: number
+        point1OfSideBoundary1:
+          $ref: '#/components/schemas/Point3D'
+        point2OfSideBoundary1:
+          $ref: '#/components/schemas/Point3D'
+        endFaceNormal1:
+          $ref: '#/components/schemas/Vector3D'
+        point1OfSideBoundary2:
+          $ref: '#/components/schemas/Point3D'
+        point2OfSideBoundary2:
+          $ref: '#/components/schemas/Point3D'
+      type: object
+    BoltGrid:
+      additionalProperties: false
+      description: Data of the bolt grid
+      example:
+        standard: standard
+        anchorLen: 9.369310271410669
+        boreHole: 6.965117697638846
+        nutThickness: 2.8841621266687802
+        connectedPartIds:
+        - connectedPartIds
+        - connectedPartIds
+        headDiameter: 9.018348186070783
+        boltAssemblyRef: boltAssemblyRef
+        diagonalHeadDiameter: 6.438423552598547
+        origin:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        shearInThread: true
+        holeDiameter: 6.683562403749608
+        positions:
+        - x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        - x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        isAnchor: true
+        headHeight: 3.5571952270680973
+        diameter: 8.762042012749001
+        material: material
+        connectedPlates:
+        - 6
+        - 6
+        axisZ:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        axisY:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        axisX:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        id: 9
+        tensileStressArea: 1.284659006116532
+        boltAssemblyName: boltAssemblyName
+        boltInteraction: bearing
+      properties:
+        boltAssemblyRef:
+          nullable: true
+          type: string
+        id:
+          description: Unique Id of the bolt grid
+          format: int32
+          type: integer
+        isAnchor:
+          description: Is Anchor
+          type: boolean
+        anchorLen:
+          description: Anchor lenght
+          format: double
+          type: number
+        holeDiameter:
+          description: The diameter of the hole
+          format: double
+          type: number
+        diameter:
+          description: The diameter of bolt
+          format: double
+          type: number
+        headDiameter:
+          description: The head diameter of bolt
+          format: double
+          type: number
+        diagonalHeadDiameter:
+          description: The Diagonal Head Diameter of bolt
+          format: double
+          type: number
+        headHeight:
+          description: The Head Height of bolt
+          format: double
+          type: number
+        boreHole:
+          description: The BoreHole of bolt
+          format: double
+          type: number
+        tensileStressArea:
+          description: The Tensile Stress Area of bolt
+          format: double
+          type: number
+        nutThickness:
+          description: The Nut Thickness of bolt
+          format: double
+          type: number
+        boltAssemblyName:
+          description: The description of the bolt assembly
+          nullable: true
+          type: string
+        standard:
+          description: The standard of the bolt assembly
+          nullable: true
+          type: string
+        material:
+          description: The material of the bolt assembly
+          nullable: true
+          type: string
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
+          $ref: '#/components/schemas/Vector3D'
+        positions:
+          description: Positions of holes in the local coodinate system of the bolt
+            grid
+          items:
+            $ref: '#/components/schemas/Point3D'
+          nullable: true
+          type: array
+        connectedPlates:
+          description: Identifiers of the connected plates
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        connectedPartIds:
+          description: Id of the weld
+          items:
+            type: string
+          nullable: true
+          type: array
+        shearInThread:
+          description: "Indicates, whether a shear plane is in the thread of a bolt."
+          type: boolean
+        boltInteraction:
+          $ref: '#/components/schemas/BoltShearType'
+      type: object
+    BoltShearType:
+      description: Defines a transfer of shear force in bolts.
+      enum:
+      - bearing
+      - interaction
+      - friction
+      type: string
+    BucklingRes:
+      additionalProperties: false
+      description: Results of the buckling analysis
+      example:
+        shape: 1
+        loadCaseId: 1
+        factor: 1.4894159098541704
+      properties:
+        loadCaseId:
+          format: int32
+          type: integer
+        shape:
+          description: Shape lc calculated by solver
+          format: int32
+          type: integer
+        factor:
+          description: Buckling factor
+          format: double
+          type: number
+      type: object
+    CheckResAnchor:
+      additionalProperties: false
+      description: Check value for Anchor
+      example:
+        unityCheck: 2.027123023002322
+        checkStatus: true
+        name: name
+      properties:
+        name:
+          description: Name
+          nullable: true
+          type: string
+        unityCheck:
+          description: Unity Check
+          format: double
+          type: number
+        checkStatus:
+          description: Status of the Check
+          type: boolean
+      type: object
+    CheckResBolt:
+      additionalProperties: false
+      description: Check value for Bolts
+      example:
+        unityCheck: 3.616076749251911
+        checkStatus: true
+        name: name
+      properties:
+        name:
+          description: Name
+          nullable: true
+          type: string
+        unityCheck:
+          description: Unity Check
+          format: double
+          type: number
+        checkStatus:
+          description: Status of the Check
+          type: boolean
+      type: object
+    CheckResConcreteBlock:
+      additionalProperties: false
+      description: Check value for Concrete Block
+      example:
+        unityCheck: 4.145608029883936
+        checkStatus: true
+        name: name
+        loadCaseId: 7
+      properties:
+        name:
+          description: Name of Concrete Block
+          nullable: true
+          type: string
+        unityCheck:
+          description: Unity Check
+          format: double
+          type: number
+        checkStatus:
+          description: Status of the Check
+          type: boolean
+        loadCaseId:
+          description: Id of Load Case
+          format: int32
+          type: integer
+      type: object
+    CheckResPlate:
+      additionalProperties: false
+      description: Check value for Plate
+      example:
+        checkStatus: true
+        maxStrain: 6.027456183070403
+        maxStress: 1.4658129805029452
+        name: name
+        loadCaseId: 0
+        items:
+        - 5
+        - 5
+      properties:
+        name:
+          description: Name of Plate
+          nullable: true
+          type: string
+        checkStatus:
+          description: Status of the Check
+          type: boolean
+        loadCaseId:
+          description: Id of Load Case
+          format: int32
+          type: integer
+        maxStrain:
+          description: Max Strain
+          format: double
+          type: number
+        maxStress:
+          description: Max Stress
+          format: double
+          type: number
+        items:
+          description: In case of presentation of groups plates (uncoiled beams)
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
+    CheckResSummary:
+      additionalProperties: false
+      description: Check summary
+      example:
+        unityCheckMessage: unityCheckMessage
+        checkStatus: true
+        name: name
+        checkValue: 6.027456183070403
+        loadCaseId: 1
+        skipped: true
+      properties:
+        checkValue:
+          description: Check value
+          format: double
+          type: number
+        checkStatus:
+          description: Status of check
+          type: boolean
+        loadCaseId:
+          description: Id of Load Case
+          format: int32
+          type: integer
+        name:
+          description: Name
+          nullable: true
+          type: string
+        unityCheckMessage:
+          description: Detail message about overall check
+          nullable: true
+          type: string
+        skipped:
+          description: "Whether the check was calculated or not.\r\nIf true, the check\
+            \ was not calculated and IdeaRS.OpenModel.Connection.CheckResSummary.CheckValue\
+            \ should be ignored, otherwise false."
+          type: boolean
+      type: object
+    CheckResWeld:
+      additionalProperties: false
+      description: Check value for Weld
+      example:
+        unityCheck: 2.3021358869347655
+        checkStatus: true
+        name: name
+        id: 5
+        loadCaseId: 7
+        items:
+        - 9
+        - 9
+      properties:
+        name:
+          description: Name of Weld
+          nullable: true
+          type: string
+        id:
+          description: Unique id of weld
+          format: int32
+          type: integer
+        unityCheck:
+          description: Unity Check Stress
+          format: double
+          type: number
+        checkStatus:
+          description: Status of the Check
+          type: boolean
+        loadCaseId:
+          description: Id of Load Case
+          format: int32
+          type: integer
+        items:
+          description: In case of presentation of groups plates (uncoiled beams)
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+      type: object
+    ConAnalysisTypeEnum:
+      enum:
+      - stress_Strain
+      - stiffness
+      - capacity_Design
+      - fatigues
+      - total_Design
+      - horizontalTying
+      - capacityLoadLevels
+      - fireRestance
+      - buckling
+      type: string
+    ConCalculationParameter:
+      additionalProperties: false
+      example:
+        connectionIds:
+        - 0
+        - 0
+        analysisType: stress_Strain
+      properties:
+        connectionIds:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        analysisType:
+          $ref: '#/components/schemas/ConAnalysisTypeEnum'
+      type: object
+    ConConnection:
+      additionalProperties: false
+      example:
+        identifier: identifier
+        isCalculated: true
+        name: name
+        description: description
+        bearingMemberId: 6
+        id: 0
+        analysisType: stress_Strain
+      properties:
+        id:
+          format: int32
+          type: integer
+        identifier:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        analysisType:
+          $ref: '#/components/schemas/ConAnalysisTypeEnum'
+        bearingMemberId:
+          format: int32
+          type: integer
+        isCalculated:
+          readOnly: true
+          type: boolean
+      type: object
+    ConLoadEffect:
+      additionalProperties: false
+      example:
+        name: name
+        memberLoadings:
+        - sectionLoad:
+            vy: 1.4658129805029452
+            vz: 5.962133916683182
+            mx: 5.637376656633329
+            my: 2.3021358869347655
+            mz: 7.061401241503109
+            "n": 6.027456183070403
+          position: End
+          memberId: 0
+        - sectionLoad:
+            vy: 1.4658129805029452
+            vz: 5.962133916683182
+            mx: 5.637376656633329
+            my: 2.3021358869347655
+            mz: 7.061401241503109
+            "n": 6.027456183070403
+          position: End
+          memberId: 0
+        active: true
+        id: 9
+        isPercentage: true
+      properties:
+        isPercentage:
+          type: boolean
+        memberLoadings:
+          items:
+            $ref: '#/components/schemas/ConLoadEffectMemberLoad'
+          nullable: true
+          type: array
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConLoadEffectMemberLoad:
+      additionalProperties: false
+      example:
+        sectionLoad:
+          vy: 1.4658129805029452
+          vz: 5.962133916683182
+          mx: 5.637376656633329
+          my: 2.3021358869347655
+          mz: 7.061401241503109
+          "n": 6.027456183070403
+        position: End
+        memberId: 0
+      properties:
+        memberId:
+          format: int32
+          type: integer
+        position:
+          $ref: '#/components/schemas/ConLoadEffectPositionEnum'
+        sectionLoad:
+          $ref: '#/components/schemas/ConLoadEffectSectionLoad'
+      type: object
+    ConLoadEffectPositionEnum:
+      enum:
+      - End
+      - Begin
+      type: string
+    ConLoadEffectSectionLoad:
+      additionalProperties: false
+      example:
+        vy: 1.4658129805029452
+        vz: 5.962133916683182
+        mx: 5.637376656633329
+        my: 2.3021358869347655
+        mz: 7.061401241503109
+        "n": 6.027456183070403
+      properties:
+        "n":
+          format: double
+          type: number
+        vy:
+          format: double
+          type: number
+        vz:
+          format: double
+          type: number
+        mx:
+          format: double
+          type: number
+        my:
+          format: double
+          type: number
+        mz:
+          format: double
+          type: number
+      type: object
+    ConLoadSettings:
+      additionalProperties: false
+      example:
+        loadsInEquilibrium: true
+        loadsInPercentage: true
+      properties:
+        loadsInEquilibrium:
+          type: boolean
+        loadsInPercentage:
+          type: boolean
+      type: object
+    ConMember:
+      additionalProperties: false
+      example:
+        name: name
+        active: true
+        isContinuous: true
+        mirrorY: true
+        mirrorZ: true
+        id: 6
+        crossSectionId: 0
+        isBearing: true
+      properties:
+        isContinuous:
+          type: boolean
+        crossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        mirrorY:
+          nullable: true
+          type: boolean
+        mirrorZ:
+          nullable: true
+          type: boolean
+        isBearing:
+          type: boolean
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        active:
+          type: boolean
+      type: object
+    ConMprlCrossSection:
+      additionalProperties: false
+      example:
+        materialName: materialName
+        mprlName: mprlName
+      properties:
+        materialName:
+          nullable: true
+          type: string
+        mprlName:
+          nullable: true
+          type: string
+      type: object
+    ConMprlElement:
+      additionalProperties: false
+      example:
+        mprlName: mprlName
+      properties:
+        mprlName:
+          nullable: true
+          type: string
+      type: object
+    ConOperation:
+      additionalProperties: false
+      example:
+        isImported: true
+        name: name
+        id: 0
+        isActive: true
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        isActive:
+          type: boolean
+        isImported:
+          type: boolean
+      type: object
+    ConProductionCost:
+      additionalProperties: false
+      example:
+        totalEstimatedCost: 0.8008281904610115
+      properties:
+        totalEstimatedCost:
+          format: double
+          type: number
+      type: object
+    ConProject:
+      additionalProperties: false
+      example:
+        projectInfo:
+          date: 2000-01-23T04:56:07.000+00:00
+          author: author
+          projectNumber: projectNumber
+          name: name
+          description: description
+          designCode: designCode
+        projectId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        connections:
+        - identifier: identifier
+          isCalculated: true
+          name: name
+          description: description
+          bearingMemberId: 6
+          id: 0
+          analysisType: stress_Strain
+        - identifier: identifier
+          isCalculated: true
+          name: name
+          description: description
+          bearingMemberId: 6
+          id: 0
+          analysisType: stress_Strain
+      properties:
+        projectId:
+          format: uuid
+          type: string
+        projectInfo:
+          $ref: '#/components/schemas/ConProjectData'
+        connections:
+          items:
+            $ref: '#/components/schemas/ConConnection'
+          nullable: true
+          type: array
+      type: object
+    ConProjectData:
+      additionalProperties: false
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        author: author
+        projectNumber: projectNumber
+        name: name
+        description: description
+        designCode: designCode
+      properties:
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        projectNumber:
+          nullable: true
+          type: string
+        author:
+          nullable: true
+          type: string
+        designCode:
+          nullable: true
+          type: string
+        date:
+          format: date-time
+          type: string
+      type: object
+    ConResultSummary:
+      additionalProperties: false
+      example:
+        id: 0
+        passed: true
+        resultSummary:
+        - unityCheckMessage: unityCheckMessage
+          checkStatus: true
+          name: name
+          checkValue: 6.027456183070403
+          loadCaseId: 1
+          skipped: true
+        - unityCheckMessage: unityCheckMessage
+          checkStatus: true
+          name: name
+          checkValue: 6.027456183070403
+          loadCaseId: 1
+          skipped: true
+      properties:
+        id:
+          format: int32
+          type: integer
+        passed:
+          type: boolean
+        resultSummary:
+          items:
+            $ref: '#/components/schemas/CheckResSummary'
+          nullable: true
+          type: array
+      type: object
+    ConTemplateApplyParam:
+      additionalProperties: false
+      example:
+        mapping:
+          conversions:
+          - newValue: newValue
+            newTemplateId: newTemplateId
+            originalValue: originalValue
+            description: description
+            originalTemplateId: originalTemplateId
+          - newValue: newValue
+            newTemplateId: newTemplateId
+            originalValue: originalValue
+            description: description
+            originalTemplateId: originalTemplateId
+          countryCode: countryCode
+        connectionTemplate: connectionTemplate
+      properties:
+        connectionTemplate:
+          nullable: true
+          type: string
+        mapping:
+          $ref: '#/components/schemas/TemplateConversions'
+      type: object
+    ConTemplateApplyResult:
+      additionalProperties: false
+      type: object
+    ConTemplateMappingGetParam:
+      additionalProperties: false
+      example:
+        template: template
+      properties:
+        template:
+          nullable: true
+          type: string
+      type: object
+    ConcreteBlock:
+      additionalProperties: false
+      description: Data of concrete block
+      example:
+        lenght: 6.878052220127876
+        material: material
+        width: 5.944895607614016
+        height: 6.704019297950036
+      properties:
+        lenght:
+          description: Lenght of ConcreteBlock
+          format: double
+          type: number
+        width:
+          description: Width of ConcreteBlock
+          format: double
+          type: number
+        height:
+          description: Height of ConcreteBlock
+          format: double
+          type: number
+        material:
+          description: Material of ConcreteBlock
+          nullable: true
+          type: string
+      type: object
+    ConcreteBlockData:
+      additionalProperties: false
+      description: Provides data of the single concrete block
+      example:
+        originalModelId: originalModelId
+        depth: 4.078845849666752
+        outlinePoints:
+        - x: 1.4658129805029452
+          "y": 5.962133916683182
+        - x: 1.4658129805029452
+          "y": 5.962133916683182
+        material: material
+        axisZ:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        center:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        origin:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        axisY:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        name: name
+        axisX:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        id: 3
+        region: region
+      properties:
+        id:
+          description: Plate unique ID
+          format: int32
+          type: integer
+        name:
+          description: Name of the concrete block
+          nullable: true
+          type: string
+        depth:
+          description: Depth of the concrete block
+          format: double
+          type: number
+        material:
+          description: Name of the material
+          nullable: true
+          type: string
+        center:
+          $ref: '#/components/schemas/Point3D'
+        outlinePoints:
+          description: Outline points
+          items:
+            $ref: '#/components/schemas/Point2D'
+          nullable: true
+          type: array
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
+          $ref: '#/components/schemas/Vector3D'
+        region:
+          description: Geometry of the concrete block in svg format
+          nullable: true
+          type: string
+        originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
+          nullable: true
+          type: string
+      type: object
+    ConcreteSetup:
+      additionalProperties: false
+      description: Concrete setup base class
+      example:
+        id: 0
+      properties:
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    ConeBreakoutCheckType:
+      description: Types of cone breakout checks
+      enum:
+      - both
+      - tension
+      - shear
+      - none
+      type: string
+    ConnectionCheckRes:
+      additionalProperties: false
+      description: Results for connection in project
+      example:
+        checkResPlate:
+        - checkStatus: true
+          maxStrain: 6.027456183070403
+          maxStress: 1.4658129805029452
+          name: name
+          loadCaseId: 0
+          items:
+          - 5
+          - 5
+        - checkStatus: true
+          maxStrain: 6.027456183070403
+          maxStress: 1.4658129805029452
+          name: name
+          loadCaseId: 0
+          items:
+          - 5
+          - 5
+        checkResWeld:
+        - unityCheck: 2.3021358869347655
+          checkStatus: true
+          name: name
+          id: 5
+          loadCaseId: 7
+          items:
+          - 9
+          - 9
+        - unityCheck: 2.3021358869347655
+          checkStatus: true
+          name: name
+          id: 5
+          loadCaseId: 7
+          items:
+          - 9
+          - 9
+        checkResAnchor:
+        - unityCheck: 2.027123023002322
+          checkStatus: true
+          name: name
+        - unityCheck: 2.027123023002322
+          checkStatus: true
+          name: name
+        checkResConcreteBlock:
+        - unityCheck: 4.145608029883936
+          checkStatus: true
+          name: name
+          loadCaseId: 7
+        - unityCheck: 4.145608029883936
+          checkStatus: true
+          name: name
+          loadCaseId: 7
+        bucklingResults:
+        - shape: 1
+          loadCaseId: 1
+          factor: 1.4894159098541704
+        - shape: 1
+          loadCaseId: 1
+          factor: 1.4894159098541704
+        checkResSummary:
+        - unityCheckMessage: unityCheckMessage
+          checkStatus: true
+          name: name
+          checkValue: 6.027456183070403
+          loadCaseId: 1
+          skipped: true
+        - unityCheckMessage: unityCheckMessage
+          checkStatus: true
+          name: name
+          checkValue: 6.027456183070403
+          loadCaseId: 1
+          skipped: true
+        name: name
+        connectionID: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        messages:
+          messages:
+          - number: unspecified
+            description: description
+          - number: unspecified
+            description: description
+        checkResBolt:
+        - unityCheck: 3.616076749251911
+          checkStatus: true
+          name: name
+        - unityCheck: 3.616076749251911
+          checkStatus: true
+          name: name
+        id: 6
+      properties:
+        checkResSummary:
+          description: List of CheckResSummary
+          items:
+            $ref: '#/components/schemas/CheckResSummary'
+          nullable: true
+          type: array
+        checkResPlate:
+          description: List of check results for plates
+          items:
+            $ref: '#/components/schemas/CheckResPlate'
+          nullable: true
+          type: array
+        checkResWeld:
+          description: List of check results for welds
+          items:
+            $ref: '#/components/schemas/CheckResWeld'
+          nullable: true
+          type: array
+        checkResBolt:
+          description: List of check results for bolts
+          items:
+            $ref: '#/components/schemas/CheckResBolt'
+          nullable: true
+          type: array
+        checkResAnchor:
+          description: List of check results for anchors
+          items:
+            $ref: '#/components/schemas/CheckResAnchor'
+          nullable: true
+          type: array
+        checkResConcreteBlock:
+          description: List of check results for concrete blocks
+          items:
+            $ref: '#/components/schemas/CheckResConcreteBlock'
+          nullable: true
+          type: array
+        bucklingResults:
+          description: List of results of buckling analysis
+          items:
+            $ref: '#/components/schemas/BucklingRes'
+          nullable: true
+          type: array
+        name:
+          description: Name of connection
+          nullable: true
+          type: string
+        connectionID:
+          description: Guid of connection
+          format: uuid
+          type: string
+        id:
+          description: Integer Id of connection
+          format: int32
+          type: integer
+        messages:
+          $ref: '#/components/schemas/OpenMessages'
+      type: object
+    ConnectionData:
+      additionalProperties: false
+      description: Provides data of the connection
+      example:
+        beams:
+        - crossSectionType: crossSectionType
+          plates:
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          isBearingMember: true
+          mirrorY: true
+          addedMemberLength: 1.0246457001441578
+          autoAddCutByWorkplane: true
+          refLineInCenterOfGravity: true
+          mprlName: mprlName
+          originalModelId: originalModelId
+          isNegativeObject: true
+          name: name
+          isAdded: true
+          addedMember:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+          id: 7
+          cuts:
+          - planePoint:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            normalVector:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            offset: 1.2315135367772556
+            direction: default
+          - planePoint:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            normalVector:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            offset: 1.2315135367772556
+            direction: default
+        - crossSectionType: crossSectionType
+          plates:
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          isBearingMember: true
+          mirrorY: true
+          addedMemberLength: 1.0246457001441578
+          autoAddCutByWorkplane: true
+          refLineInCenterOfGravity: true
+          mprlName: mprlName
+          originalModelId: originalModelId
+          isNegativeObject: true
+          name: name
+          isAdded: true
+          addedMember:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+          id: 7
+          cuts:
+          - planePoint:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            normalVector:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            offset: 1.2315135367772556
+            direction: default
+          - planePoint:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            normalVector:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            offset: 1.2315135367772556
+            direction: default
+        welds:
+        - connectedPartIds:
+          - connectedPartIds
+          - connectedPartIds
+          material: material
+          thickness: 5.533258397034986
+          weldType: notSpecified
+          name: name
+          start:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          end:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          id: 7
+          weldMaterial:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+        - connectedPartIds:
+          - connectedPartIds
+          - connectedPartIds
+          material: material
+          thickness: 5.533258397034986
+          weldType: notSpecified
+          name: name
+          start:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          end:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          id: 7
+          weldMaterial:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+        conenctionPointId: 0
+        plates:
+        - thickness: 6.027456183070403
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          originalModelId: originalModelId
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          isNegativeObject: true
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          geometry:
+            outline:
+              startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            openings:
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+          id: 7
+          region: region
+        - thickness: 6.027456183070403
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          originalModelId: originalModelId
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          isNegativeObject: true
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          geometry:
+            outline:
+              startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            openings:
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+          id: 7
+          region: region
+        cutBeamByBeams:
+        - cuttingObject:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+          orientation: null
+          weldThickness: 0.2025324113236393
+          offset: 6.628464275087742
+          method: boundingBox
+          weldType: null
+          name: name
+          modifiedObject:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+          isWeld: true
+          planeOnCuttingObject: closer
+          cutPart: begin
+          extendBeforeCut: true
+        - cuttingObject:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+          orientation: null
+          weldThickness: 0.2025324113236393
+          offset: 6.628464275087742
+          method: boundingBox
+          weldType: null
+          name: name
+          modifiedObject:
+            typeName: typeName
+            id: 1
+            element:
+              id: 6
+          isWeld: true
+          planeOnCuttingObject: closer
+          cutPart: begin
+          extendBeforeCut: true
+        anchorGrids:
+        - standard: standard
+          boltAssemblyRef: boltAssemblyRef
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          isAnchor: true
+          headHeight: 4.652396432933246
+          diameter: 7.058770351582356
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          id: 3
+          tensileStressArea: 7.740351818741173
+          boltAssemblyName: boltAssemblyName
+          anchorLen: 7.143538047012306
+          boreHole: 8.969578798196912
+          nutThickness: 3.0205796992916243
+          connectedPartIds:
+          - connectedPartIds
+          - connectedPartIds
+          washerSize: 3.353193347011243
+          headDiameter: 6.519180951018382
+          diagonalHeadDiameter: 0.10263654006109402
+          concreteBlock:
+            lenght: 6.878052220127876
+            material: material
+            width: 5.944895607614016
+            height: 6.704019297950036
+          shearInThread: true
+          holeDiameter: 0.8851374739011653
+          positions:
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          material: material
+          connectedPlates:
+          - 3
+          - 3
+          boltInteraction: null
+          anchorType: straight
+        - standard: standard
+          boltAssemblyRef: boltAssemblyRef
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          isAnchor: true
+          headHeight: 4.652396432933246
+          diameter: 7.058770351582356
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          id: 3
+          tensileStressArea: 7.740351818741173
+          boltAssemblyName: boltAssemblyName
+          anchorLen: 7.143538047012306
+          boreHole: 8.969578798196912
+          nutThickness: 3.0205796992916243
+          connectedPartIds:
+          - connectedPartIds
+          - connectedPartIds
+          washerSize: 3.353193347011243
+          headDiameter: 6.519180951018382
+          diagonalHeadDiameter: 0.10263654006109402
+          concreteBlock:
+            lenght: 6.878052220127876
+            material: material
+            width: 5.944895607614016
+            height: 6.704019297950036
+          shearInThread: true
+          holeDiameter: 0.8851374739011653
+          positions:
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          material: material
+          connectedPlates:
+          - 3
+          - 3
+          boltInteraction: null
+          anchorType: straight
+        concreteBlocks:
+        - originalModelId: originalModelId
+          depth: 4.078845849666752
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          center:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          id: 3
+          region: region
+        - originalModelId: originalModelId
+          depth: 4.078845849666752
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          center:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          id: 3
+          region: region
+        foldedPlates:
+        - plates:
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          bends:
+          - point1OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point1OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point2OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            endFaceNormal1:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            point2OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            plate1Id: 1
+            plate2Id: 4
+            radius: 5.025004791520295
+          - point1OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point1OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point2OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            endFaceNormal1:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            point2OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            plate1Id: 1
+            plate2Id: 4
+            radius: 5.025004791520295
+        - plates:
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          - thickness: 6.027456183070403
+            origin:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            originalModelId: originalModelId
+            outlinePoints:
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            - x: 1.4658129805029452
+              "y": 5.962133916683182
+            material: material
+            axisZ:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            axisY:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            isNegativeObject: true
+            name: name
+            axisX:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            geometry:
+              outline:
+                startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              openings:
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+              - startPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+                segments:
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+                - endPoint:
+                    x: 1.4658129805029452
+                    "y": 5.962133916683182
+            id: 7
+            region: region
+          bends:
+          - point1OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point1OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point2OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            endFaceNormal1:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            point2OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            plate1Id: 1
+            plate2Id: 4
+            radius: 5.025004791520295
+          - point1OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point1OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            point2OfSideBoundary2:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            endFaceNormal1:
+              x: 3.616076749251911
+              "y": 2.027123023002322
+              z: 4.145608029883936
+            point2OfSideBoundary1:
+              x: 5.637376656633329
+              "y": 2.3021358869347655
+              z: 7.061401241503109
+              id: 9
+            plate1Id: 1
+            plate2Id: 4
+            radius: 5.025004791520295
+        boltGrids:
+        - standard: standard
+          anchorLen: 9.369310271410669
+          boreHole: 6.965117697638846
+          nutThickness: 2.8841621266687802
+          connectedPartIds:
+          - connectedPartIds
+          - connectedPartIds
+          headDiameter: 9.018348186070783
+          boltAssemblyRef: boltAssemblyRef
+          diagonalHeadDiameter: 6.438423552598547
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          shearInThread: true
+          holeDiameter: 6.683562403749608
+          positions:
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          isAnchor: true
+          headHeight: 3.5571952270680973
+          diameter: 8.762042012749001
+          material: material
+          connectedPlates:
+          - 6
+          - 6
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          id: 9
+          tensileStressArea: 1.284659006116532
+          boltAssemblyName: boltAssemblyName
+          boltInteraction: bearing
+        - standard: standard
+          anchorLen: 9.369310271410669
+          boreHole: 6.965117697638846
+          nutThickness: 2.8841621266687802
+          connectedPartIds:
+          - connectedPartIds
+          - connectedPartIds
+          headDiameter: 9.018348186070783
+          boltAssemblyRef: boltAssemblyRef
+          diagonalHeadDiameter: 6.438423552598547
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          shearInThread: true
+          holeDiameter: 6.683562403749608
+          positions:
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          - x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          isAnchor: true
+          headHeight: 3.5571952270680973
+          diameter: 8.762042012749001
+          material: material
+          connectedPlates:
+          - 6
+          - 6
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          id: 9
+          tensileStressArea: 1.284659006116532
+          boltAssemblyName: boltAssemblyName
+          boltInteraction: bearing
+      properties:
+        conenctionPointId:
+          description: Connection Point Id
+          format: int32
+          type: integer
+        beams:
+          description: Connected beams
+          items:
+            $ref: '#/components/schemas/BeamData'
+          nullable: true
+          type: array
+        plates:
+          description: Plates of the connection
+          items:
+            $ref: '#/components/schemas/PlateData'
+          nullable: true
+          type: array
+        foldedPlates:
+          description: Folded plate of the connection
+          items:
+            $ref: '#/components/schemas/FoldedPlateData'
+          nullable: true
+          type: array
+        boltGrids:
+          description: Bolt grids which belongs to the connection
+          items:
+            $ref: '#/components/schemas/BoltGrid'
+          nullable: true
+          type: array
+        anchorGrids:
+          description: Anchor grids which belongs to the connection
+          items:
+            $ref: '#/components/schemas/AnchorGrid'
+          nullable: true
+          type: array
+        welds:
+          description: Welds of the connection
+          items:
+            $ref: '#/components/schemas/WeldData'
+          nullable: true
+          type: array
+        concreteBlocks:
+          description: ConcreteBlocksof the connection
+          items:
+            $ref: '#/components/schemas/ConcreteBlockData'
+          nullable: true
+          type: array
+        cutBeamByBeams:
+          description: cut beam by beams
+          items:
+            $ref: '#/components/schemas/CutBeamByBeamData'
+          nullable: true
+          type: array
+      type: object
+    ConnectionSetup:
+      additionalProperties: false
+      description: ConnectionSetup
+      example:
+        fatigueSectionOffset: 7.143538047012306
+        numElementRhs: 1
+        effectiveAreaStressCoeffAISC: 3.616076749251911
+        divisionOfSurfaceOfCHS: 9
+        bearingCheck: true
+        crtCompCheckIS: iS800_Cl_7_4
+        memberLengthRatio: 9.965781217890562
+        distanceBetweenBolts: 6.84685269835264
+        numElementPlate: 2
+        bearingAngle: 4.965218492984954
+        minSize: 3.5571952270680973
+        stopAtLimitStrain: true
+        crackedConcrete: true
+        limitDeformationCheck: true
+        decreasingFtrd: 5.025004791520295
+        warnPlasticStrain: 1.2315135367772556
+        gammaC: 5.962133916683182
+        factorPreloadBolt: 6.704019297950036
+        frictionCoefficient: 2.027123023002322
+        optimalCheckLevel: 1.4894159098541704
+        rigidBP: true
+        gammaM3: 5.637376656633329
+        mdiv: 6
+        numberIterations: 9
+        divisionOfArcsOfRHS: 6
+        hssLimitPlasticStrain: 6.519180951018382
+        limitPlasticStrain: 4.145608029883936
+        distanceDiameterBetweenBP: 7.457744773683766
+        extensionLengthRationOpenSections: 6.878052220127876
+        analysisGNL: true
+        distanceBetweenBoltsEdge: 1.1730742509559433
+        numElement: 8
+        developedFillers: true
+        steelSetup: "{}"
+        bracedSystem: true
+        maxSize: 6.965117697638846
+        boltMaxGripLengthCoeff: 3.0937452626664474
+        extensionLengthRationCloseSections: 5.944895607614016
+        gammaInst: 1.4658129805029452
+        anchorLengthForStiffness: 2
+        checkDetailing: true
+        applyConeBreakoutCheck: both
+        alphaCC: 6.778324963048013
+        concreteSetup:
+          id: 0
+        frictionCoefficientPbolt: 3.353193347011243
+        applyBearingCheck: true
+        applyBetapInfluence: true
+        analysisAllGNL: true
+        jointBetaFactor: 7.061401241503109
+        baseMetalCapacity: true
+        effectiveAreaStressCoeff: 9.301444243932576
+        limitDeformation: 7.386281948385884
+        condensedElementLengthFactor: 0.8851374739011653
+        deformationBoltHole: true
+        weldEvaluationData: maxForceElement
+        pretensionForceFpc: 6.027456183070403
+        gammaMu: 7.058770351582356
+        warnCheckLevel: 1.0246457001441578
+      properties:
+        steelSetup:
+          additionalProperties: false
+          description: ISteelSetup
+          type: object
+        concreteSetup:
+          $ref: '#/components/schemas/ConcreteSetup'
+        stopAtLimitStrain:
+          description: Stop analysis when the limit strain is reached.
+          type: boolean
+        weldEvaluationData:
+          $ref: '#/components/schemas/WeldEvaluation'
+        checkDetailing:
+          description: Perform check of bolt positions
+          type: boolean
+        applyConeBreakoutCheck:
+          $ref: '#/components/schemas/ConeBreakoutCheckType'
+        pretensionForceFpc:
+          description: Pretension force fpc = k * fub * As
+          format: double
+          type: number
+        gammaInst:
+          description: Partial safety factor of instalation safety
+          format: double
+          type: number
+        gammaC:
+          description: Partial safety factor of concrete
+          format: double
+          type: number
+        gammaM3:
+          description: Preloaded bolts safety factor
+          format: double
+          type: number
+        anchorLengthForStiffness:
+          description: "Length of anchor to define the anchor stiffness in analysis\
+            \ model, as a multiple of anchor diameter (E A /n * [d])"
+          format: int32
+          type: integer
+        jointBetaFactor:
+          description: Joint coefficient βj - Used for Fjd calculation
+          format: double
+          type: number
+        effectiveAreaStressCoeff:
+          description: Effective area is taken from intersection of stress area and
+            area of joined items according to EN1993-1-8 art. 6.2.5
+          format: double
+          type: number
+        effectiveAreaStressCoeffAISC:
+          description: "Effective area stress coefficient - Concrete loaded area:\
+            \ Stress cut-off is set for AISC"
+          format: double
+          type: number
+        frictionCoefficient:
+          description: Coefficient of friction between base plate and concrete block
+          format: double
+          type: number
+        limitPlasticStrain:
+          description: Limit of plastic strain used in 2D plate element check
+          format: double
+          type: number
+        limitDeformation:
+          description: Limit deformation on closed sections
+          format: double
+          type: number
+        limitDeformationCheck:
+          description: Limit deformation on closed sections check or not
+          type: boolean
+        analysisGNL:
+          description: Analysis with GNL
+          type: boolean
+        analysisAllGNL:
+          description: Analysis with All GNL
+          type: boolean
+        warnPlasticStrain:
+          description: Warning plastic strain
+          format: double
+          type: number
+        warnCheckLevel:
+          description: Warning check level
+          format: double
+          type: number
+        optimalCheckLevel:
+          description: Optimal check level
+          format: double
+          type: number
+        distanceBetweenBolts:
+          description: Limit distance between bolts as a multiple of bolt diameter
+          format: double
+          type: number
+        distanceDiameterBetweenBP:
+          description: Anchor pitch
+          format: double
+          type: number
+        distanceBetweenBoltsEdge:
+          description: Limit distance between bolt and plate edge as a multiple of
+            bolt diameter
+          format: double
+          type: number
+        bearingAngle:
+          description: Load distribution angle of concrete block in calculation of
+            factor Kj
+          format: double
+          type: number
+        decreasingFtrd:
+          description: Decreasing Ftrd of anchors. Worse quality influence
+          format: double
+          type: number
+        bracedSystem:
+          description: Consider the frame system as braced for stiffness calculation.
+            Braced system reduces horizontal displacements.
+          type: boolean
+        bearingCheck:
+          description: Apply bearing check including αb
+          type: boolean
+        applyBetapInfluence:
+          description: Apply βp influence in bolt shear resistance. ΕΝ 1993-1-8 chapter
+            3.6.1 (12)
+          type: boolean
+        memberLengthRatio:
+          description: A multiple of cross-section height to determine the default
+            length of member
+          format: double
+          type: number
+        divisionOfSurfaceOfCHS:
+          description: Number of straight lines to substitute circle of circular tube
+            in analysis model
+          format: int32
+          type: integer
+        divisionOfArcsOfRHS:
+          description: Number of straight lines to substitute corner arc of rectangular
+            tubes in analysis model
+          format: int32
+          type: integer
+        numElement:
+          description: Ratio of length of decisive plate edge and Elements on edge
+            count determines the average size of mesh element
+          format: int32
+          type: integer
+        numberIterations:
+          description: More iterations helps to find better solutions in contact elements
+            but increases calculation time
+          format: int32
+          type: integer
+        mdiv:
+          description: Number of iteration steps to evaluate analysis divergence
+          format: int32
+          type: integer
+        minSize:
+          description: Minimal size of generated finite mesh element
+          format: double
+          type: number
+        maxSize:
+          description: Maximal size of generated finite mesh element
+          format: double
+          type: number
+        numElementRhs:
+          description: Number of mesh elements in RHS height
+          format: int32
+          type: integer
+        numElementPlate:
+          description: Number of mesh elements on plates
+          format: int32
+          type: integer
+        rigidBP:
+          description: True if rigid base plate is considered
+          type: boolean
+        alphaCC:
+          description: Long-term effect on fcd
+          format: double
+          type: number
+        crackedConcrete:
+          description: True if cracked concrete is considered
+          type: boolean
+        developedFillers:
+          description: True if developed fillers is considered
+          type: boolean
+        deformationBoltHole:
+          description: True if bolt hole deformation is considered
+          type: boolean
+        extensionLengthRationOpenSections:
+          description: ExtensionLengthRationOpenSections
+          format: double
+          type: number
+        extensionLengthRationCloseSections:
+          description: ExtensionLengthRationCloseSections
+          format: double
+          type: number
+        factorPreloadBolt:
+          description: FactorPreloadBolt
+          format: double
+          type: number
+        baseMetalCapacity:
+          description: BaseMetalCapacity
+          type: boolean
+        applyBearingCheck:
+          description: ApplyBearingCheck
+          type: boolean
+        frictionCoefficientPbolt:
+          description: Friction factor of slip-resistant joint
+          format: double
+          type: number
+        crtCompCheckIS:
+          $ref: '#/components/schemas/CrtCompCheckIS'
+        boltMaxGripLengthCoeff:
+          description: Max value of bolt grip
+          format: double
+          type: number
+        fatigueSectionOffset:
+          description: Fatigue section Offset = FatigueSectionOffset x Legsize
+          format: double
+          type: number
+        condensedElementLengthFactor:
+          description: Condensed element length factor (CEF). Condensed beam legth
+            = maxCssSize * CEF
+          format: double
+          type: number
+        gammaMu:
+          description: Partial safety factor for Horizontal tying
+          format: double
+          type: number
+        hssLimitPlasticStrain:
+          description: Limit plastic strain for high strength steel
+          format: double
+          type: number
+      type: object
+    CrtCompCheckIS:
+      description: CRT IS check
+      enum:
+      - iS800_Cl_7_4
+      - iS456_Cl_34_4
+      type: string
+    CutBeamByBeamData:
+      additionalProperties: false
+      description: Provides data of the cut objec by object
+      example:
+        cuttingObject:
+          typeName: typeName
+          id: 1
+          element:
+            id: 6
+        orientation: null
+        weldThickness: 0.2025324113236393
+        offset: 6.628464275087742
+        method: boundingBox
+        weldType: null
+        name: name
+        modifiedObject:
+          typeName: typeName
+          id: 1
+          element:
+            id: 6
+        isWeld: true
+        planeOnCuttingObject: closer
+        cutPart: begin
+        extendBeforeCut: true
+      properties:
+        name:
+          description: Name of the cut
+          nullable: true
+          type: string
+        modifiedObject:
+          $ref: '#/components/schemas/ReferenceElement'
+        cuttingObject:
+          $ref: '#/components/schemas/ReferenceElement'
+        isWeld:
+          description: is cut welded
+          type: boolean
+        weldThickness:
+          description: Thickness of the weld - value 0 = recommended size
+          format: double
+          type: number
+        weldType:
+          $ref: '#/components/schemas/WeldType'
+        offset:
+          description: Offset
+          format: double
+          type: number
+        method:
+          $ref: '#/components/schemas/CutMethod'
+        orientation:
+          $ref: '#/components/schemas/CutOrientation'
+        planeOnCuttingObject:
+          $ref: '#/components/schemas/DistanceComparison'
+        cutPart:
+          $ref: '#/components/schemas/CutPart'
+        extendBeforeCut:
+          description: Extend before cut - for cuts where user can decide if modified
+            beam will be extended or not
+          type: boolean
+      type: object
+    CutData:
+      additionalProperties: false
+      description: Provides data of the cut beam
+      example:
+        planePoint:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        normalVector:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        offset: 1.2315135367772556
+        direction: default
+      properties:
+        planePoint:
+          $ref: '#/components/schemas/Point3D'
+        normalVector:
+          $ref: '#/components/schemas/Vector3D'
+        direction:
+          $ref: '#/components/schemas/CutOrientation'
+        offset:
+          description: Offset - shift of cut
+          format: double
+          type: number
+      type: object
+    CutMethod:
+      description: Cut method
+      enum:
+      - boundingBox
+      - surface
+      - mitre
+      - surfaceAll
+      type: string
+    CutOrientation:
+      description: Represents the type of the cut
+      enum:
+      - default
+      - parallel
+      - perpendicular
+      type: string
+    CutPart:
+      enum:
+      - begin
+      - end
+      type: string
+    DistanceComparison:
+      description: Represents the result of comparison of distances of two object
+        from the same point
+      enum:
+      - closer
+      - farther
+      - same
+      type: string
+    DrawData:
+      additionalProperties: false
+      example:
+        vertices:
+        - 4.145608029883936
+        - 4.145608029883936
+        groups:
+        - text:
+          - color:
+            - 2
+            - 2
+            fontSize: 3.616076749251911
+            position:
+              angles:
+              - 9.301444243932576
+              - 9.301444243932576
+              origin:
+              - 7.061401241503109
+              - 7.061401241503109
+            tag: 2.027123023002322
+            value: value
+          - color:
+            - 2
+            - 2
+            fontSize: 3.616076749251911
+            position:
+              angles:
+              - 9.301444243932576
+              - 9.301444243932576
+              origin:
+              - 7.061401241503109
+              - 7.061401241503109
+            tag: 2.027123023002322
+            value: value
+          faces:
+          - 0
+          - 0
+          lines:
+          - color:
+            - 6
+            - 6
+            thickness: 5.962133916683182
+            pairs:
+            - 1
+            - 1
+          - color:
+            - 6
+            - 6
+            thickness: 5.962133916683182
+            pairs:
+            - 1
+            - 1
+          priority: 5
+          selected:
+            id: id
+            type:
+              kind: kind
+        - text:
+          - color:
+            - 2
+            - 2
+            fontSize: 3.616076749251911
+            position:
+              angles:
+              - 9.301444243932576
+              - 9.301444243932576
+              origin:
+              - 7.061401241503109
+              - 7.061401241503109
+            tag: 2.027123023002322
+            value: value
+          - color:
+            - 2
+            - 2
+            fontSize: 3.616076749251911
+            position:
+              angles:
+              - 9.301444243932576
+              - 9.301444243932576
+              origin:
+              - 7.061401241503109
+              - 7.061401241503109
+            tag: 2.027123023002322
+            value: value
+          faces:
+          - 0
+          - 0
+          lines:
+          - color:
+            - 6
+            - 6
+            thickness: 5.962133916683182
+            pairs:
+            - 1
+            - 1
+          - color:
+            - 6
+            - 6
+            thickness: 5.962133916683182
+            pairs:
+            - 1
+            - 1
+          priority: 5
+          selected:
+            id: id
+            type:
+              kind: kind
+        normals:
+        - 7.386281948385884
+        - 7.386281948385884
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/IGroup'
+          nullable: true
+          type: array
+        vertices:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+        normals:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+      type: object
+    FoldedPlateData:
+      additionalProperties: false
+      description: Provides data of the folded plate
+      example:
+        plates:
+        - thickness: 6.027456183070403
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          originalModelId: originalModelId
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          isNegativeObject: true
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          geometry:
+            outline:
+              startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            openings:
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+          id: 7
+          region: region
+        - thickness: 6.027456183070403
+          origin:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          originalModelId: originalModelId
+          outlinePoints:
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          - x: 1.4658129805029452
+            "y": 5.962133916683182
+          material: material
+          axisZ:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          axisY:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          isNegativeObject: true
+          name: name
+          axisX:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          geometry:
+            outline:
+              startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            openings:
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+            - startPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+              segments:
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+              - endPoint:
+                  x: 1.4658129805029452
+                  "y": 5.962133916683182
+          id: 7
+          region: region
+        bends:
+        - point1OfSideBoundary1:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          point1OfSideBoundary2:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          point2OfSideBoundary2:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          endFaceNormal1:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          point2OfSideBoundary1:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          plate1Id: 1
+          plate2Id: 4
+          radius: 5.025004791520295
+        - point1OfSideBoundary1:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          point1OfSideBoundary2:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          point2OfSideBoundary2:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          endFaceNormal1:
+            x: 3.616076749251911
+            "y": 2.027123023002322
+            z: 4.145608029883936
+          point2OfSideBoundary1:
+            x: 5.637376656633329
+            "y": 2.3021358869347655
+            z: 7.061401241503109
+            id: 9
+          plate1Id: 1
+          plate2Id: 4
+          radius: 5.025004791520295
+      properties:
+        plates:
+          description: List of plates belong to folded plate
+          items:
+            $ref: '#/components/schemas/PlateData'
+          nullable: true
+          type: array
+        bends:
+          description: List of bends connected plates of foldedplate
+          items:
+            $ref: '#/components/schemas/BendData'
+          nullable: true
+          type: array
+      type: object
+    IGroup:
+      additionalProperties: false
+      example:
+        text:
+        - color:
+          - 2
+          - 2
+          fontSize: 3.616076749251911
+          position:
+            angles:
+            - 9.301444243932576
+            - 9.301444243932576
+            origin:
+            - 7.061401241503109
+            - 7.061401241503109
+          tag: 2.027123023002322
+          value: value
+        - color:
+          - 2
+          - 2
+          fontSize: 3.616076749251911
+          position:
+            angles:
+            - 9.301444243932576
+            - 9.301444243932576
+            origin:
+            - 7.061401241503109
+            - 7.061401241503109
+          tag: 2.027123023002322
+          value: value
+        faces:
+        - 0
+        - 0
+        lines:
+        - color:
+          - 6
+          - 6
+          thickness: 5.962133916683182
+          pairs:
+          - 1
+          - 1
+        - color:
+          - 6
+          - 6
+          thickness: 5.962133916683182
+          pairs:
+          - 1
+          - 1
+        priority: 5
+        selected:
+          id: id
+          type:
+            kind: kind
+      properties:
+        faces:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        selected:
+          $ref: '#/components/schemas/Selected'
+        lines:
+          items:
+            $ref: '#/components/schemas/Line'
+          nullable: true
+          type: array
+        priority:
+          format: int32
+          type: integer
+        text:
+          items:
+            $ref: '#/components/schemas/Text'
+          nullable: true
+          type: array
+      type: object
+    IdeaParameter:
+      additionalProperties: false
+      example:
+        parameterType: parameterType
+        unit: unit
+        validationExpression: validationExpression
+        expression: expression
+        description: description
+        isVisible: true
+        value: ""
+        validationStatus: validationStatus
+        key: key
+      properties:
+        key:
+          nullable: true
+          type: string
+        expression:
+          nullable: true
+          type: string
+        value:
+          nullable: true
+        unit:
+          nullable: true
+          type: string
+        parameterType:
+          nullable: true
+          type: string
+        validationExpression:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        validationStatus:
+          nullable: true
+          type: string
+        isVisible:
+          nullable: true
+          type: boolean
+      type: object
+    IdeaParameterUpdate:
+      additionalProperties: false
+      example:
+        expression: expression
+        key: key
+      properties:
+        key:
+          nullable: true
+          type: string
+        expression:
+          nullable: true
+          type: string
+      type: object
+    Line:
+      additionalProperties: false
+      example:
+        color:
+        - 6
+        - 6
+        thickness: 5.962133916683182
+        pairs:
+        - 1
+        - 1
+      properties:
+        color:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        pairs:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        thickness:
+          format: double
+          type: number
+      type: object
+    LoadEffectData:
+      additionalProperties: false
+      example:
+        internalForces:
+        - 6
+        - 6
+        purpose: common
+        name: name
+        description: description
+        id: 0
+        isActive: true
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        isActive:
+          type: boolean
+        internalForces:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        purpose:
+          $ref: '#/components/schemas/ePurpose'
+      type: object
+    MessageNumber:
+      description: Message numbers
+      enum:
+      - unspecified
+      - information
+      - warning
+      - warnNoPropertyInData
+      - warnValueOutOfRange
+      - warnCurveCount
+      - warnReinforcementBarsCollision
+      - error
+      - errNoOpenObject
+      - errDataObjectNotCreated
+      - errNoObjectInOpenModel
+      - errNoReferenceObjectInOpenModel
+      - errNoEquivalentObjectInDataModel
+      - errNoCrossSectionParameter
+      - errBoltsTooClose
+      - errBoltsTooCloseEdge
+      - errContactsAngle
+      - errIncorrentMaterialE
+      - errIncorrectMaterialEGP
+      - errPreloadedBoltGrade
+      - errValueOutOfRange
+      - errCurveZeroPoint
+      - errCurveFunction
+      - errCurveDecreaseFunction
+      - errCurveDerivation
+      - errCurveNotSet
+      - errValidPolyline
+      - errWarningLoad
+      - errTimeout
+      - errNoInLibrary
+      - errBadWeldMaterialProperty
+      - errOperation
+      - reserved
+      type: string
+    OpenElementId:
+      additionalProperties: false
+      description: "Open element base class\r\nPOS - class can not be abstract -it\
+        \ causes problems with serialization"
+      example:
+        id: 6
+      properties:
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    OpenMessage:
+      additionalProperties: false
+      description: Open message base class
+      example:
+        number: unspecified
+        description: description
+      properties:
+        number:
+          $ref: '#/components/schemas/MessageNumber'
+        description:
+          description: Description of message
+          nullable: true
+          type: string
+      type: object
+    OpenMessages:
+      additionalProperties: false
+      description: Open messages collection
+      example:
+        messages:
+        - number: unspecified
+          description: description
+        - number: unspecified
+          description: description
+      properties:
+        messages:
+          description: List of messages
+          items:
+            $ref: '#/components/schemas/OpenMessage'
+          nullable: true
+          type: array
+      type: object
+    ParameterData:
+      additionalProperties: false
+      example:
+        identifier: identifier
+        parameterType: parameterType
+        evaluatedValidationValue: evaluatedValidationValue
+        defaultValue: ""
+        validationType: warning
+        description: description
+        evaluatedDefaultValue: ""
+        validationValue: validationValue
+        isVisibleForSimpleConnection: true
+        id: 0
+        value: ""
+        evaluatedValue: ""
+        userUnitId: 6
+      properties:
+        id:
+          format: int32
+          type: integer
+        identifier:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        parameterType:
+          nullable: true
+          type: string
+        value:
+          nullable: true
+        defaultValue:
+          nullable: true
+        evaluatedValue:
+          nullable: true
+        evaluatedDefaultValue:
+          nullable: true
+        validationValue:
+          nullable: true
+          type: string
+        evaluatedValidationValue:
+          nullable: true
+          type: string
+        validationType:
+          $ref: '#/components/schemas/ValidationType'
+        userUnitId:
+          format: int32
+          type: integer
+        isVisibleForSimpleConnection:
+          type: boolean
+      type: object
+    PlateData:
+      additionalProperties: false
+      description: Provides data of the single plate
+      example:
+        thickness: 6.027456183070403
+        origin:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        originalModelId: originalModelId
+        outlinePoints:
+        - x: 1.4658129805029452
+          "y": 5.962133916683182
+        - x: 1.4658129805029452
+          "y": 5.962133916683182
+        material: material
+        axisZ:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        axisY:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        isNegativeObject: true
+        name: name
+        axisX:
+          x: 3.616076749251911
+          "y": 2.027123023002322
+          z: 4.145608029883936
+        geometry:
+          outline:
+            startPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+            segments:
+            - endPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+            - endPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+          openings:
+          - startPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+            segments:
+            - endPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+            - endPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+          - startPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+            segments:
+            - endPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+            - endPoint:
+                x: 1.4658129805029452
+                "y": 5.962133916683182
+        id: 7
+        region: region
+      properties:
+        name:
+          description: Name of the plate
+          nullable: true
+          type: string
+        thickness:
+          description: Thickness of the plate
+          format: double
+          type: number
+        material:
+          description: Name of the material
+          nullable: true
+          type: string
+        outlinePoints:
+          description: Outline points
+          items:
+            $ref: '#/components/schemas/Point2D'
+          nullable: true
+          type: array
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
+          $ref: '#/components/schemas/Vector3D'
+        region:
+          description: Geometry of the plate in svg format. In next version will be
+            mark as OBSOLETE! New use property Geometry
+          nullable: true
+          type: string
+        geometry:
+          $ref: '#/components/schemas/Region2D'
+        originalModelId:
+          description: "Get or set the identification in the original model\r\nIn\
+            \ the case of the imported connection from another application"
+          nullable: true
+          type: string
+        isNegativeObject:
+          description: Is negative object
+          type: boolean
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    Point2D:
+      additionalProperties: false
+      description: Represents an x- and y-coordinate pair in two-dimensional space.
+      example:
+        x: 1.4658129805029452
+        "y": 5.962133916683182
+      properties:
+        x:
+          description: Gets or sets the X-coordinate value
+          format: double
+          type: number
+        "y":
+          description: Gets or sets the Y-coordinate value
+          format: double
+          type: number
+      type: object
+    Point3D:
+      additionalProperties: false
+      description: "Represents an x- , y- an z-coordinates in three-dimensional space."
+      example:
+        x: 5.637376656633329
+        "y": 2.3021358869347655
+        z: 7.061401241503109
+        id: 9
+      properties:
+        x:
+          description: Gets or sets the X-coordinate value
+          format: double
+          type: number
+        "y":
+          description: Gets or sets the Y-coordinate value
+          format: double
+          type: number
+        z:
+          description: Gets or sets the Z-coordinate value
+          format: double
+          type: number
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+      type: object
+    PolyLine2D:
+      additionalProperties: false
+      description: Represents a polyline in two-dimensional space.
+      example:
+        startPoint:
+          x: 1.4658129805029452
+          "y": 5.962133916683182
+        segments:
+        - endPoint:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+        - endPoint:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+      properties:
+        startPoint:
+          $ref: '#/components/schemas/Point2D'
+        segments:
+          description: Gets segments of `PolyLine2D`.
+          items:
+            $ref: '#/components/schemas/Segment2D'
+          nullable: true
+          type: array
+      type: object
+    ReferenceElement:
+      additionalProperties: false
+      description: Reference element class
+      example:
+        typeName: typeName
+        id: 1
+        element:
+          id: 6
+      properties:
+        typeName:
+          description: Element type name
+          nullable: true
+          type: string
+        id:
+          description: Element Id
+          format: int32
+          type: integer
+        element:
+          $ref: '#/components/schemas/OpenElementId'
+      type: object
+    Region2D:
+      additionalProperties: false
+      description: Represents a region in two-dimensional space included outline (border)
+        and openings.
+      example:
+        outline:
+          startPoint:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+          segments:
+          - endPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+          - endPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+        openings:
+        - startPoint:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+          segments:
+          - endPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+          - endPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+        - startPoint:
+            x: 1.4658129805029452
+            "y": 5.962133916683182
+          segments:
+          - endPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+          - endPoint:
+              x: 1.4658129805029452
+              "y": 5.962133916683182
+      properties:
+        outline:
+          $ref: '#/components/schemas/PolyLine2D'
+        openings:
+          description: Gets or sets the list of openings in the Region2D.
+          items:
+            $ref: '#/components/schemas/PolyLine2D'
+          nullable: true
+          type: array
+      type: object
+    Segment2D:
+      additionalProperties: false
+      description: Represents a segment in two-dimensional space.
+      example:
+        endPoint:
+          x: 1.4658129805029452
+          "y": 5.962133916683182
+      properties:
+        endPoint:
+          $ref: '#/components/schemas/Point2D'
+      type: object
+    Selected:
+      additionalProperties: false
+      example:
+        id: id
+        type:
+          kind: kind
+      properties:
+        id:
+          nullable: true
+          type: string
+        type:
+          $ref: '#/components/schemas/SelectedType'
+      type: object
+    SelectedType:
+      additionalProperties: false
+      example:
+        kind: kind
+      properties:
+        kind:
+          nullable: true
+          readOnly: true
+          type: string
+      type: object
+    SteelSetup:
+      additionalProperties: false
+      description: ISteelSetup
+      type: object
+    TemplateConversions:
+      additionalProperties: false
+      example:
+        conversions:
+        - newValue: newValue
+          newTemplateId: newTemplateId
+          originalValue: originalValue
+          description: description
+          originalTemplateId: originalTemplateId
+        - newValue: newValue
+          newTemplateId: newTemplateId
+          originalValue: originalValue
+          description: description
+          originalTemplateId: originalTemplateId
+        countryCode: countryCode
+      properties:
+        conversions:
+          items:
+            $ref: '#/components/schemas/BaseTemplateConversion'
+          nullable: true
+          type: array
+        countryCode:
+          nullable: true
+          type: string
+      type: object
+    Text:
+      additionalProperties: false
+      example:
+        color:
+        - 2
+        - 2
+        fontSize: 3.616076749251911
+        position:
+          angles:
+          - 9.301444243932576
+          - 9.301444243932576
+          origin:
+          - 7.061401241503109
+          - 7.061401241503109
+        tag: 2.027123023002322
+        value: value
+      properties:
+        color:
+          items:
+            format: int32
+            type: integer
+          nullable: true
+          type: array
+        value:
+          nullable: true
+          type: string
+        position:
+          $ref: '#/components/schemas/TextPosition'
+        fontSize:
+          format: double
+          type: number
+        tag:
+          format: double
+          type: number
+      type: object
+    TextPosition:
+      additionalProperties: false
+      example:
+        angles:
+        - 9.301444243932576
+        - 9.301444243932576
+        origin:
+        - 7.061401241503109
+        - 7.061401241503109
+      properties:
+        origin:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+        angles:
+          items:
+            format: double
+            type: number
+          nullable: true
+          type: array
+      type: object
+    ValidationType:
+      enum:
+      - warning
+      - restricted
+      type: string
+    Vector3D:
+      additionalProperties: false
+      description: Represents a vector in three-dimensional space.
+      example:
+        x: 3.616076749251911
+        "y": 2.027123023002322
+        z: 4.145608029883936
+      properties:
+        x:
+          description: Gets or sets the X-dirrection value
+          format: double
+          type: number
+        "y":
+          description: Gets or sets the Y-dirrection value
+          format: double
+          type: number
+        z:
+          description: Gets or sets the Z-dirrection value
+          format: double
+          type: number
+      type: object
+    WeldData:
+      additionalProperties: false
+      description: Provides data of the single weld
+      example:
+        connectedPartIds:
+        - connectedPartIds
+        - connectedPartIds
+        material: material
+        thickness: 5.533258397034986
+        weldType: notSpecified
+        name: name
+        start:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        end:
+          x: 5.637376656633329
+          "y": 2.3021358869347655
+          z: 7.061401241503109
+          id: 9
+        id: 7
+        weldMaterial:
+          typeName: typeName
+          id: 1
+          element:
+            id: 6
+      properties:
+        id:
+          description: Id of the weld
+          format: int32
+          type: integer
+        name:
+          description: Name of the weld
+          nullable: true
+          type: string
+        thickness:
+          description: Thickness of the weld
+          format: double
+          type: number
+        material:
+          description: Name of the material
+          nullable: true
+          type: string
+        weldMaterial:
+          $ref: '#/components/schemas/ReferenceElement'
+        weldType:
+          $ref: '#/components/schemas/WeldType'
+        connectedPartIds:
+          description: Id of the weld
+          items:
+            type: string
+          nullable: true
+          type: array
+        start:
+          $ref: '#/components/schemas/Point3D'
+        end:
+          $ref: '#/components/schemas/Point3D'
+      type: object
+    WeldEvaluation:
+      description: WeldEvaluation
+      enum:
+      - maxForceElement
+      - forceResultant
+      - applyPlasticWelds
+      type: string
+    WeldType:
+      description: enum of weld types
+      enum:
+      - notSpecified
+      - fillet
+      - doubleFillet
+      - bevel
+      - pjp
+      - pjpRear
+      - lengthAtHaunch
+      - filletRear
+      - contact
+      - intermittent
+      type: string
+    ePurpose:
+      enum:
+      - common
+      - maxCapacityCalculation
+      - maxCapacityCalculationNegative
+      - horizontalTyingCalculation
+      type: string
+    OpenProject_request:
+      properties:
+        ideaConFile:
+          format: binary
+          type: string
+      type: object
+    ImportIOM_request:
+      properties:
+        containerXmlFile:
+          format: binary
+          type: string
+        ConnectionsToCreate:
+          items:
+            format: int32
+            type: integer
+          type: array
+      type: object
+    UpdateFromIOM_request:
+      properties:
+        containerXmlFile:
+          format: binary
+          type: string
+      type: object
+
