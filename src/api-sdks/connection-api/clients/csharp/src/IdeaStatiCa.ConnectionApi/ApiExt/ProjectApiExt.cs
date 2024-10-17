@@ -107,10 +107,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
 			{
 				memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
 
-				var response = await ImportIOMWithHttpInfoAsync(memoryStream, connectionsToCreate, null, 0, cancellationToken);
-
-				return response.Data;
+				var conProject = await ImportIOMWithHttpInfoAsync(memoryStream, connectionsToCreate, null, 0, cancellationToken);
+				this.ActiveProjectData = conProject.Data;
 			}
+
+			return this.ActiveProjectData;
 		}
 
 		public async Task<ConProject> UpdateProjectFromIomFileAsync(Guid projectId, string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
