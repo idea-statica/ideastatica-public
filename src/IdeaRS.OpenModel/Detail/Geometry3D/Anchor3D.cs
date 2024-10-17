@@ -100,5 +100,10 @@ namespace IdeaRS.OpenModel.Detail
 		/// Interconnection between plate and anchor
 		/// </summary>
 		public bool BasePlateInterconnect { get; set; }
+
+		/// <summary>
+		/// Trensfer of shear
+		/// </summary>
+		public bool TransferOfShear { get; set; }
 	}
 }
