@@ -10,6 +10,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// Update existing load effects in a connection.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task UpdateLoadEffect(ConnectionApiClient conClient)
 		{
 			string filePath = "inputs/simple knee connection.ideaCon";

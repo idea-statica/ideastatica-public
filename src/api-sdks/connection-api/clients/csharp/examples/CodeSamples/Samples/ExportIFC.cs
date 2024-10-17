@@ -10,6 +10,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// This example exports the connection to an Ifc to an Ifc file (.ifc).
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task ExportIfc(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/simple knee connection.ideaCon";

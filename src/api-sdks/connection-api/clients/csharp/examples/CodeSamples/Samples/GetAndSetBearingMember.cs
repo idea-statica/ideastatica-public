@@ -10,6 +10,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// Set the bearing member of a connection.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task GetAndSetBearingMember(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";

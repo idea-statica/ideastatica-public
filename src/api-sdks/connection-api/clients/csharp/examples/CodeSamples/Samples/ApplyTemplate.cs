@@ -10,6 +10,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// This example applies a template to a naked connection project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task ApplyTemplate(ConnectionApiClient conClient)
 		{
 			string filePath = "inputs/corner-empty.ideaCon";

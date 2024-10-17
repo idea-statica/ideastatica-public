@@ -10,7 +10,11 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
-		public static async Task ImportIOM(ConnectionApiClient conClient) 
+		/// <summary>
+		/// Creates a new connection project from a selected IOM file. The first connection point in the IOM file will be added to the project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
+		public static async Task CreateProjectFromIom(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/multiple_connections.xml";
 			ConProject conProject = await conClient.Project.CreateProjectFromIomFileAsync(filePath);

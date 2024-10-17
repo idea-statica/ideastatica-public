@@ -11,6 +11,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// This example adds a new load effect to an opened project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task AddLoadEffect(ConnectionApiClient conClient)
 		{
 			string filePath = "inputs/simple cleat connection.ideaCon";

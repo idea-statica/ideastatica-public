@@ -10,6 +10,11 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// Save the word report of a given connection.
+		/// </summary>
+		/// <param name="conClient"></param>
+		/// <returns></returns>
 		public static async Task SaveReport_Word_NOTWORKING(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
@@ -23,7 +28,7 @@ namespace CodeSamples
 			string exampleFolder = GetExampleFolderPathOnDesktop("GenerateReport");
 
 			// Save updated file.
-			string fileName = "simple cleat connection.pdf";
+			string fileName = "simple cleat connection.docx";
 			string pdfFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save Report to PDF

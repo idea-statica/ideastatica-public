@@ -10,6 +10,11 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+
+		/// <summary>
+		/// This example exports the connection to Idea Open Model (IOM).
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task ExportIom_NOTWORKING(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";

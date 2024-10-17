@@ -10,6 +10,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// Modify a given connections parameters.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task UpdateParameters(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/User_testing_end_v23_1.ideaCon";

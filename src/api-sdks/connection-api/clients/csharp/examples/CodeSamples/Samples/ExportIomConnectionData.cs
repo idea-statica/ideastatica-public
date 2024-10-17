@@ -10,7 +10,11 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
-		public static async Task ExportIom(ConnectionApiClient conClient) 
+		/// <summary>
+		/// Gets the IOM Connection Data associated with a given connection.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
+		public static async Task ExportIomConnectionData(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/HSS_norm_cond.ideaCon";
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
@@ -20,13 +24,16 @@ namespace CodeSamples
 			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
 			int connectionId = connections[0].Id;
 
-
+			//FIX: This should export IdeaRS classes not the client classes.
 			ConnectionData conData = await conClient.Export.ExportConnectionDataAsync(projectId, connectionId);
 
+			//Print the connection data to the Console.
+			Console.WriteLine($"Number of Plates: { conData.Plates.Count()}");
+			Console.WriteLine($"Number of BoltGrids: {conData.BoltGrids.Count()}");
+			Console.WriteLine($"Number of Welds: {conData.Welds.Count()}");
+			Console.WriteLine($"Number of Cuts: {conData.CutBeamByBeams.Count()}");
 
-			string saveFilePath = "connection-file-from-IOM.ideaCon";
-
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.CloseProjectAsync(projectId.ToString());
 		}
 	}
 }

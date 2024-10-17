@@ -11,6 +11,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// Get the list of avaliable Bolt Assemblies in a project and Add one to the project. 
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task GetAndAddBoltAssemblies(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";

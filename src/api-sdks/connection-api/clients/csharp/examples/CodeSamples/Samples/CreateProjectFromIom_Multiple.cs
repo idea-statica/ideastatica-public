@@ -11,7 +11,12 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
-		public static async Task ImportIOM_Multiple(ConnectionApiClient conClient) 
+		/// <summary>
+		/// Creates a new connection project from a selected IOM file. 
+		/// User can select which connections from the IOM file are to be created in the connection project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
+		public static async Task CreateProjectFromIOM_Multiple(ConnectionApiClient conClient) 
 		{
 			string filePath = "Inputs/multiple_connections.xml";
 			

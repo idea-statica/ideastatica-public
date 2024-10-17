@@ -12,6 +12,10 @@ namespace CodeSamples
 {
 	public partial class ClientExamples
 	{
+		/// <summary>
+		/// Update a members cross-section with an avaliable one in the project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
 		public static async Task UpdateMemberCrossSection(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection - sections.ideaCon";
