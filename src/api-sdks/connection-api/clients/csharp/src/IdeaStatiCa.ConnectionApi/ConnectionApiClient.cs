@@ -49,9 +49,9 @@ namespace IdeaStatiCa.ConnectionApi
 		/// <inheritdoc cref="IConnectionApiClient.Project"/>
 		public IProjectApiExtAsync Project { get; private set; }
 		/// <inheritdoc cref="IConnectionApiClient.Report"/>
-		public IReportApiAsync Report { get; private set; }
+		public IReportApiExtAsync Report { get; private set; }
 		/// <inheritdoc cref="IConnectionApiClient.Template"/>
-		public ITemplateApiAsync Template { get; private set; }
+		public ITemplateApiExtAsync Template { get; private set; }
 
 		/// <summary>
 		/// 
@@ -124,7 +124,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Parameter = new ParameterApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Presentation = new PresentationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Project = new ProjectApiExt(this, clientApi.Client, clientApi.AsynchronousClient, configuration);
-			this.Report = new ReportApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			this.Report = new ReportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Template = new TemplateApiExt(iomClient, iomClient, configuration);
 
 			this.ClientApi = clientApi;

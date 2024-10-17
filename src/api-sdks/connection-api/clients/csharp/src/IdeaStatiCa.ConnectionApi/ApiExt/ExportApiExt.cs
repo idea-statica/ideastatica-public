@@ -16,7 +16,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <param name="connectionId">ID of the connection in <paramref name="projectId"/></param>
 		/// <param name="filePath">The full path to the IFC file which will be created</param>
 		/// <returns></returns>
-		Task ExportConToIfcFileAsync(Guid projectId, int connectionId, string filePath);
+		Task ExportIfcFileAsync(Guid projectId, int connectionId, string filePath);
 	}
 
 	/// <inheritdoc cref="IExportApiExtAsync" />
@@ -32,9 +32,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		{
 		}
 
-		/// <inheritdoc cref="IExportApiExtAsync.ExportConToIfcFileAsync(Guid, int, string)"/>/param>
+		/// <inheritdoc cref="IExportApiExtAsync.ExportIfcFileAsync(Guid, int, string)"/>/param>
 		/// <returns></returns>
-		public async Task ExportConToIfcFileAsync(Guid projectId, int connectionId, string filePath)
+		public async Task ExportIfcFileAsync(Guid projectId, int connectionId, string filePath)
 		{
 			var response = await base.ExportConnectionIFCWithHttpInfoAsync(projectId, connectionId, "text/plain");
 			string ifc = (string)response.Data;

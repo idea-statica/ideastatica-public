@@ -251,7 +251,7 @@ namespace ST_ConnectionRestApi
 			string tempFileName = Path.GetTempFileName()!;
 			try
 			{
-				await ConnectionApiClient!.Export!.ExportConToIfcFileAsync(ActiveProjectId, con1.Id, tempFileName);
+				await ConnectionApiClient!.Export!.ExportIfcFileAsync(ActiveProjectId, con1.Id, tempFileName);
 
 				bool fileExists = File.Exists(tempFileName);
 				fileExists.Should().BeTrue("Ifc should be saved");
