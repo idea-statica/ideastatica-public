@@ -79,7 +79,7 @@ namespace IdeaStatiCa.ConnectionApi
 
 		private async Task CloseAsync()
 		{
-			if(Project != null && ProjectId == Guid.Empty)
+			if(Project != null && ProjectId != Guid.Empty)
 			{
 				await Project.CloseProjectAsync(ProjectId.ToString());
 			}
