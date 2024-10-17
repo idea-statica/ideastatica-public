@@ -161,11 +161,10 @@ namespace IdeaStatiCa.Api.Connection
 		/// Update connection's member values
 		/// </summary>
 		/// <param name="connectionId"></param>
-		/// <param name="memberId"></param>
 		/// <param name="member"></param>
 		/// <param name="cancellationToken"></param>
 		/// <returns></returns>
-		Task<ConMember> UpdateMemberAsync(int connectionId, int memberId, ConMember member, CancellationToken cancellationToken = default);
+		Task<ConMember> UpdateMemberAsync(int connectionId, ConMember member, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Get production cost
