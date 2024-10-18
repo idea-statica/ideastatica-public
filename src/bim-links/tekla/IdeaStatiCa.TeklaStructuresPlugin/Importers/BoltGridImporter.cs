@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TS = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
+using TSV = Tekla.Structures.TeklaStructuresSettings;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 {
@@ -31,6 +32,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 					BoltShearType = IdeaRS.OpenModel.Parameters.BoltShearType.Interaction,
 					ConnectedParts = new List<IIdeaObjectConnectable>(),
 					Positions = new List<IIdeaNode>(),
+					Length = ((double)boltGroup.Length).MilimetersToMeters(),
 				};
 
 				//This test due to plate as member and we are not sure if its imported as plate or member
@@ -111,6 +113,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 		private IIdeaBoltAssembly GetAssembly(TS.BoltGroup boltGroup)
 		{
+			bool isImperialUnitPresented = false;
+			TSV.GetAdvancedOption("XS_IMPERIAL", ref isImperialUnitPresented);
+
 			var stringPropTable = new Hashtable();
 			boltGroup.GetStringReportProperties(new ArrayList
 				{
@@ -134,14 +139,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				BoreHole = boltDiameter + 0.001,
 				DiagonalHeadDiameter = boltDiameter * 1.7,
 				Diameter = boltDiameter,
-				Lenght = ((double)boltGroup.Length).MilimetersToMeters(),
 				NutThickness = 0.6 * boltDiameter,
 				HeadDiameter = boltDiameter * 1.7,
 				HeadHeight = 0.6 * boltDiameter,
 				HoleDiameter = boltDiameter + 0.001,
 				Standard = string.Empty,
 				TensileStressArea = 0.0,
-				MaterialNo = boltGrade,
+				BoltGradeNo = boltGrade,
+				Name = $"{(isImperialUnitPresented ? boltDiameter.MetersToInchesFormated() : doublePropTable[BoltDiameterKey])} {boltAssemblyName}"
 			};
 		}
 	}

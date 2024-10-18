@@ -8,7 +8,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps
 {
 	internal abstract class BaseStep : IUpgradeStep, IDowngradeStep
 	{
-		private readonly IPluginLogger _logger;
+		protected readonly IPluginLogger _logger;
 
 		protected BaseStep(IPluginLogger logger)
 		{

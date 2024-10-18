@@ -2,11 +2,11 @@
 using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Configuration;
 using IdeaStatiCa.IOM.VersioningService.Downgrade;
+using IdeaStatiCa.IOM.VersioningServiceTests;
 using IdeaStatiCa.Plugin;
 using NUnit.Framework;
-using System.Xml.Linq;
 
-namespace IdeaStatiCa.IOM.VersioningServiceTests
+namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 {
 	[TestFixture]
 	public class DowngradeTests
@@ -36,7 +36,7 @@ namespace IdeaStatiCa.IOM.VersioningServiceTests
 
 		[TestCase("2", 0)]
 		[TestCase("2.0.1", 1)]
-		[TestCase("2.0.2", 1)]
+		[TestCase("2.0.2", 2)]
 		public void FromParsedXml_CheckPossible_Downgrade_Steps(string version, int numOfSteps)
 		{
 			string xmlContent = $"<OpenModel xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n  <Version>{version}</Version></OpenModel>";
@@ -56,8 +56,8 @@ namespace IdeaStatiCa.IOM.VersioningServiceTests
 		}
 
 		[TestCase("OpenModel-Simple.xml", "OpenModel-Simple.xml")]
-		[TestCase("OpenModel-LargeUpgraded.xml", "OpenModel-Large.xml")]
-		[TestCase("ModelBIM-AS_Black_PointUpgraded.xml", "ModelBIM-AS_Black_Point.xml")]
+		[TestCase("OpenModel-LargeUpgraded.xml", "OpenModel-LargeDowngraded.xml")]
+		[TestCase("ModelBIM-AS_Black_PointUpgraded.xml", "ModelBIM-AS_Black_PointDowngraded.xml")]
 		public void FromParsedXml_Downgrade_LargeFile(string fileName, string expectedFile)
 		{
 			string xmlContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, fileName));
@@ -80,14 +80,8 @@ namespace IdeaStatiCa.IOM.VersioningServiceTests
 
 			Assert.IsNotNull(anObject: exportedXML);
 
-			AssertEqualXml(xmlExpectedContent, exportedXML);
-
+			UtHelper.AssertEqualXml(xmlExpectedContent, exportedXML, fileName);
 		}
 
-		private void AssertEqualXml(string expectedXml, string actualXml)
-		{
-			Assert.IsTrue(XNode.DeepEquals(XElement.Parse(expectedXml), XElement.Parse(actualXml)),
-				String.Format("{0} \n does not equal \n{1}", actualXml, expectedXml));
-		}
 	}
 }

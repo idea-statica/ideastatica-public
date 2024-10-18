@@ -31,7 +31,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 			ConnectionData connectionData = new ConnectionData();
 
-			connectionData.ConenctionPointId = connectionPoint.Id;
+			connectionData.ConnectionPoint = new ReferenceElement(connectionPoint);
 
 			(ctx.OpenModel.Connections ?? (ctx.OpenModel.Connections = new List<ConnectionData>())).Add(connectionData);
 
@@ -65,6 +65,10 @@ namespace IdeaStatiCa.BimImporter.Importers
 			if (connectionData.CutBeamByBeams == null) { connectionData.CutBeamByBeams = new List<CutBeamByBeamData>(); }
 
 			connectionData.ConcreteBlocks = new List<ConcreteBlockData>();
+
+			connection.PinGrids?.Where(e => e != null).ToList().ForEach(p => ctx.ImportConnectionItem(p, connectionData));
+
+			if (connectionData.PinGrids == null) { connectionData.PinGrids = new List<PinGrid>(); }
 
 			return connectionPoint;
 		}

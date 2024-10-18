@@ -117,7 +117,14 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <returns></returns>
 		public static string GetElementName(this SList sList)
 		{
-			return sList.Items.First().GetElementName();
+			if (sList.Items.Count > 0)
+			{
+				return sList.Items.First()?.GetElementName();
+			}
+			else
+			{
+				return "";
+			}
 		}
 	}
 }

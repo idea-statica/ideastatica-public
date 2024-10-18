@@ -139,7 +139,7 @@ namespace IdeaRS.OpenModel.Detail
 		/// <summary>
 		/// shear lug cross-section
 		/// </summary>
-		public string ShearLugCrossSectionName { get; set; }
+		public ReferenceElement ShearLugCrossSection { get; set; }
 
 		/// <summary>
 		/// shear lug length

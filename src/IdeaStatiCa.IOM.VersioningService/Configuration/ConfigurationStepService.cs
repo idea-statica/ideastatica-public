@@ -21,8 +21,10 @@ namespace IdeaStatiCa.IOM.VersioningService.Configuration
 		private void RegisterSteps()
 		{
 			RedgisterStep(new Step200(_logger));
-			//RedgisterStep(new StepTo201(_logger));
-			//RedgisterStep(new StepTo202(_logger));
+			RedgisterStep(new Step201(_logger));
+			RedgisterStep(new Step205(_logger));
+			RedgisterStep(new Step206(_logger));
+			RedgisterStep(new Step210(_logger));
 		}
 
 		private void RedgisterStep(BaseStep step)

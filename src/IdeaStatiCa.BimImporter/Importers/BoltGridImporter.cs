@@ -22,26 +22,17 @@ namespace IdeaStatiCa.BimImporter.Importers
 			BoltGrid boltGridIOM = new BoltGrid()
 			{
 				Id = 0,
-				ConnectedPartIds = boltGrid.ConnectedParts.Select(cp => cp.Id).ToList(),
-				Diameter = boltGrid.BoltAssembly.Diameter,
-				HeadDiameter = boltGrid.BoltAssembly.HeadDiameter,
-				DiagonalHeadDiameter = boltGrid.BoltAssembly.DiagonalHeadDiameter,
-				HeadHeight = boltGrid.BoltAssembly.HeadHeight,
-				BoreHole = boltGrid.BoltAssembly.BoreHole,
-				TensileStressArea = boltGrid.BoltAssembly.TensileStressArea,
-				NutThickness = boltGrid.BoltAssembly.NutThickness,
-				AnchorLen = boltGrid.BoltAssembly.Lenght,
-				Material = boltGrid.BoltAssembly.Material.Name,
-				BoltAssemblyName = boltGrid.BoltAssembly.Name,
+				Name = boltGrid.Name,
+				ConnectedParts = boltGrid.ConnectedParts.Select(cp => new ReferenceElement(ctx.ImportConnectionItem(cp, connectionData) as OpenElementId)).ToList(),
+				BoltAssembly = ctx.Import(boltGrid.BoltAssembly),
 				BoltInteraction = boltGrid.BoltShearType,
 				ShearInThread = boltGrid.ShearInThread,
-				Standard = boltGrid.BoltAssembly.Standard,
-				HoleDiameter = boltGrid.BoltAssembly.HoleDiameter,
 				AxisX = lcs.VecX,
 				AxisY = lcs.VecY,
 				AxisZ = lcs.VecZ,
 				Positions = boltGrid.Positions.Select(p => ctx.Import(p).Element as Point3D).ToList(),
 				Origin = ctx.Import(boltGrid.Origin).Element as Point3D,
+				Length = boltGrid.Length,
 			};
 			(connectionData.BoltGrids ?? (connectionData.BoltGrids = new List<BoltGrid>())).Add(boltGridIOM);
 

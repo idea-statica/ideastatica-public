@@ -4,16 +4,24 @@ using IdeaStatiCa.BimApiLink.Identifiers;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 {
-	internal class BoltAssembly : IdeaBoltAssembly
+	internal class BoltAssembly : IdeaBoltAssemblyByParameters
 	{
-		public BoltAssembly(Identifier<IIdeaBoltAssembly> identifier) : base(identifier)
+		public BoltAssembly(Identifier<IIdeaBoltAssemblyByParameters> identifier) : base(identifier)
 		{ }
 
 		public BoltAssembly(string id) : base(id)
 		{ }
 
-		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
+		public override IIdeaMaterial BoltGrade
+		{
+			get
+			{
+				var boltGrade = Get<IIdeaMaterial>(BoltGradeNo);
+				(boltGrade as IdeaMaterialByName).MaterialType = MaterialType.BoltGrade;
+				return boltGrade;
+			}
+		}
 
-		public string MaterialNo { get; set; }
+		public string BoltGradeNo { get; set; }
 	}
 }

@@ -32,7 +32,7 @@ namespace BimApiLinkCadExample.Importers
 		//{
 		//	return new CrossSectionByName(css.Name)
 		//	{
-		//		MaterialNo = css.,
+		//		BoltGradeNo = css.,
 		//		Name = css.Name
 		//	};
 		//}

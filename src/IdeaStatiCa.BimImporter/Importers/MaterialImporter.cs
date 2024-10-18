@@ -24,6 +24,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaMaterialConcrete matConcrete:
 					return CreateMaterialConcrete(matConcrete);
+
+				case IIdeaMaterialBoltGrade matBoltGrade:
+					return CreateMaterialBoltGrade(matBoltGrade);
 			}
 
 			Logger.LogError($"Material '{material.Id}' is of unsupported type '{material.GetType().Name}'.");
@@ -53,6 +56,20 @@ namespace IdeaStatiCa.BimImporter.Importers
 			if (mat.Name == null)
 			{
 				mat.Name = matSteal.Name;
+			}
+
+			return mat;
+		}
+
+		private OpenElementId CreateMaterialBoltGrade(IIdeaMaterialBoltGrade matBoltGrade)
+		{
+			Logger.LogTrace($"Importing boltgrade material '{matBoltGrade.Id}'.");
+
+			MaterialBoltGrade mat = matBoltGrade.Material;
+
+			if (mat.Name == null)
+			{
+				mat.Name = matBoltGrade.Name;
 			}
 
 			return mat;
@@ -94,6 +111,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case MaterialType.Steel:
 					return CreateMaterialSteel(countryCode);
+
+				case MaterialType.BoltGrade:
+					return CreateMaterialBoltGrade(countryCode);
 			}
 
 			throw new NotImplementedException();
@@ -189,6 +209,36 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				default:
 					return new MatConcreteEc2();
+			}
+		}
+
+		private static Material CreateMaterialBoltGrade(CountryCode countryCode)
+		{
+			switch (countryCode)
+			{
+				case CountryCode.India:
+					return new MaterialBoltGradeIND();
+
+				case CountryCode.American:
+					return new MaterialBoltGradeAISC();
+
+				case CountryCode.Canada:
+					return new MaterialBoltGradeCISC();
+
+				case CountryCode.Australia:
+					return new MaterialBoltGradeAUS();
+
+				case CountryCode.CHN:
+					return new MaterialBoltGradeCHN();
+
+				case CountryCode.HKG:
+					return new MaterialBoltGradeHKG();
+
+				case CountryCode.ECEN:
+					return new MaterialBoltGradeEc2();
+
+				default:
+					return new MaterialBoltGrade();
 			}
 		}
 	}

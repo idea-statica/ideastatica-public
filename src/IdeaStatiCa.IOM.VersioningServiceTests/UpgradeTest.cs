@@ -2,9 +2,9 @@
 using IdeaStatiCa.IntermediateModel.IRModel;
 using IdeaStatiCa.IOM.VersioningService.Configuration;
 using IdeaStatiCa.IOM.VersioningService.Upgrade;
+using IdeaStatiCa.IOM.VersioningServiceTests;
 using IdeaStatiCa.Plugin;
 using NUnit.Framework;
-using System.Xml.Linq;
 
 namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 {
@@ -36,7 +36,7 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 		[TestCase("OpenModel-Simple.xml", "OpenModel-SimpleUpgraded.xml")]
 		[TestCase("OpenModel-Large.xml", "OpenModel-LargeUpgraded.xml")]
 		[TestCase("ModelBIM-AS_Black_Point.xml", "ModelBIM-AS_Black_PointUpgraded.xml")]
-		[TestCase("CHK.xml", "CHK.xml")]
+		[TestCase("CHK.xml", "CHKUpgraded.xml")]
 		public void FromParsedXml_Upgrade_LargeFile(string fileName, string expectedFile)
 		{
 			string xmlContent = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, TestData, fileName));
@@ -59,14 +59,10 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 
 			Assert.IsNotNull(anObject: exportedXML);
 
-			AssertEqualXml(xmlExpectedContent, exportedXML);
+			UtHelper.AssertEqualXml(xmlExpectedContent, exportedXML, fileName);
 
 		}
 
-		private void AssertEqualXml(string expectedXml, string actualXml)
-		{
-			Assert.IsTrue(XNode.DeepEquals(XElement.Parse(expectedXml), XElement.Parse(actualXml)),
-				String.Format("{0} \n does not equal \n{1}", actualXml, expectedXml));
-		}
+
 	}
 }

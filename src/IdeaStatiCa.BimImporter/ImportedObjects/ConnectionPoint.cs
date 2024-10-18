@@ -25,9 +25,12 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 
 		public IEnumerable<IIdeaAnchorGrid> AnchorGrids { get; }
 
+		public IEnumerable<IIdeaPinGrid> PinGrids { get; }
+
 		public IEnumerable<IIdeaWeld> Welds { get; }
 
 		public IEnumerable<IIdeaCut> Cuts { get; }
+
 
 		public ConnectionPoint(IIdeaNode node, IEnumerable<IIdeaMember1D> members)
 		{
@@ -39,6 +42,7 @@ namespace IdeaStatiCa.BimImporter.ImportedObjects
 			AnchorGrids = new List<IIdeaAnchorGrid>();
 			Welds = new List<IIdeaWeld>();
 			Cuts = new List<IIdeaCut>();
+			PinGrids = new List<IIdeaPinGrid>();
 		}
 	}
 }

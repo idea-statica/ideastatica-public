@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace IdeaRS.OpenModel.Material
 {
@@ -10,6 +11,13 @@ namespace IdeaRS.OpenModel.Material
 	[OpenModelClass("CI.StructModel.Libraries.Material.MaterialBoltGrade,CI.Material", "CI.StructModel.Libraries.Material.IMatBoltGrade,CI.BasicTypes", typeof(Material))]
 	[DataContract]
 	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
+	[XmlInclude(typeof(MaterialBoltGradeAISC))]
+	[XmlInclude(typeof(MaterialBoltGradeAUS))]
+	[XmlInclude(typeof(MaterialBoltGradeCISC))]
+	[XmlInclude(typeof(MaterialBoltGradeEc2))]
+	[XmlInclude(typeof(MaterialBoltGradeHKG))]
+	[XmlInclude(typeof(MaterialBoltGradeCHN))]
+	[XmlInclude(typeof(MaterialBoltGradeIND))]
 	public class MaterialBoltGrade : Material
 	{
 		#region Properties
@@ -52,17 +60,21 @@ namespace IdeaRS.OpenModel.Material
 			get; set;
 		}
 
+
 		/// <summary>
 		/// Name fo the bolt grade in MPRL database
 		/// </summary>
+		[XmlIgnore]
 		public Guid MprlElementID
 		{
 			get; set;
 		}
 
+
 		/// <summary>
 		/// Unique ID of MPRL database table where the bolt grade was taken from.
 		/// </summary>
+		[XmlIgnore]
 		public Guid MprlTableID
 		{
 			get; set;

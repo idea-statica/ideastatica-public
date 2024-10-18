@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml.Serialization;
-using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel;
 using IdeaRS.OpenModel.Connection;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Geometry3D;
@@ -12,6 +7,11 @@ using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Model;
 using IdeaRS.OpenModel.Result;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace IOM.GeneratorExample
 {
@@ -167,20 +167,35 @@ namespace IOM.GeneratorExample
 				}
 			};
 
-			IdeaRS.OpenModel.Connection.BoltGrid boltGrid = new IdeaRS.OpenModel.Connection.BoltGrid()
+			MaterialBoltGrade materialBoltGrade = new MaterialBoltGrade()
 			{
-				Id = 41,
-				ConnectedPartIds = new List<string>(),
+				Name = "8.8",
+				LoadFromLibrary = true,
+				Id = 1,
+			};
+			openModel.MatBoltGrade.Add(materialBoltGrade);
+
+			BoltAssembly boltAssembly = new BoltAssembly()
+			{
+				Name = "M 16",
 				Diameter = 0.016,
 				HeadDiameter = 0.024,
 				DiagonalHeadDiameter = 0.026,
 				HeadHeight = 0.01,
-				BoreHole = 0.018,
+				Borehole = 0.018,
 				TensileStressArea = 157,
 				NutThickness = 0.013,
-				AnchorLen = 0.05,
-				Material = "8.8",
-				Standard = "M 16",
+				Id = 1,
+				BoltGrade = new ReferenceElement(materialBoltGrade)
+			};
+
+
+			IdeaRS.OpenModel.Connection.BoltGrid boltGrid = new IdeaRS.OpenModel.Connection.BoltGrid()
+			{
+				Id = 41,
+				ConnectedParts = new List<ReferenceElement>(),
+				BoltAssembly = new ReferenceElement(boltAssembly),
+				Length = 0.05,
 			};
 
 			boltGrid.Origin = new IdeaRS.OpenModel.Geometry3D.Point3D() { X = plateData.Origin.X, Y = plateData.Origin.Y, Z = plateData.Origin.Z };
@@ -215,7 +230,7 @@ namespace IOM.GeneratorExample
 				}
 			};
 
-			boltGrid.ConnectedPartIds = new List<string>() { beam2Data.OriginalModelId, plateData.OriginalModelId };
+			boltGrid.ConnectedParts = new List<ReferenceElement>() { new ReferenceElement(beam2Data), new ReferenceElement(plateData) };
 
 			(openModel.Connections[0].BoltGrids ?? (openModel.Connections[0].BoltGrids = new List<IdeaRS.OpenModel.Connection.BoltGrid>())).Add(boltGrid);
 

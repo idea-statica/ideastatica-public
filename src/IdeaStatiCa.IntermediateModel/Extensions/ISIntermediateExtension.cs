@@ -142,6 +142,24 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		}
 
 		/// <summary>
+		/// Try Get Element Value
+		/// </summary>
+		/// <param name="intermediateItem"></param>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		public static string TryGetElementValue(this ISIntermediate intermediateItem, string property)
+		{
+			try
+			{
+				return intermediateItem.GetElementValue(property);
+			}
+			catch
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
 		/// Take (Get and Remove) Element Property
 		/// </summary>
 		/// <param name="intermediateItem"></param>
@@ -165,6 +183,23 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			}
 		}
 
+		/// <summary>
+		/// Try Take (Get and Remove) Element Property
+		/// </summary>
+		/// <param name="intermediateItem"></param>
+		/// <param name="property"></param>
+		/// <returns></returns>
+		public static ISIntermediate TryTakeElementProperty(this ISIntermediate intermediateItem, string property)
+		{
+			try
+			{
+				return TakeElementProperty(intermediateItem, property);
+			}
+			catch
+			{
+				return null;
+			}
+		}
 
 
 		/// <summary>

@@ -8,5 +8,6 @@
 		Concrete,
 		Steel,
 		Reinforcement,
+		BoltGrade,
 	}
 }

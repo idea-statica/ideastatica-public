@@ -69,7 +69,7 @@ namespace IdeaStatiCa.BimImporter
 			{
 				_logger.LogTrace($"Trying to import null object.");
 				return null;
-			}			
+			}
 
 			if (_refElements.TryGetValue(obj, out ReferenceElement refElm))
 			{
@@ -162,7 +162,7 @@ namespace IdeaStatiCa.BimImporter
 
 		private void PrepareToImportResults(IIdeaObject obj)
 		{
-			if(obj is IIdeaObjectWithResults objectWithResults)
+			if (obj is IIdeaObjectWithResults objectWithResults)
 			{
 				_objectsWithResults.Add(objectWithResults);
 			}
@@ -194,7 +194,7 @@ namespace IdeaStatiCa.BimImporter
 
 			if (iomObject is ConnectionPoint cp && OpenModel.Connections.Count > 0)
 			{
-				OpenModel.Connections[OpenModel.Connections.Count - 1].ConenctionPointId = cp.Id;
+				OpenModel.Connections[OpenModel.Connections.Count - 1].ConnectionPoint = new ReferenceElement(cp);
 				if (string.IsNullOrWhiteSpace(cp.Name))
 				{
 					cp.Name = $"C {cp.Id}";

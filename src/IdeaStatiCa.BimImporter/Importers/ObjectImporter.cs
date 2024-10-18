@@ -24,9 +24,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaConnectedMember> _connectedMemberImporter;
 		private readonly IImporter<IIdeaPlate> _plateImporter;
 		private readonly IImporter<IIdeaConnectedMember> _beamImporter;
+		private readonly IImporter<IIdeaMember1D> _beamInConnectedPartsImporter;
 		private readonly IImporter<IIdeaWeld> _weldImporter;
 		private readonly IImporter<IIdeaBoltGrid> _boltGridImporter;
 		private readonly IImporter<IIdeaAnchorGrid> _anchorGridImporter;
+		private readonly IImporter<IIdeaPinGrid> _pinGridImporter;
 		private readonly IImporter<IIdeaCut> _cutImporter;
 		private readonly IImporter<IIdeaConcreteBlock> _concreteBlockImporter;
 		private readonly IImporter<IIdeaFoldedPlate> _foldedPlateImporter;
@@ -35,6 +37,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 		private readonly IImporter<IIdeaElement2D> _element2DImporter;
 		private readonly IImporter<IIdeaPolyLine3D> _polyLine3DImporter;
 		private readonly IImporter<IIdeaRegion3D> _region3DImporter;
+
+		private readonly IImporter<IIdeaBoltAssembly> _boltAssemblyImporter;
+		private readonly IImporter<IIdeaPin> _pinImporter;
 
 
 		public ObjectImporter(IPluginLogger logger)
@@ -54,6 +59,7 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_connectedMemberImporter = new ConnectedMemberImporter(logger);
 			_plateImporter = new PlateImporter(logger);
 			_beamImporter = new BeamImporter(logger);
+			_beamInConnectedPartsImporter = new BeamInConnectedPartsImporter(logger);
 			_boltGridImporter = new BoltGridImporter(logger);
 			_weldImporter = new WeldImporter(logger);
 			_cutImporter = new CutImporter(logger);
@@ -64,6 +70,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 			_element2DImporter = new Element2DImporter(logger);
 			_polyLine3DImporter = new PolyLine3DImporter(logger);
 			_region3DImporter = new Region3DImporter(logger);
+			_boltAssemblyImporter = new BoltAssemblyImporter(logger);
+			_pinGridImporter = new PinGridImporter(logger);
+			_pinImporter = new PinImporter(logger);
 		}
 
 		public OpenElementId Import(IImportContext ctx, IIdeaObject obj)
@@ -120,6 +129,11 @@ namespace IdeaStatiCa.BimImporter.Importers
 
 				case IIdeaRegion3D region3D:
 					return _region3DImporter.Import(ctx, region3D);
+
+				case IIdeaBoltAssembly boltAssembly:
+					return _boltAssemblyImporter.Import(ctx, boltAssembly);
+				case IIdeaPin pin:
+					return _pinImporter.Import(ctx, pin);
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
@@ -140,6 +154,8 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _beamImporter.Import(ctx, member, connectionData);
 				case IIdeaAnchorGrid anchorGrid:
 					return _anchorGridImporter.Import(ctx, anchorGrid, connectionData);
+				case IIdeaPinGrid pinGrid:
+					return _pinGridImporter.Import(ctx, pinGrid, connectionData);
 				case IIdeaBoltGrid boltGrid:
 					return _boltGridImporter.Import(ctx, boltGrid, connectionData);
 				case IIdeaConcreteBlock concreteBlock:
@@ -148,6 +164,9 @@ namespace IdeaStatiCa.BimImporter.Importers
 					return _weldImporter.Import(ctx, weld, connectionData);
 				case IIdeaCut cut:
 					return _cutImporter.Import(ctx, cut, connectionData);
+				case IIdeaMember1D member:
+					return _beamInConnectedPartsImporter.Import(ctx, member, connectionData);
+
 			}
 
 			throw new ArgumentException($"Unsupported object type '{obj.GetType()}'");
