@@ -29,6 +29,7 @@ class AnchorType(str, Enum):
     STRAIGHT = 'straight'
     WASHERPLATECIRCULAR = 'washerPlateCircular'
     WASHERPLATERECTANGULAR = 'washerPlateRectangular'
+    HOOK = 'hook'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -19,25 +19,18 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from ideastatica_connection_api.models.anchor_type import AnchorType
-from ideastatica_connection_api.models.concrete_block import ConcreteBlock
 from ideastatica_connection_api.models.point3_d import Point3D
 from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.vector3_d import Vector3D
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AnchorGrid(BaseModel):
+class PinGrid(BaseModel):
     """
-    Data of the anchor grid
+    Data of the pin grid
     """ # noqa: E501
-    shear_in_thread: Optional[StrictBool] = Field(default=None, description="Indicates, whether a shear plane is in the thread of a bolt.", alias="shearInThread")
-    concrete_block: Optional[ConcreteBlock] = Field(default=None, alias="concreteBlock")
-    anchor_type: Optional[AnchorType] = Field(default=None, alias="anchorType")
-    washer_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Washer Size used if AnchorType is washer", alias="washerSize")
-    anchoring_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Anchoring Length", alias="anchoringLength")
-    hook_length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length of anchor hook<br />  (distance from the inner surface of the anchor shaft to the outer tip of the hook specified as an anchor diameter multiplier)", alias="hookLength")
-    bolt_assembly: Optional[ReferenceElement] = Field(default=None, alias="boltAssembly")
+    is_replaceable: Optional[StrictBool] = Field(default=None, description="Replaceable pin", alias="isReplaceable")
+    pin: Optional[ReferenceElement] = None
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
     axis_y: Optional[Vector3D] = Field(default=None, alias="axisY")
@@ -47,7 +40,7 @@ class AnchorGrid(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Name")
     length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
     id: Optional[StrictInt] = Field(default=None, description="Element Id")
-    __properties: ClassVar[List[str]] = ["shearInThread", "concreteBlock", "anchorType", "washerSize", "anchoringLength", "hookLength", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
+    __properties: ClassVar[List[str]] = ["isReplaceable", "pin", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,7 +60,7 @@ class AnchorGrid(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AnchorGrid from a JSON string"""
+        """Create an instance of PinGrid from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -88,12 +81,9 @@ class AnchorGrid(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of concrete_block
-        if self.concrete_block:
-            _dict['concreteBlock'] = self.concrete_block.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of bolt_assembly
-        if self.bolt_assembly:
-            _dict['boltAssembly'] = self.bolt_assembly.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of pin
+        if self.pin:
+            _dict['pin'] = self.pin.to_dict()
         # override the default output from pydantic by calling `to_dict()` of origin
         if self.origin:
             _dict['origin'] = self.origin.to_dict()
@@ -139,7 +129,7 @@ class AnchorGrid(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AnchorGrid from a dict"""
+        """Create an instance of PinGrid from a dict"""
         if obj is None:
             return None
 
@@ -147,13 +137,8 @@ class AnchorGrid(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "shearInThread": obj.get("shearInThread"),
-            "concreteBlock": ConcreteBlock.from_dict(obj["concreteBlock"]) if obj.get("concreteBlock") is not None else None,
-            "anchorType": obj.get("anchorType"),
-            "washerSize": obj.get("washerSize"),
-            "anchoringLength": obj.get("anchoringLength"),
-            "hookLength": obj.get("hookLength"),
-            "boltAssembly": ReferenceElement.from_dict(obj["boltAssembly"]) if obj.get("boltAssembly") is not None else None,
+            "isReplaceable": obj.get("isReplaceable"),
+            "pin": ReferenceElement.from_dict(obj["pin"]) if obj.get("pin") is not None else None,
             "origin": Point3D.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "axisX": Vector3D.from_dict(obj["axisX"]) if obj.get("axisX") is not None else None,
             "axisY": Vector3D.from_dict(obj["axisY"]) if obj.get("axisY") is not None else None,

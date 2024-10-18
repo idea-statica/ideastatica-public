@@ -70,8 +70,10 @@ docs/OpenElementId.md
 docs/OpenMessage.md
 docs/OpenMessages.md
 docs/OperationApi.md
+docs/ParamValueType.md
 docs/ParameterApi.md
 docs/ParameterData.md
+docs/PinGrid.md
 docs/PlateData.md
 docs/Point2D.md
 docs/Point3D.md
@@ -172,7 +174,9 @@ ideastatica_connection_api/models/message_number.py
 ideastatica_connection_api/models/open_element_id.py
 ideastatica_connection_api/models/open_message.py
 ideastatica_connection_api/models/open_messages.py
+ideastatica_connection_api/models/param_value_type.py
 ideastatica_connection_api/models/parameter_data.py
+ideastatica_connection_api/models/pin_grid.py
 ideastatica_connection_api/models/plate_data.py
 ideastatica_connection_api/models/point2_d.py
 ideastatica_connection_api/models/point3_d.py

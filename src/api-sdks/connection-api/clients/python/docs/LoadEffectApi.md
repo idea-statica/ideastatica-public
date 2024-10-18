@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**get_load_effects**](LoadEffectApi.md#get_load_effects) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects | Get all load effects which are defined in connectionId
 [**get_load_settings**](LoadEffectApi.md#get_load_settings) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings | Get Load settings for connection in project
 [**set_load_settings**](LoadEffectApi.md#set_load_settings) | **POST** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings | Set Load settings for connection in project
-[**update_load_effect**](LoadEffectApi.md#update_load_effect) | **PUT** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} | Update load impulses in loadEffectId
+[**update_load_effect**](LoadEffectApi.md#update_load_effect) | **PUT** /api/1/projects/{projectId}/connections/{connectionId}/load-effects | Update load impulses in conLoading
 
 
 # **add_load_effect**
@@ -434,9 +434,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_load_effect**
-> ConLoadEffect update_load_effect(project_id, connection_id, load_effect_id, con_load_effect=con_load_effect)
+> ConLoadEffect update_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
 
-Update load impulses in loadEffectId
+Update load impulses in conLoading
 
 ### Example
 
@@ -460,12 +460,11 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
     api_instance = ideastatica_connection_api.LoadEffectApi(api_client)
     project_id = 'project_id_example' # str | 
     connection_id = 56 # int | 
-    load_effect_id = 56 # int | 
     con_load_effect = ideastatica_connection_api.ConLoadEffect() # ConLoadEffect |  (optional)
 
     try:
-        # Update load impulses in loadEffectId
-        api_response = api_instance.update_load_effect(project_id, connection_id, load_effect_id, con_load_effect=con_load_effect)
+        # Update load impulses in conLoading
+        api_response = api_instance.update_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
         print("The response of LoadEffectApi->update_load_effect:\n")
         pprint(api_response)
     except Exception as e:
@@ -481,7 +480,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**|  | 
  **connection_id** | **int**|  | 
- **load_effect_id** | **int**|  | 
  **con_load_effect** | [**ConLoadEffect**](ConLoadEffect.md)|  | [optional] 
 
 ### Return type

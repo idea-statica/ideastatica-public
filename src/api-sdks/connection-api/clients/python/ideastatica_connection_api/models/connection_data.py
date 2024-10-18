@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from ideastatica_connection_api.models.anchor_grid import AnchorGrid
 from ideastatica_connection_api.models.beam_data import BeamData
@@ -25,7 +25,9 @@ from ideastatica_connection_api.models.bolt_grid import BoltGrid
 from ideastatica_connection_api.models.concrete_block_data import ConcreteBlockData
 from ideastatica_connection_api.models.cut_beam_by_beam_data import CutBeamByBeamData
 from ideastatica_connection_api.models.folded_plate_data import FoldedPlateData
+from ideastatica_connection_api.models.pin_grid import PinGrid
 from ideastatica_connection_api.models.plate_data import PlateData
+from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.weld_data import WeldData
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,16 +36,17 @@ class ConnectionData(BaseModel):
     """
     Provides data of the connection
     """ # noqa: E501
-    conenction_point_id: Optional[StrictInt] = Field(default=None, description="Connection Point Id", alias="conenctionPointId")
+    connection_point: Optional[ReferenceElement] = Field(default=None, alias="connectionPoint")
     beams: Optional[List[BeamData]] = Field(default=None, description="Connected beams")
     plates: Optional[List[PlateData]] = Field(default=None, description="Plates of the connection")
     folded_plates: Optional[List[FoldedPlateData]] = Field(default=None, description="Folded plate of the connection", alias="foldedPlates")
     bolt_grids: Optional[List[BoltGrid]] = Field(default=None, description="Bolt grids which belongs to the connection", alias="boltGrids")
     anchor_grids: Optional[List[AnchorGrid]] = Field(default=None, description="Anchor grids which belongs to the connection", alias="anchorGrids")
+    pin_grids: Optional[List[PinGrid]] = Field(default=None, description="Pin grids which belongs to the connection", alias="pinGrids")
     welds: Optional[List[WeldData]] = Field(default=None, description="Welds of the connection")
     concrete_blocks: Optional[List[ConcreteBlockData]] = Field(default=None, description="ConcreteBlocksof the connection", alias="concreteBlocks")
     cut_beam_by_beams: Optional[List[CutBeamByBeamData]] = Field(default=None, description="cut beam by beams", alias="cutBeamByBeams")
-    __properties: ClassVar[List[str]] = ["conenctionPointId", "beams", "plates", "foldedPlates", "boltGrids", "anchorGrids", "welds", "concreteBlocks", "cutBeamByBeams"]
+    __properties: ClassVar[List[str]] = ["connectionPoint", "beams", "plates", "foldedPlates", "boltGrids", "anchorGrids", "pinGrids", "welds", "concreteBlocks", "cutBeamByBeams"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,6 +87,9 @@ class ConnectionData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of connection_point
+        if self.connection_point:
+            _dict['connectionPoint'] = self.connection_point.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in beams (list)
         _items = []
         if self.beams:
@@ -119,6 +125,13 @@ class ConnectionData(BaseModel):
                 if _item_anchor_grids:
                     _items.append(_item_anchor_grids.to_dict())
             _dict['anchorGrids'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in pin_grids (list)
+        _items = []
+        if self.pin_grids:
+            for _item_pin_grids in self.pin_grids:
+                if _item_pin_grids:
+                    _items.append(_item_pin_grids.to_dict())
+            _dict['pinGrids'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in welds (list)
         _items = []
         if self.welds:
@@ -165,6 +178,11 @@ class ConnectionData(BaseModel):
         if self.anchor_grids is None and "anchor_grids" in self.model_fields_set:
             _dict['anchorGrids'] = None
 
+        # set to None if pin_grids (nullable) is None
+        # and model_fields_set contains the field
+        if self.pin_grids is None and "pin_grids" in self.model_fields_set:
+            _dict['pinGrids'] = None
+
         # set to None if welds (nullable) is None
         # and model_fields_set contains the field
         if self.welds is None and "welds" in self.model_fields_set:
@@ -192,12 +210,13 @@ class ConnectionData(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "conenctionPointId": obj.get("conenctionPointId"),
+            "connectionPoint": ReferenceElement.from_dict(obj["connectionPoint"]) if obj.get("connectionPoint") is not None else None,
             "beams": [BeamData.from_dict(_item) for _item in obj["beams"]] if obj.get("beams") is not None else None,
             "plates": [PlateData.from_dict(_item) for _item in obj["plates"]] if obj.get("plates") is not None else None,
             "foldedPlates": [FoldedPlateData.from_dict(_item) for _item in obj["foldedPlates"]] if obj.get("foldedPlates") is not None else None,
             "boltGrids": [BoltGrid.from_dict(_item) for _item in obj["boltGrids"]] if obj.get("boltGrids") is not None else None,
             "anchorGrids": [AnchorGrid.from_dict(_item) for _item in obj["anchorGrids"]] if obj.get("anchorGrids") is not None else None,
+            "pinGrids": [PinGrid.from_dict(_item) for _item in obj["pinGrids"]] if obj.get("pinGrids") is not None else None,
             "welds": [WeldData.from_dict(_item) for _item in obj["welds"]] if obj.get("welds") is not None else None,
             "concreteBlocks": [ConcreteBlockData.from_dict(_item) for _item in obj["concreteBlocks"]] if obj.get("concreteBlocks") is not None else None,
             "cutBeamByBeams": [CutBeamByBeamData.from_dict(_item) for _item in obj["cutBeamByBeams"]] if obj.get("cutBeamByBeams") is not None else None

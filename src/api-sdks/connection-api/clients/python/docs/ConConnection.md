@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **analysis_type** | [**ConAnalysisTypeEnum**](ConAnalysisTypeEnum.md) |  | [optional] 
-**bearing_member_id** | **int** |  | [optional] 
 **is_calculated** | **bool** |  | [optional] [readonly] 
 
 ## Example

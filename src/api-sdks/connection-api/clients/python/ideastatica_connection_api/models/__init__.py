@@ -72,7 +72,9 @@ from ideastatica_connection_api.models.message_number import MessageNumber
 from ideastatica_connection_api.models.open_element_id import OpenElementId
 from ideastatica_connection_api.models.open_message import OpenMessage
 from ideastatica_connection_api.models.open_messages import OpenMessages
+from ideastatica_connection_api.models.param_value_type import ParamValueType
 from ideastatica_connection_api.models.parameter_data import ParameterData
+from ideastatica_connection_api.models.pin_grid import PinGrid
 from ideastatica_connection_api.models.plate_data import PlateData
 from ideastatica_connection_api.models.point2_d import Point2D
 from ideastatica_connection_api.models.point3_d import Point3D

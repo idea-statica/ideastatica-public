@@ -1797,7 +1797,6 @@ class LoadEffectApi:
         self,
         project_id: StrictStr,
         connection_id: StrictInt,
-        load_effect_id: StrictInt,
         con_load_effect: Optional[ConLoadEffect] = None,
         _request_timeout: Union[
             None,
@@ -1812,15 +1811,13 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConLoadEffect:
-        """Update load impulses in loadEffectId
+        """Update load impulses in conLoading
 
 
         :param project_id:  (required)
         :type project_id: str
         :param connection_id:  (required)
         :type connection_id: int
-        :param load_effect_id:  (required)
-        :type load_effect_id: int
         :param con_load_effect: 
         :type con_load_effect: ConLoadEffect
         :param _request_timeout: timeout setting for this request. If one
@@ -1848,7 +1845,6 @@ class LoadEffectApi:
         _param = self._update_load_effect_serialize(
             project_id=project_id,
             connection_id=connection_id,
-            load_effect_id=load_effect_id,
             con_load_effect=con_load_effect,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1875,7 +1871,6 @@ class LoadEffectApi:
         self,
         project_id: StrictStr,
         connection_id: StrictInt,
-        load_effect_id: StrictInt,
         con_load_effect: Optional[ConLoadEffect] = None,
         _request_timeout: Union[
             None,
@@ -1890,15 +1885,13 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConLoadEffect]:
-        """Update load impulses in loadEffectId
+        """Update load impulses in conLoading
 
 
         :param project_id:  (required)
         :type project_id: str
         :param connection_id:  (required)
         :type connection_id: int
-        :param load_effect_id:  (required)
-        :type load_effect_id: int
         :param con_load_effect: 
         :type con_load_effect: ConLoadEffect
         :param _request_timeout: timeout setting for this request. If one
@@ -1926,7 +1919,6 @@ class LoadEffectApi:
         _param = self._update_load_effect_serialize(
             project_id=project_id,
             connection_id=connection_id,
-            load_effect_id=load_effect_id,
             con_load_effect=con_load_effect,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1953,7 +1945,6 @@ class LoadEffectApi:
         self,
         project_id: StrictStr,
         connection_id: StrictInt,
-        load_effect_id: StrictInt,
         con_load_effect: Optional[ConLoadEffect] = None,
         _request_timeout: Union[
             None,
@@ -1968,15 +1959,13 @@ class LoadEffectApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update load impulses in loadEffectId
+        """Update load impulses in conLoading
 
 
         :param project_id:  (required)
         :type project_id: str
         :param connection_id:  (required)
         :type connection_id: int
-        :param load_effect_id:  (required)
-        :type load_effect_id: int
         :param con_load_effect: 
         :type con_load_effect: ConLoadEffect
         :param _request_timeout: timeout setting for this request. If one
@@ -2004,7 +1993,6 @@ class LoadEffectApi:
         _param = self._update_load_effect_serialize(
             project_id=project_id,
             connection_id=connection_id,
-            load_effect_id=load_effect_id,
             con_load_effect=con_load_effect,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2026,7 +2014,6 @@ class LoadEffectApi:
         self,
         project_id,
         connection_id,
-        load_effect_id,
         con_load_effect,
         _request_auth,
         _content_type,
@@ -2053,8 +2040,6 @@ class LoadEffectApi:
             _path_params['projectId'] = project_id
         if connection_id is not None:
             _path_params['connectionId'] = connection_id
-        if load_effect_id is not None:
-            _path_params['loadEffectId'] = load_effect_id
         # process the query parameters
         # process the header parameters
         # process the form parameters
@@ -2091,7 +2076,7 @@ class LoadEffectApi:
 
         return self.api_client.param_serialize(
             method='PUT',
-            resource_path='/api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}',
+            resource_path='/api/1/projects/{projectId}/connections/{connectionId}/load-effects',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

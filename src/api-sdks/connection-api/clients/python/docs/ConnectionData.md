@@ -6,12 +6,13 @@ Provides data of the connection
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**conenction_point_id** | **int** | Connection Point Id | [optional] 
+**connection_point** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **beams** | [**List[BeamData]**](BeamData.md) | Connected beams | [optional] 
 **plates** | [**List[PlateData]**](PlateData.md) | Plates of the connection | [optional] 
 **folded_plates** | [**List[FoldedPlateData]**](FoldedPlateData.md) | Folded plate of the connection | [optional] 
 **bolt_grids** | [**List[BoltGrid]**](BoltGrid.md) | Bolt grids which belongs to the connection | [optional] 
 **anchor_grids** | [**List[AnchorGrid]**](AnchorGrid.md) | Anchor grids which belongs to the connection | [optional] 
+**pin_grids** | [**List[PinGrid]**](PinGrid.md) | Pin grids which belongs to the connection | [optional] 
 **welds** | [**List[WeldData]**](WeldData.md) | Welds of the connection | [optional] 
 **concrete_blocks** | [**List[ConcreteBlockData]**](ConcreteBlockData.md) | ConcreteBlocksof the connection | [optional] 
 **cut_beam_by_beams** | [**List[CutBeamByBeamData]**](CutBeamByBeamData.md) | cut beam by beams | [optional] 

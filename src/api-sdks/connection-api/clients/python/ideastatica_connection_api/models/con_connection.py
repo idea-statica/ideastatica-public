@@ -32,9 +32,8 @@ class ConConnection(BaseModel):
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     analysis_type: Optional[ConAnalysisTypeEnum] = Field(default=None, alias="analysisType")
-    bearing_member_id: Optional[StrictInt] = Field(default=None, alias="bearingMemberId")
     is_calculated: Optional[StrictBool] = Field(default=None, alias="isCalculated")
-    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "bearingMemberId", "isCalculated"]
+    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "isCalculated"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,7 +108,6 @@ class ConConnection(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "analysisType": obj.get("analysisType"),
-            "bearingMemberId": obj.get("bearingMemberId"),
             "isCalculated": obj.get("isCalculated")
         })
         return _obj
