@@ -66,7 +66,7 @@ namespace CodeSamples
 			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

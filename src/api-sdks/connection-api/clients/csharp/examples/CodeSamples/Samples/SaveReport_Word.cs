@@ -17,7 +17,7 @@ namespace CodeSamples
 
 			//Get projectId Guid
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("GenerateReport");
@@ -32,7 +32,7 @@ namespace CodeSamples
 			Console.WriteLine($"Report saved to: {pdfFilePath}");
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

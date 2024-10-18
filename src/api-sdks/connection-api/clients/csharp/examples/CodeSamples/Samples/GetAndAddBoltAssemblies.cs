@@ -24,7 +24,7 @@ namespace CodeSamples
 
 
 			//FIX 'Blot' && Upgrade to new IOM Bolt Grade Definitions.
-			await conClient.Material.GetBlotGradeMaterialsAsync(projectId);
+			await conClient.Material.GetBoltGradeMaterialsAsync(projectId);
 
 
 			//GET AND ADD NEW BOLT ASSEMBLIES
@@ -58,7 +58,7 @@ namespace CodeSamples
 			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

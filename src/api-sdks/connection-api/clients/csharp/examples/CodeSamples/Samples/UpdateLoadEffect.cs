@@ -16,7 +16,7 @@ namespace CodeSamples
 
 			//Get projectId Guid
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			ConLoadSettings loadSettings = await conClient.LoadEffect.GetLoadSettingsAsync(projectId, connectionId);
@@ -55,7 +55,7 @@ namespace CodeSamples
 				}
 
 				// 
-				await conClient.LoadEffect.UpdateLoadEffectAsync(projectId, connectionId, loadEffect.Id, loadEffect);
+				await conClient.LoadEffect.UpdateLoadEffectAsync(projectId, connectionId, loadEffect);
 
 				// Increase each increment by 25% of the original value.
 				effectMultiplier += 0.25;
@@ -71,7 +71,7 @@ namespace CodeSamples
 			Console.WriteLine("File saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 
 
 		}
