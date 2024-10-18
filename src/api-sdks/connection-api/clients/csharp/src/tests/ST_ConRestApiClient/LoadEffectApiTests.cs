@@ -192,7 +192,7 @@ namespace ST_ConnectionRestApi
 			le1.MemberLoadings.ElementAt(0).SectionLoad.Vy = vy + 10;
 			le1.MemberLoadings.ElementAt(0).SectionLoad.Vz = vz + 10;
 
-			await ConnectionApiClient!.LoadEffect!.UpdateLoadEffectAsync(ActiveProjectId, con1.Id, le1.Id, le1);
+			await ConnectionApiClient!.LoadEffect!.UpdateLoadEffectAsync(ActiveProjectId, con1.Id, le1);
 
 			var updated = await ConnectionApiClient!.LoadEffect!.GetLoadEffectsAsync(ActiveProjectId, con1.Id, cancellationToken: CancellationToken.None);
 

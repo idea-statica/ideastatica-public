@@ -81,7 +81,7 @@ namespace IdeaStatiCa.ConnectionApi
 		{
 			if(Project != null && ProjectId != Guid.Empty)
 			{
-				await Project.CloseProjectAsync(ProjectId.ToString());
+				await Project.CloseProjectAsync(ProjectId);
 			}
 
 			this.Calculation = null;
