@@ -48,7 +48,13 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// Enum WasherPlateRectangular for value: washerPlateRectangular
         /// </summary>
         [EnumMember(Value = "washerPlateRectangular")]
-        WasherPlateRectangular = 3
+        WasherPlateRectangular = 3,
+
+        /// <summary>
+        /// Enum Hook for value: hook
+        /// </summary>
+        [EnumMember(Value = "hook")]
+        Hook = 4
     }
 
 }

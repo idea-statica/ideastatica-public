@@ -177,19 +177,18 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConLoadSettings</returns>
         ApiResponse<ConLoadSettings> SetLoadSettingsWithHttpInfo(Guid projectId, int connectionId, ConLoadSettings conLoadSettings = default(ConLoadSettings), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Update load impulses in loadEffectId
+        /// Update load impulses in conLoading
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConLoadEffect</returns>
-        ConLoadEffect UpdateLoadEffect(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0);
+        ConLoadEffect UpdateLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0);
 
         /// <summary>
-        /// Update load impulses in loadEffectId
+        /// Update load impulses in conLoading
         /// </summary>
         /// <remarks>
         /// 
@@ -197,12 +196,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
 /// <param name="connectionId"></param>
-/// <param name="loadEffectId"></param>
 /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConLoadEffect</returns>
-        ApiResponse<ConLoadEffect> UpdateLoadEffectWithHttpInfo(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0);
+        ApiResponse<ConLoadEffect> UpdateLoadEffectWithHttpInfo(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -393,7 +391,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConLoadSettings)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConLoadSettings>> SetLoadSettingsWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadSettings conLoadSettings = default(ConLoadSettings), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Update load impulses in loadEffectId
+        /// Update load impulses in conLoading
         /// </summary>
         /// <remarks>
         /// 
@@ -401,15 +399,14 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConLoadEffect</returns>
-        System.Threading.Tasks.Task<ConLoadEffect> UpdateLoadEffectAsync(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ConLoadEffect> UpdateLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Update load impulses in loadEffectId
+        /// Update load impulses in conLoading
         /// </summary>
         /// <remarks>
         /// 
@@ -417,13 +414,12 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConLoadEffect)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConLoadEffect>> UpdateLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<ConLoadEffect>> UpdateLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -1497,33 +1493,31 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update load impulses in loadEffectId 
+        /// Update load impulses in conLoading 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConLoadEffect</returns>
-        public ConLoadEffect UpdateLoadEffect(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0)
+        public ConLoadEffect UpdateLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> localVarResponse = UpdateLoadEffectWithHttpInfo(projectId, connectionId, loadEffectId, conLoadEffect);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> localVarResponse = UpdateLoadEffectWithHttpInfo(projectId, connectionId, conLoadEffect);
             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Update load impulses in loadEffectId 
+        /// Update load impulses in conLoading 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
 /// <param name="connectionId"></param>
-/// <param name="loadEffectId"></param>
 /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConLoadEffect</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> UpdateLoadEffectWithHttpInfo(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> UpdateLoadEffectWithHttpInfo(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -1555,7 +1549,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
             localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("loadEffectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(loadEffectId)); // path parameter
             localVarRequestOptions.Data = conLoadEffect;
 
             localVarRequestOptions.Operation = "LoadEffectApi.UpdateLoadEffect";
@@ -1563,7 +1556,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Put<ConLoadEffect>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Put<ConLoadEffect>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("UpdateLoadEffect", localVarResponse);
@@ -1577,35 +1570,33 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Update load impulses in loadEffectId 
+        /// Update load impulses in conLoading 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConLoadEffect</returns>
-        public async System.Threading.Tasks.Task<ConLoadEffect> UpdateLoadEffectAsync(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ConLoadEffect> UpdateLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> localVarResponse = await UpdateLoadEffectWithHttpInfoAsync(projectId, connectionId, loadEffectId, conLoadEffect, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> localVarResponse = await UpdateLoadEffectWithHttpInfoAsync(projectId, connectionId, conLoadEffect, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Update load impulses in loadEffectId 
+        /// Update load impulses in conLoading 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId"></param>
         /// <param name="connectionId"></param>
-        /// <param name="loadEffectId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConLoadEffect)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect>> UpdateLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect>> UpdateLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1638,7 +1629,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
             localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
-            localVarRequestOptions.PathParameters.Add("loadEffectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(loadEffectId)); // path parameter
             localVarRequestOptions.Data = conLoadEffect;
 
             localVarRequestOptions.Operation = "LoadEffectApi.UpdateLoadEffect";
@@ -1646,7 +1636,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PutAsync<ConLoadEffect>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PutAsync<ConLoadEffect>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

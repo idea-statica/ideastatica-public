@@ -33,7 +33,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the project to be closed</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
-        string CloseProject(string projectId, int operationIndex = 0);
+        string CloseProject(Guid projectId, int operationIndex = 0);
 
         /// <summary>
         /// Close the project. Needed for releasing resources in the service.
@@ -46,7 +46,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
-        ApiResponse<string> CloseProjectWithHttpInfo(string projectId, string requestedType = null, int operationIndex = 0);
+        ApiResponse<string> CloseProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
         /// </summary>
@@ -262,7 +262,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
-        System.Threading.Tasks.Task<string> CloseProjectAsync(string projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<string> CloseProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Close the project. Needed for releasing resources in the service.
@@ -276,7 +276,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
-        System.Threading.Tasks.Task<ApiResponse<string>> CloseProjectWithHttpInfoAsync(string projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<string>> CloseProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Download the actual ideacon project from the service. It includes alle changes which were made by previous API calls.
         /// </summary>
@@ -644,7 +644,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the project to be closed</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>string</returns>
-        public string CloseProject(string projectId, int operationIndex = 0)
+        public string CloseProject(Guid projectId, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = CloseProjectWithHttpInfo(projectId);
             return localVarResponse.Data;
@@ -658,14 +658,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of string</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> CloseProjectWithHttpInfo(string projectId, string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> CloseProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
         {
-            // verify the required parameter 'projectId' is set
-            if (projectId == null)
-            {
-                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'projectId' when calling ProjectApi->CloseProject");
-            }
-
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
@@ -721,7 +715,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of string</returns>
-        public async System.Threading.Tasks.Task<string> CloseProjectAsync(string projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<string> CloseProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             IdeaStatiCa.ConnectionApi.Client.ApiResponse<string> localVarResponse = await CloseProjectWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -736,14 +730,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (string)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<string>> CloseProjectWithHttpInfoAsync(string projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<string>> CloseProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            // verify the required parameter 'projectId' is set
-            if (projectId == null)
-            {
-                throw new IdeaStatiCa.ConnectionApi.Client.ApiException(400, "Missing required parameter 'projectId' when calling ProjectApi->CloseProject");
-            }
-
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 

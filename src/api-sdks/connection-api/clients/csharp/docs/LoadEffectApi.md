@@ -10,7 +10,7 @@ All URIs are relative to *http://localhost*
 | [**GetLoadEffects**](LoadEffectApi.md#getloadeffects) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects | Get all load effects which are defined in connectionId |
 | [**GetLoadSettings**](LoadEffectApi.md#getloadsettings) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings | Get Load settings for connection in project |
 | [**SetLoadSettings**](LoadEffectApi.md#setloadsettings) | **POST** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings | Set Load settings for connection in project |
-| [**UpdateLoadEffect**](LoadEffectApi.md#updateloadeffect) | **PUT** /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId} | Update load impulses in loadEffectId |
+| [**UpdateLoadEffect**](LoadEffectApi.md#updateloadeffect) | **PUT** /api/1/projects/{projectId}/connections/{connectionId}/load-effects | Update load impulses in conLoading |
 
 <a id="addloadeffect"></a>
 # **AddLoadEffect**
@@ -572,9 +572,9 @@ No authorization required
 
 <a id="updateloadeffect"></a>
 # **UpdateLoadEffect**
-> ConLoadEffect UpdateLoadEffect (Guid projectId, int connectionId, int loadEffectId, ConLoadEffect conLoadEffect = null)
+> ConLoadEffect UpdateLoadEffect (Guid projectId, int connectionId, ConLoadEffect conLoadEffect = null)
 
-Update load impulses in loadEffectId
+Update load impulses in conLoading
 
 ### Example
 ```csharp
@@ -595,13 +595,12 @@ namespace Example
             var apiInstance = new LoadEffectApi(config);
             var projectId = "projectId_example";  // Guid | 
             var connectionId = 56;  // int | 
-            var loadEffectId = 56;  // int | 
             var conLoadEffect = new ConLoadEffect(); // ConLoadEffect |  (optional) 
 
             try
             {
-                // Update load impulses in loadEffectId
-                ConLoadEffect result = apiInstance.UpdateLoadEffect(projectId, connectionId, loadEffectId, conLoadEffect);
+                // Update load impulses in conLoading
+                ConLoadEffect result = apiInstance.UpdateLoadEffect(projectId, connectionId, conLoadEffect);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -621,8 +620,8 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Update load impulses in loadEffectId
-    ApiResponse<ConLoadEffect> response = apiInstance.UpdateLoadEffectWithHttpInfo(projectId, connectionId, loadEffectId, conLoadEffect);
+    // Update load impulses in conLoading
+    ApiResponse<ConLoadEffect> response = apiInstance.UpdateLoadEffectWithHttpInfo(projectId, connectionId, conLoadEffect);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -641,7 +640,6 @@ catch (ApiException e)
 |------|------|-------------|-------|
 | **projectId** | **Guid** |  |  |
 | **connectionId** | **int** |  |  |
-| **loadEffectId** | **int** |  |  |
 | **conLoadEffect** | [**ConLoadEffect**](ConLoadEffect.md) |  | [optional]  |
 
 ### Return type

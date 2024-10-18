@@ -27,27 +27,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// Get data about all connections in the project
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;ConConnection&gt;</returns>
-        List<ConConnection> GetAllConnectionsData(Guid projectId, int operationIndex = 0);
-
-        /// <summary>
-        /// Get data about all connections in the project
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestedType">Requested content type in the response.</param>        
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;ConConnection&gt;</returns>
-        ApiResponse<List<ConConnection>> GetAllConnectionsDataWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
-        /// <summary>
         /// Get data about a specific connection in the project
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -55,7 +34,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId">The id of the requested connection</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConConnection</returns>
-        ConConnection GetConnectionData(Guid projectId, int connectionId, int operationIndex = 0);
+        ConConnection GetConnection(Guid projectId, int connectionId, int operationIndex = 0);
 
         /// <summary>
         /// Get data about a specific connection in the project
@@ -69,7 +48,28 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConConnection</returns>
-        ApiResponse<ConConnection> GetConnectionDataWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        ApiResponse<ConConnection> GetConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0);
+        /// <summary>
+        /// Get data about all connections in the project
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConConnection&gt;</returns>
+        List<ConConnection> GetConnections(Guid projectId, int operationIndex = 0);
+
+        /// <summary>
+        /// Get data about all connections in the project
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConConnection&gt;</returns>
+        ApiResponse<List<ConConnection>> GetConnectionsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get production cost of the connection
         /// </summary>
@@ -102,7 +102,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conConnection">New connection data to be set (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConConnection</returns>
-        ConConnection UpdateConnectionData(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0);
+        ConConnection UpdateConnection(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0);
 
         /// <summary>
         /// Update data of a specific connection in the project
@@ -117,7 +117,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConConnection</returns>
-        ApiResponse<ConConnection> UpdateConnectionDataWithHttpInfo(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0);
+        ApiResponse<ConConnection> UpdateConnectionWithHttpInfo(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -127,32 +127,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
     public interface IConnectionApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
-        /// <summary>
-        /// Get data about all connections in the project
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;ConConnection&gt;</returns>
-        System.Threading.Tasks.Task<List<ConConnection>> GetAllConnectionsDataAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <summary>
-        /// Get data about all connections in the project
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;ConConnection&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ConConnection>>> GetAllConnectionsDataWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get data about a specific connection in the project
         /// </summary>
@@ -165,7 +139,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConConnection</returns>
-        System.Threading.Tasks.Task<ConConnection> GetConnectionDataAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ConConnection> GetConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Get data about a specific connection in the project
@@ -180,7 +154,33 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConConnection)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConConnection>> GetConnectionDataWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<ConConnection>> GetConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Get data about all connections in the project
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConConnection&gt;</returns>
+        System.Threading.Tasks.Task<List<ConConnection>> GetConnectionsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Get data about all connections in the project
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConConnection&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ConConnection>>> GetConnectionsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get production cost of the connection
         /// </summary>
@@ -222,7 +222,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConConnection</returns>
-        System.Threading.Tasks.Task<ConConnection> UpdateConnectionDataAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ConConnection> UpdateConnectionAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Update data of a specific connection in the project
@@ -238,7 +238,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConConnection)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConConnection>> UpdateConnectionDataWithHttpInfoAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<ConConnection>> UpdateConnectionWithHttpInfoAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -360,150 +360,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Get data about all connections in the project 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;ConConnection&gt;</returns>
-        public List<ConConnection> GetAllConnectionsData(Guid projectId, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>> localVarResponse = GetAllConnectionsDataWithHttpInfo(projectId);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Get data about all connections in the project 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;ConConnection&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>> GetAllConnectionsDataWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
-        {
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept != null)
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-
-            localVarRequestOptions.Operation = "ConnectionApi.GetAllConnectionsData";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<List<ConConnection>>("/api/1/projects/{projectId}/connections", localVarRequestOptions, this.Configuration);
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetAllConnectionsData", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Get data about all connections in the project 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;ConConnection&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ConConnection>> GetAllConnectionsDataAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>> localVarResponse = await GetAllConnectionsDataWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Get data about all connections in the project 
-        /// </summary>
-        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
-        /// <param name="requestedType">Requested content type in the response.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;ConConnection&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>>> GetAllConnectionsDataWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-
-            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
-
-            string localVarAccept = requestedType;
-            if(string.IsNullOrEmpty(localVarAccept))
-            {
-                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            }
-
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
-
-            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
-
-            localVarRequestOptions.Operation = "ConnectionApi.GetAllConnectionsData";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
-
-            // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConConnection>>("/api/1/projects/{projectId}/connections", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("GetAllConnectionsData", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
         /// Get data about a specific connection in the project 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -511,9 +367,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId">The id of the requested connection</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConConnection</returns>
-        public ConConnection GetConnectionData(Guid projectId, int connectionId, int operationIndex = 0)
+        public ConConnection GetConnection(Guid projectId, int connectionId, int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = GetConnectionDataWithHttpInfo(projectId, connectionId);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = GetConnectionWithHttpInfo(projectId, connectionId);
             return localVarResponse.Data;
         }
 
@@ -526,7 +382,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConConnection</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> GetConnectionDataWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> GetConnectionWithHttpInfo(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -558,7 +414,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
             localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
 
-            localVarRequestOptions.Operation = "ConnectionApi.GetConnectionData";
+            localVarRequestOptions.Operation = "ConnectionApi.GetConnection";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
@@ -566,7 +422,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             var localVarResponse = this.Client.Get<ConConnection>("/api/1/projects/{projectId}/connections/{connectionId}", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GetConnectionData", localVarResponse);
+                Exception _exception = this.ExceptionFactory("GetConnection", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -585,9 +441,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConConnection</returns>
-        public async System.Threading.Tasks.Task<ConConnection> GetConnectionDataAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ConConnection> GetConnectionAsync(Guid projectId, int connectionId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = await GetConnectionDataWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = await GetConnectionWithHttpInfoAsync(projectId, connectionId, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -601,7 +457,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConConnection)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection>> GetConnectionDataWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection>> GetConnectionWithHttpInfoAsync(Guid projectId, int connectionId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -634,7 +490,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
             localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
 
-            localVarRequestOptions.Operation = "ConnectionApi.GetConnectionData";
+            localVarRequestOptions.Operation = "ConnectionApi.GetConnection";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
@@ -643,7 +499,151 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("GetConnectionData", localVarResponse);
+                Exception _exception = this.ExceptionFactory("GetConnection", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get data about all connections in the project 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>List&lt;ConConnection&gt;</returns>
+        public List<ConConnection> GetConnections(Guid projectId, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>> localVarResponse = GetConnectionsWithHttpInfo(projectId);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get data about all connections in the project 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of List&lt;ConConnection&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>> GetConnectionsWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+
+            localVarRequestOptions.Operation = "ConnectionApi.GetConnections";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<List<ConConnection>>("/api/1/projects/{projectId}/connections", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetConnections", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Get data about all connections in the project 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of List&lt;ConConnection&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ConConnection>> GetConnectionsAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>> localVarResponse = await GetConnectionsWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Get data about all connections in the project 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (List&lt;ConConnection&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ConConnection>>> GetConnectionsWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
+
+            localVarRequestOptions.Operation = "ConnectionApi.GetConnections";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<List<ConConnection>>("/api/1/projects/{projectId}/connections", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetConnections", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -812,9 +812,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conConnection">New connection data to be set (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConConnection</returns>
-        public ConConnection UpdateConnectionData(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0)
+        public ConConnection UpdateConnection(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = UpdateConnectionDataWithHttpInfo(projectId, connectionId, conConnection);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = UpdateConnectionWithHttpInfo(projectId, connectionId, conConnection);
             return localVarResponse.Data;
         }
 
@@ -828,7 +828,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ConConnection</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> UpdateConnectionDataWithHttpInfo(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0)
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> UpdateConnectionWithHttpInfo(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -862,7 +862,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
             localVarRequestOptions.Data = conConnection;
 
-            localVarRequestOptions.Operation = "ConnectionApi.UpdateConnectionData";
+            localVarRequestOptions.Operation = "ConnectionApi.UpdateConnection";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
@@ -870,7 +870,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             var localVarResponse = this.Client.Put<ConConnection>("/api/1/projects/{projectId}/connections/{connectionId}", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("UpdateConnectionData", localVarResponse);
+                Exception _exception = this.ExceptionFactory("UpdateConnection", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -890,9 +890,9 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ConConnection</returns>
-        public async System.Threading.Tasks.Task<ConConnection> UpdateConnectionDataAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ConConnection> UpdateConnectionAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = await UpdateConnectionDataWithHttpInfoAsync(projectId, connectionId, conConnection, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection> localVarResponse = await UpdateConnectionWithHttpInfoAsync(projectId, connectionId, conConnection, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -907,7 +907,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ConConnection)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection>> UpdateConnectionDataWithHttpInfoAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConConnection>> UpdateConnectionWithHttpInfoAsync(Guid projectId, int connectionId, ConConnection conConnection = default(ConConnection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -942,7 +942,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
             localVarRequestOptions.PathParameters.Add("connectionId", IdeaStatiCa.ConnectionApi.Client.ClientUtils.ParameterToString(connectionId)); // path parameter
             localVarRequestOptions.Data = conConnection;
 
-            localVarRequestOptions.Operation = "ConnectionApi.UpdateConnectionData";
+            localVarRequestOptions.Operation = "ConnectionApi.UpdateConnection";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
@@ -951,7 +951,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("UpdateConnectionData", localVarResponse);
+                Exception _exception = this.ExceptionFactory("UpdateConnection", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

@@ -5,12 +5,13 @@ Provides data of the connection
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConenctionPointId** | **int** | Connection Point Id | [optional] 
+**ConnectionPoint** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **Beams** | [**List&lt;BeamData&gt;**](BeamData.md) | Connected beams | [optional] 
 **Plates** | [**List&lt;PlateData&gt;**](PlateData.md) | Plates of the connection | [optional] 
 **FoldedPlates** | [**List&lt;FoldedPlateData&gt;**](FoldedPlateData.md) | Folded plate of the connection | [optional] 
 **BoltGrids** | [**List&lt;BoltGrid&gt;**](BoltGrid.md) | Bolt grids which belongs to the connection | [optional] 
 **AnchorGrids** | [**List&lt;AnchorGrid&gt;**](AnchorGrid.md) | Anchor grids which belongs to the connection | [optional] 
+**PinGrids** | [**List&lt;PinGrid&gt;**](PinGrid.md) | Pin grids which belongs to the connection | [optional] 
 **Welds** | [**List&lt;WeldData&gt;**](WeldData.md) | Welds of the connection | [optional] 
 **ConcreteBlocks** | [**List&lt;ConcreteBlockData&gt;**](ConcreteBlockData.md) | ConcreteBlocksof the connection | [optional] 
 **CutBeamByBeams** | [**List&lt;CutBeamByBeamData&gt;**](CutBeamByBeamData.md) | cut beam by beams | [optional] 
