@@ -26,23 +26,16 @@ using OpenAPIDateConverter = IdeaStatiCa.ConnectionApi.Client.OpenAPIDateConvert
 namespace IdeaStatiCa.ConnectionApi.Model
 {
     /// <summary>
-    /// BoltGrid
+    /// Data of the pin grid
     /// </summary>
-    [DataContract(Name = "BoltGrid")]
-    public partial class BoltGrid : IValidatableObject
+    [DataContract(Name = "PinGrid")]
+    public partial class PinGrid : IValidatableObject
     {
-
         /// <summary>
-        /// Gets or Sets BoltInteraction
+        /// Initializes a new instance of the <see cref="PinGrid" /> class.
         /// </summary>
-        [DataMember(Name = "boltInteraction", EmitDefaultValue = false)]
-        public BoltShearType? BoltInteraction { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BoltGrid" /> class.
-        /// </summary>
-        /// <param name="shearInThread">Indicates, whether a shear plane is in the thread of a bolt..</param>
-        /// <param name="boltInteraction">boltInteraction.</param>
-        /// <param name="boltAssembly">boltAssembly.</param>
+        /// <param name="isReplaceable">Replaceable pin.</param>
+        /// <param name="pin">pin.</param>
         /// <param name="origin">origin.</param>
         /// <param name="axisX">axisX.</param>
         /// <param name="axisY">axisY.</param>
@@ -52,11 +45,10 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// <param name="name">Name.</param>
         /// <param name="length">Length.</param>
         /// <param name="id">Element Id.</param>
-        public BoltGrid(bool shearInThread = default(bool), BoltShearType? boltInteraction = default(BoltShearType?), ReferenceElement boltAssembly = default(ReferenceElement), Point3D origin = default(Point3D), Vector3D axisX = default(Vector3D), Vector3D axisY = default(Vector3D), Vector3D axisZ = default(Vector3D), List<Point3D> positions = default(List<Point3D>), List<ReferenceElement> connectedParts = default(List<ReferenceElement>), string name = default(string), double length = default(double), int id = default(int))
+        public PinGrid(bool isReplaceable = default(bool), ReferenceElement pin = default(ReferenceElement), Point3D origin = default(Point3D), Vector3D axisX = default(Vector3D), Vector3D axisY = default(Vector3D), Vector3D axisZ = default(Vector3D), List<Point3D> positions = default(List<Point3D>), List<ReferenceElement> connectedParts = default(List<ReferenceElement>), string name = default(string), double length = default(double), int id = default(int))
         {
-            this.ShearInThread = shearInThread;
-            this.BoltInteraction = boltInteraction;
-            this.BoltAssembly = boltAssembly;
+            this.IsReplaceable = isReplaceable;
+            this.Pin = pin;
             this.Origin = origin;
             this.AxisX = axisX;
             this.AxisY = axisY;
@@ -69,17 +61,17 @@ namespace IdeaStatiCa.ConnectionApi.Model
         }
 
         /// <summary>
-        /// Indicates, whether a shear plane is in the thread of a bolt.
+        /// Replaceable pin
         /// </summary>
-        /// <value>Indicates, whether a shear plane is in the thread of a bolt.</value>
-        [DataMember(Name = "shearInThread", EmitDefaultValue = true)]
-        public bool ShearInThread { get; set; }
+        /// <value>Replaceable pin</value>
+        [DataMember(Name = "isReplaceable", EmitDefaultValue = true)]
+        public bool IsReplaceable { get; set; }
 
         /// <summary>
-        /// Gets or Sets BoltAssembly
+        /// Gets or Sets Pin
         /// </summary>
-        [DataMember(Name = "boltAssembly", EmitDefaultValue = false)]
-        public ReferenceElement BoltAssembly { get; set; }
+        [DataMember(Name = "pin", EmitDefaultValue = false)]
+        public ReferenceElement Pin { get; set; }
 
         /// <summary>
         /// Gets or Sets Origin
@@ -147,10 +139,9 @@ namespace IdeaStatiCa.ConnectionApi.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class BoltGrid {\n");
-            sb.Append("  ShearInThread: ").Append(ShearInThread).Append("\n");
-            sb.Append("  BoltInteraction: ").Append(BoltInteraction).Append("\n");
-            sb.Append("  BoltAssembly: ").Append(BoltAssembly).Append("\n");
+            sb.Append("class PinGrid {\n");
+            sb.Append("  IsReplaceable: ").Append(IsReplaceable).Append("\n");
+            sb.Append("  Pin: ").Append(Pin).Append("\n");
             sb.Append("  Origin: ").Append(Origin).Append("\n");
             sb.Append("  AxisX: ").Append(AxisX).Append("\n");
             sb.Append("  AxisY: ").Append(AxisY).Append("\n");

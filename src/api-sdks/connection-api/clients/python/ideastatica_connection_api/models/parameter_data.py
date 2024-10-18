@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.param_value_type import ParamValueType
 from ideastatica_connection_api.models.validation_type import ValidationType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,11 +37,13 @@ class ParameterData(BaseModel):
     evaluated_value: Optional[Any] = Field(default=None, alias="evaluatedValue")
     evaluated_default_value: Optional[Any] = Field(default=None, alias="evaluatedDefaultValue")
     validation_value: Optional[StrictStr] = Field(default=None, alias="validationValue")
+    validation_allowed_values: Optional[List[StrictStr]] = Field(default=None, alias="validationAllowedValues")
     evaluated_validation_value: Optional[StrictStr] = Field(default=None, alias="evaluatedValidationValue")
     validation_type: Optional[ValidationType] = Field(default=None, alias="validationType")
     user_unit_id: Optional[StrictInt] = Field(default=None, alias="userUnitId")
+    value_type: Optional[ParamValueType] = Field(default=None, alias="valueType")
     is_visible_for_simple_connection: Optional[StrictBool] = Field(default=None, alias="isVisibleForSimpleConnection")
-    __properties: ClassVar[List[str]] = ["id", "identifier", "description", "parameterType", "value", "defaultValue", "evaluatedValue", "evaluatedDefaultValue", "validationValue", "evaluatedValidationValue", "validationType", "userUnitId", "isVisibleForSimpleConnection"]
+    __properties: ClassVar[List[str]] = ["id", "identifier", "description", "parameterType", "value", "defaultValue", "evaluatedValue", "evaluatedDefaultValue", "validationValue", "validationAllowedValues", "evaluatedValidationValue", "validationType", "userUnitId", "valueType", "isVisibleForSimpleConnection"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -121,6 +124,11 @@ class ParameterData(BaseModel):
         if self.validation_value is None and "validation_value" in self.model_fields_set:
             _dict['validationValue'] = None
 
+        # set to None if validation_allowed_values (nullable) is None
+        # and model_fields_set contains the field
+        if self.validation_allowed_values is None and "validation_allowed_values" in self.model_fields_set:
+            _dict['validationAllowedValues'] = None
+
         # set to None if evaluated_validation_value (nullable) is None
         # and model_fields_set contains the field
         if self.evaluated_validation_value is None and "evaluated_validation_value" in self.model_fields_set:
@@ -147,9 +155,11 @@ class ParameterData(BaseModel):
             "evaluatedValue": obj.get("evaluatedValue"),
             "evaluatedDefaultValue": obj.get("evaluatedDefaultValue"),
             "validationValue": obj.get("validationValue"),
+            "validationAllowedValues": obj.get("validationAllowedValues"),
             "evaluatedValidationValue": obj.get("evaluatedValidationValue"),
             "validationType": obj.get("validationType"),
             "userUnitId": obj.get("userUnitId"),
+            "valueType": obj.get("valueType"),
             "isVisibleForSimpleConnection": obj.get("isVisibleForSimpleConnection")
         })
         return _obj

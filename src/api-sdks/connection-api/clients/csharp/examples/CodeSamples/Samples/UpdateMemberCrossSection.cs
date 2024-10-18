@@ -18,7 +18,7 @@ namespace CodeSamples
 			Guid projectId = conProject.ProjectId;
 
 			//Get First Connection
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			//Create map of CrossSections and Materials.
@@ -35,7 +35,7 @@ namespace CodeSamples
 			}
 
 			//Get Member Information.
-			List<ConMember> members = await conClient.Member.GetAllMemberDataAsync(projectId, connectionId);
+			List<ConMember> members = await conClient.Member.GetMembersAsync(projectId, connectionId);
 
 			foreach (var member in members)
 			{
@@ -82,10 +82,10 @@ namespace CodeSamples
 			conMember.CrossSectionId = cssId;
 
 			//Update the member.
-			var updatedMember = await conClient.Member.UpdateMemberAsync(projectId, connectionId, memberId, conMember);
+			var updatedMember = await conClient.Member.UpdateMemberAsync(projectId, connectionId, conMember);
 
 			//Get Member Information again.
-			members = await conClient.Member.GetAllMemberDataAsync(projectId, connectionId);
+			members = await conClient.Member.GetMembersAsync(projectId, connectionId);
 
 			foreach (var member in members)
 			{
@@ -100,7 +100,7 @@ namespace CodeSamples
 			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

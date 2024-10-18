@@ -36,7 +36,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <returns></returns>
 		public async Task ExportIfcFileAsync(Guid projectId, int connectionId, string filePath)
 		{
-			var response = await base.ExportConnectionIFCWithHttpInfoAsync(projectId, connectionId, "text/plain");
+			var response = await base.ExportIFCWithHttpInfoAsync(projectId, connectionId, "text/plain");
 			string ifc = (string)response.Data;
 
 			// Write the string to the file

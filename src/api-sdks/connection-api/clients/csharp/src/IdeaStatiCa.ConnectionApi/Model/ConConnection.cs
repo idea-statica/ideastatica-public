@@ -45,15 +45,13 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// <param name="name">name.</param>
         /// <param name="description">description.</param>
         /// <param name="analysisType">analysisType.</param>
-        /// <param name="bearingMemberId">bearingMemberId.</param>
-        public ConConnection(int id = default(int), string identifier = default(string), string name = default(string), string description = default(string), ConAnalysisTypeEnum? analysisType = default(ConAnalysisTypeEnum?), int bearingMemberId = default(int))
+        public ConConnection(int id = default(int), string identifier = default(string), string name = default(string), string description = default(string), ConAnalysisTypeEnum? analysisType = default(ConAnalysisTypeEnum?))
         {
             this.Id = id;
             this.Identifier = identifier;
             this.Name = name;
             this.Description = description;
             this.AnalysisType = analysisType;
-            this.BearingMemberId = bearingMemberId;
         }
 
         /// <summary>
@@ -79,12 +77,6 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// </summary>
         [DataMember(Name = "description", EmitDefaultValue = true)]
         public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or Sets BearingMemberId
-        /// </summary>
-        [DataMember(Name = "bearingMemberId", EmitDefaultValue = false)]
-        public int BearingMemberId { get; set; }
 
         /// <summary>
         /// Gets or Sets IsCalculated
@@ -113,7 +105,6 @@ namespace IdeaStatiCa.ConnectionApi.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  AnalysisType: ").Append(AnalysisType).Append("\n");
-            sb.Append("  BearingMemberId: ").Append(BearingMemberId).Append("\n");
             sb.Append("  IsCalculated: ").Append(IsCalculated).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

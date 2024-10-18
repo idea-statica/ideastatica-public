@@ -11,8 +11,8 @@ All URIs are relative to *http://localhost*
 | [**AddMaterialSteel**](MaterialApi.md#addmaterialsteel) | **POST** /api/1/projects/{projectId}/materials/steel | Add material to the project |
 | [**AddMaterialWeld**](MaterialApi.md#addmaterialweld) | **POST** /api/1/projects/{projectId}/materials/welding | Add material to the project |
 | [**GetAllMaterials**](MaterialApi.md#getallmaterials) | **GET** /api/1/projects/{projectId}/materials | Get materials which are used in the project projectId |
-| [**GetBlotGradeMaterials**](MaterialApi.md#getblotgradematerials) | **GET** /api/1/projects/{projectId}/materials/bolt-grade | Get materials which are used in the project projectId |
 | [**GetBoltAssemblies**](MaterialApi.md#getboltassemblies) | **GET** /api/1/projects/{projectId}/materials/bolt-assemblies | Get bolt assemblies which are used in the project projectId |
+| [**GetBoltGradeMaterials**](MaterialApi.md#getboltgradematerials) | **GET** /api/1/projects/{projectId}/materials/bolt-grade | Get materials which are used in the project projectId |
 | [**GetConcreteMaterials**](MaterialApi.md#getconcretematerials) | **GET** /api/1/projects/{projectId}/materials/concrete | Get materials which are used in the project projectId |
 | [**GetCrossSections**](MaterialApi.md#getcrosssections) | **GET** /api/1/projects/{projectId}/materials/cross-sections | Get cross sections which are used in the project projectId |
 | [**GetSteelMaterials**](MaterialApi.md#getsteelmaterials) | **GET** /api/1/projects/{projectId}/materials/steel | Get materials which are used in the project projectId |
@@ -653,95 +653,6 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getblotgradematerials"></a>
-# **GetBlotGradeMaterials**
-> List&lt;Object&gt; GetBlotGradeMaterials (Guid projectId)
-
-Get materials which are used in the project projectId
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
-
-namespace Example
-{
-    public class GetBlotGradeMaterialsExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "http://localhost";
-            var apiInstance = new MaterialApi(config);
-            var projectId = "projectId_example";  // Guid | The unique identifier of the opened project in the ConnectionRestApi service
-
-            try
-            {
-                // Get materials which are used in the project projectId
-                List<Object> result = apiInstance.GetBlotGradeMaterials(projectId);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling MaterialApi.GetBlotGradeMaterials: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the GetBlotGradeMaterialsWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Get materials which are used in the project projectId
-    ApiResponse<List<Object>> response = apiInstance.GetBlotGradeMaterialsWithHttpInfo(projectId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling MaterialApi.GetBlotGradeMaterialsWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
-
-### Return type
-
-**List<Object>**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 <a id="getboltassemblies"></a>
 # **GetBoltAssemblies**
 > List&lt;Object&gt; GetBoltAssemblies (Guid projectId)
@@ -799,6 +710,95 @@ try
 catch (ApiException e)
 {
     Debug.Print("Exception when calling MaterialApi.GetBoltAssembliesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
+
+### Return type
+
+**List<Object>**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getboltgradematerials"></a>
+# **GetBoltGradeMaterials**
+> List&lt;Object&gt; GetBoltGradeMaterials (Guid projectId)
+
+Get materials which are used in the project projectId
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetBoltGradeMaterialsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://localhost";
+            var apiInstance = new MaterialApi(config);
+            var projectId = "projectId_example";  // Guid | The unique identifier of the opened project in the ConnectionRestApi service
+
+            try
+            {
+                // Get materials which are used in the project projectId
+                List<Object> result = apiInstance.GetBoltGradeMaterials(projectId);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling MaterialApi.GetBoltGradeMaterials: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetBoltGradeMaterialsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get materials which are used in the project projectId
+    ApiResponse<List<Object>> response = apiInstance.GetBoltGradeMaterialsWithHttpInfo(projectId);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling MaterialApi.GetBoltGradeMaterialsWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }

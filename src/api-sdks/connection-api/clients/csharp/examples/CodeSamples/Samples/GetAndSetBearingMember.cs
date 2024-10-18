@@ -16,10 +16,10 @@ namespace CodeSamples
 
 			//Get projectId Guid
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
-			List<ConMember> members = await conClient.Member.GetAllMemberDataAsync(projectId, connectionId);
+			List<ConMember> members = await conClient.Member.GetMembersAsync(projectId, connectionId);
 
 			foreach (var member in members)
 			{
@@ -35,14 +35,14 @@ namespace CodeSamples
 			await conClient.Member.SetBearingMemberAsync(projectId, connectionId, newBearingMemberId);
 
 			//Retrieve again the member data.
-			members = await conClient.Member.GetAllMemberDataAsync(projectId, connectionId);
+			members = await conClient.Member.GetMembersAsync(projectId, connectionId);
 			foreach (var member in members)
 			{
 				Console.WriteLine($"{member.Name} ({member.Id}) is {(member.IsContinuous ? "Continuous" : "Ended")} {(member.IsBearing ? "and is the Bearing Member" : "")}");
 			}
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace CodeSamples
 
 			//Get projectId Guid
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			string saveFilePath = "connection-file-from-IOM.ideaCon";

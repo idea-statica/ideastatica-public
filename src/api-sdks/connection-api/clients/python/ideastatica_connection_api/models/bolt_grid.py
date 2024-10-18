@@ -21,39 +21,28 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.bolt_shear_type import BoltShearType
 from ideastatica_connection_api.models.point3_d import Point3D
+from ideastatica_connection_api.models.reference_element import ReferenceElement
 from ideastatica_connection_api.models.vector3_d import Vector3D
 from typing import Optional, Set
 from typing_extensions import Self
 
 class BoltGrid(BaseModel):
     """
-    Data of the bolt grid
+    BoltGrid
     """ # noqa: E501
-    bolt_assembly_ref: Optional[StrictStr] = Field(default=None, alias="boltAssemblyRef")
-    id: Optional[StrictInt] = Field(default=None, description="Unique Id of the bolt grid")
-    is_anchor: Optional[StrictBool] = Field(default=None, description="Is Anchor", alias="isAnchor")
-    anchor_len: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Anchor lenght", alias="anchorLen")
-    hole_diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The diameter of the hole", alias="holeDiameter")
-    diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The diameter of bolt")
-    head_diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The head diameter of bolt", alias="headDiameter")
-    diagonal_head_diameter: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The Diagonal Head Diameter of bolt", alias="diagonalHeadDiameter")
-    head_height: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The Head Height of bolt", alias="headHeight")
-    bore_hole: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The BoreHole of bolt", alias="boreHole")
-    tensile_stress_area: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The Tensile Stress Area of bolt", alias="tensileStressArea")
-    nut_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The Nut Thickness of bolt", alias="nutThickness")
-    bolt_assembly_name: Optional[StrictStr] = Field(default=None, description="The description of the bolt assembly", alias="boltAssemblyName")
-    standard: Optional[StrictStr] = Field(default=None, description="The standard of the bolt assembly")
-    material: Optional[StrictStr] = Field(default=None, description="The material of the bolt assembly")
+    shear_in_thread: Optional[StrictBool] = Field(default=None, description="Indicates, whether a shear plane is in the thread of a bolt.", alias="shearInThread")
+    bolt_interaction: Optional[BoltShearType] = Field(default=None, alias="boltInteraction")
+    bolt_assembly: Optional[ReferenceElement] = Field(default=None, alias="boltAssembly")
     origin: Optional[Point3D] = None
     axis_x: Optional[Vector3D] = Field(default=None, alias="axisX")
     axis_y: Optional[Vector3D] = Field(default=None, alias="axisY")
     axis_z: Optional[Vector3D] = Field(default=None, alias="axisZ")
-    positions: Optional[List[Point3D]] = Field(default=None, description="Positions of holes in the local coodinate system of the bolt grid")
-    connected_plates: Optional[List[StrictInt]] = Field(default=None, description="Identifiers of the connected plates", alias="connectedPlates")
-    connected_part_ids: Optional[List[StrictStr]] = Field(default=None, description="Id of the weld", alias="connectedPartIds")
-    shear_in_thread: Optional[StrictBool] = Field(default=None, description="Indicates, whether a shear plane is in the thread of a bolt.", alias="shearInThread")
-    bolt_interaction: Optional[BoltShearType] = Field(default=None, alias="boltInteraction")
-    __properties: ClassVar[List[str]] = ["boltAssemblyRef", "id", "isAnchor", "anchorLen", "holeDiameter", "diameter", "headDiameter", "diagonalHeadDiameter", "headHeight", "boreHole", "tensileStressArea", "nutThickness", "boltAssemblyName", "standard", "material", "origin", "axisX", "axisY", "axisZ", "positions", "connectedPlates", "connectedPartIds", "shearInThread", "boltInteraction"]
+    positions: Optional[List[Point3D]] = Field(default=None, description="Positions of holes in the local coordinate system of the grid")
+    connected_parts: Optional[List[ReferenceElement]] = Field(default=None, description="List of the connected parts", alias="connectedParts")
+    name: Optional[StrictStr] = Field(default=None, description="Name")
+    length: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Length")
+    id: Optional[StrictInt] = Field(default=None, description="Element Id")
+    __properties: ClassVar[List[str]] = ["shearInThread", "boltInteraction", "boltAssembly", "origin", "axisX", "axisY", "axisZ", "positions", "connectedParts", "name", "length", "id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +83,9 @@ class BoltGrid(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of bolt_assembly
+        if self.bolt_assembly:
+            _dict['boltAssembly'] = self.bolt_assembly.to_dict()
         # override the default output from pydantic by calling `to_dict()` of origin
         if self.origin:
             _dict['origin'] = self.origin.to_dict()
@@ -113,40 +105,27 @@ class BoltGrid(BaseModel):
                 if _item_positions:
                     _items.append(_item_positions.to_dict())
             _dict['positions'] = _items
-        # set to None if bolt_assembly_ref (nullable) is None
-        # and model_fields_set contains the field
-        if self.bolt_assembly_ref is None and "bolt_assembly_ref" in self.model_fields_set:
-            _dict['boltAssemblyRef'] = None
-
-        # set to None if bolt_assembly_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.bolt_assembly_name is None and "bolt_assembly_name" in self.model_fields_set:
-            _dict['boltAssemblyName'] = None
-
-        # set to None if standard (nullable) is None
-        # and model_fields_set contains the field
-        if self.standard is None and "standard" in self.model_fields_set:
-            _dict['standard'] = None
-
-        # set to None if material (nullable) is None
-        # and model_fields_set contains the field
-        if self.material is None and "material" in self.model_fields_set:
-            _dict['material'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in connected_parts (list)
+        _items = []
+        if self.connected_parts:
+            for _item_connected_parts in self.connected_parts:
+                if _item_connected_parts:
+                    _items.append(_item_connected_parts.to_dict())
+            _dict['connectedParts'] = _items
         # set to None if positions (nullable) is None
         # and model_fields_set contains the field
         if self.positions is None and "positions" in self.model_fields_set:
             _dict['positions'] = None
 
-        # set to None if connected_plates (nullable) is None
+        # set to None if connected_parts (nullable) is None
         # and model_fields_set contains the field
-        if self.connected_plates is None and "connected_plates" in self.model_fields_set:
-            _dict['connectedPlates'] = None
+        if self.connected_parts is None and "connected_parts" in self.model_fields_set:
+            _dict['connectedParts'] = None
 
-        # set to None if connected_part_ids (nullable) is None
+        # set to None if name (nullable) is None
         # and model_fields_set contains the field
-        if self.connected_part_ids is None and "connected_part_ids" in self.model_fields_set:
-            _dict['connectedPartIds'] = None
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
 
         return _dict
 
@@ -160,30 +139,18 @@ class BoltGrid(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "boltAssemblyRef": obj.get("boltAssemblyRef"),
-            "id": obj.get("id"),
-            "isAnchor": obj.get("isAnchor"),
-            "anchorLen": obj.get("anchorLen"),
-            "holeDiameter": obj.get("holeDiameter"),
-            "diameter": obj.get("diameter"),
-            "headDiameter": obj.get("headDiameter"),
-            "diagonalHeadDiameter": obj.get("diagonalHeadDiameter"),
-            "headHeight": obj.get("headHeight"),
-            "boreHole": obj.get("boreHole"),
-            "tensileStressArea": obj.get("tensileStressArea"),
-            "nutThickness": obj.get("nutThickness"),
-            "boltAssemblyName": obj.get("boltAssemblyName"),
-            "standard": obj.get("standard"),
-            "material": obj.get("material"),
+            "shearInThread": obj.get("shearInThread"),
+            "boltInteraction": obj.get("boltInteraction"),
+            "boltAssembly": ReferenceElement.from_dict(obj["boltAssembly"]) if obj.get("boltAssembly") is not None else None,
             "origin": Point3D.from_dict(obj["origin"]) if obj.get("origin") is not None else None,
             "axisX": Vector3D.from_dict(obj["axisX"]) if obj.get("axisX") is not None else None,
             "axisY": Vector3D.from_dict(obj["axisY"]) if obj.get("axisY") is not None else None,
             "axisZ": Vector3D.from_dict(obj["axisZ"]) if obj.get("axisZ") is not None else None,
             "positions": [Point3D.from_dict(_item) for _item in obj["positions"]] if obj.get("positions") is not None else None,
-            "connectedPlates": obj.get("connectedPlates"),
-            "connectedPartIds": obj.get("connectedPartIds"),
-            "shearInThread": obj.get("shearInThread"),
-            "boltInteraction": obj.get("boltInteraction")
+            "connectedParts": [ReferenceElement.from_dict(_item) for _item in obj["connectedParts"]] if obj.get("connectedParts") is not None else None,
+            "name": obj.get("name"),
+            "length": obj.get("length"),
+            "id": obj.get("id")
         })
         return _obj
 

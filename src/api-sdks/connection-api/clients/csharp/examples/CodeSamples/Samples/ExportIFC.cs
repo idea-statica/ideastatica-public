@@ -16,7 +16,7 @@ namespace CodeSamples
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
 
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			string exampleFolderPath = GetExampleFolderPathOnDesktop("ExportIFC");
@@ -26,7 +26,7 @@ namespace CodeSamples
 			//FIX Naming remove 'Con'
 			await conClient.Export.ExportIfcFileAsync(projectId, connectionId, ifcPath);
 
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 
 		}
 	}

@@ -17,7 +17,7 @@ All URIs are relative to *http://localhost*
 
 <a id="closeproject"></a>
 # **CloseProject**
-> string CloseProject (string projectId)
+> string CloseProject (Guid projectId)
 
 Close the project. Needed for releasing resources in the service.
 
@@ -38,7 +38,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "http://localhost";
             var apiInstance = new ProjectApi(config);
-            var projectId = "projectId_example";  // string | The unique identifier of the project to be closed
+            var projectId = "projectId_example";  // Guid | The unique identifier of the project to be closed
 
             try
             {
@@ -81,7 +81,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **string** | The unique identifier of the project to be closed |  |
+| **projectId** | **Guid** | The unique identifier of the project to be closed |  |
 
 ### Return type
 

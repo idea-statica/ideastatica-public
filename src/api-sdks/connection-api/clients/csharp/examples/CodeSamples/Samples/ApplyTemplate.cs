@@ -16,7 +16,7 @@ namespace CodeSamples
 
 			//Get projectId Guid
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			string templateFilePath = "inputs/template-I-corner.contemp";
@@ -53,7 +53,7 @@ namespace CodeSamples
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

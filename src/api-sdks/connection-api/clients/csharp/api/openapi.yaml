@@ -134,7 +134,7 @@ paths:
       - Client
   /api/1/projects/{projectId}/connections:
     get:
-      operationId: GetAllConnectionsData
+      operationId: GetConnections
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -160,7 +160,7 @@ paths:
       - Connection
   /api/1/projects/{projectId}/connections/{connectionId}:
     get:
-      operationId: GetConnectionData
+      operationId: GetConnection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -192,7 +192,7 @@ paths:
       tags:
       - Connection
     put:
-      operationId: UpdateConnectionData
+      operationId: UpdateConnection
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -264,7 +264,7 @@ paths:
       - Connection
   /api/1/projects/{projectId}/connections/{connectionId}/export-iom:
     get:
-      operationId: ExportIomXml
+      operationId: ExportIom
       parameters:
       - description: ""
         explode: false
@@ -300,7 +300,7 @@ paths:
       - Export
   /api/1/projects/{projectId}/connections/{connectionId}/export-iom-connection-data:
     get:
-      operationId: ExportConnectionData
+      operationId: ExportIomConnectionData
       parameters:
       - description: ""
         explode: false
@@ -336,7 +336,7 @@ paths:
       - Export
   /api/1/projects/{projectId}/connections/{connectionId}/export-ifc:
     get:
-      operationId: ExportConnectionIFC
+      operationId: ExportIFC
       parameters:
       - description: ""
         explode: false
@@ -441,6 +441,43 @@ paths:
       summary: Add new load effect to the connection
       tags:
       - LoadEffect
+    put:
+      operationId: UpdateLoadEffect
+      parameters:
+      - description: ""
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ""
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConLoadEffect'
+        description: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConLoadEffect'
+          description: Success
+      summary: Update load impulses in conLoading
+      tags:
+      - LoadEffect
   /api/1/projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}:
     delete:
       operationId: DeleteLoadEffect
@@ -529,52 +566,6 @@ paths:
                 $ref: '#/components/schemas/ConLoadEffect'
           description: Success
       summary: Get load impulses from loadEffectId
-      tags:
-      - LoadEffect
-    put:
-      operationId: UpdateLoadEffect
-      parameters:
-      - description: ""
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: ""
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      - description: ""
-        explode: false
-        in: path
-        name: loadEffectId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ConLoadEffect'
-        description: ""
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConLoadEffect'
-          description: Success
-      summary: Update load impulses in loadEffectId
       tags:
       - LoadEffect
   /api/1/projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings:
@@ -782,7 +773,7 @@ paths:
       - Material
   /api/1/projects/{projectId}/materials/bolt-grade:
     get:
-      operationId: GetBlotGradeMaterials
+      operationId: GetBoltGradeMaterials
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -998,7 +989,7 @@ paths:
       - Material
   /api/1/projects/{projectId}/connections/{connectionId}/members:
     get:
-      operationId: GetAllMemberData
+      operationId: GetMembers
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -1031,9 +1022,47 @@ paths:
       summary: Get information about all members in the connection
       tags:
       - Member
+    put:
+      operationId: UpdateMember
+      parameters:
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
+        in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Id of the connection to to update is member newMemberData
+        explode: false
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConMember'
+        description: New member data
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConMember'
+          description: Success
+      summary: Update the member in the connection by newMemberData
+      tags:
+      - Member
   /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId}:
     get:
-      operationId: GetMemberData
+      operationId: GetMember
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
           service
@@ -1071,53 +1100,6 @@ paths:
                 $ref: '#/components/schemas/ConMember'
           description: Success
       summary: Get information about the requires member in the connection
-      tags:
-      - Member
-    put:
-      operationId: UpdateMember
-      parameters:
-      - description: The unique identifier of the opened project in the ConnectionRestApi
-          service
-        explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: Id of the connection to to update is member memberId
-        explode: false
-        in: path
-        name: connectionId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      - description: Id of the member to be updated in the connection
-        explode: false
-        in: path
-        name: memberId
-        required: true
-        schema:
-          format: int32
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ConMember'
-        description: New member data
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConMember'
-          description: Success
-      summary: Update the member in the connection by newMemberData
       tags:
       - Member
   /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member:
@@ -1449,6 +1431,7 @@ paths:
         name: projectId
         required: true
         schema:
+          format: uuid
           type: string
         style: simple
       responses:
@@ -1845,63 +1828,63 @@ components:
       additionalProperties: false
       description: Data of the anchor grid
       example:
-        standard: standard
-        boltAssemblyRef: boltAssemblyRef
-        origin:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        isAnchor: true
-        headHeight: 4.652396432933246
-        diameter: 7.058770351582356
-        axisZ:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
-        axisY:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
-        axisX:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
-        id: 3
-        tensileStressArea: 7.740351818741173
-        boltAssemblyName: boltAssemblyName
-        anchorLen: 7.143538047012306
-        boreHole: 8.969578798196912
-        nutThickness: 3.0205796992916243
-        connectedPartIds:
-        - connectedPartIds
-        - connectedPartIds
-        washerSize: 3.353193347011243
-        headDiameter: 6.519180951018382
-        diagonalHeadDiameter: 0.10263654006109402
+        connectedParts:
+        - typeName: typeName
+          id: 0
+          element:
+            id: 6
+        - typeName: typeName
+          id: 0
+          element:
+            id: 6
+        washerSize: 9.018348186070783
         concreteBlock:
-          lenght: 6.878052220127876
+          lenght: 9.369310271410669
           material: material
-          width: 5.944895607614016
-          height: 6.704019297950036
+          width: 6.683562403749608
+          height: 8.762042012749001
+        origin:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         shearInThread: true
-        holeDiameter: 0.8851374739011653
+        length: 6.965117697638846
         positions:
-        - x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        - x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        material: material
-        connectedPlates:
-        - 3
-        - 3
-        boltInteraction: null
+        - x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        - x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        axisZ:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        axisY:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        axisX:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        name: name
+        boltAssembly:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        hookLength: 3.5571952270680973
+        id: 1
         anchorType: straight
+        anchoringLength: 6.438423552598547
       properties:
+        shearInThread:
+          description: "Indicates, whether a shear plane is in the thread of a bolt."
+          type: boolean
         concreteBlock:
           $ref: '#/components/schemas/ConcreteBlock'
         anchorType:
@@ -1910,64 +1893,18 @@ components:
           description: Washer Size used if AnchorType is washer
           format: double
           type: number
-        boltAssemblyRef:
-          nullable: true
-          type: string
-        id:
-          description: Unique Id of the bolt grid
-          format: int32
-          type: integer
-        isAnchor:
-          description: Is Anchor
-          type: boolean
-        anchorLen:
-          description: Anchor lenght
+        anchoringLength:
+          description: Anchoring Length
           format: double
           type: number
-        holeDiameter:
-          description: The diameter of the hole
+        hookLength:
+          description: "Length of anchor hook<br />\r\n(distance from the inner surface\
+            \ of the anchor shaft to the outer tip of the hook specified as an anchor\
+            \ diameter multiplier)"
           format: double
           type: number
-        diameter:
-          description: The diameter of bolt
-          format: double
-          type: number
-        headDiameter:
-          description: The head diameter of bolt
-          format: double
-          type: number
-        diagonalHeadDiameter:
-          description: The Diagonal Head Diameter of bolt
-          format: double
-          type: number
-        headHeight:
-          description: The Head Height of bolt
-          format: double
-          type: number
-        boreHole:
-          description: The BoreHole of bolt
-          format: double
-          type: number
-        tensileStressArea:
-          description: The Tensile Stress Area of bolt
-          format: double
-          type: number
-        nutThickness:
-          description: The Nut Thickness of bolt
-          format: double
-          type: number
-        boltAssemblyName:
-          description: The description of the bolt assembly
-          nullable: true
-          type: string
-        standard:
-          description: The standard of the bolt assembly
-          nullable: true
-          type: string
-        material:
-          description: The material of the bolt assembly
-          nullable: true
-          type: string
+        boltAssembly:
+          $ref: '#/components/schemas/ReferenceElement'
         origin:
           $ref: '#/components/schemas/Point3D'
         axisX:
@@ -1977,30 +1914,29 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         positions:
-          description: Positions of holes in the local coodinate system of the bolt
-            grid
+          description: Positions of holes in the local coordinate system of the grid
           items:
             $ref: '#/components/schemas/Point3D'
           nullable: true
           type: array
-        connectedPlates:
-          description: Identifiers of the connected plates
+        connectedParts:
+          description: List of the connected parts
           items:
-            format: int32
-            type: integer
+            $ref: '#/components/schemas/ReferenceElement'
           nullable: true
           type: array
-        connectedPartIds:
-          description: Id of the weld
-          items:
-            type: string
+        name:
+          description: Name
           nullable: true
-          type: array
-        shearInThread:
-          description: "Indicates, whether a shear plane is in the thread of a bolt."
-          type: boolean
-        boltInteraction:
-          $ref: '#/components/schemas/BoltShearType'
+          type: string
+        length:
+          description: Length
+          format: double
+          type: number
+        id:
+          description: Element Id
+          format: int32
+          type: integer
       type: object
     AnchorType:
       description: Defines a type of anchor end.
@@ -2008,6 +1944,7 @@ components:
       - straight
       - washerPlateCircular
       - washerPlateRectangular
+      - hook
       type: string
     BaseTemplateConversion:
       additionalProperties: false
@@ -2040,133 +1977,133 @@ components:
       example:
         crossSectionType: crossSectionType
         plates:
-        - thickness: 6.027456183070403
+        - thickness: 1.4658129805029452
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           originalModelId: originalModelId
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           isNegativeObject: true
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           geometry:
             outline:
               startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             openings:
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
-          id: 7
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+          id: 1
           region: region
-        - thickness: 6.027456183070403
+        - thickness: 1.4658129805029452
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           originalModelId: originalModelId
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           isNegativeObject: true
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           geometry:
             outline:
               startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             openings:
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
-          id: 7
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+          id: 1
           region: region
         isBearingMember: true
         mirrorY: true
-        addedMemberLength: 1.0246457001441578
+        addedMemberLength: 1.4894159098541704
         autoAddCutByWorkplane: true
         refLineInCenterOfGravity: true
         mprlName: mprlName
@@ -2176,32 +2113,32 @@ components:
         isAdded: true
         addedMember:
           typeName: typeName
-          id: 1
+          id: 0
           element:
             id: 6
-        id: 7
+        id: 6
         cuts:
         - planePoint:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           normalVector:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          offset: 1.2315135367772556
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          offset: 1.0246457001441578
           direction: default
         - planePoint:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           normalVector:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          offset: 1.2315135367772556
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          offset: 1.0246457001441578
           direction: default
       properties:
         name:
@@ -2268,32 +2205,32 @@ components:
       description: Provides data of bend
       example:
         point1OfSideBoundary1:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         point1OfSideBoundary2:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         point2OfSideBoundary2:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         endFaceNormal1:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
         point2OfSideBoundary1:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        plate1Id: 1
-        plate2Id: 4
-        radius: 5.025004791520295
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        plate1Id: 7
+        plate2Id: 1
+        radius: 4.965218492984954
       properties:
         plate1Id:
           description: First plate
@@ -2320,116 +2257,60 @@ components:
       type: object
     BoltGrid:
       additionalProperties: false
-      description: Data of the bolt grid
       example:
-        standard: standard
-        anchorLen: 9.369310271410669
-        boreHole: 6.965117697638846
-        nutThickness: 2.8841621266687802
-        connectedPartIds:
-        - connectedPartIds
-        - connectedPartIds
-        headDiameter: 9.018348186070783
-        boltAssemblyRef: boltAssemblyRef
-        diagonalHeadDiameter: 6.438423552598547
-        origin:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        shearInThread: true
-        holeDiameter: 6.683562403749608
-        positions:
-        - x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        - x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        isAnchor: true
-        headHeight: 3.5571952270680973
-        diameter: 8.762042012749001
-        material: material
-        connectedPlates:
-        - 6
-        - 6
+        connectedParts:
+        - typeName: typeName
+          id: 0
+          element:
+            id: 6
+        - typeName: typeName
+          id: 0
+          element:
+            id: 6
         axisZ:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        origin:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         axisY:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        shearInThread: true
         axisX:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        name: name
+        length: 5.025004791520295
+        boltAssembly:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        positions:
+        - x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        - x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         id: 9
-        tensileStressArea: 1.284659006116532
-        boltAssemblyName: boltAssemblyName
         boltInteraction: bearing
       properties:
-        boltAssemblyRef:
-          nullable: true
-          type: string
-        id:
-          description: Unique Id of the bolt grid
-          format: int32
-          type: integer
-        isAnchor:
-          description: Is Anchor
+        shearInThread:
+          description: "Indicates, whether a shear plane is in the thread of a bolt."
           type: boolean
-        anchorLen:
-          description: Anchor lenght
-          format: double
-          type: number
-        holeDiameter:
-          description: The diameter of the hole
-          format: double
-          type: number
-        diameter:
-          description: The diameter of bolt
-          format: double
-          type: number
-        headDiameter:
-          description: The head diameter of bolt
-          format: double
-          type: number
-        diagonalHeadDiameter:
-          description: The Diagonal Head Diameter of bolt
-          format: double
-          type: number
-        headHeight:
-          description: The Head Height of bolt
-          format: double
-          type: number
-        boreHole:
-          description: The BoreHole of bolt
-          format: double
-          type: number
-        tensileStressArea:
-          description: The Tensile Stress Area of bolt
-          format: double
-          type: number
-        nutThickness:
-          description: The Nut Thickness of bolt
-          format: double
-          type: number
-        boltAssemblyName:
-          description: The description of the bolt assembly
-          nullable: true
-          type: string
-        standard:
-          description: The standard of the bolt assembly
-          nullable: true
-          type: string
-        material:
-          description: The material of the bolt assembly
-          nullable: true
-          type: string
+        boltInteraction:
+          $ref: '#/components/schemas/BoltShearType'
+        boltAssembly:
+          $ref: '#/components/schemas/ReferenceElement'
         origin:
           $ref: '#/components/schemas/Point3D'
         axisX:
@@ -2439,30 +2320,29 @@ components:
         axisZ:
           $ref: '#/components/schemas/Vector3D'
         positions:
-          description: Positions of holes in the local coodinate system of the bolt
-            grid
+          description: Positions of holes in the local coordinate system of the grid
           items:
             $ref: '#/components/schemas/Point3D'
           nullable: true
           type: array
-        connectedPlates:
-          description: Identifiers of the connected plates
+        connectedParts:
+          description: List of the connected parts
           items:
-            format: int32
-            type: integer
+            $ref: '#/components/schemas/ReferenceElement'
           nullable: true
           type: array
-        connectedPartIds:
-          description: Id of the weld
-          items:
-            type: string
+        name:
+          description: Name
           nullable: true
-          type: array
-        shearInThread:
-          description: "Indicates, whether a shear plane is in the thread of a bolt."
-          type: boolean
-        boltInteraction:
-          $ref: '#/components/schemas/BoltShearType'
+          type: string
+        length:
+          description: Length
+          format: double
+          type: number
+        id:
+          description: Element Id
+          format: int32
+          type: integer
       type: object
     BoltShearType:
       description: Defines a transfer of shear force in bolts.
@@ -2708,7 +2588,6 @@ components:
         isCalculated: true
         name: name
         description: description
-        bearingMemberId: 6
         id: 0
         analysisType: stress_Strain
       properties:
@@ -2726,9 +2605,6 @@ components:
           type: string
         analysisType:
           $ref: '#/components/schemas/ConAnalysisTypeEnum'
-        bearingMemberId:
-          format: int32
-          type: integer
         isCalculated:
           readOnly: true
           type: boolean
@@ -2943,14 +2819,12 @@ components:
           isCalculated: true
           name: name
           description: description
-          bearingMemberId: 6
           id: 0
           analysisType: stress_Strain
         - identifier: identifier
           isCalculated: true
           name: name
           description: description
-          bearingMemberId: 6
           id: 0
           analysisType: stress_Strain
       properties:
@@ -3064,10 +2938,10 @@ components:
       additionalProperties: false
       description: Data of concrete block
       example:
-        lenght: 6.878052220127876
+        lenght: 9.369310271410669
         material: material
-        width: 5.944895607614016
-        height: 6.704019297950036
+        width: 6.683562403749608
+        height: 8.762042012749001
       properties:
         lenght:
           description: Lenght of ConcreteBlock
@@ -3091,37 +2965,37 @@ components:
       description: Provides data of the single concrete block
       example:
         originalModelId: originalModelId
-        depth: 4.078845849666752
+        depth: 3.353193347011243
         outlinePoints:
-        - x: 1.4658129805029452
-          "y": 5.962133916683182
-        - x: 1.4658129805029452
-          "y": 5.962133916683182
+        - x: 5.962133916683182
+          "y": 5.637376656633329
+        - x: 5.962133916683182
+          "y": 5.637376656633329
         material: material
         axisZ:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
         center:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         origin:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         axisY:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
         name: name
         axisX:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
-        id: 3
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        id: 6
         region: region
       properties:
         id:
@@ -3340,133 +3214,133 @@ components:
         beams:
         - crossSectionType: crossSectionType
           plates:
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
           isBearingMember: true
           mirrorY: true
-          addedMemberLength: 1.0246457001441578
+          addedMemberLength: 1.4894159098541704
           autoAddCutByWorkplane: true
           refLineInCenterOfGravity: true
           mprlName: mprlName
@@ -3476,162 +3350,162 @@ components:
           isAdded: true
           addedMember:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
-          id: 7
+          id: 6
           cuts:
           - planePoint:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             normalVector:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
-            offset: 1.2315135367772556
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            offset: 1.0246457001441578
             direction: default
           - planePoint:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             normalVector:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
-            offset: 1.2315135367772556
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            offset: 1.0246457001441578
             direction: default
         - crossSectionType: crossSectionType
           plates:
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
           isBearingMember: true
           mirrorY: true
-          addedMemberLength: 1.0246457001441578
+          addedMemberLength: 1.4894159098541704
           autoAddCutByWorkplane: true
           refLineInCenterOfGravity: true
           mprlName: mprlName
@@ -3641,221 +3515,220 @@ components:
           isAdded: true
           addedMember:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
-          id: 7
+          id: 6
           cuts:
           - planePoint:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             normalVector:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
-            offset: 1.2315135367772556
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            offset: 1.0246457001441578
             direction: default
           - planePoint:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             normalVector:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
-            offset: 1.2315135367772556
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
+            offset: 1.0246457001441578
             direction: default
         welds:
         - connectedPartIds:
           - connectedPartIds
           - connectedPartIds
           material: material
-          thickness: 5.533258397034986
+          thickness: 5.944895607614016
           weldType: notSpecified
           name: name
           start:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           end:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          id: 7
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          id: 6
           weldMaterial:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
         - connectedPartIds:
           - connectedPartIds
           - connectedPartIds
           material: material
-          thickness: 5.533258397034986
+          thickness: 5.944895607614016
           weldType: notSpecified
           name: name
           start:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           end:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          id: 7
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          id: 6
           weldMaterial:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
-        conenctionPointId: 0
         plates:
-        - thickness: 6.027456183070403
+        - thickness: 1.4658129805029452
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           originalModelId: originalModelId
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           isNegativeObject: true
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           geometry:
             outline:
               startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             openings:
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
-          id: 7
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+          id: 1
           region: region
-        - thickness: 6.027456183070403
+        - thickness: 1.4658129805029452
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           originalModelId: originalModelId
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           isNegativeObject: true
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           geometry:
             outline:
               startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             openings:
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
-          id: 7
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+          id: 1
           region: region
         cutBeamByBeams:
         - cuttingObject:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
           orientation: null
-          weldThickness: 0.2025324113236393
-          offset: 6.628464275087742
+          weldThickness: 3.0937452626664474
+          offset: 7.143538047012306
           method: boundingBox
           weldType: null
           name: name
           modifiedObject:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
           isWeld: true
@@ -3864,18 +3737,18 @@ components:
           extendBeforeCut: true
         - cuttingObject:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
           orientation: null
-          weldThickness: 0.2025324113236393
-          offset: 6.628464275087742
+          weldThickness: 3.0937452626664474
+          offset: 7.143538047012306
           method: boundingBox
           weldType: null
           name: name
           modifiedObject:
             typeName: typeName
-            id: 1
+            id: 0
             element:
               id: 6
           isWeld: true
@@ -3883,650 +3756,728 @@ components:
           cutPart: begin
           extendBeforeCut: true
         anchorGrids:
-        - standard: standard
-          boltAssemblyRef: boltAssemblyRef
-          origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          isAnchor: true
-          headHeight: 4.652396432933246
-          diameter: 7.058770351582356
-          axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          id: 3
-          tensileStressArea: 7.740351818741173
-          boltAssemblyName: boltAssemblyName
-          anchorLen: 7.143538047012306
-          boreHole: 8.969578798196912
-          nutThickness: 3.0205796992916243
-          connectedPartIds:
-          - connectedPartIds
-          - connectedPartIds
-          washerSize: 3.353193347011243
-          headDiameter: 6.519180951018382
-          diagonalHeadDiameter: 0.10263654006109402
+        - connectedParts:
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          washerSize: 9.018348186070783
           concreteBlock:
-            lenght: 6.878052220127876
+            lenght: 9.369310271410669
             material: material
-            width: 5.944895607614016
-            height: 6.704019297950036
-          shearInThread: true
-          holeDiameter: 0.8851374739011653
-          positions:
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          material: material
-          connectedPlates:
-          - 3
-          - 3
-          boltInteraction: null
-          anchorType: straight
-        - standard: standard
-          boltAssemblyRef: boltAssemblyRef
+            width: 6.683562403749608
+            height: 8.762042012749001
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          isAnchor: true
-          headHeight: 4.652396432933246
-          diameter: 7.058770351582356
-          axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          id: 3
-          tensileStressArea: 7.740351818741173
-          boltAssemblyName: boltAssemblyName
-          anchorLen: 7.143538047012306
-          boreHole: 8.969578798196912
-          nutThickness: 3.0205796992916243
-          connectedPartIds:
-          - connectedPartIds
-          - connectedPartIds
-          washerSize: 3.353193347011243
-          headDiameter: 6.519180951018382
-          diagonalHeadDiameter: 0.10263654006109402
-          concreteBlock:
-            lenght: 6.878052220127876
-            material: material
-            width: 5.944895607614016
-            height: 6.704019297950036
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           shearInThread: true
-          holeDiameter: 0.8851374739011653
+          length: 6.965117697638846
           positions:
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          material: material
-          connectedPlates:
-          - 3
-          - 3
-          boltInteraction: null
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          boltAssembly:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          hookLength: 3.5571952270680973
+          id: 1
           anchorType: straight
+          anchoringLength: 6.438423552598547
+        - connectedParts:
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          washerSize: 9.018348186070783
+          concreteBlock:
+            lenght: 9.369310271410669
+            material: material
+            width: 6.683562403749608
+            height: 8.762042012749001
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          shearInThread: true
+          length: 6.965117697638846
+          positions:
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          boltAssembly:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          hookLength: 3.5571952270680973
+          id: 1
+          anchorType: straight
+          anchoringLength: 6.438423552598547
         concreteBlocks:
         - originalModelId: originalModelId
-          depth: 4.078845849666752
+          depth: 3.353193347011243
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           center:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          id: 3
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          id: 6
           region: region
         - originalModelId: originalModelId
-          depth: 4.078845849666752
+          depth: 3.353193347011243
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           center:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
-          id: 3
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          id: 6
           region: region
+        connectionPoint:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
         foldedPlates:
         - plates:
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
           bends:
           - point1OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point1OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point2OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             endFaceNormal1:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             point2OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
-            plate1Id: 1
-            plate2Id: 4
-            radius: 5.025004791520295
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
+            plate1Id: 7
+            plate2Id: 1
+            radius: 4.965218492984954
           - point1OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point1OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point2OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             endFaceNormal1:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             point2OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
-            plate1Id: 1
-            plate2Id: 4
-            radius: 5.025004791520295
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
+            plate1Id: 7
+            plate2Id: 1
+            radius: 4.965218492984954
         - plates:
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
-          - thickness: 6.027456183070403
+          - thickness: 1.4658129805029452
             origin:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             originalModelId: originalModelId
             outlinePoints:
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
-            - x: 1.4658129805029452
-              "y": 5.962133916683182
+            - x: 5.962133916683182
+              "y": 5.637376656633329
+            - x: 5.962133916683182
+              "y": 5.637376656633329
             material: material
             axisZ:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             axisY:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             isNegativeObject: true
             name: name
             axisX:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             geometry:
               outline:
                 startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               openings:
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
               - startPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
                 segments:
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
                 - endPoint:
-                    x: 1.4658129805029452
-                    "y": 5.962133916683182
-            id: 7
+                    x: 5.962133916683182
+                    "y": 5.637376656633329
+            id: 1
             region: region
           bends:
           - point1OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point1OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point2OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             endFaceNormal1:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             point2OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
-            plate1Id: 1
-            plate2Id: 4
-            radius: 5.025004791520295
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
+            plate1Id: 7
+            plate2Id: 1
+            radius: 4.965218492984954
           - point1OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point1OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             point2OfSideBoundary2:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
             endFaceNormal1:
-              x: 3.616076749251911
-              "y": 2.027123023002322
-              z: 4.145608029883936
+              x: 2.027123023002322
+              "y": 4.145608029883936
+              z: 7.386281948385884
             point2OfSideBoundary1:
-              x: 5.637376656633329
-              "y": 2.3021358869347655
-              z: 7.061401241503109
-              id: 9
-            plate1Id: 1
-            plate2Id: 4
-            radius: 5.025004791520295
+              x: 2.3021358869347655
+              "y": 7.061401241503109
+              z: 9.301444243932576
+              id: 3
+            plate1Id: 7
+            plate2Id: 1
+            radius: 4.965218492984954
+        pinGrids:
+        - connectedParts:
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          pin:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          length: 2.8841621266687802
+          isReplaceable: true
+          positions:
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          id: 6
+        - connectedParts:
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          pin:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          axisZ:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          axisY:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          axisX:
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          length: 2.8841621266687802
+          isReplaceable: true
+          positions:
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          id: 6
         boltGrids:
-        - standard: standard
-          anchorLen: 9.369310271410669
-          boreHole: 6.965117697638846
-          nutThickness: 2.8841621266687802
-          connectedPartIds:
-          - connectedPartIds
-          - connectedPartIds
-          headDiameter: 9.018348186070783
-          boltAssemblyRef: boltAssemblyRef
-          diagonalHeadDiameter: 6.438423552598547
-          origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          shearInThread: true
-          holeDiameter: 6.683562403749608
-          positions:
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          isAnchor: true
-          headHeight: 3.5571952270680973
-          diameter: 8.762042012749001
-          material: material
-          connectedPlates:
-          - 6
-          - 6
+        - connectedParts:
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          shearInThread: true
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          length: 5.025004791520295
+          boltAssembly:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          positions:
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           id: 9
-          tensileStressArea: 1.284659006116532
-          boltAssemblyName: boltAssemblyName
           boltInteraction: bearing
-        - standard: standard
-          anchorLen: 9.369310271410669
-          boreHole: 6.965117697638846
-          nutThickness: 2.8841621266687802
-          connectedPartIds:
-          - connectedPartIds
-          - connectedPartIds
-          headDiameter: 9.018348186070783
-          boltAssemblyRef: boltAssemblyRef
-          diagonalHeadDiameter: 6.438423552598547
-          origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          shearInThread: true
-          holeDiameter: 6.683562403749608
-          positions:
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          - x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          isAnchor: true
-          headHeight: 3.5571952270680973
-          diameter: 8.762042012749001
-          material: material
-          connectedPlates:
-          - 6
-          - 6
+        - connectedParts:
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
+          - typeName: typeName
+            id: 0
+            element:
+              id: 6
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          origin:
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          shearInThread: true
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
+          name: name
+          length: 5.025004791520295
+          boltAssembly:
+            typeName: typeName
+            id: 0
+            element:
+              id: 6
+          positions:
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          - x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           id: 9
-          tensileStressArea: 1.284659006116532
-          boltAssemblyName: boltAssemblyName
           boltInteraction: bearing
       properties:
-        conenctionPointId:
-          description: Connection Point Id
-          format: int32
-          type: integer
+        connectionPoint:
+          $ref: '#/components/schemas/ReferenceElement'
         beams:
           description: Connected beams
           items:
@@ -4555,6 +4506,12 @@ components:
           description: Anchor grids which belongs to the connection
           items:
             $ref: '#/components/schemas/AnchorGrid'
+          nullable: true
+          type: array
+        pinGrids:
+          description: Pin grids which belongs to the connection
+          items:
+            $ref: '#/components/schemas/PinGrid'
           nullable: true
           type: array
         welds:
@@ -4876,18 +4833,18 @@ components:
       example:
         cuttingObject:
           typeName: typeName
-          id: 1
+          id: 0
           element:
             id: 6
         orientation: null
-        weldThickness: 0.2025324113236393
-        offset: 6.628464275087742
+        weldThickness: 3.0937452626664474
+        offset: 7.143538047012306
         method: boundingBox
         weldType: null
         name: name
         modifiedObject:
           typeName: typeName
-          id: 1
+          id: 0
           element:
             id: 6
         isWeld: true
@@ -4934,15 +4891,15 @@ components:
       description: Provides data of the cut beam
       example:
         planePoint:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         normalVector:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
-        offset: 1.2315135367772556
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        offset: 1.0246457001441578
         direction: default
       properties:
         planePoint:
@@ -5118,185 +5075,185 @@ components:
       description: Provides data of the folded plate
       example:
         plates:
-        - thickness: 6.027456183070403
+        - thickness: 1.4658129805029452
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           originalModelId: originalModelId
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           isNegativeObject: true
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           geometry:
             outline:
               startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             openings:
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
-          id: 7
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+          id: 1
           region: region
-        - thickness: 6.027456183070403
+        - thickness: 1.4658129805029452
           origin:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           originalModelId: originalModelId
           outlinePoints:
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
-          - x: 1.4658129805029452
-            "y": 5.962133916683182
+          - x: 5.962133916683182
+            "y": 5.637376656633329
+          - x: 5.962133916683182
+            "y": 5.637376656633329
           material: material
           axisZ:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           axisY:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           isNegativeObject: true
           name: name
           axisX:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           geometry:
             outline:
               startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             openings:
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
             - startPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
               segments:
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
               - endPoint:
-                  x: 1.4658129805029452
-                  "y": 5.962133916683182
-          id: 7
+                  x: 5.962133916683182
+                  "y": 5.637376656633329
+          id: 1
           region: region
         bends:
         - point1OfSideBoundary1:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           point1OfSideBoundary2:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           point2OfSideBoundary2:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           endFaceNormal1:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           point2OfSideBoundary1:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          plate1Id: 1
-          plate2Id: 4
-          radius: 5.025004791520295
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          plate1Id: 7
+          plate2Id: 1
+          radius: 4.965218492984954
         - point1OfSideBoundary1:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           point1OfSideBoundary2:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           point2OfSideBoundary2:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
           endFaceNormal1:
-            x: 3.616076749251911
-            "y": 2.027123023002322
-            z: 4.145608029883936
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            z: 7.386281948385884
           point2OfSideBoundary1:
-            x: 5.637376656633329
-            "y": 2.3021358869347655
-            z: 7.061401241503109
-            id: 9
-          plate1Id: 1
-          plate2Id: 4
-          radius: 5.025004791520295
+            x: 2.3021358869347655
+            "y": 7.061401241503109
+            z: 9.301444243932576
+            id: 3
+          plate1Id: 7
+          plate2Id: 1
+          radius: 4.965218492984954
       properties:
         plates:
           description: List of plates belong to folded plate
@@ -5579,6 +5536,37 @@ components:
           nullable: true
           type: array
       type: object
+    ParamValueType:
+      enum:
+      - generic
+      - text
+      - wholeNumber
+      - boolean
+      - boltPosition
+      - vector
+      - crossSection
+      - weldMaterial
+      - steelMaterial
+      - concreteMaterial
+      - boltAssembly
+      - lengthStructure
+      - lengthCrossSection
+      - lengthComponent
+      - angle
+      - force
+      - moment
+      - stress
+      - temperature
+      - relativeHumidity
+      - mass
+      - weight
+      - heatTransferConvection
+      - area
+      - coeff
+      - plateThickness
+      - weldSize
+      - dropdown
+      type: string
     ParameterData:
       additionalProperties: false
       example:
@@ -5591,6 +5579,10 @@ components:
         evaluatedDefaultValue: ""
         validationValue: validationValue
         isVisibleForSimpleConnection: true
+        valueType: generic
+        validationAllowedValues:
+        - validationAllowedValues
+        - validationAllowedValues
         id: 0
         value: ""
         evaluatedValue: ""
@@ -5619,6 +5611,11 @@ components:
         validationValue:
           nullable: true
           type: string
+        validationAllowedValues:
+          items:
+            type: string
+          nullable: true
+          type: array
         evaluatedValidationValue:
           nullable: true
           type: string
@@ -5627,74 +5624,163 @@ components:
         userUnitId:
           format: int32
           type: integer
+        valueType:
+          $ref: '#/components/schemas/ParamValueType'
         isVisibleForSimpleConnection:
           type: boolean
+      type: object
+    PinGrid:
+      additionalProperties: false
+      description: Data of the pin grid
+      example:
+        connectedParts:
+        - typeName: typeName
+          id: 0
+          element:
+            id: 6
+        - typeName: typeName
+          id: 0
+          element:
+            id: 6
+        pin:
+          typeName: typeName
+          id: 0
+          element:
+            id: 6
+        axisZ:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        origin:
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        axisY:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        axisX:
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
+        name: name
+        length: 2.8841621266687802
+        isReplaceable: true
+        positions:
+        - x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        - x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        id: 6
+      properties:
+        isReplaceable:
+          description: Replaceable pin
+          type: boolean
+        pin:
+          $ref: '#/components/schemas/ReferenceElement'
+        origin:
+          $ref: '#/components/schemas/Point3D'
+        axisX:
+          $ref: '#/components/schemas/Vector3D'
+        axisY:
+          $ref: '#/components/schemas/Vector3D'
+        axisZ:
+          $ref: '#/components/schemas/Vector3D'
+        positions:
+          description: Positions of holes in the local coordinate system of the grid
+          items:
+            $ref: '#/components/schemas/Point3D'
+          nullable: true
+          type: array
+        connectedParts:
+          description: List of the connected parts
+          items:
+            $ref: '#/components/schemas/ReferenceElement'
+          nullable: true
+          type: array
+        name:
+          description: Name
+          nullable: true
+          type: string
+        length:
+          description: Length
+          format: double
+          type: number
+        id:
+          description: Element Id
+          format: int32
+          type: integer
       type: object
     PlateData:
       additionalProperties: false
       description: Provides data of the single plate
       example:
-        thickness: 6.027456183070403
+        thickness: 1.4658129805029452
         origin:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         originalModelId: originalModelId
         outlinePoints:
-        - x: 1.4658129805029452
-          "y": 5.962133916683182
-        - x: 1.4658129805029452
-          "y": 5.962133916683182
+        - x: 5.962133916683182
+          "y": 5.637376656633329
+        - x: 5.962133916683182
+          "y": 5.637376656633329
         material: material
         axisZ:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
         axisY:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
         isNegativeObject: true
         name: name
         axisX:
-          x: 3.616076749251911
-          "y": 2.027123023002322
-          z: 4.145608029883936
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          z: 7.386281948385884
         geometry:
           outline:
             startPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
             segments:
             - endPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
             - endPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
           openings:
           - startPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
             segments:
             - endPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
             - endPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
           - startPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
             segments:
             - endPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
+                x: 5.962133916683182
+                "y": 5.637376656633329
             - endPoint:
-                x: 1.4658129805029452
-                "y": 5.962133916683182
-        id: 7
+                x: 5.962133916683182
+                "y": 5.637376656633329
+        id: 1
         region: region
       properties:
         name:
@@ -5747,8 +5833,8 @@ components:
       additionalProperties: false
       description: Represents an x- and y-coordinate pair in two-dimensional space.
       example:
-        x: 1.4658129805029452
-        "y": 5.962133916683182
+        x: 5.962133916683182
+        "y": 5.637376656633329
       properties:
         x:
           description: Gets or sets the X-coordinate value
@@ -5763,10 +5849,10 @@ components:
       additionalProperties: false
       description: "Represents an x- , y- an z-coordinates in three-dimensional space."
       example:
-        x: 5.637376656633329
-        "y": 2.3021358869347655
-        z: 7.061401241503109
-        id: 9
+        x: 2.3021358869347655
+        "y": 7.061401241503109
+        z: 9.301444243932576
+        id: 3
       properties:
         x:
           description: Gets or sets the X-coordinate value
@@ -5790,15 +5876,15 @@ components:
       description: Represents a polyline in two-dimensional space.
       example:
         startPoint:
-          x: 1.4658129805029452
-          "y": 5.962133916683182
+          x: 5.962133916683182
+          "y": 5.637376656633329
         segments:
         - endPoint:
-            x: 1.4658129805029452
-            "y": 5.962133916683182
+            x: 5.962133916683182
+            "y": 5.637376656633329
         - endPoint:
-            x: 1.4658129805029452
-            "y": 5.962133916683182
+            x: 5.962133916683182
+            "y": 5.637376656633329
       properties:
         startPoint:
           $ref: '#/components/schemas/Point2D'
@@ -5814,7 +5900,7 @@ components:
       description: Reference element class
       example:
         typeName: typeName
-        id: 1
+        id: 0
         element:
           id: 6
       properties:
@@ -5836,36 +5922,36 @@ components:
       example:
         outline:
           startPoint:
-            x: 1.4658129805029452
-            "y": 5.962133916683182
+            x: 5.962133916683182
+            "y": 5.637376656633329
           segments:
           - endPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
           - endPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
         openings:
         - startPoint:
-            x: 1.4658129805029452
-            "y": 5.962133916683182
+            x: 5.962133916683182
+            "y": 5.637376656633329
           segments:
           - endPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
           - endPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
         - startPoint:
-            x: 1.4658129805029452
-            "y": 5.962133916683182
+            x: 5.962133916683182
+            "y": 5.637376656633329
           segments:
           - endPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
           - endPoint:
-              x: 1.4658129805029452
-              "y": 5.962133916683182
+              x: 5.962133916683182
+              "y": 5.637376656633329
       properties:
         outline:
           $ref: '#/components/schemas/PolyLine2D'
@@ -5881,8 +5967,8 @@ components:
       description: Represents a segment in two-dimensional space.
       example:
         endPoint:
-          x: 1.4658129805029452
-          "y": 5.962133916683182
+          x: 5.962133916683182
+          "y": 5.637376656633329
       properties:
         endPoint:
           $ref: '#/components/schemas/Point2D'
@@ -6006,9 +6092,9 @@ components:
       additionalProperties: false
       description: Represents a vector in three-dimensional space.
       example:
-        x: 3.616076749251911
-        "y": 2.027123023002322
-        z: 4.145608029883936
+        x: 2.027123023002322
+        "y": 4.145608029883936
+        z: 7.386281948385884
       properties:
         x:
           description: Gets or sets the X-dirrection value
@@ -6031,23 +6117,23 @@ components:
         - connectedPartIds
         - connectedPartIds
         material: material
-        thickness: 5.533258397034986
+        thickness: 5.944895607614016
         weldType: notSpecified
         name: name
         start:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
         end:
-          x: 5.637376656633329
-          "y": 2.3021358869347655
-          z: 7.061401241503109
-          id: 9
-        id: 7
+          x: 2.3021358869347655
+          "y": 7.061401241503109
+          z: 9.301444243932576
+          id: 3
+        id: 6
         weldMaterial:
           typeName: typeName
-          id: 1
+          id: 0
           element:
             id: 6
       properties:

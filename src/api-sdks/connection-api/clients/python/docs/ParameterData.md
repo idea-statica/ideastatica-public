@@ -14,9 +14,11 @@ Name | Type | Description | Notes
 **evaluated_value** | **object** |  | [optional] 
 **evaluated_default_value** | **object** |  | [optional] 
 **validation_value** | **str** |  | [optional] 
+**validation_allowed_values** | **List[str]** |  | [optional] 
 **evaluated_validation_value** | **str** |  | [optional] 
 **validation_type** | [**ValidationType**](ValidationType.md) |  | [optional] 
 **user_unit_id** | **int** |  | [optional] 
+**value_type** | [**ParamValueType**](ParamValueType.md) |  | [optional] 
 **is_visible_for_simple_connection** | **bool** |  | [optional] 
 
 ## Example

@@ -37,6 +37,12 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// </summary>
         [DataMember(Name = "validationType", EmitDefaultValue = false)]
         public ValidationType? ValidationType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ValueType
+        /// </summary>
+        [DataMember(Name = "valueType", EmitDefaultValue = false)]
+        public ParamValueType? ValueType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ParameterData" /> class.
         /// </summary>
@@ -49,11 +55,13 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// <param name="evaluatedValue">evaluatedValue.</param>
         /// <param name="evaluatedDefaultValue">evaluatedDefaultValue.</param>
         /// <param name="validationValue">validationValue.</param>
+        /// <param name="validationAllowedValues">validationAllowedValues.</param>
         /// <param name="evaluatedValidationValue">evaluatedValidationValue.</param>
         /// <param name="validationType">validationType.</param>
         /// <param name="userUnitId">userUnitId.</param>
+        /// <param name="valueType">valueType.</param>
         /// <param name="isVisibleForSimpleConnection">isVisibleForSimpleConnection.</param>
-        public ParameterData(int id = default(int), string identifier = default(string), string description = default(string), string parameterType = default(string), Object value = default(Object), Object defaultValue = default(Object), Object evaluatedValue = default(Object), Object evaluatedDefaultValue = default(Object), string validationValue = default(string), string evaluatedValidationValue = default(string), ValidationType? validationType = default(ValidationType?), int userUnitId = default(int), bool isVisibleForSimpleConnection = default(bool))
+        public ParameterData(int id = default(int), string identifier = default(string), string description = default(string), string parameterType = default(string), Object value = default(Object), Object defaultValue = default(Object), Object evaluatedValue = default(Object), Object evaluatedDefaultValue = default(Object), string validationValue = default(string), List<string> validationAllowedValues = default(List<string>), string evaluatedValidationValue = default(string), ValidationType? validationType = default(ValidationType?), int userUnitId = default(int), ParamValueType? valueType = default(ParamValueType?), bool isVisibleForSimpleConnection = default(bool))
         {
             this.Id = id;
             this.Identifier = identifier;
@@ -64,9 +72,11 @@ namespace IdeaStatiCa.ConnectionApi.Model
             this.EvaluatedValue = evaluatedValue;
             this.EvaluatedDefaultValue = evaluatedDefaultValue;
             this.ValidationValue = validationValue;
+            this.ValidationAllowedValues = validationAllowedValues;
             this.EvaluatedValidationValue = evaluatedValidationValue;
             this.ValidationType = validationType;
             this.UserUnitId = userUnitId;
+            this.ValueType = valueType;
             this.IsVisibleForSimpleConnection = isVisibleForSimpleConnection;
         }
 
@@ -125,6 +135,12 @@ namespace IdeaStatiCa.ConnectionApi.Model
         public string ValidationValue { get; set; }
 
         /// <summary>
+        /// Gets or Sets ValidationAllowedValues
+        /// </summary>
+        [DataMember(Name = "validationAllowedValues", EmitDefaultValue = true)]
+        public List<string> ValidationAllowedValues { get; set; }
+
+        /// <summary>
         /// Gets or Sets EvaluatedValidationValue
         /// </summary>
         [DataMember(Name = "evaluatedValidationValue", EmitDefaultValue = true)]
@@ -159,9 +175,11 @@ namespace IdeaStatiCa.ConnectionApi.Model
             sb.Append("  EvaluatedValue: ").Append(EvaluatedValue).Append("\n");
             sb.Append("  EvaluatedDefaultValue: ").Append(EvaluatedDefaultValue).Append("\n");
             sb.Append("  ValidationValue: ").Append(ValidationValue).Append("\n");
+            sb.Append("  ValidationAllowedValues: ").Append(ValidationAllowedValues).Append("\n");
             sb.Append("  EvaluatedValidationValue: ").Append(EvaluatedValidationValue).Append("\n");
             sb.Append("  ValidationType: ").Append(ValidationType).Append("\n");
             sb.Append("  UserUnitId: ").Append(UserUnitId).Append("\n");
+            sb.Append("  ValueType: ").Append(ValueType).Append("\n");
             sb.Append("  IsVisibleForSimpleConnection: ").Append(IsVisibleForSimpleConnection).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

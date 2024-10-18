@@ -40,7 +40,7 @@ with ideastatica_client.IdeaStatiCaClient(configuration, project_file_path) as i
         pprint(project_data)
 
         # Get list of all connections in the project
-        connections_in_project = is_client.connection.get_all_connections_data(is_client.project_id)
+        connections_in_project = is_client.connection.get_connections(is_client.project_id)
 
         # first connection in the project 
         connection1 = connections_in_project[0]

@@ -34,34 +34,35 @@ namespace IdeaStatiCa.ConnectionApi.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectionData" /> class.
         /// </summary>
-        /// <param name="conenctionPointId">Connection Point Id.</param>
+        /// <param name="connectionPoint">connectionPoint.</param>
         /// <param name="beams">Connected beams.</param>
         /// <param name="plates">Plates of the connection.</param>
         /// <param name="foldedPlates">Folded plate of the connection.</param>
         /// <param name="boltGrids">Bolt grids which belongs to the connection.</param>
         /// <param name="anchorGrids">Anchor grids which belongs to the connection.</param>
+        /// <param name="pinGrids">Pin grids which belongs to the connection.</param>
         /// <param name="welds">Welds of the connection.</param>
         /// <param name="concreteBlocks">ConcreteBlocksof the connection.</param>
         /// <param name="cutBeamByBeams">cut beam by beams.</param>
-        public ConnectionData(int conenctionPointId = default(int), List<BeamData> beams = default(List<BeamData>), List<PlateData> plates = default(List<PlateData>), List<FoldedPlateData> foldedPlates = default(List<FoldedPlateData>), List<BoltGrid> boltGrids = default(List<BoltGrid>), List<AnchorGrid> anchorGrids = default(List<AnchorGrid>), List<WeldData> welds = default(List<WeldData>), List<ConcreteBlockData> concreteBlocks = default(List<ConcreteBlockData>), List<CutBeamByBeamData> cutBeamByBeams = default(List<CutBeamByBeamData>))
+        public ConnectionData(ReferenceElement connectionPoint = default(ReferenceElement), List<BeamData> beams = default(List<BeamData>), List<PlateData> plates = default(List<PlateData>), List<FoldedPlateData> foldedPlates = default(List<FoldedPlateData>), List<BoltGrid> boltGrids = default(List<BoltGrid>), List<AnchorGrid> anchorGrids = default(List<AnchorGrid>), List<PinGrid> pinGrids = default(List<PinGrid>), List<WeldData> welds = default(List<WeldData>), List<ConcreteBlockData> concreteBlocks = default(List<ConcreteBlockData>), List<CutBeamByBeamData> cutBeamByBeams = default(List<CutBeamByBeamData>))
         {
-            this.ConenctionPointId = conenctionPointId;
+            this.ConnectionPoint = connectionPoint;
             this.Beams = beams;
             this.Plates = plates;
             this.FoldedPlates = foldedPlates;
             this.BoltGrids = boltGrids;
             this.AnchorGrids = anchorGrids;
+            this.PinGrids = pinGrids;
             this.Welds = welds;
             this.ConcreteBlocks = concreteBlocks;
             this.CutBeamByBeams = cutBeamByBeams;
         }
 
         /// <summary>
-        /// Connection Point Id
+        /// Gets or Sets ConnectionPoint
         /// </summary>
-        /// <value>Connection Point Id</value>
-        [DataMember(Name = "conenctionPointId", EmitDefaultValue = false)]
-        public int ConenctionPointId { get; set; }
+        [DataMember(Name = "connectionPoint", EmitDefaultValue = false)]
+        public ReferenceElement ConnectionPoint { get; set; }
 
         /// <summary>
         /// Connected beams
@@ -99,6 +100,13 @@ namespace IdeaStatiCa.ConnectionApi.Model
         public List<AnchorGrid> AnchorGrids { get; set; }
 
         /// <summary>
+        /// Pin grids which belongs to the connection
+        /// </summary>
+        /// <value>Pin grids which belongs to the connection</value>
+        [DataMember(Name = "pinGrids", EmitDefaultValue = true)]
+        public List<PinGrid> PinGrids { get; set; }
+
+        /// <summary>
         /// Welds of the connection
         /// </summary>
         /// <value>Welds of the connection</value>
@@ -127,12 +135,13 @@ namespace IdeaStatiCa.ConnectionApi.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class ConnectionData {\n");
-            sb.Append("  ConenctionPointId: ").Append(ConenctionPointId).Append("\n");
+            sb.Append("  ConnectionPoint: ").Append(ConnectionPoint).Append("\n");
             sb.Append("  Beams: ").Append(Beams).Append("\n");
             sb.Append("  Plates: ").Append(Plates).Append("\n");
             sb.Append("  FoldedPlates: ").Append(FoldedPlates).Append("\n");
             sb.Append("  BoltGrids: ").Append(BoltGrids).Append("\n");
             sb.Append("  AnchorGrids: ").Append(AnchorGrids).Append("\n");
+            sb.Append("  PinGrids: ").Append(PinGrids).Append("\n");
             sb.Append("  Welds: ").Append(Welds).Append("\n");
             sb.Append("  ConcreteBlocks: ").Append(ConcreteBlocks).Append("\n");
             sb.Append("  CutBeamByBeams: ").Append(CutBeamByBeams).Append("\n");

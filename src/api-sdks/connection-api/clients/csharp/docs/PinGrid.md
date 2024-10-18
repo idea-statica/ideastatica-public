@@ -1,12 +1,12 @@
-# IdeaStatiCa.ConnectionApi.Model.BoltGrid
+# IdeaStatiCa.ConnectionApi.Model.PinGrid
+Data of the pin grid
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ShearInThread** | **bool** | Indicates, whether a shear plane is in the thread of a bolt. | [optional] 
-**BoltInteraction** | **BoltShearType** |  | [optional] 
-**BoltAssembly** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
+**IsReplaceable** | **bool** | Replaceable pin | [optional] 
+**Pin** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **Origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **AxisX** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **AxisY** | [**Vector3D**](Vector3D.md) |  | [optional] 

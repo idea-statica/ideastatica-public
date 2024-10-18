@@ -4,80 +4,14 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_all_connections_data**](ConnectionApi.md#get_all_connections_data) | **GET** /api/1/projects/{projectId}/connections | Get data about all connections in the project
-[**get_connection_data**](ConnectionApi.md#get_connection_data) | **GET** /api/1/projects/{projectId}/connections/{connectionId} | Get data about a specific connection in the project
+[**get_connection**](ConnectionApi.md#get_connection) | **GET** /api/1/projects/{projectId}/connections/{connectionId} | Get data about a specific connection in the project
+[**get_connections**](ConnectionApi.md#get_connections) | **GET** /api/1/projects/{projectId}/connections | Get data about all connections in the project
 [**get_production_cost**](ConnectionApi.md#get_production_cost) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/production-cost | Get production cost of the connection
-[**update_connection_data**](ConnectionApi.md#update_connection_data) | **PUT** /api/1/projects/{projectId}/connections/{connectionId} | Update data of a specific connection in the project
+[**update_connection**](ConnectionApi.md#update_connection) | **PUT** /api/1/projects/{projectId}/connections/{connectionId} | Update data of a specific connection in the project
 
 
-# **get_all_connections_data**
-> List[ConConnection] get_all_connections_data(project_id)
-
-Get data about all connections in the project
-
-### Example
-
-
-```python
-import ideastatica_connection_api
-from ideastatica_connection_api.models.con_connection import ConConnection
-from ideastatica_connection_api.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with ideastatica_connection_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = ideastatica_connection_api.ConnectionApi(api_client)
-    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
-
-    try:
-        # Get data about all connections in the project
-        api_response = api_instance.get_all_connections_data(project_id)
-        print("The response of ConnectionApi->get_all_connections_data:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ConnectionApi->get_all_connections_data: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
-
-### Return type
-
-[**List[ConConnection]**](ConConnection.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_connection_data**
-> ConConnection get_connection_data(project_id, connection_id)
+# **get_connection**
+> ConConnection get_connection(project_id, connection_id)
 
 Get data about a specific connection in the project
 
@@ -106,11 +40,11 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Get data about a specific connection in the project
-        api_response = api_instance.get_connection_data(project_id, connection_id)
-        print("The response of ConnectionApi->get_connection_data:\n")
+        api_response = api_instance.get_connection(project_id, connection_id)
+        print("The response of ConnectionApi->get_connection:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ConnectionApi->get_connection_data: %s\n" % e)
+        print("Exception when calling ConnectionApi->get_connection: %s\n" % e)
 ```
 
 
@@ -126,6 +60,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ConConnection**](ConConnection.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_connections**
+> List[ConConnection] get_connections(project_id)
+
+Get data about all connections in the project
+
+### Example
+
+
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_connection import ConConnection
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ideastatica_connection_api.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ideastatica_connection_api.ConnectionApi(api_client)
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
+
+    try:
+        # Get data about all connections in the project
+        api_response = api_instance.get_connections(project_id)
+        print("The response of ConnectionApi->get_connections:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ConnectionApi->get_connections: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+
+### Return type
+
+[**List[ConConnection]**](ConConnection.md)
 
 ### Authorization
 
@@ -212,8 +212,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_connection_data**
-> ConConnection update_connection_data(project_id, connection_id, con_connection=con_connection)
+# **update_connection**
+> ConConnection update_connection(project_id, connection_id, con_connection=con_connection)
 
 Update data of a specific connection in the project
 
@@ -243,11 +243,11 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Update data of a specific connection in the project
-        api_response = api_instance.update_connection_data(project_id, connection_id, con_connection=con_connection)
-        print("The response of ConnectionApi->update_connection_data:\n")
+        api_response = api_instance.update_connection(project_id, connection_id, con_connection=con_connection)
+        print("The response of ConnectionApi->update_connection:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ConnectionApi->update_connection_data: %s\n" % e)
+        print("Exception when calling ConnectionApi->update_connection: %s\n" % e)
 ```
 
 

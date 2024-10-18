@@ -16,11 +16,11 @@ namespace CodeSamples
 
 			//Get projectId Guid
 			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetAllConnectionsDataAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
 			//FIX: This should export IdeaRS classes not the client classes.
-			ConnectionData conData = await conClient.Export.ExportConnectionDataAsync(projectId, connectionId);
+			ConnectionData conData = await conClient.Export.ExportIomConnectionDataAsync(projectId, connectionId);
 
 			//Print the connection data to the Console.
 			Console.WriteLine($"Number of Plates: { conData.Plates.Count()}");
@@ -28,7 +28,7 @@ namespace CodeSamples
 			Console.WriteLine($"Number of Welds: {conData.Welds.Count()}");
 			Console.WriteLine($"Number of Cuts: {conData.CutBeamByBeams.Count()}");
 
-			await conClient.Project.CloseProjectAsync(projectId.ToString());
+			await conClient.Project.CloseProjectAsync(projectId);
 		}
 	}
 }

@@ -59,13 +59,13 @@ namespace ST_ConnectionRestApi
 		[Test]
 		public async Task ShouldCloseProject()
 		{
-			await ConnectionApiClient!.Project!.CloseProjectAsync(ActiveProjectId.ToString());
+			await ConnectionApiClient!.Project!.CloseProjectAsync(ActiveProjectId);
 		}
 
 		[Test]
 		public async Task ShouldGetConnections()
 		{
-			var connections = await ConnectionApiClient!.Connection!.GetAllConnectionsDataAsync(ActiveProjectId);
+			var connections = await ConnectionApiClient!.Connection!.GetConnectionsAsync(ActiveProjectId);
 			connections.Should().NotBeNull();
 			connections.Count.Should().Be(3);
 
@@ -86,7 +86,7 @@ namespace ST_ConnectionRestApi
 		public async Task ShouldGetConnection()
 		{
 			// request connection id = 2
-			var con2 = await ConnectionApiClient!.Connection!.GetConnectionDataAsync(ActiveProjectId, 2);
+			var con2 = await ConnectionApiClient!.Connection!.GetConnectionAsync(ActiveProjectId, 2);
 			con2.Id.Should().Be(2);
 			con2.AnalysisType.Should().Be(ConAnalysisTypeEnum.Stiffness);
 		}
@@ -116,18 +116,18 @@ namespace ST_ConnectionRestApi
 		public async Task ShouldUpdateConnection()
 		{
 			const string NewConnectionName = "Updated name";
-			var con1 = await ConnectionApiClient!.Connection!.GetConnectionDataAsync(ActiveProjectId, 1);
+			var con1 = await ConnectionApiClient!.Connection!.GetConnectionAsync(ActiveProjectId, 1);
 			con1.Id.Should().Be(1);
 
 			con1.Name.Should().Be("1Col-2Beams-Welded");
 			con1.Name = NewConnectionName;
 
-			var updatedConnection1 = await ConnectionApiClient!.Connection!.UpdateConnectionDataAsync(ActiveProjectId, 1, con1);
+			var updatedConnection1 = await ConnectionApiClient!.Connection!.UpdateConnectionAsync(ActiveProjectId, 1, con1);
 
 			updatedConnection1.Id.Should().Be(1);
 			updatedConnection1.Name.Should().Be(NewConnectionName, "The data in the response should include updated name of connection");
 
-			var con1_updated = await ConnectionApiClient!.Connection!.GetConnectionDataAsync(ActiveProjectId, 1);
+			var con1_updated = await ConnectionApiClient!.Connection!.GetConnectionAsync(ActiveProjectId, 1);
 			updatedConnection1.Id.Should().Be(1);
 			updatedConnection1.Name.Should().Be(NewConnectionName, "The change should be persistent");
 		}
@@ -135,15 +135,15 @@ namespace ST_ConnectionRestApi
 		[Test]
 		public async Task ShouldGetConnectionIOMModel()
 		{
-			var con1 = await ConnectionApiClient!.Connection!.GetConnectionDataAsync(ActiveProjectId, 1);
-			var conData = await ConnectionApiClient!.Export!.ExportConnectionDataAsync(ActiveProjectId, con1.Id);
+			var con1 = await ConnectionApiClient!.Connection!.GetConnectionAsync(ActiveProjectId, 1);
+			var conData = await ConnectionApiClient!.Export!.ExportIomConnectionDataAsync (ActiveProjectId, con1.Id);
 			conData.Should().NotBeNull();
 		}
 
 		[Test]
 		public async Task ShouldGetAllMembers()
 		{
-			var members = await ConnectionApiClient!.Member!.GetAllMemberDataAsync(ActiveProjectId, 1);
+			var members = await ConnectionApiClient!.Member!.GetMembersAsync(ActiveProjectId, 1);
 			members.Count.Should().Be(3);
 
 			var mem1 = members[0];
@@ -180,7 +180,7 @@ namespace ST_ConnectionRestApi
 		[Test]
 		public async Task ShouldGetOneMember()
 		{
-			var member = await ConnectionApiClient!.Member!.GetMemberDataAsync(ActiveProjectId, 1, 1);
+			var member = await ConnectionApiClient!.Member!.GetMemberAsync(ActiveProjectId, 1, 1);
 
 			member.Id.Should().Be(1);
 			member.Name.Should().Be("C");
@@ -195,7 +195,7 @@ namespace ST_ConnectionRestApi
 		[Test]
 		public async Task SetBearingMember()
 		{
-			var member = await ConnectionApiClient!.Member!.GetMemberDataAsync(ActiveProjectId, 1, 1);
+			var member = await ConnectionApiClient!.Member!.GetMemberAsync(ActiveProjectId, 1, 1);
 
 			member.Id.Should().Be(1);
 			member.Name.Should().Be("C");
@@ -209,14 +209,14 @@ namespace ST_ConnectionRestApi
 			var bearingMember = await ConnectionApiClient!.Member!.SetBearingMemberAsync(ActiveProjectId, 1, 2);
 			bearingMember.IsBearing.Should().BeTrue();
 
-			member = await ConnectionApiClient!.Member!.GetMemberDataAsync(ActiveProjectId, 1, 1);
+			member = await ConnectionApiClient!.Member!.GetMemberAsync(ActiveProjectId, 1, 1);
 			member.IsBearing.Should().BeFalse();
 		}
 
 		[Test]
 		public async Task ShouldUpdateMember()
 		{
-			var member = await ConnectionApiClient!.Member!.GetMemberDataAsync(ActiveProjectId, 3, 1);
+			var member = await ConnectionApiClient!.Member!.GetMemberAsync(ActiveProjectId, 3, 1);
 
 			member.Name = "D";
 			member.CrossSectionId = 2;
@@ -224,7 +224,7 @@ namespace ST_ConnectionRestApi
 			member.MirrorY = true;
 			member.MirrorZ = true;
 
-			var updatedMember = await ConnectionApiClient!.Member!.UpdateMemberAsync(ActiveProjectId, 3, 1, member);
+			var updatedMember = await ConnectionApiClient!.Member!.UpdateMemberAsync(ActiveProjectId, 3, member);
 			updatedMember.Name.Should().Be("D");
 			updatedMember.CrossSectionId?.Should().Be(2);
 			updatedMember.IsContinuous.Should().BeFalse();
@@ -238,7 +238,7 @@ namespace ST_ConnectionRestApi
 			var con1 = Project!.Connections.First();
 			con1.Id.Should().Be(1);
 
-			var connectionData = await ConnectionApiClient!.Export!.ExportConnectionDataAsync(ActiveProjectId, 1);
+			var connectionData = await ConnectionApiClient!.Export!.ExportIomConnectionDataAsync(ActiveProjectId, 1);
 			connectionData.Should().NotBeNull();
 		}
 

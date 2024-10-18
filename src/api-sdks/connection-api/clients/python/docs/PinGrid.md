@@ -1,13 +1,13 @@
-# BoltGrid
+# PinGrid
 
+Data of the pin grid
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**shear_in_thread** | **bool** | Indicates, whether a shear plane is in the thread of a bolt. | [optional] 
-**bolt_interaction** | [**BoltShearType**](BoltShearType.md) |  | [optional] 
-**bolt_assembly** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
+**is_replaceable** | **bool** | Replaceable pin | [optional] 
+**pin** | [**ReferenceElement**](ReferenceElement.md) |  | [optional] 
 **origin** | [**Point3D**](Point3D.md) |  | [optional] 
 **axis_x** | [**Vector3D**](Vector3D.md) |  | [optional] 
 **axis_y** | [**Vector3D**](Vector3D.md) |  | [optional] 
@@ -21,19 +21,19 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from ideastatica_connection_api.models.bolt_grid import BoltGrid
+from ideastatica_connection_api.models.pin_grid import PinGrid
 
 # TODO update the JSON string below
 json = "{}"
-# create an instance of BoltGrid from a JSON string
-bolt_grid_instance = BoltGrid.from_json(json)
+# create an instance of PinGrid from a JSON string
+pin_grid_instance = PinGrid.from_json(json)
 # print the JSON string representation of the object
-print(BoltGrid.to_json())
+print(PinGrid.to_json())
 
 # convert the object into a dict
-bolt_grid_dict = bolt_grid_instance.to_dict()
-# create an instance of BoltGrid from a dict
-bolt_grid_from_dict = BoltGrid.from_dict(bolt_grid_dict)
+pin_grid_dict = pin_grid_instance.to_dict()
+# create an instance of PinGrid from a dict
+pin_grid_from_dict = PinGrid.from_dict(pin_grid_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
