@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace IdeaStatiCa.IntermediateModel.Extensions
 {
-	static public class SModelExtensions
+	public static class SModelExtensions
 	{
 		/// <summary>
 		/// Change Element Value
@@ -12,9 +12,9 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="model"></param>
 		/// <param name="filter"></param>
 		/// <param name="newPropertyValue"></param>
-		static public void ChangeElementValue(this SModel model, string filter, string newPropertyValue)
+		public static void ChangeElementValue(this SModel model, string filter, string newPropertyValue)
 		{
-			var queue = new Queue<string>();
+			Queue<string> queue = new Queue<string>();
 			queue.Enqueue(filter);
 			model.ChangeElementValue(queue, newPropertyValue);
 		}
@@ -25,10 +25,10 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="model"></param>
 		/// <param name="filter"></param>
 		/// <param name="newPropertyValue"></param>
-		static public void ChangeElementValue(this SModel model, Queue<string> filter, string newPropertyValue)
+		public static void ChangeElementValue(this SModel model, Queue<string> filter, string newPropertyValue)
 		{
-			var foundItems = model.GetElements(filter);
-			foreach (var item in foundItems)
+			IEnumerable<ISIntermediate> foundItems = model.GetElements(filter);
+			foreach (ISIntermediate item in foundItems)
 			{
 				item.ChangeElementValue(newPropertyValue);
 			}
@@ -40,9 +40,9 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="model"></param>
 		/// <param name="filter"></param>
 		/// <param name="newPropertyName"></param>
-		static public void ChangeElementName(this SModel model, string filter, string newPropertyName)
+		public static void ChangeElementName(this SModel model, string filter, string newPropertyName)
 		{
-			var queue = new Queue<string>();
+			Queue<string> queue = new Queue<string>();
 			queue.Enqueue(filter);
 			model.ChangeElementName(queue, newPropertyName);
 		}
@@ -53,10 +53,10 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="model"></param>
 		/// <param name="filter"></param>
 		/// <param name="newPropertyName"></param>
-		static public void ChangeElementName(this SModel model, Queue<string> filter, string newPropertyName)
+		public static void ChangeElementName(this SModel model, Queue<string> filter, string newPropertyName)
 		{
-			var foundItems = model.GetElements(filter);
-			foreach (var item in foundItems)
+			IEnumerable<ISIntermediate> foundItems = model.GetElements(filter);
+			foreach (ISIntermediate item in foundItems)
 			{
 				item.ChangeElementPropertyName(filter.Last(), newPropertyName);
 			}
@@ -68,7 +68,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="model"></param>
 		/// <param name="filter"></param>
 		/// <returns></returns>
-		static IEnumerable<ISIntermediate> GetElements(this SModel model, Queue<string> filter)
+		private static IEnumerable<ISIntermediate> GetElements(this SModel model, Queue<string> filter)
 		{
 			return model.RootItem.GetElements(filter);
 		}
@@ -79,7 +79,7 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 		/// <param name="model"></param>
 		/// <param name="filter"></param>
 		/// <returns></returns>
-		static public IEnumerable<ISIntermediate> GetElements(this SModel model, string filter)
+		public static IEnumerable<ISIntermediate> GetElements(this SModel model, string filter)
 		{
 			return model.RootItem.GetElements(filter);
 		}
@@ -98,6 +98,24 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 			TValue value = dic[fromKey];
 			dic.Remove(fromKey);
 			dic[toKey] = value;
+		}
+
+		/// <summary>
+		/// Find and keep
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="filter"></param>
+		/// <returns></returns>
+		public static bool TryGetFirstElement(this SModel model, string filter, out ISIntermediate element)
+		{
+			element = model.RootItem.GetElements(filter).FirstOrDefault();
+
+			if (element is null)
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

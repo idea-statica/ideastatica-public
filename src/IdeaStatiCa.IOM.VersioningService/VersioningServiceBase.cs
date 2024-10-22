@@ -10,6 +10,8 @@ namespace IdeaStatiCa.IOM.VersioningService
 {
 	public class VersioningServiceBase : IVersioningService
 	{
+		public bool IsModelEmpty { get; private set; } = true;
+
 		protected SModel _model;
 		protected readonly IPluginLogger _logger;
 		private readonly IConfigurationStepService _configurationStepService;
@@ -21,14 +23,21 @@ namespace IdeaStatiCa.IOM.VersioningService
 			IConfigurationStepService configurationStepService
 			)
 		{
-			this._logger = logger;
-			this._configurationStepService = configurationStepService;
+			_logger = logger;
+			_configurationStepService = configurationStepService;
 		}
 
 		public bool IsModelActual()
 		{
 			_logger.LogDebug("IsModelActual");
-			var isActual = _configurationStepService.GetLatestStepVersion() == VersionTool.GetVersion(_model.Version);
+
+			if (IsModelEmpty)
+			{
+				_logger.LogDebug("IsModelActual model is empty");
+				return true;
+			}
+
+			bool isActual = _configurationStepService.GetLatestStepVersion() == VersionTool.GetVersion(_model.Version);
 			_logger.LogDebug($"IsModelActual isActual {isActual}");
 			return isActual;
 		}
@@ -66,9 +75,15 @@ namespace IdeaStatiCa.IOM.VersioningService
 
 			if (string.IsNullOrEmpty(_model.Version))
 			{
-				var openModel = _model.GetModelElement();
+				ISIntermediate openModel = _model.GetModelElement(false);
+				if (openModel is null || openModel.IsEmpty())
+				{
+					IsModelEmpty = true;
+					_logger.LogDebug($"LoadModel model is empty");
+					return;
+				}
 
-				var version = openModel.GetElementValue("Version");
+				string version = openModel.GetElementValue("Version");
 
 				if (string.IsNullOrEmpty(version))
 				{
@@ -79,6 +94,7 @@ namespace IdeaStatiCa.IOM.VersioningService
 				_model.Version = version;
 			}
 
+			IsModelEmpty = false;
 			_logger.LogInformation($"LoadModel in version {_model.Version}");
 		}
 	}
