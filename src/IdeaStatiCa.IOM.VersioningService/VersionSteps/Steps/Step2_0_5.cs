@@ -98,7 +98,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 					boltGrid.RemoveElementProperty("BoreHole");
 					boltGrid.ChangeElementPropertyName("Borehole", "BoreHole");
 
-					var boltGradeId = boltGridAssemblyItem.GetElements("BoltGrade;ReferenceElement;Id")
+					var boltGradeId = boltGridAssemblyItem.GetElements("BoltGrade;Id")
 						.FirstOrDefault()?.GetElementValue(null);
 
 					if (boltGradeId != null && boltGradesLookup.TryGetValue(boltGradeId, out var boltGradeName))
@@ -107,6 +107,10 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 						di.ChangeElementValue(boltGradeName);
 					}
 				}
+
+				boltGrid.CreateElementProperty("IsAnchor", "false");
+
+				IRIOMTool.CopyProperty(boltGrid, boltGrid, "BoreHole", "HoleDiameter");
 			}
 		}
 
@@ -131,7 +135,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 					anchorGrid.RemoveElementProperty("BoreHole");
 					anchorGrid.ChangeElementPropertyName("Borehole", "BoreHole");
 
-					var boltGradeId = anchorGridAssemblyItem.GetElements("BoltGrade;ReferenceElement;Id")
+					var boltGradeId = anchorGridAssemblyItem.GetElements("BoltGrade;Id")
 						.FirstOrDefault()?.GetElementValue(null);
 
 					if (boltGradeId != null && boltGradesLookup.TryGetValue(boltGradeId, out var boltGradeName))
@@ -140,9 +144,14 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 						di.ChangeElementValue(boltGradeName);
 					}
 				}
+
 				IRIOMTool.CopyProperty(anchorGrid, anchorGrid, "AnchoringLength", "AnchorLen");
 				anchorGrid.RemoveElementProperty("HookLength");
 				anchorGrid.RemoveElementProperty("AnchoringLength");
+
+				anchorGrid.CreateElementProperty("IsAnchor", "true");
+
+				IRIOMTool.CopyProperty(anchorGrid, anchorGrid, "BoreHole", "HoleDiameter");
 			}
 		}
 
@@ -254,7 +263,6 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			grid.RemoveElementProperty("BoltAssemblyName");
 			grid.RemoveElementProperty("Standard");
 			grid.RemoveElementProperty("Material");
-			grid.RemoveElementProperty("ConnectedPlates");
 		}
 	}
 }
