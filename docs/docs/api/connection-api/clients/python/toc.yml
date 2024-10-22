@@ -1,0 +1,5 @@
+- name: Getting started with python
+  href: python_client_getting_started.md
+- name: Documentation
+  href: ../../../../../../src/api-sdks/connection-api/clients/python/README.md
+- name: CodeSamples

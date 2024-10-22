@@ -1,0 +1,6 @@
+- name: Getting started with C#
+  href: csharp_client_getting_started.md
+- name: Documentation
+  href: ../../../../../../src/api-sdks/connection-api/clients/csharp/README.md
+- name: CodeSamples
+- name: Example projects
