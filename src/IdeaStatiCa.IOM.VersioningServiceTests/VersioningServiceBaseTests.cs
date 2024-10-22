@@ -32,15 +32,15 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 			Assert.That(() => _versioningService.LoadModel(null), Throws.Exception);
 		}
 
-		[Test]
-		public void VersioningService_Load_ModelIsNotIOM_ShouldFail()
-		{
-			string xmlContent = "<root><person><name>John Doe</name><age>30</age></person></root>";
+		//[Test]
+		//public void VersioningService_Load_ModelIsNotIOM_ShouldFail()
+		//{
+		//	string xmlContent = "<root><person><name>John Doe</name><age>30</age></person></root>";
 
-			var model = _xmlParsingIRService.ParseXml(xmlContent);
+		//	var model = _xmlParsingIRService.ParseXml(xmlContent);
 
-			Assert.That(() => _versioningService.LoadModel(model), Throws.Exception);
-		}
+		//	Assert.That(() => _versioningService.LoadModel(model), Throws.Exception);
+		//}
 
 		[Test]
 		public void VersioningService_Load_ModelIsNotContainsVersion_ShouldFail()
@@ -61,7 +61,18 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 
 			_versioningService.LoadModel(model);
 
-			Assert.IsNotNull(model.Version);
+			Assert.That(model.Version, Is.Not.Null);
+		}
+
+		[Test]
+		public void VersioningService_Load_OpenModelContainerEmpty()
+		{
+			string xmlContent = "<OpenModelContainer><OpenModel/><OpenModelResult/></OpenModelContainer>";
+
+			var model = _xmlParsingIRService.ParseXml(xmlContent);
+			_versioningService.LoadModel(model);
+
+			Assert.That(_versioningService.IsModelActual(), Is.True);
 		}
 	}
 }

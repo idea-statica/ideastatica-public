@@ -102,6 +102,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			foreach (var boltGrid in grids)
 			{
 				var connectedPartIdsList = boltGrid.CreateElementProperty("ConnectedPartIds").CreateListProperty("ConnectedPartIds");
+				var connectedPlatesList = boltGrid.CreateElementProperty("ConnectedPlates").CreateListProperty("ConnectedPlates");
 
 				var connectedPartsId = boltGrid.GetElements("ConnectedParts;ReferenceElement;Id");
 				foreach (var connectedPartId in connectedPartsId)
@@ -113,6 +114,10 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 						var part = new SObject() { TypeName = "string" };
 						part.ChangeElementValue(item.OriginalModelId);
 						connectedPartIdsList.AddElementProperty(part);
+
+						var plate = new SObject() { TypeName = "int" };
+						plate.ChangeElementValue(item.Id);
+						connectedPlatesList.AddElementProperty(plate);
 					}
 
 				}
@@ -139,6 +144,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 
 				}
 				boltGrid.RemoveElementProperty("ConnectedPartIds");
+				boltGrid.RemoveElementProperty("ConnectedPlates");
 			}
 		}
 	}

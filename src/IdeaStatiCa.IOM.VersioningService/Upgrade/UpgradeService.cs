@@ -2,6 +2,7 @@
 using IdeaStatiCa.IOM.VersioningService.Exceptions;
 using IdeaStatiCa.Plugin;
 using System;
+using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.Upgrade
 {
@@ -13,6 +14,11 @@ namespace IdeaStatiCa.IOM.VersioningService.Upgrade
 
 		public void Upgrade()
 		{
+			if (IsModelEmpty)
+			{
+				_logger.LogDebug("Upgrade: model is empty");
+			}
+
 			var versionBeforeUpgrade = this.GetCurrentVersion();
 			_logger.LogInformation($"Upgrade from version {versionBeforeUpgrade}");
 			foreach (var step in ConfigurationStepService.UpgradeSteps())

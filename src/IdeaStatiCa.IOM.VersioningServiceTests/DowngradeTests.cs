@@ -51,7 +51,7 @@ namespace IdeaStatiCa.OpenModel.VersioningServiceTests
 			_downgradeService.LoadModel(model);
 
 
-			Assert.IsTrue(_downgradeService.GetVersionsToDowngrade().Count() == numOfSteps);
+			Assert.That(_downgradeService.GetVersionsToDowngrade().Count(), Is.EqualTo(numOfSteps));
 
 		}
 
