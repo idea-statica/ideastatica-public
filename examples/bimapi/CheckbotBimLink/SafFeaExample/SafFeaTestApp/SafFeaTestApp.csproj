@@ -13,7 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Inputs\" />
+    <None Update="Inputs\SAF_steel_truss_first_import.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Inputs\SAF_steel_truss_sync.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
