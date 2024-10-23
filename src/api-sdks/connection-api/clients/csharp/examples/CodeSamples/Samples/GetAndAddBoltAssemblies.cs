@@ -41,8 +41,8 @@ namespace CodeSamples
 				if (!BoltAssembliesMap.ContainsKey(assembly))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					ConMprlElement added = await conClient.Material.AddBoltAssemblyAsync(projectId, new ConMprlElement(assembly));
-					Console.WriteLine("Successfully Added new Bolt Assembly: " + added.MprlName);
+					await conClient.Material.AddBoltAssemblyAsync(projectId, new ConMprlElement(assembly));
+					//Console.WriteLine("Successfully Added new Bolt Assembly: " + added.MprlName);
 
 					//Need to check what happens if name is not found...
 				}

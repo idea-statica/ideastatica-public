@@ -15,17 +15,11 @@
     <NoWarn>1701;1702;8604;8600;8602</NoWarn>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Polly" Version="8.4.2" />
-		<PackageReference Include="RestSharp" Version="112.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
-	  <ProjectReference Include="..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
-	  <ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.0.3003" />
+    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.0.3003" />
+    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.0.3003" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <None Update="Inputs\corner-empty.ideaCon">

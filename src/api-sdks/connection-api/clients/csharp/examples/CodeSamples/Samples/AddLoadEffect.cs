@@ -37,7 +37,7 @@ namespace CodeSamples
 				//FIX: DOES NOT WORK.
 				//FIX: Add LoadEffect should return ConLoadEffect
 				//FIX: Default should be active.
-				LoadEffectData newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId);
+				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId);
 				
 				if(newLoadEffect != null) 
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}"); 
@@ -46,7 +46,7 @@ namespace CodeSamples
 				ConLoadEffect loadEffect = new ConLoadEffect() { Name = input };
 
 				//FIX: DOES WORK.
-				LoadEffectData newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, loadEffect);
+				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, loadEffect);
 				if (newLoadEffect != null)
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}");
 			}
