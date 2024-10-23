@@ -84,8 +84,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId">Id of the connection to apply template</param>
         /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;ParameterData&gt;</returns>
-        List<ParameterData> UpdateParameters(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0);
+        /// <returns>List&lt;IdeaParameter&gt;</returns>
+        List<IdeaParameter> UpdateParameters(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0);
 
         /// <summary>
         /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
@@ -99,8 +99,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;ParameterData&gt;</returns>
-        ApiResponse<List<ParameterData>> UpdateParametersWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
+        ApiResponse<List<IdeaParameter>> UpdateParametersWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -182,8 +182,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;ParameterData&gt;</returns>
-        System.Threading.Tasks.Task<List<ParameterData>> UpdateParametersAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
+        System.Threading.Tasks.Task<List<IdeaParameter>> UpdateParametersAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Update parameters for the connection connectionId in the project projectId by values passed in parameters
@@ -198,8 +198,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;ParameterData&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<ParameterData>>> UpdateParametersWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<IdeaParameter>>> UpdateParametersWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -648,10 +648,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId">Id of the connection to apply template</param>
         /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>List&lt;ParameterData&gt;</returns>
-        public List<ParameterData> UpdateParameters(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0)
+        /// <returns>List&lt;IdeaParameter&gt;</returns>
+        public List<IdeaParameter> UpdateParameters(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ParameterData>> localVarResponse = UpdateParametersWithHttpInfo(projectId, connectionId, ideaParameterUpdate);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> localVarResponse = UpdateParametersWithHttpInfo(projectId, connectionId, ideaParameterUpdate);
             return localVarResponse.Data;
         }
 
@@ -664,8 +664,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of List&lt;ParameterData&gt;</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ParameterData>> UpdateParametersWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of List&lt;IdeaParameter&gt;</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> UpdateParametersWithHttpInfo(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -704,7 +704,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Put<List<ParameterData>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Put<List<IdeaParameter>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("UpdateParameters", localVarResponse);
@@ -726,10 +726,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="ideaParameterUpdate">New values of parameters (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of List&lt;ParameterData&gt;</returns>
-        public async System.Threading.Tasks.Task<List<ParameterData>> UpdateParametersAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of List&lt;IdeaParameter&gt;</returns>
+        public async System.Threading.Tasks.Task<List<IdeaParameter>> UpdateParametersAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ParameterData>> localVarResponse = await UpdateParametersWithHttpInfoAsync(projectId, connectionId, ideaParameterUpdate, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>> localVarResponse = await UpdateParametersWithHttpInfoAsync(projectId, connectionId, ideaParameterUpdate, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -743,8 +743,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (List&lt;ParameterData&gt;)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<ParameterData>>> UpdateParametersWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (List&lt;IdeaParameter&gt;)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<List<IdeaParameter>>> UpdateParametersWithHttpInfoAsync(Guid projectId, int connectionId, List<IdeaParameterUpdate> ideaParameterUpdate = default(List<IdeaParameterUpdate>), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -784,7 +784,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PutAsync<List<ParameterData>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PutAsync<List<IdeaParameter>>("/api/1/projects/{projectId}/connections/{connectionId}/parameters", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

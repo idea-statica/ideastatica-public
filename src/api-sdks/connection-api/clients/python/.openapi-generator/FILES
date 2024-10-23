@@ -54,7 +54,6 @@ docs/CutOrientation.md
 docs/CutPart.md
 docs/DistanceComparison.md
 docs/DrawData.md
-docs/EPurpose.md
 docs/ExportApi.md
 docs/FoldedPlateData.md
 docs/IGroup.md
@@ -62,7 +61,6 @@ docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
 docs/Line.md
 docs/LoadEffectApi.md
-docs/LoadEffectData.md
 docs/MaterialApi.md
 docs/MemberApi.md
 docs/MessageNumber.md
@@ -70,9 +68,7 @@ docs/OpenElementId.md
 docs/OpenMessage.md
 docs/OpenMessages.md
 docs/OperationApi.md
-docs/ParamValueType.md
 docs/ParameterApi.md
-docs/ParameterData.md
 docs/PinGrid.md
 docs/PlateData.md
 docs/Point2D.md
@@ -90,7 +86,6 @@ docs/TemplateApi.md
 docs/TemplateConversions.md
 docs/Text.md
 docs/TextPosition.md
-docs/ValidationType.md
 docs/Vector3D.md
 docs/WeldData.md
 docs/WeldEvaluation.md
@@ -163,19 +158,15 @@ ideastatica_connection_api/models/cut_orientation.py
 ideastatica_connection_api/models/cut_part.py
 ideastatica_connection_api/models/distance_comparison.py
 ideastatica_connection_api/models/draw_data.py
-ideastatica_connection_api/models/e_purpose.py
 ideastatica_connection_api/models/folded_plate_data.py
 ideastatica_connection_api/models/i_group.py
 ideastatica_connection_api/models/idea_parameter.py
 ideastatica_connection_api/models/idea_parameter_update.py
 ideastatica_connection_api/models/line.py
-ideastatica_connection_api/models/load_effect_data.py
 ideastatica_connection_api/models/message_number.py
 ideastatica_connection_api/models/open_element_id.py
 ideastatica_connection_api/models/open_message.py
 ideastatica_connection_api/models/open_messages.py
-ideastatica_connection_api/models/param_value_type.py
-ideastatica_connection_api/models/parameter_data.py
 ideastatica_connection_api/models/pin_grid.py
 ideastatica_connection_api/models/plate_data.py
 ideastatica_connection_api/models/point2_d.py
@@ -189,7 +180,6 @@ ideastatica_connection_api/models/selected_type.py
 ideastatica_connection_api/models/template_conversions.py
 ideastatica_connection_api/models/text.py
 ideastatica_connection_api/models/text_position.py
-ideastatica_connection_api/models/validation_type.py
 ideastatica_connection_api/models/vector3_d.py
 ideastatica_connection_api/models/weld_data.py
 ideastatica_connection_api/models/weld_evaluation.py
