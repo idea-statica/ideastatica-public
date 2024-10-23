@@ -23,7 +23,7 @@ namespace SafFeaBimLink
             {
 				logger.LogInformation("Saf Fea Link started");
 
-                string workingDirectory = Path.Combine(Path.GetDirectoryName(feaModelApi.GetModelFilePath()), "IdeaStatiCa-" + feaModelApi.GetModelName());
+                string workingDirectory = Path.Combine(feaModelApi.GetModelDirectory(), "IdeaStatiCa-" + feaModelApi.GetModelName());
                 if (!Directory.Exists(workingDirectory))
                 {
                     Directory.CreateDirectory(workingDirectory);
