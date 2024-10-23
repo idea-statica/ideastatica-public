@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NativeFeaCombiFactor.h" />
     <ClInclude Include="CppFeaApiDll.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="NativeFeaApi.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NativeFeaCombiFactor.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="NativeFeaApi.cpp" />
     <ClCompile Include="NativeFeaGeometry.cpp" />
