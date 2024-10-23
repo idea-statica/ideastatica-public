@@ -2,7 +2,7 @@
 #include "CppFeaApiDll.h"
 
 
-class CPPFEAAPIDLL_EXPORT NativeFeaCombiFactor
+struct CPPFEAAPIDLL_EXPORT NativeFeaCombiFactor
 {
 public:
 	NativeFeaCombiFactor();
