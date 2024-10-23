@@ -34,8 +34,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>LoadEffectData</returns>
-        LoadEffectData AddLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0);
+        /// <returns>ConLoadEffect</returns>
+        ConLoadEffect AddLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0);
 
         /// <summary>
         /// Add new load effect to the connection
@@ -49,8 +49,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of LoadEffectData</returns>
-        ApiResponse<LoadEffectData> AddLoadEffectWithHttpInfo(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of ConLoadEffect</returns>
+        ApiResponse<ConLoadEffect> AddLoadEffectWithHttpInfo(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Delete load effect loadEffectId
         /// </summary>
@@ -222,8 +222,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of LoadEffectData</returns>
-        System.Threading.Tasks.Task<LoadEffectData> AddLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ConLoadEffect</returns>
+        System.Threading.Tasks.Task<ConLoadEffect> AddLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add new load effect to the connection
@@ -238,8 +238,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (LoadEffectData)</returns>
-        System.Threading.Tasks.Task<ApiResponse<LoadEffectData>> AddLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (ConLoadEffect)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ConLoadEffect>> AddLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Delete load effect loadEffectId
         /// </summary>
@@ -548,10 +548,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="connectionId"></param>
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>LoadEffectData</returns>
-        public LoadEffectData AddLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0)
+        /// <returns>ConLoadEffect</returns>
+        public ConLoadEffect AddLoadEffect(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<LoadEffectData> localVarResponse = AddLoadEffectWithHttpInfo(projectId, connectionId, conLoadEffect);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> localVarResponse = AddLoadEffectWithHttpInfo(projectId, connectionId, conLoadEffect);
             return localVarResponse.Data;
         }
 
@@ -564,8 +564,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of LoadEffectData</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<LoadEffectData> AddLoadEffectWithHttpInfo(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of ConLoadEffect</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> AddLoadEffectWithHttpInfo(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -604,7 +604,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<LoadEffectData>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<ConLoadEffect>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddLoadEffect", localVarResponse);
@@ -626,10 +626,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conLoadEffect"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of LoadEffectData</returns>
-        public async System.Threading.Tasks.Task<LoadEffectData> AddLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ConLoadEffect</returns>
+        public async System.Threading.Tasks.Task<ConLoadEffect> AddLoadEffectAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<LoadEffectData> localVarResponse = await AddLoadEffectWithHttpInfoAsync(projectId, connectionId, conLoadEffect, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect> localVarResponse = await AddLoadEffectWithHttpInfoAsync(projectId, connectionId, conLoadEffect, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -643,8 +643,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (LoadEffectData)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<LoadEffectData>> AddLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (ConLoadEffect)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConLoadEffect>> AddLoadEffectWithHttpInfoAsync(Guid projectId, int connectionId, ConLoadEffect conLoadEffect = default(ConLoadEffect), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -684,7 +684,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<LoadEffectData>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<ConLoadEffect>("/api/1/projects/{projectId}/connections/{connectionId}/load-effects", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

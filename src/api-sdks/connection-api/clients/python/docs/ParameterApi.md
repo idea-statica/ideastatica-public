@@ -149,7 +149,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_parameters**
-> List[ParameterData] update_parameters(project_id, connection_id, idea_parameter_update=idea_parameter_update)
+> List[IdeaParameter] update_parameters(project_id, connection_id, idea_parameter_update=idea_parameter_update)
 
 Update parameters for the connection connectionId in the project projectId by values passed in parameters
 
@@ -158,8 +158,8 @@ Update parameters for the connection connectionId in the project projectId by va
 
 ```python
 import ideastatica_connection_api
+from ideastatica_connection_api.models.idea_parameter import IdeaParameter
 from ideastatica_connection_api.models.idea_parameter_update import IdeaParameterUpdate
-from ideastatica_connection_api.models.parameter_data import ParameterData
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[ParameterData]**](ParameterData.md)
+[**List[IdeaParameter]**](IdeaParameter.md)
 
 ### Authorization
 

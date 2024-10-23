@@ -21,7 +21,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "ideastatica-connection-api"
-VERSION = "24.0.6.1152"
+VERSION = "24.1.0.3002"
 PYTHON_REQUIRES = ">= 3.8"
 REQUIRES = [
     "urllib3 >= 1.25.3, < 3.0.0",

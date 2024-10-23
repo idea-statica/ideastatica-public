@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **add_bolt_assembly**
-> ConMprlElement add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
+> add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
 
 Add bolt assembly to the project
 
@@ -49,9 +49,7 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Add bolt assembly to the project
-        api_response = api_instance.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_bolt_assembly:\n")
-        pprint(api_response)
+        api_instance.add_bolt_assembly(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_bolt_assembly: %s\n" % e)
 ```
@@ -68,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConMprlElement**](ConMprlElement.md)
+void (empty response body)
 
 ### Authorization
 
@@ -77,7 +75,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -88,7 +86,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_cross_section**
-> ConMprlCrossSection add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
+> add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
 
 Add cross section to the project
 
@@ -117,9 +115,7 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Add cross section to the project
-        api_response = api_instance.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
-        print("The response of MaterialApi->add_cross_section:\n")
-        pprint(api_response)
+        api_instance.add_cross_section(project_id, con_mprl_cross_section=con_mprl_cross_section)
     except Exception as e:
         print("Exception when calling MaterialApi->add_cross_section: %s\n" % e)
 ```
@@ -136,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConMprlCrossSection**](ConMprlCrossSection.md)
+void (empty response body)
 
 ### Authorization
 
@@ -145,7 +141,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -156,7 +152,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_material_bolt_grade**
-> ConMprlElement add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
+> add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
 
 Add material to the project
 
@@ -185,9 +181,7 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Add material to the project
-        api_response = api_instance.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_bolt_grade:\n")
-        pprint(api_response)
+        api_instance.add_material_bolt_grade(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_bolt_grade: %s\n" % e)
 ```
@@ -204,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConMprlElement**](ConMprlElement.md)
+void (empty response body)
 
 ### Authorization
 
@@ -213,7 +207,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -224,7 +218,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_material_concrete**
-> ConMprlElement add_material_concrete(project_id, con_mprl_element=con_mprl_element)
+> add_material_concrete(project_id, con_mprl_element=con_mprl_element)
 
 Add material to the project
 
@@ -253,9 +247,7 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Add material to the project
-        api_response = api_instance.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_concrete:\n")
-        pprint(api_response)
+        api_instance.add_material_concrete(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_concrete: %s\n" % e)
 ```
@@ -272,7 +264,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConMprlElement**](ConMprlElement.md)
+void (empty response body)
 
 ### Authorization
 
@@ -281,7 +273,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -292,7 +284,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_material_steel**
-> ConMprlElement add_material_steel(project_id, con_mprl_element=con_mprl_element)
+> add_material_steel(project_id, con_mprl_element=con_mprl_element)
 
 Add material to the project
 
@@ -321,9 +313,7 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Add material to the project
-        api_response = api_instance.add_material_steel(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_steel:\n")
-        pprint(api_response)
+        api_instance.add_material_steel(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_steel: %s\n" % e)
 ```
@@ -340,7 +330,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConMprlElement**](ConMprlElement.md)
+void (empty response body)
 
 ### Authorization
 
@@ -349,7 +339,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
@@ -360,7 +350,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_material_weld**
-> ConMprlElement add_material_weld(project_id, con_mprl_element=con_mprl_element)
+> add_material_weld(project_id, con_mprl_element=con_mprl_element)
 
 Add material to the project
 
@@ -389,9 +379,7 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
     try:
         # Add material to the project
-        api_response = api_instance.add_material_weld(project_id, con_mprl_element=con_mprl_element)
-        print("The response of MaterialApi->add_material_weld:\n")
-        pprint(api_response)
+        api_instance.add_material_weld(project_id, con_mprl_element=con_mprl_element)
     except Exception as e:
         print("Exception when calling MaterialApi->add_material_weld: %s\n" % e)
 ```
@@ -408,7 +396,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConMprlElement**](ConMprlElement.md)
+void (empty response body)
 
 ### Authorization
 
@@ -417,7 +405,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
