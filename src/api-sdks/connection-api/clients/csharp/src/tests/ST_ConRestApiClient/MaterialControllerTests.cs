@@ -99,7 +99,7 @@ namespace ST_ConnectionRestApi
 				MaterialName = "S 450"
 			};
 
-			var added = await ConnectionApiClient!.Material!.AddCrossSectionAsync(ActiveProjectId, newCss);
+			await ConnectionApiClient!.Material!.AddCrossSectionAsync(ActiveProjectId, newCss);
 
 			var updated = await ConnectionApiClient!.Material!.GetCrossSectionsAsync(ActiveProjectId);
 			updated.Count().Should().Be(css.Count() + 1);
@@ -163,7 +163,7 @@ namespace ST_ConnectionRestApi
 				MprlName = "S 450",
 			};
 
-			var result = await ConnectionApiClient!.Material!.AddMaterialSteelAsync(ActiveProjectId, newMaterialSteel);
+			await ConnectionApiClient!.Material!.AddMaterialSteelAsync(ActiveProjectId, newMaterialSteel);
 
 			var added = (await ConnectionApiClient!.Material!.GetAllMaterialsAsync(ActiveProjectId)).Last();
 
