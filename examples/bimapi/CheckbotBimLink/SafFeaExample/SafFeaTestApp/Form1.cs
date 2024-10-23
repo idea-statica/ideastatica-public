@@ -20,5 +20,11 @@ namespace SafFeaTestApp
 		{
 			Task.Run(() => SafFeaBimLinkApp.Run(_modelClient));
 		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			string directoryPath = _modelClient.GetModelDirectory();
+			Directory.Delete(directoryPath, true);
+		}
 	}
 }

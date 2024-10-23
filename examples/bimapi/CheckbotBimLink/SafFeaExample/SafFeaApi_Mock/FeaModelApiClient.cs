@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace SafFeaApi_MOCK
 {
@@ -14,9 +15,20 @@ namespace SafFeaApi_MOCK
 		/// //Method that needs to provide the endpoint filepath of the project so that a checkbot project folder can be created in the same directory.
 		/// </summary>
 		/// <returns></returns>
-		public string GetModelFilePath()
+		public string GetModelDirectory()
 		{
-			return "c:/ideatest.str";
+			//Return a dumby file path to the model directory.
+			//Assume model is saved on the desktop.
+
+			string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+			string folderPath = Path.Combine(desktopPath, "EXAMPLE_FeaModelLocation");
+
+			if (!Directory.Exists(folderPath))
+			{
+				Directory.CreateDirectory(folderPath);
+			}
+
+			return folderPath;
 		}
 
 		/// <summary>
@@ -25,7 +37,9 @@ namespace SafFeaApi_MOCK
 		/// <returns></returns>
 		public string GetModelName()
 		{
-			return "ideatest";
+			//We will create a dumby model name.
+
+			return "steel_truss";
 		}
 
 		/// <summary>
@@ -40,20 +54,24 @@ namespace SafFeaApi_MOCK
 		/// <returns>The filepath of the saved SAF file</returns>
 		public string ExportSAFFileofActiveSelection(string safSavePath, out IReadOnlyCollection<Guid> selectedElementGuids)
 		{
+			//REQUIREMENT
+			//FEA APPLICATION NEEDS TO CREATE A SAF FILE BASED ON THE CURRENTLY SELECTED MEMBERS AND POINTS
+
+			//DUBY OUTPUT: List of selected elements in the current FEA application 
 			List<Guid> Guids = new List<Guid>();
-
-			//FIX
-			Guids.Add(new Guid("b334ca71 - c82b - 4445 - 9771 - ad83b1e9361e"));
-			Guids.Add(new Guid("91aae2e3 - 715b - 4da3 - 8527 - a6fd6e5f2a38"));
-			Guids.Add(new Guid("7a35a940 - e1fd - 4ce8 - af65 - 7b20f9f619e9"));
-
-			ReadOnlyCollection<Guid> readOnlyDinosaurs = new ReadOnlyCollection<Guid>(Guids);
-
-			selectedElementGuids = readOnlyDinosaurs;
+			//Add a dumby guid so the program detects atleast one item to Import to bypass selection check.
+			Guids.Add(Guid.NewGuid());
+			selectedElementGuids = new ReadOnlyCollection<Guid>(Guids);
 
 
-			return "d:/ideatest.xlsx";
+			//FOR NOW WE WILL COPY A SAMPLE SAF FILE TO THE GENERATED SAF FILE LOCATION 
+			string sourceFilePath = "Inputs\\SAF_steel_truss_first_import.xlsx";   
+
+			File.Copy(sourceFilePath, safSavePath, true);
+
+			return safSavePath;
 		}
+
 
 		/// <summary>
 		/// A method which can export a selection of elements in the given model based on a given list of Guids in the model.
@@ -66,9 +84,17 @@ namespace SafFeaApi_MOCK
 		/// <param name="safSavePath"></param>
 		/// <param name="selectedElementGuids"></param>
 		/// <returns></returns>
-		public string ExportSAFFileofProvidedSelection(string safSavePath, IEnumerable<Guid> selectedElementGuids)
+		public string ExportSAFFileofProvidedSelection(string safSavePath, IEnumerable<Guid> providedElementGuids)
 		{
-			return "d:/ideatest.xlsx";
+
+			//FEA APPLICATION NEEDS TO CREATE A SAF FILE BASED ON THE PROVDIED GUIDS OF MEMBERS AND POINTS
+
+			//FOR NOW WE WILL COPY A MODIFIED VERSION OF THE SAMPLE SAF FILE TO THE GENERATED SAF FILE LOCATION 
+			string sourceFilePath = "Inputs\\SAF_steel_truss_sync.xlsx";
+
+			File.Copy(sourceFilePath, safSavePath, true);
+
+			return safSavePath;
 		}
 	}
 }
