@@ -9,7 +9,7 @@ namespace SafFeaBimLink
 {
 	internal abstract class ApplicationBIMAsync : ApplicationBIM
 	{
-		private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.ideafemdesignplugin.applicationbimasync");
+		private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.ideasaffeaplugin.saffeaapplicationbimasync");
 
 		public override void ActivateInBIM(List<BIMItemId> items)
 		{

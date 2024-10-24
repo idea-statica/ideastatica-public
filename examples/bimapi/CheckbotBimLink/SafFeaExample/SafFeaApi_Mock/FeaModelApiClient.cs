@@ -43,13 +43,14 @@ namespace SafFeaApi_MOCK
 		}
 
 		/// <summary>
-		/// A method which can export and save the SAF file from the actively selected items in Fem-Design.
+		/// A method which can export and save the SAF file from the actively selected items in the FEA Application.
 		/// </summary>
 		/// <remarks>
 		/// Here we are using Guids for selection of objects in the Fea Model. 
-		/// This method should be can be modified to suit your needs and use any type of Unique Identifier which is used in the Fea Program.
+		/// This method should be modified to suit your needs and can use any type (int, string, etc) as the unique identifier which is used in the Fea Program.
 		/// SAF file should include any information required to build the model, including Points, Members, Cross-sections, Materials 
 		/// and 1D Member results of the current active Member and Point selection.
+		/// SAF requires that UId's are exported with the objects. It is important that these Uid's are persistant with each export of the same object.
 		/// </remarks>
 		/// <returns>The filepath of the saved SAF file</returns>
 		public string ExportSAFFileofActiveSelection(string safSavePath, out IReadOnlyCollection<Guid> selectedElementGuids)
@@ -80,6 +81,7 @@ namespace SafFeaApi_MOCK
 		/// <remarks>
 		/// To enable syncing in Checkbot. Checkbot needs to ask the Fea app for a SAF file of all the current members in Checkbot. 
 		/// This is similar to the <see cref="ExportSAFFileofActiveSelection(string, out IReadOnlyCollection{Guid})"/>
+		/// SAF requires that UId's are exported with the objects. It is important that these Uid's are persistant with each export of the same object. We map these Uids with the Unique indentifier in the program.
 		/// </remarks>
 		/// <param name="safSavePath"></param>
 		/// <param name="selectedElementGuids"></param>

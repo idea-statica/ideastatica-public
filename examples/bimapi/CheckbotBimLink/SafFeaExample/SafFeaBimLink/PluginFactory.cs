@@ -34,10 +34,10 @@ namespace SafFeaBimLink
 
 		public string WorkingDirectory { get { return _workingDirectory; } }
 
-		public PluginFactory(IPluginLogger pluginLogger, FeaModelApiClient femDesignModel, string workingDirectory, IProgressMessaging remoteApp)
+		public PluginFactory(IPluginLogger pluginLogger, FeaModelApiClient feaModel, string workingDirectory, IProgressMessaging remoteApp)
 		{
 			_pluginLogger = pluginLogger;
-			_feaModel = femDesignModel;
+			_feaModel = feaModel;
 			_workingDirectory = workingDirectory;
 			_remoteApp = remoteApp;
 		}
