@@ -93,6 +93,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="ImporterContext.h" />
     <ClInclude Include="LoadCaseImporter.h" />
+    <ClInclude Include="LoadCombiImporter.h" />
+    <ClInclude Include="LoadGroupImporter.h" />
     <ClInclude Include="MaterialImporter.h" />
     <ClInclude Include="Member1D.h" />
     <ClInclude Include="MemberImporter.h" />
@@ -107,6 +109,8 @@
     <ClCompile Include="CrossSectionImporter.cpp" />
     <ClCompile Include="ImporterContext.cpp" />
     <ClCompile Include="LoadCaseImporter.cpp" />
+    <ClCompile Include="LoadCombiImporter.cpp" />
+    <ClCompile Include="LoadGroupImporter.cpp" />
     <ClCompile Include="MaterialImporter.cpp" />
     <ClCompile Include="Member1D.cpp" />
     <ClCompile Include="MemberImporter.cpp" />
