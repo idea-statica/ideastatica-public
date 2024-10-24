@@ -6,6 +6,9 @@
 #include "MaterialImporter.h"
 #include "MemberImporter.h"
 #include "NodeImporter.h"
+#include "LoadCaseImporter.h"
+#include "LoadGroupImporter.h"
+#include "LoadCombiImporter.h"
 #include "Model.h"
 using namespace CppFeaApiWrapper::Importers;
 
@@ -183,6 +186,10 @@ namespace CppFeaApiWrapper
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<MaterialImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<MemberImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<NodeImporter^>(builder))->SingleInstance();
+
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCaseImporter^>(builder))->SingleInstance();
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadGroupImporter^>(builder))->SingleInstance();
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCombiImporter^>(builder))->SingleInstance();
 
 		 RegistrationExtensions::RegisterType<Model::Model^>(builder)->SingleInstance();
 
