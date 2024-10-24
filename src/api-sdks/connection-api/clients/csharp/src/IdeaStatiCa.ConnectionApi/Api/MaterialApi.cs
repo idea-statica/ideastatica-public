@@ -33,8 +33,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new bolt assemby to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        ConMprlElement AddBoltAssembly(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddBoltAssembly(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add bolt assembly to the project
@@ -47,8 +47,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new bolt assemby to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        ApiResponse<ConMprlElement> AddBoltAssemblyWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddBoltAssemblyWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add cross section to the project
         /// </summary>
@@ -56,8 +56,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlCrossSection">Definition of a new cross-section to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlCrossSection</returns>
-        ConMprlCrossSection AddCrossSection(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0);
+        /// <returns></returns>
+        void AddCrossSection(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0);
 
         /// <summary>
         /// Add cross section to the project
@@ -70,8 +70,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlCrossSection">Definition of a new cross-section to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlCrossSection</returns>
-        ApiResponse<ConMprlCrossSection> AddCrossSectionWithHttpInfo(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddCrossSectionWithHttpInfo(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -79,8 +79,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        ConMprlElement AddMaterialBoltGrade(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddMaterialBoltGrade(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add material to the project
@@ -93,8 +93,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        ApiResponse<ConMprlElement> AddMaterialBoltGradeWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddMaterialBoltGradeWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -102,8 +102,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        ConMprlElement AddMaterialConcrete(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddMaterialConcrete(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add material to the project
@@ -116,8 +116,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        ApiResponse<ConMprlElement> AddMaterialConcreteWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddMaterialConcreteWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -125,8 +125,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        ConMprlElement AddMaterialSteel(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddMaterialSteel(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add material to the project
@@ -139,8 +139,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        ApiResponse<ConMprlElement> AddMaterialSteelWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddMaterialSteelWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -148,8 +148,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        ConMprlElement AddMaterialWeld(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
+        /// <returns></returns>
+        void AddMaterialWeld(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0);
 
         /// <summary>
         /// Add material to the project
@@ -162,8 +162,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        ApiResponse<ConMprlElement> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// Get materials which are used in the project projectId
         /// </summary>
@@ -331,8 +331,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new bolt assemby to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        System.Threading.Tasks.Task<ConMprlElement> AddBoltAssemblyAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddBoltAssemblyAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add bolt assembly to the project
@@ -346,8 +346,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConMprlElement>> AddBoltAssemblyWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddBoltAssemblyWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Add cross section to the project
         /// </summary>
@@ -359,8 +359,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlCrossSection">Definition of a new cross-section to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlCrossSection</returns>
-        System.Threading.Tasks.Task<ConMprlCrossSection> AddCrossSectionAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddCrossSectionAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add cross section to the project
@@ -374,8 +374,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlCrossSection)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConMprlCrossSection>> AddCrossSectionWithHttpInfoAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddCrossSectionWithHttpInfoAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -387,8 +387,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        System.Threading.Tasks.Task<ConMprlElement> AddMaterialBoltGradeAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddMaterialBoltGradeAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add material to the project
@@ -402,8 +402,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConMprlElement>> AddMaterialBoltGradeWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialBoltGradeWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -415,8 +415,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        System.Threading.Tasks.Task<ConMprlElement> AddMaterialConcreteAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddMaterialConcreteAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add material to the project
@@ -430,8 +430,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConMprlElement>> AddMaterialConcreteWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialConcreteWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -443,8 +443,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        System.Threading.Tasks.Task<ConMprlElement> AddMaterialSteelAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddMaterialSteelAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add material to the project
@@ -458,8 +458,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConMprlElement>> AddMaterialSteelWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialSteelWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Add material to the project
         /// </summary>
@@ -471,8 +471,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        System.Threading.Tasks.Task<ConMprlElement> AddMaterialWeldAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task AddMaterialWeldAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// Add material to the project
@@ -486,8 +486,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ConMprlElement>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get materials which are used in the project projectId
         /// </summary>
@@ -797,11 +797,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new bolt assemby to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        public ConMprlElement AddBoltAssembly(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddBoltAssembly(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
-            return localVarResponse.Data;
+            AddBoltAssemblyWithHttpInfo(projectId, conMprlElement);
         }
 
         /// <summary>
@@ -812,8 +811,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new bolt assemby to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> AddBoltAssemblyWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddBoltAssemblyWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -823,7 +822,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -851,7 +849,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<ConMprlElement>("/api/1/projects/{projectId}/materials/bolt-assemblies", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/bolt-assemblies", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddBoltAssembly", localVarResponse);
@@ -872,11 +870,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new bolt assemby to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        public async System.Threading.Tasks.Task<ConMprlElement> AddBoltAssemblyAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddBoltAssemblyAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = await AddBoltAssemblyWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddBoltAssemblyWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -888,8 +885,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement>> AddBoltAssemblyWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddBoltAssemblyWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -900,7 +897,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -928,7 +924,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConMprlElement>("/api/1/projects/{projectId}/materials/bolt-assemblies", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/bolt-assemblies", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -949,11 +945,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlCrossSection">Definition of a new cross-section to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlCrossSection</returns>
-        public ConMprlCrossSection AddCrossSection(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddCrossSection(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlCrossSection> localVarResponse = AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
-            return localVarResponse.Data;
+            AddCrossSectionWithHttpInfo(projectId, conMprlCrossSection);
         }
 
         /// <summary>
@@ -964,8 +959,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlCrossSection">Definition of a new cross-section to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlCrossSection</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlCrossSection> AddCrossSectionWithHttpInfo(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddCrossSectionWithHttpInfo(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -975,7 +970,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1003,7 +997,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<ConMprlCrossSection>("/api/1/projects/{projectId}/materials/cross-sections", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/cross-sections", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddCrossSection", localVarResponse);
@@ -1024,11 +1018,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlCrossSection">Definition of a new cross-section to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlCrossSection</returns>
-        public async System.Threading.Tasks.Task<ConMprlCrossSection> AddCrossSectionAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddCrossSectionAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlCrossSection> localVarResponse = await AddCrossSectionWithHttpInfoAsync(projectId, conMprlCrossSection, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddCrossSectionWithHttpInfoAsync(projectId, conMprlCrossSection, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1040,8 +1033,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlCrossSection)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlCrossSection>> AddCrossSectionWithHttpInfoAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddCrossSectionWithHttpInfoAsync(Guid projectId, ConMprlCrossSection conMprlCrossSection = default(ConMprlCrossSection), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1052,7 +1045,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1080,7 +1072,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConMprlCrossSection>("/api/1/projects/{projectId}/materials/cross-sections", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/cross-sections", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1101,11 +1093,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        public ConMprlElement AddMaterialBoltGrade(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddMaterialBoltGrade(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
-            return localVarResponse.Data;
+            AddMaterialBoltGradeWithHttpInfo(projectId, conMprlElement);
         }
 
         /// <summary>
@@ -1116,8 +1107,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> AddMaterialBoltGradeWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddMaterialBoltGradeWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -1127,7 +1118,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1155,7 +1145,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<ConMprlElement>("/api/1/projects/{projectId}/materials/bolt-grade", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/bolt-grade", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddMaterialBoltGrade", localVarResponse);
@@ -1176,11 +1166,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        public async System.Threading.Tasks.Task<ConMprlElement> AddMaterialBoltGradeAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddMaterialBoltGradeAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = await AddMaterialBoltGradeWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddMaterialBoltGradeWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1192,8 +1181,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement>> AddMaterialBoltGradeWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddMaterialBoltGradeWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1204,7 +1193,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1232,7 +1220,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConMprlElement>("/api/1/projects/{projectId}/materials/bolt-grade", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/bolt-grade", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1253,11 +1241,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        public ConMprlElement AddMaterialConcrete(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddMaterialConcrete(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
-            return localVarResponse.Data;
+            AddMaterialConcreteWithHttpInfo(projectId, conMprlElement);
         }
 
         /// <summary>
@@ -1268,8 +1255,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> AddMaterialConcreteWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddMaterialConcreteWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -1279,7 +1266,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1307,7 +1293,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<ConMprlElement>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddMaterialConcrete", localVarResponse);
@@ -1328,11 +1314,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        public async System.Threading.Tasks.Task<ConMprlElement> AddMaterialConcreteAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddMaterialConcreteAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = await AddMaterialConcreteWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddMaterialConcreteWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1344,8 +1329,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement>> AddMaterialConcreteWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddMaterialConcreteWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1356,7 +1341,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1384,7 +1368,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConMprlElement>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/concrete", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1405,11 +1389,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        public ConMprlElement AddMaterialSteel(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddMaterialSteel(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
-            return localVarResponse.Data;
+            AddMaterialSteelWithHttpInfo(projectId, conMprlElement);
         }
 
         /// <summary>
@@ -1420,8 +1403,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> AddMaterialSteelWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddMaterialSteelWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -1431,7 +1414,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1459,7 +1441,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<ConMprlElement>("/api/1/projects/{projectId}/materials/steel", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/steel", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddMaterialSteel", localVarResponse);
@@ -1480,11 +1462,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        public async System.Threading.Tasks.Task<ConMprlElement> AddMaterialSteelAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddMaterialSteelAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = await AddMaterialSteelWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddMaterialSteelWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1496,8 +1477,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement>> AddMaterialSteelWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddMaterialSteelWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1508,7 +1489,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1536,7 +1516,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConMprlElement>("/api/1/projects/{projectId}/materials/steel", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/steel", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -1557,11 +1537,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ConMprlElement</returns>
-        public ConMprlElement AddMaterialWeld(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
+        /// <returns></returns>
+        public void AddMaterialWeld(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0)
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
-            return localVarResponse.Data;
+            AddMaterialWeldWithHttpInfo(projectId, conMprlElement);
         }
 
         /// <summary>
@@ -1572,8 +1551,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
 /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of ConMprlElement</returns>
-        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object> AddMaterialWeldWithHttpInfo(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
 
@@ -1583,7 +1562,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1611,7 +1589,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<ConMprlElement>("/api/1/projects/{projectId}/materials/welding", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<Object>("/api/1/projects/{projectId}/materials/welding", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("AddMaterialWeld", localVarResponse);
@@ -1632,11 +1610,10 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="conMprlElement">Definition of a new material to be added to the project (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ConMprlElement</returns>
-        public async System.Threading.Tasks.Task<ConMprlElement> AddMaterialWeldAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task AddMaterialWeldAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement> localVarResponse = await AddMaterialWeldWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await AddMaterialWeldWithHttpInfoAsync(projectId, conMprlElement, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1648,8 +1625,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ConMprlElement)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<ConMprlElement>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.ConnectionApi.Client.ApiResponse<Object>> AddMaterialWeldWithHttpInfoAsync(Guid projectId, ConMprlElement conMprlElement = default(ConMprlElement), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.ConnectionApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.ConnectionApi.Client.RequestOptions();
@@ -1660,7 +1637,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "application/json"
             };
 
             var localVarContentType = IdeaStatiCa.ConnectionApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -1688,7 +1664,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<ConMprlElement>("/api/1/projects/{projectId}/materials/welding", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/api/1/projects/{projectId}/materials/welding", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

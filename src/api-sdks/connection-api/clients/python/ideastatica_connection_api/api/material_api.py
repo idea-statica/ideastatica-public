@@ -57,7 +57,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ConMprlElement:
+    ) -> None:
         """Add bolt assembly to the project
 
 
@@ -97,7 +97,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -127,7 +127,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ConMprlElement]:
+    ) -> ApiResponse[None]:
         """Add bolt assembly to the project
 
 
@@ -167,7 +167,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -237,7 +237,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -281,13 +281,6 @@ class MaterialApi:
             _body_params = con_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -342,7 +335,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ConMprlCrossSection:
+    ) -> None:
         """Add cross section to the project
 
 
@@ -382,7 +375,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlCrossSection",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -412,7 +405,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ConMprlCrossSection]:
+    ) -> ApiResponse[None]:
         """Add cross section to the project
 
 
@@ -452,7 +445,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlCrossSection",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -522,7 +515,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlCrossSection",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -566,13 +559,6 @@ class MaterialApi:
             _body_params = con_mprl_cross_section
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -627,7 +613,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ConMprlElement:
+    ) -> None:
         """Add material to the project
 
 
@@ -667,7 +653,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -697,7 +683,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ConMprlElement]:
+    ) -> ApiResponse[None]:
         """Add material to the project
 
 
@@ -737,7 +723,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -807,7 +793,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -851,13 +837,6 @@ class MaterialApi:
             _body_params = con_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -912,7 +891,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ConMprlElement:
+    ) -> None:
         """Add material to the project
 
 
@@ -952,7 +931,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -982,7 +961,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ConMprlElement]:
+    ) -> ApiResponse[None]:
         """Add material to the project
 
 
@@ -1022,7 +1001,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1092,7 +1071,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1136,13 +1115,6 @@ class MaterialApi:
             _body_params = con_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1197,7 +1169,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ConMprlElement:
+    ) -> None:
         """Add material to the project
 
 
@@ -1237,7 +1209,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1267,7 +1239,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ConMprlElement]:
+    ) -> ApiResponse[None]:
         """Add material to the project
 
 
@@ -1307,7 +1279,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1377,7 +1349,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1421,13 +1393,6 @@ class MaterialApi:
             _body_params = con_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1482,7 +1447,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ConMprlElement:
+    ) -> None:
         """Add material to the project
 
 
@@ -1522,7 +1487,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1552,7 +1517,7 @@ class MaterialApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ConMprlElement]:
+    ) -> ApiResponse[None]:
         """Add material to the project
 
 
@@ -1592,7 +1557,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1662,7 +1627,7 @@ class MaterialApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ConMprlElement",
+            '200': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1706,13 +1671,6 @@ class MaterialApi:
             _body_params = con_mprl_element
 
 
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

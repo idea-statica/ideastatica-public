@@ -4,6 +4,7 @@ using IdeaStatiCa.IOM.VersioningService.Tools;
 using IdeaStatiCa.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.Downgrade
 {
@@ -22,6 +23,12 @@ namespace IdeaStatiCa.IOM.VersioningService.Downgrade
 
 		public void Downgrade(Version version)
 		{
+			if (IsModelEmpty)
+			{
+				_logger.LogError("Downgrade: model is empty");
+				return;
+			}
+
 			var versionBeforeDowngrade = this.GetCurrentVersion();
 			_logger.LogInformation($"Downgrade from version {versionBeforeDowngrade} to version {version}");
 			foreach (var step in ConfigurationStepService.DowngradeSteps())
@@ -58,6 +65,13 @@ namespace IdeaStatiCa.IOM.VersioningService.Downgrade
 		public IEnumerable<Version> GetVersionsToDowngrade()
 		{
 			_logger.LogDebug("GetVersionsToDowngrade");
+
+			if (IsModelEmpty)
+			{
+				_logger.LogDebug("GetVersionsToDowngrade model is empty");
+				return Enumerable.Empty<Version>();
+			}
+
 			var currentVersion = this.GetCurrentVersion();
 			List<Version> availableVersionsForDowngrade = new List<Version>();
 			foreach (var step in ConfigurationStepService.DowngradeSteps())

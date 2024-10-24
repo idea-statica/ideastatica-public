@@ -20,7 +20,6 @@ from pydantic import StrictBool, StrictInt, StrictStr
 from typing import List, Optional
 from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
 from ideastatica_connection_api.models.con_load_settings import ConLoadSettings
-from ideastatica_connection_api.models.load_effect_data import LoadEffectData
 
 from ideastatica_connection_api.api_client import ApiClient, RequestSerialized
 from ideastatica_connection_api.api_response import ApiResponse
@@ -58,7 +57,7 @@ class LoadEffectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> LoadEffectData:
+    ) -> ConLoadEffect:
         """Add new load effect to the connection
 
 
@@ -101,7 +100,7 @@ class LoadEffectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LoadEffectData",
+            '200': "ConLoadEffect",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -132,7 +131,7 @@ class LoadEffectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[LoadEffectData]:
+    ) -> ApiResponse[ConLoadEffect]:
         """Add new load effect to the connection
 
 
@@ -175,7 +174,7 @@ class LoadEffectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LoadEffectData",
+            '200': "ConLoadEffect",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -249,7 +248,7 @@ class LoadEffectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LoadEffectData",
+            '200': "ConLoadEffect",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -1,46 +1,40 @@
 ﻿using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IdeaStatiCa.IOM.VersioningService.Extension
 {
-	static public class ModelExtension
+	public static class ModelExtension
 	{
 		/// <summary>
 		/// Get element represent OpenModel or Model in ModelBIM
 		/// </summary>
 		/// <param name="model"></param>
-		static public ISIntermediate GetModelElement(this SModel model)
+		public static ISIntermediate GetModelElement(this SModel model, bool throwOnError = true)
 		{
-			var openmodelCollection = model.GetElements("OpenModel");
-			if (openmodelCollection != null && openmodelCollection.Count() == 1)
+			if (model.TryGetFirstElement("OpenModel", out ISIntermediate openModel))
 			{
-				return openmodelCollection.First();
+				return openModel;
 			}
 
-			var modelCollection = model.GetElements("ModelBIM;Model");
-			if (modelCollection != null && modelCollection.Count() == 1)
+			if (model.TryGetFirstElement("ModelBIM;Model", out ISIntermediate modelBim))
 			{
-				return modelCollection.First();
+				return modelBim;
 			}
 
-			var modelBIMCollection = model.GetElements("ArrayOfModelBIM;ModelBIM");
-			if (modelBIMCollection != null && modelBIMCollection.Any())
+			if (model.TryGetFirstElement("ArrayOfModelBIM;ModelBIM;Model", out ISIntermediate arrayOfModelBimFirst))
 			{
-				var modelBIM = modelBIMCollection.First();
-
-				if (modelBIM != null)
-				{
-					var arraymodelCollection = modelBIM.GetElements("Model");
-					if (arraymodelCollection != null && arraymodelCollection.Count() == 1)
-					{
-						return arraymodelCollection.First();
-					}
-				}
+				return arrayOfModelBimFirst;
 			}
 
-			throw new InvalidOperationException($"VersioningService GetModelElement - model not found. Root item: {model?.RootItem?.GetElementName()}");
+			if (throwOnError)
+			{
+				throw new InvalidOperationException($"VersioningService GetModelElement - model not found. Root item: {model?.RootItem?.GetElementName()}");
+			}
+
+			return null;
 		}
 	}
 }
