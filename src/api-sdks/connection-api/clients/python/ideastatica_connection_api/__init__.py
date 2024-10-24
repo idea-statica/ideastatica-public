@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "24.1.0.2831"
+__version__ = "24.1.0.3002"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -90,19 +90,15 @@ from ideastatica_connection_api.models.cut_orientation import CutOrientation
 from ideastatica_connection_api.models.cut_part import CutPart
 from ideastatica_connection_api.models.distance_comparison import DistanceComparison
 from ideastatica_connection_api.models.draw_data import DrawData
-from ideastatica_connection_api.models.e_purpose import EPurpose
 from ideastatica_connection_api.models.folded_plate_data import FoldedPlateData
 from ideastatica_connection_api.models.i_group import IGroup
 from ideastatica_connection_api.models.idea_parameter import IdeaParameter
 from ideastatica_connection_api.models.idea_parameter_update import IdeaParameterUpdate
 from ideastatica_connection_api.models.line import Line
-from ideastatica_connection_api.models.load_effect_data import LoadEffectData
 from ideastatica_connection_api.models.message_number import MessageNumber
 from ideastatica_connection_api.models.open_element_id import OpenElementId
 from ideastatica_connection_api.models.open_message import OpenMessage
 from ideastatica_connection_api.models.open_messages import OpenMessages
-from ideastatica_connection_api.models.param_value_type import ParamValueType
-from ideastatica_connection_api.models.parameter_data import ParameterData
 from ideastatica_connection_api.models.pin_grid import PinGrid
 from ideastatica_connection_api.models.plate_data import PlateData
 from ideastatica_connection_api.models.point2_d import Point2D
@@ -116,7 +112,6 @@ from ideastatica_connection_api.models.selected_type import SelectedType
 from ideastatica_connection_api.models.template_conversions import TemplateConversions
 from ideastatica_connection_api.models.text import Text
 from ideastatica_connection_api.models.text_position import TextPosition
-from ideastatica_connection_api.models.validation_type import ValidationType
 from ideastatica_connection_api.models.vector3_d import Vector3D
 from ideastatica_connection_api.models.weld_data import WeldData
 from ideastatica_connection_api.models.weld_evaluation import WeldEvaluation

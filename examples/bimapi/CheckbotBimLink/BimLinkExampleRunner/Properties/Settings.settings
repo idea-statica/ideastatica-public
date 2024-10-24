@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="CheckbotLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 24.0\IdeaCheckbot.exe</Value>
+      <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 24.1\IdeaCheckbot.exe</Value>
     </Setting>
     <Setting Name="ApplicationType" Type="System.String" Scope="User">
       <Value Profile="(Default)">CAD</Value>

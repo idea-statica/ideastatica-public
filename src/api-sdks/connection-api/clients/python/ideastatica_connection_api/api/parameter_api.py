@@ -21,7 +21,6 @@ from typing import List, Optional
 from typing_extensions import Annotated
 from ideastatica_connection_api.models.idea_parameter import IdeaParameter
 from ideastatica_connection_api.models.idea_parameter_update import IdeaParameterUpdate
-from ideastatica_connection_api.models.parameter_data import ParameterData
 
 from ideastatica_connection_api.api_client import ApiClient, RequestSerialized
 from ideastatica_connection_api.api_response import ApiResponse
@@ -648,7 +647,7 @@ class ParameterApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ParameterData]:
+    ) -> List[IdeaParameter]:
         """Update parameters for the connection connectionId in the project projectId by values passed in parameters
 
 
@@ -691,7 +690,7 @@ class ParameterApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ParameterData]",
+            '200': "List[IdeaParameter]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -722,7 +721,7 @@ class ParameterApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ParameterData]]:
+    ) -> ApiResponse[List[IdeaParameter]]:
         """Update parameters for the connection connectionId in the project projectId by values passed in parameters
 
 
@@ -765,7 +764,7 @@ class ParameterApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ParameterData]",
+            '200': "List[IdeaParameter]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -839,7 +838,7 @@ class ParameterApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ParameterData]",
+            '200': "List[IdeaParameter]",
         }
         response_data = self.api_client.call_api(
             *_param,

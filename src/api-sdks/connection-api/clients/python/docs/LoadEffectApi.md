@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **add_load_effect**
-> LoadEffectData add_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
+> ConLoadEffect add_load_effect(project_id, connection_id, con_load_effect=con_load_effect)
 
 Add new load effect to the connection
 
@@ -24,7 +24,6 @@ Add new load effect to the connection
 ```python
 import ideastatica_connection_api
 from ideastatica_connection_api.models.con_load_effect import ConLoadEffect
-from ideastatica_connection_api.models.load_effect_data import LoadEffectData
 from ideastatica_connection_api.rest import ApiException
 from pprint import pprint
 
@@ -65,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LoadEffectData**](LoadEffectData.md)
+[**ConLoadEffect**](ConLoadEffect.md)
 
 ### Authorization
 
