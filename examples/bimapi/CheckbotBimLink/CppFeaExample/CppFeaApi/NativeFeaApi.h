@@ -14,6 +14,7 @@ class CPPFEAAPIDLL_EXPORT NativeFeaApi
 private:
 	NativeFeaGeometry* pFeaGeometry;
 	NativeFeaLoads* pFeaLoading;
+	NativeFeaResults* pFeaResults;
 
 	std::wstring projectPath;
 
@@ -32,6 +33,12 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	NativeFeaLoads* GetLoading();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	NativeFeaResults* GetResults();
 
 
 	/// <summary>
