@@ -39,7 +39,6 @@ namespace CodeSamples
 				}
 			}
 
-			//FIX: Parameter Data should be looked at. We should output IdeaParameter.
 			List<IdeaParameter> parameters = await conClient.Parameter.UpdateParametersAsync(projectId, connectionId, updates);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("UpdateParameters");

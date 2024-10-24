@@ -23,12 +23,11 @@ namespace CodeSamples
 			Dictionary<string, int> BoltAssembliesMap = new Dictionary<string, int>();
 
 
-			//FIX 'Blot' && Upgrade to new IOM Bolt Grade Definitions.
+			//TODO Upgrade to new IOM Bolt Grade Definitions.
 			await conClient.Material.GetBoltGradeMaterialsAsync(projectId);
 
 
 			//GET AND ADD NEW BOLT ASSEMBLIES
-
 			List<BoltAssembly> boltAssemblies = (await conClient.Material.GetBoltAssembliesAsync(projectId)).Cast<BoltAssembly>().ToList();
 			boltAssemblies.ForEach(x => BoltAssembliesMap.Add(x.Name, x.Id));
 
@@ -42,6 +41,7 @@ namespace CodeSamples
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
 					await conClient.Material.AddBoltAssemblyAsync(projectId, new ConMprlElement(assembly));
+					
 					//Console.WriteLine("Successfully Added new Bolt Assembly: " + added.MprlName);
 
 					//Need to check what happens if name is not found...
