@@ -13,9 +13,9 @@ namespace SafFeaBimLink
 		private FeaModelApiClient _feaModel;
 		private readonly string _safFile;
 
-		public ModelClient(FeaModelApiClient femModel)
+		public ModelClient(FeaModelApiClient feaModel)
 		{
-			_feaModel = femModel;
+			_feaModel = feaModel;
 			_safFile = Path.GetTempFileName();
 		}
 
