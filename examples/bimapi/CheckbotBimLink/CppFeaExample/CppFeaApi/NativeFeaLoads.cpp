@@ -29,7 +29,7 @@ NativeFeaLoads::NativeFeaLoads()
 		comb_LC_Factors->emplace_back(1, 1.35);
 		comb_LC_Factors->emplace_back(2, 1.35);
 
-		loadCombinations.insert(std::make_pair(1, new NativeFeaLoadCombination(2, L"ULS-CO2", Combi_Category_ULS, Combi_Type_Linear, comb_LC_Factors)));
+		loadCombinations.insert(std::make_pair(2, new NativeFeaLoadCombination(2, L"ULS-CO2", Combi_Category_ULS, Combi_Type_Linear, comb_LC_Factors)));
 	}
 
 	{
@@ -37,7 +37,7 @@ NativeFeaLoads::NativeFeaLoads()
 		comb_LC_Factors->emplace_back(1, 1.1);
 		comb_LC_Factors->emplace_back(2, 1.1);
 
-		loadCombinations.insert(std::make_pair(1, new NativeFeaLoadCombination(3, L"ULS-CO3", Combi_Category_SLS, Combi_Type_Linear, comb_LC_Factors)));
+		loadCombinations.insert(std::make_pair(3, new NativeFeaLoadCombination(3, L"SLS-CO3", Combi_Category_SLS, Combi_Type_Linear, comb_LC_Factors)));
 	}
 
 	{
@@ -46,7 +46,7 @@ NativeFeaLoads::NativeFeaLoads()
 		comb_LC_Factors->emplace_back(2, 1.1);
 		comb_LC_Factors->emplace_back(3, 0.9);
 
-		loadCombinations.insert(std::make_pair(1, new NativeFeaLoadCombination(4, L"ULS-CO4", Combi_Category_SLS, Combi_Type_Linear, comb_LC_Factors)));
+		loadCombinations.insert(std::make_pair(4, new NativeFeaLoadCombination(4, L"SLS-CO4", Combi_Category_SLS, Combi_Type_Linear, comb_LC_Factors)));
 	}
 }
 
