@@ -21,6 +21,7 @@ namespace CppFeaApiWrapper
 			
 
 			// Inherited via IFeaModel
+			virtual IEnumerable<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>^>^ GetAllCombinations();
 			virtual IEnumerable<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaMember1D^>^>^ GetAllMembers();
 			virtual OriginSettings^ GetOriginSettings();
 			virtual FeaUserSelection^ GetUserSelection();
