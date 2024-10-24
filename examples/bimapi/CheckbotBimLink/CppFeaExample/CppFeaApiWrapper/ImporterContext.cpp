@@ -17,4 +17,9 @@ namespace CppFeaApiWrapper
 	{
 		return pApi->GetGeometry();
 	}
+
+	NativeFeaLoads* ImporterContext::GetLoading()
+	{
+		return pApi->GetLoading();
+	}
 }

@@ -3,18 +3,6 @@
 
 NativeFeaLoads::NativeFeaLoads()
 {
-	int const Combi_Category_ULS = 0;
-	int const Combi_Category_SLS = 1;
-
-	int const Combi_Type_Linear = 0;
-
-	int const LC_ActionType_Pernament = 0;
-	int const LC_ActionType_Variable = 0;
-
-	int const LoadCase_Type_Selfweight = 0;
-	int const LoadCase_Type_Dead = 1;
-	int const LoadCase_Type_Snow = 2;
-
 	loadCases = std::map<int, NativeFeaLoadCase*>();
 
 	loadCases.insert(std::make_pair(1, new NativeFeaLoadCase(1, L"Selfweight", 1, LoadCase_Type_Selfweight, LC_ActionType_Pernament)));

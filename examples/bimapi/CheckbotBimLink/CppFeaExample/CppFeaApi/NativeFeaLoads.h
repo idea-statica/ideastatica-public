@@ -17,6 +17,18 @@ private:
 
 
 public:
+	const static int Combi_Category_ULS = 0;
+	const static int Combi_Category_SLS = 1;
+
+	const static int Combi_Type_Linear = 0;
+
+	const static int LC_ActionType_Pernament = 0;
+	const static int LC_ActionType_Variable = 0;
+
+	const static int LoadCase_Type_Selfweight = 0;
+	const static int LoadCase_Type_Dead = 1;
+	const static int LoadCase_Type_Snow = 2;
+
 	NativeFeaLoads();
 	~NativeFeaLoads();
 
