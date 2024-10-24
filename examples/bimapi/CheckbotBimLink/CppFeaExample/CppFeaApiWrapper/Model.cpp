@@ -72,5 +72,11 @@ namespace CppFeaApiWrapper
 		{
 			throw gcnew System::NotImplementedException();
 		}
+
+		IEnumerable<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>^>^ Model::GetAllCombinations()
+		{
+			// TODO: Implement this method 
+			return gcnew List<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>^>();
+		}
 	}
 }
