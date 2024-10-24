@@ -25,6 +25,7 @@ namespace CppFeaApiWrapper
 
 			virtual IIdeaLoadGroup^ Create(int id) override;
 
+			static IdeaRS::OpenModel::Loading::LoadGroupType GetLoadGroupType(int loadGroupCategory);
 		};
 	}
 }

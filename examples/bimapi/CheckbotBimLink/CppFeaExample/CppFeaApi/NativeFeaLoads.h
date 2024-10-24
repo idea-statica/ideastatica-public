@@ -29,6 +29,9 @@ public:
 	const static int LoadCase_Type_Dead = 1;
 	const static int LoadCase_Type_Snow = 2;
 
+	const static int LoadGroup_Category_Permanent = 0;
+	const static int LoadGroup_Category_Variable = 1;
+
 	NativeFeaLoads();
 	~NativeFeaLoads();
 

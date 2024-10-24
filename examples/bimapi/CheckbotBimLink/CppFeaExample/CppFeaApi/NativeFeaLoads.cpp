@@ -10,8 +10,8 @@ NativeFeaLoads::NativeFeaLoads()
 	loadCases.insert(std::make_pair(3, new NativeFeaLoadCase(3, L"Snow", 2, LoadCase_Type_Snow, LC_ActionType_Variable)));
 
 	loadGroups = std::map<int, NativeFeaLoadGroup*>();
-	loadGroups.insert(std::make_pair(1, new NativeFeaLoadGroup(1, L"LG1", 0)));
-	loadGroups.insert(std::make_pair(2, new NativeFeaLoadGroup(2, L"LG2", 1)));
+	loadGroups.insert(std::make_pair(1, new NativeFeaLoadGroup(1, L"LG1", LoadGroup_Category_Permanent)));
+	loadGroups.insert(std::make_pair(2, new NativeFeaLoadGroup(2, L"LG2", LoadGroup_Category_Variable)));
 
 	loadCombinations = std::map<int, NativeFeaLoadCombination*>();
 
