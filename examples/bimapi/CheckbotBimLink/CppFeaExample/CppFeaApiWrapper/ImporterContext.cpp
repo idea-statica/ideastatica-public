@@ -22,4 +22,9 @@ namespace CppFeaApiWrapper
 	{
 		return pApi->GetLoading();
 	}
+
+	NativeFeaResults* ImporterContext::GetResults()
+	{
+		return pApi->GetResults();
+	}
 }

@@ -9,11 +9,13 @@
 #include "LoadCaseImporter.h"
 #include "LoadGroupImporter.h"
 #include "LoadCombiImporter.h"
+#include "ResultsImporter.h"
 #include "Model.h"
 using namespace CppFeaApiWrapper::Importers;
 
 using namespace Autofac;
 using namespace Autofac::Extensions::DependencyInjection;
+using namespace IdeaStatiCa::BimApiLink;
 
 /// <summary>
 /// Function to run the checkbot
@@ -106,6 +108,14 @@ namespace CppFeaApiWrapper
 		config->RegisterContainer(gcnew AutofacServiceProvider(container));
 	}
 
+	void CheckbotController::RegisterResultsImporters(IdeaStatiCa::BimApiLink::ResultsImportersConfiguration^ config)
+	{
+		//config->RegisterContainer(gcnew AutofacServiceProvider(container));
+
+		//config->RegisterImporter
+		//config->RegisterImporter()
+	}
+
 	void CheckbotController::RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger)
 	{
 		this->context = context;
@@ -147,6 +157,9 @@ namespace CppFeaApiWrapper
 			Action<ImportersConfiguration^>^ registerImportersAction = nullptr;
 			registerImportersAction = gcnew Action<IdeaStatiCa::BimApiLink::ImportersConfiguration^>(this, &CheckbotController::RegisterImporters);
 
+			Action<ResultsImportersConfiguration^>^ registerResultsAction = nullptr;
+			registerResultsAction = gcnew Action<IdeaStatiCa::BimApiLink::ResultsImportersConfiguration^>(this, &CheckbotController::RegisterResultsImporters);
+
 			// Name of the FEA application which calls Checkbot
 			String^ feaName = gcnew System::String(context->GetApi()->GetFeaName().c_str());
 
@@ -154,6 +167,7 @@ namespace CppFeaApiWrapper
 			this->bimLink = FeaBimLink::Create(feaName, workingDirectory)
 				->WithIdeaStatiCa(checkbotLocation)
 				->WithImporters(registerImportersAction)
+				->WithResultsImporters(registerResultsAction)
 				->WithLogger(logger)
 				->WithBimHostingFactory(bimHostingFactory);
 
@@ -190,6 +204,9 @@ namespace CppFeaApiWrapper
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCaseImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadGroupImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCombiImporter^>(builder))->SingleInstance();
+
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<ResultsImporter^>(builder))->SingleInstance();
+
 
 		 RegistrationExtensions::RegisterType<Model::Model^>(builder)->SingleInstance();
 

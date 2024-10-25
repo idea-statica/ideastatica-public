@@ -78,6 +78,9 @@
     <ClInclude Include="LoadCombiImporter.h">
       <Filter>Importers</Filter>
     </ClInclude>
+    <ClInclude Include="ResultsImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -120,6 +123,9 @@
       <Filter>Importers</Filter>
     </ClCompile>
     <ClCompile Include="LoadCombiImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultsImporter.cpp">
       <Filter>Importers</Filter>
     </ClCompile>
   </ItemGroup>
