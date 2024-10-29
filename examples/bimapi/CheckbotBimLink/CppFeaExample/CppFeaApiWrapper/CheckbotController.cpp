@@ -110,10 +110,7 @@ namespace CppFeaApiWrapper
 
 	void CheckbotController::RegisterResultsImporters(IdeaStatiCa::BimApiLink::ResultsImportersConfiguration^ config)
 	{
-		//config->RegisterContainer(gcnew AutofacServiceProvider(container));
-
-		//config->RegisterImporter
-		//config->RegisterImporter()
+		config->RegisterImporter(ResolutionExtensions::Resolve<IInternalForcesImporter<IIdeaMember1D^>^>(container));
 	}
 
 	void CheckbotController::RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger)
@@ -194,7 +191,6 @@ namespace CppFeaApiWrapper
 		RegistrationExtensions::RegisterInstance<ImporterContext^>(builder, context);
 		RegistrationExtensions::RegisterInstance<IProgressMessaging^>(builder, messagingService);
 
-
 		// Register importers
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<CrossSectionImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<MaterialImporter^>(builder))->SingleInstance();
@@ -205,13 +201,14 @@ namespace CppFeaApiWrapper
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadGroupImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCombiImporter^>(builder))->SingleInstance();
 
-		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<ResultsImporter^>(builder))->SingleInstance();
+		 ResultsImporter^ resultsImporter = gcnew ResultsImporter(context);
 
+		 RegistrationExtensions::RegisterInstance<IInternalForcesImporter<IIdeaMember1D^>^>(builder, resultsImporter);
 
 		 RegistrationExtensions::RegisterType<Model::Model^>(builder)->SingleInstance();
 
-		IContainer^ container = builder->Build();
-		return container;
+		IContainer^ cont = builder->Build();
+		return cont;
 	}
 }
 
