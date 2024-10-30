@@ -34,6 +34,9 @@ namespace CppFeaApiWrapper
 			// so in those cases it is necessary shift the location
 			const static double shift = 5e-6;
 
+			void AddResult(InternalForcesBuilder<IIdeaMember1D^>::Sections sections, double location, NativeFeaMemberResult* pMemberResult);
+			double GetLength(IIdeaNode^ startNode, IIdeaNode^ endNode);
+
 		public:
 			ResultsImporter(ImporterContext^ context);
 
