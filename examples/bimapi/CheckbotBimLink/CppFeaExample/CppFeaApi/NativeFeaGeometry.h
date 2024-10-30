@@ -12,7 +12,7 @@ private:
 		std::map<int, NativeFeaNode*> nodes;
 		std::map<int, NativeFeaMember*> members;
 
-	public:
+	public:	
 		NativeFeaGeometry();
 		~NativeFeaGeometry();
 

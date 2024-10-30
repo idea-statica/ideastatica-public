@@ -1,5 +1,4 @@
 #pragma once
-#include "..\CppFeaApi\NativeFeaGeometry.h"
 #include "ImporterContext.h"
 
 using namespace IdeaStatiCa::BimApi;
@@ -7,22 +6,26 @@ using namespace IdeaStatiCa::BimApiLink;
 using namespace IdeaStatiCa::BimApiLink::Importers;
 using namespace IdeaStatiCa::BimApiLink::BimApi;
 using namespace IdeaStatiCa::BimApiLink::Identifiers;
+using namespace IdeaRS::OpenModel::Loading;
 using namespace ImporterWrappers;
+using namespace System;
 
 namespace CppFeaApiWrapper
 {
 	namespace Importers
 	{
-		public ref class NodeImporter : public NodeImporterBase
+		public ref class LoadGroupImporter : public LoadGroupImporterBase
 		{
 		private:
 			ImporterContext^ context;
-			IdeaVector3D^ GetLocation(int id);
+
 
 		public:
-			NodeImporter(ImporterContext^ context);
+			LoadGroupImporter(ImporterContext^ context);
 
-			virtual IIdeaNode^ Create(int id) override;
+			virtual IIdeaLoadGroup^ Create(int id) override;
+
+			static IdeaRS::OpenModel::Loading::LoadGroupType GetLoadGroupType(int loadGroupCategory);
 		};
 	}
 }

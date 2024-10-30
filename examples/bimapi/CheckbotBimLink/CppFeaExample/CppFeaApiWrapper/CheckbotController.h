@@ -32,6 +32,7 @@ namespace CppFeaApiWrapper
 		static IContainer^ BuildContainer(IProgressMessaging^ messagingService, ImporterContext^ context);
 
 		void RegisterImporters(IdeaStatiCa::BimApiLink::ImportersConfiguration^ config);
+		void RegisterResultsImporters(IdeaStatiCa::BimApiLink::ResultsImportersConfiguration^ config);
 
 	public:
 		CheckbotController();

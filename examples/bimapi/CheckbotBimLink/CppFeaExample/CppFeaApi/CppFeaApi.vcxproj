@@ -56,6 +56,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,6 +75,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,25 +86,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="NativeFeaCombiFactor.h" />
     <ClInclude Include="CppFeaApiDll.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="NativeFeaApi.h" />
     <ClInclude Include="NativeFeaGeometry.h" />
+    <ClInclude Include="NativeFeaLoadCase.h" />
+    <ClInclude Include="NativeFeaLoadCombination.h" />
+    <ClInclude Include="NativeFeaLoadGroup.h" />
+    <ClInclude Include="NativeFeaLoads.h" />
     <ClInclude Include="NativeFeaMember.h" />
+    <ClInclude Include="NativeFeaMemberResult.h" />
     <ClInclude Include="NativeFeaNode.h" />
+    <ClInclude Include="NativeFeaResults.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NativeFeaCombiFactor.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="NativeFeaApi.cpp" />
     <ClCompile Include="NativeFeaGeometry.cpp" />
+    <ClCompile Include="NativeFeaLoadCase.cpp" />
+    <ClCompile Include="NativeFeaLoadCombination.cpp" />
+    <ClCompile Include="NativeFeaLoadGroup.cpp" />
+    <ClCompile Include="NativeFeaLoads.cpp" />
     <ClCompile Include="NativeFeaMember.cpp" />
+    <ClCompile Include="NativeFeaMemberResult.cpp" />
     <ClCompile Include="NativeFeaNode.cpp" />
+    <ClCompile Include="NativeFeaResults.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ResultsData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -64,7 +64,7 @@ CCppFeaDlg::CCppFeaDlg(CWnd* pParent /*=nullptr*/)
 	DWORD bufferLength = MAX_PATH + 1;
 	TCHAR buffer[MAX_PATH + 1];
 
-	if (GetCurrentDirectory(bufferLength, buffer))
+	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, 0, buffer)))
 	{
 		m_feaProjectPath = CString(buffer);
 		m_feaProjectPath += _T("\\CppFeaProject");

@@ -75,8 +75,14 @@ namespace CppFeaApiWrapper
 
 		IEnumerable<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>^>^ Model::GetAllCombinations()
 		{
-			// TODO: Implement this method 
-			return gcnew List<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>^>();
+			auto allCombiIds = context->GetLoading()->GetLoadCombinationsIdentifiers();
+			auto allCombiIdentifiers = gcnew List<IdeaStatiCa::BimApiLink::Identifiers::Identifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>^>();
+
+			for (const auto& combiId : allCombiIds) {
+
+				allCombiIdentifiers->Add(gcnew IntIdentifier<IdeaStatiCa::BimApi::IIdeaCombiInput^>(combiId));
+			}
+			return allCombiIdentifiers;
 		}
 	}
 }

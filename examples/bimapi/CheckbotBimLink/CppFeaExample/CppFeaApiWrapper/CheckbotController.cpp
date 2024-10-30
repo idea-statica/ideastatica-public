@@ -6,11 +6,16 @@
 #include "MaterialImporter.h"
 #include "MemberImporter.h"
 #include "NodeImporter.h"
+#include "LoadCaseImporter.h"
+#include "LoadGroupImporter.h"
+#include "LoadCombiImporter.h"
+#include "ResultsImporter.h"
 #include "Model.h"
 using namespace CppFeaApiWrapper::Importers;
 
 using namespace Autofac;
 using namespace Autofac::Extensions::DependencyInjection;
+using namespace IdeaStatiCa::BimApiLink;
 
 /// <summary>
 /// Function to run the checkbot
@@ -103,6 +108,11 @@ namespace CppFeaApiWrapper
 		config->RegisterContainer(gcnew AutofacServiceProvider(container));
 	}
 
+	void CheckbotController::RegisterResultsImporters(IdeaStatiCa::BimApiLink::ResultsImportersConfiguration^ config)
+	{
+		config->RegisterImporter(ResolutionExtensions::Resolve<IInternalForcesImporter<IIdeaMember1D^>^>(container));
+	}
+
 	void CheckbotController::RunCheckbot(String^ checkbotLocation, ImporterContext^ context, IPluginLogger^ logger)
 	{
 		this->context = context;
@@ -144,6 +154,9 @@ namespace CppFeaApiWrapper
 			Action<ImportersConfiguration^>^ registerImportersAction = nullptr;
 			registerImportersAction = gcnew Action<IdeaStatiCa::BimApiLink::ImportersConfiguration^>(this, &CheckbotController::RegisterImporters);
 
+			Action<ResultsImportersConfiguration^>^ registerResultsAction = nullptr;
+			registerResultsAction = gcnew Action<IdeaStatiCa::BimApiLink::ResultsImportersConfiguration^>(this, &CheckbotController::RegisterResultsImporters);
+
 			// Name of the FEA application which calls Checkbot
 			String^ feaName = gcnew System::String(context->GetApi()->GetFeaName().c_str());
 
@@ -151,6 +164,7 @@ namespace CppFeaApiWrapper
 			this->bimLink = FeaBimLink::Create(feaName, workingDirectory)
 				->WithIdeaStatiCa(checkbotLocation)
 				->WithImporters(registerImportersAction)
+				->WithResultsImporters(registerResultsAction)
 				->WithLogger(logger)
 				->WithBimHostingFactory(bimHostingFactory);
 
@@ -177,17 +191,24 @@ namespace CppFeaApiWrapper
 		RegistrationExtensions::RegisterInstance<ImporterContext^>(builder, context);
 		RegistrationExtensions::RegisterInstance<IProgressMessaging^>(builder, messagingService);
 
-
 		// Register importers
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<CrossSectionImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<MaterialImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<MemberImporter^>(builder))->SingleInstance();
 		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<NodeImporter^>(builder))->SingleInstance();
 
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCaseImporter^>(builder))->SingleInstance();
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadGroupImporter^>(builder))->SingleInstance();
+		 RegistrationExtensions::AsImplementedInterfaces(RegistrationExtensions::RegisterType<LoadCombiImporter^>(builder))->SingleInstance();
+
+		 ResultsImporter^ resultsImporter = gcnew ResultsImporter(context);
+
+		 RegistrationExtensions::RegisterInstance<IInternalForcesImporter<IIdeaMember1D^>^>(builder, resultsImporter);
+
 		 RegistrationExtensions::RegisterType<Model::Model^>(builder)->SingleInstance();
 
-		IContainer^ container = builder->Build();
-		return container;
+		IContainer^ cont = builder->Build();
+		return cont;
 	}
 }
 

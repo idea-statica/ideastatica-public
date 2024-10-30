@@ -69,6 +69,18 @@
     <ClInclude Include="Model.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="LoadCaseImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadGroupImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadCombiImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultsImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -103,6 +115,18 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadCaseImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadGroupImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadCombiImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultsImporter.cpp">
+      <Filter>Importers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
