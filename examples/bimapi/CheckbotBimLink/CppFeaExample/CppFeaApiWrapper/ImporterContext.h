@@ -13,5 +13,8 @@ namespace CppFeaApiWrapper
 
 		NativeFeaApi* GetApi();
 		NativeFeaGeometry* GetGeometry();
+		NativeFeaLoads* GetLoading();
+		NativeFeaResults* GetResults();
+
 	};
 }
