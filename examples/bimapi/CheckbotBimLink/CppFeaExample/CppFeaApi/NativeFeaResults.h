@@ -9,12 +9,15 @@
 class CPPFEAAPIDLL_EXPORT NativeFeaResults
 {
 private:
-	std::map<int, NativeFeaMemberResult*> _resultsForMembers;
+	std::vector<NativeFeaMemberResult*> _resultsForMembers;
 
 public:
 	NativeFeaResults();
 	~NativeFeaResults();
 
-	NativeFeaMemberResult* GetMemberInternalForces(int memberId, int loadCaseId);
+	std::vector<NativeFeaMemberResult*> GetMemberInternalForces(int memberId, int loadCaseId);
+
+private:
+	void LoadResults();
 };
 
