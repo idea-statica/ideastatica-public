@@ -9,7 +9,7 @@ namespace CodeSamples
 		{
 			// Create the client which is connected to the service.
 			ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
-			using (ConnectionApiClient conClient = (ConnectionApiClient)await clientFactory.CreateConnectionApiClient())
+			using (var conClient = await clientFactory.CreateConnectionApiClient())
 			{
 
 				// Get example methods from ClientExamples using reflection
