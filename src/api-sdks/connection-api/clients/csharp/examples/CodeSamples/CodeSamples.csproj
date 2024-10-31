@@ -16,9 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.0.3003" />
-    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.0.3003" />
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.0.3003" />
+    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.0.3009" />
+    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.0.3009" />
+    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.0.3009" />
   </ItemGroup>
 
 	<ItemGroup>
