@@ -10,12 +10,12 @@ dotnet new install IdeaStatiCa.Dotnet.Templates
 
 Create a directory for your project and run th command
 ```
-dotnet new bimapifeaapp
+dotnet new bimapicadapp
 ```
 
 it will create a new VS solution in the working directory.
 
 All options can be shown by
 ```
-dotnet new bimapifeaapp --help
+dotnet new bimapicadapp --help
 ```
