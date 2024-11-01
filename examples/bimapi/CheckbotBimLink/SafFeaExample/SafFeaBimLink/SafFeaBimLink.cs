@@ -1,13 +1,12 @@
 ﻿using IdeaStatiCa.Plugin;
 using IdeaStatiCa.PluginLogger;
-using SafFeaApi_MOCK;
 using System.Diagnostics;
 
 namespace SafFeaBimLink
 {
 	public class SafFeaBimLinkApp
 	{
-		public static async Task Run(FeaModelApiClient feaModelApi)
+		public static async Task Run(ISafDataSource safDataSource)
 		{
 			SerilogFacade.Initialize();
 			IPluginLogger logger = LoggerProvider.GetLogger("saffeappexample");
@@ -16,14 +15,14 @@ namespace SafFeaBimLink
 			{
 				logger.LogInformation("Saf Fea Link started");
 
-				string workingDirectory = Path.Combine(feaModelApi.GetModelDirectory(), "IdeaStatiCa-" + feaModelApi.GetModelName());
+				string workingDirectory = Path.Combine(safDataSource.GetModelDirectory(), "IdeaStatiCa-" + safDataSource.GetModelName());
 				if (!Directory.Exists(workingDirectory))
 				{
 					Directory.CreateDirectory(workingDirectory);
 				}
 
 				var bimHosting = new GrpcBimHostingFactory();
-				PluginFactory pluginFactory = new PluginFactory(logger, feaModelApi, workingDirectory, bimHosting.InitGrpcClient(logger));
+				PluginFactory pluginFactory = new PluginFactory(logger, safDataSource, workingDirectory, bimHosting.InitGrpcClient(logger));
 				IBIMPluginHosting pluginHosting = bimHosting.Create(pluginFactory, logger);
 
 				logger.LogDebug("Starting Checkbot");

@@ -2,7 +2,6 @@
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
-using SafFeaApi_MOCK;
 
 namespace SafFeaBimLink
 {
@@ -21,16 +20,16 @@ namespace SafFeaBimLink
 		private readonly IPluginLogger _pluginLogger;
 		private readonly IProgressMessaging _remoteApp;
 		
-		private readonly FeaModelApiClient _feaModel;
+		private readonly ISafDataSource _safDataSource;
 		
 		private readonly string _workingDirectory;
 
 		public string WorkingDirectory { get { return _workingDirectory; } }
 
-		public PluginFactory(IPluginLogger pluginLogger, FeaModelApiClient feaModel, string workingDirectory, IProgressMessaging remoteApp)
+		public PluginFactory(IPluginLogger pluginLogger, ISafDataSource safDataSource, string workingDirectory, IProgressMessaging remoteApp)
 		{
 			_pluginLogger = pluginLogger;
-			_feaModel = feaModel;
+			_safDataSource = safDataSource;
 			_workingDirectory = workingDirectory;
 			_remoteApp = remoteApp;
 		}
@@ -41,7 +40,7 @@ namespace SafFeaBimLink
 			IProject project = new Project(_pluginLogger, persistence, new ObjectRestorerDummy());
 			ISAFConverter converter = new SAFConverter(_pluginLogger, project, _remoteApp);
 
-			return new SafFeaApplication(_feaModel, converter, persistence, project, _workingDirectory, _remoteApp);
+			return new SafFeaApplication(_safDataSource, converter, persistence, project, _workingDirectory, _remoteApp);
 		}
 
 		private class ObjectRestorerDummy : IObjectRestorer

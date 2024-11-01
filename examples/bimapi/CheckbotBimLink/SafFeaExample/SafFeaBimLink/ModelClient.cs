@@ -1,13 +1,13 @@
-﻿using SafFeaApi_MOCK;
+﻿
 
 namespace SafFeaBimLink
 {
 	internal class ModelClient
 	{
-		private FeaModelApiClient _feaModel;
+		private ISafDataSource _feaModel;
 		private readonly string _safFile;
 
-		public ModelClient(FeaModelApiClient feaModel)
+		public ModelClient(ISafDataSource feaModel)
 		{
 			_feaModel = feaModel;
 			_safFile = Path.GetTempFileName();

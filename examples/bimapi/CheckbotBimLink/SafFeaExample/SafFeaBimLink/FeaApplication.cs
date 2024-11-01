@@ -5,7 +5,6 @@ using IdeaStatiCa.Diagnostics;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.SAF2IOM;
 using IdeaStatiCa.SAF2IOM.BimApi;
-using SafFeaApi_MOCK;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -33,7 +32,7 @@ namespace SafFeaBimLink
 
 		private readonly IProgressMessaging _progressMessaging;
 
-		public SafFeaApplication(FeaModelApiClient feaModelApi, ISAFConverter safConverter, IFilePersistence persistence, IProject project,
+		public SafFeaApplication(ISafDataSource feaModelApi, ISAFConverter safConverter, IFilePersistence persistence, IProject project,
 			string workingDirectory, IProgressMessaging progressMessaging)
 		{
 			_FeaModelApi = new ModelClient(feaModelApi);

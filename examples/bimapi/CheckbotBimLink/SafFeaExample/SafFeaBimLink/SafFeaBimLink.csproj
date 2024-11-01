@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SafFeaApi_MOCK\SafFeaApi_MOCK.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
 		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.6.1223" />
 		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.0.6.1223" />
