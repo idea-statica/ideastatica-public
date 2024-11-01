@@ -1,15 +1,8 @@
-﻿using SafFeaApi_MOCK;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Reflection;
-using System.Globalization;
-using IdeaRS.OpenModel;
+using SafFeaApi_MOCK;
 
 namespace SafFeaBimLink
 {
@@ -21,7 +14,7 @@ namespace SafFeaBimLink
 		{
 			get
 			{
-				return Path.Combine("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.0", Constants.CheckbotAppName);
+				return Path.Combine("C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1", Constants.CheckbotAppName);
 			}
 		}
 

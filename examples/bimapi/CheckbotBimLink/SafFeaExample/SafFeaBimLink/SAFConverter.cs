@@ -6,8 +6,6 @@ using IdeaStatiCa.BimImporter.Results;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.SAF2IOM;
 using IdeaStatiCa.SAF2IOM.BimApi;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SafFeaBimLink
 {

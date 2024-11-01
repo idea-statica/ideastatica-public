@@ -1,17 +1,12 @@
-﻿using SafFeaApi_MOCK;
-using IdeaRS.OpenModel;
+﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
 using IdeaStatiCa.Diagnostics;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.SAF2IOM;
 using IdeaStatiCa.SAF2IOM.BimApi;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using SafFeaApi_MOCK;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -30,7 +25,7 @@ namespace SafFeaBimLink
 		private readonly string _persistencyStoragePath;
 		private readonly string _workingDirectory;
 		private readonly ISAFConverter _converter;
-		
+
 		private readonly ModelClient _FeaModelApi;
 		private readonly IProject _project;
 		private readonly IFilePersistence _persistence;

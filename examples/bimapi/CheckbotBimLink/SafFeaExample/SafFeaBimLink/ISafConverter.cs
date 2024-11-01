@@ -1,8 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.SAF2IOM.BimApi;
-using System;
-using System.Collections.Generic;
 
 namespace SafFeaBimLink
 {

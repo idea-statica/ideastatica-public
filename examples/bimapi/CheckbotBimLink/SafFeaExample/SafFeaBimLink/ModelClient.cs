@@ -1,15 +1,9 @@
 ﻿using SafFeaApi_MOCK;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SafFeaBimLink
 {
-    internal class ModelClient
-    {
+	internal class ModelClient
+	{
 		private FeaModelApiClient _feaModel;
 		private readonly string _safFile;
 

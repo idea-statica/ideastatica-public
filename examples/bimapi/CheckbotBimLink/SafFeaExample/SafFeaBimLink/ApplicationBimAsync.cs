@@ -1,9 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.Diagnostics;
 using IdeaStatiCa.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SafFeaBimLink
 {
