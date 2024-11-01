@@ -7,10 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="IdeaStatiCa.Diagnostics" Version="20.1.2" />
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.0.6.1223" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.0.6.1223" />
-		<PackageReference Include="IdeaStatiCa.SAF2IOM" Version="24.0.6.1223" />
+		
+		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.0.3003" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.0.3003" />
+		<PackageReference Include="IdeaStatiCa.SAF2IOM" Version="24.1.0.3003" />
 	</ItemGroup>
 	
 	

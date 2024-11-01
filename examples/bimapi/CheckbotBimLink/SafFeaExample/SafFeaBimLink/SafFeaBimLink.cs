@@ -6,10 +6,17 @@ namespace SafFeaBimLink
 {
 	public class SafFeaBimLinkApp
 	{
-		public static async Task Run(ISafDataSource safDataSource)
+		private static readonly IPluginLogger logger;
+
+		static SafFeaBimLinkApp()
 		{
 			SerilogFacade.Initialize();
-			IPluginLogger logger = LoggerProvider.GetLogger("saffeappexample");
+			logger = LoggerProvider.GetLogger("SafFeaBimLinkApp");
+		}
+
+		public static async Task Run(ISafDataSource safDataSource)
+		{
+
 
 			try
 			{

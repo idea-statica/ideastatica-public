@@ -1,12 +1,14 @@
 ﻿using IdeaRS.OpenModel;
-using IdeaStatiCa.Diagnostics;
 using IdeaStatiCa.Plugin;
 
 namespace SafFeaBimLink
 {
 	internal abstract class ApplicationBIMAsync : ApplicationBIM
 	{
-		private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.ideasaffeaplugin.saffeaapplicationbimasync");
+		private IPluginLogger _logger;
+		protected ApplicationBIMAsync(IPluginLogger logger) : base(logger)
+		{
+		}
 
 		public override void ActivateInBIM(List<BIMItemId> items)
 		{

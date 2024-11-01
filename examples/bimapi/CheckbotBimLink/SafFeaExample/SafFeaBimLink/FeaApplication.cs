@@ -1,7 +1,6 @@
 ﻿using IdeaRS.OpenModel;
 using IdeaStatiCa.BimImporter;
 using IdeaStatiCa.BimImporter.Persistence;
-using IdeaStatiCa.Diagnostics;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.SAF2IOM;
 using IdeaStatiCa.SAF2IOM.BimApi;
@@ -14,7 +13,7 @@ namespace SafFeaBimLink
 	internal class SafFeaApplication : ApplicationBIMAsync
 	{
 		//Update Logger 
-		private static readonly IIdeaLogger _logger = IdeaDiagnostics.GetLogger("ideastatica.ideasaffeaplugin.saffeaapplication");
+		private readonly IPluginLogger _logger;
 
 		//Update Application Name
 		protected override string ApplicationName => "Saf-Fea-IDEA_StatiCa";
@@ -33,7 +32,7 @@ namespace SafFeaBimLink
 		private readonly IProgressMessaging _progressMessaging;
 
 		public SafFeaApplication(ISafDataSource feaModelApi, ISAFConverter safConverter, IFilePersistence persistence, IProject project,
-			string workingDirectory, IProgressMessaging progressMessaging)
+			string workingDirectory, IProgressMessaging progressMessaging, IPluginLogger logger) : base(logger)
 		{
 			_FeaModelApi = new ModelClient(feaModelApi);
 			_converter = safConverter;
@@ -44,6 +43,7 @@ namespace SafFeaBimLink
 			_persistencyStoragePath = Path.Combine(workingDirectory, PersistencyStorage);
 			LoadData();
 			_progressMessaging = progressMessaging;
+			_logger = logger;
 		}
 
 		protected override Task ActivateInBIMAsync(List<BIMItemId> items)

@@ -40,7 +40,7 @@ namespace SafFeaBimLink
 			IProject project = new Project(_pluginLogger, persistence, new ObjectRestorerDummy());
 			ISAFConverter converter = new SAFConverter(_pluginLogger, project, _remoteApp);
 
-			return new SafFeaApplication(_safDataSource, converter, persistence, project, _workingDirectory, _remoteApp);
+			return new SafFeaApplication(_safDataSource, converter, persistence, project, _workingDirectory, _remoteApp, _pluginLogger);
 		}
 
 		private class ObjectRestorerDummy : IObjectRestorer
