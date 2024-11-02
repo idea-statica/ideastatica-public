@@ -39,47 +39,17 @@
     <ClInclude Include="CheckbotController.h">
       <Filter>CheckbotController</Filter>
     </ClInclude>
-    <ClInclude Include="NodeImporter.h">
-      <Filter>Importers</Filter>
-    </ClInclude>
     <ClInclude Include="ImporterContext.h">
       <Filter>CheckbotController</Filter>
-    </ClInclude>
-    <ClInclude Include="Segment3D.h">
-      <Filter>BimApi</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialImporter.h">
-      <Filter>Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="CrossSectionImporter.h">
-      <Filter>Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="CrossSectionByName.h">
-      <Filter>BimApi</Filter>
-    </ClInclude>
-    <ClInclude Include="Member1D.h">
-      <Filter>BimApi</Filter>
-    </ClInclude>
-    <ClInclude Include="MemberImporter.h">
-      <Filter>Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="CppFeaApiWrapperDll.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="LoadCaseImporter.h">
-      <Filter>Importers</Filter>
+    <ClInclude Include="CheckbotClientDll.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoadGroupImporter.h">
-      <Filter>Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadCombiImporter.h">
-      <Filter>Importers</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultsImporter.h">
-      <Filter>Importers</Filter>
+    <ClInclude Include="NativeFeaAppGateway.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -89,44 +59,14 @@
     <ClCompile Include="CheckbotController.cpp">
       <Filter>CheckbotController</Filter>
     </ClCompile>
-    <ClCompile Include="NodeImporter.cpp">
-      <Filter>Importers</Filter>
-    </ClCompile>
     <ClCompile Include="ImporterContext.cpp">
       <Filter>CheckbotController</Filter>
-    </ClCompile>
-    <ClCompile Include="Segment3D.cpp">
-      <Filter>BimApi</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialImporter.cpp">
-      <Filter>Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="CrossSectionImporter.cpp">
-      <Filter>Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="CrossSectionByName.cpp">
-      <Filter>BimApi</Filter>
-    </ClCompile>
-    <ClCompile Include="Member1D.cpp">
-      <Filter>BimApi</Filter>
-    </ClCompile>
-    <ClCompile Include="MemberImporter.cpp">
-      <Filter>Importers</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="LoadCaseImporter.cpp">
-      <Filter>Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadGroupImporter.cpp">
-      <Filter>Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadCombiImporter.cpp">
-      <Filter>Importers</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultsImporter.cpp">
-      <Filter>Importers</Filter>
+    <ClCompile Include="NativeFeaAppGateway.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

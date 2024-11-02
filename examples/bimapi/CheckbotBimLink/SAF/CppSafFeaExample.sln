@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppFeaApp", "CppFeaApp\CppFeaApp.vcxproj", "{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppFeaApp", "CppSafFeaExample\CppFeaApp\CppFeaApp.vcxproj", "{0B26F988-5B17-478D-8FDB-4C9A0A201EFB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopyToOutputApp", "CopyToOutputApp\CopyToOutputApp.csproj", "{349D8AC7-5560-4340-BE3A-35A46990A632}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopyToOutputApp", "CppSafFeaExample\CopyToOutputApp\CopyToOutputApp.csproj", "{349D8AC7-5560-4340-BE3A-35A46990A632}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CheckbotClient", "CheckbotClient\CheckbotClient.vcxproj", "{5794D7F5-C9BB-428B-A070-056717BBB58B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CheckbotClient", "CppSafFeaExample\CheckbotClient\CheckbotClient.vcxproj", "{5794D7F5-C9BB-428B-A070-056717BBB58B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SafProvider", "SafProvider\SafProvider.vcxproj", "{EC43C2B9-143E-4DDA-8B27-F52046F7564E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SafProvider", "CppSafFeaExample\SafProvider\SafProvider.vcxproj", "{EC43C2B9-143E-4DDA-8B27-F52046F7564E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafFeaBimLink", "..\SafFeaExample\SafFeaBimLink\SafFeaBimLink.csproj", "{0EF13B78-89D5-4995-819A-984E240ADA9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafFeaBimLink", "SafFeaBimLink\SafFeaBimLink.csproj", "{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,14 +53,14 @@ Global
 		{EC43C2B9-143E-4DDA-8B27-F52046F7564E}.Release|Any CPU.Build.0 = Release|x64
 		{EC43C2B9-143E-4DDA-8B27-F52046F7564E}.Release|x64.ActiveCfg = Release|x64
 		{EC43C2B9-143E-4DDA-8B27-F52046F7564E}.Release|x64.Build.0 = Release|x64
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Debug|x64.Build.0 = Debug|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Release|x64.ActiveCfg = Release|Any CPU
-		{0EF13B78-89D5-4995-819A-984E240ADA9F}.Release|x64.Build.0 = Release|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Debug|x64.Build.0 = Debug|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Release|x64.ActiveCfg = Release|Any CPU
+		{8FA2C23B-C8EC-46E9-941B-15B85CE5FBC7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

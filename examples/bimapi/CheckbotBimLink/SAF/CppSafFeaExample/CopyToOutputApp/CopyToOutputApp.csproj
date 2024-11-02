@@ -7,12 +7,12 @@
 		<Nullable>enable</Nullable>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-		<BaseOutputPath>..\</BaseOutputPath>
+		<BaseOutputPath>..\..\</BaseOutputPath>
 		<Platforms>x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\SafFeaExample\SafFeaBimLink\SafFeaBimLink.csproj" />
+		<ProjectReference Include="..\..\SafFeaBimLink\SafFeaBimLink.csproj" />
 		<ProjectReference Include="..\CheckbotClient\CheckbotClient.vcxproj" />
 	</ItemGroup>
 

@@ -122,8 +122,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SafFeaExample\SafFeaBimLink\SafFeaBimLink.csproj">
-      <Project>{0ef13b78-89d5-4995-819a-984e240ada9f}</Project>
+    <ProjectReference Include="..\..\SafFeaBimLink\SafFeaBimLink.csproj">
+      <Project>{8fa2c23b-c8ec-46e9-941b-15b85ce5fbc7}</Project>
     </ProjectReference>
   </ItemGroup>
   <Target Name="CopyNuGetDependencies" AfterTargets="Build">
