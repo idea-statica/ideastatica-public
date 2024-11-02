@@ -67,7 +67,7 @@ CCppFeaDlg::CCppFeaDlg(CWnd* pParent /*=nullptr*/)
 	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, 0, buffer)))
 	{
 		m_feaProjectPath = CString(buffer);
-		m_feaProjectPath += _T("\\CppFeaProject");
+		m_feaProjectName = _T("CppSafFeaExample");
 	}
 	else
 	{
@@ -82,6 +82,7 @@ void CCppFeaDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Text(pDX, IDC_CHECKBOT_PATH, m_checkbotPath);
 	DDX_Text(pDX, IDC_FEA_PROJECT_PATH, m_feaProjectPath);
+	DDX_Text(pDX, IDC_FEA_PROJECT_NAME, m_feaProjectName);
 }
 
 BEGIN_MESSAGE_MAP(CCppFeaDlg, CDialogEx)
@@ -209,7 +210,8 @@ void CCppFeaDlg::OnRunCheckbotClick()
 
 	// set the path do directory for Checkbot project
 	std::wstring feaProject(m_feaProjectPath.GetString());
-	pApi->SetProjectPath(feaProject);
+	std::wstring feaProjName(m_feaProjectName.GetString());
+	pApi->SetProjectPath(feaProject, feaProjName);
 
 	// set the path to Checkbot executable
 	std::wstring checkBotPath(m_checkbotPath.GetString());

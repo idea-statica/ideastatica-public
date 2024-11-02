@@ -12,6 +12,7 @@
 #define IDC_CHECKBOT_PATH               1001
 #define IDC_EDIT2                       1002
 #define IDC_FEA_PROJECT_PATH            1002
+#define IDC_FEA_PROJECT_NAME            1003
 
 // Next default values for new objects
 // 

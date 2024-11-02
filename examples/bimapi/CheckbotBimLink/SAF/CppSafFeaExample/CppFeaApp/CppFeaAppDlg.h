@@ -1,4 +1,4 @@
-#include "..\SafProvider\NativeFeaApi.h"
+#include "..\SafProvider\SafProviderBase.h"
 
 // CppFeaAppDlg.h : header file
 //
@@ -25,9 +25,10 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
-	NativeFeaApi* pApi;
+	SafProviderBase* pApi;
 	CString m_checkbotPath;
 	CString m_feaProjectPath;
+	CString m_feaProjectName;
 	int m_checkbotStatus = 0;
 
 	// Generated message map functions

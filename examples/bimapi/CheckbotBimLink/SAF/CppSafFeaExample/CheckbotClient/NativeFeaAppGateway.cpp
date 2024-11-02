@@ -10,19 +10,18 @@ namespace CheckbotClient
 
 	System::String^ NativeFeaAppGateway::GetModelDirectory()
 	{
-		throw gcnew System::NotImplementedException();
-		// TODO: insert return statement here
+		return gcnew System::String(_pApi->GetProjectPath().c_str());
 	}
 
 	System::String^ NativeFeaAppGateway::GetModelName()
 	{
-		throw gcnew System::NotImplementedException();
-		// TODO: insert return statement here
+		return gcnew System::String(_pApi->GetProjectName().c_str());
 	}
 
 	System::String^ NativeFeaAppGateway::ExportSAFFileofActiveSelection(System::String^ safSavePath, System::Collections::Generic::IReadOnlyCollection<System::Guid>^% selectedElementGuids)
 	{
 		throw gcnew System::NotImplementedException();
+
 		// TODO: insert return statement here
 	}
 

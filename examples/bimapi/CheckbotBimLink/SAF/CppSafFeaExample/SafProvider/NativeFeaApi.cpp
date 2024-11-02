@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "NativeFeaApi.h"
 
+#include <iostream>
+#include <fstream>
+
 
 using namespace std;
 
@@ -13,21 +16,27 @@ NativeFeaApi::~NativeFeaApi()
 
 }
 
+std::wstring NativeFeaApi::GetProjectName()
+{
+	return projectName;
+}
+
 
 
 std::wstring NativeFeaApi::GetProjectPath()
 {
-	return projectPath;
+	return projectDir;
 }
 
-void NativeFeaApi::SetProjectPath(std::wstring path)
+void NativeFeaApi::SetProjectPath(std::wstring feaProjDir, std::wstring projectName)
 {
-	projectPath = path;
+	this->projectDir = feaProjDir;
+	this->projectName = projectName;
 }
 
 std::wstring NativeFeaApi::GetFeaName()
 {
-	return L"NativeFeaApi";
+	return L"CppSafFeaExample";
 }
 
 void NativeFeaApi::GetSafData()

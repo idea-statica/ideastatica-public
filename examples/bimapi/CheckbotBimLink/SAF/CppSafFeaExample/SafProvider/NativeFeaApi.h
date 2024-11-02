@@ -13,7 +13,8 @@ class SAFPROVIDERDLL_EXPORTS NativeFeaApi : public SafProviderBase
 private:
 
 
-	std::wstring projectPath;
+	std::wstring projectDir;
+	std::wstring projectName;
 
 public:
 	NativeFeaApi();
@@ -26,8 +27,10 @@ public:
 	/// <returns></returns>
 	virtual std::wstring GetProjectPath() override;
 
+	virtual std::wstring GetProjectName() override;
 
-	virtual void SetProjectPath(std::wstring path) override;
+
+	virtual void SetProjectPath(std::wstring feaProjDir, std::wstring projectName) override;
 
 
 	/// <summary>

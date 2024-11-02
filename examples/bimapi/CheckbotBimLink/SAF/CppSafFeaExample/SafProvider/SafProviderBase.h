@@ -16,8 +16,14 @@ public:
 /// <returns></returns>
 	virtual std::wstring GetProjectPath() = 0;
 
+	virtual std::wstring GetProjectName() = 0;
 
-	virtual void SetProjectPath(std::wstring path) = 0;
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="feaProjDir"></param>
+	/// <param name="projectName"></param>
+	virtual void SetProjectPath(std::wstring feaProjDir, std::wstring projectName) = 0;
 
 
 	/// <summary>
