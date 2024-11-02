@@ -10,7 +10,7 @@ namespace CodeSamples
 		/// </summary>
 		/// <param name="conClient"></param>
 		/// <returns></returns>
-		public static async Task SaveReport_Word_NOTWORKING(ConnectionApiClient conClient)
+		public static async Task SaveReport_Word(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/simple cleat connection.ideaCon";
 			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
@@ -24,12 +24,12 @@ namespace CodeSamples
 
 			// Save updated file.
 			string fileName = "simple cleat connection.docx";
-			string pdfFilePath = Path.Combine(exampleFolder, fileName);
+			string wordFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save Report to PDF
-			await conClient.Report.SaveReportWordAsync(projectId, connectionId, pdfFilePath);
+			await conClient.Report.SaveReportWordAsync(projectId, connectionId, wordFilePath);
 
-			Console.WriteLine($"Report saved to: {pdfFilePath}");
+			Console.WriteLine($"Report saved to: {wordFilePath}");
 
 			//Close the opened project.
 			await conClient.Project.CloseProjectAsync(projectId);

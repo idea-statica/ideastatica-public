@@ -39,8 +39,8 @@ namespace CodeSamples
 				if (!SteelMaterialMap.ContainsKey(section.MaterialName))
 				{
 					//FIX: Add Materal should return the Material not the ConMprlElement
-					ConMprlElement addedMaterial = await conClient.Material.AddMaterialSteelAsync(projectId, new ConMprlElement(section.MaterialName));
-					Console.WriteLine("Successfully Added new Material: " + addedMaterial.MprlName);
+					await conClient.Material.AddMaterialSteelAsync(projectId, new ConMprlElement(section.MaterialName));
+					//Console.WriteLine("Successfully Added new Material: " + addedMaterial.MprlName);
 				}
 				else
 					Console.WriteLine("Material already in project:" + section.MaterialName);
@@ -49,8 +49,8 @@ namespace CodeSamples
 				if (!CrossSectionMap.ContainsKey(section.MprlName))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					ConMprlCrossSection added = await conClient.Material.AddCrossSectionAsync(projectId, new ConMprlCrossSection("S 355", section.MprlName));
-					Console.WriteLine("Successfully Added new Cross-section: " + added.MprlName);
+					await conClient.Material.AddCrossSectionAsync(projectId, new ConMprlCrossSection("S 355", section.MprlName));
+					//Console.WriteLine("Successfully Added new Cross-section: " + added.MprlName);
 
 					//Need to check what happens if name is not found...
 				}

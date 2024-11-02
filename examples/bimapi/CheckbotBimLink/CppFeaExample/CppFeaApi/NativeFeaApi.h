@@ -1,6 +1,8 @@
 #pragma once
 #include "CppFeaApiDll.h"
 #include "NativeFeaGeometry.h"
+#include "NativeFeaLoads.h"
+#include "NativeFeaResults.h"
 #include <string>
 #include <iostream>
 
@@ -11,6 +13,9 @@ class CPPFEAAPIDLL_EXPORT NativeFeaApi
 {
 private:
 	NativeFeaGeometry* pFeaGeometry;
+	NativeFeaLoads* pFeaLoading;
+	NativeFeaResults* pFeaResults;
+
 	std::wstring projectPath;
 
 public:
@@ -22,6 +27,19 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	NativeFeaGeometry* GetGeometry();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	NativeFeaLoads* GetLoading();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	NativeFeaResults* GetResults();
+
 
 	/// <summary>
 	/// Get path to the FEA project on the disk. (Checkbot will use it to store its data)

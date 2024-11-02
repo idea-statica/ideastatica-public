@@ -11,18 +11,18 @@ using namespace ImporterWrappers;
 
 namespace CppFeaApiWrapper
 {
-  namespace Importers
-  {
-    public ref class NodeImporter : public NodeImporterBase
-    {
-    private:
-      ImporterContext^ context;
-      IdeaVector3D^ GetLocation(int id);
+	namespace Importers
+	{
+		public ref class NodeImporter : public NodeImporterBase
+		{
+		private:
+			ImporterContext^ context;
+			IdeaVector3D^ GetLocation(int id);
 
-    public:
-      NodeImporter(ImporterContext^ context);
+		public:
+			NodeImporter(ImporterContext^ context);
 
-      virtual IIdeaNode^ Create(int id) override;
-    };
-  }
+			virtual IIdeaNode^ Create(int id) override;
+		};
+	}
 }
