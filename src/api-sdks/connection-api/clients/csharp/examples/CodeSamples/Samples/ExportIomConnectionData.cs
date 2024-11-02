@@ -19,7 +19,6 @@ namespace CodeSamples
 			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
-			//FIX: This should export IdeaRS classes not the client classes.
 			ConnectionData conData = await conClient.Export.ExportIomConnectionDataAsync(projectId, connectionId);
 
 			//Print the connection data to the Console.

@@ -23,11 +23,11 @@ namespace CodeSamples
 			string connectionName = string.IsNullOrEmpty(connections[0].Name) ? "Conn1" : connections[0].Name;
 			string ifcPath = Path.Combine(exampleFolderPath, connectionName + ".ifc");
 
-			//FIX Naming remove 'Con'
+			//Export the connection to Ifc file.
 			await conClient.Export.ExportIfcFileAsync(projectId, connectionId, ifcPath);
 
+			//Close the project
 			await conClient.Project.CloseProjectAsync(projectId);
-
 		}
 	}
 }
