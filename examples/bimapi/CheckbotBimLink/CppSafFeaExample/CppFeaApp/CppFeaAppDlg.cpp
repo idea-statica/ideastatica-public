@@ -7,7 +7,7 @@
 #include "CppFeaApp.h"
 #include "CppFeaAppDlg.h"
 #include "afxdialogex.h"
-#include "..\CppFeaApi\NativeFeaApi.h"
+#include "..\SafProvider\NativeFeaApi.h"
 #include <vector>
 #include <string>
 
@@ -15,7 +15,7 @@
 #define new DEBUG_NEW
 #endif
 
-extern "C" __declspec(dllimport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath);
+extern "C" __declspec(dllimport) int RunCheckbot(SafProviderBase * pApi, std::wstring checkBotPath);
 extern "C" __declspec(dllimport) int ReleaseCheckbot();
 
 // CAboutDlg dialog used for App About

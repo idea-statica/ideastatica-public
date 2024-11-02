@@ -29,3 +29,8 @@ std::wstring NativeFeaApi::GetFeaName()
 {
 	return L"NativeFeaApi";
 }
+
+void NativeFeaApi::GetSafData()
+{
+
+}

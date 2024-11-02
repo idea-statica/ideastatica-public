@@ -12,8 +12,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CppFeaApp\CppFeaApp.vcxproj" />
-		<ProjectReference Include="..\ImporterWrappers\ImporterWrappers.csproj" />
+		<ProjectReference Include="..\..\SafFeaExample\SafFeaBimLink\SafFeaBimLink.csproj" />
+		<ProjectReference Include="..\CheckbotClient\CheckbotClient.vcxproj" />
 	</ItemGroup>
 
 </Project>

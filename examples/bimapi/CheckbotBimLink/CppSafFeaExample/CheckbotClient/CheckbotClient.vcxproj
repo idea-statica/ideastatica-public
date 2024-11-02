@@ -88,25 +88,21 @@
     <ClInclude Include="CheckBotControlFunctions.h" />
     <ClInclude Include="CheckbotController.h" />
     <ClInclude Include="CheckbotClientDll.h" />
-    <ClInclude Include="CrossSectionByName.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ImporterContext.h" />
-    <ClInclude Include="Member1D.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="NativeFeaAppGateway.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Segment3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CheckbotController.cpp" />
-    <ClCompile Include="CrossSectionByName.cpp" />
     <ClCompile Include="ImporterContext.cpp" />
-    <ClCompile Include="Member1D.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="NativeFeaAppGateway.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Segment3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
@@ -124,6 +120,11 @@
     <PackageReference Include="MathNet.Spatial">
       <Version>0.6.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SafFeaExample\SafFeaBimLink\SafFeaBimLink.csproj">
+      <Project>{0ef13b78-89d5-4995-819a-984e240ada9f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Target Name="CopyNuGetDependencies" AfterTargets="Build">
     <Copy SourceFiles="@(PackageReference->'%(PackageDirectory)%(PackageFileName)')" DestinationFolder="$(OutputPath)\Dependencies" />

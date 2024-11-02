@@ -2,6 +2,7 @@
 #include "CheckbotController.h"
 #include "..\SafProvider\NativeFeaApi.h"
 #include "CheckBotControlFunctions.h"
+#include "NativeFeaAppGateway.h"
 
 #include "Model.h"
 
@@ -9,6 +10,8 @@
 using namespace Autofac;
 using namespace Autofac::Extensions::DependencyInjection;
 using namespace IdeaStatiCa::BimApiLink;
+using namespace SafFeaBimLink;
+
 
 /// <summary>
 /// Function to run the checkbot
@@ -16,13 +19,15 @@ using namespace IdeaStatiCa::BimApiLink;
 /// <param name="pApi">NativeFeaApi represents the model from the source FEA</param>
 /// <param name="checkBotPath">The path to Checkbot.exe (IDEA StatiCa setup)</param>
 /// <returns>Returns 1 if success</returns>
-extern "C" __declspec(dllexport) int RunCheckbot(NativeFeaApi * pApi, std::wstring checkBotPath)
+extern "C" __declspec(dllexport) int RunCheckbot(SafProviderBase* pApi, std::wstring checkBotPath)
 {
 	try
 	{
 		String^ checkbotPath = gcnew System::String(checkBotPath.c_str());
 
-		//CppFeaApiWrapper::CheckbotController::Run(checkbotPath, pApi);
+		CheckbotClient::NativeFeaAppGateway^ nativeFeaGateway = gcnew CheckbotClient::NativeFeaAppGateway(pApi);
+
+		auto task = SafFeaBimLinkApp::Run(nativeFeaGateway);
 		return 1;
 	}
 	catch (System::Exception^ ex)

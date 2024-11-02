@@ -1,4 +1,4 @@
-#include "..\CppFeaApi\NativeFeaApi.h"
+#include "..\SafProvider\NativeFeaApi.h"
 
 // CppFeaAppDlg.h : header file
 //

@@ -1,8 +1,5 @@
-using IdeaStatiCa.Plugin;
-using IdeaStatiCa.PluginLogger;
 using SafFeaApi_MOCK;
 using SafFeaBimLink;
-using Serilog;
 
 namespace SafFeaTestApp
 {
