@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SafFeaBimLink\SafFeaBimLink.csproj" />
     <ProjectReference Include="..\SafFeaApi_MOCK\SafFeaApi_MOCK.csproj" />
-    <ProjectReference Include="..\SafFeaBimLink\SafFeaBimLink.csproj" />
   </ItemGroup>
 
   <ItemGroup>
