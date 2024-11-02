@@ -20,7 +20,9 @@ namespace CodeSamples
 			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
-			//ConnectionData conData = await conClient.Export.ExportIomXmlAsync()
+
+
+			ConnectionData conData = await conClient.Export.ExportIomXmlAsync();
 
 			//string saveFilePath = "connection-file-from-IOM.ideaCon";
 
