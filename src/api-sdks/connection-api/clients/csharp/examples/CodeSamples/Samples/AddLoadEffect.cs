@@ -34,10 +34,9 @@ namespace CodeSamples
 			if (string.IsNullOrEmpty(input))
 			{
 				//Generic quick add of a load effect
-				//FIX: DOES NOT WORK.
-				//FIX: Add LoadEffect should return ConLoadEffect
-				//FIX: Default should be active.
-				LoadEffectData newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId);
+				//BUG: DOES NOT WORK.
+				//BUG: DEFAULT SHOULD BE ACTIVE.
+				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId);
 				
 				if(newLoadEffect != null) 
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}"); 
@@ -45,8 +44,7 @@ namespace CodeSamples
 			{
 				ConLoadEffect loadEffect = new ConLoadEffect() { Name = input };
 
-				//FIX: DOES WORK.
-				LoadEffectData newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, loadEffect);
+				var newLoadEffect = await conClient.LoadEffect.AddLoadEffectAsync(projectId, connectionId, loadEffect);
 				if (newLoadEffect != null)
 					Console.WriteLine($"Load Effect Added: Name= {newLoadEffect.Name}, Id= {newLoadEffect.Id}");
 			}

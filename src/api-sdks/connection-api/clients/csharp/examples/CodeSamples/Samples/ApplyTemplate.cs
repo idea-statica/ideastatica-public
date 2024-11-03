@@ -21,13 +21,10 @@ namespace CodeSamples
 
 			string templateFilePath = "inputs/template-I-corner.contemp";
 
-			//FIX: Change class name to 'ConTemplate'?? || 'ConTemplateWrapper'?
 			ConTemplateMappingGetParam templateImport = conClient.Template.ImportTemplateFromFile(templateFilePath);
 
-			//FIX: Change class name to 'ConTemplateMappings'
 			TemplateConversions conversionMapping = await conClient.Template.GetDefaultTemplateMappingAsync(projectId, connectionId, templateImport);
 
-			//Fix: Param needs to be plural.
 			ConTemplateApplyParam applyParam = new ConTemplateApplyParam();
 			
 			applyParam.ConnectionTemplate = templateImport.Template;
@@ -37,7 +34,6 @@ namespace CodeSamples
 
 			var result = conClient.Template.ApplyTemplateAsync(projectId, connectionId, applyParam);
 
-			//FIX Parameter --> Params?? 
 			ConCalculationParameter calculationParams = new ConCalculationParameter();
 			calculationParams.ConnectionIds = new List<int> { connectionId };
 

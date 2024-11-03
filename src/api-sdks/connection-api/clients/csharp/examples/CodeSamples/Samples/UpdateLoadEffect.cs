@@ -39,8 +39,8 @@ namespace CodeSamples
 				}
 
 				ConLoadEffect loadEffect = loadEffects[i];
-				// FIX: LoadEffect provides all the member loadings - even if LoadsInEquilibrium is set to False. Is this correct??
-
+				
+				// NOTE: LoadEffect provides all the member loadings - even if LoadsInEquilibrium is set to False.
 				for (int j = 0; j < loadEffect.MemberLoadings.Count; j++)
 				{
 					ConLoadEffectMemberLoad loading = loadEffect.MemberLoadings[j];
@@ -54,7 +54,6 @@ namespace CodeSamples
 					loading.SectionLoad.Mx = loadingBasis.SectionLoad.Mx * effectMultiplier;
 				}
 
-				// 
 				await conClient.LoadEffect.UpdateLoadEffectAsync(projectId, connectionId, loadEffect);
 
 				// Increase each increment by 25% of the original value.
@@ -72,7 +71,6 @@ namespace CodeSamples
 
 			//Close the opened project.
 			await conClient.Project.CloseProjectAsync(projectId);
-
 
 		}
 	}
