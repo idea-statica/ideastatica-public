@@ -29,6 +29,7 @@ protected:
 	CString m_checkbotPath;
 	CString m_feaProjectPath;
 	CString m_feaProjectName;
+	CString m_safFilePath;
 	int m_checkbotStatus = 0;
 
 	// Generated message map functions

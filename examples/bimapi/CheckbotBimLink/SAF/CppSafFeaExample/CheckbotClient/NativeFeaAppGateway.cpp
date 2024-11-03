@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "NativeFeaAppGateway.h"
+#include <msclr/marshal.h>
+#include <msclr/marshal_cppstd.h>
 
 namespace CheckbotClient
 {
@@ -20,9 +22,8 @@ namespace CheckbotClient
 
 	System::String^ NativeFeaAppGateway::ExportSAFFileofActiveSelection(System::String^ safSavePath, System::Collections::Generic::IReadOnlyCollection<System::Guid>^% selectedElementGuids)
 	{
-		throw gcnew System::NotImplementedException();
-
-		// TODO: insert return statement here
+		_pApi->ExportToSafFile(msclr::interop::marshal_as<std::wstring>(safSavePath));
+		return safSavePath;
 	}
 
 	System::String^ NativeFeaAppGateway::ExportSAFFileofProvidedSelection(System::String^ safSavePath, System::Collections::Generic::IEnumerable<System::Guid>^ providedElementGuids)

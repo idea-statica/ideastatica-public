@@ -10,6 +10,12 @@
 #include "..\SafProvider\NativeFeaApi.h"
 #include <vector>
 #include <string>
+#include <windows.h>
+#include <filesystem>
+#include <iostream>
+#include <fstream>
+
+namespace fs = std::filesystem;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -74,6 +80,14 @@ CCppFeaDlg::CCppFeaDlg(CWnd* pParent /*=nullptr*/)
 		m_feaProjectPath = _T("");
 	}
 
+	char path[MAX_PATH];
+	GetModuleFileNameA(NULL, path, MAX_PATH);
+	fs::path exePath = path;
+	fs::path curDir = exePath.parent_path(); // Get the directory path
+
+
+	fs::path safFilePath = curDir / fs::path(_T("SAF_steel_truss_first_import.xlsx"));
+	m_safFilePath = safFilePath.c_str();
 }
 
 void CCppFeaDlg::DoDataExchange(CDataExchange* pDX)
@@ -83,6 +97,7 @@ void CCppFeaDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_CHECKBOT_PATH, m_checkbotPath);
 	DDX_Text(pDX, IDC_FEA_PROJECT_PATH, m_feaProjectPath);
 	DDX_Text(pDX, IDC_FEA_PROJECT_NAME, m_feaProjectName);
+	DDX_Text(pDX, IDC_FEA_PROJECT_FILEPATH, m_safFilePath);
 }
 
 BEGIN_MESSAGE_MAP(CCppFeaDlg, CDialogEx)
@@ -212,6 +227,7 @@ void CCppFeaDlg::OnRunCheckbotClick()
 	std::wstring feaProject(m_feaProjectPath.GetString());
 	std::wstring feaProjName(m_feaProjectName.GetString());
 	pApi->SetProjectPath(feaProject, feaProjName);
+	pApi->SetSafFilePath(m_safFilePath.GetString());
 
 	// set the path to Checkbot executable
 	std::wstring checkBotPath(m_checkbotPath.GetString());

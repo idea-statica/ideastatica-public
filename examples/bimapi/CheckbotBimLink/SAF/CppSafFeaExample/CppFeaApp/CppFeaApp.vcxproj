@@ -125,7 +125,13 @@
     <ResourceCompile Include="CppFeaApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\CppFeaApp.rc2" />
+  <None Include="..\..\SafFeaExample\SafFeaTestApp\Inputs\SAF_steel_truss_first_import.xlsx">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Include="..\..\SafFeaExample\SafFeaTestApp\Inputs\SAF_steel_truss_sync.xlsx">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Include="res\CppFeaApp.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\CppFeaApp.ico" />

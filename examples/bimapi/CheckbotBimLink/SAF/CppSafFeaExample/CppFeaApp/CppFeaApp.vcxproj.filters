@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Inputs">
+      <UniqueIdentifier>{e542c68d-7002-49a3-b5e9-4b1a7312406e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CppFeaApp.h">
@@ -53,6 +56,12 @@
   <ItemGroup>
     <None Include="res\CppFeaApp.rc2">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\SafFeaExample\SafFeaTestApp\Inputs\SAF_steel_truss_first_import.xlsx">
+      <Filter>Inputs</Filter>
+    </None>
+    <None Include="..\..\SafFeaExample\SafFeaTestApp\Inputs\SAF_steel_truss_sync.xlsx">
+      <Filter>Inputs</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
