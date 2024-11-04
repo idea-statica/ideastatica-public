@@ -1,17 +1,30 @@
-# ideastatica_connection_api.PresentationApi
+# PresentationApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**get_data_scene3_d**](PresentationApi.md#get_data_scene3_d) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/presentations | Returns data for scene3D
-[**get_data_scene3_d_text**](PresentationApi.md#get_data_scene3_d_text) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/presentations/text | Return serialized data for scene3D in json format
+Method | Description
+------------- | -------------
+[**get_data_scene3_d**](PresentationApi.md#get_data_scene3_d) | Returns data for scene3D
+[**get_data_scene3_d_text**](PresentationApi.md#get_data_scene3_d_text) | Return serialized data for scene3D in json format
 
 
+<a id="get_data_scene3_d"></a>
 # **get_data_scene3_d**
 > DrawData get_data_scene3_d(project_id, connection_id)
 
 Returns data for scene3D
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the open project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to be presented to scene3D | 
+
+### Return type
+
+[**DrawData**](DrawData.md)
 
 ### Example
 
@@ -31,6 +44,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.PresentationApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the open project in the ConnectionRestApi service
@@ -47,17 +61,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the open project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be presented to scene3D | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**DrawData**](DrawData.md)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/presentations 
 
 ### Authorization
 
@@ -76,10 +90,23 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="get_data_scene3_d_text"></a>
 # **get_data_scene3_d_text**
 > str get_data_scene3_d_text(project_id, connection_id)
 
 Return serialized data for scene3D in json format
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+**str**
 
 ### Example
 
@@ -98,6 +125,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.PresentationApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -114,17 +142,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-**str**
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/presentations/text 
 
 ### Authorization
 

@@ -1,17 +1,30 @@
-# ideastatica_connection_api.OperationApi
+# OperationApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**delete_operations**](OperationApi.md#delete_operations) | **DELETE** /api/1/projects/{projectId}/connections/{connectionId}/operations | Delete all operations for the connection
-[**get_operations**](OperationApi.md#get_operations) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/operations | Get the list of operations for the connection
+Method | Description
+------------- | -------------
+[**delete_operations**](OperationApi.md#delete_operations) | Delete all operations for the connection
+[**get_operations**](OperationApi.md#get_operations) | Get the list of operations for the connection
 
 
+<a id="delete_operations"></a>
 # **delete_operations**
 > delete_operations(project_id, connection_id)
 
 Delete all operations for the connection
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to be modified | 
+
+### Return type
+
+void (empty response body)
 
 ### Example
 
@@ -30,6 +43,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.OperationApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -44,17 +58,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be modified | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-void (empty response body)
+All URIs are relative to *http://localhost*
+
+> **DELETE** /api/1/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 
@@ -73,10 +87,23 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="get_operations"></a>
 # **get_operations**
 > List[ConOperation] get_operations(project_id, connection_id)
 
 Get the list of operations for the connection
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the requested connection | 
+
+### Return type
+
+[**List[ConOperation]**](ConOperation.md)
 
 ### Example
 
@@ -96,6 +123,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.OperationApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -112,17 +140,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the requested connection | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**List[ConOperation]**](ConOperation.md)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/operations 
 
 ### Authorization
 

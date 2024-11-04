@@ -1,17 +1,30 @@
-# ideastatica_connection_api.ReportApi
+# ReportApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**generate_pdf**](ReportApi.md#generate_pdf) | **GET** /api/1/projects/{projectId}/reports/{connectionId}/pdf | Generates report for projectId and connectionId
-[**generate_word**](ReportApi.md#generate_word) | **GET** /api/1/projects/{projectId}/reports/{connectionId}/word | Generates report for projectId and connectionId
+Method | Description
+------------- | -------------
+[**generate_pdf**](ReportApi.md#generate_pdf) | Generates report for projectId and connectionId
+[**generate_word**](ReportApi.md#generate_word) | Generates report for projectId and connectionId
 
 
+<a id="generate_pdf"></a>
 # **generate_pdf**
 > generate_pdf(project_id, connection_id)
 
 Generates report for projectId and connectionId
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+void (empty response body)
 
 ### Example
 
@@ -30,6 +43,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ReportApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -44,17 +58,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-void (empty response body)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/reports/{connectionId}/pdf 
 
 ### Authorization
 
@@ -73,10 +87,23 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="generate_word"></a>
 # **generate_word**
 > generate_word(project_id, connection_id)
 
 Generates report for projectId and connectionId
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+void (empty response body)
 
 ### Example
 
@@ -95,6 +122,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ReportApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -109,17 +137,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-void (empty response body)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/reports/{connectionId}/word 
 
 ### Authorization
 
