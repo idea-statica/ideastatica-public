@@ -6,12 +6,12 @@
 - name: Checkbot framework capabilities
   href: bimapi_checkbot_project_framework.md
 - name: Why use SAF for a Checkbot BIM Link?
-  href: ../../../examples/bimapi/CheckbotBimLink/SafFeaExample/what_is_SAF.md
+  href: ../../../examples/bimapi/CheckbotBimLink/SAF/SafFeaExample/what_is_SAF.md
 - name: Examples
 - name: FEA BIM Link Example
   href: https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink
 - name: FEA BIM Link (Using SAF) Example
-  href: ../../../examples/bimapi/CheckbotBimLink/SafFeaExample/README.md
+  href: ../../../examples/bimapi/CheckbotBimLink/SAF/SafFeaExample/README.md
 - name: CAD BIM Link Example
   href: https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink
 - name: Versioning
