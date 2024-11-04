@@ -1,0 +1,1 @@
+# ideastatica_setup_tools/__init__.py
