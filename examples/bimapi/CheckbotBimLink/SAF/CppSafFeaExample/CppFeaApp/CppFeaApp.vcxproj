@@ -62,7 +62,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>CppFeaApiWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CheckbotClient.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -91,7 +91,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>CppFeaApiWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CheckbotClient.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <Midl>
@@ -125,16 +125,22 @@
     <ResourceCompile Include="CppFeaApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\CppFeaApp.rc2" />
+  <None Include="..\..\SafFeaExample\SafFeaTestApp\Inputs\SAF_steel_truss_first_import.xlsx">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Include="..\..\SafFeaExample\SafFeaTestApp\Inputs\SAF_steel_truss_sync.xlsx">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Include="res\CppFeaApp.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\CppFeaApp.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CppFeaApiWrapper\CppFeaApiWrapper.vcxproj">
+    <ProjectReference Include="..\CheckbotClient\CheckbotClient.vcxproj">
       <Project>{5794d7f5-c9bb-428b-a070-056717bbb58b}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\CppFeaApi\CppFeaApi.vcxproj">
+    <ProjectReference Include="..\SafProvider\SafProvider.vcxproj">
       <Project>{ec43c2b9-143e-4dda-8b27-f52046f7564e}</Project>
     </ProjectReference>
   </ItemGroup>
