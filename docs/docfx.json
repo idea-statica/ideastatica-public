@@ -88,7 +88,8 @@
       { "files": ["api-bimapilink/**.yml", "api-bimapilink/index.md"]},
       { "files": ["api-plugin/**.yml","api-plugin/index.md"]},
       { "files": ["api-rcs/**.yml","api-rcs/index.md"]},
-      {"files": [ "**/*.swagger.json" ]},
+      { "files": "**/*.md", "src" : "../src/api-sdks", "dest": "docs/api"},
+      { "files": [ "**/*.swagger.json" ]},
       { "files": ["toc.yml", "*.md"]},
       { "files": "**/*.{md|yml}" , "src": "../examples", "dest":"examples"}
     ],

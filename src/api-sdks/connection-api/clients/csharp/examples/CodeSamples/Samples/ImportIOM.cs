@@ -7,17 +7,37 @@ namespace CodeSamples
 	public partial class ClientExamples
 	{
 		/// <summary>
+		/// Creates a new connection project from a selected IOM file. The first connection point in the IOM file will be added to the project.
+		/// </summary>
+		/// <param name="conClient">The connected API Client</param>
+		public static async Task CreateProjectFromIom(ConnectionApiClient conClient) 
+		{
+			string filePath = "Inputs/multiple_connections.xml";
+			ConProject conProject = await conClient.Project.CreateProjectFromIomFileAsync(filePath);
+
+			//Get projectId Guid
+			Guid projectId = conProject.ProjectId;
+			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			int connectionId = connections[0].Id;
+
+			string saveFilePath = "connection-file-from-IOM.ideaCon";
+
+			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+		}
+
+
+		/// <summary>
 		/// Creates a new connection project from a selected IOM file. 
 		/// User can select which connections from the IOM file are to be created in the connection project.
 		/// </summary>
 		/// <param name="conClient">The connected API Client</param>
-		public static async Task CreateProjectFromIOM_Multiple(ConnectionApiClient conClient) 
+		public static async Task CreateProjectFromIOM_Multiple(ConnectionApiClient conClient)
 		{
 			string filePath = "Inputs/multiple_connections.xml";
-			
+
 			//Read IOM to see which connections are in the file.
 			IdeaRS.OpenModel.OpenModelContainer openModel = Tools.OpenModelContainerFromFile(filePath);
-			List<int> avaliableConPoints = openModel.OpenModel.ConnectionPoint.Select(x => x.Id).ToList();  
+			List<int> avaliableConPoints = openModel.OpenModel.ConnectionPoint.Select(x => x.Id).ToList();
 
 			Console.WriteLine("Points avaliable for import: " + String.Join(",", avaliableConPoints));
 			Console.WriteLine("Provide list of points to import seperated by comma. (eg 1, 3, 4)");

@@ -1,27 +1,25 @@
 - name: IDEA StatiCa API
   href: api_overview.md
 - name: Connection API
-- name: Getting Started
-  href: connection/connection_api_getting_started.md
-- name: API Client Basics
-  href: connection/connection_api_client_basics.md
-- name: Examples
-  href: connection/examples/toc.yml
-- name: API Reference
-  href: ../../api-plugin/IdeaStatiCa.Plugin.ConnectionHiddenCheckClient.yml
+- name: Introduction
+  href: connection-api/connection_api_overview.md
+- name: C# client
+  href: connection-api/clients/csharp/toc.yml
+- name: Python client
+  href: connection-api/clients/python/toc.yml
 - name: RCS API
 - name: Getting Started
-  href: rcs/rcs_api_getting_started.md
+  href: rcs-api/rcs_api_getting_started.md
 - name: API Client Basics
-  href: rcs/rcs_api_client_basics.md
+  href: rcs-api/rcs_api_client_basics.md
 - name: Section Optimization
-  href: rcs/rcs_api_section_optimization.md
+  href: rcs-api/rcs_api_section_optimization.md
 - name: Examples
-  href: rcs/examples/toc.yml
+  href: rcs-api/examples/toc.yml
 - name: API Reference (C#)
   href: ../../api-rcs/toc.yml
 - name: API Reference (REST)
-  href: rcs/RCSAPI-oa2.swagger.json
+  href: rcs-api/RCSAPI-oa2.swagger.json
 - name: References
 - name: Creating a simple app
   href: api_create_a_simple_app.md
