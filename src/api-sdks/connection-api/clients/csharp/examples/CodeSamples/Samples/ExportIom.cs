@@ -20,8 +20,10 @@ namespace CodeSamples
 			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
 			int connectionId = connections[0].Id;
 
+
 			//FIX Needs to output the Iom Model xml.
 			await conClient.Export.ExportIomAsync(projectId, connectionId);
+
 
 			//Close the opened project.
 			await conClient.Project.CloseProjectAsync(projectId);
