@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+#if !NET48
+using System.Text.Json;
+#endif
+
 namespace IdeaStatiCa.PluginsTools.Windows.Utilities
 {
 	/// <summary>
@@ -20,7 +24,6 @@ namespace IdeaStatiCa.PluginsTools.Windows.Utilities
 		/// <returns>Path to the installation directory</returns>
 		public static string GetIdeaStatiCaInstallDir(string version)
 		{
-			List<(Version, string)> installedVersions = new List<(Version, string)>();
 			string installPath = string.Empty;
 
 			using (RegistryKey hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
@@ -50,6 +53,38 @@ namespace IdeaStatiCa.PluginsTools.Windows.Utilities
 
 			return installPath;
 		}
+
+
+#if !NET48
+		/// <summary>
+		/// get list of installed IS versions in JSON format
+		/// </summary>
+		/// <returns></returns>
+		public static string GetInstalledVersions()
+		{
+			List<IdeaStatiCaVer> versions = null;
+
+			using (RegistryKey hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+			{
+				using (RegistryKey key = hklm.OpenSubKey(IdeaStatiCaRegistryKey))
+				{
+					if (key == null)
+					{
+						return null;
+					}
+
+					foreach (string subKeyName in key.GetSubKeyNames())
+					{
+						var ver = new IdeaStatiCaVer();
+						ver.Version = subKeyName;
+						ver.InstallPath = GetInstallPath(hklm, Path.Combine(IdeaStatiCaRegistryKey, subKeyName, "IDEAStatiCa", "Designer"));
+					}
+				}
+			}
+
+			return JsonSerializer.Serialize(versions);
+		}
+#endif
 
 		private static string GetInstallPath(RegistryKey hklm, string key)
 		{
