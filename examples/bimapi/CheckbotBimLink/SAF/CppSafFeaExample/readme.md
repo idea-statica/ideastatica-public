@@ -1,3 +1,11 @@
-### C++/CLI implementation of Checkbot BIM Link Example for an FEA Application which can provide data in [SAF format](https://www.scia.net/en/innovations/structural-analysis-format-saf)
+### C++/CLI implementation of Checkbot BIM Link Example for a FEA Application which can provide data in [SAF format](https://www.scia.net/en/innovations/structural-analysis-format-saf)
 
-TODO
+The [CppFeaApp](https://github.com/idea-statica/ideastatica-public/tree/main/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/CppFeaApp) is a mock of a FEA application. 
+
+The instance of the class [NativeFeaApi](https://github.com/idea-statica/ideastatica-public/blob/main/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/SafProvider/NativeFeaApi.h) is created in the method [CCppFeaDlg::OnRunCheckbotClick](https://github.com/idea-statica/ideastatica-public/blob/5848732228cd23e9081d9a0fca738e69498351ca/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/CppFeaApp/CppFeaAppDlg.cpp#L215C6-L215C36).
+It is the implementation of the interface [SafProviderBase](https://github.com/idea-statica/ideastatica-public/blob/main/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/SafProvider/SafProviderBase.h). The interface provides the basic information which are needed for creating Checkbot project. There is also the function [ExportToSafFile](https://github.com/idea-statica/ideastatica-public/blob/5848732228cd23e9081d9a0fca738e69498351ca/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/SafProvider/SafProviderBase.h#L44) which is called when Checkbot is requesting data from the FEA.
+
+
+To be able to run Checkbot the exported function [RunCheckbot](https://github.com/idea-statica/ideastatica-public/blob/5848732228cd23e9081d9a0fca738e69498351ca/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/CheckbotClient/CheckBotControlFunctions.h#L13) should be called.
+
+The example provides a static SAF data but the real implementation should generate a SAF file on a request in the real implementation of [ExportToSaf](https://github.com/idea-statica/ideastatica-public/blob/5848732228cd23e9081d9a0fca738e69498351ca/examples/bimapi/CheckbotBimLink/SAF/CppSafFeaExample/SafProvider/SafProviderBase.h#L44)
