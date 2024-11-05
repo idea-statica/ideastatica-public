@@ -20,16 +20,16 @@ namespace IdeaStatiCa.IOM.VersioningService.Configuration
 
 		private void RegisterSteps()
 		{
-			RedgisterStep(new Step200(_logger));
-			RedgisterStep(new Step201(_logger));
-			RedgisterStep(new Step205(_logger));
-			RedgisterStep(new Step206(_logger));
-			RedgisterStep(new Step210(_logger));
+			RegisterStep(new Step200(_logger));
+			RegisterStep(new Step201(_logger));
+			RegisterStep(new Step205(_logger));
+			RegisterStep(new Step206(_logger));
+			RegisterStep(new Step210(_logger));
 		}
 
-		private void RedgisterStep(BaseStep step)
+		private void RegisterStep(BaseStep step)
 		{
-			_logger.LogInformation($"Register step {step.GetVersion()}");
+			_logger.LogDebug($"Register step {step.GetVersion()}");
 			_steps.Add(step.GetVersion(), step);
 		}
 
