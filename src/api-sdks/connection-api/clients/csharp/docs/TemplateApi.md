@@ -1,76 +1,18 @@
-# IdeaStatiCa.ConnectionApi.Api.TemplateApi
+# TemplateApi
 
-All URIs are relative to *http://localhost*
-
-| Method | HTTP request | Description |
-|--------|--------------|-------------|
-| [**ApplyTemplate**](TemplateApi.md#applytemplate) | **POST** /api/1/projects/{projectId}/connections/{connectionId}/apply-template | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId |
-| [**CreateConTemplate**](TemplateApi.md#createcontemplate) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/get-template | Create a template for the connection connectionId in the project projectId |
-| [**GetDefaultTemplateMapping**](TemplateApi.md#getdefaulttemplatemapping) | **POST** /api/1/projects/{projectId}/connections/{connectionId}/get-default-mapping | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId |
+| Method  | Description |
+|--------|-------------|
+| [**ApplyTemplate**](TemplateApi.md#applytemplate) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId |
+| [**CreateConTemplate**](TemplateApi.md#createcontemplate) | Create a template for the connection connectionId in the project projectId |
+| [**GetDefaultTemplateMapping**](TemplateApi.md#getdefaulttemplatemapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId |
 
 <a id="applytemplate"></a>
-# **ApplyTemplate**
-> Object ApplyTemplate (Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = null)
+## **ApplyTemplate**
+> **Object ApplyTemplate (Guid projectId, int connectionId, ConTemplateApplyParam conTemplateApplyParam = null)**
 
 Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
 
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using IdeaStatiCa.ConnectionApi.Api;
-using IdeaStatiCa.ConnectionApi.Client;
-using IdeaStatiCa.ConnectionApi.Model;
 
-namespace Example
-{
-    public class ApplyTemplateExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "http://localhost";
-            var apiInstance = new TemplateApi(config);
-            var projectId = "projectId_example";  // Guid | The unique identifier of the opened project in the ConnectionRestApi service
-            var connectionId = 56;  // int | Id of the connection where to apply the template
-            var conTemplateApplyParam = new ConTemplateApplyParam(); // ConTemplateApplyParam | Template to apply (optional) 
-
-            try
-            {
-                // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-                Object result = apiInstance.ApplyTemplate(projectId, connectionId, conTemplateApplyParam);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling TemplateApi.ApplyTemplate: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the ApplyTemplateWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-    ApiResponse<Object> response = apiInstance.ApplyTemplateWithHttpInfo(projectId, connectionId, conTemplateApplyParam);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling TemplateApi.ApplyTemplateWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
 
 ### Parameters
 
@@ -84,31 +26,12 @@ catch (ApiException e)
 
 **Object**
 
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="createcontemplate"></a>
-# **CreateConTemplate**
-> string CreateConTemplate (Guid projectId, int connectionId)
-
-Create a template for the connection connectionId in the project projectId
-
 ### Example
+
+Note: this example is autogenerated.
+
 ```csharp
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using IdeaStatiCa.ConnectionApi.Api;
@@ -117,52 +40,100 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class CreateConTemplateExample
+    public class ApplyTemplateExample
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://localhost";
-            var apiInstance = new TemplateApi(config);
-            var projectId = "projectId_example";  // Guid | The unique identifier of the opened project in the ConnectionRestApi service
-            var connectionId = 56;  // int | Id of the connection to be converted to a template
+            // Create the client which is connected to the service.
+            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
+            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            {
+                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
+                Guid projectId = project.ProjectId; //Get projectId Guid
+                
+                connectionId = 56;  // int | Id of the connection where to apply the template
+                var conTemplateApplyParam = new ConTemplateApplyParam(); // ConTemplateApplyParam | Template to apply (optional) 
 
-            try
-            {
-                // Create a template for the connection connectionId in the project projectId
-                string result = apiInstance.CreateConTemplate(projectId, connectionId);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling TemplateApi.CreateConTemplate: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
+                try
+                {
+                    // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+                    Object result = conClient.Template.ApplyTemplate(projectId, connectionId, conTemplateApplyParam);
+                    Debug.WriteLine(result);
+                }
+                catch (ApiException  e)
+                {
+                    Console.WriteLine("Exception when calling Template.ApplyTemplate: " + e.Message);
+                    Console.WriteLine("Status Code: " + e.ErrorCode);
+                    Console.WriteLine(e.StackTrace);
+                }
+                finally
+                {
+                    await conClient.Project.CloseProjectAsync(projectId);
+                }
             }
         }
     }
 }
 ```
 
-#### Using the CreateConTemplateWithHttpInfo variant
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/ApplyTemplate.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/1/projects/{projectId}/connections/{connectionId}/apply-template 
+
+#### Using the ApplyTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Create a template for the connection connectionId in the project projectId
-    ApiResponse<string> response = apiInstance.CreateConTemplateWithHttpInfo(projectId, connectionId);
+    // Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+    ApiResponse<Object> response = conClient.Template.ApplyTemplateWithHttpInfo(projectId, connectionId, conTemplateApplyParam);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling TemplateApi.CreateConTemplateWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling TemplateApi.ApplyTemplateWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
 ```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="createcontemplate"></a>
+## **CreateConTemplate**
+> **string CreateConTemplate (Guid projectId, int connectionId)**
+
+Create a template for the connection connectionId in the project projectId
+
+
 
 ### Parameters
 
@@ -175,33 +146,12 @@ catch (ApiException e)
 
 **string**
 
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="getdefaulttemplatemapping"></a>
-# **GetDefaultTemplateMapping**
-> TemplateConversions GetDefaultTemplateMapping (Guid projectId, int connectionId, ConTemplateMappingGetParam conTemplateMappingGetParam = null)
-
-Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-
-The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping to apply the passed template.  It can be modified by a user and used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam) method.
-
 ### Example
+
+Note: this example is autogenerated.
+
 ```csharp
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using IdeaStatiCa.ConnectionApi.Api;
@@ -210,53 +160,101 @@ using IdeaStatiCa.ConnectionApi.Model;
 
 namespace Example
 {
-    public class GetDefaultTemplateMappingExample
+    public class CreateConTemplateExample
     {
         public static void Main()
         {
-            Configuration config = new Configuration();
-            config.BasePath = "http://localhost";
-            var apiInstance = new TemplateApi(config);
-            var projectId = "projectId_example";  // Guid | The unique identifier of the opened project in the ConnectionRestApi service
-            var connectionId = 56;  // int | Id of the connection to get default mapping
-            var conTemplateMappingGetParam = new ConTemplateMappingGetParam(); // ConTemplateMappingGetParam | Data of the template to get default mapping (optional) 
+            // Create the client which is connected to the service.
+            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
+            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            {
+                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
+                Guid projectId = project.ProjectId; //Get projectId Guid
+                
+                connectionId = 56;  // int | Id of the connection to be converted to a template
 
-            try
-            {
-                // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-                TemplateConversions result = apiInstance.GetDefaultTemplateMapping(projectId, connectionId, conTemplateMappingGetParam);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling TemplateApi.GetDefaultTemplateMapping: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
+                try
+                {
+                    // Create a template for the connection connectionId in the project projectId
+                    string result = conClient.Template.CreateConTemplate(projectId, connectionId);
+                    Debug.WriteLine(result);
+                }
+                catch (ApiException  e)
+                {
+                    Console.WriteLine("Exception when calling Template.CreateConTemplate: " + e.Message);
+                    Console.WriteLine("Status Code: " + e.ErrorCode);
+                    Console.WriteLine(e.StackTrace);
+                }
+                finally
+                {
+                    await conClient.Project.CloseProjectAsync(projectId);
+                }
             }
         }
     }
 }
 ```
 
-#### Using the GetDefaultTemplateMappingWithHttpInfo variant
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/CreateConTemplate.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/get-template 
+
+#### Using the CreateConTemplateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
-    ApiResponse<TemplateConversions> response = apiInstance.GetDefaultTemplateMappingWithHttpInfo(projectId, connectionId, conTemplateMappingGetParam);
+    // Create a template for the connection connectionId in the project projectId
+    ApiResponse<string> response = conClient.Template.CreateConTemplateWithHttpInfo(projectId, connectionId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling TemplateApi.GetDefaultTemplateMappingWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling TemplateApi.CreateConTemplateWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
 ```
+
+#### Authorization
+
+No authorization required
+
+#### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain
+
+
+#### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getdefaulttemplatemapping"></a>
+## **GetDefaultTemplateMapping**
+> **TemplateConversions GetDefaultTemplateMapping (Guid projectId, int connectionId, ConTemplateMappingGetParam conTemplateMappingGetParam = null)**
+
+Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+
+The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping to apply the passed template.  It can be modified by a user and used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam) method.
+
+
 
 ### Parameters
 
@@ -270,17 +268,101 @@ catch (ApiException e)
 
 [**TemplateConversions**](TemplateConversions.md)
 
-### Authorization
+### Example
+
+Note: this example is autogenerated.
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using IdeaStatiCa.ConnectionApi.Api;
+using IdeaStatiCa.ConnectionApi.Client;
+using IdeaStatiCa.ConnectionApi.Model;
+
+namespace Example
+{
+    public class GetDefaultTemplateMappingExample
+    {
+        public static void Main()
+        {
+            // Create the client which is connected to the service.
+            ConnectionApiClientFactory clientFactory = new ConnectionApiClientFactory("http://localhost:5000");
+            using (var conClient = await clientFactory.CreateConnectionApiClient())
+            {
+                var project = await conClient.Project.Open("myProject.ideaCon"); //Open a project
+                Guid projectId = project.ProjectId; //Get projectId Guid
+                
+                connectionId = 56;  // int | Id of the connection to get default mapping
+                var conTemplateMappingGetParam = new ConTemplateMappingGetParam(); // ConTemplateMappingGetParam | Data of the template to get default mapping (optional) 
+
+                try
+                {
+                    // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+                    TemplateConversions result = conClient.Template.GetDefaultTemplateMapping(projectId, connectionId, conTemplateMappingGetParam);
+                    Debug.WriteLine(result);
+                }
+                catch (ApiException  e)
+                {
+                    Console.WriteLine("Exception when calling Template.GetDefaultTemplateMapping: " + e.Message);
+                    Console.WriteLine("Status Code: " + e.ErrorCode);
+                    Console.WriteLine(e.StackTrace);
+                }
+                finally
+                {
+                    await conClient.Project.CloseProjectAsync(projectId);
+                }
+            }
+        }
+    }
+}
+```
+
+### Code Samples
+
+[!code-csharp[](../examples/CodeSamples/Samples/GetDefaultTemplateMapping.cs)]
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **POST** /api/1/projects/{projectId}/connections/{connectionId}/get-default-mapping 
+
+#### Using the GetDefaultTemplateMappingWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+    ApiResponse<TemplateConversions> response = conClient.Template.GetDefaultTemplateMappingWithHttpInfo(projectId, connectionId, conTemplateMappingGetParam);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling TemplateApi.GetDefaultTemplateMappingWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+#### Authorization
 
 No authorization required
 
-### HTTP request headers
+#### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
 
 
-### HTTP response details
+#### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Success |  -  |

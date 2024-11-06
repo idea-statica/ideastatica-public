@@ -54,7 +54,6 @@ docs/CutOrientation.md
 docs/CutPart.md
 docs/DistanceComparison.md
 docs/DrawData.md
-docs/EPurpose.md
 docs/ExportApi.md
 docs/FoldedPlateData.md
 docs/IGroup.md
@@ -62,7 +61,6 @@ docs/IdeaParameter.md
 docs/IdeaParameterUpdate.md
 docs/Line.md
 docs/LoadEffectApi.md
-docs/LoadEffectData.md
 docs/MaterialApi.md
 docs/MemberApi.md
 docs/MessageNumber.md
@@ -71,7 +69,7 @@ docs/OpenMessage.md
 docs/OpenMessages.md
 docs/OperationApi.md
 docs/ParameterApi.md
-docs/ParameterData.md
+docs/PinGrid.md
 docs/PlateData.md
 docs/Point2D.md
 docs/Point3D.md
@@ -88,7 +86,6 @@ docs/TemplateApi.md
 docs/TemplateConversions.md
 docs/Text.md
 docs/TextPosition.md
-docs/ValidationType.md
 docs/Vector3D.md
 docs/WeldData.md
 docs/WeldEvaluation.md
@@ -172,18 +169,16 @@ src/IdeaStatiCa.ConnectionApi/Model/CutOrientation.cs
 src/IdeaStatiCa.ConnectionApi/Model/CutPart.cs
 src/IdeaStatiCa.ConnectionApi/Model/DistanceComparison.cs
 src/IdeaStatiCa.ConnectionApi/Model/DrawData.cs
-src/IdeaStatiCa.ConnectionApi/Model/EPurpose.cs
 src/IdeaStatiCa.ConnectionApi/Model/FoldedPlateData.cs
 src/IdeaStatiCa.ConnectionApi/Model/IGroup.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameter.cs
 src/IdeaStatiCa.ConnectionApi/Model/IdeaParameterUpdate.cs
 src/IdeaStatiCa.ConnectionApi/Model/Line.cs
-src/IdeaStatiCa.ConnectionApi/Model/LoadEffectData.cs
 src/IdeaStatiCa.ConnectionApi/Model/MessageNumber.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenElementId.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenMessage.cs
 src/IdeaStatiCa.ConnectionApi/Model/OpenMessages.cs
-src/IdeaStatiCa.ConnectionApi/Model/ParameterData.cs
+src/IdeaStatiCa.ConnectionApi/Model/PinGrid.cs
 src/IdeaStatiCa.ConnectionApi/Model/PlateData.cs
 src/IdeaStatiCa.ConnectionApi/Model/Point2D.cs
 src/IdeaStatiCa.ConnectionApi/Model/Point3D.cs
@@ -196,7 +191,6 @@ src/IdeaStatiCa.ConnectionApi/Model/SelectedType.cs
 src/IdeaStatiCa.ConnectionApi/Model/TemplateConversions.cs
 src/IdeaStatiCa.ConnectionApi/Model/Text.cs
 src/IdeaStatiCa.ConnectionApi/Model/TextPosition.cs
-src/IdeaStatiCa.ConnectionApi/Model/ValidationType.cs
 src/IdeaStatiCa.ConnectionApi/Model/Vector3D.cs
 src/IdeaStatiCa.ConnectionApi/Model/WeldData.cs
 src/IdeaStatiCa.ConnectionApi/Model/WeldEvaluation.cs

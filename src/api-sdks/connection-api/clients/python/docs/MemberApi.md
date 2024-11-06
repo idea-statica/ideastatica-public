@@ -1,19 +1,33 @@
-# ideastatica_connection_api.MemberApi
+# MemberApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**get_member**](MemberApi.md#get_member) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId} | Get information about the requires member in the connection
-[**get_members**](MemberApi.md#get_members) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/members | Get information about all members in the connection
-[**set_bearing_member**](MemberApi.md#set_bearing_member) | **PUT** /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member | Set bearing member for memberIt
-[**update_member**](MemberApi.md#update_member) | **PUT** /api/1/projects/{projectId}/connections/{connectionId}/members | Update the member in the connection by newMemberData
+Method | Description
+------------- | -------------
+[**get_member**](MemberApi.md#get_member) | Get information about the requires member in the connection
+[**get_members**](MemberApi.md#get_members) | Get information about all members in the connection
+[**set_bearing_member**](MemberApi.md#set_bearing_member) | Set bearing member for memberIt
+[**update_member**](MemberApi.md#update_member) | Update the member in the connection by newMemberData
 
 
+<a id="get_member"></a>
 # **get_member**
 > ConMember get_member(project_id, connection_id, member_id)
 
 Get information about the requires member in the connection
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to get its member | 
+ **member_id** | **int**| Id of the requested member in the connection | 
+
+### Return type
+
+[**ConMember**](ConMember.md)
 
 ### Example
 
@@ -33,6 +47,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.MemberApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -50,18 +65,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get its member | 
- **member_id** | **int**| Id of the requested member in the connection | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**ConMember**](ConMember.md)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 ### Authorization
 
@@ -80,10 +94,23 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="get_members"></a>
 # **get_members**
 > List[ConMember] get_members(project_id, connection_id)
 
 Get information about all members in the connection
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to get its members | 
+
+### Return type
+
+[**List[ConMember]**](ConMember.md)
 
 ### Example
 
@@ -103,6 +130,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.MemberApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -119,17 +147,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get its members | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**List[ConMember]**](ConMember.md)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 
@@ -148,10 +176,24 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="set_bearing_member"></a>
 # **set_bearing_member**
 > ConMember set_bearing_member(project_id, connection_id, member_id)
 
 Set bearing member for memberIt
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **member_id** | **int**|  | 
+
+### Return type
+
+[**ConMember**](ConMember.md)
 
 ### Example
 
@@ -171,6 +213,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.MemberApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -188,18 +231,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **member_id** | **int**|  | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**ConMember**](ConMember.md)
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/1/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
 
 ### Authorization
 
@@ -218,10 +260,24 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="update_member"></a>
 # **update_member**
 > ConMember update_member(project_id, connection_id, con_member=con_member)
 
 Update the member in the connection by newMemberData
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to to update is member newMemberData | 
+ **con_member** | [**ConMember**](ConMember.md)| New member data | [optional] 
+
+### Return type
+
+[**ConMember**](ConMember.md)
 
 ### Example
 
@@ -241,6 +297,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.MemberApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -258,18 +315,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to to update is member newMemberData | 
- **con_member** | [**ConMember**](ConMember.md)| New member data | [optional] 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**ConMember**](ConMember.md)
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/1/projects/{projectId}/connections/{connectionId}/members 
 
 ### Authorization
 

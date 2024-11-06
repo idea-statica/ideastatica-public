@@ -1,18 +1,31 @@
-# ideastatica_connection_api.ExportApi
+# ExportApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**export_ifc**](ExportApi.md#export_ifc) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-ifc | Export connection to IFC format
-[**export_iom**](ExportApi.md#export_iom) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-iom | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
-[**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-iom-connection-data | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+Method | Description
+------------- | -------------
+[**export_ifc**](ExportApi.md#export_ifc) | Export connection to IFC format
+[**export_iom**](ExportApi.md#export_iom) | Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+[**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
 
 
+<a id="export_ifc"></a>
 # **export_ifc**
 > export_ifc(project_id, connection_id)
 
 Export connection to IFC format
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+void (empty response body)
 
 ### Example
 
@@ -31,6 +44,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ExportApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -45,17 +59,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-void (empty response body)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-ifc 
 
 ### Authorization
 
@@ -74,10 +88,24 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="export_iom"></a>
 # **export_iom**
 > export_iom(project_id, connection_id, version=version)
 
 Export connection to XML which includes https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+ **version** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
 
 ### Example
 
@@ -96,6 +124,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ExportApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -111,18 +140,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
- **version** | **str**|  | [optional] 
+### REST Usage
 
-### Return type
+#### Http Request
 
-void (empty response body)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-iom 
 
 ### Authorization
 
@@ -141,10 +169,23 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="export_iom_connection_data"></a>
 # **export_iom_connection_data**
 > ConnectionData export_iom_connection_data(project_id, connection_id)
 
 Get https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs for required connection
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**|  | 
+ **connection_id** | **int**|  | 
+
+### Return type
+
+[**ConnectionData**](ConnectionData.md)
 
 ### Example
 
@@ -164,6 +205,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ExportApi(api_client)
     project_id = 'project_id_example' # str | 
@@ -180,17 +222,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**|  | 
- **connection_id** | **int**|  | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**ConnectionData**](ConnectionData.md)
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/export-iom-connection-data 
 
 ### Authorization
 

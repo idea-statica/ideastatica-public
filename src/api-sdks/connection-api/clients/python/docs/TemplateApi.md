@@ -1,18 +1,32 @@
-# ideastatica_connection_api.TemplateApi
+# TemplateApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**apply_template**](TemplateApi.md#apply_template) | **POST** /api/1/projects/{projectId}/connections/{connectionId}/apply-template | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
-[**create_con_template**](TemplateApi.md#create_con_template) | **GET** /api/1/projects/{projectId}/connections/{connectionId}/get-template | Create a template for the connection connectionId in the project projectId
-[**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | **POST** /api/1/projects/{projectId}/connections/{connectionId}/get-default-mapping | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
+Method | Description
+------------- | -------------
+[**apply_template**](TemplateApi.md#apply_template) | Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+[**create_con_template**](TemplateApi.md#create_con_template) | Create a template for the connection connectionId in the project projectId
+[**get_default_template_mapping**](TemplateApi.md#get_default_template_mapping) | Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 
 
+<a id="apply_template"></a>
 # **apply_template**
 > object apply_template(project_id, connection_id, con_template_apply_param=con_template_apply_param)
 
 Apply the connection template applyTemplateParam on the connection connectionId in the project projectId
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection where to apply the template | 
+ **con_template_apply_param** | [**ConTemplateApplyParam**](ConTemplateApplyParam.md)| Template to apply | [optional] 
+
+### Return type
+
+**object**
 
 ### Example
 
@@ -32,6 +46,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.TemplateApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -49,18 +64,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection where to apply the template | 
- **con_template_apply_param** | [**ConTemplateApplyParam**](ConTemplateApplyParam.md)| Template to apply | [optional] 
+### REST Usage
 
-### Return type
+#### Http Request
 
-**object**
+All URIs are relative to *http://localhost*
+
+> **POST** /api/1/projects/{projectId}/connections/{connectionId}/apply-template 
 
 ### Authorization
 
@@ -79,10 +93,23 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="create_con_template"></a>
 # **create_con_template**
 > str create_con_template(project_id, connection_id)
 
 Create a template for the connection connectionId in the project projectId
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to be converted to a template | 
+
+### Return type
+
+**str**
 
 ### Example
 
@@ -101,6 +128,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.TemplateApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -117,17 +145,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to be converted to a template | 
+### REST Usage
 
-### Return type
+#### Http Request
 
-**str**
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/projects/{projectId}/connections/{connectionId}/get-template 
 
 ### Authorization
 
@@ -146,12 +174,26 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="get_default_template_mapping"></a>
 # **get_default_template_mapping**
 > TemplateConversions get_default_template_mapping(project_id, connection_id, con_template_mapping_get_param=con_template_mapping_get_param)
 
 Get the default mappings for the application of the connection template passed in templateToApply  on connectionId in the project projectId
 
 The result IdeaStatiCa.Api.Connection.Model.TemplateConversionsDefault mapping to apply the passed template.  It can be modified by a user and used for the application of a template M:IdeaStatiCa.ConnectionRestApi.Controllers.TemplateController.ApplyConnectionTemplateAsync(System.Guid,System.Int32,IdeaStatiCa.Api.Connection.Model.ConTemplateApplyParam) method.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
+ **connection_id** | **int**| Id of the connection to get default mapping | 
+ **con_template_mapping_get_param** | [**ConTemplateMappingGetParam**](ConTemplateMappingGetParam.md)| Data of the template to get default mapping | [optional] 
+
+### Return type
+
+[**TemplateConversions**](TemplateConversions.md)
 
 ### Example
 
@@ -172,6 +214,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.TemplateApi(api_client)
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service
@@ -189,18 +232,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service | 
- **connection_id** | **int**| Id of the connection to get default mapping | 
- **con_template_mapping_get_param** | [**ConTemplateMappingGetParam**](ConTemplateMappingGetParam.md)| Data of the template to get default mapping | [optional] 
+### REST Usage
 
-### Return type
+#### Http Request
 
-[**TemplateConversions**](TemplateConversions.md)
+All URIs are relative to *http://localhost*
+
+> **POST** /api/1/projects/{projectId}/connections/{connectionId}/get-default-mapping 
 
 ### Authorization
 

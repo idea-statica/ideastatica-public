@@ -1,17 +1,26 @@
-# ideastatica_connection_api.ClientApi
+# ClientApi
 
 All URIs are relative to *http://localhost*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**connect_client**](ClientApi.md#connect_client) | **GET** /api/1/clients/connect-client | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
-[**get_version**](ClientApi.md#get_version) | **GET** /api/1/clients/idea-service-version | Get the IdeaStatica version
+Method | Description
+------------- | -------------
+[**connect_client**](ClientApi.md#connect_client) | Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+[**get_version**](ClientApi.md#get_version) | Get the IdeaStatica version
 
 
+<a id="connect_client"></a>
 # **connect_client**
 > str connect_client()
 
 Connect a client to the ConnectionRestApi service. Method returns a unique identifier of the client.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**str**
 
 ### Example
 
@@ -30,6 +39,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ClientApi(api_client)
 
@@ -44,13 +54,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
-This endpoint does not need any parameter.
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-### Return type
+### REST Usage
 
-**str**
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/clients/connect-client 
 
 ### Authorization
 
@@ -69,10 +83,19 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="get_version"></a>
 # **get_version**
 > str get_version()
 
 Get the IdeaStatica version
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**str**
 
 ### Example
 
@@ -91,6 +114,7 @@ configuration = ideastatica_connection_api.Configuration(
 
 # Enter a context with an instance of the API client
 with ideastatica_connection_api.ApiClient(configuration) as api_client:
+    
     # Create an instance of the API class
     api_instance = ideastatica_connection_api.ClientApi(api_client)
 
@@ -105,13 +129,17 @@ with ideastatica_connection_api.ApiClient(configuration) as api_client:
 
 
 
-### Parameters
+### Code Samples
 
-This endpoint does not need any parameter.
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
-### Return type
+### REST Usage
 
-**str**
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **GET** /api/1/clients/idea-service-version 
 
 ### Authorization
 
