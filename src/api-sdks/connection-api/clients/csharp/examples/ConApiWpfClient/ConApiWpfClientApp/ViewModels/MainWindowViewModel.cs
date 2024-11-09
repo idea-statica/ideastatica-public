@@ -359,41 +359,36 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("DownloadProjectAsync");
 
-			//if (ProjectInfo == null)
-			//{
-			//	return;
-			//}
+			if (ProjectInfo == null)
+			{
+				return;
+			}
 
-			//if (ConnectionController == null)
-			//{
-			//	return;
-			//}
+			if (ConApiClient == null)
+			{
+				return;
+			}
 
-			//IsBusy = true;
-			//try
-			//{
-			//	var projectStream = await ConnectionController.DownloadProjectAsync(cts.Token);
-
-			//	SaveFileDialog saveFileDialog = new SaveFileDialog();
-			//	saveFileDialog.Filter = "IdeaConnection | *.ideacon";
-			//	if (saveFileDialog.ShowDialog() == true)
-			//	{
-			//		using (var fileStream = saveFileDialog.OpenFile())
-			//		{
-			//			await projectStream.CopyToAsync(fileStream);
-			//		}
-			//	}
-			//}
-			//catch (Exception ex)
-			//{
-			//	_logger.LogWarning("DownloadProjectAsync failed", ex);
-			//	OutputText = ex.Message;
-			//}
-			//finally
-			//{
-			//	IsBusy = false;
-			//	RefreshCommands();
-			//}
+			IsBusy = true;
+			try
+			{
+				SaveFileDialog saveFileDialog = new SaveFileDialog();
+				saveFileDialog.Filter = "IdeaConnection | *.ideacon";
+				if (saveFileDialog.ShowDialog() == true)
+				{
+					await ConApiClient.Project.SaveProjectAsync(ProjectInfo.ProjectId, saveFileDialog.FileName, cts.Token);
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("SaveProjectAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 
 			await Task.CompletedTask;
 		}
