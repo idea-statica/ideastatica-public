@@ -1,18 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using ConApiWpfClientApp.Tools;
 using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.ConnectionApi.Model;
 using IdeaStatiCa.Plugin;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using ConApiWpfClientApp.Tools;
 
 namespace ConApiWpfClientApp.ViewModels
 {
@@ -28,7 +27,7 @@ namespace ConApiWpfClientApp.ViewModels
 		ConnectionViewModel? selectedConnection;
 		private ConProject? _projectInfo;
 		private CancellationTokenSource cts;
-		private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true };
+		//private static readonly JsonSerializerOptions jsonPresentationOptions = new JsonSerializerOptions() { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Default };
 		
 		private bool disposedValue;
 
@@ -53,111 +52,52 @@ namespace ConApiWpfClientApp.ViewModels
 
 			CalculationCommand = new AsyncRelayCommand(CalculateAsync, () => SelectedConnection != null);
 
-			GetSceneDataCommand = new AsyncRelayCommand(GetSceneDataAsync, () => SelectedConnection != null);
-
-			ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
+			//ShowClientUICommand = new RelayCommand(ShowClientUI, () => this.ProjectInfo != null);
 
 			Connections = new ObservableCollection<ConnectionViewModel>();
 			selectedConnection = null;
-		}
-
-
-		private void ShowClientUI()
-		{
-			_logger.LogInformation("ShowClientUI");
-
-			//if (ProjectInfo == null)
-			//{
-			//	return;
-			//}
-
-			//if (ConnectionController == null)
-			//{
-			//	return;
-			//}
-
-			//try
-			//{
-			//	// Open a URL in the default web browser
-			//	var connectionInfo = ConnectionController.GetConnectionInfo();
-			//	string url = string.Format("{0}/client-ui.html?clientId={1}&projectId={2}", ApiUri, connectionInfo.Item1, connectionInfo.Item2);
-			//	Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-			//}
-			//catch (Exception ex)
-			//{
-			//	_logger.LogWarning("GetRawResultsAsync failed", ex);
-			//	OutputText = ex.Message;
-			//}
-		}
-
-		private async Task GetSceneDataAsync()
-		{
-			_logger.LogInformation("PresentAsync");
-
-			//if (ProjectInfo == null)
-			//{
-			//	return;
-			//}
-
-			//if (ConnectionController == null)
-			//{
-			//	return;
-			//}
-
-			//IsBusy = true;
-			//try
-			//{
-			//	var calculationResults = await ConnectionController.GetDataScene3DAsync(SelectedConnection!.Id, cts.Token);
-
-			//	OutputText = calculationResults;
-			//}
-			//catch (Exception ex)
-			//{
-			//	_logger.LogWarning("GetRawResultsAsync failed", ex);
-			//	OutputText = ex.Message;
-			//}
-			//finally
-			//{
-			//	IsBusy = false;
-			//	RefreshCommands();
-			//}
 		}
 
 		private async Task CalculateAsync()
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
 
-			//if (ProjectInfo == null)
-			//{
-			//	return;
-			//}
+			if (ProjectInfo == null)
+			{
+				return;
+			}
 
-			//if (ConnectionController == null)
-			//{
-			//	return;
-			//}
+			if (ConApiClient == null)
+			{
+				return;
+			}
 
-			//IsBusy = true;
-			//try
-			//{
-			//	var connectionIdList = new List<int>();
-			//	connectionIdList.Add(SelectedConnection!.Id);
+			IsBusy = true;
+			try
+			{
+				var connectionIdList = new List<int>();
+				connectionIdList.Add(SelectedConnection!.Id);
 
-			//	var calculationResults = await ConnectionController.CalculateAsync(connectionIdList, ConAnalysisTypeEnum.Stress_Strain, cts.Token);
+				var calcParam = new ConCalculationParameter()
+				{
+					ConnectionIds = connectionIdList,
+					AnalysisType = ConAnalysisTypeEnum.StressStrain
+				};
 
-			//	var calcResJson = JsonSerializer.Serialize(calculationResults, jsonPresentationOptions);
-			//	OutputText = calcResJson;
-			//}
-			//catch (Exception ex)
-			//{
-			//	_logger.LogWarning("GetRawResultsAsync failed", ex);
-			//	OutputText = ex.Message;
-			//}
-			//finally
-			//{
-			//	IsBusy = false;
-			//	RefreshCommands();
-			//}
+				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, calcParam, 0, cts.Token);
+
+				OutputText = ConApiWpfClientApp.Tools.JsonTools.ToFormatedJson(calculationResults);
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("GetRawResultsAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
 
 		public IConnectionApiClient? ConApiClient { get; set; }
@@ -219,9 +159,9 @@ namespace ConApiWpfClientApp.ViewModels
 
 		public AsyncRelayCommand ApplyTemplateCommand { get; }
 
-		public AsyncRelayCommand GetSceneDataCommand { get; }
+		//public AsyncRelayCommand GetSceneDataCommand { get; }
 
-		public RelayCommand ShowClientUICommand { get; }
+		//public RelayCommand ShowClientUICommand { get; }
 		
 
 		private async Task OpenProjectAsync()
@@ -245,7 +185,7 @@ namespace ConApiWpfClientApp.ViewModels
 			{
 				ProjectInfo = await ConApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
 
-				var projectInfoJson = JsonTools.ToFormatedJson(ProjectInfo);
+				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
 
 
 				//var connectionInfo = ConnectionController.GetConnectionInfo();
@@ -397,60 +337,109 @@ namespace ConApiWpfClientApp.ViewModels
 		{
 			_logger.LogInformation("ApplyTemplateAsync");
 
-			//if (ProjectInfo == null)
-			//{
-			//	return;
-			//}
+			if (ProjectInfo == null)
+			{
+				return;
+			}
 
-			//if (ConnectionController == null)
-			//{
-			//	return;
-			//}
+			if (ConApiClient == null)
+			{
+				return;
+			}
 
-			//IsBusy = true;
-			//try
-			//{
-			//	OpenFileDialog openFileDialog = new OpenFileDialog();
-			//	openFileDialog.Filter = "Connection Template | *.conTemp";
-			//	if (openFileDialog.ShowDialog() != true)
-			//	{
-			//		_logger.LogDebug("ApplyTemplateAsync - no template is selected");
-			//		return;
-			//	}
+			if ((selectedConnection == null))
+			{
+				return;
+			}
 
-			//	var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
+			IsBusy = true;
+			try
+			{
+				OpenFileDialog openFileDialog = new OpenFileDialog();
+				openFileDialog.Filter = "Connection Template | *.conTemp";
+				if (openFileDialog.ShowDialog() != true)
+				{
+					_logger.LogDebug("ApplyTemplateAsync - no template is selected");
+					return;
+				}
 
-			//	var templateMapping = await ConnectionController.GetTemplateMappingAsync(SelectedConnection!.Id, templateXml, cts.Token);
-			//	if (templateMapping == null)
-			//	{
-			//		throw new ArgumentException($"Invalid mapping for connection '{SelectedConnection.Name}'");
-			//	}
+				var templateXml = await System.IO.File.ReadAllTextAsync(openFileDialog.FileName);
+				var getTemplateParam = new ConTemplateMappingGetParam()
+				{
+					Template = templateXml
+				};
 
-			//	var mappingSetter = new Services.TemplateMappingSetter();
-			//	var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
-			//	if(modifiedTemplateMapping == null)
-			//	{
-			//		// operation was canceled
-			//		return;
-			//	}
+				var templateMapping = await ConApiClient.Template.GetDefaultTemplateMappingAsync(ProjectInfo.ProjectId,
+					selectedConnection.Id,
+					getTemplateParam,
+					0, cts.Token);
 
-			//	var applyTemplateResult = await ConnectionController.ApplyConnectionTemplateAsync(SelectedConnection!.Id, templateXml, modifiedTemplateMapping, cts.Token);
+				if (templateMapping == null)
+				{
+					throw new ArgumentException($"Invalid mapping for connection '{selectedConnection.Name}'");
+				}
 
-			//	OutputText = "Template was applied";
-			//}
-			//catch (Exception ex)
-			//{
-			//	_logger.LogWarning("ApplyTemplateAsync failed", ex);
-			//	OutputText = ex.Message;
-			//}
-			//finally
-			//{
-			//	IsBusy = false;
-			//	RefreshCommands();
-			//}
+				var mappingSetter = new Services.TemplateMappingSetter();
+				var modifiedTemplateMapping = await mappingSetter.SetAsync(templateMapping);
+				if (modifiedTemplateMapping == null)
+				{
+					// operation was canceled
+					return;
+				}
 
-			await Task.CompletedTask;
+				var applyTemplateParam = new ConTemplateApplyParam()
+				{
+					ConnectionTemplate = templateXml,
+					Mapping = modifiedTemplateMapping
+				};
+
+				var applyTemplateResult = await ConApiClient.Template.ApplyTemplateAsync(ProjectInfo.ProjectId,
+					SelectedConnection!.Id,
+					applyTemplateParam,
+					0, cts.Token);
+
+
+				OutputText = "Template was applied";
+			}
+			catch (Exception ex)
+			{
+				_logger.LogWarning("ApplyTemplateAsync failed", ex);
+				OutputText = ex.Message;
+			}
+			finally
+			{
+				IsBusy = false;
+				RefreshCommands();
+			}
 		}
+
+		//private void ShowClientUI()
+		//{
+		//	_logger.LogInformation("ShowClientUI");
+
+		//	if (ProjectInfo == null)
+		//	{
+		//		return;
+		//	}
+
+		//	if (ConnectionController == null)
+		//	{
+		//		return;
+		//	}
+
+		//	try
+		//	{
+		//		// Open a URL in the default web browser
+		//		var connectionInfo = ConnectionController.GetConnectionInfo();
+		//		string url = string.Format("{0}/client-ui.html?clientId={1}&projectId={2}", ApiUri, connectionInfo.Item1, connectionInfo.Item2);
+		//		Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		_logger.LogWarning("GetRawResultsAsync failed", ex);
+		//		OutputText = ex.Message;
+		//	}
+		//}
 
 		protected virtual void Dispose(bool disposing)
 		{
@@ -484,16 +473,14 @@ namespace ConApiWpfClientApp.ViewModels
 			this.DownloadProjectCommand.NotifyCanExecuteChanged();
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			this.GetSceneDataCommand.NotifyCanExecuteChanged();
-			this.ShowClientUICommand.NotifyCanExecuteChanged();
+			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 
 		private void RefreshConnectionChanged()
 		{
 			this.ApplyTemplateCommand.NotifyCanExecuteChanged();
 			this.CalculationCommand.NotifyCanExecuteChanged();
-			this.GetSceneDataCommand.NotifyCanExecuteChanged();
-			this.ShowClientUICommand.NotifyCanExecuteChanged();
+			//this.ShowClientUICommand.NotifyCanExecuteChanged();
 		}
 	}
 }

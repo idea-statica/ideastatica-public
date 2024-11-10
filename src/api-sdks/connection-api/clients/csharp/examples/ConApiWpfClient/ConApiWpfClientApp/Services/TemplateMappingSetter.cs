@@ -1,7 +1,6 @@
 ﻿using ConApiWpfClientApp.ViewModels;
 using ConApiWpfClientApp.Views;
-using IdeaStatiCa.Api.Connection.Model;
-using IdeaStatiCa.Api.Utilities;
+using IdeaStatiCa.ConnectionApi.Model;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,9 +9,8 @@ namespace ConApiWpfClientApp.Services
 {
 	public interface ITemplateMappingSetter
 	{
-		Task<TemplateConversions> SetAsync(TemplateConversions defaultConversions);
+		Task<TemplateConversions?> SetAsync(TemplateConversions defaultConversions);
 	}
-
 
 	internal class TemplateMappingSetter : ITemplateMappingSetter
 	{
@@ -20,7 +18,7 @@ namespace ConApiWpfClientApp.Services
 
 		static TemplateMappingSetter()
 		{
-			_jsonSettings = JsonTools.CreateIdeaRestJsonSettings();
+			_jsonSettings = IdeaStatiCa.Api.Utilities.JsonTools.CreateIdeaRestJsonSettings();
 		}
 
 		public async Task<TemplateConversions?> SetAsync(TemplateConversions defaultConversions)
