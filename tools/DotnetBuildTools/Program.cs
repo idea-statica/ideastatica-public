@@ -6,6 +6,8 @@ using System.CommandLine.Builder;
 using System.CommandLine.Hosting;
 using System.CommandLine.NamingConventionBinder;
 using System.CommandLine.Parsing;
+using System.Reflection;
+using System.Text;
 
 namespace DotnetBuildTools
 {
@@ -29,13 +31,13 @@ namespace DotnetBuildTools
 		{
 			var repository = new Option<string>("--repository")
 			{
-				IsRequired = true,
+				IsRequired = false,
 				Description = "Path to the repository for updating"
 			};
 
 			var verToUpdate = new Option<string>("--verToUpdate")
 			{
-				IsRequired = true,
+				IsRequired = false,
 				Description = "The required version of IdeaStatica nuget packages"
 			};
 
@@ -51,8 +53,15 @@ namespace DotnetBuildTools
 
 			nugetUpdateCommand.Handler = CommandHandler.Create<ProgramOptions, IHost>(RunUpdateAsync);
 
+			var createOpenApiMappingCommand = new Command("openApiMapping", "Generate OpenApiMapping")
+			{
+			};
+
+
+			createOpenApiMappingCommand.Handler = CommandHandler.Create<MappingOptions, IHost>(GenerateMappingAsync);
 
 			root.AddCommand(nugetUpdateCommand);
+			root.AddCommand(createOpenApiMappingCommand);
 
 			return new CommandLineBuilder(root);
 		}
@@ -111,53 +120,61 @@ namespace DotnetBuildTools
 		}
 
 
-		//		public static void Main(string[] args)
-		//		{ options,
-		//			// initialize logger
-		//			SerilogFacade.Initialize();
-		//			var logger = LoggerProvider.GetLogger("dotnetbuildtools");
+		private static async Task<bool> GenerateMappingAsync(MappingOptions programOptions, IHost host)
+		{
+			var iom_assembly = Assembly.LoadFrom("IdeaRS.OpenModel.dll");
+			var iom_types = iom_assembly.GetTypes();
 
-		//			try
-		//			{
-		//				var commandLines = Environment.GetCommandLineArgs();
-		//				if (commandLines.Length < 2)
-		//				{
-		//					logger.LogWarning("Missing the path to the repository");
-		//					return;
-		//				}
+			var api_assembly = Assembly.LoadFrom("IdeaStatiCa.Api.dll");
+			var api_types = api_assembly.GetTypes();
 
-		//				string versionToUpdate = "23.6.100";
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.AppendLine("{");
 
-		//				var repositoryDir = commandLines[1];
-		//				logger.LogInformation($"Main {repositoryDir}");
-		//				var updater = new NugetUpdater(logger, repositoryDir);
+			bool first = true;
 
-		//				var currentVer = updater.GetCurrentVersion();
-		//				logger.LogInformation($"Main current IS nuget version = '{currentVer}' required IS nuget version = '{versionToUpdate}'");
+			first = WriteTypesFromAssembly(iom_types, stringBuilder, "IdeaRS.OpenModel", first);
+			first = WriteTypesFromAssembly(api_types, stringBuilder, "IdeaStatiCa.Api.Connection.Model", first);
 
-		//				if (!currentVer.Equals(versionToUpdate))
-		//				{
-		//					updater.UpdateNugetInCsproj(currentVer, versionToUpdate);
-		//				}
-		//				else
-		//				{
-		//					logger.LogInformation("Main : no need to update");
-		//				}
-		//			}
-		//			catch(Exception e)
-		//			{
-		//				logger.LogError("Error", e);
-		//				Environment.Exit(1);
-		//;			}
-		//			finally
-		//			{
-		//				logger.LogInformation("Done");
-		//				if (logger != null && logger is IDisposable disp)
-		//				{
-		//					disp.Dispose();
-		//				}
-		//			}
-		//			Environment.Exit(0);
-		//		}
+			stringBuilder.AppendLine("");
+			stringBuilder.AppendLine("}");
+
+			File.WriteAllText("import-mappings.json", stringBuilder.ToString());
+
+			return await Task.FromResult(true);
+		}
+
+		private static bool WriteTypesFromAssembly(Type[] types, StringBuilder stringBuilder, string rootNamespace, bool first)
+		{
+			foreach (var type in types)
+			{
+				if (type.IsInterface)
+				{
+					continue;
+				}
+
+				if (type.Name.StartsWith("<"))
+				{
+					continue;
+				}
+
+				if (type?.Namespace?.StartsWith(rootNamespace, StringComparison.InvariantCulture) != true)
+				{
+					continue;
+				}
+
+				if (!first)
+				{
+					stringBuilder.AppendLine(",");
+				}
+
+				stringBuilder.Append($"  \"{type.Name}\" : \"{type.Namespace}.{type.Name}\"");
+
+				Console.WriteLine($"{type.Namespace} {type.Name}");
+				first = false;
+			}
+
+			return first;
+		}
 	}
 }
