@@ -69,24 +69,24 @@ namespace ST_ConnectionRestApi
 		}
 
 
-		//[Test]
-		//public async Task ShouldGetTemplateConversion()
-		//{
-		//	ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
-		//	{
-		//		Template = this.ConnectionTemplate
-		//	};
+		[Test]
+		public async Task ShouldGetTemplateConversion()
+		{
+			var getMappingParam = new IdeaStatiCa.ConnectionApi.Model.ConTemplateMappingGetParam
+			{
+				Template = this.ConnectionTemplate
+			};
 
-		//	var connection = Project!.Connections.First();
-		//	var templateMapping = await ConnectionApiClient!.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
-		//	templateMapping.Should().NotBeNull();
-		//	templateMapping!.Conversions.Should().NotBeNullOrEmpty();
-		//	templateMapping.CountryCode.Should().Be("ECEN");
-		//	templateMapping.Conversions.Count.Should().Be(5);
+			var connection = Project!.Connections.First();
+			var templateMapping = await ConnectionApiClient!.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
+			templateMapping.Should().NotBeNull();
+			templateMapping!.Conversions.Should().NotBeNullOrEmpty();
+			templateMapping.CountryCode.Should().Be("ECEN");
+			templateMapping.Conversions.Count.Should().Be(5);
 
-		//	var conversion1 = templateMapping.Conversions.First();
-		//	conversion1.GetType().Name.Should().Be("CssTemplateConversion", "The type of the first conversion should be CssTemplateConversion");
-		//}
+			var conversion1 = templateMapping.Conversions.First();
+			conversion1.GetType().Name.Should().Be("CssTemplateConversion", "The type of the first conversion should be CssTemplateConversion");
+		}
 
 		//[Test]
 		//public async Task ShouldApplyParametricTemplate()
@@ -102,7 +102,7 @@ namespace ST_ConnectionRestApi
 		//	}
 
 		//	var mappings = templateMapping.Conversions.Where(x => x is PlateMaterialTemplateConversion || x is ElectrodeTemplateConversion);
-				
+
 		//	foreach (var mapping in mappings)
 		//	{
 		//		mapping.NewValue = "S 275";
