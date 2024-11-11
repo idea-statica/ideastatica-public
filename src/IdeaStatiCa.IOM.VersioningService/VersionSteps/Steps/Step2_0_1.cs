@@ -74,11 +74,19 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 				foreach (ISIntermediate connectionData in connectionDataList)
 				{
 					_logger.LogInformation("Change Element Property Name ConnectionPointId => ConenctionPointId ");
-					var conId = connectionData.GetElementValue("ConenctionPointId");
+					var conId = connectionData.TryGetElementValue("ConenctionPointId");
 
 					connectionData.RemoveElementProperty("ConenctionPointId");
 
 					var cpIRobj = connectionData.CreateElementProperty("ConnectionPoint");
+
+					//for cases where is tag connection point defined
+					if (string.IsNullOrWhiteSpace(conId))
+					{
+						_logger.LogDebug($"Connection data not contains connection point id => set default 0");
+						conId = "0";
+					}
+
 					IRIOMTool.CreateIOMReferenceElement(cpIRobj, "ConnectionPoint", conId);
 				}
 			}

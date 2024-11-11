@@ -137,8 +137,6 @@ namespace IdeaStatiCa.IntermediateModel.Extensions
 				}
 
 			}
-
-
 		}
 
 		/// <summary>

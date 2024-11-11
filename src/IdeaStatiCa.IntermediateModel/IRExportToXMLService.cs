@@ -198,7 +198,7 @@ namespace IdeaStatiCa.IntermediateModel
 
 			if (parentXml is XElement parentElementXml)
 			{
-				parentElementXml.Value = primitive.Value.ToString();
+				parentElementXml.Value = (!string.IsNullOrEmpty(primitive.Value) ? primitive.Value.ToString() : "");
 			}
 			else
 			{
