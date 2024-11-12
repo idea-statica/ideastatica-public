@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi.Model;
 
 namespace ST_ConnectionRestApi

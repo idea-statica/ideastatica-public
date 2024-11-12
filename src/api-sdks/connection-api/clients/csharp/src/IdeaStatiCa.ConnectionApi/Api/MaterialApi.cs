@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Model;
 

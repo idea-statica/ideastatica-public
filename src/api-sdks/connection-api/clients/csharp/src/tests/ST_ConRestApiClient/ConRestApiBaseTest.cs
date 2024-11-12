@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.ConnectionApi;
+﻿using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.ConnectionApi.Model;
 using Microsoft.Extensions.Configuration;
 

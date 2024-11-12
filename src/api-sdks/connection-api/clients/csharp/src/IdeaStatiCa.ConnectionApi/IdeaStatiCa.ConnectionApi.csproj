@@ -27,4 +27,9 @@
     <PackageReference Include="Polly" Version="8.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj" />
+  </ItemGroup>
 </Project>

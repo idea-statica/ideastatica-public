@@ -175,18 +175,7 @@ namespace IdeaStatiCa.ConnectionApi.Client
         /// Specifies the settings on a <see cref="JsonSerializer" /> object.
         /// These settings can be adjusted to accommodate custom serialization rules.
         /// </summary>
-        public JsonSerializerSettings SerializerSettings { get; set; } = new JsonSerializerSettings
-        {
-            // OpenAPI generated types generally hide default constructors.
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy
-                {
-                    OverrideSpecifiedNames = false
-                }
-            }
-        };
+        public JsonSerializerSettings SerializerSettings { get; set; } = IdeaJsonSerializerSetting.GetJsonSettingIdea();
 
         /// <summary>
         /// Allows for extending request processing for <see cref="ApiClient"/> generated code.

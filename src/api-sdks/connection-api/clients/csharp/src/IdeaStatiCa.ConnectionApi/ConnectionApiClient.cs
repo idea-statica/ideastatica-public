@@ -114,18 +114,14 @@ namespace IdeaStatiCa.ConnectionApi
 			this.Connection = new IdeaStatiCa.ConnectionApi.Api.ConnectionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Export = new ExportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.LoadEffect = new LoadEffectApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-
-			var iomClient = new IdeaStatiCa.ConnectionApi.Client.ApiClient(configuration.BasePath);
-			iomClient.SerializerSettings = IdeaJsonSerializerSetting.GetJsonSettingIdea();
-
-			this.Material = new MaterialApi(iomClient, iomClient, configuration);
+			this.Material = new MaterialApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Member = new MemberApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Operation = new OperationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Parameter = new ParameterApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Presentation = new PresentationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Project = new ProjectApiExt(this, clientApi.Client, clientApi.AsynchronousClient, configuration);
 			this.Report = new ReportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			this.Template = new TemplateApiExt(iomClient, iomClient, configuration);
+			this.Template = new TemplateApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
 
 			this.ClientApi = clientApi;
 			this.ClientId = clientId;
