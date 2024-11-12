@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using IdeaStatiCa.Api.Connection.Model;
 
 namespace ST_ConnectionRestApi
 {
@@ -44,6 +45,25 @@ namespace ST_ConnectionRestApi
 			//}
 
 			ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
+		}
+
+		[TearDown]
+		public async Task TearDown()
+		{
+			if (ConnectionApiClient != null)
+			{
+				await ConnectionApiClient!.DisposeAsync();
+			}
+		}
+
+
+		[Test]
+		public async Task ShouldGetTemplateConversion()
+		{
+			if(ConnectionApiClient == null)
+			{
+				throw new Exception("ConnectionApiClient is null");
+			}
 
 			string connProjectFilePath = Path.Combine(ProjectPath, "ConTemplateCorner-Empty.ideaCon");
 			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
@@ -57,104 +77,152 @@ namespace ST_ConnectionRestApi
 
 			Project.Should().NotBeNull();
 			Project.ProjectId.Should().NotBe(Guid.Empty);
-		}
+			var connection = Project!.Connections.First();
 
-		[TearDown]
-		public async Task TearDown()
-		{
-			if (ConnectionApiClient != null)
+			ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
 			{
-				await ConnectionApiClient!.DisposeAsync();
-			}
+				Template = this.ConnectionTemplate
+			};
+
+			var templateMapping = await ConnectionApiClient.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
+			templateMapping.Should().NotBeNull();
+			templateMapping!.Conversions.Should().NotBeNullOrEmpty();
+			templateMapping.CountryCode.Should().Be("ECEN");
+			templateMapping.Conversions.Count.Should().Be(5);
+
+			var conversion1 = templateMapping.Conversions.First();
+			conversion1.GetType().Name.Should().Be("CssTemplateConversion", "The type of the first conversion should be CssTemplateConversion");
 		}
 
+		[Test]
+		public async Task ShouldApplyParametricTemplate()
+		{
+			if (ConnectionApiClient == null)
+			{
+				throw new Exception("ConnectionApiClient is null");
+			}
 
-		//[Test]
-		//public async Task ShouldGetTemplateConversion()
-		//{
-		//	ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
-		//	{
-		//		Template = this.ConnectionTemplate
-		//	};
+			if (this.ParametricTemplate == null)
+			{
+				throw new Exception("ParametricTemplate is null");
+			}
 
-		//	var connection = Project!.Connections.First();
-		//	var templateMapping = await ConnectionApiClient!.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
-		//	templateMapping.Should().NotBeNull();
-		//	templateMapping!.Conversions.Should().NotBeNullOrEmpty();
-		//	templateMapping.CountryCode.Should().Be("ECEN");
-		//	templateMapping.Conversions.Count.Should().Be(5);
+			string connProjectFilePath = Path.Combine(ProjectPath, "models.ideaCon");
+			Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath, CancellationToken.None);
+			this.ActiveProjectId = Project.ProjectId;
 
-		//	var conversion1 = templateMapping.Conversions.First();
-		//	conversion1.GetType().Name.Should().Be("CssTemplateConversion", "The type of the first conversion should be CssTemplateConversion");
-		//}
+			var connection = Project!.Connections.Last();
 
-		//[Test]
-		//public async Task ShouldApplyParametricTemplate()
-		//{
-		//	string connProjectFilePath = Path.Combine(ProjectPath, "models.ideaCon");
-		//	Project = await ConnApiController!.OpenProjectAsync(connProjectFilePath, CancellationToken.None);
+			ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
+			{
+				Template = this.ParametricTemplate
+			};
 
-		//	var connection = Project!.Connections.Last();
-		//	var templateMapping = await ConnApiController!.GetTemplateMappingAsync(connection.Id, this.ParametricTemplate, CancellationToken.None);
-		//	if (templateMapping == null)
-		//	{
-		//		throw new Exception("Template mapping is null");
-		//	}
+			var templateMapping = await ConnectionApiClient.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
+			if (templateMapping == null)
+			{
+				throw new Exception("Template mapping is null");
+			}
 
-		//	var mappings = templateMapping.Conversions.Where(x => x is PlateMaterialTemplateConversion || x is ElectrodeTemplateConversion);
-				
-		//	foreach (var mapping in mappings)
-		//	{
-		//		mapping.NewValue = "S 275";
-		//	};
+			var conversions = templateMapping.Conversions.Where(x => x is PlateMaterialTemplateConversion || x is ElectrodeTemplateConversion);
+
+			foreach (var conversion in conversions)
+			{
+				conversion.NewValue = "S 275";
+			};
 
 
-		//	var operationsEmptyConnection = await ConnApiController!.GetOperationsAsync(connection.Id, CancellationToken.None);
-		//	operationsEmptyConnection.Count.Should().Be(0);
+			var operationsEmptyConnection = await ConnectionApiClient.Operation.GetOperationsAsync(ActiveProjectId, connection.Id);
+			operationsEmptyConnection.Count.Should().Be(0);
 
-		//	var applyTemplateResult = await ConnApiController!.ApplyConnectionTemplateAsync(connection.Id, this.ParametricTemplate, templateMapping, CancellationToken.None);
-		//	applyTemplateResult.Should().NotBeNull();
+			var conApplyTemplateParam = new ConTemplateApplyParam
+			{
+				ConnectionTemplate = this.ParametricTemplate,
+				Mapping = templateMapping
+			};
 
-		//	var operationsFromTemplate = await ConnApiController!.GetOperationsAsync(connection.Id, CancellationToken.None);
-		//	operationsFromTemplate.Count.Should().Be(6);
+			var applyTemplateResult = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conApplyTemplateParam);
+			applyTemplateResult.Should().NotBeNull();
 
-		//	var parameters = await ConnApiController!.GetParametersAsync(connection.Id, true);
-		//	parameters.Count.Should().Be(10);
-		//}
+			var operationsFromTemplate = await ConnectionApiClient.Operation.GetOperationsAsync(ActiveProjectId, connection.Id);
+			operationsFromTemplate.Count.Should().Be(6);
 
-		//[Test]
-		//public async Task ShouldApplyTemplate()
-		//{
-		//	var connection = Project!.Connections.First();
-		//	var templateMapping = await ConnApiController!.GetTemplateMappingAsync(connection.Id, this.ConnectionTemplate, CancellationToken.None);
-		//	if (templateMapping == null)
-		//	{
-		//		throw new Exception("Template mapping is null");
-		//	}
+			var parameters = await ConnectionApiClient.Parameter.GetParametersAsync(ActiveProjectId, connection.Id, true);
+			parameters.Count.Should().Be(10);
+		}
 
-		//	var operationsEmptyConnection = await ConnApiController!.GetOperationsAsync(connection.Id, CancellationToken.None);
-		//	operationsEmptyConnection.Count.Should().Be(0);
+		[Test]
+		public async Task ShouldApplyTemplate()
+		{
+			if (ConnectionApiClient == null)
+			{
+				throw new Exception("ConnectionApiClient is null");
+			}
 
-		//	// set cssId = 5 for stiffening member
-		//	var conversion0 = templateMapping.Conversions[0];
-		//	conversion0.NewTemplateId = "#5";
+			string connProjectFilePath = Path.Combine(ProjectPath, "ConTemplateCorner-Empty.ideaCon");
+			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
+			this.ActiveProjectId = Project.ProjectId;
+			if (this.ActiveProjectId == Guid.Empty)
+			{
+				throw new Exception("Project is not opened");
+			}
 
-		//	var applyTemplateResult = await ConnApiController!.ApplyConnectionTemplateAsync(connection.Id, this.ConnectionTemplate, templateMapping, CancellationToken.None);
-		//	applyTemplateResult.Should().NotBeNull();
+			var connection = Project!.Connections.First();
 
-		//	var operationsFromTemplate = await ConnApiController!.GetOperationsAsync(connection.Id, CancellationToken.None);
-		//	operationsFromTemplate.Count.Should().Be(5);
+			ConTemplateMappingGetParam getMappingParam = new ConTemplateMappingGetParam
+			{
+				Template = this.ConnectionTemplate
+			};
 
-		//	// TODO - validate cssId for stiffening member - shoul be 5
-		//}
+			var templateMapping = await ConnectionApiClient.Template.GetDefaultTemplateMappingAsync(ActiveProjectId, connection.Id, getMappingParam);
+			if (templateMapping == null)
+			{
+				throw new Exception("Template mapping is null");
+			}
 
-		//[Test]
-		//public async Task ShouldGetTemplate()
-		//{
-		//	var con1 = Project!.Connections.First();
-		//	var templateString = await ConnApiController!.GetConnectionTemplateAsync(con1.Id, CancellationToken.None);
-		//	templateString.Should().NotBeNull();
-		//	templateString.Should().NotBeEmpty();
-		//}
+			var operationsEmptyConnection = await ConnectionApiClient.Operation.GetOperationsAsync(ActiveProjectId, connection.Id);
+			operationsEmptyConnection.Count.Should().Be(0);
+
+			// set cssId = 5 for stiffening member
+			var conversion0 = templateMapping.Conversions[0];
+			conversion0.NewTemplateId = "#5";
+
+			var conApplyTemplateParam = new ConTemplateApplyParam
+			{
+				ConnectionTemplate = this.ConnectionTemplate,
+				Mapping = templateMapping
+			};
+
+
+			var applyTemplateResult = await ConnectionApiClient.Template.ApplyTemplateAsync(ActiveProjectId, connection.Id, conApplyTemplateParam);
+			applyTemplateResult.Should().NotBeNull();
+
+			var operationsFromTemplate = await ConnectionApiClient.Operation.GetOperationsAsync(ActiveProjectId, connection.Id);
+			operationsFromTemplate.Count.Should().Be(5);
+
+			// TODO - validate cssId for stiffening member - shoul be 5
+		}
+
+		[Test]
+		public async Task ShouldGetTemplate()
+		{
+			if (ConnectionApiClient == null)
+			{
+				throw new Exception("ConnectionApiClient is null");
+			}
+
+			string connProjectFilePath = Path.Combine(ProjectPath, "ConTemplateCorner-Empty.ideaCon");
+			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
+			this.ActiveProjectId = Project.ProjectId;
+			if (this.ActiveProjectId == Guid.Empty)
+			{
+				throw new Exception("Project is not opened");
+			}
+
+			var con1 = Project!.Connections.First();
+			var templateString = await ConnectionApiClient.Template.CreateConTemplateAsync(ActiveProjectId, con1.Id);
+			templateString.Should().NotBeNull();
+			templateString.Should().NotBeEmpty();
+		}
 	}
 }
