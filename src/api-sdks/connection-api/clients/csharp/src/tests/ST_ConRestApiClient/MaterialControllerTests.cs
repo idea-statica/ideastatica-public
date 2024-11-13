@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using IdeaRS.OpenModel.CrossSection;
 using IdeaRS.OpenModel.Material;
+using IdeaStatiCa.Api.Connection.Model.Material;
 
 namespace ST_ConnectionRestApi
 {
@@ -93,7 +94,7 @@ namespace ST_ConnectionRestApi
 		{
 			var css = await ConnectionApiClient!.Material!.GetCrossSectionsAsync(ActiveProjectId);
 
-			var newCss = new IdeaStatiCa.ConnectionApi.Model.ConMprlCrossSection
+			var newCss = new ConMprlCrossSection
 			{
 				MprlName = "IPE240",
 				MaterialName = "S 450"
@@ -127,7 +128,7 @@ namespace ST_ConnectionRestApi
 		{
 			var boltAssemblies = await ConnectionApiClient!.Material!.GetBoltAssembliesAsync(ActiveProjectId);
 
-			var newBa = new IdeaStatiCa.ConnectionApi.Model.ConMprlElement
+			var newBa = new ConMprlElement
 			{
 				MprlName = "M20 10.9"
 			};
@@ -158,7 +159,7 @@ namespace ST_ConnectionRestApi
 		{
 			var materials = await ConnectionApiClient!.Material!.GetAllMaterialsAsync(ActiveProjectId);
 
-			var newMaterialSteel = new IdeaStatiCa.ConnectionApi.Model.ConMprlElement
+			var newMaterialSteel = new ConMprlElement
 			{
 				MprlName = "S 450",
 			};

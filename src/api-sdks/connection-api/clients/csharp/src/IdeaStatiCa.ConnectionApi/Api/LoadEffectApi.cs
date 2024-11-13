@@ -16,6 +16,11 @@ using System.Net;
 using System.Net.Mime;
 using IdeaStatiCa.ConnectionApi.Client;
 using IdeaStatiCa.ConnectionApi.Model;
+using IdeaStatiCa.Api.Connection.Model;
+using IdeaRS.OpenModel;
+using IdeaRS.OpenModel.Connection;
+using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Connection.Model.Connection;
 
 namespace IdeaStatiCa.ConnectionApi.Api
 {
