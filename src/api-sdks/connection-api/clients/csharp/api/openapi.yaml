@@ -1,5 +1,10 @@
 openapi: 3.0.1
 info:
+  contact:
+    email: info@ideastatica.com
+    name: IDEA StatiCa
+    url: https://github.com/idea-statica/ideastatica-public
+  description: API for designing steel connections
   title: Connection Rest API 1.0
   version: "1.0"
 servers:
