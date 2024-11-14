@@ -21,7 +21,6 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = IdeaStatiCa.ConnectionApi.Client.OpenAPIDateConverter;
 
 namespace IdeaStatiCa.ConnectionApi.Model
@@ -30,7 +29,7 @@ namespace IdeaStatiCa.ConnectionApi.Model
     /// Line
     /// </summary>
     [DataContract(Name = "Line")]
-    public partial class Line : IValidatableObject
+    public partial class Line
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Line" /> class.
@@ -87,15 +86,6 @@ namespace IdeaStatiCa.ConnectionApi.Model
             return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
         }
 
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
-        }
     }
 
 }
