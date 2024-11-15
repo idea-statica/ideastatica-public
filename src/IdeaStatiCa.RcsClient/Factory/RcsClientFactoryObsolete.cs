@@ -24,7 +24,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 		public Action<string> HeartbeatLog { get; set; } = null;
 
 		// Empty string for Rcs.Rest.Obsolete
-		protected string API_VERSION_V1 = "";
+		protected string Application_name = "IdeaStatiCa.RcsRestApi.Obsolete.exe";
 
 		public RcsClientFactoryObsolete(string isSetupDir, IPluginLogger pluginLogger = null, IHttpClientWrapper httpClientWrapper = null)
 		{
@@ -48,7 +48,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			{
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
-			return new RcsApiClient(processId, pluginLogger, wrapper);
+			return new RcsApiClientObsolete(processId, pluginLogger, wrapper);
 		}
 
 		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient(string)"/>
@@ -63,7 +63,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			{
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
-			var client = new RcsApiClient(-1, pluginLogger, wrapper);
+			var client = new RcsApiClientObsolete(-1, pluginLogger, wrapper);
 			return await Task.FromResult<IRcsApiController>(client);
 		}
 
@@ -79,7 +79,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 					while (port > 0)
 					{
 						var directoryName = !string.IsNullOrEmpty(setupDir) ? setupDir : Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-						string apiExecutablePath = Path.Combine(directoryName, "IdeaStatiCa.RcsRestApi.exe");
+						string apiExecutablePath = Path.Combine(directoryName, Application_name);
 
 						if(!File.Exists(apiExecutablePath))
 						{
@@ -118,7 +118,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 				}
 
 				pluginLogger.LogDebug($"Created process with Id {rcsRestApiProcess.Id}");
-				return ($"{LOCALHOST_URL}:{port}{API_VERSION_V1}", rcsRestApiProcess.Id);
+				return ($"{LOCALHOST_URL}:{port}", rcsRestApiProcess.Id);
 			});
 		}
 
