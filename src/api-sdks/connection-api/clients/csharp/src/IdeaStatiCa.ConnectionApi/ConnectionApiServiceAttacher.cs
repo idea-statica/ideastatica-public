@@ -2,18 +2,20 @@
 
 namespace IdeaStatiCa.ConnectionApi
 {
-	public class ConnectionApiClientFactory : IConnectionApiClientFactory
+	public class ConnectionApiServiceAttacher : IApiServiceController<IConnectionApiClient>
 	{
 		string BaseUrl { get; set; }
+
 		/// <summary>
-		/// Constructor
+		/// Con
 		/// </summary>
-		public ConnectionApiClientFactory(string baseUrl)
+		/// <param name="baseUrl"></param>
+		public ConnectionApiServiceAttacher(string baseUrl)
 		{
 			this.BaseUrl = baseUrl;
 		}
 
-		/// <inheritdoc cref="IConnectionApiClientFactory.CreateConnectionApiClient"/>
+		/// <inheritdoc cref="IApiServiceController.CreateConnectionApiClient"/>
 		public async Task<IConnectionApiClient> CreateConnectionApiClient()
 		{
 			var client = new ConnectionApiClient(BaseUrl);
