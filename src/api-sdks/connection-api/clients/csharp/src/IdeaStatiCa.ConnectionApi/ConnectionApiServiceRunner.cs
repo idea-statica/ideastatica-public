@@ -32,9 +32,9 @@ namespace IdeaStatiCa.ConnectionApi
 			return await Task.FromResult(client);
 		}
 
-		private async Task<(string, int)> StartService()
+		private async Task<string> StartService()
 		{
-			return await Task.Run<(string)>(async() =>
+			return await Task.Run<string>(async() =>
 			{
 				if (serviceProcess is null)
 				{
@@ -81,7 +81,7 @@ namespace IdeaStatiCa.ConnectionApi
 					}
 				}
 
-				return ($"{LOCALHOST_URL}:{port}");
+				return $"{LOCALHOST_URL}:{port}";
 			});
 		}
 
