@@ -186,10 +186,9 @@ namespace ConApiWpfClientApp.ViewModels
 				ProjectInfo = await ConApiClient.Project.OpenProjectAsync(openFileDialog.FileName);
 
 				var projectInfoJson = Tools.JsonTools.ToFormatedJson(ProjectInfo);
+				
 
-
-				//var connectionInfo = ConnectionController.GetConnectionInfo();
-				//OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", connectionInfo.Item1, connectionInfo.Item2, projectInfoJson);
+				OutputText = string.Format("ClientId = {0}\nProjectId = {1}\n\n{2}", ConApiClient.ClientId, ConApiClient.Project.ProjectId, projectInfoJson);
 
 				Connections = new ObservableCollection<ConnectionViewModel>(ProjectInfo.Connections.Select(c => new ConnectionViewModel(c)));
 
