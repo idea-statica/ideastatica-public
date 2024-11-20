@@ -14,7 +14,6 @@ namespace IdeaStatiCa.TeklaStructuresTest
 	public class WorkPlaneImporterTest
 	{
 		[Test, AutoData]
-		[Ignore("Test is not working")]
 		public void ShloudImportTeklaWorkPlaneFitting()
 		{
 
@@ -46,7 +45,6 @@ namespace IdeaStatiCa.TeklaStructuresTest
 		}
 
 		[Test, AutoData]
-		[Ignore("Test is not working")]
 		public void ShloudImportTeklaWorkPlaneCutPlane()
 		{
 
