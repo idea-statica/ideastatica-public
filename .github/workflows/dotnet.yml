@@ -30,7 +30,7 @@ jobs:
       working-directory: main
 
     - name: Build
-      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:NoWarn=NU1903
+      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:TreatWarningsAsErrors=false
       working-directory: main
 
     - name: Test
