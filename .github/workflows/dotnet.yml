@@ -26,11 +26,11 @@ jobs:
       uses: darenm/Setup-VSTest@v1.2
 
     - name: Nuget restore dependencies
-      run: nuget restore ./src/IdeaStatiCa.Public.sln
+      run: nuget restore ./src/IdeaStatiCa.Public.sln -NoWarn NU1903 
       working-directory: main
 
     - name: Dotnet restore dependencies
-      run: dotnet restore ./src/IdeaStatiCa.Public.sln
+      run: dotnet restore ./src/IdeaStatiCa.Public.sln --no-warn NU1903
       working-directory: main
 
     - name: Build
