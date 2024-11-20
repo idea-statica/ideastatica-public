@@ -34,5 +34,5 @@ jobs:
       working-directory: main
 
     - name: Test
-      run: 'dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln'
+      run: 'dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln' /p:NoWarn=NU1903
       working-directory: main
