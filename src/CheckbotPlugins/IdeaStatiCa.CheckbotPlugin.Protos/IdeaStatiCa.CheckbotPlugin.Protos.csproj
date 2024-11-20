@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
     <RootNamespace>IdeaStatiCa.CheckbotPlugin</RootNamespace>
-  </PropertyGroup>
+  </PropertyGroup> 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.21.3" />
     <PackageReference Include="Grpc.Net.Client" Version="2.46.0" />
@@ -14,9 +14,11 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="application_service.proto" GrpcServices="Both" />
+    <Protobuf Include="model_object.proto" GrpcServices="Both" />
     <Protobuf Include="event_service.proto" GrpcServices="Both" />
     <Protobuf Include="health_check.proto" GrpcServices="Both" />
     <Protobuf Include="plugin_service.proto" GrpcServices="Both" />
+    <Protobuf Include="connection_service.proto" GrpcServices="Both" />
     <Protobuf Include="project_service.proto" GrpcServices="Both" />
     <Protobuf Include="storage_service.proto" GrpcServices="Both" />
     <Protobuf Include="country_code.proto" GrpcServices="Both" />
