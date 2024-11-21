@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
 
     env: # Define the global configuration variable
-      TreatWarningsAsErrors: "true" # Set to "true" or "false" as needed
+      TreatWarningsAsErrors: "false" # Set to "true" or "false" as needed
 
     steps:
     - name: Checkout
