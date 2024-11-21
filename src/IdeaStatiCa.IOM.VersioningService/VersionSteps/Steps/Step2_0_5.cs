@@ -184,7 +184,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 		private string GetOrCreateBoltAssembly(ISIntermediate grid, SList boltAssemblyList, SList boltGradeList)
 		{
 			string diameter = grid.GetElementValue("Diameter");
-			string material = grid.GetElementValue("Material");
+			string material = GetBoltGradeMaterial(grid);
 			string key = diameter + material;
 
 			if (!boltAssemblyDic.TryGetValue(key, out string assemblyId))
@@ -199,10 +199,27 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			return assemblyId;
 		}
 
+		/// <summary>
+		/// allow to unproperly defined boltgrid to recover and force botlgrade material to conversion table
+		/// </summary>
+		/// <param name="grid"></param>
+		/// <returns></returns>
+		private string GetBoltGradeMaterial(ISIntermediate grid)
+		{
+			string material = grid.TryGetElementValue("Material");
+			if (string.IsNullOrEmpty(material))
+			{
+				_logger.LogInformation("Boltgrade material is not defined. Replaced by default 8.8");
+				material = "8.8";
+			}
+
+			return material;
+		}
+
 		private string CreateBoltAssembly(SList boltAssemblyList, ISIntermediate grid, string boltGradeId)
 		{
 			string diameter = grid.GetElementValue("Diameter");
-			string material = grid.GetElementValue("Material");
+			string material = GetBoltGradeMaterial(grid);
 
 			var newBoltAssembly = new SObject() { TypeName = "BoltAssembly" };
 			var boltGradeProperty = newBoltAssembly.CreateElementProperty("BoltGrade");
