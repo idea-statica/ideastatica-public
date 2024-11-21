@@ -10,6 +10,9 @@ jobs:
     name: "Build and Test IOM"
     runs-on: windows-latest
 
+    env: # Define the global configuration variable
+      TreatWarningsAsErrors: "true" # Set to "true" or "false" as needed
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -26,13 +29,28 @@ jobs:
       uses: darenm/Setup-VSTest@v1.2
 
     - name: Dotnet restore dependencies
-      run: dotnet restore ./src/IdeaStatiCa.Public.sln /p:NoWarn=NU1903
+      run: |
+        if [ "${{ env.TreatWarningsAsErrors }}" == "true" ]; then
+          dotnet restore ./src/IdeaStatiCa.Public.sln /p:NoWarn=NU1903
+        else
+          dotnet restore ./src/IdeaStatiCa.Public.sln
+        fi
       working-directory: main
 
     - name: Build
-      run: msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:TreatWarningsAsErrors=false
+      run: |
+        if [ "${{ env.TreatWarningsAsErrors }}" == "true" ]; then
+          msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:TreatWarningsAsErrors=true
+        else
+          msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release
+        fi
       working-directory: main
 
     - name: Test
-      run: 'dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=false'
+      run: |
+        if [ "${{ env.TreatWarningsAsErrors }}" == "true" ]; then
+          dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=true
+        else
+          dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln
+        fi
       working-directory: main
