@@ -55,7 +55,7 @@ namespace RcsApiClient
 			services.AddSingleton<IRcsClientFactory>(serviceProvider =>
 			{
 				var rcsSettings = serviceProvider.GetRequiredService<RcsClientSettings>();
-				return new RcsClientFactoryObsolete(rcsSettings.IdeaStatiCaDir, serviceProvider.GetService<IPluginLogger>(), httpClientWrapper: null);
+				return new RcsClientFactory(rcsSettings.IdeaStatiCaDir, serviceProvider.GetService<IPluginLogger>(), httpClientWrapper: null);
 			});
 
 			serviceProvider = services.BuildServiceProvider();

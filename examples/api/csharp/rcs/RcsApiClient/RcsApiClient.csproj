@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+		<Configurations>Debug_NuGet;Release_NuGet</Configurations>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
@@ -22,15 +22,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.0.3003" />
-		<PackageReference Include="IdeaStatiCa.RcsClient" Version="24.1.0.3003" />
-		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.0.3003" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
-		<ProjectReference Include="..\..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.RcsClient" Version="24.1.1.1474" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.1.1474" />
 	</ItemGroup>
 
 </Project>

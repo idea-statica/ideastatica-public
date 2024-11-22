@@ -25,7 +25,7 @@ namespace RcsApiConsoleApp
 			string directoryPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 24.1";
 
 			//Pass path to a new RCS Client Factory
-			var rcsClientFactory = new RcsClientFactoryObsolete(directoryPath);
+			var rcsClientFactory = new RcsClientFactory(directoryPath);
 
 			//Create the client from the Factory
 			IRcsApiController client = await rcsClientFactory.CreateRcsApiClient();
@@ -123,7 +123,7 @@ namespace RcsApiConsoleApp
 			#endregion
 		}
 
-		public static async Task ChangeSectionReiforcedSection(RcsApiClientObsolete client)
+		public static async Task ChangeSectionReiforcedSection(RcsApiClient client)
 		{
 			#region changereinforcedcrosssection
 			//Get the list of avaliable reinforced cross-sections in the project
@@ -143,7 +143,7 @@ namespace RcsApiConsoleApp
 			#endregion
 		}
 
-		public static async Task ChangeReinforcedSectionLayout(RcsApiClientObsolete client)
+		public static async Task ChangeReinforcedSectionLayout(RcsApiClient client)
 		{
 			#region changereinforcedcsslayout
 			//Get the list of avaliable reinforced cross-sections in the project
@@ -175,7 +175,7 @@ namespace RcsApiConsoleApp
 			#endregion
 		}
 
-		public static async Task AddNewReinforcedCrossSection(RcsApiClientObsolete client)
+		public static async Task AddNewReinforcedCrossSection(RcsApiClient client)
 		{
 			#region addreinforcedcss
 			//Get the list of avaliable reinforced cross-sections in the project
