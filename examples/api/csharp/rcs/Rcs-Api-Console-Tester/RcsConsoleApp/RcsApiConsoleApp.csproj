@@ -4,17 +4,12 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+		<Configurations>Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 		<PackageReference Include="IdeaStatiCa.Plugin" Version="24.1.1.1474" />
 		<PackageReference Include="IdeaStatiCa.RcsClient" Version="24.1.1.1474" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
-		<ProjectReference Include="..\..\..\..\..\..\src\IdeaStatiCa.RcsClient\IdeaStatiCa.RcsClient.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

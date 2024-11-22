@@ -45,7 +45,7 @@ namespace IomToRcsExampleRunner
 
 				Logger.LogDebug($"Opening RCS Client from '{directoryPath}'");
 
-				var rcsClientFactory = new RcsClientFactoryObsolete(directoryPath, Logger);
+				var rcsClientFactory = new RcsClientFactory(directoryPath, Logger);
 
 				client = await rcsClientFactory.CreateRcsApiClient();
 
