@@ -48,7 +48,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			{
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
-			return new RcsApiClientObsolete(processId, pluginLogger, wrapper);
+			return new RcsApiClient(processId, pluginLogger, wrapper);
 		}
 
 		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient(string)"/>
