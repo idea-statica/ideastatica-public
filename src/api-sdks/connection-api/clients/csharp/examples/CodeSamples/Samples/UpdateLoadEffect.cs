@@ -1,5 +1,7 @@
-﻿using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
+﻿using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Connection.Model.Connection;
+using IdeaStatiCa.ConnectionApi;
+
 
 namespace CodeSamples
 {
@@ -39,12 +41,13 @@ namespace CodeSamples
 				}
 
 				ConLoadEffect loadEffect = loadEffects[i];
-				
+				var memberLoadings = loadEffect.MemberLoadings.ToList();
+
 				// NOTE: LoadEffect provides all the member loadings - even if LoadsInEquilibrium is set to False.
-				for (int j = 0; j < loadEffect.MemberLoadings.Count; j++)
+				for (int j = 0; j < memberLoadings.Count; j++)
 				{
-					ConLoadEffectMemberLoad loading = loadEffect.MemberLoadings[j];
-					ConLoadEffectMemberLoad loadingBasis = loadEffectBasis.MemberLoadings[j];
+					ConLoadEffectMemberLoad loading = memberLoadings[j];
+					ConLoadEffectMemberLoad loadingBasis = memberLoadings[j];
 
 					loading.SectionLoad.N = loadingBasis.SectionLoad.N * effectMultiplier;
 					loading.SectionLoad.Vy = loadingBasis.SectionLoad.Vy * effectMultiplier;
