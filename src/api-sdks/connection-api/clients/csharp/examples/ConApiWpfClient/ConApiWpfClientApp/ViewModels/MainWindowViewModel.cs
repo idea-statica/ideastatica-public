@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ConApiWpfClientApp.Tools;
+using IdeaStatiCa.Api.Connection.Model;
 
 namespace ConApiWpfClientApp.ViewModels
 {
@@ -81,7 +82,7 @@ namespace ConApiWpfClientApp.ViewModels
 				var calcParam = new ConCalculationParameter()
 				{
 					ConnectionIds = connectionIdList,
-					AnalysisType = ConAnalysisTypeEnum.StressStrain
+					AnalysisType = ConAnalysisTypeEnum.Stress_Strain
 				};
 
 				var calculationResults = await ConApiClient.Calculation.CalculateAsync(ProjectInfo.ProjectId, calcParam, 0, cts.Token);

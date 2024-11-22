@@ -1,4 +1,4 @@
-﻿using IdeaStatiCa.ConnectionApi.Model;
+﻿using IdeaStatiCa.Api.Connection.Model;
 
 namespace ConApiWpfClientApp.ViewModels
 {

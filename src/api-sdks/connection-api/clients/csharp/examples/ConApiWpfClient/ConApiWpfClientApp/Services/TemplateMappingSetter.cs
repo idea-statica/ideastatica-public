@@ -1,6 +1,6 @@
 ﻿using ConApiWpfClientApp.ViewModels;
 using ConApiWpfClientApp.Views;
-using IdeaStatiCa.ConnectionApi.Model;
+using IdeaStatiCa.Api.Connection.Model;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Windows;

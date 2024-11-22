@@ -13,18 +13,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
-    <PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.0.3009" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="IdeaStatiCa.PluginLogger" Version="24.1.1.1474" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.0.3009" />
-    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.0.3009" />
-    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.0.3009" />
+    <PackageReference Include="IdeaStatiCa.Api" Version="24.1.1.1474" />
+    <PackageReference Include="IdeaStatiCa.ConnectionApi" Version="24.1.1.1474" />
+    <PackageReference Include="IdeaStatiCa.OpenModel" Version="24.1.1.1474" />
   </ItemGroup>
 
   <ItemGroup>
