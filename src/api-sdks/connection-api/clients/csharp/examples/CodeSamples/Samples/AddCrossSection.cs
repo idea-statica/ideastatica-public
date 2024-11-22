@@ -1,5 +1,6 @@
-﻿using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
+﻿using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples
 {
@@ -29,9 +30,9 @@ namespace CodeSamples
 			//List of new Cross-Sections to Add.
 			List<ConMprlCrossSection> crossSectionToAdd = new List<ConMprlCrossSection>() 
 			{ 
-				new ConMprlCrossSection("S 355", "IPE240"),
-				new ConMprlCrossSection("S 275", "IPE300"),
-				new ConMprlCrossSection("S 355", "IPE450") 
+				new ConMprlCrossSection() {MaterialName = "S 355", MprlName = "IPE240" },
+				new ConMprlCrossSection() {MaterialName = "S 275", MprlName = "IPE300" },
+				new ConMprlCrossSection() {MaterialName = "\"S 355", MprlName = "IPE450" }
 			};
 
 			foreach (var section in crossSectionToAdd)
@@ -39,7 +40,7 @@ namespace CodeSamples
 				if (!SteelMaterialMap.ContainsKey(section.MaterialName))
 				{
 					//FIX: Add Materal should return the Material not the ConMprlElement
-					await conClient.Material.AddMaterialSteelAsync(projectId, new ConMprlElement(section.MaterialName));
+					await conClient.Material.AddMaterialSteelAsync(projectId, new ConMprlElement() { MprlName = section.MaterialName });
 					//Console.WriteLine("Successfully Added new Material: " + addedMaterial.MprlName);
 				}
 				else
@@ -49,7 +50,7 @@ namespace CodeSamples
 				if (!CrossSectionMap.ContainsKey(section.MprlName))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					await conClient.Material.AddCrossSectionAsync(projectId, new ConMprlCrossSection("S 355", section.MprlName));
+					await conClient.Material.AddCrossSectionAsync(projectId, new ConMprlCrossSection() { MaterialName = "S 355", MprlName = section.MprlName });
 					//Console.WriteLine("Successfully Added new Cross-section: " + added.MprlName);
 
 					//Need to check what happens if name is not found...
