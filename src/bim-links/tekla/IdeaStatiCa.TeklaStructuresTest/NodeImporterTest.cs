@@ -14,7 +14,6 @@ namespace IdeaStatiCa.TeklaStructuresTest
 	public class NodeImporterTest
 	{
 		[Test, AutoData]
-		[Ignore("Test is not working")]
 		public void ShloudImportTeklaNode(double x, double y, double z)
 		{
 

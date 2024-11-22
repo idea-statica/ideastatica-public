@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "project_service.proto";
+import "model_object.proto";
 
 option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
 
