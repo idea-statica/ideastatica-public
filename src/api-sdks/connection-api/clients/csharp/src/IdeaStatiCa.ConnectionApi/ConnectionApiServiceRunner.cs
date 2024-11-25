@@ -9,7 +9,7 @@ using System.Net.Http;
 
 namespace IdeaStatiCa.ConnectionApi
 {
-	public class ConnectionApiServiceRunner : IApiServiceController<IConnectionApiClient>
+	public class ConnectionApiServiceRunner : IApiServiceFactory<IConnectionApiClient>
 	{
 		private const string LOCALHOST_URL = "http://127.0.0.1";
 		private const string API_EXECUTABLE_NAME = "IdeaStatiCa.ConnectionRestApi.exe";
@@ -23,7 +23,7 @@ namespace IdeaStatiCa.ConnectionApi
 			launchPath = setupDir;
 		}
 
-		/// <inheritdoc cref="IApiServiceController.CreateConnectionApiClient"/>
+		/// <inheritdoc cref="IApiServiceFactory.CreateConnectionApiClient"/>
 		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var url = await StartService();
