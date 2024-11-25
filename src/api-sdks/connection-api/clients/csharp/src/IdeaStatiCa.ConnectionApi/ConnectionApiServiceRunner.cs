@@ -68,7 +68,7 @@ namespace IdeaStatiCa.ConnectionApi
 
 						// Check if the API process is still running
 
-						if (!serviceProcess.HasExited)
+						if (isApiReady && !serviceProcess.HasExited)
 						{
 							serviceProcess.CloseMainWindow();
 							break;
