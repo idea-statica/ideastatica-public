@@ -20,7 +20,7 @@ namespace IdeaStatiCa.ConnectionApi
 		{
 			var client = new ConnectionApiClient(BaseUrl);
 			await client.CreateAsync();
-			return await Task.FromResult(client);
+			return client;
 		}
 	}		
 }
