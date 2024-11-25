@@ -24,7 +24,7 @@ namespace IdeaStatiCa.ConnectionApi
 		}
 
 		/// <inheritdoc cref="IApiServiceController.CreateConnectionApiClient"/>
-		public async Task<IConnectionApiClient> CreateConnectionApiClient()
+		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var url = await StartService();
 			var client = new ConnectionApiClient(url);
