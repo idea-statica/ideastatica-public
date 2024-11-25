@@ -1,7 +1,7 @@
 ﻿using IdeaRS.OpenModel.Material;
+using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.Api.Connection.Model.Material;
 using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
-
 namespace CodeSamples
 {
 	public partial class ClientExamples
@@ -40,7 +40,7 @@ namespace CodeSamples
 				if (!BoltAssembliesMap.ContainsKey(assembly))
 				{
 					//FIX: This should Output the created Bolt Assembly Object. We need the ID.
-					await conClient.Material.AddBoltAssemblyAsync(projectId, new ConMprlElement(assembly));
+					await conClient.Material.AddBoltAssemblyAsync(projectId, new ConMprlElement() { MprlName = assembly});
 					
 					//Console.WriteLine("Successfully Added new Bolt Assembly: " + added.MprlName);
 

@@ -27,6 +27,10 @@ project_file_path = os.path.join(dir_path, r'..\examples\projects', 'HSS_norm_co
 
 iom_test_file_path = os.path.join(dir_path, r'..\examples\projects', 'OneConnectionImport.xml')
 
+empty_corner_project_file_path = os.path.join(dir_path, r'..\examples\projects', 'corner-empty.ideaCon')
+
+template_corner_file_name = os.path.join(dir_path, r'..\examples\projects', 'template-I-corner.contemp')
+
 def test_should_open_ideacon():
 
     # Enter a context with an instance of the API client
@@ -56,3 +60,35 @@ def test_should_calculate():
         con1_cbfem_results = is_client.calculation.calculate(is_client.project_id, calcParams)
 
         assert con1_cbfem_results, "con1_cbfem_results should not be empty"
+
+def test_should_apply_template():
+    with ideastatica_client.IdeaStatiCaClient(configuration, empty_corner_project_file_path) as is_client:
+        # Get the project data
+        project_data = is_client.project.get_project_data(is_client.project_id)
+
+        # Get list of all connections in the project
+        connections_in_project = is_client.connection.get_connections(is_client.project_id)
+
+        # first connection in the project 
+        connection1 = connections_in_project[0]
+
+        operations_before_template = is_client.operation.get_operations(is_client.project_id, connection1.id)
+        assert len(operations_before_template) == 0, "There should be no operations before applying the template"
+
+        templateParam =  ideastatica_connection_api.ConTemplateMappingGetParam() # ConTemplateMappingGetParam | Data of the template to get default mapping (optional)
+
+        with open(template_corner_file_name, 'r', encoding='utf-16') as file:
+            templateParam.template = file.read()
+
+        # get the default mapping for the selected template and connection  
+        default_mapping = is_client.template.get_default_template_mapping(is_client.project_id, connection1.id, templateParam)
+
+        # Apply the template to the connection with the default mapping
+        applyTemplateData =  ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
+        applyTemplateData.connection_template = templateParam.template
+        applyTemplateData.mapping = default_mapping
+
+        applyTemplateResult = is_client.template.apply_template(is_client.project_id, connection1.id, applyTemplateData)
+
+        operations_after_template = is_client.operation.get_operations(is_client.project_id, connection1.id)
+        assert len(operations_after_template) == 5, "There should be 5 operations before applying the template"

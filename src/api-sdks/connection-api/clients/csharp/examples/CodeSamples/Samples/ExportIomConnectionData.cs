@@ -1,5 +1,6 @@
-﻿using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
+﻿using IdeaRS.OpenModel.Connection;
+using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples
 {
