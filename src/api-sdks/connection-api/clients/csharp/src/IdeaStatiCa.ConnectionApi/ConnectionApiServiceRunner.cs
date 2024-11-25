@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net.Http;
 
 namespace IdeaStatiCa.ConnectionApi
 {
@@ -39,7 +39,7 @@ namespace IdeaStatiCa.ConnectionApi
 				if (serviceProcess is null)
 				{
 					string setupDir = string.Empty;
-					int port = GetAvailablePort();
+					port = GetAvailablePort();
 
 					while (port > 0)
 					{
@@ -56,13 +56,13 @@ namespace IdeaStatiCa.ConnectionApi
 						serviceProcess = new Process();
 						serviceProcess.StartInfo.FileName = apiExecutablePath;
 						serviceProcess.StartInfo.Arguments = arguments;
-						serviceProcess.StartInfo.UseShellExecute = false;
-						
+						serviceProcess.StartInfo.UseShellExecute = true;
+
 						serviceProcess.Start();
 
 						// Wait for the API to start (you might need a more robust way to determine this)
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
-						var apiUrlHeartbeat = new Uri(apiUrlBase, HEARTBEAT_ENDPOINT);
+						var apiUrlHeartbeat = new Uri(apiUrlBase, IdeaStatiCa.Api.Common.RestApiConstants.RestApiHeartbeat);
 						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(50));
 						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
 
