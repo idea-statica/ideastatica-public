@@ -2,7 +2,7 @@
 
 namespace IdeaStatiCa.ConnectionApi
 {
-	public class ConnectionApiServiceAttacher : IApiServiceController<IConnectionApiClient>
+	public class ConnectionApiServiceAttacher : IApiServiceFactory<IConnectionApiClient>
 	{
 		string BaseUrl { get; set; }
 
@@ -15,7 +15,7 @@ namespace IdeaStatiCa.ConnectionApi
 			this.BaseUrl = baseUrl;
 		}
 
-		/// <inheritdoc cref="IApiServiceController.CreateConnectionApiClient"/>
+		/// <inheritdoc cref="IApiServiceFactory.CreateConnectionApiClient"/>
 		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var client = new ConnectionApiClient(BaseUrl);

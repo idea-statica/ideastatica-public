@@ -6,7 +6,7 @@ namespace IdeaStatiCa.ConnectionApi
 	/// <summary>
 	/// Factory for creating instances of clients/>
 	/// </summary>
-	public interface IApiServiceController<TClient>
+	public interface IApiServiceFactory<TClient>
 	{
 		/// <summary>
 		/// Create an instance of API client
