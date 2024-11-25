@@ -13,7 +13,6 @@ namespace IdeaStatiCa.ConnectionApi
 	{
 		private const string LOCALHOST_URL = "http://127.0.0.1";
 		private const string API_EXECUTABLE_NAME = "IdeaStatiCa.ConnectionRestApi.exe";
-		private const string HEARTBEAT_ENDPOINT = "/heartbeat";
 		private Process serviceProcess;
 		private string launchPath;
 		private int port = -1;
