@@ -78,18 +78,33 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			foreach (var beam in beamsData)
 			{
 				var beamId = beam.GetElementValue("Id");
-				var beamOriginalModelId = beam.GetElementValue("OriginalModelId");
-				beamsInModel[beamOriginalModelId] = (beamId, beamOriginalModelId, "BeamData");
-				partsInModel[beamOriginalModelId] = (beamId, beamOriginalModelId, "BeamData");
+				var beamOriginalModelId = beam.TryGetElementValue("OriginalModelId");
+				if (!string.IsNullOrEmpty(beamOriginalModelId))
+				{
+					beamsInModel[beamOriginalModelId] = (beamId, beamOriginalModelId, "BeamData");
+					partsInModel[beamOriginalModelId] = (beamId, beamOriginalModelId, "BeamData");
+				}
+				else
+				{
+					_logger.LogTrace($"Beam with id {beamId} has not defined OriginalModelId");
+				}
 			}
 
 			var platesData = openModel.GetElements("Connections;ConnectionData;Plates;PlateData");
 			foreach (var plate in platesData)
 			{
 				var plateId = plate.GetElementValue("Id");
-				var plateOriginalModelId = plate.GetElementValue("OriginalModelId");
-				platesInModel[plateOriginalModelId] = (plateId, plateOriginalModelId, "PlateData");
-				partsInModel[plateOriginalModelId] = (plateId, plateOriginalModelId, "PlateData");
+				var plateOriginalModelId = plate.TryGetElementValue("OriginalModelId");
+
+				if (!string.IsNullOrEmpty(plateOriginalModelId))
+				{
+					platesInModel[plateOriginalModelId] = (plateId, plateOriginalModelId, "PlateData");
+					partsInModel[plateOriginalModelId] = (plateId, plateOriginalModelId, "PlateData");
+				}
+				else
+				{
+					_logger.LogTrace($"Plate with id {plateId} has not defined OriginalModelId");
+				}
 			}
 
 

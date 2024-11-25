@@ -2,6 +2,9 @@
 
 namespace IdeaStatiCa.Api.RCS.Model
 {
+	/// <summary>
+	/// Class for Rcs.RestApi.Obsolete
+	/// </summary>
 	public class RcsProjectSummary
 	{
 		public List<RcsSection> Sections { get; set; }
