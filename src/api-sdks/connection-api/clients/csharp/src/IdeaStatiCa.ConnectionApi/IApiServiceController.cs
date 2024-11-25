@@ -9,9 +9,9 @@ namespace IdeaStatiCa.ConnectionApi
 	public interface IApiServiceController<TClient>
 	{
 		/// <summary>
-		/// Create an instance of IConnectionApiClient
+		/// Create an instance of API client
 		/// </summary>
 		/// <returns>Instance of client</returns>
-		Task<TClient> CreateConnectionApiClient();
+		Task<TClient> CreateApiClient();
 	}
 }
