@@ -94,7 +94,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 #if !DEBUG
 						rcsRestApiProcess.StartInfo.CreateNoWindow = true;
 #endif
-						//rcsRestApiProcess.Start();
+						rcsRestApiProcess.Start();
 
 						// Check if the API process is ready
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
