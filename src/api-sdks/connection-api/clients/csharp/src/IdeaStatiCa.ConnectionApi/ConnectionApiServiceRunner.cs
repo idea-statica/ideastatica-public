@@ -28,7 +28,7 @@ namespace IdeaStatiCa.ConnectionApi
 			var url = await StartService();
 			var client = new ConnectionApiClient(url);
 			await client.CreateAsync();
-			return await Task.FromResult(client);
+			return client;
 		}
 
 		private async Task<string> StartService()
