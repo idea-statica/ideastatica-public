@@ -122,7 +122,20 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			string checkbotRoot = Path.GetDirectoryName(assembly.Location)
 				?? throw new Exception("Unable to get checkbot app root folder.");
-			return Path.Combine(checkbotRoot, IdeaStatiCa.Plugin.Constants.CheckbotAppName);
+
+			//checkbot app is in same folder as teklaPlugin
+			var checkbotLocation = Path.Combine(checkbotRoot, IdeaStatiCa.Plugin.Constants.CheckbotAppName);
+			if (!File.Exists(checkbotLocation))
+			{
+				//checkbot app is in net48 folder and teklaPlugin is in base  of setup
+				checkbotLocation = Path.Combine(checkbotRoot, "net48", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
+				if (!File.Exists(checkbotLocation))
+				{
+					//checkbot app is in net48 folder and teklaPlugin is in net6.0-windows  of setup
+					checkbotLocation = Path.Combine(checkbotRoot, "..\\net48", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
+				}
+			}
+			return checkbotLocation;
 		}
 	}
 }
