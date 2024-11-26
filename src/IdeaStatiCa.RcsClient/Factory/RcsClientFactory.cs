@@ -6,6 +6,7 @@ using IdeaStatiCa.RcsClient.Client;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 namespace IdeaStatiCa.RcsClient.Factory
@@ -69,7 +70,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 		private async Task<(string, int)> RunRcsRestApiService()
 		{
-			return await Task.Run<(string, int)>(() =>
+			return await Task.Run<(string, int)>(async () =>
 			{
 				if (rcsRestApiProcess is null)
 				{
@@ -98,12 +99,13 @@ namespace IdeaStatiCa.RcsClient.Factory
 #endif
 						rcsRestApiProcess.Start();
 
-						// Wait for the API to start (you might need a more robust way to determine this)
-						Thread.Sleep(5000);
+						// Check if the API process is ready
+						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
+						var apiUrlHeartbeat = new Uri(apiUrlBase, RestApiConstants.RestApiHeartbeat);
+						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(50));
+						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
 
-						// Check if the API process is still running
-
-						if (!rcsRestApiProcess.HasExited)
+						if (isApiReady && !rcsRestApiProcess.HasExited)
 						{
 							rcsRestApiProcess.CloseMainWindow();
 							pluginLogger.LogInformation($"REST API process started on port {port}.");
@@ -158,6 +160,36 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 			pluginLogger.LogWarning($"GetRcsRestApiPath : returning '{modifiedDir}'");
 			return modifiedDir;
+		}
+
+		private async Task<bool> WaitForApiToBeReady(Uri apiUrl, CancellationToken cts)
+		{
+			using (var httpClient = new HttpClient())
+			{
+				while (!cts.IsCancellationRequested)
+				{
+					try
+					{
+						var response = await httpClient.GetAsync(apiUrl, HttpCompletionOption.ResponseHeadersRead, cts);
+						if (response.IsSuccessStatusCode)
+						{
+							return true;
+						}
+					}
+					catch (HttpRequestException ex)
+					{
+						pluginLogger.LogDebug($"Error waiting for the REST API to be ready.", ex);
+					}
+					catch (TaskCanceledException)
+					{
+						pluginLogger.LogDebug("Timeout occur during http call waiting for the REST API to be ready.");
+						return false;
+					}
+					await Task.Delay(3000, cts);
+				}
+				pluginLogger.LogDebug("Timeout waiting for the REST API to be ready.");
+				return false;
+			}
 		}
 	}
 }
