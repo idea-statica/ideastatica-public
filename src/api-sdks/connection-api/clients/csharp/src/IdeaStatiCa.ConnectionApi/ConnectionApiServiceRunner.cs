@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
 {
-	public class ConnectionApiServiceRunner : IApiServiceFactory<IConnectionApiClient>
+	public class ConnectionApiServiceRunner : IApiServiceFactory<IConnectionApiClient>, IDisposable
 	{
 		private const string LOCALHOST_URL = "http://127.0.0.1";
 		private const string API_EXECUTABLE_NAME = "IdeaStatiCa.ConnectionRestApi.exe";
