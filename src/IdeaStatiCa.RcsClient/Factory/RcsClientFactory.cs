@@ -102,7 +102,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 						// Check if the API process is ready
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
 						var apiUrlHeartbeat = new Uri(apiUrlBase, RestApiConstants.RestApiHeartbeat);
-						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(50));
+						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(300));
 						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
 
 						if (isApiReady && !rcsRestApiProcess.HasExited)
