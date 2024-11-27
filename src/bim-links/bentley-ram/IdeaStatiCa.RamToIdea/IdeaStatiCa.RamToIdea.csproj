@@ -2,12 +2,12 @@
   <Import Project="..\..\..\Common.props" />
   <PropertyGroup>
     <ProjectGuid>{ec8df878-7ce5-458d-bf3e-fec30768a104}</ProjectGuid>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;net6.0</TargetFrameworks>
     <Configurations>Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal;Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
-    <PackageReference Include="Idea.Bentley.Ram" Version="17.2.14" />
+    <PackageReference Include="Idea.Bentley.Ram" Version="24.0.0.160" />
     <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
     <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
   </ItemGroup>
