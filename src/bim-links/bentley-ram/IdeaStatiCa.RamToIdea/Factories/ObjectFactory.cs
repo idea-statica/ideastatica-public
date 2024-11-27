@@ -63,7 +63,14 @@ namespace IdeaStatiCa.RamToIdea.Factories
 
 		public IIdeaCombiInput GetLoadCombiInput(ILoadCombination combination)
 		{
-			return GetOrCreate(_combinations, combination, () => new RamCombiInput(this, combination));
+			try
+			{
+				return GetOrCreate(_combinations, combination, () => new RamCombiInput(this, combination));
+			}
+			catch (LoadUnavailableException)
+			{
+				return null;
+			}
 		}
 
 		public IIdeaLoadCase GetLoadCase(int uid)

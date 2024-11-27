@@ -16,14 +16,14 @@ namespace IdeaStatiCa.RamToIdea.Providers
 
 		private List<ILoadCase> ReadLoadCases(IModel model)
 		{
-			var ramLoadCases = model.GetLoadCases(EAnalysisResultType.RAMFrameResultType);
-			var count = ramLoadCases.GetCount();
-			var loadCases = new List<ILoadCase>(count);
+			ILoadCases ramLoadCases = model.GetLoadCases(EAnalysisResultType.RAMFrameResultType);
+			int count = ramLoadCases.GetCount();
+			List<ILoadCase> loadCases = new List<ILoadCase>(count);
 			System.Diagnostics.Debug.WriteLine($"Read {count} load cases");
 			for (int i = 0; i < count; i++)
 			{
-				var lc = ramLoadCases.GetAt(i);
-				if(lc.eAnalyzedState == EStateStatus.eStateNotAvail || lc.eAnalyzedState == EStateStatus.eStateNotCurrent || lc.lAnalyzeNo == -1)
+				ILoadCase lc = ramLoadCases.GetAt(i);
+				if (lc.eAnalyzedState == EStateStatus.eStateNotAvail || lc.eAnalyzedState == EStateStatus.eStateNotCurrent || lc.lAnalyzeNo == -1)
 				{
 					System.Diagnostics.Debug.WriteLine($"Skipping load case {lc.lUID}");
 					continue;
@@ -40,7 +40,7 @@ namespace IdeaStatiCa.RamToIdea.Providers
 
 		public IEnumerable<ILoadCombination> GetLoadCombinations()
 		{
-			var combinations = new List<ILoadCombination>();
+			List<ILoadCombination> combinations = new List<ILoadCombination>();
 
 			combinations.AddRange(GetLoadCombinationsInternal(COMBO_MATERIAL_TYPE.ANALYSIS_CUSTOM));
 			combinations.AddRange(GetLoadCombinationsInternal(COMBO_MATERIAL_TYPE.GRAV_STEEL));
@@ -53,13 +53,14 @@ namespace IdeaStatiCa.RamToIdea.Providers
 
 		public ILoadCase GetLoadCase(int uid)
 		{
-			return _loadCases.Find(lc => lc.lUID == uid);
+			ILoadCase result = _loadCases.Find(lc => lc.lUID == uid);
+			return result ?? throw new LoadUnavailableException(uid);
 		}
 
 		private IEnumerable<ILoadCombination> GetLoadCombinationsInternal(COMBO_MATERIAL_TYPE type)
 		{
-			var combinations = _model.GetLoadCombinations(type);
-			var count = combinations.GetCount();
+			ILoadCombinations combinations = _model.GetLoadCombinations(type);
+			int count = combinations.GetCount();
 			System.Diagnostics.Debug.WriteLine($"Read combination: {type}, number of combi: {count}");
 			for (int i = 0; i < count; i++)
 			{

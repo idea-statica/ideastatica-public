@@ -35,6 +35,7 @@ namespace IdeaStatiCa.RamToIdea.BimApi
 		{
 			return _loadsProvider.GetLoadCombinations()
 				.Select(x => (IIdeaLoading)_objectFactory.GetLoadCombiInput(x))
+				.Where(x => x != null)
 				.ToHashSet();
 		}
 
