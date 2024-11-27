@@ -11,28 +11,28 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net48|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug_IdeaStatiCa_Internal|net6.0-windows|AnyCPU'">
-	  <WarningsNotAsErrors>8073</WarningsNotAsErrors>
+	  <WarningsNotAsErrors>$(WarningsNotAsErrors);8073</WarningsNotAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
