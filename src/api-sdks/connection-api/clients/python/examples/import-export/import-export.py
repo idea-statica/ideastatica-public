@@ -1,7 +1,6 @@
 import logging
 import sys
 import os
-import json
 from pprint import pprint
 from urllib.parse import urljoin
 
@@ -12,7 +11,7 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.append(parent_dir)
 
 import ideastatica_connection_api
-import ideastatica_connection_api.ideastatica_client as ideastatica_client
+import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -33,19 +32,30 @@ print(project_file_path)
 # Get the Downloads folder path
 downloads_folder = os.path.join(os.path.expanduser('~'), 'Downloads')
 
-# Enter a context with an instance of the API client
-with ideastatica_client.IdeaStatiCaClient(configuration, project_file_path) as is_client:
+try:
+    # Create client attached to already running service
+    attacher = connection_api_service_attacher.ConnectionApiServiceAttacher(configuration)
+    api_client = attacher.create_api_client()
 
-    try:
-        # Get the project data
-        project_data = is_client.project.get_project_data(is_client.project_id)
-        pprint(project_data)
+    # Open project
+    with open(project_file_path, 'rb') as file:
+            byte_array = file.read()
+    uploadRes = api_client.project.import_iom(byte_array, _content_type='multipart/form-data')
+    api_client.project_id = uploadRes.project_id
 
-        # Download project and save to the Downloads folder
-        download_path = os.path.join(downloads_folder, "downloaded_project.ideaCon")
-        is_client.project.download_project(is_client.project_id, download_path)
+    # Get the project data
+    project_data = api_client.project.get_project_data(api_client.project_id)
+    pprint(project_data)
 
-        logger.info(f"Project downloaded to: {download_path}")
+    # Download project and save to the Downloads folder
+    download_path = os.path.join(downloads_folder, "downloaded_project.ideaCon")
+    api_client.project.download_project(api_client.project_id, download_path)
 
-    except Exception as e:
-        print("Operation failed : %s\n" % e)
+    logger.info(f"Project downloaded to: {download_path}")
+
+except Exception as e:
+    print("Operation failed : %s\n" % e)
+finally:
+        # Close project
+    api_client.project.close_project(api_client.project_id)
+    api_client.project = None

@@ -6,11 +6,11 @@ from pathlib import Path
 import socket
 from typing import Optional
 from ideastatica_connection_api import Configuration
-from ideastatica_connection_api.ideastatica_client import IdeaStatiCaClient
+from ideastatica_connection_api.connection_api_client import ConnectionApiClient
 
 logger = logging.getLogger(__name__)
 
-class ApiServiceRunner:
+class ConnectionApiServiceRunner:
     LOCALHOST_URL = "http://127.0.0.1"
     HEARTBEAT = "heartbeat"
     API_EXECUTABLE_NAME = "IdeaStatiCa.ConnectionRestApi.exe"
@@ -50,13 +50,13 @@ class ApiServiceRunner:
             self.service_process = None
         logger.info("API service stopped.")
 
-    def create_api_client(self, file_name: str) -> IdeaStatiCaClient:
+    def create_api_client(self) -> ConnectionApiClient:
         """Creates and returns an IdeaStatiCaClient attached to the API service."""
         if self.port is None:
             raise RuntimeError("The service must be started before creating a client.")
 
         client_configuration = Configuration(host=f"{self.LOCALHOST_URL}:{self.port}")
-        client = IdeaStatiCaClient(configuration=client_configuration, fileName=file_name)
+        client = ConnectionApiClient(configuration=client_configuration)
         logger.info(f"Client created for service at {client_configuration.host}")
         return client
 
