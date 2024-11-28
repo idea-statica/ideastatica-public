@@ -1,6 +1,5 @@
 import sys
 import os
-import json
 from pprint import pprint
 from urllib.parse import urljoin
 
@@ -11,7 +10,7 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.append(parent_dir)
 
 import ideastatica_connection_api
-import ideastatica_connection_api.ideastatica_client as ideastatica_client
+import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
 from ideastatica_connection_api.rest import ApiException
 
 # Verify that your service is running on following URL
@@ -27,24 +26,35 @@ configuration = ideastatica_connection_api.Configuration(
     host = baseUrl
 )
 
-# Enter a context with an instance of the API client
-with ideastatica_client.IdeaStatiCaClient(configuration, project_file_path) as is_client:
+try:
+    # Create client attached to already running service
+    attacher = connection_api_service_attacher.ConnectionApiServiceAttacher(configuration)
+    api_client = attacher.create_api_client()
 
-    try:
-        con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter()
-        con_calculation_parameter.connection_ids = [1]
+    # Open project
+    with open(project_file_path, 'rb') as file:
+            byte_array = file.read()
+    uploadRes = api_client.project.open_project(idea_con_file=byte_array, _content_type='multipart/form-data')
+    api_client.project_id = uploadRes.project_id
 
-        calc_Results = ideastatica_connection_api.CalculationApi(is_client.client)
-        api_response = is_client.calculation.calculate(is_client.project_id, con_calculation_parameter)
-        print("The response of CalculationApi->calculate:\n")
-        pprint(calc_Results)      
-                
-        # will be solved in bug
-        reportPdf = is_client.report.generate_pdf(is_client.project_id, 1)
-        with open('output.pdf', 'wb') as file:
-            file.write(reportPdf)
+    con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter()
+    con_calculation_parameter.connection_ids = [1]
+
+    calc_Results = ideastatica_connection_api.CalculationApi(api_client.client)
+    api_response = api_client.calculation.calculate(api_client.project_id, con_calculation_parameter)
+    print("The response of CalculationApi->calculate:\n")
+    pprint(calc_Results)      
             
-        pprint('PDF file saved successfully as output.pdf')
+    # will be solved in bug
+    reportPdf = api_client.report.generate_pdf(api_client.project_id, 1)
+    with open('output.pdf', 'wb') as file:
+        file.write(reportPdf)
         
-    except ApiException as e:
-        print("Exception when calling CalculationApi->calculate: %s\n" % e)
+    pprint('PDF file saved successfully as output.pdf')
+    
+except ApiException as e:
+    print("Exception when calling CalculationApi->calculate: %s\n" % e)
+finally:
+        # Close project
+    api_client.project.close_project(api_client.project_id)
+    api_client.project = None

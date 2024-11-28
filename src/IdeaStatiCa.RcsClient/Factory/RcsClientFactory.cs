@@ -49,7 +49,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 			{
 				wrapper.HeartBeatLogAction = HeartbeatLog;
 			}
-			return new RcsApiClientObsolete(processId, pluginLogger, wrapper);
+			return new RcsApiClient(processId, pluginLogger, wrapper);
 		}
 
 		/// <inheritdoc cref="IRcsClientFactory.CreateRcsApiClient(string)"/>
@@ -93,16 +93,13 @@ namespace IdeaStatiCa.RcsClient.Factory
 						rcsRestApiProcess = new Process();
 						rcsRestApiProcess.StartInfo.FileName = apiExecutablePath;
 						rcsRestApiProcess.StartInfo.Arguments = arguments;
-						rcsRestApiProcess.StartInfo.UseShellExecute = false;
-#if !DEBUG
-						rcsRestApiProcess.StartInfo.CreateNoWindow = true;
-#endif
+						rcsRestApiProcess.StartInfo.UseShellExecute = true;
 						rcsRestApiProcess.Start();
 
 						// Check if the API process is ready
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
 						var apiUrlHeartbeat = new Uri(apiUrlBase, RestApiConstants.RestApiHeartbeat);
-						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(50));
+						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(120));
 						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
 
 						if (isApiReady && !rcsRestApiProcess.HasExited)
