@@ -1,13 +1,13 @@
 import logging
 from ideastatica_connection_api import Configuration
-from ideastatica_connection_api.ideastatica_client import IdeaStatiCaClient
+from ideastatica_connection_api.connection_api_client import ConnectionApiClient
 
 logger = logging.getLogger(__name__)
 
-class ApiServiceAttacher:
+class ConnectionApiServiceAttacher:
     def __init__(self, configuration: Configuration):
         self.configuration = configuration
 
-    def create_api_client(self, fileName: str) -> IdeaStatiCaClient:
+    def create_api_client(self) -> ConnectionApiClient:
         logger.info(f"Creating client attached to {self.configuration.host}")
-        return IdeaStatiCaClient(configuration= self.configuration, fileName= fileName) 
+        return ConnectionApiClient(configuration= self.configuration) 
