@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace IdeaStatiCa.ConnectionApi
+namespace IdeaStatiCa.Api.Common
 {
 	/// <summary>
 	/// Factory for creating instances of clients/>
