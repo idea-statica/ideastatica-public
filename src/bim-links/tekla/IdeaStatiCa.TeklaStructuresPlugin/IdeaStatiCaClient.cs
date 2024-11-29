@@ -145,6 +145,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					//checkbot app is in net48 folder and teklaPlugin is in net6.0-windows  of setup
 					checkbotLocation = Path.Combine(checkbotRoot, "..\\net48", IdeaStatiCa.Plugin.Constants.CheckbotAppName);
 				}
+
+				if (!File.Exists(checkbotLocation))
+				{
+					throw new FileNotFoundException($"Checkbot location was not found from this folder: {checkbotRoot} ");
+				}
 			}
 
 			return checkbotLocation;
