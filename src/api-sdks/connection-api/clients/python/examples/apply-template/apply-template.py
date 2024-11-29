@@ -20,72 +20,59 @@ logger = logging.getLogger(__name__)
 
 baseUrl = "http://localhost:5000"
 
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ideastatica_connection_api.Configuration(
-    host = baseUrl
-)
-
 dir_path = os.path.dirname(os.path.realpath(__file__))
 project_file_path = os.path.join(dir_path, '..\projects', 'corner-empty.ideaCon')
 print(project_file_path)
 
-try:
-    # Create client attached to already running service
-    attacher = connection_api_service_attacher.ConnectionApiServiceAttacher(configuration)
-    api_client = attacher.create_api_client()
 
-    # Open project
-    with open(project_file_path, 'rb') as file:
-            byte_array = file.read()
-    uploadRes = api_client.project.open_project(idea_con_file=byte_array, _content_type='multipart/form-data')
-    api_client.project_id = uploadRes.project_id
+# Create client attached to already running service
+with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
+    try:
+        # Open project
+        uploadRes = api_client.project.open_project_from_filepath(project_file_path)
+        api_client.project_id = uploadRes.project_id
 
-    # Get the project data
-    project_data = api_client.project.get_project_data(api_client.project_id)
-    pprint(project_data)
+        # Get the project data
+        project_data = api_client.project.get_project_data(api_client.project_id)
+        pprint(project_data)
 
-    # Get list of all connections in the project
-    connections_in_project = api_client.connection.get_connections(api_client.project_id)
+        # Get list of all connections in the project
+        connections_in_project = api_client.connection.get_connections(api_client.project_id)
 
-    # first connection in the project 
-    connection1 = connections_in_project[0]
-    pprint(connection1)
+        # first connection in the project 
+        connection1 = connections_in_project[0]
+        pprint(connection1)
 
-    templateParam =  ideastatica_connection_api.ConTemplateMappingGetParam() # ConTemplateMappingGetParam | Data of the template to get default mapping (optional)
+        templateParam =  ideastatica_connection_api.ConTemplateMappingGetParam() # ConTemplateMappingGetParam | Data of the template to get default mapping (optional)
 
-    template_file_name = os.path.join(dir_path, '..\projects', 'template-I-corner.contemp')
-    with open(template_file_name, 'r', encoding='utf-16') as file:
-        templateParam.template = file.read()
+        template_file_name = os.path.join(dir_path, '..\projects', 'template-I-corner.contemp')
+        with open(template_file_name, 'r', encoding='utf-16') as file:
+            templateParam.template = file.read()
 
-    # get the default mapping for the selected template and connection  
-    default_mapping = api_client.template.get_default_template_mapping(api_client.project_id, connection1.id, templateParam)
-    pprint(default_mapping)
+        # get the default mapping for the selected template and connection  
+        default_mapping = api_client.template.get_default_template_mapping(api_client.project_id, connection1.id, templateParam)
+        pprint(default_mapping)
 
-    # TODO
-    # Modify mapping
+        # TODO
+        # Modify mapping
 
-    # Apply the template to the connection with the modified mapping
-    applyTemplateData =  ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
-    applyTemplateData.connection_template = templateParam.template
-    applyTemplateData.mapping = default_mapping
+        # Apply the template to the connection with the modified mapping
+        applyTemplateData =  ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
+        applyTemplateData.connection_template = templateParam.template
+        applyTemplateData.mapping = default_mapping
 
-    applyTemplateResult = api_client.template.apply_template(api_client.project_id, connection1.id, applyTemplateData)
+        applyTemplateResult = api_client.template.apply_template(api_client.project_id, connection1.id, applyTemplateData)
 
-    pprint(applyTemplateResult)
+        pprint(applyTemplateResult)
 
-    # run stress-strain CBFEM analysis for the connection id = 1
-    calcParams =  ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-    calcParams.connection_ids = [connection1.id]
+        # run stress-strain CBFEM analysis for the connection id = 1
+        calcParams =  ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
+        calcParams.connection_ids = [connection1.id]
 
-    # run stress-strain analysis for the connection
-    con1_cbfem_results1 = api_client.calculation.calculate(api_client.project_id, calcParams)
-    pprint(con1_cbfem_results1)
+        # run stress-strain analysis for the connection
+        con1_cbfem_results1 = api_client.calculation.calculate(api_client.project_id, calcParams)
+        pprint(con1_cbfem_results1)
 
-except Exception as e:
-    print("Operation failed : %s\n" % e)
-finally:
-        # Close project
-    api_client.project.close_project(api_client.project_id)
-    api_client.project = None
+    except Exception as e:
+        print("Operation failed : %s\n" % e)
 
