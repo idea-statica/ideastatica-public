@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using IdeaStatiCa.Api.Common;
+using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
 {

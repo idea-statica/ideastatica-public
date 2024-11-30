@@ -12,7 +12,7 @@ parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')
 sys.path.append(parent_dir)
 
 import ideastatica_connection_api
-import ideastatica_connection_api.ideastatica_client as ideastatica_client
+import ideastatica_connection_api.connection_api_service_attacher as connection_api_service_attacher
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,55 +31,67 @@ project_file_path = os.path.join(dir_path, '..\projects', 'HSS_norm_cond.ideaCon
 print(project_file_path)
 
 
-# Enter a context with an instance of the API client
-with ideastatica_client.IdeaStatiCaClient(configuration, project_file_path) as is_client:
+try:
+    # Create client attached to already running service
+    attacher = connection_api_service_attacher.ConnectionApiServiceAttacher(configuration)
+    api_client = attacher.create_api_client()
 
-    try:
-        # Get the project data
-        project_data = is_client.project.get_project_data(is_client.project_id)
-        pprint(project_data)
+    # Open project
+    with open(project_file_path, 'rb') as file:
+            byte_array = file.read()
+    uploadRes = api_client.project.open_project(idea_con_file=byte_array, _content_type='multipart/form-data')
+    api_client.project_id = uploadRes.project_id
 
-        # Get list of all connections in the project
-        connections_in_project = is_client.connection.get_connections(is_client.project_id)
 
-        # first connection in the project 
-        connection1 = connections_in_project[0]
-        pprint(connection1)
+    # Get the project data
+    project_data = api_client.project.get_project_data(api_client.project_id)
+    pprint(project_data)
 
-        # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [connection1.id]
+    # Get list of all connections in the project
+    connections_in_project = api_client.connection.get_connections(api_client.project_id)
 
-        # run stress-strain analysis for the connection
-        con1_cbfem_results = is_client.calculation.calculate(is_client.project_id, calcParams)
-        pprint(con1_cbfem_results)
+    # first connection in the project 
+    connection1 = connections_in_project[0]
+    pprint(connection1)
 
-        # TODO - fix serialization JSON
-        
-        # get detailed results. Results are list of strings
-        # the number of strings in the list correspond to the number of calculated connections
-        results_text = is_client.calculation.get_raw_json_results(is_client.project_id, calcParams)
-        firstConnectionResult = results_text[0];
-        pprint(firstConnectionResult)
+    # run stress-strain CBFEM analysis for the connection id = 1
+    calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
+    calcParams.connection_ids = [connection1.id]
 
-        raw_results = json.loads(firstConnectionResult)
-        pprint(raw_results)
+    # run stress-strain analysis for the connection
+    con1_cbfem_results = api_client.calculation.calculate(api_client.project_id, calcParams)
+    pprint(con1_cbfem_results)
 
-        detailed_results = is_client.calculation.get_results(is_client.project_id, calcParams)
-        pprint(detailed_results)
+    # TODO - fix serialization JSON
+    
+    # get detailed results. Results are list of strings
+    # the number of strings in the list correspond to the number of calculated connections
+    results_text = api_client.calculation.get_raw_json_results(api_client.project_id, calcParams)
+    firstConnectionResult = results_text[0]
+    pprint(firstConnectionResult)
 
-        # get connection setup
-        connection_setup =  is_client.project.get_setup(is_client.project_id)
-        pprint(connection_setup)
+    raw_results = json.loads(firstConnectionResult)
+    pprint(raw_results)
 
-        # modify setup
-        connection_setup.hss_limit_plastic_strain = 0.02
-        modifiedSetup = is_client.project.update_setup(is_client.project_id, connection_setup)
+    detailed_results = api_client.calculation.get_results(api_client.project_id, calcParams)
+    pprint(detailed_results)
 
-        # recalculate connection
-        recalculate_results = is_client.calculation.calculate(is_client.project_id, calcParams)
-        pprint(recalculate_results)
+    # get connection setup
+    connection_setup =  api_client.project.get_setup(api_client.project_id)
+    pprint(connection_setup)
 
-    except Exception as e:
-        print("Operation failed : %s\n" % e)
+    # modify setup
+    connection_setup.hss_limit_plastic_strain = 0.02
+    modifiedSetup = api_client.project.update_setup(api_client.project_id, connection_setup)
+
+    # recalculate connection
+    recalculate_results = api_client.calculation.calculate(api_client.project_id, calcParams)
+    pprint(recalculate_results)
+
+except Exception as e:
+    print("Operation failed : %s\n" % e)
+finally:
+        # Close project
+    api_client.project.close_project(api_client.project_id)
+    api_client.project = None
 
