@@ -269,6 +269,27 @@ paths:
       summary: Set section loading
       tags:
       - InternalForces
+  /api/1/projects/open-project:
+    post:
+      operationId: OpenProject
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              rcsFile:
+                style: form
+            schema:
+              $ref: '#/components/schemas/OpenProject_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RcsProject'
+          description: Success
+      summary: Open Rcs project from rcsFile
+      tags:
+      - Project
   /api/1/projects/open:
     post:
       operationId: Open
@@ -10351,4 +10372,10 @@ components:
       - contact
       - intermittent
       type: string
+    OpenProject_request:
+      properties:
+        rcsFile:
+          format: binary
+          type: string
+      type: object
 

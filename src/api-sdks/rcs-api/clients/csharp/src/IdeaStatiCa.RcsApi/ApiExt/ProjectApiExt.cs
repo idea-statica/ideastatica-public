@@ -1,8 +1,5 @@
-﻿using IdeaRS.OpenModel;
-using Newtonsoft.Json;
+﻿using IdeaStatiCa.Api.RCS.Model;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IdeaStatiCa.RcsApi.Api
@@ -18,18 +15,13 @@ namespace IdeaStatiCa.RcsApi.Api
 		/// </summary>
 		Guid ProjectId { get; }
 
-		///// <summary>
-		///// 
-		///// </summary>
-		//ConProject ActiveProjectData { get; }
-
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
 		/// <returns></returns>
-		Task<Guid> OpenProjectAsync(string filePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		Task<RcsProject> OpenProjectAsync(string filePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 		//Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
@@ -73,29 +65,20 @@ namespace IdeaStatiCa.RcsApi.Api
 			set => activeProjectId = value;
 		}
 
-		//		/// <summary>
-		//		/// Data about the active project
-		//		/// </summary>
-		//		public ConProject ActiveProjectData { get; private set; } = null;
-
-		public async Task<Guid> OpenProjectAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		/// <inheritdoc cref="IProjectApiExtAsync.OpenProjectAsync(string, System.Threading.CancellationToken)"/>
+		public async Task<RcsProject> OpenProjectAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 		{
-			throw new NotImplementedException();
-
-			//await CreateAsync();
-
-			//using (var fs = new System.IO.FileStream(path, System.IO.FileMode.Open))
-			//{
-			//	using (var ms = new System.IO.MemoryStream())
-			//	{
-			//		await fs.CopyToAsync(ms);
-			//		ms.Seek(0, System.IO.SeekOrigin.Begin);
-			//		var conProject = await OpenAsync(ms, 0, cancellationToken);
-			//		this.ActiveProjectData = conProject;
-			//	}
-			//}
-
-			//return this.ActiveProjectData;
+			using (var fs = new System.IO.FileStream(path, System.IO.FileMode.Open))
+			{
+				using (var ms = new System.IO.MemoryStream())
+				{
+					await fs.CopyToAsync(ms);
+					ms.Seek(0, System.IO.SeekOrigin.Begin);
+					var conProject = await OpenProjectAsync(ms, 0, cancellationToken);
+					this.ProjectId = conProject.ProjectId;
+					return conProject;
+				}
+			}
 		}
 
 		//		public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))

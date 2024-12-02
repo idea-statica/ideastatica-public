@@ -14,16 +14,11 @@ namespace IdeaStatiCa.RcsApi
 		/// </summary>
 		public Uri BasePath { get; private set; }
 
-		///// <inheritdoc cref="IRcsApiClient.ClientId"/>/>
-		//public string ClientId { get; private set; }
-
 		/// <inheritdoc cref="IRcsApiClient.ProjectId"/>/>
 		public Guid ProjectId
 		{
-			get => this.Project == null ? this.Project.ProjectId : Guid.Empty;
+			get; set;
 		}
-
-
 
 		/// <inheritdoc cref="IRcsApiClient.Calculation"/>
 		public ICalculationApiAsync Calculation { get; private set; }
@@ -70,26 +65,18 @@ namespace IdeaStatiCa.RcsApi
 
 		private async Task CloseAsync()
 		{
-			//if(Project != null && ProjectId != Guid.Empty)
-			//{
-			//	await Project.CloseProjectAsync(ProjectId);
-			//}
+			if (Project != null && ProjectId != Guid.Empty)
+			{
+				await Project.CloseProjectAsync(ProjectId);
+			}
 
-			//this.Calculation = null;
-			//this.Connection = null;
-			//this.Export = null;
-			//this.LoadEffect = null;
-			//this.Material = null;
-			//this.Member = null;
-			//this.Operation = null;
-			//this.Parameter = null;
-			//this.Presentation = null;
-			//this.Project = null;
-			//this.Report = null;
-			//this.Template = null;
-			//this.ClientApi = null;
-			//this.ClientId = string.Empty;
-
+			this.Calculation = null;
+			this.CrossSection = null;
+			this.DesignMember = null;
+			this.InternalForces = null;
+			this.Project = null;
+			this.Section = null;
+			this.ProjectId = Guid.Empty;
 		}
 
 		private async Task<string> CreateClientAsync()
@@ -101,22 +88,16 @@ namespace IdeaStatiCa.RcsApi
 			//string clientId = await clientApi.ConnectClientAsync();
 			//configuration.DefaultHeaders.Add("ClientId", clientId);
 
-			//this.Calculation = new CalculationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Connection = new IdeaStatiCa.ConnectionApi.Api.ConnectionApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Export = new ExportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.LoadEffect = new LoadEffectApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Material = new MaterialApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Member = new MemberApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Operation = new OperationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Parameter = new ParameterApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Presentation = new PresentationApi(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Project = new ProjectApiExt(this, clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Report = new ReportApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
-			//this.Template = new TemplateApiExt(clientApi.Client, clientApi.AsynchronousClient, configuration);
+			var calculationApi = new CalculationApi(configuration);
 
-			//this.ClientApi = clientApi;
-			//this.ClientId = clientId;
-			return string.Empty;
+			this.Calculation = calculationApi;
+			this.CrossSection = new CrossSectionApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
+			this.DesignMember = new DesignMemberApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
+			this.InternalForces = new InternalForcesApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
+			this.Project = new ProjectApiExt(this, calculationApi.Client, calculationApi.AsynchronousClient, configuration);
+			this.Section = new SectionApi(calculationApi.Client, calculationApi.AsynchronousClient, configuration);
+
+			return await Task.FromResult(string.Empty);
 		}
 
 		protected virtual void Dispose(bool disposing)

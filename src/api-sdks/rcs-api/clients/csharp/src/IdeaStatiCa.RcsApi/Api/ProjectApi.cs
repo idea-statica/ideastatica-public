@@ -171,6 +171,27 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <returns>ApiResponse of Guid</returns>
         ApiResponse<Guid> OpenWithHttpInfo(string requestedType = null, int operationIndex = 0);
         /// <summary>
+        /// Open Rcs project from rcsFile
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>RcsProject</returns>
+        RcsProject OpenProject(System.IO.Stream rcsFile = default(System.IO.Stream), int operationIndex = 0);
+
+        /// <summary>
+        /// Open Rcs project from rcsFile
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>        
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of RcsProject</returns>
+        ApiResponse<RcsProject> OpenProjectWithHttpInfo(System.IO.Stream rcsFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0);
+        /// <summary>
         /// 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
@@ -378,6 +399,32 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Guid)</returns>
         System.Threading.Tasks.Task<ApiResponse<Guid>> OpenWithHttpInfoAsync(string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Open Rcs project from rcsFile
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of RcsProject</returns>
+        System.Threading.Tasks.Task<RcsProject> OpenProjectAsync(System.IO.Stream rcsFile = default(System.IO.Stream), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Open Rcs project from rcsFile
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (RcsProject)</returns>
+        System.Threading.Tasks.Task<ApiResponse<RcsProject>> OpenProjectWithHttpInfoAsync(System.IO.Stream rcsFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// 
         /// </summary>
@@ -1537,6 +1584,158 @@ namespace IdeaStatiCa.RcsApi.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("Open", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Open Rcs project from rcsFile 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>RcsProject</returns>
+        public RcsProject OpenProject(System.IO.Stream rcsFile = default(System.IO.Stream), int operationIndex = 0)
+        {
+            IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject> localVarResponse = OpenProjectWithHttpInfo(rcsFile);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Open Rcs project from rcsFile 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of RcsProject</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject> OpenProjectWithHttpInfo(System.IO.Stream rcsFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0)
+        {
+            IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "multipart/form-data"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+                if (localVarAccept != null)
+                {
+                    localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+                }
+            }
+
+            if (rcsFile != null)
+            {
+                localVarRequestOptions.FileParameters.Add("rcsFile", rcsFile);
+            }
+
+            localVarRequestOptions.Operation = "ProjectApi.OpenProject";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<RcsProject>("/api/1/projects/open-project", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("OpenProject", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Open Rcs project from rcsFile 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of RcsProject</returns>
+        public async System.Threading.Tasks.Task<RcsProject> OpenProjectAsync(System.IO.Stream rcsFile = default(System.IO.Stream), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject> localVarResponse = await OpenProjectWithHttpInfoAsync(rcsFile, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Open Rcs project from rcsFile 
+        /// </summary>
+        /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="rcsFile"> (optional)</param>
+        /// <param name="requestedType">Requested content type in the response.</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (RcsProject)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject>> OpenProjectWithHttpInfoAsync(System.IO.Stream rcsFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "multipart/form-data"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            string localVarAccept = requestedType;
+            if(string.IsNullOrEmpty(localVarAccept))
+            {
+                localVarAccept = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            }
+
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            if (rcsFile != null)
+            {
+                localVarRequestOptions.FileParameters.Add("rcsFile", rcsFile);
+            }
+
+            localVarRequestOptions.Operation = "ProjectApi.OpenProject";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.PostAsync<RcsProject>("/api/1/projects/open-project", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("OpenProject", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
