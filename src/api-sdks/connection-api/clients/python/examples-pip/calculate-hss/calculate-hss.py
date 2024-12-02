@@ -23,11 +23,11 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         uploadRes = api_client.project.open_project_from_filepath(project_file_path)
 
         # Get the project data
-        project_data = api_client.project.get_project_data(api_client.project.project_id)
+        project_data = api_client.project.get_project_data(api_client.project.active_project_id)
         pprint(project_data)
 
         # Get list of all connections in the project
-        connections_in_project = api_client.connection.get_connections(api_client.project.project_id)
+        connections_in_project = api_client.connection.get_connections(api_client.project.active_project_id)
 
         # first connection in the project 
         connection1 = connections_in_project[0]
@@ -38,33 +38,33 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         calcParams.connection_ids = [connection1.id]
 
         # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.project_id, calcParams)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
         pprint(con1_cbfem_results)
 
         # TODO - fix serialization JSON
         
         # get detailed results. Results are list of strings
         # the number of strings in the list correspond to the number of calculated connections
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.project_id, calcParams)
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
         firstConnectionResult = results_text[0]
         pprint(firstConnectionResult)
 
         raw_results = json.loads(firstConnectionResult)
         pprint(raw_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
         pprint(detailed_results)
 
         # get connection setup
-        connection_setup =  api_client.project.get_setup(api_client.project.project_id)
+        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
         pprint(connection_setup)
 
         # modify setup
         connection_setup.hss_limit_plastic_strain = 0.02
-        modifiedSetup = api_client.project.update_setup(api_client.project.project_id, connection_setup)
+        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.project_id, calcParams)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
         pprint(recalculate_results)
 
     except Exception as e:

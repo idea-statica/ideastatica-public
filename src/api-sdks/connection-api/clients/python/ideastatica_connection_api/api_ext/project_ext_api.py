@@ -13,7 +13,7 @@ class ProjectExtApi(ProjectApi):
         # Add any additional initialization here
 
     @property
-    def project_id(self):
+    def active_project_id(self):
         if self.active_project_data is None:
             return None
         return self.active_project_data.project_id
