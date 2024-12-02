@@ -1,14 +1,22 @@
 import logging
 import os
+from typing import Optional
 from ideastatica_connection_api.api.project_api import ProjectApi
-from ideastatica_connection_api.api_response import ApiResponse
+from ideastatica_connection_api.models.con_project import ConProject
 
 logger = logging.getLogger(__name__)
 
 class ProjectExtApi(ProjectApi):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.active_projec_data: Optional[ConProject] = None
         # Add any additional initialization here
+
+    @property
+    def project_id(self):
+        if self.active_projec_data is None:
+            return None
+        return self.active_projec_data.project_id
 
     def download_project(
                 self,
@@ -55,17 +63,18 @@ class ProjectExtApi(ProjectApi):
             ext = ext.lower()
 
             if ext == '.ideacon':
-                uploadRes = super().open_project(idea_con_file=byte_array, _content_type='multipart/form-data')
+                upload_res = super().open_project(idea_con_file=byte_array, _content_type='multipart/form-data')
 
             elif ext == '.xml' or ext == '.iom':
-                uploadRes = super().import_iom(byte_array, _content_type='multipart/form-data')
+                upload_res = super().import_iom(byte_array, _content_type='multipart/form-data')
                 
             else:
                 raise ValueError(f"Unsupported file type: {ext}")
 
-            logger.info(f"Open project_id: {uploadRes.project_id}")  
+            self.active_projec_data = upload_res
+            logger.info(f"Open project_id: {upload_res.project_id}")  
 
-            return uploadRes
+            return upload_res
         
         except Exception as e:
             logger.error(f"Failed to open the project: {file_path}", exc_info=True)

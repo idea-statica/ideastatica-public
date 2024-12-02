@@ -25,20 +25,17 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
     try:
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(project_file_path)
-        api_client.project_id = uploadRes.project_id
-
-        api_client.project.open_project_from_filepath
 
         con_calculation_parameter = ideastatica_connection_api.ConCalculationParameter()
         con_calculation_parameter.connection_ids = [1]
 
         calc_Results = ideastatica_connection_api.CalculationApi(api_client.client)
-        api_response = api_client.calculation.calculate(api_client.project_id, con_calculation_parameter)
+        api_response = api_client.calculation.calculate(api_client.project.project_id, con_calculation_parameter)
         print("The response of CalculationApi->calculate:\n")
         pprint(calc_Results)      
                 
         # will be solved in bug
-        reportPdf = api_client.report.generate_pdf(api_client.project_id, 1)
+        reportPdf = api_client.report.generate_pdf(api_client.project.project_id, 1)
         with open('output.pdf', 'wb') as file:
             file.write(reportPdf)
             
