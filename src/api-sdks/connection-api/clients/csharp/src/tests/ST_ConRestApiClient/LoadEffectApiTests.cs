@@ -23,7 +23,7 @@ namespace ST_ConnectionRestApi
 			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
 			//}
 
-			ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
+			ConnectionApiClient = await ApiFactory.CreateApiClient();
 
 			string connProjectFilePath = Path.Combine(ProjectPath, "Simple-1-ECEN.ideaCon");
 			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
