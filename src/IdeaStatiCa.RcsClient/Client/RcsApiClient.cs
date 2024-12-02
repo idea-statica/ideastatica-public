@@ -122,8 +122,8 @@ namespace IdeaStatiCa.RcsClient.Client
 		public async Task<RcsProjectData> GetProjectDataAsync(CancellationToken token = default)
 		{
 			pluginLogger.LogDebug($"RcsApiClient.GetProjectDataAsync projectId = {activeProjectId}");
-			var res = await httpClient.GetAsync<RcsProjectData>($"Project/{activeProjectId}/ProjectData", token);
-			return res;
+			var res = await httpClient.GetAsync<RcsProject>($"{RcsRestApiConstants.Projects}/active-project", token);
+			return res.ProjectData;
 		}
 
 		/// <inheritdoc cref="IRcsApiController.DownloadAsync(CancellationToken) "/>
