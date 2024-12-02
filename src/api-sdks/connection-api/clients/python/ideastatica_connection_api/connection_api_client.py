@@ -60,7 +60,7 @@ class ConnectionApiClient:
         # Perform any necessary cleanup
         try:
             if self.project:
-                logger.info(f"Closing project project_id:{self.project.project_id} client_id: {self.client_id}")
-                self.project.close_project(self.project.project_id)
+                logger.info(f"Closing project project_id:{self.project.active_project_id} client_id: {self.client_id}")
+                self.project.close_project(self.project.active_project_id)
         finally:
             self.project = None
