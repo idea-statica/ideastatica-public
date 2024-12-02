@@ -30,14 +30,13 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
     try:
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(project_file_path)
-        api_client.project_id = uploadRes.project_id
 
         # Get the project data
-        project_data = api_client.project.get_project_data(api_client.project_id)
+        project_data = api_client.project.get_project_data(api_client.project.project_id)
         pprint(project_data)
 
         # Get list of all connections in the project
-        connections_in_project = api_client.connection.get_connections(api_client.project_id)
+        connections_in_project = api_client.connection.get_connections(api_client.project.project_id)
 
         # first connection in the project 
         connection1 = connections_in_project[0]
@@ -50,7 +49,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
             templateParam.template = file.read()
 
         # get the default mapping for the selected template and connection  
-        default_mapping = api_client.template.get_default_template_mapping(api_client.project_id, connection1.id, templateParam)
+        default_mapping = api_client.template.get_default_template_mapping(api_client.project.project_id, connection1.id, templateParam)
         pprint(default_mapping)
 
         # TODO
@@ -61,7 +60,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         applyTemplateData.connection_template = templateParam.template
         applyTemplateData.mapping = default_mapping
 
-        applyTemplateResult = api_client.template.apply_template(api_client.project_id, connection1.id, applyTemplateData)
+        applyTemplateResult = api_client.template.apply_template(api_client.project.project_id, connection1.id, applyTemplateData)
 
         pprint(applyTemplateResult)
 
@@ -70,7 +69,7 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         calcParams.connection_ids = [connection1.id]
 
         # run stress-strain analysis for the connection
-        con1_cbfem_results1 = api_client.calculation.calculate(api_client.project_id, calcParams)
+        con1_cbfem_results1 = api_client.calculation.calculate(api_client.project.project_id, calcParams)
         pprint(con1_cbfem_results1)
 
     except Exception as e:

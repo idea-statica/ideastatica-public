@@ -35,10 +35,9 @@ def test_should_open_ideacon():
     with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(project_file_path)
-        api_client.project_id = uploadRes.project_id
 
         # Get the project data
-        project_data = api_client.project.get_project_data(api_client.project_id)
+        project_data = api_client.project.get_project_data(api_client.project.project_id)
         assert project_data.project_info.design_code == "ECEN"
 
 def test_should_import_iom():
@@ -46,10 +45,9 @@ def test_should_import_iom():
     with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(iom_test_file_path)
-        api_client.project_id = uploadRes.project_id
 
         # Get the project data
-        project_data = api_client.project.get_project_data(api_client.project_id)
+        project_data = api_client.project.get_project_data(api_client.project.project_id)
         assert project_data.project_info.design_code == "ECEN"
 
 def test_should_calculate():
@@ -57,17 +55,16 @@ def test_should_calculate():
     with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(project_file_path)
-        api_client.project_id = uploadRes.project_id
 
         # Get the project data
-        project_data = api_client.project.get_project_data(api_client.project_id)
+        project_data = api_client.project.get_project_data(api_client.project.project_id)
         
         # run stress-strain CBFEM analysis for the connection id = 1
         calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
         calcParams.connection_ids = [project_data.connections[0].id]
 
         # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project_id, calcParams)
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.project_id, calcParams)
         
         assert con1_cbfem_results, "con1_cbfem_results should not be empty"
 
@@ -76,18 +73,17 @@ def test_should_apply_template():
     with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).create_api_client() as api_client:
         # Open project
         uploadRes = api_client.project.open_project_from_filepath(empty_corner_project_file_path)
-        api_client.project_id = uploadRes.project_id
 
         # Get the project data
-        project_data = api_client.project.get_project_data(api_client.project_id)
+        project_data = api_client.project.get_project_data(api_client.project.project_id)
 
         # Get list of all connections in the project
-        connections_in_project = api_client.connection.get_connections(api_client.project_id)
+        connections_in_project = api_client.connection.get_connections(api_client.project.project_id)
 
         # first connection in the project 
         connection1 = connections_in_project[0]
 
-        operations_before_template = api_client.operation.get_operations(api_client.project_id, connection1.id)
+        operations_before_template = api_client.operation.get_operations(api_client.project.project_id, connection1.id)
         assert len(operations_before_template) == 0, "There should be no operations before applying the template"
 
         templateParam =  ideastatica_connection_api.ConTemplateMappingGetParam() # ConTemplateMappingGetParam | Data of the template to get default mapping (optional)
@@ -96,15 +92,15 @@ def test_should_apply_template():
             templateParam.template = file.read()
 
         # get the default mapping for the selected template and connection  
-        default_mapping = api_client.template.get_default_template_mapping(api_client.project_id, connection1.id, templateParam)
+        default_mapping = api_client.template.get_default_template_mapping(api_client.project.project_id, connection1.id, templateParam)
 
         # Apply the template to the connection with the default mapping
         applyTemplateData =  ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
         applyTemplateData.connection_template = templateParam.template
         applyTemplateData.mapping = default_mapping
 
-        applyTemplateResult = api_client.template.apply_template(api_client.project_id, connection1.id, applyTemplateData)
+        applyTemplateResult = api_client.template.apply_template(api_client.project.project_id, connection1.id, applyTemplateData)
 
-        operations_after_template = api_client.operation.get_operations(api_client.project_id, connection1.id)
+        operations_after_template = api_client.operation.get_operations(api_client.project.project_id, connection1.id)
 
         assert len(operations_after_template) == 5, "There should be 5 operations before applying the template"

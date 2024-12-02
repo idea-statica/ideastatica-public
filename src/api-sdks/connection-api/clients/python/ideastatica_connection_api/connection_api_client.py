@@ -12,9 +12,7 @@ class ConnectionApiClient:
         self.configuration = Configuration(host=self.base_url)
         
         self.client: Optional[api_client.ApiClient] = None
-        self.project_id: Optional[str] = None
         self.client_id: Optional[str] = None
-        self.project: Optional[project_ext_api.ProjectExtApi] = None
 
         self.calculation: Optional[CalculationApi] = None
         self.connection: Optional[ConnectionApi] = None
@@ -62,7 +60,7 @@ class ConnectionApiClient:
         # Perform any necessary cleanup
         try:
             if self.project:
-                logger.info(f"Closing project project_id:{self.project_id} client_id: {self.client_id}")
-                self.project.close_project(self.project_id)
+                logger.info(f"Closing project project_id:{self.project.project_id} client_id: {self.client_id}")
+                self.project.close_project(self.project.project_id)
         finally:
             self.project = None
