@@ -5,22 +5,25 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
 {
+	/// <summary>
+	/// Connection API client. A simplified API client which combines all REST API endpoints into a single client for use in .NET applications.
+	/// </summary>
 	public class ConnectionApiClient : IConnectionApiClient
 	{
 		private bool disposedValue;
 		
 		/// <summary>
-		/// 
+		/// Base uri path of the client.
 		/// </summary>
 		public Uri BasePath { get; private set; }
 
 		/// <inheritdoc cref="IConnectionApiClient.ClientId"/>/>
 		public string ClientId { get; private set; }
 
-		/// <inheritdoc cref="IConnectionApiClient.ProjectId"/>/>
-		public Guid ProjectId
+		/// <inheritdoc cref="IConnectionApiClient.ActiveProjectId"/>/>
+		public Guid ActiveProjectId
 		{
-			get => this.Project.ProjectId;
+			get => this.Project.ActiveProjectId;
 		}
 
 		/// <summary>
@@ -36,20 +39,28 @@ namespace IdeaStatiCa.ConnectionApi
 		public IExportApiExtAsync Export { get; private set; }
 		/// <inheritdoc cref="IConnectionApiClient.LoadEffect"/>
 		public ILoadEffectApiAsync LoadEffect { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Material"/>
 		public IMaterialApiAsync Material { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Member"/>
 		public IMemberApiAsync Member { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Operation"/>
 		public IOperationApiAsync Operation { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Parameter"/>
 		public IParameterApiAsync Parameter { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Presentation"/>
 		public IPresentationApiAsync Presentation { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Project"/>
 		public IProjectApiExtAsync Project { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Report"/>
 		public IReportApiExtAsync Report { get; private set; }
+		
 		/// <inheritdoc cref="IConnectionApiClient.Template"/>
 		public ITemplateApiExtAsync Template { get; private set; }
 
@@ -79,9 +90,9 @@ namespace IdeaStatiCa.ConnectionApi
 
 		private async Task CloseAsync()
 		{
-			if(Project != null && ProjectId != Guid.Empty)
+			if(Project != null && ActiveProjectId != Guid.Empty)
 			{
-				await Project.CloseProjectAsync(ProjectId);
+				await Project.CloseProjectAsync(ActiveProjectId);
 			}
 
 			this.Calculation = null;
