@@ -44,7 +44,7 @@ namespace ST_ConnectionRestApi
 			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
 			//}
 
-			ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
+			ConnectionApiClient = await ApiFactory.CreateApiClient();
 		}
 
 		[TearDown]

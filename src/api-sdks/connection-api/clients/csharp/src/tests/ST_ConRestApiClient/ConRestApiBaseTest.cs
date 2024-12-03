@@ -1,4 +1,5 @@
-﻿using IdeaStatiCa.Api.Connection.Model;
+﻿using IdeaStatiCa.Api.Common;
+using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.ConnectionApi;
 using IdeaStatiCa.ConnectionApi.Model;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +13,7 @@ namespace ST_ConnectionRestApi
 
 		protected IConnectionApiClient? ConnectionApiClient { get; set; }
 
-		protected IConnectionApiClientFactory ApiFactory { get; set; }
+		protected IApiServiceFactory<IConnectionApiClient> ApiFactory { get; set; }
 
 		protected bool RunServer { get; set; }
 
@@ -48,7 +49,7 @@ namespace ST_ConnectionRestApi
 			{
 				throw new NotImplementedException("Implement the use case of starting ConnectionRestApi service");
 			}
-			this.ApiFactory = new ConnectionApiClientFactory(ApiUri.AbsoluteUri);
+			this.ApiFactory = new ConnectionApiServiceAttacher(ApiUri.AbsoluteUri);
 
 			await Task.CompletedTask;
 

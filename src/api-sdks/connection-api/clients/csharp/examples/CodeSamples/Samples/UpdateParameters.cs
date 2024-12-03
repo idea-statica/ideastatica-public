@@ -1,5 +1,5 @@
-﻿using IdeaStatiCa.ConnectionApi;
-using IdeaStatiCa.ConnectionApi.Model;
+﻿using IdeaStatiCa.Api.Connection.Model;
+using IdeaStatiCa.ConnectionApi;
 
 namespace CodeSamples
 {
@@ -35,7 +35,7 @@ namespace CodeSamples
 					Console.WriteLine("Current No of Bolt Rows: "+visibleParam.Value);
 					Console.WriteLine("Please Select the Number of Bolt Rows");
 					string noOfBolts = Console.ReadLine();
-					updates.Add(new IdeaParameterUpdate(visibleParam.Key, noOfBolts));
+					updates.Add(new IdeaParameterUpdate() { Key = visibleParam.Key, Expression = noOfBolts });
 				}
 			}
 

@@ -28,7 +28,7 @@ namespace RcsApiConsoleApp
 			try
 			{
 				//Pass path to a new RCS Client Factory
-				using (var rcsClientFactory = new RcsClientFactoryObsolete(directoryPath, new IdeaStatiCa.Plugin.NullLogger()))
+				using (var rcsClientFactory = new RcsClientFactory(directoryPath, new IdeaStatiCa.Plugin.NullLogger()))
 				{
 
 					//Create the client from the Factory
