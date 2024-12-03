@@ -53,9 +53,7 @@ namespace ST_ConnectionRestApi
 		public async Task ShouldGetRcsProjectData()
 		{
 			var projectData = await RcsApiClient!.Project.GetActiveProjectAsync();
-
 			projectData.Should().NotBeNull();
-
 		}
 	}
 }
