@@ -12,18 +12,16 @@ namespace CodeSamples
 		public static async Task ApplyTemplate(ConnectionApiClient conClient)
 		{
 			string filePath = "inputs/corner-empty.ideaCon";
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
+			await conClient.Project.OpenProjectAsync(filePath);
 
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
 			string templateFilePath = "inputs/template-I-corner.contemp";
 
 			ConTemplateMappingGetParam templateImport = conClient.Template.ImportTemplateFromFile(templateFilePath);
 
-			TemplateConversions conversionMapping = await conClient.Template.GetDefaultTemplateMappingAsync(projectId, connectionId, templateImport);
+			TemplateConversions conversionMapping = await conClient.Template.GetDefaultTemplateMappingAsync(conClient.ProjectId, connectionId, templateImport);
 
 			ConTemplateApplyParam applyParam = new ConTemplateApplyParam();
 			
@@ -32,24 +30,24 @@ namespace CodeSamples
 			//TO DO: We can do some custom mapping if we would like to.
 			applyParam.Mapping = conversionMapping;
 
-			var result = conClient.Template.ApplyTemplateAsync(projectId, connectionId, applyParam);
+			var result = conClient.Template.ApplyTemplateAsync(conClient.ProjectId, connectionId, applyParam);
 
 			ConCalculationParameter calculationParams = new ConCalculationParameter();
 			calculationParams.ConnectionIds = new List<int> { connectionId };
 
 			//Calculate the project with the applied template
-			List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(projectId, calculationParams);
+			List<ConResultSummary> results = await conClient.Calculation.CalculateAsync(conClient.ProjectId, calculationParams);
 
 			string exampleFolder = GetExampleFolderPathOnDesktop("ApplyTemplate");
 			string fileName = "corner-template-applied.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
 
 			//Save the applied template
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
 			Console.WriteLine("Project saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId);
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 		}
 	}
 }
