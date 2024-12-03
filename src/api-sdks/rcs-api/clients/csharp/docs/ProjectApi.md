@@ -3,7 +3,7 @@
 | Method  | Description |
 |--------|-------------|
 | [**CloseProject**](ProjectApi.md#closeproject) |  |
-| [**Download**](ProjectApi.md#download) |  |
+| [**DownloadProject**](ProjectApi.md#downloadproject) | Download the actual rcs project from the service. It includes all changes which were made by previous API calls. |
 | [**GetActiveProject**](ProjectApi.md#getactiveproject) |  |
 | [**GetCodeSettings**](ProjectApi.md#getcodesettings) |  |
 | [**ImportIOM**](ProjectApi.md#importiom) |  |
@@ -124,11 +124,11 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="download"></a>
-## **Download**
-> **MemoryStream Download (Guid projectId)**
+<a id="downloadproject"></a>
+## **DownloadProject**
+> **void DownloadProject (Guid projectId)**
 
-
+Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
 
 
 
@@ -136,11 +136,11 @@ No authorization required
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** |  |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service |  |
 
 ### Return type
 
-[**MemoryStream**](MemoryStream.md)
+void (empty response body)
 
 ### Example
 
@@ -156,7 +156,7 @@ using IdeaStatiCa.RcsApi.Model;
 
 namespace Example
 {
-    public class DownloadExample
+    public class DownloadProjectExample
     {
         public static void Main()
         {
@@ -168,12 +168,12 @@ namespace Example
 
                 try
                 {
-                    MemoryStream result = conClient.Project.Download(projectId);
-                    Debug.WriteLine(result);
+                    // Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
+                    conClient.Project.DownloadProject(projectId);
                 }
                 catch (ApiException  e)
                 {
-                    Console.WriteLine("Exception when calling Project.Download: " + e.Message);
+                    Console.WriteLine("Exception when calling Project.DownloadProject: " + e.Message);
                     Console.WriteLine("Status Code: " + e.ErrorCode);
                     Console.WriteLine(e.StackTrace);
                 }
@@ -188,7 +188,7 @@ namespace Example
 
 ### Code Samples
 
-[!code-csharp[](../examples/CodeSamples/Samples/Download.cs)]
+[!code-csharp[](../examples/CodeSamples/Samples/DownloadProject.cs)]
 
 Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
 
@@ -200,20 +200,18 @@ All URIs are relative to *http://localhost*
 
 > **GET** /api/1/projects/{projectId}/download 
 
-#### Using the DownloadWithHttpInfo variant
+#### Using the DownloadProjectWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    ApiResponse<MemoryStream> response = conClient.Project.DownloadWithHttpInfo(projectId);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
+    // Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
+    conClient.Project.DownloadProjectWithHttpInfo(projectId);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling ProjectApi.DownloadWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling ProjectApi.DownloadProjectWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -226,7 +224,7 @@ No authorization required
 #### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain, application/xml, text/xml, application/json, text/json
+ - **Accept**: Not defined
 
 
 #### HTTP response details

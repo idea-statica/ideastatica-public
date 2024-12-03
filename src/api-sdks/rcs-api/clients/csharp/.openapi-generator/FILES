@@ -75,7 +75,6 @@ docs/MaterialBoltGrade.md
 docs/MaterialDuct.md
 docs/Member1D.md
 docs/Member2D.md
-docs/MemoryStream.md
 docs/NonConformity.md
 docs/NonConformityIssue.md
 docs/NonConformitySeverity.md
@@ -243,7 +242,6 @@ src/IdeaStatiCa.RcsApi/Model/MaterialBoltGrade.cs
 src/IdeaStatiCa.RcsApi/Model/MaterialDuct.cs
 src/IdeaStatiCa.RcsApi/Model/Member1D.cs
 src/IdeaStatiCa.RcsApi/Model/Member2D.cs
-src/IdeaStatiCa.RcsApi/Model/MemoryStream.cs
 src/IdeaStatiCa.RcsApi/Model/NonConformity.cs
 src/IdeaStatiCa.RcsApi/Model/NonConformityIssue.cs
 src/IdeaStatiCa.RcsApi/Model/NonConformitySeverity.cs

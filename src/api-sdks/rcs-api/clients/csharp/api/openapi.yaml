@@ -366,9 +366,11 @@ paths:
       - Project
   /api/1/projects/{projectId}/download:
     get:
-      operationId: Download
+      operationId: DownloadProject
       parameters:
-      - explode: false
+      - description: The unique identifier of the opened project in the ConnectionRestApi
+          service
+        explode: false
         in: path
         name: projectId
         required: true
@@ -378,23 +380,9 @@ paths:
         style: simple
       responses:
         "200":
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/MemoryStream'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/MemoryStream'
-            text/xml:
-              schema:
-                $ref: '#/components/schemas/MemoryStream'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MemoryStream'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/MemoryStream'
           description: Success
+      summary: Download the actual rcs project from the service. It includes all changes
+        which were made by previous API calls.
       tags:
       - Project
   /api/1/projects/{projectId}/code-settings:
@@ -4572,48 +4560,6 @@ components:
       properties:
         id:
           description: Element Id
-          format: int32
-          type: integer
-      type: object
-    MemoryStream:
-      additionalProperties: false
-      example:
-        canRead: true
-        readTimeout: 5
-        length: 6
-        writeTimeout: 5
-        canWrite: true
-        position: 1
-        canSeek: true
-        canTimeout: true
-        capacity: 0
-      properties:
-        canRead:
-          readOnly: true
-          type: boolean
-        canSeek:
-          readOnly: true
-          type: boolean
-        canWrite:
-          readOnly: true
-          type: boolean
-        capacity:
-          format: int32
-          type: integer
-        length:
-          format: int64
-          readOnly: true
-          type: integer
-        position:
-          format: int64
-          type: integer
-        canTimeout:
-          readOnly: true
-          type: boolean
-        readTimeout:
-          format: int32
-          type: integer
-        writeTimeout:
           format: int32
           type: integer
       type: object

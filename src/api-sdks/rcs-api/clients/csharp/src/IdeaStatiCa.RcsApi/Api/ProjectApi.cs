@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
@@ -51,26 +50,26 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <returns>ApiResponse of string</returns>
         ApiResponse<string> CloseProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// 
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>MemoryStream</returns>
-        MemoryStream Download(Guid projectId, int operationIndex = 0);
+        /// <returns></returns>
+        void DownloadProject(Guid projectId, int operationIndex = 0);
 
         /// <summary>
-        /// 
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of MemoryStream</returns>
-        ApiResponse<MemoryStream> DownloadWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DownloadProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -250,31 +249,31 @@ namespace IdeaStatiCa.RcsApi.Api
         /// <returns>Task of ApiResponse (string)</returns>
         System.Threading.Tasks.Task<ApiResponse<string>> CloseProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// 
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of MemoryStream</returns>
-        System.Threading.Tasks.Task<MemoryStream> DownloadAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DownloadProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// 
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls.
         /// </summary>
         /// <remarks>
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (MemoryStream)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MemoryStream>> DownloadWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DownloadProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// 
         /// </summary>
@@ -726,27 +725,26 @@ namespace IdeaStatiCa.RcsApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>MemoryStream</returns>
-        public MemoryStream Download(Guid projectId, int operationIndex = 0)
+        /// <returns></returns>
+        public void DownloadProject(Guid projectId, int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<MemoryStream> localVarResponse = DownloadWithHttpInfo(projectId);
-            return localVarResponse.Data;
+            DownloadProjectWithHttpInfo(projectId);
         }
 
         /// <summary>
-        ///  
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of MemoryStream</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<MemoryStream> DownloadWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of Object(void)</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<Object> DownloadProjectWithHttpInfo(Guid projectId, string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
@@ -755,11 +753,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "text/plain",
-                "application/xml",
-                "text/xml",
-                "application/json",
-                "text/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -781,15 +774,15 @@ namespace IdeaStatiCa.RcsApi.Api
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
 
-            localVarRequestOptions.Operation = "ProjectApi.Download";
+            localVarRequestOptions.Operation = "ProjectApi.DownloadProject";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<MemoryStream>("/api/1/projects/{projectId}/download", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<Object>("/api/1/projects/{projectId}/download", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("Download", localVarResponse);
+                Exception _exception = this.ExceptionFactory("DownloadProject", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
@@ -800,29 +793,28 @@ namespace IdeaStatiCa.RcsApi.Api
         }
 
         /// <summary>
-        ///  
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of MemoryStream</returns>
-        public async System.Threading.Tasks.Task<MemoryStream> DownloadAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DownloadProjectAsync(Guid projectId, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<MemoryStream> localVarResponse = await DownloadWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
+            await DownloadProjectWithHttpInfoAsync(projectId, null, operationIndex, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///  
+        /// Download the actual rcs project from the service. It includes all changes which were made by previous API calls. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId"></param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (MemoryStream)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<MemoryStream>> DownloadWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<Object>> DownloadProjectWithHttpInfoAsync(Guid projectId, string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
@@ -832,11 +824,6 @@ namespace IdeaStatiCa.RcsApi.Api
 
             // to determine the Accept header
             string[] _accepts = new string[] {
-                "text/plain",
-                "application/xml",
-                "text/xml",
-                "application/json",
-                "text/json"
             };
 
             var localVarContentType = IdeaStatiCa.RcsApi.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -858,16 +845,16 @@ namespace IdeaStatiCa.RcsApi.Api
 
             localVarRequestOptions.PathParameters.Add("projectId", IdeaStatiCa.RcsApi.Client.ClientUtils.ParameterToString(projectId)); // path parameter
 
-            localVarRequestOptions.Operation = "ProjectApi.Download";
+            localVarRequestOptions.Operation = "ProjectApi.DownloadProject";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.GetAsync<MemoryStream>("/api/1/projects/{projectId}/download", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/api/1/projects/{projectId}/download", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("Download", localVarResponse);
+                Exception _exception = this.ExceptionFactory("DownloadProject", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;
