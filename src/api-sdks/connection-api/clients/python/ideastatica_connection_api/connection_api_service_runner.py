@@ -11,11 +11,19 @@ from ideastatica_connection_api.connection_api_client import ConnectionApiClient
 logger = logging.getLogger(__name__)
 
 class ConnectionApiServiceRunner:
+    """
+    ConnectionApiServiceRunner starts the Connection REST API executable and provides a client to communicate with it.
+    """
     LOCALHOST_URL = "http://127.0.0.1"
     HEARTBEAT = "heartbeat"
     API_EXECUTABLE_NAME = "IdeaStatiCa.ConnectionRestApi.exe"
 
     def __init__(self, setup_dir: str):
+        """
+        Constructor of the ConnectionApiServiceRunner class that takes the path to the directory where the API executable is located.
+        
+        :param setup_dir: Path to the directory where the API executable is located.
+        """
         self.setup_dir = setup_dir
         self.service_process: Optional[subprocess.Popen] = None
         self.port: Optional[int] = None

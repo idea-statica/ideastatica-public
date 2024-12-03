@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace IdeaStatiCa.ConnectionApi
 {
+	/// <summary>
+	/// <see cref="ConnectionApiServiceRunner"/> starts the Connection REST API executable and provides a client to communicate with it.
+	/// </summary>
 	public class ConnectionApiServiceRunner : IApiServiceFactory<IConnectionApiClient>, IDisposable
 	{
 		private const string LOCALHOST_URL = "http://127.0.0.1";
@@ -18,12 +21,16 @@ namespace IdeaStatiCa.ConnectionApi
 		private string launchPath;
 		private int port = -1;
 
+		/// <summary>
+		/// Constructor of the <see cref="ConnectionApiServiceRunner"/> class that takes the path to the directory where the API executable is located.
+		/// </summary>
+		/// <param name="setupDir"></param>
 		public ConnectionApiServiceRunner(string setupDir)
 		{
 			launchPath = setupDir;
 		}
 
-		/// <inheritdoc cref="IApiServiceFactory.CreateConnectionApiClient"/>
+		/// <inheritdoc cref="IApiServiceFactory.CreateApiClient"/>
 		public async Task<IConnectionApiClient> CreateApiClient()
 		{
 			var url = await StartService();
