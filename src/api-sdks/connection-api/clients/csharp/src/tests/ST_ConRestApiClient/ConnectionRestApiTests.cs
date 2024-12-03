@@ -23,7 +23,7 @@ namespace ST_ConnectionRestApi
 			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
 			//}
 
-			ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
+			ConnectionApiClient = await ApiFactory.CreateApiClient();
 
 			string connProjectFilePath = Path.Combine(ProjectPath, "Simple-1-ECEN.ideaCon");
 			this.Project = await ConnectionApiClient.Project.OpenProjectAsync(connProjectFilePath);
@@ -320,7 +320,7 @@ namespace ST_ConnectionRestApi
 		{
 			string connProjectFilePath = Path.Combine(ProjectPath, "Parametric.ideaCon");
 
-			using (var apiClient2 = await ApiFactory.CreateConnectionApiClient())
+			using (var apiClient2 = await ApiFactory.CreateApiClient())
 			{
 				var project2 = await apiClient2!.Project.OpenProjectAsync(connProjectFilePath);
 
