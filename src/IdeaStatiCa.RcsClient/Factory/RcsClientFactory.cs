@@ -93,20 +93,31 @@ namespace IdeaStatiCa.RcsClient.Factory
 						rcsRestApiProcess = new Process();
 						rcsRestApiProcess.StartInfo.FileName = apiExecutablePath;
 						rcsRestApiProcess.StartInfo.Arguments = arguments;
-						rcsRestApiProcess.StartInfo.UseShellExecute = true;
+						rcsRestApiProcess.StartInfo.UseShellExecute = false;
 						rcsRestApiProcess.Start();
 
 						// Check if the API process is ready
 						var apiUrlBase = new Uri($"{LOCALHOST_URL}:{port}");
 						var apiUrlHeartbeat = new Uri(apiUrlBase, RestApiConstants.RestApiHeartbeat);
-						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(120));
-						var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
+						var cts = new CancellationTokenSource(TimeSpan.FromSeconds(300));
 
-						if (isApiReady && !rcsRestApiProcess.HasExited)
+						if (!rcsRestApiProcess.HasExited)
 						{
-							rcsRestApiProcess.CloseMainWindow();
-							pluginLogger.LogInformation($"REST API process started on port {port}.");
-							break;
+							pluginLogger.LogDebug($"REST API process is alive. Try to wait when it will be ready."); 
+
+							var isApiReady = await WaitForApiToBeReady(apiUrlHeartbeat, cts.Token);
+
+							if (isApiReady && !rcsRestApiProcess.HasExited)
+							{
+								rcsRestApiProcess.CloseMainWindow();
+								pluginLogger.LogInformation($"REST API process started on port {port}.");
+								break;
+							}
+							
+						}
+						else
+						{
+							pluginLogger.LogError($"REST API process has exited before we can start WaitForApiToBeReady.");
 						}
 					}
 
