@@ -1,13 +1,22 @@
 import logging
+import os
+from typing import Optional
 from ideastatica_connection_api.api.project_api import ProjectApi
-from ideastatica_connection_api.api_response import ApiResponse
+from ideastatica_connection_api.models.con_project import ConProject
 
 logger = logging.getLogger(__name__)
 
 class ProjectExtApi(ProjectApi):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.active_project_data: Optional[ConProject] = None
         # Add any additional initialization here
+
+    @property
+    def active_project_id(self):
+        if self.active_project_data is None:
+            return None
+        return self.active_project_data.project_id
 
     def download_project(
                 self,
@@ -29,3 +38,45 @@ class ProjectExtApi(ProjectApi):
                 file.write(response.raw_data)
 
             pass
+    
+
+    def open_project_from_filepath(self, file_path : str):
+        """
+        Opens a project from a file located at the given file path.
+        
+        Args:
+            file_path (str): The path to the project file to be opened.
+
+        Returns:
+            ApiResponse: An ApiResponse object containing the details of the uploaded project.
+
+        Raises:
+            ValueError: If the file type is unsupported.
+            Exception: If any error occurs while reading or opening the file.
+        """
+        logger.info(f"Opening the project: {file_path}")
+        try:
+            with open(file_path, 'rb') as file:
+                byte_array = file.read()      
+
+            _, ext = os.path.splitext(file_path)
+            ext = ext.lower()
+
+            if ext == '.ideacon':
+                upload_res = super().open_project(idea_con_file=byte_array, _content_type='multipart/form-data')
+
+            elif ext == '.xml' or ext == '.iom':
+                upload_res = super().import_iom(byte_array, _content_type='multipart/form-data')
+                
+            else:
+                raise ValueError(f"Unsupported file type: {ext}")
+
+            self.active_project_data = upload_res
+            logger.info(f"Open project_id: {upload_res.project_id}")  
+
+            return upload_res
+        
+        except Exception as e:
+            logger.error(f"Failed to open the project: {file_path}", exc_info=True)
+            raise e
+         
