@@ -1,5 +1,4 @@
 ﻿using IdeaStatiCa.Api.Common;
-using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.RCS.Model;
 using IdeaStatiCa.RcsApi;
 using Microsoft.Extensions.Configuration;

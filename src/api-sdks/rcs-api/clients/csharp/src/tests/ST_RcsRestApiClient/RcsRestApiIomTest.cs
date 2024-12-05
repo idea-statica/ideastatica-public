@@ -1,34 +1,28 @@
-using FluentAssertions;
+﻿using FluentAssertions;
+using ST_ConnectionRestApi;
 
-namespace ST_ConnectionRestApi
+namespace ST_RcsRestApiClient
 {
-	public class RcsRestApiTests : RcsRestApiBaseTest
+	public class RcsRestApiIomTest : RcsRestApiBaseTest
 	{
+
 		[SetUp]
 		public async Task SetUp()
 		{
-			//if (this.RunServer)
-			//{
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
-			//}
-			//else
-			//{
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
-			//}
-
 			RcsApiClient = await ApiFactory.CreateApiClient();
-			if(RcsApiClient == null)
+			if (RcsApiClient == null)
 			{
 				throw new Exception("RcsApiClient is not created");
 			}
 
+			
+			//string iomProjectFilePath = Path.Combine(ProjectPath, "ImportOpenModel.xml");
+			//this.Project = await RcsApiClient!.Project.CreateProjectFromIomFileAsync(iomProjectFilePath, CancellationToken.None);
+
+			// Replace for IOM
 			string rcsProjectFilePath = Path.Combine(ProjectPath, "Project1.IdeaRcs");
 			this.Project = await RcsApiClient!.Project.OpenProjectAsync(rcsProjectFilePath);
+
 			this.ActiveProjectId = Project.ProjectId;
 			if (this.ActiveProjectId == Guid.Empty)
 			{
@@ -53,7 +47,6 @@ namespace ST_ConnectionRestApi
 		{
 			var projectData = await RcsApiClient!.Project.GetActiveProjectAsync();
 			projectData.Should().NotBeNull();
-
 			projectData.ProjectData.Code.Should().Be("ECEN");
 		}
 	}
