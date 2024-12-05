@@ -15,13 +15,8 @@ namespace ST_RcsRestApiClient
 				throw new Exception("RcsApiClient is not created");
 			}
 
-			
-			//string iomProjectFilePath = Path.Combine(ProjectPath, "ImportOpenModel.xml");
-			//this.Project = await RcsApiClient!.Project.CreateProjectFromIomFileAsync(iomProjectFilePath, CancellationToken.None);
-
-			// Replace for IOM
-			string rcsProjectFilePath = Path.Combine(ProjectPath, "Project1.IdeaRcs");
-			this.Project = await RcsApiClient!.Project.OpenProjectAsync(rcsProjectFilePath);
+			string iomProjectFilePath = Path.Combine(ProjectPath, "ImportOpenModel.xml");
+			this.Project = await RcsApiClient!.Project.CreateProjectFromIomFileAsync(iomProjectFilePath, CancellationToken.None);
 
 			this.ActiveProjectId = Project.ProjectId;
 			if (this.ActiveProjectId == Guid.Empty)
@@ -45,9 +40,28 @@ namespace ST_RcsRestApiClient
 		[Test]
 		public async Task ShouldGetRcsProjectData()
 		{
-			var projectData = await RcsApiClient!.Project.GetActiveProjectAsync();
-			projectData.Should().NotBeNull();
-			projectData.ProjectData.Code.Should().Be("ECEN");
+			try
+			{
+				var projectData = await RcsApiClient!.Project.GetActiveProjectAsync();
+				projectData.Should().NotBeNull();
+				projectData.ProjectData.Code.Should().Be("ECEN");
+
+				var xmlFilePath = Path.Combine(ProjectPath, "ExportOpenModel.xml");
+				await RcsApiClient!.Project.SaveProjectAsync(this.ActiveProjectId, xmlFilePath, CancellationToken.None);
+
+				bool isSaved = File.Exists(xmlFilePath);
+				isSaved.Should().BeTrue("Project is not saved");
+
+				FileInfo fi = new FileInfo(xmlFilePath);
+				fi.Length.Should().BeGreaterThan(0);
+			}
+			finally
+			{
+				if (File.Exists(Path.Combine(ProjectPath, "ExportOpenModel.xml")))
+				{
+					File.Delete(Path.Combine(ProjectPath, "ExportOpenModel.xml"));
+				}
+			}
 		}
 	}
 }

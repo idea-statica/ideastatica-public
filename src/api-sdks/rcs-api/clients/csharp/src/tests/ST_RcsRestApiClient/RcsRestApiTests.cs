@@ -1,4 +1,9 @@
 using FluentAssertions;
+using IdeaStatiCa.Api.RCS.Model;
+using IdeaStatiCa.Api.RCS;
+using System.Net;
+using System.Xml.Linq;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ST_ConnectionRestApi
 {
@@ -7,20 +12,6 @@ namespace ST_ConnectionRestApi
 		[SetUp]
 		public async Task SetUp()
 		{
-			//if (this.RunServer)
-			//{
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient();
-			//}
-			//else
-			//{
-			//	if (ApiUri == null)
-			//	{
-			//		throw new Exception("ApiUri is not set");
-			//	}
-
-			//	ConnectionApiClient = await ApiFactory.CreateConnectionApiClient(ApiUri);
-			//}
-
 			RcsApiClient = await ApiFactory.CreateApiClient();
 			if(RcsApiClient == null)
 			{
@@ -55,6 +46,93 @@ namespace ST_ConnectionRestApi
 			projectData.Should().NotBeNull();
 
 			projectData.ProjectData.Code.Should().Be("ECEN");
+		}
+
+		//[Test]
+		//public async Task ShouldCalculateProjectTest()
+		//{
+		//	var briefResults = await RcsApiClient!.Calculation.CalculateAsync(this.ActiveProjectId);
+
+		//	briefResults.Should().NotBeNull();
+		//	briefResults.Count.Should().Be(2);		
+		//}
+
+		[Test]
+		public async Task ShouldGetReinforcedCrossSectionTest()
+		{
+			var reinfCssInProj = await RcsApiClient!.CrossSection.ReinforcedCrossSectionsAsync(this.ActiveProjectId);
+			reinfCssInProj.Should().NotBeNull();
+
+			reinfCssInProj.Count.Should().Be(1);
+
+			var reinfCss1 = reinfCssInProj.First();
+			reinfCss1.Id.Should().Be(1);
+			reinfCss1.Name.Should().Be("R 1");
+		}
+
+		[Test]
+		public async Task ShouldGetSectionsTest()
+		{
+			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+
+			sections.Should().NotBeNull();
+
+			sections.Count.Should().Be(2);
+
+			var sect2 = sections[1];
+			sect2.Id.ToString().Should().Be("2");
+			sect2.Description.Should().Be("S 2");
+			sect2.CheckMemberId.Should().Be(1);
+			sect2.RCSId.Should().Be(1);
+		}
+
+		[Test]
+		public async Task ShouldGetAndUpdateCodeSettinsTest()
+		{
+			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+
+			sections.Should().NotBeNull();
+
+			var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+
+			
+		}
+
+		[Test]
+		public async Task ShouldGetSwaggerJson()
+		{
+			// do the test only if ApiUri is set
+			if (this.ApiUri == null)
+			{
+				return;
+			}
+
+			// Add relative part to ApiUri
+			UriBuilder uriBuilderApiVer = new UriBuilder(this.ApiUri);
+
+			var uriBuilder = new UriBuilder(uriBuilderApiVer.Scheme, uriBuilderApiVer.Host, uriBuilderApiVer.Port);
+			uriBuilder.Path += "swagger/1.0/swagger.json";
+			var swaggerJsonUri = uriBuilder.Uri;
+
+			// Perform HTTP GET request for ApiUri
+			HttpClient httpClient = new HttpClient();
+			HttpResponseMessage response = await httpClient.GetAsync(swaggerJsonUri);
+			response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+			string swaggerJson = await response.Content.ReadAsStringAsync();
+			swaggerJson.Should().NotBeNullOrEmpty();
+
+			var openApi_Dir = Environment.GetEnvironmentVariable("OpenAPI_WORK_DIRECTORY");
+			if (!string.IsNullOrEmpty(openApi_Dir) && Directory.Exists(openApi_Dir))
+			{
+				var swaggerJsonPath = Path.Combine(openApi_Dir, "rcs-OpenAPI.json");
+				TestContext.WriteLine($"Writing swagger.json to {swaggerJsonPath}");
+				File.WriteAllText(swaggerJsonPath, swaggerJson);
+			}
+			else
+			{
+				TestContext.WriteLine($"OpenAPI_WORK_DIRECTORY ('{openApi_Dir}') is not set or does not exist");
+			}
 		}
 	}
 }
