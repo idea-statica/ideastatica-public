@@ -21,7 +21,9 @@
   </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
-    <ProjectReference Include="..\IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.NetFrameworkPort\IdeaStatiCa.NetFrameworkPort.csproj" >
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
   
   
