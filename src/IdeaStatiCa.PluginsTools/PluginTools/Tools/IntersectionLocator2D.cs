@@ -9,15 +9,6 @@ namespace CI.Geometry2D
 	/// </summary>
 	public class IntersectionLocator2D
 	{
-		#region Fields
-
-		/// <summary>
-		/// Definition of multimethods
-		/// </summary>
-		private static Common.MultiMethods.MultiMethod.Func<ISegment2D, InputParam, IEnumerable<IntersectionData>> locator;
-
-		#endregion Fields
-
 		/// <summary>
 		/// Search intersections on collection of <c>IRegion2D</c>.
 		/// </summary>
@@ -109,18 +100,12 @@ namespace CI.Geometry2D
 				throw new ArgumentNullException("polyline", "IntersectionLocator2D.Find - polyline");
 			}
 
-			if (locator == null)
-			{
-				// initialization of the static multimethod dispather
-				locator = Common.MultiMethods.Dispatcher.Func<ISegment2D, InputParam, IEnumerable<IntersectionData>>(this.FindIntersections);
-			}
-
 			var intersections = new List<IntersectionData>();
 
 			var param = new InputParam(polyline.StartPoint, linePt, lineDir);
 			foreach (var segment in polyline.Segments)
 			{
-				var data = locator(segment, param).ReturnValue;
+				var data = FindIntersections(segment, param);
 				if (data != null)
 				{
 					foreach (var d in data)
@@ -254,12 +239,21 @@ namespace CI.Geometry2D
 
 		private IEnumerable<IntersectionData> FindIntersections(ISegment2D segment, InputParam param)
 		{
-			return locator(segment, param).ReturnValue;
+			switch (segment)
+			{
+				case LineSegment2D lineSegment2D:
+					return FindIntersections(lineSegment2D, param);
+				case CircularArcSegment2D circularArcSegment2D:
+					return FindIntersections(circularArcSegment2D, param);
+				case Segment2D segment2D:
+					return FindIntersections(segment2D, param);
+			}
+			throw new ArgumentException("FindIntersections does not support type", segment.GetType().AssemblyQualifiedName);
 		}
 
 		private IEnumerable<IntersectionData> FindIntersections(Segment2D segment, InputParam param)
 		{
-			throw new NotImplementedException();
+			throw new ArgumentException("FindIntersections does not support type", segment.GetType().AssemblyQualifiedName);
 		}
 
 		private IEnumerable<IntersectionData> FindIntersections(LineSegment2D segment, InputParam param)
