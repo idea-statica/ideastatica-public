@@ -4,6 +4,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.Api.Connection.Model;
 using IdeaStatiCa.Api.Connection.Model.Connection;
 using IdeaStatiCa.Api.Connection.Model.Material;
+using IdeaStatiCa.Api.Connection.Model.Project;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -327,5 +328,22 @@ namespace IdeaStatiCa.Api.Connection
 		/// <param name="none"></param>
 		/// <returns></returns>
 		Task<ConLoadSettings> SetLoadEffectLoadSettingsAsync(int id, ConLoadSettings settings, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Get common operation properties
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<ConOperationCommonProperties> GetOperationCommonProperties(int connectionId, CancellationToken cancellationToken = default);
+
+		/// <summary>
+		/// Set common operation properties
+		/// </summary>
+		/// <param name="connectionId"></param>
+		/// <param name="operationProperties"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		Task<string> SetOperationCommonProperties(int connectionId, ConOperationCommonProperties operationProperties, CancellationToken cancellationToken = default);
 	}
 }
