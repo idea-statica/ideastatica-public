@@ -133,10 +133,10 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>Guid</returns>
-        Guid ImportIOMFile(OpenModel openModel = default(OpenModel), int operationIndex = 0);
+        /// <returns>RcsProject</returns>
+        RcsProject ImportIOMFile(System.IO.Stream iomFile = default(System.IO.Stream), int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -145,11 +145,11 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Guid</returns>
-        ApiResponse<Guid> ImportIOMFileWithHttpInfo(OpenModel openModel = default(OpenModel), string requestedType = null, int operationIndex = 0);
+        /// <returns>ApiResponse of RcsProject</returns>
+        ApiResponse<RcsProject> ImportIOMFileWithHttpInfo(System.IO.Stream iomFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -355,11 +355,11 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Guid</returns>
-        System.Threading.Tasks.Task<Guid> ImportIOMFileAsync(OpenModel openModel = default(OpenModel), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of RcsProject</returns>
+        System.Threading.Tasks.Task<RcsProject> ImportIOMFileAsync(System.IO.Stream iomFile = default(System.IO.Stream), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// 
@@ -368,12 +368,12 @@ namespace IdeaStatiCa.RcsApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (Guid)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Guid>> ImportIOMFileWithHttpInfoAsync(OpenModel openModel = default(OpenModel), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (RcsProject)</returns>
+        System.Threading.Tasks.Task<ApiResponse<RcsProject>> ImportIOMFileWithHttpInfoAsync(System.IO.Stream iomFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// 
         /// </summary>
@@ -1288,12 +1288,12 @@ namespace IdeaStatiCa.RcsApi.Api
         ///  
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>Guid</returns>
-        public Guid ImportIOMFile(OpenModel openModel = default(OpenModel), int operationIndex = 0)
+        /// <returns>RcsProject</returns>
+        public RcsProject ImportIOMFile(System.IO.Stream iomFile = default(System.IO.Stream), int operationIndex = 0)
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<Guid> localVarResponse = ImportIOMFileWithHttpInfo(openModel);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject> localVarResponse = ImportIOMFileWithHttpInfo(iomFile);
             return localVarResponse.Data;
         }
 
@@ -1301,22 +1301,16 @@ namespace IdeaStatiCa.RcsApi.Api
         ///  
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
-        /// <returns>ApiResponse of Guid</returns>
-        public IdeaStatiCa.RcsApi.Client.ApiResponse<Guid> ImportIOMFileWithHttpInfo(OpenModel openModel = default(OpenModel), string requestedType = null, int operationIndex = 0)
+        /// <returns>ApiResponse of RcsProject</returns>
+        public IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject> ImportIOMFileWithHttpInfo(System.IO.Stream iomFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0)
         {
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
-                "application/xml",
-                "text/xml",
-                "application/*+xml",
-                "application/json-patch+json",
-                "application/json",
-                "text/json",
-                "application/*+json"
+                "multipart/form-data"
             };
 
             // to determine the Accept header
@@ -1341,14 +1335,17 @@ namespace IdeaStatiCa.RcsApi.Api
                 }
             }
 
-            localVarRequestOptions.Data = openModel;
+            if (iomFile != null)
+            {
+                localVarRequestOptions.FileParameters.Add("iomFile", iomFile);
+            }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOMFile";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = this.Client.Post<Guid>("/api/1/projects/import-iom-file", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Post<RcsProject>("/api/1/projects/import-iom-file", localVarRequestOptions, this.Configuration);
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("ImportIOMFile", localVarResponse);
@@ -1365,13 +1362,13 @@ namespace IdeaStatiCa.RcsApi.Api
         ///  
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Guid</returns>
-        public async System.Threading.Tasks.Task<Guid> ImportIOMFileAsync(OpenModel openModel = default(OpenModel), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of RcsProject</returns>
+        public async System.Threading.Tasks.Task<RcsProject> ImportIOMFileAsync(System.IO.Stream iomFile = default(System.IO.Stream), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            IdeaStatiCa.RcsApi.Client.ApiResponse<Guid> localVarResponse = await ImportIOMFileWithHttpInfoAsync(openModel, null, operationIndex, cancellationToken).ConfigureAwait(false);
+            IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject> localVarResponse = await ImportIOMFileWithHttpInfoAsync(iomFile, null, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1379,24 +1376,18 @@ namespace IdeaStatiCa.RcsApi.Api
         ///  
         /// </summary>
         /// <exception cref="IdeaStatiCa.RcsApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="openModel"> (optional)</param>
+        /// <param name="iomFile"> (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (Guid)</returns>
-        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<Guid>> ImportIOMFileWithHttpInfoAsync(OpenModel openModel = default(OpenModel), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (RcsProject)</returns>
+        public async System.Threading.Tasks.Task<IdeaStatiCa.RcsApi.Client.ApiResponse<RcsProject>> ImportIOMFileWithHttpInfoAsync(System.IO.Stream iomFile = default(System.IO.Stream), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             IdeaStatiCa.RcsApi.Client.RequestOptions localVarRequestOptions = new IdeaStatiCa.RcsApi.Client.RequestOptions();
 
             string[] _contentTypes = new string[] {
-                "application/xml", 
-                "text/xml", 
-                "application/*+xml", 
-                "application/json-patch+json", 
-                "application/json", 
-                "text/json", 
-                "application/*+json"
+                "multipart/form-data"
             };
 
             // to determine the Accept header
@@ -1421,14 +1412,17 @@ namespace IdeaStatiCa.RcsApi.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
             }
 
-            localVarRequestOptions.Data = openModel;
+            if (iomFile != null)
+            {
+                localVarRequestOptions.FileParameters.Add("iomFile", iomFile);
+            }
 
             localVarRequestOptions.Operation = "ProjectApi.ImportIOMFile";
             localVarRequestOptions.OperationIndex = operationIndex;
 
 
             // make the HTTP request
-            var localVarResponse = await this.AsynchronousClient.PostAsync<Guid>("/api/1/projects/import-iom-file", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.PostAsync<RcsProject>("/api/1/projects/import-iom-file", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {

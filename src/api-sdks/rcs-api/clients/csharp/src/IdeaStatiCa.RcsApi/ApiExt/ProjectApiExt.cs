@@ -23,7 +23,7 @@ namespace IdeaStatiCa.RcsApi.Api
 		/// <returns></returns>
 		Task<RcsProject> OpenProjectAsync(string filePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-		//Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 		/// <summary>
 		/// 
@@ -31,7 +31,7 @@ namespace IdeaStatiCa.RcsApi.Api
 		/// <param name="iomFilePath"></param>
 		/// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
 		/// <returns></returns>
-		//Task<RcsProject> CreateProjectFromIomFileAsync(string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+		Task<RcsProject> CreateProjectFromIomFileAsync(string iomFilePath, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 	}
 
 	/// <summary>
@@ -78,30 +78,30 @@ namespace IdeaStatiCa.RcsApi.Api
 			}
 		}
 
-		//public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-		//{
-		//	var response = await base.DownloadProjectWithHttpInfoAsync(projectId, "application/octet-stream", 0, cancellationToken);
-		//	byte[] buffer = (byte[])response.Data;
-		//	using (var fileStream = System.IO.File.Create(fileName))
-		//	{
-		//		await fileStream.WriteAsync(buffer, 0, buffer.Length);
-		//	}
-		//}
+		public async Task SaveProjectAsync(Guid projectId, string fileName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			var response = await base.DownloadProjectWithHttpInfoAsync(projectId, "application/octet-stream", 0, cancellationToken);
+			byte[] buffer = (byte[])response.Data;
+			using (var fileStream = System.IO.File.Create(fileName))
+			{
+				await fileStream.WriteAsync(buffer, 0, buffer.Length);
+			}
+		}
 
-		//public async Task<RcsProject> CreateProjectFromIomFileAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-		//{
-		//	using (var fs = new System.IO.FileStream(path, System.IO.FileMode.Open))
-		//	{
-		//		using (var ms = new System.IO.MemoryStream())
-		//		{
-		//			await fs.CopyToAsync(ms);
-		//			ms.Seek(0, System.IO.SeekOrigin.Begin);
+		public async Task<RcsProject> CreateProjectFromIomFileAsync(string path, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+		{
+			using (var fs = new System.IO.FileStream(path, System.IO.FileMode.Open))
+			{
+				using (var ms = new System.IO.MemoryStream())
+				{
+					await fs.CopyToAsync(ms);
+					ms.Seek(0, System.IO.SeekOrigin.Begin);
 
-		//			var rcsProject = await ImportIOMFileAsync(ms, 0, cancellationToken);
-		//			this.activeProjectData = rcsProject;
-		//			return rcsProject;
-		//		}
-		//	}
-		//}
+					var rcsProject = await ImportIOMFileAsync(ms, 0, cancellationToken);
+					this.ProjectId = rcsProject.ProjectId;
+					return rcsProject;
+				}
+			}
+		}
 	}
 }
