@@ -19,7 +19,6 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBytes, StrictStr
 from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
-from ideastatica_rcs_api.models.open_model import OpenModel
 from ideastatica_rcs_api.models.rcs_project import RcsProject
 from ideastatica_rcs_api.models.rcs_setting import RcsSetting
 
@@ -1296,7 +1295,7 @@ class ProjectApi:
     @validate_call
     def import_iom_file(
         self,
-        open_model: Optional[OpenModel] = None,
+        iom_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1309,12 +1308,12 @@ class ProjectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> str:
+    ) -> RcsProject:
         """import_iom_file
 
 
-        :param open_model:
-        :type open_model: OpenModel
+        :param iom_file:
+        :type iom_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1338,7 +1337,7 @@ class ProjectApi:
         """ # noqa: E501
 
         _param = self._import_iom_file_serialize(
-            open_model=open_model,
+            iom_file=iom_file,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1346,7 +1345,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "str",
+            '200': "RcsProject",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1362,7 +1361,7 @@ class ProjectApi:
     @validate_call
     def import_iom_file_with_http_info(
         self,
-        open_model: Optional[OpenModel] = None,
+        iom_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1375,12 +1374,12 @@ class ProjectApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[str]:
+    ) -> ApiResponse[RcsProject]:
         """import_iom_file
 
 
-        :param open_model:
-        :type open_model: OpenModel
+        :param iom_file:
+        :type iom_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1404,7 +1403,7 @@ class ProjectApi:
         """ # noqa: E501
 
         _param = self._import_iom_file_serialize(
-            open_model=open_model,
+            iom_file=iom_file,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1412,7 +1411,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "str",
+            '200': "RcsProject",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1428,7 +1427,7 @@ class ProjectApi:
     @validate_call
     def import_iom_file_without_preload_content(
         self,
-        open_model: Optional[OpenModel] = None,
+        iom_file: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1445,8 +1444,8 @@ class ProjectApi:
         """import_iom_file
 
 
-        :param open_model:
-        :type open_model: OpenModel
+        :param iom_file:
+        :type iom_file: bytearray
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1470,7 +1469,7 @@ class ProjectApi:
         """ # noqa: E501
 
         _param = self._import_iom_file_serialize(
-            open_model=open_model,
+            iom_file=iom_file,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1478,7 +1477,7 @@ class ProjectApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "str",
+            '200': "RcsProject",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1489,7 +1488,7 @@ class ProjectApi:
 
     def _import_iom_file_serialize(
         self,
-        open_model,
+        iom_file,
         _request_auth,
         _content_type,
         _headers,
@@ -1514,9 +1513,9 @@ class ProjectApi:
         # process the query parameters
         # process the header parameters
         # process the form parameters
+        if iom_file is not None:
+            _files['iomFile'] = iom_file
         # process the body parameter
-        if open_model is not None:
-            _body_params = open_model
 
 
         # set the HTTP header `Accept`
@@ -1534,13 +1533,7 @@ class ProjectApi:
             _default_content_type = (
                 self.api_client.select_header_content_type(
                     [
-                        'application/xml', 
-                        'text/xml', 
-                        'application/*+xml', 
-                        'application/json-patch+json', 
-                        'application/json', 
-                        'text/json', 
-                        'application/*+json'
+                        'multipart/form-data'
                     ]
                 )
             )
