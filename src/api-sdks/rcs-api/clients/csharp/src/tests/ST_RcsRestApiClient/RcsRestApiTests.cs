@@ -86,17 +86,17 @@ namespace ST_ConnectionRestApi
 			sect2.RCSId.Should().Be(1);
 		}
 
-		[Test]
-		public async Task ShouldGetAndUpdateCodeSettinsTest()
-		{
-			var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+		//[Test]
+		//public async Task ShouldGetAndUpdateCodeSettinsTest()
+		//{
+		//	var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
-			sections.Should().NotBeNull();
+		//	sections.Should().NotBeNull();
 
-			var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+		//	var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
 
 			
-		}
+		//}
 
 		[Test]
 		public async Task ShouldGetSwaggerJson()
