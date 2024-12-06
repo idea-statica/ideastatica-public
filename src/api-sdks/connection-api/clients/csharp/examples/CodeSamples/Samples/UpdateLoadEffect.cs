@@ -14,19 +14,17 @@ namespace CodeSamples
 		public static async Task UpdateLoadEffect(ConnectionApiClient conClient)
 		{
 			string filePath = "inputs/simple knee connection.ideaCon";
-			ConProject conProject = await conClient.Project.OpenProjectAsync(filePath);
+			await conClient.Project.OpenProjectAsync(filePath);
 
-			//Get projectId Guid
-			Guid projectId = conProject.ProjectId;
-			var connections = await conClient.Connection.GetConnectionsAsync(projectId);
+			var connections = await conClient.Connection.GetConnectionsAsync(conClient.ProjectId);
 			int connectionId = connections[0].Id;
 
-			ConLoadSettings loadSettings = await conClient.LoadEffect.GetLoadSettingsAsync(projectId, connectionId);
+			ConLoadSettings loadSettings = await conClient.LoadEffect.GetLoadSettingsAsync(conClient.ProjectId, connectionId);
 
 			Console.WriteLine(loadSettings.ToString());
 
 			// Get Load Effects
-			List<ConLoadEffect> loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(projectId, connectionId);
+			List<ConLoadEffect> loadEffects = await conClient.LoadEffect.GetLoadEffectsAsync(conClient.ProjectId, connectionId);
 
 			double effectMultiplier = 1.25;
 
@@ -57,7 +55,7 @@ namespace CodeSamples
 					loading.SectionLoad.Mx = loadingBasis.SectionLoad.Mx * effectMultiplier;
 				}
 
-				await conClient.LoadEffect.UpdateLoadEffectAsync(projectId, connectionId, loadEffect);
+				await conClient.LoadEffect.UpdateLoadEffectAsync(conClient.ProjectId, connectionId, loadEffect);
 
 				// Increase each increment by 25% of the original value.
 				effectMultiplier += 0.25;
@@ -68,12 +66,12 @@ namespace CodeSamples
 			// Save updated file.
 			string fileName = "updated-load-effects.ideaCon";
 			string saveFilePath = Path.Combine(exampleFolder, fileName);
-			await conClient.Project.SaveProjectAsync(projectId, saveFilePath);
+			await conClient.Project.SaveProjectAsync(conClient.ProjectId, saveFilePath);
 
 			Console.WriteLine("File saved to: " + saveFilePath);
 
 			//Close the opened project.
-			await conClient.Project.CloseProjectAsync(projectId);
+			await conClient.Project.CloseProjectAsync(conClient.ProjectId);
 
 		}
 	}

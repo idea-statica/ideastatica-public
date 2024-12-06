@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace IdeaStatiCa.ConnectionApi.Api
 {
 	/// <summary>
-	/// 
+	/// Connection REST API Report API extension methods. 
 	/// </summary>
 	public interface IReportApiExtAsync : IReportApiAsync
 	{
@@ -28,7 +28,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         Task SaveReportWordAsync(Guid projectId, int connectionId, string filePath);
     }
 
-	/// <inheritdoc cref="IExportApiExtAsync" />
+	/// <inheritdoc cref="IReportApiExtAsync" />
 	public class ReportApiExt : ReportApi, IReportApiExtAsync
 	{
 		/// <summary>
@@ -37,12 +37,11 @@ namespace IdeaStatiCa.ConnectionApi.Api
 		/// <param name="client"></param>
 		/// <param name="asyncClient"></param>
 		/// <param name="configuration"></param>
-		public ReportApiExt(IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
+		internal ReportApiExt(IdeaStatiCa.ConnectionApi.Client.ISynchronousClient client, IdeaStatiCa.ConnectionApi.Client.IAsynchronousClient asyncClient, IdeaStatiCa.ConnectionApi.Client.IReadableConfiguration configuration) : base(client, asyncClient, configuration)
 		{
 		}
 
 		/// <inheritdoc cref="IReportApiExtAsync.SaveReportPdfAsync(Guid, int, string)"/>/param>
-		/// <returns></returns>
 		public async Task SaveReportPdfAsync(Guid projectId, int connectionId, string filePath)
 		{
             var response = await base.GeneratePdfWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
@@ -54,7 +53,6 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <inheritdoc cref="IReportApiExtAsync.SaveReportWordAsync(Guid, int, string)"/>/param>
-        /// <returns></returns>
         public async Task SaveReportWordAsync(Guid projectId, int connectionId, string filePath)
         {
             var response = await base.GenerateWordWithHttpInfoAsync(projectId, connectionId, "application/octet-stream");
