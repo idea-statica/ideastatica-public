@@ -4,6 +4,7 @@ using IdeaStatiCa.Api.RCS;
 using System.Net;
 using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
+using IdeaRS.OpenModel.Concrete;
 
 namespace ST_ConnectionRestApi
 {
@@ -48,14 +49,14 @@ namespace ST_ConnectionRestApi
 			projectData.ProjectData.Code.Should().Be("ECEN");
 		}
 
-		//[Test]
-		//public async Task ShouldCalculateProjectTest()
-		//{
-		//	var briefResults = await RcsApiClient!.Calculation.CalculateAsync(this.ActiveProjectId);
+		[Test]
+		public async Task ShouldCalculateProjectTest()
+		{
+			var briefResults = await RcsApiClient!.Calculation.CalculateAsync(this.ActiveProjectId, new RcsCalculationParameters());
 
-		//	briefResults.Should().NotBeNull();
-		//	briefResults.Count.Should().Be(2);		
-		//}
+			briefResults.Should().NotBeNull();
+			briefResults.Count.Should().Be(2);
+		}
 
 		[Test]
 		public async Task ShouldGetReinforcedCrossSectionTest()
@@ -89,13 +90,34 @@ namespace ST_ConnectionRestApi
 		//[Test]
 		//public async Task ShouldGetAndUpdateCodeSettinsTest()
 		//{
-		//	var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
+		//	try
+		//	{
+		//		var sections = await RcsApiClient!.Section.SectionsAsync(this.ActiveProjectId);
 
-		//	sections.Should().NotBeNull();
+		//		sections.Should().NotBeNull();
 
-		//	var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
+		//		var settings = await RcsApiClient!.Project.GetCodeSettingsAsync(this.ActiveProjectId);
 
-			
+		//		settings.Should().NotBeNull();
+
+		//		var xmlDoc = settings.First() as XDocument;
+		//		var setupValues = xmlDoc.Descendants("SetupValue");
+		//		XElement gamma_c_element = xmlDoc.Descendants("SetupValue").Where(x => x.Descendants("Id").FirstOrDefault()?.Value == "2").FirstOrDefault();
+
+		//		gamma_c_element.Should().NotBeNull();
+
+		//		// update value1
+		//		var gamma_c_val1 = gamma_c_element.Descendants("Value1").First();
+		//		gamma_c_val1.Value.Should().Be("1.5");
+		//		gamma_c_val1.Value = "1.4";
+
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		TestContext.WriteLine(ex.Message);
+				
+		//		throw;
+		//	}
 		//}
 
 		[Test]
