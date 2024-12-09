@@ -169,16 +169,26 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			var potentialIntersecPoint = Projection.PointToLine(connectionPoint, tsWokplanePointHitByReferenceLine);
 
 
-			if (double.IsNaN(potentialIntersecPoint.X) || double.IsNaN(potentialIntersecPoint.Y) || double.IsNaN(potentialIntersecPoint.Z))
+			// Check if any coordinate of the potential intersection point is NaN
+			if (double.IsNaN(potentialIntersecPoint.X) ||
+				double.IsNaN(potentialIntersecPoint.Y) ||
+				double.IsNaN(potentialIntersecPoint.Z))
 			{
-				//very probably is plate out of sphere
+				// Assume the plate is out of the sphere
 				return IsIntersectPointInSphereOfConnection(connectionPoint, beam, tsWokplanePointHitByReferenceLine.Origin);
 			}
-			else
-			{
-				return IsIntersectPointInSphereOfConnection(connectionPoint, beam, potentialIntersecPoint);
-			}
 
+			// Calculate lengths
+			var partLen = Distance.PointToPoint(
+				originalCenterline[0] as Point,
+				originalCenterline[originalCenterline.Count - 1] as Point);
+			var projectedLen = Distance.PointToPoint(potentialIntersecPoint, tsWorkplanePoint);
+
+			var intersectionOrigin = (partLen / 2 < projectedLen)
+				? tsWokplanePointHitByReferenceLine.Origin
+				: potentialIntersecPoint;
+
+			return IsIntersectPointInSphereOfConnection(connectionPoint, beam, intersectionOrigin);
 		}
 
 		private static bool IsPointInShereOfConnection(Point connectionPoint, Part beam, Point workPlanePoint)
