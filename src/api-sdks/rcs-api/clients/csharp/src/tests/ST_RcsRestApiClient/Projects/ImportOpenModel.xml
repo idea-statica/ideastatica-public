@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Version>2</Version>
+  <Point3D />
+  <LineSegment3D />
+  <ArcSegment3D />
+  <PolyLine3D />
+  <Region3D />
+  <MatConcrete>
+    <MatConcrete xsi:type="MatConcreteEc2">
+      <Id>1</Id>
+      <Name>C30/37</Name>
+      <LoadFromLibrary>true</LoadFromLibrary>
+      <E>0</E>
+      <G>0</G>
+      <Poisson>0</Poisson>
+      <UnitMass>0</UnitMass>
+      <SpecificHeat>0</SpecificHeat>
+      <ThermalExpansion>0</ThermalExpansion>
+      <ThermalConductivity>0</ThermalConductivity>
+      <IsDefaultMaterial>false</IsDefaultMaterial>
+      <OrderInCode>0</OrderInCode>
+      <StateOfThermalExpansion>None</StateOfThermalExpansion>
+      <StateOfThermalConductivity>None</StateOfThermalConductivity>
+      <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+      <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+      <StateOfThermalStrain>None</StateOfThermalStrain>
+      <CalculateDependentValues>false</CalculateDependentValues>
+      <Fck>0</Fck>
+      <Ecm>0</Ecm>
+      <Epsc1>0</Epsc1>
+      <Epsc2>0</Epsc2>
+      <Epsc3>0</Epsc3>
+      <Epscu1>0</Epscu1>
+      <Epscu2>0</Epscu2>
+      <Epscu3>0</Epscu3>
+      <Fctm>0</Fctm>
+      <Fctk_0_05>0</Fctk_0_05>
+      <Fctk_0_95>0</Fctk_0_95>
+      <NFactor>0</NFactor>
+      <Fcm>0</Fcm>
+      <StoneDiameter>0</StoneDiameter>
+      <CementClass>S</CementClass>
+      <AggregateType>Quartzite</AggregateType>
+      <DiagramType>Bilinear</DiagramType>
+      <SilicaFume>false</SilicaFume>
+      <PlainConcreteDiagram>false</PlainConcreteDiagram>
+    </MatConcrete>
+  </MatConcrete>
+  <MatReinforcement>
+    <MatReinforcement xsi:type="MatReinforcementEc2">
+      <Id>1</Id>
+      <Name>B 500B</Name>
+      <LoadFromLibrary>true</LoadFromLibrary>
+      <E>0</E>
+      <G>0</G>
+      <Poisson>0</Poisson>
+      <UnitMass>0</UnitMass>
+      <SpecificHeat>0</SpecificHeat>
+      <ThermalExpansion>0</ThermalExpansion>
+      <ThermalConductivity>0</ThermalConductivity>
+      <IsDefaultMaterial>false</IsDefaultMaterial>
+      <OrderInCode>0</OrderInCode>
+      <StateOfThermalExpansion>None</StateOfThermalExpansion>
+      <StateOfThermalConductivity>None</StateOfThermalConductivity>
+      <StateOfThermalSpecificHeat>None</StateOfThermalSpecificHeat>
+      <StateOfThermalStressStrain>None</StateOfThermalStressStrain>
+      <StateOfThermalStrain>None</StateOfThermalStrain>
+      <BarSurface>Smooth</BarSurface>
+      <Fyk>0</Fyk>
+      <CoeffFtkByFyk>0</CoeffFtkByFyk>
+      <Epsuk>0</Epsuk>
+      <Ftk>0</Ftk>
+      <Class>A</Class>
+      <Type>Bars</Type>
+      <Fabrication>HotRolled</Fabrication>
+      <DiagramType>BilinerWithAnInclinedTopBranch</DiagramType>
+    </MatReinforcement>
+  </MatReinforcement>
+  <MatSteel />
+  <MatPrestressSteel />
+  <CrossSection>
+    <CrossSection xsi:type="CrossSectionParameter">
+      <Id>1</Id>
+      <Name>Tsection</Name>
+      <CrossSectionRotation>0</CrossSectionRotation>
+      <IsInPrincipal>false</IsInPrincipal>
+      <CrossSectionType>Tg</CrossSectionType>
+      <Parameters>
+        <Parameter xsi:type="ParameterDouble">
+          <Name>Height</Name>
+          <Value>0.7</Value>
+        </Parameter>
+        <Parameter xsi:type="ParameterDouble">
+          <Name>Width</Name>
+          <Value>0.8</Value>
+        </Parameter>
+        <Parameter xsi:type="ParameterDouble">
+          <Name>TopFlangeWidth</Name>
+          <Value>0.16</Value>
+        </Parameter>
+        <Parameter xsi:type="ParameterDouble">
+          <Name>WallWidth</Name>
+          <Value>0.25</Value>
+        </Parameter>
+      </Parameters>
+      <Material>
+        <TypeName>MatConcrete</TypeName>
+        <Id>1</Id>
+      </Material>
+    </CrossSection>
+  </CrossSection>
+  <ReinforcedCrossSection>
+    <ReinforcedCrossSection>
+      <Id>1</Id>
+      <Name>R1</Name>
+      <CrossSection>
+        <TypeName>CrossSection</TypeName>
+        <Id>1</Id>
+      </CrossSection>
+      <Bars>
+        <ReinforcedBar>
+          <Point>
+            <X>0.346</X>
+            <Y>0.2157</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>0.071</X>
+            <Y>0.2157</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>-0.071</X>
+            <Y>0.2157</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>-0.346</X>
+            <Y>0.2157</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>-0.071</X>
+            <Y>-0.3923</Y>
+          </Point>
+          <Diameter>0.02</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>0.071</X>
+            <Y>-0.3923</Y>
+          </Point>
+          <Diameter>0.02</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>-0.346</X>
+            <Y>0.1437</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>0.346</X>
+            <Y>0.1437</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>-0.079</X>
+            <Y>-0.0063</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>-0.079</X>
+            <Y>-0.2343</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>0.079</X>
+            <Y>-0.2343</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+        <ReinforcedBar>
+          <Point>
+            <X>0.079</X>
+            <Y>-0.0063</Y>
+          </Point>
+          <Diameter>0.012</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+        </ReinforcedBar>
+      </Bars>
+      <Stirrups>
+        <Stirrup>
+          <Geometry>
+            <StartPoint>
+              <X>-0.091</X>
+              <Y>0.2257</Y>
+            </StartPoint>
+            <Segments>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>-0.091</X>
+                  <Y>-0.4063</Y>
+                </EndPoint>
+              </Segment2D>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>0.091</X>
+                  <Y>-0.4063</Y>
+                </EndPoint>
+              </Segment2D>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>0.091</X>
+                  <Y>0.2257</Y>
+                </EndPoint>
+              </Segment2D>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>-0.091</X>
+                  <Y>0.2257</Y>
+                </EndPoint>
+              </Segment2D>
+            </Segments>
+          </Geometry>
+          <Diameter>0.008</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+          <AnchorageLenght>0</AnchorageLenght>
+          <DiameterOfMandrel>4</DiameterOfMandrel>
+          <IsClosed>true</IsClosed>
+          <Distance>0.15</Distance>
+          <ShearCheck>true</ShearCheck>
+          <TorsionCheck>true</TorsionCheck>
+        </Stirrup>
+        <Stirrup>
+          <Geometry>
+            <StartPoint>
+              <X>-0.366</X>
+              <Y>0.2257</Y>
+            </StartPoint>
+            <Segments>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>-0.366</X>
+                  <Y>0.1337</Y>
+                </EndPoint>
+              </Segment2D>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>0.366</X>
+                  <Y>0.1337</Y>
+                </EndPoint>
+              </Segment2D>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>0.366</X>
+                  <Y>0.2257</Y>
+                </EndPoint>
+              </Segment2D>
+              <Segment2D xsi:type="LineSegment2D">
+                <EndPoint>
+                  <X>-0.366</X>
+                  <Y>0.2257</Y>
+                </EndPoint>
+              </Segment2D>
+            </Segments>
+          </Geometry>
+          <Diameter>0.008</Diameter>
+          <Material>
+            <TypeName>MatReinforcement</TypeName>
+            <Id>1</Id>
+          </Material>
+          <AnchorageLenght>0</AnchorageLenght>
+          <DiameterOfMandrel>4</DiameterOfMandrel>
+          <IsClosed>true</IsClosed>
+          <Distance>0.15</Distance>
+          <ShearCheck>true</ShearCheck>
+          <TorsionCheck>false</TorsionCheck>
+        </Stirrup>
+      </Stirrups>
+      <TendonBars />
+      <TendonDucts />
+    </ReinforcedCrossSection>
+  </ReinforcedCrossSection>
+  <HingeElement1D />
+  <Opening />
+  <DappedEnd />
+  <PatchDevice />
+  <Element1D />
+  <Beam />
+  <Member1D />
+  <Element2D />
+  <Wall />
+  <Member2D />
+  <RigidLink />
+  <PointOnLine3D />
+  <PointSupportNode />
+  <LineSupportSegment />
+  <LoadsInPoint />
+  <LoadsOnLine />
+  <StrainLoadsOnLine />
+  <PointLoadsOnLine />
+  <LoadsOnSurface />
+  <Settlements />
+  <TemperatureLoadsOnLine />
+  <LoadGroup />
+  <LoadCase />
+  <CombiInput />
+  <Attribute>
+    <OpenAttribute xsi:type="ConcreteMemberDataEc2">
+      <Element>
+        <TypeName>CheckMember</TypeName>
+        <Id>1</Id>
+      </Element>
+      <MemberType>Beam</MemberType>
+      <TwoWaySlabType>ShellAsPlate</TwoWaySlabType>
+      <CalculationSetup>
+        <UlsResponse>true</UlsResponse>
+        <UlsDiagram>true</UlsDiagram>
+        <UlsShear>true</UlsShear>
+        <UlsTorsion>true</UlsTorsion>
+        <UlsInteraction>true</UlsInteraction>
+        <SlsCrack>true</SlsCrack>
+        <SlsStressLimitation>true</SlsStressLimitation>
+        <Detailing>true</Detailing>
+        <MNKappaDiagram>false</MNKappaDiagram>
+        <Fatigue>true</Fatigue>
+        <CrossSectionCharacteristics>false</CrossSectionCharacteristics>
+        <SlsStiffnesses>false</SlsStiffnesses>
+        <SlsDeflections>false</SlsDeflections>
+      </CalculationSetup>
+      <ColumnData>
+        <ImperfectionsInput>Calculated</ImperfectionsInput>
+        <SecondOrderEffectInput>Calculated</SecondOrderEffectInput>
+        <CalculateY>false</CalculateY>
+        <CalculateZ>false</CalculateZ>
+        <L>3</L>
+        <EffectiveLength>Calculated</EffectiveLength>
+        <L0Y>3</L0Y>
+        <L0Z>3</L0Z>
+        <FemLenghtFromFlexibleSupport>false</FemLenghtFromFlexibleSupport>
+        <FemL0Y>NaN</FemL0Y>
+        <FemL0Z>NaN</FemL0Z>
+        <SupportTopY>Hinge</SupportTopY>
+        <SupportTopZ>Hinge</SupportTopZ>
+        <SupportBottomY>Hinge</SupportBottomY>
+        <SupportBottomZ>Hinge</SupportBottomZ>
+        <ImperfectionDirection>BothDirections</ImperfectionDirection>
+        <BracedY>false</BracedY>
+        <BracedZ>false</BracedZ>
+        <GeometricImperfectionsULS>true</GeometricImperfectionsULS>
+        <GeometricImperfectionsSLS>false</GeometricImperfectionsSLS>
+        <EffectConsidered>IsolatedMember</EffectConsidered>
+        <TotalL>20</TotalL>
+        <NumberOfVerticalMembersY>1</NumberOfVerticalMembersY>
+        <NumberOfVerticalMembersZ>1</NumberOfVerticalMembersZ>
+        <Calculation2ndOrderEffect>true</Calculation2ndOrderEffect>
+        <SecondOrderEffectMethod>NominalCurvature</SecondOrderEffectMethod>
+        <ValueTypeOfc0Y>UserDefined</ValueTypeOfc0Y>
+        <UserValuec0Y>9.869604401089358</UserValuec0Y>
+        <ValueTypeOfc0Z>UserDefined</ValueTypeOfc0Z>
+        <UserValuec0Z>9.869604401089358</UserValuec0Z>
+        <ValueTypeOfcY>UserDefined</ValueTypeOfcY>
+        <UserValuecY>9.869604401089358</UserValuecY>
+        <ValueTypeOfcZ>UserDefined</ValueTypeOfcZ>
+        <UserValuecZ>9.869604401089358</UserValuecZ>
+      </ColumnData>
+      <ExposureClassesData>
+        <NoCorrosionCheck>false</NoCorrosionCheck>
+        <CarbonationCheck>true</CarbonationCheck>
+        <Carbonation>XC3</Carbonation>
+        <ChloridesCheck>true</ChloridesCheck>
+        <Chlorides>XD1</Chlorides>
+        <ChloridesFromSeaCheck>false</ChloridesFromSeaCheck>
+        <ChloridesFromSea>XS1</ChloridesFromSea>
+        <FreezeAttackCheck>false</FreezeAttackCheck>
+        <FreezeAttack>XF1</FreezeAttack>
+        <ChemicalAttackCheck>false</ChemicalAttackCheck>
+        <ChemicalAttack>XA1</ChemicalAttack>
+      </ExposureClassesData>
+      <BeamData>
+        <TypeOfCalculation>CheckSlenderness</TypeOfCalculation>
+        <Ln>1</Ln>
+        <BeamSpanLength>1</BeamSpanLength>
+        <TypeOfSupportLeft>NonContinuous</TypeOfSupportLeft>
+        <TypeOfSupportRight>NonContinuous</TypeOfSupportRight>
+        <WidthOfSupportLeft>0.4</WidthOfSupportLeft>
+        <WidthOfSupportRight>0.4</WidthOfSupportRight>
+        <DeflectionSheme>DeflectionSheme_V</DeflectionSheme>
+        <CheckLimitDeflection>true</CheckLimitDeflection>
+        <IsUserLimitDeflection>false</IsUserLimitDeflection>
+        <UserLimitDeflection>NaN</UserLimitDeflection>
+        <CheckLimitDeflRheoEffects>false</CheckLimitDeflRheoEffects>
+        <UserLimitDeflRheoEffects>NaN</UserLimitDeflRheoEffects>
+        <IsAbsValueLimitDeflection>false</IsAbsValueLimitDeflection>
+        <RequiredCamber>0</RequiredCamber>
+        <IsYDirectionData>false</IsYDirectionData>
+      </BeamData>
+      <RelativeHumidity>0.65</RelativeHumidity>
+      <CreepCoeffInfinityValue>Calculated</CreepCoeffInfinityValue>
+      <CreepCoeffInfinity>2.5</CreepCoeffInfinity>
+      <MemberImportance>Major</MemberImportance>
+      <CoeffKxForWmax>1</CoeffKxForWmax>
+      <DeflectionRequirement>Normal</DeflectionRequirement>
+    </OpenAttribute>
+  </Attribute>
+  <ConnectionPoint />
+  <Connections />
+  <Reinforcement />
+  <ISDModel />
+  <InitialImperfectionOfPoint />
+  <Tendon />
+  <ResultClass />
+  <DesignMember />
+  <SubStructure />
+  <ProjectData>
+    <Name>TBeam_RCS</Name>
+    <Date>2022-12-07T00:00:00</Date>
+    <CodeDependentData>
+      <AnnexCode>NoAnnex</AnnexCode>
+      <FatigueCheck>false</FatigueCheck>
+      <FatigueAnnexNN>false</FatigueAnnexNN>
+    </CodeDependentData>
+  </ProjectData>
+  <CheckMember>
+    <CheckMember xsi:type="CheckMember1D">
+      <Id>1</Id>
+    </CheckMember>
+  </CheckMember>
+  <ConcreteCheckSection>
+    <CheckSection xsi:type="StandardCheckSection">
+      <Id>1</Id>
+      <Description>S1</Description>
+      <CheckMember>
+        <TypeName>CheckMember</TypeName>
+        <Id>1</Id>
+      </CheckMember>
+      <ReinfSection>
+        <TypeName>ReinforcedCrossSection</TypeName>
+        <Id>1</Id>
+      </ReinfSection>
+      <Extremes>
+        <CheckSectionExtreme xsi:type="StandardCheckSectionExtreme">
+          <Fundamental>
+            <InternalForces>
+              <N>0</N>
+              <Qy>5000</Qy>
+              <Qz>50000</Qz>
+              <Mx>0</Mx>
+              <My>150000</My>
+              <Mz>20000</Mz>
+            </InternalForces>
+          </Fundamental>
+          <Characteristic>
+            <InternalForces>
+              <N>0</N>
+              <Qy>0</Qy>
+              <Qz>0</Qz>
+              <Mx>0</Mx>
+              <My>80000</My>
+              <Mz>7000</Mz>
+            </InternalForces>
+          </Characteristic>
+          <QuasiPermanent>
+            <InternalForces>
+              <N>0</N>
+              <Qy>0</Qy>
+              <Qz>0</Qz>
+              <Mx>0</Mx>
+              <My>0</My>
+              <Mz>0</Mz>
+            </InternalForces>
+          </QuasiPermanent>
+        </CheckSectionExtreme>
+      </Extremes>
+    </CheckSection>
+  </ConcreteCheckSection>
+  <ConcreteSetup xsi:type="ConcreteSetupEc2">
+    <Id>0</Id>
+    <SetupValues />
+    <Annex>NoAnnex</Annex>
+  </ConcreteSetup>
+  <ProjectDataConcrete xsi:type="ProjectDataConcreteEc2">
+    <DesignWorkingLife>50</DesignWorkingLife>
+    <CodeEN1992_2>false</CodeEN1992_2>
+    <CodeEN1992_3>false</CodeEN1992_3>
+  </ProjectDataConcrete>
+  <RebarShape />
+  <RebarGeneral />
+  <RebarSingle />
+  <RebarStirrups />
+  <Taper />
+  <Span />
+</OpenModel>
